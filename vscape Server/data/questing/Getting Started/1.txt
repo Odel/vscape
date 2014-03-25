@@ -1,0 +1,6 @@
+Getting Started
+
+@str@Talk to the Runescape Guide at home to start this quest.
+
+I should listen to what he has to say now.
+[END]

@@ -1,0 +1,131 @@
+<list>
+	<fooddef>
+		<foodName>Anchovies</foodName>
+		<foodId>319</foodId>
+		<healAmount>1</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Shrimps</foodName>
+		<foodId>315</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Cooked chicken</foodName>
+		<foodId>2140</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Cooked meat</foodName>
+		<foodId>2142</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Sardine</foodName>
+		<foodId>325</foodId>
+		<healAmount>4</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Bread</foodName>
+		<foodId>2309</foodId>
+		<healAmount>5</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Herring</foodName>
+		<foodId>347</foodId>
+		<healAmount>5</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Mackerel</foodName>
+		<foodId>355</foodId>
+		<healAmount>6</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Trout</foodName>
+		<foodId>333</foodId>
+		<healAmount>7</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Cod</foodName>
+		<foodId>339</foodId>
+		<healAmount>7</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Pike</foodName>
+		<foodId>351</foodId>
+		<healAmount>8</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Salmon</foodName>
+		<foodId>329</foodId>
+		<healAmount>9</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Tuna</foodName>
+		<foodId>361</foodId>
+		<healAmount>10</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Lobster</foodName>
+		<foodId>379</foodId>
+		<healAmount>12</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Bass</foodName>
+		<foodId>365</foodId>
+		<healAmount>13</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Swordfish</foodName>
+		<foodId>373</foodId>
+		<healAmount>14</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Potato with cheese</foodName>
+		<foodId>6705</foodId>
+		<healAmount>16</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Monkfish</foodName>
+		<foodId>7946</foodId>
+		<healAmount>16</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Shark</foodName>
+		<foodId>385</foodId>
+		<healAmount>20</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Sea turtle</foodName>
+		<foodId>397</foodId>
+		<healAmount>21</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Rock tail</foodName>
+		<foodId>-1</foodId>
+		<healAmount>23</healAmount>
+	</fooddef>
+</list>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

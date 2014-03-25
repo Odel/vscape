@@ -1,0 +1,6 @@
+Getting Started - Completed
+
+I listened to what the Guide said.
+
+Now I should start programming.
+[END]

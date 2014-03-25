@@ -1,0 +1,149 @@
+<list>
+	<bowdef>
+		<bowName>Shortbow</bowName>
+		<bowId>841</bowId>
+		<attackSpeed>3</attackSpeed>
+		<highestArrowId>885</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Oak shortbow</bowName>
+		<bowId>843</bowId>
+		<attackSpeed>3</attackSpeed>
+		<highestArrowId>887</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Willow shortbow</bowName>
+		<bowId>849</bowId>
+		<attackSpeed>3</attackSpeed>
+		<highestArrowId>889</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Maple shortbow</bowName>
+		<bowId>853</bowId>
+		<attackSpeed>3</attackSpeed>
+		<highestArrowId>891</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Yew shortbow</bowName>
+		<bowId>857</bowId>
+		<attackSpeed>3</attackSpeed>
+		<highestArrowId>893</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Longbow</bowName>
+		<bowId>839</bowId>
+		<attackSpeed>5</attackSpeed>
+		<highestArrowId>885</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Oak longbow</bowName>
+		<bowId>845</bowId>
+		<attackSpeed>5</attackSpeed>
+		<highestArrowId>887</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Willow longbow</bowName>
+		<bowId>847</bowId>
+		<attackSpeed>5</attackSpeed>
+		<highestArrowId>889</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Maple longbow</bowName>
+		<bowId>851</bowId>
+		<attackSpeed>5</attackSpeed>
+		<highestArrowId>891</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Yew longbow</bowName>
+		<bowId>855</bowId>
+		<attackSpeed>5</attackSpeed>
+		<highestArrowId>893</highestArrowId>
+		<animationId>426</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Bronze knife</bowName>
+		<bowId>864</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Iron knife</bowName>
+		<bowId>863</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Steel knife</bowName>
+		<bowId>865</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Black knife</bowName>
+		<bowId>869</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Mithril knife</bowName>
+		<bowId>866</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Adamant knife</bowName>
+		<bowId>867</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+	<bowdef>
+		<bowName>Rune knife</bowName>
+		<bowId>868</bowId>
+		<attackSpeed>2</attackSpeed>
+		<highestArrowId>0</highestArrowId>
+		<animationId>806</animationId>
+	</bowdef>
+</list>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
