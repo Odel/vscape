@@ -1,0 +1,2 @@
+-there's no npc entry for the Khazard General Store in com/rs2/model/content/Shops.java (return 97;)
+-there's no npc entry for the Rimmington General Store in com/rs2/model/content/Shops.java (return 126;)

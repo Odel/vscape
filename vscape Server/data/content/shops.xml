@@ -2497,7 +2497,7 @@
                 </item>
 
             </items>
-            <isGeneralStore>false</isGeneralStore>
+            <isGeneralStore>true</isGeneralStore>
             <currencyType>ITEM</currencyType>
             <currency>995</currency>
         </shop>
@@ -4228,7 +4228,7 @@
                 </item>
 				
             </items>
-            <isGeneralStore>false</isGeneralStore>
+            <isGeneralStore>true</isGeneralStore>
             <currencyType>ITEM</currencyType>
             <currency>995</currency>
         </shop>
@@ -5959,7 +5959,7 @@
                 </item>	
 				
             </items>
-            <isGeneralStore>false</isGeneralStore>
+            <isGeneralStore>true</isGeneralStore>
             <currencyType>ITEM</currencyType>
             <currency>995</currency>
         </shop>
@@ -7198,7 +7198,7 @@
                 </item>
 
             </items>
-            <isGeneralStore>false</isGeneralStore>
+            <isGeneralStore>true</isGeneralStore>
             <currencyType>ITEM</currencyType>
             <currency>995</currency>
         </shop>
@@ -7617,7 +7617,7 @@
                 </item>
 
             </items>
-            <isGeneralStore>false</isGeneralStore>
+            <isGeneralStore>true</isGeneralStore>
             <currencyType>ITEM</currencyType>
             <currency>995</currency>
         </shop>
