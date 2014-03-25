@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Constants {
 
-	public static final String SERVER_NAME = "2006Remade";
+	public static final String SERVER_NAME = "vscape";
 
 	public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
 	public static final String GAME_DB_URL = "jdbc:mysql://2006remade.com:3306/remade_highscores";

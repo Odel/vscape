@@ -102,8 +102,7 @@ public class ActionSender {
 		for (int i = 0; i < 4; i++)
 			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
-			sendMessage("Welcome to 2006Remade.");
-	//	sendMessage("Welcome to Project RS06.");
+			sendMessage("Welcome to vscape.");
 		return this;
 	}
 
