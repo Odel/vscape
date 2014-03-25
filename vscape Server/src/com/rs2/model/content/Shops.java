@@ -154,6 +154,10 @@ public class Shops {
 			case 528:
 			case 529:
 				return 104;
+			
+			case 530:
+			case 531:
+				return 151;
 	
 			case 532:
 				return 94;
@@ -282,9 +286,6 @@ public class Shops {
 	
 			case 564:
 				return 93;
-	
-			case 530:
-				return 126;
 	
 			case 568:
 				return 95;
