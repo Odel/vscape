@@ -73,7 +73,7 @@ public class CrossObstacle {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-			//	player.getSkill().addExp(Skill.AGILITY, xp);
+				player.getSkill().addExp(Skill.AGILITY, xp);
 		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				if (stopPacket) {
 					player.setStopPacket(false);
