@@ -15,7 +15,7 @@ import com.rs2.model.tick.CycleEventHandler;
 public class CrossObstacle {
 
 	public static void walkAcross(final Player player, final int xp, final int walkX, final int walkY, final int time, final int speed, final int startAnim) {
-		if (Constants.AGILITY_ENABLED) {
+		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
@@ -73,7 +73,7 @@ public class CrossObstacle {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getSkill().addExp(Skill.AGILITY, xp);
+			//	player.getSkill().addExp(Skill.AGILITY, xp);
 		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				if (stopPacket) {
 					player.setStopPacket(false);
