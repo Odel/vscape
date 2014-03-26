@@ -87,6 +87,7 @@ public class BankManager {
 		Item item = new Item(bankItem);
 		boolean withdrawAsNote = player.isWithdrawAsNote();
 		boolean isNoteable = item.getDefinition().isNoteable();
+		int notedid = item.getDefinition().getNotedId();
 		int inBankAmount = player.getBank().getCount(bankItem);
 		if (bankAmount < 1 || bankItem < 0 || player.getBank().get(slot) == null || player.getBank().get(slot).getId() != item.getId() || !item.validItem()) {
 			return;
@@ -106,7 +107,7 @@ public class BankManager {
 		if (!withdrawAsNote || !isNoteable) {
 			count = player.getInventory().addItemCount(new Item(bankItem, bankAmount));
 		} else if (withdrawAsNote) {
-			count = player.getInventory().addItemCount(new Item(bankItem + 1, bankAmount));
+			count = player.getInventory().addItemCount(new Item(notedid, bankAmount));
 		}
 		player.getBank().remove(new Item(bankItem, count), slot);
 		player.getBank().shift();

@@ -1182,24 +1182,6 @@ public class Player extends Entity {
 				getInventory().getItemContainer().clear();
 				getInventory().refresh();
 			}
-			else if (keyword.equals("setlevel")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				if (getEquipment().getItemContainer().size() != 0) {
-					getActionSender().sendMessage("Please remove all your equipments before doing this.");
-					return;
-				}
-				int level = Integer.parseInt(args[1]);
-				skill.getLevel()[Integer.parseInt(args[0])] = level > 99 ? 99 : level;
-				skill.getExp()[Integer.parseInt(args[0])] = getSkill().getXPForLevel(level - 1);
-				skill.refresh(Integer.parseInt(args[0]));
-			}
-			if (keyword.equals("combat")) {
-				debugCombat = !debugCombat;
-				actionSender.sendMessage("Debugging combat set to: "+debugCombat);
-			}
 			else if (keyword.equals("yell")) {
 				if(System.currentTimeMillis() - lastYell < 15000) {
 					getActionSender().sendMessage("You can only yell once per 15 seconds!");

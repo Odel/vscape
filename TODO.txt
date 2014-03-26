@@ -2,3 +2,7 @@
 -crossbows don't work
 -admin spawned npcs open the "rape store"
 -Shilo village shop might be borkeds
+-Gnome balls don't equip
+-https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
+-Canfis clothes shop missing purple top
+-add npc 809 spawn @ 2734 3581
