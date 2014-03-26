@@ -28,7 +28,8 @@ public class CacheDownloader {
          *
          */
         private final int VERSION = 1; // Version of cache
-        private String cacheLink = "https://dl.dropboxusercontent.com/u/162363240/2006-Memorys.zip"; // Link to cache
+        //private String cacheLink = "https://dl.dropboxusercontent.com/u/162363240/2006-Memorys.zip"; // Link to cache
+        private String cacheLink = "https://dl.dropboxusercontent.com/u/118465198/2006-Memorys.zip";
 
         private String fileToExtract = getCacheDir() + getArchivedName();
 
@@ -98,6 +99,7 @@ public class CacheDownloader {
                 OutputStream out = null;
                 URLConnection conn;
                 InputStream in = null;
+                int lastpercent = 0;
                 
                 try {
 
@@ -119,8 +121,12 @@ public class CacheDownloader {
                                 out.write(data, 0, numRead);
                                 numWritten += numRead;
 
-                                    int percentage = (int)(((double)numWritten / (double)length) * 100D);
-                                drawLoadingText(percentage, "Downloading Cache " + percentage + "%");
+                                int percentage = (int)(((double)numWritten / (double)length) * 100D);
+                                if(percentage > lastpercent)
+                                {
+                                	drawLoadingText(percentage, "Downloading Cache " + percentage + "%");
+                                	lastpercent = percentage;
+                                }
 
                         }
 

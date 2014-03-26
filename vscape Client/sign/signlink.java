@@ -91,7 +91,7 @@ public static boolean loginMusicOff = false;
 	enum Position {
 		LEFT, RIGHT, NORMAL
 	};
-	public static byte[] mac;
+	//public static byte[] mac;
 	public static int macAdd;
 private final int EXTERNAL_BUFFER_SIZE = 524288; // 128Kb
 private Position curPosition;
@@ -101,10 +101,10 @@ private Position curPosition;
         try {      
             InetAddress address = InetAddress.getLocalHost();
             NetworkInterface ni = NetworkInterface.getByInetAddress(address);
-            mac = ni.getHardwareAddress();
+            /*mac = ni.getHardwareAddress();
             for (int i = 0; i < mac.length; i++) {          
               //System.out.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : "\n");
-            }
+            }*/
 			//macAdd = byteArrayToInt(mac, 0);
 			//System.out.println("Byte Array MAC Address Converted To Int:" + macAdd);
         } catch (UnknownHostException e) {
