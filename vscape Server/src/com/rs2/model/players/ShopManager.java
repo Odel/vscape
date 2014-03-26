@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.rs2.Constants;
 import com.rs2.model.World;
@@ -18,6 +19,8 @@ import com.rs2.util.XStreamUtil;
 public class ShopManager {
 
 	public static final int SIZE = 40;
+	
+    public static Random rand = new Random();
 
 	private static List<Shop> shops = new ArrayList<Shop>(SIZE);
 
@@ -276,6 +279,7 @@ public class ShopManager {
 		World.submit(new Tick(30) {
 			@Override
 			public void execute() {
+				int count = 0;
 				for (Shop shop : shops) {
 					for (Item item : shop.getCurrentStock().getItems()) {
 						if (item == null) {
@@ -289,8 +293,26 @@ public class ShopManager {
 								shop.getCurrentStock().remove(new Item(item.getId()));
 							}
 						} else {
-							shop.getCurrentStock().remove(new Item(item.getId()));
-							break;
+							count = item.getCount();
+							if(count == 1){
+								if(rand.nextInt(7) == 0)
+								{
+									shop.getCurrentStock().remove(new Item(item.getId()));
+								}
+							}
+							else if(count < 30 && count > 1)
+							for(int x = 0; x < ((count/20)+1); x = x+1) {
+								shop.getCurrentStock().remove(new Item(item.getId()));
+							}
+							else if(count < 100 && count > 30)
+							for(int x = 0; x < ((count/12)+1); x = x+1) {
+								shop.getCurrentStock().remove(new Item(item.getId()));
+							}
+							else if(count > 100)
+							for(int x = 0; x < ((count/10)+1); x = x+1) {
+								shop.getCurrentStock().remove(new Item(item.getId()));
+							}
+							//break;
 						}
 					}
 					refreshAll(shop.getShopId());
