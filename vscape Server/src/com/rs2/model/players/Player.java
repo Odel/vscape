@@ -1034,7 +1034,7 @@ public class Player extends Entity {
                 player.setBanExpire(System.currentTimeMillis() + (hours * 60 * 60 * 1000));
                 player.disconnect();
             }
-            else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter")) {
+            else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
                 if (keyword.equals("update") ) {
                     final int seconds = Integer.parseInt(args[0]);
                     if (seconds <= 0) {
@@ -1684,7 +1684,7 @@ public class Player extends Entity {
 	}
 
 	public int getStaffRights() {
-		 if (getUsername().equalsIgnoreCase("mod john") || getUsername().equalsIgnoreCase("mod gregory") || getUsername().equalsIgnoreCase("mod tom") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("mod party") || getUsername().equalsIgnoreCase("mod lee"))  {
+		 if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel"))  {
 			return 2;
 		}
 		else if (getUsername().equalsIgnoreCase("kampeao") || getUsername().equalsIgnoreCase("dark skies") || getUsername().equalsIgnoreCase("") || getUsername().equalsIgnoreCase("")) {

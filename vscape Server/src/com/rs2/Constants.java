@@ -32,7 +32,7 @@ public class Constants {
     public static boolean SYSTEM_UPDATE = false;
 	public static int CLIENT_VERSION = 317;
 	public static final String TEST_VERSION = "1.4";
-   	public static final double EXP_RATE = 10.0;
+   	public static final double EXP_RATE = 2.25;
    	
    	public static final int START_X = 3233;
 	public static final int START_Y = 3230;
