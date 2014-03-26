@@ -814,7 +814,7 @@ public class Player extends Entity {
 						teleport(new Position(x, y, getPosition().getZ()));
 						getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + getPosition().getZ());
 					} catch (Exception e1) {
-						getActionSender().sendMessage("Please use the synthax ::tele x y (optional z)");
+						getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
 					}
 				}
 			}

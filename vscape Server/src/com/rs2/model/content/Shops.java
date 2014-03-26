@@ -156,10 +156,13 @@ public class Shops {
 				return 104;
 			
 			case 530:
-			case 531:
 				return 151;
+
+			case 531:
+				return 126;
 	
 			case 532:
+			case 533:
 				return 94;
 	
 			case 1785:
