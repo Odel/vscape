@@ -10,8 +10,6 @@
 -god capes are unpurchable/obtainable
 -gnome tree stronghold cave doesn't work
 -lummy spinning wheel spawns items around it
--chaos druids drop noted herbs
--drop rate on mith boots is wrong
 -ignore yells from people on your ignore list
 
 dont aggro until twice the level
