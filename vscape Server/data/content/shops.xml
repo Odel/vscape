@@ -794,11 +794,11 @@
                 </item>
                 <item>
                     <id>562</id>
-                    <count>30</count>
+                    <count>100</count>
                 </item>
                 <item>
                     <id>560</id>
-                    <count>10</count>
+                    <count>100</count>
                 </item>
 				
             </items>
@@ -1233,7 +1233,7 @@
                 </item>
                 <item>
                     <id>560</id>
-                    <count>10</count>
+                    <count>30</count>
                 </item>
                 <item>
                     <id>221</id>
@@ -7806,22 +7806,10 @@
         </shop>
          <shop>
             <shopId>165</shopId>
-            <name>Renual's sex store</name>
+            <name>Renual's not rape shop</name>
             <items>
                 <item>
-                    <id>3753</id>
-                    <count>10</count>
-                </item>
-                <item>
-                    <id>3749</id>
-                    <count>10</count>
-                </item>
-                <item>
-                    <id>3755</id>
-                    <count>10</count>
-                </item>
-                <item>
-                    <id>3751</id>
+                    <id>1127</id>
                     <count>10</count>
                 </item>
             </items>
