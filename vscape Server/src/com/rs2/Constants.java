@@ -97,7 +97,7 @@ public class Constants {
 	public static boolean THIEVING_ENABLED = true;
 	public static boolean WOODCUTTING_ENABLED = true;
 
-    public static boolean DUELING_DISABLED = true;
+    public static boolean DUELING_DISABLED = false;
 
 	// modern teleport coords
 	public static final int VARROCK_X = 3213, VARROCK_Y = 3423;
