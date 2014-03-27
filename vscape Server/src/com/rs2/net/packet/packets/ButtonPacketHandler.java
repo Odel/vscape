@@ -127,6 +127,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 29024 :// rune bar 10
 				player.getSmithing().startSmelting(10, 7);
 				break;*/
+			case 38197:  //music loop button
+				player.toggleMusicLooping();
+				break;
 			case 23132 : // unmorph
 				player.getActionSender().removeInterfaces();
 				player.transformNpc = -1;

@@ -11,6 +11,7 @@ import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
+import com.rs2.model.region.music.RegionMusic;
 import com.rs2.util.Misc;
 
 /**
@@ -175,6 +176,7 @@ public class MovementHandler {
 			}
 			//if (!player.currentArea.equals(Position.getCurrentArea(player)))
 			WalkInterfaces.addWalkableInterfaces(player);
+			new RegionMusic().playMusic(player);
 		}
 	}
 

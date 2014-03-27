@@ -270,6 +270,7 @@ public class Player extends Entity {
 	private int splitPrivateChat = 0;
 	private int acceptAid = 0;
 	private int musicVolume = 0;
+	private int musicLoop = 0;
 	private int effectVolume = 0;
 	private int questPoints = 0;
 	private boolean specialAttackActive = false;
@@ -2362,6 +2363,25 @@ public class Player extends Entity {
 
 	public void setMusicVolume(int musicVolume) {
 		this.musicVolume = musicVolume;
+	}
+	
+	public int getMusicLooping() {
+		return musicLoop;
+	}
+	
+	public void setMusicLooping(int musicLoop) {
+		this.musicLoop = musicLoop;
+	}
+	
+	public void toggleMusicLooping() {
+		if(this.musicLoop == 0)
+		{
+			this.musicLoop = 1;
+		}
+		else
+		{
+			this.musicLoop = 0;
+		}
 	}
 
 	public int getEffectVolume() {
