@@ -218,7 +218,7 @@ public class Player extends Entity {
 	private int gender = Constants.GENDER_MALE;
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
-	private final String[] colorsstring = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"}; ;
+	private final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
 	private Container bank = new Container(Type.ALWAYS_STACK, BankManager.SIZE);
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
@@ -627,7 +627,7 @@ public class Player extends Entity {
 	public void appendPlayerPosition(int xModifier, int yModifier) {
 		getPosition().move(xModifier, yModifier);
 	}
-
+	
 	/**
 	 * Handles a player command.
 	 * 
@@ -638,632 +638,699 @@ public class Player extends Entity {
 	 */
 	public void handleCommand(String keyword, String[] args, String fullString) {
 		keyword = keyword.toLowerCase();
-		if (getStaffRights() >= 2) { // Administrators
-			saveCommand(getUsername(), keyword+" "+fullString);
-			if (keyword.equals("coordinate")) {
-				final int id = Integer.parseInt(args[0]);
-				CoordinateData clue = CoordinateData.forIdClue(id);
-				actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
-			}
-		
-			if (keyword.equals("run")) {
-				final int id = Integer.parseInt(args[0]);
-				setRunAnim(id);
-				setAppearanceUpdateRequired(true);
-			}
-			if (keyword.equals("walk")) {
-				final int id = Integer.parseInt(args[0]);
-				setWalkAnim(id);
-				setAppearanceUpdateRequired(true);
-			}
-			if (keyword.equals("stand")) {
-				final int id = Integer.parseInt(args[0]);
-				setStandAnim(id);
-				setAppearanceUpdateRequired(true);
-			}
-			if (keyword.equals("poison")) {
-				HitDef hitDef = new HitDef(null, HitType.POISON, Math.ceil(4.0)).setStartingHitDelay(1);
-				Hit hit = new Hit(this, this, hitDef);
-				PoisonEffect p = new PoisonEffect(4.0, false);
-				p.initialize(hit);
-			}
-            else if (keyword.equals("dbhs")) {
-                HighscoresManager.debug = !HighscoresManager.debug;
-                getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
-            } else if (keyword.equals("hsstatus")) {
-                getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
-            } else if (keyword.equals("rebooths")) {
-                HighscoresManager.running = !HighscoresManager.running;
-                getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
-            }
-            else if (keyword.equals("uptime")) {
-                getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
-            }
-            else if (keyword.equals("save")) {
-            	PlayerSave.saveAllPlayers();
-                actionSender.sendMessage("Saved players");
-            }
-            else if (keyword.equals("error")) {
-            	Player p = World.getPlayers()[9999];
-            	p.getActionSender().sendMessage("trolol");
-            }
-			else if (keyword.equals("staff")) {
-				World.messageToStaff(fullString);
-			}
-			/*
-			 * if (keyword.equals("forcespace")) { String name = fullString;
-			 * getActionSender().sendMessage("You have sent " +
-			 * args[0].toLowerCase() + "to space."); for (Player player :
-			 * World.getPlayers()) { if (player == null) continue; if
-			 * (player.getUsername().equalsIgnoreCase(name)) {
-			 * player.teleport(new Position(20, 20));
-			 * player.getActionSender().sendMessage
-			 * ("You have been sent to space. Good luck escaping!"); return; } }
-			 * getActionSender
-			 * ().sendMessage("The player is not online at the moment."); }
-			 */
-			else if (keyword.equalsIgnoreCase("fillspec")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				setSpecialAmount(100);
-				updateSpecialBar();
-			}
-			else if (keyword.equals("master")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				for (int i = 0; i < skill.getLevel().length; i++) {
-					skill.getLevel()[i] = 99;
-					skill.getExp()[i] = 200000000;
-				}
-				skill.refresh();
-			}
-			else if (keyword.equals("pnpc")) {
-				final int index = Integer.parseInt(args[0]);
-				transformNpc = index;
-				setAppearanceUpdateRequired(true);
-				setSize(new Npc(index).getDefinition().getSize());
-			}
-			else if (keyword.equals("invisible")) {
-				visible = !visible;
-				getActionSender().sendMessage("Invisible: " + !visible);
-			}
-			else if (keyword.equals("scan")) {
-				for (int i = 0; i < Constants.MAX_NPC_ID; i++) {
-					for (NpcDropItem item : NpcDropController.forId(i).getDropList()) {
-						for (int c : item.getCount()) {
-							if (c > 1000) {
-								System.out.println(c);
-							}
-						}
-					}
-				}
-			}
-			else if (keyword.equals("bank")) {
-				BankManager.openBank(this);
-			}
-			else if (keyword.equals("npc")) {
-				int npcId = Integer.parseInt(args[0]);
-				Npc npc = new Npc(npcId);
-				npc.setPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
-				npc.setSpawnPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
-				npc.setCurrentX(getPosition().getX());
-				npc.setCurrentY(getPosition().getY());
-				World.register(npc);
-				getActionSender().sendMessage("You spawn NPC #" + npcId);
-				setLastNpc(npc.getNpcId());
-			}
-            else if (keyword.equals("tfra")) {
-                actionSender.sendFrame106(Integer.parseInt(args[0]));
 
+		if (getStaffRights() >= 0) {
+			playerCommands(keyword, args, fullString);
+		}
+		if (getStaffRights() >= 1) {
+			modCommands(keyword, args, fullString);
+		}
+		if (getStaffRights() >= 2) {
+			adminCommands(keyword, args, fullString);
+		}
+	}
+
+	public void playerCommands(String keyword, String[] args, String fullString) {
+		if (keyword.equals("outfit")) {
+			getActionSender().sendInterface(3559);
+		} else if (keyword.equals("empty")) {
+			getInventory().getItemContainer().clear();
+			getInventory().refresh();
+		} else if (keyword.equals("yell")) {
+			Yell(fullString);
+		} else if (keyword.equals("hideyell")) {
+			hideYell = !hideYell;
+			getActionSender().sendMessage("You have toggled your yell channel");
+		} else if (keyword.equals("hidecolor")) {
+			hideColors = !hideColors;
+			getActionSender().sendMessage("You have toggled yell colors.");
+		} else if (keyword.equals("home")) {
+            if (inWild() || isAttacking() || inDuelArena() || isDead() || !getInCombatTick().completed()) {
+                getActionSender().sendMessage("You cannot do that here!");
+            } else {
+                teleport(new Position(Constants.START_X, Constants.START_Y, 0));
+                getActionSender().sendMessage("You teleported home.");
+            } 
+		} else if (keyword.equals("players")) {
+			actionSender.sendMessage("There are currently "
+					+ World.playerAmount() + " players online.");
+		} else if (keyword.equals("changepass")) {
+			String pass = fullString;
+			setPassword(pass);// setPassword
+			getActionSender().sendMessage("Your new password is " + pass + ".");
+		}
+	}
+
+	public void modCommands(String keyword, String[] args, String fullString) {
+		String name = fullString;
+		if (keyword.equals("getrandom")) {
+			switch(Misc.random(4)) {
+				case 1 :
+					SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
+					break;
+				case 2 :
+					SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
+					break;
+				case 3 :
+					SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
+					break;
+				case 4 :
+					SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
+					break;
+				case 5 :
+					SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
+					break;
+				case 6 :
+					SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
+					break;
+			}
+		}
+		if (keyword.equals("resettask")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null)
+                return;
+            player.slayer.resetSlayerTask();
+            actionSender.sendMessage("You have reset the slayer task for "+player.getUsername());
+		}
+		if (keyword.equals("forcerandom")) {
+			getActionSender().sendMessage("Sent random to " + args[0].toLowerCase());
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(name)) {
+					player.getRandomInterfaceClick().sendEventRandomly();
+					return;
+				}
+			}
+			getActionSender().sendMessage("The player is not online at the moment.");
+		} else if (keyword.equals("closeinterface")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null)
+                return;
+            player.getActionSender().removeInterfaces();
+        } else if (keyword.equals("kick")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null)
+                return;
+            player.disconnect();
+            actionSender.sendMessage("You have kicked "+player.getUsername());
+        }  else if (keyword.equals("mute")) {
+            if (args.length < 2) {
+                actionSender.sendMessage("::mute hours username");
+                return;
             }
-			else if (keyword.equals("removenpc")) {
-				for (Npc npc : World.getNpcs()) {
-					if (npc != null) {
-						if (npc.getPosition().equals(getPosition())) {
-							getActionSender().sendMessage("You remove NPC #" + npc.getNpcId());
-							npc.setVisible(false);
-							World.unregister(npc);
-							break;
+            int hours = Integer.parseInt(args[0]);
+            int maxHours = getStaffRights() == 1 ? 48 : 100;
+            if (hours <= 0 || hours > maxHours) {
+                actionSender.sendMessage("Mute between 0 and "+maxHours+" hours");
+                return;
+            }
+            name = "";
+            for (int i = 1; i < args.length; i++) {
+                name += args[i];
+            }
+            Player player = World.getPlayerByName(name);
+            if (player == null) {
+                actionSender.sendMessage("Could not find "+name);
+                return;
+            }
+            if (player.isMuted()) {
+                actionSender.sendMessage("Player is already muted");
+                return;
+            }
+            try {
+                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
+                out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
+                out.flush();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace(); 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            actionSender.sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
+            player.actionSender.sendMessage("You have been muted for "+hours+" hours");
+            player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
+        }
+	}
+
+	public void adminCommands(String keyword, String[] args, String fullString) {
+		saveCommand(getUsername(), keyword+" "+fullString);
+		if (keyword.equals("coordinate")) {
+			final int id = Integer.parseInt(args[0]);
+			CoordinateData clue = CoordinateData.forIdClue(id);
+			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
+		}
+	
+		if (keyword.equals("run")) {
+			final int id = Integer.parseInt(args[0]);
+			setRunAnim(id);
+			setAppearanceUpdateRequired(true);
+		}
+		if (keyword.equals("walk")) {
+			final int id = Integer.parseInt(args[0]);
+			setWalkAnim(id);
+			setAppearanceUpdateRequired(true);
+		}
+		if (keyword.equals("stand")) {
+			final int id = Integer.parseInt(args[0]);
+			setStandAnim(id);
+			setAppearanceUpdateRequired(true);
+		}
+		if (keyword.equals("poison")) {
+			HitDef hitDef = new HitDef(null, HitType.POISON, Math.ceil(4.0)).setStartingHitDelay(1);
+			Hit hit = new Hit(this, this, hitDef);
+			PoisonEffect p = new PoisonEffect(4.0, false);
+			p.initialize(hit);
+		}
+        else if (keyword.equals("dbhs")) {
+            HighscoresManager.debug = !HighscoresManager.debug;
+            getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
+        } else if (keyword.equals("hsstatus")) {
+            getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
+        } else if (keyword.equals("rebooths")) {
+            HighscoresManager.running = !HighscoresManager.running;
+            getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
+        }
+        else if (keyword.equals("uptime")) {
+            getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
+        }
+        else if (keyword.equals("save")) {
+        	PlayerSave.saveAllPlayers();
+            actionSender.sendMessage("Saved players");
+        }
+        else if (keyword.equals("error")) {
+        	Player p = World.getPlayers()[9999];
+        	p.getActionSender().sendMessage("trolol");
+        }
+		else if (keyword.equals("staff")) {
+			World.messageToStaff(fullString);
+		}
+		/*
+		 * if (keyword.equals("forcespace")) { String name = fullString;
+		 * getActionSender().sendMessage("You have sent " +
+		 * args[0].toLowerCase() + "to space."); for (Player player :
+		 * World.getPlayers()) { if (player == null) continue; if
+		 * (player.getUsername().equalsIgnoreCase(name)) {
+		 * player.teleport(new Position(20, 20));
+		 * player.getActionSender().sendMessage
+		 * ("You have been sent to space. Good luck escaping!"); return; } }
+		 * getActionSender
+		 * ().sendMessage("The player is not online at the moment."); }
+		 */
+		else if (keyword.equalsIgnoreCase("fillspec")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			setSpecialAmount(100);
+			updateSpecialBar();
+		}
+		else if (keyword.equals("master")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			for (int i = 0; i < skill.getLevel().length; i++) {
+				skill.getLevel()[i] = 99;
+				skill.getExp()[i] = 200000000;
+			}
+			skill.refresh();
+		}
+		else if (keyword.equals("pnpc")) {
+			final int index = Integer.parseInt(args[0]);
+			transformNpc = index;
+			setAppearanceUpdateRequired(true);
+			setSize(new Npc(index).getDefinition().getSize());
+		}
+		else if (keyword.equals("invisible")) {
+			visible = !visible;
+			getActionSender().sendMessage("Invisible: " + !visible);
+		}
+		else if (keyword.equals("scan")) {
+			for (int i = 0; i < Constants.MAX_NPC_ID; i++) {
+				for (NpcDropItem item : NpcDropController.forId(i).getDropList()) {
+					for (int c : item.getCount()) {
+						if (c > 1000) {
+							System.out.println(c);
 						}
 					}
 				}
 			}
-			else if (keyword.equals("object")) {
-				int objectId = Integer.parseInt(args[0]);
-				int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
-				int type = args.length > 2 ? Integer.parseInt(args[2]) : 10;
-				new GameObject(objectId, getPosition().getX(), getPosition().getY(), getPosition().getZ(), face, type, 0, 999999, false);
+		}
+		else if (keyword.equals("bank")) {
+			BankManager.openBank(this);
+		}
+		else if (keyword.equals("npc")) {
+			int npcId = Integer.parseInt(args[0]);
+			Npc npc = new Npc(npcId);
+			npc.setPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
+			npc.setSpawnPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
+			npc.setCurrentX(getPosition().getX());
+			npc.setCurrentY(getPosition().getY());
+			World.register(npc);
+			getActionSender().sendMessage("You spawn NPC #" + npcId);
+			setLastNpc(npc.getNpcId());
+		}
+        else if (keyword.equals("tfra")) {
+            actionSender.sendFrame106(Integer.parseInt(args[0]));
+
+        }
+		else if (keyword.equals("removenpc")) {
+			for (Npc npc : World.getNpcs()) {
+				if (npc != null) {
+					if (npc.getPosition().equals(getPosition())) {
+						getActionSender().sendMessage("You remove NPC #" + npc.getNpcId());
+						npc.setVisible(false);
+						World.unregister(npc);
+						break;
+					}
+				}
 			}
-			else if (keyword.equals("item")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				int id = Integer.parseInt(args[0]);
-				int amount = 1;
-				if (args.length > 1) {
-					amount = Integer.parseInt(args[1]);
-					amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
-				}
-				inventory.addItem(new Item(id, amount));
-				getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").");
+		}
+		else if (keyword.equals("object")) {
+			int objectId = Integer.parseInt(args[0]);
+			int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
+			int type = args.length > 2 ? Integer.parseInt(args[2]) : 10;
+			new GameObject(objectId, getPosition().getX(), getPosition().getY(), getPosition().getZ(), face, type, 0, 999999, false);
+		}
+		else if (keyword.equals("item")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
 			}
-			else if (keyword.equals("runes")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				for (int i = 0; i < 566 - 554 + 1; i++) {
-					inventory.addItem(new Item(554 + i, 1000));
-				}
-				inventory.addItem(new Item(1381, 1));
-				inventory.addItem(new Item(4675, 1));
+			int id = Integer.parseInt(args[0]);
+			int amount = 1;
+			if (args.length > 1) {
+				amount = Integer.parseInt(args[1]);
+				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
 			}
-			else if (keyword.equals("tele")) {
+			inventory.addItem(new Item(id, amount));
+			getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").");
+		}
+		else if (keyword.equals("runes")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			for (int i = 0; i < 566 - 554 + 1; i++) {
+				inventory.addItem(new Item(554 + i, 1000));
+			}
+			inventory.addItem(new Item(1381, 1));
+			inventory.addItem(new Item(4675, 1));
+		}
+		else if (keyword.equals("tele")) {
+			try {
+				int x = Integer.parseInt(args[0]);
+				int y = Integer.parseInt(args[1]);
+				int z = Integer.parseInt(args[2]);
+				teleport(new Position(x, y, z));
+				getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + z);
+			} catch (Exception e) {
 				try {
 					int x = Integer.parseInt(args[0]);
 					int y = Integer.parseInt(args[1]);
-					int z = Integer.parseInt(args[2]);
-					teleport(new Position(x, y, z));
-					getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + z);
-				} catch (Exception e) {
-					try {
-						int x = Integer.parseInt(args[0]);
-						int y = Integer.parseInt(args[1]);
-						teleport(new Position(x, y, getPosition().getZ()));
-						getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + getPosition().getZ());
-					} catch (Exception e1) {
-						getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
-					}
+					teleport(new Position(x, y, getPosition().getZ()));
+					getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + getPosition().getZ());
+				} catch (Exception e1) {
+					getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
 				}
 			}
-			else if (keyword.equals("empty")) {
-				getInventory().getItemContainer().clear();
-				getInventory().refresh();
-			}
-			else if (keyword.equals("removebankpin")) {
-	               Player player = World.getPlayerByName(fullString);
-	               if (player == null)
-	                   return;
-	               player.getBankPin().deleteBankPin();
-	}
-			else if (keyword.equals("melee")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				inventory.addItem(new Item(4152, 100));
-				inventory.addItem(new Item(1164, 100));
-				inventory.addItem(new Item(1128, 100));
-				inventory.addItem(new Item(1080, 100));
-				inventory.addItem(new Item(4132, 100));
-				inventory.addItem(new Item(1202, 100));
-				inventory.addItem(new Item(1732, 100));
-				inventory.addItem(new Item(6570, 1));
-				inventory.addItem(new Item(7462, 1));
-			}
-			else if (keyword.equals("range")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				inventory.addItem(new Item(2492, 100));
-				inventory.addItem(new Item(2498, 100));
-				inventory.addItem(new Item(2504, 100));
-				inventory.addItem(new Item(862, 100));
-				inventory.addItem(new Item(1479, 100));
-				inventory.addItem(new Item(6329, 100));
-				inventory.addItem(new Item(892, 100000));
-				inventory.addItem(new Item(6570, 1));
-				inventory.addItem(new Item(7462, 1));
-			}
-			else if (keyword.equals("mage")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				getActionSender().sendMessage("Use the ::runes command for runes.");
-				inventory.addItem(new Item(4090, 100));
-				inventory.addItem(new Item(4092, 100));
-				inventory.addItem(new Item(4094, 100));
-				inventory.addItem(new Item(4096, 100));
-				inventory.addItem(new Item(4098, 100));
-				inventory.addItem(new Item(1382, 100));
-				inventory.addItem(new Item(1728, 100));
-				inventory.addItem(new Item(6890, 100));
-				inventory.addItem(new Item(6570, 1));
-				inventory.addItem(new Item(7462, 1));
-			}
-			else if (keyword.equals("potions")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				inventory.addItem(new Item(2437, 100));
-				inventory.addItem(new Item(2441, 100));
-				inventory.addItem(new Item(2443, 100));
-				inventory.addItem(new Item(2435, 100));
-			}
-			else if (keyword.equals("food")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				inventory.addItem(new Item(391, 28));
-			}
-			else if (keyword.equals("spawn")) {
-				int id = Integer.parseInt(args[0]);
-				NpcDefinition npc = NpcDefinition.forId(id);
-				appendToAutoSpawn(npc);
-			}
-			else if (keyword.equals("wave")) {
-				int index = Integer.parseInt(args[0]);
-				WavesHandling.spawnWave(this, index);
-			}
-			else if (keyword.equals("team")) {
-				int cape = Integer.parseInt(args[0]);
-				int count = 0;
-				for (Player player : World.getPlayers()) {
-					if (player == null)
-						continue;
-					if (player.getEquipment().getId(Constants.CAPE) == cape) {
-						player.teleport(getPosition());
-						count++;
-					}
-				}
-				getActionSender().sendMessage("You have " + count + " teammates on your team.");
-			}
-			else if (keyword.equals("teleto")) {
-				String name = fullString;
-				for (Player player : World.getPlayers()) {
-					if (player == null)
-						continue;
-					if (player.getUsername().equalsIgnoreCase(name)) {
-						teleport(player.getPosition().clone());
-						break;
-					}
-				}
-			}
-           			else if (keyword.equals("teletome")) {
-				String name = fullString;
-               // if (inWild())  {
-                 //   actionSender.sendMessage("You can't teleport someone into the wild!");
-                   // return;
-                //}
-				Player player = World.getPlayerByName(name);
-                if (player == null) {
-                    actionSender.sendMessage("Cannot find player: "+name);
-                    return;
-                }
-                if (player.inDuelArena()) {
-                    actionSender.sendMessage("That person is dueling right now.");
-                    return;
-                }
-                player.teleport(getPosition().clone());
-			}
-			else if (keyword.equals("modern")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				getActionSender().sendSidebarInterface(6, 1151);
-				magicBookType = SpellBook.MODERN;
-			}
-			else if (keyword.equals("ancient")) {
-				if (inWild()) {
-					getActionSender().sendMessage("You can't use this command in the wilderness.");
-					return;
-				}
-				getActionSender().sendSidebarInterface(6, 12855);
-				magicBookType = SpellBook.ANCIENT;
-			}
-			else if (keyword.equals("hitz")) {
-                int hits = Integer.parseInt(args[0]);
-                for (int i = 0; i < hits; i++) {
-                    hit(i, HitType.NORMAL);
-                }
-            }
-			else if (keyword.equals("mypos")) {
-				getActionSender().sendMessage("You are at: " + getPosition());
-			}
-			else if (keyword.equalsIgnoreCase("shiptest")) {
-				Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])]);
-			}
-			else if (keyword.equalsIgnoreCase("carpet")) {
-				int xDiff = Integer.parseInt(args[0]);
-				int yDiff = Integer.parseInt(args[1]);
-				Position pos = new Position(getPosition().getX() + xDiff, getPosition().getY() + yDiff);
-				MagicCarpet.ride(this, pos);
-			}
-			else if (keyword.equals("anim")) {
-				int animationId = Integer.parseInt(args[0]);
-				getUpdateFlags().sendAnimation(animationId, 0);
-				getActionSender().sendMessage("Animation #" + animationId);
-			}
-			else if (keyword.equals("gfx")) {
-				int gfxId = Integer.parseInt(args[0]);
-				Graphic graphic = new Graphic(gfxId, 100);
-				getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
-				getActionSender().sendMessage("GFX #" + gfxId);
-			}
-			else if (keyword.equals("interface")) {
-				actionSender.sendInterface(Integer.parseInt(args[0]));
-			} else if (keyword.equals("unmute")) {
-                Player player = World.getPlayerByName(fullString);
-                if (player == null) {
-                    actionSender.sendMessage("Could not find player "+fullString);
-                    return;
-                }
-                actionSender.sendMessage("Unmuted "+fullString);
-                player.setMuteExpire(System.currentTimeMillis());
-            } else if (keyword.equals("ban")) {
-                if (args.length < 2) {
-                    actionSender.sendMessage("::ban hours username");
-                    return;
-                }
-                int hours = Integer.parseInt(args[0]);
-                if (hours <= 0 || hours > 100) {
-                    actionSender.sendMessage("Ban between 0 and 100 hours");
-                    return;
-                    
-                }
-                String name = "";
-                for (int i = 1; i < args.length; i++) {
-                    name += args[i];
-                }
-                Player player = World.getPlayerByName(name);
-                if (player == null) {
-                    actionSender.sendMessage("Could not find player");
-                    return;
-                }
-                if (player.isBanned()) {
-                    actionSender.sendMessage("Player is already banned");
-                    return;
-                }
-                try {
-                    OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
-                    out.write(player.getUsername()+" was banned by "+username+" for "+hours+" hours.");
-                    out.flush();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                actionSender.sendMessage("Banned "+player.getUsername()+" for "+hours+" hours.");
-                player.setBanExpire(System.currentTimeMillis() + (hours * 60 * 60 * 1000));
-                player.disconnect();
-            }
-            else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
-                if (keyword.equals("update") ) {
-                    final int seconds = Integer.parseInt(args[0]);
-                    if (seconds <= 0) {
-                        getActionSender().sendMessage("Invalid timer parameter provided.");
-                        return;
-                    }
-                    final int ticks = seconds*1000/600;
-                    if (GlobalVariables.getServerUpdateTimer() != null) {
-                        getActionSender().sendMessage("An update has already been executed.");
-                        return;
-                    }
-                    Constants.SYSTEM_UPDATE = true;
-                    for (Player player : World.getPlayers()) {
-                        if (player == null || player.getIndex() == -1)
-                            continue;
-                        player.getActionSender().sendUpdateServer(ticks);
-                        TradeManager.declineTrade(player);
-                    }
-
-                    new ShutdownWorldProcess(seconds).start();
-                }
-                else if (keyword.equals("stat")) {
-                    try {
-                        if (fullString.indexOf("-") == 0) {
-                            getActionSender().sendMessage("Don't forget - before player name!");
-                            return;
-                        }
-                        int skillId = Integer.parseInt(args[0]);
-                        int lvl = Integer.parseInt(args[1]);
-                        String name = fullString.substring(fullString.indexOf("-")+1);
-                        long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-                        Player player = World.getPlayerByName(nameLong);
-                        if (player == null) {
-                            getActionSender().sendMessage("Can't find player "+name);
-                            return;
-                        }
-                        player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-                        player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl);
-                        player.getSkill().refresh(skillId);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-
-                    }
-
-                }
-            }
 		}
-		if (getStaffRights() >= 1) { // Moderators
+		else if (keyword.equals("empty")) {
+			getInventory().getItemContainer().clear();
+			getInventory().refresh();
+		}
+		else if (keyword.equals("removebankpin")) {
+               Player player = World.getPlayerByName(fullString);
+               if (player == null)
+                   return;
+               player.getBankPin().deleteBankPin();
+}
+		else if (keyword.equals("melee")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			inventory.addItem(new Item(4152, 100));
+			inventory.addItem(new Item(1164, 100));
+			inventory.addItem(new Item(1128, 100));
+			inventory.addItem(new Item(1080, 100));
+			inventory.addItem(new Item(4132, 100));
+			inventory.addItem(new Item(1202, 100));
+			inventory.addItem(new Item(1732, 100));
+			inventory.addItem(new Item(6570, 1));
+			inventory.addItem(new Item(7462, 1));
+		}
+		else if (keyword.equals("range")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			inventory.addItem(new Item(2492, 100));
+			inventory.addItem(new Item(2498, 100));
+			inventory.addItem(new Item(2504, 100));
+			inventory.addItem(new Item(862, 100));
+			inventory.addItem(new Item(1479, 100));
+			inventory.addItem(new Item(6329, 100));
+			inventory.addItem(new Item(892, 100000));
+			inventory.addItem(new Item(6570, 1));
+			inventory.addItem(new Item(7462, 1));
+		}
+		else if (keyword.equals("mage")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			getActionSender().sendMessage("Use the ::runes command for runes.");
+			inventory.addItem(new Item(4090, 100));
+			inventory.addItem(new Item(4092, 100));
+			inventory.addItem(new Item(4094, 100));
+			inventory.addItem(new Item(4096, 100));
+			inventory.addItem(new Item(4098, 100));
+			inventory.addItem(new Item(1382, 100));
+			inventory.addItem(new Item(1728, 100));
+			inventory.addItem(new Item(6890, 100));
+			inventory.addItem(new Item(6570, 1));
+			inventory.addItem(new Item(7462, 1));
+		}
+		else if (keyword.equals("potions")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			inventory.addItem(new Item(2437, 100));
+			inventory.addItem(new Item(2441, 100));
+			inventory.addItem(new Item(2443, 100));
+			inventory.addItem(new Item(2435, 100));
+		}
+		else if (keyword.equals("food")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			inventory.addItem(new Item(391, 28));
+		}
+		else if (keyword.equals("spawn")) {
+			int id = Integer.parseInt(args[0]);
+			NpcDefinition npc = NpcDefinition.forId(id);
+			appendToAutoSpawn(npc);
+		}
+		else if (keyword.equals("wave")) {
+			int index = Integer.parseInt(args[0]);
+			WavesHandling.spawnWave(this, index);
+		}
+		else if (keyword.equals("team")) {
+			int cape = Integer.parseInt(args[0]);
+			int count = 0;
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getEquipment().getId(Constants.CAPE) == cape) {
+					player.teleport(getPosition());
+					count++;
+				}
+			}
+			getActionSender().sendMessage("You have " + count + " teammates on your team.");
+		}
+		else if (keyword.equals("teleto")) {
 			String name = fullString;
-			if (keyword.equals("getrandom")) {
-				switch(Misc.random(4)) {
-					case 1 :
-						SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
-						break;
-					case 2 :
-						SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
-						break;
-					case 3 :
-						SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
-						break;
-					case 4 :
-						SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
-						break;
-					case 5 :
-						SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
-						break;
-					case 6 :
-						SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
-						break;
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(name)) {
+					teleport(player.getPosition().clone());
+					break;
 				}
 			}
-			if (keyword.equals("resettask")) {
-                Player player = World.getPlayerByName(fullString);
-                if (player == null)
-                    return;
-                player.slayer.resetSlayerTask();
-                actionSender.sendMessage("You have reset the slayer task for "+player.getUsername());
-			}
-			if (keyword.equals("forcerandom")) {
-				getActionSender().sendMessage("Sent random to " + args[0].toLowerCase());
-				for (Player player : World.getPlayers()) {
-					if (player == null)
-						continue;
-					if (player.getUsername().equalsIgnoreCase(name)) {
-						player.getRandomInterfaceClick().sendEventRandomly();
-						return;
-					}
-				}
-				getActionSender().sendMessage("The player is not online at the moment.");
-			} else if (keyword.equals("closeinterface")) {
-                Player player = World.getPlayerByName(fullString);
-                if (player == null)
-                    return;
-                player.getActionSender().removeInterfaces();
-            } else if (keyword.equals("kick")) {
-                Player player = World.getPlayerByName(fullString);
-                if (player == null)
-                    return;
-                player.disconnect();
-                actionSender.sendMessage("You have kicked "+player.getUsername());
-            }  else if (keyword.equals("mute")) {
-                if (args.length < 2) {
-                    actionSender.sendMessage("::mute hours username");
-                    return;
-                }
-                int hours = Integer.parseInt(args[0]);
-                int maxHours = getStaffRights() == 1 ? 48 : 100;
-                if (hours <= 0 || hours > maxHours) {
-                    actionSender.sendMessage("Mute between 0 and "+maxHours+" hours");
-                    return;
-                }
-                name = "";
-                for (int i = 1; i < args.length; i++) {
-                    name += args[i];
-                }
-                Player player = World.getPlayerByName(name);
-                if (player == null) {
-                    actionSender.sendMessage("Could not find "+name);
-                    return;
-                }
-                if (player.isMuted()) {
-                    actionSender.sendMessage("Player is already muted");
-                    return;
-                }
-                try {
-                    OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
-                    out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
-                    out.flush();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace(); 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                actionSender.sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
-                player.actionSender.sendMessage("You have been muted for "+hours+" hours");
-                player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
-            }
 		}
-		if (getStaffRights() >= 0) { // Everyone
-			if (keyword.equals("outfit")) {
-				getActionSender().sendInterface(3559);
+       			else if (keyword.equals("teletome")) {
+			String name = fullString;
+           // if (inWild())  {
+             //   actionSender.sendMessage("You can't teleport someone into the wild!");
+               // return;
+            //}
+			Player player = World.getPlayerByName(name);
+            if (player == null) {
+                actionSender.sendMessage("Cannot find player: "+name);
+                return;
+            }
+            if (player.inDuelArena()) {
+                actionSender.sendMessage("That person is dueling right now.");
+                return;
+            }
+            player.teleport(getPosition().clone());
+		}
+		else if (keyword.equals("modern")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
 			}
-			else if (keyword.equals("empty")) {
-				getInventory().getItemContainer().clear();
-				getInventory().refresh();
+			getActionSender().sendSidebarInterface(6, 1151);
+			magicBookType = SpellBook.MODERN;
+		}
+		else if (keyword.equals("ancient")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
 			}
-			else if (keyword.equals("yell")) {
-				if (!hideYell) {
-					if (System.currentTimeMillis() - lastYell < 15000) {
-						getActionSender().sendMessage(
-								"You can only yell once per 15 seconds!");
+			getActionSender().sendSidebarInterface(6, 12855);
+			magicBookType = SpellBook.ANCIENT;
+		}
+		else if (keyword.equals("hitz")) {
+            int hits = Integer.parseInt(args[0]);
+            for (int i = 0; i < hits; i++) {
+                hit(i, HitType.NORMAL);
+            }
+        }
+		else if (keyword.equals("mypos")) {
+			getActionSender().sendMessage("You are at: " + getPosition());
+		}
+		else if (keyword.equalsIgnoreCase("shiptest")) {
+			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])]);
+		}
+		else if (keyword.equalsIgnoreCase("carpet")) {
+			int xDiff = Integer.parseInt(args[0]);
+			int yDiff = Integer.parseInt(args[1]);
+			Position pos = new Position(getPosition().getX() + xDiff, getPosition().getY() + yDiff);
+			MagicCarpet.ride(this, pos);
+		}
+		else if (keyword.equals("anim")) {
+			int animationId = Integer.parseInt(args[0]);
+			getUpdateFlags().sendAnimation(animationId, 0);
+			getActionSender().sendMessage("Animation #" + animationId);
+		}
+		else if (keyword.equals("gfx")) {
+			int gfxId = Integer.parseInt(args[0]);
+			Graphic graphic = new Graphic(gfxId, 100);
+			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
+			getActionSender().sendMessage("GFX #" + gfxId);
+		}
+		else if (keyword.equals("interface")) {
+			actionSender.sendInterface(Integer.parseInt(args[0]));
+		} else if (keyword.equals("unmute")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null) {
+                actionSender.sendMessage("Could not find player "+fullString);
+                return;
+            }
+            actionSender.sendMessage("Unmuted "+fullString);
+            player.setMuteExpire(System.currentTimeMillis());
+        } else if (keyword.equals("ban")) {
+        	Ban(args);
+        }
+        else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
+            if (keyword.equals("update") ) {
+            	final int seconds = Integer.parseInt(args[0]);
+				SystemUpdate(seconds);
+            }
+            else if (keyword.equals("stat")) {
+                try {
+                    if (fullString.indexOf("-") == 0) {
+                        getActionSender().sendMessage("Don't forget - before player name!");
+                        return;
+                    }
+                    int skillId = Integer.parseInt(args[0]);
+                    int lvl = Integer.parseInt(args[1]);
+                    String name = fullString.substring(fullString.indexOf("-")+1);
+                    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+                    Player player = World.getPlayerByName(nameLong);
+                    if (player == null) {
+                        getActionSender().sendMessage("Can't find player "+name);
+                        return;
+                    }
+                    player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
+                    player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl);
+                    player.getSkill().refresh(skillId);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }
+	}
+
+	/**
+	 * Yell Message
+	 * 
+	 * @param msg
+	 *            the yell message
+	 * 
+	 */
+	private void Yell(String Msg) {
+		if(!hideYell)
+		{
+			if(System.currentTimeMillis() - lastYell < 15000) {
+				getActionSender().sendMessage("You can only yell once per 15 seconds!");
+				return;
+			}
+			lastYell = System.currentTimeMillis();
+			
+			for (Player player : World.getPlayers()) 
+			{
+				String yeller = NameUtil.formatName(getUsername());
+				String YellMsg = Msg;
+				String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
+				
+				if (player == null)
+					continue;
+				
+				for(int i = 0; i < bad.length; i++)
+				{
+					if(YellMsg.indexOf(bad[i]) >= 0)
+					{
+						getActionSender().sendMessage("You are trying to say something that should not be said!");
 						return;
 					}
-					String text = fullString;
-					String[] bad = {":chalreq:", ":tradereq:",":duelreq:"};
-					for(int i = 0; i < bad.length; i++){
-						if (text.indexOf(bad[i]) >= 0) {
-							getActionSender().sendMessage("You are trying to say something that should not be said!");
-							return;
-						}
-					}
-					if (isMuted()) {
-						getActionSender().sendMessage(
-								"You are muted and cannot use yell.");
-						return;
-					}
-					lastYell = System.currentTimeMillis();
-					for (Player player : World.getPlayers()) {
-						String yeller = NameUtil.formatName(getUsername());
-						String YellMsg = text;
-						if (player == null)
-							continue;
-						String NameColor = "@blu@";
-						if (getStaffRights() >= 0) {
-							NameColor = "@blu@";
-						} else if (getStaffRights() >= 1) {
-							NameColor = "@whi@";
-						} else if (getStaffRights() >= 2) {
-							NameColor = "@mag@";
-						}
-						if (!player.hideYell) {
-							if (player.hideColors) {
-								for (int i = 0; i < colorsstring.length; i++) {
-									if (YellMsg.indexOf(colorsstring[i]) >= 0) {
-										YellMsg = YellMsg.replace(colorsstring[i], "");
-									}
-								}
-							System.out.println(YellMsg);
-							}
-							player.getActionSender().sendMessage(NameColor + "[" + yeller + "]@dre@ "+ NameUtil.uppercaseFirstLetter(YellMsg));
-						}
-					}
-				} else {
-					getActionSender().sendMessage(
-							"Your yell channel is toggled off");
 				}
-			}	
-			if (keyword.equals("hideyell")) {
-				hideYell = !hideYell;
-				getActionSender().sendMessage("You have toggled your yell channel");
-			}
-			
-			if (keyword.equals("hidecolor")) {
-				hideColors = !hideColors;
-				getActionSender().sendMessage("You have toggled yell colors.");
-			}
-			
-			if (keyword.equals("home")) {
-                if (inWild() || isAttacking() || inDuelArena() || isDead() || !getInCombatTick().completed()) {
-                    getActionSender().sendMessage("You cannot do that here!");
-                } else {
-                    teleport(new Position(Constants.START_X, Constants.START_Y, 0));
-                    getActionSender().sendMessage("You teleported home.");
-                } 
-			} else if (keyword.equals("players")) {
-				actionSender.sendMessage("There are currently " + World.playerAmount() + " players online.");
-			} else if (keyword.equals("changepass")) {
-    				String pass = fullString;
-    				setPassword(pass);//setPassword
-    				getActionSender().sendMessage("Your new password is " + pass + ".");
-    			//}
+				
+				if (isMuted()) 
+				{
+					getActionSender().sendMessage("You are muted and cannot use yell.");
+					return;
+				}
+				
+				String NameColor = "@blu@";
+				if (getStaffRights() >= 0) { NameColor = "@blu@"; }
+				if (getStaffRights() >= 1) { NameColor = "@whi@"; }
+				if (getStaffRights() >= 2) { NameColor = "@mag@"; }
+				
+				if(!player.hideYell)
+				{
+					if(player.hideColors)
+					{
+						for(int i = 0; i < colors.length; i++)
+						{
+							if(YellMsg.indexOf(colors[i]) >= 0)
+							{
+								YellMsg = YellMsg.replace(colorStrings[i], "");
+							}
+						}
+					}
+					player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
+				}
 			}
 		}
 	}
 
+	/**
+	 * Modify Stats
+	 * 
+	 * @param player
+	 *            the player
+	 * 
+	 * @param skill
+	 *            the skill
+	 * 
+	 * @param newLvl
+	 *            the new level
+	 */
+	private void Stat(String player, int skill, int newLvl) {
+
+	}
+
+	/**
+	 * Mute Player
+	 * 
+	 * @param player
+	 *            the player to mute
+	 * 
+	 */
+	private void Mute(String[] args) {
+
+	}
+
+	/**
+	 * Ban Player
+	 * 
+	 * @param player
+	 *            the player to ban
+	 * 
+	 */
+	private void Ban(String[] args) {
+		if (args.length < 2) {
+			actionSender.sendMessage("::ban username hours");
+			return;
+		}
+		String name = "";
+		for (int i = 1; i < args.length; i++) {
+			name += args[0];
+		}
+		int hours = Integer.parseInt(args[1]);
+		if (hours <= 0 || hours > 100) {
+			actionSender.sendMessage("Ban between 0 and 100 hours");
+			return;
+		}
+		Player player = World.getPlayerByName(name);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + name);
+			return;
+		}
+		if (player.isBanned()) {
+			actionSender.sendMessage("Player is already banned");
+			return;
+		}
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(
+					new FileOutputStream("./data/modlog.out", true));
+			out.write(player.getUsername() + " was banned by " + username
+					+ " for " + hours + " hours.");
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		actionSender.sendMessage("Banned " + player.getUsername() + " for "
+				+ hours + " hours.");
+		player.setBanExpire(System.currentTimeMillis()
+				+ (hours * 60 * 60 * 1000));
+		player.disconnect();
+	}
+
+	private void SystemUpdate(int seconds) {
+		if (seconds <= 0) {
+			getActionSender().sendMessage("Invalid timer parameter provided.");
+			return;
+		}
+		final int ticks = seconds * 1000 / 600;
+		if (GlobalVariables.getServerUpdateTimer() != null) {
+			getActionSender().sendMessage(
+					"An update has already been executed.");
+			return;
+		}
+		Constants.SYSTEM_UPDATE = true;
+		for (Player player : World.getPlayers()) {
+			if (player == null || player.getIndex() == -1)
+				continue;
+			player.getActionSender().sendUpdateServer(ticks);
+			TradeManager.declineTrade(player);
+		}
+
+		new ShutdownWorldProcess(seconds).start();
+	}
 
 	private void writeNpc(Npc npc) {
 		String filePath = "./data/npcs/spawn-config.cfg";
@@ -1693,11 +1760,16 @@ public class Player extends Entity {
 	}
 
 	public int getStaffRights() {
-		 if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel"))  {
-			return 2;
+		for (int i = 0; i < Constants.Admins.length; i++) {
+			if (getUsername().indexOf(Constants.Admins[i]) >= 0) {
+				System.out.println(getUsername().indexOf(Constants.Admins[i]));
+				return 2;
+			}
 		}
-		else if (getUsername().equalsIgnoreCase("kampeao") || getUsername().equalsIgnoreCase("dark skies") || getUsername().equalsIgnoreCase("") || getUsername().equalsIgnoreCase("")) {
-			return 1;
+		for (int i = 0; i < Constants.Mods.length; i++) {
+			if (getUsername().indexOf(Constants.Mods[i]) >= 0) {
+				return 1;
+			}
 		}
 		return staffRights;
 	}
