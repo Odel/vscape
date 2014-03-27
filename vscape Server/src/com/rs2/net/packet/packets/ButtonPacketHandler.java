@@ -332,18 +332,23 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;
 			case 3162 :// setMusicVolume (0/4)
 				player.setMusicVolume(4);
+				//player.getActionSender().sendConfig(168, player.getMusicVolume());
 				return;
 			case 3163 :// setMusicVolume (1/4)
 				player.setMusicVolume(3);
+				//player.getActionSender().sendConfig(168, player.getMusicVolume());
 				return;
 			case 3164 :// setMusicVolume (2/4)
 				player.setMusicVolume(2);
+				//player.getActionSender().sendConfig(168, player.getMusicVolume());
 				return;
 			case 3165 :// setMusicVolume (3/4)
 				player.setMusicVolume(1);
+				//player.getActionSender().sendConfig(168, player.getMusicVolume());
 				return;
 			case 3166 :// setMusicVolume (4/4)
 				player.setMusicVolume(0);
+				//player.getActionSender().sendConfig(168, player.getMusicVolume());
 				return;
 			case 3173 :// setEffectVolume (0/4)
 				player.setEffectVolume(4);

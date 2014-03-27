@@ -1,18 +1,16 @@
+-https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -there's no npc entry for the Khazard General Store in com/rs2/model/content/Shops.java (return 97;)
 -crossbows don't work
 -admin spawned npcs open the "rape store"
 -Shilo village shop might be borkeds
 -Gnome balls don't equip
--https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Canfis clothes shop missing purple top
--add npc 809 spawn @ 2734 3581
 -ice giants drop single coins instead of big bones
 -highwaymen have no drop table
 -god capes are unpurchable/obtainable
--add npc 2521 @ 2790 3065
 -gnome tree stronghold cave doesn't work
--add npc 171 @ 2408 3422
--add npc 846 @ 2793 3184
--add npc 714 2568 3333
--add npc 696 2717 3305
 -lummy spinning wheel spawns items around it
+-chaos druids drop noted herbs
+-drop rate on mith boots is wrong
+-ignore yells from people on your ignore list
+
