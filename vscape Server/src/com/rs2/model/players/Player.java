@@ -218,6 +218,7 @@ public class Player extends Entity {
 	private int gender = Constants.GENDER_MALE;
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
+	private final String[] colorsstring = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"}; ;
 	private Container bank = new Container(Type.ALWAYS_STACK, BankManager.SIZE);
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
@@ -320,6 +321,7 @@ public class Player extends Entity {
     private Item randomHerb;
     private int genieSelect;
     private boolean hideYell = false;
+    private boolean hideColors = false;
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
@@ -1184,41 +1186,65 @@ public class Player extends Entity {
 				getInventory().refresh();
 			}
 			else if (keyword.equals("yell")) {
-				if(System.currentTimeMillis() - lastYell < 15000) {
-					getActionSender().sendMessage("You can only yell once per 15 seconds!");
-					return;
-				}
-				lastYell = System.currentTimeMillis();
-				for (Player player : World.getPlayers()) {
-                String yeller = NameUtil.formatName(getUsername());
-                String text = fullString;
-                String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:", "is gay", "cunt", "fuck off"};                                            
-					if (player == null)
-						continue;
-					for(int i = 0; i < bad.length; i++){
-						if(text.indexOf(bad[i]) >= 0){
-							getActionSender().sendMessage("You are trying to say something that should not be said!");
-								return;
-						}
-					}
-					if (isMuted()) {
-						getActionSender().sendMessage("You are muted and cannot use yell.");
+				if (!hideYell) {
+					if (System.currentTimeMillis() - lastYell < 15000) {
+						getActionSender().sendMessage(
+								"You can only yell once per 15 seconds!");
 						return;
 					}
-					if (getStaffRights() >= 2) {
-						player.getActionSender().sendMessage("@mag@["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(text));
+					lastYell = System.currentTimeMillis();
+					for (Player player : World.getPlayers()) {
+						String yeller = NameUtil.formatName(getUsername());
+						String text = fullString;
+						String YellMsg = text;
+						// String[] bad = {":chalreq:", ":tradereq:", "flavius",":duelreq:", "is gay", "cunt", "fuck off"};
+						if (player == null)
+							continue;
+						/*
+						 * for(int i = 0; i < bad.length; i++){
+						 * if(text.indexOf(bad[i]) >= 0){
+						 * getActionSender().sendMessage(
+						 * "You are trying to say something that should not be said!"
+						 * ); return; } }
+						 */
+						if (isMuted()) {
+							getActionSender().sendMessage(
+									"You are muted and cannot use yell.");
+							return;
+						}
+						String NameColor = "@blu@";
+						if (getStaffRights() >= 0) {
+							NameColor = "@blu@";
+						} else if (getStaffRights() >= 1) {
+							NameColor = "@whi@";
+						} else if (getStaffRights() >= 2) {
+							NameColor = "@mag@";
+						}
+						if (!player.hideYell) {
+							if (player.hideColors) {
+								for (int i = 0; i < colorsstring.length; i++) {
+									if (YellMsg.indexOf(colorsstring[i]) >= 0) {
+										YellMsg = YellMsg.replace(colorsstring[i], "");
+									}
+								}
+							System.out.println(YellMsg);
+							}
+							player.getActionSender().sendMessage(NameColor + "[" + yeller + "]@dre@ "+ NameUtil.uppercaseFirstLetter(YellMsg));
+						}
 					}
-					else if (getStaffRights() >= 1) {
-						player.getActionSender().sendMessage("@whi@["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(text));
-					}
-					else if (getStaffRights() >= 0) {
-						player.getActionSender().sendMessage("@blu@["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(text));
-				}
+				} else {
+					getActionSender().sendMessage(
+							"Your yell channel is toggled off");
 				}
 			}	
 			if (keyword.equals("hideyell")) {
-				  hideYell = !hideYell;
-				  getActionSender().sendMessage("You have had your yell "+(!hideYell ? "enabled" : "disabled"));
+				hideYell = !hideYell;
+				getActionSender().sendMessage("You have toggled your yell channel");
+			}
+			
+			if (keyword.equals("hidecolor")) {
+				hideColors = !hideColors;
+				getActionSender().sendMessage("You have toggled yell colors.");
 			}
 			
 			if (keyword.equals("home")) {
@@ -1236,8 +1262,9 @@ public class Player extends Entity {
     				getActionSender().sendMessage("Your new password is " + pass + ".");
     			//}
 			}
-			}
 		}
+	}
+
 
 	private void writeNpc(Npc npc) {
 		String filePath = "./data/npcs/spawn-config.cfg";
