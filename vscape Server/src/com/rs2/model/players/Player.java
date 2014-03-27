@@ -2903,8 +2903,9 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-	//	if (getStaffRights() >= 2 || inDuelArena() || creatureGraveyard.isInCreatureGraveyard())
-		//	return;
+		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard()) {
+			return; //prevents the dropping of items when you die in the duel arena
+		 }
 		if (killer == null) {
 			killer = this;
 		}
