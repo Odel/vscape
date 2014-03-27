@@ -1192,26 +1192,25 @@ public class Player extends Entity {
 								"You can only yell once per 15 seconds!");
 						return;
 					}
+					String text = fullString;
+					String[] bad = {":chalreq:", ":tradereq:",":duelreq:"};
+					for(int i = 0; i < bad.length; i++){
+						if (text.indexOf(bad[i]) >= 0) {
+							getActionSender().sendMessage("You are trying to say something that should not be said!");
+							return;
+						}
+					}
+					if (isMuted()) {
+						getActionSender().sendMessage(
+								"You are muted and cannot use yell.");
+						return;
+					}
 					lastYell = System.currentTimeMillis();
 					for (Player player : World.getPlayers()) {
 						String yeller = NameUtil.formatName(getUsername());
-						String text = fullString;
 						String YellMsg = text;
-						// String[] bad = {":chalreq:", ":tradereq:", "flavius",":duelreq:", "is gay", "cunt", "fuck off"};
 						if (player == null)
 							continue;
-						/*
-						 * for(int i = 0; i < bad.length; i++){
-						 * if(text.indexOf(bad[i]) >= 0){
-						 * getActionSender().sendMessage(
-						 * "You are trying to say something that should not be said!"
-						 * ); return; } }
-						 */
-						if (isMuted()) {
-							getActionSender().sendMessage(
-									"You are muted and cannot use yell.");
-							return;
-						}
 						String NameColor = "@blu@";
 						if (getStaffRights() >= 0) {
 							NameColor = "@blu@";
