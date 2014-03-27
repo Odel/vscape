@@ -295,22 +295,28 @@ public class ShopManager {
 						} else {
 							count = item.getCount();
 							if(count == 1){
-								if(rand.nextInt(7) == 0)
+								if(rand.nextInt(9) == 0)
 								{
 									shop.getCurrentStock().remove(new Item(item.getId()));
 								}
 							}
 							else if(count < 30 && count > 1)
-							for(int x = 0; x < ((count/20)+1); x = x+1) {
-								shop.getCurrentStock().remove(new Item(item.getId()));
+							{
+								for(int x = 0; x < ((count/20)+1); x = x+1) {
+									shop.getCurrentStock().remove(new Item(item.getId()));
+								}
 							}
-							else if(count < 100 && count > 30)
-							for(int x = 0; x < ((count/12)+1); x = x+1) {
-								shop.getCurrentStock().remove(new Item(item.getId()));
+							else if(count < 100 && count >= 30)
+							{
+								for(int x = 0; x < ((count/15)+1); x = x+1) {
+									shop.getCurrentStock().remove(new Item(item.getId()));
+								}
 							}
-							else if(count > 100)
-							for(int x = 0; x < ((count/10)+1); x = x+1) {
-								shop.getCurrentStock().remove(new Item(item.getId()));
+							else if(count >= 100)
+							{
+								for(int x = 0; x < ((count/10)+1); x = x+1) {
+									shop.getCurrentStock().remove(new Item(item.getId()));
+								}
 							}
 							//break;
 						}
