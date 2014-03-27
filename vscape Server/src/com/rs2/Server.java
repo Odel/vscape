@@ -91,14 +91,14 @@ public class Server implements Runnable {
 	 */
 	public static void main(String[] args) {
 
-		String host = "0.0.0.0";//args[0];
+		String host = "127.0.0.1";//args[0];
 		int port = 43594;
 		int cycleRate = 600;
 
         //PlayerCleaner.start();
         //System.exit(0);
 
-        if (host.equals("127.0..0.1")) {
+        if (host.equals("127.0.0.1")) {
             System.out.println("Starting live server!");
             Constants.DEVELOPER_MODE = false;
             Constants.MYSQL_ENABLED = false;
@@ -106,7 +106,7 @@ public class Server implements Runnable {
             Constants.HIGHSCORES_ENABLED = false;
             Constants.ADMINS_CAN_INTERACT = false;
             Constants.RSA_CHECK = false;
-            Constants.CLIENT_VERSION = 101;
+            Constants.CLIENT_VERSION = 317;
         }
 
         //PlayerCleaner.start();
