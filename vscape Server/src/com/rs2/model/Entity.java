@@ -318,6 +318,7 @@ public abstract class Entity {
 	}
 
 	public boolean isPlayer() {
+		//DEADCODE
 	/*	if (this == null) {
 			return false;
 		}*/
@@ -325,6 +326,7 @@ public abstract class Entity {
 	}
 
 	public boolean isNpc() {
+		//DEADCODE
 		/*if (this == null) {
 			return false;
 		}*/

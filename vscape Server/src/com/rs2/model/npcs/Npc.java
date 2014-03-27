@@ -239,6 +239,7 @@ public class Npc extends Entity {
 	}
 
 	public void ownerCheck() {
+		//DEADCODE
 	/*	if (this == null) {
 			return;
 		}*/
