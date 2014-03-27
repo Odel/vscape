@@ -14,3 +14,17 @@
 -drop rate on mith boots is wrong
 -ignore yells from people on your ignore list
 
+dont aggro until twice the level
+addy platelegs(g) do not require 30 defence
+stairs in brimhaven dont work
+shilo village exit doesnt work
+some clue scroll doesnt let you open it, but instead disconnects you
+low alch doesnt give right amount of exp
+addy helms have a price of 1
+When you talk to the charter boat guy at port sarim, he teles you into the jungle demon boss battle from monkey madness.
+Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
+Missing NPCs: Monastary
+Missing NPCs: Black Knight Fortress
+Missing NPCs: Dwarf Mountain
+Missing NPCs: Doric
+Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
