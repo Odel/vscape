@@ -1574,7 +1574,7 @@ public class Player extends Entity {
         // } else if (!name.replaceAll("_",
         // " ").equalsIgnoreCase(this.getUsername())) {
         // response = Constants.LOGIN_RESPONSE_BAD_SESSION_ID;
-        if (username.length() < 1 || username.length() > 12 || password.length() < 5 || password.length() > 20) {
+        if (username.length() < 1 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
             setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
             return false;
             // Load the player and send the login response.
