@@ -762,6 +762,7 @@ public class Player extends Entity {
                 OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
                 out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
                 out.flush();
+                out.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace(); 
             } catch (IOException e) {

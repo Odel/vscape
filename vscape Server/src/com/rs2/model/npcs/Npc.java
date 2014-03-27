@@ -239,9 +239,9 @@ public class Npc extends Entity {
 	}
 
 	public void ownerCheck() {
-		if (this == null) {
+	/*	if (this == null) {
 			return;
-		}
+		}*/
 		if (getPlayerIndex() > 0) {
 			if (!this.isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
 				NpcLoader.destroyNpc(this);

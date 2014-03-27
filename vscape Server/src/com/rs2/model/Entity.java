@@ -318,16 +318,16 @@ public abstract class Entity {
 	}
 
 	public boolean isPlayer() {
-		if (this == null) {
+	/*	if (this == null) {
 			return false;
-		}
+		}*/
 		return faceIndex >= 32768;
 	}
 
 	public boolean isNpc() {
-		if (this == null) {
+		/*if (this == null) {
 			return false;
-		}
+		}*/
 		return faceIndex < 32768;
 	}
 

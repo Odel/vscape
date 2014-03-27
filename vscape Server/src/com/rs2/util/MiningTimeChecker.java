@@ -26,6 +26,7 @@ public class MiningTimeChecker {
                     attempts += 1;
                     if (SkillHandler.skillCheck(level, required, pick*20)) {
                         totalAttempts += attempts;
+                        scanner.close(); // CLOSEFILE
                         break;
                     }
                 }

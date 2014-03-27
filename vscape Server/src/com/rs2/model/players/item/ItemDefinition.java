@@ -80,6 +80,7 @@ public class ItemDefinition {
 				weights[Integer.parseInt(line[0])] = Double.parseDouble(line[1]);
 			}
 			System.out.println("Loaded " + weights.length + " item weights");
+			s.close();// CLOSEFILE
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

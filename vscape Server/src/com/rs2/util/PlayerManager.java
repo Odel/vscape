@@ -35,5 +35,6 @@ public class PlayerManager {
             System.out.println("");
         }
         while (next);
+        scanner.close();// CLOSEFILE
     }
 }

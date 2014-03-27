@@ -397,6 +397,7 @@ public class Server implements Runnable {
 		try {
 			BufferedReader minuteFile = new BufferedReader(new FileReader("./data/minutes.log"));
 			Server.minutesCounter = Integer.parseInt(minuteFile.readLine());
+			minuteFile.close();// CLOSEFILE
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
