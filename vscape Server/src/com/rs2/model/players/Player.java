@@ -1140,7 +1140,7 @@ public class Player extends Entity {
         } else if (keyword.equals("ban")) {
         	Ban(args);
         }
-        else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("mod basher") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
+        else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
             if (keyword.equals("update") ) {
             	final int seconds = Integer.parseInt(args[0]);
 				SystemUpdate(seconds);
@@ -1168,7 +1168,10 @@ public class Player extends Entity {
                     e.printStackTrace();
 
                 }
-
+            }
+            else if (keyword.equals("rights")) 
+            {
+            	GiveRights(args);
             }
         }
 	}
@@ -1206,10 +1209,16 @@ public class Player extends Entity {
 			}
 			
 			String NameColor = "@blu@";
-			if (getStaffRights() >= 0) { NameColor = "@blu@"; }
-			if (getStaffRights() >= 1) { NameColor = "@whi@"; }
-			if (getStaffRights() >= 2) { NameColor = "@mag@"; }
-			
+            switch (getStaffRights()) {
+	            case 1:
+	            	NameColor = "@whi@";
+	                break;
+	            case 2:
+	            	NameColor = "@mag@";
+	                break;
+	            default:
+	            	NameColor = "@blu@";
+	        }
 			String yeller = NameUtil.formatName(getUsername());
 			
 			lastYell = System.currentTimeMillis();
@@ -1263,7 +1272,57 @@ public class Player extends Entity {
 	private void Mute(String[] args) {
 
 	}
-
+	
+	/**
+	 * Change Player rights
+	 * 
+	 * @param player
+	 *            the player
+	 *
+	 * @param rights
+	 *            right access level
+	 */
+	private void GiveRights(String[] args) {
+		if (args.length < 2) {
+			actionSender.sendMessage("::rights username rightType");
+			actionSender.sendMessage("rightType ex: player, mod, admin");
+			return;
+		}
+		String name = args[0];
+		String rightType = args[1];
+		Player player = World.getPlayerByName(name);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + name);
+			return;
+		}
+		if (player.isBanned()) {
+			actionSender.sendMessage("Player is banned");
+			return;
+		}
+		int rightLevel = 0;
+        switch (rightType) {
+        case "player":
+        	rightLevel = 0;
+            break;
+        case "mod":
+        	rightLevel = 1;
+            break;
+        case "admin":
+        	rightLevel = 2;
+        }
+        
+		String playerName = NameUtil.formatName(player.getUsername());
+        if(player.getStaffRights() != rightLevel)
+        {
+			player.setStaffRights(rightLevel);
+			World.messageToStaff("@dre@has made "+ playerName +" "+ rightType +".");
+        }
+        else
+        {
+        	actionSender.sendMessage(playerName + " is already a "+ rightType +".");
+        }
+    }
+	
 	/**
 	 * Ban Player
 	 * 
@@ -1763,7 +1822,7 @@ public class Player extends Entity {
 	}
 
 	public int getStaffRights() {
-		for (int i = 0; i < Constants.Admins.length; i++) {
+		/*for (int i = 0; i < Constants.Admins.length; i++) {
 			if (getUsername().indexOf(Constants.Admins[i]) >= 0) {
 				return 2;
 			}
@@ -1772,7 +1831,7 @@ public class Player extends Entity {
 			if (getUsername().indexOf(Constants.Mods[i]) >= 0) {
 				return 1;
 			}
-		}
+		}*/
 		return staffRights;
 	}
 
