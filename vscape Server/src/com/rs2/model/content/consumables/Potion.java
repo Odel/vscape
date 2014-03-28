@@ -131,6 +131,7 @@ public class Potion {
 				player.getActionSender().statEdit(Skill.STRENGTH, 10, true);
 				player.heal(1);
 				player.getActionSender().sendMessage("You chug the keg. You feel reinvigorated... ...but extremely drunk, too.");
+				player.setDrunkState(true, 60);
 				break;
 			case 1993 : // Jug of wine
 				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
@@ -144,9 +145,10 @@ public class Potion {
 				break;
 			case 1917 : // Beer
 				player.getActionSender().statEdit(Skill.ATTACK, (int) (player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.07) * -1, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, (int) (player.getSkill().getPlayerLevel(Skill.STRENGTH) * 0.04) * 1, true);
 				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(1);
-				player.setDrunkState(true, 10);
+				player.setDrunkState(true, 60); // change to beers a second
 				break;
 			case 2446 : // Antipoison
 			case 175 :
