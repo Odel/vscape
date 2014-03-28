@@ -101,7 +101,10 @@ public class Potion {
 							if(potionIdIndex + 1 < potionIds.length)
 							player.getInventory().addItem(new Item(potionIds[potionIdIndex + 1], 1));
 						}
-					player.getActionSender().sendMessage("You drink"+(isDose(itemId) ? " a dose of" :"")+" your " + potionDefinitions[potionIndex].getPotionName() + ".");
+					if(isDose(itemId))
+					{
+						player.getActionSender().sendMessage("You drink"+(isDose(itemId) ? " a dose of" :"")+" your " + potionDefinitions[potionIndex].getPotionName() + ".");
+					}
 				} else {
 					if (player.getInventory().removeItemSlot(new Item(itemId, 1), slot)) {
 						player.getInventory().addItemToSlot(new Item(EMPTY_VIAL), slot);
@@ -121,23 +124,27 @@ public class Potion {
 		switch (itemId) {
 			case 7919 : // Bottle of wine
 				player.heal(14);
-				player.getActionSender().sendMessage("You chug the keg. You feel reinvigorated... ...but extremely drunk, too.");
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				break;
 			case 3801 : // Keg of beer
 				player.getActionSender().statEdit(Skill.ATTACK, -40, false);
 				player.getActionSender().statEdit(Skill.STRENGTH, 10, true);
 				player.heal(1);
+				player.getActionSender().sendMessage("You chug the keg. You feel reinvigorated... ...but extremely drunk, too.");
 				break;
 			case 1993 : // Jug of wine
 				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(11);
 				break;
 			case 1978 : // Cup of tea
 				player.getUpdateFlags().sendForceMessage("Aaah, nothing like a nice cuppa tea!");
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(3);
 				break;
 			case 1917 : // Beer
 				player.getActionSender().statEdit(Skill.ATTACK, (int) (player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.07) * -1, false);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(1);
 				break;
 			case 2446 : // Antipoison
