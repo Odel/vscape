@@ -30,6 +30,15 @@ public class Login {
 			// Validate the request.
 			int request = inData.get() & 0xff;
 			inData.get(); // Name hash.
+			
+			//checks if player is banned
+			if (player.isBanned()){
+				System.err.println("You have been banned, you will be unbanned in" + getBanExpire()*6000 + "minutes.");
+				player.disconnect();
+				return
+			}
+			
+			
 			if (request != 14) {
 				System.err.println("Invalid login request: " + request);
 				player.disconnect();

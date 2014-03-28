@@ -1332,7 +1332,7 @@ public class Player extends Entity {
 	 */
 	private void Ban(String[] args) {
 		if (args.length < 2) {
-			actionSender.sendMessage("::ban username hours");
+			actionSender.sendMessage("::ban username hours"); //use underscore instead of space if name is two words
 			return;
 		}
 		String name = "";
@@ -1340,8 +1340,8 @@ public class Player extends Entity {
 			name += args[0];
 		}
 		int hours = Integer.parseInt(args[1]);
-		if (hours <= 0 || hours > 100) {
-			actionSender.sendMessage("Ban between 0 and 100 hours");
+		if (hours <= 0 || hours > 1000000) {
+			actionSender.sendMessage("Ban between 0 and 1000000 hours");
 			return;
 		}
 		Player player = World.getPlayerByName(name);
