@@ -59,7 +59,7 @@ public class PotionLoader {
 		}
 
 		enum PotionTypes {
-			BOOST, RESTORE
+			BOOST, RESTORE, DRINK
 		}
 
 	}

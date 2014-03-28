@@ -1,5 +1,75 @@
 <list>
 	<potiondef>
+		<potionName>Beer</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1917</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
+		<potionName>Cup Of Tea</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<int>1978</int>
+			<int>1980</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
+		<potionName>Bottle Of Wine</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<int>7919</int>
+			<int>7921</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
+		<potionName>Jug Of Wine</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<int>1993</int>
+			<int>1935</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
+		<potionName>Keg Of Beer</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<int>3801</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
 		<potionName>Strength potion</potionName>
 		<potionType>BOOST</potionType>
 		<potionIds>
