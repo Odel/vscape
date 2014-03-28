@@ -83,7 +83,7 @@ public abstract class Entity {
     private TickTimer fireImmunityTimer = new TickTimer(0);
 
 	@SuppressWarnings("rawtypes")
-	private List<EffectTick> effects = new LinkedList<EffectTick>();
+	protected List<EffectTick> effects = new LinkedList<EffectTick>();
 
 	private TickTimer godChargeDelay = new TickTimer(0), godChargeEffect = new TickTimer(0);
     private MovementHandler movementHandler = new MovementHandler(this);
