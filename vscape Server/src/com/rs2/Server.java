@@ -54,6 +54,8 @@ public class Server implements Runnable {
 	private final int port;
 
 	private final int cycleRate;
+	private long cycle;
+	private int infoDisplayCounter = 10;
 
 	private static long minutesCounter;
 
@@ -339,6 +341,11 @@ public class Server implements Runnable {
             }
         }
         b.stop();
+        if(infoDisplayCounter == 0)
+        {System.out.println("[ENGINE]: Server load: " + cycle + "% with " + World.playerAmount() + " players");
+        infoDisplayCounter = 300;}
+        else
+        {infoDisplayCounter--;}
 	}
 
 	/**
@@ -362,7 +369,7 @@ public class Server implements Runnable {
 				Thread.sleep(sleepTime);
 			} else {
 				// The server has reached maximum load, players may now lag.
-				long cycle = (100 + Math.abs(sleepTime) / (cycleRate / 100));
+				cycle = (100 + Math.abs(sleepTime) / (cycleRate / 100));
 				/*if (cycle > 999) {
 					initiateRestart();
 				}*/

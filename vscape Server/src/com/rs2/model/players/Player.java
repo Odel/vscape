@@ -1765,7 +1765,6 @@ public class Player extends Entity {
 	public int getStaffRights() {
 		for (int i = 0; i < Constants.Admins.length; i++) {
 			if (getUsername().indexOf(Constants.Admins[i]) >= 0) {
-				System.out.println(getUsername().indexOf(Constants.Admins[i]));
 				return 2;
 			}
 		}
