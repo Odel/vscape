@@ -53679,7 +53679,7 @@
    <examine>This support is propping the door closed.</examine>
    <combat>0</combat>
    <size>1</size>
-   <attackable>false</attackable>
+   <attackable>true</attackable>
    <aggressive>false</aggressive>
    <retreats>false</retreats>
    <poisonous>false</poisonous>
@@ -53745,7 +53745,7 @@
    <examine>This support is propping the door closed.</examine>
    <combat>0</combat>
    <size>1</size>
-   <attackable>false</attackable>
+   <attackable>true</attackable>
    <aggressive>false</aggressive>
    <retreats>false</retreats>
    <poisonous>false</poisonous>
@@ -53811,7 +53811,7 @@
    <examine>This support is propping the door closed.</examine>
    <combat>0</combat>
    <size>1</size>
-   <attackable>false</attackable>
+   <attackable>true</attackable>
    <aggressive>false</aggressive>
    <retreats>false</retreats>
    <poisonous>false</poisonous>
