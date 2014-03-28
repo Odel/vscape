@@ -91,7 +91,7 @@ public class Server implements Runnable {
 	 */
 	public static void main(String[] args) {
 
-		String host = "127.0.0.1";//args[0];
+		String host = "0.0.0.0";//args[0];
 		int port = 43594;
 		int cycleRate = 600;
 

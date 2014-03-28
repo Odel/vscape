@@ -219,6 +219,7 @@ public class Player extends Entity {
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
 	private final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
+	private final String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
 	private Container bank = new Container(Type.ALWAYS_STACK, BankManager.SIZE);
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
@@ -1186,36 +1187,37 @@ public class Player extends Entity {
 				getActionSender().sendMessage("You can only yell once per 15 seconds!");
 				return;
 			}
+			
+			String YellMsg = Msg;
+			
+			for(int i = 0; i < bad.length; i++)
+			{
+				if(YellMsg.indexOf(bad[i]) >= 0)
+				{
+					getActionSender().sendMessage("You are trying to say something that should not be said!");
+					return;
+				}
+			}
+			
+			if (isMuted()) 
+			{
+				getActionSender().sendMessage("You are muted and cannot use yell.");
+				return;
+			}
+			
+			String NameColor = "@blu@";
+			if (getStaffRights() >= 0) { NameColor = "@blu@"; }
+			if (getStaffRights() >= 1) { NameColor = "@whi@"; }
+			if (getStaffRights() >= 2) { NameColor = "@mag@"; }
+			
+			String yeller = NameUtil.formatName(getUsername());
+			
 			lastYell = System.currentTimeMillis();
 			
 			for (Player player : World.getPlayers()) 
 			{
-				String yeller = NameUtil.formatName(getUsername());
-				String YellMsg = Msg;
-				String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
-				
 				if (player == null)
 					continue;
-				
-				for(int i = 0; i < bad.length; i++)
-				{
-					if(YellMsg.indexOf(bad[i]) >= 0)
-					{
-						getActionSender().sendMessage("You are trying to say something that should not be said!");
-						return;
-					}
-				}
-				
-				if (isMuted()) 
-				{
-					getActionSender().sendMessage("You are muted and cannot use yell.");
-					return;
-				}
-				
-				String NameColor = "@blu@";
-				if (getStaffRights() >= 0) { NameColor = "@blu@"; }
-				if (getStaffRights() >= 1) { NameColor = "@whi@"; }
-				if (getStaffRights() >= 2) { NameColor = "@mag@"; }
 				
 				if(!player.hideYell)
 				{
