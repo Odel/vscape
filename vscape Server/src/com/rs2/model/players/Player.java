@@ -786,6 +786,21 @@ public class Player extends Entity {
 			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
 		}
 	
+		//sound debug
+		if (keyword.equals("sound")) {
+			final int id = Integer.parseInt(args[0]);
+			getActionSender().sendSound(id, 0, 0);
+		}
+		if (keyword.equals("quicksong")) {
+			final int id = Integer.parseInt(args[0]);
+			getActionSender().sendQuickSong(id, 0);
+		}
+		if (keyword.equals("music")) {
+			final int id = Integer.parseInt(args[0]);
+			getActionSender().sendSong(id);
+		}
+		
+		
 		if (keyword.equals("run")) {
 			final int id = Integer.parseInt(args[0]);
 			setRunAnim(id);
