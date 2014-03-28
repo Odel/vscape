@@ -364,6 +364,9 @@ public class Player extends Entity {
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
+	
+	public int drunkTimer;
+	public boolean isDrunk;
 
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -2304,6 +2307,33 @@ public class Player extends Entity {
 
 	public boolean usingShop() {
 		return usingShop;
+	}
+	
+	public void setDrunkState(boolean state, int time) 
+	{
+		isDrunk = state;
+		if(isDrunk)
+		{
+			setStandAnim(3040);
+			setWalkAnim(2769);
+			setAppearanceUpdateRequired(true);
+		}
+        CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) 
+            {
+				getActionSender().sendMessage("You are no longer drunk");
+				isDrunk = false;
+				setStandAnim(-1);
+				setWalkAnim(-1);
+				setAppearanceUpdateRequired(true);
+                container.stop();
+            }
+            @Override
+            public void stop(){
+            	
+            }
+        }, time);
 	}
 
 	public void setEnergy(double energy) {

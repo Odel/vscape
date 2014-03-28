@@ -146,6 +146,7 @@ public class Potion {
 				player.getActionSender().statEdit(Skill.ATTACK, (int) (player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.07) * -1, false);
 				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(1);
+				player.setDrunkState(true, 10);
 				break;
 			case 2446 : // Antipoison
 			case 175 :
