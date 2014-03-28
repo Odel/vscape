@@ -33,9 +33,9 @@ public class Login {
 			
 			//checks if player is banned
 			if (player.isBanned()){
-				System.err.println("You have been banned, you will be unbanned in" + getBanExpire()*6000 + "minutes.");
+				System.err.println("You have been banned, you will be unbanned in" + player.getBanExpire()*6000 + "minutes.");
 				player.disconnect();
-				return
+				return;
 			}
 			
 			
