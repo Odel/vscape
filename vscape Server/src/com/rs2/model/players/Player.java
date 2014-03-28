@@ -3439,7 +3439,7 @@ public class Player extends Entity {
 		if (!npc.getDefinition().isAggressive()) {
 			return false;
 		}
-		if (getCombatLevel() >= npc.getDefinition().getCombat() * 2) {
+		if (getCombatLevel() <= npc.getDefinition().getCombat() * 2) {
 			return true;
 		}
 		return false;
