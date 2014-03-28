@@ -93,10 +93,6 @@ public class Potion {
 			player.getUpdateFlags().sendAnimation(itemId == 3801 ? 1330 : 829, 0);
 			player.getTask();
 			player.getCombatDelayTick().setWaitDuration(player.getCombatDelayTick().getWaitDuration() + 2);
-	//		if (potionDefinitions[potionIndex].getPotionType() != PotionLoader.PotionDefinition.PotionTypes.DRINK)
-	//		
-	//		if(!isDrink(itemId))
-	//		{
 				if (potionIdIndex < 3) {
 						if (player.getInventory().removeItemSlot(new Item(itemId, 1), slot)) {
 							if(potionIdIndex + 1 < potionIds.length)
@@ -114,11 +110,6 @@ public class Potion {
 					}
 					player.getActionSender().sendMessage("You drink the last dose of your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				}	
-	/*		}
-			else
-			{
-				player.getActionSender().sendMessage("You drink"+(isDose(itemId) ? " a dose of" :"")+" your " + potionDefinitions[potionIndex].getPotionName() + ".");
-			}*/
 		}
 	}
 
