@@ -10,7 +10,7 @@ public class RegionMusic {
 	public void playMusic(Player player) {
 		Music song = getMusicId(player);
 		if (song == null) {
-			player.getActionSender().sendSong(2);
+			//player.getActionSender().sendSong(2);
 			return;
 		}
 		player.getActionSender().sendSong(song.music);
@@ -22,6 +22,10 @@ public class RegionMusic {
 			if (x >= songs[i].swX && x <= songs[i].neX && y >= songs[i].swY
 					&& y <= songs[i].neY) {
 				return songs[i];
+			}
+			else
+			{
+				return null;
 			}
 		}
 		return null;
