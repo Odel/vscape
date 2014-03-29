@@ -8,6 +8,8 @@ public class GlobalVariables {
 
 	public static int serverGlobalTimer = 0;
 	public static TickTimer serverUpdateTimer = null;
+	
+	public static String[] patchNotes = null;
 
 	// public static long leverTimer[] = new long[LeverHandler.lever.length];
 	public static int grainHopper = 0, grainBin = 0;

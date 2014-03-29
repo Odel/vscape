@@ -942,9 +942,9 @@ public class ActionSender {
 
 	public void sendWelcomeScreen() {
 		sendFullScreenInterface(5993, 15244);
-		sendString("Welcome to RuneScape", 15257);
-		sendString("", 15258);
-		sendString("Make sure to set up a bank pin.", 15270);
+		//sendString("Welcome to RuneScape", 15257);
+		//sendString("", 15258);
+		//sendString("Make sure to set up a bank pin.", 15270);
 	}
 
 	public void walkThroughTutIsGate(final int id1, final int id2,

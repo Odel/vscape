@@ -148,6 +148,8 @@ public class Server implements Runnable {
 
             // load scripts
             Misc.loadScripts(new File("./data/ruby/"));
+            
+            GlobalVariables.patchNotes = Misc.loadPatchNotes();
 
 
 			// load all xstream related files.

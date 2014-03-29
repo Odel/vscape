@@ -1,5 +1,6 @@
 package com.rs2.util;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -534,6 +535,23 @@ public class Misc {
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String[] loadPatchNotes() throws IOException {
+		String[] patchNotes = new String[100];
+		int count = 0;
+		FileReader fileReader = new FileReader(new File("data/patchnotes.txt"));
+
+		BufferedReader br = new BufferedReader(fileReader);
+
+		String line = null;
+		// if no more lines the readLine() returns null
+		int q = 0;
+		while ((line = br.readLine()) != null) {
+			patchNotes[q]=line;
+			q++;
+		}
+		return patchNotes;
 	}
 
     public static String durationFromTicks(long ticks, boolean shortened) {

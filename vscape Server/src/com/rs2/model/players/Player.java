@@ -682,6 +682,23 @@ public class Player extends Entity {
 			String pass = fullString;
 			setPassword(pass);// setPassword
 			getActionSender().sendMessage("Your new password is " + pass + ".");
+		} else if (keyword.equals("patchnotes")) {
+			for(int i = 8144; i < 8195; i++) {
+				this.getActionSender().sendString("", i);
+			}			
+			this.getActionSender().sendString("@dre@-=vscape patch notes=-", 8144);
+			int k = 8147;
+			for(String q: GlobalVariables.patchNotes)
+			{
+				if(q!=null)
+				{	
+					this.getActionSender().sendString(q, k);
+					k++;
+				}
+			}
+			this.getActionSender().sendInterface(8134);
+		
+			
 		}
 	}
 
@@ -1587,7 +1604,7 @@ public class Player extends Entity {
 			if (StagesLoader.forId(getNewComersSide().getTutorialIslandStage()) != null)
 				getActionSender().enableSideBarInterfaces(StagesLoader.forId(getNewComersSide().getTutorialIslandStage()).getSideBarEnabled());
 		} else {
-			// getActionSender().sendWelcomeScreen();
+			//getActionSender().sendWelcomeScreen();
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
 		}
