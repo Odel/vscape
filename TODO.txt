@@ -11,6 +11,8 @@
 -gnome tree stronghold cave doesn't work
 -lummy spinning wheel spawns items around it
 -ignore yells from people on your ignore list
+-crandor is accessable but you can't leave (you can use ::home)
+-no way to the ape atoll/gate broken too
 
 dont aggro until twice the level
 addy platelegs(g) do not require 30 defence
