@@ -2348,29 +2348,44 @@ public class Player extends Entity {
 	
 	public void setDrunkState(boolean state, int time) 
 	{
+		if(isDrunk)
+		{
+		//	drunkTimer += time;
+			return;
+		}
 		isDrunk = state;
 		if(isDrunk)
 		{
+			drunkTimer = time;
 			setStandAnim(3040);
 			setWalkAnim(2769);
 			setAppearanceUpdateRequired(true);
+		}
+		else
+		{
+			drunkTimer = 0;
 		}
         CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) 
             {
-				getActionSender().sendMessage("You are no longer drunk");
-				isDrunk = false;
-				setStandAnim(-1);
-				setWalkAnim(-1);
-				setAppearanceUpdateRequired(true);
-                container.stop();
+            	if(drunkTimer < 1)
+            	{
+					getActionSender().sendMessage("You are no longer drunk");
+					isDrunk = false;
+					drunkTimer = 0;
+					setStandAnim(-1);
+					setWalkAnim(-1);
+					setAppearanceUpdateRequired(true);
+	                container.stop();
+            	}
+                drunkTimer--;
             }
             @Override
             public void stop(){
             	
             }
-        }, time);
+        }, 1);
 	}
 
 	public void setEnergy(double energy) {
