@@ -26,7 +26,7 @@ public class NpcDefinition {
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		//List<NpcDefinition> defs = (List<NpcDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDefinitions.xml"));
-		FileReader reader = new FileReader("./data/npcs/npcDefinitions.json");
+		FileReader reader = new FileReader("./datajson/npcs/npcDefinitions.json");
 		List<NpcDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<NpcDefinition>>(){}.getType());
 		for (final NpcDefinition def : defs) {
 			if (def.getId() >= Constants.MAX_NPC_ID) {

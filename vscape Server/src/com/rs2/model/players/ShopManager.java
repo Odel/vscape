@@ -266,7 +266,7 @@ public class ShopManager {
 	@SuppressWarnings("unchecked")
 	public static void loadShops() throws FileNotFoundException {
 		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
-		FileReader reader = new FileReader("./data/content/json/shops.json");
+		FileReader reader = new FileReader("./datajson/content/shops.json");
 		try{
 			List<Shop> list = new Gson().fromJson(reader, new TypeToken<List<Shop>>(){}.getType());
 	        for (Shop shop : list) {
