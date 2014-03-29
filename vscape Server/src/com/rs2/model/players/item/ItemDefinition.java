@@ -2,14 +2,23 @@ package com.rs2.model.players.item;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+//import java.io.FileWriter;
+
 import com.rs2.Constants;
-import com.rs2.util.XStreamUtil;
+//import com.rs2.util.XStreamUtil;
+
+import com.rs2.model.players.ShopManager.Shop;
+
+import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * The item definition manager.
@@ -61,11 +70,26 @@ public class ItemDefinition {
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		try {
-			List<ItemDefinition> defs = (List<ItemDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/itemDefinitions.xml"));
-			for (int i = 0; i < Constants.MAX_ITEMS; i++) {// ItemDefinition def : defs) {
+			//List<ItemDefinition> defs = (List<ItemDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/itemDefinitions.xml"));
+			FileReader reader = new FileReader("./data/content/json/itemDefinitions.json");
+			List<ItemDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<ItemDefinition>>(){}.getType());
+	        for (int i = 0; i < Constants.MAX_ITEMS; i++) {// ItemDefinition def : defs) {
 				definitions[defs.get(i).getId()] = defs.get(i).addSlot().addTwoHanded().addShopPrice().addUntradable();
 			}
 			System.out.println("Loaded " + definitions.length + " item definitions");
+			reader.close();
+			/*	this converts xml defs into json
+			String json = new GsonBuilder().setPrettyPrinting().create().toJson(defs);
+			try {
+				//write converted json data to a file named "file.json"
+				FileWriter writer = new FileWriter("./data/content/json/itemDefinitions.json");
+				writer.write(json);
+				writer.close();
+		 
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		*/
 		} catch (IOException e) {
 			logger.warning("Failed to initialize the item definitions: " + e);
 		}

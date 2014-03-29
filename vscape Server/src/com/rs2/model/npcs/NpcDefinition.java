@@ -1,6 +1,7 @@
 package com.rs2.model.npcs;
 
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackScript;
 import com.rs2.model.content.combat.attacks.BasicAttack;
 import com.rs2.model.content.combat.weapon.AttackStyle;
-import com.rs2.util.XStreamUtil;
+import com.rs2.model.players.item.ItemDefinition;
+//import com.rs2.util.XStreamUtil;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Created by IntelliJ IDEA. User: vayken Date: 07/04/12 Time: 23:11 To change
@@ -20,7 +25,9 @@ public class NpcDefinition {
 
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
-		List<NpcDefinition> defs = (List<NpcDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDefinitions.xml"));
+		//List<NpcDefinition> defs = (List<NpcDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDefinitions.xml"));
+		FileReader reader = new FileReader("./data/npcs/npcDefinitions.json");
+		List<NpcDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<NpcDefinition>>(){}.getType());
 		for (final NpcDefinition def : defs) {
 			if (def.getId() >= Constants.MAX_NPC_ID) {
 				break;
@@ -58,6 +65,8 @@ public class NpcDefinition {
             }
 			NpcCombatDef.add(new int[]{def.getId()}, combatDef);
         }
+		reader.close();
+		System.out.println("Loaded " + defs.size() + " npc definitions.");
 	}
 
 	public static class NPCINFO {

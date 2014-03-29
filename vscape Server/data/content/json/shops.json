@@ -1,0 +1,7481 @@
+[
+  {
+    "shopId": 0,
+    "name": "'Two Feet' Charley's Fish Shop",
+    "items": [
+      {
+        "id": 321,
+        "count": 10
+      },
+      {
+        "id": 363,
+        "count": 0
+      },
+      {
+        "id": 341,
+        "count": 10
+      },
+      {
+        "id": 345,
+        "count": 10
+      },
+      {
+        "id": 377,
+        "count": 0
+      },
+      {
+        "id": 353,
+        "count": 10
+      },
+      {
+        "id": 327,
+        "count": 10
+      },
+      {
+        "id": 317,
+        "count": 10
+      },
+      {
+        "id": 371,
+        "count": 0
+      },
+      {
+        "id": 359,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 1,
+    "name": "Aaron's Archery Appendages",
+    "items": [
+      {
+        "id": 1169,
+        "count": 10
+      },
+      {
+        "id": 1131,
+        "count": 10
+      },
+      {
+        "id": 1129,
+        "count": 10
+      },
+      {
+        "id": 1095,
+        "count": 10
+      },
+      {
+        "id": 1063,
+        "count": 10
+      },
+      {
+        "id": 1133,
+        "count": 10
+      },
+      {
+        "id": 1097,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 2,
+    "name": "Aemad's Adventuring Supplies",
+    "items": [
+      {
+        "id": 1759,
+        "count": 100
+      },
+      {
+        "id": 882,
+        "count": 1000
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 4293,
+        "count": 10
+      },
+      {
+        "id": 1349,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 970,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 227,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 3,
+    "name": "Agmundi Quality Clothes",
+    "items": [
+      {
+        "id": 5034,
+        "count": 10
+      },
+      {
+        "id": 5032,
+        "count": 10
+      },
+      {
+        "id": 5046,
+        "count": 10
+      },
+      {
+        "id": 5044,
+        "count": 10
+      },
+      {
+        "id": 5052,
+        "count": 10
+      },
+      {
+        "id": 5050,
+        "count": 10
+      },
+      {
+        "id": 5040,
+        "count": 10
+      },
+      {
+        "id": 5038,
+        "count": 10
+      },
+      {
+        "id": 5026,
+        "count": 10
+      },
+      {
+        "id": 5028,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 4,
+    "name": "Ak-Haranu's Exotic Shop",
+    "items": [
+      {
+        "id": 4740,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 5,
+    "name": "Al Kharid General Store",
+    "items": [
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 6,
+    "name": "Ali the Carter",
+    "items": [
+      {
+        "id": 1823,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 7,
+    "name": "Ali the Kebab Seller",
+    "items": [
+      {
+        "id": 1971,
+        "count": 1000
+      },
+      {
+        "id": 4610,
+        "count": 1000
+      },
+      {
+        "id": 4608,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 8,
+    "name": "Ali's Discount Wares",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1823,
+        "count": 30
+      },
+      {
+        "id": 1833,
+        "count": 10
+      },
+      {
+        "id": 1837,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 10
+      },
+      {
+        "id": 4593,
+        "count": 10
+      },
+      {
+        "id": 4591,
+        "count": 10
+      },
+      {
+        "id": 970,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 2138,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 9,
+    "name": "Alice's Farming Shop",
+    "items": [
+      {
+        "id": 5376,
+        "count": 10
+      },
+      {
+        "id": 6032,
+        "count": 300
+      },
+      {
+        "id": 5418,
+        "count": 10
+      },
+      {
+        "id": 6036,
+        "count": 10
+      },
+      {
+        "id": 5354,
+        "count": 100
+      },
+      {
+        "id": 5341,
+        "count": 10
+      },
+      {
+        "id": 5329,
+        "count": 10
+      },
+      {
+        "id": 5343,
+        "count": 10
+      },
+      {
+        "id": 5325,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 100
+      },
+      {
+        "id": 5331,
+        "count": 10
+      },
+      {
+        "id": 5325,
+        "count": 10
+      },
+      {
+        "id": 5308,
+        "count": 0
+      },
+      {
+        "id": 5996,
+        "count": 0
+      },
+      {
+        "id": 6006,
+        "count": 10
+      },
+      {
+        "id": 1965,
+        "count": 0
+      },
+      {
+        "id": 5994,
+        "count": 0
+      },
+      {
+        "id": 5931,
+        "count": 0
+      },
+      {
+        "id": 6000,
+        "count": 0
+      },
+      {
+        "id": 1957,
+        "count": 0
+      },
+      {
+        "id": 1942,
+        "count": 0
+      },
+      {
+        "id": 5323,
+        "count": 0
+      },
+      {
+        "id": 5986,
+        "count": 0
+      },
+      {
+        "id": 1982,
+        "count": 0
+      },
+      {
+        "id": 5982,
+        "count": 0
+      },
+      {
+        "id": 6002,
+        "count": 0
+      },
+      {
+        "id": 5998,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 10,
+    "name": "Apothecary",
+    "items": [
+      {
+        "id": 113,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 11,
+    "name": "Ardougne Bakers Stall",
+    "items": [
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 1891,
+        "count": 10
+      },
+      {
+        "id": 1901,
+        "count": 10
+      },
+      {
+        "id": 1973,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 12,
+    "name": "Ardougne Fur Stall",
+    "items": [
+      {
+        "id": 948,
+        "count": 10
+      },
+      {
+        "id": 958,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 13,
+    "name": "Ardougne Gem Stall",
+    "items": [
+      {
+        "id": 1607,
+        "count": 0
+      },
+      {
+        "id": 1605,
+        "count": 0
+      },
+      {
+        "id": 1603,
+        "count": 0
+      },
+      {
+        "id": 1601,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 14,
+    "name": "Ardougne Silver Stall",
+    "items": [
+      {
+        "id": 1714,
+        "count": 10
+      },
+      {
+        "id": 442,
+        "count": 0
+      },
+      {
+        "id": 2355,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 15,
+    "name": "Ardougne Spice Stall",
+    "items": [
+      {
+        "id": 2007,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 1550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 16,
+    "name": "Arhein's shop",
+    "items": [
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 401,
+        "count": 10
+      },
+      {
+        "id": 2114,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 17,
+    "name": "Arnold's Eclectic Supplies",
+    "items": [
+      {
+        "id": 1917,
+        "count": 10
+      },
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 1927,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1785,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 18,
+    "name": "Arnold's Eclectic Supplies",
+    "items": [
+      {
+        "id": 1917,
+        "count": 10
+      },
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 1927,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1785,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 19,
+    "name": "Aubury's Rune Shop",
+    "items": [
+      {
+        "id": 554,
+        "count": 300
+      },
+      {
+        "id": 555,
+        "count": 300
+      },
+      {
+        "id": 556,
+        "count": 300
+      },
+      {
+        "id": 557,
+        "count": 300
+      },
+      {
+        "id": 558,
+        "count": 100
+      },
+      {
+        "id": 562,
+        "count": 100
+      },
+      {
+        "id": 560,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 20,
+    "name": "Aurel's Supplies",
+    "items": [
+      {
+        "id": 510,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 3363,
+        "count": 10
+      },
+      {
+        "id": 353,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 21,
+    "name": "Auhentic Throwing Weapons",
+    "items": [
+      {
+        "id": 825,
+        "count": 1000
+      },
+      {
+        "id": 826,
+        "count": 1000
+      },
+      {
+        "id": 827,
+        "count": 1000
+      },
+      {
+        "id": 828,
+        "count": 300
+      },
+      {
+        "id": 829,
+        "count": 100
+      },
+      {
+        "id": 830,
+        "count": 100
+      },
+      {
+        "id": 800,
+        "count": 1000
+      },
+      {
+        "id": 803,
+        "count": 300
+      },
+      {
+        "id": 801,
+        "count": 1000
+      },
+      {
+        "id": 802,
+        "count": 300
+      },
+      {
+        "id": 803,
+        "count": 100
+      },
+      {
+        "id": 805,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 22,
+    "name": "Bandit Bargains",
+    "items": [
+      {
+        "id": 1831,
+        "count": 30
+      },
+      {
+        "id": 1823,
+        "count": 30
+      },
+      {
+        "id": 1937,
+        "count": 10
+      },
+      {
+        "id": 1921,
+        "count": 10
+      },
+      {
+        "id": 1929,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 10
+      },
+      {
+        "id": 1837,
+        "count": 10
+      },
+      {
+        "id": 1833,
+        "count": 10
+      },
+      {
+        "id": 1835,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 23,
+    "name": "Bandit Camp Bar",
+    "items": [
+      {
+        "id": 4627,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 24,
+    "name": "Bandit Duty Free",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1351,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 25,
+    "name": "Baraek's Fur Shop",
+    "items": [
+      {
+        "id": 6814,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 26,
+    "name": "Barker's Haberdashery",
+    "items": [
+      {
+        "id": 2894,
+        "count": 10
+      },
+      {
+        "id": 2896,
+        "count": 10
+      },
+      {
+        "id": 2898,
+        "count": 10
+      },
+      {
+        "id": 2900,
+        "count": 10
+      },
+      {
+        "id": 2902,
+        "count": 10
+      },
+      {
+        "id": 2904,
+        "count": 10
+      },
+      {
+        "id": 2906,
+        "count": 10
+      },
+      {
+        "id": 2908,
+        "count": 10
+      },
+      {
+        "id": 2910,
+        "count": 10
+      },
+      {
+        "id": 2912,
+        "count": 10
+      },
+      {
+        "id": 2914,
+        "count": 10
+      },
+      {
+        "id": 2916,
+        "count": 10
+      },
+      {
+        "id": 2918,
+        "count": 10
+      },
+      {
+        "id": 2920,
+        "count": 10
+      },
+      {
+        "id": 2922,
+        "count": 10
+      },
+      {
+        "id": 2924,
+        "count": 10
+      },
+      {
+        "id": 2926,
+        "count": 10
+      },
+      {
+        "id": 2928,
+        "count": 10
+      },
+      {
+        "id": 2930,
+        "count": 10
+      },
+      {
+        "id": 2932,
+        "count": 10
+      },
+      {
+        "id": 2934,
+        "count": 10
+      },
+      {
+        "id": 2938,
+        "count": 10
+      },
+      {
+        "id": 2940,
+        "count": 10
+      },
+      {
+        "id": 2942,
+        "count": 10
+      },
+      {
+        "id": 1019,
+        "count": 10
+      },
+      {
+        "id": 1021,
+        "count": 10
+      },
+      {
+        "id": 1023,
+        "count": 10
+      },
+      {
+        "id": 1025,
+        "count": 10
+      },
+      {
+        "id": 1007,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 27,
+    "name": "Battle Runes",
+    "items": [
+      {
+        "id": 554,
+        "count": 1000
+      },
+      {
+        "id": 555,
+        "count": 1000
+      },
+      {
+        "id": 556,
+        "count": 1000
+      },
+      {
+        "id": 557,
+        "count": 1000
+      },
+      {
+        "id": 558,
+        "count": 1000
+      },
+      {
+        "id": 559,
+        "count": 1000
+      },
+      {
+        "id": 562,
+        "count": 300
+      },
+      {
+        "id": 560,
+        "count": 100
+      },
+      {
+        "id": 565,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 28,
+    "name": "Betty's Magic Emporium",
+    "items": [
+      {
+        "id": 554,
+        "count": 300
+      },
+      {
+        "id": 555,
+        "count": 300
+      },
+      {
+        "id": 556,
+        "count": 300
+      },
+      {
+        "id": 557,
+        "count": 300
+      },
+      {
+        "id": 558,
+        "count": 100
+      },
+      {
+        "id": 559,
+        "count": 100
+      },
+      {
+        "id": 562,
+        "count": 30
+      },
+      {
+        "id": 560,
+        "count": 30
+      },
+      {
+        "id": 221,
+        "count": 100
+      },
+      {
+        "id": 579,
+        "count": 10
+      },
+      {
+        "id": 1017,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 29,
+    "name": "Blades By Urbi",
+    "items": [
+      {
+        "id": 1205,
+        "count": 10
+      },
+      {
+        "id": 1203,
+        "count": 10
+      },
+      {
+        "id": 1207,
+        "count": 10
+      },
+      {
+        "id": 1217,
+        "count": 0
+      },
+      {
+        "id": 1209,
+        "count": 10
+      },
+      {
+        "id": 1211,
+        "count": 10
+      },
+      {
+        "id": 1213,
+        "count": 10
+      },
+      {
+        "id": 1215,
+        "count": 0
+      },
+      {
+        "id": 1321,
+        "count": 10
+      },
+      {
+        "id": 1323,
+        "count": 10
+      },
+      {
+        "id": 1325,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 30,
+    "name": "Bob's Brilliant Axes",
+    "items": [
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1351,
+        "count": 10
+      },
+      {
+        "id": 1349,
+        "count": 10
+      },
+      {
+        "id": 1353,
+        "count": 10
+      },
+      {
+        "id": 1363,
+        "count": 10
+      },
+      {
+        "id": 1365,
+        "count": 10
+      },
+      {
+        "id": 1369,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 31,
+    "name": "Bolkoy's Village Shop",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 882,
+        "count": 1000
+      },
+      {
+        "id": 2142,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 32,
+    "name": "Bolongo's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 33,
+    "name": "Brian's Archery Shop",
+    "items": [
+      {
+        "id": 886,
+        "count": 100
+      },
+      {
+        "id": 888,
+        "count": 30
+      },
+      {
+        "id": 890,
+        "count": 0
+      },
+      {
+        "id": 843,
+        "count": 10
+      },
+      {
+        "id": 845,
+        "count": 10
+      },
+      {
+        "id": 849,
+        "count": 10
+      },
+      {
+        "id": 847,
+        "count": 10
+      },
+      {
+        "id": 853,
+        "count": 10
+      },
+      {
+        "id": 851,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 34,
+    "name": "Brian's Battleaxe Bazaar",
+    "items": [
+      {
+        "id": 1375,
+        "count": 10
+      },
+      {
+        "id": 1363,
+        "count": 10
+      },
+      {
+        "id": 1365,
+        "count": 10
+      },
+      {
+        "id": 1367,
+        "count": 10
+      },
+      {
+        "id": 1369,
+        "count": 10
+      },
+      {
+        "id": 1371,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 35,
+    "name": "Burthorpe Supplies",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 1980,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 36,
+    "name": "Candle Shop",
+    "items": [
+      {
+        "id": 36,
+        "count": 10
+      },
+      {
+        "id": 38,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 37,
+    "name": "Carefree Crafting Stall",
+    "items": [
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1592,
+        "count": 10
+      },
+      {
+        "id": 1597,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1759,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 38,
+    "name": "Cassie's shield shop",
+    "items": [
+      {
+        "id": 1171,
+        "count": 10
+      },
+      {
+        "id": 1173,
+        "count": 10
+      },
+      {
+        "id": 1189,
+        "count": 10
+      },
+      {
+        "id": 1189,
+        "count": 10
+      },
+      {
+        "id": 1175,
+        "count": 10
+      },
+      {
+        "id": 1191,
+        "count": 10
+      },
+      {
+        "id": 1177,
+        "count": 10
+      },
+      {
+        "id": 1193,
+        "count": 10
+      },
+      {
+        "id": 1181,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 39,
+    "name": "Daga's Scimitar Smithy",
+    "items": [
+      {
+        "id": 1321,
+        "count": 10
+      },
+      {
+        "id": 1323,
+        "count": 10
+      },
+      {
+        "id": 1325,
+        "count": 10
+      },
+      {
+        "id": 1329,
+        "count": 10
+      },
+      {
+        "id": 4587,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 40,
+    "name": "Dal's General Ogre Supplies",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 41,
+    "name": "Dantaera's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 42,
+    "name": "Dargaud's Bow and Arrows",
+    "items": [
+      {
+        "id": 52,
+        "count": 1000
+      },
+      {
+        "id": 39,
+        "count": 300
+      },
+      {
+        "id": 40,
+        "count": 300
+      },
+      {
+        "id": 41,
+        "count": 100
+      },
+      {
+        "id": 42,
+        "count": 100
+      },
+      {
+        "id": 43,
+        "count": 100
+      },
+      {
+        "id": 44,
+        "count": 30
+      },
+      {
+        "id": 4773,
+        "count": 0
+      },
+      {
+        "id": 4827,
+        "count": 0
+      },
+      {
+        "id": 4773,
+        "count": 0
+      },
+      {
+        "id": 4778,
+        "count": 0
+      },
+      {
+        "id": 4783,
+        "count": 0
+      },
+      {
+        "id": 4788,
+        "count": 0
+      },
+      {
+        "id": 4793,
+        "count": 0
+      },
+      {
+        "id": 4798,
+        "count": 0
+      },
+      {
+        "id": 4803,
+        "count": 0
+      },
+      {
+        "id": 841,
+        "count": 10
+      },
+      {
+        "id": 843,
+        "count": 10
+      },
+      {
+        "id": 839,
+        "count": 10
+      },
+      {
+        "id": 845,
+        "count": 10
+      },
+      {
+        "id": 847,
+        "count": 10
+      },
+      {
+        "id": 4827,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 43,
+    "name": "Darren's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4321,
+        "count": 10
+      },
+      {
+        "id": 4341,
+        "count": 10
+      },
+      {
+        "id": 4361,
+        "count": 10
+      },
+      {
+        "id": 4401,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 44,
+    "name": "Davon's Amulet Store",
+    "items": [
+      {
+        "id": 1718,
+        "count": 0
+      },
+      {
+        "id": 1727,
+        "count": 0
+      },
+      {
+        "id": 1729,
+        "count": 0
+      },
+      {
+        "id": 1725,
+        "count": 0
+      },
+      {
+        "id": 1731,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 45,
+    "name": "Dommik's Crafting Shop",
+    "items": [
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1592,
+        "count": 10
+      },
+      {
+        "id": 1597,
+        "count": 10
+      },
+      {
+        "id": 1595,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1599,
+        "count": 10
+      },
+      {
+        "id": 2976,
+        "count": 10
+      },
+      {
+        "id": 5523,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 46,
+    "name": "Draynor Seed Market",
+    "items": [
+      {
+        "id": 5318,
+        "count": 10
+      },
+      {
+        "id": 5319,
+        "count": 10
+      },
+      {
+        "id": 5324,
+        "count": 10
+      },
+      {
+        "id": 5322,
+        "count": 0
+      },
+      {
+        "id": 5320,
+        "count": 0
+      },
+      {
+        "id": 5323,
+        "count": 0
+      },
+      {
+        "id": 5321,
+        "count": 0
+      },
+      {
+        "id": 5096,
+        "count": 10
+      },
+      {
+        "id": 5097,
+        "count": 10
+      },
+      {
+        "id": 5305,
+        "count": 10
+      },
+      {
+        "id": 5306,
+        "count": 10
+      },
+      {
+        "id": 5307,
+        "count": 10
+      },
+      {
+        "id": 5308,
+        "count": 10
+      },
+      {
+        "id": 5309,
+        "count": 10
+      },
+      {
+        "id": 5310,
+        "count": 10
+      },
+      {
+        "id": 5311,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 47,
+    "name": "Dreven's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 48,
+    "name": "Drogo's Mining Emporium",
+    "items": [
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 2436,
+        "count": 0
+      },
+      {
+        "id": 438,
+        "count": 0
+      },
+      {
+        "id": 440,
+        "count": 0
+      },
+      {
+        "id": 453,
+        "count": 0
+      },
+      {
+        "id": 2349,
+        "count": 0
+      },
+      {
+        "id": 2351,
+        "count": 0
+      },
+      {
+        "id": 2357,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 49,
+    "name": "Dwarven Shopping Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 50,
+    "name": "Edgeville General Store",
+    "items": [
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 51,
+    "name": "Edmond's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4329,
+        "count": 10
+      },
+      {
+        "id": 4349,
+        "count": 10
+      },
+      {
+        "id": 4369,
+        "count": 10
+      },
+      {
+        "id": 4389,
+        "count": 10
+      },
+      {
+        "id": 4409,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 52,
+    "name": "Edward's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4323,
+        "count": 10
+      },
+      {
+        "id": 4343,
+        "count": 10
+      },
+      {
+        "id": 4363,
+        "count": 10
+      },
+      {
+        "id": 4383,
+        "count": 10
+      },
+      {
+        "id": 4403,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 53,
+    "name": "Ellena's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 54,
+    "name": "Elstan's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 55,
+    "name": "Etceteria Fish",
+    "items": [
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 30
+      },
+      {
+        "id": 301,
+        "count": 10
+      },
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 305,
+        "count": 10
+      },
+      {
+        "id": 317,
+        "count": 0
+      },
+      {
+        "id": 327,
+        "count": 10
+      },
+      {
+        "id": 345,
+        "count": 0
+      },
+      {
+        "id": 353,
+        "count": 0
+      },
+      {
+        "id": 341,
+        "count": 0
+      },
+      {
+        "id": 319,
+        "count": 0
+      },
+      {
+        "id": 335,
+        "count": 0
+      },
+      {
+        "id": 349,
+        "count": 0
+      },
+      {
+        "id": 331,
+        "count": 0
+      },
+      {
+        "id": 359,
+        "count": 0
+      },
+      {
+        "id": 377,
+        "count": 0
+      },
+      {
+        "id": 363,
+        "count": 0
+      },
+      {
+        "id": 371,
+        "count": 0
+      },
+      {
+        "id": 383,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 56,
+    "name": "Falador General Store",
+    "items": [
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 57,
+    "name": "Fancy Clothes Store",
+    "items": [
+      {
+        "id": 1949,
+        "count": 10
+      },
+      {
+        "id": 579,
+        "count": 10
+      },
+      {
+        "id": 1023,
+        "count": 10
+      },
+      {
+        "id": 958,
+        "count": 10
+      },
+      {
+        "id": 948,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1059,
+        "count": 30
+      },
+      {
+        "id": 1061,
+        "count": 10
+      },
+      {
+        "id": 426,
+        "count": 10
+      },
+      {
+        "id": 428,
+        "count": 10
+      },
+      {
+        "id": 1757,
+        "count": 10
+      },
+      {
+        "id": 1013,
+        "count": 10
+      },
+      {
+        "id": 581,
+        "count": 10
+      },
+      {
+        "id": 577,
+        "count": 10
+      },
+      {
+        "id": 1007,
+        "count": 10
+      },
+      {
+        "id": 1025,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 58,
+    "name": "Fayeth's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 59,
+    "name": "Fernahei's Fishing Hut",
+    "items": [
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 10
+      },
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 335,
+        "count": 0
+      },
+      {
+        "id": 349,
+        "count": 0
+      },
+      {
+        "id": 331,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 60,
+    "name": "Fishing Guild Shop",
+    "items": [
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 363,
+        "count": 0
+      },
+      {
+        "id": 341,
+        "count": 0
+      },
+      {
+        "id": 377,
+        "count": 0
+      },
+      {
+        "id": 353,
+        "count": 0
+      },
+      {
+        "id": 371,
+        "count": 0
+      },
+      {
+        "id": 359,
+        "count": 0
+      },
+      {
+        "id": 365,
+        "count": 0
+      },
+      {
+        "id": 339,
+        "count": 0
+      },
+      {
+        "id": 379,
+        "count": 0
+      },
+      {
+        "id": 355,
+        "count": 0
+      },
+      {
+        "id": 373,
+        "count": 0
+      },
+      {
+        "id": 361,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 61,
+    "name": "Flynn's Mace Shop",
+    "items": [
+      {
+        "id": 1422,
+        "count": 10
+      },
+      {
+        "id": 1420,
+        "count": 10
+      },
+      {
+        "id": 1424,
+        "count": 10
+      },
+      {
+        "id": 1428,
+        "count": 10
+      },
+      {
+        "id": 1430,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 62,
+    "name": "Francis's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 63,
+    "name": "Fremennik Fish Monger",
+    "items": [
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 30
+      },
+      {
+        "id": 301,
+        "count": 10
+      },
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 305,
+        "count": 10
+      },
+      {
+        "id": 317,
+        "count": 0
+      },
+      {
+        "id": 327,
+        "count": 10
+      },
+      {
+        "id": 345,
+        "count": 0
+      },
+      {
+        "id": 353,
+        "count": 0
+      },
+      {
+        "id": 341,
+        "count": 0
+      },
+      {
+        "id": 321,
+        "count": 0
+      },
+      {
+        "id": 335,
+        "count": 0
+      },
+      {
+        "id": 349,
+        "count": 0
+      },
+      {
+        "id": 331,
+        "count": 0
+      },
+      {
+        "id": 359,
+        "count": 0
+      },
+      {
+        "id": 377,
+        "count": 0
+      },
+      {
+        "id": 363,
+        "count": 0
+      },
+      {
+        "id": 371,
+        "count": 0
+      },
+      {
+        "id": 383,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 64,
+    "name": "Fremennik Fur Trader",
+    "items": [
+      {
+        "id": 948,
+        "count": 10
+      },
+      {
+        "id": 958,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 65,
+    "name": "Frenita's Fine Cookery",
+    "items": [
+      {
+        "id": 2313,
+        "count": 10
+      },
+      {
+        "id": 1955,
+        "count": 0
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1973,
+        "count": 10
+      },
+      {
+        "id": 1933,
+        "count": 500
+      },
+      {
+        "id": 1980,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 66,
+    "name": "Frincos' Fabulous Herb Store",
+    "items": [
+      {
+        "id": 229,
+        "count": 10
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 221,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 67,
+    "name": "Frizzy Skernip's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 68,
+    "name": "Funch's Fine Groceries",
+    "items": [
+      {
+        "id": 2021,
+        "count": 10
+      },
+      {
+        "id": 2019,
+        "count": 10
+      },
+      {
+        "id": 2015,
+        "count": 10
+      },
+      {
+        "id": 2017,
+        "count": 10
+      },
+      {
+        "id": 2114,
+        "count": 10
+      },
+      {
+        "id": 2128,
+        "count": 10
+      },
+      {
+        "id": 2108,
+        "count": 10
+      },
+      {
+        "id": 2102,
+        "count": 10
+      },
+      {
+        "id": 2120,
+        "count": 10
+      },
+      {
+        "id": 2126,
+        "count": 10
+      },
+      {
+        "id": 1973,
+        "count": 10
+      },
+      {
+        "id": 1975,
+        "count": 10
+      },
+      {
+        "id": 2130,
+        "count": 10
+      },
+      {
+        "id": 1927,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 2026,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 69,
+    "name": "Gaius's Two Handeds",
+    "items": [
+      {
+        "id": 1307,
+        "count": 10
+      },
+      {
+        "id": 1309,
+        "count": 10
+      },
+      {
+        "id": 1311,
+        "count": 10
+      },
+      {
+        "id": 1313,
+        "count": 10
+      },
+      {
+        "id": 1315,
+        "count": 10
+      },
+      {
+        "id": 1317,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 70,
+    "name": "Garth's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 71,
+    "name": "Gem Trader",
+    "items": [
+      {
+        "id": 1623,
+        "count": 0
+      },
+      {
+        "id": 1621,
+        "count": 0
+      },
+      {
+        "id": 1619,
+        "count": 0
+      },
+      {
+        "id": 1617,
+        "count": 0
+      },
+      {
+        "id": 1607,
+        "count": 0
+      },
+      {
+        "id": 1605,
+        "count": 0
+      },
+      {
+        "id": 1603,
+        "count": 0
+      },
+      {
+        "id": 1601,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 72,
+    "name": "Canifis General Store",
+    "items": [
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 3377,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 73,
+    "name": "Gerrant's Fishy Business",
+    "items": [
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 10
+      },
+      {
+        "id": 301,
+        "count": 10
+      },
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 315,
+        "count": 0
+      },
+      {
+        "id": 325,
+        "count": 10
+      },
+      {
+        "id": 347,
+        "count": 0
+      },
+      {
+        "id": 319,
+        "count": 0
+      },
+      {
+        "id": 333,
+        "count": 0
+      },
+      {
+        "id": 351,
+        "count": 0
+      },
+      {
+        "id": 329,
+        "count": 0
+      },
+      {
+        "id": 361,
+        "count": 0
+      },
+      {
+        "id": 379,
+        "count": 0
+      },
+      {
+        "id": 373,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 74,
+    "name": "Gileth's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 75,
+    "name": "Grand Tree Groceries",
+    "items": [
+      {
+        "id": 2171,
+        "count": 10
+      },
+      {
+        "id": 2128,
+        "count": 10
+      },
+      {
+        "id": 1933,
+        "count": 10
+      },
+      {
+        "id": 2169,
+        "count": 10
+      },
+      {
+        "id": 1957,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 10
+      },
+      {
+        "id": 1965,
+        "count": 10
+      },
+      {
+        "id": 1982,
+        "count": 10
+      },
+      {
+        "id": 1985,
+        "count": 10
+      },
+      {
+        "id": 2120,
+        "count": 10
+      },
+      {
+        "id": 2108,
+        "count": 10
+      },
+      {
+        "id": 2102,
+        "count": 10
+      },
+      {
+        "id": 2114,
+        "count": 10
+      },
+      {
+        "id": 2126,
+        "count": 10
+      },
+      {
+        "id": 2025,
+        "count": 10
+      },
+      {
+        "id": 1973,
+        "count": 10
+      },
+      {
+        "id": 1975,
+        "count": 10
+      },
+      {
+        "id": 2130,
+        "count": 10
+      },
+      {
+        "id": 1927,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 2167,
+        "count": 10
+      },
+      {
+        "id": 2164,
+        "count": 10
+      },
+      {
+        "id": 2165,
+        "count": 10
+      },
+      {
+        "id": 2166,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 76,
+    "name": "Green Gemstone Gems",
+    "items": [
+      {
+        "id": 1607,
+        "count": 0
+      },
+      {
+        "id": 1605,
+        "count": 0
+      },
+      {
+        "id": 1603,
+        "count": 0
+      },
+      {
+        "id": 1601,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 77,
+    "name": "Grud's Herblore Stall",
+    "items": [
+      {
+        "id": 229,
+        "count": 10
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 221,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 78,
+    "name": "Grum's Gold Exchange",
+    "items": [
+      {
+        "id": 1635,
+        "count": 0
+      },
+      {
+        "id": 1637,
+        "count": 0
+      },
+      {
+        "id": 1639,
+        "count": 0
+      },
+      {
+        "id": 1641,
+        "count": 0
+      },
+      {
+        "id": 1643,
+        "count": 0
+      },
+      {
+        "id": 1654,
+        "count": 0
+      },
+      {
+        "id": 1656,
+        "count": 0
+      },
+      {
+        "id": 1658,
+        "count": 0
+      },
+      {
+        "id": 1660,
+        "count": 0
+      },
+      {
+        "id": 1662,
+        "count": 0
+      },
+      {
+        "id": 1673,
+        "count": 0
+      },
+      {
+        "id": 1675,
+        "count": 0
+      },
+      {
+        "id": 1677,
+        "count": 0
+      },
+      {
+        "id": 1679,
+        "count": 0
+      },
+      {
+        "id": 1681,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 79,
+    "name": "Gulluck and Sons",
+    "items": [
+      {
+        "id": 882,
+        "count": 1000
+      },
+      {
+        "id": 841,
+        "count": 10
+      },
+      {
+        "id": 839,
+        "count": 10
+      },
+      {
+        "id": 39,
+        "count": 100
+      },
+      {
+        "id": 40,
+        "count": 100
+      },
+      {
+        "id": 41,
+        "count": 100
+      },
+      {
+        "id": 42,
+        "count": 100
+      },
+      {
+        "id": 1349,
+        "count": 10
+      },
+      {
+        "id": 1353,
+        "count": 10
+      },
+      {
+        "id": 1363,
+        "count": 10
+      },
+      {
+        "id": 1365,
+        "count": 10
+      },
+      {
+        "id": 1369,
+        "count": 10
+      },
+      {
+        "id": 1307,
+        "count": 10
+      },
+      {
+        "id": 1309,
+        "count": 10
+      },
+      {
+        "id": 1311,
+        "count": 10
+      },
+      {
+        "id": 1313,
+        "count": 10
+      },
+      {
+        "id": 1315,
+        "count": 10
+      },
+      {
+        "id": 1317,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 80,
+    "name": "Gunslik's Assorted Supplies",
+    "items": [
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 36,
+        "count": 10
+      },
+      {
+        "id": 973,
+        "count": 10
+      },
+      {
+        "id": 1059,
+        "count": 10
+      },
+      {
+        "id": 229,
+        "count": 300
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 81,
+    "name": "Hamab's Crafting Emporium",
+    "items": [
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 1592,
+        "count": 10
+      },
+      {
+        "id": 1597,
+        "count": 10
+      },
+      {
+        "id": 4020,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1759,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 82,
+    "name": "Harry's Fishing Shop",
+    "items": [
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 1000
+      },
+      {
+        "id": 311,
+        "count": 10
+      },
+      {
+        "id": 301,
+        "count": 1000
+      },
+      {
+        "id": 313,
+        "count": 10
+      },
+      {
+        "id": 305,
+        "count": 10
+      },
+      {
+        "id": 317,
+        "count": 10
+      },
+      {
+        "id": 327,
+        "count": 10
+      },
+      {
+        "id": 345,
+        "count": 10
+      },
+      {
+        "id": 353,
+        "count": 10
+      },
+      {
+        "id": 341,
+        "count": 10
+      },
+      {
+        "id": 321,
+        "count": 10
+      },
+      {
+        "id": 359,
+        "count": 10
+      },
+      {
+        "id": 377,
+        "count": 10
+      },
+      {
+        "id": 363,
+        "count": 10
+      },
+      {
+        "id": 371,
+        "count": 10
+      },
+      {
+        "id": 383,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 83,
+    "name": "Peksa's Helmet Shop",
+    "items": [
+      {
+        "id": 1139,
+        "count": 10
+      },
+      {
+        "id": 1137,
+        "count": 10
+      },
+      {
+        "id": 1141,
+        "count": 10
+      },
+      {
+        "id": 1143,
+        "count": 10
+      },
+      {
+        "id": 1145,
+        "count": 10
+      },
+      {
+        "id": 1155,
+        "count": 10
+      },
+      {
+        "id": 1154,
+        "count": 10
+      },
+      {
+        "id": 1157,
+        "count": 10
+      },
+      {
+        "id": 1159,
+        "count": 10
+      },
+      {
+        "id": 1161,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 84,
+    "name": "Herquin's Gems",
+    "items": [
+      {
+        "id": 1623,
+        "count": 0
+      },
+      {
+        "id": 1621,
+        "count": 0
+      },
+      {
+        "id": 1619,
+        "count": 0
+      },
+      {
+        "id": 1617,
+        "count": 0
+      },
+      {
+        "id": 1607,
+        "count": 0
+      },
+      {
+        "id": 1605,
+        "count": 0
+      },
+      {
+        "id": 1603,
+        "count": 0
+      },
+      {
+        "id": 1601,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 85,
+    "name": "Heskel's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 86,
+    "name": "Hickton's Archery Emporium",
+    "items": [
+      {
+        "id": 882,
+        "count": 1000
+      },
+      {
+        "id": 884,
+        "count": 100
+      },
+      {
+        "id": 886,
+        "count": 0
+      },
+      {
+        "id": 888,
+        "count": 0
+      },
+      {
+        "id": 890,
+        "count": 0
+      },
+      {
+        "id": 892,
+        "count": 0
+      },
+      {
+        "id": 4773,
+        "count": 0
+      },
+      {
+        "id": 4778,
+        "count": 0
+      },
+      {
+        "id": 4783,
+        "count": 10
+      },
+      {
+        "id": 4788,
+        "count": 10
+      },
+      {
+        "id": 4793,
+        "count": 10
+      },
+      {
+        "id": 4798,
+        "count": 10
+      },
+      {
+        "id": 4803,
+        "count": 10
+      },
+      {
+        "id": 39,
+        "count": 100
+      },
+      {
+        "id": 40,
+        "count": 100
+      },
+      {
+        "id": 41,
+        "count": 100
+      },
+      {
+        "id": 42,
+        "count": 100
+      },
+      {
+        "id": 43,
+        "count": 30
+      },
+      {
+        "id": 44,
+        "count": 10
+      },
+      {
+        "id": 841,
+        "count": 10
+      },
+      {
+        "id": 839,
+        "count": 10
+      },
+      {
+        "id": 843,
+        "count": 10
+      },
+      {
+        "id": 845,
+        "count": 10
+      },
+      {
+        "id": 4827,
+        "count": 10
+      },
+      {
+        "id": 1133,
+        "count": 0
+      },
+      {
+        "id": 1097,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 87,
+    "name": "Horvik's Armour Shop",
+    "items": [
+      {
+        "id": 1103,
+        "count": 10
+      },
+      {
+        "id": 1101,
+        "count": 10
+      },
+      {
+        "id": 1139,
+        "count": 10
+      },
+      {
+        "id": 1137,
+        "count": 10
+      },
+      {
+        "id": 1173,
+        "count": 10
+      },
+      {
+        "id": 1175,
+        "count": 10
+      },
+      {
+        "id": 1075,
+        "count": 10
+      },
+      {
+        "id": 1067,
+        "count": 10
+      },
+      {
+        "id": 1087,
+        "count": 10
+      },
+      {
+        "id": 1081,
+        "count": 10
+      },
+      {
+        "id": 1117,
+        "count": 10
+      },
+      {
+        "id": 1115,
+        "count": 10
+      },
+      {
+        "id": 1119,
+        "count": 10
+      },
+      {
+        "id": 1125,
+        "count": 10
+      },
+      {
+        "id": 1121,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 88,
+    "name": "Ian's Wilderness Shop",
+    "items": [
+      {
+        "id": 4317,
+        "count": 10
+      },
+      {
+        "id": 4337,
+        "count": 10
+      },
+      {
+        "id": 4357,
+        "count": 10
+      },
+      {
+        "id": 4377,
+        "count": 10
+      },
+      {
+        "id": 4397,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 89,
+    "name": "Ifaba's General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 90,
+    "name": "Irksol's Jewels",
+    "items": [
+      {
+        "id": 1641,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 91,
+    "name": "Irksol's Jewels",
+    "items": [
+      {
+        "id": 1641,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 92,
+    "name": "Jiminua's Jungle Store",
+    "items": [
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 36,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 1129,
+        "count": 10
+      },
+      {
+        "id": 1059,
+        "count": 10
+      },
+      {
+        "id": 1061,
+        "count": 10
+      },
+      {
+        "id": 2142,
+        "count": 10
+      },
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 229,
+        "count": 300
+      },
+      {
+        "id": 227,
+        "count": 300
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 175,
+        "count": 10
+      },
+      {
+        "id": 970,
+        "count": 10
+      },
+      {
+        "id": 973,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 975,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 1351,
+        "count": 10
+      },
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1349,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 93,
+    "name": "Jukat's Weapons",
+    "items": [
+      {
+        "id": 1305,
+        "count": 10
+      },
+      {
+        "id": 1215,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 94,
+    "name": "Karamja General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 95,
+    "name": "Karamja Wines, Spirits, and Beers",
+    "items": [
+      {
+        "id": 1917,
+        "count": 10
+      },
+      {
+        "id": 431,
+        "count": 10
+      },
+      {
+        "id": 1993,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 96,
+    "name": "Keldagrim's Best Bread",
+    "items": [
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 1891,
+        "count": 10
+      },
+      {
+        "id": 1901,
+        "count": 10
+      },
+      {
+        "id": 1973,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 97,
+    "name": "Khazard General Store",
+    "items": [
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 1933,
+        "count": 500
+      },
+      {
+        "id": 583,
+        "count": 30
+      },
+      {
+        "id": 1941,
+        "count": 1000
+      },
+      {
+        "id": 946,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 98,
+    "name": "Legends' Guild Shop of Useful Items",
+    "items": [
+      {
+        "id": 299,
+        "count": 500
+      },
+      {
+        "id": 1590,
+        "count": 10
+      },
+      {
+        "id": 1542,
+        "count": 10
+      },
+      {
+        "id": 2368,
+        "count": 10
+      },
+      {
+        "id": 1052,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 99,
+    "name": "Kragen's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 100,
+    "name": "Legends' Guild General Store",
+    "items": [
+      {
+        "id": 373,
+        "count": 10
+      },
+      {
+        "id": 2323,
+        "count": 10
+      },
+      {
+        "id": 121,
+        "count": 10
+      },
+      {
+        "id": 886,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 101,
+    "name": "Louie's Armoured Legs Bazaar",
+    "items": [
+      {
+        "id": 1075,
+        "count": 10
+      },
+      {
+        "id": 1067,
+        "count": 10
+      },
+      {
+        "id": 1069,
+        "count": 10
+      },
+      {
+        "id": 1077,
+        "count": 10
+      },
+      {
+        "id": 1071,
+        "count": 10
+      },
+      {
+        "id": 1073,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 102,
+    "name": "Lovecraft's Tackle",
+    "items": [
+      {
+        "id": 303,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 10
+      },
+      {
+        "id": 309,
+        "count": 10
+      },
+      {
+        "id": 311,
+        "count": 30
+      },
+      {
+        "id": 301,
+        "count": 10
+      },
+      {
+        "id": 313,
+        "count": 1000
+      },
+      {
+        "id": 314,
+        "count": 1000
+      },
+      {
+        "id": 317,
+        "count": 0
+      },
+      {
+        "id": 327,
+        "count": 0
+      },
+      {
+        "id": 345,
+        "count": 0
+      },
+      {
+        "id": 321,
+        "count": 0
+      },
+      {
+        "id": 335,
+        "count": 0
+      },
+      {
+        "id": 349,
+        "count": 0
+      },
+      {
+        "id": 331,
+        "count": 0
+      },
+      {
+        "id": 359,
+        "count": 0
+      },
+      {
+        "id": 377,
+        "count": 0
+      },
+      {
+        "id": 371,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 103,
+    "name": "Lowe's Archery Emporium",
+    "items": [
+      {
+        "id": 882,
+        "count": 1000
+      },
+      {
+        "id": 884,
+        "count": 100
+      },
+      {
+        "id": 886,
+        "count": 100
+      },
+      {
+        "id": 888,
+        "count": 100
+      },
+      {
+        "id": 690,
+        "count": 30
+      },
+      {
+        "id": 841,
+        "count": 10
+      },
+      {
+        "id": 839,
+        "count": 10
+      },
+      {
+        "id": 843,
+        "count": 10
+      },
+      {
+        "id": 845,
+        "count": 10
+      },
+      {
+        "id": 849,
+        "count": 10
+      },
+      {
+        "id": 847,
+        "count": 10
+      },
+      {
+        "id": 853,
+        "count": 10
+      },
+      {
+        "id": 851,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 104,
+    "name": "Lumbridge General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 105,
+    "name": "Lundail's Arena-side Rune Shop",
+    "items": [
+      {
+        "id": 554,
+        "count": 1000
+      },
+      {
+        "id": 555,
+        "count": 1000
+      },
+      {
+        "id": 556,
+        "count": 1000
+      },
+      {
+        "id": 557,
+        "count": 1000
+      },
+      {
+        "id": 558,
+        "count": 1000
+      },
+      {
+        "id": 559,
+        "count": 1000
+      },
+      {
+        "id": 561,
+        "count": 300
+      },
+      {
+        "id": 562,
+        "count": 300
+      },
+      {
+        "id": 563,
+        "count": 100
+      },
+      {
+        "id": 564,
+        "count": 100
+      },
+      {
+        "id": 560,
+        "count": 300
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 106,
+    "name": "Lyra's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 107,
+    "name": "Magic Guild Robe Store",
+    "items": [
+      {
+        "id": 4089,
+        "count": 10
+      },
+      {
+        "id": 4091,
+        "count": 10
+      },
+      {
+        "id": 4093,
+        "count": 10
+      },
+      {
+        "id": 4095,
+        "count": 10
+      },
+      {
+        "id": 4097,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 108,
+    "name": "Magic Guild Rune Store",
+    "items": [
+      {
+        "id": 556,
+        "count": 1000
+      },
+      {
+        "id": 555,
+        "count": 1000
+      },
+      {
+        "id": 557,
+        "count": 1000
+      },
+      {
+        "id": 554,
+        "count": 1000
+      },
+      {
+        "id": 558,
+        "count": 1000
+      },
+      {
+        "id": 559,
+        "count": 1000
+      },
+      {
+        "id": 562,
+        "count": 300
+      },
+      {
+        "id": 561,
+        "count": 300
+      },
+      {
+        "id": 560,
+        "count": 1000
+      },
+      {
+        "id": 563,
+        "count": 100
+      },
+      {
+        "id": 565,
+        "count": 100
+      },
+      {
+        "id": 566,
+        "count": 100
+      },
+      {
+        "id": 1387,
+        "count": 10
+      },
+      {
+        "id": 1383,
+        "count": 10
+      },
+      {
+        "id": 1381,
+        "count": 10
+      },
+      {
+        "id": 1385,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 109,
+    "name": "Martin Thwait's Lost and Found",
+    "items": [
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 1523,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 5560,
+        "count": 10
+      },
+      {
+        "id": 864,
+        "count": 100
+      },
+      {
+        "id": 863,
+        "count": 100
+      },
+      {
+        "id": 865,
+        "count": 100
+      },
+      {
+        "id": 3095,
+        "count": 100
+      },
+      {
+        "id": 3096,
+        "count": 10
+      },
+      {
+        "id": 3097,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 110,
+    "name": "Nulodion's Multicannon Parts",
+    "items": [
+      {
+        "id": 8,
+        "count": 10
+      },
+      {
+        "id": 6,
+        "count": 0
+      },
+      {
+        "id": 12,
+        "count": 10
+      },
+      {
+        "id": 10,
+        "count": 10
+      },
+      {
+        "id": 4,
+        "count": 10
+      },
+      {
+        "id": 5,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 111,
+    "name": "Nurmof's Pickaxe Shop",
+    "items": [
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1267,
+        "count": 10
+      },
+      {
+        "id": 1269,
+        "count": 10
+      },
+      {
+        "id": 1271,
+        "count": 10
+      },
+      {
+        "id": 1273,
+        "count": 10
+      },
+      {
+        "id": 1275,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 112,
+    "name": "Pickaxe-Is-Mine",
+    "items": [
+      {
+        "id": 1265,
+        "count": 10
+      },
+      {
+        "id": 1269,
+        "count": 10
+      },
+      {
+        "id": 1271,
+        "count": 10
+      },
+      {
+        "id": 1273,
+        "count": 10
+      },
+      {
+        "id": 1275,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 113,
+    "name": "Pie Shop",
+    "items": [
+      {
+        "id": 7218,
+        "count": 0
+      },
+      {
+        "id": 7208,
+        "count": 0
+      },
+      {
+        "id": 7198,
+        "count": 0
+      },
+      {
+        "id": 7178,
+        "count": 0
+      },
+      {
+        "id": 2323,
+        "count": 0
+      },
+      {
+        "id": 7170,
+        "count": 0
+      },
+      {
+        "id": 2327,
+        "count": 0
+      },
+      {
+        "id": 2325,
+        "count": 0
+      },
+      {
+        "id": 7162,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 114,
+    "name": "Poletax's Herblore Shop",
+    "items": [
+      {
+        "id": 229,
+        "count": 10
+      },
+      {
+        "id": 227,
+        "count": 20
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 221,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 115,
+    "name": "Pollnivneach General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1825,
+        "count": 30
+      },
+      {
+        "id": 1833,
+        "count": 10
+      },
+      {
+        "id": 1837,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 4593,
+        "count": 10
+      },
+      {
+        "id": 4591,
+        "count": 10
+      },
+      {
+        "id": 1985,
+        "count": 10
+      },
+      {
+        "id": 2120,
+        "count": 10
+      },
+      {
+        "id": 1982,
+        "count": 10
+      },
+      {
+        "id": 1937,
+        "count": 10
+      },
+      {
+        "id": 1929,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 116,
+    "name": "Port Phasmatys General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 300
+      },
+      {
+        "id": 1925,
+        "count": 300
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 117,
+    "name": "Quality Armour Shop",
+    "items": [
+      {
+        "id": 1105,
+        "count": 10
+      },
+      {
+        "id": 1109,
+        "count": 10
+      },
+      {
+        "id": 1107,
+        "count": 10
+      },
+      {
+        "id": 1111,
+        "count": 10
+      },
+      {
+        "id": 1141,
+        "count": 10
+      },
+      {
+        "id": 1143,
+        "count": 10
+      },
+      {
+        "id": 1145,
+        "count": 10
+      },
+      {
+        "id": 1177,
+        "count": 10
+      },
+      {
+        "id": 1179,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 118,
+    "name": "Quality Weapons Shop",
+    "items": [
+      {
+        "id": 1365,
+        "count": 10
+      },
+      {
+        "id": 1369,
+        "count": 10
+      },
+      {
+        "id": 1285,
+        "count": 10
+      },
+      {
+        "id": 1287,
+        "count": 10
+      },
+      {
+        "id": 1325,
+        "count": 10
+      },
+      {
+        "id": 1297,
+        "count": 10
+      },
+      {
+        "id": 1303,
+        "count": 10
+      },
+      {
+        "id": 853,
+        "count": 10
+      },
+      {
+        "id": 851,
+        "count": 10
+      },
+      {
+        "id": 888,
+        "count": 100
+      },
+      {
+        "id": 890,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 119,
+    "name": "Raetul and Co's Cloth Store",
+    "items": [
+      {
+        "id": 4684,
+        "count": 10
+      },
+      {
+        "id": 1833,
+        "count": 10
+      },
+      {
+        "id": 1835,
+        "count": 10
+      },
+      {
+        "id": 1837,
+        "count": 10
+      },
+      {
+        "id": 970,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1733,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 120,
+    "name": "Ranael's Super Skirt Store",
+    "items": [
+      {
+        "id": 1087,
+        "count": 10
+      },
+      {
+        "id": 1081,
+        "count": 10
+      },
+      {
+        "id": 1083,
+        "count": 10
+      },
+      {
+        "id": 1089,
+        "count": 10
+      },
+      {
+        "id": 1085,
+        "count": 10
+      },
+      {
+        "id": 1091,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 121,
+    "name": "Rasolo the Wandering Merchant",
+    "items": [
+      {
+        "id": 1969,
+        "count": 10
+      },
+      {
+        "id": 2023,
+        "count": 10
+      },
+      {
+        "id": 740,
+        "count": 10
+      },
+      {
+        "id": 1215,
+        "count": 30
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 583,
+        "count": 10
+      },
+      {
+        "id": 1941,
+        "count": 10
+      },
+      {
+        "id": 273,
+        "count": 10
+      },
+      {
+        "id": 970,
+        "count": 10
+      },
+      {
+        "id": 975,
+        "count": 10
+      },
+      {
+        "id": 1599,
+        "count": 10
+      },
+      {
+        "id": 2976,
+        "count": 10
+      },
+      {
+        "id": 1837,
+        "count": 10
+      },
+      {
+        "id": 1848,
+        "count": 10
+      },
+      {
+        "id": 2520,
+        "count": 10
+      },
+      {
+        "id": 3377,
+        "count": 10
+      },
+      {
+        "id": 630,
+        "count": 10
+      },
+      {
+        "id": 1909,
+        "count": 10
+      },
+      {
+        "id": 3761,
+        "count": 10
+      },
+      {
+        "id": 3711,
+        "count": 10
+      },
+      {
+        "id": 3678,
+        "count": 10
+      },
+      {
+        "id": 3424,
+        "count": 10
+      },
+      {
+        "id": 3420,
+        "count": 10
+      },
+      {
+        "id": 5,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 122,
+    "name": "Razmire General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 3424,
+        "count": 500
+      },
+      {
+        "id": 227,
+        "count": 300
+      },
+      {
+        "id": 1933,
+        "count": 10
+      },
+      {
+        "id": 3678,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 123,
+    "name": "Rhonen's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 124,
+    "name": "Richard's Farming Shop",
+    "items": [
+      {
+        "id": 5341,
+        "count": 10
+      },
+      {
+        "id": 5343,
+        "count": 10
+      },
+      {
+        "id": 5329,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 676,
+        "count": 10
+      },
+      {
+        "id": 5331,
+        "count": 30
+      },
+      {
+        "id": 5354,
+        "count": 100
+      },
+      {
+        "id": 6032,
+        "count": 300
+      },
+      {
+        "id": 1925,
+        "count": 100
+      },
+      {
+        "id": 5418,
+        "count": 10
+      },
+      {
+        "id": 5376,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 0
+      },
+      {
+        "id": 1957,
+        "count": 0
+      },
+      {
+        "id": 1965,
+        "count": 0
+      },
+      {
+        "id": 1982,
+        "count": 0
+      },
+      {
+        "id": 5986,
+        "count": 0
+      },
+      {
+        "id": 5504,
+        "count": 0
+      },
+      {
+        "id": 5982,
+        "count": 0
+      },
+      {
+        "id": 5996,
+        "count": 0
+      },
+      {
+        "id": 5994,
+        "count": 0
+      },
+      {
+        "id": 6000,
+        "count": 0
+      },
+      {
+        "id": 6002,
+        "count": 0
+      },
+      {
+        "id": 5998,
+        "count": 0
+      },
+      {
+        "id": 5931,
+        "count": 0
+      },
+      {
+        "id": 6006,
+        "count": 0
+      },
+      {
+        "id": 6036,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 125,
+    "name": "Richard's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4325,
+        "count": 10
+      },
+      {
+        "id": 4345,
+        "count": 10
+      },
+      {
+        "id": 4365,
+        "count": 10
+      },
+      {
+        "id": 4385,
+        "count": 10
+      },
+      {
+        "id": 4405,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 126,
+    "name": "Rimmington General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 127,
+    "name": "Rometti's Fine Fashions",
+    "items": [
+      {
+        "id": 626,
+        "count": 30
+      },
+      {
+        "id": 628,
+        "count": 30
+      },
+      {
+        "id": 630,
+        "count": 30
+      },
+      {
+        "id": 632,
+        "count": 30
+      },
+      {
+        "id": 634,
+        "count": 30
+      },
+      {
+        "id": 636,
+        "count": 30
+      },
+      {
+        "id": 638,
+        "count": 30
+      },
+      {
+        "id": 640,
+        "count": 30
+      },
+      {
+        "id": 642,
+        "count": 30
+      },
+      {
+        "id": 644,
+        "count": 30
+      },
+      {
+        "id": 646,
+        "count": 30
+      },
+      {
+        "id": 648,
+        "count": 30
+      },
+      {
+        "id": 650,
+        "count": 30
+      },
+      {
+        "id": 652,
+        "count": 30
+      },
+      {
+        "id": 654,
+        "count": 30
+      },
+      {
+        "id": 656,
+        "count": 30
+      },
+      {
+        "id": 658,
+        "count": 30
+      },
+      {
+        "id": 660,
+        "count": 30
+      },
+      {
+        "id": 662,
+        "count": 30
+      },
+      {
+        "id": 664,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 128,
+    "name": "Rommik's Crafting Shop",
+    "items": [
+      {
+        "id": 1755,
+        "count": 0
+      },
+      {
+        "id": 1592,
+        "count": 10
+      },
+      {
+        "id": 1597,
+        "count": 10
+      },
+      {
+        "id": 1595,
+        "count": 10
+      },
+      {
+        "id": 1733,
+        "count": 10
+      },
+      {
+        "id": 1734,
+        "count": 1000
+      },
+      {
+        "id": 1599,
+        "count": 10
+      },
+      {
+        "id": 2976,
+        "count": 10
+      },
+      {
+        "id": 5523,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 129,
+    "name": "Rufus' Meat Emporium",
+    "items": [
+      {
+        "id": 2132,
+        "count": 100
+      },
+      {
+        "id": 2138,
+        "count": 30
+      },
+      {
+        "id": 2134,
+        "count": 10
+      },
+      {
+        "id": 2136,
+        "count": 10
+      },
+      {
+        "id": 335,
+        "count": 0
+      },
+      {
+        "id": 349,
+        "count": 0
+      },
+      {
+        "id": 331,
+        "count": 0
+      },
+      {
+        "id": 383,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 130,
+    "name": "Sam's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4333,
+        "count": 10
+      },
+      {
+        "id": 4353,
+        "count": 10
+      },
+      {
+        "id": 4373,
+        "count": 10
+      },
+      {
+        "id": 4393,
+        "count": 10
+      },
+      {
+        "id": 4413,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 131,
+    "name": "Sarah's Farming Shop",
+    "items": [
+      {
+        "id": 5341,
+        "count": 10
+      },
+      {
+        "id": 5343,
+        "count": 10
+      },
+      {
+        "id": 5329,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 676,
+        "count": 10
+      },
+      {
+        "id": 5331,
+        "count": 30
+      },
+      {
+        "id": 5354,
+        "count": 100
+      },
+      {
+        "id": 6032,
+        "count": 300
+      },
+      {
+        "id": 1925,
+        "count": 100
+      },
+      {
+        "id": 5418,
+        "count": 10
+      },
+      {
+        "id": 5376,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 0
+      },
+      {
+        "id": 1957,
+        "count": 0
+      },
+      {
+        "id": 1965,
+        "count": 0
+      },
+      {
+        "id": 1982,
+        "count": 0
+      },
+      {
+        "id": 5986,
+        "count": 0
+      },
+      {
+        "id": 5504,
+        "count": 0
+      },
+      {
+        "id": 5982,
+        "count": 0
+      },
+      {
+        "id": 5996,
+        "count": 0
+      },
+      {
+        "id": 5994,
+        "count": 0
+      },
+      {
+        "id": 6000,
+        "count": 0
+      },
+      {
+        "id": 6002,
+        "count": 0
+      },
+      {
+        "id": 5998,
+        "count": 0
+      },
+      {
+        "id": 5931,
+        "count": 0
+      },
+      {
+        "id": 6006,
+        "count": 0
+      },
+      {
+        "id": 6036,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 132,
+    "name": "Scavvo's Rune Store",
+    "items": [
+      {
+        "id": 1093,
+        "count": 10
+      },
+      {
+        "id": 1079,
+        "count": 10
+      },
+      {
+        "id": 1432,
+        "count": 10
+      },
+      {
+        "id": 1113,
+        "count": 10
+      },
+      {
+        "id": 1303,
+        "count": 10
+      },
+      {
+        "id": 1289,
+        "count": 10
+      },
+      {
+        "id": 1099,
+        "count": 10
+      },
+      {
+        "id": 1065,
+        "count": 10
+      },
+      {
+        "id": 1169,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 133,
+    "name": "Seddu's Adventurer's Store",
+    "items": [
+      {
+        "id": 1093,
+        "count": 10
+      },
+      {
+        "id": 1079,
+        "count": 10
+      },
+      {
+        "id": 1113,
+        "count": 10
+      },
+      {
+        "id": 1099,
+        "count": 10
+      },
+      {
+        "id": 1065,
+        "count": 10
+      },
+      {
+        "id": 1193,
+        "count": 10
+      },
+      {
+        "id": 1151,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 134,
+    "name": "Selena's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 135,
+    "name": "Sigmund the Merchant",
+    "items": [
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2142,
+        "count": 10
+      },
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 36,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 229,
+        "count": 10
+      },
+      {
+        "id": 227,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1944,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 10
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 1929,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 136,
+    "name": "Simon's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4331,
+        "count": 10
+      },
+      {
+        "id": 4351,
+        "count": 10
+      },
+      {
+        "id": 4371,
+        "count": 10
+      },
+      {
+        "id": 4391,
+        "count": 10
+      },
+      {
+        "id": 4411,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 137,
+    "name": "Solihib's Food Shop",
+    "items": [
+      {
+        "id": 4012,
+        "count": 10
+      },
+      {
+        "id": 1963,
+        "count": 10
+      },
+      {
+        "id": 4016,
+        "count": 10
+      },
+      {
+        "id": 4014,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 138,
+    "name": "Strange Old Man",
+    "items": [
+      {
+        "id": 952,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 139,
+    "name": "Taria's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 140,
+    "name": "The Shrimp and Parrot",
+    "items": [
+      {
+        "id": 347,
+        "count": 10
+      },
+      {
+        "id": 339,
+        "count": 0
+      },
+      {
+        "id": 361,
+        "count": 10
+      },
+      {
+        "id": 379,
+        "count": 10
+      },
+      {
+        "id": 373,
+        "count": 10
+      },
+      {
+        "id": 3144,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 141,
+    "name": "The Spice Is Right",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 2169,
+        "count": 10
+      },
+      {
+        "id": 5970,
+        "count": 10
+      },
+      {
+        "id": 175,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 142,
+    "name": "Thessalia's Fine Clothes",
+    "items": [
+      {
+        "id": 1005,
+        "count": 10
+      },
+      {
+        "id": 1129,
+        "count": 10
+      },
+      {
+        "id": 1059,
+        "count": 10
+      },
+      {
+        "id": 1061,
+        "count": 10
+      },
+      {
+        "id": 1757,
+        "count": 10
+      },
+      {
+        "id": 1013,
+        "count": 10
+      },
+      {
+        "id": 1015,
+        "count": 10
+      },
+      {
+        "id": 1011,
+        "count": 10
+      },
+      {
+        "id": 1013,
+        "count": 10
+      },
+      {
+        "id": 1023,
+        "count": 10
+      },
+      {
+        "id": 950,
+        "count": 10
+      },
+      {
+        "id": 426,
+        "count": 10
+      },
+      {
+        "id": 428,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 143,
+    "name": "Tony's Pizza Bases",
+    "items": [
+      {
+        "id": 2283,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 144,
+    "name": "Torrell's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 145,
+    "name": "Trader Stan's Trading post",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      },
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 2114,
+        "count": 0
+      },
+      {
+        "id": 1963,
+        "count": 10
+      },
+      {
+        "id": 1963,
+        "count": 0
+      },
+      {
+        "id": 1785,
+        "count": 10
+      },
+      {
+        "id": 1783,
+        "count": 0
+      },
+      {
+        "id": 401,
+        "count": 0
+      },
+      {
+        "id": 1781,
+        "count": 0
+      },
+      {
+        "id": 301,
+        "count": 10
+      },
+      {
+        "id": 307,
+        "count": 0
+      },
+      {
+        "id": 1941,
+        "count": 10
+      },
+      {
+        "id": 3226,
+        "count": 10
+      },
+      {
+        "id": 1025,
+        "count": 10
+      },
+      {
+        "id": 6014,
+        "count": 0
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 146,
+    "name": "Treznor's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 147,
+    "name": "TzHaar-Hur-Lek's Ore and Gem Store",
+    "items": [
+      {
+        "id": 438,
+        "count": 5
+      },
+      {
+        "id": 436,
+        "count": 5
+      },
+      {
+        "id": 440,
+        "count": 2
+      },
+      {
+        "id": 1623,
+        "count": 1
+      },
+      {
+        "id": 1621,
+        "count": 1
+      },
+      {
+        "id": 6571,
+        "count": 1
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 6529
+  },
+  {
+    "shopId": 148,
+    "name": "TzHaar-Hur-Tel's Equipment Store",
+    "items": [
+      {
+        "id": 6522,
+        "count": 10
+      },
+      {
+        "id": 6523,
+        "count": 10
+      },
+      {
+        "id": 6524,
+        "count": 10
+      },
+      {
+        "id": 6525,
+        "count": 10
+      },
+      {
+        "id": 6526,
+        "count": 10
+      },
+      {
+        "id": 6527,
+        "count": 10
+      },
+      {
+        "id": 6528,
+        "count": 10
+      },
+      {
+        "id": 6568,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 6529
+  },
+  {
+    "shopId": 149,
+    "name": "TzHaar-Mej-Roh's Rune Store",
+    "items": [
+      {
+        "id": 554,
+        "count": 1000
+      },
+      {
+        "id": 555,
+        "count": 1000
+      },
+      {
+        "id": 557,
+        "count": 1000
+      },
+      {
+        "id": 556,
+        "count": 1000
+      },
+      {
+        "id": 558,
+        "count": 1000
+      },
+      {
+        "id": 559,
+        "count": 1000
+      },
+      {
+        "id": 562,
+        "count": 300
+      },
+      {
+        "id": 560,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 6529
+  },
+  {
+    "shopId": 150,
+    "name": "Vanessa's Farming Shop",
+    "items": [
+      {
+        "id": 5341,
+        "count": 10
+      },
+      {
+        "id": 5343,
+        "count": 10
+      },
+      {
+        "id": 5329,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 676,
+        "count": 10
+      },
+      {
+        "id": 5331,
+        "count": 30
+      },
+      {
+        "id": 5354,
+        "count": 100
+      },
+      {
+        "id": 6032,
+        "count": 300
+      },
+      {
+        "id": 1925,
+        "count": 100
+      },
+      {
+        "id": 5418,
+        "count": 10
+      },
+      {
+        "id": 5376,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 0
+      },
+      {
+        "id": 1957,
+        "count": 0
+      },
+      {
+        "id": 1965,
+        "count": 0
+      },
+      {
+        "id": 1982,
+        "count": 0
+      },
+      {
+        "id": 5986,
+        "count": 0
+      },
+      {
+        "id": 5504,
+        "count": 0
+      },
+      {
+        "id": 5982,
+        "count": 0
+      },
+      {
+        "id": 5996,
+        "count": 0
+      },
+      {
+        "id": 5994,
+        "count": 0
+      },
+      {
+        "id": 6000,
+        "count": 0
+      },
+      {
+        "id": 6002,
+        "count": 0
+      },
+      {
+        "id": 5998,
+        "count": 0
+      },
+      {
+        "id": 5931,
+        "count": 0
+      },
+      {
+        "id": 6006,
+        "count": 0
+      },
+      {
+        "id": 6036,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 151,
+    "name": "Varrock General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 152,
+    "name": "Varrock Sword Shop",
+    "items": [
+      {
+        "id": 1277,
+        "count": 10
+      },
+      {
+        "id": 1279,
+        "count": 10
+      },
+      {
+        "id": 1281,
+        "count": 10
+      },
+      {
+        "id": 1283,
+        "count": 10
+      },
+      {
+        "id": 1285,
+        "count": 10
+      },
+      {
+        "id": 1287,
+        "count": 10
+      },
+      {
+        "id": 1291,
+        "count": 10
+      },
+      {
+        "id": 1293,
+        "count": 10
+      },
+      {
+        "id": 1295,
+        "count": 10
+      },
+      {
+        "id": 1297,
+        "count": 10
+      },
+      {
+        "id": 1299,
+        "count": 10
+      },
+      {
+        "id": 1301,
+        "count": 10
+      },
+      {
+        "id": 1205,
+        "count": 10
+      },
+      {
+        "id": 1203,
+        "count": 10
+      },
+      {
+        "id": 1207,
+        "count": 10
+      },
+      {
+        "id": 1209,
+        "count": 10
+      },
+      {
+        "id": 1211,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 153,
+    "name": "Vasquen's Farming Supplies",
+    "items": [
+      {
+        "id": 6032,
+        "count": 1000
+      },
+      {
+        "id": 5325,
+        "count": 1000
+      },
+      {
+        "id": 6468,
+        "count": 1000
+      },
+      {
+        "id": 5341,
+        "count": 1000
+      },
+      {
+        "id": 5343,
+        "count": 1000
+      },
+      {
+        "id": 5331,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 154,
+    "name": "Wayne's Chains",
+    "items": [
+      {
+        "id": 1103,
+        "count": 10
+      },
+      {
+        "id": 1101,
+        "count": 10
+      },
+      {
+        "id": 1105,
+        "count": 10
+      },
+      {
+        "id": 1107,
+        "count": 10
+      },
+      {
+        "id": 1109,
+        "count": 10
+      },
+      {
+        "id": 1111,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 155,
+    "name": "William's Wilderness Cape Shop",
+    "items": [
+      {
+        "id": 4315,
+        "count": 10
+      },
+      {
+        "id": 4335,
+        "count": 10
+      },
+      {
+        "id": 4355,
+        "count": 10
+      },
+      {
+        "id": 4375,
+        "count": 10
+      },
+      {
+        "id": 4395,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 156,
+    "name": "Wydin's Food Store",
+    "items": [
+      {
+        "id": 1933,
+        "count": 500
+      },
+      {
+        "id": 2132,
+        "count": 10
+      },
+      {
+        "id": 2138,
+        "count": 10
+      },
+      {
+        "id": 1965,
+        "count": 10
+      },
+      {
+        "id": 1963,
+        "count": 0
+      },
+      {
+        "id": 1951,
+        "count": 0
+      },
+      {
+        "id": 2309,
+        "count": 10
+      },
+      {
+        "id": 1973,
+        "count": 10
+      },
+      {
+        "id": 1985,
+        "count": 10
+      },
+      {
+        "id": 1982,
+        "count": 10
+      },
+      {
+        "id": 1942,
+        "count": 10
+      },
+      {
+        "id": 1550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 157,
+    "name": "Yrsa's Accoutrements",
+    "items": [
+      {
+        "id": 3791,
+        "count": 10
+      },
+      {
+        "id": 3797,
+        "count": 10
+      },
+      {
+        "id": 3793,
+        "count": 10
+      },
+      {
+        "id": 3795,
+        "count": 10
+      },
+      {
+        "id": 3799,
+        "count": 10
+      },
+      {
+        "id": 3759,
+        "count": 10
+      },
+      {
+        "id": 3761,
+        "count": 10
+      },
+      {
+        "id": 3763,
+        "count": 10
+      },
+      {
+        "id": 3765,
+        "count": 10
+      },
+      {
+        "id": 3777,
+        "count": 10
+      },
+      {
+        "id": 3779,
+        "count": 10
+      },
+      {
+        "id": 3781,
+        "count": 10
+      },
+      {
+        "id": 3783,
+        "count": 10
+      },
+      {
+        "id": 3785,
+        "count": 10
+      },
+      {
+        "id": 3787,
+        "count": 10
+      },
+      {
+        "id": 3789,
+        "count": 10
+      },
+      {
+        "id": 3767,
+        "count": 10
+      },
+      {
+        "id": 3769,
+        "count": 10
+      },
+      {
+        "id": 3771,
+        "count": 10
+      },
+      {
+        "id": 3773,
+        "count": 10
+      },
+      {
+        "id": 3775,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 158,
+    "name": "Zaff's Superior Staves",
+    "items": [
+      {
+        "id": 1379,
+        "count": 10
+      },
+      {
+        "id": 1389,
+        "count": 10
+      },
+      {
+        "id": 1381,
+        "count": 10
+      },
+      {
+        "id": 1383,
+        "count": 10
+      },
+      {
+        "id": 1385,
+        "count": 10
+      },
+      {
+        "id": 1387,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 159,
+    "name": "Zanaris General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 30
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1735,
+        "count": 10
+      },
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1923,
+        "count": 10
+      },
+      {
+        "id": 1887,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 550,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 160,
+    "name": "Zeke's Superior Scimitars",
+    "items": [
+      {
+        "id": 1321,
+        "count": 10
+      },
+      {
+        "id": 1323,
+        "count": 10
+      },
+      {
+        "id": 1325,
+        "count": 10
+      },
+      {
+        "id": 1329,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 161,
+    "name": "Zenesha's Platebody Shop",
+    "items": [
+      {
+        "id": 1117,
+        "count": 10
+      },
+      {
+        "id": 1115,
+        "count": 10
+      },
+      {
+        "id": 1119,
+        "count": 10
+      },
+      {
+        "id": 1125,
+        "count": 10
+      },
+      {
+        "id": 1121,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 162,
+    "name": "Slayer Equipment",
+    "items": [
+      {
+        "id": 4155,
+        "count": 100
+      },
+      {
+        "id": 4166,
+        "count": 100
+      },
+      {
+        "id": 4161,
+        "count": 100
+      },
+      {
+        "id": 6696,
+        "count": 100
+      },
+      {
+        "id": 7053,
+        "count": 100
+      },
+      {
+        "id": 4551,
+        "count": 100
+      },
+      {
+        "id": 7159,
+        "count": 100
+      },
+      {
+        "id": 6720,
+        "count": 100
+      },
+      {
+        "id": 4168,
+        "count": 100
+      },
+      {
+        "id": 4164,
+        "count": 100
+      },
+      {
+        "id": 4158,
+        "count": 100
+      },
+      {
+        "id": 4150,
+        "count": 100
+      },
+      {
+        "id": 4170,
+        "count": 100
+      },
+      {
+        "id": 7432,
+        "count": 100
+      },
+      {
+        "id": 7431,
+        "count": 100
+      },
+      {
+        "id": 4162,
+        "count": 100
+      },
+      {
+        "id": 4156,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 163,
+    "name": "Jatix Herblore Shop",
+    "items": [
+      {
+        "id": 221,
+        "count": 1000
+      },
+      {
+        "id": 229,
+        "count": 1000
+      },
+      {
+        "id": 233,
+        "count": 1000
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 164,
+    "name": "Skulgrimen's Battle Gear",
+    "items": [
+      {
+        "id": 3753,
+        "count": 10
+      },
+      {
+        "id": 3749,
+        "count": 10
+      },
+      {
+        "id": 3755,
+        "count": 10
+      },
+      {
+        "id": 3751,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 165,
+    "name": "Renual's not rape shop",
+    "items": [
+      {
+        "id": 1127,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 166,
+    "name": "rape",
+    "items": [
+      {
+        "id": 3753,
+        "count": 10
+      },
+      {
+        "id": 3749,
+        "count": 10
+      },
+      {
+        "id": 3755,
+        "count": 10
+      },
+      {
+        "id": 3751,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  }
+]

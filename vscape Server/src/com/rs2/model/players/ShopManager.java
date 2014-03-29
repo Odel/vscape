@@ -1,10 +1,17 @@
 package com.rs2.model.players;
 
-import java.io.FileInputStream;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import com.rs2.Constants;
 import com.rs2.model.World;
@@ -14,7 +21,10 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
-import com.rs2.util.XStreamUtil;
+//import com.rs2.util.XStreamUtil;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class ShopManager {
 
@@ -255,22 +265,28 @@ public class ShopManager {
 
 	@SuppressWarnings("unchecked")
 	public static void loadShops() throws FileNotFoundException {
-		System.out.println("Loading shops...");
-		List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
-		for (Shop shop : list) {
-			Container stock = new Container(Type.ALWAYS_STACK, SIZE);
-			Container currentStock = new Container(Type.ALWAYS_STACK, SIZE);
-			shops.add(shop);
-			for (Item item : shop.getItems()) {
-				if (item != null) {
-					stock.add(item);
-					currentStock.add(item);
+		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
+		FileReader reader = new FileReader("./data/content/json/shops.json");
+		try{
+			List<Shop> list = new Gson().fromJson(reader, new TypeToken<List<Shop>>(){}.getType());
+	        for (Shop shop : list) {
+				Container stock = new Container(Type.ALWAYS_STACK, SIZE);
+				Container currentStock = new Container(Type.ALWAYS_STACK, SIZE);
+				shops.add(shop);
+				for (Item item : shop.getItems()) {
+					if (item != null) {
+						stock.add(item);
+						currentStock.add(item);
+					}
 				}
+				shop.setStock(stock);
+				shop.setCurrentStock(currentStock);
 			}
-			shop.setStock(stock);
-			shop.setCurrentStock(currentStock);
+	        reader.close();
+			System.out.println("Loaded " + list.size() + " shop definitions.");
+		} catch (IOException e) {
+			System.out.println("failed to load shop definitions.");
 		}
-		System.out.println("Loaded  " + list.size() + " shop definitions.");
 		// start shop process
 		ShopManager.process();
 	}
