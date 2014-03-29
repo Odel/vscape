@@ -1,7 +1,12 @@
 =Mar 29=
 -bans now work right
--fixed some crashed caused by music
+-fixed some crashes caused by music
+-person to teleport outside and into gate at grand tree
+-fixed bridge at lighthouse
+-sailor to get to and from miscellania
+-logout timer takes longer
 =Mar 28=
 -mob agro fix
 -beer now works!
 -potion fixes
+-drop table fixes

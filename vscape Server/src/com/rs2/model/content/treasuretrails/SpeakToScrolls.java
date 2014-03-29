@@ -48,7 +48,7 @@ public class SpeakToScrolls {
 		NPC_31(new String[]{"Citric Cellar", ""}, 2792, 603, "Puzzle", 3),
 		NPC_32(new String[]{"Generally ", "speaking, his ", "nose was very ", "bent"}, 2783, 296, "Puzzle", 3),
 		NPC_33(new String[]{"My name is like a tree, ", "yet it is spelt with a \"g\"", "come see the fur, which ", "is right near me"}, 2837, 783, "Puzzle", 3),
-		NPC_34(new String[]{"Often examined by learners", "of what has passed,", "find me where words", "of wisdom speak volumes."}, 2845, 1182, "Puzzle", 3),
+		NPC_34(new String[]{"Often examined by learners", "of what has passed,", "find me where words", "of wisdom speak volumes."}, 2845, 618, "Puzzle", 3),
 		NPC_35(new String[]{"There is no 'worthier' ", "lord."}, 2856, 1182, "Puzzle", 3),
 
 		;
