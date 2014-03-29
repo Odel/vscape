@@ -26,6 +26,7 @@ public class Barrows {
 					if (x == player.getRandomGrave()) {
 						if (NpcLoader.checkSpawn(player, barrowsBrothers[x][1])) {
 							player.getActionSender().sendMessage("You must kill the the brother before searching this.");
+							player.getActionSender().sendMessage("Log out and in if you killed him, but it does not work.");
 							return true;
 						}
 						if (!player.getBarrowsNpcDead()[x]) {
@@ -51,6 +52,7 @@ public class Barrows {
 						}
 						if (NpcLoader.checkSpawn(player, barrowsBrothers[x][1])) {
 							player.getActionSender().sendMessage("You must kill the the brother before searching this.");
+							player.getActionSender().sendMessage("Log out and in if you killed him, but it does not work.");
 							return true;
 						}
 						if (player.getBarrowsNpcDead()[x]) {

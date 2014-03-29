@@ -249,14 +249,9 @@ public class Slayer { // todo fungicide
 	public static final int SLAYER_STAFF = 4170;
 	public static final int FUNGICIDE[] = { 7421, 7422, 7423, 7424, 7425, 7426, 7427, 7428, 7429, 7430 };
 
-	/*public static final String BURTHORPE_ASSIGNMENTS[] = {"banshee", "bat", "bear", "crawling hand", "dog", "dwarf", "ghost", "goblin", "kalphite", "monkey", "skeleton", "spider", "werewolf", "wolf"};
-	public static final String CANIFIS_ASSIGNMENTS[] = {"basilisk", "blue dragon", "cave crawler", "crawling hand", "shade", "dagannoth", "skeleton", "green dragon", "earth warrior", "hellhound", "kalphite", "moss giant", "otherworldy being", "rockslug", "shadow warrior", "troll", "vampire", "werewolf"};
-	public static final String EDGEVILLE_DUNGEON_ASSIGNMENTS[] = {"aberrant spectre", "banshee", "basilisk", "bloodveld", "blue dragon", "bronze dragon", "cave bug", "cave crawler", "cave slime", "cockatrice", "crawling hand", "crocodile", "dagannoth", "earth warrior", "elf", "fire giant", "green dragon", "hellhound", "ice giant", "lesser demon", "moss giant", "rockslug", "shadow warrior", "troll", "turoth", "vampire", "werewolf", "harpie bug swarm"};
-	public static final String ZANARIS_ASSIGNMENTS[] = {"basilisk", "bronze dragon", "cave slime", "cave crawler", "cockatrice", "infernal mage", "crawling hand", "dagannoth", "elf", "fire giant", "hellhound", "iron dragon", "jelly", "lesser demon", "pyrefiend", "steel dragon", "troll"};
-	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "iron dragon", "kalphite", "aberrant spectre", "turoth", "fire giant", "greater demon", "steel dragon"};*/
 	
-	public static final String BURTHORPE_ASSIGNMENTS[] = {"banshee", "bat", "bear", "crawling hand", "dog", "dwarf", "ghost", "goblin", "skeleton", "spider", "wolf"};
-	public static final String CANIFIS_ASSIGNMENTS[] = {"basilisk", "blue dragon", "cave crawler", "crawling hand", "skeleton", "green dragon", "earth warrior", "hellhound", "moss giant", "otherworldy being", "rockslug"};
+	public static final String BURTHORPE_ASSIGNMENTS[] = {"banshee", "bat", "bear", "crawling hand", "dwarf", "ghost", "goblin", "skeleton", "spider", "wolf"};
+	public static final String CANIFIS_ASSIGNMENTS[] = {"basilisk", "blue dragon", "cave crawler", "crawling hand", "skeleton", "green dragon", "earth warrior", "hellhound", "moss giant", "rockslug"};
 	public static final String EDGEVILLE_DUNGEON_ASSIGNMENTS[] = {"aberrant spectre", "banshee", "basilisk", "bloodveld", "blue dragon", "bronze dragon", "cave crawler", "cockatrice", "dust devil", "crawling hand", "earth warrior", "fire giant", "green dragon", "hellhound", "ice giant", "lesser demon", "moss giant", "rockslug", "turoth"};
 	public static final String ZANARIS_ASSIGNMENTS[] = {"basilisk", "aberrant spectre", "gargoyle", "bronze dragon", "cave crawler", "cockatrice", "infernal mage", "crawling hand", "fire giant", "hellhound", "iron dragon", "jelly", "lesser demon", "pyrefiend", "steel dragon"};
 	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "iron dragon", "aberrant spectre", "turoth", "fire giant", "greater demon", "steel dragon"};

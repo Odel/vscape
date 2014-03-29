@@ -24,8 +24,5 @@ Trying to enter the back entrance of mcgrubbor's wood traps you and makes you st
 Missing NPCs: Monastary
 Missing NPCs: Black Knight Fortress
 Missing NPCs: Dwarf Mountain
-Missing NPCs: Doric
 Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
-
-teleport to miscenllania
 can't thief from relleka citizens

@@ -387,7 +387,11 @@ public class WalkToActionHandler {
 				case 4616 : //lighthouse bridge
 				case 4615 :
 					//player.movePlayer(player.getPosition());
-					CrossObstacle.setForceMovement(player, player.getPosition().getX() < 2597 ? 4 : -4, 0, 1, 150, 4, true, 0, player.getPosition().getX() < 2597 ? 756 : 754);
+					if (player.getPosition().getX() > 2597) {
+					player.teleport(new Position(2596, 3608, 0));
+					} else {
+					player.teleport(new Position(2598, 3608, 0));
+					}
 					break;
 				case 51 : // McGrubors
 					//player.movePlayer(player.getPosition());
