@@ -2,14 +2,20 @@ package com.rs2.model.npcs.drop;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
-import com.rs2.util.XStreamUtil;
+//import com.rs2.util.XStreamUtil;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * Controls all the NPC drops in game.
@@ -17,6 +23,7 @@ import com.rs2.util.XStreamUtil;
  */
 
 public class NpcDropController {
+	
 
 	/**
 	 * The map containing all the npc drops. ;)
@@ -24,15 +31,25 @@ public class NpcDropController {
 	private static Map<Integer, NpcDropController> dropControllers = null;
 
 	@SuppressWarnings("unchecked")
-	public static void init() throws FileNotFoundException {
-		List<NpcDropController> list = (List<NpcDropController>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDrops.xml"));
-		dropControllers = new HashMap<Integer, NpcDropController>();
-		for (NpcDropController npcDrop : list) {
-			for (int id : npcDrop.getNpcIds()) {
-				dropControllers.put(id, npcDrop);
+	public static void init() throws IOException {
+	//	List<NpcDropController> list = (List<NpcDropController>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDrops.xml"));
+		FileReader reader = new FileReader("./datajson/npcs/npcDrops.json");
+		try
+		{	
+			List<NpcDropController> list = new Gson().fromJson(reader, new TypeToken<List<NpcDropController>>(){}.getType());
+			dropControllers = new HashMap<Integer, NpcDropController>();
+			for (NpcDropController npcDrop : list) {
+				/*for (int id : npcDrop.getNpcIds()) {
+					dropControllers.put(id, npcDrop);
+				}*/
+				dropControllers.put(npcDrop.getNpcId(), npcDrop);
 			}
+			reader.close();
+			System.out.println("Loaded " + dropControllers.size() + " npc drops.");
+		} catch (IOException e) {
+			reader.close();
+			System.out.println("failed to load npc definitions json.");
 		}
-		System.out.println("Loaded " + dropControllers.size() + " npc drops.");
 	}
 
 	/**
@@ -44,7 +61,7 @@ public class NpcDropController {
 	/**
 	 * The id's of the NPC's that "owns" this class.
 	 */
-	private int[] npcIds;
+	private int npcId;
 
 	/**
 	 * All the drops that belongs to this class.
@@ -57,7 +74,7 @@ public class NpcDropController {
 	private NpcDropItem[] superrare;
 
 	
-	  private static int superChance = 105;
+	private static int superChance = 105;
 	private static int rareChance = 45;
 	private static int uncommonChance = 10;
 	 
@@ -173,8 +190,8 @@ public class NpcDropController {
 	 * 
 	 * @return The id's of the NPC's.
 	 */
-	public int[] getNpcIds() {
-		return npcIds;
+	public int getNpcIds() {
+		return npcId;
 	}
 
 	/**
@@ -183,6 +200,6 @@ public class NpcDropController {
 	 * @return The id's of the NPC's.
 	 */
 	public int getNpcId() {
-		return npcIds[0];
+		return npcId;
 	}
 }

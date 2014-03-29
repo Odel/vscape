@@ -69,9 +69,9 @@ public class ItemDefinition {
 	 */
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
+		FileReader reader = new FileReader("./datajson/content/itemDefinitions.json");
 		try {
 			//List<ItemDefinition> defs = (List<ItemDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/itemDefinitions.xml"));
-			FileReader reader = new FileReader("./datajson/content/itemDefinitions.json");
 			List<ItemDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<ItemDefinition>>(){}.getType());
 	        for (int i = 0; i < Constants.MAX_ITEMS; i++) {// ItemDefinition def : defs) {
 				definitions[defs.get(i).getId()] = defs.get(i).addSlot().addTwoHanded().addShopPrice().addUntradable();
@@ -91,6 +91,7 @@ public class ItemDefinition {
 			}
 		*/
 		} catch (IOException e) {
+			reader.close();
 			logger.warning("Failed to initialize the item definitions json: " + e);
 		}
 	}

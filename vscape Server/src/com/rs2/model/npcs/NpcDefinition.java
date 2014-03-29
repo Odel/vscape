@@ -27,46 +27,52 @@ public class NpcDefinition {
 	public static void init() throws IOException {
 		//List<NpcDefinition> defs = (List<NpcDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDefinitions.xml"));
 		FileReader reader = new FileReader("./datajson/npcs/npcDefinitions.json");
-		List<NpcDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<NpcDefinition>>(){}.getType());
-		for (final NpcDefinition def : defs) {
-			if (def.getId() >= Constants.MAX_NPC_ID) {
-				break;
-			}
-            World.getDefinitions()[def.getId()] = def;
-            //if (def.attackBonus < def.combat) {
-            def.attackBonus = (int) (def.combat);
-        	def.defenceMelee = (int) (def.combat / 2);
-        	def.defenceMage = (int) (def.combat);
-        	def.defenceRange = (int) (def.combat / 2);
-            /*}
-            if (def.defenceMage == 0) {
-            	def.defenceMage = def.defenceRange;
-            }*/
-            boolean defExists = NpcCombatDef.defExists(def.getId());
-            NpcCombatDef combatDef = NpcCombatDef.getDef(def.getId());
-            if (defExists) {
-            	if (!combatDef.isAttBonusSet() && !combatDef.isDefBonusSet()) {
-            		combatDef = combatDef.bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus).bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
-            	} else if (!combatDef.isAttBonusSet()) {
-               		combatDef = combatDef.bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus);
-                } else if (!combatDef.isDefBonusSet()) {
-            		combatDef = combatDef.bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
-            	}
-             } else {
-    			combatDef = new NpcCombatDef() {
-                    @Override
-                    public AttackScript[] attackScripts(Entity attacker, Entity victim) {
-                        // Entity attacker, Entity victim, final AttackStyle.Mode
-                        // mode, final AttackStyle.Bonus bonus, final int damage,
-                        // final int delay, final int animation
-                        return new AttackScript[]{BasicAttack.meleeAttack(attacker, victim, AttackStyle.Mode.MELEE_ACCURATE, AttackStyle.Bonus.STAB, def.maxHit, def.attackSpeed / 600, def.attackAnim)};
-                    }
-                }.respawnSeconds(def.respawn).bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus).bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
-            }
-			NpcCombatDef.add(new int[]{def.getId()}, combatDef);
-        }
-		reader.close();
-		System.out.println("Loaded " + defs.size() + " npc definitions json.");
+		try
+		{
+			List<NpcDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<NpcDefinition>>(){}.getType());
+			for (final NpcDefinition def : defs) {
+				if (def.getId() >= Constants.MAX_NPC_ID) {
+					break;
+				}
+	            World.getDefinitions()[def.getId()] = def;
+	            //if (def.attackBonus < def.combat) {
+	            def.attackBonus = (int) (def.combat);
+	        	def.defenceMelee = (int) (def.combat / 2);
+	        	def.defenceMage = (int) (def.combat);
+	        	def.defenceRange = (int) (def.combat / 2);
+	            /*}
+	            if (def.defenceMage == 0) {
+	            	def.defenceMage = def.defenceRange;
+	            }*/
+	            boolean defExists = NpcCombatDef.defExists(def.getId());
+	            NpcCombatDef combatDef = NpcCombatDef.getDef(def.getId());
+	            if (defExists) {
+	            	if (!combatDef.isAttBonusSet() && !combatDef.isDefBonusSet()) {
+	            		combatDef = combatDef.bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus).bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
+	            	} else if (!combatDef.isAttBonusSet()) {
+	               		combatDef = combatDef.bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus);
+	                } else if (!combatDef.isDefBonusSet()) {
+	            		combatDef = combatDef.bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
+	            	}
+	             } else {
+	    			combatDef = new NpcCombatDef() {
+	                    @Override
+	                    public AttackScript[] attackScripts(Entity attacker, Entity victim) {
+	                        // Entity attacker, Entity victim, final AttackStyle.Mode
+	                        // mode, final AttackStyle.Bonus bonus, final int damage,
+	                        // final int delay, final int animation
+	                        return new AttackScript[]{BasicAttack.meleeAttack(attacker, victim, AttackStyle.Mode.MELEE_ACCURATE, AttackStyle.Bonus.STAB, def.maxHit, def.attackSpeed / 600, def.attackAnim)};
+	                    }
+	                }.respawnSeconds(def.respawn).bonusAtt(def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus, def.attackBonus).bonusDef(def.defenceMelee, def.defenceMelee, def.defenceMelee, def.defenceMage, def.defenceRange);
+	            }
+				NpcCombatDef.add(new int[]{def.getId()}, combatDef);
+	        }
+			reader.close();
+			System.out.println("Loaded " + defs.size() + " npc definitions json.");
+		} catch (IOException e) {
+			reader.close();
+			System.out.println("failed to load npc definitions json.");
+		}
 	}
 
 	public static class NPCINFO {

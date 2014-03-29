@@ -264,7 +264,7 @@ public class ShopManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void loadShops() throws FileNotFoundException {
+	public static void loadShops() throws IOException {
 		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
 		FileReader reader = new FileReader("./datajson/content/shops.json");
 		try{
@@ -285,6 +285,7 @@ public class ShopManager {
 	        reader.close();
 			System.out.println("Loaded " + list.size() + " shop definitions json.");
 		} catch (IOException e) {
+			reader.close();
 			System.out.println("failed to load shop definitions json.");
 		}
 		// start shop process
