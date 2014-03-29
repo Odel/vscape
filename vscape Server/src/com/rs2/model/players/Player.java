@@ -1659,6 +1659,11 @@ public class Player extends Entity {
             return false;
             // Load the player and send the login response.
         }
+		if(isBanned())
+		{
+			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
+			return false;
+		}
         setReturnCode(Constants.LOGIN_RESPONSE_OK);
 		return true;
 	}
