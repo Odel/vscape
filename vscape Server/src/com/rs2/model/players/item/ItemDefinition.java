@@ -76,7 +76,7 @@ public class ItemDefinition {
 	        for (int i = 0; i < Constants.MAX_ITEMS; i++) {// ItemDefinition def : defs) {
 				definitions[defs.get(i).getId()] = defs.get(i).addSlot().addTwoHanded().addShopPrice().addUntradable();
 			}
-			System.out.println("Loaded " + definitions.length + " item definitions");
+			System.out.println("Loaded " + definitions.length + " item definitions json");
 			reader.close();
 			/*	this converts xml defs into json
 			String json = new GsonBuilder().setPrettyPrinting().create().toJson(defs);
@@ -91,7 +91,7 @@ public class ItemDefinition {
 			}
 		*/
 		} catch (IOException e) {
-			logger.warning("Failed to initialize the item definitions: " + e);
+			logger.warning("Failed to initialize the item definitions json: " + e);
 		}
 	}
 

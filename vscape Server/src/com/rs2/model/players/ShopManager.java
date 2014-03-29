@@ -283,9 +283,9 @@ public class ShopManager {
 				shop.setCurrentStock(currentStock);
 			}
 	        reader.close();
-			System.out.println("Loaded " + list.size() + " shop definitions.");
+			System.out.println("Loaded " + list.size() + " shop definitions json.");
 		} catch (IOException e) {
-			System.out.println("failed to load shop definitions.");
+			System.out.println("failed to load shop definitions json.");
 		}
 		// start shop process
 		ShopManager.process();

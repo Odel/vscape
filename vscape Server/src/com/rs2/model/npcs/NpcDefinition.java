@@ -66,7 +66,7 @@ public class NpcDefinition {
 			NpcCombatDef.add(new int[]{def.getId()}, combatDef);
         }
 		reader.close();
-		System.out.println("Loaded " + defs.size() + " npc definitions.");
+		System.out.println("Loaded " + defs.size() + " npc definitions json.");
 	}
 
 	public static class NPCINFO {
