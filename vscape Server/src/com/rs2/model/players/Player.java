@@ -1204,8 +1204,8 @@ public class Player extends Entity {
 	private void Yell(String Msg) {
 		if(!hideYell)
 		{
-			if(System.currentTimeMillis() - lastYell < 15000) {
-				getActionSender().sendMessage("You can only yell once per 15 seconds!");
+			if(System.currentTimeMillis() - lastYell < 10000) {
+				getActionSender().sendMessage("You can only yell once per 10 seconds!");
 				return;
 			}
 			
