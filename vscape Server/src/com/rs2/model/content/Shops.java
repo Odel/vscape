@@ -462,6 +462,9 @@ public class Shops {
 				return 165;
 			case 797:
 				return 166;
+				
+			case 1334:
+				return 167;
 			/*
 				return 165;
 			case 536:
