@@ -7477,5 +7477,30 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+  },
+  {
+    "shopId": 167,
+    "name": "God Books",
+    "items": [
+      {
+        "id": 3839,
+        "count": 5
+      },
+      {
+        "id": 3841,
+        "count": 10
+      },
+      {
+        "id": 3843,
+        "count": 10
+      },
+      {
+        "id": 3839,
+        "count": 5
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]
