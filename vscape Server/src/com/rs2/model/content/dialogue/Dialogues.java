@@ -2627,23 +2627,35 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 1334 : //Jossik
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("Yo nigga i found a chest of books", "Do you want one nigga?", CONTENT);
-						return true;
-					case 2 :
-						player.getDialogue().sendOption("Yes let me see.", "No thanks.");
-						return true;
-					case 3 :
-						switch(optionId) {
-							case 1:
-								ShopManager.openShop(player, 167);
-								player.getDialogue().dontCloseInterface();
-								return true;
-						}
-						break;
-				}
+			 case 1334 : //jossik
+				 switch(player.getDialogue().getChatId()) {
+					 case 1 :
+						 player.getDialogue().sendNpcChat("Would you like to buy a book I found?", CONTENT);
+						 return true;
+					 case 2 :
+						 player.getDialogue().sendOption("Can I see your shop?", "I'm fine.");
+						 return true;
+					 case 3 :
+					 switch(optionId) {
+					 case 1:
+						 player.getDialogue().sendPlayerChat("Yeah, sure.", CONTENT);
+						 player.getDialogue().setNextChatId(5);
+						 return true;
+					 case 2 :
+						 player.getDialogue().sendPlayerChat("Sorry, I'm fine.", CONTENT);
+						 player.getDialogue().setNextChatId(6);
+						 return true;
+					 }
+					 break;
+					 case 5 :
+						 ShopManager.openShop(player, 167);
+						 player.getDialogue().dontCloseInterface();
+						 break;
+					 case 6 :
+						 player.getDialogue().sendNpcChat("Oh, it's alright.", CONTENT);
+						 player.getDialogue().endDialogue();
+						 return true;
+				 }
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();
