@@ -1,3 +1,9 @@
+=NEXT UPDATE DATE HERE=
+-Shantay pass now requires having a pass to use
+ you can buy a pass from shantay.
+-Added More npc spawns in al Kharid 
+ (mine and bank)
+
 =Mar 29=
 -bans now work right
 -fixed some crashes caused by music
