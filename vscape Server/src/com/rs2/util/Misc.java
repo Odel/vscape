@@ -551,12 +551,10 @@ public class Misc {
 				q++;
 			}
 			br.close();
-			return patchNotes;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
-		
+		return patchNotes;
 	}
 
     public static String durationFromTicks(long ticks, boolean shortened) {
