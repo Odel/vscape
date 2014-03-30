@@ -32,6 +32,7 @@ import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Runecrafting;
 import com.rs2.model.content.skills.slayer.Slayer;
 import com.rs2.model.content.skills.smithing.SmithBars;
+import com.rs2.model.content.special.GodBook;
 import com.rs2.model.content.treasuretrails.AnagramsScrolls;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -305,6 +306,10 @@ public class ItemPacketHandler implements PacketHandler {
 			player.getActionSender().sendString("Pastry dough", 13771);
 			player.getActionSender().sendString("Pizza base", 13772);
 			player.getActionSender().sendChatInterface(13768);
+			return;
+		}
+		
+		if (GodBook.addPageToBook(player, firstClickItem, secondClickItem, itemFirstClickSlot, itemSecondClickSlot)) {
 			return;
 		}
         player.getActionSender().sendMessage("Nothing interesting happens.");

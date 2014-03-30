@@ -2350,7 +2350,6 @@ public class Player extends Entity {
 	{
 		if(isDrunk)
 		{
-		//	drunkTimer += time;
 			return;
 		}
 		isDrunk = state;
@@ -2361,31 +2360,22 @@ public class Player extends Entity {
 			setWalkAnim(2769);
 			setAppearanceUpdateRequired(true);
 		}
-		else
-		{
-			drunkTimer = 0;
-		}
         CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) 
             {
-            	if(drunkTimer < 1)
-            	{
 					getActionSender().sendMessage("You are no longer drunk");
 					isDrunk = false;
-					drunkTimer = 0;
 					setStandAnim(-1);
 					setWalkAnim(-1);
 					setAppearanceUpdateRequired(true);
 	                container.stop();
-            	}
-                drunkTimer--;
             }
             @Override
             public void stop(){
             	
             }
-        }, 1);
+        }, time);
 	}
 
 	public void setEnergy(double energy) {

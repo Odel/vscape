@@ -45,7 +45,7 @@ public class NpcDropController {
 				dropControllers.put(npcDrop.getNpcId(), npcDrop);
 			}
 			reader.close();
-			System.out.println("Loaded " + dropControllers.size() + " npc drops.");
+			System.out.println("Loaded " + dropControllers.size() + " npc drops json.");
 		} catch (IOException e) {
 			reader.close();
 			System.out.println("failed to load npc definitions json.");
