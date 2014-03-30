@@ -144,8 +144,9 @@ public class WalkToActionHandler {
 					stop();
 					return;
 				}
-				if (id == 4031)
+			/*	if (id == 4031)
 					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+					*/
 				Position loc = new Position(player.getClickX(), player.getClickY(), z);
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
@@ -1017,6 +1018,27 @@ public class WalkToActionHandler {
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
 					break;
+				case 4031: //shantay pass
+					if(player.getPosition().getY() < 3116)
+					{
+						player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+						player.getActionSender().walkThroughDoor(id, x, y, z);
+					}
+					else
+					{
+						if(player.getInventory().playerHasItem(1854))
+						{
+							player.getInventory().removeItem(new Item(1854));
+							player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+							player.getActionSender().walkThroughDoor(id, x, y, z);
+						}
+						else
+						{
+							
+						}
+					}
+
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;
@@ -1498,6 +1520,20 @@ public class WalkToActionHandler {
 				// break;
 				case 2258:
 					Abyss.teleportToAbyss(player, npc);
+					break;
+				case 836: //SHANTAY Buy pass
+					Item SHANTAY_PASS = new Item(1854);
+					int SHANTAY_PASS_PRICE = SHANTAY_PASS.getDefinition().getPrice();
+					if(player.getInventory().playerHasItem(995, SHANTAY_PASS_PRICE))
+					{
+						player.getInventory().addItem(SHANTAY_PASS);
+						player.getInventory().removeItem(new Item(995,SHANTAY_PASS_PRICE));
+						player.getActionSender().sendMessage("You bought a Shantay pass for "+SHANTAY_PASS_PRICE+" coins.");
+					}
+					else
+					{
+						player.getActionSender().sendMessage("You need "+SHANTAY_PASS_PRICE+" coins to buy a Shantay pass.");
+					}
 					break;
 				}
 				this.stop();
