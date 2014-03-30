@@ -79,6 +79,7 @@ public class SearchScrolls {
 		CRIPTICS5(new String[]{"In a village made of ", "bamboo look for some ", "crates under one of the ", "houses."}, 3605, new Position(2800, 3074, 0), 0, 832, 3),
 		CRIPTICS6(new String[]{"It seems to have ", "reached the end of the ", "line, and it's still empty."}, 3607, new Position(3041, 9820, 0), 0, 832, 3),
 		CRIPTICS7(new String[]{"My home is grey, and ", "made of stone, A castle ", "with a search for a ", "meal, Hidden in some ", "drawers I am, Across ", "from a wooden wheel."}, 3610, new Position(3213, 3216, 1), 5619, 832, 3),
+	//	CRIPTICS8(new String[]{"North of the best monkey ", "restaurant on Karamja, look ", "for the centre of the triangle ", "of boats and search there."}, 3612, new Position(2905, 3189, 0), 0, 832, 3), // Quiet pls dont delete those comment them if they dont work
 		CRIPTICS9(new String[]{"Probably filled ", "with books on ", "magic"}, 3613, new Position(3096, 9571, 0), 0, 832, 3),
 		CRIPTICS10(new String[]{"Read 'How to ", "breed scorpions' ", "by O.W.Thathurt"}, 3614, new Position(2702, 3409, 1), 0, 832, 3),
 		CRIPTICS11(new String[]{"The cheapest water for ", "miles around, but they ", "react badly to religious ", "icons."}, 3615, new Position(3178, 2987, 0), 0, 832, 3),
