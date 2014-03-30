@@ -124,7 +124,7 @@ public class ChopTree {
 		}
 		  if (tree == Tree.DRAMEN_TREE) {
 			   if (NpcLoader.checkSpawn(player, 655)) {
-			    player.getActionSender().sendMessage("You need to kill the tree spirit first!");
+			    player.getActionSender().sendMessage("You need to kill the tree spirit first! Logout and in if broken!");
 			    return;
 			   }
 			   if (!player.hasKilledTreeSpirit()) {
