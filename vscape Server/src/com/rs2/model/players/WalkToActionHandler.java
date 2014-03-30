@@ -1034,7 +1034,7 @@ public class WalkToActionHandler {
 						}
 						else
 						{
-							
+							player.getActionSender().sendMessage("You don't have a shantay pass!");
 						}
 					}
 
