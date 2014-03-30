@@ -389,11 +389,9 @@ public class PlayerSave {
             player.setPassword(password);
             player.setStaffRights(load.readInt());
             player.getPosition().setX(load.readInt());
-            player.getPosition().setLastX(
-                    player.getPosition().getX());
+            player.getPosition().setLastX(player.getPosition().getX());
             player.getPosition().setY(load.readInt());
-            player.getPosition().setLastY(
-                    player.getPosition().getY() + 1);
+            player.getPosition().setLastY(player.getPosition().getY() + 1);
             player.getPosition().setZ(load.readInt());
             player.setGender(load.readInt());
             player.setAutoRetaliate(load.readBoolean());
@@ -704,6 +702,7 @@ public class PlayerSave {
     			}
             } catch (IOException e) {
             }
+            //TODO: What the fuck is this doing to questpoints and why???
             try {
             	if (player.getQuestPoints() == 1) {
             		player.getSlayer().slayerMaster = load.readInt();
@@ -732,6 +731,7 @@ public class PlayerSave {
             	player.setKilledClueAttacker(load.readBoolean());
             } catch (IOException e) {
             }
+            
           //  player.setKilledJungleDemon(load.readBoolean());
             load.close();
             if (Server.getSingleton() != null)

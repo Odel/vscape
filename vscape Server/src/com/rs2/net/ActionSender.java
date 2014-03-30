@@ -6,6 +6,7 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.objects.GameObject;
@@ -103,6 +104,12 @@ public class ActionSender {
 			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
 			sendMessage("Welcome to vscape.");
+		//QPEdit(player.getQuestPoints());
+		return this;
+	}
+	
+	public ActionSender QPEdit(int qp){
+		sendString("QP: @gre@"+qp+" ", 3985);
 		return this;
 	}
 
@@ -118,8 +125,8 @@ public class ActionSender {
 		sendConfig(287, player.getSplitPrivateChat());// splitPrivateChat
 		sendConfig(427, player.isAcceptingAid() ? 1 : 0);// acceptAid
 		sendConfig(115, player.isWithdrawAsNote() ? 1 : 0); // withdrawItemAsNote
-		sendConfig(304,
-				player.getBankOptions().equals(BankOptions.SWAP_ITEM) ? 0 : 1);// swapItem
+		sendConfig(304,player.getBankOptions().equals(BankOptions.SWAP_ITEM) ? 0 : 1);// swapItem
+		QuestHandler.sendQuestTabOnLogin(player);
 		return this;
 	}
 

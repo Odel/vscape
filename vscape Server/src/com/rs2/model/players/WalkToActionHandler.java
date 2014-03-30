@@ -14,6 +14,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -1266,7 +1267,7 @@ public class WalkToActionHandler {
 			}
 		}
 		if (npc.getPlayerOwner() != null && (npc.getPlayerOwner() != player || npc.getCombatingEntity() != null)) {
-			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
+			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.1");
 			return;
 		}
 		npc.setInteractingEntity(player);
@@ -1354,8 +1355,15 @@ public class WalkToActionHandler {
 						Dialogues.startDialogue(player, player.getClickId());
 						Following.resetFollow(player);
 						break;
+					case 278:
+						System.out.println("talking to cook, passing to quest class");
+						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+						player.setInteractingEntity(npc);
+						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
+						QuestHandler.getQuests().get("cookassist").dialogue(player, npc);
+						break;
 				}
-				player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
+				player.getActionSender().sendMessage("This npc is not interested in talking with you right now.2");
 				this.stop();
 			}
 		});
