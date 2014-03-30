@@ -49,8 +49,8 @@ public class Constants {
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	
-   	public static final int START_X = 3233;
-	public static final int START_Y = 3230;
+   	public static final int START_X = 3222;
+	public static final int START_Y = 3218;
 	public static final int START_Z = 0;
 	public static final int MAX_NPCS = 8192;
 	public static final int MAX_NPC_ID = 3794;

@@ -3,6 +3,9 @@
  you can buy a pass from shantay.
 -Added More npc spawns in al Kharid 
  (mine and bank)
+-Removed unfixable clues
+-Moved home to a more desirable location
+ (10 feet away)
 
 =Mar 29=
 -bans now work right
@@ -11,8 +14,3 @@
 -fixed bridge at lighthouse
 -sailor to get to and from miscellania
 -logout timer takes longer
-=Mar 28=
--mob agro fix
--beer now works!
--potion fixes
--drop table fixes
