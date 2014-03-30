@@ -1433,7 +1433,7 @@ public class Player extends Entity {
 		try {
 			OutputStreamWriter out = new OutputStreamWriter(
 					new FileOutputStream("./data/bannedips.txt", true));
-			out.write("\n"+player.host);
+			out.write(player.host+"\n");
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {
@@ -3715,9 +3715,9 @@ public class Player extends Entity {
             {
             	if(CurrentLine.length() > 0)
             	{
-					if(CurrentLine.contentEquals(host))
+					if(CurrentLine.startsWith(host))
 					{
-						System.out.println("curline "+ CurrentLine);
+						br.close();
 						return true;
 					}
             	}

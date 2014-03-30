@@ -540,18 +540,23 @@ public class Misc {
 	public static String[] loadPatchNotes() throws IOException {
 		String[] patchNotes = new String[100];
 		int count = 0;
-		FileReader fileReader = new FileReader(new File("data/patchnotes.txt"));
-
-		BufferedReader br = new BufferedReader(fileReader);
-
-		String line = null;
-		// if no more lines the readLine() returns null
-		int q = 0;
-		while ((line = br.readLine()) != null) {
-			patchNotes[q]=line;
-			q++;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/patchnotes.txt")));
+	
+			String line = null;
+			// if no more lines the readLine() returns null
+			int q = 0;
+			while ((line = br.readLine()) != null) {
+				patchNotes[q]=line;
+				q++;
+			}
+			br.close();
+			return patchNotes;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
 		}
-		return patchNotes;
+		
 	}
 
     public static String durationFromTicks(long ticks, boolean shortened) {
