@@ -23,7 +23,6 @@ public class SearchScrolls {
 		CRATE2(new String[]{"Search for a crate in a ", "building in Hemenster"}, 2701, new Position(2636, 3453, 0), -1, 832, 1),
 		CRATE3(new String[]{"Search for a crate in Varrock", "Palace."}, 2702, new Position(3224, 3492, 0), -1, 832, 1),
 		CRATE4(new String[]{"Search for a crate on the ", "ground floor of a building in", "Seers' Village"}, 2703, new Position(2699, 3470, 0), -1, 832, 1),
-		CRATE5(new String[]{"Search for a crate on the ", "ground floor of a house in", "Seers' Village"}, 2704, new Position(2699, 3470, 0), -1, 832, 1),
 		CRATE6(new String[]{"Search the crate in the left-", "hand tower of Lumbridge", "castle"}, 2705, new Position(3228, 3212, 1), -1, 832, 1),
 		CRATE7(new String[]{"Search the crate near a cart ", "in Port Khazard."}, 2706, new Position(2660, 3149, 0), -1, 832, 1),
 		CRATE8(new String[]{"Search the crates in a house ", "in Yanille that has a piano"}, 2707, new Position(2598, 3105, 0), -1, 832, 2),
