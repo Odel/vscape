@@ -1,4 +1,4 @@
-package com.rs2.model.content.special;
+package com.rs2.model.content.skills.prayer;
 
 import com.rs2.Constants;
 import com.rs2.model.content.skills.Skill;
