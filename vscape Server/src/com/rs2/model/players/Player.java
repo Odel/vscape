@@ -1,9 +1,13 @@
 package com.rs2.model.players;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
@@ -1174,6 +1178,8 @@ public class Player extends Entity {
             player.setMuteExpire(System.currentTimeMillis());
         } else if (keyword.equals("ban")) {
         	Ban(args);
+        } else if (keyword.equals("banip")) {
+        	BanIpAddress(args);
         }
         else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
             if (keyword.equals("update") ) {
@@ -1404,6 +1410,38 @@ public class Player extends Entity {
 				+ hours + " hours.");
 		player.setBanExpire(System.currentTimeMillis()
 				+ (hours * 60 * 60 * 1000));
+		player.disconnect();
+	}
+	
+	/**
+	 * Ban Player mac address
+	 * 
+	 * @param player
+	 *            the player to ban
+	 * 
+	 */
+	private void BanIpAddress(String[] args) {
+		Player player = World.getPlayerByName(args[0]);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + args[0]);
+			return;
+		}
+		if (player.isIpBanned()) {
+			actionSender.sendMessage("Player is already ip banned");
+			return;
+		}
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(
+					new FileOutputStream("./data/bannedips.txt", true));
+			out.write("\n"+player.host);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		actionSender.sendMessage("Banned " + player.getUsername() + "'s ip address.");
 		player.disconnect();
 	}
 
@@ -1644,7 +1682,7 @@ public class Player extends Entity {
 		}else if (!password.equals(getPassword())) {
         	//System.out.println("nigga");
         	setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
-		return false;
+        	return false;
 		} else {
 			// Check if the player is already logged in.
 			for (Player player : World.getPlayers()) {
@@ -1668,6 +1706,11 @@ public class Player extends Entity {
             setReturnCode(Constants.LOGIN_RESPONSE_BAD_SESSION_ID);
             return false;
         }
+        if(isBanned() || isIpBanned())
+		{
+			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
+			return false;
+		}
         // } else if (!name.replaceAll("_",
         // " ").equalsIgnoreCase(this.getUsername())) {
         // response = Constants.LOGIN_RESPONSE_BAD_SESSION_ID;
@@ -1676,11 +1719,6 @@ public class Player extends Entity {
             return false;
             // Load the player and send the login response.
         }
-		if(isBanned())
-		{
-			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
-			return false;
-		}
         setReturnCode(Constants.LOGIN_RESPONSE_OK);
 		return true;
 	}
@@ -3662,6 +3700,33 @@ public class Player extends Entity {
     
     public boolean isBanned() {
         return banExpire != 0 && banExpire > System.currentTimeMillis();
+    }
+    
+    public boolean isIpBanned() 
+    {
+        File file = new File("./data/bannedips.txt");
+        if (!file.exists()) {
+            return false;
+        }
+        try {
+        	String CurrentLine;
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ((CurrentLine = br.readLine()) != null) 
+            {
+            	if(CurrentLine.length() > 0)
+            	{
+					if(CurrentLine.contentEquals(host))
+					{
+						System.out.println("curline "+ CurrentLine);
+						return true;
+					}
+            	}
+			}
+			br.close();
+        } catch (IOException e) {
+        	return false;
+	    }
+        return false;
     }
 
 	/**
