@@ -22,7 +22,7 @@ public class SearchScrolls {
 		CRATE1(new String[]{"Search the crates in Canifis"}, 2709, new Position(3509, 3497, 0), -1, 832, 1),
 		CRATE2(new String[]{"Search for a crate in a ", "building in Hemenster"}, 2701, new Position(2636, 3453, 0), -1, 832, 1),
 		CRATE3(new String[]{"Search for a crate in Varrock", "Palace."}, 2702, new Position(3224, 3492, 0), -1, 832, 1),
-		CRATE4(new String[]{"Search for a crate on the ", "ground floor of a building in", "Seers' Village"}, 2703, new Position(2699, 3470, 0), -1, 832, 1),
+		//CRATE4(new String[]{"Search for a crate on the ", "ground floor of a building in", "Seers' Village"}, 2703, new Position(2699, 3470, 0), -1, 832, 1),
 		CRATE5(new String[]{"Search for a crate on the ", "ground floor of a house in", "Seers' Village"}, 2704, new Position(2699, 3470, 0), -1, 832, 1),
 		CRATE6(new String[]{"Search the crate in the left-", "hand tower of Lumbridge", "castle"}, 2705, new Position(3228, 3212, 1), -1, 832, 1),
 		CRATE7(new String[]{"Search the crate near a cart ", "in Port Khazard."}, 2706, new Position(2660, 3149, 0), -1, 832, 1),
@@ -98,7 +98,7 @@ public class SearchScrolls {
 
 		KEY_CRIPTICS1(new String[]{"Find a bar with a centre fountain ", "in its city. Go upstairs and get ", "changed."}, 7276, new Position(3229, 3400, 1), 0, 832, 3),
 		KEY_CRIPTICS2(new String[]{"Go to the ", "village being ", "attacked by ", "trolls, search ", "the drawers ", "while you are ", "there."}, 7278, new Position(2921, 3577, 0), 351, 832, 3),
-		KEY_CRIPTICS3(new String[]{"Go to this ", "building to be ", "illuminated, and ", "search the ", "drawers while ", "you're there."}, 7280, new Position(2512, 3641, 1), 351, 832, 3),
+		//KEY_CRIPTICS3(new String[]{"Go to this ", "building to be ", "illuminated, and ", "search the ", "drawers while ", "you're there."}, 7280, new Position(2512, 3641, 1), 351, 832, 3),
 		KEY_CRIPTICS4(new String[]{"In a town where ", "everyone has perfect ", "vision, seek some ", "locked drawers in a ", "house that sits opposite ", "a workshop."}, 7282, new Position(2709, 3478, 0), 351, 832, 3),
 		KEY_CRIPTICS5(new String[]{"In a town where thieves ", "steal from stalls, search ", "for some drawers ", "upstairs of a house near ", "the bank."}, 7284, new Position(2611, 3324, 1), 349, 832, 3),
 		KEY_CRIPTICS6(new String[]{"In a town where wizards ", "are known to gather, ", "search upstairs in a ", "large house to the ", "north."}, 7296, new Position(2593, 3108, 1), 378, 832, 3),
