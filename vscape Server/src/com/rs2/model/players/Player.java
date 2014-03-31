@@ -806,6 +806,18 @@ public class Player extends Entity {
 			CoordinateData clue = CoordinateData.forIdClue(id);
 			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
 		}
+		else if (keyword.equals("teletoclue")) {
+			try {
+				final int id = Integer.parseInt(args[0]);
+				CoordinateData clue = CoordinateData.forIdClue(id);
+				int x = clue.getDiggingPosition().getX();
+				int y = clue.getDiggingPosition().getY();
+				teleport(new Position(x, y, getPosition().getZ()));
+				getActionSender().sendMessage("You teleported to clue:"+id+" at " + x + ", " + y + ", " + getPosition().getZ());
+			} catch (Exception e1) {
+				getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
+			}
+		}
 	
 		//sound debug
 		if (keyword.equals("sound")) {

@@ -34,31 +34,31 @@ public class CoordinateScrolls {
 
 	public static enum CoordinateData {
 		//COORDINATE CLUES ARE BROKEN, CREATE A NEW SYSTEM.
-		//COORDINATE_1(2723, 25, 3, 23, 24, "north", "east", 3),
-		//COORDINATE_2(2725, 25, 3, 17, 5, "north", "east", 3),
-		//COORDINATE_3(2731, 24, 58, 18, 43, "north", "east", 3),
-		//COORDINATE_4(2733, 24, 56, 22, 58, "north", "east", 3),
-		//COORDINATE_5(2735, 24, 24, 26, 24, "north", "east", 3),
-		//COORDINATE_6(2737, 22, 45, 26, 33, "north", "east", 3),
-		//COORDINATE_7(2739, 22, 35, 19, 18, "north", "east", 3),
-		//COORDINATE_8(2741, 22, 30, 3, 1, "north", "east", 2),
-		//COORDINATE_9(2743, 21, 24, 17, 54, "north", "east", 3),
-		//COORDINATE_10(2745, 20, 33, 15, 45, "north", "east", 3),
-		//COORDINATE_11(2801, 20, 7, 18, 33, "north", "east", 3),
-		//COORDINATE_12(2805, 20, 5, 21, 52, "north", "east", 3),
-		//COORDINATE_13(2807, 19, 43, 25, 07, "north", "east", 3),
-		//COORDINATE_14(2809, 18, 22, 16, 33, "north", "east", 3), 
-		//COORDINATE_15(2811, 18, 3, 25, 16, "north", "east", 3), 
-		//COORDINATE_16(2813, 17, 50, 8, 30, "north", "east", 3), 
-		//COORDINATE_17(2815, 16, 43, 19, 13, "north", "east", 3), 
-		//COORDINATE_18(2819, 16, 35, 27, 1,"north", "east", 3), 
-		//COORDINATE_19(2817, 16, 20, 12, 45, "north", "east", 3),
-		//COORDINATE_20(2821, 15, 48, 13, 52, "north", "east", 3), 
-		//COORDINATE_21(2823, 14, 54, 9, 13, "north", "east", 2), 
-		//COORDINATE_22(2825, 13, 46, 21, 1, "north", "east", 3), 
-		//COORDINATE_23(3526, 12, 48, 20, 20, "north", "east", 3), 
-		//COORDINATE_24(3528, 11, 41, 14, 58, "north", "east", 2), 
-		//COORDINATE_25(3530, 11, 5, 0, 45, "north", "west", 2), 
+		COORDINATE_1(2723, 25, 3, 23, 24, "north", "east", 3), //correct
+		COORDINATE_2(2725, 25, 3, 17, 5, "north", "east", 3), //correct
+		COORDINATE_3(2731, 24, 58, 18, 43, "north", "east", 3), //correct
+		COORDINATE_4(2733, 24, 56, 22, 58, "north", "east", 3), //correct
+		COORDINATE_5(2735, 24, 24, 26, 24, "north", "east", 3), //correct
+		COORDINATE_6(2737, 22, 45, 26, 33, "north", "east", 3), //correct
+		COORDINATE_7(2739, 22, 35, 19, 18, "north", "east", 3), //correct
+		COORDINATE_8(2741, 22, 30, 3, 1, "north", "east", 2), //correct
+		COORDINATE_9(2743, 21, 24, 17, 54, "north", "east", 3), //correct
+		COORDINATE_10(2745, 20, 33, 15, 48, "north", "east", 3), //fixed //correct
+		COORDINATE_11(2801, 20, 7, 18, 33, "north", "east", 3), //correct
+		COORDINATE_12(2805, 20, 5, 21, 52, "north", "east", 3), //correct
+		COORDINATE_13(2807, 19, 43, 25, 07, "north", "east", 3), //correct
+		COORDINATE_14(2809, 18, 22, 16, 33, "north", "east", 3), //correct
+		COORDINATE_15(2811, 18, 3, 25, 16, "north", "east", 3), //wrong x y possibly no 06 reference
+		COORDINATE_16(2813, 17, 50, 8, 30, "north", "east", 3), //correct
+		COORDINATE_17(2815, 16, 43, 19, 13, "north", "east", 3), //correct
+		COORDINATE_18(2819, 16, 35, 27, 1,"north", "east", 3), //correct
+		COORDINATE_19(2817, 16, 20, 12, 45, "north", "east", 3), //correct for 06 (maybe)
+		COORDINATE_20(2821, 15, 48, 13, 52, "north", "east", 3), //area is correct but block is unwalkable
+		COORDINATE_21(2823, 14, 54, 9, 13, "north", "east", 2), //correct
+		COORDINATE_22(2825, 13, 46, 21, 1, "north", "east", 3), 
+		COORDINATE_23(3526, 12, 48, 20, 20, "north", "east", 3), 
+		COORDINATE_24(3528, 11, 41, 14, 58, "north", "east", 2), 
+		COORDINATE_25(3530, 11, 5, 0, 45, "north", "west", 2), 
 		//COORDINATE_26(3532, 11, 3, 31, 20, "north", "east", 2), 
 		//COORDINATE_27(3534, 9, 48, 17, 39, "north", "east", 2), 
 		//COORDINATE_29(3536, 8, 33, 1, 39, "north", "east", 2), 
