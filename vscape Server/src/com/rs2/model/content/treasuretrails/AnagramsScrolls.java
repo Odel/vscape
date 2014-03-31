@@ -21,7 +21,7 @@ public class AnagramsScrolls {
 		CAROLINE(2679, 696, "Arc O Line", "", 2),
 		ORACLE(2680, 746, "Are Col", "Challenge", 2),
 		BRIMSTAIL(2681, 171, "Bail Trims", "Challenge", 3),
-		KEBAB_SELLER(2682, 543, "Bar Bell Seek", "Challenge", 3),
+		//KEBAB_SELLER(2682, 543, "Bar Bell Seek", "", 3),
 		BOLKOY(2683, 471, "By Look", "Challenge", 2),
 		GNOME_COACH(2684, 2802, "C On Game Hoc", "Challenge", 3),
 		BRUNDT(2685, 1294, "Dt Run B", "Challenge", 2),
