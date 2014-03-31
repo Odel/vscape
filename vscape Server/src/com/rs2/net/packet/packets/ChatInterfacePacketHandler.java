@@ -16,6 +16,7 @@ import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.TradeManager;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.StreamBuffer;
@@ -99,6 +100,10 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			return;
 		} else if (player.getEnterXInterfaceId() == 53150) {
 			Cooking.handleCookingTick(player, amount);
+			return;
+		}
+		else if (player.getEnterXInterfaceId() == 3823) {
+			ShopManager.sellItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
 		}/* else if (player.getEnterXInterfaceId() == 9110) {
             player.getSmithing().startSmelting(amount, 0);

@@ -115,6 +115,8 @@ public final class RSInterface {
 					rsInterface.actions[l3] = stream.readString();
 					if(rsInterface.actions[l3].length() == 0)
 						rsInterface.actions[l3] = null;
+					if(rsInterface.parentID == 3822) 
+						rsInterface.actions[4] = "Sell X";
 				}
 
 			}
