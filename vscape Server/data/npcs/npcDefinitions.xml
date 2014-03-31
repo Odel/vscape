@@ -186,7 +186,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -274,7 +274,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -296,7 +296,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>14</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>711</attackAnim>
@@ -318,7 +318,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>30</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -340,7 +340,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -428,8 +428,8 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
-   <hitpoints>10</hitpoints>
+   <maxHit>6</maxHit>
+   <hitpoints>33</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
    <defenceAnim>404</defenceAnim>
@@ -450,7 +450,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>57</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -472,7 +472,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>8</maxHit>
    <hitpoints>83</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -516,7 +516,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>50</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -582,7 +582,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>50</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -604,7 +604,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>426</attackAnim>
@@ -758,7 +758,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>22</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -780,7 +780,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>22</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -1066,7 +1066,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>40</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>55</attackAnim>
@@ -1088,7 +1088,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>11</maxHit>
    <hitpoints>116</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>158</attackAnim>
@@ -1286,7 +1286,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>55</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>143</attackAnim>
@@ -1330,7 +1330,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>33</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>143</attackAnim>
@@ -1374,7 +1374,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>50</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>143</attackAnim>
@@ -1418,7 +1418,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>65</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>143</attackAnim>
@@ -1572,7 +1572,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>451</attackAnim>
@@ -1594,7 +1594,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>284</attackAnim>
@@ -1616,7 +1616,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>23</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>299</attackAnim>
@@ -1638,7 +1638,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>24</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>299</attackAnim>
@@ -1660,7 +1660,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>30</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>299</attackAnim>
@@ -1682,7 +1682,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>30</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>299</attackAnim>
@@ -1704,7 +1704,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>299</attackAnim>
@@ -1748,7 +1748,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>30</attackAnim>
@@ -1880,7 +1880,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>153</attackAnim>
@@ -1968,7 +1968,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>19</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>289</attackAnim>
@@ -2078,7 +2078,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -2100,7 +2100,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>69</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -2122,7 +2122,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>34</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -2144,7 +2144,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>35</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -2188,7 +2188,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>49</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -2276,7 +2276,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>25</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>123</attackAnim>
@@ -2298,7 +2298,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>25</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>123</attackAnim>
@@ -2320,7 +2320,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>27</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>41</attackAnim>
@@ -2342,7 +2342,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>25</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>41</attackAnim>
@@ -2364,7 +2364,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>246</attackAnim>
@@ -2386,7 +2386,7 @@
    <retreats>false</retreats>
    <poisonous>true</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>23</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>246</attackAnim>
@@ -2430,7 +2430,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>12</maxHit>
    <hitpoints>111</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2452,7 +2452,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>70</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2474,7 +2474,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>12</maxHit>
    <hitpoints>60</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2496,7 +2496,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>8</maxHit>
    <hitpoints>60</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2518,7 +2518,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>60</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>359</attackAnim>
@@ -2540,7 +2540,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>60</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>359</attackAnim>
@@ -2562,7 +2562,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>8</maxHit>
    <hitpoints>80</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2584,7 +2584,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>35</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -2606,7 +2606,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>99</attackAnim>
@@ -2628,7 +2628,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>61</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>99</attackAnim>
@@ -2650,7 +2650,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>99</attackAnim>
@@ -2672,7 +2672,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>99</attackAnim>
@@ -2694,7 +2694,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>164</attackAnim>
@@ -2716,7 +2716,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>8</maxHit>
    <hitpoints>49</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>163</attackAnim>
@@ -2738,7 +2738,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>54</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -2760,7 +2760,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>25</maxHit>
    <hitpoints>59</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -2782,7 +2782,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>66</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -2804,7 +2804,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>44</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>185</attackAnim>
@@ -2870,7 +2870,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>10</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>294</attackAnim>
@@ -2936,7 +2936,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>289</attackAnim>
@@ -2958,7 +2958,7 @@
    <retreats>false</retreats>
    <poisonous>true</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>65</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>143</attackAnim>
@@ -3002,7 +3002,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>44</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>322</attackAnim>
@@ -3024,7 +3024,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>36</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>327</attackAnim>
@@ -3046,7 +3046,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>55</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>328</attackAnim>
@@ -3090,7 +3090,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>24</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>338</attackAnim>
@@ -3112,7 +3112,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>9</maxHit>
    <hitpoints>74</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -3134,7 +3134,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -3156,7 +3156,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>70</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>75</attackAnim>
@@ -3178,7 +3178,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>31</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>246</attackAnim>
@@ -3486,7 +3486,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>67</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3596,7 +3596,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>31</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>192</attackAnim>
@@ -3618,7 +3618,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>31</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>192</attackAnim>
@@ -3794,7 +3794,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>24</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>711</attackAnim>
@@ -3816,7 +3816,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>24</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3860,7 +3860,7 @@
    <retreats>true</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>8</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3882,7 +3882,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3904,7 +3904,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3926,7 +3926,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>42</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3948,7 +3948,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>42</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -3992,7 +3992,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4014,7 +4014,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4036,7 +4036,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4058,7 +4058,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>23</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4080,7 +4080,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4124,7 +4124,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4146,7 +4146,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>23</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4168,7 +4168,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>11</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4190,7 +4190,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>42</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4212,7 +4212,7 @@
    <retreats>false</retreats>
    <poisonous>true</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>40</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4234,7 +4234,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4256,7 +4256,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>40</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4278,7 +4278,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>41</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4300,7 +4300,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>27</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4322,7 +4322,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4344,7 +4344,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4432,7 +4432,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>47</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4454,7 +4454,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>38</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4476,7 +4476,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>37</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4498,7 +4498,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>37</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4520,7 +4520,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>70</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -4542,7 +4542,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>99</attackAnim>
@@ -4872,7 +4872,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>20</maxHit>
    <hitpoints>145</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>128</attackAnim>
@@ -4938,7 +4938,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>12</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>138</attackAnim>
@@ -5224,7 +5224,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>49</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -5246,7 +5246,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>12</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -5444,7 +5444,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>39</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -5576,7 +5576,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>25</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -102986,7 +102986,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>26</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -103008,7 +103008,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>26</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -103030,7 +103030,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>26</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -103052,7 +103052,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -113919,7 +113919,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125755,7 +125755,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125777,7 +125777,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125799,7 +125799,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125821,7 +125821,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125843,7 +125843,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125865,7 +125865,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125887,7 +125887,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125909,7 +125909,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>15</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125931,7 +125931,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125953,7 +125953,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125975,7 +125975,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -125997,7 +125997,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126019,7 +126019,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126041,7 +126041,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126063,7 +126063,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126085,7 +126085,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>16</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126107,7 +126107,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126129,7 +126129,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126151,7 +126151,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126173,7 +126173,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126195,7 +126195,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126217,7 +126217,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126239,7 +126239,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126261,7 +126261,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>17</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126283,7 +126283,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126305,7 +126305,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126327,7 +126327,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126349,7 +126349,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126371,7 +126371,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126393,7 +126393,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126415,7 +126415,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126437,7 +126437,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>18</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126503,7 +126503,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>15</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -126525,7 +126525,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>52</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -127603,7 +127603,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -127625,7 +127625,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128439,7 +128439,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>50</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128527,7 +128527,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128549,7 +128549,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128571,7 +128571,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128593,7 +128593,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128615,7 +128615,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128637,7 +128637,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128659,7 +128659,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128681,7 +128681,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128703,7 +128703,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128725,7 +128725,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>20</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128901,7 +128901,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -128923,7 +128923,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129165,7 +129165,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129187,7 +129187,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129847,7 +129847,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>36</maxHit>
    <hitpoints>180</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129869,7 +129869,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>36</maxHit>
    <hitpoints>230</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129891,7 +129891,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>32</maxHit>
    <hitpoints>90</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129913,7 +129913,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>14</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -129935,7 +129935,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>59</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -130221,7 +130221,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>22</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -130243,7 +130243,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>22</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -131849,7 +131849,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>16</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -131871,7 +131871,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>12</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -131893,7 +131893,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>12</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -131915,7 +131915,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>22</maxHit>
    <hitpoints>160</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132135,7 +132135,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132157,7 +132157,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132179,7 +132179,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132201,7 +132201,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132223,7 +132223,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132245,7 +132245,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132267,7 +132267,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132289,7 +132289,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132311,7 +132311,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132333,7 +132333,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132355,7 +132355,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132377,7 +132377,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132399,7 +132399,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132421,7 +132421,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132443,7 +132443,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132465,7 +132465,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132487,7 +132487,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132509,7 +132509,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132531,7 +132531,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132553,7 +132553,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>6</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132575,7 +132575,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132597,7 +132597,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132619,7 +132619,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132641,7 +132641,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132663,7 +132663,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132685,7 +132685,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132707,7 +132707,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132729,7 +132729,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132751,7 +132751,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132773,7 +132773,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132795,7 +132795,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132817,7 +132817,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132839,7 +132839,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132861,7 +132861,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132883,7 +132883,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132905,7 +132905,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132927,7 +132927,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132949,7 +132949,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132971,7 +132971,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -132993,7 +132993,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133015,7 +133015,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>74</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133037,7 +133037,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133059,7 +133059,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133081,7 +133081,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133103,7 +133103,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>4</maxHit>
    <hitpoints>34</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133125,7 +133125,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>3</maxHit>
    <hitpoints>34</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133147,7 +133147,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>9</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133719,7 +133719,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>80</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133741,7 +133741,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133763,7 +133763,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>5</maxHit>
    <hitpoints>80</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133785,7 +133785,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>7</maxHit>
    <hitpoints>100</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -133917,7 +133917,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>8</maxHit>
    <hitpoints>10</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -134005,7 +134005,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -134027,7 +134027,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
@@ -134049,7 +134049,7 @@
    <retreats>false</retreats>
    <poisonous>false</poisonous>
    <respawn>10</respawn>
-   <maxHit>1</maxHit>
+   <maxHit>2</maxHit>
    <hitpoints>29</hitpoints>
    <attackSpeed>4000</attackSpeed>
    <attackAnim>422</attackAnim>
