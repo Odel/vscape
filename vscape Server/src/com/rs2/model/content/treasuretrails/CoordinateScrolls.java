@@ -87,7 +87,7 @@ public class CoordinateScrolls {
 //		COORDINATE_53(7262, 2, 46, 29, 11, "north", "east", 2), //correct //duel arena
 		COORDINATE_54(7264, 1, 35, 7, 28, "south", "east", 3), //correct
 		COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), //correct
-		COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //but west by 1 more minte was 5 (should be 6 but spawns in a tree)
+		COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //moved west by 1 minute from 5 to 6 (should be 5 but spawns in a tree)
 		COORDINATE_57(7307, 1, 18, 14, 15, "south", "east", 2), //correct
 		COORDINATE_58(7309, 0, 31, 17, 43, "south", "east", 2), //correct
 		COORDINATE_59(7311, 0, 30, 24, 16, "north", "east", 2), //correct
