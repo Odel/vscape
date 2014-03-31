@@ -104,7 +104,37 @@
 		<foodId>-1</foodId>
 		<healAmount>23</healAmount>
 	</fooddef>
-</list>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7928</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7929</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7930</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7931</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7932</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	<fooddef>
+		<foodName>Easter Egg</foodName>
+		<foodId>7933</foodId>
+		<healAmount>3</healAmount>
+	</fooddef>
+	</list>
 
 
 
