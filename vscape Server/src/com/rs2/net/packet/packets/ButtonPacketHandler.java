@@ -39,10 +39,11 @@ public class ButtonPacketHandler implements PacketHandler {
         interfaceId |= (data[0] & 0xff) << 8;
         interfaceId |= (data[1] & 0xff);
         RSInterface inter = RSInterface.forId(interfaceId);
-        if (!player.hasInterfaceOpen(inter)) {
+        /*if (!player.hasInterfaceOpen(inter)) {
             //player.getActionSender().removeInterfaces();
             return;
-        }
+        }*/
+        //removed because fuck you
 		handleButton(player, Misc.hexToInt(data));
 	}
 
