@@ -33,7 +33,7 @@ public class TalkToEvent {
 	public enum TalkToNpc {
 		DRUNKEN_DWARF(956, 2429, new String[] { "'Ere, matey, 'ave some 'o the good stuff.", "Dun ignore your matey!", "I hates you 1!", "Aww comeon, talk to ikle me 1!" }), // 2429
 		GENIE(409, 0, new String[] { "Greetings 1!", "I need to talk to you 1.", "1 please speak with me.", "1 I'm in a hurry, please talk to me!" }),
-		RICK(2476, 2476, new String[] { "Hello 1!", "I need to talk to you 1.", "1 please speak with me.", "1 I'm in a hurry, please talk to me!" }),
+		//RICK(2476, 2476, new String[] { "Hello 1!", "I need to talk to you 1.", "1 please speak with me.", "1 I'm in a hurry, please talk to me!" }),
 		JEKYLL(2540, 2541, new String[] { "Hey 1!", "I need to talk to you 1.", "1 please speak with me.", "1 I'm in a hurry, please talk to me!" });
 
 		int npcId, transformId;

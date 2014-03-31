@@ -2558,21 +2558,21 @@ public class Dialogues {
 						return true;
 				}
 				break;
-			case 2476 : //rick
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("Today is your lucky day, sirrah!", "I am  donating to the victims of crime to atone", "for my past actions!", HAPPY);
-						return true;
-					case 2 :
-						Item[] items = new Item[]{new Item(995, 50), new Item(1969), new Item(985), new Item(987), new Item(1623), new Item(1621), new Item(1619), new Item(1617)};
-						Item reward = items[Misc.randomMinusOne(items.length)];
-						player.getInventory().addItemOrDrop(reward);
-						player.getDialogue().sendGiveItemNpc("Rick hands you "+reward.getDefinition().getName().toLowerCase()+".", reward);
-						RandomEvent.destroyEventNpc(player);
-						player.getDialogue().endDialogue();
-						return true;
-				}
-				break;
+			//*case 2476 : //rick
+			//	switch(player.getDialogue().getChatId()) {
+				//	case 1 :
+				//		player.getDialogue().sendNpcChat("Today is your lucky day, sirrah!", "I am  donating to the victims of crime to atone", "for my past actions!", HAPPY);
+				//		return true;
+				//	case 2 :
+				//		Item[] items = new Item[]{new Item(995, 50), new Item(1969), new Item(985), new Item(987), new Item(1623), new Item(1621), new Item(1619), new Item(1617)};
+				//		Item reward = items[Misc.randomMinusOne(items.length)];
+				//		player.getInventory().addItemOrDrop(reward);
+				//		player.getDialogue().sendGiveItemNpc("Rick hands you "+reward.getDefinition().getName().toLowerCase()+".", reward);
+				//		RandomEvent.destroyEventNpc(player);
+				//		player.getDialogue().endDialogue();
+				//		return true;
+				//}
+				//break;
 			case 2540 : //dr jekyll
 				switch(player.getDialogue().getChatId()) {
 				case 1 :

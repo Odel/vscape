@@ -55,9 +55,9 @@ public class RandomEvent {
 					case 3 :
 						TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 						break;
-					case 4 :
-						TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
-						break;
+					//case 4 :
+						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
+						//break;
 				}
 			}
 			@Override
