@@ -33,7 +33,6 @@ public class CoordinateScrolls {
 	/* contains all the coordinate clues */
 
 	public static enum CoordinateData {
-		//COORDINATE CLUES ARE BROKEN, CREATE A NEW SYSTEM.
 		COORDINATE_1(2723, 25, 3, 23, 24, "north", "east", 3), //correct
 		COORDINATE_2(2725, 25, 3, 17, 5, "north", "east", 3), //correct
 		COORDINATE_3(2731, 24, 58, 18, 43, "north", "east", 3), //correct
@@ -48,55 +47,55 @@ public class CoordinateScrolls {
 		COORDINATE_12(2805, 20, 5, 21, 52, "north", "east", 3), //correct
 		COORDINATE_13(2807, 19, 43, 25, 07, "north", "east", 3), //correct
 		COORDINATE_14(2809, 18, 22, 16, 33, "north", "east", 3), //correct
-		COORDINATE_15(2811, 18, 3, 25, 16, "north", "east", 3), //wrong x y possibly no 06 reference
+//		COORDINATE_15(2811, 18, 3, 25, 16, "north", "east", 3), //wrong x y possibly no 06 reference
 		COORDINATE_16(2813, 17, 50, 8, 30, "north", "east", 3), //correct
 		COORDINATE_17(2815, 16, 43, 19, 13, "north", "east", 3), //correct
 		COORDINATE_18(2819, 16, 35, 27, 1,"north", "east", 3), //correct
 		COORDINATE_19(2817, 16, 20, 12, 45, "north", "east", 3), //correct for 06 (maybe)
-		COORDINATE_20(2821, 15, 48, 13, 52, "north", "east", 3), //area is correct but block is unwalkable
+//		COORDINATE_20(2821, 15, 48, 13, 52, "north", "east", 3), //area is correct but block is unwalkable
 		COORDINATE_21(2823, 14, 54, 9, 13, "north", "east", 2), //correct
-		COORDINATE_22(2825, 13, 46, 21, 1, "north", "east", 3), 
-		COORDINATE_23(3526, 12, 48, 20, 20, "north", "east", 3), 
-		COORDINATE_24(3528, 11, 41, 14, 58, "north", "east", 2), 
-		COORDINATE_25(3530, 11, 5, 0, 45, "north", "west", 2), 
-		//COORDINATE_26(3532, 11, 3, 31, 20, "north", "east", 2), 
-		//COORDINATE_27(3534, 9, 48, 17, 39, "north", "east", 2), 
-		//COORDINATE_29(3536, 8, 33, 1, 39, "north", "east", 2), 
-		//COORDINATE_30(3538, 8, 26, 10, 28, "south", "east", 3), 
-		//COORDINATE_31(3540, 8, 5, 15, 56, "south", "east", 3), 
-		//COORDINATE_32(3542, 8, 3, 31, 16, "north", "east", 3), 
-		//COORDINATE_33(3544, 7, 43, 12, 26, "south", "east", 3), 
-		//COORDINATE_34(3546, 7, 33, 15, 0, "north", "east", 2), 
-		//COORDINATE_35(3548, 7, 5, 30, 56, "north", "east", 2),
-		//COORDINATE_36(3550, 6, 31, 1, 45, "north", "west", 2),
-		//COORDINATE_37(3552, 6, 11, 15, 7, "south", "east", 3), 
-		//COORDINATE_38(3554, 6, 0, 21, 48, "south", "east", 3), 
-		//COORDINATE_39(3556, 5, 50, 10, 5, "south", "east", 3), 
-		//COORDINATE_40(3558, 5, 43, 23, 5, "north", "east", 2), 
-		//COORDINATE_41(3560, 5, 37, 31, 15, "north", "east", 3), 
-		//COORDINATE_42(3562, 5, 20, 4, 28, "south", "east", 2),
-		//COORDINATE_43(3582, 4, 41, 3, 9, "north", "west", 3),
-		//COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), 
-		//COORDINATE_45(3586, 4, 13, 12, 45, "north", "east", 2), 
-		//COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), 
-		//COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), 
-		//COORDINATE_48(3592, 4, 0, 12, 46, "south", "east", 2), 
-		//COORDINATE_49(3594, 3, 45, 22, 45, "south", "east", 3), 
-		//COORDINATE_50(7256, 3, 35, 13, 35, "south", "east", 2), 
-		//COORDINATE_51(7258, 2, 50, 6, 20, "north", "east", 2), 
-		//COORDINATE_52(7260, 2, 48, 22, 30, "north", "east", 2), 
-		//COORDINATE_53(7262, 2, 46, 29, 11, "north", "east", 2), 
-		//COORDINATE_54(7264, 1, 35, 7, 28, "south", "east", 3), 
-		//COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), 
-		//COORDINATE_56(7305, 1, 24, 8, 5, "north", "west", 3), 
-		//COORDINATE_57(7307, 1, 18, 14, 15, "south", "east", 2), 
-		//COORDINATE_58(7309, 0, 31, 17, 43, "south", "east", 2), 
-		//COORDINATE_59(7311, 0, 30, 24, 16, "north", "east", 2), 
-		//COORDINATE_60(7313, 0, 20, 23, 15, "south", "east", 2), 
-		//COORDINATE_61(7315, 0, 18, 9, 28, "south", "east", 2), 
-		//COORDINATE_62(7317, 0, 13, 13, 15, "south", "east", 2), 
-		COORDINATE_63(2747, 0, 5, 1, 13, "south", "east", 2), 
-		//COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3),
+		COORDINATE_22(2825, 13, 46, 21, 1, "north", "east", 3), //correct
+		COORDINATE_23(3526, 12, 48, 20, 20, "north", "east", 3), //correct
+		COORDINATE_24(3528, 11, 41, 14, 58, "north", "east", 2), //correct for 06 (maybe)
+		COORDINATE_25(3530, 11, 5, 0, 45, "north", "west", 2), //correct
+		COORDINATE_26(3532, 11, 3, 31, 20, "north", "east", 2), //correct for 06
+		COORDINATE_27(3534, 9, 48, 17, 39, "north", "east", 2), //correct
+		COORDINATE_29(3536, 8, 33, 1, 39, "north", "east", 2), //correct
+		COORDINATE_30(3538, 8, 26, 10, 28, "south", "east", 3), //correct
+		COORDINATE_31(3540, 8, 5, 15, 56, "south", "east", 3), //correct
+		COORDINATE_32(3542, 8, 3, 31, 16, "north", "east", 3), //correct
+		COORDINATE_33(3544, 7, 43, 12, 26, "south", "east", 3), //correct 
+		COORDINATE_34(3546, 7, 33, 15, 0, "north", "east", 2), //correct
+		COORDINATE_35(3548, 7, 5, 30, 56, "north", "east", 2), //correct
+		COORDINATE_36(3550, 6, 31, 1, 46, "north", "west", 2), //fixed //correct
+		COORDINATE_37(3552, 6, 11, 15, 7, "south", "east", 3), //correct
+		COORDINATE_38(3554, 6, 0, 21, 48, "south", "east", 3), //correct
+		COORDINATE_39(3556, 5, 50, 10, 5, "south", "east", 3), //correct
+		COORDINATE_40(3558, 5, 43, 23, 5, "north", "east", 2), //correct
+		COORDINATE_41(3560, 5, 37, 31, 15, "north", "east", 3), //correct
+		COORDINATE_42(3562, 5, 20, 4, 28, "south", "east", 2), //correct
+		COORDINATE_43(3582, 4, 41, 3, 9, "north", "west", 3), //correct
+		COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), //correct
+		COORDINATE_45(3586, 4, 13, 12, 45, "north", "east", 2), //correct
+		COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), //correct
+		COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), //correct
+		COORDINATE_48(3592, 4, 0, 12, 46, "south", "east", 2), //correct
+		COORDINATE_49(3594, 3, 45, 22, 45, "south", "east", 3), //correct
+		COORDINATE_50(7256, 3, 35, 13, 35, "south", "east", 2), //correct 
+		COORDINATE_51(7258, 2, 50, 6, 20, "north", "east", 2), //correct
+		COORDINATE_52(7260, 2, 48, 22, 30, "north", "east", 2), //correct
+//		COORDINATE_53(7262, 2, 46, 29, 11, "north", "east", 2), //correct //duel arena
+		COORDINATE_54(7264, 1, 35, 7, 28, "south", "east", 3), //correct
+		COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), //correct
+		COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //but west by 1 more minte was 5 (should be 6 but spawns in a tree)
+		COORDINATE_57(7307, 1, 18, 14, 15, "south", "east", 2), //correct
+		COORDINATE_58(7309, 0, 31, 17, 43, "south", "east", 2), //correct
+		COORDINATE_59(7311, 0, 30, 24, 16, "north", "east", 2), //correct
+		COORDINATE_60(7313, 0, 20, 23, 15, "south", "east", 2), //correct
+		COORDINATE_61(7315, 0, 18, 9, 28, "south", "east", 2), //correct
+		COORDINATE_62(7317, 0, 13, 13, 58, "south", "east", 2), //fixed //correct
+		COORDINATE_63(2747, 0, 5, 1, 13, "south", "east", 2), //correct
+		COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3), //correct for 06
 		;
 		private int clueId;
 		private int degree1;
