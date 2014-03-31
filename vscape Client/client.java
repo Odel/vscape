@@ -6914,7 +6914,7 @@ public class client extends RSApplet {
 			onDemandFetcher.start(streamLoader_6, this);
 			Class36.method528(onDemandFetcher.getAnimCount());
 			Model.method459(onDemandFetcher.getVersionCount(0), onDemandFetcher);
-			preloadModels();
+		//	preloadModels();
 			if(!lowMem)
 			{
 				nextSong = 0;
@@ -6966,9 +6966,10 @@ public class client extends RSApplet {
 			k = onDemandFetcher.getVersionCount(0);
 			for(int k1 = 0; k1 < k; k1++)
 			{
+			/*
 				int l1 = onDemandFetcher.getModelIndex(k1);
 				if((l1 & 1) != 0)
-					onDemandFetcher.method558(0, k1);
+					onDemandFetcher.method558(0, k1);*/
 			}
 
 			k = onDemandFetcher.getNodeCount();

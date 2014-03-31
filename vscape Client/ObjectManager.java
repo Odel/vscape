@@ -226,6 +226,11 @@ final class ObjectManager {
 										k23 = 0;
 										j23 = -2;
 										i23 = -1;
+									} else if(flo_2.anInt390 == 0x333333) 
+									{
+									    k23 = Texture.anIntArray1482[method185(flo_2.anInt399, 96)];								
+									    j23 = -2;
+									    i23 = -1;
 									} else
 									{
 										j23 = method177(flo_2.anInt394, flo_2.anInt395, flo_2.anInt396);

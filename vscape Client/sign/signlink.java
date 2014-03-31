@@ -18,32 +18,34 @@ import java.net.UnknownHostException;
 public final class signlink
     implements Runnable
 {
+	
+	private static String cacheName = "/.vscape/";
 
 	public static String findcachedir()
     {
-        boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString())).exists();
+        boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
         if(exists)
         {
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString();
+            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
         } else
         {
-            File f = new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString());
+            File f = new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString());
             f.mkdir();
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString();
+            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
         }
     }
 
     public static final String findcachedir2()
     {
-        boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString())).exists();
+        boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
         if(exists)
         {
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString();
+            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
         } else
         {
-            File f = new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString());
+            File f = new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString());
             f.mkdir();
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append("/2006-Memorys/").toString();
+            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
         }
     }
 

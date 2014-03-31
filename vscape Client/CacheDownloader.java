@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.FileWriter;
@@ -8,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLConnection;
 import java.net.URL;
 import java.util.zip.ZipFile;
@@ -27,10 +30,13 @@ public class CacheDownloader {
          * Only things you need to change
          *
          */
-        private final int VERSION = 1; // Version of cache
+    //    private final int VERSION = 1; // Version of cache
         //private String cacheLink = "https://dl.dropboxusercontent.com/u/162363240/2006-Memorys.zip"; // Link to cache
-        private String cacheLink = "https://dl.dropboxusercontent.com/u/118465198/2006-Memorys.zip";
-
+       // private String cacheLink = "https://dl.dropboxusercontent.com/u/118465198/2006-Memorys.zip";
+        private String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/cacheVersion.dat";
+        private String cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/vscape.zip";
+        private int localCacheVersion = 0;
+        
         private String fileToExtract = getCacheDir() + getArchivedName();
 
         public CacheDownloader(client client) {
@@ -56,43 +62,94 @@ public class CacheDownloader {
                 return cacheLink;
         }
 
-        private int getCacheVersion() {
-                return VERSION;
+        private int getCacheRemoteVersion() throws IOException {
+            BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));
+            
+    		String line;
+    		try {
+    			while((line = cacheVerReader.readLine()) != null) {
+                	return Integer.parseInt(line);
+    			}
+    		} catch(IOException e) {
+    			System.out.println("problem reading remote cache");
+    			return 0;
+    		} finally {
+    			if(cacheVerReader != null) {
+    				try {
+    					cacheVerReader.close();
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    					return 0;
+    				}
+    			}
+    		}
+    		return 0;
+        }
+        
+        private int getCacheLocalVersion() throws IOException {
+        	File versionFile = new File(getCacheDir() + "/cacheVersion.dat");
+            BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
+    		String line;
+    		try {
+    			while((line = cacheVerReader.readLine()) != null) {
+                	return Integer.parseInt(line);
+    			}
+    		} catch(IOException e) {
+    			return 0;
+    		} finally {
+    			if(cacheVerReader != null) {
+    				try {
+    					cacheVerReader.close();
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    					return 0;
+    				}
+    			}
+    		}
+    		return 0;
         }
 
         public CacheDownloader downloadCache() {
-                try {
-                File location = new File(getCacheDir());
-                File version = new File(getCacheDir() + "/cacheVersion" + getCacheVersion() + ".dat");
-                
-                if(!location.exists()) {
-                        //drawLoadingText("Downloading Cache Please wait...");
-                        downloadFile(getCacheLink(), getArchivedName());
+            try {
+	            File location = new File(getCacheDir());
+	            File versionFile = new File(getCacheDir() + "/cacheVersion.dat");
 
-                        unZip();
-                      //  System.out.println("UNZIP");
+	            int remoteVer = getCacheRemoteVersion();
+	            if(!versionFile.exists())
+	            {	
+		            downloadFile(getCacheLink(), getArchivedName());
+		            unZip();
+		                
+	                localCacheVersion = getCacheRemoteVersion();
+		            BufferedWriter versionFileWriter = new BufferedWriter(new FileWriter(versionFile));
+	                versionFileWriter.write(localCacheVersion+"");
+	                versionFileWriter.flush();
+	                versionFileWriter.close();
+	            }
+	            else
+	            {
+	            	localCacheVersion = getCacheLocalVersion();
+	            	
+	            	if(remoteVer != localCacheVersion)
+	            	{
+		                downloadFile(getCacheLink(), getArchivedName());
+		                unZip();
+		                
+		                localCacheVersion = getCacheRemoteVersion();
+			            BufferedWriter versionFileWriter = new BufferedWriter(new FileWriter(versionFile));
+		                versionFileWriter.write(localCacheVersion+"");
+		                versionFileWriter.flush();
+		                versionFileWriter.close();
+	            	}
+	            	else
+	            	{
+	            		return null;
+	            	}
+	            }
+            } catch(Exception e) {
 
-                        BufferedWriter versionFile = new BufferedWriter(new FileWriter(getCacheDir() + "/cacheVersion" + getCacheVersion() + ".dat"));
-                        versionFile.close();
-                } else {
-                        if(!version.exists()) {
-                                //drawLoadingText("Downloading Cache Please wait...");
-                                downloadFile(getCacheLink(), getArchivedName());
-
-                                unZip();
-                               // System.out.println("UNZIP");
-
-                                BufferedWriter versionFile = new BufferedWriter(new FileWriter(getCacheDir() + "/cacheVersion" + getCacheVersion() + ".dat"));
-                                versionFile.close();
-
-                        } else {
-                                return null;
-                        }
-                }
-                } catch(Exception e) {
-
-                }
-                return null;
+            }
+            return null;
         }
         
         private void downloadFile(String adress, String localFileName) {
@@ -165,27 +222,28 @@ public class CacheDownloader {
         private void unZip() {
 
             try {
-                    InputStream in = 
+            	InputStream in = 
                     new BufferedInputStream(new FileInputStream(fileToExtract));
                 ZipInputStream zin = new ZipInputStream(in);
                 ZipEntry e;
 
                 while((e=zin.getNextEntry()) != null) {
-
-                               if(e.isDirectory()) {
+                	if(e.isDirectory()) {
                         (new File(getCacheDir() + e.getName())).mkdir();
-                               } else {
+            		} else {
 
-                    if (e.getName().equals(fileToExtract)) {
-                        unzip(zin, fileToExtract);
-                        break;
-                    }
-                               unzip(zin, getCacheDir() + e.getName());
+		                if (e.getName().equals(fileToExtract)) {
+		                    unzip(zin, fileToExtract);
+		                    break;
+		                }
+                       unzip(zin, getCacheDir() + e.getName());
                     }
                  //   System.out.println("unzipping2 " + e.getName());
                 }
                 zin.close();
 
+                (new File(fileToExtract)).delete();
+                
             } catch(Exception e) {
                 e.printStackTrace();
             }
