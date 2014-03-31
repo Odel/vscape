@@ -30,7 +30,7 @@ public class AnagramsScrolls {
 		RECRUITER(2688, 720, "Err Cure It", "Challenge", 2),
 		KING_BOLREN(2689, 469, "Goblin Kern", "", 3),
 		GABOOTY(2690, 2520, "Got A Boy", "Challenge", 2),
-		GABOOTY2(2690, 2521, "Got A Boy", "Challenge", 2),
+		//GABOOTY2(2690, 2521, "Got A Boy", "Challenge", 2),
 		LUTHAS(2691, 379, "Halt Us", "Challenge", 2),
 		FYCIE(2692, 1011, "Icy fe", "", 3),
 		KING_ROLAND(2693, 648, "Lark In Dog", "Challenge", 3),
