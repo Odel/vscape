@@ -28,6 +28,9 @@ import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
 
+import com.rs2.model.players.BankManager;
+import com.rs2.model.players.item.Item;
+
 public class ButtonPacketHandler implements PacketHandler {
 
 	public static final int BUTTON = 185;
@@ -396,6 +399,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		switch (buttonId) {
+		case 73099: //Deposit all Inventory Items
+			BankManager.bankAll(player);
+			return;
 			/** Destroy item **/
 			case 55095 :
 				if (player.getDestroyItem() != null) {

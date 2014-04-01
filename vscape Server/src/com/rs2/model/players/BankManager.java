@@ -78,6 +78,32 @@ public class BankManager {
 		player.getActionSender().sendUpdateItems(5382, bankItems);
 	}
 	
+	public static void bankAll(Player player)
+	{
+		Container container = player.getInventory().getItemContainer();
+		try
+		{
+			Item[] items = container.toArray();
+			for(int invSlot = 0; invSlot < 28; invSlot++) {
+				if (items[invSlot] != null) {
+					if(container.isSlotUsed(invSlot))
+					{
+						Item item = container.get(invSlot);
+						container.remove(item);
+						player.getBank().add(item);
+					}
+				}
+			}
+			Item[] bankItems = player.getBank().toArray();
+			player.getInventory().refresh(5064);
+			player.getInventory().refresh(7423);
+			player.getActionSender().sendUpdateItems(5382, bankItems);
+			container.clear();
+			player.getInventory().refresh();
+		} catch (Exception e) {
+		}
+	}
+	
 	public void refresh() {
 		Item[] items = itemContainer.toArray();
 		player.getActionSender().sendUpdateItems(DEFAULT_BANK_INTERFACE, items);
