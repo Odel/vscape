@@ -3,6 +3,7 @@
 -Checked all coordinate clue scrolls and
  disabled 3 of them
 -Added Sell X to store (download new client)
+-Added Bank All (download new client)
 -Fixed NPC's drops (Including the 1gp drop)
 -Fixed more
 -Fixed max hits of a lot of NPCS
