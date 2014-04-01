@@ -115,6 +115,7 @@ public class BankManager {
 				} else {
 					player.getBank().set(player.getBank().getSlotById(transferId), new Item(transferId, bankCount + amount));
 				}
+			}
 		} catch (Exception e) {
 			
 		} finally {
