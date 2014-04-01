@@ -10,8 +10,8 @@ final class RSFrame extends Frame
 	public RSFrame(RSApplet RSApplet_, int i, int j)
 	{
 		rsApplet = RSApplet_;
-		setTitle("Jagex");
-		setResizable(false);
+		setTitle("/v/scape");
+		setResizable(true);
 		//show();		//deprecated
 		setVisible(true);
 		toFront();
