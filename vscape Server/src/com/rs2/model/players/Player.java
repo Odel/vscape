@@ -666,15 +666,11 @@ public class Player extends Entity {
 			getInventory().refresh();
 		}
 		else if (keyword.equals("rnpc")) {
-			final int index = Misc.random(3000);
-			if(index > 3500){ 
-			getActionSender().sendMessage("Something went wrong.");
-			}else{
+			int index = Integer.parseInt(Misc.random(2000));
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
 			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
-		}
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
