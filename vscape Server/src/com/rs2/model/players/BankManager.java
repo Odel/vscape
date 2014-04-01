@@ -117,7 +117,12 @@ public class BankManager {
 				}
 			}
 		} catch (Exception e) {
-			
+			//refresh even if exception is thrown
+			Item[] bankItems = player.getBank().toArray();
+			player.getInventory().refresh(5064);
+			player.getInventory().refresh(7423);
+			player.getActionSender().sendUpdateItems(5382, bankItems);
+			player.getInventory().refresh();		
 		} finally {
 			Item[] bankItems = player.getBank().toArray();
 			player.getInventory().refresh(5064);

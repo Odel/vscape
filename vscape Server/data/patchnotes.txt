@@ -1,4 +1,4 @@
-=NEXT UPDATE DATE HERE=
+=APR 1=
 -Added Robe store owner and Magic store owner
 -Checked all coordinate clue scrolls and
  disabled 3 of them
