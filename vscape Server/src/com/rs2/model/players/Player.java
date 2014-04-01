@@ -673,6 +673,7 @@ public class Player extends Entity {
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
+			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
 		}
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
