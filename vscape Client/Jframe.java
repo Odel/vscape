@@ -28,7 +28,7 @@ public class Jframe extends client implements ActionListener {
 			JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 			frame = new JFrame("/v/scape");
 			frame.setLayout(new BorderLayout());
-			frame.setResizable(true);
+			frame.setResizable(false);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			JPanel gamePanel = new JPanel();
 
@@ -39,7 +39,7 @@ public class Jframe extends client implements ActionListener {
 			frame.pack();
 
 			frame.setVisible(true); // can see the client
-			frame.setResizable(true); // resizeable frame
+			frame.setResizable(false); // resizeable frame
 
 			init();
 		} catch (Exception e) {
