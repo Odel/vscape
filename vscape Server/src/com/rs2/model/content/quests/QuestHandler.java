@@ -7,6 +7,7 @@ import com.rs2.model.content.quests.CooksAssistant;
 import com.rs2.model.players.item.*;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.util.PlayerSave;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,28 +28,31 @@ public class QuestHandler {
         8195, 12144, 12150, 12151, 12152, 12153, 12154, 12155, 12146
     };
     public static final int QUEST_INTERFACE = 8134;
-    private static Map<String, Quest> quests = new HashMap<String, Quest>();
+    //private static Map<String, Quest> quests = new HashMap<String, Quest>();
+    private static Quest[] quests = new Quest[1];
     public static Quest cook = new CooksAssistant();
     
     
     public static void init(Player player) {
         //System.out.println("Loading quests...");
-        quests.put("cookassist", cook);
-        player.setQuestStage(0, 0); //this needs to be loaded from the save file
-        //System.out.println("Loaded " + quests.size() + " quests.");
+        quests[0]=cook;
+        player.setQuestStage(0, 0); //initialize cooks assistant
+        PlayerSave.loadQuests(player);
+        quests[0].sendQuestTabStatus(player);
+        System.out.println("Loaded " + quests.length + " quests.");
     }
     
-    public static Map<String, Quest> getQuests(){
+    public static Quest[] getQuests(){
     	return quests;
     }
 
     public static int getTotalQuests() {
-        return quests.size();
+        return quests.length;
     }
 
-    public static void startQuest(Player player, String questarg) {
+    public static void startQuest(Player player, int questID) {
     	System.out.println("quest starting");
-        Quest quest = quests.get(questarg);
+        Quest quest = quests[questID];
         if (quest == null) {
             return;
         }
@@ -57,14 +61,14 @@ public class QuestHandler {
             player.getActionSender().sendMessage("You can't do this quest yet.");
             return;
         }
-        if (player.getQuestStage()[quest.getQuestID()] == 0) {
+        if (player.getQuestStage(quest.getQuestID()) == 0) {
             resetInterface(player);
             quest.startQuest(player);
         }
     }
 
-    public static void completeQuest(Player player, String questName) {
-        Quest quest = quests.get(questName);
+    public static void completeQuest(Player player, int questID) {
+        Quest quest = quests[questID];
         if (quest == null) {
             return;
         }
@@ -76,8 +80,7 @@ public class QuestHandler {
         Quest quest = null;
         switch (button) {
             case 28165:
-                quest = quests.get("cookassist");
-                System.out.println("cookassist button clicked");
+                quest = quests[0];
 
                 quest.showInterface(player);
                 break;

@@ -1360,7 +1360,7 @@ public class WalkToActionHandler {
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						QuestHandler.getQuests().get("cookassist").dialogue(player, npc);
+						QuestHandler.getQuests()[0].dialogue(player, npc);
 						break;
 				}
 				player.getActionSender().sendMessage("This npc is not interested in talking with you right now.2");

@@ -2628,7 +2628,7 @@ public class Dialogues {
 						break;
 				}
 			case 278: //Lummy castle cook - quest npc - cooks assistant
-				if(player.getQuestStage()[0] == 0) //if quest not started
+				if(player.getQuestStage(0) == 0) //if quest not started
 				{
 					switch(player.getDialogue().getChatId()) {
 					case 1:
@@ -2681,7 +2681,7 @@ public class Dialogues {
 					case 1:
 						player.getDialogue().sendNpcChat("Oh thank you, thank you. I need milk, an egg and","flour. I'd be very grateful if you can get them for me.", HAPPY);
 						player.setQuestStage(0, 1);
-						QuestHandler.getQuests().get("cookassist").startQuest(player);
+						QuestHandler.getQuests()[0].startQuest(player);
 						player.getDialogue().endDialogue();
 					return true;
 					case 2:
@@ -2692,7 +2692,7 @@ public class Dialogues {
 					return true;
 					}
 				}
-				else if(player.getQuestStage()[0] == 1)
+				else if(player.getQuestStage(0) == 1)
 				{
 				switch(player.getDialogue().getChatId()) {
 				case 1:
@@ -2768,7 +2768,7 @@ public class Dialogues {
 				return true;
 				}
 				}
-				else if((player.getQuestStage()[0] == 2) || (player.getQuestStage()[0] == 3))
+				else if((player.getQuestStage(0) == 2) || (player.getQuestStage(0) == 3))
 				{
 					switch(player.getDialogue().getChatId()) {
 						case 1:
@@ -2792,7 +2792,7 @@ public class Dialogues {
 						return true;
 						case 7:
 							player.getDialogue().endDialogue();
-							QuestHandler.completeQuest(player,"cookassist");
+							QuestHandler.completeQuest(player,0);
 						return true;
 					}
 				}

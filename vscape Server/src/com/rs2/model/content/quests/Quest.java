@@ -70,4 +70,8 @@ public interface Quest {
 	public int getDialogueStage(Player player);
 
 	public void setDialogueStage(int i);
+	
+    public void sendQuestTabStatus(Player player);
+    
+    public void sendQuestInterface(Player player);
 }

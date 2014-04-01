@@ -326,7 +326,7 @@ public class Player extends Entity {
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
-	public int[] questStage = new int[QuestHandler.getTotalQuests()];
+	public int[] questStage = new int[1];
 	
 	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
             5715, 2449, 904, 147, 962 };
@@ -4050,8 +4050,8 @@ public class Player extends Entity {
 		return lastPersonChallenged;
 	}
 
-	public int[] getQuestStage() {
-		return questStage;
+	public int getQuestStage(int questId) {
+		return questStage[questId];
 	}
 	
 	/*public void sendQuestTab(){

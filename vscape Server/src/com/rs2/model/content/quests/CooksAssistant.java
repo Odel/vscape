@@ -61,7 +61,7 @@ public class CooksAssistant implements Quest {
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
-        player.getActionSender().sendString("15,000 Cooking Experience", 12150);
+        player.getActionSender().sendString("2,250 Cooking Experience", 12150);
         player.getActionSender().sendString("10k cash", 12151);
         player.getActionSender().sendString("", 12152);
         player.getActionSender().sendString("", 12153);
@@ -75,11 +75,11 @@ public class CooksAssistant implements Quest {
 
     public void sendQuestRequirements(Player player) {
         String prefix = "";
-        int questStage = player.getQuestStage()[getQuestID()];
-        if (questStage >= QUEST_STARTED) {
+        int questStage = player.getQuestStage(getQuestID());
+        if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with Cook", 8147);
-            player.getActionSender().sendString("@str@" + "found in Lumbridge.", 8148);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
+            player.getActionSender().sendString("@str@" + "Cook found in Lumbridge Castle.", 8148);
             
             player.getActionSender().sendString("Cook has asked you to get the following items:", 8150);
             player.getActionSender().sendString("Bucket of Milk", 8151);
@@ -88,28 +88,57 @@ public class CooksAssistant implements Quest {
         }
         else if (questStage == ITEMS_GIVEN) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with Cook", 8147);
-            player.getActionSender().sendString("@str@" + "found in Lumbridge.", 8148);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
+            player.getActionSender().sendString("@str@" + "Cook found in Lumbridge.", 8148);
             
             player.getActionSender().sendString("Cook has asked you to get the following items:", 8150);
             player.getActionSender().sendString("@str@" + "Bucket of Milk", 8151);
             player.getActionSender().sendString("@str@" + "Pot of Flour", 8152);
             player.getActionSender().sendString("@str@" + "an Egg", 8153);
+            
+            player.getActionSender().sendString("@str@" + "You brought Cook all the items", 8154);
         }
         else if (questStage == QUEST_COMPLETE) {
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
+            player.getActionSender().sendString("@str@" + "Cook found in Lumbridge Castle.", 8148);
+            
+            player.getActionSender().sendString("@str@ Cook has asked you to get the following items:", 8150);
+            player.getActionSender().sendString("@str@" + "Bucket of Milk", 8151);
+            player.getActionSender().sendString("@str@" + "Pot of Flour", 8152);
+            player.getActionSender().sendString("@str@" + "an Egg", 8153);
+            
+            player.getActionSender().sendString("@str@" + "You brought Cook all the items and were rewarded!", 8154);
+            
             player.getActionSender().sendString("@red@You have completed this quest!", 8155);
         }
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString(prefix + "To start the quest, you should talk with Cook", 8147);
-            player.getActionSender().sendString(prefix + "found in Lumbridge.", 8148);
+            player.getActionSender().sendString(prefix + "To start the quest, you should talk with the", 8147);
+            player.getActionSender().sendString(prefix + "Cook found in Lumbridge Castle.", 8148);
         }
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
 
+    public void sendQuestInterface(Player player){
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    }
+    
     public void startQuest(Player player) {
         player.setQuestStage(getQuestID(), QUEST_STARTED);
         player.getActionSender().sendString("@yel@Cook's Assistant", 7333);
+    }
+    
+    public void sendQuestTabStatus(Player player) {
+    	int questStage = player.getQuestStage(getQuestID());
+    	sendQuestRequirements(player);
+    	System.out.println(questStage);
+    	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
+    		player.getActionSender().sendString("@yel@Cook's Assistant", 7333);
+    	} else if (questStage >= QUEST_COMPLETE) {
+    		player.getActionSender().sendString("@gre@Cook's Assistant", 7333);
+    	} else {
+    		player.getActionSender().sendString("@red@Cook's Assistant", 7333);
+    	}
+    	
     }
 
     public int getQuestPoints() {
