@@ -3,7 +3,10 @@
 -Checked all coordinate clue scrolls and
  disabled 3 of them
 -Added Sell X to store (download new client)
- 
+-Fixed NPC's drops (Including the 1gp drop)
+-Fixed more
+-Fixed max hits of a lot of NPCS
+-Fixed some level requirements for armor
  
 =MAR 30=
 -Shantay pass now requires having a pass to use
