@@ -80,27 +80,49 @@ public class BankManager {
 	
 	public static void bankAll(Player player)
 	{
-		Container container = player.getInventory().getItemContainer();
 		try
 		{
-			Item[] items = container.toArray();
-			for(int invSlot = 0; invSlot < 28; invSlot++) {
-				if (items[invSlot] != null) {
-					if(container.isSlotUsed(invSlot))
-					{
-						Item item = container.get(invSlot);
-						container.remove(item);
-						player.getBank().add(item);
-					}
+			Container container = player.getInventory().getItemContainer();
+			Item[] items = container.getItems();
+			for(Item item : items){
+				if (item == null || !item.validItem() ) {
+					return;
 				}
-			}
+				int itemId = item.getId();
+				int slot = container.getSlotById(itemId);
+				int amount = item.getCount();
+				boolean isNote = item.getDefinition().isNoted();
+				if (item.getDefinition().getId() > Constants.MAX_ITEMS) {
+					player.getActionSender().sendMessage("This item is not supported yet.");
+					return;
+				}
+				int freeSlot = player.getBank().freeSlot();
+				if (freeSlot == -1) {
+					player.getActionSender().sendMessage("You don't have enough space in your bank account.");
+					return;
+				}
+				if (!item.getDefinition().isStackable()) {
+					for (int i = 0; i < amount; i++) {
+						player.getInventory().removeItem(new Item(itemId, 1));
+					}
+				} else {
+					player.getInventory().removeItem(new Item(itemId, amount));
+				}
+				int bankCount = player.getBank().getCount(itemId);
+				int transferId = isNote ? item.getDefinition().getNormalId() : item.getDefinition().getId();
+				if (bankCount == 0) {
+					player.getBank().add(new Item(transferId, amount));
+				} else {
+					player.getBank().set(player.getBank().getSlotById(transferId), new Item(transferId, bankCount + amount));
+				}
+		} catch (Exception e) {
+			
+		} finally {
 			Item[] bankItems = player.getBank().toArray();
 			player.getInventory().refresh(5064);
 			player.getInventory().refresh(7423);
 			player.getActionSender().sendUpdateItems(5382, bankItems);
-			container.clear();
-			player.getInventory().refresh();
-		} catch (Exception e) {
+			player.getInventory().refresh();		
 		}
 	}
 	
