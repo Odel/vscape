@@ -361,8 +361,8 @@ public class PlayerSave {
 			characterfile.write("cooks-assistant = ", 0, 18);
 			characterfile.write(Integer.toString(player.getQuestStage(0)), 0, Integer.toString(player.getQuestStage(0)).length());
 			characterfile.newLine();
-			characterfile.write("knights-sword = ", 0, 21);
-			characterfile.write(Integer.toString(player.getQuestStage(0)), 0, Integer.toString(player.getQuestStage(0)).length());
+			characterfile.write("knights-sword = ", 0, 16);
+			characterfile.write(Integer.toString(player.getQuestStage(1)), 0, Integer.toString(player.getQuestStage(1)).length());
 			characterfile.newLine();
 			
 			characterfile.write("[EOF]", 0, 5);
@@ -420,7 +420,7 @@ public class PlayerSave {
 				} else if (token.equals("cooks-assistant")) {
 					player.setQuestStage(0, Integer.parseInt(token2));
 				} else if (token.equals("knights-sword")) {
-					player.setQuestStage(0, Integer.parseInt(token2));
+					player.setQuestStage(1, Integer.parseInt(token2));
 			}
 		}
 		try {

@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.GroupMiniGame;
 import com.rs2.model.content.minigames.groupminigames.CastleWarsCounter;
 import com.rs2.model.content.minigames.magetrainingarena.*;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.fishing.FishingSpots;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
@@ -194,6 +195,8 @@ public class Server implements Runnable {
 
 			// spawning world fishing spots
 			FishingSpots.spawnFishingSpots();
+			
+	        QuestHandler.init();
 
 			NpcLoader.loadAutoSpawn("./data/npcs/spawn-config.cfg");
 

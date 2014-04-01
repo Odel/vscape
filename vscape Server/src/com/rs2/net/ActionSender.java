@@ -126,7 +126,6 @@ public class ActionSender {
 		sendConfig(427, player.isAcceptingAid() ? 1 : 0);// acceptAid
 		sendConfig(115, player.isWithdrawAsNote() ? 1 : 0); // withdrawItemAsNote
 		sendConfig(304,player.getBankOptions().equals(BankOptions.SWAP_ITEM) ? 0 : 1);// swapItem
-		QuestHandler.sendQuestTabOnLogin(player);
 		return this;
 	}
 

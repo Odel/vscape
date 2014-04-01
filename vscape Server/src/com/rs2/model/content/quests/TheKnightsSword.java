@@ -145,7 +145,6 @@ public class TheKnightsSword implements Quest {
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);
-    	System.out.println(questStage);
     	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@The Knight's Sword", 7346);
     	} else if (questStage >= QUEST_COMPLETE) {

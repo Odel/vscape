@@ -326,7 +326,7 @@ public class Player extends Entity {
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
-	public int[] questStage = new int[1];
+	public int[] questStage = new int[2];
 	
 	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
             5715, 2449, 904, 147, 962 };
@@ -1614,8 +1614,8 @@ public class Player extends Entity {
 		}
 		RandomEvent.startRandomEvent(this);
         setAppearanceUpdateRequired(true);
+        QuestHandler.initPlayer(this);
         getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
-        QuestHandler.init(this);
         getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
 	}
 
@@ -4056,17 +4056,17 @@ public class Player extends Entity {
 		return questStage[questId];
 	}
 	
-	/*public void sendQuestTab(){
+	public void sendQuestTab(){
 		getActionSender().sendString("Player Quests", 663);
 		getActionSender().sendString("", 7332);
-		getActionSender().sendString("Cook's Assistant", 7333);
+		getActionSender().sendString("@red@Cook's Assistant", 7333);
+		getActionSender().sendString("@red@The Knight's Sword", 7346);
 		getActionSender().sendString("", 7334);
 		getActionSender().sendString("", 7336);
 		getActionSender().sendString("", 7339);
 		getActionSender().sendString("", 7338);
 		getActionSender().sendString("", 7383);
 		getActionSender().sendString("", 7340);
-		getActionSender().sendString("", 7346);
 		getActionSender().sendString("", 7341);
 		getActionSender().sendString("", 7342);
 		getActionSender().sendString("", 7337);
@@ -4167,6 +4167,6 @@ public class Player extends Entity {
 		// unknown id
 		getActionSender().sendString("", 7352);
 		getActionSender().sendString("", 12129);
-	}*/
+	}
 
 }

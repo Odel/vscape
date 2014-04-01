@@ -9,10 +9,6 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.PlayerSave;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 /**
  * @date 1-jun-2011
  * @author Satan666
@@ -29,17 +25,29 @@ public class QuestHandler {
     };
     public static final int QUEST_INTERFACE = 8134;
     //private static Map<String, Quest> quests = new HashMap<String, Quest>();
-    private static Quest[] quests = new Quest[1];
+    private static Quest[] quests = new Quest[2];
     public static Quest cook = new CooksAssistant();
+    public static Quest knightsword = new TheKnightsSword();
     
     
-    public static void init(Player player) {
-        //System.out.println("Loading quests...");
+    public static void init() {
+        System.out.println("Loading quests...");
         quests[0]=cook;
-        player.setQuestStage(0, 0); //initialize cooks assistant
-        PlayerSave.loadQuests(player);
-        quests[0].sendQuestTabStatus(player);
+        quests[1]=knightsword;
+        
         System.out.println("Loaded " + quests.length + " quests.");
+    }
+    
+    public static void initPlayer(Player player){
+        player.setQuestStage(0, 0); //Initialize cooks assistant value
+        player.setQuestStage(1, 0); //Initialize the knights sword value
+        
+        player.sendQuestTab(); //Makes the quest log empty except implemented quests
+        
+        PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
+        
+        quests[0].sendQuestTabStatus(player); //sends the quest log entry to the client
+        quests[1].sendQuestTabStatus(player); 
     }
     
     public static Quest[] getQuests(){
@@ -51,7 +59,6 @@ public class QuestHandler {
     }
 
     public static void startQuest(Player player, int questID) {
-    	System.out.println("quest starting");
         Quest quest = quests[questID];
         if (quest == null) {
             return;
@@ -79,13 +86,11 @@ public class QuestHandler {
     public static void handleQuestButtons(Player player, int button) {
         Quest quest = null;
         switch (button) {
-            case 28165:
+            case 28165: //Cooks Assistant Button
                 quest = quests[0];
-
-
                 quest.showInterface(player);
                 break;
-        	case 28178:
+        	case 28178: //The Knights Sword Button
         		quest = quests[1];
         		quest.showInterface(player);
         		break;
@@ -103,46 +108,4 @@ public class QuestHandler {
         }
     }
 
-    public static void sendQuestTabOnLogin(Player player) {
-        /*String prefix = "";
-        int questStage = 0;
-        for (int i = 0; i < quests.size(); i++) {
-            questStage = player.getQuestStage()[i];
-            switch (i) {
-                case 0:
-                    prefix = (questStage >= CooksAssistant.QUEST_STARTED && questStage < CooksAssistant.QUEST_COMPLETE) ? "@yel@"
-                            : questStage == CooksAssistant.QUEST_COMPLETE ? "@gre@" : "";
-                    player.getActionSender().sendString(prefix + "Cook's Assistant", 7333);
-            }
-        }*/
-    }
-
-    public static void handleQuest(Player player, int dialogueId) {
-        /*for (int i = 0; i < DialogueManager.getDialogues().size(); i++) {
-            Dialogue dia = DialogueManager.getDialogues().get(i);
-            if (dia.getDialogueId() == dialogueId) {
-                switch (dia.getDialogueId()) {
-                    case 15:
-                        QuestHandler.startQuest(player, "cookassist");
-                        break;
-                    case 20:
-                        if (player.getInventory().getItemContainer().contains(1944)
-                                && player.getInventory().getItemContainer().contains(1927)
-                                && player.getInventory().getItemContainer().contains(1933)) {
-                            player.setQuestStage(0, CooksAssistant.ITEMS_GIVEN);
-                            player.getInventory().removeItem(new Item(1927, 1));
-                            player.getInventory().removeItem(new Item(1933, 1));
-                            player.getInventory().removeItem(new Item(1944, 1));
-                            DialogueManager.showDialogue(player, 21);
-                        } else {
-                            DialogueManager.showDialogue(player, 27);
-                        }
-                        break;
-                    case 26:
-                        QuestHandler.completeQuest(player, "cookassist");
-                        break;
-                }
-            }
-        }*/
-    }
 }
