@@ -14,6 +14,8 @@ import java.util.zip.CRC32;
 import sign.signlink;
 
 public class client extends RSApplet {
+	
+	private static boolean DevMode = true;
 
 	public static String getHost() {
 		return "127.0.0.1";
@@ -4745,7 +4747,7 @@ public class client extends RSApplet {
 						TextInput.method526(promptInput, stream);
 						stream.writeBytes(stream.currentOffset - k);
 						promptInput = TextInput.processText(promptInput);
-						promptInput = Censor.doCensor(promptInput);
+					//	promptInput = Censor.doCensor(promptInput);
 						pushMessage(promptInput, 6, TextClass.fixName(TextClass.nameForLong(aLong953)));
 						if(privateChatMode == 2)
 						{
@@ -4975,7 +4977,7 @@ public class client extends RSApplet {
 						stream.method441(0, aStream_834.buffer, aStream_834.currentOffset);
 						stream.writeBytes(stream.currentOffset - j3);
 						inputString = TextInput.processText(inputString);
-						inputString = Censor.doCensor(inputString);
+					//	inputString = Censor.doCensor(inputString);
 						myPlayer.textSpoken = inputString;
 						myPlayer.anInt1513 = j2;
 						myPlayer.anInt1531 = i3;
@@ -8330,7 +8332,7 @@ public class client extends RSApplet {
 						stream.method442(j3, 0, aStream_834.buffer);
 						aStream_834.currentOffset = 0;
 						String s = TextInput.method525(j3, aStream_834);
-						s = Censor.doCensor(s);
+						//s = Censor.doCensor(s);
 						player.textSpoken = s;
 						player.anInt1513 = i1 >> 8;
 						player.privelage = j2;
@@ -11703,7 +11705,14 @@ public class client extends RSApplet {
 		duelMode = 0;
 		clanChatMode = 0;
 		cButtonCPos = 0;
-		server = "127.0.0.1";
+		if(DevMode)
+		{
+			server = "127.0.0.1";
+		}
+		else
+		{
+			server = "mrsmeg.no-ip.biz";
+		}
 		anIntArrayArray825 = new int[104][104];
 		friendsNodeIDs = new int[200];
 		groundArray = new NodeList[4][104][104];

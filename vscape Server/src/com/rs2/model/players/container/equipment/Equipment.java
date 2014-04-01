@@ -800,24 +800,40 @@ public class Equipment {
 			defenceLevelReq = 40;
 			return;
 		}
-		if (itemName.contains("black d'hide")) {
-			rangeLevelReq = 70;
-			return;
-		}
 		if (itemName.contains("tzhaar-ket-om")) {
 			strengthLevelReq = 60;
 			return;
 		}
+		if (itemName.contains("black d'hide")) {
+			rangeLevelReq = 70;
+			if(itemName.contains("body"))
+			{
+				defenceLevelReq = 40;
+			}
+			return;
+		}
 		if (itemName.contains("red d'hide")) {
 			rangeLevelReq = 60;
+			if(itemName.contains("body"))
+			{
+				defenceLevelReq = 40;
+			}
 			return;
 		}
 		if (itemName.contains("blue d'hide")) {
 			rangeLevelReq = 50;
+			if(itemName.contains("body"))
+			{
+				defenceLevelReq = 40;
+			}
 			return;
 		}
 		if (itemName.contains("green d'hide")) {
 			rangeLevelReq = 40;
+			if(itemName.contains("body"))
+			{
+				defenceLevelReq = 40;
+			}
 			return;
 		}
 		if (itemName.contains("snakeskin")) {

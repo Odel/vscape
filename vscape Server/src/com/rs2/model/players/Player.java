@@ -1199,40 +1199,37 @@ public class Player extends Entity {
         	Ban(args);
         } else if (keyword.equals("banip")) {
         	BanIpAddress(args);
+        } else if (keyword.equals("update") ) {
+        	final int seconds = Integer.parseInt(args[0]);
+			SystemUpdate(seconds);
         }
-        else if (getUsername().equalsIgnoreCase("Mr telescope") || getUsername().equalsIgnoreCase("Mr foxter") || getUsername().equalsIgnoreCase("Mr nakna") || getUsername().equalsIgnoreCase("Noiryx") || getUsername().equalsIgnoreCase("Odel")) {
-            if (keyword.equals("update") ) {
-            	final int seconds = Integer.parseInt(args[0]);
-				SystemUpdate(seconds);
-            }
-            else if (keyword.equals("stat")) {
-                try {
-                    if (fullString.indexOf("-") == 0) {
-                        getActionSender().sendMessage("Don't forget - before player name!");
-                        return;
-                    }
-                    int skillId = Integer.parseInt(args[0]);
-                    int lvl = Integer.parseInt(args[1]);
-                    String name = fullString.substring(fullString.indexOf("-")+1);
-                    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-                    Player player = World.getPlayerByName(nameLong);
-                    if (player == null) {
-                        getActionSender().sendMessage("Can't find player "+name);
-                        return;
-                    }
-                    player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-                    player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl);
-                    player.getSkill().refresh(skillId);
+        else if (keyword.equals("stat")) {
+            try {
+                if (fullString.indexOf("-") == 0) {
+                    getActionSender().sendMessage("Don't forget - before player name!");
+                    return;
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
+                int skillId = Integer.parseInt(args[0]);
+                int lvl = Integer.parseInt(args[1]);
+                String name = fullString.substring(fullString.indexOf("-")+1);
+                long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+                Player player = World.getPlayerByName(nameLong);
+                if (player == null) {
+                    getActionSender().sendMessage("Can't find player "+name);
+                    return;
+                }
+                player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
+                player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl);
+                player.getSkill().refresh(skillId);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
 
-                }
             }
-            else if (keyword.equals("rights")) 
-            {
-            	GiveRights(args);
-            }
+        }
+        else if (keyword.equals("rights")) 
+        {
+        	GiveRights(args);
         }
 	}
 
