@@ -54,7 +54,7 @@ public class CooksAssistant implements Quest {
         for (int[] expRewards : expReward) {
             player.getSkill().addExp(expRewards[0], (expRewards[1]*Constants.EXP_RATE));
         }
-        player.setQuestPoints(player.getQuestPoints() + questPointReward);
+        player.addQuestPoints(questPointReward);
         player.getActionSender().QPEdit(player.getQuestPoints());
     }
 
@@ -62,8 +62,8 @@ public class CooksAssistant implements Quest {
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
-        player.getActionSender().sendString(" Cooking Experience", 12150);
-        player.getActionSender().sendString("", 12151);
+        player.getActionSender().sendString("1 Quest Point", 12150);
+        player.getActionSender().sendString((int)(expReward[0][1]*Constants.EXP_RATE) + " Cooking Experience", 12151);
         player.getActionSender().sendString("", 12152);
         player.getActionSender().sendString("", 12153);
         player.getActionSender().sendString("", 12154);

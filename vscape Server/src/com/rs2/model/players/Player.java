@@ -1616,6 +1616,7 @@ public class Player extends Entity {
         setAppearanceUpdateRequired(true);
         getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
         QuestHandler.init(this);
+        getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -2631,6 +2632,7 @@ public class Player extends Entity {
 	
 	public void addQuestPoints(int points) {
         this.questPoints += points;
+        getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
     }
 	
     public void setQuestStage(int index, int questStage) {

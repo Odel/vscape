@@ -793,7 +793,7 @@ public class PlayerSave {
             	} else {
             		load.readUTF();
             	}
-            	player.setQuestPoints(1);
+            	//player.setQuestPoints(1);
             } catch (IOException e) {
             	player.getSlayer().resetSlayerTask();
             }
