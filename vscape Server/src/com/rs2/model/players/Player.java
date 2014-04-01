@@ -666,7 +666,7 @@ public class Player extends Entity {
 			getInventory().refresh();
 		}
 		else if (keyword.equals("rnpc")) {
-			int index = Integer.parseInt(Misc.random(2000));
+			int index = (int)Misc.random(2000);
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
