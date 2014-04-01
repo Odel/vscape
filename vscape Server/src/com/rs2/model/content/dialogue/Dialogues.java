@@ -2710,7 +2710,7 @@ public class Dialogues {
 					player.getDialogue().sendPlayerChat("I still haven't got them all yet, I'm still looking.",CONTENT);
 				return true;
 				case 3:
-					player.getDialogue().sendNpcChat("please get the ingredients quickly. I'm running out of","time! The Duke will throw my goat and I onto the street!",DISTRESSED);
+					player.getDialogue().sendNpcChat("Please get the ingredients quickly. I'm running out of","time! The Duke will throw my goat and I onto the street!",DISTRESSED);
 				return true;
 				case 4:
 					player.getDialogue().sendOption("I'll get right on it.","Where can I find the ingredients?");

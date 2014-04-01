@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -22,10 +23,10 @@ public class CooksAssistant implements Quest {
     
     public int dialogueStage = 0;
     private int reward[][] = {
-        {995, 10000}, //itemID, amount
+        {995, 0}, //itemID, amount
     };
     private int expReward[][] = {
-        {Skill.COOKING, 1000} // skill ID, exp amount
+        {Skill.COOKING, 300} // skill ID, exp amount
     };
     private static final int questPointReward = 1;
 
@@ -51,7 +52,7 @@ public class CooksAssistant implements Quest {
             player.getInventory().addItem(new Item(rewards[0], rewards[1]));
         }
         for (int[] expRewards : expReward) {
-            player.getSkill().addExp(expRewards[0], expRewards[1]);
+            player.getSkill().addExp(expRewards[0], (expRewards[1]*Constants.EXP_RATE));
         }
         player.setQuestPoints(player.getQuestPoints() + questPointReward);
         player.getActionSender().QPEdit(player.getQuestPoints());
@@ -61,8 +62,8 @@ public class CooksAssistant implements Quest {
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
-        player.getActionSender().sendString("2,250 Cooking Experience", 12150);
-        player.getActionSender().sendString("10k cash", 12151);
+        player.getActionSender().sendString(" Cooking Experience", 12150);
+        player.getActionSender().sendString("", 12151);
         player.getActionSender().sendString("", 12152);
         player.getActionSender().sendString("", 12153);
         player.getActionSender().sendString("", 12154);
