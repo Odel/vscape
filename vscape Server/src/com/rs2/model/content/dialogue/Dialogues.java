@@ -2627,6 +2627,188 @@ public class Dialogues {
 						}
 						break;
 				}
+			case 606: //Squire for The Knight's Sword
+				if(player.getQuestStage(1) == 0) //if quest not started
+				{
+					switch(player.getDialogue().getChatId()) {
+					case 1:
+						player.getDialogue().sendNpcChat("What am I going to do?", DISTRESSED);
+						return true;
+					case 2:
+						player.getDialogue().sendOption("What's wrong?","You don't look very happy.");
+						return true;
+					case 3:
+						switch(optionId) {
+						case 1:
+							player.getDialogue().sendNpcChat("I've lost Sir Vyvin's sword!",DISTRESSED);
+							player.getDialogue().setNextChatId(4);
+						return true;
+						case 2:
+							player.getDialogue().sendNpcChat("Yes, please go away unless you can help!",NEAR_TEARS);
+							player.getDialogue().setNextChatId(5);
+						return true;
+						}
+					return true;
+					case 4:
+						player.getDialogue().sendNpcChat("Could you please help me create another?",DISTRESSED);
+					return true;
+					case 5:
+						player.getDialogue().sendOption("I'm always happy to help a person in distress.","Sorry, I have troubles of my own.");
+					return true;
+					case 6:
+					switch(optionId) {
+					case 1:
+						player.getDialogue().sendNpcChat("Thank you! You can talk to the dwarf found","near remmington!", HAPPY);
+						player.setQuestStage(1, 1);
+						QuestHandler.getQuests()[1].startQuest(player);
+						player.getDialogue().endDialogue();
+					return true;
+					case 2:
+						player.getDialogue().sendNpcChat("Oh, okay then...", DISTRESSED);
+						player.getDialogue().endDialogue();
+					return true;
+					}
+					return true;
+					}
+				}
+				else if(player.getQuestStage(1) == 1)
+				{
+				switch(player.getDialogue().getChatId()) {
+				case 1:
+					player.getDialogue().sendNpcChat("Have you created a new sword yet?", DISTRESSED);
+						player.getDialogue().setNextChatId(2);
+				return true;
+				case 2:
+					player.getDialogue().sendPlayerChat("Not yet, I'm working on it..",CONTENT);
+				return true;
+				case 3:
+					player.getDialogue().sendNpcChat("Please hurry!",DISTRESSED);
+				return true;
+				case 4:
+					player.getDialogue().sendOption("I'll get right on it.","Where can I find the dwarf?");
+				return true;
+				case 5:
+					switch(optionId) {
+					case 1:
+						player.getDialogue().sendNpcChat("There's no time to waste! Hurry!",DISTRESSED);
+						player.getDialogue().endDialogue();
+					return true;
+					case 2:
+						player.getDialogue().sendNpcChat("South of Rimmington in a small shack.",HAPPY);
+						player.getDialogue().endDialogue();
+					return true;
+					}
+				return true;
+				case 6:
+					player.getDialogue().endDialogue();
+				return true;
+				}
+				}
+				else if((player.getQuestStage(1) == 3))
+				{
+					switch(player.getDialogue().getChatId()) {
+						case 1:
+							player.getDialogue().sendNpcChat("You've created a new sword!",HAPPY);
+						return true;
+						case 2:
+							player.getDialogue().sendNpcChat("Thank you!",HAPPY);
+						return true;
+						case 3:
+							player.getDialogue().sendPlayerChat("Oh, it was nothing.",HAPPY);
+						return true;
+						case 4:
+							player.getDialogue().sendNpcChat("I'm sure it was, hero!",SAD);
+						return true;
+						case 5:
+							player.getDialogue().sendPlayerChat("Ah, it was really nothing.",CALM);
+						return true;
+						case 6:
+							player.getDialogue().sendNpcChat("Anyways, thank you so very much.",HAPPY);
+							player.setQuestStage(1, 4);
+						return true;
+						case 7:
+							player.getDialogue().endDialogue();
+							QuestHandler.completeQuest(player,1);
+						return true;
+					}
+				}
+			return true;
+			case 304: //Thurgo for Knight's Sword
+				if((player.getQuestStage(1) == 1))
+				{
+					switch(player.getDialogue().getChatId()) {
+					case 1:
+						player.getDialogue().sendNpcChat("What want human?", CALM);
+					return true;
+					case 2:
+						player.getDialogue().sendPlayerChat("Could you make a new copy of Sir Vyvin's Sword?", CONTENT);
+					return true;
+					case 3:
+						player.getDialogue().sendNpcChat("Me remember that guy, he ask for blurite sword.","He pay many redberry pies. Why need another?", CONTENT);
+					return true;
+					case 4:
+						player.getDialogue().sendPlayerChat("The Squire kind of lost it...","He sent me to get a new one.", DISTRESSED);
+					return true;
+					case 5:
+						player.getDialogue().sendNpcChat("Me suppose me make another.","I out of blurite though, bring me some.", CONTENT);
+						player.setQuestStage(1, 2);
+					return true;
+					case 6:
+						player.getDialogue().sendPlayerChat("Alright, do you know where I can find some?", HAPPY);
+					return true;
+					case 7:
+						player.getDialogue().sendNpcChat("Maybe in mine on hill. Deep in dungeon me used to find","very big veins. Contain very scary monsters, though.", CONTENT);
+					return true;
+					case 8:
+						player.getDialogue().endDialogue();
+					return true;
+					}
+				}
+				if((player.getQuestStage(1) == 2))
+				{
+					switch(player.getDialogue().getChatId()) {
+					case 1:
+						player.getDialogue().sendNpcChat("You find blurite yet?", CONTENT);
+						if(!(player.hasItem(668)))
+						{
+							player.getDialogue().setNextChatId(2);
+						}
+						else
+						{
+							player.getDialogue().setNextChatId(8);
+						}
+					case 2:
+						player.getDialogue().sendPlayerChat("Yes, I've found it! Could you make the sword now?", HAPPY);
+					return true;
+					case 3:
+						player.getDialogue().sendNpcChat("Yeah, I make now.", CONTENT);
+					return true;
+					case 4:
+						player.getDialogue().sendPlayerChat("Thanks so much.", HAPPY);
+					return true;
+					case 5:
+						player.getDialogue().sendNpcChat("Here your sword. Come back with redberry pie next time!", CONTENT);
+						player.getInventory().addItem(new Item(667, 1));
+						player.setQuestStage(1, 3);
+					return true;
+					case 6:
+						player.getDialogue().sendPlayerChat("Oh, I will! Thanks Thurgo!", HAPPY);
+					return true;
+					case 7:
+						player.getDialogue().endDialogue();
+					return true;
+					case 8:
+						player.getDialogue().sendPlayerChat("Oh, no. I'm having trouble finding it.", DISTRESSED);
+					return true;
+					case 9:
+						player.getDialogue().sendNpcChat("You can find in mine on hill next to shack.", CALM);
+					return true;
+					case 10:
+						player.getDialogue().endDialogue();
+					return true;
+					}
+				}
+			return true;	
 			case 278: //Lummy castle cook - quest npc - cooks assistant
 				if(player.getQuestStage(0) == 0) //if quest not started
 				{
@@ -2778,7 +2960,7 @@ public class Dialogues {
 							player.getDialogue().sendNpcChat("Thank you!",HAPPY);
 						return true;
 						case 3:
-							player.getDialogue().sendPlayerChat("So do i get to go to the Duke's party?",HAPPY);
+							player.getDialogue().sendPlayerChat("So do I get to go to the Duke's party?",HAPPY);
 						return true;
 						case 4:
 							player.getDialogue().sendNpcChat("I'm afraid not.","Only the big cheeses get to Dine with the Duke.",SAD);
@@ -2787,7 +2969,7 @@ public class Dialogues {
 							player.getDialogue().sendPlayerChat("Well, maybe one day I'll be important enough to sit at","the Duke's table.",CALM);
 						return true;
 						case 6:
-							player.getDialogue().sendNpcChat("Maybe, but i won't be holding my breath.",HAPPY);
+							player.getDialogue().sendNpcChat("Maybe, but I won't be holding my breath.",HAPPY);
 							player.setQuestStage(0, 3);
 						return true;
 						case 7:

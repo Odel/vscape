@@ -381,6 +381,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 28165: //quest tab entry for cook's assistant
 				QuestHandler.handleQuestButtons(player, buttonId);
 				return;
+			case 28178: //the knight's sword
+				QuestHandler.handleQuestButtons(player, buttonId);
+				return;
 		}
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;

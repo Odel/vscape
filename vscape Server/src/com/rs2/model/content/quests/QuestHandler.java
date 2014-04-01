@@ -82,9 +82,15 @@ public class QuestHandler {
             case 28165:
                 quest = quests[0];
 
+
                 quest.showInterface(player);
                 break;
+        	case 28178:
+        		quest = quests[1];
+        		quest.showInterface(player);
+        		break;
         }
+
         if (quest != null) {
             resetInterface(player);
             quest.sendQuestRequirements(player);
