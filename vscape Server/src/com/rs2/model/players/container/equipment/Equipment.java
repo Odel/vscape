@@ -743,7 +743,7 @@ public class Equipment {
 			} else if (itemName.contains("mithril")) {
 				rangeLevelReq = 20;
 			} else if (itemName.contains("adamant")) {
-				rangeLevelReq = 20;
+				rangeLevelReq = 30;
 			} else if (itemName.contains("rune") || itemName.contains("ice")) {
 				rangeLevelReq = 40;
 			} else if (itemName.contains("broad")) {
