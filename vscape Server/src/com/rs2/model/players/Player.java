@@ -664,6 +664,16 @@ public class Player extends Entity {
 		} else if (keyword.equals("empty")) {
 			getInventory().getItemContainer().clear();
 			getInventory().refresh();
+		}
+		else if (keyword.equals("rnpc")) {
+			final int index = Misc.random(3000);
+			if(index > 3500){ 
+			getActionSender().sendMessage("Something went wrong.");
+			}else{
+			transformNpc = index;
+			setAppearanceUpdateRequired(true);
+			setSize(new Npc(index).getDefinition().getSize());
+		}
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
