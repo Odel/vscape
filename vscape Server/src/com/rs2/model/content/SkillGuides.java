@@ -497,7 +497,9 @@ public class SkillGuides {
 			optionTab("Attack", "Special", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
 		} else if (screen == 12) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Attack Cape", 9747, 0);
+			menuLine("99", "Attack Cape (t)", 9748, 1);
+			menuLine("99", "Attack Hood", 9749, 2);
 			optionTab("Attack", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
 		}
 	}
@@ -533,7 +535,9 @@ public class SkillGuides {
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Strength Cape", 9750, 0);
+			menuLine("99", "Strength Cape (t)", 9751, 1);
+			menuLine("99", "Strength Hood", 9752, 2);
 			optionTab("Strength", "Milestones", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -775,7 +779,9 @@ public class SkillGuides {
 
 		else if (screen == 13) {
 			clearMenu();
-			menuLine("", "", -1, 0);// Skill mastery
+			menuLine("99", "Defence Cape", 9753, 0);
+			menuLine("99", "Defence Cape (t)", 9754, 1);
+			menuLine("99", "Defence Hood", 9755, 2);
 			optionTab("Defence", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 	}
@@ -890,7 +896,9 @@ public class SkillGuides {
 		else if (screen == 6) {
 			clearMenu();
 			menuLine("40", "Ranging Guild", 1464, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Ranging Cape", 9756, 1);
+			menuLine("99", "Ranging Cape (t)", 9757, 2);
+			menuLine("99", "Ranging Hood", 9758, 3);
 			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 	}
@@ -944,7 +952,9 @@ public class SkillGuides {
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("31", "Monastery", 4674, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Prayer Cape", 9759, 1);
+			menuLine("99", "Prayer Cape (t)", 9760, 2);
+			menuLine("99", "Prayer Hood", 9761, 3);
 			optionTab("Prayer", "Milestones", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1076,7 +1086,9 @@ public class SkillGuides {
 		else if (screen == 6) {
 			clearMenu();
 			menuLine("66", "Magic Guild", 4675, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Magic Cape", 9762, 1);
+			menuLine("99", "Magic Cape (t)", 9763, 2);
+			menuLine("99", "Magic Hood", 9764, 3);
 			optionTab("Magic", "Milestones", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 	}
@@ -1159,7 +1171,9 @@ public class SkillGuides {
 
 		else if (screen == 4) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Runecrafting Cape", 9765, 0);
+			menuLine("99", "Runecrafting Cape (t)", 9766, 1);
+			menuLine("99", "Runecrafting Hood", 9767, 2);
 			optionTab("RuneCrafting", "Milestones", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1192,10 +1206,11 @@ public class SkillGuides {
 			menuLine("", "Yellow hitsplats are disease damage", 4049, 15);
 			optionTab("Hitpoints", "Hitpoints", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
 		}
-
 		else if (screen == 2) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Hitpoints Cape", 9768, 0);
+			menuLine("99", "Hitpoints Cape (t)", 9769, 1);
+			menuLine("99", "Hitpoints Hood", 9770, 2);
 			optionTab("Hitpoints", "Milestones", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1289,7 +1304,9 @@ public class SkillGuides {
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("50", "Crystal Equipment", 4207, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Agility Cape", 9771, 1);
+			menuLine("99", "Agility Cape (t)", 9772, 2);
+			menuLine("99", "Agility Hood", 9773, 3);
 			optionTab("Agility", "Milestones", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1358,7 +1375,9 @@ public class SkillGuides {
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Herblore Cape", 9774, 0);
+			menuLine("99", "Herblore Cape (t)", 9775,1);
+			menuLine("99", "Herblore Hood", 9776, 2);
 			optionTab("Herblore", "Milestones", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1431,7 +1450,9 @@ public class SkillGuides {
 
 		else if (screen == 4) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Thieving Cape", 9777, 0);
+			menuLine("99", "Thieving Cape (t)", 9778,1);
+			menuLine("99", "Thieving Hood", 9779, 2);
 			optionTab("Thieving", "Milestones", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1564,7 +1585,9 @@ public class SkillGuides {
 		else if (screen == 8) {
 			clearMenu();
 			menuLine("40", "Crafting Guild", 1757, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Crafting Cape", 9780, 1);
+			menuLine("99", "Crafting Cape (t)", 9781,2);
+			menuLine("99", "Crafting Hood", 9782, 3);
 			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 	}
@@ -1627,7 +1650,9 @@ public class SkillGuides {
 
 		else if (screen == 4) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Fletching Cape", 9783, 0);
+			menuLine("99", "Fletching Cape (t)", 9784,1);
+			menuLine("99", "Fletching Hood", 9785, 2);
 			optionTab("Fletching", "Milestones", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1700,7 +1725,9 @@ public class SkillGuides {
 
 		else if (screen == 4) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Slayer Cape", 9786, 0);
+			menuLine("99", "Slayer Cape (t)", 9787,1);
+			menuLine("99", "Slayer Hood", 9788, 2);
 			optionTab("Slayer", "Milestones", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1749,7 +1776,9 @@ public class SkillGuides {
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("60", "Mining Guild", 447, 0);
-			menuLine("99", "Skill Mastery", 1191, 1);
+			menuLine("99", "Mining Cape", 9792, 1);
+			menuLine("99", "Mining Cape (t)", 9793,2);
+			menuLine("99", "Mining Hood", 9794, 3);
 			optionTab("Mining", "Milestones", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -1959,7 +1988,9 @@ public class SkillGuides {
 			optionTab("Smithing", "Other", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 11) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Smithing Cape", 9795, 0);
+			menuLine("99", "Smithing Cape (t)", 9796,1);
+			menuLine("99", "Smithing Hood", 9797, 2);
 			optionTab("Smithing", "Milestones", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		}
 	}
@@ -2015,7 +2046,9 @@ public class SkillGuides {
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("68", "Fishing Guild", 385, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Fishing Cape", 9798, 1);
+			menuLine("99", "Fishing Cape (t)", 9799,2);
+			menuLine("99", "Fishing Hood", 9800, 3);
 			optionTab("Fishing", "Milestones", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -2252,7 +2285,9 @@ public class SkillGuides {
 		else if (screen == 13) {
 			clearMenu();
 			menuLine("32", "Chefs' Guild", 1949, 0);
-			menuLine("", "", -1, 1);
+			menuLine("99", "Cooking Cape", 9801, 1);
+			menuLine("99", "Cooking Cape (t)", 9802,2);
+			menuLine("99", "Cooking Hood", 9803, 3);
 			optionTab("Cooking", "Milestones", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 	}
@@ -2305,7 +2340,9 @@ public class SkillGuides {
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Firemaking Cape", 9804, 0);
+			menuLine("99", "Firemaking Cape (t)", 9805,1);
+			menuLine("99", "Firemaking Hood", 9806, 2);
 			optionTab("Firemaking", "Milestones", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -2360,7 +2397,9 @@ public class SkillGuides {
 
 		else if (screen == 4) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Woodcutting Cape", 9807, 0);
+			menuLine("99", "Woodcutting Cape (t)", 9808,1);
+			menuLine("99", "Woodcutting Hood", 9809, 2);
 			optionTab("Woodcutting", "Milestones", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 	}
@@ -2487,7 +2526,9 @@ public class SkillGuides {
 
 		else if (screen == 10) {
 			clearMenu();
-			menuLine("", "", -1, 0);
+			menuLine("99", "Farming Cape", 9810, 0);
+			menuLine("99", "Farming Cape (t)", 9811,1);
+			menuLine("99", "Farming Hood", 9812, 2);
 			optionTab("Farming", "Milestones", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
 		}
 	}
