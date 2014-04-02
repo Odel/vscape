@@ -215,3 +215,7 @@ pip-log.txt
 .mr.developer.cfg
 
 *.class
+vscape Server/Run.bat
+vscape Server/data/commands.txt
+vscape Client/client1396416747924.html
+vscape Client/java.policy.applet

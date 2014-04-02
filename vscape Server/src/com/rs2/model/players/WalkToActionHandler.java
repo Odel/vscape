@@ -702,6 +702,10 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2445, 3413, 0));
 					}
 					break;
+				case 10583: //blurite rocks
+					player.getInventory().addItem(new Item(668)); //someone fucking fix this ive got no idea how to do mining shit
+					player.getActionSender().sendMessage("You mine some blurite ore.");
+				break;
 				case 2406: // zanaris shed door
 					if (player.getEquipment().getId(Constants.WEAPON) == 772) {
 						if (player.getTeleportation().attemptTeleportJewellery(new Position(2452, 4473, 0))) {

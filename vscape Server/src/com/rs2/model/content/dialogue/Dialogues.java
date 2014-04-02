@@ -2708,32 +2708,48 @@ public class Dialogues {
 				{
 					switch(player.getDialogue().getChatId()) {
 						case 1:
-							player.getDialogue().sendNpcChat("You've created a new sword!",HAPPY);
+							player.getDialogue().sendNpcChat("Have you made a new sword yet?", DISTRESSED);
+							if(!(player.hasItem(668)))
+							{
+							player.getDialogue().setNextChatId(2);
+							}
+							else
+							{
+							player.getDialogue().setNextChatId(10);
+						}
 						return true;
 						case 2:
-							player.getDialogue().sendNpcChat("Thank you!",HAPPY);
+							player.getDialogue().sendPlayerChat("Yes, I have!",HAPPY);
 						return true;
 						case 3:
-							player.getDialogue().sendPlayerChat("Oh, it was nothing.",HAPPY);
+							player.getDialogue().sendNpcChat("Oh thank the Heavens!",HAPPY);
 						return true;
 						case 4:
-							player.getDialogue().sendNpcChat("I'm sure it was, hero!",SAD);
+							player.getDialogue().sendNpcChat("Thank you!",HAPPY);
 						return true;
 						case 5:
-							player.getDialogue().sendPlayerChat("Ah, it was really nothing.",CALM);
+							player.getDialogue().sendPlayerChat("Oh, it was nothing.",HAPPY);
 						return true;
 						case 6:
-							player.getDialogue().sendNpcChat("Anyways, thank you so very much.",HAPPY);
-							player.setQuestStage(1, 4);
+							player.getDialogue().sendNpcChat("I'm sure it was, hero!",HAPPY);
 						return true;
 						case 7:
-							player.getDialogue().endDialogue();
+							player.getDialogue().sendPlayerChat("Ah, it was really nothing.",HAPPY);
+						return true;
+						case 8:
+							player.getDialogue().sendNpcChat("Thanks so much, hero. Here's a reward.",HAPPY);
+						return true;
+						case 9:
+							player.setQuestStage(1, 4);
 							QuestHandler.completeQuest(player,1);
+						return true;
+						case 10:
+							player.getDialogue().sendNpcChat("You didn't bring the sword with you.", NEAR_TEARS);
 						return true;
 					}
 				}
 			return true;
-			case 304: //Thurgo for Knight's Sword
+			case 604: //Thurgo for Knight's Sword
 				if((player.getQuestStage(1) == 1))
 				{
 					switch(player.getDialogue().getChatId()) {
@@ -2763,12 +2779,12 @@ public class Dialogues {
 						player.getDialogue().endDialogue();
 					return true;
 					}
-				}
-				if((player.getQuestStage(1) == 2))
-				{
+					}
+					else if(player.getQuestStage(1) == 2)
+					{
 					switch(player.getDialogue().getChatId()) {
 					case 1:
-						player.getDialogue().sendNpcChat("You find blurite yet?", CONTENT);
+						player.getDialogue().sendNpcChat("Have you found the ore yet?", DISTRESSED);
 						if(!(player.hasItem(668)))
 						{
 							player.getDialogue().setNextChatId(2);
@@ -2777,31 +2793,39 @@ public class Dialogues {
 						{
 							player.getDialogue().setNextChatId(8);
 						}
+					return true;
 					case 2:
-						player.getDialogue().sendPlayerChat("Yes, I've found it! Could you make the sword now?", HAPPY);
+						player.getDialogue().sendPlayerChat("I've found some blurite ore!","Could you make the sword now?", HAPPY);
+						player.getDialogue().setNextChatId(3);
 					return true;
 					case 3:
+						player.getDialogue().setNextChatId(4);
 						player.getDialogue().sendNpcChat("Yeah, I make now.", CONTENT);
 					return true;
 					case 4:
+						player.getDialogue().setNextChatId(5);
 						player.getDialogue().sendPlayerChat("Thanks so much.", HAPPY);
 					return true;
 					case 5:
 						player.getDialogue().sendNpcChat("Here your sword. Come back with redberry pie next time!", CONTENT);
 						player.getInventory().addItem(new Item(667, 1));
+						player.getInventory().removeItem(new Item(668, 1));
 						player.setQuestStage(1, 3);
+						player.getDialogue().setNextChatId(6);
 					return true;
 					case 6:
 						player.getDialogue().sendPlayerChat("Oh, I will! Thanks Thurgo!", HAPPY);
+						player.getDialogue().setNextChatId(7);
 					return true;
 					case 7:
 						player.getDialogue().endDialogue();
 					return true;
 					case 8:
 						player.getDialogue().sendPlayerChat("Oh, no. I'm having trouble finding it.", DISTRESSED);
+						player.getDialogue().setNextChatId(9);
 					return true;
 					case 9:
-						player.getDialogue().sendNpcChat("You can find in mine on hill next to shack.", CALM);
+						player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.", CALM);
 					return true;
 					case 10:
 						player.getDialogue().endDialogue();
