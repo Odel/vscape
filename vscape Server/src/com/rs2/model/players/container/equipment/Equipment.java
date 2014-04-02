@@ -902,33 +902,33 @@ public class Equipment {
 			}else if (itemName.contains("runecraft")) {
 				runecraftLevelReq = 99;
 			}else if (itemName.contains("hitpoints")) {
-				
+				hitpointsLevelReq = 99;
 			}else if (itemName.contains("agility")) {
-				
+				agilityLevelReq = 99;
 			}else if (itemName.contains("herblore")) {
-				
+				herbloreLevelReq = 99;
 			}else if (itemName.contains("thieving")) {
-				
+				thievingLevelReq = 99;
 			}else if (itemName.contains("crafting")) {
-				
+				craftingLevelReq = 99;
 			}else if (itemName.contains("fletching")) {
-				
+				fletchingLevelReq = 99;
 			}else if (itemName.contains("slayer")) {
-				
+				slayerLevelReq = 99;
 			}else if (itemName.contains("mining")) {
-				
+				miningLevelReq = 99;
 			}else if (itemName.contains("smithing")) {
-				
+				smithLevelReq = 99;
 			}else if (itemName.contains("fishing")) {
-				
+				fishLevelReq = 99;
 			}else if (itemName.contains("cooking")) {
-				
+				cookLevelReq = 99;
 			}else if (itemName.contains("firemaking")) {
-				
+				fireLevelReq = 99;
 			}else if (itemName.contains("woodcutting")) {
-				
+				woodLevelReq = 99;
 			}else if (itemName.contains("farming")) {
-				
+				farmLevelReq = 99;
 			}
 			return;
 		}
