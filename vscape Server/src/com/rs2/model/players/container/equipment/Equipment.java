@@ -9,7 +9,6 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.SkillCape;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.Container;
