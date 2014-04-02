@@ -60,7 +60,7 @@ public class Doors {
 			return false;
 		}
 		/* Special Doors */
-		if (id == 883 || id == 1805 || id == 2882 || id == 2883 || id == 2623 || id == 2112 || id == 1804 || id == 2266 || id == 2406 || id == 2407 || id == 2631 || id == 2623 || id == 8958 || id == 8959 || id == 8960 || id == 1589 || id == 1590) {
+		if (id == 3944 || id == 3945 || id == 883 || id == 1805 || id == 2882 || id == 2883 || id == 2623 || id == 2112 || id == 1804 || id == 2266 || id == 2406 || id == 2407 || id == 2631 || id == 2623 || id == 8958 || id == 8959 || id == 8960 || id == 1589 || id == 1590) {
 			return false;
 		}
 		Doors d = getDoor(id, x, y, z);

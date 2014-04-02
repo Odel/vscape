@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillCape;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.Container;
@@ -28,7 +29,10 @@ public class Equipment {
 	public static final int DEFENSIVE = 3;
 	public int walkAnim;
 
-	private int attackLevelReq, strengthLevelReq, defenceLevelReq, rangeLevelReq, magicLevelReq, prayerLevelReq, slayerLevelReq;
+	private int attackLevelReq, strengthLevelReq, defenceLevelReq, rangeLevelReq, prayerLevelReq, magicLevelReq,
+	runecraftLevelReq, hitpointsLevelReq, agilityLevelReq, herbloreLevelReq, thievingLevelReq, craftingLevelReq,
+	fletchingLevelReq, slayerLevelReq, miningLevelReq, smithLevelReq, fishLevelReq, cookLevelReq, fireLevelReq,
+	woodLevelReq, farmLevelReq;
 
 	private Player player;
 
@@ -530,9 +534,27 @@ public class Equipment {
 					return false;
 				}
 			}
+			if (attackLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
+					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (strengthLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.STRENGTH) < strengthLevelReq) {
+					player.getActionSender().sendMessage("You need a Strength level of " + strengthLevelReq + " to wear this item.");
+					return false;
+				}
+			}
 			if (rangeLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.RANGED) < rangeLevelReq) {
 					player.getActionSender().sendMessage("You need a Ranged level of " + rangeLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (prayerLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.PRAYER) < prayerLevelReq) {
+					player.getActionSender().sendMessage("You need a Prayer level of " + prayerLevelReq + " to wear this item.");
 					return false;
 				}
 			}
@@ -542,9 +564,93 @@ public class Equipment {
 					return false;
 				}
 			}
+			if (runecraftLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.RUNECRAFTING) < runecraftLevelReq) {
+					player.getActionSender().sendMessage("You need a Runecrafting level of " + runecraftLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (hitpointsLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.HITPOINTS) < hitpointsLevelReq) {
+					player.getActionSender().sendMessage("You need a Hitpoints level of " + hitpointsLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (agilityLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.AGILITY) < agilityLevelReq) {
+					player.getActionSender().sendMessage("You need a Agility level of " + agilityLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (herbloreLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.HERBLORE) < herbloreLevelReq) {
+					player.getActionSender().sendMessage("You need a Herblore level of " + herbloreLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (thievingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.THIEVING) < thievingLevelReq) {
+					player.getActionSender().sendMessage("You need a Thieving level of " + thievingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (craftingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < craftingLevelReq) {
+					player.getActionSender().sendMessage("You need a Crafting level of " + craftingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fletchingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FLETCHING) < fletchingLevelReq) {
+					player.getActionSender().sendMessage("You need a Fletching level of " + fletchingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
 			if (slayerLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.SLAYER) < slayerLevelReq) {
 					player.getActionSender().sendMessage("You need a Slayer level of " + slayerLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (miningLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.MINING) < miningLevelReq) {
+					player.getActionSender().sendMessage("You need a Mining level of " + miningLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (smithLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.SMITHING) < smithLevelReq) {
+					player.getActionSender().sendMessage("You need a Smithing level of " + smithLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fishLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FISHING) < fishLevelReq) {
+					player.getActionSender().sendMessage("You need a Fishing level of " + fishLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (cookLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.COOKING) < cookLevelReq) {
+					player.getActionSender().sendMessage("You need a Cooking level of " + cookLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fireLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FIREMAKING) < fireLevelReq) {
+					player.getActionSender().sendMessage("You need a Firemaking level of " + fireLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (woodLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.WOODCUTTING) < woodLevelReq) {
+					player.getActionSender().sendMessage("You need a Woodcutting level of " + woodLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (farmLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FARMING) < farmLevelReq) {
+					player.getActionSender().sendMessage("You need a Farming level of " + farmLevelReq + " to wear this item.");
 					return false;
 				}
 			}
@@ -573,21 +679,105 @@ public class Equipment {
 					return false;
 				}
 			}
-			if (magicLevelReq > 0) {
-				if (player.getSkill().getPlayerLevel(Skill.MAGIC) < magicLevelReq) {
-					player.getActionSender().sendMessage("You need a Magic level of " + magicLevelReq + " to wear this item.");
-					return false;
-				}
-			}
 			if (prayerLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.PRAYER) < prayerLevelReq) {
 					player.getActionSender().sendMessage("You need a Prayer level of " + prayerLevelReq + " to wear this item.");
 					return false;
 				}
 			}
+			if (magicLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.MAGIC) < magicLevelReq) {
+					player.getActionSender().sendMessage("You need a Magic level of " + magicLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (runecraftLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.RUNECRAFTING) < runecraftLevelReq) {
+					player.getActionSender().sendMessage("You need a Runecrafting level of " + runecraftLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (hitpointsLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.HITPOINTS) < hitpointsLevelReq) {
+					player.getActionSender().sendMessage("You need a Hitpoints level of " + hitpointsLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (agilityLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.AGILITY) < agilityLevelReq) {
+					player.getActionSender().sendMessage("You need a Agility level of " + agilityLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (herbloreLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.HERBLORE) < herbloreLevelReq) {
+					player.getActionSender().sendMessage("You need a Herblore level of " + herbloreLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (thievingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.THIEVING) < thievingLevelReq) {
+					player.getActionSender().sendMessage("You need a Thieving level of " + thievingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (craftingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < craftingLevelReq) {
+					player.getActionSender().sendMessage("You need a Crafting level of " + craftingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fletchingLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FLETCHING) < fletchingLevelReq) {
+					player.getActionSender().sendMessage("You need a Fletching level of " + fletchingLevelReq + " to wear this item.");
+					return false;
+				}
+			}
 			if (slayerLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.SLAYER) < slayerLevelReq) {
 					player.getActionSender().sendMessage("You need a Slayer level of " + slayerLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (miningLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.MINING) < miningLevelReq) {
+					player.getActionSender().sendMessage("You need a Mining level of " + miningLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (smithLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.SMITHING) < smithLevelReq) {
+					player.getActionSender().sendMessage("You need a Smithing level of " + smithLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fishLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FISHING) < fishLevelReq) {
+					player.getActionSender().sendMessage("You need a Fishing level of " + fishLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (cookLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.COOKING) < cookLevelReq) {
+					player.getActionSender().sendMessage("You need a Cooking level of " + cookLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (fireLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FIREMAKING) < fireLevelReq) {
+					player.getActionSender().sendMessage("You need a Firemaking level of " + fireLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (woodLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.WOODCUTTING) < woodLevelReq) {
+					player.getActionSender().sendMessage("You need a Woodcutting level of " + woodLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+			if (farmLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.FARMING) < farmLevelReq) {
+					player.getActionSender().sendMessage("You need a Farming level of " + farmLevelReq + " to wear this item.");
 					return false;
 				}
 			}
@@ -695,6 +885,54 @@ public class Equipment {
 				strengthLevelReq = 50;
 				return;
 		}
+		
+		if (itemName.contains("cape") || itemName.contains("hood")) {
+			if (itemName.contains("attack")) {
+				attackLevelReq = 99;
+			}else if (itemName.contains("strength")) {
+				strengthLevelReq = 99;
+			}else if (itemName.contains("defence")) {
+				defenceLevelReq = 99;
+			}else if (itemName.contains("ranging")) {
+				rangeLevelReq = 99;
+			}else if (itemName.contains("prayer")) {
+				prayerLevelReq = 99;
+			}else if (itemName.contains("magic")) {
+				magicLevelReq = 99;
+			}else if (itemName.contains("runecraft")) {
+				runecraftLevelReq = 99;
+			}else if (itemName.contains("hitpoints")) {
+				hitpointsLevelReq = 99;
+			}else if (itemName.contains("agility")) {
+				agilityLevelReq = 99;
+			}else if (itemName.contains("herblore")) {
+				herbloreLevelReq = 99;
+			}else if (itemName.contains("thieving")) {
+				thievingLevelReq = 99;
+			}else if (itemName.contains("crafting")) {
+				craftingLevelReq = 99;
+			}else if (itemName.contains("fletching")) {
+				fletchingLevelReq = 99;
+			}else if (itemName.contains("slayer")) {
+				slayerLevelReq = 99;
+			}else if (itemName.contains("mining")) {
+				miningLevelReq = 99;
+			}else if (itemName.contains("smithing")) {
+				smithLevelReq = 99;
+			}else if (itemName.contains("fishing")) {
+				fishLevelReq = 99;
+			}else if (itemName.contains("cooking")) {
+				cookLevelReq = 99;
+			}else if (itemName.contains("firemaking")) {
+				fireLevelReq = 99;
+			}else if (itemName.contains("woodcutting")) {
+				woodLevelReq = 99;
+			}else if (itemName.contains("farming")) {
+				farmLevelReq = 99;
+			}
+			return;
+		}
+		
 		if (itemName.contains("crystal")) {
 			if (itemName.contains("shield")) {
 				defenceLevelReq = 70;

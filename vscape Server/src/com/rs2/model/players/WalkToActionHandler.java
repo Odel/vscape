@@ -1037,7 +1037,22 @@ public class WalkToActionHandler {
 							player.getActionSender().sendMessage("You don't have a shantay pass!");
 						}
 					}
-
+					break;
+				//BUGGY SHIT 
+				//Tirannwn
+				case 3921: //tripwire
+					break;
+				case 3944: // Arandar double doors because fixing double doors right now
+				case 3945:
+					player.getActionSender().sendMessage("You pass through the gate.");
+					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+					player.getActionSender().walkThroughDoor(id, x, y, z);
+					break;
+				case 3937: //Dense Forest
+				case 3938:
+				case 3939:
+				case 3998:
+				case 3999:
 					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
