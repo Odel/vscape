@@ -1,5 +1,7 @@
 package com.rs2.model.players;
 
+import java.util.Random;
+
 import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
@@ -71,10 +73,12 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 
+
 public class WalkToActionHandler {
 
 	private static Actions actions = Actions.OBJECT_FIRST_CLICK;
 	private int test;
+	private static int q = 1700;
 	
 	public static void doActions(Player player) {
 		switch (actions) {
@@ -1017,6 +1021,25 @@ public class WalkToActionHandler {
 					break;
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
+					break;
+				case 3415: //stairs down to elemental workshop
+					player.teleport(new Position(2716, 9888));
+					break;
+				case 3416: //stairs up from elemental workshop
+					player.teleport(new Position(2709, 3498));
+					break;
+				case 3389:
+					break;
+				case 3390: //Odd looking wall
+				case 3391:
+					break;
+				case 3406: //Water Wheel lever in Elemental Workshop
+					player.getActionSender().animateObject(2719, 9907, 0, 472);
+					break;
+				case 3409: //Bellows in Elemental Workshop
+
+					break;
+				case 3403:
 					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
