@@ -929,9 +929,8 @@ public class Equipment {
 			return;
 		}
 		if (itemName.contains("saradomin") || itemName.contains("zamorak") || itemName.contains("guthix")) {
-			if (itemName.contains("plate") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
 				defenceLevelReq = 40;
-				return;
 			}
 			return;
 		}
