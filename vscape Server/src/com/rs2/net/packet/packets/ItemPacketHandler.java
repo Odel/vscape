@@ -873,7 +873,9 @@ public class ItemPacketHandler implements PacketHandler {
             return;
         }
 		if (new Item(itemId).getDefinition().getSlot() == -1)
+		{
 			return;
+		}
 		if (player.getDuelMainData().getOpponent() != null && !player.inDuelArena()){
 			player.getDuelInteraction().endDuelInteraction(true);
             return;
@@ -881,7 +883,9 @@ public class ItemPacketHandler implements PacketHandler {
         //player.getActionSender().removeInterfaces();
 		Item item = player.getInventory().getItemContainer().get(player.getSlot());
 		if (item == null || item.getId() != itemId || !item.validItem())
+		{
 			return;
+		}
 		for (int[] element : Pouches.POUCHES) {
 			if (itemId == element[0]) {
 				Pouches.emptyEssencePouch(player, itemId);

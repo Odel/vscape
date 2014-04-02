@@ -694,13 +694,6 @@ public class Equipment {
 				attackLevelReq = 50;
 				strengthLevelReq = 50;
 				return;
-			case 2665 : // sara full
-			case 2661 : // sara plate
-			case 2663 : // sara legs
-			case 2667 : // sara kite
-			case 3479 : // sara skirt
-				defenceLevelReq = 40;
-				return;
 		}
 		if (itemName.contains("crystal")) {
 			if (itemName.contains("shield")) {
@@ -932,6 +925,13 @@ public class Equipment {
 		if (itemName.contains("dragon")) {
 			if (!itemName.contains("anti")) {
 				attackLevelReq = defenceLevelReq = 60;
+			}
+			return;
+		}
+		if (itemName.contains("saradomin") || itemName.contains("zamorak") || itemName.contains("guthix")) {
+			if (itemName.contains("plate") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
+				defenceLevelReq = 40;
+				return;
 			}
 			return;
 		}
