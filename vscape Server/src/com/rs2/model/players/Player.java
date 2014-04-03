@@ -136,6 +136,7 @@ import com.rs2.util.PlayerSave;
 import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
+import com.rs2.model.content.quests.QuestHandler;
 
 /**
  * Represents a logged-in player.
@@ -330,6 +331,8 @@ public class Player extends Entity {
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
+	
+	public int[] questStage = new int[2];
 
 	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
             5715, 2449, 904, 147, 962 };
@@ -1667,7 +1670,9 @@ public class Player extends Entity {
 		}
 		RandomEvent.startRandomEvent(this);
         setAppearanceUpdateRequired(true);
+        QuestHandler.initPlayer(this);
         getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
+        getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -2675,14 +2680,6 @@ public class Player extends Entity {
 
 	public void setEffectVolume(int effectVolume) {
 		this.effectVolume = effectVolume;
-	}
-
-	public int getQuestPoints() {
-		return questPoints;
-	}
-
-	public void setQuestPoints(int questPoints) {
-		this.questPoints = questPoints;
 	}
 
 	public void setMagicBookType(SpellBook magicBookType) {
@@ -4124,5 +4121,141 @@ public class Player extends Entity {
 	public Player getLastPersonChallenged() {
 		return lastPersonChallenged;
 	}
+
+	public int getQuestStage(int questId) {
+		return questStage[questId];
+	}
+
+    public void setQuestStage(int index, int questStage) {
+        this.questStage[index] = questStage; //0 = not started, 1 = started, 2 = asked for items (Cooks assist), 3 = complete.
+    }
+    
+	public int getQuestPoints() {
+		return questPoints;
+	}
+
+	public void setQuestPoints(int qP) {
+		this.questPoints = qP;
+	}
+	
+	public void addQuestPoints(int points) {
+        this.questPoints += points;
+        getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+    }
+
+	public void sendQuestTab() {
+		getActionSender().sendString("Player Quests", 663);
+		getActionSender().sendString("", 7332);
+		getActionSender().sendString("@red@Cook's Assistant", 7333);
+		getActionSender().sendString("@red@The Knight's Sword", 7346);
+		getActionSender().sendString("", 7334);
+		getActionSender().sendString("", 7336);
+		getActionSender().sendString("", 7339);
+		getActionSender().sendString("", 7338);
+		getActionSender().sendString("", 7383);
+		getActionSender().sendString("", 7340);
+		getActionSender().sendString("", 7341);
+		getActionSender().sendString("", 7342);
+		getActionSender().sendString("", 7337);
+		getActionSender().sendString("", 7343);
+		getActionSender().sendString("", 7335);
+		getActionSender().sendString("", 7344);
+		getActionSender().sendString("", 7345);
+		getActionSender().sendString("", 7347);
+		getActionSender().sendString("", 7348);
+		getActionSender().sendString("", 8438);
+		getActionSender().sendString("", 12852);
+		getActionSender().sendString("", 7354);
+		getActionSender().sendString("", 7355);
+		getActionSender().sendString("", 7356);
+		getActionSender().sendString("", 8679);
+		getActionSender().sendString("", 7459);
+		getActionSender().sendString("", 7357);
+		getActionSender().sendString("", 12836);
+		getActionSender().sendString("", 7358);
+		getActionSender().sendString("", 7359);
+		getActionSender().sendString("", 14169);
+		getActionSender().sendString("", 10115);
+		getActionSender().sendString("", 14604);
+		getActionSender().sendString("", 7360);
+		getActionSender().sendString("", 12282);
+		getActionSender().sendString("", 13577);
+		getActionSender().sendString("", 12839);
+		getActionSender().sendString("", 7361);
+		getActionSender().sendString("", 11857);
+		getActionSender().sendString("", 7362);
+		getActionSender().sendString("", 7363);
+		getActionSender().sendString("", 7364);
+		getActionSender().sendString("", 10135);
+		getActionSender().sendString("", 4508);
+		getActionSender().sendString("", 11907);
+		getActionSender().sendString("", 7365);
+		getActionSender().sendString("", 7366);
+		getActionSender().sendString("", 7367);
+		getActionSender().sendString("", 13389);
+		getActionSender().sendString("", 7368);
+		getActionSender().sendString("", 11132);
+		getActionSender().sendString("", 7369);
+		getActionSender().sendString("", 12389);
+		getActionSender().sendString("", 13974);
+		getActionSender().sendString("", 7370);
+		getActionSender().sendString("", 8137);
+		getActionSender().sendString("", 7371);
+		getActionSender().sendString("", 12345);
+		getActionSender().sendString("", 7372);
+		getActionSender().sendString("", 8115);
+		// unknown id
+		getActionSender().sendString("", 8576);
+		getActionSender().sendString("", 12139);
+		getActionSender().sendString("", 7373);
+		getActionSender().sendString("", 7374);
+		getActionSender().sendString("", 8969);
+		getActionSender().sendString("", 7375);
+		getActionSender().sendString("", 7376);
+		getActionSender().sendString("", 1740);
+		getActionSender().sendString("", 3278);
+		getActionSender().sendString("", 7378);
+		getActionSender().sendString("", 6518);
+		getActionSender().sendString("", 7379);
+		getActionSender().sendString("", 7380);
+		getActionSender().sendString("", 7381);
+		getActionSender().sendString("", 11858);
+		// unknown id
+		getActionSender().sendString("", 9927);
+		getActionSender().sendString("", 7349);
+		getActionSender().sendString("", 7350);
+		getActionSender().sendString("", 7351);
+		getActionSender().sendString("", 13356);
+		// more
+		getActionSender().sendString("", 6024);
+		getActionSender().sendString("", 191);
+		getActionSender().sendString("", 15235);
+		getActionSender().sendString("", 249);
+		getActionSender().sendString("", 15592);
+		getActionSender().sendString("", 15098);
+		getActionSender().sendString("", 15352);
+		getActionSender().sendString("", 14912);
+		getActionSender().sendString("", 668);
+		getActionSender().sendString("", 18306);
+		getActionSender().sendString("", 15499);
+		getActionSender().sendString("", 18684);
+		getActionSender().sendString("", 6027);
+		getActionSender().sendString("", 15487);
+		getActionSender().sendString("", 18517);
+		getActionSender().sendString("", 16128);
+		getActionSender().sendString("", 6987);
+		getActionSender().sendString("", 16149);
+		getActionSender().sendString("", 15841);
+		getActionSender().sendString("", 7353);
+		getActionSender().sendString("", 682);
+		getActionSender().sendString("", 12772);
+		getActionSender().sendString("", 673);
+		getActionSender().sendString("", 17510);
+		// unknown id
+		getActionSender().sendString("", 7352);
+		getActionSender().sendString("", 12129);
+	}
+
+
 
 }

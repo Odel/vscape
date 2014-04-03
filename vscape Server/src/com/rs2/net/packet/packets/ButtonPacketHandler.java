@@ -2,6 +2,7 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
@@ -28,9 +29,6 @@ import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
 
-import com.rs2.model.players.BankManager;
-import com.rs2.model.players.item.Item;
-
 public class ButtonPacketHandler implements PacketHandler {
 
 	public static final int BUTTON = 185;
@@ -42,11 +40,10 @@ public class ButtonPacketHandler implements PacketHandler {
         interfaceId |= (data[0] & 0xff) << 8;
         interfaceId |= (data[1] & 0xff);
         RSInterface inter = RSInterface.forId(interfaceId);
-        /*if (!player.hasInterfaceOpen(inter)) {
+        if (!player.hasInterfaceOpen(inter)) {
             //player.getActionSender().removeInterfaces();
             return;
-        }*/
-        //removed because fuck you
+        }
 		handleButton(player, Misc.hexToInt(data));
 	}
 
@@ -381,6 +378,12 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 31195 :
 				player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
+			case 28165: //quest tab entry for cook's assistant
+				QuestHandler.handleQuestButtons(player, buttonId);
+				return;
+			case 28178: //the knight's sword
+				QuestHandler.handleQuestButtons(player, buttonId);
+				return;
 		}
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;
@@ -399,9 +402,6 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		switch (buttonId) {
-		case 73099: //Deposit all Inventory Items
-			BankManager.bankAll(player);
-			return;
 			/** Destroy item **/
 			case 55095 :
 				if (player.getDestroyItem() != null) {
