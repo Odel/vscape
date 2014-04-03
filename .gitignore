@@ -215,3 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 
 *.class
+vscape Client/java.policy.applet
