@@ -698,6 +698,10 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2445, 3413, 0));
 					}
 					break;
+					case 10583: //blurite rocks
+						player.getInventory().addItem(new Item(668)); //someone fucking fix this ive got no idea how to do mining shit
+						player.getActionSender().sendMessage("You mine some blurite ore.");
+					break;
 				case 2406: // zanaris shed door
 					if (player.getEquipment().getId(Constants.WEAPON) == 772) {
 						if (player.getTeleportation().attemptTeleportJewellery(new Position(2452, 4473, 0))) {
@@ -1017,6 +1021,23 @@ public class WalkToActionHandler {
 					break;
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
+					break;
+				case 3415: //stairs down to elemental workshop
+					player.teleport(new Position(2716, 9888));
+					break;
+				case 3416: //stairs up from elemental workshop
+					player.teleport(new Position(2709, 3498));
+					break;
+				case 3389:
+					break;
+				case 3390: //Odd looking wall
+				case 3391:
+					break;
+				case 3406: //Water Wheel lever in Elemental Workshop
+					player.getActionSender().animateObject(2719, 9907, 0, 472);
+					break;
+				case 3409: //Bellows in Elemental Workshop
+
 					break;
 				case 4031: //shantay pass
 					if(player.getPosition().getY() < 3116)
