@@ -781,7 +781,7 @@ public class ItemPacketHandler implements PacketHandler {
 				Sextant.initializeRandomSextantInterface(player);
 				return;
 			case 299 :
-				MithrilSeeds.plantMithrilSeed(player);
+				//MithrilSeeds.plantMithrilSeed(player);
 				return;
 		}
 
