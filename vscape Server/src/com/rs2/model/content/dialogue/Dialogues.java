@@ -2995,7 +2995,14 @@ public class Dialogues {
 						return true;
 						case 6:
 							player.getDialogue().sendNpcChat("Maybe, but I won't be holding my breath.",HAPPY);
-							player.setQuestStage(0, 3);
+							if(player.getQuestStage(0) == 3)
+							{
+								player.getDialogue().endDialogue();
+							}
+							else
+							{
+								player.setQuestStage(0, 3);
+							}
 						return true;
 						case 7:
 							player.getDialogue().endDialogue();
