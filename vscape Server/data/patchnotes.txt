@@ -1,3 +1,9 @@
+=NEXT UPDATE DATE=
+-fixed dragon hide body
+-fixed monks robes attributes
+-adamant kiteshield fixed
+
+
 =APR 1=
 -Added Robe store owner and Magic store owner
 -Checked all coordinate clue scrolls and
