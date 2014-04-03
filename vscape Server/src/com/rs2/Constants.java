@@ -9,6 +9,7 @@ public class Constants {
 
 	public static final String SERVER_NAME = "vscape";
 
+	/*
 	public static final String[] Admins = {
 		"Mr foxter", 
 		"Mr telescope", 
@@ -22,7 +23,7 @@ public class Constants {
 	public static final String[] Mods = {
 		"kampeao", 
 		"dark skies"
-	};
+	};*/
 
 	public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
 	public static final String GAME_DB_URL = "jdbc:mysql://2006remade.com:3306/remade_highscores";

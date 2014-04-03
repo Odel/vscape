@@ -917,6 +917,24 @@ public class Player extends Entity {
 				skill.getExp()[i] = 200000000;
 			}
 			skill.refresh();
+		}else if (keyword.equals("resetstats")) {
+			if (inWild()) {
+				getActionSender().sendMessage("You can't use this command in the wilderness.");
+				return;
+			}
+			for (int i = 0; i < skill.getLevel().length; i++) {
+				if(i == 3)
+				{
+					skill.getLevel()[i] = 10;
+					skill.getExp()[i] = skill.getXPForLevel(9);
+				}
+				else
+				{
+					skill.getLevel()[i] = 1;
+					skill.getExp()[i] = skill.getXPForLevel(0);
+				}
+			}
+			skill.refresh();
 		}else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;
