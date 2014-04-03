@@ -932,6 +932,75 @@ public class Equipment {
 			return;
 		}
 		
+		//base armour and weaponry
+		if (itemName.contains("bronze")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 1;
+			}
+			return;
+		}
+		if (itemName.contains("iron")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 1;
+			}
+			return;
+		}
+		if (itemName.contains("steel")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 5;
+			}
+			return;
+		}
+		if (itemName.contains("black")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 10;
+			}
+			return;
+		}
+		if (itemName.contains("mithril")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 20;
+			}
+			return;
+		}
+		if (itemName.contains("adamant")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 30;
+			}
+			return;
+		}
+		if (itemName.contains("rune")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 40;
+			}
+			return;
+		}
+		if (itemName.contains("dragon") && !itemName.contains("anti")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 60;
+			}
+			return;
+		}
+		if (itemName.contains("initiate")) {
+			defenceLevelReq = 20;
+			prayerLevelReq = 10;
+			return;
+		}
+		//god armor
+		if (itemName.contains("saradomin") || itemName.contains("zamorak") || itemName.contains("guthix")) {
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
+				defenceLevelReq = 40;
+			}
+			return;
+		}
 		if (itemName.contains("crystal")) {
 			if (itemName.contains("shield")) {
 				defenceLevelReq = 70;
@@ -940,6 +1009,7 @@ public class Equipment {
 			}
 			return;
 		}
+		//barrows
 		if (itemName.contains("ahrim")) {
 			magicLevelReq = 70;
 			if (!itemName.contains("staff")) {
@@ -967,6 +1037,7 @@ public class Equipment {
 			}
 			return;
 		}
+		//range
 		if (itemName.contains("arrow")) {
 			if (itemName.contains("steel")) {
 				rangeLevelReq = 5;
@@ -1010,6 +1081,47 @@ public class Equipment {
 			}
 			return;
 		}
+		if (itemName.contains("hardleather")) {
+			defenceLevelReq = 10;
+			return;
+		}
+		if (itemName.contains("studded")) {
+			rangeLevelReq = 20;
+			if (!itemName.contains("chaps")) {
+				defenceLevelReq = 20;
+			}
+			return;
+		}
+		//dhide
+		if (itemName.contains("d'hide")) {
+			if(itemName.contains("black"))
+			{
+				rangeLevelReq = 70;
+			}
+			if(itemName.contains("red"))
+			{
+				rangeLevelReq = 60;
+			}
+			if(itemName.contains("blue"))
+			{
+				rangeLevelReq = 50;
+			}
+			if(itemName.contains("green"))
+			{
+				rangeLevelReq = 40;
+			}
+			if(itemName.contains("body"))
+			{
+				defenceLevelReq = 40;
+			}
+			return;
+		}
+		if (itemName.contains("snakeskin")) {
+			rangeLevelReq = 40;
+			defenceLevelReq = 30;
+			return;
+		}
+		//magic
 		if (itemName.contains("mystic") || itemName.contains("nchanted")) {
 			if (itemName.contains("staff")) {
 				magicLevelReq = 20;
@@ -1030,94 +1142,20 @@ public class Equipment {
 			defenceLevelReq = 40;
 			return;
 		}
+		if (itemName.contains("enchanted")) {
+			defenceLevelReq = 40;
+			return;
+		}
+		if (itemName.contains("ancient")) {
+			attackLevelReq = 50;
+			return;
+		}
+		//strength
 		if (itemName.contains("tzhaar-ket-om")) {
 			strengthLevelReq = 60;
 			return;
 		}
-		if (itemName.contains("black d'hide")) {
-			rangeLevelReq = 70;
-			if(itemName.contains("body"))
-			{
-				defenceLevelReq = 40;
-			}
-			return;
-		}
-		if (itemName.contains("red d'hide")) {
-			rangeLevelReq = 60;
-			if(itemName.contains("body"))
-			{
-				defenceLevelReq = 40;
-			}
-			return;
-		}
-		if (itemName.contains("blue d'hide")) {
-			rangeLevelReq = 50;
-			if(itemName.contains("body"))
-			{
-				defenceLevelReq = 40;
-			}
-			return;
-		}
-		if (itemName.contains("green d'hide")) {
-			rangeLevelReq = 40;
-			if(itemName.contains("body"))
-			{
-				defenceLevelReq = 40;
-			}
-			return;
-		}
-		if (itemName.contains("snakeskin")) {
-			rangeLevelReq = 40;
-			defenceLevelReq = 30;
-			return;
-		}
-		if (itemName.contains("initiate")) {
-			defenceLevelReq = 20;
-			prayerLevelReq = 10;
-			return;
-		}
-		if (itemName.contains("bronze")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 1;
-			}
-			return;
-		}
-		if (itemName.contains("iron")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 1;
-			}
-			return;
-		}
-		if (itemName.contains("steel")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 5;
-			}
-			return;
-		}
-		if (itemName.contains("black")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe") && !itemName.contains("vamb") && !itemName.contains("chap") && !itemName.equals("black skirt") && !itemName.contains("robe") && !itemName.contains("beret") && !itemName.contains("cavalier") && !itemName.contains("headband")) {
-				attackLevelReq = defenceLevelReq = 10;
-			}
-			return;
-		}
-		if (itemName.contains("mithril")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 20;
-			}
-			return;
-		}
-		if (itemName.contains("adamant")) {
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 30;
-			}
-			return;
-		}
-		if ((itemName.contains("rune") || itemName.contains("gilded") || itemName.contains("zamorak") || itemName.contains("saradomin")) && !itemName.contains("runecraft")) {
-			if (!itemName.contains("robe") && !itemName.contains("banner") && !itemName.contains("staff") && !itemName.contains("cape") && !itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe") && !itemName.contains("'bow")) {
-				attackLevelReq = defenceLevelReq = 40;
-			}
-			return;
-		}
+		//specials
 		if (itemName.contains("granite shield")) {
 			if (!itemName.contains("maul")) {
 				defenceLevelReq = 50;
@@ -1132,41 +1170,6 @@ public class Equipment {
 		}
 		if (itemName.contains("warrior")) {
 			if (!itemName.contains("ring")) {
-				defenceLevelReq = 40;
-			}
-			return;
-		}
-		if (itemName.contains("enchanted")) {
-			defenceLevelReq = 40;
-			return;
-		}
-		if (itemName.contains("dragon dagger") || itemName.contains("drag dagger")) {
-			attackLevelReq = 60;
-			return;
-		}
-		if (itemName.contains("ancient")) {
-			attackLevelReq = 50;
-			return;
-		}
-		if (itemName.contains("hardleather")) {
-			defenceLevelReq = 10;
-			return;
-		}
-		if (itemName.contains("studded")) {
-			rangeLevelReq = 20;
-			if (!itemName.contains("chaps")) {
-				defenceLevelReq = 20;
-			}
-			return;
-		}
-		if (itemName.contains("dragon")) {
-			if (!itemName.contains("anti")) {
-				attackLevelReq = defenceLevelReq = 60;
-			}
-			return;
-		}
-		if (itemName.contains("saradomin") || itemName.contains("zamorak") || itemName.contains("guthix")) {
-			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
 				defenceLevelReq = 40;
 			}
 			return;
