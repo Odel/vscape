@@ -1276,7 +1276,7 @@ public class Player extends Entity {
 				{
 					line = 12174;
 				}
-				getActionSender().sendString("",i);
+				getActionSender().sendString("",line);
 				line++;
 			}
 		}
