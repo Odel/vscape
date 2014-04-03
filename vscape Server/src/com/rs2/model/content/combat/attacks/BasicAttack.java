@@ -215,7 +215,7 @@ public abstract class BasicAttack extends AttackScript {
 				if (mode == AttackStyle.Mode.DRAGONFIRE)
 					return 1;
 				if (mode == AttackStyle.Mode.DRAGONFIRE_FAR)
-					return 8;
+					return 3;
 				if (attackType == AttackType.MAGIC || mode == AttackStyle.Mode.MELEE_FAR)
 					return 10;
 				return mode == AttackStyle.Mode.LONGRANGE ? 10 : 8;
@@ -233,7 +233,10 @@ public abstract class BasicAttack extends AttackScript {
 			}
 		};
 	}
-
+   public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory) {
+        return projectileAttack(attacker, victim, attackType, mode, damage,  delay, animation, startGfx, endGfx, projectileId, trajectory, 0, null);
+    }
+/*
    public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory, final int addedHitDelay) {
         return projectileAttack(attacker, victim, attackType, mode, damage,  delay, animation, startGfx, endGfx, projectileId, trajectory, addedHitDelay);
     }
@@ -246,7 +249,7 @@ public abstract class BasicAttack extends AttackScript {
 	public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory, final Effect effect) {
 		return projectileAttack(attacker, victim, attackType, mode, damage, delay, animation, startGfx, endGfx, projectileId, trajectory, 0).addEffect(effect);
 	}
-
+*/
 	public static BasicAttack rangedAttack(Entity attacker, Entity victim, final AttackStyle.Mode mode, final int damage, Weapon weapon, RangedAmmo ammo) {
 		if (weapon.getAmmoType() == null)
 			throw new IllegalArgumentException("You cannot use weapons without ranged ammo types for npc ranged attacks!");

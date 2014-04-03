@@ -81,6 +81,16 @@ class Ahrims < NpcCombatDef
     end
 end
 
+class CommonDragon < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 10, 5, 91),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE, 10, 10, 91, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 10, 10, 91, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL)
+        ];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new.bonusDef(500, 500, 500, 500, 1500))
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
 NpcCombatDef.add([2631], TokXil.new.bonusDef(600, 600, 600, 600, 300))
@@ -89,3 +99,4 @@ NpcCombatDef.add([2743], KetZek.new.bonusDef(1300, 1300, 1300, 1300, 700))
 NpcCombatDef.add([2745], Jad.new.bonusDef(2000, 2000, 2000, 2000, 1700))
 NpcCombatDef.add([1, 2, 3, 4], Man.new.respawnSeconds(10))
 NpcCombatDef.add([174], DarkWizard.new.respawnSeconds(10))
+NpcCombatDef.add([53,54,55,742,941], CommonDragon.new())
