@@ -1226,7 +1226,7 @@ public class Player extends Entity {
         } else if (keyword.equals("banmac")) {
         	//BanMacAddress(args);
         } else if (keyword.equals("checkips")) {
-        	checkHosts();
+        //	checkHosts();
         } else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
 			SystemUpdate(seconds);
@@ -1277,7 +1277,7 @@ public class Player extends Entity {
 	 * 
 	 * 
 	 */
-	public void checkHosts()
+/*	public void checkHosts()
 	{
     	List<String> Hosts = new ArrayList();
     	for (Player player : World.getPlayers()) {
@@ -1333,7 +1333,7 @@ public class Player extends Entity {
     	}
 		return playerHosts;
 	}
-	
+	*/
 	/**
 	 * Yell Message
 	 * 
