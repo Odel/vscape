@@ -245,7 +245,8 @@ public final class Stream extends NodeSub {
 		byte abyte0[] = new byte[i];
 		readBytes(i, 0, abyte0);
 		BigInteger biginteger2 = new BigInteger(abyte0);
-		BigInteger biginteger3 = biginteger2/*.modPow(biginteger, biginteger1)*/;
+		//BigInteger biginteger3 = biginteger2/*.modPow(biginteger, biginteger1)*/;
+		BigInteger biginteger3 = biginteger2.modPow(RSA_EXPONENT, RSA_MODULUS);
 		byte abyte1[] = biginteger3.toByteArray();
 		currentOffset = 0;
 		writeWordBigEndian(abyte1.length);
@@ -379,6 +380,8 @@ public final class Stream extends NodeSub {
 	public ISAACRandomGen encryption;
 	private static int anInt1412;
 	private static final NodeList nodeList = new NodeList();
+	private static final BigInteger RSA_MODULUS = new BigInteger("169885750724363784459917080609337482536839129601875456173526407359290544325272667000733686649412173234652149153464632549656395615602414312478152555713810011543630242588422020353041975816059911130162084434701288693650940900379658199377383979989747865423058390069686994226663888386373467733265328219494354731803");
+	private static final BigInteger RSA_EXPONENT = new BigInteger("65537");
 
 	//removed useless static initializer
 }

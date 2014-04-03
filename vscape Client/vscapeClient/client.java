@@ -3185,7 +3185,7 @@ public class client extends RSApplet {
 		char c = '\u0168';
 		char c1 = '\310';
 		byte byte1 = 20;
-		chatTextDrawingArea.drawText(0xffffff, "RuneScape is loading - please wait...", c1 / 2 - 26 - byte1, c / 2);
+		chatTextDrawingArea.drawText(0xffffff, "Vscape is loading - please wait...", c1 / 2 - 26 - byte1, c / 2);
 		int j = c1 / 2 - 18 - byte1;
 		DrawingArea.fillPixels(c / 2 - 152, 304, 34, 0x8c1111, j);
 		DrawingArea.fillPixels(c / 2 - 151, 302, 32, 0, j + 1);
@@ -6080,7 +6080,7 @@ public class client extends RSApplet {
 			}
 			if(k == 6)
 			{
-				loginMessage1 = "RuneScape has been updated!";
+				loginMessage1 = "Vscape has been updated!";
 				loginMessage2 = "Please reload this page.";
 				return;
 			}
@@ -7361,7 +7361,7 @@ public class client extends RSApplet {
 			g.setFont(new Font("Helvetica", 1, 16));
 			g.setColor(Color.yellow);
 			int k = 35;
-			g.drawString("Sorry, an error has occured whilst loading RuneScape", 30, k);
+			g.drawString("Sorry, an error has occured whilst loading Vscape", 30, k);
 			k += 50;
 			g.setColor(Color.white);
 			g.drawString("To fix this try the following (in order):", 30, k);
@@ -7384,7 +7384,7 @@ public class client extends RSApplet {
 			g.setFont(new Font("Helvetica", 1, 20));
 			g.setColor(Color.white);
 			g.drawString("Error - unable to load game!", 50, 50);
-			g.drawString("To play RuneScape make sure you play from", 50, 100);
+			g.drawString("To play Vscape make sure you play from", 50, 100);
 			g.drawString("http://www.runescape.com", 50, 150);
 		}
 		if(rsAlreadyLoaded)
@@ -7392,7 +7392,7 @@ public class client extends RSApplet {
 			aBoolean831 = false;
 			g.setColor(Color.yellow);
 			int l = 35;
-			g.drawString("Error a copy of RuneScape already appears to be loaded", 30, l);
+			g.drawString("Error a copy of Vscape already appears to be loaded", 30, l);
 			l += 50;
 			g.setColor(Color.white);
 			g.drawString("To fix this try the following (in order):", 30, l);
@@ -9639,7 +9639,7 @@ public class client extends RSApplet {
 			int i = c1 / 2 + 80;
 			smallText.method382(0x75a9a9, c / 2, onDemandFetcher.statusString, i, true);
 			i = c1 / 2 - 20;
-			chatTextDrawingArea.method382(0xffff00, c / 2, "Welcome to RuneScape", i, true);
+			chatTextDrawingArea.method382(0xffff00, c / 2, "Welcome to Vscape", i, true);
 			i += 30;
 			int l = c / 2 - 80;
 			int k1 = c1 / 2 + 20;

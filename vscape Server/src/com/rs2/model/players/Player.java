@@ -1603,7 +1603,9 @@ public class Player extends Entity {
 		boolean canLogin = checkLoginStatus();
 		sendLoginResponse();
 		if (!canLogin)
+		{
 			throw new RuntimeException();
+		}
 
 		setStopPacket(true);
 		World.register(this);
@@ -1682,24 +1684,31 @@ public class Player extends Entity {
 		}
 	}
 
+	private static String[] bannedChars = {"!","£","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","¬","`","|"};
 	private boolean checkLoginStatus() {
-		// Check if server accepting connections
-		/*for (int tag = 0; tag < badNames.length; tag++) {
-			if (username.toLowerCase().contains(badNames[tag]) && getStaffRights() < 1 && getStaffRights() > 2) 
-			            setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
-						return false;
-				}*/
-		if (GlobalVariables.getServerUpdateTimer() != null) {
-			setReturnCode(Constants.LOGIN_RESPONSE_SERVER_BEING_UPDATED);
+        if(isBanned() || isIpBanned())
+		{
+			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
-		} else if (World.playerAmount() >= Constants.MAX_PLAYERS_AMOUNT) {
-			setReturnCode(Constants.LOGIN_RESPONSE_WORLD_FULL);
-			return false;
-		}else if (!password.equals(getPassword())) {
-        	//System.out.println("nigga");
+		}
+		for(int i = 0; i < bannedChars.length; i++)
+		{
+			if(username.contains(bannedChars[i]))
+			{
+	            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+	            return false;
+			}
+		}
+        if (username.length() <= 3 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
+            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+            return false;
+        }
+        if (!password.equals(getPassword())) {
         	setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
         	return false;
-		} else {
+		} 
+        else
+        {
 			// Check if the player is already logged in.
 			for (Player player : World.getPlayers()) {
 				if (player == null) {
@@ -1710,10 +1719,15 @@ public class Player extends Entity {
 					return false;
                 }
             }
-            // if (World.playerInWorld(getUsername())) {
-            // response = Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE;
-            // }
         }
+        if (GlobalVariables.getServerUpdateTimer() != null) {
+			setReturnCode(Constants.LOGIN_RESPONSE_SERVER_BEING_UPDATED);
+			return false;
+		}
+        if (World.playerAmount() >= Constants.MAX_PLAYERS_AMOUNT) {
+			setReturnCode(Constants.LOGIN_RESPONSE_WORLD_FULL);
+			return false;
+		} 
         if (getClientVersion() != Constants.CLIENT_VERSION) {
             setReturnCode(Constants.LOGIN_RESPONSE_UPDATED);
             return false;
@@ -1721,19 +1735,6 @@ public class Player extends Entity {
         if (getMagicId() != Constants.MAGIC_ID) {
             setReturnCode(Constants.LOGIN_RESPONSE_BAD_SESSION_ID);
             return false;
-        }
-        if(isBanned() || isIpBanned())
-		{
-			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
-			return false;
-		}
-        // } else if (!name.replaceAll("_",
-        // " ").equalsIgnoreCase(this.getUsername())) {
-        // response = Constants.LOGIN_RESPONSE_BAD_SESSION_ID;
-        if (username.length() < 1 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
-            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
-            return false;
-            // Load the player and send the login response.
         }
         setReturnCode(Constants.LOGIN_RESPONSE_OK);
 		return true;

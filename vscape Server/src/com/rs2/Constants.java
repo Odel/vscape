@@ -43,7 +43,7 @@ public class Constants {
     List<String> list1 = new LinkedList<String>();
 	public static final int MAGIC_ID = -1;
 	public static final byte WORLD_NUMBER = (byte)1;
-    public static boolean RSA_CHECK = false;
+    public static boolean RSA_CHECK = true;
     public static boolean SYSTEM_UPDATE = false;
 	public static int CLIENT_VERSION = 317;
 	public static final String TEST_VERSION = "1.4";
