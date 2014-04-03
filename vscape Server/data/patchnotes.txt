@@ -4,7 +4,10 @@
 -::hideyell and ::hidecolor now save
 -Added ::commands, and login message
 -Gave common dragons Combat definitions
-
+-haldberds now require the correct strength
+ level to wield them.
+-fixed d'hide chaps requirements
+ 
 =APR 3=
 -fixed dragon hide body
 -fixed monks robes attributes

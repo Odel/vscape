@@ -954,7 +954,14 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("black")) 
+		if (itemName.contains("black") && !itemName.contains("d'hide")) 
+		{
+			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
+				attackLevelReq = defenceLevelReq = 10;
+			}
+			return;
+		}
+		if (itemName.contains("white")) 
 		{
 			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
 				attackLevelReq = defenceLevelReq = 10;
@@ -986,6 +993,34 @@ public class Equipment {
 		{
 			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
 				attackLevelReq = defenceLevelReq = 60;
+			}
+			return;
+		}
+		if (itemName.contains("halberd")) 
+		{
+			if(itemName.contains("black"))
+			{
+				strengthLevelReq = 5;
+			}
+			if(itemName.contains("white"))
+			{
+				strengthLevelReq = 5;
+			}
+			if(itemName.contains("mith"))
+			{
+				strengthLevelReq = 10;
+			}
+			if(itemName.contains("adam"))
+			{
+				strengthLevelReq = 15;
+			}
+			if(itemName.contains("rune"))
+			{
+				strengthLevelReq = 20;
+			}
+			if(itemName.contains("dragon"))
+			{
+				strengthLevelReq = 30;
 			}
 			return;
 		}
@@ -1094,6 +1129,10 @@ public class Equipment {
 		}
 		//dhide
 		if (itemName.contains("d'hide")) {
+			if(itemName.contains("chaps"))
+			{
+				defenceLevelReq = 1;
+			}
 			if(itemName.contains("black"))
 			{
 				rangeLevelReq = 70;
