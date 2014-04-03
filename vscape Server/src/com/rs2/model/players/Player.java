@@ -668,11 +668,9 @@ public class Player extends Entity {
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
-			hideYell = !hideYell;
-			getActionSender().sendMessage("You have toggled your yell channel");
+			setHideYell(!hideYell,true);
 		} else if (keyword.equals("hidecolor")) {
-			hideColors = !hideColors;
-			getActionSender().sendMessage("You have toggled yell colors.");
+			setHideColors(!hideColors,true);
 		} else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || isDead() || !getInCombatTick().completed()) {
                 getActionSender().sendMessage("You cannot do that here!");
@@ -1401,12 +1399,9 @@ public class Player extends Entity {
 				{
 					if(player.hideColors)
 					{
-						for(int i = 0; i < colors.length; i++)
+						for(int k = 0; k < colorStrings.length;k++)
 						{
-							if(YellMsg.indexOf(colors[i]) >= 0)
-							{
-								YellMsg = YellMsg.replace(colorStrings[i], "");
-							}
+							YellMsg = YellMsg.replace(colorStrings[k], "");
 						}
 					}
 					player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
@@ -4367,4 +4362,38 @@ public class Player extends Entity {
 		getActionSender().sendString("", 12129);
 	}
 
+    public boolean getHideYell()
+    {
+    	return hideYell;
+    }
+    public boolean getHideColors()
+    {
+    	return hideColors;
+    }
+
+	public void setHideYell(boolean hide, boolean msg) {
+		hideYell = hide;
+		if (msg) {
+			if (hideYell) {
+				getActionSender().sendMessage(
+						"You have toggled your yell channel off");
+			} else {
+				getActionSender().sendMessage(
+						"You have toggled your yell channel on");
+			}
+		}
+	}
+
+	public void setHideColors(boolean hide, boolean msg) {
+		hideColors = hide;
+		if (msg) {
+			if (hideColors) {
+				getActionSender().sendMessage(
+						"You have toggled your yell colors off");
+			} else {
+				getActionSender().sendMessage(
+						"You have toggled your yell colors on");
+			}
+		}
+	}
 }

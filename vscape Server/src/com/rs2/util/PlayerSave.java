@@ -365,6 +365,13 @@ public class PlayerSave {
 			characterfile.write(Integer.toString(player.getQuestStage(1)), 0, Integer.toString(player.getQuestStage(1)).length());
 			characterfile.newLine();
 			
+			characterfile.write("hide-yell = ", 0, 12);
+			characterfile.write(Boolean.toString(player.getHideYell()), 0, Boolean.toString(player.getHideYell()).length());
+			characterfile.newLine();
+			characterfile.write("hide-colors = ", 0, 14);
+			characterfile.write(Boolean.toString(player.getHideColors()), 0, Boolean.toString(player.getHideColors()).length());
+			characterfile.newLine();
+			
 			characterfile.write("[EOF]", 0, 5);
 			characterfile.newLine();
 			characterfile.newLine();
@@ -421,8 +428,26 @@ public class PlayerSave {
 					player.setQuestStage(0, Integer.parseInt(token2));
 				} else if (token.equals("knights-sword")) {
 					player.setQuestStage(1, Integer.parseInt(token2));
+				} else if (token.equals("hide-yell")) {
+					boolean yellhide = Boolean.parseBoolean(token2);
+					if(yellhide)
+					{
+						player.setHideYell(true,true);
+					}else{
+						player.setHideYell(false,false);
+					}
+				} else if (token.equals("hide-colors")) {
+					boolean colorhide = Boolean.parseBoolean(token2);
+					if(colorhide)
+					{
+						player.setHideColors(true,true);
+					}else{
+						player.setHideColors(false,false);
+					}
+				}
 			}
-		}
+		
+	
 		try {
 			line = characterfile.readLine();
 		} catch(IOException ioexception1) { EndOfFile = true; }
