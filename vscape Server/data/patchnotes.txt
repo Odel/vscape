@@ -1,4 +1,4 @@
-=NEXT UPDATE DATE=
+=APR 3=
 -fixed dragon hide body
 -fixed monks robes attributes
 -adamant kiteshield fixed
