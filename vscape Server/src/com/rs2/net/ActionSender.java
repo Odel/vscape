@@ -1023,9 +1023,4 @@ public class ActionSender {
 				g2.getRotation(), x2, y2, false);
 	}
 
-	public ActionSender QPEdit(int qp){
-		sendString("QP: @gre@"+qp+" ", 3985);
-		return this;
-	}
-
 }

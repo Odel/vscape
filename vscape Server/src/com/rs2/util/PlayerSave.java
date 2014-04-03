@@ -1,15 +1,10 @@
 package com.rs2.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import com.rs2.Constants;
@@ -343,93 +338,9 @@ public class PlayerSave {
 			write.writeBoolean(player.hasKilledClueAttacker());
             write.flush();
 			write.close();
-			
-            PlayerSave.saveQuests(player);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}
-	
-	public static void saveQuests(Player player) {
-		BufferedWriter characterfile = null;
-		try {
-			characterfile = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+".txt"));
-			
-			characterfile.write("quest-points = ", 0, 15);
-			characterfile.write(Integer.toString(player.getQuestPoints()), 0, Integer.toString(player.getQuestPoints()).length());
-			characterfile.newLine();
-			characterfile.write("cooks-assistant = ", 0, 18);
-			characterfile.write(Integer.toString(player.getQuestStage(0)), 0, Integer.toString(player.getQuestStage(0)).length());
-			characterfile.newLine();
-			characterfile.write("knights-sword = ", 0, 16);
-			characterfile.write(Integer.toString(player.getQuestStage(1)), 0, Integer.toString(player.getQuestStage(1)).length());
-			characterfile.newLine();
-			
-			characterfile.write("[EOF]", 0, 5);
-			characterfile.newLine();
-			characterfile.newLine();
-			characterfile.close();
-			
-		} catch(IOException ioexception) {
-			System.out.println(player.getUsername()+": error writing file.");
-		}
-		
-	}
-	
-	public static int loadQuests(Player player) {
-	
-		String line = "";
-		String token = "";
-		String token2 = "";
-		String[] token3 = new String[3];
-		boolean EndOfFile = false;
-		int ReadMode = 0;
-		BufferedReader characterfile = null;
-		boolean File1 = false;
-		
-		try {
-			characterfile = new BufferedReader(new FileReader("./data/characters/"+player.getUsername()+".txt"));
-			File1 = true;
-		} catch(FileNotFoundException fileex1) {
-		}
-		
-		if (File1) {
-		} else {
-			System.out.println(player.getUsername()+": unexisting user.");
-			return 0;
-		}
-		
-		try {
-			line = characterfile.readLine();
-		} catch(IOException ioexception) {
-			System.out.println(player.getUsername()+": error loading file.");
-			return 3;
-		}
-		
-		while(EndOfFile == false && line != null) {
-			line = line.trim();
-			int spot = line.indexOf("=");
-			if (spot > -1) {
-				token = line.substring(0, spot);
-				token = token.trim();
-				token2 = line.substring(spot + 1);
-				token2 = token2.trim();
-				token3 = token2.split("\t");
-				if (token.equals("quest-points")) {
-					player.setQuestPoints(Integer.parseInt(token2));
-				} else if (token.equals("cooks-assistant")) {
-					player.setQuestStage(0, Integer.parseInt(token2));
-				} else if (token.equals("knights-sword")) {
-					player.setQuestStage(1, Integer.parseInt(token2));
-			}
-		}
-		try {
-			line = characterfile.readLine();
-		} catch(IOException ioexception1) { EndOfFile = true; }
-		
-		}
-		try { characterfile.close(); } catch(IOException ioexception) { }
-		return 13;
 	}
 
     public static void load(Player player) {
@@ -478,9 +389,11 @@ public class PlayerSave {
             player.setPassword(password);
             player.setStaffRights(load.readInt());
             player.getPosition().setX(load.readInt());
-            player.getPosition().setLastX(player.getPosition().getX());
+            player.getPosition().setLastX(
+                    player.getPosition().getX());
             player.getPosition().setY(load.readInt());
-            player.getPosition().setLastY(player.getPosition().getY() + 1);
+            player.getPosition().setLastY(
+                    player.getPosition().getY() + 1);
             player.getPosition().setZ(load.readInt());
             player.setGender(load.readInt());
             player.setAutoRetaliate(load.readBoolean());
@@ -791,14 +704,13 @@ public class PlayerSave {
     			}
             } catch (IOException e) {
             }
-            //TODO: What the fuck is this doing to questpoints and why???
             try {
             	if (player.getQuestPoints() == 1) {
             		player.getSlayer().slayerMaster = load.readInt();
             	} else {
             		load.readUTF();
             	}
-            	//player.setQuestPoints(1);
+            	player.setQuestPoints(1);
             } catch (IOException e) {
             	player.getSlayer().resetSlayerTask();
             }
@@ -820,7 +732,6 @@ public class PlayerSave {
             	player.setKilledClueAttacker(load.readBoolean());
             } catch (IOException e) {
             }
-            
           //  player.setKilledJungleDemon(load.readBoolean());
             load.close();
             if (Server.getSingleton() != null)

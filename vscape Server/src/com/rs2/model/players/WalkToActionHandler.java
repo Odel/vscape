@@ -1,7 +1,5 @@
 package com.rs2.model.players;
 
-import java.util.Random;
-
 import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
@@ -16,7 +14,6 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
-import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -73,12 +70,10 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 
-
 public class WalkToActionHandler {
 
 	private static Actions actions = Actions.OBJECT_FIRST_CLICK;
 	private int test;
-	private static int q = 1700;
 	
 	public static void doActions(Player player) {
 		switch (actions) {
@@ -149,8 +144,9 @@ public class WalkToActionHandler {
 					stop();
 					return;
 				}
-				if (id == 4031)
+			/*	if (id == 4031)
 					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+					*/
 				Position loc = new Position(player.getClickX(), player.getClickY(), z);
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
@@ -702,10 +698,6 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2445, 3413, 0));
 					}
 					break;
-				case 10583: //blurite rocks
-					player.getInventory().addItem(new Item(668)); //someone fucking fix this ive got no idea how to do mining shit
-					player.getActionSender().sendMessage("You mine some blurite ore.");
-				break;
 				case 2406: // zanaris shed door
 					if (player.getEquipment().getId(Constants.WEAPON) == 772) {
 						if (player.getTeleportation().attemptTeleportJewellery(new Position(2452, 4473, 0))) {
@@ -1026,24 +1018,41 @@ public class WalkToActionHandler {
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
 					break;
-				case 3415: //stairs down to elemental workshop
-					player.teleport(new Position(2716, 9888));
+				case 4031: //shantay pass
+					if(player.getPosition().getY() < 3116)
+					{
+						player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+						player.getActionSender().walkThroughDoor(id, x, y, z);
+					}
+					else
+					{
+						if(player.getInventory().playerHasItem(1854))
+						{
+							player.getInventory().removeItem(new Item(1854));
+							player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+							player.getActionSender().walkThroughDoor(id, x, y, z);
+						}
+						else
+						{
+							player.getActionSender().sendMessage("You don't have a shantay pass!");
+						}
+					}
 					break;
-				case 3416: //stairs up from elemental workshop
-					player.teleport(new Position(2709, 3498));
+				//BUGGY SHIT 
+				//Tirannwn
+				case 3921: //tripwire
 					break;
-				case 3389:
+				case 3944: // Arandar double doors because fixing double doors right now
+				case 3945:
+					player.getActionSender().sendMessage("You pass through the gate.");
+					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
+					player.getActionSender().walkThroughDoor(id, x, y, z);
 					break;
-				case 3390: //Odd looking wall
-				case 3391:
-					break;
-				case 3406: //Water Wheel lever in Elemental Workshop
-					player.getActionSender().animateObject(2719, 9907, 0, 472);
-					break;
-				case 3409: //Bellows in Elemental Workshop
-
-					break;
-				case 3403:
+				case 3937: //Dense Forest
+				case 3938:
+				case 3939:
+				case 3998:
+				case 3999:
 					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
@@ -1294,7 +1303,7 @@ public class WalkToActionHandler {
 			}
 		}
 		if (npc.getPlayerOwner() != null && (npc.getPlayerOwner() != player || npc.getCombatingEntity() != null)) {
-			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.1");
+			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;
 		}
 		npc.setInteractingEntity(player);
@@ -1382,15 +1391,8 @@ public class WalkToActionHandler {
 						Dialogues.startDialogue(player, player.getClickId());
 						Following.resetFollow(player);
 						break;
-					case 278:
-						System.out.println("talking to cook, passing to quest class");
-						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
-						player.setInteractingEntity(npc);
-						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						QuestHandler.getQuests()[0].dialogue(player, npc);
-						break;
 				}
-				player.getActionSender().sendMessage("This npc is not interested in talking with you right now.2");
+				player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 				this.stop();
 			}
 		});
@@ -1533,6 +1535,20 @@ public class WalkToActionHandler {
 				// break;
 				case 2258:
 					Abyss.teleportToAbyss(player, npc);
+					break;
+				case 836: //SHANTAY Buy pass
+					Item SHANTAY_PASS = new Item(1854);
+					int SHANTAY_PASS_PRICE = SHANTAY_PASS.getDefinition().getPrice();
+					if(player.getInventory().playerHasItem(995, SHANTAY_PASS_PRICE))
+					{
+						player.getInventory().addItem(SHANTAY_PASS);
+						player.getInventory().removeItem(new Item(995,SHANTAY_PASS_PRICE));
+						player.getActionSender().sendMessage("You bought a Shantay pass for "+SHANTAY_PASS_PRICE+" coins.");
+					}
+					else
+					{
+						player.getActionSender().sendMessage("You need "+SHANTAY_PASS_PRICE+" coins to buy a Shantay pass.");
+					}
 					break;
 				}
 				this.stop();
