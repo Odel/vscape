@@ -2,6 +2,8 @@
 -fixed dragon hide body
 -fixed monks robes attributes
 -adamant kiteshield fixed
+-Saradomin armor fixed
+-Mithril seeds disabled
 
 
 =APR 1=
