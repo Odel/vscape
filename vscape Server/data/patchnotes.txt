@@ -1,3 +1,9 @@
+=APR 4=
+-Cooks Assistant quest now works
+-The Knight's Sword quest now works
+-::hideyell and ::hidecolor now save
+-Added ::commands, and login message
+
 =APR 3=
 -fixed dragon hide body
 -fixed monks robes attributes

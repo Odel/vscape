@@ -713,9 +713,12 @@ public class Player extends Entity {
 					k++;
 				}
 			}
-		
+		} else if (keyword.equals("commands")) {
+			getActionSender().sendMessage("commands include ::outfit, ::yell, ::hideyell, ::hidecolor, ::home, ::players");
+			getActionSender().sendMessage("::changepass and ::patchnotes");
 			
 		}
+		
 	}
 
 	public void modCommands(String keyword, String[] args, String fullString) {
