@@ -664,13 +664,6 @@ public class Player extends Entity {
 		} else if (keyword.equals("empty")) {
 			getInventory().getItemContainer().clear();
 			getInventory().refresh();
-		}
-		else if (keyword.equals("rnpc")) {
-			int index = (int)Misc.random(2000);
-			transformNpc = index;
-			setAppearanceUpdateRequired(true);
-			setSize(new Npc(index).getDefinition().getSize());
-			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
@@ -687,16 +680,26 @@ public class Player extends Entity {
                 getActionSender().sendMessage("You teleported home.");
             } 
 		} else if (keyword.equals("players")) {
-			actionSender.sendMessage("There are currently "
-					+ World.playerAmount() + " players online.");
+			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
+			getActionSender().sendInterface(8134);
+			ClearNotes();
+			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
+			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
+			int line = 8147;
+			for (Player player : World.getPlayers()) {
+				if(player != null)
+				{	
+					getActionSender().sendString(player.getUsername(), line);
+					line++;
+				}
+			}
 		} else if (keyword.equals("changepass")) {
 			String pass = fullString;
 			setPassword(pass);// setPassword
 			getActionSender().sendMessage("Your new password is " + pass + ".");
 		} else if (keyword.equals("patchnotes")) {
-			for(int i = 8144; i < 8195; i++) {
-				this.getActionSender().sendString("", i);
-			}			
+			getActionSender().sendInterface(8134);
+			ClearNotes();	
 			this.getActionSender().sendString("@dre@-=vscape patch notes=-", 8144);
 			int k = 8147;
 			for(String q: GlobalVariables.patchNotes)
@@ -707,7 +710,6 @@ public class Player extends Entity {
 					k++;
 				}
 			}
-			this.getActionSender().sendInterface(8134);
 		
 			
 		}
@@ -915,14 +917,18 @@ public class Player extends Entity {
 				skill.getExp()[i] = 200000000;
 			}
 			skill.refresh();
-		}
-		else if (keyword.equals("pnpc")) {
+		}else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
-		}
-		else if (keyword.equals("invisible")) {
+		}else if (keyword.equals("rnpc")) {
+			int index = (int)Misc.random(2000);
+			transformNpc = index;
+			setAppearanceUpdateRequired(true);
+			setSize(new Npc(index).getDefinition().getSize());
+			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
+		} else if (keyword.equals("invisible")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
 		}
@@ -1199,6 +1205,10 @@ public class Player extends Entity {
         	Ban(args);
         } else if (keyword.equals("banip")) {
         	BanIpAddress(args);
+        } else if (keyword.equals("banmac")) {
+        	//BanMacAddress(args);
+        } else if (keyword.equals("checkips")) {
+        	checkHosts();
         } else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
 			SystemUpdate(seconds);
@@ -1233,6 +1243,79 @@ public class Player extends Entity {
         }
 	}
 
+	//clear note interface
+	public void ClearNotes()
+	{
+		if(getInterface() == 8134)
+		{
+			for (int i = 8144; i < 8195; i++) {
+				getActionSender().sendString("",i);
+			}
+		}
+	}
+	
+	/**
+	 * get players by host
+	 * 
+	 * 
+	 */
+	public void checkHosts()
+	{
+    	List<String> Hosts = new ArrayList();
+    	for (Player player : World.getPlayers()) {
+    		if(player != null)
+			{	
+    			if(!Hosts.contains(player.getHost()))
+    			{
+    				Hosts.add(player.getHost());
+    			}
+			}
+    	}
+    	List<Player[]> playersWithHost = new ArrayList();
+    	for (String validHost : Hosts) {
+    		playersWithHost.add(getPlayersByIp(validHost));
+    	}
+		getActionSender().sendInterface(8134);
+		ClearNotes();
+		int line = 8145;
+		for (String validHost : Hosts) {
+			getActionSender().sendString("@dbl@"+validHost, line);
+			line++;
+			for (Player[] players : playersWithHost) {
+				line++;
+				for (Player player : players) {
+					if(player != null)
+					{	
+						getActionSender().sendString(player.getUsername(), line);
+						line++;
+					}
+				}
+			}
+			line++;
+		}
+	}
+	
+	public Player[] getPlayersByIp(String ip)
+	{
+    	List<Player> playerWithHost = new ArrayList(); 
+    	for (Player player : World.getPlayers()) {
+    		if(player != null)
+			{	
+    			if(player.getHost().equals(ip))
+    			{
+    				playerWithHost.add(player);
+    			}
+			}
+    	}
+    	Player[] playerHosts = new Player[playerWithHost.size()];
+    	int index = 0;
+    	for (Player player : playerWithHost) {
+    		playerHosts[index] = player;
+    		index++;
+    	}
+		return playerHosts;
+	}
+	
 	/**
 	 * Yell Message
 	 * 
@@ -1449,7 +1532,7 @@ public class Player extends Entity {
 		try {
 			OutputStreamWriter out = new OutputStreamWriter(
 					new FileOutputStream("./data/bannedips.txt", true));
-			out.write(player.host+"\n");
+			out.write(player.getHost()+"\n");
 			out.flush();
 			out.close();
 		} catch (FileNotFoundException e) {
@@ -3732,7 +3815,7 @@ public class Player extends Entity {
             {
             	if(CurrentLine.length() > 0)
             	{
-					if(CurrentLine.startsWith(host))
+					if(CurrentLine.startsWith(getHost()))
 					{
 						br.close();
 						return true;
