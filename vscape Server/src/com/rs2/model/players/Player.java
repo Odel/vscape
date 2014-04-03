@@ -689,6 +689,10 @@ public class Player extends Entity {
 			for (Player player : World.getPlayers()) {
 				if(player != null)
 				{	
+					if(line > 8195 && line < 12174)
+					{
+						line = 12174;
+					}
 					getActionSender().sendString("@dre@"+player.getUsername(), line);
 					line++;
 				}
@@ -1266,8 +1270,14 @@ public class Player extends Entity {
 	{
 		if(getInterface() == 8134)
 		{
-			for (int i = 8144; i < 8195; i++) {
+			int line = 8144;
+			for (int i = 0; i < 120; i++) {
+				if(line > 8195 && line < 12174)
+				{
+					line = 12174;
+				}
 				getActionSender().sendString("",i);
+				line++;
 			}
 		}
 	}
