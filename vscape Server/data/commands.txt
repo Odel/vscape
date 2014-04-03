@@ -1,0 +1,66 @@
+Test1 used yell dongs
+Test1 used tele 2665 3430
+Test1 used mypos mypos
+Test1 used tele 2709 3496
+Test1 used mypos mypos
+Test1 used tele 2710 3490
+Test1 used mypos mypos
+Test1 used tele 2709 3496
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used spawnobject 18511
+Test1 used spawnobject 18512
+Test1 used yell yell
+Test1 used coordinate 1254
+Test1 used sound sound
+Test1 used spawnobject 18511
+Test1 used spawnobject 18511
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used mypos mypos
+Test1 used npc 1020
+Test1 used stat 0 90
+Test1 used stat 1 99
+Test1 used stat 2 99
+Test1 used :tele 3404 9599
+Test1 used yell dongs
+Test1 used tele 3404 9599
+Test1 used tele 2716 9888
+Test1 used mypos mypos
+Test1 used item 2892 1
+Test1 used stat 0 99
+Test1 used stat 0 99 -test1
+Test1 used stat 1 10 -Test1
+Odel used tele 2701 9907
+Odel used mypos mypos
+Odel used tele 2702 9906 0
+Odel used stat 0 99 -Odel
+Odel used stat 1 99 -Odel
+Odel used stat 2 99 -Odel
+Odel used stat 3 99 -Odel
+Odel used item 1149 1
+Odel used item 1187 1
+Odel used item 2513 1
+Odel used item 2513 1
+Odel used item 4087 1
+Odel used item 4587 1
+Odel used item 3140 1
+Odel used empty empty
+Odel used item 4379 1
+Odel used item 6735 1
+Odel used item 1385 1
+Odel used item 1021
+Odel used npc 1021
+Odel used ::mypos 
+Odel used mypos mypos
+Odel used npc 1022
+Odel used mypos mypos
+Odel used mypos mypos
+Odel used mypos mypos
+Odel used mypos mypos
+Odel used mypos mypos

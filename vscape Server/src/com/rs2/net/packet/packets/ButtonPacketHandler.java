@@ -2,6 +2,7 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
@@ -380,6 +381,12 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;
 			case 31195 :
 				player.setBankOptions(BankOptions.INSERT_ITEM);
+				return;
+			case 28165: //quest tab entry for cook's assistant
+				QuestHandler.handleQuestButtons(player, buttonId);
+				return;
+			case 28178: //the knight's sword
+				QuestHandler.handleQuestButtons(player, buttonId);
 				return;
 		}
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
