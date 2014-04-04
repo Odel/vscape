@@ -1796,7 +1796,7 @@ public class Player extends Entity {
 		}
 	}
 
-	private static String[] bannedChars = {"!","£","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","¬","`","|"};
+	public static String[] bannedChars = {"!","£","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","¬","`","|"};
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned())
 		{
