@@ -69,6 +69,8 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
+import com.rs2.model.players.Player;
+import com.rs2.util.PlayerSave;
 
 public class WalkToActionHandler {
 
@@ -699,8 +701,9 @@ public class WalkToActionHandler {
 					}
 					break;
 					case 10583: //blurite rocks
-						player.getInventory().addItem(new Item(668)); //someone fucking fix this ive got no idea how to do mining shit
-						player.getActionSender().sendMessage("You mine some blurite ore.");
+							player.getInventory().addItem(new Item(668)); //someone fix this ive got no idea how to do mining shit
+							player.getActionSender().sendMessage("You mine some blurite ore.");
+							player.setQuestStage(1, 3);
 					break;
 				case 2406: // zanaris shed door
 					if (player.getEquipment().getId(Constants.WEAPON) == 772) {

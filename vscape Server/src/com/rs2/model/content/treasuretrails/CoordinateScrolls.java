@@ -61,8 +61,8 @@ public class CoordinateScrolls {
 		COORDINATE_26(3532, 11, 3, 31, 20, "north", "east", 2), //correct for 06
 		COORDINATE_27(3534, 9, 48, 17, 39, "north", "east", 2), //correct
 		COORDINATE_29(3536, 8, 33, 1, 39, "north", "east", 2), //correct
-		COORDINATE_30(3538, 8, 26, 10, 28, "south", "east", 3), //correct
-		//COORDINATE_31(3540, 8, 5, 15, 56, "south", "east", 3), //correct but inaccessible
+		COORDINATE_30(3538, 8, 26, 10, 28, "south", "east", 3), //correct but inaccessible
+		COORDINATE_31(3540, 8, 5, 15, 56, "south", "east", 3), //correct but inaccessible
 		COORDINATE_32(3542, 8, 3, 31, 16, "north", "east", 3), //correct
 		COORDINATE_33(3544, 7, 43, 12, 26, "south", "east", 3), //correct 
 		COORDINATE_34(3546, 7, 33, 15, 0, "north", "east", 2), //correct
@@ -77,7 +77,7 @@ public class CoordinateScrolls {
 		COORDINATE_43(3582, 4, 41, 3, 9, "north", "west", 3), //correct
 		COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), //correct
 		COORDINATE_45(3586, 4, 13, 12, 45, "north", "east", 2), //correct
-		COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), //correct
+		COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), //correct but inaccessible
 		COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), //correct
 		COORDINATE_48(3592, 4, 0, 12, 46, "south", "east", 2), //correct
 		COORDINATE_49(3594, 3, 45, 22, 45, "south", "east", 3), //correct
@@ -87,7 +87,7 @@ public class CoordinateScrolls {
 //		COORDINATE_53(7262, 2, 46, 29, 11, "north", "east", 2), //correct //duel arena
 		COORDINATE_54(7264, 1, 35, 7, 28, "south", "east", 3), //correct
 		COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), //correct
-		COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //moved west by 1 minute from 5 to 6 (should be 5 but spawns in a tree)
+		//COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //cannot access
 		COORDINATE_57(7307, 1, 18, 14, 15, "south", "east", 2), //correct
 		COORDINATE_58(7309, 0, 31, 17, 43, "south", "east", 2), //correct
 		COORDINATE_59(7311, 0, 30, 24, 16, "north", "east", 2), //correct
