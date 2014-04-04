@@ -2822,11 +2822,10 @@ public class Dialogues {
 								player.getDialogue().sendPlayerChat("Thanks so much.", HAPPY);
 							return true;
 							case 5:
-								player.getDialogue().sendNpcChat("Here your sword. Come back with redberry pie next time!", CONTENT);
+								player.getDialogue().sendNpcChat("Here your sword. Come back with more redberry pie next time!", CONTENT);
 								player.getDialogue().endDialogue();
 								player.getInventory().addItem(new Item(667, 1));
 								player.getInventory().removeItem(new Item(668, 1));
-								player.getInventory().removeItem(new Item(666, 1));
 								player.getInventory().removeItem(new Item(2351, 1));
 								player.setQuestStage(1, 3);
 							return true;
@@ -2840,6 +2839,30 @@ public class Dialogues {
 							case 8:
 								player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.","Iron bar you find by yourself.", CALM);
 								player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
+					case 3:
+						switch(player.getDialogue().getChatId()) {
+							case 1:
+								if(!player.hasItem(667)) //check inv and bank idiot lost sword
+								{
+									player.getDialogue().sendNpcChat("what human want now?", CALM);
+									player.getDialogue().setNextChatId(2);
+								}
+								else
+								{
+									player.getDialogue().sendNpcChat("Go away human.", CALM);
+									player.getDialogue().endDialogue();
+								}
+							return true;
+							case 2:
+								player.getDialogue().sendPlayerChat("I've lost the sword!", "can you make me a new one?", DISTRESSED);
+							return true;
+							case 3:
+								player.getDialogue().sendNpcChat("stupid human bring material i make new.", ANNOYED);
+								player.getDialogue().endDialogue();
+								player.setQuestStage(1, 2);
 							return true;
 						}
 					break;
