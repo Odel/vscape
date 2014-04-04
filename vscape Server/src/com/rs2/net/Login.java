@@ -28,13 +28,6 @@ public class Login {
 			int request = inData.get() & 0xff;
 			inData.get(); // Name hash.
 			
-			if(isFilteredChar(player))
-			{
-				System.err.println("You have been filtered");
-				player.disconnect();
-				return;
-			}
-			
 			//checks if player is banned
 			if (player.isBanned()){
 				System.err.println("You have been banned, you will be unbanned in" + player.getBanExpire()*6000 + "minutes.");
@@ -173,14 +166,6 @@ public class Login {
             }
 			break;
 		}
-	}
-	
-	private boolean isFilteredChar(Player player) {
-		for(int i = 0; i < Player.bannedChars.length; i++) {
-			if(player.getUsername().contains(Player.bannedChars[i]))
-			return true;
-		}
-		return false;
 	}
 
 	public static boolean checkName(String username) {
