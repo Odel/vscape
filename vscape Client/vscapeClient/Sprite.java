@@ -101,6 +101,16 @@ public final class Sprite extends DrawingArea {
 				myWidth = 519;
 				myHeight = 338;
 			}
+			else if (img.equalsIgnoreCase("compass")) {
+				myWidth = 51;
+				myHeight = 51;
+			}
+            for(int i = 0; i <= 14; i++) {
+                if (img.equalsIgnoreCase("sideicon_"+i)) {
+                    myWidth = 32;
+                    myHeight = 32;
+                }
+            }
 			anInt1444 = myWidth;
 			anInt1445 = myHeight;
 			anInt1442 = 0;

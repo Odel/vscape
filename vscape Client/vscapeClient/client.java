@@ -87,7 +87,7 @@ public class client extends RSApplet {
 		aRSImageProducer_1166.initDrawingArea();
 		Texture.anIntArray1472 = anIntArray1180;
 		chatArea.drawSprite(0, 0);
-		backBase1.method361(0, 116);
+	//	backBase1.method361(0, 116);
 		drawChannelButtons();
 		if(messagePromptRaised) {
 			chatTextDrawingArea.drawText(0, aString1121, 60, 259);
@@ -1524,34 +1524,34 @@ public class client extends RSApplet {
 	public void drawSideIcons(){
 		/* Top sideIcons */
 		if(tabInterfaceIDs[0] != -1)//attack
-			sideIcons[0].drawSprite(30, 10);
+			newSideIcons[0].drawSprite(30, 10);
 		if(tabInterfaceIDs[1] != -1)//stat
-			sideIcons[1].drawSprite(53, 6);
+			newSideIcons[1].drawSprite(53, 6);
 		if(tabInterfaceIDs[2] != -1)//quest
-			sideIcons[2].drawSprite(83, 7);
+			newSideIcons[2].drawSprite(83, 7);
 		if(tabInterfaceIDs[3] != -1)//inventory
-			sideIcons[3].drawSprite(112, 4);
+			newSideIcons[3].drawSprite(112, 4);
 		if(tabInterfaceIDs[4] != -1)//equipment
-			sideIcons[4].drawSprite(153, 6);
+			newSideIcons[4].drawSprite(153, 6);
 		if(tabInterfaceIDs[5] != -1)//prayer
-			sideIcons[5].drawSprite(180, 5);
+			newSideIcons[5].drawSprite(180, 5);
 		if(tabInterfaceIDs[6] != -1)//magic
-			sideIcons[6].drawSprite(208, 8);
+			newSideIcons[6].drawSprite(208, 8);
 		/* Bottom sideIcons */
 	//	if(tabInterfaceIDs[7] != -1)//clan
 	//		sideIcons[7].drawSprite(53, 302);
 		if(tabInterfaceIDs[8] != -1)//friends
-			sideIcons[7].drawSprite(54, 303);
+			newSideIcons[7].drawSprite(54, 303);
 		if(tabInterfaceIDs[9] != -1)//ignore
-			sideIcons[8].drawSprite(82, 304);
+			newSideIcons[8].drawSprite(82, 304);
 		if(tabInterfaceIDs[10] != -1)//logout
-			sideIcons[9].drawSprite(116, 305);
+			newSideIcons[9].drawSprite(116, 305);
 		if(tabInterfaceIDs[11] != -1)//options
-			sideIcons[10].drawSprite(153, 302);
+			newSideIcons[10].drawSprite(153, 302);
 		if(tabInterfaceIDs[12] != -1)//emotes
-			sideIcons[11].drawSprite(185, 303);
+			newSideIcons[11].drawSprite(185, 303);
 		if(tabInterfaceIDs[13] != -1)//music
-			sideIcons[12].drawSprite(209, 303);
+			newSideIcons[12].drawSprite(209, 303);
 	}
 
 	public void drawRedStones() {
@@ -7061,6 +7061,7 @@ public class client extends RSApplet {
 
 			}
 			drawLoadingText(80, "Unpacking media");
+			
 			/* Custom sprite unpacking */
 			chatArea = new Sprite("chatarea");
 			chatButtonH = new Sprite("chathover");
@@ -7069,6 +7070,9 @@ public class client extends RSApplet {
 			reportH = new Sprite("reporthover");
 			tabArea = new Sprite("tabarea");
 			mapArea = new Sprite("maparea");
+			compass = new Sprite("compass");
+            for(int nSI = 0; nSI < 14; nSI++)
+                newSideIcons[nSI] = new Sprite("sideicon_"+nSI);
 			
 			/**/
 			mapBack = new Background(streamLoader_2, "mapback", 0);
@@ -11758,6 +11762,7 @@ public class client extends RSApplet {
 		chatNames = new String[500];
 		chatMessages = new String[500];
 		sideIcons = new Sprite[14];
+		newSideIcons = new Sprite[14];
 		redStones = new Sprite[10];
 		aBoolean954 = true;
 		friendsListAsLongs = new long[200];
@@ -11883,6 +11888,7 @@ public class client extends RSApplet {
 	private Sprite reportH;
 	private Sprite tabArea;
 	private Sprite mapArea;
+	private Sprite[] newSideIcons;
 	/**/
 	private RSImageProducer frame;
 	private int ignoreCount;
