@@ -2660,17 +2660,18 @@ public class Dialogues {
 							case 6:
 								switch(optionId) {
 									case 1:
-										player.getDialogue().sendNpcChat("Thank you! You can talk to the dwarf found","near remmington!", HAPPY);
+										player.getDialogue().sendNpcChat("Thank you! You can talk to the dwarf found near Rimmington.","You'll need a redberry pie and an iron bar.", HAPPY);
 										player.setQuestStage(1, 1);
 										QuestHandler.getQuests()[1].startQuest(player);
-										player.getDialogue().endDialogue();
+										player.getDialogue().setNextChatId(3);
+
 									return true;
 									case 2:
 										player.getDialogue().sendNpcChat("Oh, okay then...", DISTRESSED);
 										player.getDialogue().endDialogue();
 									return true;
+									
 								}
-							return true;
 						}
 					break;
 					case 1:
@@ -2685,7 +2686,7 @@ public class Dialogues {
 								player.getDialogue().sendNpcChat("Please hurry!",DISTRESSED);
 							return true;
 							case 4:
-								player.getDialogue().sendOption("I'll get right on it.","Where can I find the dwarf?");
+								player.getDialogue().sendOption("I'll get right on it.","What do I need before I talk to the dwarf");
 							return true;
 							case 5:
 								switch(optionId) {
@@ -2694,10 +2695,13 @@ public class Dialogues {
 										player.getDialogue().endDialogue();
 									return true;
 									case 2:
-										player.getDialogue().sendNpcChat("South of Rimmington in a small shack.",HAPPY);
-										player.getDialogue().endDialogue();
-									return true;
+										player.getDialogue().sendNpcChat("He'll probably require some other","materials from what I remember.","You'll need to make a redberry pie to make him talk.", CONTENT);
+										player.getDialogue().setNextChatId(6);
+										return true;
 								}
+							case 6:
+								player.getDialogue().sendNpcChat("Then you'll need an iron bar to","create the base of the sword.","Then you'll need a portrait of the sword.","There's one sitting on the 2nd floor in Sir Vyvin's quarters.", CONTENT);
+								player.getDialogue().endDialogue();
 							return true;
 						}
 					break;
@@ -2710,7 +2714,7 @@ public class Dialogues {
 							player.getDialogue().sendPlayerChat("Yes, I have!",HAPPY);
 							if(player.carryingItem(667))
 							{
-								player.getDialogue().setNextChatId(2);
+								player.getDialogue().setNextChatId(3);
 							}
 							else
 							{
@@ -2727,7 +2731,7 @@ public class Dialogues {
 							player.getDialogue().sendPlayerChat("Oh, it was nothing.",HAPPY);
 						return true;
 						case 6:
-							player.getDialogue().sendNpcChat("I'm sure it was, hero!",HAPPY);
+							player.getDialogue().sendNpcChat("I'm sure it really was, hero!",HAPPY);
 						return true;
 						case 7:
 							player.getDialogue().sendPlayerChat("Ah, it was really nothing.",HAPPY);
@@ -2755,26 +2759,42 @@ public class Dialogues {
 					case 1:
 						switch(player.getDialogue().getChatId()) {
 							case 1:
-								player.getDialogue().sendNpcChat("What want human?", CALM);
+								player.getDialogue().sendNpcChat("Bring me redberry pie!", CALM);
+								if(player.carryingItem(2325))
+								{
+									player.getDialogue().setNextChatId(2);
+								}
+								else
+								{
+									player.getDialogue().setNextChatId(9);
+								}
 							return true;
 							case 2:
-								player.getDialogue().sendPlayerChat("Could you make a new copy of Sir Vyvin's Sword?", CONTENT);
+								player.getDialogue().sendNpcChat("Oo! Redberry pie! Thankya human!", HAPPY);
+								player.getInventory().removeItem(new Item(2325, 1));
 							return true;
 							case 3:
-								player.getDialogue().sendNpcChat("Me remember that guy, he ask for blurite sword.","He pay many redberry pies. Why need another?", CONTENT);
+								player.getDialogue().sendPlayerChat("Could you make a new copy of Sir Vyvin's Sword?", CONTENT);
 							return true;
 							case 4:
-							player.getDialogue().sendPlayerChat("The Squire kind of lost it...","He sent me to get a new one.", DISTRESSED);
+								player.getDialogue().sendNpcChat("Me remember that guy, he ask for blurite sword.","He pay many redberry pies. Why need another?", CONTENT);
 							return true;
 							case 5:
-								player.getDialogue().sendNpcChat("Me suppose me make another.","I out of blurite though, bring me some.", CONTENT);
+							player.getDialogue().sendPlayerChat("The Squire kind of lost it...","He sent me to get a new one.", DISTRESSED);
 							return true;
 							case 6:
-								player.getDialogue().sendPlayerChat("Alright, do you know where I can find some?", HAPPY);
+								player.getDialogue().sendNpcChat("Me suppose me make another.","I out of blurite though, bring me some.","Also need iron bar and portrait of sword.", CONTENT);
 							return true;
 							case 7:
+								player.getDialogue().sendPlayerChat("Alright, do you know where I can find the ore?", HAPPY);
+							return true;
+							case 8:
 								player.setQuestStage(1, 2);
 								player.getDialogue().sendNpcChat("Maybe in mine on hill. Deep in dungeon me used to find","very big veins. Contain very scary monsters, though.", CONTENT);
+								player.getDialogue().endDialogue();
+							return true;
+							case 9:
+								player.getDialogue().sendNpcChat("Go away!","Don't come back until you bring pie!", CONTENT);
 								player.getDialogue().endDialogue();
 							return true;
 						}
@@ -2782,18 +2802,18 @@ public class Dialogues {
 					case 2:
 						switch(player.getDialogue().getChatId()) {
 							case 1:
-								player.getDialogue().sendNpcChat("Have you found the ore yet?", DISTRESSED);
-								if(!player.carryingItem(668))
-								{
-									player.getDialogue().setNextChatId(7);
-								}
-								else
+								player.getDialogue().sendNpcChat("Have you found the materials yet?", DISTRESSED);
+								if((player.carryingItem(668) && player.carryingItem(666) && player.carryingItem(2351)))
 								{
 									player.getDialogue().setNextChatId(2);
 								}
+								else
+								{
+									player.getDialogue().setNextChatId(7);
+								}
 							return true;
 							case 2:
-								player.getDialogue().sendPlayerChat("I've found some blurite ore!","Could you make the sword now?", HAPPY);
+								player.getDialogue().sendPlayerChat("I've found the materials!","Could you make the sword now?", HAPPY);
 							return true;
 							case 3:
 								player.getDialogue().sendNpcChat("Yeah, I make now.", CONTENT);
@@ -2806,6 +2826,8 @@ public class Dialogues {
 								player.getDialogue().endDialogue();
 								player.getInventory().addItem(new Item(667, 1));
 								player.getInventory().removeItem(new Item(668, 1));
+								player.getInventory().removeItem(new Item(666, 1));
+								player.getInventory().removeItem(new Item(2351, 1));
 								player.setQuestStage(1, 3);
 							return true;
 							case 6:
@@ -2816,7 +2838,7 @@ public class Dialogues {
 								player.getDialogue().sendPlayerChat("Oh, no. I'm having trouble finding it.", DISTRESSED);
 							return true;
 							case 8:
-								player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.", CALM);
+								player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.","Iron bar you find by yourself.","The portrait can be found in Sir Vyvin's quarters.", CALM);
 								player.getDialogue().endDialogue();
 							return true;
 						}
@@ -2824,7 +2846,7 @@ public class Dialogues {
 					default:
 						switch(player.getDialogue().getChatId()) {
 							case 1:
-								player.getDialogue().sendNpcChat("What you want human?.", CALM);
+								player.getDialogue().sendNpcChat("Go away human.", CALM);
 								player.getDialogue().endDialogue();
 							return true;
 						}
@@ -3003,7 +3025,7 @@ public class Dialogues {
 					break;
 				}
 			return true;
-			case 1334 : //jossik
+			case 1334: //jossik
 				 switch(player.getDialogue().getChatId()) {
 					 case 1 :
 						 player.getDialogue().sendNpcChat("Would you like to buy a book I found?", CONTENT);

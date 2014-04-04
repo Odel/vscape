@@ -700,16 +700,6 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2445, 3413, 0));
 					}
 					break;
-					/* THIS PART IS NOT NEEDED */
-				/*	case 10583: //blurite rocks
-						switch (player.getQuestStage(1))
-						{
-							case 2:
-								player.setQuestStage(1, 3);
-							break;
-							default:
-						}
-					break;*/
 				case 2406: // zanaris shed door
 					if (player.getEquipment().getId(Constants.WEAPON) == 772) {
 						if (player.getTeleportation().attemptTeleportJewellery(new Position(2452, 4473, 0))) {

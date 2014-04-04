@@ -95,7 +95,7 @@ public class CoordinateScrolls {
 		COORDINATE_61(7315, 0, 18, 9, 28, "south", "east", 2), //correct
 		COORDINATE_62(7317, 0, 13, 13, 58, "south", "east", 2), //fixed //correct
 		COORDINATE_63(2747, 0, 5, 1, 13, "south", "east", 2), //correct
-		COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3), //correct for 06
+		//COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3), //correct for 06 , inaccessible
 		;
 		private int clueId;
 		private int degree1;
