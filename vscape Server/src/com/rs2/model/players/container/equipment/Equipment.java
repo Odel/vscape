@@ -935,92 +935,124 @@ public class Equipment {
 		//base armour and weaponry
 		if (itemName.contains("bronze")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 1;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 1;
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 1;
 			}
 			return;
 		}
 		if (itemName.contains("iron")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 1;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 1;
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 1;
 			}
 			return;
 		}
 		if (itemName.contains("steel")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 5;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 5;
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 5;
 			}
 			return;
 		}
 		if (itemName.contains("black") && !itemName.contains("d'hide")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 10;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 10;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 5;
+				}
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 10;
 			}
 			return;
 		}
 		if (itemName.contains("white")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 10;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 10;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 5;
+				}
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 10;
 			}
 			return;
 		}
 		if (itemName.contains("mithril")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 20;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 20;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 10;
+				}
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 20;
 			}
 			return;
 		}
 		if (itemName.contains("adamant")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 30;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 30;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 15;
+				}
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 30;
 			}
 			return;
 		}
 		if (itemName.contains("rune")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 40;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 40;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 20;
+				}
+			}
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 40;
 			}
 			return;
 		}
 		if (itemName.contains("dragon") && !itemName.contains("anti")) 
 		{
-			if (!itemName.contains("knife") && !itemName.contains("dart") && !itemName.contains("javelin") && !itemName.contains("thrownaxe")) {
-				attackLevelReq = defenceLevelReq = 60;
+			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
+			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
+				attackLevelReq = 60;
+				if (itemName.contains("halberd")) 
+				{
+					strengthLevelReq = 30;
+				}
 			}
-			return;
-		}
-		if (itemName.contains("halberd")) 
-		{
-			if(itemName.contains("black"))
-			{
-				strengthLevelReq = 5;
-			}
-			if(itemName.contains("white"))
-			{
-				strengthLevelReq = 5;
-			}
-			if(itemName.contains("mith"))
-			{
-				strengthLevelReq = 10;
-			}
-			if(itemName.contains("adam"))
-			{
-				strengthLevelReq = 15;
-			}
-			if(itemName.contains("rune"))
-			{
-				strengthLevelReq = 20;
-			}
-			if(itemName.contains("dragon"))
-			{
-				strengthLevelReq = 30;
+			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+				defenceLevelReq = 60;
 			}
 			return;
 		}
