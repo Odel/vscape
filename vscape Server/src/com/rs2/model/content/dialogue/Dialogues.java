@@ -2700,7 +2700,7 @@ public class Dialogues {
 										return true;
 								}
 							case 6:
-								player.getDialogue().sendNpcChat("Then you'll need an iron bar to","create the base of the sword.","Then you'll need a portrait of the sword.","There's one sitting on the 2nd floor in Sir Vyvin's quarters.", CONTENT);
+								player.getDialogue().sendNpcChat("Then you'll need an iron bar to","create the base of the sword.", CONTENT);
 								player.getDialogue().endDialogue();
 							return true;
 						}
@@ -2783,7 +2783,7 @@ public class Dialogues {
 							player.getDialogue().sendPlayerChat("The Squire kind of lost it...","He sent me to get a new one.", DISTRESSED);
 							return true;
 							case 6:
-								player.getDialogue().sendNpcChat("Me suppose me make another.","I out of blurite though, bring me some.","Also need iron bar and portrait of sword.", CONTENT);
+								player.getDialogue().sendNpcChat("Me suppose me make another.","I out of blurite though, bring me some.","Also need an iron bar.", CONTENT);
 							return true;
 							case 7:
 								player.getDialogue().sendPlayerChat("Alright, do you know where I can find the ore?", HAPPY);
@@ -2803,7 +2803,7 @@ public class Dialogues {
 						switch(player.getDialogue().getChatId()) {
 							case 1:
 								player.getDialogue().sendNpcChat("Have you found the materials yet?", DISTRESSED);
-								if((player.carryingItem(668) && player.carryingItem(666) && player.carryingItem(2351)))
+								if((player.carryingItem(668) && player.carryingItem(2351)))
 								{
 									player.getDialogue().setNextChatId(2);
 								}
@@ -2838,7 +2838,7 @@ public class Dialogues {
 								player.getDialogue().sendPlayerChat("Oh, no. I'm having trouble finding it.", DISTRESSED);
 							return true;
 							case 8:
-								player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.","Iron bar you find by yourself.","The portrait can be found in Sir Vyvin's quarters.", CALM);
+								player.getDialogue().sendNpcChat("You can find ore in mine, on hill next to shack.","Iron bar you find by yourself.", CALM);
 								player.getDialogue().endDialogue();
 							return true;
 						}

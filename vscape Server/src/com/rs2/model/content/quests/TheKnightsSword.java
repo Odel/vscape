@@ -85,8 +85,8 @@ public class TheKnightsSword implements Quest {
             player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
             
             player.getActionSender().sendString("The Squire said you should find a redberry pie", 8150);
-            player.getActionSender().sendString("you'll also need to find a picture with the", 8151);
-            player.getActionSender().sendString("sword. There might be one in Vyvin's Quarters", 8152);
+            player.getActionSender().sendString("Imcando dwarves love redberry pies", 8151);
+            player.getActionSender().sendString("After one pie, he'll have no choice but to make it", 8152);
             player.getActionSender().sendString("He should be able to make a new sword.", 8153);
         }
         else if (questStage == ITEMS_GIVEN) {
@@ -94,9 +94,9 @@ public class TheKnightsSword implements Quest {
             player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
             player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
             
-            player.getActionSender().sendString("@str@" + "The Squire said you should find a redberry pie", 8150);
-            player.getActionSender().sendString("@str@" + "you'll also need to find a picture with the", 8151);
-            player.getActionSender().sendString("@str@" + "sword. There might be one in Vyvin's Quarters", 8152);
+            player.getActionSender().sendString("@str@" + "The Squire said you should make a redberry pie", 8150);
+            player.getActionSender().sendString("@str@" + "Imcando dwarves love redberry pies", 8151);
+            player.getActionSender().sendString("@str@" + "After one pie, he'll have no choice but to make it", 8152);
             player.getActionSender().sendString("@str@" + "He should be able to make a new sword.", 8153);
             
             player.getActionSender().sendString("The dwarf asked for blurite ore and an iron bar.", 8154);
@@ -107,8 +107,8 @@ public class TheKnightsSword implements Quest {
             player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
             
             player.getActionSender().sendString("@str@" + "The Squire said you should find a redberry pie", 8150);
-            player.getActionSender().sendString("@str@" + "you'll also need to find a picture with the", 8151);
-            player.getActionSender().sendString("@str@" + "sword. There might be one in Vyvin's Quarters", 8152);
+            player.getActionSender().sendString("@str@" + "Imcando dwarves love redberry pies", 8151);
+            player.getActionSender().sendString("@str@" + "After one pie, he'll have no choice but to make it", 8152);
             player.getActionSender().sendString("@str@" + "He should be able to make a new sword.", 8153);
             
             player.getActionSender().sendString("I need to deliver the sword to the Squire.", 8154);
@@ -118,8 +118,8 @@ public class TheKnightsSword implements Quest {
             player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
             
             player.getActionSender().sendString("@str@" + "The Squire said you should find a redberry pie", 8150);
-            player.getActionSender().sendString("@str@" + "you'll also need to find a picture with the", 8151);
-            player.getActionSender().sendString("@str@" + "sword. There might be one in Vyvin's Quarters", 8152);
+            player.getActionSender().sendString("@str@" + "Imcando dwarves love redberry pies", 8151);
+            player.getActionSender().sendString("@str@" + "After one pie, he'll have no choice but to make it", 8152);
             player.getActionSender().sendString("@str@" + "He should be able to make a new sword.", 8153);
             
             player.getActionSender().sendString("@str@" + "I delivered the new sword to the Squire.", 8154);
