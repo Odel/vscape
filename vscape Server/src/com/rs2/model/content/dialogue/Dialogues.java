@@ -2629,7 +2629,6 @@ public class Dialogues {
 				}
 				break;
 			case 606: //Squire for The Knight's Sword
-				/*
 				switch(player.getQuestStage(1))
 				{
 					case 0:
@@ -2748,10 +2747,9 @@ public class Dialogues {
 							return true;
 					}
 					break;
-				}*/
+				}
 			return true;
 			case 604: //Thurgo for Knight's Sword
-				/*
 				switch(player.getQuestStage(1))
 				{
 					case 1:
@@ -2831,7 +2829,7 @@ public class Dialogues {
 							return true;
 						}
 					break;
-				}*/
+				}
 			return true;	
 			case 278: //Lummy castle cook - quest npc - cooks assistant
 				switch(player.getQuestStage(0))

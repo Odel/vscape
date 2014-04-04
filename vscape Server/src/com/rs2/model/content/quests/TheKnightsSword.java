@@ -130,7 +130,6 @@ public class TheKnightsSword implements Quest {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(prefix + "To start the quest, you should talk with the", 8147);
             player.getActionSender().sendString(prefix + "Squire found in Falador Castle.", 8148);
-            player.getActionSender().sendString(prefix + "*disabled*", 8149);
         }
     }
 

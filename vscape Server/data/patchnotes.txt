@@ -1,7 +1,6 @@
 =APR 4=
 -Cooks Assistant quest now works.
 -The Knight's Sword quest now works.
-*had to be disabled*
 -::hideyell and ::hidecolor now save.
 -Added ::commands, and login message.
 -Gave common dragons Combat definitions.
