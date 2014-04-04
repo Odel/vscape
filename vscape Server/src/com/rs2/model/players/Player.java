@@ -1796,20 +1796,17 @@ public class Player extends Entity {
 		}
 	}
 
-	private static String[] bannedChars = {"!","£","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","¬","`","|"};
+	public static String[] bannedChars = {"`","¬","!","£","$","%","^","&","*","(",")","-","+","=","{","}",";",":","'","@","#","~",",",".","<",">","/","?","|","\\"};
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned())
 		{
 			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
 		}
-		for(int i = 0; i < bannedChars.length; i++)
+		if(isFilteredChar())
 		{
-			if(username.contains(bannedChars[i]))
-			{
-	            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
-	            return false;
-			}
+            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+            return false;
 		}
         if (username.length() <= 3 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
             setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
@@ -1852,6 +1849,16 @@ public class Player extends Entity {
 		return true;
 	}
 
+	private boolean isFilteredChar() {
+		for(int i = 0; i < bannedChars.length; i++) {
+			if(username.contains(bannedChars[i]))
+			return true;
+			if(getUsername().contains(bannedChars[i]))
+			return true;
+		}
+		return false;
+	}
+	
 	private void refreshOnLogin() {
 		inventory.sendInventoryOnLogin();
 		equipment.sendEquipmentOnLogin();
