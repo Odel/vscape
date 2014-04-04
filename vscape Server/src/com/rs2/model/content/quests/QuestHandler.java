@@ -94,6 +94,10 @@ public class QuestHandler {
         		quest = quests[1];
         		quest.showInterface(player);
         		break;
+        	case 28169: //The Restless Ghost
+        		quest = quests[2];
+        		quest.showInterface(player);
+        		break;
         }
 
         if (quest != null) {

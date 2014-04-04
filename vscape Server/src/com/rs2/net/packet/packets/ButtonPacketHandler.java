@@ -388,6 +388,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 28178: //the knight's sword
 				QuestHandler.handleQuestButtons(player, buttonId);
 				return;
+			case 28169: //the restless ghost
+				QuestHandler.handleQuestButtons(player, buttonId);
+				return;
 		}
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;

@@ -3047,7 +3047,66 @@ public class Dialogues {
 					default:
 					break;
 				}
-			return true;
+			case 456: //Father Aereck for Restless Ghost
+				switch(player.getQuestStage(2))
+				{
+					case 0:
+						switch(player.getDialogue().getChatId()) {
+							case 1:
+								player.getDialogue().sendNpcChat("Yes, adventurer?", DISTRESSED);
+								return true;
+							case 2:
+								player.getDialogue().sendOption("You don't look very happy.","Sorry, didn't mean to bother you.");
+								return true;
+							case 3:
+								switch(optionId) {
+									case 1:
+										player.getDialogue().sendNpcChat("*sigh*","There appears to be a ghost haunting the Church.","And the only man capable of exorcising it,","is meditating in the swamp.",DISTRESSED);
+										player.getDialogue().setNextChatId(4);
+									return true;
+									case 2:
+										player.getDialogue().sendNpcChat("It's fine.",NEAR_TEARS);
+										player.getDialogue().setNextChatId(5);
+									return true;
+								}
+							return true;
+							case 4:
+								player.getDialogue().sendNpcChat("It'd be really nice if you could help me out.",DISTRESSED);
+							return true;
+							case 5:
+								player.getDialogue().sendOption("Yeah, alright. I don't see why not.","Sorry, I have troubles of my own.");
+							return true;
+							case 6:
+								switch(optionId) {
+									case 1:
+										player.getDialogue().sendNpcChat("Thanks, you can start by talking to Father Urhney,","his shack is somewhere in the swamp.","He can give you some information.", HAPPY);
+										QuestHandler.getQuests()[2].startQuest(player);
+										player.getDialogue().setNextChatId(3);
+									return true;
+									case 2:
+										player.getDialogue().sendNpcChat("Oh, that's fine.", DISTRESSED);
+										player.getDialogue().endDialogue();
+									return true;
+								}
+						}
+					break;
+					case 1:
+					case 2:
+					case 3:
+					switch(player.getDialogue().getChatId()) {
+						case 1:	
+							player.getDialogue().sendNpcChat("Did you get rid of the ghost yet?", DISTRESSED);
+							return true;
+						case 2:
+							player.getDialogue().sendPlayerChat("Not yet, but I'm working on it, don't worry.", CALM);
+							player.getDialogue().endDialogue();
+							return true;
+					}
+						}
+					break;
+			case 458: //Father Urhney
+				
+				break;
 			case 1334: //jossik
 				 switch(player.getDialogue().getChatId()) {
 					 case 1 :

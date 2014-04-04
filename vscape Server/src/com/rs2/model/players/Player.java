@@ -1796,7 +1796,7 @@ public class Player extends Entity {
 		}
 	}
 
-	public static String[] bannedChars = {"!","£","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","¬","`","|"};
+	public static String[] bannedChars = {"!","ï¿½","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","ï¿½","`","|"};
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned())
 		{
@@ -4283,7 +4283,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7340);
 		getActionSender().sendString("", 7341);
 		getActionSender().sendString("", 7342);
-		getActionSender().sendString("", 7337);
+		getActionSender().sendString("@Red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7343);
 		getActionSender().sendString("", 7335);
 		getActionSender().sendString("", 7344);

@@ -709,6 +709,10 @@ public class WalkToActionHandler {
 						player.getActionSender().sendMessage("The door seems to be locked.");
 					}
 					break;
+				case 10640: //altar for skull
+					
+					
+					break;
 				case 2407: // entrana dungeon door
 					if (x == 2874 && y == 9750) {
 						player.setStopPacket(true);
