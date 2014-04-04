@@ -2788,11 +2788,11 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("Have you found the ore yet?", DISTRESSED);
 						if(!(player.hasItem(668)))
 						{
-							player.getDialogue().setNextChatId(2);
+							player.getDialogue().setNextChatId(8);
 						}
 						else
 						{
-							player.getDialogue().setNextChatId(8);
+							player.getDialogue().setNextChatId(2);
 						}
 					return true;
 					case 2:
