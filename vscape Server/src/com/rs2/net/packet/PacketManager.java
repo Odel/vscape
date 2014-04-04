@@ -117,6 +117,7 @@ public class PacketManager {
 		packets[226] = silent;
 		packets[230] = silent; // added this one
 		packets[36] = silent; // was constant for tele
+		packets[95] = silent;
 		
 		int count = 0;
 		for (PacketHandler packet : packets) {
@@ -132,7 +133,7 @@ public class PacketManager {
 		PacketHandler packetHandler = packets[packet.getOpcode()];
 		if (packetHandler == null) {
 			if (Constants.SERVER_DEBUG) {
-					System.out.println("player?: " +player.getUsername() + " Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
+				//	System.out.println("player?: " +player.getUsername() + " Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
 			}
 			return;
 		}
