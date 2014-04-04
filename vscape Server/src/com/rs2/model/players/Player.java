@@ -3773,6 +3773,24 @@ public class Player extends Entity {
         this.loadedLandscape = Area.areaFromCorner(corner, 104, 104);
     }
 
+	public boolean carryingItem(int id) {
+		for (Item item : getInventory().getItemContainer().getItems()) {
+			if (item != null && item.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean itemInBank(int id) {
+		for (Item item : getBank().getItems()) {
+			if (item != null && item.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean hasItem(int id) {
 		for (Item item : getInventory().getItemContainer().getItems()) {
 			if (item != null && item.getId() == id) {

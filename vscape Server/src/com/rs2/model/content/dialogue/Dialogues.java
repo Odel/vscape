@@ -2710,14 +2710,14 @@ public class Dialogues {
 					switch(player.getDialogue().getChatId()) {
 						case 1:
 							player.getDialogue().sendNpcChat("Have you made a new sword yet?", DISTRESSED);
-							if(!(player.hasItem(668)))
+							if(player.carryingItem(667))
 							{
-							player.getDialogue().setNextChatId(2);
+								player.getDialogue().setNextChatId(2);
 							}
 							else
 							{
-							player.getDialogue().setNextChatId(10);
-						}
+								player.getDialogue().setNextChatId(10);
+							}
 						return true;
 						case 2:
 							player.getDialogue().sendPlayerChat("Yes, I have!",HAPPY);
@@ -2742,6 +2742,7 @@ public class Dialogues {
 						return true;
 						case 9:
 							player.setQuestStage(1, 4);
+							player.getInventory().removeItem(new Item(667,1));
 							QuestHandler.completeQuest(player,1);
 						return true;
 						case 10:
@@ -2786,7 +2787,7 @@ public class Dialogues {
 					switch(player.getDialogue().getChatId()) {
 					case 1:
 						player.getDialogue().sendNpcChat("Have you found the ore yet?", DISTRESSED);
-						if(!(player.hasItem(668)))
+						if(!player.carryingItem(668))
 						{
 							player.getDialogue().setNextChatId(8);
 						}
@@ -2904,7 +2905,7 @@ public class Dialogues {
 				switch(player.getDialogue().getChatId()) {
 				case 1:
 					player.getDialogue().sendNpcChat("How are you getting on with finding the ingredients?", DISTRESSED);
-					if(!(player.hasItem(1944) && player.hasItem(1933) && player.hasItem(1927)))
+					if(!(player.carryingItem(1944) && player.carryingItem(1933) && player.carryingItem(1927)))
 					{
 						player.getDialogue().setNextChatId(2);
 					}
