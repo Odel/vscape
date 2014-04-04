@@ -78,7 +78,7 @@ public class CoordinateScrolls {
 		COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), //correct
 		COORDINATE_45(3586, 4, 13, 12, 45, "north", "east", 2), //correct
 		COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), //correct but inaccessible
-		COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), //correct
+		//COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), //correct
 		COORDINATE_48(3592, 4, 0, 12, 46, "south", "east", 2), //correct
 		COORDINATE_49(3594, 3, 45, 22, 45, "south", "east", 3), //correct
 		COORDINATE_50(7256, 3, 35, 13, 35, "south", "east", 2), //correct 
