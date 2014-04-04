@@ -2822,7 +2822,7 @@ public class Dialogues {
 								player.getDialogue().sendPlayerChat("Thanks so much.", HAPPY);
 							return true;
 							case 5:
-								player.getDialogue().sendNpcChat("Here your sword. Come back with more redberry pie next time!", CONTENT);
+								player.getDialogue().sendNpcChat("Here your sword.", "Come back with more redberry pie next time!", CONTENT);
 								player.getDialogue().endDialogue();
 								player.getInventory().addItem(new Item(667, 1));
 								player.getInventory().removeItem(new Item(668, 1));

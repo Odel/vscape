@@ -52,7 +52,7 @@ public class CooksAssistant implements Quest {
             player.getInventory().addItem(new Item(rewards[0], rewards[1]));
         }
         for (int[] expRewards : expReward) {
-            player.getSkill().addExp(expRewards[0], (expRewards[1]*Constants.EXP_RATE));
+            player.getSkill().addExp(expRewards[0], (expRewards[1])); //DO NOT TIMES EXP BY *Constants.EXP_RATE (its done by addexp)
         }
         player.addQuestPoints(questPointReward);
         player.getActionSender().QPEdit(player.getQuestPoints());
