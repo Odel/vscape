@@ -3415,7 +3415,7 @@ public class Dialogues {
 							return true;
 							case 2:
 								player.getDialogue().sendNpcChat("You'll be able to find all those ores in the rocks,","just inside the Dwarven Mine.","Head east from here and you'll find the entrance,"," in the side of Ice Mountain.", CONTENT);
-								if(player.getSkill().MINING < 15)
+								if(player.getSkill().getLevel()[Skill.MINING] < 15)
 								{
 									player.getDialogue().setNextChatId(3);
 								}
