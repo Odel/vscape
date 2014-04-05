@@ -90,6 +90,7 @@ public class BowStringing {
 					return;
 				}
 				player.getUpdateFlags().sendAnimation(STRING_BOW);
+				player.getActionSender().sendSound(2606, 0, 0);
 				player.getActionSender().sendMessage("You add a string to the bow.");
 				player.getInventory().removeItem(new Item(loadData.getItem1()));
 				player.getInventory().removeItem(new Item(loadData.getItem2()));
