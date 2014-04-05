@@ -88,8 +88,8 @@ public class TheRestlessGhost implements Quest {
         }
         else if (questStage == ITEMS_GIVEN) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
-            player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with", 8147);
+            player.getActionSender().sendString("@str@" + "Father Aereck at the church in Lumbridge.", 8148);
             
             player.getActionSender().sendString("@str@" + "Father Aereck told me to talk to Father Urhney who", 8150);
             player.getActionSender().sendString("@str@" + "can be found in his shack inside the swamp.", 8151);
@@ -100,8 +100,8 @@ public class TheRestlessGhost implements Quest {
         }
         else if (questStage == QUEST_NEARING_COMPLETION) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
-            player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with", 8147);
+            player.getActionSender().sendString("@str@" + "Father Aereck at the church in Lumbridge.", 8148);
             
             player.getActionSender().sendString("@str@" + "Father Aereck told me to talk to Father Urhney who", 8150);
             player.getActionSender().sendString("@str@" + "can be found in his shack inside the swamp.", 8151);
@@ -111,8 +111,8 @@ public class TheRestlessGhost implements Quest {
             player.getActionSender().sendString("I talked to the ghost, he asked me to get back his skull.", 8154);
         }
         else if (questStage == QUEST_COMPLETE) {
-            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with the", 8147);
-            player.getActionSender().sendString("@str@" + "Squire found in Falador Castle.", 8148);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk with", 8147);
+            player.getActionSender().sendString("@str@" + "Father Aereck at the church in Lumbridge.", 8148);
             
             player.getActionSender().sendString("@str@" + "Father Aereck told me to talk to Father Urhney who", 8150);
             player.getActionSender().sendString("@str@" + "can be found in his shack inside the swamp.", 8151);
