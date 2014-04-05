@@ -72,6 +72,9 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
+import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.QuestHandler;
+
 public class WalkToActionHandler {
 
 	private static Actions actions = Actions.OBJECT_FIRST_CLICK;
@@ -1745,8 +1748,18 @@ public class WalkToActionHandler {
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, item);
 					break;
-				case 2782: // anvil
-				case 2783:
+				case 2782: // Dorics anvil
+						switch(player.getQuestStage(3)) 
+						{
+							case 3:
+								SmithBars.smithInterface(player, item);
+							break;
+							default:
+								player.getDialogue().sendStatement("You don't have permission to use this.");
+							break;
+						}
+					break;
+				case 2783: // anvil
 					SmithBars.smithInterface(player, item);
 					// player.getSmithing().setUpSmithing(item);
 					break;
