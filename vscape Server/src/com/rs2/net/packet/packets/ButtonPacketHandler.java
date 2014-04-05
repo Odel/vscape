@@ -395,8 +395,10 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;*/
 		}
 		// YOU ONLY NEED THIS ONE LIKE HERE
-		QuestHandler.handleQuestButtons(player, buttonId);
-		
+		if (QuestHandler.handleQuestButtons(player, buttonId))
+		{
+			return;
+		}
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;
 		if (player.getEquipment().setFightMode(buttonId)) {

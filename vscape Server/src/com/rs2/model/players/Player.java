@@ -4279,12 +4279,12 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7332);
 		getActionSender().sendString("@red@Cook's Assistant", 7333);
 		getActionSender().sendString("", 7334);
-		getActionSender().sendString("", 7336);
+		getActionSender().sendString("@red@Doric's Quest", 7336);
 		getActionSender().sendString("", 7339);
 		getActionSender().sendString("", 7338);
 		getActionSender().sendString("@Red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7383);
-		getActionSender().sendString("", 7340);
+		getActionSender().sendString("@red@The Imp Catcher", 7340);
 		getActionSender().sendString("", 7341);
 		getActionSender().sendString("", 7342);
 		getActionSender().sendString("", 7343);
