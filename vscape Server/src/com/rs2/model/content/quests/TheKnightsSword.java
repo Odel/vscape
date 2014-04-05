@@ -39,6 +39,11 @@ public class TheKnightsSword implements Quest {
     public String getQuestName() {
         return "The Knight's Sword";
     }
+    
+    public String getQuestSaveName()
+    {
+    	return "knights-sword";
+    }
 
     /**
      * Does the user meet the requirements if yes return true.

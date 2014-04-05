@@ -382,6 +382,8 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 31195 :
 				player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
+				// STOP ADDING QUEST BUTTONS HERE 
+				/*
 			case 28165: //quest tab entry for cook's assistant
 				QuestHandler.handleQuestButtons(player, buttonId);
 				return;
@@ -390,8 +392,11 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;
 			case 28169: //the restless ghost
 				QuestHandler.handleQuestButtons(player, buttonId);
-				return;
+				return;*/
 		}
+		// YOU ONLY NEED THIS ONE LIKE HERE
+		QuestHandler.handleQuestButtons(player, buttonId);
+		
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;
 		if (player.getEquipment().setFightMode(buttonId)) {

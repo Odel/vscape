@@ -330,7 +330,7 @@ public class Player extends Entity {
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
-	public int[] questStage = new int[2];
+	public int[] questStage = new int[0];
 	
 	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
             5715, 2449, 904, 147, 962 };
@@ -2804,6 +2804,10 @@ public class Player extends Entity {
         getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
     }
 	
+    public void setQuestsLength(int length) {
+        this.questStage = new int[length];
+    }
+
     public void setQuestStage(int index, int questStage) {
         this.questStage[index] = questStage; //0 = not started, 1 = started, 2 = asked for items (Cooks assist), 3 = complete.
     }

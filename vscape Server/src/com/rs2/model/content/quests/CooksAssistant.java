@@ -37,6 +37,11 @@ public class CooksAssistant implements Quest {
     public String getQuestName() {
         return "Cook's Assistant";
     }
+    
+    public String getQuestSaveName()
+    {
+    	return "cooks-assistant";
+    }
 
     /**
      * Does the user meet the requirements if yes return true.

@@ -19,6 +19,11 @@ public interface Quest {
      * Returns the name of the quest.
      */
     public String getQuestName();
+    
+    /**
+     * Returns the save token name of the quest.
+     */
+    public String getQuestSaveName();
 
     /**
      * Does the player meet the quest requirements? if yes return true.

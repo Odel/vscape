@@ -25,6 +25,8 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
 
+import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.QuestHandler;
 /**
  * Static utility methods for saving and loading players.
  * 
@@ -358,12 +360,18 @@ public class PlayerSave {
 			characterfile.write("quest-points = ", 0, 15);
 			characterfile.write(Integer.toString(player.getQuestPoints()), 0, Integer.toString(player.getQuestPoints()).length());
 			characterfile.newLine();
-			characterfile.write("cooks-assistant = ", 0, 18);
+			for(Quest q : QuestHandler.quests)
+			{
+				characterfile.write(q.getQuestSaveName() + " = ", 0, q.getQuestSaveName().length()+3);
+				characterfile.write(Integer.toString(player.getQuestStage(q.getQuestID())), 0, Integer.toString(player.getQuestStage(q.getQuestID())).length());
+				characterfile.newLine();
+			}
+		/*	characterfile.write("cooks-assistant = ", 0, 18);
 			characterfile.write(Integer.toString(player.getQuestStage(0)), 0, Integer.toString(player.getQuestStage(0)).length());
 			characterfile.newLine();
 			characterfile.write("knights-sword = ", 0, 16);
 			characterfile.write(Integer.toString(player.getQuestStage(1)), 0, Integer.toString(player.getQuestStage(1)).length());
-			characterfile.newLine();
+			characterfile.newLine();*/
 			
 			characterfile.write("hide-yell = ", 0, 12);
 			characterfile.write(Boolean.toString(player.getHideYell()), 0, Boolean.toString(player.getHideYell()).length());
@@ -424,11 +432,15 @@ public class PlayerSave {
 				token3 = token2.split("\t");
 				if (token.equals("quest-points")) {
 					player.setQuestPoints(Integer.parseInt(token2));
-				} else if (token.equals("cooks-assistant")) {
-					player.setQuestStage(0, Integer.parseInt(token2));
-				} else if (token.equals("knights-sword")) {
-					player.setQuestStage(1, Integer.parseInt(token2));
-				} else if (token.equals("hide-yell")) {
+				}
+				for(Quest q : QuestHandler.quests)
+				{
+					if (token.equals(q.getQuestSaveName())) 
+					{
+						player.setQuestStage(q.getQuestID(), Integer.parseInt(token2));
+					}
+				}
+				if (token.equals("hide-yell")) {
 					boolean yellhide = Boolean.parseBoolean(token2);
 					if(yellhide)
 					{

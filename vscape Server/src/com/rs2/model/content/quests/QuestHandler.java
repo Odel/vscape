@@ -24,30 +24,31 @@ public class QuestHandler {
         8195, 12144, 12150, 12151, 12152, 12153, 12154, 12155, 12146
     };
     public static final int QUEST_INTERFACE = 8134;
-    //private static Map<String, Quest> quests = new HashMap<String, Quest>();
-    private static Quest[] quests = new Quest[2];
-    public static Quest cook = new CooksAssistant();
-    public static Quest knightsword = new TheKnightsSword();
     
+    public static Quest[] quests = {
+    	new CooksAssistant(),
+    	new TheKnightsSword()
+    };
     
     public static void init() {
         System.out.println("Loading quests...");
-        quests[0]=cook;
-        quests[1]=knightsword;
-        
         System.out.println("Loaded " + quests.length + " quests.");
     }
     
     public static void initPlayer(Player player){
-        player.setQuestStage(0, 0); //Initialize cooks assistant value
-        player.setQuestStage(1, 0); //Initialize the knights sword value
-        
+    	player.setQuestsLength(quests.length);
+    	for(Quest q : quests)
+    	{
+    		player.setQuestStage(q.getQuestID(), 0);
+    	}
+
         player.sendQuestTab(); //Makes the quest log empty except implemented quests
-        
         PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
-        
-        quests[0].sendQuestTabStatus(player); //sends the quest log entry to the client
-        quests[1].sendQuestTabStatus(player); 
+    	
+        for(Quest q : quests)
+    	{
+    		q.sendQuestTabStatus(player);
+    	}
     }
     
     public static Quest[] getQuests(){
@@ -88,22 +89,22 @@ public class QuestHandler {
         switch (button) {
             case 28165: //Cooks Assistant Button
                 quest = quests[0];
-                quest.showInterface(player);
                 break;
         	case 28178: //The Knights Sword Button
         		quest = quests[1];
-        		quest.showInterface(player);
         		break;
         	case 28169: //The Restless Ghost
         		quest = quests[2];
-        		quest.showInterface(player);
         		break;
         }
 
-        if (quest != null) {
+        if (quest != null) 
+        {
             resetInterface(player);
             quest.sendQuestRequirements(player);
+            quest.showInterface(player);
         }
+        return;
     }
 
     public static void resetInterface(Player player) {
