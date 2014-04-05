@@ -100,9 +100,10 @@ public class QuestHandler {
 
         if (quest != null) 
         {
+        	quest.showInterface(player);
             resetInterface(player);
             quest.sendQuestRequirements(player);
-            quest.showInterface(player);
+
         }
         return;
     }
