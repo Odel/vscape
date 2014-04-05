@@ -36,6 +36,11 @@ public class TheRestlessGhost implements Quest {
     public String getQuestName() {
         return "The Restless Ghost";
     }
+    
+    public String getQuestSaveName()
+    {
+    	return "restless-ghost";
+    }
 
 
     public boolean canDoQuest(Player player) {
