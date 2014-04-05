@@ -3,6 +3,10 @@
  plus they now appropriately drop big bones.
 -Fixed maxhits of dag kings
 -Fixed more clue scroll stuff
+-Added 3 new quests, new Quests are as follow:
+Doric's Quest
+Imp Catcher
+The Restless Ghost
 
 =APR 4=
 -Cooks Assistant quest now works.
