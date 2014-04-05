@@ -1,8 +1,9 @@
 =APR ?=
--Fixed maxhits of ice/moss giants
+-Fixed maxhits of ice/moss giants.
  plus they now appropriately drop big bones.
--Fixed maxhits of dag kings
--Fixed more clue scroll stuff
+-Fixed maxhits of dag kings.
+-Fixed more clue scroll stuff.
+-untradables now drop on death privately.
 -Added 3 new quests, new Quests are as follow:
 Doric's Quest
 Imp Catcher

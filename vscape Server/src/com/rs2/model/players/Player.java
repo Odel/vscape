@@ -3326,6 +3326,11 @@ public class Player extends Entity {
 	            GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
 			}
+			else
+			{
+				 GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
+				 GroundItemManager.getManager().dropItem(item);
+			}
 		}
 		equipment.refresh();
 		inventory.refresh();
