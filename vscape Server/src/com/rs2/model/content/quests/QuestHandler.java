@@ -85,20 +85,23 @@ public class QuestHandler {
         quest.completeQuest(player);
     }
 
-    public static void handleQuestButtons(Player player, int button) {
-        Quest quest = null;
+    public static boolean handleQuestButtons(Player player, int button) {
         switch (button) {
             case 28165: //Cooks Assistant Button
-                quest = quests[0];
-                break;
+                showInterface(player,quests[0]);
+                return true;
         	case 28178: //The Knights Sword Button
-        		quest = quests[1];
-        		break;
+        		showInterface(player,quests[1]);
+        		return true;
         	case 28169: //The Restless Ghost
-        		quest = quests[2];
-        		break;
+        		showInterface(player,quests[2]);
+        		return true;
         }
-
+        return false;
+    }
+    
+    public static void showInterface(Player player, Quest quest)
+    {
         if (quest != null) 
         {
         	quest.showInterface(player);
@@ -106,7 +109,6 @@ public class QuestHandler {
             quest.sendQuestRequirements(player);
 
         }
-        return;
     }
 
     public static void resetInterface(Player player) {
