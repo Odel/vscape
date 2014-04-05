@@ -51,7 +51,7 @@ public class TheRestlessGhost implements Quest {
             player.getInventory().addItem(new Item(rewards[0], rewards[1]));
         }
         for (int[] expRewards : expReward) {
-            player.getSkill().addExp(expRewards[0], (expRewards[1]*Constants.EXP_RATE));
+            player.getSkill().addExp(expRewards[0], (expRewards[1]));
         }
         player.addQuestPoints(questPointReward);
         player.getActionSender().QPEdit(player.getQuestPoints());
