@@ -86,6 +86,7 @@ public class QuestHandler {
         resetInterface(player);
         quest.completeQuest(player);
     }
+
     public static boolean handleQuestButtons(Player player, int button) {
         switch (button) {
             case 28165: //Cooks Assistant Button
