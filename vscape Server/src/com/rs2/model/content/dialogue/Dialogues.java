@@ -3048,7 +3048,7 @@ public class Dialogues {
 					break;
 				}
 				break;
-			case 456: //Father Aereck for Restless Ghost
+		/*	case 456: //Father Aereck for Restless Ghost
 				switch(player.getQuestStage(2))
 				{
 					case 0:
@@ -3294,9 +3294,10 @@ public class Dialogues {
 						player.getDialogue().endDialogue();
 					return true;
 					}
-					break;
+					break;*/
+				//------ Imp catcher -----//
 				case 706: //wizard mizgog
-					switch(player.getQuestStage(3))
+					switch(player.getQuestStage(4))
 					{
 						case 0:
 							switch(player.getDialogue().getChatId()) {
@@ -3307,64 +3308,66 @@ public class Dialogues {
 									player.getDialogue().sendOption("I'm always up for a quest!","Sorry, I'm too busy right now.");
 									return true;
 								case 3:
-					switch(optionId) {
-						case 1:
-							player.getDialogue().sendNpcChat("Great! I've got just the one for you.", HAPPY);
-							player.getDialogue().setNextChatId(4);
-						return true;
-						case 2:
-							player.getDialogue().sendNpcChat("Ah, come back whenever then. I'll be waiting.", CALM);
-							player.getDialogue().endDialogue();
-						return true;
+								switch(optionId) {
+									case 1:
+										player.getDialogue().sendNpcChat("Great! I've got just the one for you.", HAPPY);
+										player.getDialogue().setNextChatId(4);
+									return true;
+									case 2:
+										player.getDialogue().sendNpcChat("Ah, come back whenever then. I'll be waiting.", CALM);
+										player.getDialogue().endDialogue();
+									return true;
 									}
-					case 4:
-						player.getDialogue().sendNpcChat("So Wizard Grayzag has sent out his imp to steal","my precious beads once again, I was","hoping you could get them back.",HAPPY);
-						return true;
-					case 5:
-						player.getDialogue().sendNpcChat("If you could find all four, I'll reward you.","I need a black, red, yellow, and white bead.",HAPPY);
-						return true;
-					case 6:
-						player.getDialogue().sendPlayerChat("Alright, I'm on it.",HAPPY);
-						player.setQuestStage(3, 1);
-						player.getDialogue().endDialogue();
-						return true;
-				}
-				case 1:
-					switch(player.getDialogue().getChatId()) {
-					case 1:
-						player.getDialogue().sendNpcChat("Have you found all my beads yet, Adventurer?", HAPPY);
-						if(!(player.carryingItem(1470) && player.carryingItem(1472) && player.carryingItem(1474) && player.carryingItem(1476)))
-						{
-							player.getDialogue().setNextChatId(2);
-						}
-						else
-						{
-							player.getDialogue().setNextChatId(5);
-						}
-						return true;
-					case 2:
-						player.getDialogue().sendPlayerChat("Yes, I've found them all.", HAPPY);
-					return true;
-					case 3:
-						player.getDialogue().sendNpcChat("Perfect! Now I can get back to my study!", HAPPY);
-					return true;
-					case 4:
-						player.getDialogue().sendNpcChat("Here is your reward.", HAPPY);
-						player.getDialogue().endDialogue();
-						player.getInventory().removeItem(new Item(1470,1));
-						player.getInventory().removeItem(new Item(1472,1));
-						player.getInventory().removeItem(new Item(1474,1));
-						player.getInventory().removeItem(new Item(1476,1));
-						player.setQuestStage(3, 2);
-						QuestHandler.completeQuest(player,3);
-						return true;
-					case 5:
-						player.getDialogue().sendNpcChat("I'm still working on finding them.", CALM);
-						player.getDialogue().endDialogue();
-				}
+								break;
+								case 4:
+									player.getDialogue().sendNpcChat("So Wizard Grayzag has sent out his imp to steal","my precious beads once again, I was","hoping you could get them back.",HAPPY);
+									return true;
+								case 5:
+									player.getDialogue().sendNpcChat("If you could find all four, I'll reward you.","I need a black, red, yellow, and white bead.",HAPPY);
+									return true;
+								case 6:
+									player.getDialogue().sendPlayerChat("Alright, I'm on it.",HAPPY);
+									player.setQuestStage(4, 1);
+									player.getDialogue().endDialogue();
+									return true;
+							}
 						break;
-				}
-				}
+						case 1:
+							switch(player.getDialogue().getChatId()) {
+							case 1:
+								player.getDialogue().sendNpcChat("Have you found all my beads yet, Adventurer?", HAPPY);
+								if(!(player.carryingItem(1470) && player.carryingItem(1472) && player.carryingItem(1474) && player.carryingItem(1476)))
+								{
+									player.getDialogue().setNextChatId(2);
+								}
+								else
+								{
+									player.getDialogue().setNextChatId(5);
+								}
+								return true;
+							case 2:
+								player.getDialogue().sendPlayerChat("Yes, I've found them all.", HAPPY);
+							return true;
+							case 3:
+								player.getDialogue().sendNpcChat("Perfect! Now I can get back to my study!", HAPPY);
+							return true;
+							case 4:
+								player.getDialogue().sendNpcChat("Here is your reward.", HAPPY);
+								player.getDialogue().endDialogue();
+								player.getInventory().removeItem(new Item(1470,1));
+								player.getInventory().removeItem(new Item(1472,1));
+								player.getInventory().removeItem(new Item(1474,1));
+								player.getInventory().removeItem(new Item(1476,1));
+								player.setQuestStage(4, 2);
+								QuestHandler.completeQuest(player,4);
+								return true;
+							case 5:
+								player.getDialogue().sendNpcChat("I'm still working on finding them.", CALM);
+								player.getDialogue().endDialogue();
+								return true;
+							}
+						break;
+					}
 				break;
 			case 1696: //Old man to get into Kharazi Jungle
 				switch(player.getDialogue().getChatId()) {
