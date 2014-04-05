@@ -27,7 +27,8 @@ public class QuestHandler {
     
     public static Quest[] quests = {
     	new CooksAssistant(),
-    	new TheKnightsSword()
+    	new TheKnightsSword(),
+    	new TheRestlessGhost()
     };
     
     public static void init() {

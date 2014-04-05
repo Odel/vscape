@@ -42,7 +42,6 @@ public class TheRestlessGhost implements Quest {
     	return "restless-ghost";
     }
 
-
     public boolean canDoQuest(Player player) {
         return true;
     }
