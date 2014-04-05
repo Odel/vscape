@@ -360,7 +360,7 @@ public class PlayerSave {
 			characterfile.write("quest-points = ", 0, 15);
 			characterfile.write(Integer.toString(player.getQuestPoints()), 0, Integer.toString(player.getQuestPoints()).length());
 			characterfile.newLine();
-			for(Quest q : QuestHandler.quests)
+			for(Quest q : QuestHandler.getQuests())
 			{
 				characterfile.write(q.getQuestSaveName() + " = ", 0, q.getQuestSaveName().length()+3);
 				characterfile.write(Integer.toString(player.getQuestStage(q.getQuestID())), 0, Integer.toString(player.getQuestStage(q.getQuestID())).length());
@@ -433,7 +433,7 @@ public class PlayerSave {
 				if (token.equals("quest-points")) {
 					player.setQuestPoints(Integer.parseInt(token2));
 				}
-				for(Quest q : QuestHandler.quests)
+				for(Quest q : QuestHandler.getQuests())
 				{
 					if (token.equals(q.getQuestSaveName())) 
 					{

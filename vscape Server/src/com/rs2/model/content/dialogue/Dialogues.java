@@ -3361,7 +3361,130 @@ public class Dialogues {
 						 player.getDialogue().endDialogue();
 						 return true;
 				 }
-		
+			 break;	 
+			//----Dorics quest-----///
+			case 284: // Doric
+				switch(player.getQuestStage(3))
+				{
+					case 0: // quest stage 0
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								player.getDialogue().sendNpcChat("Hello traveller, what brings you to my humble smithy?", CONTENT);
+							return true;
+							case 2:
+								player.getDialogue().sendPlayerChat("I wanted to use your anvils.", CONTENT);
+							return true;
+							case 3:
+								player.getDialogue().sendNpcChat("My anvils get enough work with my own use.","I make pickaxes, and it takes a lot of hard work.","If you could get me some more materials,","then I could let you use them.", CONTENT);
+							return true;
+							case 4:
+							player.getDialogue().sendOption("Yes, I will get you the materials.", "No, hitting rocks is for the boring people, sorry.");
+							return true;
+							case 5:
+								 switch(optionId) {
+									 case 1:
+										 player.getDialogue().sendPlayerChat("Yes, I will get you the materials.", CONTENT);
+										 player.getDialogue().setNextChatId(6);
+									 return true;
+									 case 2 :
+										 player.getDialogue().sendPlayerChat("No, hitting rocks is for the boring people, sorry.", CONTENT);
+										 player.getDialogue().setNextChatId(7);
+									 return true;
+								 }
+							 break;
+							case 6:
+								 //set quest stage 1
+								player.setQuestStage(3, 1);
+								QuestHandler.getQuests()[3].startQuest(player);
+								player.getDialogue().sendNpcChat("Clay is what I use more than anything, to make casts.","Could you get me 6 clay, 4 copper ore, and 2 iron ore, please?","I could pay a little, and let you use my anvils.","Take this pickaxe with you just in case you need it.", CONTENT);
+								player.getDialogue().setNextChatId(1);
+								player.getInventory().addItem(new Item(1265, 1));
+							return true;
+							case 7:
+								player.getDialogue().sendNpcChat("That is your choice. Nice to meet you anyway", CONTENT);
+								player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
+					case 1: // quest stage 1
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								 player.getDialogue().sendPlayerChat("Where can I find those?", CONTENT);
+							return true;
+							case 2:
+								player.getDialogue().sendNpcChat("You'll be able to find all those ores in the rocks,","just inside the Dwarven Mine.","Head east from here and you'll find the entrance,"," in the side of Ice Mountain.", CONTENT);
+								if(player.getSkill().MINING < 15)
+								{
+									player.getDialogue().setNextChatId(3);
+								}
+								else
+								{
+									//set quest stage 2
+									player.setQuestStage(3, 2);
+									player.getDialogue().endDialogue();
+								}
+							return true;
+							case 3:
+								 player.getDialogue().sendPlayerChat("But I'm not a good enough miner to get iron ore.", CONTENT);
+							return true;
+							case 4:
+								//set quest stage 2
+								player.setQuestStage(3, 2);
+								player.getDialogue().sendNpcChat("Oh well, you could practice mining until you can.","Can't beat a bit of mining - it's a useful skill. Failing that,", "you might be able to find a more experienced adventurer,","to buy the iron ore off.", CONTENT);
+								player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
+					case 2: // quest stage 2
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								player.getDialogue().sendNpcChat("Have you got my materials yet, traveller?", CONTENT);
+								if(player.carryingItem(434) && player.carryingItem(436) && player.carryingItem(440))
+								{
+									int clayCount = player.getInventory().getItemAmount(434);
+									int copperCount = player.getInventory().getItemAmount(436);
+									int ironCount = player.getInventory().getItemAmount(440);
+									if(clayCount >= 6 && copperCount >= 4 && ironCount >= 2)
+									{
+										player.getDialogue().setNextChatId(2);
+									}
+									else
+									{
+										player.getDialogue().setNextChatId(4);
+									}
+								}
+								else
+								{
+									player.getDialogue().setNextChatId(4);
+								}
+							return true;
+							case 2:
+								 player.getDialogue().sendPlayerChat("I have everything you need.", CONTENT);
+						    return true;
+							case 3:
+								 player.setQuestStage(3, 3);
+								 player.getDialogue().sendNpcChat("Many thanks. Pass them here, please."," I can spare you some coins for your trouble,","and please use my anvils any time you want.", CONTENT);
+								 player.getDialogue().endDialogue();
+								 player.getInventory().removeItem(new Item(434,6));
+								 player.getInventory().removeItem(new Item(436,4));
+								 player.getInventory().removeItem(new Item(440,2));
+								 QuestHandler.completeQuest(player,3);
+							 return true;
+							case 4:
+								 player.getDialogue().sendPlayerChat("Sorry, I don't have them all yet.", CONTENT);
+							 return true;
+							case 5:
+								 player.getDialogue().sendNpcChat("Not to worry, stick at it.","Remember, I need 6 clay, 4 copper ore, and 2 iron ore.", CONTENT);
+								 player.getDialogue().endDialogue();
+							 return true;
+						}
+					break;
+				}
+			return true;
+			//----Dorics quest end-----///
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();

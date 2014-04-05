@@ -25,10 +25,11 @@ public class QuestHandler {
     };
     public static final int QUEST_INTERFACE = 8134;
     
-    public static Quest[] quests = {
+    private static Quest[] quests = {
     	new CooksAssistant(),
     	new TheKnightsSword(),
-    	new TheRestlessGhost()
+    	new TheRestlessGhost(),
+    	new DoricsQuest()
     };
     
     public static void init() {
@@ -95,6 +96,9 @@ public class QuestHandler {
         		return true;
         	case 28169: //The Restless Ghost
         		showInterface(player,quests[2]);
+        		return true;
+        	case 28168: //Doric's quest
+        		showInterface(player,quests[3]);
         		return true;
         }
         return false;
