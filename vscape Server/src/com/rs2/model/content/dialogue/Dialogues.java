@@ -2875,7 +2875,7 @@ public class Dialogues {
 						}
 					break;
 				}
-			return true;	
+			break;	
 			case 278: //Lummy castle cook - quest npc - cooks assistant
 				switch(player.getQuestStage(0))
 				{
@@ -3047,6 +3047,7 @@ public class Dialogues {
 					default:
 					break;
 				}
+				break;
 			case 456: //Father Aereck for Restless Ghost
 				switch(player.getQuestStage(2))
 				{
@@ -3088,6 +3089,7 @@ public class Dialogues {
 										player.getDialogue().endDialogue();
 									return true;
 								}
+							return true;
 						}
 					break;
 					case 1:
@@ -3100,10 +3102,11 @@ public class Dialogues {
 						case 2:
 							player.getDialogue().sendPlayerChat("Not yet, but I'm working on it, don't worry.", CALM);
 							player.getDialogue().endDialogue();
-							return true;
+						return true;
 					}
-						}
 					break;
+				}
+			break;
 			case 458: //Father Urhney
 				switch(player.getQuestStage(2))
 				{
@@ -3112,29 +3115,29 @@ public class Dialogues {
 							case 1:
 								player.getDialogue().sendNpcChat("Go away.", DISTRESSED);
 								player.getDialogue().endDialogue();
-								return true;
+							return true;
 						}
 					break;
 					case 1:
 						switch(player.getDialogue().getChatId()) {
-						case 1:
-							player.getDialogue().sendPlayerChat("I've been told you could help","get rid of the ghost haunting","the Lumbridge Church?",CONTENT);
-						return true;
-						case 2:
-							player.getDialogue().sendNpcChat("What has that fool, Aereck, gotten","himself into this time?!",ANNOYED);
-						return true;
-						case 3:
-							player.getDialogue().sendPlayerChat("Well, apparently there is a ghost that","has been haunting the church for some time.",CONTENT);
-						return true;
-						case 4:
-							player.getDialogue().sendNpcChat("Gah, I leave for a couple months and he's","already got himself in a jam! Useless!",ANNOYED);
-						return true;
-						case 5:
-							player.getDialogue().sendNpcChat("Here, adventurer, take this amulet.","It'll allow you to speak to the ghost.","Find out why it won't move on.",ANNOYED);
-							player.getInventory().addItem(new Item(552, 1));
-							player.setQuestStage(2, 2);
-						return true;
-						case 6:
+							case 1:
+								player.getDialogue().sendPlayerChat("I've been told you could help","get rid of the ghost haunting","the Lumbridge Church?",CONTENT);
+							return true;
+							case 2:
+								player.getDialogue().sendNpcChat("What has that fool, Aereck, gotten","himself into this time?!",ANNOYED);
+							return true;
+							case 3:
+								player.getDialogue().sendPlayerChat("Well, apparently there is a ghost that","has been haunting the church for some time.",CONTENT);
+							return true;
+							case 4:
+								player.getDialogue().sendNpcChat("Gah, I leave for a couple months and he's","already got himself in a jam! Useless!",ANNOYED);
+							return true;
+							case 5:
+								player.getDialogue().sendNpcChat("Here, adventurer, take this amulet.","It'll allow you to speak to the ghost.","Find out why it won't move on.",ANNOYED);
+								player.getDialogue().endDialogue();
+								player.getInventory().addItem(new Item(552, 1));
+								player.setQuestStage(2, 2);
+							return true;
 						}
 					break;
 					case 2:
@@ -3165,8 +3168,9 @@ public class Dialogues {
 							player.getDialogue().endDialogue();
 						return true;
 					}
-						}
 					break;
+				}
+			break;
 			case 457:
 				switch(player.getQuestStage(2)) {
 				case 0:
@@ -3179,33 +3183,36 @@ public class Dialogues {
 					player.getDialogue().sendOption("Ah, so that's why all my pies have been burning.","Oh, so the coal union is just a bunch of shills?","I have no idea what you just said.");
 					return true;
 					case 3:
-					switch(optionId) {
-						case 1:
-							player.getDialogue().sendNpcChat("OooooooOooOoOoOooo!", DISTRESSED);
-							player.getDialogue().endDialogue();
-						return true;
-						case 2:
-							player.getDialogue().sendNpcChat("OoOooOoooOOOOOOOOO!!", DISTRESSED);
-							player.getDialogue().endDialogue();
-						return true;
-						case 3:
-							player.getDialogue().sendNpcChat("OooooooOooOoOoOooo!", DISTRESSED);
-							player.getDialogue().endDialogue();
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendNpcChat("OooooooOooOoOoOooo!", DISTRESSED);
+								player.getDialogue().endDialogue();
+							return true;
+							case 2:
+								player.getDialogue().sendNpcChat("OoOooOoooOOOOOOOOO!!", DISTRESSED);
+								player.getDialogue().endDialogue();
+							return true;
+							case 3:
+								player.getDialogue().sendNpcChat("OooooooOooOoOoOooo!", DISTRESSED);
+								player.getDialogue().endDialogue();
+							return true;
+						}
 						return true;
 					}
-					}
+				break;
 				case 2:
 					switch(player.getDialogue().getChatId()) {
 					case 1:
-					player.getDialogue().sendNpcChat("OoOoooOoo!",DISTRESSED);
-					if((player.carryingItem(552)))
-					{
-						player.getDialogue().setNextChatId(2);
-					}
-					else
-					{
-						player.getDialogue().setNextChatId(9);
-					}
+						player.getDialogue().sendNpcChat("OoOoooOoo!",DISTRESSED);
+						if((player.carryingItem(552)))
+						{
+							player.getDialogue().setNextChatId(2);
+						}
+						else
+						{
+							player.getDialogue().setNextChatId(9);
+						}
+					return true;
 					case 2:
 					player.getDialogue().sendPlayerChat("Now where'd I put that amulet?.", CONTENT);
 					return true;
@@ -3234,8 +3241,8 @@ public class Dialogues {
 					return true;
 					case 10:
 						player.getDialogue().sendOption("Ah, so that's why all my pies have been burning.","Oh, so the coal union is just a bunch of shills?","I have no idea what you just said.");
-						return true;
-						case 11:
+					return true;
+					case 11:
 						switch(optionId) {
 							case 1:
 								player.getDialogue().sendNpcChat("OooooooOooOoOoOooo!", DISTRESSED);
@@ -3250,7 +3257,9 @@ public class Dialogues {
 								player.getDialogue().endDialogue();
 							return true;
 						}
-				}
+					return true;
+					}
+				break;
 				case 3:
 					switch(player.getDialogue().getChatId()) {
 					case 1:
@@ -3276,7 +3285,7 @@ public class Dialogues {
 						player.getInventory().removeItem(new Item(553,1));
 						player.setQuestStage(2, 4);
 						QuestHandler.completeQuest(player,2);
-						return true;
+					return true;
 					case 5:
 						player.getDialogue().sendPlayerChat("Sorry, not yet.", CONTENT);
 					return true;
@@ -3285,7 +3294,8 @@ public class Dialogues {
 						player.getDialogue().endDialogue();
 					return true;
 					}
-					break;
+				}
+				break;
 			case 1696: //Old man to get into Kharazi Jungle
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -3352,7 +3362,6 @@ public class Dialogues {
 						 return true;
 				 }
 		
-		}
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();
