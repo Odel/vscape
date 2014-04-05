@@ -3331,8 +3331,8 @@ public class Dialogues {
 									player.getDialogue().sendNpcChat("If you could find all four, I'll reward you.","I need a black, red, yellow, and white bead.",HAPPY);
 									return true;
 								case 6:
-									player.getDialogue().sendPlayerChat("Alright, I'm on it.",HAPPY);
 									player.setQuestStage(4, 1);
+									player.getDialogue().sendPlayerChat("Alright, I'm on it.",HAPPY);
 									player.getDialogue().endDialogue();
 									return true;
 							}
@@ -3341,7 +3341,7 @@ public class Dialogues {
 							switch(player.getDialogue().getChatId()) {
 							case 1:
 								player.getDialogue().sendNpcChat("Have you found all my beads yet, Adventurer?", HAPPY);
-								if(!(player.carryingItem(1470) && player.carryingItem(1472) && player.carryingItem(1474) && player.carryingItem(1476)))
+								if((player.carryingItem(1470) && player.carryingItem(1472) && player.carryingItem(1474) && player.carryingItem(1476)))
 								{
 									player.getDialogue().setNextChatId(2);
 								}
@@ -3367,7 +3367,7 @@ public class Dialogues {
 								QuestHandler.completeQuest(player,4);
 								return true;
 							case 5:
-								player.getDialogue().sendNpcChat("I'm still working on finding them.", CALM);
+								player.getDialogue().sendPlayerChat("I'm still working on finding them.", CALM);
 								player.getDialogue().endDialogue();
 								return true;
 							}
