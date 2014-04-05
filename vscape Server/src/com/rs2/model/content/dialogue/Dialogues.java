@@ -3523,37 +3523,39 @@ public class Dialogues {
 									}
 									else
 									{
-										player.getDialogue().setNextChatId(4);
+										player.getDialogue().setNextChatId(5);
 									}
 								}
 								else
 								{
-									player.getDialogue().setNextChatId(4);
+									player.getDialogue().setNextChatId(5);
 								}
 							return true;
 							case 2:
 								 player.getDialogue().sendPlayerChat("I have everything you need.", CONTENT);
 						    return true;
 							case 3:
-								 player.setQuestStage(3, 3);
 								 player.getDialogue().sendNpcChat("Many thanks. Pass them here, please."," I can spare you some coins for your trouble,","and please use my anvils any time you want.", CONTENT);
-								 player.getDialogue().endDialogue();
+							 return true;
+							case 4:
 								 player.getInventory().removeItem(new Item(434,6));
 								 player.getInventory().removeItem(new Item(436,4));
 								 player.getInventory().removeItem(new Item(440,2));
+								 player.getDialogue().sendStatement("You hand the clay, copper, and iron to Doric.");
+								 player.getDialogue().endDialogue();
 								 QuestHandler.completeQuest(player,3);
 							 return true;
-							case 4:
+							case 5:
 								 player.getDialogue().sendPlayerChat("Sorry, I don't have them all yet.", CONTENT);
 							 return true;
-							case 5:
+							case 6:
 								 player.getDialogue().sendNpcChat("Not to worry, stick at it.","Remember, I need 6 clay, 4 copper ore, and 2 iron ore.", CONTENT);
 								 player.getDialogue().endDialogue();
 							 return true;
 						}
 					break;
 				}
-			return true;
+			break;
 			//----Dorics quest end-----///
 		}
 		if (player.getDialogue().getChatId() > 1) {

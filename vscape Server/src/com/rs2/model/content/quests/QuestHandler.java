@@ -29,8 +29,8 @@ public class QuestHandler {
     	new CooksAssistant(),
     	new TheKnightsSword(),
     	new TheRestlessGhost(),
-    	new ImpCatcher(),
-    	new DoricsQuest()
+    	new DoricsQuest(),
+    	new ImpCatcher()
     };
     
     public static void init() {
