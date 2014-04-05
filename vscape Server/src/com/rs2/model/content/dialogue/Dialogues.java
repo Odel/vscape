@@ -3107,6 +3107,42 @@ public class Dialogues {
 			case 458: //Father Urhney
 				
 				break;
+			case 1696: //Old man to get into Kharazi Jungle
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Want me to get you inside the Kharazi Jungle?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes please.", "No thanks.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								player.teleport(new Position(2867, 2928, 0));
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
+			case 1152: //to get out of kharazi jungle
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Would you like me to bring you back", "to Shilo Village?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes please.", "No thanks.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								player.teleport(new Position(2863, 2961, 0));
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
 			case 1334: //jossik
 				 switch(player.getDialogue().getChatId()) {
 					 case 1 :

@@ -1,3 +1,9 @@
+=APR ?=
+-Fixed maxhits of ice/moss giants
+ plus they now appropriately drop big bones.
+-Fixed maxhits of dag kings
+-Fixed more clue scroll stuff
+
 =APR 4=
 -Cooks Assistant quest now works.
 -The Knight's Sword quest now works.

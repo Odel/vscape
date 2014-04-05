@@ -51,7 +51,7 @@ public class CoordinateScrolls {
 		COORDINATE_16(2813, 17, 50, 8, 30, "north", "east", 3), //correct
 		COORDINATE_17(2815, 16, 43, 19, 13, "north", "east", 3), //correct
 		COORDINATE_18(2819, 16, 35, 27, 1,"north", "east", 3), //correct
-		COORDINATE_19(2817, 16, 20, 12, 45, "north", "east", 3), //correct for 06 (maybe)
+		//COORDINATE_19(2817, 16, 20, 12, 45, "north", "east", 3), //correct for 06 (maybe)
 //		COORDINATE_20(2821, 15, 48, 13, 52, "north", "east", 3), //area is correct but block is unwalkable
 		COORDINATE_21(2823, 14, 54, 9, 13, "north", "east", 2), //correct
 		COORDINATE_22(2825, 13, 46, 21, 1, "north", "east", 3), //correct
@@ -68,14 +68,14 @@ public class CoordinateScrolls {
 		COORDINATE_34(3546, 7, 33, 15, 0, "north", "east", 2), //correct
 		COORDINATE_35(3548, 7, 5, 30, 56, "north", "east", 2), //correct
 		COORDINATE_36(3550, 6, 31, 1, 47, "north", "west", 2), //fixed //correct
-		COORDINATE_37(3552, 6, 11, 15, 7, "south", "east", 3), //correct
+		//COORDINATE_37(3552, 6, 11, 15, 7, "south", "east", 3), //correct
 		COORDINATE_38(3554, 6, 0, 21, 48, "south", "east", 3), //correct
 		COORDINATE_39(3556, 5, 50, 10, 5, "south", "east", 3), //correct
 		COORDINATE_40(3558, 5, 43, 23, 5, "north", "east", 2), //correct
-		COORDINATE_41(3560, 5, 37, 31, 15, "north", "east", 3), //correct
+		//COORDINATE_41(3560, 5, 37, 31, 15, "north", "east", 3), //correct
 		COORDINATE_42(3562, 5, 20, 4, 28, "south", "east", 2), //correct
 		COORDINATE_43(3582, 4, 41, 3, 9, "north", "west", 3), //correct
-		COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), //correct
+		//COORDINATE_44(3584, 4, 16, 16, 16, "south", "east", 3), //correct
 		COORDINATE_45(3586, 4, 13, 12, 45, "north", "east", 2), //correct
 		COORDINATE_46(3588, 4, 5, 4, 24, "south", "east", 3), //correct but inaccessible
 		//COORDINATE_47(3590, 4, 3, 3, 11, "south", "east", 3), //correct
@@ -86,7 +86,7 @@ public class CoordinateScrolls {
 		COORDINATE_52(7260, 2, 48, 22, 30, "north", "east", 2), //correct
 //		COORDINATE_53(7262, 2, 46, 29, 11, "north", "east", 2), //correct //duel arena
 		COORDINATE_54(7264, 1, 35, 7, 28, "south", "east", 3), //correct
-		COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), //correct
+		//COORDINATE_55(7266, 1, 26, 8, 1, "north", "east", 2), //correct
 		//COORDINATE_56(7305, 1, 24, 8, 6, "north", "west", 3), //fixed //cannot access
 		COORDINATE_57(7307, 1, 18, 14, 15, "south", "east", 2), //correct
 		COORDINATE_58(7309, 0, 31, 17, 43, "south", "east", 2), //correct
