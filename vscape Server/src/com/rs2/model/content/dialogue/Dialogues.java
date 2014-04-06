@@ -2824,7 +2824,7 @@ public class Dialogues {
 							case 5:
 								player.getDialogue().sendNpcChat("Here your sword.", "Come back with more redberry pie next time!", CONTENT);
 								player.getDialogue().endDialogue();
-								player.getInventory().addItem(new Item(667, 1));
+								player.getInventory().addItemOrDrop(new Item(667, 1));
 								player.getInventory().removeItem(new Item(668, 1));
 								player.getInventory().removeItem(new Item(2351, 1));
 								player.setQuestStage(1, 3);
@@ -3136,7 +3136,7 @@ public class Dialogues {
 								case 5:
 									player.getDialogue().sendNpcChat("Here, adventurer, take this amulet.","It'll allow you to speak to the ghost.","Find out why it won't move on.",ANNOYED);
 									player.getDialogue().endDialogue();
-									player.getInventory().addItem(new Item(552, 1));
+									player.getInventory().addItemOrDrop(new Item(552, 1));
 									player.setQuestStage(2, 2);
 								return true;
 							}
@@ -3478,7 +3478,7 @@ public class Dialogues {
 								QuestHandler.getQuests()[3].startQuest(player);
 								player.getDialogue().sendNpcChat("Clay is what I use more than anything, to make casts.","Could you get me 6 clay, 4 copper ore, and 2 iron ore, please?","I could pay a little, and let you use my anvils.","Take this pickaxe with you just in case you need it.", CONTENT);
 								player.getDialogue().setNextChatId(1);
-								player.getInventory().addItem(new Item(1265, 1));
+								player.getInventory().addItemOrDrop(new Item(1265, 1));
 							return true;
 							case 7:
 								player.getDialogue().sendNpcChat("That is your choice. Nice to meet you anyway", CONTENT);

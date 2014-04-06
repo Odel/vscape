@@ -193,7 +193,7 @@ public class ClueScroll {
 		Item[] item = new Item[random];
 		for (int i = 0; i < random; i++) {
 			items[i] = array.get(i);
-			amounts[i] = new Item(items[i]).getDefinition().isStackable() ? items[i] == 995 ? Misc.random(10000) : Misc.random(4) + 5 : 1;
+			amounts[i] = new Item(items[i]).getDefinition().isStackable() ? items[i] == 995 ? Misc.random(10000) : Misc.random(4) + 8 : 1;
 			if (new Item(items[i]).getDefinition().getName().toLowerCase().contains("page")) {
 				amounts[i] = 1;
 			}
