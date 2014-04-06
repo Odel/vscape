@@ -153,7 +153,11 @@ public class ClueScroll {
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(100);
 					if (percent <= 7) {
-						array.add(levelOneRewards[Misc.random(levelOneRewards.length - 1)]);
+						int reward = levelOneRewards[Misc.random(levelOneRewards.length - 1)];
+						if(!array.contains(reward))
+						{
+							array.add(reward);
+						}
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
@@ -165,7 +169,11 @@ public class ClueScroll {
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(100);
 					if (percent <= 7) {
-						array.add(levelTwoRewards[Misc.random(levelTwoRewards.length - 1)]);
+						int reward = levelTwoRewards[Misc.random(levelTwoRewards.length - 1)];
+						if(!array.contains(reward))
+						{
+							array.add(reward);
+						}
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
@@ -178,7 +186,11 @@ public class ClueScroll {
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(100);
 					if (percent <= 7) {
-						array.add(levelThreeRewards[Misc.random(levelThreeRewards.length - 1)]);
+						int reward = levelThreeRewards[Misc.random(levelThreeRewards.length - 1)];
+						if(!array.contains(reward))
+						{
+							array.add(reward);
+						}
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
