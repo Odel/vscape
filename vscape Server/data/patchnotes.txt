@@ -1,6 +1,5 @@
-=APR ?=
+=APR 6=
 -Clues don't drop if you already have one.
--Small clue reward nerf.
 
 =APR 5=
 -Fixed maxhits of ice/moss giants.
