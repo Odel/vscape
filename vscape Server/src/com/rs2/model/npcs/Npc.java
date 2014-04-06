@@ -480,6 +480,10 @@ public class Npc extends Entity {
 			if (killer != null && drops != null) {
 				for (Item item : drops.getDrops()) {
 					if (item != null) {
+						if(item.getDefinition().getName().toLowerCase().contains("clue"))
+						{
+							return;
+						}
                         GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
                         GroundItemManager.getManager().dropItem(drop);
 					}

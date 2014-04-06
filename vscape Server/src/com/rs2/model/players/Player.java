@@ -3816,12 +3816,12 @@ public class Player extends Entity {
 
 	public boolean hasClueScroll() {
 		for (Item item : getInventory().getItemContainer().getItems()) {
-			if (item != null && item.getDefinition().getName().toLowerCase().contains("clue scroll")) {
+			if (item != null && item.getDefinition().getName().toLowerCase().contains("clue")) {
 				return true;
 			}
 		}
 		for (Item item : getBank().getItems()) {
-			if (item != null && item.getDefinition().getName().toLowerCase().contains("clue scroll")) {
+			if (item != null && item.getDefinition().getName().toLowerCase().contains("clue")) {
 				return true;
 			}
 		}
