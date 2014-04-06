@@ -828,14 +828,8 @@ public class PlayerSave {
     			}
             } catch (IOException e) {
             }
-            //TODO: What the fuck is this doing to questpoints and why???
             try {
-            	if (player.getQuestPoints() == 1) {
-            		player.getSlayer().slayerMaster = load.readInt();
-            	} else {
-            		load.readUTF();
-            	}
-            	//player.setQuestPoints(1);
+            	player.getSlayer().slayerMaster = load.readInt();
             } catch (IOException e) {
             	player.getSlayer().resetSlayerTask();
             }
