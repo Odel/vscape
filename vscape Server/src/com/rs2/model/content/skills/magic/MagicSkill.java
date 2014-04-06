@@ -373,6 +373,12 @@ public abstract class MagicSkill extends CycleEvent {
 							hitDef.setHitGraphic(null);
 							return;
 						} else {
+							if(groundItem.getItem().getDefinition().getName().toLowerCase().contains("clue"))
+							{
+								if (player.hasClueScroll()) {
+									return;
+								}
+							}
 							player.getInventory().addItem(new Item(groundItem.getItem().getId(), groundItem.getItem().getCount()));
 							GroundItemManager.getManager().destroyItem(groundItem);
 						}
