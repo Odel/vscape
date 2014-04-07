@@ -672,7 +672,8 @@ public class Player extends Entity {
 				return;
 			}else{
 				World.messageToStaff("I need assistance!");
-
+				lastReport = System.currentTimeMillis();
+				getActionSender().sendMessage("A message has been sent to staff about your report.");
 		} else if (keyword.equals("report")) {
 			if(System.currentTimeMillis() - lastReport < 4000000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once per hour!");
