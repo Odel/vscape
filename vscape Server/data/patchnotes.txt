@@ -5,6 +5,7 @@
 -Fixed fletching amount options.
 -Crafting silver now requires moulds.
 -Fixed Jewelry crafting producing +1 items.
+-Steel studs are now smithable.
 
 =APR 6=
 -Clues don't drop if you already have one.

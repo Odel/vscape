@@ -12,12 +12,12 @@ import com.rs2.model.tick.CycleEventHandler;
 
 public class SmithBars {
 
-	private static final String[] smithItems = {"dagger", "axe", "mace", "med helm", "sword", "nails", "dart tip", "arrowtips", "scimitar", "longsword", "full helm", "knife", "sq shield", "warhammer", "battleaxe", "chainbody", "kiteshield", "claws", "2h sword", "plateskirt", "platelegs", "platebody"};
+	private static final String[] smithItems = {"dagger", "axe", "mace", "med helm", "sword", "nails", "dart tip", "arrowtips", "scimitar", "longsword", "full helm", "knife", "sq shield", "warhammer", "battleaxe", "chainbody", "kiteshield", "claws", "2h sword", "plateskirt", "platelegs", "platebody", "Steel studs"};
 
 	private static final String[] smithMetal = {"bronze", "iron", "steel", "mithril", "adamant", "rune"};
 
 	// level, xp, bars
-	public static final int[][] smithInfo = {{0, 12, 1}, {1, 12, 1}, {2, 12, 1}, {3, 12, 1}, {4, 12, 1}, {4, 12, 1}, {4, 12, 1}, {5, 12, 1}, {5, 25, 2}, {6, 25, 2}, {7, 25, 2}, {7, 12, 1}, {8, 25, 2}, {9, 37, 3}, {10, 37, 3}, {11, 37, 3}, {12, 37, 3}, {13, 25, 2}, {14, 37, 3}, {16, 37, 3}, {16, 37, 3}, {18, 62, 5}};
+	public static final int[][] smithInfo = {{0, 12, 1}, {1, 12, 1}, {2, 12, 1}, {3, 12, 1}, {4, 12, 1}, {4, 12, 1}, {4, 12, 1}, {5, 12, 1}, {5, 25, 2}, {6, 25, 2}, {7, 25, 2}, {7, 12, 1}, {8, 25, 2}, {9, 37, 3}, {10, 37, 3}, {11, 37, 3}, {12, 37, 3}, {13, 25, 2}, {14, 37, 3}, {16, 37, 3}, {16, 37, 3}, {18, 62, 5}, {6, 37, 1}};
 
 	public static void smithInterface(Player player, int itemId) {
 		if (!Constants.SMITHING_ENABLED) {
@@ -120,8 +120,19 @@ public class SmithBars {
 		player.getActionSender().sendUpdateItem(getItemType(player, "2h sword"), 4, 1119, 1);
 		player.getActionSender().sendUpdateItem(getItemType(player, "claws"), 4, 1120, 1);
 		player.getActionSender().sendUpdateItem(getItemType(player, "nails"), 4, 1122, 15);
-		player.getActionSender().sendString("", 1135);
-		player.getActionSender().sendString("", 1134);
+		
+		if(smithMetal[player.getSmithInterface()].equalsIgnoreCase("steel"))
+		{
+			player.getActionSender().sendString(oneb + "1bar" + oneb, 1135);
+			player.getActionSender().sendString(checkLevel(player, "Steel studs", "Steel studs"), 1134);
+			player.getActionSender().sendUpdateItem(getItemType(player, "Steel studs"), 4, 1123, 1);
+		}
+		else
+		{
+			player.getActionSender().sendString("", 1135);
+			player.getActionSender().sendString("", 1134);
+			player.getActionSender().sendUpdateItem(new Item(-1,0), 4, 1123, 1);
+		}
 		player.getActionSender().sendString("", 11461);
 		player.getActionSender().sendString("", 11459);
 		player.getActionSender().sendString("", 1132);
@@ -264,6 +275,11 @@ public class SmithBars {
 					return i;
 				}
 			}
+			if (smithMetal[c.getSmithInterface()].equalsIgnoreCase("steel")) {
+				if (name.equalsIgnoreCase(smithItems[i])) {
+					return i;
+				}
+			}
 		}
 		return -1;
 	}
@@ -288,6 +304,11 @@ public class SmithBars {
 		if (id == -1) {
 			if (metal.equalsIgnoreCase("adamant")) {
 				id = ItemManager.getInstance().getItemId("adamantite " + exactItem);
+			}
+		}
+		if (id == -1) {
+			if (metal.equalsIgnoreCase("steel") && exactItem.equalsIgnoreCase("Steel studs")) {
+				id = ItemManager.getInstance().getItemId(exactItem);
 			}
 		}
 		return new Item(id);
