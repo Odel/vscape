@@ -39,17 +39,17 @@ public class SpeakToScrolls {
 		NPC_22(new String[]{"Talk to the bartender of the Rusty ", "Anchor in Port Sarim."}, 3568, 734, "", 1),
 		NPC_23(new String[]{"Talk to the Squire in the White ", "Knights' castle in Falador."}, 3570, 606, "", 1),
 		NPC_24(new String[]{"'A bag belt only?' he asked ", "his balding brothers"}, 3572, 801, "", 3),
-		NPC_25(new String[]{"A strange little man who sells ", "armour only to those who've ", "proven themselves to be ", "unafraid of dragons."}, 3573, 747, "Puzzle", 3),
-		NPC_26(new String[]{"Identify the back of this ", "over-acting brother. ", "(He's a long way from ", "home.)"}, 3574, 1008, "Puzzle", 3),
+	//	NPC_25(new String[]{"A strange little man who sells ", "armour only to those who've ", "proven themselves to be ", "unafraid of dragons."}, 3573, 747, "Puzzle", 3),
+	//	NPC_26(new String[]{"Identify the back of this ", "over-acting brother. ", "(He's a long way from ", "home.)"}, 3574, 1008, "Puzzle", 3),
 		NPC_27(new String[]{"If a man carried my ", "burden, he would break ", "his back. I am not rich, ", "but leave silver in my ", "track. Speak to the ", "keeper of my trail."}, 3575, 558, "", 3),
-		NPC_28(new String[]{"'Small Shoe.' Often found with ", "rod on mushroom."}, 3577, 162, "Puzzle", 3),
+	//	NPC_28(new String[]{"'Small Shoe.' Often found with ", "rod on mushroom."}, 3577, 162, "Puzzle", 3),
 		//NPC_29(new String[]{"Snah? I feel all confused, like ", "one of those cakes."}, 3579, 0, "", 3),
-		NPC_30(new String[]{"This aviator is at the ", "peak of his profession"}, 3580, 170, "Puzzle", 3),
-		NPC_31(new String[]{"Citric Cellar", ""}, 2792, 603, "Puzzle", 3),
-		NPC_32(new String[]{"Generally ", "speaking, his ", "nose was very ", "bent"}, 2783, 296, "Puzzle", 3),
-		NPC_33(new String[]{"My name is like a tree, ", "yet it is spelt with a \"g\"", "come see the fur, which ", "is right near me"}, 2837, 783, "Puzzle", 3),
+	//	NPC_30(new String[]{"This aviator is at the ", "peak of his profession"}, 3580, 170, "Puzzle", 3),
+	//	NPC_31(new String[]{"Citric Cellar", ""}, 2792, 603, "Puzzle", 3),
+	//	NPC_32(new String[]{"Generally ", "speaking, his ", "nose was very ", "bent"}, 2783, 296, "Puzzle", 3),
+	//	NPC_33(new String[]{"My name is like a tree, ", "yet it is spelt with a \"g\"", "come see the fur, which ", "is right near me"}, 2837, 783, "Puzzle", 3),
 	//	NPC_34(new String[]{"Often examined by learners", "of what has passed,", "find me where words", "of wisdom speak volumes."}, 2845, 618, "Puzzle", 3), // Quiet pls dont delete those comment them if they dont work
-		NPC_35(new String[]{"There is no 'worthier' ", "lord."}, 2856, 1182, "Puzzle", 3),
+	//	NPC_35(new String[]{"There is no 'worthier' ", "lord."}, 2856, 1182, "Puzzle", 3),
 
 		;
 		private String[] hints;
