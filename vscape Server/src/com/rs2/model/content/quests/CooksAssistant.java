@@ -133,6 +133,16 @@ public class CooksAssistant implements Quest {
         player.getActionSender().sendString("@yel@Cook's Assistant", 7333);
     }
     
+    public boolean questCompleted(Player player)
+    {
+    	int questStage = player.getQuestStage(getQuestID());
+    	if(questStage >= QUEST_COMPLETE)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);

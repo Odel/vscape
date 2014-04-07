@@ -55,6 +55,12 @@ public interface Quest {
      * @param player
      */
     public void startQuest(Player player);
+    
+    /**
+     * is quest completed?
+     * @param player
+     */
+    public boolean questCompleted(Player player);
 
     /**
      * Return amount of quest points rewarded upon completion.

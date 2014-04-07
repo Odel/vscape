@@ -148,6 +148,16 @@ public class DoricsQuest implements Quest {
         player.getActionSender().sendString("@yel@"+getQuestName(), 7336);
     }
     
+    public boolean questCompleted(Player player)
+    {
+    	int questStage = player.getQuestStage(getQuestID());
+    	if(questStage >= QUEST_COMPLETE)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);
