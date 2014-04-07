@@ -157,7 +157,7 @@ public class NpcXmlConvertor {
 	}
 
 	/**
-	 * Loads cfg file
+	 * Loads cfg files
 	 **/
 	public static boolean makeCfgFile(String FileName) {
 		String line = "";
