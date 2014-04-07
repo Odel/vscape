@@ -686,7 +686,6 @@ public class Player extends Entity {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
 			setHideYell(!hideYell,true);
-			getActionSender().sendMessage("Yell hidden.");
 		} else if (keyword.equals("hidecolor")) {
 			setHideColors(!hideColors,true);
 		} else if (keyword.equals("home")) {
