@@ -608,6 +608,7 @@ public class Player extends Entity {
      }*/
 
     private long lastYell;
+    private Long lastReport
 
 	@Override
 	public void process() {
@@ -665,10 +666,27 @@ public class Player extends Entity {
 		} else if (keyword.equals("empty")) {
 			getInventory().getItemContainer().clear();
 			getInventory().refresh();
+		} else if (keyword.equals("helpme")) {
+			if(System.currentTimeMillis() - lastReport < 4000000) {
+				getActionSender().sendMessage("You can only report or ask for assistance once per hour!");
+				return;
+			}else{
+				World.messageToStaff("I need assistance!");
+
+		} else if (keyword.equals("report")) {
+			if(System.currentTimeMillis() - lastReport < 4000000) {
+				getActionSender().sendMessage("You can only report or ask for assistance once per hour!");
+				return;
+			}else{
+			lastReport = System.currentTimeMillis();
+			getActionSender().sendMessage("A message has been sent to staff about your report.");
+			World.messageToStaff(fullString);
+			}
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
 			setHideYell(!hideYell,true);
+			getActionSender().sendMessage("Yell hidden.");
 		} else if (keyword.equals("hidecolor")) {
 			setHideColors(!hideColors,true);
 		} else if (keyword.equals("home")) {
@@ -715,7 +733,7 @@ public class Player extends Entity {
 			}
 		} else if (keyword.equals("commands")) {
 			getActionSender().sendMessage("commands include ::outfit, ::yell, ::hideyell, ::hidecolor, ::home, ::players");
-			getActionSender().sendMessage("::changepass and ::patchnotes");
+			getActionSender().sendMessage("::changepass, ::patchnotes, ::report (name) (reason) and ::helpme");
 			
 		}
 		
