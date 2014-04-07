@@ -95,7 +95,7 @@ public class ImpCatcher implements Quest {
             player.getActionSender().sendString("@str@" + "To start the quest, you should talk with", 8147);
             player.getActionSender().sendString("@str@" + "Wizard Mizgog in The Wizard's Tower.", 8148);
             
-            player.getActionSender().sendString("@str@ Cook has asked you to get the following items:", 8150);
+            player.getActionSender().sendString("@str@ Wizard Mizgog has asked you to get the following items:", 8150);
             player.getActionSender().sendString("@str@" + "Red Bead", 8151);
             player.getActionSender().sendString("@str@" + "Black Bead", 8152);
             player.getActionSender().sendString("@str@" + "White Bead & Yellow Bead", 8153);
