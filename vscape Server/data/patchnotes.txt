@@ -1,7 +1,7 @@
 =APR ?=
 -Slayer tasks will now save again.
 -Fixed guthix plateskirt.
--Disabled Puzzle Scrolls.
+-Disabled Puzzle Clues.
 
 =APR 6=
 -Clues don't drop if you already have one.
