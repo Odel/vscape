@@ -608,7 +608,7 @@ public class Player extends Entity {
      }*/
 
     private long lastYell;
-    private Long lastReport
+    private long lastReport;
 
 	@Override
 	public void process() {
@@ -667,22 +667,32 @@ public class Player extends Entity {
 			getInventory().getItemContainer().clear();
 			getInventory().refresh();
 		} else if (keyword.equals("helpme")) {
-			if(System.currentTimeMillis() - lastReport < 4000000) {
-				getActionSender().sendMessage("You can only report or ask for assistance once per hour!");
+			if(System.currentTimeMillis() - lastReport < 1800000) {
+				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
-			}else{
-				World.messageToStaff("I need assistance!");
-				lastReport = System.currentTimeMillis();
-				getActionSender().sendMessage("A message has been sent to staff about your report.");
-		} else if (keyword.equals("report")) {
-			if(System.currentTimeMillis() - lastReport < 4000000) {
-				getActionSender().sendMessage("You can only report or ask for assistance once per hour!");
-				return;
-			}else{
-			lastReport = System.currentTimeMillis();
-			getActionSender().sendMessage("A message has been sent to staff about your report.");
-			World.messageToStaff(fullString);
 			}
+			lastReport = System.currentTimeMillis();
+			World.messageToStaff("@blu@"+getUsername() + " is in need of assistance!");
+			getActionSender().sendMessage("A message for assistance has been sent to the staff.");
+		} else if (keyword.equals("report")) {
+			if (args.length < 2) {
+				actionSender.sendMessage("::report username reason");
+				return;
+			}
+			String name = args[0];
+			Player player = World.getPlayerByName(name);
+            if (player == null) {
+                actionSender.sendMessage("Cannot report an offline player");
+                return;
+            }
+            if(System.currentTimeMillis() - lastReport < 1800000) {
+				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
+				return;
+			}
+            String reason = args[1];
+            lastReport = System.currentTimeMillis();
+			getActionSender().sendMessage("A message has been sent to staff about your report.");
+			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ reason);
 		} else if (keyword.equals("yell")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell")) {
@@ -1171,7 +1181,7 @@ public class Player extends Entity {
 				}
 			}
 		}
-       			else if (keyword.equals("teletome")) {
+		else if (keyword.equals("teletome")) {
 			String name = fullString;
            // if (inWild())  {
              //   actionSender.sendMessage("You can't teleport someone into the wild!");
