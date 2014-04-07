@@ -6,6 +6,9 @@
 -Crafting silver now requires moulds.
 -Fixed Jewelry crafting producing +1 items.
 -Steel studs are now smithable.
+-::helpme call for assistance
+-::report (name) (reason) now contacts staff
+-extra explanation added for commands
 
 =APR 6=
 -Clues don't drop if you already have one.
