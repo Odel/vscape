@@ -99,7 +99,7 @@ public class ItemManager {
 			value = new Item(itemId).getDefinition().getShopPrice();
 			value = value < 1 ? 1 : value;
 		} else if (type.equals("selltoshop")) {
-			value = new Item(itemId).getDefinition().getLowAlcValue();
+			value = Math.round(new Item(itemId).getDefinition().getShopPrice()/3.4);
 		} else if (type.equals("lowalch")) {
 			value = new Item(itemId).getDefinition().getLowAlcValue();
 		} else if (type.equals("highalch")) {

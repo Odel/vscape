@@ -6,6 +6,12 @@
 -Crafting silver now requires moulds.
 -Fixed Jewelry crafting producing +1 items.
 -Steel studs are now smithable.
+-Buying and selling formula has been fixed 
+ and correct.
+-Special store will now buy items they sell 
+ specifically tzhaar stores.
+-Correct prices of some items to reflect the
+ new buy and sell formula.
 -::helpme call for assistance
 -::report (name) (reason) now contacts staff
 -extra explanation added for commands

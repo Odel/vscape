@@ -250,7 +250,7 @@ public class ItemDefinition {
 		this.bonus = bonus;
 		this.getSlot = getSlot(equipmentType);
 		this.twoHanded = isTwoHanded(name);
-		this.shopPrice = (int) Math.ceil(highAlcValue * (1.666666666666));
+		this.shopPrice =  getShopPrice(); //(int) Math.ceil(highAlcValue * (1.666666666666));
 		this.untradable = isUntradable(id, stackable, noteable);
 	}
 
@@ -270,7 +270,7 @@ public class ItemDefinition {
 	}
 
 	private ItemDefinition addShopPrice() {
-		this.shopPrice = (int) Math.ceil(highAlcValue * (1.666666666666));
+		this.shopPrice = getShopPrice();//(int) Math.ceil(highAlcValue * (1.666666666666));
 		return this;
 	}
 
