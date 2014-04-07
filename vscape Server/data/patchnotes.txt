@@ -2,6 +2,9 @@
 -Slayer tasks will now save again.
 -Fixed guthix plateskirt.
 -Disabled Puzzle Clues.
+-Fixed fletching amount options.
+-Crafting silver now requires moulds.
+-Fixed Jewelry crafting producing +1 items.
 
 =APR 6=
 -Clues don't drop if you already have one.

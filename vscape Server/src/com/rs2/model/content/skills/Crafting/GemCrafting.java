@@ -134,7 +134,7 @@ public class GemCrafting extends GemData {
 		final int task = player.getTask();
 		player.setSkilling(new CycleEvent() {
 			private int gemType = gem;
-			private int amount = actionAmount + 1;
+			private int amount = actionAmount;
 			private int type = actionType;
 
 			@Override

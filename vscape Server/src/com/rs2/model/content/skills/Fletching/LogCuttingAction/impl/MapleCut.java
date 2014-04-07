@@ -22,7 +22,7 @@ public class MapleCut extends LogCutting {
 		return new MapleCut(player, mapleCutData.getUsed(), mapleCutData.getResult(), mapleCutData.getLevel(), mapleCutData.getExperience(), mapleCutData.getAmount(), manualAmount);
 	}
 	public static enum MapleCutData {
-		SHORTBOW(34170, 1517, 64, 1, 50, 50), SHORTBOW5(34169, 1517, 64, 5, 50, 50), SHORTBOW10(34168, 1517, 64, 28, 50, 50), SHORTBOWX(34167, 1517, 64, 0, 50, 50), LONGBOW(34174, 1517, 62, 1, 55, 58.3), LONGBOW5(34173, 1517, 62, 5, 55, 58.3), LONGBOW10(34172, 1517, 62, 28, 55, 58.3), LONGBOWX(34171, 1517, 62, 0, 55, 58.3);
+		SHORTBOW(34170, 1517, 64, 1, 50, 50), SHORTBOW5(34169, 1517, 64, 5, 50, 50), SHORTBOW10(34168, 1517, 64, 10, 50, 50), SHORTBOWX(34167, 1517, 64, 0, 50, 50), LONGBOW(34174, 1517, 62, 1, 55, 58.3), LONGBOW5(34173, 1517, 62, 5, 55, 58.3), LONGBOW10(34172, 1517, 62, 10, 55, 58.3), LONGBOWX(34171, 1517, 62, 0, 55, 58.3);
 
 		private int buttonId;
 		private int used;

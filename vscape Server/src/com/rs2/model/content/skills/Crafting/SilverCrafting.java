@@ -20,21 +20,22 @@ public class SilverCrafting {
 	private static final int SILVER_ANIMATION = 899;
 
 	public static enum SilverCraft {
-		UNSTRUNG(34185, 2355, 1714, 1, 16, 50),
-		UNSTRUNG5(34184, 2355, 1714, 5, 16, 50),
-		UNSTRUNG10(34183, 2355, 1714, 10, 16, 50),
-		UNSTRUNGX(34182, 2355, 1714, 0, 16, 50),
-		SICKLE(34189, 2355, 2961, 1, 18, 50),
-		SICKLE5(34188, 2355, 2961, 5, 18, 50),
-		SICKLE10(34187, 2355, 2961, 10, 18, 50),
-		SICKLEX(34186, 2355, 2961, 0, 18, 50),
-		TIARA(34193, 2355, 5525, 1, 23, 52.5),
-		TIARA5(34192, 2355, 5525, 5, 23, 52.5),
-		TIARA10(34191, 2355, 5525, 10, 23, 52.5),
-		TIARAX(34190, 2355, 5525, 0, 23, 52.5);
+		UNSTRUNG(34185, 2355, 1599, 1714, 1, 16, 50),
+		UNSTRUNG5(34184, 2355, 1599, 1714, 5, 16, 50),
+		UNSTRUNG10(34183, 2355, 1599, 1714, 10, 16, 50),
+		UNSTRUNGX(34182, 2355, 1599, 1714, 0, 16, 50),
+		SICKLE(34189, 2355, 2976, 2961, 1, 18, 50),
+		SICKLE5(34188, 2355, 2976, 2961, 5, 18, 50),
+		SICKLE10(34187, 2355, 2976, 2961, 10, 18, 50),
+		SICKLEX(34186, 2355, 2976, 2961, 0, 18, 50),
+		TIARA(34193, 2355, 5523, 5525, 1, 23, 52.5),
+		TIARA5(34192, 2355, 5523, 5525, 5, 23, 52.5),
+		TIARA10(34191, 2355, 5523, 5525, 10, 23, 52.5),
+		TIARAX(34190, 2355, 5523, 5525, 0, 23, 52.5);
 
 		private int buttonId;
 		private int used;
+		private int mould;
 		private int result;
 		private int amount;
 		private int level;
@@ -52,9 +53,10 @@ public class SilverCrafting {
 			}
 		}
 
-		private SilverCraft(int buttonId, int used, int result, int amount, int level, double experience) {
+		private SilverCraft(int buttonId, int used, int mould, int result, int amount, int level, double experience) {
 			this.buttonId = buttonId;
 			this.used = used;
+			this.mould = mould;
 			this.result = result;
 			this.amount = amount;
 			this.level = level;
@@ -67,6 +69,10 @@ public class SilverCrafting {
 
 		public int getUsed() {
 			return used;
+		}
+		
+		public int getMould() {
+			return mould;
 		}
 
 		public int getResult() {
@@ -102,6 +108,12 @@ public class SilverCrafting {
 			}
 			if (player.getSkill().getLevel()[Skill.CRAFTING] < silverCraft.getLevel()) {
 				player.getDialogue().sendStatement("You need a crafting level of " + silverCraft.getLevel() + " to make this.");
+				return true;
+			}
+			if(!player.getInventory().getItemContainer().contains(silverCraft.getMould()))
+			{
+				String mouldName = new Item(silverCraft.getMould()).getDefinition().getName();
+				player.getDialogue().sendStatement("You need a "+mouldName+" to do this.");
 				return true;
 			}
 			player.getUpdateFlags().sendAnimation(SILVER_ANIMATION);
