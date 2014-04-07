@@ -363,7 +363,14 @@ public class PlayerSave {
 			for(Quest q : QuestHandler.getQuests())
 			{
 				characterfile.write(q.getQuestSaveName() + " = ", 0, q.getQuestSaveName().length()+3);
-				characterfile.write(Integer.toString(player.getQuestStage(q.getQuestID())), 0, Integer.toString(player.getQuestStage(q.getQuestID())).length());
+				if(player.questStage.length > 0)
+				{
+					characterfile.write(Integer.toString(player.getQuestStage(q.getQuestID())), 0, Integer.toString(player.getQuestStage(q.getQuestID())).length());
+				}
+				else
+				{
+					characterfile.write("0", 0, 1);
+				}
 				characterfile.newLine();
 			}
 		/*	characterfile.write("cooks-assistant = ", 0, 18);
