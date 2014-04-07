@@ -1832,6 +1832,23 @@ public class Player extends Entity {
                 }
             }
         }
+        int connections = 0;
+        for(Player p : World.getPlayers())
+		{
+			if(p == null)
+			{
+				continue;
+			}
+			if(getHost().contentEquals(p.getHost()))
+			{
+				connections++;
+			}
+		}
+        if(connections >= Constants.MAX_CONNECTIONS_PER_IP)
+        {
+			setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
+			return false;
+		}
         if (GlobalVariables.getServerUpdateTimer() != null) {
 			setReturnCode(Constants.LOGIN_RESPONSE_SERVER_BEING_UPDATED);
 			return false;

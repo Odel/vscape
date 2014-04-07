@@ -50,6 +50,8 @@ public class Constants {
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	
+   	public static final int MAX_CONNECTIONS_PER_IP = 2;
+   	
    	public static final int START_X = 3222;
 	public static final int START_Y = 3218;
 	public static final int START_Z = 0;
