@@ -6,6 +6,7 @@
 -Gnome balls don't equip
 -Canfis clothes shop missing purple top
 -ice giants drop single coins instead of big bones
+-highwaymen have no drop table
 -god capes are unpurchable/obtainable
 -gnome tree stronghold cave doesn't work
 -lummy spinning wheel spawns items around it
