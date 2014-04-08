@@ -666,7 +666,7 @@ public class Player extends Entity {
 		} else if (keyword.equals("empty")) {
 			getInventory().getItemContainer().clear();
 			getInventory().refresh();
-		} else if (keyword.equals("helpme")) {
+		} else if (keyword.equals("panic")) {
 			if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
