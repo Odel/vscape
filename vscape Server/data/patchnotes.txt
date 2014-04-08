@@ -1,4 +1,5 @@
-@dre@=APR ?=
+@dre@=APR 8=
+-diminishing returns in shops
 
 @dre@=APR 7=
 -Slayer tasks will now save again.
