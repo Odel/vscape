@@ -193,6 +193,47 @@ public class ShopManager {
 		int shopAmount = shop.getCurrentStock().getCount(itemId);
 		player.getInventory().removeItem(new Item(itemId, amount));
 		int price = ItemManager.getInstance().getItemValue(itemId, "selltoshop");
+		int baseStock = 0;
+		if(shop.getStock().getById(itemId) != null)
+		{
+			baseStock = shop.getStock().getById(itemId).getCount();
+		}
+		int curStock = 0;
+		if(shop.getCurrentStock().getById(itemId) != null)
+		{
+			curStock = shop.getCurrentStock().getById(itemId).getCount();
+		}
+		if (shop.isGeneralStore()) {
+			if(curStock > 1 && baseStock == 0)
+			{
+				price /= Math.round((curStock/80));
+			}
+			else if(curStock > 1 && baseStock > 1)
+			{
+				price /= Math.round((curStock/baseStock)*2.2);
+			}
+				
+			if(price <= 0)
+			{
+				price = 0;
+			}
+		} else {
+			if(curStock > baseStock)
+			{
+				if(curStock > 1 && baseStock == 0)
+				{
+					price /= Math.round((curStock/80));
+				}
+				else if(curStock > 1 && baseStock > 1)
+				{
+					price /= Math.round((curStock/baseStock)*2.2);
+				}
+				if(price <= 0)
+				{
+					price = 0;
+				}
+			}
+		}
 		if (shop.getCurrency() == 6529) {
 			price *= 1.5;
 			price = Math.round(price);
@@ -231,8 +272,26 @@ public class ShopManager {
 			return;
 		}
 		Shop shop = shops.get(player.getShopId());
+		int baseStock = 0;
+		if(shop.getStock().getById(id) != null)
+		{
+			baseStock = shop.getStock().getById(id).getCount();
+		}
+		int curStock = 0;
+		if(shop.getCurrentStock().getById(id) != null)
+		{
+			curStock = shop.getCurrentStock().getById(id).getCount();
+		}
+		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
 		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
-			int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
+			if(curStock > 1 && baseStock == 0)
+			{
+				price /= Math.round((curStock/80));
+			}
+			else if(curStock > 1 && baseStock > 1)
+			{
+				price /= Math.round((curStock/baseStock)*2.2);
+			}
 			ItemManager.getInstance().getItemName(shop.getCurrency());
 			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + getCurrencyName(shop) + ".");
 		} else {
@@ -240,7 +299,21 @@ public class ShopManager {
 				player.getActionSender().sendMessage("You cannot sell this item in this shop.");
 				return;
 			}
-			int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
+			if(curStock > baseStock)
+			{
+				if(curStock > 1 && baseStock == 0)
+				{
+					price /= Math.round((curStock/80));
+				}
+				else if(curStock > 1 && baseStock > 1)
+				{
+					price /= Math.round((curStock/baseStock)*2.2);
+				}
+				if(price <= 0)
+				{
+					price = 0;
+				}
+			}
 			if (shop.getCurrency() == 6529) {
 				price *= 1.5;
 				price = Math.round(price);
