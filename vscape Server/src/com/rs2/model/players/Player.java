@@ -663,9 +663,6 @@ public class Player extends Entity {
 	public void playerCommands(String keyword, String[] args, String fullString) {
 		if (keyword.equals("outfit")) {
 			getActionSender().sendInterface(3559);
-		} else if (keyword.equals("empty")) {
-			getInventory().getItemContainer().clear();
-			getInventory().refresh();
 		} else if (keyword.equals("panic")) {
 			if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
@@ -796,7 +793,10 @@ public class Player extends Entity {
             if (player == null)
                 return;
             player.getActionSender().removeInterfaces();
-        } else if (keyword.equals("kick")) {
+        } else if (keyword.equals("empty")) {
+			getInventory().getItemContainer().clear();
+			getInventory().refresh();
+		}else if (keyword.equals("kick")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null)
                 return;
