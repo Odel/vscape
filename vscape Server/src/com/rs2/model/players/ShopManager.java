@@ -238,14 +238,6 @@ public class ShopManager {
 		player.getInventory().refresh(3823);
 		refreshAll(player.getShopId());
 	}
-	
-	 public static double diminishing_returns(double val, double scale) {
-		    if(val < 0)
-		        return -diminishing_returns(-val, scale);
-		    double mult = val / scale;
-		    double trinum = (Math.sqrt(8.0 * mult + 1.0) - 1.0) / 2.0;
-		    return trinum * scale;
-		}
 
 	public static void getBuyValue(Player player, int id) {
 		Shop shop = shops.get(player.getShopId());
