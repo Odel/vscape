@@ -15,7 +15,7 @@
  specifically tzhaar stores.
 -Correct prices of some items to reflect the
  new buy and sell formula.
--::helpme call for assistance
+-::panic calls for assistance
 -::report (name) (reason) now contacts staff
 -extra explanation added for commands
 
