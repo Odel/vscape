@@ -190,6 +190,9 @@ public class ShopManager {
 		if (amount >= totalItems) {
 			amount = totalItems;
 		}
+		//TODO: The price drop doesnt take into items before the price hits 0 
+		//EG: If you sell 1001 items to shop and that 1001 item is valued at 0 while the 1000 is 3gp
+		//The shop will give you no money for the 1000 because of the 1001  item
 		int shopAmount = shop.getCurrentStock().getCount(itemId);
 		player.getInventory().removeItem(new Item(itemId, amount));
 		int price = ItemManager.getInstance().getItemValue(itemId, "selltoshop");
@@ -203,40 +206,24 @@ public class ShopManager {
 		{
 			curStock = shop.getCurrentStock().getById(itemId).getCount();
 		}
-		if (shop.isGeneralStore()) {
-			if(curStock > 1 && baseStock == 0)
-			{
-				price /= Math.round((curStock/80));
-			}
-			else if(curStock > 1 && baseStock > 1)
-			{
-				price /= Math.round((curStock/baseStock)*2.2);
-			}
-				
-			if(price <= 0)
-			{
-				price = 0;
-			}
-		} else {
+		if(curStock > 1 && baseStock == 0)
+		{
+			price /= Math.round((curStock/80));
+		}
+		else if(curStock > 1 && baseStock > 1)
+		{
 			if(curStock > baseStock)
 			{
-				if(curStock > 1 && baseStock == 0)
-				{
-					price /= Math.round((curStock/80));
-				}
-				else if(curStock > 1 && baseStock > 1)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-				if(price <= 0)
-				{
-					price = 0;
-				}
+				price /= Math.round((curStock/baseStock)*2.2);
 			}
 		}
 		if (shop.getCurrency() == 6529) {
 			price *= 1.5;
 			price = Math.round(price);
+		}
+		if(price <= 0)
+		{
+			price = 0;
 		}
 		if (ItemManager.getInstance().getItemValue(itemId, "selltoshop") > 0) {
 			player.getInventory().addItem(new Item(currency, price * amount));
@@ -271,6 +258,9 @@ public class ShopManager {
 			player.getActionSender().sendMessage("You cannot sell this item to this shop.");
 			return;
 		}
+		//TODO: The price drop doesnt take into items before the price hits 0 
+		//EG: If you sell 1001 items to shop and that 1001 item is valued at 0 while the 1000 is 3gp
+		//The shop will give you no money for the 1000 because of the 1001  item
 		Shop shop = shops.get(player.getShopId());
 		int baseStock = 0;
 		if(shop.getStock().getById(id) != null)
@@ -283,40 +273,32 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(id).getCount();
 		}
 		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
-		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
-			if(curStock > 1 && baseStock == 0)
-			{
-				price /= Math.round((curStock/80));
-			}
-			else if(curStock > 1 && baseStock > 1)
+		if(curStock > 1 && baseStock == 0)
+		{
+			price /= Math.round((curStock/80));
+		}
+		else if(curStock > 1 && baseStock > 1)
+		{
+			if(curStock > baseStock)
 			{
 				price /= Math.round((curStock/baseStock)*2.2);
 			}
+		}
+		if (shop.getCurrency() == 6529) {
+			price *= 1.5;
+			price = Math.round(price);
+		}
+		if(price <= 0)
+		{
+			price = 0;
+		}
+		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
 			ItemManager.getInstance().getItemName(shop.getCurrency());
 			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + getCurrencyName(shop) + ".");
 		} else {
 			if ((!shop.getCurrentStock().contains(id)) || new Item(id).getDefinition().isUntradable()) {
 				player.getActionSender().sendMessage("You cannot sell this item in this shop.");
 				return;
-			}
-			if(curStock > baseStock)
-			{
-				if(curStock > 1 && baseStock == 0)
-				{
-					price /= Math.round((curStock/80));
-				}
-				else if(curStock > 1 && baseStock > 1)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-				if(price <= 0)
-				{
-					price = 0;
-				}
-			}
-			if (shop.getCurrency() == 6529) {
-				price *= 1.5;
-				price = Math.round(price);
 			}
 			String currencyName = ItemManager.getInstance().getItemName(shop.getCurrency());
 			ItemManager.getInstance().getItemName(shop.getCurrency());
