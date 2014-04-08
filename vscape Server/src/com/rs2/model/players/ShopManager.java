@@ -197,30 +197,25 @@ public class ShopManager {
 		player.getInventory().removeItem(new Item(itemId, amount));
 		int price = ItemManager.getInstance().getItemValue(itemId, "selltoshop");
 		int baseStock = 0;
-		try
+		if(shop.getStock().getById(itemId) != null)
 		{
-			if(shop.getStock().getById(itemId) != null)
+			baseStock = shop.getStock().getById(itemId).getCount();
+		}
+		int curStock = 0;
+		if(shop.getCurrentStock().getById(itemId) != null)
+		{
+			curStock = shop.getCurrentStock().getById(itemId).getCount();
+		}
+		if(curStock > 1 && baseStock == 0)
+		{
+			price /= Math.round((curStock/80));
+		}
+		else if(curStock > 1 && baseStock > 1)
+		{
+			if(curStock > baseStock)
 			{
-				baseStock = shop.getStock().getById(itemId).getCount();
+				price /= Math.round((curStock/baseStock)*2.2);
 			}
-			int curStock = 0;
-			if(shop.getCurrentStock().getById(itemId) != null)
-			{
-				curStock = shop.getCurrentStock().getById(itemId).getCount();
-			}
-			if(curStock > 1 && baseStock == 0)
-			{
-				price /= Math.round((curStock/80));
-			}
-			else if(curStock > 1 && baseStock > 1)
-			{
-				if(curStock > baseStock)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-			}
-		} catch (Exception e) {
-			price = 0;
 		}
 		if (shop.getCurrency() == 6529) {
 			price *= 1.5;
@@ -267,32 +262,27 @@ public class ShopManager {
 		//EG: If you sell 1001 items to shop and that 1001 item is valued at 0 while the 1000 is 3gp
 		//The shop will give you no money for the 1000 because of the 1001  item
 		Shop shop = shops.get(player.getShopId());
-		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
-		try
+		int baseStock = 0;
+		if(shop.getStock().getById(id) != null)
 		{
-			int baseStock = 0;
-			if(shop.getStock().getById(id) != null)
+			baseStock = shop.getStock().getById(id).getCount();
+		}
+		int curStock = 0;
+		if(shop.getCurrentStock().getById(id) != null)
+		{
+			curStock = shop.getCurrentStock().getById(id).getCount();
+		}
+		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
+		if(curStock > 1 && baseStock == 0)
+		{
+			price /= Math.round((curStock/80));
+		}
+		else if(curStock > 1 && baseStock > 1)
+		{
+			if(curStock > baseStock)
 			{
-				baseStock = shop.getStock().getById(id).getCount();
+				price /= Math.round((curStock/baseStock)*2.2);
 			}
-			int curStock = 0;
-			if(shop.getCurrentStock().getById(id) != null)
-			{
-				curStock = shop.getCurrentStock().getById(id).getCount();
-			}
-			if(curStock > 1 && baseStock == 0)
-			{
-				price /= Math.round((curStock/80));
-			}
-			else if(curStock > 1 && baseStock > 1)
-			{
-				if(curStock > baseStock)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-			}
-		} catch (Exception e) {
-			price = 0;
 		}
 		if (shop.getCurrency() == 6529) {
 			price *= 1.5;
