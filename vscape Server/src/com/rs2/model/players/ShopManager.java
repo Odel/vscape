@@ -204,17 +204,17 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(itemId).getCount();
 		}
 		if (shop.isGeneralStore()) {
-			if(curStock > 100 && baseStock == 0)
+			if(curStock > 500 && baseStock == 0)
 			{
 				float finalPrice = (float)((amount / 10000f) + (curStock/90f));
 				price /= finalPrice;
 			}
-			else if(curStock > 1 && baseStock > 0)
+			else if(curStock > baseStock && baseStock > 0)
 			{
 				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
 		} else {
-			if(curStock > 1 && baseStock > 0)
+			if(curStock > baseStock && baseStock > 0)
 			{
 				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
@@ -273,17 +273,17 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(id).getCount();
 		}
 		if (shop.isGeneralStore()) {
-			if(curStock > 100 && baseStock == 0)
+			if(curStock > 500 && baseStock == 0)
 			{
 				float finalPrice = (float)((1 / 10000f) + (curStock/90f));
 				price /= finalPrice;
 			}
-			else if(curStock > 1 && baseStock > 0)
+			else if(curStock > baseStock && baseStock > 0)
 			{
 				price /= (float)((1 / 10000f) + (curStock/baseStock));
 			}
 		} else {
-			if(curStock > 1 && baseStock > 0)
+			if(curStock > baseStock && baseStock > 0)
 			{
 				price /= (float)((1 / 10000f) + (curStock/baseStock));
 			}
