@@ -204,35 +204,24 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(itemId).getCount();
 		}
 		if (shop.isGeneralStore()) {
-			if(curStock > 1 && baseStock == 0)
+			if(curStock > 100 && baseStock == 0)
 			{
-				price /= Math.round((curStock/80));
+				float finalPrice = (float)((amount / 10000f) + (curStock/90f));
+				price /= finalPrice;
 			}
-			else if(curStock > 1 && baseStock > 1)
+			else if(curStock > 1 && baseStock > 0)
 			{
-				price /= Math.round((curStock/baseStock)*2.2);
-			}
-				
-			if(price <= 0)
-			{
-				price = 0;
+				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
 		} else {
-			if(curStock > baseStock)
+			if(curStock > 1 && baseStock > 0)
 			{
-				if(curStock > 1 && baseStock == 0)
-				{
-					price /= Math.round((curStock/80));
-				}
-				else if(curStock > 1 && baseStock > 1)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-				if(price <= 0)
-				{
-					price = 0;
-				}
+				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
+		}
+		if(price <= 0)
+		{
+			price = 0;
 		}
 		if (shop.getCurrency() == 6529) {
 			price *= 1.5;
@@ -249,6 +238,14 @@ public class ShopManager {
 		player.getInventory().refresh(3823);
 		refreshAll(player.getShopId());
 	}
+	
+	 public static double diminishing_returns(double val, double scale) {
+		    if(val < 0)
+		        return -diminishing_returns(-val, scale);
+		    double mult = val / scale;
+		    double trinum = (Math.sqrt(8.0 * mult + 1.0) - 1.0) / 2.0;
+		    return trinum * scale;
+		}
 
 	public static void getBuyValue(Player player, int id) {
 		Shop shop = shops.get(player.getShopId());
@@ -272,6 +269,7 @@ public class ShopManager {
 			return;
 		}
 		Shop shop = shops.get(player.getShopId());
+		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
 		int baseStock = 0;
 		if(shop.getStock().getById(id) != null)
 		{
@@ -282,41 +280,37 @@ public class ShopManager {
 		{
 			curStock = shop.getCurrentStock().getById(id).getCount();
 		}
-		int price = ItemManager.getInstance().getItemValue(id, "selltoshop");
+		if (shop.isGeneralStore()) {
+			if(curStock > 100 && baseStock == 0)
+			{
+				float finalPrice = (float)((1 / 10000f) + (curStock/90f));
+				price /= finalPrice;
+			}
+			else if(curStock > 1 && baseStock > 0)
+			{
+				price /= (float)((1 / 10000f) + (curStock/baseStock));
+			}
+		} else {
+			if(curStock > 1 && baseStock > 0)
+			{
+				price /= (float)((1 / 10000f) + (curStock/baseStock));
+			}
+		}
+		if(price <= 0)
+		{
+			price = 0;
+		}
+		if (shop.getCurrency() == 6529) {
+			price *= 1.5;
+			price = Math.round(price);
+		}
 		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
-			if(curStock > 1 && baseStock == 0)
-			{
-				price /= Math.round((curStock/80));
-			}
-			else if(curStock > 1 && baseStock > 1)
-			{
-				price /= Math.round((curStock/baseStock)*2.2);
-			}
 			ItemManager.getInstance().getItemName(shop.getCurrency());
 			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + getCurrencyName(shop) + ".");
 		} else {
 			if ((!shop.getCurrentStock().contains(id)) || new Item(id).getDefinition().isUntradable()) {
 				player.getActionSender().sendMessage("You cannot sell this item in this shop.");
 				return;
-			}
-			if(curStock > baseStock)
-			{
-				if(curStock > 1 && baseStock == 0)
-				{
-					price /= Math.round((curStock/80));
-				}
-				else if(curStock > 1 && baseStock > 1)
-				{
-					price /= Math.round((curStock/baseStock)*2.2);
-				}
-				if(price <= 0)
-				{
-					price = 0;
-				}
-			}
-			if (shop.getCurrency() == 6529) {
-				price *= 1.5;
-				price = Math.round(price);
 			}
 			String currencyName = ItemManager.getInstance().getItemName(shop.getCurrency());
 			ItemManager.getInstance().getItemName(shop.getCurrency());
