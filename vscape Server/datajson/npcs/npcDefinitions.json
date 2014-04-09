@@ -54059,8 +54059,8 @@
     "examine": "A fearsome magical water creature.",
     "respawn": 10,
     "combat": 98,
-    "hitpoints": 10,
-    "maxHit": 1,
+    "hitpoints": 127,
+    "maxHit": 18,
     "size": 1,
     "attackSpeed": 4000,
     "attackAnim": 422,
@@ -54071,8 +54071,8 @@
     "defenceRange": 49,
     "defenceMage": 98,
     "attackable": true,
-    "aggressive": false,
-    "retreats": false,
+    "aggressive": true,
+    "retreats": true,
     "poisonous": false
   },
   {
@@ -63453,8 +63453,8 @@
     "examine": "A fearsome magical water creature.",
     "respawn": 10,
     "combat": 98,
-    "hitpoints": 10,
-    "maxHit": 1,
+    "hitpoints": 127,
+    "maxHit": 18,
     "size": 1,
     "attackSpeed": 4000,
     "attackAnim": 422,
@@ -63465,8 +63465,8 @@
     "defenceRange": 49,
     "defenceMage": 98,
     "attackable": true,
-    "aggressive": false,
-    "retreats": false,
+    "aggressive": true,
+    "retreats": true,
     "poisonous": false
   },
   {
