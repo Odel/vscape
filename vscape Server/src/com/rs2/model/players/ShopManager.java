@@ -21,6 +21,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
+import com.rs2.util.LogHandler;
 //import com.rs2.util.XStreamUtil;
 
 import com.google.gson.Gson;
@@ -140,6 +141,8 @@ public class ShopManager {
 		player.getInventory().addItem(new Item(shopItem, amount));
 		player.getInventory().refresh(3823);
 		refreshAll(player.getShopId());
+		if(value > 1000)
+		LogHandler.logShop(player, shop.getName(), "Bought", new Item(shopItem, amount), value, ItemManager.getInstance().getItemName(currency));
 	}
 
 	public static void sellItem(Player player, int slot, int itemId, int amount) {
@@ -204,17 +207,20 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(itemId).getCount();
 		}
 		if (shop.isGeneralStore()) {
-			if(curStock > 500 && baseStock == 0)
+			if(curStock >= 0 && baseStock == 0)
 			{
-				float finalPrice = (float)((amount / 10000f) + (curStock/90f));
-				price /= finalPrice;
+				double diminish = diminishing_returns(amount + (curStock/10f), 0.003d);
+				if(diminish > 1)
+				{
+					price /= diminish;
+				}
 			}
-			else if(curStock > baseStock && baseStock > 0)
+			else if(curStock >= (baseStock/2) && baseStock > 0)
 			{
 				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
 		} else {
-			if(curStock > baseStock && baseStock > 0)
+			if(curStock >= (baseStock/2) && baseStock > 0)
 			{
 				price /= (float)((amount / 10000f) + (curStock/baseStock));
 			}
@@ -237,6 +243,18 @@ public class ShopManager {
 		}
 		player.getInventory().refresh(3823);
 		refreshAll(player.getShopId());
+		if((price * amount) > 1000)
+		{
+		LogHandler.logShop(player, shop.getName(), "Sold", new Item(itemId, amount), price * amount, ItemManager.getInstance().getItemName(currency));
+		}
+	}
+	
+	 public static double diminishing_returns(double val, double scale) {
+	    if(val < 0)
+	        return -diminishing_returns(-val, scale);
+	    double mult = val / scale;
+	    double trinum = (Math.sqrt(8.0 * mult + 1.0) - 1.0) / 2.0;
+	    return trinum * scale;
 	}
 
 	public static void getBuyValue(Player player, int id) {
@@ -273,17 +291,20 @@ public class ShopManager {
 			curStock = shop.getCurrentStock().getById(id).getCount();
 		}
 		if (shop.isGeneralStore()) {
-			if(curStock > 500 && baseStock == 0)
+			if(curStock >= 0 && baseStock == 0)
 			{
-				float finalPrice = (float)((1 / 10000f) + (curStock/90f));
-				price /= finalPrice;
+				double diminish = diminishing_returns(1 + (curStock/10f), 0.003d);
+				if(diminish > 1)
+				{
+					price /= diminish;
+				}
 			}
-			else if(curStock > baseStock && baseStock > 0)
+			else if(curStock >= (baseStock/2) && baseStock > 0)
 			{
 				price /= (float)((1 / 10000f) + (curStock/baseStock));
 			}
 		} else {
-			if(curStock > baseStock && baseStock > 0)
+			if(curStock >= (baseStock/2) && baseStock > 0)
 			{
 				price /= (float)((1 / 10000f) + (curStock/baseStock));
 			}
