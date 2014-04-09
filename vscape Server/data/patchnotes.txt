@@ -4,6 +4,7 @@
 @dbl@the price will avg out before diminishing
 @dbl@to 0 and you will reviece the avg value 
 @dbl@for the items that were above 0.
+-Metal Dragons have combat scripts and dragonfire.
 -Wallasalki have correct hp and combat scripts.
 -Dagannoths have correct hp and combat scripts.
 -Left shield halves have been removed from

@@ -91,6 +91,16 @@ class CommonDragon < NpcCombatDef
     end
 end
 
+class MetalDragon < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 20, 5, 91),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE, 10, 10, 91, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 10, 10, 91, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL)
+        ];
+    end
+end
+
 class Wallasalki < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -124,6 +134,7 @@ NpcCombatDef.add([2745], Jad.new.bonusDef(2000, 2000, 2000, 2000, 1700))
 NpcCombatDef.add([1, 2, 3, 4], Man.new.respawnSeconds(10))
 NpcCombatDef.add([174], DarkWizard.new.respawnSeconds(10))
 NpcCombatDef.add([53,54,55,742,941], CommonDragon.new())
+NpcCombatDef.add([1590,1591,1592], MetalDragon.new())
 NpcCombatDef.add([2457,2884], Wallasalki.new())
 NpcCombatDef.add([2455,2888], DagannothMelee.new())
 NpcCombatDef.add([2456,2887], DagannothRange.new())
