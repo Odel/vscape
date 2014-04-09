@@ -253,7 +253,7 @@ public class ShopManager {
 		int avgPrice = calculateAverage(finalPricePerItem);
 		int finalPrice = avgPrice * itemsAboveZero;
 		
-		if (ItemManager.getInstance().getItemValue(itemId, "selltoshop") > 0) {
+		if (finalPrice > 0) {
 			player.getInventory().addItem(new Item(currency, finalPrice));
 		}
 		if (shop.isGeneralStore() && shopAmount < 1) {

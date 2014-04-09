@@ -1,3 +1,15 @@
+@dre@=APR 9=
+-Selling to shops fixed.
+@dbl@will no longer return 0gp for all items
+@dbl@the price will avg out before diminishing
+@dbl@to 0 and you will reviece the avg value 
+@dbl@for the items that were above 0.
+-Wallasalki have correct hp and combat scripts.
+-Dagannoths have correct hp and combat scripts.
+-Left shield halves have been removed from
+ the drop table for the time being.
+-Axe prices have been corrected.
+ 
 @dre@=APR 8=
 -diminishing returns in shops
 
