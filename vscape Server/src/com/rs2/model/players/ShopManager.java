@@ -196,45 +196,65 @@ public class ShopManager {
 		int shopAmount = shop.getCurrentStock().getCount(itemId);
 		player.getInventory().removeItem(new Item(itemId, amount));
 		int price = ItemManager.getInstance().getItemValue(itemId, "selltoshop");
+		
+		int curStock = 0;
 		int baseStock = 0;
 		if(shop.getStock().getById(itemId) != null)
 		{
 			baseStock = shop.getStock().getById(itemId).getCount();
 		}
-		int curStock = 0;
 		if(shop.getCurrentStock().getById(itemId) != null)
 		{
 			curStock = shop.getCurrentStock().getById(itemId).getCount();
 		}
-		if (shop.isGeneralStore()) {
+		int[] pricePerItem = new int[amount];
+		for(int i = 1; i <= amount; i++)
+		{
+			int itemPrice = price;
 			if(curStock >= 0 && baseStock == 0)
 			{
-				double diminish = diminishing_returns(amount + (curStock/10f), 0.003d);
+				double diminish = diminishing_returns((curStock+i)/3d, 0.003d);
 				if(diminish > 1)
 				{
-					price /= diminish;
+					itemPrice /= diminish;
 				}
 			}
-			else if(curStock >= (baseStock/2) && baseStock > 0)
+			else if(curStock >= 0 && baseStock > 0)
 			{
-				price /= (float)((amount / 10000f) + (curStock/baseStock));
+				double diminish = ((curStock+i)/baseStock);
+				if(diminish > 1)
+				{
+					itemPrice /= diminish;
+				}
 			}
-		} else {
-			if(curStock >= (baseStock/2) && baseStock > 0)
-			{
-				price /= (float)((amount / 10000f) + (curStock/baseStock));
+			if (shop.getCurrency() == 6529) {
+				itemPrice *= 1.5d;
 			}
+			pricePerItem[i-1] = itemPrice;
 		}
-		if(price <= 0)
+		int itemsAboveZero = 0;
+		int itemsZero = 0;
+		for(int i = 0; i < amount; i++)
 		{
-			price = 0;
+			if(pricePerItem[i] > 0)
+			{
+				itemsAboveZero++;
+			}
+			if(pricePerItem[i] <= 0)
+			{
+				itemsZero++;
+			}
 		}
-		if (shop.getCurrency() == 6529) {
-			price *= 1.5;
-			price = Math.round(price);
+		int[] finalPricePerItem = new int[itemsAboveZero];
+		for(int i = 0; i < itemsAboveZero; i++)
+		{
+			finalPricePerItem[i] = pricePerItem[i];
 		}
+		int avgPrice = calculateAverage(finalPricePerItem);
+		int finalPrice = avgPrice * itemsAboveZero;
+		
 		if (ItemManager.getInstance().getItemValue(itemId, "selltoshop") > 0) {
-			player.getInventory().addItem(new Item(currency, price * amount));
+			player.getInventory().addItem(new Item(currency, finalPrice));
 		}
 		if (shop.isGeneralStore() && shopAmount < 1) {
 			shop.getCurrentStock().add(new Item(itemId, amount));
@@ -245,11 +265,23 @@ public class ShopManager {
 		refreshAll(player.getShopId());
 		if((price * amount) > 1000)
 		{
-		LogHandler.logShop(player, shop.getName(), "Sold", new Item(itemId, amount), price * amount, ItemManager.getInstance().getItemName(currency));
+			LogHandler.logShop(player, shop.getName(), "Sold", new Item(itemId, amount), finalPrice, ItemManager.getInstance().getItemName(currency));
 		}
 	}
 	
-	 public static double diminishing_returns(double val, double scale) {
+	private static int calculateAverage(int[] items) {
+		  Integer sum = 0;
+		  if(items.length > 0) {
+		    for (Integer price : items) 
+		    {
+	    		sum += price;
+		    }
+		    return (int) sum.doubleValue() / items.length;
+		  }
+		  return sum;
+	}
+	
+	private static double diminishing_returns(double val, double scale) {
 	    if(val < 0)
 	        return -diminishing_returns(-val, scale);
 	    double mult = val / scale;
@@ -262,7 +294,7 @@ public class ShopManager {
 		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM) {
 			int price = ItemManager.getInstance().getItemValue(id, "buyfromshop");
 			if (shop.getCurrency() == 6529) {
-				price *= 1.5;
+				price *= 1.5d;
 				price = Math.round(price);
 			}
 			String currencyName = ItemManager.getInstance().getItemName(shop.getCurrency());
@@ -290,32 +322,28 @@ public class ShopManager {
 		{
 			curStock = shop.getCurrentStock().getById(id).getCount();
 		}
-		if (shop.isGeneralStore()) {
-			if(curStock >= 0 && baseStock == 0)
+		if(curStock >= 0 && baseStock == 0)
+		{
+			double diminish = diminishing_returns((curStock+1)/3d, 0.003d);
+			if(diminish > 1)
 			{
-				double diminish = diminishing_returns(1 + (curStock/10f), 0.003d);
-				if(diminish > 1)
-				{
-					price /= diminish;
-				}
+				price /= diminish;
 			}
-			else if(curStock >= (baseStock/2) && baseStock > 0)
+		}
+		else if(curStock >= 0 && baseStock > 0)
+		{
+			double diminish = ((curStock+1)/baseStock);
+			if(diminish > 1)
 			{
-				price /= (float)((1 / 10000f) + (curStock/baseStock));
+				price /= diminish;
 			}
-		} else {
-			if(curStock >= (baseStock/2) && baseStock > 0)
-			{
-				price /= (float)((1 / 10000f) + (curStock/baseStock));
-			}
+		}
+		if (shop.getCurrency() == 6529) {
+			price *= 1.5d;
 		}
 		if(price <= 0)
 		{
 			price = 0;
-		}
-		if (shop.getCurrency() == 6529) {
-			price *= 1.5;
-			price = Math.round(price);
 		}
 		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
 			ItemManager.getInstance().getItemName(shop.getCurrency());
