@@ -1,4 +1,4 @@
-package com.rs2.model.players;
+﻿package com.rs2.model.players;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -740,7 +740,7 @@ public class Player extends Entity {
 			}
 		} else if (keyword.equals("commands")) {
 			getActionSender().sendMessage("commands include ::outfit, ::yell, ::hideyell, ::hidecolor, ::home, ::players");
-			getActionSender().sendMessage("::changepass, ::patchnotes, ::report (name) (reason) and ::helpme");
+			getActionSender().sendMessage("::changepass, ::patchnotes, ::report (name) (reason) and ::panic");
 			
 		}
 		
