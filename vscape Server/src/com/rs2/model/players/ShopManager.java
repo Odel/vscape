@@ -263,7 +263,7 @@ public class ShopManager {
 		}
 		player.getInventory().refresh(3823);
 		refreshAll(player.getShopId());
-		if((price * amount) > 1000)
+		if(finalPrice > 1000)
 		{
 			LogHandler.logShop(player, shop.getName(), "Sold", new Item(itemId, amount), finalPrice, ItemManager.getInstance().getItemName(currency));
 		}
