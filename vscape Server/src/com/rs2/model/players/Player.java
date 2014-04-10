@@ -1,4 +1,4 @@
-﻿package com.rs2.model.players;
+package com.rs2.model.players;
 
 import java.io.BufferedWriter;
 import java.io.File;
