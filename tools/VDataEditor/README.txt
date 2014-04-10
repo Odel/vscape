@@ -1,5 +1,7 @@
 PUT APP & DLL INTO datajson folder
 
 BACK UP DATAJSON BEFORE USING.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NPC DROP EDITOR MAY BE IFFY USE CAREFULLY
 
 W O R K  I N  P R O G R E S S
