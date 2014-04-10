@@ -40,6 +40,7 @@ import com.rs2.model.content.skills.thieving.ThieveOther;
 import com.rs2.model.content.skills.thieving.ThieveStalls;
 import com.rs2.model.content.skills.Woodcutting.ChopTree;
 import com.rs2.model.content.skills.Woodcutting.ChopTree.Tree;
+import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.treasuretrails.AnagramsScrolls;
 import com.rs2.model.content.treasuretrails.MapScrolls;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
@@ -232,6 +233,16 @@ public class WalkToActionHandler {
 				 */
 				if (Tree.getTree(id) != null) {
 					ChopTree.handle(player, id, x, y);
+					this.stop();
+					return;
+				}
+				if(Canoe.canoeStation(player, id))
+				{
+					this.stop();
+					return;
+				}
+				if(Canoe.useCanoe(player, id))
+				{
 					this.stop();
 					return;
 				}

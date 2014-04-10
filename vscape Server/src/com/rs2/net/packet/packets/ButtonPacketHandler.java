@@ -14,6 +14,7 @@ import com.rs2.model.content.skills.Crafting.Spinning;
 import com.rs2.model.content.skills.Crafting.Tanning;
 import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
+import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.cooking.FlourRelated;
@@ -28,7 +29,6 @@ import com.rs2.model.transport.GnomeGlider;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
-
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.item.Item;
 
@@ -640,6 +640,14 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (Smelting.handleSmelting(player, buttonId, 0)) {
+			return;
+		}
+		if(Canoe.craftCanoe(player, buttonId))
+		{
+			return;
+		}
+		if(Canoe.travelCanoe(player, buttonId))
+		{
 			return;
 		}
         if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)

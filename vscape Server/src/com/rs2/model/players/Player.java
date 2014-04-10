@@ -70,6 +70,7 @@ import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickH
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
+import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.Wine;
@@ -372,6 +373,8 @@ public class Player extends Entity {
 	
 	public int drunkTimer;
 	public boolean isDrunk;
+	
+	public CanoeStationData curCanoeStation;
 
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -3472,6 +3475,16 @@ public class Player extends Entity {
 
 	public int getSmithInterface() {
 		return smithInterface;
+	}
+	
+	public void setCanoeStation(CanoeStationData newStation)
+	{
+		curCanoeStation = newStation;
+	}
+	
+	public CanoeStationData getCanoeStation()
+	{
+		return curCanoeStation;
 	}
 
 	public int getStandAnim() {
