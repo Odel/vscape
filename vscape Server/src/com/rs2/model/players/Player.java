@@ -579,7 +579,7 @@ public class Player extends Entity {
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
             return;
-		setLogoutTimer(System.currentTimeMillis() + 420000);
+		setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
