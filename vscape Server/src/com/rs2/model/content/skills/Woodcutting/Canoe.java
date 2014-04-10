@@ -119,14 +119,15 @@ public class Canoe {
 		}
 		if(canoeTravelData.destButtonId == buttonId)
 		{
-			player.getActionSender().removeInterfaces();
+			player.getActionSender().sendInterface(18221);
 			player.setStopPacket(true);
 			final Position newPos = new Position(canoeTravelData.destX, canoeTravelData.destY);
-	        final Tick travelFinish = new Tick(1) {
+	        final Tick travelFinish = new Tick(5) {
 	            @Override
 	            public void execute() {
 	            	player.teleport(newPos);
 	                player.setStopPacket(false);
+	                player.getActionSender().removeInterfaces();
 	                stop();
 	            }
 	        };
