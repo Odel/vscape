@@ -23,7 +23,7 @@ public class MapScrolls {
 		FALADOR_ROCK(2722, 7271, new Position(3043, 3399), false, 2),
 		DRAYNOR(2827, 7113, new Position(3092, 3226), false, 2),
 		GOBLIN_VILLAGE(2829, 9454, new Position(2459, 3179), true, 3),
-		NECROMANCER(3516, 9632, new Position(2653, 3233), false, 3),
+		NECROMANCER(3516, 9632, new Position(2650, 3230), false, 3),
 		LUMBERYARD(3518, 7221, new Position(3309, 3503), true, 1),
 		VARROCK_MINE(3520, 7045, new Position(3290, 3373), false, 1),
 		YANILLE(3522, 9040, new Position(2616, 3077), false, 1),
