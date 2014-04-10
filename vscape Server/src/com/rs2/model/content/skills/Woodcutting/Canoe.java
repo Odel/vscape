@@ -22,7 +22,6 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
-
 import com.rs2.model.Position;
 import com.rs2.model.tick.Tick;
 import com.rs2.model.World;
@@ -86,20 +85,19 @@ public class Canoe {
 	}
 	
 	public enum CanoeData {
-		LOG("Log", 71028, 12147, 12, 0);
+		LOG("Log", 71028, 12147, 12),
+		Dugout("Dugout", 71029, 12148, 27);
 		
 		private String name;
 		private int buttonID;
 		private int objectID;
 		private int level;
-	 	private double xp;
 	
-		CanoeData(String name, int buttonID, int objectID, int level, double xp) {
+		CanoeData(String name, int buttonID, int objectID, int level) {
 			this.name = name;
 			this.buttonID = buttonID;
 			this.objectID = objectID;
 			this.level = level;
-			this.xp = xp;
 		}
 		
 		public static CanoeData forButtonId(int buttonID) {
@@ -150,24 +148,57 @@ public class Canoe {
 		return false;
 	}
 
-	public static boolean craftCanoe(Player player, int buttonID)
+	public static boolean craftCanoe(final Player player, int buttonID)
 	{
-		CanoeData canoe = CanoeData.forButtonId(buttonID);
+		final CanoeData canoe = CanoeData.forButtonId(buttonID);
 		if(canoe == null)
 		{
 			return false;
 		}
 		if(canoe.buttonID == buttonID)
 		{
+			final Tool axe = Tools.getTool(player, Skill.WOODCUTTING);
+			if(axe == null) {
+				player.getActionSender().sendMessage("You do not have an axe which you have the woodcutting level to use.");
+				return false;
+			}
 			if (!SkillHandler.hasRequiredLevel(player, Skill.WOODCUTTING, canoe.level, "make this")) {
 				return false;
 			}
 			player.getActionSender().removeInterfaces();
-			player.getActionSender().sendMessage("You craft the tree into a " + canoe.name);
-			CanoeStationData curCanoeStation = player.getCanoeStation();
-			int face = SkillHandler.getFace(curCanoeStation.stationID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ());
-			new GameObject(canoe.objectID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ(), face, 10, curCanoeStation.stationID, 10);
-			player.setCanoeStation(null);
+			player.getActionSender().sendMessage("You swing your axe at the tree");
+			player.getActionSender().sendSound(472, 0, 0);
+			player.getUpdateFlags().sendAnimation(axe.getAnimation(), 0);
+			final int task = player.getTask();
+			player.setSkilling(new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (!player.checkTask(task)) {
+						container.stop();
+						return;
+					}
+					if (SkillHandler.skillCheck(player.getSkill().getLevel()[Skill.WOODCUTTING], canoe.level, axe.getBonus())) {
+						if (Misc.random(100) <= 100) 
+						{
+							player.getActionSender().sendMessage("You craft the tree into a " + canoe.name);
+							CanoeStationData curCanoeStation = player.getCanoeStation();
+							int face = SkillHandler.getFace(curCanoeStation.stationID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ());
+							new GameObject(canoe.objectID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ(), face, 10, curCanoeStation.stationID, 10);
+							player.setCanoeStation(null);
+							container.stop();
+							return;
+						}
+					}
+					player.getActionSender().sendSound(472, 0, 0);
+					player.getUpdateFlags().sendAnimation(axe.getAnimation(), 0);
+				}
+				@Override
+				public void stop() {
+					player.getMovementHandler().reset();
+					player.getUpdateFlags().sendAnimation(-1, 0);
+				}
+			});
+			CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 3);
 			return true;
 		}
 		
