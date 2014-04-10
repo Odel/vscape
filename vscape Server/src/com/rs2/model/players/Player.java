@@ -1236,7 +1236,7 @@ public class Player extends Entity {
 			MagicCarpet.ride(this, pos);
 		}
 		else if (keyword.equals("ranim")) {
-			int animationId = (int)Misc.random(1000);
+			int animationId = (int)Misc.random(3000);
 			getUpdateFlags().sendAnimation(animationId, 0);
 			getActionSender().sendMessage("Animation #" + animationId);
 		}
