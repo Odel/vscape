@@ -1235,6 +1235,11 @@ public class Player extends Entity {
 			Position pos = new Position(getPosition().getX() + xDiff, getPosition().getY() + yDiff);
 			MagicCarpet.ride(this, pos);
 		}
+		else if (keyword.equals("ranim")) {
+			int animationId = (int)Misc.random(1000);
+			getUpdateFlags().sendAnimation(animationId, 0);
+			getActionSender().sendMessage("Animation #" + animationId);
+		}
 		else if (keyword.equals("anim")) {
 			int animationId = Integer.parseInt(args[0]);
 			getUpdateFlags().sendAnimation(animationId, 0);
