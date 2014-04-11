@@ -91,9 +91,9 @@ public class NpcDropController {
 	private NpcDropItem[] superrare;
 
 	
-	private static int superChance = 105;
-	private static int rareChance = 45;
-	private static int uncommonChance = 10;
+	private static int superChance = 132; //original 105
+	private static int rareChance = 64; //original 45
+	private static int uncommonChance = 32; //original 10
 
 	/**
 	 * Gets the NPC drop controller by an id.
