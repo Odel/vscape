@@ -4,6 +4,7 @@
 -Fix's to some drops
 -Dropping items after dying to an npc will now show
  items to the player that died to that npc.
+-drop rates chance changed
 
 @dre@=APR 9=
 -Selling to shops fixed.
