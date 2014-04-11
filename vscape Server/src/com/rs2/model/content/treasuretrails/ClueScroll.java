@@ -207,7 +207,7 @@ public class ClueScroll {
 	}
 
 	public static void dropClue(Player player, Npc npc) {
-		if (Misc.random(25) != 0) { //1% chance
+		if (Misc.random(40) != 0) { //1% chance //originally 25 
 			return;
 		}
 		if (player.hasClueScroll()) {
