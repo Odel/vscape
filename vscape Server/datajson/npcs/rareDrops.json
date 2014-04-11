@@ -63,7 +63,7 @@
       "count": [
         1
       ],
-      "chance": 4
+      "chance": 6
     },
 	{
       "id": 443,
@@ -71,7 +71,7 @@
         50,
 		100
       ],
-      "chance": 4
+      "chance": 6
     },
 	{
       "id": 1452,
@@ -121,28 +121,28 @@
       "count": [
         1
       ],
-      "chance": 4
+      "chance": 6
     },
 	{
       "id": 1319,
       "count": [
         1
       ],
-      "chance": 4
+      "chance": 6
     },
 	{
       "id": 1373,
       "count": [
         1
       ],
-      "chance": 4
+      "chance": 6
     },
 	{
       "id": 1149,
       "count": [
         1
       ],
-      "chance": 6
+      "chance": 8
     },
 	{
       "id": 1201,
