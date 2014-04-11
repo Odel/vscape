@@ -35686,7 +35686,7 @@
   {
     "id": 1622,
     "name": "Rockslug",
-    "examine": "He\u0027s one leg short!",
+    "examine": "The slime of evil",
     "respawn": 10,
     "combat": 29,
     "hitpoints": 27,
@@ -35708,7 +35708,7 @@
   {
     "id": 1623,
     "name": "Rockslug",
-    "examine": "He\u0027s one big leg short!",
+    "examine": "The slime of evil.",
     "respawn": 10,
     "combat": 29,
     "hitpoints": 27,
@@ -35884,7 +35884,7 @@
   {
     "id": 1631,
     "name": "Turoth",
-    "examine": "The slime of evil.",
+    "examine": "He\u0027s one big leg short!",
     "respawn": 10,
     "combat": 88,
     "hitpoints": 10,
@@ -35906,7 +35906,7 @@
   {
     "id": 1632,
     "name": "Turoth",
-    "examine": "The slime of evil.",
+    "examine": "He\u0027s one big leg short!",
     "respawn": 10,
     "combat": 88,
     "hitpoints": 10,
