@@ -29,8 +29,7 @@ public class NpcDropController {
 	 * The map containing all the npc drops. ;)
 	 */
 	private static Map<Integer, NpcDropController> dropControllers = null;
-	private static NpcDropController rareTable;
-
+	
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		FileReader rareReader = new FileReader("./datajson/npcs/rareDrops.json");
@@ -38,7 +37,7 @@ public class NpcDropController {
 		{	
 			rareTable = new Gson().fromJson(rareReader, new TypeToken<NpcDropController>(){}.getType());
 			rareReader.close();
-			System.out.println("Loaded " + rareTable.drops.size() + " rare drops.");
+			System.out.println("Loaded " + rareTable.drops.length + " rare drops.");
 		} catch (IOException e) {
 			rareReader.close();
 			System.out.println("failed to load rareDrops json.");
@@ -50,13 +49,6 @@ public class NpcDropController {
 			List<NpcDropController> list = new Gson().fromJson(reader, new TypeToken<List<NpcDropController>>(){}.getType());
 			dropControllers = new HashMap<Integer, NpcDropController>();
 			for (NpcDropController npcDrop : list) {
-				if(npcDrop.rareTableAccess)
-				{
-					for(NpcDropItem rareItem : rareTable.drops)
-					{
-						npcDrop.drops.add(rareItem);
-					}
-				}
 				dropControllers.put(npcDrop.getNpcId(), npcDrop);
 			}
 			reader.close();
@@ -82,15 +74,20 @@ public class NpcDropController {
 	/**
 	 * All the drops that belongs to this class.
 	 */
-	//private NpcDropItem[] drops;
-	private List<NpcDropItem> drops;
-	
+	private NpcDropItem[] drops;
 	private NpcDropItem[] common;
 	private NpcDropItem[] uncommon;
 	private NpcDropItem[] rare;
 	private NpcDropItem[] superrare;
+	
+	private static NpcDropController rareTable;
+	private NpcDropItem[] rareTableCommon;
+	private NpcDropItem[] rareTableUncommon;
+	private NpcDropItem[] rareTableRare;
+	private NpcDropItem[] rareTableSuperrare;
 
 	private static int superChance = 164; //original 105
+	private static int rareTableChance = 90;
 	private static int rareChance = 74; //original 45
 	private static int uncommonChance = 32; //original 10
 
@@ -104,7 +101,7 @@ public class NpcDropController {
 	}
 
 	public NpcDropItem[] getDropList() {
-		return (NpcDropItem[])drops.toArray();
+		return drops;
 	}
 
 	/**
@@ -127,6 +124,23 @@ public class NpcDropController {
 		Item dropItem = null;
 		if (superrare != null && Misc.random(superChance) == 0) {
 			drop = superrare[Misc.randomMinusOne(superrare.length)];
+		}else if (rareTable != null && Misc.random(rareTableChance) == 0) {
+			if(rareTableAccess)
+			{
+				if (rareTableSuperrare != null && Misc.random(superChance) == 0) {
+					drop = rareTableSuperrare[Misc.randomMinusOne(rareTableSuperrare.length)];
+				}else if (rareTableRare != null && Misc.random(rareChance) == 0) {
+					drop = rareTableRare[Misc.randomMinusOne(rareTableRare.length)];
+				} else if (rareTableUncommon != null && Misc.random(uncommonChance) == 0) {
+					drop = rareTableUncommon[Misc.randomMinusOne(rareTableUncommon.length)];
+				} else if (rareTableCommon != null) {
+					drop = rareTableCommon[Misc.randomMinusOne(rareTableCommon.length)];
+				} else {
+					length--;
+				}
+			} else {
+				length--;
+			}
 		} else if (rare != null && Misc.random(rareChance) == 0) {
 			drop = rare[Misc.randomMinusOne(rare.length)];
 		} else if (uncommon != null && Misc.random(uncommonChance) == 0) {
@@ -192,6 +206,46 @@ public class NpcDropController {
 				r2++;
 			} else if (item.getChance() == 5) {
 				superrare[s2] = drop;
+				s2++;
+			}
+		}
+		if(rareTableAccess)
+		{
+			setRareTables();
+		}
+	}
+	
+	public void setRareTables() {
+		int c = 0, u = 0, r = 0, s = 0;
+		for (NpcDropItem item : rareTable.drops) {
+			if (item.getChance() == 2) {
+				c++;
+			} else if (item.getChance() == 3) {
+				u++;
+			} else if (item.getChance() == 4 || item.getChance() == 6 || item.getChance() == 8) {
+				r++;
+			} else if (item.getChance() == 5) {
+				s++;
+			}
+		}
+		int c2 = 0, u2 = 0, r2 = 0, s2 = 0;
+		rareTableCommon = c > 0 ? new NpcDropItem[c] : null;
+		rareTableUncommon = u > 0 ? new NpcDropItem[u] : null;
+		rareTableRare = r > 0 ? new NpcDropItem[r] : null;
+		rareTableSuperrare = s > 0 ? new NpcDropItem[s] : null;
+		for (NpcDropItem item : rareTable.drops) {
+			NpcDropItem drop = item;
+			if (item.getChance() == 2) {
+				rareTableCommon[c2] = drop;
+				c2++;
+			} else if (item.getChance() == 3) {
+				rareTableUncommon[u2] = drop;
+				u2++;
+			} else if (item.getChance() == 4 || item.getChance() == 6 || item.getChance() == 8) {
+				rareTableRare[r2] = drop;
+				r2++;
+			} else if (item.getChance() == 5) {
+				rareTableSuperrare[s2] = drop;
 				s2++;
 			}
 		}
