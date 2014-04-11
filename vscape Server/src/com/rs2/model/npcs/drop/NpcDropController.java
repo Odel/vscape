@@ -29,19 +29,34 @@ public class NpcDropController {
 	 * The map containing all the npc drops. ;)
 	 */
 	private static Map<Integer, NpcDropController> dropControllers = null;
+	private static NpcDropController rareTable;
 
 	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
-	//	List<NpcDropController> list = (List<NpcDropController>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDrops.xml"));
+		FileReader rareReader = new FileReader("./datajson/npcs/rareDrops.json");
+		try
+		{	
+			rareTable = new Gson().fromJson(rareReader, new TypeToken<NpcDropController>(){}.getType());
+			rareReader.close();
+			System.out.println("Loaded " + rareTable.drops.size() + " rare drops.");
+		} catch (IOException e) {
+			rareReader.close();
+			System.out.println("failed to load rareDrops json.");
+		}
+		
 		FileReader reader = new FileReader("./datajson/npcs/npcDrops.json");
 		try
 		{	
 			List<NpcDropController> list = new Gson().fromJson(reader, new TypeToken<List<NpcDropController>>(){}.getType());
 			dropControllers = new HashMap<Integer, NpcDropController>();
 			for (NpcDropController npcDrop : list) {
-				/*for (int id : npcDrop.getNpcIds()) {
-					dropControllers.put(id, npcDrop);
-				}*/
+				if(npcDrop.rareTableAccess)
+				{
+					for(NpcDropItem rareItem : rareTable.drops)
+					{
+						npcDrop.drops.add(rareItem);
+					}
+				}
 				dropControllers.put(npcDrop.getNpcId(), npcDrop);
 			}
 			reader.close();
@@ -62,11 +77,13 @@ public class NpcDropController {
 	 * The id's of the NPC's that "owns" this class.
 	 */
 	private int npcId;
+	private boolean rareTableAccess = false;
 
 	/**
 	 * All the drops that belongs to this class.
 	 */
-	private NpcDropItem[] drops;
+	//private NpcDropItem[] drops;
+	private List<NpcDropItem> drops;
 	
 	private NpcDropItem[] common;
 	private NpcDropItem[] uncommon;
@@ -77,11 +94,7 @@ public class NpcDropController {
 	private static int superChance = 105;
 	private static int rareChance = 45;
 	private static int uncommonChance = 10;
-	 
-	
-	//private static int superChance = 200;
-//	private static int rareChance = 101;
-	//private static int uncommonChance = 65;
+
 	/**
 	 * Gets the NPC drop controller by an id.
 	 * 
@@ -92,7 +105,7 @@ public class NpcDropController {
 	}
 
 	public NpcDropItem[] getDropList() {
-		return drops;
+		return (NpcDropItem[])drops.toArray();
 	}
 
 	/**

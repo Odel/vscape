@@ -110329,6 +110329,7 @@
   },
   {
     "npcId": 1618,
+	"rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -110521,6 +110522,7 @@
   },
   {
     "npcId": 1619,
+	"rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -110713,6 +110715,7 @@
   },
   {
     "npcId": 1620,
+	"rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -111008,6 +111011,7 @@
   },
   {
     "npcId": 1621,
+	"rareTableAccess": true,
     "drops": [
       {
         "id": 526,
