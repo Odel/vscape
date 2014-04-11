@@ -73,14 +73,14 @@ public class CrossObstacle {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getSkill().addExp(Skill.AGILITY, xp);
-		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				if (stopPacket) {
 					player.setStopPacket(false);
 				}
-				player.isCrossingObstacle = false;
-				player.teleport(new Position(endX, endY, endZ));
 				player.getUpdateFlags().resetForceMovement();
+		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
+				player.isCrossingObstacle = false;
+				player.getSkill().addExp(Skill.AGILITY, xp);
+				player.teleport(new Position(endX, endY, endZ));
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 				player.setAppearanceUpdateRequired(true);

@@ -22,6 +22,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Crafting.Tanning;
+import com.rs2.model.content.skills.agility.ShortcutHandler;
 import com.rs2.model.content.skills.agility.CrossObstacle;
 import com.rs2.model.content.skills.farming.Farming;
 import com.rs2.model.content.skills.fishing.Fishing;
@@ -246,6 +247,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if (ShortcutHandler.handleShortcut(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				if (MineOre.miningRocks(id)) {
 					if (player.getMining().canMine(id)) {
 						player.getMining().startMining(id, x, y);
@@ -423,11 +428,11 @@ public class WalkToActionHandler {
 				case 5259 : // port phays entrance
 					player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -1, true);
 					break;
-				case 2618 : // lumberyard fence (russian fence)
+			/*	case 2618 : // lumberyard fence (russian fence)
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(839);
 					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3493 ? 1 : -1, 1, 80, 2, true, 0, 0); //exp is currently 0
-					break;
+					break;*/
 				case 2295 : // gnome log
 					//player.movePlayer(player.getPosition());
 					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3436 ? 1 : -6, 1, 80, 2, true, 2, 0); // exp is set to 2 because 2.5k is ridiculous
