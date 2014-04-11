@@ -166,9 +166,9 @@ public class NpcDropController {
 		superrare = s > 0 ? new NpcDropItem[s] : null;
 		for (NpcDropItem item : drops) {
 			NpcDropItem drop = item;
-			if ((drop.getCount().length > 1 || drop.getCount()[0] > 1) && !drop.getItem().getDefinition().isStackable() && drop.getItem().getDefinition().isNoteable()) {
+			/*if ((drop.getCount().length > 1 || drop.getCount()[0] > 1) && !drop.getItem().getDefinition().isStackable() && drop.getItem().getDefinition().isNoteable()) {
 				drop.setNoted();
-			}
+			}*/
 			if (item.getChance() == 2) {
 				common[c2] = drop;
 				c2++;
