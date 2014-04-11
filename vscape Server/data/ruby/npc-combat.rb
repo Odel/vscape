@@ -85,6 +85,7 @@ class CommonDragon < NpcCombatDef
     def attackScripts attacker, victim
         return [
 		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 10, 5, 80),
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 12, 5, 80),
 			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE, 10, 10, 81, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL),
 			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 10, 10, 81, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL)
         ];
@@ -94,7 +95,8 @@ end
 class MetalDragon < NpcCombatDef
     def attackScripts attacker, victim
         return [
-		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 20, 5, 80),
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 15, 5, 80),
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 20, 5, 80),
 			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE, 10, 10, 81, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL),
 			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 10, 10, 81, Graphic.new(1, 0), Graphic.new(-1, 0), 0, ProjectileTrajectory.SPELL)
         ];
