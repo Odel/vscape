@@ -3348,7 +3348,7 @@ public class Player extends Entity {
 		if (killer == null) {
 			killer = this;
 		}
-		if (killer.isNpc() || !killer.isPlayer()) {
+		if (!killer.isPlayer()) {
 			killer = this;
 		}
 		Item[] items = new Item[equipment.getItemContainer().capacity() + inventory.getItemContainer().capacity()];
