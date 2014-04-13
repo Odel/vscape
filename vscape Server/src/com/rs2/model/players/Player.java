@@ -3348,7 +3348,7 @@ public class Player extends Entity {
 		if (killer == null) {
 			killer = this;
 		}
-		if (killer.isNpc()) {
+		if (killer.isNpc() || !killer.isPlayer()) {
 			killer = this;
 		}
 		Item[] items = new Item[equipment.getItemContainer().capacity() + inventory.getItemContainer().capacity()];
@@ -3379,7 +3379,7 @@ public class Player extends Entity {
 			if (dropped == null)
 				continue;
 			if (!dropped.getDefinition().isUntradable()) {
-	            GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
+				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
 			}
 			else
