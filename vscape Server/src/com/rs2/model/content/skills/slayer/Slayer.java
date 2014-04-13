@@ -106,7 +106,7 @@ public class Slayer { // todo fungicide
 		MAZCHNA(1596, 20, 200, "Canifis", Slayer.CANIFIS_ASSIGNMENTS),
 		VANNAKA(1597, 40, 200, "Edgeville dungeon", Slayer.EDGEVILLE_DUNGEON_ASSIGNMENTS),
 		CHAELDAR(1598, 70, 60, "Zanaris", Slayer.ZANARIS_ASSIGNMENTS),
-		DURADEL(1599, 100, 100, "Shilo village", Slayer.SHILO_VILLAGE_ASSIGNMENTS);
+		DURADEL(1599, 100, 200, "Shilo village", Slayer.SHILO_VILLAGE_ASSIGNMENTS);
 
 		private int masterId;
 		private int maxAmountTask;
