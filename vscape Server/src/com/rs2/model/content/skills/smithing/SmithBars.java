@@ -188,7 +188,7 @@ public class SmithBars {
 					} else {
 						player.getInventory().addItem(new Item(item, 1));
 					}
-					player.getSkill().addExp(Skill.SMITHING, smithInfo[id][1] + 12 * player.getSmithInterface() + 0.5);
+					player.getSkill().addExp(Skill.SMITHING, smithInfo[id][1] + 12.5 * smithInfo[id][2] * player.getSmithInterface() + 0.5);
 					if (player.getNewComersSide().isInTutorialIslandStage()) {
 						if (player.getNewComersSide().getTutorialIslandStage() == 36)
 							player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);

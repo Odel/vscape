@@ -1,10 +1,13 @@
 @dre@=APR ?=
+-Smithing xp fixed.
+
+@dre@=APR 11=
 -Basic Canoe system.
 -Most slayer npc's have had their animations fixed.
 -Fix's to some drops
 -Dropping items after dying to an npc will now show
  items to the player that died to that npc.
--drop rates chance changed
+-Changed drop rates
 
 @dre@=APR 9=
 -Selling to shops fixed.
