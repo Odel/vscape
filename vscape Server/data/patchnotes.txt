@@ -1,5 +1,6 @@
-@dre@=APR ?=
+@dre@=APR 13=
 -Smithing xp fixed.
+-xp values for 24 Spells fixed.
 
 @dre@=APR 11=
 -Basic Canoe system.
