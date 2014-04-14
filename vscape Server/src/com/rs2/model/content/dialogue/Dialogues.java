@@ -801,7 +801,7 @@ public class Dialogues {
 										break;
 									case 4: // shield temp stuff
 										player.getDialogue().sendNpcChat("Sure, It will cost you 1000 coins.", CONTENT);
-										break;
+										return true;
 									case 5:
 										player.getDialogue().sendOption("Ok, here you go.", "Nevermind.");
 										return true;
@@ -909,7 +909,7 @@ public class Dialogues {
 								break;
 							case 4: // shield temp stuff
 								player.getDialogue().sendNpcChat("Sure, It will cost you 1000 coins.", CONTENT);
-								break;
+								return true;
 							case 5:
 								player.getDialogue().sendOption("Ok, here you go.", "Nevermind.");
 								return true;
@@ -967,7 +967,7 @@ public class Dialogues {
 								break;
 							case 4: // shield temp stuff
 								player.getDialogue().sendNpcChat("Sure, It will cost you 1000 coins.", CONTENT);
-								break;
+								return true;
 							case 5:
 								player.getDialogue().sendOption("Ok, here you go.", "Nevermind.");
 								return true;
