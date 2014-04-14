@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.runecrafting.RunecraftAltars.Altar;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -14,6 +15,11 @@ public class Tiaras {
 		}
 		if (!Constants.RUNECRAFTING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return false;
+		}
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
 			return false;
 		}
 		if (player.getInventory().playerHasItem(5525)) {

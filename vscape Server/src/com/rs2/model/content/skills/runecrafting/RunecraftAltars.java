@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.runecrafting.Runecrafting.Runes;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.ItemManager;
@@ -221,12 +222,22 @@ public class RunecraftAltars {
 		}
 		Altar ruinAltar = getAltarRuinId(objectId);
 		if (ruinAltar != null) {
+			if(!QuestHandler.questCompleted(player, 5))
+			{
+				player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+				return false;
+			}
 			player.sendTeleport(ruinAltar.getXAltar(), ruinAltar.getYAltar(), 0);
 			player.getActionSender().sendMessage("You feel a powerful force take hold of you...");
 			return true;
 		}
 		Altar portalAltar = getAltarPortalId(objectId);
 		if (portalAltar != null) {
+			if(!QuestHandler.questCompleted(player, 5))
+			{
+				player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+				return false;
+			}
 			if (objectId == 2471 && !player.hasKilledTreeSpirit()) {
 				player.sendTeleport(3201, 3169, 0);
 			} else if (objectId == 2472 && player.hasCombatEquipment()) {
@@ -247,6 +258,11 @@ public class RunecraftAltars {
 		}
 		if (!Constants.RUNECRAFTING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return false;
+		}
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
 			return false;
 		}
 		player.getActionSender().sendMessage("You hold the " + ItemManager.getInstance().getItemName(altar.getTalisman()) + " towards the mysterious ruins.");

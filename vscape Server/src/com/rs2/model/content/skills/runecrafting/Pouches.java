@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -16,6 +17,11 @@ public class Pouches {
 			if (itemId == POUCHES[i][0]) {
 				if (!Constants.RUNECRAFTING_ENABLED) {
 					player.getActionSender().sendMessage("This skill is currently disabled.");
+					return false;
+				}
+				if(!QuestHandler.questCompleted(player, 5))
+				{
+					player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
 					return false;
 				}
 				if (level < POUCHES[i][2]) {
@@ -54,6 +60,11 @@ public class Pouches {
 					player.getActionSender().sendMessage("This skill is currently disabled.");
 					return;
 				}
+				if(!QuestHandler.questCompleted(player, 5))
+				{
+					player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+					return;
+				}
 				if (player.getPouchData(i) > 0) {
 					if (player.getInventory().getItemContainer().freeSlots() >= player.getPouchData(i)) {
 						player.getInventory().addItem(new Item(7936, player.getPouchData(i)));
@@ -75,6 +86,11 @@ public class Pouches {
 			if (itemId == POUCHES[i][0]) {
 				if (!Constants.RUNECRAFTING_ENABLED) {
 					player.getActionSender().sendMessage("This skill is currently disabled.");
+					return;
+				}
+				if(!QuestHandler.questCompleted(player, 5))
+				{
+					player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
 					return;
 				}
 				if (player.getPouchData(i) > 0) {

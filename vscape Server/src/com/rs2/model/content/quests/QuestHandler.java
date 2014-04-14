@@ -30,7 +30,8 @@ public class QuestHandler {
     	new TheKnightsSword(),
     	new TheRestlessGhost(),
     	new DoricsQuest(),
-    	new ImpCatcher()
+    	new ImpCatcher(),
+    	new RuneMysteries()
     };
     
     public static void init() {
@@ -77,6 +78,18 @@ public class QuestHandler {
             quest.startQuest(player);
         }
     }
+    
+    public static boolean questCompleted(Player player, int questID) {
+        Quest quest = quests[questID];
+        if (quest == null) {
+            return false;
+        }
+        if(quest.questCompleted(player))
+        {
+        	return true;
+        }
+        return false;
+    }
 
     public static void completeQuest(Player player, int questID) {
         Quest quest = quests[questID];
@@ -103,6 +116,9 @@ public class QuestHandler {
         		return true;
         	case 28172: //Imp Catcher
         		showInterface(player,quests[4]);
+        		return true;
+        	case 28167: //Rune mysteries
+        		showInterface(player,quests[5]);
         		return true;
         }
         return false;

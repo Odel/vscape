@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.mining;
 
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
@@ -12,6 +13,11 @@ import com.rs2.model.tick.CycleEventHandler;
 public class MineEssence {
 
 	public static void startMiningEss(final Player player) {
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+			return;
+		}
 		final Tool pickaxe = Tools.getTool(player, Skill.MINING);
 		if (pickaxe == null) {
 			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");

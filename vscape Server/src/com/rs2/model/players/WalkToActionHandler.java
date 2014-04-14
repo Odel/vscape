@@ -1416,6 +1416,7 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (Shops.findShop(player, player.getClickId()) > 0) {
+					if(player.getClickId() != 553)
 					Dialogues.sendDialogue(player, 10008, 1, 0, player.getClickId());
 					this.stop();
 					return;

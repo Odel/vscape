@@ -8,6 +8,7 @@ import com.rs2.model.content.skills.runecrafting.RunecraftAltars.Altar;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.content.quests.QuestHandler;
 
 /**
  * Runecrafting class
@@ -63,6 +64,11 @@ public class Runecrafting {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+			return;
+		}
 		if (!SkillHandler.hasRequiredLevel(player, Skill.RUNECRAFTING, rune.getLevel(), "craft this rune")) {
 			return;
 		}
@@ -98,6 +104,11 @@ public class Runecrafting {
 	}
 
 	public static void teleportRunecraft(final Player player, final Npc npc) {
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+			return;
+		}
 		player.setRunecraftNpc(npc.getNpcId());
 		npc.teleportPlayerRunecraft(player, 2911, 4832, 0, "Senventior disthine molenko!");
 	}
