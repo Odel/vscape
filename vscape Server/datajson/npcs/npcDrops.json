@@ -4906,18 +4906,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 526,
+        "id": 300,
         "count": [
           1
         ],
         "chance": 1
-      },
-      {
-        "id": 7836,
-        "count": [
-          1
-        ],
-        "chance": 2
       }
     ]
   },
@@ -171298,18 +171291,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 526,
+        "id": 300,
         "count": [
           1
         ],
         "chance": 1
-      },
-      {
-        "id": 7836,
-        "count": [
-          1
-        ],
-        "chance": 2
       }
     ]
   },
@@ -188196,7 +188182,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 1373,

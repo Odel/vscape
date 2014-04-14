@@ -4180,6 +4180,144 @@ public class Dialogues {
 				}
 			break;
 			//----Dorics quest end-----///
+			//witchs potion
+			case 307:
+				switch(player.getQuestStage(6))
+				{
+					case 0:
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								player.getDialogue().sendNpcChat("Ara Ara~","What could you want with an old woman like me?", CONTENT);
+							return true;
+							case 2:
+								player.getDialogue().sendOption("I am in search of a quest.", "N-nothing, sorry.");
+							return true;
+							case 3:
+								 switch(optionId) {
+									 case 1:
+										 player.getDialogue().sendPlayerChat("I am in search of a quest.", CONTENT);
+										 player.getDialogue().setNextChatId(4);
+									 return true;
+									 case 2 :
+										 player.getDialogue().sendPlayerChat("N-nothing, sorry.", CONTENT);
+										 player.getDialogue().endDialogue();
+									 return true;
+								 }
+							 break;
+							case 4:
+								player.getDialogue().sendNpcChat("Hmmm... Maybe i can think of something for you.", CONTENT);
+							return true;
+							case 5:
+								player.getDialogue().sendNpcChat("Would you like to become more proficient in the dark","arts?", CONTENT);
+							return true;
+							case 6:
+								player.getDialogue().sendPlayerChat("Dark arts? What you mean improve my magic?", CONTENT);
+							return true;
+							case 7:
+								player.getDialogue().sendStatement("The witch sighs.");
+							return true;
+							case 8:
+								player.getDialogue().sendNpcChat("Yes, improve your magic...", CONTENT);
+							return true;
+							case 9:
+								player.getDialogue().sendNpcChat("Do you have no sense of drama?", CONTENT);
+							return true;
+							case 10:
+								player.getDialogue().sendOption("Yes I'd like to improve my magic.", "No I'm not interested.");
+							return true;
+							case 11:
+								 switch(optionId) {
+									 case 1:
+										 player.getDialogue().sendPlayerChat("Yes I'd like to improve my magic.", CONTENT);
+										 player.getDialogue().setNextChatId(12);
+									 return true;
+									 case 2 :
+										 player.getDialogue().sendPlayerChat("No I'm not interested.", CONTENT);
+										 player.getDialogue().endDialogue();
+									 return true;
+								 }
+							 break;
+							case 12:
+								player.getDialogue().sendStatement("The witch sighs.");
+							return true;
+							case 13:
+								player.getDialogue().sendNpcChat("Ok I'm going to make a potion to help bring out your","darker self.", CONTENT);
+							return true;
+							case 14:
+								player.getDialogue().sendNpcChat("You will need certain ingredients.", CONTENT);
+							return true;
+							case 15:
+								player.getDialogue().sendPlayerChat("What do i need?", CONTENT);
+							return true;
+							case 16:
+								player.getDialogue().sendNpcChat("You need an eye of newt, a rat's tail, an onion... Oh","and a peice of burnt meat.", CONTENT);
+							return true;
+							case 17:
+								player.getDialogue().sendPlayerChat("Great, I'll go and get them.", CONTENT);
+								player.getDialogue().endDialogue();
+								player.setQuestStage(6, 1);
+								QuestHandler.getQuests()[6].startQuest(player);
+							return true;
+						}
+					break;
+					case 1:
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								player.getDialogue().sendNpcChat("So have you found the things for the potion?", CONTENT);
+				    			if(player.carryingItem(2146) && player.carryingItem(221) && player.carryingItem(1957) && player.carryingItem(300))
+				    			{
+				    				player.getDialogue().setNextChatId(5);
+				    			}
+				    			else
+				    			{
+				    				player.getDialogue().setNextChatId(2);
+				    			}
+							return true;
+							case 2:
+								player.getDialogue().sendPlayerChat("No, Not yet.", CONTENT);
+							return true;
+							case 3:
+								player.getDialogue().sendNpcChat("Remember You need an eye of newt, a rat's tail, an onion","and a peice of burnt meat.", CONTENT);
+							return true;
+							case 4:
+								player.getDialogue().sendPlayerChat("Ok, thanks.", CONTENT);
+								player.getDialogue().endDialogue();
+							return true;
+							case 5:
+								player.getDialogue().sendPlayerChat("Yes I have everything!", CONTENT);
+							return true;
+							case 6:
+								player.getDialogue().sendNpcChat("Excellent, can I have them then?", CONTENT);
+							return true;
+							case 7:
+								player.getDialogue().sendStatement("You pass the ingredients to Hetty and she puts them all into her","cauldron. Hetty closes her eyes and begins to chant. The cauldron","bubbles mysteriously.");
+								player.getInventory().removeItem(new Item(2146,1));
+								player.getInventory().removeItem(new Item(221,1));
+								player.getInventory().removeItem(new Item(1957,1));
+								player.getInventory().removeItem(new Item(300,1));
+								player.setQuestStage(6, 2);
+								player.getDialogue().setNextChatId(1);
+	    					return true;
+						}
+					break;
+					case 2:
+						switch(player.getDialogue().getChatId()) 
+						{
+							case 1:
+								player.getDialogue().sendPlayerChat("Well, is it ready?", CONTENT);
+							return true;
+							case 2:
+								player.getDialogue().sendNpcChat("Ok, drink from the cauldron", CONTENT);
+								player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
+				}
+			break;
+			//witchs potion end
+			
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();

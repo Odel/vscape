@@ -1096,6 +1096,15 @@ public class WalkToActionHandler {
 				case 3998:
 				case 3999:
 					break;
+				case 2024: //HETTYS CAULDRON
+					if(player.getQuestStage(6) == 2)
+					{
+						player.getDialogue().sendStatement("You drink from the cauldron, it tastes horrible! You feel yourself","imbued with power.");
+						player.getDialogue().endDialogue();
+						player.setQuestStage(6, 3);
+						QuestHandler.completeQuest(player,6);
+					}
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;

@@ -31,7 +31,8 @@ public class QuestHandler {
     	new TheRestlessGhost(),
     	new DoricsQuest(),
     	new ImpCatcher(),
-    	new RuneMysteries()
+    	new RuneMysteries(),
+    	new WitchsPotion()
     };
     
     public static void init() {
@@ -119,6 +120,9 @@ public class QuestHandler {
         		return true;
         	case 28167: //Rune mysteries
         		showInterface(player,quests[5]);
+        		return true;
+        	case 28180: //witchs potion
+        		showInterface(player,quests[6]);
         		return true;
         }
         return false;

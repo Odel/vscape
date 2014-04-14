@@ -4357,14 +4357,14 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7383);
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
 		getActionSender().sendString("", 7341);
-		getActionSender().sendString("", 7342);
+		getActionSender().sendString("", 7342); //ali rescue
 		getActionSender().sendString("", 7343);
 		getActionSender().sendString("@red@Rune Mysteries", 7335);
 		getActionSender().sendString("", 7344);
 		getActionSender().sendString("", 7345);
 		getActionSender().sendString("@red@The Knight's Sword", 7346);
 		getActionSender().sendString("", 7347);
-		getActionSender().sendString("", 7348);
+		getActionSender().sendString("@red@Witch's Potion", 7348);
 		getActionSender().sendString("", 8438);
 		getActionSender().sendString("", 12852);
 		getActionSender().sendString("", 7354);
