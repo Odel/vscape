@@ -217,3 +217,5 @@ pip-log.txt
 *.class
 vscape Client/java.policy.applet
 vscape Server/data/commands.txt
+vscape Server/datajson/VEditorSuite.exe
+vscape Server/datajson/Newtonsoft.Json.dll
