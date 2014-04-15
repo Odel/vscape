@@ -1,6 +1,7 @@
 @dre@=APR 14=
 -@blu@Rune Mysteries
 -@blu@Witch's Potion
+-shorthand for yell based commands
 
 @dre@=APR 13=
 -Smithing xp fixed.

@@ -693,11 +693,11 @@ public class Player extends Entity {
             lastReport = System.currentTimeMillis();
 			getActionSender().sendMessage("A message has been sent to staff about your report.");
 			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ reason);
-		} else if (keyword.equals("yell")) {
+		} else if (keyword.equals("yell") || keyword.equals("y")) {
 			Yell(fullString);
-		} else if (keyword.equals("hideyell")) {
+		} else if (keyword.equals("hideyell") || keyword.equals("hy")) {
 			setHideYell(!hideYell,true);
-		} else if (keyword.equals("hidecolor")) {
+		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
 		} else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || isDead() || !getInCombatTick().completed()) {
@@ -742,8 +742,8 @@ public class Player extends Entity {
 				}
 			}
 		} else if (keyword.equals("commands")) {
-			getActionSender().sendMessage("commands include ::outfit, ::yell, ::hideyell, ::hidecolor, ::home, ::players");
-			getActionSender().sendMessage("::changepass, ::patchnotes, ::report (name) (reason) and ::panic");
+			getActionSender().sendMessage("commands include ::outfit, ::yell/::y, ::hideyell/::hy, ::hidecolor/::hc, ::home,");
+			getActionSender().sendMessage(" ::players, ::changepass, ::patchnotes, ::report, ::panic");
 			
 		}
 		
