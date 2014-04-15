@@ -107,8 +107,8 @@ public class Server implements Runnable {
             Constants.MYSQL_ENABLED = false;
             Constants.SERVER_DEBUG = false;
             Constants.HIGHSCORES_ENABLED = false;
-            Constants.ADMINS_CAN_INTERACT = false;
-            Constants.RSA_CHECK = false;
+            Constants.ADMINS_CAN_INTERACT = true;
+            Constants.RSA_CHECK = true;
             Constants.CLIENT_VERSION = 317;
         }
 
