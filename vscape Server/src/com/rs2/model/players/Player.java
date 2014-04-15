@@ -3348,9 +3348,9 @@ public class Player extends Entity {
 		if (killer == null) {
 			killer = this;
 		}
-		if (!killer.isPlayer()) {
+	/*	if (!killer.isPlayer()) {
 			killer = this;
-		}
+		}*/
 		Item[] items = new Item[equipment.getItemContainer().capacity() + inventory.getItemContainer().capacity()];
 		System.arraycopy(equipment.getItemContainer().getItems(), 0, items, 0, equipment.getItemContainer().getItems().length);
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
