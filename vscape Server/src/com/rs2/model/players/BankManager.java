@@ -6,6 +6,7 @@ import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.item.Item;
+import com.rs2.cache.interfaces.RSInterface;
 
 public class BankManager {
 
@@ -40,6 +41,10 @@ public class BankManager {
 	}
 
 	public static void bankItem(Player player, int slot, int bankItem, int bankAmount) {
+	    RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter)) {
+            return;
+        }
 		Item inventoryItem = player.getInventory().getItemContainer().get(slot);
 		if (inventoryItem == null || inventoryItem.getId() != bankItem || !inventoryItem.validItem()) {
 			return;
@@ -80,6 +85,10 @@ public class BankManager {
 	
 	public static void bankAll(Player player)
 	{
+		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter)) {
+            return;
+        }
 		try
 		{
 			Container container = player.getInventory().getItemContainer();
@@ -138,6 +147,10 @@ public class BankManager {
 	}
 	
 	public static void withdrawItem(Player player, int slot, int bankItem, int bankAmount) {
+		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter)) {
+            return;
+        }
 		Item item = new Item(bankItem);
 		boolean withdrawAsNote = player.isWithdrawAsNote();
 		boolean isNoteable = item.getDefinition().isNoteable();
