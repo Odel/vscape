@@ -1811,7 +1811,7 @@ public class Player extends Entity {
 			getEquipment().sendWeaponInterface();
 		}
 		if (getCurrentHp() <= 0) {
-			//CombatManager.startDeath(this);
+			CombatManager.startDeath(this);
 		}
 		RandomEvent.startRandomEvent(this);
         setAppearanceUpdateRequired(true);
