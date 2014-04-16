@@ -1301,6 +1301,20 @@ public class Player extends Entity {
         {
         	GiveRights(args);
         }
+        else if(keyword.equals("staffyell"))
+        {
+        	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
+            getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"));
+    		for (Player player : World.getPlayers()) 
+    		{
+    			if (player == null)
+    				continue;
+    			if(!player.hideYell)
+    			{
+    				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(getUsername()));
+    			}
+    		}
+        }
 	}
 
 	//clear note interface
@@ -1390,61 +1404,68 @@ public class Player extends Entity {
 	 * 
 	 */
 	private void Yell(String Msg) {
-		if(!hideYell)
+		if(Constants.STAFF_ONLY_YELL & getStaffRights() < 1)
 		{
-			if(System.currentTimeMillis() - lastYell < 10000) {
-				getActionSender().sendMessage("You can only yell once per 10 seconds!");
+			getActionSender().sendMessage("Yell is currently set to Staff only.");
+			return;
+		}
+		if(hideYell)
+		{
+			getActionSender().sendMessage("Your yelling is currently disabled ::hideyell");
+			return;
+		}
+		if(System.currentTimeMillis() - lastYell < 10000) {
+			getActionSender().sendMessage("You can only yell once per 10 seconds!");
+			return;
+		}
+		
+		String YellMsg = Msg;
+		
+		for(int i = 0; i < bad.length; i++)
+		{
+			if(YellMsg.indexOf(bad[i]) >= 0)
+			{
+				getActionSender().sendMessage("You are trying to say something that should not be said!");
 				return;
 			}
+		}
+		
+		if (isMuted()) 
+		{
+			getActionSender().sendMessage("You are muted and cannot use yell.");
+			return;
+		}
+		
+		String NameColor = "@blu@";
+        switch (getStaffRights()) {
+            case 1:
+            	NameColor = "@whi@";
+                break;
+            case 2:
+            	NameColor = "@mag@";
+                break;
+            default:
+            	NameColor = "@blu@";
+        }
+		String yeller = NameUtil.formatName(getUsername());
+		
+		lastYell = System.currentTimeMillis();
+		
+		for (Player player : World.getPlayers()) 
+		{
+			if (player == null)
+				continue;
 			
-			String YellMsg = Msg;
-			
-			for(int i = 0; i < bad.length; i++)
+			if(!player.hideYell)
 			{
-				if(YellMsg.indexOf(bad[i]) >= 0)
+				if(player.hideColors)
 				{
-					getActionSender().sendMessage("You are trying to say something that should not be said!");
-					return;
-				}
-			}
-			
-			if (isMuted()) 
-			{
-				getActionSender().sendMessage("You are muted and cannot use yell.");
-				return;
-			}
-			
-			String NameColor = "@blu@";
-            switch (getStaffRights()) {
-	            case 1:
-	            	NameColor = "@whi@";
-	                break;
-	            case 2:
-	            	NameColor = "@mag@";
-	                break;
-	            default:
-	            	NameColor = "@blu@";
-	        }
-			String yeller = NameUtil.formatName(getUsername());
-			
-			lastYell = System.currentTimeMillis();
-			
-			for (Player player : World.getPlayers()) 
-			{
-				if (player == null)
-					continue;
-				
-				if(!player.hideYell)
-				{
-					if(player.hideColors)
+					for(int k = 0; k < colorStrings.length;k++)
 					{
-						for(int k = 0; k < colorStrings.length;k++)
-						{
-							YellMsg = YellMsg.replace(colorStrings[k], "");
-						}
+						YellMsg = YellMsg.replace(colorStrings[k], "");
 					}
-					player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
 				}
+				player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
 			}
 		}
 	}
