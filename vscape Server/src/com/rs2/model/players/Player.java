@@ -757,34 +757,7 @@ public class Player extends Entity {
                 return;
             player.getActionSender().removeInterfaces();
         }  else if (keyword.equals("modban")) {
-		String name = "";
-		for (int i = 0; i < args.length; i++) {
-			name += args[0];
-		}
-		int hours = 2;
-		Player player = World.getPlayerByName(name);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + name);
-			return;
-		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					new FileOutputStream("./data/modlog.out", true));
-			out.write(player.getUsername() + " was banned by " + username
-					+ " for " + hours + " hours.");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		actionSender.sendMessage("Banned " + player.getUsername() + " for "
-				+ hours + " hours.");
-		player.setBanExpire(System.currentTimeMillis()
-				+ (hours * 60 * 60 * 1000));
-		player.disconnect();
-
+        	ModBan(args);
         }  else if (keyword.equals("kick")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null)
@@ -867,7 +840,7 @@ public class Player extends Entity {
 			for (Player player : World.getPlayers()) {
 				if (player == null)
 					continue;
-				if (player.getUsername().equalsIgnoreCase(name)) {
+				if (player.getUsername().equalsIgnoreCase(fullString)) {
 					player.getRandomInterfaceClick().sendEventRandomly();
 					return;
 				}
@@ -1107,16 +1080,12 @@ public class Player extends Entity {
 				}
 			}
 		}
-		else if (keyword.equals("empty")) {
-			getInventory().getItemContainer().clear();
-			getInventory().refresh();
-		}
 		else if (keyword.equals("removebankpin")) {
                Player player = World.getPlayerByName(fullString);
                if (player == null)
                    return;
                player.getBankPin().deleteBankPin();
-}
+		}
 		else if (keyword.equals("melee")) {
 			if (inWild()) {
 				getActionSender().sendMessage("You can't use this command in the wilderness.");
@@ -1598,6 +1567,44 @@ public class Player extends Entity {
 			actionSender.sendMessage("Ban between 0 and 1000000 hours");
 			return;
 		}
+		Player player = World.getPlayerByName(name);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + name);
+			return;
+		}
+		if (player.isBanned()) {
+			actionSender.sendMessage("Player is already banned");
+			return;
+		}
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(
+					new FileOutputStream("./data/modlog.out", true));
+			out.write(player.getUsername() + " was banned by " + username
+					+ " for " + hours + " hours.");
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		actionSender.sendMessage("Banned " + player.getUsername() + " for "
+				+ hours + " hours.");
+		player.setBanExpire(System.currentTimeMillis()
+				+ (hours * 60 * 60 * 1000));
+		player.disconnect();
+	}
+	
+	private void ModBan(String[] args) {
+		if (args.length < 1) {
+			actionSender.sendMessage("::ban username"); //use underscore instead of space if name is two words
+			return;
+		}
+		String name = "";
+		for (int i = 1; i < args.length; i++) {
+			name += args[0];
+		}
+		int hours = 2;
 		Player player = World.getPlayerByName(name);
 		if (player == null) {
 			actionSender.sendMessage("Could not find player " + name);
