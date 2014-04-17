@@ -751,6 +751,88 @@ public class Player extends Entity {
 
 	public void modCommands(String keyword, String[] args, String fullString) {
 		String name = fullString;
+		 if (keyword.equals("closeinterface")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null)
+                return;
+            player.getActionSender().removeInterfaces();
+        }  else if (keyword.equals("modban")) {
+		String name = "";
+		for (int i = 0; i < args.length; i++) {
+			name += args[0];
+		}
+		int hours = 2;
+		Player player = World.getPlayerByName(name);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + name);
+			return;
+		}
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(
+					new FileOutputStream("./data/modlog.out", true));
+			out.write(player.getUsername() + " was banned by " + username
+					+ " for " + hours + " hours.");
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		actionSender.sendMessage("Banned " + player.getUsername() + " for "
+				+ hours + " hours.");
+		player.setBanExpire(System.currentTimeMillis()
+				+ (hours * 60 * 60 * 1000));
+		player.disconnect();
+
+        }  else if (keyword.equals("kick")) {
+            Player player = World.getPlayerByName(fullString);
+            if (player == null)
+                return;
+            player.disconnect();
+            actionSender.sendMessage("You have kicked "+player.getUsername());
+        }  else if (keyword.equals("mute")) {
+            if (args.length < 2) {
+                actionSender.sendMessage("::mute hours username");
+                return;
+            }
+            int hours = Integer.parseInt(args[0]);
+            int maxHours = getStaffRights() == 1 ? 24 : 100;
+            if (hours <= 0 || hours > maxHours) {
+                actionSender.sendMessage("Mute between 0 and "+maxHours+" hours");
+                return;
+            }
+            name = "";
+            for (int i = 1; i < args.length; i++) {
+                name += args[i];
+            }
+            Player player = World.getPlayerByName(name);
+            if (player == null) {
+                actionSender.sendMessage("Could not find "+name);
+                return;
+            }
+            if (player.isMuted()) {
+                actionSender.sendMessage("Player is already muted");
+                return;
+            }
+            try {
+                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
+                out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
+                out.flush();
+                out.close(); //CLOSEFILE
+            } catch (FileNotFoundException e) {
+                e.printStackTrace(); 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            actionSender.sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
+            player.actionSender.sendMessage("You have been muted for "+hours+" hours");
+            player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
+        }
+	}
+
+	public void adminCommands(String keyword, String[] args, String fullString) {
+		saveCommand(getUsername(), keyword+" "+fullString);
 		if (keyword.equals("getrandom")) {
 			switch(Misc.random(4)) {
 				case 1 :
@@ -791,62 +873,7 @@ public class Player extends Entity {
 				}
 			}
 			getActionSender().sendMessage("The player is not online at the moment.");
-		} else if (keyword.equals("closeinterface")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.getActionSender().removeInterfaces();
-        } else if (keyword.equals("empty")) {
-			getInventory().getItemContainer().clear();
-			getInventory().refresh();
-		}else if (keyword.equals("kick")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.disconnect();
-            actionSender.sendMessage("You have kicked "+player.getUsername());
-        }  else if (keyword.equals("mute")) {
-            if (args.length < 2) {
-                actionSender.sendMessage("::mute hours username");
-                return;
-            }
-            int hours = Integer.parseInt(args[0]);
-            int maxHours = getStaffRights() == 1 ? 48 : 100;
-            if (hours <= 0 || hours > maxHours) {
-                actionSender.sendMessage("Mute between 0 and "+maxHours+" hours");
-                return;
-            }
-            name = "";
-            for (int i = 1; i < args.length; i++) {
-                name += args[i];
-            }
-            Player player = World.getPlayerByName(name);
-            if (player == null) {
-                actionSender.sendMessage("Could not find "+name);
-                return;
-            }
-            if (player.isMuted()) {
-                actionSender.sendMessage("Player is already muted");
-                return;
-            }
-            try {
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
-                out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
-                out.flush();
-                out.close(); //CLOSEFILE
-            } catch (FileNotFoundException e) {
-                e.printStackTrace(); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            actionSender.sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
-            player.actionSender.sendMessage("You have been muted for "+hours+" hours");
-            player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
-        }
-	}
-
-	public void adminCommands(String keyword, String[] args, String fullString) {
-		saveCommand(getUsername(), keyword+" "+fullString);
+		}
 		if (keyword.equals("coordinate")) {
 			final int id = Integer.parseInt(args[0]);
 			CoordinateData clue = CoordinateData.forIdClue(id);
@@ -904,7 +931,10 @@ public class Player extends Entity {
         else if (keyword.equals("dbhs")) {
             HighscoresManager.debug = !HighscoresManager.debug;
             getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
-        } else if (keyword.equals("hsstatus")) {
+        } else if (keyword.equals("empty")) {
+			getInventory().getItemContainer().clear();
+			getInventory().refresh();
+		} else if (keyword.equals("hsstatus")) {
             getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
         } else if (keyword.equals("rebooths")) {
             HighscoresManager.running = !HighscoresManager.running;
