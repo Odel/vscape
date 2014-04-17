@@ -28,3 +28,10 @@ can't thief from relleka citizens
 Clue 2837 is defective in that the NPC only gives broken puzzle boxes
 blue dragon scale not in taverly dungeon
 dragon sq shield smithing
+a lot of high level potions are messed up
+brews don't work
+coconut milk can't be mixed(so no p+ or p++
+no zammy wine spawn
+kq(drops zammy wine noted) is unreachable(blocking making ranged pots)
+Nechrtaels drop 9k gp
+Duradel is missing several tasks
