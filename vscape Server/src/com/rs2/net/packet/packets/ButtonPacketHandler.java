@@ -44,11 +44,11 @@ public class ButtonPacketHandler implements PacketHandler {
         interfaceId |= (data[0] & 0xff) << 8;
         interfaceId |= (data[1] & 0xff);
         RSInterface inter = RSInterface.forId(interfaceId);
-        int buttonId = Misc.hexToInt(data);
+    /*    int buttonId = Misc.hexToInt(data);
         if (!player.hasInterfaceOpen(inter) && !player.getEmotes().isEmote(buttonId)) {
             //player.getActionSender().removeInterfaces();
             return;
-        }
+        }*/
         //reenabled because im curious.
 		handleButton(player, Misc.hexToInt(data));
 	}
