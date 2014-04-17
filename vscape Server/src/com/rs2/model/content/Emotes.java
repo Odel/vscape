@@ -1,5 +1,6 @@
 package com.rs2.model.content;
 
+import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeTravelData;
 import com.rs2.model.players.Player;
 
 /**
@@ -13,18 +14,92 @@ public class Emotes {
 		this.player = player;
 	}
 
-	private static final int[][] EMOTES = {{168, 855}, {169, 856}, {162, 857}, {164, 858}, {165, 859}, {161, 860}, {170, 861}, {171, 862}, {163, 863}, {167, 864}, {172, 865}, {166, 866}, {52050, 2105}, {52051, 2106}, {52052, 2107}, {52053, 2108}, {52054, 2109}, {52055, 2110}, {52056, 2111}, {52057, 2112}, {52058, 2113}, {43092, 0x558}, {2155, 1131}, {25103, 1130}, {25106, 1129}, {2154, 1128}, {52071, 2127}, {52072, 2128}, {59062, 2836}, {72032, 3544}, {72033, 3543}};
+	public enum EMOTE
+	{
+		YES(855, 168),
+		NO(856, 169),
+		THINK(857, 162),
+		BOW(858, 164),
+		ANGRY(859, 165),
+		CRY(860, 161),
+		LAUGTH(861, 170),
+		CHEER(862, 171),
+		WAVE(863, 163),
+		BECKON(864, 167),
+		CLAP(865, 172),
+		DANCE(866, 166),
+		PANIC(2105, 52050),
+		JIG(2106, 52051),
+		SPIN(2107, 52052),
+		HEADBANG(2108, 52053),
+		JOYJUMP(2109, 52054),
+		RASPBERRY(2110, 52055),
+		YAWN(2111, 52056),
+		SALUTE(2112, 52057),
+		SHRUG(2113, 52058),
+		BLOWKISS(0x558, 43092, 574),
+		GLASSBOX(1131, 2155),
+		CLIMBROPE(1130, 25103),
+		LEAN(1129, 25106),
+		GLASSWALL(1128, 2154),
+		GOBLINBOW(2127, 52071),
+		GOBLINDANCE(2128, 52072),
+		SCARED(2836, 59062),
+		ZOMBIEWALK(3544, 72032),
+		ZOMBIEDANCE(3543, 72033),
+		RABBITHOP(3866, 72254);
+		
+		private int emoteId;
+		private int buttonId;
+		private int graphicId;
+		
+		EMOTE(int emoteId, int buttonId) {
+			this.emoteId = emoteId;
+			this.buttonId = buttonId;
+		}
+		
+		EMOTE(int emoteId, int buttonId, int graphicId) {
+			this.emoteId = emoteId;
+			this.buttonId = buttonId;
+			this.graphicId = graphicId;
+		}
+		
+		public static EMOTE forButtonId(int button) {
+			for (EMOTE emote : EMOTE.values())
+					if (button == emote.buttonId)
+						return emote;
+			return null;
+		}
+	}
 
 	public void performEmote(int emoteId) {
 		player.getUpdateFlags().sendAnimation(emoteId, 0);
 	}
+	
+	public void performEmote(int emoteId, int graphicId) {
+		player.getUpdateFlags().sendAnimation(emoteId, 0);
+		if(graphicId > 0)
+		{
+			player.getUpdateFlags().sendGraphic(graphicId);
+		}
+	}
 
 	public boolean activateEmoteButton(int buttonId) {
-		for (int[] element : EMOTES) {
-			if (buttonId == element[0]) {
-				performEmote(element[1]);
-				return true;
-			}
+		EMOTE emote = EMOTE.forButtonId(buttonId);
+		if(emote != null)
+		{
+			performEmote(emote.emoteId,emote.graphicId);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isEmote(int buttonId)
+	{
+		EMOTE emote = EMOTE.forButtonId(buttonId);
+		if(emote != null)
+		{
+			return true;
 		}
 		return false;
 	}

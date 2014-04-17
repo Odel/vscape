@@ -2,6 +2,7 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.model.content.Emotes.EMOTE;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
@@ -43,7 +44,8 @@ public class ButtonPacketHandler implements PacketHandler {
         interfaceId |= (data[0] & 0xff) << 8;
         interfaceId |= (data[1] & 0xff);
         RSInterface inter = RSInterface.forId(interfaceId);
-        if (!player.hasInterfaceOpen(inter)) {
+        int buttonId = Misc.hexToInt(data);
+        if (!player.hasInterfaceOpen(inter) && !player.getEmotes().isEmote(buttonId)) {
             //player.getActionSender().removeInterfaces();
             return;
         }
@@ -435,7 +437,7 @@ public class ButtonPacketHandler implements PacketHandler {
 				player.getActionSender().removeInterfaces();
 				return;
 			/** Emotes **/
-			case 168 :
+		/*	case 168 :
 				player.getUpdateFlags().sendAnimation(855);
 				return;
 			case 169 :
@@ -538,7 +540,7 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;
 			case 59062 :
 				player.getUpdateFlags().sendAnimation(2836);
-				return;
+				return;*/
 			case 23132 :
 				player.getActionSender().removeInterfaces();
 				player.getEquipment().unequip(Constants.RING);
