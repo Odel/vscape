@@ -1043,6 +1043,11 @@ public class WalkToActionHandler {
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
 					break;
+				case 2643:
+				case 4308:
+				case 11601: // fire pottery
+					Menus.sendSkillMenu(player, "potteryFired");
+					break;
 				case 3415: //stairs down to elemental workshop
 					player.teleport(new Position(2716, 9888));
 					break;
@@ -1847,6 +1852,8 @@ public class WalkToActionHandler {
 						Menus.sendSkillMenu(player, "potteryUnfired");
 					}
 					break;
+				case 2643:
+				case 4308:
 				case 11601: // fire pottery
 					Menus.sendSkillMenu(player, "potteryFired");
 					break;

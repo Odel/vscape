@@ -32,7 +32,8 @@ public class QuestHandler {
     	new DoricsQuest(),
     	new ImpCatcher(),
     	new RuneMysteries(),
-    	new WitchsPotion()
+    	new WitchsPotion(),
+    	new EasterEvent()
     };
     
     public static void init() {

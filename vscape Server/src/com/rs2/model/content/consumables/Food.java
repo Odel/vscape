@@ -1,5 +1,6 @@
 package com.rs2.model.content.consumables;
 
+import com.rs2.model.content.holidayevents.EasterEvent;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
@@ -46,7 +47,8 @@ public class Food {
 		
 		// Stews
 		STEW(11, 1923, new int[]{2003}), CURRY(19, 1923, new int[]{2011}),
-		;
+		
+		EASTEREGGS(10, -1,  new int[]{ 7928, 7929, 7930, 7931, 7932, 7933 });
 
 		private static Map<Integer, FoodData> foods = new HashMap<Integer, FoodData>();
 
@@ -109,6 +111,9 @@ public class Food {
 			if (id == 1971) {
 				heal = eatKebab();
 			}
+			
+			eatEasterEgg(id);
+			
 			if (f.getNewItemId() != -1)
 				player.getInventory().addItem(new Item(f.getNewItemId()));
 			player.heal(heal);
@@ -149,6 +154,32 @@ public class Food {
 		} else {
 			player.getActionSender().sendMessage("It restores some life points.");
 			return player.getSkill().getPlayerLevel(Skill.HITPOINTS) / 10;
+		}
+	}
+	
+	private void eatEasterEgg(int id)
+	{
+		switch(id)
+		{
+			case 7928:
+				player.getActionSender().sendMessage("Mmm... chocolate");
+				break;
+			case 7929:
+				player.getActionSender().sendMessage("Mmm... carrot");
+				player.morphRabbit();
+				break;
+			case 7930:
+				player.getActionSender().sendMessage("Mmm... coffee");
+				break;
+			case 7931:
+				player.getActionSender().sendMessage("Mmm... orange");
+				break;
+			case 7932:
+				player.getActionSender().sendMessage("Mmm... toffee");
+				break;
+			case 7933:
+				player.getActionSender().sendMessage("Mmm... nougat");
+				break;
 		}
 	}
 

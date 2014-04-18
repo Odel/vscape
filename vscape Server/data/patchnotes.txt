@@ -1,4 +1,10 @@
-@dre@=APR ?=
+@dre@=APR 20=
+-@blu@Easter event
+ @red@s-sorry if it sucks
+-made more pottery ovens work
+ ex: the pottery oven in the craft guild works now.
+
+@dre@=APR 15=
 -@blu@Rune Mysteries
 -@blu@Witch's Potion
 -Now possible to make all potato combinations.
