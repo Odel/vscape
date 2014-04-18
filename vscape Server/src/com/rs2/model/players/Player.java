@@ -1890,7 +1890,7 @@ public class Player extends Entity {
 		}
 	}
 
-	public static String[] bannedChars = {"!","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","`","|","[","]","{","}","(",")","_","-"};
+	public static String[] bannedChars = {"!","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","`","|","[","]","{","}","(",")","-"};
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned())
 		{
@@ -2623,6 +2623,43 @@ public class Player extends Entity {
 
 	public boolean usingShop() {
 		return usingShop;
+	}
+	
+	public void morphRabbit()
+	{
+		if(transformNpc == 1192)
+			return;
+		
+		getActionSender().sendStillGraphic(86, getPosition(), 50 << 16);
+		transformNpc = 1192;
+		setSize(new Npc(1192).getDefinition().getSize());
+		setStandAnim(1242);
+		setWalkAnim(3870);
+		setRunAnim(3870);
+		setAppearanceUpdateRequired(true);
+        CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) 
+            {
+            	unmorphRabbit();
+                container.stop();
+            }
+            @Override
+            public void stop(){
+            	
+            }
+        }, 30);
+	}
+	
+	public void unmorphRabbit()
+	{
+		getActionSender().sendMessage("The easter magic wore off");
+		getActionSender().sendStillGraphic(86, getPosition(), 50 << 16);
+		transformNpc = 0;
+		setStandAnim(-1);
+		setWalkAnim(-1);
+		setRunAnim(-1);
+		setAppearanceUpdateRequired(true);
 	}
 	
 	public void setDrunkState(boolean state, int time) 
