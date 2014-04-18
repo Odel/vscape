@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.consumables.Food.FoodData;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -61,7 +62,7 @@ public class EasterEvent extends Tick {
 	private static final int EASTER_MINY = 3263, EASTER_MAXY = 3287;
 	
 	private static final int MAX_RABBIT = 10;
-	private static List<Npc> rabbits = new ArrayList();
+	private static List<Npc> rabbits;
 	
 	private static final Position[] ChildPositions = {
 		new Position(2972,3271),
@@ -81,6 +82,7 @@ public class EasterEvent extends Tick {
 	
 	public static void init() {
 		easterEvent = new EasterEvent();
+		rabbits = new LinkedList<Npc>();
 		for(Position ChildPos : ChildPositions)
 		{
 			Npc child = new Npc(CHILDNPCID[Misc.randomMinusOne(CHILDNPCID.length)]);
