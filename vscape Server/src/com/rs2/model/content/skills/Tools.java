@@ -7,7 +7,7 @@ import com.rs2.model.players.item.Item;
 public class Tools {
 
 	public enum Tool {
-		DRAGON_AXE(6739, 61, 90, 2846, 0, 6743, 492, 6741, 1800, Skill.WOODCUTTING),
+		DRAGON_AXE(6739, 61, 110, 2846, 0, 6743, 492, 6741, 1800, Skill.WOODCUTTING),
 		RUNE_AXE(1359, 41, 90, 867, 0, 520, 492, 506, 427, Skill.WOODCUTTING),
 		ADAMANT_AXE(1357, 31, 75, 869, 0, 518, 492, 504, 43, Skill.WOODCUTTING),
 		MITHRIL_AXE(1355, 21, 60, 871, 0, 516, 492, 502, 18, Skill.WOODCUTTING),
