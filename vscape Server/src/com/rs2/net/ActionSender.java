@@ -917,7 +917,30 @@ public class ActionSender {
 		out.writeShort(secondVar);
 		// player.send(out.getBuffer());
 	}
+	
+    /**
+     * @param direction The direction this data relates to:
+     *  0: X-direction
+     *  1: Z-direction
+     *  2: Y-direction
+     *  3: XY-Angle
+     *  4: Z-Angle
+     * @param magnitude 0 - 255; The magnitude. This is the difference between the average and maximum/minimum Magnitude.
+     * Because of this, the magnitude is a measure for smoothness of the final shake. The lower, the smoother.
+     * @param amplitude 0 - 255; The maximum amplitude of the average wave.
+     * @param fourPiOverPeriod 0 - 255; The number which is a result of 4 pi over period.
+     */
+    public void shakeScreen(int direction, int magnitude, int amplitude, int fourPiOverPeriod){
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(6);
+		out.writeHeader(player.getEncryptor(), 35);
+		out.writeByte(direction);
+		out.writeByte(magnitude);
+		out.writeByte(amplitude);
+		out.writeByte(fourPiOverPeriod);
+        player.send(out.getBuffer());
+    }
 
+	
 	public void stillCamera(int x, int y, int height, int speed, int angle) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(7);
 		out.writeHeader(player.getEncryptor(), 177);
@@ -929,14 +952,14 @@ public class ActionSender {
 		player.send(out.getBuffer());
 	}
 
-	public void spinCamera(int i1, int i2, int i3, int i4, int i5) {
+	public void spinCamera(int x, int y, int height, int speed, int angle) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(7);
 		out.writeHeader(player.getEncryptor(), 166);
-		out.writeByte(i1);
-		out.writeByte(i2);
-		out.writeShort(i3);
-		out.writeByte(i4);
-		out.writeByte(i5);
+		out.writeByte(x);
+		out.writeByte(y);
+		out.writeShort(height);
+		out.writeByte(speed);
+		out.writeByte(angle);
 		player.send(out.getBuffer());
 	}
 

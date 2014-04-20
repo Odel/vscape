@@ -2674,6 +2674,9 @@ public class Player extends Entity {
 			drunkTimer = time;
 			setStandAnim(3040);
 			setWalkAnim(2769);
+			setRunAnim(2769);
+			getActionSender().shakeScreen(3, 0, 8, 3);
+			getActionSender().shakeScreen(4, 0, 8, 6);
 			setAppearanceUpdateRequired(true);
 		}
         CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
@@ -2684,6 +2687,8 @@ public class Player extends Entity {
 					isDrunk = false;
 					setStandAnim(-1);
 					setWalkAnim(-1);
+					setRunAnim(-1);
+					getActionSender().resetCamera();
 					setAppearanceUpdateRequired(true);
 	                container.stop();
             }

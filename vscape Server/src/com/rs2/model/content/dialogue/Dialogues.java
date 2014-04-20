@@ -32,6 +32,8 @@ import com.rs2.model.transport.Travel;
 import com.rs2.model.transport.Travel.Route;
 import com.rs2.util.Misc;
 
+import com.rs2.model.content.minigames.barrows.Barrows;
+
 public class Dialogues {
 
 	// Dialogue expressions
@@ -723,7 +725,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1 :
-								player.fadeTeleport(new Position(3551, 9693));
+								player.teleport(new Position(3551, 9693));
 								break;
 							case 2 :
 								player.getDialogue().sendPlayerChat("No way, that looks scary!", DISTRESSED);

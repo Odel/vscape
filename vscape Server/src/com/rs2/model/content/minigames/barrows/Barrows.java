@@ -2,7 +2,6 @@ package com.rs2.model.content.minigames.barrows;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeTravelData;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -10,7 +9,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
 
 public class Barrows {
-
+	
 	public enum BarrowsBrother
 	{
 		AHRIM(0, 6821, 2025),
@@ -60,27 +59,32 @@ public class Barrows {
 			case 10284 : // chest
 				if (player.getKillCount() < 1) {
 					player.getActionSender().sendMessage("You search the chest but don't find anything.");
+					player.getTeleportation().teleport(3565, 3298, 0, true);
 					return true;
 				}
 				else
 				{
-					int graveId = player.getRandomGrave();
-					BarrowsBrother brother = BarrowsBrother.forIndex(graveId);
+					BarrowsBrother brother = BarrowsBrother.forIndex(player.getRandomGrave());
 					if(brother != null)
 					{
 						if (NpcLoader.checkSpawn(player, brother.npcId)) 
 						{
 							player.getActionSender().sendMessage("You must kill the the brother before searching this.");
 							return true;
+						}		
+						if (player.getBarrowsNpcDead(player.getRandomGrave()) ) 
+						{
+							getReward(player);
+							return true;
 						}
-						if (player.getSpawnedNpc() == null || player.getSpawnedNpc().getNpcId() != brother.npcId && !player.getBarrowsNpcDead()[brother.index]) 
+						if (player.getSpawnedNpc() == null || player.getSpawnedNpc().getNpcId() != brother.npcId && !player.getBarrowsNpcDead(brother.index)) 
 						{
 							NpcLoader.spawnNpc(player, new Npc(brother.npcId), true, true);
+							player.getActionSender().shakeScreen(3, 2, 3, 2);
 							return true;
 						}
 					}
 				}
-				getReward(player);
 			return true;
 			case 6823 :
 			case 6772 :
@@ -162,7 +166,7 @@ public class Barrows {
 			player.teleport(new Position(3534, 9704, 3));
 			player.getActionSender().sendMessage("You've broken into a crypt!");
 	        player.getActionSender().sendMapState(2);
-			return true;
+	        return true;
 		} else if (player.Area(3562, 3569, 3273, 3279)) {
 			player.teleport(new Position(3546, 9684, 3));
 			player.getActionSender().sendMessage("You've broken into a crypt!");
@@ -238,22 +242,20 @@ public class Barrows {
 		}
 		player.setKillCount(0);
 		player.setRandomGrave(Misc.random(5));
+		player.getActionSender().resetCamera();
 	}
 
 	public static void handleDeath(Player player, Npc npc) {
-		for (int x = 0; x < 6; x++) {
-			BarrowsBrother brother = BarrowsBrother.forIndex(x);
-			if(brother != null && brother.npcId == npc.getNpcId())
+		BarrowsBrother brother = BarrowsBrother.forNpcId(npc.getNpcId());
+		if(brother != null)
+		{
+			player.setBarrowsNpcDead(brother.index, true);
+			if(player.getSpawnedNpc() == npc)
 			{
-				player.setBarrowsNpcDead(x, true);
-				if(player.getSpawnedNpc() == npc)
-				{
-					player.setSpawnedNpc(null);
-				}
-				player.setKillCount(player.getKillCount() + 1);
-				player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
-				break;
+				player.setSpawnedNpc(null);
 			}
+			player.setKillCount(player.getKillCount() + 1);
+			player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
 		}
 	}
 }
