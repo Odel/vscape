@@ -27,6 +27,7 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
+import com.rs2.util.PlayerSave;
 
 /**
  *  TODO: on death remove all victims hits from hitsStory
@@ -269,6 +270,7 @@ public class CombatManager extends Tick {
 		if (died.isPlayer()) {
 			((Player) died).teleport(Teleportation.HOME);
             ((Player)died).getActionSender().sendMessage("Oh dear, you are dead!");
+            PlayerSave.save((Player) died);
         }
 
 	}

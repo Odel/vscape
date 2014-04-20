@@ -1,3 +1,9 @@
+@dre@=APR 21=
+-@red@Easter event has ended.
+-Fixed throwing knive stats.
+-Core Barrows fix.
+-Corrected Cryptic scroll "46 is my number".
+
 @dre@=APR 18=
 -@blu@Easter event 
  @red@s-sorry if it sucks

@@ -3,6 +3,7 @@ package com.rs2.model.content.skills;
 import com.rs2.Constants;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.players.Player;
+import com.rs2.util.PlayerSave;
 
 public class Skill {
 
@@ -203,7 +204,6 @@ public class Skill {
 		};
 		String[] name = {"Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting",};
 		if (skill == data[skill][0]) {
-
 			player.getActionSender().sendString("@dbl@Congratulations, you just advanced a " + name[skill] + " level!", data[skill][1]);
 			player.getActionSender().sendString("Your " + name[skill] + " level is now " + getPlayerLevel(skill) + ".", data[skill][2]);
 			player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
@@ -218,6 +218,7 @@ public class Skill {
 			player.getActionSender().sendChatInterface(data[skill][3]);
 			player.getDialogue().endDialogue();
 		}
+		PlayerSave.save(player);
 		// c.getCombat().resetPlayerAttack();
 		player.setAppearanceUpdateRequired(true);
 		player.getActionSender().sendString("Total Lvl: " + getTotalLevel(), 3984);

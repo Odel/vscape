@@ -6,7 +6,6 @@ import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
 import com.rs2.model.content.Shops;
 import com.rs2.model.content.dungeons.Abyss;
-import com.rs2.model.content.holidayevents.EasterEvent;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.RandomEvent;
@@ -724,9 +723,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1 :
-								player.getUpdateFlags().sendAnimation(714);
-								player.getUpdateFlags().sendHighGraphic(301);
-								player.teleport(new Position(3551, 9693));
+								player.fadeTeleport(new Position(3551, 9693));
 								break;
 							case 2 :
 								player.getDialogue().sendPlayerChat("No way, that looks scary!", DISTRESSED);
@@ -4318,81 +4315,6 @@ public class Dialogues {
 				}
 			break;
 			//witchs potion end
-			//child Dialogue for easter event
-			case 2872 :
-			case 2873 :
-			case 2874 :
-			case 2875 :
-			case 2876 :
-			case 2877 :
-				switch(player.getDialogue().getChatId()) 
-				{
-					case 1:
-						player.getDialogue().sendNpcChat("Can I have an easter egg please!?", SAD);
-						for(int ei : EasterEvent.EASTEREGGS)
-						{
-								if(player.carryingItem(ei))
-								{
-									player.getDialogue().setNextChatId(4);
-									break;
-								}
-								else
-								{
-									player.getDialogue().setNextChatId(2);
-								}
-						}
-					return true;
-					case 2:
-						player.getDialogue().sendPlayerChat("Sorry I don't have one.", SAD);
-						return true;
-					case 3:
-						player.getDialogue().sendNpcChat("Please please get me one!", SAD);
-						player.getDialogue().endDialogue();
-						return true;
-					case 4:
-						player.getDialogue().sendOption("Give Easter egg", "No I'm not interested.");
-					return true;
-					case 5:
-						 switch(optionId) {
-							 case 1:
-								 player.getDialogue().sendPlayerChat("Here you go, Have an Easter egg!", HAPPY);
-								 player.getDialogue().setNextChatId(6);
-							 return true;
-							 case 2 :
-								 player.getDialogue().sendPlayerChat("Sorry, Not right now.", CONTENT);
-								 player.getDialogue().endDialogue();
-							 return true;
-						 }
-					 break;
-					case 6:
-						for(int ei : EasterEvent.EASTEREGGS)
-						{
-							if(player.carryingItem(ei))
-							{
-								player.getInventory().removeItem(new Item(ei,1));
-								break;
-							}
-						}
-						if(!QuestHandler.questCompleted(player, 7))
-						{
-							player.setQuestStage(7, player.getQuestStage(7)+1);
-							if(player.getQuestStage(7) >= 10)
-							{
-								if(!player.hasItem(7927))
-								{
-									player.getInventory().addItem(new Item(7927,1));
-								}
-							}
-						}
-						String name = Misc.formatPlayerName(player.getUsername());
-						String Msg = "Yay! Thank you "+name + "!";
-						player.getDialogue().sendNpcChat(Msg, HAPPY);
-						final Npc npc = World.getNpcs()[player.getNpcClickIndex()];
-						npc.getUpdateFlags().sendForceMessage( Msg );
-						player.getDialogue().endDialogue();
-					return true;
-				}
-			break;
 			// Diango the special item guy
 			case 970:
 				if(!player.hasItem(7927) && QuestHandler.questCompleted(player, 7))

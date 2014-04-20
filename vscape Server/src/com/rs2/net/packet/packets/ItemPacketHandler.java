@@ -60,7 +60,6 @@ import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 
-import com.rs2.model.content.holidayevents.EasterEvent;
 
 public class ItemPacketHandler implements PacketHandler {
 
@@ -765,7 +764,7 @@ public class ItemPacketHandler implements PacketHandler {
 							container.stop();
 							return;
 						}
-						if (!EasterEvent.digRabbitHole(player) && !MapScrolls.digClue(player) && !DiggingScrolls.digClue(player) && !CoordinateScrolls.digClue(player) && !Barrows.digCrypt(player)) {
+						if (!MapScrolls.digClue(player) && !DiggingScrolls.digClue(player) && !CoordinateScrolls.digClue(player) && !Barrows.digCrypt(player)) {
 							player.getActionSender().sendMessage("but do not find anything.");
 							container.stop();
 						}

@@ -2436,7 +2436,7 @@ public class Player extends Entity {
 	public void setSpawnedNpc(Npc spawnedNpc) {
 		this.spawnedNpc = spawnedNpc;
 	}
-
+	
 	public Wine getWine() {
 		return wine;
 	}

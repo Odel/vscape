@@ -44578,7 +44578,7 @@
     "respawn": 10,
     "combat": 115,
     "hitpoints": 100,
-    "maxHit": 0,
+    "maxHit": 60,
     "size": 1,
     "attackSpeed": 7000,
     "attackAnim": 2067,

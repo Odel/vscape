@@ -6,9 +6,11 @@ java_import "com.rs2.model.content.combat.HealersCombatScript"
 java_import "com.rs2.model.content.combat.weapon.AttackStyle"
 java_import "com.rs2.model.content.combat.AttackType"
 java_import "com.rs2.model.content.combat.weapon.Weapon"
+
 java_import "com.rs2.model.content.combat.projectile.ProjectileTrajectory"
 java_import "com.rs2.model.Graphic"
 java_import "com.rs2.model.content.skills.magic.Spell"
+java_import "com.rs2.model.content.combat.weapon.RangedAmmo"
 
 class Man < NpcCombatDef
     def attackScripts attacker, victim
@@ -77,6 +79,14 @@ class Ahrims < NpcCombatDef
                 BasicAttack.magicAttack(attacker, victim, Spell::FIRE_WAVE),
                 BasicAttack.magicAttack(attacker, victim, Spell::CONFUSE),
                 BasicAttack.magicAttack(attacker, victim, Spell::CURSE)
+        ];
+    end
+end
+
+class Karil < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.rangedAttack(attacker, victim, AttackStyle::Mode::RAPID, 20, Weapon::KARILS_CROSSBOW, RangedAmmo::BOLT_RACK)			
         ];
     end
 end
@@ -183,6 +193,7 @@ class DagannothRange < NpcCombatDef
 end
 
 NpcCombatDef.add([2025], Ahrims.new.bonusDef(500, 500, 500, 500, 1500))
+NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
 NpcCombatDef.add([2631], TokXil.new.bonusDef(600, 600, 600, 600, 300))
 NpcCombatDef.add([2741], MejKot.new.bonusDef(1000, 1000, 1000, 1000, 600))

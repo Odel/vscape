@@ -43,8 +43,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import com.rs2.model.content.holidayevents.EasterEvent;
-
 /**
  * The main core of RuneSource.
  *
@@ -180,9 +178,6 @@ public class Server implements Runnable {
 
 			// load combat manager
 			CombatManager.init();
-
-			// load EASTER MANAGER
-			EasterEvent.init();
 
 			// Load minute timer
 			startMinutesCounter();
