@@ -156,9 +156,9 @@ public class Login {
             player.setUsernameAsLong(NameUtil.nameToLong(player.getUsername().toLowerCase()));
             player.setLoginStage(LoginStages.AWAITING_LOGIN_COMPLETE);
 
-			for(int i = 0; i < player.bannedChars.length; i++)
+			for(int i = 0; i < Constants.bannedChars.length; i++)
 			{
-				if(player.getUsername().contains(player.bannedChars[i]))
+				if(player.getUsername().contains(Constants.bannedChars[i]))
 				{
 					player.disconnect();
 		            return;

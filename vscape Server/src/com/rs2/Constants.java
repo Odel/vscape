@@ -2,6 +2,7 @@ package com.rs2;
 
 import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -182,6 +183,10 @@ public class Constants {
     public static final int[][][] COLOR_RANGES = new int[][][] { { { 0, 0, 0, 0, 0 },  { 11, 15, 15, 5, 7} }, { { 0, 0, 0, 0, 0 }, { 11, 15, 15, 5, 7} } };
     public static final int[][][] APPEARANCE_RANGES = new int[][][] { { { 18, 26, 36, 0, 33, 42, 10 }, { 25, 31, 40, 8, 34, 43, 17 } }, { { 56, 61, 70, 45, 67, 79, -1 }, { 60, 65, 77, 54, 68, 80, -1 } } };
 
+    public static final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
+	public static final String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
+	public static final String[] bannedChars = {"!","$","%","^","&","*","+","=","@",":",";","~","#","<",">","?","\\","/","`","|","[","]","{","}","(",")","-","'","\""};
+	
     public static final int SKILL_ATTACK = 0, SKILL_DEFENCE = 1,
             SKILL_STRENGTH = 2, SKILL_HP = 3, SKILL_RANGE = 4, SKILL_PRAY = 5,
             SKILL_MAGE = 6, SKILL_COOK = 7, SKILL_WC = 8, SKILL_FLETCH = 9,

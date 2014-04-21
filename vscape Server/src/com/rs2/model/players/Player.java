@@ -223,8 +223,6 @@ public class Player extends Entity {
 	private int gender = Constants.GENDER_MALE;
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
-	private final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
-	private final String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
 	private Container bank = new Container(Type.ALWAYS_STACK, BankManager.SIZE);
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
@@ -1420,9 +1418,9 @@ public class Player extends Entity {
 		
 		String YellMsg = Msg;
 		
-		for(int i = 0; i < bad.length; i++)
+		for(int i = 0; i < Constants.bad.length; i++)
 		{
-			if(YellMsg.indexOf(bad[i]) >= 0)
+			if(YellMsg.indexOf(Constants.bad[i]) >= 0)
 			{
 				getActionSender().sendMessage("You are trying to say something that should not be said!");
 				return;
@@ -1459,9 +1457,9 @@ public class Player extends Entity {
 			{
 				if(player.hideColors)
 				{
-					for(int k = 0; k < colorStrings.length;k++)
+					for(int k = 0; k < Constants.colorStrings.length;k++)
 					{
-						YellMsg = YellMsg.replace(colorStrings[k], "");
+						YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
 					}
 				}
 				player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
@@ -1890,16 +1888,15 @@ public class Player extends Entity {
 		}
 	}
 
-	public static String[] bannedChars = {"!","$","%","^","&","*","+","@",":",";","~","#","<",">","?","/","`","|","[","]","{","}","(",")","-"};
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned())
 		{
 			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
 		}
-		for(int i = 0; i < bannedChars.length; i++)
+		for(int i = 0; i < Constants.bannedChars.length; i++)
 		{
-			if(username.contains(bannedChars[i]))
+			if(username.contains(Constants.bannedChars[i]))
 			{
 	            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
 	            return false;
