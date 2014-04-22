@@ -1,8 +1,10 @@
-@dre@=APR 21=
+@dre@=APR 22=
 -@red@Easter event has ended.
 -Fixed throwing knive stats.
 -Core Barrows fix.
 -Corrected Cryptic scroll "46 is my number".
+-Populated Yanille with NPCs.
+-Dragon sq smithing
 
 @dre@=APR 18=
 -@blu@Easter event 

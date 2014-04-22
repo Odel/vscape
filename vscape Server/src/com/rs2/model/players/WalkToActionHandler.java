@@ -34,6 +34,7 @@ import com.rs2.model.content.skills.runecrafting.MixingRunes;
 import com.rs2.model.content.skills.runecrafting.RunecraftAltars;
 import com.rs2.model.content.skills.runecrafting.Runecrafting;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
+import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.content.skills.thieving.ThieveNpcs;
@@ -73,7 +74,6 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
-
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 
@@ -1779,18 +1779,24 @@ public class WalkToActionHandler {
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, item);
 					break;
-				case 2782: // Dorics anvil
-						switch(player.getQuestStage(3)) 
+				case 2782:
+				case 2783: // anvil
+					if(id == 2782)
+					{
+						if(!QuestHandler.questCompleted(player, 3))
 						{
-							case 3:
-								SmithBars.smithInterface(player, item);
-							break;
-							default:
-								player.getDialogue().sendStatement("You don't have permission to use this.");
+							player.getDialogue().sendStatement("You don't have permission to use this.");
 							break;
 						}
-					break;
-				case 2783: // anvil
+					}
+					if(item == 2366 || item == 2368)
+					{
+						if(DragonShieldSmith.canSmith(player))
+						{
+							Dialogues.startDialogue(player, 10013);
+						}
+						break;
+					}
 					SmithBars.smithInterface(player, item);
 					// player.getSmithing().setUpSmithing(item);
 					break;

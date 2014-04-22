@@ -30,6 +30,7 @@ import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Sailing.ShipRoute;
 import com.rs2.model.transport.Travel;
 import com.rs2.model.transport.Travel.Route;
+import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
@@ -4335,6 +4336,22 @@ public class Dialogues {
 							player.getInventory().addItem(new Item(7927,1));
 							return true;
 					}
+				}
+			break;
+			case 10013 : // dragon shield smithing
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendStatement("You set to work trying to fix the ancient shield. It's seen some","heavy action and needs some serious work doing to it.");
+					return true;
+					case 2 :
+						DragonShieldSmith.smithShield(player);
+						player.getDialogue().resetDialogue();
+						player.getActionSender().removeInterfaces();
+					return true;
+					case 3 :
+						player.getDialogue().sendStatement("Even for an experience armourer it is not an easy task, but","eventually it is ready. You have restored the dragon square shield to","its former glory.");
+						player.getDialogue().endDialogue();
+					return true;
 				}
 			break;
 		}
