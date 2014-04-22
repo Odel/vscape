@@ -80,7 +80,6 @@ public class Barrows {
 						if (player.getSpawnedNpc() == null || player.getSpawnedNpc().getNpcId() != brother.npcId && !player.getBarrowsNpcDead(brother.index)) 
 						{
 							NpcLoader.spawnNpc(player, new Npc(brother.npcId), true, true);
-							player.getActionSender().shakeScreen(3, 2, 3, 2);
 							return true;
 						}
 					}
