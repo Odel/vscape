@@ -46,7 +46,7 @@ public class CombatManager extends Tick {
 	public static final String AMMO_COMPATIBILITY_MESSAGE = "You cannot use that ammo with that weapon!";
 	public static final String NO_SPECIAL_ENERGY_MESSAGE = "You have no special energy left.";
 
-	public static int [] randomItem = {4033, 4012, 4024, 4027, 1963};
+	public static int [] randomItem = {4012, 4024, 4027, 1963};
 	private final List<Hit> hitsStory;
 
 	public CombatManager() {
