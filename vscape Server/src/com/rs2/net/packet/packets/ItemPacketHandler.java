@@ -743,7 +743,8 @@ public class ItemPacketHandler implements PacketHandler {
 				}
 				return;
 			case 4033:
-			    ShopManager.openShop(player, 39);
+			  //  ShopManager.openShop(player, 39);
+			  player.getActionSender().sendMessage("You poke the monkey");
 			    return;
 			case 952 : //spade
 				player.getUpdateFlags().sendAnimation(830);
