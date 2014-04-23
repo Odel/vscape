@@ -185,7 +185,7 @@ public class Constants {
 
     public static final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
 	public static final String[] bad = {":chalreq:", ":tradereq:", "flavius", ":duelreq:"};
-	public static final String[] bannedChars = {"!","$","%","^","&","*","+","=","@",":",";","~","#","<",">","?","\\","/","`","|","[","]","{","}","(",")","-","'","\""};
+	public static final String[] bannedChars = {"!","$","%","^","&","*","+","=","@",":",";","~","#","<",">",",",".","?","\\","/","`","|","[","]","{","}","(",")","-","'","\""};
 	
     public static final int SKILL_ATTACK = 0, SKILL_DEFENCE = 1,
             SKILL_STRENGTH = 2, SKILL_HP = 3, SKILL_RANGE = 4, SKILL_PRAY = 5,
