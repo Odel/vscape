@@ -101,7 +101,8 @@ public class WeaponAttack extends BasicAttack {
 				return;
 			}
 		}
-		if (getAttackStyle().getAttackType() == AttackType.RANGED) {
+		String weaponName = player.getEquippedWeapon().name().toLowerCase();
+		if (getAttackStyle().getAttackType() == AttackType.RANGED && !weaponName.contains("crystal")) {
 			rangedAmmo = RangedAmmo.getRangedAmmo(player, weapon, true);
 			if (rangedAmmo == null) {
 				failedInitialize = true;
@@ -116,8 +117,10 @@ public class WeaponAttack extends BasicAttack {
 				}
 			}});
 			poisonEffect = checkPoison(player, AttackType.RANGED, ammoSlot);
-		} else if (getAttackStyle().getAttackType() == AttackType.MELEE)
+		} else if (getAttackStyle().getAttackType() == AttackType.MELEE){
 			poisonEffect = checkPoison(player, AttackType.MELEE, Constants.WEAPON);
+		}else if (weaponName.contains("crystal")) 
+	        rangedAmmo = RangedAmmo.CRYSTAL_ARROW; //This allows the bow to ignore ammo
 
 		setHits(generateHits());
 		setAttackDelay(generateHitDelay());

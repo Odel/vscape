@@ -12,6 +12,7 @@ public enum Weapon {
 	// movementAnimations are { stand, walk, run }
 	FISTS(WeaponInterface.FISTS, 4, new int[]{422, 423, 422}, Constants.MOVEMENT_ANIMS, 424), SHORT_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 4, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     SPECIAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
+	CRYSTAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.CRYSTAL, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     OGRE_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.OGRE, 8, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     OGRE_COMP_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.BRUTAL, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     LONG_BOW(WeaponInterface.LONG_BOW, RangedAmmoType.ARROW, 6, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
@@ -167,8 +168,10 @@ public enum Weapon {
 			return Weapon.PICKAXE;
 		} else if (name.contains("shortbow")) {
 			return Weapon.SHORT_BOW;
-		} else if (name.contains("comp bow") || name.contains("seercull") || name.contains("crystal bow")) {
+		} else if (name.contains("comp bow") || name.contains("seercull")) {
 			return Weapon.SPECIAL_BOW;
+		} else if (name.contains("crystal bow")) {
+			 return Weapon.CRYSTAL_BOW;
 		} else if (name.contains("ogre")) {
 			if (name.startsWith("comp")) {
 				return Weapon.OGRE_COMP_BOW;
