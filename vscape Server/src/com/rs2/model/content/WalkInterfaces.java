@@ -3,6 +3,8 @@ package com.rs2.model.content;
 import com.rs2.Constants;
 import com.rs2.model.players.Player;
 
+import com.rs2.model.content.minigames.pestcontrol.*;
+
 /**
  * By Mikey` of Rune-Server
  */
@@ -23,6 +25,7 @@ public class WalkInterfaces {
 		}
 	}
 
+	//useful stuff - right click options for players such
 	public static void sendGameInterface(Player player) {
 		if (player.inWild()) {
 			if (changeWalkableInterface(player, 197)) {
@@ -40,7 +43,17 @@ public class WalkInterfaces {
 			if (changeWalkableInterface(player, 4535)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}
-		} else if (player.inWaterbirthIsland()) {
+		}else if(player.inPestControlLobbyArea())
+		{
+			changeWalkableInterface(player, 18788);
+			PestControl.lobbyInterface(player);
+		} 
+		else if(player.inPestControlGameArea())
+		{
+			changeWalkableInterface(player, 18793);
+			PestControl.gameInterface(player);
+		} 
+		else if (player.inWaterbirthIsland()) {
 			if (changeWalkableInterface(player, 11877)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}

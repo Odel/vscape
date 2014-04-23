@@ -14,6 +14,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
+import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -136,7 +137,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if ((id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507)) { //exceptions
+					if ((id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -196,6 +197,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (player.getCreatureGraveyard().handleObjectClicking(id, x, y, z)) {
+					this.stop();
+					return;
+				}
+				if (PestControl.handleObjectClicking(player, id, x, y)) {
 					this.stop();
 					return;
 				}

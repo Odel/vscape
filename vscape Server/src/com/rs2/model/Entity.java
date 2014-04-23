@@ -300,6 +300,14 @@ public abstract class Entity {
 	return false;*/
 		return (Area(3325, 3410, 3200, 3266) || Area(3341, 3410, 3267, 3288) || Area(3312, 3322, 3224, 3247)) && !inDuelArena();
 	}
+	
+	public boolean inPestControlLobbyArea() {
+		return Area(2660, 2663, 2638, 2643);
+	}
+
+	public boolean inPestControlGameArea() {
+		return Area(2620, 2690, 2555, 2620);
+	}
 
 	public void setIndex(int index) {
 		this.index = index;

@@ -63,6 +63,7 @@ import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
+import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -698,7 +699,7 @@ public class Player extends Entity {
 		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
 		} else if (keyword.equals("home")) {
-            if (inWild() || isAttacking() || inDuelArena() || isDead() || !getInCombatTick().completed()) {
+            if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed()) {
                 getActionSender().sendMessage("You cannot do that here!");
             } else {
                 teleport(new Position(Constants.START_X, Constants.START_Y, 0));
@@ -1195,6 +1196,10 @@ public class Player extends Entity {
             if (player.inDuelArena()) {
                 actionSender.sendMessage("That person is dueling right now.");
                 return;
+            }
+            if(player.inPestControlLobbyArea() || player.inPestControlGameArea())
+            {
+            	actionSender.sendMessage("That person is in pest control right now.");
             }
             player.teleport(getPosition().clone());
 		}
@@ -2023,6 +2028,14 @@ public class Player extends Entity {
             b.start();
             if (getTradingEntity() != null) {
             	TradeManager.declineTrade(this);
+            }
+            if(inPestControlLobbyArea())
+            {
+            	PestControl.leaveLobby(this);
+            }
+            if(inPestControlGameArea())
+            {
+            	PestControl.leaveGame(this);
             }
             b.stop();
             b = Benchmarks.getBenchmark("duelDecline");
@@ -3439,7 +3452,7 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard()) {
+		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea()) {
 			return; //prevents the dropping of items when you die in the duel arena
 		 }
 		if (killer == null) {
