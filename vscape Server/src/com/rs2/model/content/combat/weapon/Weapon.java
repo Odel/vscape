@@ -36,6 +36,7 @@ public enum Weapon {
     SWORD(WeaponInterface.DAGGER, 4, new int[]{412, 412, 451, 412}, Constants.MOVEMENT_ANIMS, 404),
     KARILS_CROSSBOW(WeaponInterface.SHORT_BOW, RangedAmmoType.KARILS_BOLT, 4, new int[]{2075, 2075, 2075}, new int[]{2074, 2076, 2077}, 1666),
     CROSSBOW(WeaponInterface.SHORT_BOW, RangedAmmoType.BOLTS, 6, new int[]{427, 427, 427}, Constants.MOVEMENT_ANIMS, 404),
+    CBOW(WeaponInterface.SHORT_BOW, RangedAmmoType.BOLTS, 4, new int[]{4230, 4230, 4230}, Constants.MOVEMENT_ANIMS, 404),
     DHAROKS(WeaponInterface.AXE, 7, new int[]{2067, 2067, 2066, 2067}, new int[]{2065, 1663, 1664}, 1666),
     TORAGS(WeaponInterface.MAUL, 5, new int[]{2068, 2068, 2068}, Constants.MOVEMENT_ANIMS, 424),
     AHRIMS(WeaponInterface.STAFF, 4, new int[]{406, 407, 408}, new int[]{809, 1146, 1210}, 435),
@@ -182,6 +183,8 @@ public enum Weapon {
 			return Weapon.KARILS_CROSSBOW;
 		} else if (name.contains("crossbow")) {// Also Dorgeshuun.
 			return Weapon.CROSSBOW;
+		} else if (name.contains("c'bow")) { // 474 
+			return Weapon.CBOW;
 		} else if (name.contains("knife")) {
 			return Weapon.THROWING_KNIFE;
 		} else if (name.contains("dart")) {

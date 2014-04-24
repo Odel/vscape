@@ -257,33 +257,28 @@ public final class TextDrawingArea extends DrawingArea {
 		DrawingArea.method339(k + (int)((double)anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
 	}
 
-	public void method390(int i, int j, String s, int k, int i1)
-	{
-	if(s == null)
-		return;
-	aRandom1498.setSeed(k);
-	int j1 = 192 + (aRandom1498.nextInt() & 0x1f);
-	i1 -= anInt1497;
-	for(int k1 = 0; k1 < s.length(); k1++)
-		if(s.charAt(k1) == '@' && k1 + 4 < s.length() && s.charAt(k1 + 4) == '@')
-		{
-		int l1 = getColorByName(s.substring(k1 + 1, k1 + 4));
-		if(l1 != -1)
-			j = l1;
-		k1 += 4;
-		} else
-		{
-		char c = s.charAt(k1);
-		if(c != ' ')
-		{
-			method394(192, i + anIntArray1494[c] + 1, aByteArrayArray1491[c], anIntArray1492[c], i1 + anIntArray1495[c] + 1, anIntArray1493[c], 0);
-			method394(j1, i + anIntArray1494[c], aByteArrayArray1491[c], anIntArray1492[c], i1 + anIntArray1495[c], anIntArray1493[c], j);
-		}
-		i += anIntArray1496[c];
-		if((aRandom1498.nextInt() & 3) == 0)
-			i++;
-		}
-
+	public void method390(int i, int j, String s, int k, int i1) {
+		if(s == null)
+			return;
+		aRandom1498.setSeed(k);
+		int j1 = 192 + (aRandom1498.nextInt() & 0x1f);
+		i1 -= anInt1497;
+		for(int k1 = 0; k1 < s.length(); k1++)
+			if(s.charAt(k1) == '@' && k1 + 4 < s.length() && s.charAt(k1 + 4) == '@') {
+				int l1 = getColorByName(s.substring(k1 + 1, k1 + 4));
+				if(l1 != -1)
+					j = l1;
+				k1 += 4;
+			} else {
+				char c = s.charAt(k1);
+				if(c != ' ') {
+					method394(192, i + anIntArray1494[c] + 1, aByteArrayArray1491[c], anIntArray1492[c], i1 + anIntArray1495[c] + 1, anIntArray1493[c], 0);
+					method394(j1, i + anIntArray1494[c], aByteArrayArray1491[c], anIntArray1492[c], i1 + anIntArray1495[c], anIntArray1493[c], j);
+				}
+				i += anIntArray1496[c];
+				if((aRandom1498.nextInt() & 3) == 0)
+					i++;
+			}
 	}
 
 	

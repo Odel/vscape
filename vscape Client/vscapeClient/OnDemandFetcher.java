@@ -13,19 +13,7 @@ import vscapeClient.sign.signlink;
 public final class OnDemandFetcher extends OnDemandFetcherParent
 		implements Runnable
 {
-
-	private boolean crcMatches(int i, int j, byte abyte0[])
-	{
-		if(abyte0 == null || abyte0.length < 2)
-			return false;
-		int k = abyte0.length - 2;
-		int l = ((abyte0[k] & 0xff) << 8) + (abyte0[k + 1] & 0xff);
-		crc32.reset();
-		crc32.update(abyte0, 0, k);
-		int i1 = (int) crc32.getValue();
-		return l == i && i1 == j;
-	}
-
+	
 	private void readData()
 	{
 		try
@@ -121,78 +109,35 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 		}
 	}
 
-	public void start(StreamLoader streamLoader, client client1)
-	{
-		String as[] = {
-			"model_version", "anim_version", "midi_version", "map_version"
-		};
-		for(int i = 0; i < 4; i++)
-		{
-			byte abyte0[] = streamLoader.getDataForName(as[i]);
-			int j = abyte0.length / 2;
-			Stream stream = new Stream(abyte0);
-			versions[i] = new int[j];
-			fileStatus[i] = new byte[j];
-			for(int l = 0; l < j; l++)
-				versions[i][l] = stream.readUnsignedWord();
+	public void start(StreamLoader streamLoader, client client1) {
+        byte[] abyte2 = streamLoader.getDataForName("map_index");
+        Stream stream2 = new Stream(abyte2);
+        int j1 = abyte2.length / 7;
+        mapIndices1 = new int[j1];
+        mapIndices2 = new int[j1];
+        mapIndices3 = new int[j1];
+        mapIndices4 = new int[j1];
+        for (int i2 = 0; i2 < j1; i2++) {
+            mapIndices1[i2] = stream2.readUnsignedWord();
+            mapIndices2[i2] = stream2.readUnsignedWord();
+            mapIndices3[i2] = stream2.readUnsignedWord();
+           mapIndices4[i2] = stream2.readUnsignedByte();
+        }
 
-		}
+        abyte2 = streamLoader.getDataForName("midi_index");
+        stream2 = new Stream(abyte2);
+        j1 = abyte2.length;
+        anIntArray1348 = new int[j1];
+        for (int k2 = 0; k2 < j1; k2++)
+            anIntArray1348[k2] = stream2.readUnsignedByte();
 
-		String as1[] = {
-			"model_crc", "anim_crc", "midi_crc", "map_crc"
-		};
-		for(int k = 0; k < 4; k++)
-		{
-			byte abyte1[] = streamLoader.getDataForName(as1[k]);
-			int i1 = abyte1.length / 4;
-			Stream stream_1 = new Stream(abyte1);
-			crcs[k] = new int[i1];
-			for(int l1 = 0; l1 < i1; l1++)
-				crcs[k][l1] = stream_1.readDWord();
-
-		}
-
-		byte abyte2[] = streamLoader.getDataForName("model_index");
-		int j1 = versions[0].length;
-		modelIndices = new byte[j1];
-		for(int k1 = 0; k1 < j1; k1++)
-			if(k1 < abyte2.length)
-				modelIndices[k1] = abyte2[k1];
-			else
-				modelIndices[k1] = 0;
-
-		abyte2 = streamLoader.getDataForName("map_index");
-		Stream stream2 = new Stream(abyte2);
-		j1 = abyte2.length / 7;
-		mapIndices1 = new int[j1];
-		mapIndices2 = new int[j1];
-		mapIndices3 = new int[j1];
-		mapIndices4 = new int[j1];
-		for(int i2 = 0; i2 < j1; i2++)
-		{
-			mapIndices1[i2] = stream2.readUnsignedWord();
-			mapIndices2[i2] = stream2.readUnsignedWord();
-			mapIndices3[i2] = stream2.readUnsignedWord();
-			mapIndices4[i2] = stream2.readUnsignedByte();
-		}
-
-		abyte2 = streamLoader.getDataForName("anim_index");
-		stream2 = new Stream(abyte2);
-		j1 = abyte2.length / 2;
-		anIntArray1360 = new int[j1];
-		for(int j2 = 0; j2 < j1; j2++)
-			anIntArray1360[j2] = stream2.readUnsignedWord();
-
-		abyte2 = streamLoader.getDataForName("midi_index");
-		stream2 = new Stream(abyte2);
-		j1 = abyte2.length;
-		anIntArray1348 = new int[j1];
-		for(int k2 = 0; k2 < j1; k2++)
-			anIntArray1348[k2] = stream2.readUnsignedByte();
-
-		clientInstance = client1;
-		running = true;
-		clientInstance.startRunnable(this, 2);
+        clientInstance = client1;
+        running = true;
+        clientInstance.startRunnable(this, 2);
+    }
+	
+	public int getModelCount() {
+		return 35000;
 	}
 
 	public int getNodeCount()
@@ -274,15 +219,11 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
 	public int getAnimCount()
 	{
-		return anIntArray1360.length;
+		return Short.MAX_VALUE;//anIntArray1360.length;
 	}
 
 	public void method558(int i, int j)
 	{
-		if(i < 0 || i > versions.length || j < 0 || j > versions[i].length)
-			return;
-		if(versions[i][j] == 0)
-			return;
 		synchronized(nodeSubList)
 		{
 			for(OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
@@ -303,7 +244,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 
 	public int getModelIndex(int i)
 	{
-		return modelIndices[i] & 0xff;
+		return Short.MAX_VALUE;//modelIndices[i] & 0xff;
 	}
 
 	public void run()
@@ -328,7 +269,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 						break;
 					waiting = false;
 					checkReceived();
-					handleFailed();
+					//handleFailed();
 					if(uncompletedCount == 0 && j >= 5)
 						break;
 					method568();
@@ -415,10 +356,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	{
 		if(clientInstance.decompressors[0] == null)
 			return;
-		if(versions[j][i] == 0)
-			return;
-		if(fileStatus[j][i] == 0)
-			return;
 		if(anInt1332 == 0)
 			return;
 		OnDemandData onDemandData = new OnDemandData();
@@ -491,11 +428,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 	{
 		if(clientInstance.decompressors[0] == null)
 			return;
-		if(versions[i][j] == 0)
-			return;
-		byte abyte0[] = clientInstance.decompressors[i + 1].decompress(j);
-		if(crcMatches(versions[i][j], crcs[i][j], abyte0))
-			return;
 		fileStatus[i][j] = byte0;
 		if(byte0 > anInt1332)
 			anInt1332 = byte0;
@@ -556,8 +488,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 			byte abyte0[] = null;
 			if(clientInstance.decompressors[0] != null)
 				abyte0 = clientInstance.decompressors[onDemandData.dataType + 1].decompress(onDemandData.ID);
-			if(!crcMatches(versions[onDemandData.dataType][onDemandData.ID], crcs[onDemandData.dataType][onDemandData.ID], abyte0))
-				abyte0 = null;
 			synchronized(aClass19_1370)
 			{
 				if(abyte0 == null)
@@ -652,7 +582,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 		running = true;
 		waiting = false;
 		aClass19_1358 = new NodeList();
-		gzipInputBuffer = new byte[65000];
+		gzipInputBuffer = new byte[0x71868];
 		nodeSubList = new NodeSubList();
 		versions = new int[4][];
 		crcs = new int[4][];

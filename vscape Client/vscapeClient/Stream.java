@@ -177,6 +177,12 @@ public final class Stream extends NodeSub {
 		return new String(buffer, i, currentOffset - i - 1);
 	}
 
+	public String readNewString() {
+		int i = currentOffset;
+		while (buffer[currentOffset++] != 0) ;
+		return new String(buffer, i, currentOffset - i - 1);
+	}
+	
 	public byte[] readBytes()
 	{
 		int i = currentOffset;

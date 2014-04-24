@@ -27,6 +27,13 @@ public class PestControl {
 	public static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
 	public static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
 	
+	
+	//6142 - 6145 normal portal
+	//6146 - 6150 shielded portals
+	
+	private final static int SHIELD_TIME = 60;
+	private static int shieldTime = -1;
+	
 	public static void lobbyInterface(Player player) {
 		try
 		{
@@ -187,11 +194,17 @@ public class PestControl {
 		lobbyPlayers.clear();
 	}
 	
+	public static void spawnPortals() {
+		for(int i = 0; i < 4; i++) {
+			
+		}
+	}
+	
 	public static void joinLobby(Player player) {
 		if (player != null) {
 			if(!isInLobby(player))
 			{
-				if(playersInLobby() <= 0)
+				if(playersInLobby() <= 0 && playersInGame() <= 0)
 				{
 					think();
 				}

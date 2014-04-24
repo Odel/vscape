@@ -1073,6 +1073,7 @@ public class Equipment {
 				defenceLevelReq = 70;
 			} else {
 				rangeLevelReq = 70;
+				slayerLevelReq = 50;
 			}
 			return;
 		}

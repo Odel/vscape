@@ -117,18 +117,12 @@ private Position curPosition;
 	String s = findcachedir();
         active = true;
         uid = getuid(s);
-        try
-        {
-            File file = new File(s + "main_file_cache.dat");
-            if(file.exists() && file.length() > 0x3200000L)
-                file.delete();
+        try {
             cache_dat = new RandomAccessFile(s + "main_file_cache.dat", "rw");
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < 5; j++) {
                 cache_idx[j] = new RandomAccessFile(s + "main_file_cache.idx" + j, "rw");
-
-        }
-        catch(Exception exception)
-        {
+			}
+        } catch(Exception exception) {
             exception.printStackTrace();
         }
         for(int i = threadliveid; threadliveid == i;)

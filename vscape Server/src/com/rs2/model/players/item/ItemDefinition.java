@@ -511,7 +511,7 @@ public class ItemDefinition {
 		if (itemName.contains("ahrim") || itemName.contains("karil") || itemName.contains("verac") || itemName.contains("guthan") || itemName.contains("dharok") || itemName.contains("torag")) {
 			return true;
 		}
-		if (itemName.contains("bow") && !itemName.contains("crossbow")) {
+		if (itemName.contains("bow") && !itemName.contains("crossbow") && !itemName.contains("c'bow")) {
 			return true;
 		}
 		if (itemName.contains("maul") || itemName.contains("claw") || itemName.contains("2h") || itemName.contains("halberd") || itemName.contains("spear")) {

@@ -180,22 +180,22 @@ final class Decompressor {
 		}
 	}
 
-	private synchronized void seekTo(RandomAccessFile randomaccessfile, int j)
-		throws IOException
-	{
-		if(j < 0 || j > 0x3c00000)
-		{
-			System.out.println("Badseek - pos:" + j + " len:" + randomaccessfile.length());
-			j = 0x3c00000;
-			try
-			{
-				Thread.sleep(1000L);
-			}
-			catch(Exception _ex) { }
+	private synchronized void seekTo(RandomAccessFile randomaccessfile, int j) throws IOException {
+		try {
+			/*if (j < 0 || j > 0x3c00000) {
+				System.out.println("Badseek - pos:" + j + " len:" + randomaccessfile.length());
+				j = 0x3c00000;
+				try {
+					Thread.sleep(1000L);
+				} catch (Exception _ex) {
+				}
+			}*/
+			randomaccessfile.seek(j);
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		randomaccessfile.seek(j);
 	}
-
+	
 	private static final byte[] buffer = new byte[520];
 	private final RandomAccessFile dataFile;
 	private final RandomAccessFile indexFile;

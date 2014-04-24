@@ -1,0 +1,6391 @@
+0 Hans combat lvl: 0
+1 Man combat lvl: 2
+2 Man combat lvl: 2
+3 Man combat lvl: 2
+4 Woman combat lvl: 2
+5 Woman combat lvl: 2
+6 Woman combat lvl: 2
+7 Farmer combat lvl: 7
+8 Thief combat lvl: 16
+9 Guard combat lvl: 21
+10 Schoolgirl combat lvl: 0
+11 Tramp combat lvl: 0
+12 Barbarian combat lvl: 7
+13 Wizard combat lvl: 9
+14 Druid combat lvl: 33
+15 Warrior woman combat lvl: 24
+16 Man combat lvl: 2
+17 Schoolgirl combat lvl: 0
+18 Al-Kharid warrior combat lvl: 9
+19 White Knight combat lvl: 36
+20 Paladin combat lvl: 62
+21 Hero combat lvl: 69
+22 Forester combat lvl: 15
+23 Knight of Ardougne combat lvl: 46
+24 Man combat lvl: 2
+25 Woman combat lvl: 2
+26 Knight of Ardougne combat lvl: 46
+27 Archer combat lvl: 37
+28 Zoo keeper combat lvl: 0
+29 Chuck combat lvl: 1
+30 Barman combat lvl: 0
+31 Priest combat lvl: 0
+32 Guard combat lvl: 20
+33 Door man combat lvl: 0
+34 Watchman combat lvl: 33
+35 Soldier combat lvl: 28
+36 Wyson the gardener combat lvl: 0
+37 Sigbert the Adventurer combat lvl: 0
+38 Shipyard worker combat lvl: 11
+39 Shipyard worker combat lvl: 11
+40 Shark combat lvl: 1
+41 Chicken combat lvl: 1
+42 Sheep combat lvl: 0
+43 Sheep combat lvl: 0
+44 Banker combat lvl: 0
+45 Banker combat lvl: 0
+46 Duck combat lvl: 1
+47 Rat combat lvl: 1
+48 Oomlie bird combat lvl: 46
+49 Hellhound combat lvl: 122
+50 King Black Dragon combat lvl: 276
+51 Baby dragon combat lvl: 48
+52 Baby dragon combat lvl: 48
+53 Red dragon combat lvl: 152
+54 Black dragon combat lvl: 227
+55 Blue dragon combat lvl: 111
+56 Dryad combat lvl: 1
+57 Fairy combat lvl: 0
+58 Shadow spider combat lvl: 52
+59 Giant spider combat lvl: 2
+60 Giant spider combat lvl: 27
+61 Spider combat lvl: 1
+62 Jungle spider combat lvl: 44
+63 Deadly red spider combat lvl: 34
+64 Ice spider combat lvl: 61
+65 Leprechaun combat lvl: 12
+66 Gnome combat lvl: 1
+67 Gnome combat lvl: 1
+68 Gnome combat lvl: 1
+69 Lizard man combat lvl: 22
+70 Turael combat lvl: 0
+71 Orc combat lvl: 20
+72 Troll combat lvl: 69
+73 Zombie combat lvl: 13
+74 Zombie combat lvl: 18
+75 Zombie combat lvl: 24
+76 Zombie combat lvl: 25
+77 Summoned Zombie combat lvl: 13
+78 Giant bat combat lvl: 27
+79 Death wing combat lvl: 83
+80 Camel combat lvl: 0
+81 Cow combat lvl: 2
+82 Lesser demon combat lvl: 82
+83 Greater demon combat lvl: 92
+84 Black Demon combat lvl: 172
+85 Golem combat lvl: 55
+86 Giant rat combat lvl: 3
+87 Giant rat combat lvl: 6
+88 Dungeon rat combat lvl: 12
+89 Unicorn combat lvl: 15
+92 Skeleton combat lvl: 25
+90 Skeleton combat lvl: 25
+91 Skeleton combat lvl: 25
+93 Skeleton combat lvl: 45
+94 Skeleton Mage combat lvl: 16
+95 Wolf combat lvl: 64
+96 White wolf combat lvl: 25
+97 White wolf combat lvl: 38
+98 Dog combat lvl: 0
+99 Guard dog combat lvl: 44
+100 Goblin combat lvl: 2
+101 Goblin combat lvl: 5
+102 Goblin combat lvl: 13
+103 Ghost combat lvl: 19
+104 Ghost combat lvl: 19
+105 Grizzly bear combat lvl: 21
+106 Black bear combat lvl: 19
+107 Scorpion combat lvl: 14
+108 Poison Scorpion combat lvl: 20
+109 Pit Scorpion combat lvl: 28
+110 Fire giant combat lvl: 86
+111 Ice giant combat lvl: 53
+112 Moss giant combat lvl: 42
+113 Jogre combat lvl: 53
+114 Ogre combat lvl: 53
+115 Ogre combat lvl: 53
+116 Cyclops combat lvl: 56
+117 Hill Giant combat lvl: 28
+118 Dwarf combat lvl: 10
+119 Chaos dwarf combat lvl: 48
+120 Dwarf combat lvl: 20
+121 Dwarf combat lvl: 9
+122 Hobgoblin combat lvl: 28
+123 Hobgoblin combat lvl: 42
+124 Earth warrior combat lvl: 51
+125 Ice warrior combat lvl: 57
+126 Otherworldly being combat lvl: 64
+127 Magic axe combat lvl: 42
+128 Snake combat lvl: 5
+129 Skavid combat lvl: 2
+130 Yeti combat lvl: 58
+131 Penguin combat lvl: 2
+132 Monkey combat lvl: 3
+133 Black unicorn combat lvl: 27
+134 Poison spider combat lvl: 64
+135 Mammoth combat lvl: 41
+136 Mounted terrorchick gnome combat lvl: 0
+137 Terrorchick gnome combat lvl: 0
+138 Terrorbird combat lvl: 28
+139 Terrorbird combat lvl: 28
+140 Souless combat lvl: 18
+141 Big Wolf combat lvl: 73
+142 Wolf combat lvl: 25
+143 Jungle Wolf combat lvl: 64
+144 King Scorpion combat lvl: 32
+145 Ice warrior combat lvl: 57
+146 Gull combat lvl: 0
+147 Cormorant combat lvl: 0
+148 Pelican combat lvl: 0
+149 Gull combat lvl: 0
+150 Gull combat lvl: 0
+151 Fly trap combat lvl: 0
+152 null combat lvl: 85
+153 Butterfly combat lvl: 0
+154 Butterfly combat lvl: 0
+155 Butterfly combat lvl: 0
+156 Butterfly combat lvl: 0
+157 Butterfly combat lvl: 0
+158 Shadow warrior combat lvl: 48
+159 Gnome child combat lvl: 1
+160 Gnome child combat lvl: 1
+161 Gnome child combat lvl: 1
+162 Gnome trainer combat lvl: 0
+163 Gnome guard combat lvl: 23
+164 Gnome guard combat lvl: 23
+165 Gnome shop keeper combat lvl: 0
+166 Gnome banker combat lvl: 0
+167 Gnome baller combat lvl: 0
+168 Gnome woman combat lvl: 1
+169 Gnome woman combat lvl: 1
+170 Man combat lvl: 2
+171 Brimstail combat lvl: 0
+172 Dark wizard combat lvl: 20
+173 Invrigar the Necromancer combat lvl: 20
+174 Dark wizard combat lvl: 7
+175 Mugger combat lvl: 6
+176 Witch combat lvl: 25
+177 Witch combat lvl: 25
+178 Black Knight combat lvl: 33
+179 Black Knight combat lvl: 33
+180 Highwayman combat lvl: 5
+181 Chaos druid combat lvl: 13
+182 Pirate combat lvl: 23
+183 Pirate combat lvl: 23
+184 Pirate combat lvl: 26
+185 Pirate combat lvl: 23
+186 Thug combat lvl: 10
+187 Rogue combat lvl: 15
+188 Monk of Zamorak combat lvl: 22
+189 Monk of Zamorak combat lvl: 17
+190 Monk of Zamorak combat lvl: 45
+191 Tribesman combat lvl: 32
+192 Dark warrior combat lvl: 8
+193 Chaos druid warrior combat lvl: 37
+194 Necromancer combat lvl: 26
+195 Bandit combat lvl: 22
+196 Guard Bandit combat lvl: 22
+197 Barbarian guard combat lvl: 8
+198 Guildmaster combat lvl: 0
+199 Gunthor the Brave combat lvl: 29
+200 Lord Daquarius combat lvl: 0
+201 Jailer combat lvl: 47
+202 Black Heather combat lvl: 34
+203 Donny the Lad combat lvl: 34
+204 Speedy Keith combat lvl: 34
+205 Salarin the Twisted combat lvl: 70
+206 Guard combat lvl: 10
+207 Lollk combat lvl: 0
+208 Captain Lawgof combat lvl: 0
+209 Nulodion combat lvl: 0
+210 Grail Maiden combat lvl: 0
+211 Sir Percival combat lvl: 0
+212 King Percival combat lvl: 0
+213 Merlin combat lvl: 0
+214 Peasant combat lvl: 0
+215 Peasant combat lvl: 0
+216 High Priest combat lvl: 0
+217 Crone combat lvl: 0
+218 Galahad combat lvl: 0
+219 Fisherman combat lvl: 0
+220 The Fisher King combat lvl: 0
+221 Black Knight Titan combat lvl: 120
+222 Monk combat lvl: 5
+223 Brother Kojo combat lvl: 0
+224 Dungeon rat combat lvl: 12
+225 Bonzo combat lvl: 0
+226 null combat lvl: 1
+227 Morris combat lvl: 0
+228 Big Dave combat lvl: 0
+229 Joshua combat lvl: 0
+230 Grandpa Jack combat lvl: 0
+231 Forester combat lvl: 0
+232 Austri combat lvl: 0
+233 Fishing spot combat lvl: 0
+234 Fishing spot combat lvl: 0
+235 Fishing spot combat lvl: 0
+236 Fishing spot combat lvl: 0
+237 Renegade Knight combat lvl: 37
+238 Thrantax the Mighty combat lvl: 92
+239 Sir Lancelot combat lvl: 0
+240 Sir Gawain combat lvl: 0
+241 Sir Kay combat lvl: 0
+242 Sir Bedivere combat lvl: 0
+243 Sir Tristram combat lvl: 0
+244 Sir Pelleas combat lvl: 0
+245 Sir Lucan combat lvl: 0
+246 Sir Palomedes combat lvl: 0
+247 Sir Mordred combat lvl: 39
+248 Morgan Le Faye combat lvl: 0
+249 Merlin combat lvl: 0
+250 The Lady of the Lake combat lvl: 0
+251 King Arthur combat lvl: 0
+252 Beggar combat lvl: 0
+253 Khazard Guard combat lvl: 23
+254 Khazard Guard combat lvl: 23
+255 Khazard Guard combat lvl: 23
+256 Khazard Guard combat lvl: 23
+257 Khazard Guard combat lvl: 25
+258 General Khazard combat lvl: 112
+259 Khazard barman combat lvl: 0
+260 Kelvin combat lvl: 0
+261 Joe combat lvl: 0
+262 Fightslave combat lvl: 0
+263 Hengrad combat lvl: 0
+264 Lady Servil combat lvl: 0
+265 Jeremy Servil combat lvl: 0
+266 Jeremy Servil combat lvl: 0
+267 Justin Servil combat lvl: 0
+268 Local combat lvl: 0
+269 Bouncer combat lvl: 137
+270 Khazard Ogre combat lvl: 63
+271 Khazard Scorpion combat lvl: 44
+272 Lucien combat lvl: 14
+273 Lucien combat lvl: 0
+274 Guardian of Armadyl combat lvl: 45
+275 Guardian of Armadyl combat lvl: 43
+276 Winelda combat lvl: 0
+277 Fire Warrior of Lesarkus combat lvl: 84
+278 Cook combat lvl: 0
+279 Brother Omad combat lvl: 0
+280 Brother Cedric combat lvl: 0
+281 Monk combat lvl: 3
+282 Thief combat lvl: 14
+283 Head Thief combat lvl: 26
+284 Doric combat lvl: 0
+285 Veronica combat lvl: 0
+286 Professor Oddenstein combat lvl: 0
+287 Ernest combat lvl: 0
+288 Chicken combat lvl: 0
+289 Councillor Halgrive combat lvl: 0
+290 Doctor Orbon combat lvl: 0
+291 Farmer Brumty combat lvl: 0
+292 null combat lvl: 1
+293 null combat lvl: 1
+294 null combat lvl: 1
+295 null combat lvl: 1
+296 Guard combat lvl: 21
+297 Guard combat lvl: 21
+298 Guard combat lvl: 21
+299 Guard combat lvl: 21
+300 Sedridor combat lvl: 0
+301 Twig combat lvl: 0
+302 Hadley combat lvl: 0
+303 Gerald combat lvl: 0
+304 Almera combat lvl: 0
+305 Hudon combat lvl: 0
+306 Golrie combat lvl: 0
+307 Hetty combat lvl: 0
+308 Master fisher combat lvl: 0
+309 Fishing spot combat lvl: 0
+310 Fishing spot combat lvl: 0
+311 Fishing spot combat lvl: 0
+312 Fishing spot combat lvl: 0
+313 Fishing spot combat lvl: 0
+314 Fishing spot combat lvl: 0
+315 Fishing spot combat lvl: 0
+316 Fishing spot combat lvl: 0
+317 Fishing spot combat lvl: 0
+318 Fishing spot combat lvl: 0
+319 Fishing spot combat lvl: 0
+320 Fishing spot combat lvl: 0
+321 Fishing spot combat lvl: 0
+322 Fishing spot combat lvl: 0
+323 Fishing spot combat lvl: 0
+324 Fishing spot combat lvl: 0
+325 Fishing spot combat lvl: 0
+326 Fishing spot combat lvl: 0
+327 Fishing spot combat lvl: 0
+328 Fishing spot combat lvl: 0
+329 Fishing spot combat lvl: 0
+330 Fishing spot combat lvl: 0
+331 Fishing spot combat lvl: 0
+332 Fishing spot combat lvl: 0
+333 Fishing spot combat lvl: 0
+334 Fishing spot combat lvl: 0
+335 null combat lvl: 1
+336 Da Vinci combat lvl: 0
+337 Da Vinci combat lvl: 0
+338 Chancy combat lvl: 0
+339 Chancy combat lvl: 0
+340 Hops combat lvl: 0
+341 Hops combat lvl: 0
+342 Guidor's wife combat lvl: 0
+343 Guidor combat lvl: 0
+344 Guard combat lvl: 0
+345 Guard combat lvl: 0
+346 Guard combat lvl: 0
+347 Mourner combat lvl: 11
+348 Mourner combat lvl: 24
+349 Kilron combat lvl: 0
+350 Omart combat lvl: 0
+351 Man combat lvl: 4
+352 Woman combat lvl: 3
+353 Woman combat lvl: 4
+354 Woman combat lvl: 3
+355 Child combat lvl: 0
+356 Child combat lvl: 0
+357 Mourner combat lvl: 18
+358 Priest combat lvl: 0
+359 Man combat lvl: 0
+360 Woman combat lvl: 4
+361 Woman combat lvl: 12
+362 Woman combat lvl: 3
+363 Woman combat lvl: 14
+364 King Lathas combat lvl: 0
+365 Paladin combat lvl: 59
+366 Jerico combat lvl: 0
+367 Chemist combat lvl: 0
+368 Guard combat lvl: 0
+369 Mourner combat lvl: 24
+370 Mourner combat lvl: 13
+371 Mourner combat lvl: 12
+372 Mourner combat lvl: 0
+373 Nurse Sarah combat lvl: 0
+374 Ogre combat lvl: 63
+375 Redbeard Frank combat lvl: 0
+376 Captain Tobias combat lvl: 0
+377 Seaman Lorris combat lvl: 0
+378 Seaman Thresnor combat lvl: 0
+379 Luthas combat lvl: 0
+380 Customs officer combat lvl: 0
+381 null combat lvl: 1
+382 Dwarf combat lvl: 0
+383 Stankers combat lvl: 0
+384 Barbarian guard combat lvl: 0
+385 Kharid Scorpion combat lvl: 0
+386 Kharid Scorpion combat lvl: 0
+387 Kharid Scorpion combat lvl: 0
+388 Seer combat lvl: 0
+389 Thormac combat lvl: 0
+390 Big fish combat lvl: 0
+391 River troll combat lvl: 14
+392 River troll combat lvl: 29
+393 River troll combat lvl: 49
+394 River troll combat lvl: 79
+395 River troll combat lvl: 120
+396 River troll combat lvl: 159
+397 Cow combat lvl: 2
+398 Legends guard combat lvl: 0
+399 Legends guard combat lvl: 0
+400 Radimus Erkle combat lvl: 0
+401 Jungle forester combat lvl: 0
+402 Jungle forester combat lvl: 0
+403 Fishing spot combat lvl: 0
+404 Fishing spot combat lvl: 0
+405 Fishing spot combat lvl: 0
+406 Fishing spot combat lvl: 0
+407 Strange plant combat lvl: 0
+408 Strange plant combat lvl: 0
+409 Genie combat lvl: 0
+410 Mysterious Old Man combat lvl: 0
+411 Swarm combat lvl: 0
+412 Bat combat lvl: 6
+413 Rock Golem combat lvl: 14
+414 Rock Golem combat lvl: 29
+415 Rock Golem combat lvl: 49
+416 Rock Golem combat lvl: 79
+417 Rock Golem combat lvl: 120
+418 Rock Golem combat lvl: 159
+419 Zombie combat lvl: 14
+420 Zombie combat lvl: 29
+421 Zombie combat lvl: 49
+422 Zombie combat lvl: 79
+423 Zombie combat lvl: 120
+424 Zombie combat lvl: 159
+425 Shade combat lvl: 14
+426 Shade combat lvl: 29
+427 Shade combat lvl: 49
+428 Shade combat lvl: 79
+429 Shade combat lvl: 120
+430 Shade combat lvl: 159
+431 null combat lvl: 0
+432 Cyrisus combat lvl: 126
+433 Cyrisus combat lvl: 126
+434 Cyrisus combat lvl: 126
+435 Fallen Man combat lvl: 0
+436 Fallen Man combat lvl: 0
+437 Cap'n Izzy No-Beard combat lvl: 0
+438 Tree spirit combat lvl: 14
+439 Tree spirit combat lvl: 29
+440 Tree spirit combat lvl: 49
+441 Tree spirit combat lvl: 79
+442 Tree spirit combat lvl: 120
+443 Tree spirit combat lvl: 159
+444 Goblin combat lvl: 5
+445 Goblin combat lvl: 5
+446 Giant rat combat lvl: 3
+447 Jail guard combat lvl: 26
+448 Jail guard combat lvl: 26
+449 Jail guard combat lvl: 26
+450 Gull combat lvl: 0
+451 Gull combat lvl: 0
+452 Seth Groats combat lvl: 0
+453 Suit of armour combat lvl: 19
+454 Sanfew combat lvl: 0
+455 Kaqemeex combat lvl: 0
+456 Father Aereck combat lvl: 0
+457 Restless ghost combat lvl: 0
+458 Father Urhney combat lvl: 0
+459 Skeleton combat lvl: 13
+460 Wizard Frumscone combat lvl: 0
+461 Magic Store owner combat lvl: 0
+462 Wizard Distentor combat lvl: 0
+463 Murphy combat lvl: 0
+464 Murphy combat lvl: 0
+465 Murphy combat lvl: 0
+466 Murphy combat lvl: 0
+467 Shark combat lvl: 0
+468 Shark combat lvl: 0
+469 King Bolren combat lvl: 0
+470 Commander Montai combat lvl: 0
+471 Bolkoy combat lvl: 0
+472 Remsai combat lvl: 0
+473 Elkoy combat lvl: 0
+474 Elkoy combat lvl: 0
+475 Khazard trooper combat lvl: 19
+476 Khazard trooper combat lvl: 19
+477 Khazard warlord combat lvl: 112
+478 Khazard commander combat lvl: 48
+479 Gnome troop combat lvl: 1
+480 Gnome troop combat lvl: 1
+481 Tracker gnome 1 combat lvl: 0
+482 Tracker gnome 2 combat lvl: 0
+483 Tracker gnome 3 combat lvl: 0
+484 Local Gnome combat lvl: 0
+485 Local Gnome combat lvl: 0
+486 Kalron combat lvl: 0
+487 Giant combat lvl: 0
+488 Observatory professor combat lvl: 0
+489 Goblin guard combat lvl: 42
+490 Mummy combat lvl: 0
+491 Ghost combat lvl: 24
+492 Spirit of Scorpius combat lvl: 0
+493 Grave scorpion combat lvl: 12
+494 Banker combat lvl: 0
+495 Banker combat lvl: 0
+496 Banker combat lvl: 0
+497 Banker combat lvl: 0
+498 Banker combat lvl: 0
+499 Banker combat lvl: 0
+500 Mosol Rei combat lvl: 0
+501 Spirit of Zadimus combat lvl: 0
+502 Undead one combat lvl: 68
+503 Undead one combat lvl: 61
+504 Undead one combat lvl: 68
+505 Undead one combat lvl: 73
+506 Rashiliyia combat lvl: 0
+507 Nazastarool combat lvl: 91
+508 Nazastarool combat lvl: 68
+509 Nazastarool combat lvl: 93
+510 Hajedy combat lvl: 0
+511 Vigroy combat lvl: 0
+512 Kaleb Paramaya combat lvl: 0
+513 Yohnus combat lvl: 0
+514 Seravel combat lvl: 0
+515 Yanni Salika combat lvl: 0
+516 Obli combat lvl: 0
+517 Fernahei combat lvl: 0
+518 Captain Shanks combat lvl: 0
+519 Bob combat lvl: 0
+520 Shopkeeper combat lvl: 0
+521 Shop assistant combat lvl: 0
+522 Shopkeeper combat lvl: 0
+523 Shop assistant combat lvl: 0
+524 Shopkeeper combat lvl: 0
+525 Shop assistant combat lvl: 0
+526 Shopkeeper combat lvl: 0
+527 Shop assistant combat lvl: 0
+528 Shopkeeper combat lvl: 0
+529 Shop assistant combat lvl: 0
+530 Shopkeeper combat lvl: 0
+531 Shop assistant combat lvl: 0
+532 Shopkeeper combat lvl: 0
+533 Shop assistant combat lvl: 0
+534 Fairy shopkeeper combat lvl: 0
+535 Fairy shop assistant combat lvl: 0
+536 Valaine combat lvl: 0
+537 Scavvo combat lvl: 0
+538 Peksa combat lvl: 0
+539 Silk trader combat lvl: 0
+540 Gem trader combat lvl: 0
+541 Zeke combat lvl: 0
+542 Louie Legs combat lvl: 0
+543 Karim combat lvl: 0
+544 Ranael combat lvl: 0
+545 Dommik combat lvl: 0
+546 Zaff combat lvl: 0
+547 Baraek combat lvl: 0
+548 Thessalia combat lvl: 0
+549 Horvik combat lvl: 0
+550 Lowe combat lvl: 0
+551 Shopkeeper combat lvl: 0
+552 Shop assistant combat lvl: 0
+553 Aubury combat lvl: 0
+554 Fancy-dress shop owner combat lvl: 0
+555 Shopkeeper combat lvl: 0
+556 Grum combat lvl: 0
+557 Wydin combat lvl: 0
+558 Gerrant combat lvl: 0
+559 Brian combat lvl: 0
+560 Jiminua combat lvl: 0
+561 Shopkeeper combat lvl: 0
+562 Candle-maker combat lvl: 0
+563 Arhein combat lvl: 0
+564 Jukat combat lvl: 0
+565 Lunderwin combat lvl: 0
+566 Irksol combat lvl: 0
+567 Fairy combat lvl: 0
+568 Zambo combat lvl: 0
+569 Silver merchant combat lvl: 0
+570 Gem merchant combat lvl: 0
+571 Baker combat lvl: 0
+572 Spice seller combat lvl: 0
+573 Fur trader combat lvl: 0
+574 Silk merchant combat lvl: 0
+575 Hickton combat lvl: 0
+576 Harry combat lvl: 0
+577 Cassie combat lvl: 0
+578 Frincos combat lvl: 0
+579 Drogo dwarf combat lvl: 0
+580 Flynn combat lvl: 0
+581 Wayne combat lvl: 0
+582 Dwarf combat lvl: 0
+583 Betty combat lvl: 0
+584 Herquin combat lvl: 0
+585 Rommik combat lvl: 0
+586 Gaius combat lvl: 0
+587 Jatix combat lvl: 0
+588 Davon combat lvl: 0
+589 Zenesha combat lvl: 0
+590 Aemad combat lvl: 0
+591 Kortan combat lvl: 0
+592 Roachey combat lvl: 0
+593 Frenita combat lvl: 0
+594 Nurmof combat lvl: 0
+595 Tea seller combat lvl: 0
+596 Fat Tony combat lvl: 0
+597 Noterazzo combat lvl: 0
+598 Hairdresser combat lvl: 0
+599 Make-over Mage combat lvl: 0
+600 Hudo combat lvl: 0
+601 Rometti combat lvl: 0
+602 Gulluck combat lvl: 0
+603 Heckel Funch combat lvl: 0
+604 Thurgo combat lvl: 0
+605 Sir Vyvin combat lvl: 0
+606 Squire combat lvl: 0
+607 Gunnjorn combat lvl: 0
+608 Sir Amik Varze combat lvl: 0
+609 Fortress Guard combat lvl: 20
+610 Black Knight Captain combat lvl: 0
+611 Witch combat lvl: 0
+612 Greldo combat lvl: 0
+613 Digsite workman combat lvl: 0
+614 Doug Deeping combat lvl: 0
+615 Student combat lvl: 0
+616 Student combat lvl: 0
+617 Student combat lvl: 0
+618 Examiner combat lvl: 0
+619 Archaeological expert combat lvl: 0
+620 Panning guide combat lvl: 0
+621 Gnome baller combat lvl: 0
+622 Gnome baller combat lvl: 0
+623 Gnome baller combat lvl: 0
+624 Gnome baller combat lvl: 0
+625 Gnome baller combat lvl: 0
+626 Gnome baller combat lvl: 0
+627 Gnome baller combat lvl: 0
+628 Gnome baller combat lvl: 0
+629 Gnome baller combat lvl: 0
+630 Gnome baller combat lvl: 0
+631 Gnome baller combat lvl: 0
+632 Gnome baller combat lvl: 0
+633 Gnome winger combat lvl: 0
+634 Gnome winger combat lvl: 0
+635 Gnome ball referee combat lvl: 0
+636 Cheerleader combat lvl: 0
+637 Juliet combat lvl: 0
+638 Apothecary combat lvl: 0
+639 Romeo combat lvl: 0
+640 Father Lawrence combat lvl: 0
+641 Charlie the Tramp combat lvl: 0
+642 Katrine combat lvl: 0
+643 Weaponsmaster combat lvl: 23
+644 Straven combat lvl: 0
+645 Jonny the beard combat lvl: 2
+646 Curator Haig Halen combat lvl: 0
+647 null combat lvl: 1
+648 King Roald combat lvl: 0
+649 Archer combat lvl: 0
+650 Warrior combat lvl: 0
+651 Monk combat lvl: 0
+652 Wizard combat lvl: 0
+653 Fairy Queen combat lvl: 0
+654 Shamus combat lvl: 0
+655 Tree spirit combat lvl: 101
+656 Cave monk combat lvl: 0
+657 Monk of Entrana combat lvl: 0
+658 Monk of Entrana combat lvl: 0
+659 Party Pete combat lvl: 0
+660 Knight combat lvl: 0
+661 Megan combat lvl: 0
+662 Lucy combat lvl: 0
+663 Man combat lvl: 0
+664 Dimintheis combat lvl: 0
+665 Boot combat lvl: 0
+666 Caleb combat lvl: 0
+667 Chronozon combat lvl: 170
+668 Johnathon combat lvl: 0
+669 Hazelmere combat lvl: 0
+670 King Narnode Shareen combat lvl: 0
+671 Glough combat lvl: 0
+672 Anita combat lvl: 0
+673 Charlie combat lvl: 0
+674 Foreman combat lvl: 23
+675 Shipyard worker combat lvl: 0
+676 Femi combat lvl: 0
+677 Black Demon combat lvl: 172
+678 Guard combat lvl: 37
+679 Ranging Guild Doorman combat lvl: 0
+680 Leatherworker combat lvl: 0
+681 Held vampyre juvinate combat lvl: 59
+682 Armour salesman combat lvl: 0
+683 Bow and Arrow salesman combat lvl: 0
+684 Tower Advisor combat lvl: 0
+685 Tower Advisor combat lvl: 0
+686 Tower Advisor combat lvl: 0
+687 Tower Advisor combat lvl: 0
+688 Tower Archer combat lvl: 19
+689 Tower Archer combat lvl: 34
+690 Tower Archer combat lvl: 49
+691 Tower Archer combat lvl: 64
+692 Tribal Weapon Salesman combat lvl: 0
+693 Competition Judge combat lvl: 0
+694 Ticket Merchant combat lvl: 0
+695 Bailey combat lvl: 0
+696 Caroline combat lvl: 0
+697 null combat lvl: 1
+698 Holgart combat lvl: 0
+699 Holgart combat lvl: 0
+700 Holgart combat lvl: 0
+701 Kent combat lvl: 0
+702 Fisherman combat lvl: 0
+703 Fisherman combat lvl: 0
+704 Fisherman combat lvl: 0
+705 Melee combat tutor combat lvl: 0
+706 Wizard Mizgog combat lvl: 0
+707 Wizard Grayzag combat lvl: 0
+708 Imp combat lvl: 2
+709 Imp combat lvl: 3
+710 Alrena combat lvl: 0
+711 Bravek combat lvl: 0
+712 Carla combat lvl: 0
+713 Clerk combat lvl: 0
+714 Edmond combat lvl: 0
+715 null combat lvl: 1
+716 Head mourner combat lvl: 0
+717 Mourner combat lvl: 0
+718 Mourner combat lvl: 0
+719 Mourner combat lvl: 0
+720 Recruiter combat lvl: 0
+721 Ted Rehnison combat lvl: 0
+722 Martha Rehnison combat lvl: 0
+723 Billy Rehnison combat lvl: 0
+724 Milli Rehnison combat lvl: 0
+725 Jethick combat lvl: 0
+726 Man combat lvl: 0
+727 Man combat lvl: 0
+728 Man combat lvl: 0
+729 Man combat lvl: 0
+730 Man combat lvl: 0
+731 Bartender combat lvl: 0
+732 Bartender combat lvl: 0
+733 Bartender combat lvl: 0
+734 Bartender combat lvl: 0
+735 Bartender combat lvl: 0
+736 Emily combat lvl: 0
+737 Bartender combat lvl: 0
+738 Bartender combat lvl: 0
+739 Bartender combat lvl: 0
+740 Trufitus combat lvl: 0
+741 Duke Horacio combat lvl: 0
+742 Elvarg combat lvl: 83
+743 Ned combat lvl: 0
+744 Klarense combat lvl: 0
+745 Wormbrain combat lvl: 2
+746 Oracle combat lvl: 0
+747 Oziach combat lvl: 0
+748 null combat lvl: 0
+749 Angry barbarian spirit combat lvl: 166
+750 Enraged barbarian spirit combat lvl: 166
+751 Berserk barbarian spirit combat lvl: 166
+752 Ferocious barbarian spirit combat lvl: 166
+753 Melzar the Mad combat lvl: 43
+754 Peaceful barbarian spirit combat lvl: 0
+755 Morgan combat lvl: 0
+756 Dr Harlow combat lvl: 0
+757 Count Draynor combat lvl: 34
+758 Fred the Farmer combat lvl: 0
+759 Gertrude's cat combat lvl: 0
+760 Kitten combat lvl: 0
+761 Kitten combat lvl: 0
+762 Kitten combat lvl: 0
+763 Kitten combat lvl: 0
+764 Kitten combat lvl: 0
+765 Kitten combat lvl: 0
+766 Kitten combat lvl: 0
+767 Crate combat lvl: 0
+768 Cat combat lvl: 0
+769 Cat combat lvl: 0
+770 Cat combat lvl: 0
+771 Cat combat lvl: 0
+772 Cat combat lvl: 0
+773 Cat combat lvl: 0
+774 Overgrown cat combat lvl: 0
+775 Overgrown cat combat lvl: 0
+776 Overgrown cat combat lvl: 0
+777 Overgrown cat combat lvl: 0
+778 Overgrown cat combat lvl: 0
+779 Overgrown cat combat lvl: 0
+780 Gertrude combat lvl: 0
+781 Shilop combat lvl: 0
+782 Philop combat lvl: 0
+783 Wilough combat lvl: 0
+784 Kanel combat lvl: 0
+785 Civilian combat lvl: 0
+786 Civilian combat lvl: 0
+787 Civilian combat lvl: 0
+788 Garv combat lvl: 0
+789 Grubor combat lvl: 0
+790 Trobert combat lvl: 0
+791 Seth combat lvl: 0
+792 Grip combat lvl: 22
+793 Alfonse the waiter combat lvl: 0
+794 Charlie the cook combat lvl: 0
+795 Ice Queen combat lvl: 111
+796 Achietties combat lvl: 0
+797 Helemos combat lvl: 0
+798 Velrak the explorer combat lvl: 0
+799 Pirate Guard combat lvl: 19
+800 Fishing spot combat lvl: 0
+801 Abbot Langley combat lvl: 0
+802 Brother Jered combat lvl: 0
+803 Monk combat lvl: 5
+804 Tanner combat lvl: 0
+805 Master Crafter combat lvl: 0
+806 Donovan the Family Handyman combat lvl: 0
+807 Pierre combat lvl: 0
+808 Hobbes combat lvl: 0
+809 Louisa combat lvl: 0
+810 Mary combat lvl: 0
+811 Stanford combat lvl: 0
+812 Guard combat lvl: 0
+813 Gossip combat lvl: 0
+814 Anna combat lvl: 0
+815 Bob combat lvl: 0
+816 Carol combat lvl: 0
+817 David combat lvl: 0
+818 Elizabeth combat lvl: 0
+819 Frank combat lvl: 0
+820 Poison Salesman combat lvl: 0
+821 Sinclair Guard dog combat lvl: 0
+822 Ana combat lvl: 0
+823 Ana combat lvl: 0
+824 Female slave combat lvl: 0
+825 Male slave combat lvl: 0
+826 Escaping slave combat lvl: 0
+827 Rowdy slave combat lvl: 10
+828 Shanty Claws combat lvl: 0
+829 null combat lvl: 0
+830 Mercenary Captain combat lvl: 47
+831 Captain Siad combat lvl: 0
+832 Al Shabim combat lvl: 0
+833 Bedabin Nomad combat lvl: 0
+834 Bedabin Nomad Guard combat lvl: 0
+835 Irena combat lvl: 0
+836 Shantay combat lvl: 0
+837 Shantay Guard combat lvl: 22
+838 Shantay Guard combat lvl: 22
+839 Desert Wolf combat lvl: 27
+840 Ugthanki combat lvl: 42
+841 Mine cart driver combat lvl: 0
+842 Rowdy Guard combat lvl: 43
+843 RPDT employee combat lvl: 0
+844 null combat lvl: 1
+845 Horacio combat lvl: 0
+846 Kangai Mau combat lvl: 0
+847 Head chef combat lvl: 0
+848 Blurberry combat lvl: 0
+849 Barman combat lvl: 0
+850 Aluft Gianne snr. combat lvl: 0
+851 Gnome Waiter combat lvl: 0
+852 Ogre chieftain combat lvl: 81
+853 Og combat lvl: 0
+854 Grew combat lvl: 0
+855 Toban combat lvl: 0
+856 Gorad combat lvl: 68
+857 Ogre guard combat lvl: 0
+858 Ogre guard combat lvl: 0
+859 Ogre guard combat lvl: 0
+860 Ogre guard combat lvl: 0
+861 Ogre guard combat lvl: 0
+862 City guard combat lvl: 83
+863 Scared skavid combat lvl: 0
+864 Mad skavid combat lvl: 0
+865 Skavid combat lvl: 0
+866 Skavid combat lvl: 0
+867 Skavid combat lvl: 0
+868 Skavid combat lvl: 0
+869 Skavid combat lvl: 0
+870 Enclave guard combat lvl: 83
+871 Ogre shaman combat lvl: 113
+872 Watchtower Wizard combat lvl: 0
+873 Ogre trader combat lvl: 0
+874 Ogre merchant combat lvl: 0
+875 Ogre trader combat lvl: 0
+876 Ogre trader combat lvl: 0
+877 Tower guard combat lvl: 28
+878 Colonel Radick combat lvl: 38
+879 Delrith combat lvl: 27
+880 Weakened Delrith combat lvl: 1
+881 Traiborn combat lvl: 0
+882 Gypsy Aris combat lvl: 0
+883 Sir Prysin combat lvl: 0
+884 Captain Rovin combat lvl: 0
+885 Ceril Carnillean combat lvl: 0
+886 Claus the chef combat lvl: 0
+887 Guard combat lvl: 0
+888 Philipe Carnillean combat lvl: 0
+889 Henryeta Carnillean combat lvl: 0
+890 Butler Jones combat lvl: 0
+891 Alomone combat lvl: 13
+892 Hazeel combat lvl: 296
+893 Clivet combat lvl: 13
+894 Hazeel Cultist combat lvl: 13
+895 Boy combat lvl: 0
+896 Nora T. Hagg combat lvl: 0
+897 Witch's experiment combat lvl: 19
+898 Witch's experiment (second form) combat lvl: 30
+899 Witch's experiment (third form) combat lvl: 42
+900 Witch's experiment (fourth form) combat lvl: 53
+901 Mouse combat lvl: 0
+902 Gundai combat lvl: 0
+903 Lundail combat lvl: 0
+904 Chamber guardian combat lvl: 0
+905 Kolodion combat lvl: 0
+906 Kolodion combat lvl: 0
+907 Kolodion combat lvl: 0
+908 Kolodion combat lvl: 0
+909 Kolodion combat lvl: 0
+910 Kolodion combat lvl: 0
+911 Kolodion combat lvl: 112
+912 Battle mage combat lvl: 54
+913 Battle mage combat lvl: 54
+914 Battle mage combat lvl: 54
+915 Leela combat lvl: 0
+916 Joe combat lvl: 0
+917 Jail guard combat lvl: 26
+918 Ned combat lvl: 0
+919 Lady Keli combat lvl: 0
+920 Prince Ali combat lvl: 0
+921 Prince Ali combat lvl: 0
+922 Aggie combat lvl: 0
+923 Hassan combat lvl: 0
+924 Osman combat lvl: 0
+925 Border Guard combat lvl: 0
+926 Border Guard combat lvl: 0
+927 Fishing spot combat lvl: 0
+928 Gujuo combat lvl: 0
+929 Ungadulu combat lvl: 70
+930 Ungadulu combat lvl: 169
+931 Jungle savage combat lvl: 90
+932 Fionella combat lvl: 0
+933 Siegfried Erkle combat lvl: 0
+934 Nezikchened combat lvl: 187
+935 Viyeldi combat lvl: 79
+936 San Tojalon combat lvl: 106
+937 Irvig Senay combat lvl: 100
+938 Ranalph Devere combat lvl: 92
+939 Boulder combat lvl: 0
+940 Echned Zekin combat lvl: 187
+941 Green dragon combat lvl: 79
+942 Master Chef combat lvl: 0
+943 Survival Expert combat lvl: 0
+944 Combat Instructor combat lvl: 146
+945 RuneScape Guide combat lvl: 0
+946 Magic Instructor combat lvl: 0
+947 Financial Advisor combat lvl: 0
+948 Mining Instructor combat lvl: 0
+949 Quest Guide combat lvl: 0
+950 Giant rat combat lvl: 3
+951 Chicken combat lvl: 3
+952 Fishing spot combat lvl: 0
+953 Banker combat lvl: 0
+954 Brother Brace combat lvl: 0
+955 Cow combat lvl: 2
+956 Drunken Dwarf combat lvl: 0
+957 Mubariz combat lvl: 0
+958 Fadli combat lvl: 0
+959 A'abla combat lvl: 0
+960 Sabreen combat lvl: 0
+961 Surgeon General Tafani combat lvl: 0
+962 Jaraah combat lvl: 0
+963 Zahwa combat lvl: 0
+964 Ima combat lvl: 0
+965 Sabeil combat lvl: 0
+966 Jadid combat lvl: 0
+967 Dalal combat lvl: 0
+968 Afrah combat lvl: 0
+969 Jeed combat lvl: 0
+970 Diango combat lvl: 0
+971 Chadwell combat lvl: 0
+972 Koftik combat lvl: 0
+973 Koftik combat lvl: 0
+974 Koftik combat lvl: 0
+975 Koftik combat lvl: 0
+976 Koftik combat lvl: 0
+977 Blessed spider combat lvl: 39
+978 Blessed giant rat combat lvl: 9
+979 Slave combat lvl: 0
+980 Slave combat lvl: 0
+981 Slave combat lvl: 0
+982 Slave combat lvl: 0
+983 Slave combat lvl: 0
+984 Slave combat lvl: 0
+985 Slave combat lvl: 0
+986 Boulder combat lvl: 0
+987 Unicorn combat lvl: 15
+988 Sir Jerro combat lvl: 62
+989 Sir Carl combat lvl: 62
+990 Sir Harry combat lvl: 62
+991 Half-soulless combat lvl: 1
+992 Kardia combat lvl: 0
+993 Witch's cat combat lvl: 0
+994 Niloof combat lvl: 0
+995 Klank combat lvl: 0
+996 Kamen combat lvl: 0
+997 Kalrag combat lvl: 89
+998 Othainian combat lvl: 91
+999 Doomion combat lvl: 91
+1000 Holthion combat lvl: 91
+1001 Dark mage combat lvl: 0
+1002 Disciple of Iban combat lvl: 13
+1003 Lord Iban combat lvl: 0
+1004 Spider combat lvl: 1
+1005 Giant bat combat lvl: 0
+1006 Sea slug combat lvl: 0
+1007 Zamorak wizard combat lvl: 65
+1008 Hamid combat lvl: 0
+1009 Poison spider combat lvl: 31
+1010 Rantz combat lvl: 0
+1011 Fycie combat lvl: 0
+1012 Bugs combat lvl: 0
+1013 Swamp toad combat lvl: 0
+1014 Bloated Toad combat lvl: 0
+1015 Iron pickaxe combat lvl: 0
+1016 Chompy bird combat lvl: 0
+1017 Chicken combat lvl: 1
+1018 Rooster combat lvl: 3
+1019 Fire elemental combat lvl: 35
+1020 Earth elemental combat lvl: 35
+1021 Air elemental combat lvl: 34
+1022 Water elemental combat lvl: 34
+1023 Vampire combat lvl: 72
+1024 null combat lvl: 0
+1025 null combat lvl: 0
+1026 null combat lvl: 0
+1027 null combat lvl: 0
+1028 Baby impling combat lvl: 0
+1029 Young impling combat lvl: 0
+1030 Gourmet impling combat lvl: 0
+1031 Earth impling combat lvl: 0
+1032 Essence impling combat lvl: 0
+1033 Eclectic impling combat lvl: 0
+1034 Nature impling combat lvl: 0
+1035 Magpie impling combat lvl: 0
+1036 Banker combat lvl: 0
+1037 Prissy Scilla combat lvl: 0
+1038 Rufus combat lvl: 0
+1039 Barker combat lvl: 0
+1040 Fidelio combat lvl: 0
+1041 Sbott combat lvl: 0
+1042 Roavar combat lvl: 0
+1043 Will o' the wisp combat lvl: 0
+1044 Monk of Zamorak combat lvl: 22
+1045 Monk of Zamorak combat lvl: 17
+1046 Monk of Zamorak combat lvl: 30
+1047 Temple guardian combat lvl: 30
+1048 Drezel combat lvl: 0
+1049 Drezel combat lvl: 0
+1050 Filliman Tarlock combat lvl: 0
+1051 Nature Spirit combat lvl: 0
+1052 Ghast combat lvl: 0
+1053 Ghast combat lvl: 30
+1054 Ulizius combat lvl: 0
+1055 Pirate Jackie the Fruit combat lvl: 0
+1056 Mime combat lvl: 0
+1057 Strange watcher combat lvl: 0
+1058 Strange watcher combat lvl: 0
+1059 Strange watcher combat lvl: 0
+1060 Denulth combat lvl: 0
+1061 Sergeant combat lvl: 0
+1062 Sergeant combat lvl: 0
+1063 Soldier combat lvl: 0
+1064 Soldier combat lvl: 0
+1065 Soldier combat lvl: 48
+1066 Soldier combat lvl: 0
+1067 Soldier combat lvl: 0
+1068 Soldier combat lvl: 0
+1069 Soldier combat lvl: 0
+1070 Saba combat lvl: 0
+1071 Tenzing combat lvl: 0
+1072 Eadburg combat lvl: 4
+1073 Archer combat lvl: 42
+1074 Archer combat lvl: 42
+1075 Archer combat lvl: 42
+1076 Guard combat lvl: 37
+1077 Guard combat lvl: 37
+1078 Harold combat lvl: 0
+1079 Tostig combat lvl: 0
+1080 Eohric combat lvl: 0
+1081 Servant combat lvl: 5
+1082 Dunstan combat lvl: 0
+1083 Wistan combat lvl: 0
+1084 Breoca combat lvl: 5
+1085 Ocga combat lvl: 5
+1086 Man combat lvl: 2
+1087 Penda combat lvl: 5
+1088 Hygd combat lvl: 4
+1089 Ceolburg combat lvl: 4
+1090 Hild combat lvl: 0
+1091 Bob combat lvl: 0
+1092 White Knight combat lvl: 36
+1093 Billy combat lvl: 0
+1094 Mountain goat combat lvl: 0
+1095 Rock combat lvl: 111
+1096 Stick combat lvl: 104
+1097 Pee Hat combat lvl: 91
+1098 Kraka combat lvl: 91
+1099 Dung combat lvl: 0
+1100 Ash combat lvl: 0
+1101 Thrower Troll combat lvl: 67
+1102 Thrower Troll combat lvl: 67
+1103 Thrower Troll combat lvl: 67
+1104 Thrower Troll combat lvl: 67
+1105 Thrower Troll combat lvl: 67
+1106 Mountain troll combat lvl: 69
+1107 Mountain troll combat lvl: 69
+1108 Mountain troll combat lvl: 69
+1109 Mountain troll combat lvl: 69
+1110 Mountain troll combat lvl: 69
+1111 Mountain troll combat lvl: 69
+1112 Mountain troll combat lvl: 69
+1113 Eadgar combat lvl: 0
+1114 Godric combat lvl: 0
+1115 Troll general combat lvl: 113
+1116 Troll general combat lvl: 113
+1117 Troll general combat lvl: 113
+1118 Troll spectator combat lvl: 71
+1119 Troll spectator combat lvl: 71
+1120 Troll spectator combat lvl: 71
+1121 Troll spectator combat lvl: 71
+1122 Troll spectator combat lvl: 71
+1123 Troll spectator combat lvl: 71
+1124 Troll spectator combat lvl: 71
+1125 Dad combat lvl: 101
+1126 Twig combat lvl: 71
+1127 Berry combat lvl: 71
+1128 Twig combat lvl: 71
+1129 Berry combat lvl: 71
+1130 Thrower troll combat lvl: 68
+1131 Thrower troll combat lvl: 68
+1132 Thrower troll combat lvl: 68
+1133 Thrower troll combat lvl: 68
+1134 Thrower troll combat lvl: 68
+1135 Cook combat lvl: 0
+1136 Cook combat lvl: 0
+1137 Cook combat lvl: 0
+1138 Mountain troll combat lvl: 71
+1139 Mushroom combat lvl: 0
+1140 Mountain goat combat lvl: 0
+1141 Mountain goat combat lvl: 0
+1142 Guard combat lvl: 0
+1143 Guard combat lvl: 0
+1144 Guard combat lvl: 0
+1145 Guard combat lvl: 0
+1146 Guard combat lvl: 0
+1147 Guard combat lvl: 0
+1148 Guard combat lvl: 0
+1149 Guard combat lvl: 0
+1150 Guard combat lvl: 0
+1151 Burntmeat combat lvl: 0
+1152 Weird Old Man combat lvl: 0
+1153 Kalphite Worker combat lvl: 28
+1154 Kalphite Soldier combat lvl: 85
+1155 Kalphite Guardian combat lvl: 141
+1156 Kalphite Worker combat lvl: 28
+1157 Kalphite Guardian combat lvl: 141
+1158 Kalphite Queen combat lvl: 333
+1159 Kalphite Queen combat lvl: 333
+1160 Kalphite Queen combat lvl: 333
+1161 Kalphite Larva combat lvl: 0
+1162 Timfraku combat lvl: 0
+1163 Tiadeche combat lvl: 0
+1164 Tiadeche combat lvl: 0
+1165 Tinsay combat lvl: 0
+1166 Tinsay combat lvl: 0
+1167 Tamayu combat lvl: 0
+1168 Tamayu combat lvl: 0
+1169 Tamayu combat lvl: 0
+1170 Tamayu combat lvl: 0
+1171 Lubufu combat lvl: 0
+1172 The Shaikahan combat lvl: 83
+1173 The Shaikahan combat lvl: 83
+1174 Fishing spot combat lvl: 0
+1175 Fishing spot combat lvl: 0
+1176 Fishing spot combat lvl: 0
+1177 Fishing spot combat lvl: 0
+1178 Fishing spot combat lvl: 0
+1179 Gull combat lvl: 0
+1180 Cormorant combat lvl: 0
+1181 Pelican combat lvl: 0
+1182 Lord Iorwerth combat lvl: 0
+1183 Elf warrior combat lvl: 90
+1184 Elf warrior combat lvl: 108
+1185 Elven city guard combat lvl: 0
+1186 Idris combat lvl: 0
+1187 Essyllt combat lvl: 0
+1188 Morvran combat lvl: 0
+1189 Fishing spot combat lvl: 0
+1190 Fishing spot combat lvl: 0
+1191 Fishing spot combat lvl: 0
+1192 Rabbit combat lvl: 2
+1193 Rabbit combat lvl: 2
+1194 Rabbit combat lvl: 2
+1195 Grizzly bear combat lvl: 42
+1196 Grizzly bear cub combat lvl: 33
+1197 Grizzly bear cub combat lvl: 36
+1198 Dire Wolf combat lvl: 88
+1199 Elf Tracker combat lvl: 0
+1200 Tyras guard combat lvl: 110
+1201 Elf warrior combat lvl: 0
+1202 Arianwyn combat lvl: 0
+1203 Tyras guard combat lvl: 110
+1204 Tyras guard combat lvl: 110
+1205 Tyras guard combat lvl: 0
+1206 Tyras guard combat lvl: 0
+1207 General Hining combat lvl: 0
+1208 Quartermaster combat lvl: 0
+1209 Koftik combat lvl: 0
+1210 Kings messenger combat lvl: 0
+1211 Will o' the wisp combat lvl: 0
+1212 Will o' the wisp combat lvl: 0
+1213 Tegid combat lvl: 0
+1214 Thistle combat lvl: 0
+1215 Parrots combat lvl: 0
+1216 Parroty Pete combat lvl: 0
+1217 Gardener combat lvl: 4
+1218 Ghoul combat lvl: 42
+1219 Leech combat lvl: 52
+1220 Vampire combat lvl: 72
+1221 Spider combat lvl: 0
+1222 Mist combat lvl: 1
+1223 Vampire combat lvl: 61
+1224 Vampyric hound combat lvl: 1
+1225 Vampire combat lvl: 25
+1226 Tree combat lvl: 0
+1227 Myre Blamish Snail combat lvl: 9
+1228 Blood Blamish Snail combat lvl: 20
+1229 Ochre Blamish Snail combat lvl: 10
+1230 Bruise Blamish Snail combat lvl: 20
+1231 Bark Blamish Snail combat lvl: 15
+1232 Myre Blamish Snail combat lvl: 10
+1233 Blood Blamish Snail combat lvl: 20
+1234 Ochre Blamish Snail combat lvl: 15
+1235 Bruise Blamish Snail combat lvl: 20
+1236 Fishing spot combat lvl: 0
+1237 Fishing spot combat lvl: 0
+1238 Fishing spot combat lvl: 0
+1239 Bedabin Nomad Fighter combat lvl: 56
+1240 Loar Shadow combat lvl: 40
+1241 Loar Shade combat lvl: 40
+1242 Shade Spirit combat lvl: 0
+1243 Phrin Shadow combat lvl: 60
+1244 Phrin Shade combat lvl: 60
+1245 Riyl Shadow combat lvl: 80
+1246 Riyl Shade combat lvl: 80
+1247 Asyn Shadow combat lvl: 100
+1248 Asyn Shade combat lvl: 100
+1249 Fiyr Shadow combat lvl: 120
+1250 Fiyr Shade combat lvl: 120
+1251 Afflicted(Ulsquire) combat lvl: 0
+1252 Ulsquire Shauncy combat lvl: 0
+1253 Afflicted(Razmire) combat lvl: 0
+1254 Razmire Keelgan combat lvl: 0
+1255 Mort'ton Local combat lvl: 0
+1256 Mort'ton Local combat lvl: 0
+1257 Afflicted combat lvl: 37
+1258 Afflicted combat lvl: 34
+1259 Mort'ton local combat lvl: 0
+1260 Mort'ton local combat lvl: 0
+1261 Afflicted combat lvl: 32
+1262 Afflicted combat lvl: 30
+1263 Wizard combat lvl: 0
+1264 Saradomin wizard combat lvl: 108
+1265 Rock Crab combat lvl: 13
+1266 Rocks combat lvl: 0
+1267 Rock Crab combat lvl: 13
+1268 Rocks combat lvl: 0
+1269 Olaf the Bard combat lvl: 0
+1270 Lalli combat lvl: 0
+1271 Golden sheep combat lvl: 0
+1272 Golden sheep combat lvl: 0
+1273 Fossegrimen combat lvl: 0
+1274 Ospak combat lvl: 0
+1275 Styrmir combat lvl: 0
+1276 Torbrund combat lvl: 0
+1277 Fridgeir combat lvl: 0
+1278 Longhall Bouncer combat lvl: 0
+1279 The Draugen combat lvl: 69
+1280 Butterfly combat lvl: 0
+1281 Sigli the Huntsman combat lvl: 0
+1282 Sigmund The Merchant combat lvl: 0
+1283 Swensen the Navigator combat lvl: 0
+1284 Bjorn combat lvl: 0
+1285 Eldgrim combat lvl: 0
+1286 Manni the Reveller combat lvl: 0
+1287 Council workman combat lvl: 0
+1288 Peer the Seer combat lvl: 0
+1289 Thorvald the Warrior combat lvl: 0
+1290 Koschei the deathless combat lvl: 0
+1291 Koschei the deathless combat lvl: 0
+1292 Koschei the deathless combat lvl: 0
+1293 Koschei the deathless combat lvl: 0
+1294 Brundt the Chieftain combat lvl: 0
+1295 Askeladden combat lvl: 0
+1296 Guard combat lvl: 0
+1297 Guard combat lvl: 0
+1298 Town Guard combat lvl: 0
+1299 Town Guard combat lvl: 0
+1300 Thora the Barkeep combat lvl: 0
+1301 Yrsa combat lvl: 0
+1302 Fisherman combat lvl: 0
+1303 Skulgrimen combat lvl: 0
+1304 Sailor combat lvl: 0
+1305 Agnar combat lvl: 0
+1306 Freidir combat lvl: 48
+1307 Borrokar combat lvl: 48
+1308 Lanzig combat lvl: 48
+1309 Pontak combat lvl: 48
+1310 Freygerd combat lvl: 48
+1311 Lensa combat lvl: 48
+1312 Jennella combat lvl: 48
+1313 Sassilik combat lvl: 48
+1314 Inga combat lvl: 48
+1315 Fish monger combat lvl: 0
+1316 Fur trader combat lvl: 0
+1317 Market Guard combat lvl: 48
+1318 Warrior combat lvl: 48
+1319 Fox combat lvl: 0
+1320 Bunny combat lvl: 2
+1321 Bunny combat lvl: 2
+1322 Gull combat lvl: 0
+1323 Gull combat lvl: 0
+1324 Gull combat lvl: 0
+1325 Gull combat lvl: 0
+1326 Bear Cub combat lvl: 15
+1327 Bear Cub combat lvl: 15
+1328 Unicorn Foal combat lvl: 12
+1329 Black unicorn Foal combat lvl: 22
+1330 Wolf combat lvl: 64
+1331 Fishing spot combat lvl: 0
+1332 Fishing spot combat lvl: 0
+1333 Fishing spot combat lvl: 0
+1334 Jossik combat lvl: 0
+1335 Jossik combat lvl: 0
+1336 Larrissa combat lvl: 0
+1337 Larrissa combat lvl: 0
+1338 Dagannoth combat lvl: 74
+1339 Dagannoth combat lvl: 74
+1340 Dagannoth combat lvl: 74
+1341 Dagannoth combat lvl: 92
+1342 Dagannoth combat lvl: 92
+1343 Dagannoth combat lvl: 92
+1344 Dagannoth combat lvl: 100
+1345 Dagannoth combat lvl: 100
+1346 Dagannoth combat lvl: 100
+1347 Dagannoth combat lvl: 100
+1348 Dagannoth mother combat lvl: 100
+1349 Dagannoth mother combat lvl: 100
+1350 Dagannoth mother combat lvl: 100
+1351 Dagannoth mother combat lvl: 100
+1352 Dagannoth mother combat lvl: 100
+1353 Dagannoth mother combat lvl: 100
+1354 Dagannoth mother combat lvl: 100
+1355 Dagannoth mother combat lvl: 100
+1356 Dagannoth mother combat lvl: 100
+1357 Sam combat lvl: 0
+1358 Rachael combat lvl: 0
+1359 Queen Sigrid combat lvl: 0
+1360 Banker combat lvl: 0
+1361 Arnor combat lvl: 0
+1362 Haming combat lvl: 0
+1363 Moldof combat lvl: 0
+1364 Helga combat lvl: 0
+1365 Matilda combat lvl: 0
+1366 Ashild combat lvl: 0
+1367 Skraeling combat lvl: 2
+1368 Skraeling combat lvl: 2
+1369 Fishmonger combat lvl: 0
+1370 Greengrocer combat lvl: 0
+1371 Prince Brand combat lvl: 0
+1372 Princess Astrid combat lvl: 0
+1373 King Vargas combat lvl: 0
+1374 Guard combat lvl: 0
+1375 Advisor Ghrim combat lvl: 0
+1376 Derrik combat lvl: 0
+1377 Farmer combat lvl: 0
+1378 Flower Girl combat lvl: 0
+1379 Ragnar combat lvl: 1
+1380 Einar combat lvl: 1
+1381 Alrik combat lvl: 1
+1382 Thorhild combat lvl: 1
+1383 Halla combat lvl: 1
+1384 Yrsa combat lvl: 1
+1385 Sailor combat lvl: 0
+1386 Rannveig combat lvl: 2
+1387 Thora combat lvl: 2
+1388 Valgerd combat lvl: 2
+1389 Skraeling combat lvl: 2
+1390 Broddi combat lvl: 2
+1391 Skraeling combat lvl: 2
+1392 Ragnvald combat lvl: 2
+1393 Fishmonger combat lvl: 0
+1394 Greengrocer combat lvl: 0
+1395 Lumberjack Leif combat lvl: 0
+1396 Miner Magnus combat lvl: 0
+1397 Fisherman Frodi combat lvl: 0
+1398 Gardener Gunnhild combat lvl: 0
+1399 Fishing spot combat lvl: 0
+1400 Gull combat lvl: 0
+1401 Chicken combat lvl: 1
+1402 Chicken combat lvl: 1
+1403 Rooster combat lvl: 2
+1404 Rabbit combat lvl: 2
+1405 Fishing spot combat lvl: 0
+1406 Fishing spot combat lvl: 0
+1407 Daero combat lvl: 0
+1408 Waydar combat lvl: 0
+1409 Waydar combat lvl: 0
+1410 Waydar combat lvl: 0
+1411 Garkor combat lvl: 0
+1412 Garkor combat lvl: 0
+1413 Lumo combat lvl: 0
+1414 Lumo combat lvl: 0
+1415 Bunkdo combat lvl: 0
+1416 Bunkdo combat lvl: 0
+1417 Carado combat lvl: 0
+1418 Carado combat lvl: 0
+1419 Lumdo combat lvl: 0
+1420 Karam combat lvl: 0
+1421 Karam combat lvl: 0
+1422 Karam combat lvl: 0
+1423 Bunkwicket combat lvl: 0
+1424 Waymottin combat lvl: 0
+1425 Zooknock combat lvl: 0
+1426 Zooknock combat lvl: 0
+1427 G.L.O. Caranock combat lvl: 0
+1428 G.L.O. Caranock combat lvl: 0
+1429 Dugopul combat lvl: 0
+1430 Salenab combat lvl: 0
+1431 Trefaji combat lvl: 0
+1432 Aberab combat lvl: 0
+1433 Solihib combat lvl: 0
+1434 Daga combat lvl: 0
+1435 Tutab combat lvl: 0
+1436 Ifaba combat lvl: 0
+1437 Hamab combat lvl: 0
+1438 Hafuba combat lvl: 0
+1439 Denadu combat lvl: 0
+1440 Lofu combat lvl: 0
+1441 Kruk combat lvl: 149
+1442 Duke combat lvl: 149
+1443 Oipuis combat lvl: 149
+1444 Uyoro combat lvl: 149
+1445 Ouhai combat lvl: 149
+1446 Uodai combat lvl: 149
+1447 Padulah combat lvl: 149
+1448 Awowogei combat lvl: 0
+1449 Uwogo combat lvl: 0
+1450 Muruwoi combat lvl: 0
+1451 Sleeping Monkey combat lvl: 0
+1452 Monkey Child combat lvl: 0
+1453 The Monkey's Uncle combat lvl: 0
+1454 The Monkey's Aunt combat lvl: 0
+1455 Monkey Guard combat lvl: 149
+1456 Monkey Archer combat lvl: 86
+1457 Monkey Archer combat lvl: 86
+1458 Monkey Archer combat lvl: 86
+1459 Monkey Guard combat lvl: 167
+1460 Monkey Guard combat lvl: 167
+1461 Elder Guard combat lvl: 0
+1462 Elder Guard combat lvl: 0
+1463 Monkey combat lvl: 3
+1464 Monkey combat lvl: 3
+1465 Monkey Zombie combat lvl: 98
+1466 Monkey Zombie combat lvl: 129
+1467 Monkey Zombie combat lvl: 82
+1468 Bonzara combat lvl: 0
+1469 Monkey minder combat lvl: 0
+1470 Foreman combat lvl: 0
+1471 Skeleton combat lvl: 142
+1472 Jungle Demon combat lvl: 195
+1473 Spider combat lvl: 1
+1474 Spider combat lvl: 0
+1475 Bird combat lvl: 11
+1476 Bird combat lvl: 5
+1477 Scorpion combat lvl: 38
+1478 Jungle spider combat lvl: 37
+1479 Snake combat lvl: 24
+1480 Small ninja monkey combat lvl: 1
+1481 Medium ninja monkey combat lvl: 1
+1482 Gorilla combat lvl: 1
+1483 Bearded gorilla combat lvl: 1
+1484 Ancient monkey combat lvl: 1
+1485 Small zombie monkey combat lvl: 1
+1486 Large zombie monkey combat lvl: 1
+1487 Monkey combat lvl: 1
+1488 Dummy combat lvl: 0
+1489 Dummy combat lvl: 0
+1490 Dummy combat lvl: 0
+1491 Dummy combat lvl: 0
+1492 Dummy combat lvl: 0
+1493 Dummy combat lvl: 0
+1494 Dummy combat lvl: 0
+1495 Dummy combat lvl: 0
+1496 Dummy combat lvl: 0
+1497 Dummy combat lvl: 0
+1498 Dummy combat lvl: 0
+1499 Dummy combat lvl: 0
+1500 Dummy combat lvl: 0
+1501 Dummy combat lvl: 0
+1502 Dummy combat lvl: 0
+1503 Dummy combat lvl: 0
+1504 Dummy combat lvl: 0
+1505 Dummy combat lvl: 0
+1506 Dummy combat lvl: 0
+1507 Dummy combat lvl: 0
+1508 Forester combat lvl: 0
+1509 Woman-at-arms combat lvl: 0
+1510 Apprentice combat lvl: 0
+1511 Ranger combat lvl: 0
+1512 Adventurer combat lvl: 0
+1513 Mage combat lvl: 0
+1514 Hiylik Myna combat lvl: 0
+1515 null combat lvl: 1
+1516 null combat lvl: 1
+1517 null combat lvl: 1
+1518 null combat lvl: 1
+1519 null combat lvl: 1
+1520 null combat lvl: 1
+1521 Nail beast combat lvl: 69
+1522 Nail beast combat lvl: 98
+1523 Nail beast combat lvl: 141
+1524 Undead Lumberjack combat lvl: 30
+1525 Undead Lumberjack combat lvl: 30
+1526 Lanthus combat lvl: 0
+1527 Mine cart combat lvl: 0
+1528 Zealot combat lvl: 0
+1529 Sheep combat lvl: 1
+1530 Rabbit combat lvl: 1
+1531 Imp combat lvl: 1
+1532 Barricade combat lvl: 0
+1533 Barricade combat lvl: 0
+1534 Barricade combat lvl: 0
+1535 Barricade combat lvl: 0
+1536 Possessed pickaxe combat lvl: 50
+1537 Haze combat lvl: 0
+1538 Corpse combat lvl: 0
+1539 Skeletal miner combat lvl: 42
+1540 Treus Dayth combat lvl: 95
+1541 Ghost combat lvl: 95
+1542 Loading crane combat lvl: 0
+1543 Innocent-looking key combat lvl: 0
+1544 Mine cart combat lvl: 0
+1545 Mine cart combat lvl: 0
+1546 Mine cart combat lvl: 0
+1547 Mine cart combat lvl: 0
+1548 Mine cart combat lvl: 0
+1549 Ghost combat lvl: 29
+1550 Chompy bird combat lvl: 6
+1551 Mischievous ghost combat lvl: 0
+1552 Santa combat lvl: 0
+1553 Ug combat lvl: 0
+1554 Aga combat lvl: 0
+1555 Arrg combat lvl: 113
+1556 Arrg combat lvl: 113
+1557 Ug combat lvl: 1
+1558 Ice wolf combat lvl: 96
+1559 Ice wolf combat lvl: 132
+1560 Ice Troll combat lvl: 124
+1561 Ice Troll combat lvl: 123
+1562 Ice Troll combat lvl: 120
+1563 Ice Troll combat lvl: 121
+1564 Ice Troll combat lvl: 120
+1565 Ice Troll combat lvl: 120
+1566 Ice Troll combat lvl: 121
+1567 Cyreg Paddlehorn combat lvl: 0
+1568 Curpile Fyod combat lvl: 0
+1569 Veliaf Hurtz combat lvl: 0
+1570 Sani Piliu combat lvl: 0
+1571 Harold Evans combat lvl: 0
+1572 Radigad Ponfit combat lvl: 0
+1573 Polmafi Ferdygris combat lvl: 0
+1574 Ivan Strom combat lvl: 0
+1575 Skeleton Hellhound combat lvl: 97
+1576 Stranger combat lvl: 0
+1577 Vanstrom Klause combat lvl: 0
+1578 Mist combat lvl: 0
+1579 Vanstrom Klause combat lvl: 0
+1580 Vanstrom Klause combat lvl: 0
+1581 Vanstrom Klause combat lvl: 0
+1582 Fire giant combat lvl: 86
+1583 Fire giant combat lvl: 86
+1584 Fire giant combat lvl: 86
+1585 Fire giant combat lvl: 86
+1586 Fire giant combat lvl: 86
+1587 Moss giant combat lvl: 42
+1588 Moss giant combat lvl: 42
+1589 Baby dragon combat lvl: 48
+1590 Bronze dragon combat lvl: 131
+1591 Iron dragon combat lvl: 189
+1592 Steel dragon combat lvl: 246
+1593 Wild dog combat lvl: 63
+1594 Wild dog combat lvl: 63
+1595 Saniboch combat lvl: 0
+1596 Mazchna combat lvl: 0
+1597 Vannaka combat lvl: 0
+1598 Chaeldar combat lvl: 0
+1599 Duradel combat lvl: 0
+1600 Cave crawler combat lvl: 23
+1601 Cave crawler combat lvl: 23
+1602 Cave crawler combat lvl: 23
+1603 Cave crawler combat lvl: 23
+1604 Aberrant spectre combat lvl: 96
+1605 Aberrant spectre combat lvl: 96
+1606 Aberrant spectre combat lvl: 96
+1607 Aberrant spectre combat lvl: 96
+1608 Kurask combat lvl: 106
+1609 Kurask combat lvl: 106
+1610 Gargoyle combat lvl: 111
+1611 Gargoyle combat lvl: 111
+1612 Banshee combat lvl: 23
+1613 Nechryael combat lvl: 115
+1614 Death spawn combat lvl: 46
+1615 Abyssal demon combat lvl: 124
+1616 Basilisk combat lvl: 61
+1617 Basilisk combat lvl: 61
+1618 Bloodveld combat lvl: 76
+1619 Bloodveld combat lvl: 76
+1620 Cockatrice combat lvl: 37
+1621 Cockatrice combat lvl: 37
+1622 Rockslug combat lvl: 29
+1623 Rockslug combat lvl: 29
+1624 Dust devil combat lvl: 93
+1625 Smokedevil combat lvl: 93
+1626 Turoth combat lvl: 86
+1627 Turoth combat lvl: 89
+1628 Turoth combat lvl: 87
+1629 Turoth combat lvl: 85
+1630 Turoth combat lvl: 83
+1631 Turoth combat lvl: 88
+1632 Turoth combat lvl: 88
+1633 Pyrefiend combat lvl: 43
+1634 Pyrefiend combat lvl: 43
+1635 Pyrefiend combat lvl: 43
+1636 Pyrefiend combat lvl: 43
+1637 Jelly combat lvl: 78
+1638 Jelly combat lvl: 78
+1639 Jelly combat lvl: 78
+1640 Jelly combat lvl: 78
+1641 Jelly combat lvl: 78
+1642 Jelly combat lvl: 78
+1643 Infernal Mage combat lvl: 66
+1644 Infernal Mage combat lvl: 66
+1645 Infernal Mage combat lvl: 66
+1646 Infernal Mage combat lvl: 66
+1647 Infernal Mage combat lvl: 66
+1648 Crawling Hand combat lvl: 8
+1649 Crawling Hand combat lvl: 8
+1650 Crawling Hand combat lvl: 7
+1651 Crawling Hand combat lvl: 8
+1652 Crawling Hand combat lvl: 8
+1653 Crawling Hand combat lvl: 12
+1654 Crawling Hand combat lvl: 12
+1655 Crawling Hand combat lvl: 11
+1656 Crawling Hand combat lvl: 12
+1657 Crawling Hand combat lvl: 12
+1658 Robe Store owner combat lvl: 0
+1659 Skullball combat lvl: 0
+1660 Skullball Boss combat lvl: 0
+1661 Agility Boss combat lvl: 0
+1662 Skullball Trainer combat lvl: 0
+1663 Agility Trainer combat lvl: 0
+1664 Agility Trainer combat lvl: 0
+1665 Werewolf combat lvl: 0
+1666 null combat lvl: 1
+1667 null combat lvl: 1
+1668 null combat lvl: 1
+1669 null combat lvl: 1
+1670 Dr Fenkenstrain combat lvl: 0
+1671 null combat lvl: 1
+1672 null combat lvl: 1
+1673 Fenkenstrain's Monster combat lvl: 0
+1674 Lord Rologarth combat lvl: 0
+1675 Gardener Ghost combat lvl: 0
+1676 Experiment combat lvl: 51
+1677 Experiment combat lvl: 25
+1678 Experiment combat lvl: 25
+1679 Eluned combat lvl: 0
+1680 Islwyn combat lvl: 0
+1681 Moss giant combat lvl: 84
+1682 Golrie combat lvl: 0
+1683 Velorina combat lvl: 0
+1684 Necrovarus combat lvl: 0
+1685 Gravingas combat lvl: 0
+1686 Ghost disciple combat lvl: 0
+1687 null combat lvl: 1
+1688 Ak-Haranu combat lvl: 0
+1689 null combat lvl: 0
+1690 null combat lvl: 0
+1691 Undead cow combat lvl: 2
+1692 Undead chicken combat lvl: 1
+1693 Giant lobster combat lvl: 32
+1694 Robin combat lvl: 0
+1695 Old crone combat lvl: 0
+1696 Old man combat lvl: 0
+1697 Ghost villager combat lvl: 0
+1698 Tortured soul combat lvl: 59
+1699 Ghost shopkeeper combat lvl: 0
+1700 Ghost innkeeper combat lvl: 0
+1701 Ghost farmer combat lvl: 0
+1702 Ghost banker combat lvl: 0
+1703 Ghost sailor combat lvl: 0
+1704 Ghost captain combat lvl: 0
+1705 Ghost captain combat lvl: 0
+1706 Ghost guard combat lvl: 0
+1707 Ghost (?) combat lvl: 1
+1708 Ghost (?) combat lvl: 1
+1709 Johanhus Ulsbrecht combat lvl: 0
+1710 H.A.M. Guard combat lvl: 12
+1711 H.A.M. Guard combat lvl: 18
+1712 H.A.M. Guard combat lvl: 22
+1713 H.A.M. Deacon combat lvl: 0
+1714 H.A.M. Member combat lvl: 0
+1715 H.A.M. Member combat lvl: 0
+1716 H.A.M. Member combat lvl: 0
+1717 H.A.M. Member combat lvl: 0
+1718 Jimmy the Chisel combat lvl: 0
+1719 Tree combat lvl: 0
+1720 Tree combat lvl: 0
+1721 Tree combat lvl: 0
+1722 Dead tree combat lvl: 0
+1723 Dead tree combat lvl: 0
+1724 Dead tree combat lvl: 0
+1725 Dead tree combat lvl: 0
+1726 Dead tree combat lvl: 0
+1727 Dead tree combat lvl: 0
+1728 Dead tree combat lvl: 0
+1729 Dead tree combat lvl: 0
+1730 Dead tree combat lvl: 0
+1731 Dead tree combat lvl: 0
+1732 null combat lvl: 0
+1733 Dramen tree combat lvl: 0
+1734 Magic tree combat lvl: 0
+1735 Maple tree combat lvl: 0
+1736 Willow combat lvl: 0
+1737 Willow combat lvl: 0
+1738 Willow combat lvl: 0
+1739 Oak combat lvl: 0
+1740 Yew combat lvl: 0
+1741 Evergreen combat lvl: 0
+1742 Evergreen combat lvl: 0
+1743 Evergreen combat lvl: 0
+1744 Tree combat lvl: 0
+1745 Dead tree combat lvl: 0
+1746 Achey Tree combat lvl: 0
+1747 Tree combat lvl: 0
+1748 Tree combat lvl: 0
+1749 Hollow tree combat lvl: 0
+1750 Hollow tree combat lvl: 0
+1751 Terrorbird combat lvl: 28
+1752 Mounted terrorbird gnome combat lvl: 31
+1753 Mounted terrorbird gnome combat lvl: 49
+1754 Crow combat lvl: 0
+1755 Crow combat lvl: 0
+1756 Crow combat lvl: 0
+1757 Farmer combat lvl: 7
+1758 Farmer combat lvl: 7
+1759 Farmer combat lvl: 0
+1760 Farmer combat lvl: 0
+1761 Farmer combat lvl: 0
+1762 Sheep combat lvl: 0
+1763 Sheep combat lvl: 0
+1764 Sheep combat lvl: 0
+1765 Sheep combat lvl: 0
+1766 Cow calf combat lvl: 2
+1767 Cow combat lvl: 2
+1768 Cow calf combat lvl: 2
+1769 Goblin combat lvl: 2
+1770 Goblin combat lvl: 2
+1771 Goblin combat lvl: 2
+1772 Goblin combat lvl: 2
+1773 Goblin combat lvl: 2
+1774 Goblin combat lvl: 2
+1775 Goblin combat lvl: 2
+1776 Goblin combat lvl: 2
+1777 Ilfeen combat lvl: 0
+1778 William combat lvl: 0
+1779 Ian combat lvl: 0
+1780 Larry combat lvl: 0
+1781 Darren combat lvl: 0
+1782 Edward combat lvl: 0
+1783 Richard combat lvl: 0
+1784 Neil combat lvl: 0
+1785 Edmond combat lvl: 0
+1786 Simon combat lvl: 0
+1787 Sam combat lvl: 0
+1788 Lumdo combat lvl: 0
+1789 Bunkwicket combat lvl: 0
+1790 Waymottin combat lvl: 0
+1791 Jungle Tree combat lvl: 0
+1792 Jungle Tree combat lvl: 0
+1793 Tassie Slipcast combat lvl: 0
+1794 Hammerspike Stoutbeard combat lvl: 0
+1795 Dwarf gang member combat lvl: 44
+1796 Dwarf gang member combat lvl: 48
+1797 Dwarf gang member combat lvl: 49
+1798 Phantuwti Fanstuwi Farsight combat lvl: 0
+1799 Tindel Marchant combat lvl: 0
+1800 Gnormadium Avlafrim combat lvl: 0
+1801 Petra Fiyed combat lvl: 1
+1802 Slagilith combat lvl: 92
+1803 Rock pile combat lvl: 0
+1804 Slagilith combat lvl: 0
+1805 Guard combat lvl: 0
+1806 Guard combat lvl: 0
+1807 Hamal the Chieftain combat lvl: 0
+1808 Ragnar combat lvl: 0
+1809 Svidi combat lvl: 0
+1810 Jokul combat lvl: 0
+1811 null combat lvl: 1
+1812 The Kendal combat lvl: 70
+1813 The Kendal combat lvl: 70
+1814 Camp dweller combat lvl: 31
+1815 Camp dweller combat lvl: 31
+1816 Camp dweller combat lvl: 31
+1817 Camp dweller combat lvl: 31
+1818 Camp dweller combat lvl: 25
+1819 Mountain Goat combat lvl: 0
+1820 Mountain Goat combat lvl: 0
+1821 Bald Headed Eagle combat lvl: 0
+1822 Cave goblin combat lvl: 3
+1823 Cave goblin combat lvl: 3
+1824 Cave goblin combat lvl: 3
+1825 Cave goblin combat lvl: 3
+1826 Hole in the wall combat lvl: 0
+1827 Wall beast combat lvl: 49
+1828 Giant frog combat lvl: 99
+1829 Big frog combat lvl: 24
+1830 Frog combat lvl: 0
+1831 Cave slime combat lvl: 23
+1832 Cave bug combat lvl: 6
+1833 Cave bug larva combat lvl: 0
+1834 Candle seller combat lvl: 0
+1835 Easter Bunny combat lvl: 0
+1836 null combat lvl: 1
+1837 Dondakan the Dwarf combat lvl: 0
+1838 Dondakan the Dwarf combat lvl: 0
+1839 Dondakan the Dwarf combat lvl: 0
+1840 Dwarven Engineer combat lvl: 0
+1841 Rolad combat lvl: 0
+1842 Khorvak, a dwarven engineer combat lvl: 0
+1843 Dwarven Ferryman combat lvl: 0
+1844 Dwarven Ferryman combat lvl: 0
+1845 null combat lvl: 1
+1846 Dwarven Boatman combat lvl: 0
+1847 Miodvetnir combat lvl: 0
+1848 Dernu combat lvl: 0
+1849 Derni combat lvl: 0
+1850 Arzinian Avatar of Strength combat lvl: 0
+1851 Arzinian Avatar of Strength combat lvl: 125
+1852 Arzinian Avatar of Strength combat lvl: 75
+1853 Arzinian Avatar of Ranging combat lvl: 0
+1854 Arzinian Avatar of Ranging combat lvl: 125
+1855 Arzinian Avatar of Ranging combat lvl: 75
+1856 Arzinian Avatar of Magic combat lvl: 0
+1857 Arzinian Avatar of Magic combat lvl: 125
+1858 Arzinian Avatar of Magic combat lvl: 75
+1859 Arzinian Being of Bordanzan combat lvl: 781
+1860 Brian combat lvl: 0
+1861 Ranged combat tutor combat lvl: 0
+1862 Ali Morrisane combat lvl: 0
+1863 Drunken Ali combat lvl: 0
+1864 Ali The barman combat lvl: 0
+1865 Ali the Kebab seller combat lvl: 0
+1866 Market seller combat lvl: 0
+1867 Ali the Camel Man combat lvl: 0
+1868 Street urchin combat lvl: 0
+1869 null combat lvl: 0
+1870 Ali the Mayor combat lvl: 0
+1871 Ali the Hag combat lvl: 0
+1872 Ali the Snake Charmer combat lvl: 0
+1873 Ali the Camel combat lvl: 0
+1874 Desert snake combat lvl: 5
+1875 Snake combat lvl: 0
+1876 null combat lvl: 0
+1877 null combat lvl: 0
+1878 Bandit Leader combat lvl: 0
+1879 null combat lvl: 56
+1880 Bandit combat lvl: 56
+1881 Bandit combat lvl: 56
+1882 null combat lvl: 41
+1883 Bandit combat lvl: 41
+1884 Bandit combat lvl: 41
+1885 Bandit champion combat lvl: 70
+1886 Cowardly Bandit combat lvl: 56
+1887 null combat lvl: 3
+1888 Villager combat lvl: 3
+1889 Villager combat lvl: 3
+1890 Villager combat lvl: 3
+1891 null combat lvl: 3
+1892 Villager combat lvl: 3
+1893 Villager combat lvl: 3
+1894 Villager combat lvl: 3
+1895 null combat lvl: 3
+1896 Villager combat lvl: 3
+1897 Villager combat lvl: 3
+1898 Villager combat lvl: 3
+1899 null combat lvl: 0
+1900 null combat lvl: 0
+1901 Menaphite Leader combat lvl: 0
+1902 Ali the Operator combat lvl: 0
+1903 null combat lvl: 55
+1904 Menaphite Thug combat lvl: 55
+1905 Menaphite Thug combat lvl: 55
+1906 Tough Guy combat lvl: 75
+1907 null combat lvl: 1
+1908 Broken clay golem combat lvl: 0
+1909 Damaged clay golem combat lvl: 0
+1910 Clay golem combat lvl: 0
+1911 Desert Phoenix combat lvl: 0
+1912 Elissa combat lvl: 0
+1913 Kamil combat lvl: 154
+1914 Dessous combat lvl: 139
+1915 Dessous combat lvl: 139
+1916 Ruantun combat lvl: 0
+1917 Bandit shopkeeper combat lvl: 0
+1918 Archaeologist combat lvl: 0
+1919 Stranger combat lvl: 95
+1920 Malak combat lvl: 0
+1921 Bartender combat lvl: 0
+1922 null combat lvl: 1
+1923 Eblis combat lvl: 0
+1924 null combat lvl: 1
+1925 Eblis combat lvl: 0
+1926 Bandit combat lvl: 74
+1927 Bandit combat lvl: 0
+1928 Bandit combat lvl: 0
+1929 Bandit combat lvl: 0
+1930 Bandit combat lvl: 0
+1931 Bandit combat lvl: 57
+1932 null combat lvl: 0
+1933 Troll child combat lvl: 0
+1934 Troll child combat lvl: 0
+1935 Ice troll combat lvl: 0
+1936 Ice troll combat lvl: 124
+1937 Ice troll combat lvl: 123
+1938 Ice troll combat lvl: 120
+1939 Ice troll combat lvl: 121
+1940 Ice troll combat lvl: 120
+1941 Ice troll combat lvl: 120
+1942 Ice troll combat lvl: 121
+1943 null combat lvl: 34
+1944 Ice block combat lvl: 0
+1945 null combat lvl: 34
+1946 Ice block combat lvl: 0
+1947 null combat lvl: 1
+1948 Troll father combat lvl: 0
+1949 null combat lvl: 1
+1950 Troll mother combat lvl: 0
+1951 Ice wolf combat lvl: 132
+1952 Ice wolf combat lvl: 132
+1953 Ice wolf combat lvl: 132
+1954 Ice wolf combat lvl: 132
+1955 Ice wolf combat lvl: 132
+1956 Ice wolf combat lvl: 132
+1957 null combat lvl: 1
+1958 Mummy combat lvl: 96
+1959 Mummy combat lvl: 98
+1960 Mummy ashes combat lvl: 96
+1961 Mummy combat lvl: 103
+1962 Mummy combat lvl: 103
+1963 Mummy combat lvl: 103
+1964 Mummy combat lvl: 103
+1965 Mummy combat lvl: 103
+1966 Mummy combat lvl: 103
+1967 Mummy combat lvl: 103
+1968 Mummy combat lvl: 103
+1969 Scarabs combat lvl: 92
+1970 null combat lvl: 0
+1971 Azzanadra combat lvl: 0
+1972 Rasolo combat lvl: 0
+1973 Giant skeleton combat lvl: 80
+1974 Damis combat lvl: 103
+1975 Damis combat lvl: 174
+1976 Shadow Hound combat lvl: 63
+1977 Fareed combat lvl: 167
+1978 Slave combat lvl: 0
+1979 Slave combat lvl: 0
+1980 Embalmer combat lvl: 0
+1981 Carpenter combat lvl: 0
+1982 Raetul combat lvl: 0
+1983 Siamun combat lvl: 0
+1984 null combat lvl: 1
+1985 null combat lvl: 1
+1986 High Priest combat lvl: 0
+1987 null combat lvl: 1
+1988 Priest combat lvl: 0
+1989 Priest combat lvl: 0
+1990 Sphinx combat lvl: 0
+1991 Possessed Priest combat lvl: 91
+1992 Neite combat lvl: 0
+1993 Crocodile combat lvl: 63
+1994 Jackal combat lvl: 21
+1995 Locust combat lvl: 18
+1996 Vulture combat lvl: 31
+1997 Plague frog combat lvl: 11
+1998 Plague cow combat lvl: 0
+1999 Plague cow combat lvl: 0
+2000 Plague cow combat lvl: 0
+2001 Scarab swarm combat lvl: 98
+2002 null combat lvl: 1
+2003 null combat lvl: 1
+2004 null combat lvl: 1
+2005 Wanderer combat lvl: 0
+2006 Wanderer combat lvl: 0
+2007 Het combat lvl: 81
+2008 Apmeken combat lvl: 75
+2009 Scabaras combat lvl: 75
+2010 Crondis combat lvl: 75
+2011 null combat lvl: 1
+2012 Icthlarin combat lvl: 0
+2013 null combat lvl: 1
+2014 Klenter combat lvl: 0
+2015 Mummy combat lvl: 84
+2016 Mummy combat lvl: 84
+2017 Mummy combat lvl: 84
+2018 Mummy combat lvl: 84
+2019 Mummy combat lvl: 84
+2020 null combat lvl: 1
+2021 Light creature combat lvl: 0
+2022 Light creature combat lvl: 0
+2023 Juna combat lvl: 0
+2024 Strange Old Man combat lvl: 0
+2025 Ahrim the Blighted combat lvl: 98
+2026 Dharok the Wretched combat lvl: 115
+2027 Guthan the Infested combat lvl: 115
+2028 Karil the Tainted combat lvl: 98
+2029 Torag the Corrupted combat lvl: 115
+2030 Verac the Defiled combat lvl: 115
+2031 Bloodworm combat lvl: 52
+2032 Crypt rat combat lvl: 43
+2033 Giant crypt rat combat lvl: 76
+2034 Crypt spider combat lvl: 56
+2035 Giant crypt spider combat lvl: 79
+2036 Skeleton combat lvl: 77
+2037 Skeleton combat lvl: 77
+2038 Grish combat lvl: 0
+2039 Uglug Nar combat lvl: 0
+2040 Pilg combat lvl: 0
+2041 Grug combat lvl: 0
+2042 Ogre guard combat lvl: 0
+2043 Ogre guard combat lvl: 76
+2044 Zogre combat lvl: 44
+2045 Zogre combat lvl: 44
+2046 Zogre combat lvl: 44
+2047 Zogre combat lvl: 44
+2048 Zogre combat lvl: 44
+2049 Zogre combat lvl: 44
+2050 Skogre combat lvl: 44
+2051 Zogre combat lvl: 44
+2052 Zogre combat lvl: 44
+2053 Zogre combat lvl: 44
+2054 Zogre combat lvl: 44
+2055 Zogre combat lvl: 44
+2056 Skogre combat lvl: 44
+2057 Skogre combat lvl: 44
+2058 Zombie combat lvl: 39
+2059 Zavistic Rarve combat lvl: 0
+2060 Slash Bash combat lvl: 111
+2061 Sithik Ints combat lvl: 1
+2062 Sithik Ints combat lvl: 1
+2063 Gargh combat lvl: 0
+2064 Scarg combat lvl: 0
+2065 Gruh combat lvl: 0
+2066 Irwin Feaselbaum combat lvl: 0
+2067 Fishing spot combat lvl: 0
+2068 Fishing spot combat lvl: 0
+2069 Cave goblin miner combat lvl: 11
+2070 Cave goblin miner combat lvl: 11
+2071 Cave goblin miner combat lvl: 11
+2072 Cave goblin miner combat lvl: 11
+2073 Cave goblin guard combat lvl: 26
+2074 Cave goblin guard combat lvl: 24
+2075 Cave goblin miner combat lvl: 11
+2076 Cave goblin miner combat lvl: 11
+2077 Cave goblin miner combat lvl: 11
+2078 Cave goblin miner combat lvl: 11
+2079 null combat lvl: 1
+2080 null combat lvl: 1
+2081 null combat lvl: 1
+2082 Sigmund combat lvl: 0
+2083 Sigmund combat lvl: 0
+2084 Mistag combat lvl: 0
+2085 null combat lvl: 1
+2086 Kazgar combat lvl: 0
+2087 Ur-tag combat lvl: 0
+2088 Duke Horacio combat lvl: 0
+2089 Mistag combat lvl: 0
+2090 Sigmund combat lvl: 0
+2091 Secretary combat lvl: 0
+2092 Purple Pewter Secretary combat lvl: 0
+2093 Yellow Fortune Secretary combat lvl: 0
+2094 Blue Opal Secretary combat lvl: 0
+2095 Green Gemstone Secretary combat lvl: 0
+2096 White Chisel Secretary combat lvl: 0
+2097 Silver Cog Secretary combat lvl: 0
+2098 Brown Engine Secretary combat lvl: 0
+2099 Red Axe Secretary combat lvl: 0
+2100 Purple Pewter Director combat lvl: 0
+2101 Blue Opal Director combat lvl: 0
+2102 Yellow Fortune Director combat lvl: 0
+2103 Green Gemstone Director combat lvl: 0
+2104 White Chisel Director combat lvl: 0
+2105 Silver Cog Director combat lvl: 0
+2106 Brown Engine Director combat lvl: 0
+2107 Red Axe Director combat lvl: 0
+2108 Red Axe Cat combat lvl: 0
+2109 Trader combat lvl: 0
+2110 Trader combat lvl: 0
+2111 Trader combat lvl: 0
+2112 Trader combat lvl: 0
+2113 Trader combat lvl: 0
+2114 Trader combat lvl: 0
+2115 Trader combat lvl: 0
+2116 Trader combat lvl: 0
+2117 Trader combat lvl: 0
+2118 Trader combat lvl: 0
+2119 Trader combat lvl: 0
+2120 Trader combat lvl: 0
+2121 Trader combat lvl: 0
+2122 Trader combat lvl: 0
+2123 null combat lvl: 0
+2124 Trader combat lvl: 0
+2125 null combat lvl: 0
+2126 Trader combat lvl: 0
+2127 Trade Referee combat lvl: 0
+2128 Supreme Commander combat lvl: 0
+2129 Commander Veldaban combat lvl: 0
+2130 Black Guard combat lvl: 48
+2131 Black Guard combat lvl: 48
+2132 Black Guard combat lvl: 48
+2133 Black Guard combat lvl: 48
+2134 Black Guard Berserker combat lvl: 66
+2135 Black Guard Berserker combat lvl: 66
+2136 Black Guard Berserker combat lvl: 66
+2137 Gnome emissary combat lvl: 0
+2138 Gnome traveller combat lvl: 0
+2139 Gnome traveller combat lvl: 0
+2140 Dromund's cat combat lvl: 0
+2141 Blasidar the sculptor combat lvl: 0
+2142 null combat lvl: 0
+2143 Riki the sculptor's model combat lvl: 0
+2144 Riki the sculptor's model combat lvl: 0
+2145 Riki the sculptor's model combat lvl: 0
+2146 Riki the sculptor's model combat lvl: 0
+2147 Riki the sculptor's model combat lvl: 0
+2148 Riki the sculptor's model combat lvl: 0
+2149 Riki the sculptor's model combat lvl: 0
+2150 Riki the sculptor's model combat lvl: 0
+2151 Vigr combat lvl: 0
+2152 Santiri combat lvl: 0
+2153 Saro combat lvl: 0
+2154 Gunslik combat lvl: 0
+2155 Wemund combat lvl: 0
+2156 Randivor combat lvl: 0
+2157 Hervi combat lvl: 0
+2158 Nolar combat lvl: 0
+2159 Gulldamar combat lvl: 0
+2160 Tati combat lvl: 0
+2161 Agmundi combat lvl: 0
+2162 Vermundi combat lvl: 0
+2163 Banker combat lvl: 0
+2164 Banker combat lvl: 0
+2165 Librarian combat lvl: 0
+2166 Assistant combat lvl: 0
+2167 Customer combat lvl: 0
+2168 Customer combat lvl: 0
+2169 Dromund combat lvl: 0
+2170 Rind the gardener combat lvl: 0
+2171 Factory Manager combat lvl: 0
+2172 Factory Worker combat lvl: 0
+2173 Factory Worker combat lvl: 0
+2174 Factory Worker combat lvl: 0
+2175 Factory Worker combat lvl: 0
+2176 Inn Keeper combat lvl: 0
+2177 Inn Keeper combat lvl: 0
+2178 Barmaid combat lvl: 0
+2179 Barman combat lvl: 0
+2180 Cart conductor combat lvl: 0
+2181 Cart conductor combat lvl: 0
+2182 Cart conductor combat lvl: 0
+2183 Cart conductor combat lvl: 0
+2184 Cart conductor combat lvl: 0
+2185 Cart conductor combat lvl: 0
+2186 Cart conductor combat lvl: 0
+2187 Rowdy dwarf combat lvl: 0
+2188 Hegir combat lvl: 0
+2189 Haera combat lvl: 0
+2190 Runvastr combat lvl: 0
+2191 Sune combat lvl: 0
+2192 Bentamir combat lvl: 0
+2193 Ulifed combat lvl: 0
+2194 Reinald combat lvl: 0
+2195 Karl combat lvl: 0
+2196 Gauss combat lvl: 0
+2197 Myndill combat lvl: 0
+2198 Kjut combat lvl: 0
+2199 Tombar combat lvl: 0
+2200 Odmar combat lvl: 0
+2201 Audmann combat lvl: 0
+2202 null combat lvl: 0
+2203 Drunken Dwarf combat lvl: 0
+2204 Drunken Dwarf combat lvl: 0
+2205 Dwarven Boatman combat lvl: 0
+2206 Dwarven Boatman combat lvl: 0
+2207 Dwarven Miner combat lvl: 0
+2208 Dwarven Miner combat lvl: 0
+2209 Dwarven Miner combat lvl: 0
+2210 Dwarven Miner combat lvl: 0
+2211 Dwarven Miner combat lvl: 0
+2212 Dwarven Miner combat lvl: 0
+2213 Dwarven Miner combat lvl: 0
+2214 Dwarven Miner combat lvl: 0
+2215 Dwarven Miner combat lvl: 0
+2216 Dwarven Miner combat lvl: 0
+2217 Dwarven Miner combat lvl: 0
+2218 Dwarven Miner combat lvl: 0
+2219 Purple Pewter Director combat lvl: 0
+2220 Purple Pewter Director combat lvl: 0
+2221 Blue Opal Director combat lvl: 0
+2222 Yellow Fortune Director combat lvl: 0
+2223 Green Gemstone Director combat lvl: 0
+2224 White Chisel Director combat lvl: 0
+2225 Silver Cog Director combat lvl: 0
+2226 Brown Engine Director combat lvl: 0
+2227 Red Axe Director combat lvl: 0
+2228 Commander Veldaban combat lvl: 0
+2229 Red Axe Cat combat lvl: 0
+2230 Red Axe Cat combat lvl: 0
+2231 null combat lvl: 0
+2232 Black Guard Berserker combat lvl: 0
+2233 Olivia combat lvl: 0
+2234 Master Farmer combat lvl: 0
+2235 Master Farmer combat lvl: 0
+2236 Market Guard combat lvl: 20
+2237 Gee combat lvl: 0
+2238 Donie combat lvl: 0
+2239 Pig combat lvl: 0
+2240 Pig combat lvl: 0
+2241 Piglet combat lvl: 0
+2242 Piglet combat lvl: 0
+2243 Piglet combat lvl: 0
+2244 Lumbridge Guide combat lvl: 0
+2245 Khazard trooper combat lvl: 19
+2246 Khazard trooper combat lvl: 19
+2247 Gnome troop combat lvl: 3
+2248 Gnome troop combat lvl: 3
+2249 Gnome combat lvl: 3
+2250 Gnome combat lvl: 1
+2251 Gnome combat lvl: 3
+2252 Crow combat lvl: 0
+2253 Wise Old Man combat lvl: 0
+2254 Bed combat lvl: 0
+2255 Thing under the bed combat lvl: 0
+2256 Paladin combat lvl: 62
+2257 null combat lvl: 1
+2258 Mage of Zamorak combat lvl: 0
+2259 Mage of Zamorak combat lvl: 0
+2260 null combat lvl: 1
+2261 Mage of Zamorak combat lvl: 0
+2262 Dark mage combat lvl: 0
+2263 Abyssal leech combat lvl: 41
+2264 Abyssal guardian combat lvl: 59
+2265 Abyssal walker combat lvl: 81
+2266 Brian O'Richard combat lvl: 0
+2267 Rogue Guard combat lvl: 0
+2268 Rogue Guard combat lvl: 0
+2269 Rogue Guard combat lvl: 0
+2270 Martin Thwait combat lvl: 0
+2271 Emerald Benedict combat lvl: 0
+2272 Spin Blades combat lvl: 0
+2273 Spin Blades combat lvl: 0
+2274 Goblin combat lvl: 2
+2275 Goblin combat lvl: 2
+2276 Goblin combat lvl: 2
+2277 Goblin combat lvl: 2
+2278 Goblin combat lvl: 2
+2279 Goblin combat lvl: 2
+2280 Goblin combat lvl: 2
+2281 Goblin combat lvl: 2
+2282 Sir Spishyus combat lvl: 0
+2283 Lady Table combat lvl: 0
+2284 Sir Kuam Ferentse combat lvl: 0
+2285 Sir Leye combat lvl: 20
+2286 Sir Tinley combat lvl: 0
+2287 Sir Ren Itchood combat lvl: 0
+2288 Miss Cheevers combat lvl: 0
+2289 Ms. Hynn Terprett combat lvl: 0
+2290 Sir Tiffy Cashien combat lvl: 0
+2291 Rug Merchant combat lvl: 0
+2292 Rug Merchant combat lvl: 0
+2293 Rug Merchant combat lvl: 0
+2294 Rug Merchant combat lvl: 0
+2295 null combat lvl: 1
+2296 Rug Merchant combat lvl: 0
+2297 null combat lvl: 0
+2298 Rug Merchant combat lvl: 0
+2299 null combat lvl: 0
+2300 Rug Station Attendant combat lvl: 0
+2301 Monkey combat lvl: 0
+2302 null combat lvl: 0
+2303 null combat lvl: 0
+2304 Sarah combat lvl: 0
+2305 Vanessa combat lvl: 0
+2306 Richard combat lvl: 0
+2307 Alice combat lvl: 0
+2308 Capt' Arnav combat lvl: 0
+2309  combat lvl: 0
+2310 Cow calf combat lvl: 2
+2311 Sheepdog combat lvl: 0
+2312 Rooster combat lvl: 0
+2313 Chicken combat lvl: 1
+2314 Chicken combat lvl: 1
+2315 Chicken combat lvl: 1
+2316 Pig combat lvl: 0
+2317 Pig combat lvl: 0
+2318 Piglet combat lvl: 0
+2319 Piglet combat lvl: 0
+2320 Piglet combat lvl: 0
+2321 Blandebir combat lvl: 0
+2322 Metarialus combat lvl: 0
+2323 Elstan combat lvl: 0
+2324 Dantaera combat lvl: 0
+2325 Kragen combat lvl: 0
+2326 Lyra combat lvl: 0
+2327 Francis combat lvl: 0
+2328 Wizard Cromperty combat lvl: 0
+2329 Muncher combat lvl: 0
+2330 Garth combat lvl: 0
+2331 Ellena combat lvl: 0
+2332 Selena combat lvl: 0
+2333 Vasquen combat lvl: 0
+2334 Rhonen combat lvl: 0
+2335 Dreven combat lvl: 0
+2336 Taria combat lvl: 0
+2337 Rhazien combat lvl: 0
+2338 Torrell combat lvl: 0
+2339 Alain combat lvl: 0
+2340 Heskel combat lvl: 0
+2341 Treznor combat lvl: 0
+2342 Fayeth combat lvl: 0
+2343 Bolongo combat lvl: 0
+2344 Gileth combat lvl: 0
+2345 Sick-looking sheep (1) combat lvl: 0
+2346 Sick-looking sheep (2) combat lvl: 0
+2347 Sick-looking sheep (3) combat lvl: 0
+2348 Sick-looking sheep (4) combat lvl: 0
+2349 Mourner combat lvl: 11
+2350 Mourner combat lvl: 11
+2351 Mourner combat lvl: 11
+2352 Eudav combat lvl: 0
+2353 Oronwen combat lvl: 0
+2354 Banker combat lvl: 0
+2355 Banker combat lvl: 0
+2356 Dalldav combat lvl: 0
+2357 Gethin combat lvl: 0
+2358 Arianwyn combat lvl: 0
+2359 Elf warrior combat lvl: 108
+2360 Elf warrior combat lvl: 108
+2361 Elf warrior combat lvl: 90
+2362 Elf warrior combat lvl: 90
+2363 Goreu combat lvl: 0
+2364 Ysgawyn combat lvl: 0
+2365 Arvel combat lvl: 0
+2366 Mawrth combat lvl: 0
+2367 Kelyn combat lvl: 0
+2368 Eoin combat lvl: 0
+2369 Iona combat lvl: 0
+2370 null combat lvl: 0
+2371 Gnome combat lvl: 0
+2372 Head mourner combat lvl: 0
+2373 Mourner combat lvl: 108
+2374 Mourner combat lvl: 0
+2375 null combat lvl: 1
+2376 Eluned combat lvl: 0
+2377 Sick-looking sheep (1) combat lvl: 0
+2378 Sick-looking sheep (2) combat lvl: 0
+2379 Sick-looking sheep (3) combat lvl: 0
+2380 Sick-looking sheep (4) combat lvl: 0
+2381 null combat lvl: 1
+2382 null combat lvl: 1
+2383 null combat lvl: 1
+2384 null combat lvl: 1
+2385 null combat lvl: 1
+2386 null combat lvl: 1
+2387 null combat lvl: 1
+2388 null combat lvl: 1
+2389 null combat lvl: 1
+2390 null combat lvl: 1
+2391 null combat lvl: 1
+2392 null combat lvl: 1
+2393 null combat lvl: 1
+2394 null combat lvl: 1
+2395 null combat lvl: 1
+2396 null combat lvl: 1
+2397 Mysterious ghost combat lvl: 0
+2398 Mysterious ghost combat lvl: 0
+2399 Mysterious ghost combat lvl: 0
+2400 Mysterious ghost combat lvl: 0
+2401 Mysterious ghost combat lvl: 0
+2402 Mysterious ghost combat lvl: 0
+2403 null combat lvl: 0
+2404 null combat lvl: 0
+2405 null combat lvl: 0
+2406 null combat lvl: 0
+2407 null combat lvl: 0
+2408 null combat lvl: 0
+2409 Cart conductor combat lvl: 0
+2410 Red Axe Director combat lvl: 0
+2411 Red Axe Director combat lvl: 0
+2412 Red Axe Henchman combat lvl: 0
+2413 Red Axe Henchman combat lvl: 0
+2414 Red Axe Henchman combat lvl: 0
+2415 Colonel Grimsson combat lvl: 0
+2416 Colonel Grimsson combat lvl: 0
+2417 Ogre shaman combat lvl: 0
+2418 Ogre shaman combat lvl: 0
+2419 Grunsh combat lvl: 0
+2420 Gnome emissary combat lvl: 0
+2421 Gnome companion combat lvl: 0
+2422 Gnome companion combat lvl: 0
+2423 Chaos dwarf combat lvl: 48
+2424 Gunslik combat lvl: 0
+2425 Nolar combat lvl: 0
+2426 Factory Worker combat lvl: 0
+2427 Cart conductor combat lvl: 0
+2428 Gauss combat lvl: 0
+2429 Drunken Dwarf combat lvl: 0
+2430 Rowdy dwarf combat lvl: 0
+2431 Ulifed combat lvl: 0
+2432 Red Axe Henchman combat lvl: 1
+2433 Red Axe Henchman combat lvl: 1
+2434 Ogre shaman combat lvl: 1
+2435 null combat lvl: 1
+2436 Jarvald combat lvl: 0
+2437 Jarvald combat lvl: 0
+2438 Jarvald combat lvl: 0
+2439 Askeladden combat lvl: 0
+2440 Door-support combat lvl: 0
+2441 Door combat lvl: 0
+2442 Door combat lvl: 0
+2443 Door-support combat lvl: 0
+2444 Door combat lvl: 0
+2445 Door combat lvl: 0
+2446 Door-support combat lvl: 0
+2447 Door combat lvl: 0
+2448 Door combat lvl: 0
+2449 Egg combat lvl: 0
+2450 Egg combat lvl: 0
+2451 Egg combat lvl: 0
+2452 Giant Rock Crab combat lvl: 137
+2453 Boulder combat lvl: 0
+2454 Dagannoth spawn combat lvl: 42
+2455 Dagannoth combat lvl: 90
+2456 Dagannoth combat lvl: 88
+2457 Wallasalki combat lvl: 98
+2458 Freaky Forester combat lvl: 0
+2459 Pheasant combat lvl: 3
+2460 Pheasant combat lvl: 3
+2461 Pheasant combat lvl: 3
+2462 Pheasant combat lvl: 3
+2463 Evil Chicken combat lvl: 19
+2464 Evil Chicken combat lvl: 38
+2465 Evil Chicken combat lvl: 69
+2466 Evil Chicken combat lvl: 81
+2467 Evil Chicken combat lvl: 121
+2468 Evil Chicken combat lvl: 159
+2469 Frog combat lvl: 0
+2470 Frog combat lvl: 0
+2471 Frog combat lvl: 0
+2472 Frog combat lvl: 0
+2473 Frog combat lvl: 0
+2474 Frog prince combat lvl: 0
+2475 Frog princess combat lvl: 0
+2476 Rick Turpentine combat lvl: 0
+2477 Quiz Master combat lvl: 0
+2478 Evil Bob combat lvl: 0
+2479 Evil Bob combat lvl: 0
+2480 Servant combat lvl: 0
+2481 Servant combat lvl: 0
+2482 Giant bat combat lvl: 0
+2483 null combat lvl: 1
+2484 null combat lvl: 1
+2485 null combat lvl: 1
+2486 null combat lvl: 1
+2487 null combat lvl: 1
+2488 null combat lvl: 1
+2489 Bush snake combat lvl: 35
+2490 Bush snake combat lvl: 35
+2491 Jungle spider combat lvl: 44
+2492 Jungle spider combat lvl: 44
+2493 Large mosquito combat lvl: 13
+2494 Mosquito swarm combat lvl: 17
+2495 Mosquito swarm combat lvl: 20
+2496 Tribesman combat lvl: 32
+2497 Tribesman combat lvl: 32
+2498 Broodoo victim combat lvl: 1
+2499 Broodoo victim combat lvl: 60
+2500 Broodoo victim combat lvl: 1
+2501 Broodoo victim combat lvl: 60
+2502 Broodoo victim combat lvl: 1
+2503 Broodoo victim combat lvl: 60
+2504 null combat lvl: 1
+2505 Sharimika combat lvl: 0
+2506 Sharimika combat lvl: 0
+2507 null combat lvl: 1
+2508 Mamma Bufetta combat lvl: 0
+2509 Mamma Bufetta combat lvl: 0
+2510 null combat lvl: 1
+2511 Layleen combat lvl: 0
+2512 Layleen combat lvl: 0
+2513 null combat lvl: 1
+2514 Karaday combat lvl: 0
+2515 Karaday combat lvl: 0
+2516 null combat lvl: 1
+2517 Safta Doc combat lvl: 0
+2518 Safta Doc combat lvl: 0
+2519 null combat lvl: 1
+2520 Gabooty combat lvl: 0
+2521 Gabooty combat lvl: 0
+2522 null combat lvl: 1
+2523 Fanellaman combat lvl: 0
+2524 Fanellaman combat lvl: 0
+2525 null combat lvl: 1
+2526 Jagbakoba combat lvl: 0
+2527 Jagbakoba combat lvl: 0
+2528 null combat lvl: 1
+2529 Murcaily combat lvl: 0
+2530 Murcaily combat lvl: 0
+2531 null combat lvl: 1
+2532 Rionasta combat lvl: 0
+2533 Rionasta combat lvl: 0
+2534 Mahogany combat lvl: 0
+2535 Teak combat lvl: 0
+2536 Niles combat lvl: 0
+2537 Miles combat lvl: 0
+2538 Giles combat lvl: 0
+2539 Cap'n Hand combat lvl: 0
+2540 Dr Jekyll combat lvl: 0
+2541 Mr Hyde combat lvl: 14
+2542 Mr Hyde combat lvl: 29
+2543 Mr Hyde combat lvl: 49
+2544 Mr Hyde combat lvl: 79
+2545 Mr Hyde combat lvl: 120
+2546 Mr Hyde combat lvl: 159
+2547 Dr Ford combat lvl: 0
+2548 Blackjack seller combat lvl: 0
+2549 Ali the dyer combat lvl: 0
+2550 Dwarven Miner combat lvl: 0
+2551 Dwarven Miner combat lvl: 0
+2552 Dwarven Miner combat lvl: 0
+2553 Blast Furnace Foreman combat lvl: 0
+2554 Tin ore combat lvl: 0
+2555 Copper ore combat lvl: 0
+2556 Iron ore combat lvl: 0
+2557 Mithril ore combat lvl: 0
+2558 Adamantite ore combat lvl: 0
+2559 Runite ore combat lvl: 0
+2560 Silver ore combat lvl: 0
+2561 Gold ore combat lvl: 0
+2562 Coal combat lvl: 0
+2563 Perfect gold ore combat lvl: 0
+2564 Ordan combat lvl: 0
+2565 Jorzik combat lvl: 0
+2566 Wise Old Man combat lvl: 0
+2567 Wise Old Man combat lvl: 0
+2568 Banker combat lvl: 0
+2569 Banker combat lvl: 0
+2570 Banker combat lvl: 0
+2571 Market Guard combat lvl: 20
+2572 Olivia combat lvl: 0
+2573 Pillory Guard combat lvl: 0
+2574 Bank guard combat lvl: 0
+2575 Purepker895 combat lvl: 52
+2576 Qutiedoll combat lvl: 16
+2577 1337sp34kr combat lvl: 63
+2578 Elfinlocks combat lvl: 87
+2579 Cool Mom227 combat lvl: 27
+2580 Bernald combat lvl: 0
+2581 Ellamaria combat lvl: 0
+2582 Trolley combat lvl: 0
+2583 Trolley combat lvl: 0
+2584 Trolley combat lvl: 0
+2585 null combat lvl: 1
+2586 Billy, a guard of Falador combat lvl: 0
+2587 Bob, another guard of Falador combat lvl: 0
+2588 Brother Althric combat lvl: 0
+2589 PKMaster0036 combat lvl: 87
+2590 King Roald combat lvl: 0
+2591 TzHaar-Mej combat lvl: 103
+2592 TzHaar-Mej combat lvl: 103
+2593 TzHaar-Mej combat lvl: 103
+2594 TzHaar-Mej combat lvl: 103
+2595 TzHaar-Mej combat lvl: 103
+2596 TzHaar-Mej combat lvl: 103
+2597 TzHaar-Mej combat lvl: 103
+2598 TzHaar-Hur combat lvl: 74
+2599 TzHaar-Hur combat lvl: 74
+2600 TzHaar-Hur combat lvl: 74
+2601 TzHaar-Hur combat lvl: 74
+2602 TzHaar-Hur combat lvl: 74
+2603 TzHaar-Hur combat lvl: 74
+2604 TzHaar-Xil combat lvl: 133
+2605 TzHaar-Xil combat lvl: 133
+2606 TzHaar-Xil combat lvl: 133
+2607 TzHaar-Xil combat lvl: 133
+2608 TzHaar-Xil combat lvl: 133
+2609 TzHaar-Xil combat lvl: 133
+2610 TzHaar-Ket combat lvl: 149
+2611 TzHaar-Ket combat lvl: 149
+2612 TzHaar-Ket combat lvl: 149
+2613 TzHaar-Ket combat lvl: 149
+2614 TzHaar-Ket combat lvl: 149
+2615 TzHaar-Ket combat lvl: 149
+2616 TzHaar-Ket combat lvl: 149
+2617 TzHaar-Mej-Jal combat lvl: 0
+2618 TzHaar-Mej-Kah combat lvl: 0
+2619 TzHaar-Ket-Zuh combat lvl: 0
+2620 TzHaar-Hur-Tel combat lvl: 0
+2621 Olaf Hradson combat lvl: 0
+2622 TzHaar-Hur-Lek combat lvl: 0
+2623 TzHaar-Mej-Roh combat lvl: 0
+2624 TzHaar-Ket combat lvl: 0
+2625 TzHaar-Ket combat lvl: 0
+2626 Rocks combat lvl: 1
+2627 Tz-Kih combat lvl: 22
+2628 Tz-Kih combat lvl: 22
+2629 Tz-Kek combat lvl: 45
+2630 Tz-Kek combat lvl: 45
+2631 Tok-Xil combat lvl: 90
+2632 Tok-Xil combat lvl: 90
+2633 Wise Old Man combat lvl: 0
+2634 Miss Schism combat lvl: 0
+2635 Bob combat lvl: 0
+2636 Bob combat lvl: 0
+2637 Sphinx combat lvl: 0
+2638 Neite combat lvl: 0
+2639 Robert the Strong combat lvl: 0
+2640 Odysseus combat lvl: 0
+2641 Dragonkin combat lvl: 0
+2642 King Black Dragon combat lvl: 0
+2643 R4ng3rNo0b889 combat lvl: 0
+2644 Love Cats combat lvl: 0
+2645 Love Cats combat lvl: 0
+2646 Neite combat lvl: 0
+2647 Bob combat lvl: 0
+2648 Beite combat lvl: 0
+2649 Gnome combat lvl: 0
+2650 Gnome combat lvl: 0
+2651 Odysseus combat lvl: 0
+2652 null combat lvl: 1
+2653 Neite combat lvl: 0
+2654 null combat lvl: 1
+2655 Unferth combat lvl: 0
+2656 Unferth combat lvl: 0
+2657 Unferth combat lvl: 0
+2658 Unferth combat lvl: 0
+2659 Unferth combat lvl: 0
+2660 Reldo combat lvl: 0
+2661 Reldo combat lvl: 0
+2662 Lazy cat combat lvl: 0
+2663 Lazy cat combat lvl: 0
+2664 Lazy cat combat lvl: 0
+2665 Lazy cat combat lvl: 0
+2666 Lazy cat combat lvl: 0
+2667 Lazy cat combat lvl: 0
+2668 Wily cat combat lvl: 0
+2669 Wily cat combat lvl: 0
+2670 Wily cat combat lvl: 0
+2671 Wily cat combat lvl: 0
+2672 Wily cat combat lvl: 0
+2673 Wily cat combat lvl: 0
+2674 Thief combat lvl: 16
+2675 Man combat lvl: 2
+2676 Make-over Mage combat lvl: 0
+2677 Highwayman combat lvl: 5
+2678 Goblin combat lvl: 2
+2679 Goblin combat lvl: 2
+2680 Goblin combat lvl: 2
+2681 Goblin combat lvl: 2
+2682 Rat combat lvl: 1
+2683 Hengel combat lvl: 2
+2684 Anja combat lvl: 2
+2685 Hobgoblin combat lvl: 28
+2686 Hobgoblin combat lvl: 28
+2687 Hobgoblin combat lvl: 28
+2688 Hobgoblin combat lvl: 28
+2689 Frog combat lvl: 0
+2690 Jack Seagull combat lvl: 0
+2691 Longbow Ben combat lvl: 0
+2692 Ahab combat lvl: 0
+2693 Duck combat lvl: 1
+2694 Duckling combat lvl: 1
+2695 Pirate combat lvl: 23
+2696 Thief combat lvl: 16
+2697 Mugger combat lvl: 6
+2698 Black knight combat lvl: 33
+2699 Guard combat lvl: 21
+2700 Guard combat lvl: 21
+2701 Guard combat lvl: 21
+2702 Guard combat lvl: 21
+2703 Guard combat lvl: 21
+2704 Guard combat lvl: 0
+2705 Guard combat lvl: 0
+2706 Crab combat lvl: 0
+2707 Seagull combat lvl: 0
+2708 Seagull combat lvl: 0
+2709 Fire wizard combat lvl: 13
+2710 Water wizard combat lvl: 13
+2711 Earth wizard combat lvl: 13
+2712 Air wizard combat lvl: 13
+2713 Malignius Mortifer combat lvl: 0
+2714 Zombie combat lvl: 0
+2715 Skeleton combat lvl: 0
+2716 Ghost combat lvl: 0
+2717 Skeleton mage combat lvl: 0
+2718 Betty combat lvl: 0
+2719 Grum combat lvl: 0
+2720 Gerrant combat lvl: 0
+2721 Wydin combat lvl: 0
+2722 Fishing spot combat lvl: 0
+2723 Fishing spot combat lvl: 0
+2724 Fishing spot combat lvl: 0
+2725 Otto Godblessed combat lvl: 0
+2726 Gull combat lvl: 0
+2727 Gull combat lvl: 0
+2728 Monk of Entrana combat lvl: 0
+2729 Monk of Entrana combat lvl: 0
+2730 Monk of Entrana combat lvl: 0
+2731 Monk of Entrana combat lvl: 0
+2732 Master Crafter combat lvl: 0
+2733 Master Crafter combat lvl: 0
+2734 Tz-Kih combat lvl: 22
+2735 Tz-Kih combat lvl: 22
+2736 Tz-Kek combat lvl: 45
+2737 Tz-Kek combat lvl: 45
+2738 Tz-Kek combat lvl: 22
+2739 Tok-Xil combat lvl: 90
+2740 Tok-Xil combat lvl: 90
+2741 Yt-MejKot combat lvl: 180
+2742 Yt-MejKot combat lvl: 180
+2743 Ket-Zek combat lvl: 360
+2744 Ket-Zek combat lvl: 360
+2745 TzTok-Jad combat lvl: 702
+2746 Yt-HurKot combat lvl: 108
+2747 Solus Dellagar combat lvl: 0
+2748 Savant combat lvl: 0
+2749 Lord Daquarius combat lvl: 0
+2750 Solus Dellagar combat lvl: 0
+2751 Black Knight combat lvl: 0
+2752 Lord Daquarius combat lvl: 0
+2753 Mage of Zamorak combat lvl: 0
+2754 Mage of Zamorak combat lvl: 0
+2755 Mage of Zamorak combat lvl: 0
+2756 null combat lvl: 1
+2757 null combat lvl: 1
+2758 null combat lvl: 1
+2759 null combat lvl: 1
+2760 null combat lvl: 1
+2761 null combat lvl: 1
+2762 null combat lvl: 1
+2763 null combat lvl: 1
+2764 null combat lvl: 1
+2765 null combat lvl: 1
+2766 null combat lvl: 1
+2767 null combat lvl: 1
+2768 null combat lvl: 1
+2769 null combat lvl: 1
+2770 null combat lvl: 1
+2771 null combat lvl: 1
+2772 null combat lvl: 1
+2773 null combat lvl: 1
+2774 null combat lvl: 1
+2775 null combat lvl: 1
+2776 Woman combat lvl: 0
+2777 Black Knight combat lvl: 32
+2778 Black Knight combat lvl: 32
+2779 Ranger combat lvl: 0
+2780 Solus Dellagar combat lvl: 0
+2781 Gnome guard combat lvl: 0
+2782 Shadow combat lvl: 73
+2783 Dark beast combat lvl: 182
+2784 Mourner combat lvl: 0
+2785 Slave combat lvl: 0
+2786 Slave combat lvl: 0
+2787 Slave combat lvl: 0
+2788 null combat lvl: 1
+2789 Thorgel combat lvl: 0
+2790 Sergeant Damien combat lvl: 0
+2791 Pillory Guard combat lvl: 0
+2792 Tramp combat lvl: 0
+2793 Tramp combat lvl: 0
+2794 Tramp combat lvl: 0
+2795 null combat lvl: 48
+2796 Skippy combat lvl: 0
+2797 Skippy combat lvl: 0
+2798 Skippy combat lvl: 0
+2799 Skippy combat lvl: 0
+2800 A pile of broken glass combat lvl: 0
+2801 Mogre combat lvl: 60
+2802 Gnome Coach combat lvl: 0
+2803 Lizard combat lvl: 42
+2804 Desert Lizard combat lvl: 24
+2805 Desert Lizard combat lvl: 24
+2806 Desert Lizard combat lvl: 24
+2807 Small Lizard combat lvl: 12
+2808 Small Lizard combat lvl: 12
+2809 Al the Camel combat lvl: 0
+2810 Elly the Camel combat lvl: 0
+2811 Ollie the Camel combat lvl: 0
+2812 Cam the Camel combat lvl: 0
+2813 null combat lvl: 0
+2814 Alice the Camel combat lvl: 0
+2815 Neferti the Camel combat lvl: 0
+2816 null combat lvl: 1
+2817 null combat lvl: 1
+2818 null combat lvl: 1
+2819 null combat lvl: 1
+2820 Ali the Smith combat lvl: 0
+2821 Ali the Farmer combat lvl: 0
+2822 Ali the Tailor combat lvl: 0
+2823 Ali the Guard combat lvl: 0
+2824 Ellis combat lvl: 0
+2825 Pirate Pete combat lvl: 0
+2826 Pirate Pete combat lvl: 0
+2827 Captain Braindeath combat lvl: 0
+2828 50% Luke combat lvl: 0
+2829 Davey combat lvl: 0
+2830 Captain Donnie combat lvl: 0
+2831 Zombie protester combat lvl: 0
+2832 Zombie protester combat lvl: 0
+2833 Zombie protester combat lvl: 0
+2834 Zombie protester combat lvl: 0
+2835 Zombie protester combat lvl: 0
+2836 Zombie protester combat lvl: 0
+2837 Zombie pirate combat lvl: 57
+2838 Zombie pirate combat lvl: 57
+2839 Zombie pirate combat lvl: 57
+2840 Zombie pirate combat lvl: 57
+2841 Zombie pirate combat lvl: 57
+2842 Zombie pirate combat lvl: 57
+2843 Zombie swab combat lvl: 55
+2844 Zombie swab combat lvl: 55
+2845 Zombie swab combat lvl: 55
+2846 Zombie swab combat lvl: 55
+2847 Zombie swab combat lvl: 55
+2848 Zombie swab combat lvl: 55
+2849 Evil spirit combat lvl: 150
+2850 Fever spider combat lvl: 49
+2851 Brewer combat lvl: 0
+2852 Brewer combat lvl: 0
+2853 Brewer combat lvl: 0
+2854 Brewer combat lvl: 0
+2855 Brewer combat lvl: 0
+2856 Brewer combat lvl: 0
+2857 Brewer combat lvl: 0
+2858 Brewer combat lvl: 0
+2859 Fishing spot combat lvl: 0
+2860 Karamthulhu combat lvl: 1
+2861 Karamthulhu combat lvl: 0
+2862 Death combat lvl: 0
+2863 Zombie combat lvl: 0
+2864 Most of a Zombie combat lvl: 0
+2865 Most of a Zombie combat lvl: 0
+2866 Zombie combat lvl: 0
+2867 Most of a Zombie combat lvl: 0
+2868 Zombie Head combat lvl: 0
+2869 Zombie combat lvl: 0
+2870 Half-Zombie combat lvl: 0
+2871 Other Half-Zombie combat lvl: 0
+2872 Child combat lvl: 0
+2873 Child combat lvl: 0
+2874 Child combat lvl: 0
+2875 Child combat lvl: 0
+2876 Child combat lvl: 0
+2877 Child combat lvl: 0
+2878 Zombie combat lvl: 0
+2879 Bardur combat lvl: 94
+2880 Dagannoth fledgeling combat lvl: 70
+2881 Dagannoth Supreme combat lvl: 303
+2882 Dagannoth Prime combat lvl: 303
+2883 Dagannoth Rex combat lvl: 303
+2884 Wallasalki combat lvl: 98
+2885 Giant Rock Crab combat lvl: 137
+2886 Boulder combat lvl: 0
+2887 Dagannoth combat lvl: 88
+2888 Dagannoth combat lvl: 90
+2889 Rock lobster combat lvl: 127
+2890 Rock combat lvl: 0
+2891 Suspicious water combat lvl: 34
+2892 Spinolyp combat lvl: 76
+2893 Suspicious water combat lvl: 34
+2894 Spinolyp combat lvl: 76
+2895 Suspicious water combat lvl: 34
+2896 Spinolyp combat lvl: 76
+2897 null combat lvl: 1
+2898 null combat lvl: 1
+2899 Father Reen combat lvl: 0
+2900 Father Reen combat lvl: 0
+2901 null combat lvl: 1
+2902 Father Badden combat lvl: 0
+2903 Father Badden combat lvl: 0
+2904 Denath combat lvl: 0
+2905 Denath combat lvl: 0
+2906 Eric combat lvl: 0
+2907 Eric combat lvl: 0
+2908 null combat lvl: 1
+2909 Evil Dave combat lvl: 0
+2910 Evil Dave combat lvl: 0
+2911 Matthew combat lvl: 0
+2912 Matthew combat lvl: 0
+2913 Jennifer combat lvl: 0
+2914 Jennifer combat lvl: 0
+2915 Tanya combat lvl: 0
+2916 Tanya combat lvl: 0
+2917 Patrick combat lvl: 0
+2918 Patrick combat lvl: 0
+2919 Agrith Naar combat lvl: 100
+2920 null combat lvl: 1
+2921 Sand storm combat lvl: 0
+2922 null combat lvl: 1
+2923 null combat lvl: 1
+2924 null combat lvl: 1
+2925 null combat lvl: 1
+2926 null combat lvl: 1
+2927 Clay golem combat lvl: 0
+2928 Clay golem combat lvl: 0
+2929 null combat lvl: 2
+2930 null combat lvl: 0
+2931 Ghost combat lvl: 0
+2932 Jorral combat lvl: 0
+2933 null combat lvl: 0
+2934 Melina combat lvl: 0
+2935 Melina combat lvl: 0
+2936 null combat lvl: 0
+2937 Droalak combat lvl: 0
+2938 Droalak combat lvl: 0
+2939 Dron combat lvl: 0
+2940 Blanin combat lvl: 0
+2941 The Beast combat lvl: 0
+2942 Bellemorde combat lvl: 0
+2943 Pox combat lvl: 0
+2944 Pox combat lvl: 0
+2945 Bones combat lvl: 0
+2946 Grimesquit combat lvl: 0
+2947 Phingspet combat lvl: 0
+2948 Hooknosed Jack combat lvl: 0
+2949 Jimmy Dazzler combat lvl: 0
+2950 The Face combat lvl: 0
+2951 Felkrash combat lvl: 0
+2952 Smokin' Joe combat lvl: 0
+2953 Ceril Carnillean combat lvl: 0
+2954 Councillor Halgrive combat lvl: 0
+2955 Spice seller combat lvl: 0
+2956 Fur trader combat lvl: 0
+2957 Gem merchant combat lvl: 0
+2958 Silver merchant combat lvl: 0
+2959 Silk merchant combat lvl: 0
+2960 Zenesha combat lvl: 0
+2961 Ali Morrisane combat lvl: 0
+2962 Guard combat lvl: 0
+2963 Guard combat lvl: 0
+2964 Guard combat lvl: 0
+2965 Guard combat lvl: 0
+2966 Guard combat lvl: 0
+2967 Guard combat lvl: 0
+2968 Guard combat lvl: 0
+2969 Guard combat lvl: 0
+2970 Guard combat lvl: 0
+2971 Guard combat lvl: 0
+2972 Guard combat lvl: 0
+2973 Guard combat lvl: 0
+2974 null combat lvl: 1
+2975 null combat lvl: 1
+2976 null combat lvl: 1
+2977 null combat lvl: 1
+2978 null combat lvl: 1
+2979 null combat lvl: 1
+2980 Rat combat lvl: 0
+2981 Rat combat lvl: 0
+2982 King rat combat lvl: 0
+2983 Turbogroomer combat lvl: 0
+2984 Pusskins combat lvl: 0
+2985 Loki combat lvl: 0
+2986 Captain Tom combat lvl: 0
+2987 Treacle combat lvl: 0
+2988 Mittens combat lvl: 0
+2989 Claude combat lvl: 0
+2990 Topsy combat lvl: 0
+2991 Rauborn combat lvl: 0
+2992 Vaeringk combat lvl: 0
+2993 Oxi combat lvl: 0
+2994 Fior combat lvl: 0
+2995 Sagira combat lvl: 0
+2996 Anleif combat lvl: 0
+2997 Gertrude's cat combat lvl: 0
+2998 Gambler combat lvl: 0
+2999 Gambler combat lvl: 0
+3000 Barman combat lvl: 0
+3001 Gambler combat lvl: 0
+3002 Gambler combat lvl: 0
+3003 Gambler combat lvl: 0
+3004 Gambler combat lvl: 0
+3005 Gambler combat lvl: 0
+3006 Gambler combat lvl: 0
+3007 Rat combat lvl: 0
+3008 Rat combat lvl: 0
+3009 Rat combat lvl: 0
+3010 Rat combat lvl: 0
+3011 Rat combat lvl: 0
+3012 Rat combat lvl: 0
+3013 Rat combat lvl: 0
+3014 Rat combat lvl: 0
+3015 Rat combat lvl: 0
+3016 Rat combat lvl: 0
+3017 Rat combat lvl: 0
+3018 Rat combat lvl: 0
+3019 Fishing spot combat lvl: 0
+3020 Rug Merchant combat lvl: 0
+3021 Tool Leprechaun combat lvl: 0
+3022 Genie combat lvl: 0
+3023 Nirrie combat lvl: 0
+3024 Tirrie combat lvl: 0
+3025 Hallak combat lvl: 0
+3026 Black golem combat lvl: 75
+3027 White golem combat lvl: 75
+3028 Grey golem combat lvl: 75
+3029 Ghaslor the Elder combat lvl: 0
+3030 Ali the Carter combat lvl: 0
+3031 Usi combat lvl: 0
+3032 Nkuku combat lvl: 0
+3033 Garai combat lvl: 0
+3034 Habibah combat lvl: 0
+3035 Meskhenet combat lvl: 0
+3036 Zahra combat lvl: 0
+3037 Zahur combat lvl: 0
+3038 Seddu combat lvl: 0
+3039 Kazemde combat lvl: 0
+3040 Awusah the Mayor combat lvl: 0
+3041 Tarik combat lvl: 21
+3042 Poltenip combat lvl: 21
+3043 Radat combat lvl: 21
+3044 Shiratti the Custodian combat lvl: 0
+3045 Rokuh combat lvl: 0
+3046 Nardah Banker combat lvl: 0
+3047 Target combat lvl: 0
+3048 Target combat lvl: 0
+3049 null combat lvl: 1
+3050 Larxus combat lvl: 0
+3051 Mystery figure combat lvl: 0
+3052 Mystery figure combat lvl: 0
+3053 Mystery figure combat lvl: 0
+3054 Mystery figure combat lvl: 0
+3055 Mystery figure combat lvl: 0
+3056 Mystery figure combat lvl: 0
+3057 Earth Warrior Champion combat lvl: 102
+3058 Giant Champion combat lvl: 56
+3059 Ghoul Champion combat lvl: 85
+3060 Goblin Champion combat lvl: 24
+3061 Hobgoblin Champion combat lvl: 56
+3062 Imp Champion combat lvl: 14
+3063 Jogre Champion combat lvl: 107
+3064 Lesser Demon Champion combat lvl: 162
+3065 Skeleton Champion combat lvl: 40
+3066 Zombies Champion combat lvl: 51
+3067 Leon d'Cour combat lvl: 141
+3068 Skeletal Wyvern combat lvl: 140
+3069 Skeletal Wyvern combat lvl: 140
+3070 Skeletal Wyvern combat lvl: 140
+3071 Skeletal Wyvern combat lvl: 140
+3072 Ice giant combat lvl: 53
+3073 Ice warrior combat lvl: 57
+3074 null combat lvl: 1
+3075 Monk combat lvl: 0
+3076 null combat lvl: 1
+3077 Dead Monk combat lvl: 0
+3078 High Priest combat lvl: 0
+3079 Monk combat lvl: 0
+3080 Monk combat lvl: 0
+3081 Assassin combat lvl: 0
+3082 Rosie combat lvl: 0
+3083 Sorcha combat lvl: 0
+3084 Cait combat lvl: 0
+3085 Cormac combat lvl: 0
+3086 Fionn combat lvl: 0
+3087 Donnacha combat lvl: 0
+3088 Ronan combat lvl: 0
+3089  combat lvl: 0
+3090  combat lvl: 0
+3091  combat lvl: 0
+3092 Hooded Stranger combat lvl: 0
+3093 null combat lvl: 0
+3094 Flying Book combat lvl: 0
+3095 Flying Book combat lvl: 0
+3096 Pizzaz Hat combat lvl: 1
+3097 Entrance Guardian combat lvl: 0
+3098 Telekinetic Guardian combat lvl: 0
+3099 Alchemy Guardian combat lvl: 0
+3100 Enchantment Guardian combat lvl: 0
+3101 Graveyard Guardian combat lvl: 0
+3102 Maze Guardian combat lvl: 0
+3103 Rewards Guardian combat lvl: 0
+3104 Charmed Warrior combat lvl: 0
+3105 Charmed Warrior combat lvl: 0
+3106 Charmed Warrior combat lvl: 0
+3107 Charmed Warrior combat lvl: 0
+3108 Bert combat lvl: 0
+3109 Guard Captain combat lvl: 0
+3110 null combat lvl: 1
+3111 null combat lvl: 1
+3112 Sandy combat lvl: 0
+3113 Sandy combat lvl: 0
+3114 Mazion combat lvl: 0
+3115 Blaec combat lvl: 0
+3116 Reeso combat lvl: 0
+3117 Sandwich lady combat lvl: 0
+3118 Prison Pete combat lvl: 0
+3119 Balloon Animal combat lvl: 0
+3120 Balloon Animal combat lvl: 0
+3121 Balloon Animal combat lvl: 0
+3122 Balloon Animal combat lvl: 0
+3123 Simon Templeton combat lvl: 0
+3124 Pyramid block combat lvl: 0
+3125 Pyramid block combat lvl: 0
+3126 Pentyn combat lvl: 0
+3127 Aristarchus combat lvl: 0
+3128 null combat lvl: 13
+3129 Boneguard combat lvl: 0
+3130 Pile of bones combat lvl: 0
+3131 Desert Spirit combat lvl: 0
+3132 null combat lvl: 0
+3133 Crust of ice combat lvl: 0
+3134 null combat lvl: 0
+3135 Furnace grate combat lvl: 0
+3136 null combat lvl: 1
+3137 Enakhra combat lvl: 0
+3138 Enakhra combat lvl: 0
+3139 null combat lvl: 1
+3140 Boneguard combat lvl: 0
+3141 Akthanakos combat lvl: 0
+3142 Akthanakos combat lvl: 0
+3143 null combat lvl: 1
+3144 null combat lvl: 1
+3145 null combat lvl: 1
+3146 null combat lvl: 1
+3147 Lazim combat lvl: 0
+3148 Enakhra combat lvl: 0
+3149 Akthanakos combat lvl: 0
+3150 Knight combat lvl: 0
+3151 Skeleton combat lvl: 1
+3152 null combat lvl: 1
+3153 Harpie Bug Swarm combat lvl: 46
+3154 Count Draynor combat lvl: 34
+3155 Bill Teach combat lvl: 0
+3156 Bill Teach combat lvl: 0
+3157 Bill Teach combat lvl: 0
+3158 Bill Teach combat lvl: 0
+3159 Bill Teach combat lvl: 0
+3160 Bill Teach combat lvl: 0
+3161 Charley combat lvl: 0
+3162 Smith combat lvl: 0
+3163 Joe combat lvl: 0
+3164 Mama combat lvl: 0
+3165 Mama combat lvl: 0
+3166 Mike combat lvl: 0
+3167 Pirate combat lvl: 0
+3168 Pirate combat lvl: 0
+3169 Pirate combat lvl: 0
+3170 Pirate combat lvl: 0
+3171 Pirate combat lvl: 0
+3172 Pirate combat lvl: 0
+3173 Pirate combat lvl: 0
+3174 Pirate combat lvl: 0
+3175 Pirate combat lvl: 0
+3176 Pirate combat lvl: 0
+3177 Pirate combat lvl: 0
+3178 Pirate combat lvl: 0
+3179 Pirate combat lvl: 0
+3180 Pirate combat lvl: 0
+3181 Pirate combat lvl: 0
+3182 Pirate combat lvl: 0
+3183 Pirate combat lvl: 0
+3184 Pirate combat lvl: 0
+3185 Pirate combat lvl: 0
+3186 Pirate combat lvl: 0
+3187 Pirate combat lvl: 57
+3188 Pirate combat lvl: 57
+3189 Pirate combat lvl: 57
+3190 Pirate combat lvl: 57
+3191 Pirate combat lvl: 57
+3192 Pirate combat lvl: 57
+3193 Pirate combat lvl: 57
+3194 Pirate combat lvl: 57
+3195 Pirate combat lvl: 57
+3196 Pirate combat lvl: 57
+3197 Gull combat lvl: 0
+3198 Banker combat lvl: 0
+3199 Banker combat lvl: 0
+3200 Chaos Elemental combat lvl: 305
+3201 Killerwatt combat lvl: 55
+3202 Killerwatt combat lvl: 55
+3203 Storm Cloud combat lvl: 0
+3204 Storm Cloud combat lvl: 0
+3205 Romily Weaklax combat lvl: 0
+3206 Priest combat lvl: 0
+3207 Pious Pete combat lvl: 0
+3208 Taper combat lvl: 0
+3209 Elena combat lvl: 0
+3210 Alrena combat lvl: 0
+3211 Alrena combat lvl: 0
+3212 Bravek combat lvl: 0
+3213 null combat lvl: 0
+3214 null combat lvl: 0
+3215 Elena combat lvl: 0
+3216 Mourner combat lvl: 0
+3217 Kaylee combat lvl: 0
+3218 Tina combat lvl: 0
+3219 Dwarf combat lvl: 11
+3220 Dwarf combat lvl: 11
+3221 Dwarf combat lvl: 10
+3222 Drunken man combat lvl: 3
+3223 Man combat lvl: 2
+3224 Man combat lvl: 2
+3225 Man combat lvl: 2
+3226 Woman combat lvl: 2
+3227 Woman combat lvl: 2
+3228 Guard combat lvl: 21
+3229 Guard combat lvl: 22
+3230 Guard combat lvl: 19
+3231 Guard combat lvl: 22
+3232 Guard combat lvl: 22
+3233 Guard combat lvl: 22
+3234 Gardener combat lvl: 3
+3235 Apprentice workman combat lvl: 0
+3236 Workman combat lvl: 0
+3237 Cuffs combat lvl: 3
+3238 Narf combat lvl: 2
+3239 Rusty combat lvl: 2
+3240 Jeff combat lvl: 2
+3241 Guard combat lvl: 19
+3242 Dark wizard combat lvl: 23
+3243 Dark wizard combat lvl: 22
+3244 Dark wizard combat lvl: 11
+3245 Dark wizard combat lvl: 11
+3246 Barbarian combat lvl: 17
+3247 Barbarian combat lvl: 10
+3248 Barbarian combat lvl: 17
+3249 Barbarian combat lvl: 17
+3250 Barbarian combat lvl: 10
+3251 Barbarian combat lvl: 10
+3252 Barbarian combat lvl: 10
+3253 Barbarian combat lvl: 17
+3254 Hunding combat lvl: 0
+3255 Barbarian combat lvl: 10
+3256 Barbarian combat lvl: 10
+3257 Barbarian combat lvl: 10
+3258 Barbarian combat lvl: 10
+3259 Barbarian combat lvl: 15
+3260 Barbarian combat lvl: 17
+3261 Barbarian combat lvl: 10
+3262 Barbarian combat lvl: 10
+3263 Barbarian combat lvl: 9
+3264 Goblin combat lvl: 5
+3265 Goblin combat lvl: 5
+3266 Goblin combat lvl: 5
+3267 Goblin combat lvl: 5
+3268 Dwarf combat lvl: 11
+3269 Dwarf combat lvl: 11
+3270 Dwarf combat lvl: 11
+3271 Dwarf combat lvl: 11
+3272 Dwarf combat lvl: 10
+3273 Dwarf combat lvl: 11
+3274 Dwarf combat lvl: 11
+3275 Dwarf combat lvl: 7
+3276 Black Guard combat lvl: 25
+3277 Black Guard combat lvl: 25
+3278 Black Guard combat lvl: 25
+3279 Black Guard combat lvl: 25
+3280 Engineering assistant combat lvl: 0
+3281 Engineering assistant combat lvl: 0
+3282 Engineer combat lvl: 0
+3283 Squirrel combat lvl: 0
+3284 Squirrel combat lvl: 0
+3285 Squirrel combat lvl: 0
+3286 Raccoon combat lvl: 0
+3287 Raccoon combat lvl: 0
+3288 Raccoon combat lvl: 0
+3289 null combat lvl: 1
+3290 null combat lvl: 1
+3291 Skeleton combat lvl: 22
+3292 Witch combat lvl: 25
+3293 null combat lvl: 0
+3294 Dwarf combat lvl: 0
+3295 Dwarf combat lvl: 0
+3296 Swan combat lvl: 0
+3297 Black swan combat lvl: 0
+3298 Sweeper combat lvl: 0
+3299 Martin the Master Gardener combat lvl: 0
+3300 Frog combat lvl: 0
+3301 Storm cloud combat lvl: 0
+3302 Co-ordinator combat lvl: 0
+3303 Fairy Nuff combat lvl: 0
+3304 Fairy Godfather combat lvl: 0
+3305 Slim Louie combat lvl: 0
+3306 Fat Rocco combat lvl: 0
+3307 Gatekeeper combat lvl: 0
+3308 Zandar Horfyre combat lvl: 0
+3309 Cow combat lvl: 2
+3310 Sheep combat lvl: 0
+3311 Sheep combat lvl: 0
+3312 Zanaris choir combat lvl: 0
+3313 Tanglefoot combat lvl: 111
+3314 null combat lvl: 1
+3315 null combat lvl: 1
+3316 null combat lvl: 1
+3317 null combat lvl: 1
+3318 null combat lvl: 1
+3319 Baby tanglefoot combat lvl: 45
+3320 Baby tanglefoot combat lvl: 45
+3321 Gatekeeper combat lvl: 0
+3322 Fairy chef combat lvl: 0
+3323 null combat lvl: 0
+3324 Draul Leptoc combat lvl: 0
+3325 Phillipa combat lvl: 0
+3326 Martina Scorsby combat lvl: 0
+3327 Jeremy Clerksin combat lvl: 0
+3328 Tarquin combat lvl: 0
+3329 Sigurd combat lvl: 0
+3330 Hari combat lvl: 0
+3331 Barfy Bill combat lvl: 0
+3332 Trees combat lvl: 0
+3333 Trees combat lvl: 0
+3334 Cavemouth combat lvl: 0
+3335 Bullrush combat lvl: 0
+3336 Bullrush combat lvl: 0
+3337 Cave Scenery combat lvl: 0
+3338 Cave Scenery combat lvl: 0
+3339 Cave Scenery combat lvl: 0
+3340 Giant Mole combat lvl: 230
+3341 Baby Mole combat lvl: 0
+3342 Baby Mole combat lvl: 0
+3343 Baby Mole combat lvl: 0
+3344 Fungi combat lvl: 74
+3345 Fungi combat lvl: 86
+3346 Zygomite combat lvl: 74
+3347 Zygomite combat lvl: 86
+3348 White Knight combat lvl: 38
+3349 White Knight combat lvl: 39
+3350 White Knight combat lvl: 42
+3351 Genie combat lvl: 0
+3352 Mysterious Old Man combat lvl: 0
+3353 Swarm combat lvl: 0
+3354 Cap'n Hand combat lvl: 0
+3355 Rick Turpentine combat lvl: 0
+3356 Niles combat lvl: 0
+3357 Miles combat lvl: 0
+3358 Giles combat lvl: 0
+3359 Dr Jekyll combat lvl: 0
+3360 Mr Hyde combat lvl: 14
+3361 Mr Hyde combat lvl: 29
+3362 Mr Hyde combat lvl: 49
+3363 Mr Hyde combat lvl: 79
+3364 Mr Hyde combat lvl: 120
+3365 Mr Hyde combat lvl: 159
+3366 Evil Chicken combat lvl: 19
+3367 Evil Chicken combat lvl: 38
+3368 Evil Chicken combat lvl: 69
+3369 Evil Chicken combat lvl: 81
+3370 Evil Chicken combat lvl: 121
+3371 Evil Chicken combat lvl: 159
+3372 Sir Amik Varze combat lvl: 0
+3373 null combat lvl: 1
+3374 Sir Amik Varze combat lvl: 0
+3375 Evil Chicken combat lvl: 159
+3376 Baby black dragon combat lvl: 83
+3377 K'klik combat lvl: 0
+3378 Evil Dave combat lvl: 0
+3379 null combat lvl: 1
+3380 Evil Dave combat lvl: 0
+3381 Doris combat lvl: 0
+3382 Hell-Rat combat lvl: 0
+3383 null combat lvl: 0
+3384 null combat lvl: 0
+3385 Gypsy combat lvl: 0
+3386 Gypsy combat lvl: 0
+3387 Culinaromancer combat lvl: 0
+3388 Osman combat lvl: 0
+3389 Pirate Pete combat lvl: 0
+3390 Mountain Dwarf combat lvl: 0
+3391 General Wartface combat lvl: 0
+3392 General Bentnoze combat lvl: 0
+3393 Lumbridge Guide combat lvl: 0
+3394 Evil Dave combat lvl: 0
+3395 Sir Amik Varze combat lvl: 0
+3396 Awowogei combat lvl: 0
+3397 Awowogei combat lvl: 0
+3398 Skrach Uglogwee combat lvl: 0
+3399 null combat lvl: 1
+3400 Culinaromancer combat lvl: 1
+3401 null combat lvl: 1
+3402 An old Dwarf combat lvl: 0
+3403 Rohak combat lvl: 0
+3404 null combat lvl: 1
+3405 Rohak combat lvl: 0
+3406 Icefiend combat lvl: 13
+3407 Guard combat lvl: 21
+3408 Guard combat lvl: 21
+3409 Wild jade vine combat lvl: 167
+3410 Wild jade vine combat lvl: 167
+3411 Wild jade vine combat lvl: 167
+3412 Wild jade vine combat lvl: 167
+3413 Goblin Cook combat lvl: 0
+3414 Goblin Cook combat lvl: 0
+3415 Goblin Cook combat lvl: 0
+3416 Pirate Pete combat lvl: 0
+3417 null combat lvl: 1
+3418 Pirate Pete combat lvl: 0
+3419 Mogre Guard combat lvl: 0
+3420 Nung combat lvl: 0
+3421 Crab combat lvl: 23
+3422 Mudskipper combat lvl: 30
+3423 Mudskipper combat lvl: 31
+3424 Crab combat lvl: 21
+3425 Fish combat lvl: 0
+3426 Fish combat lvl: 0
+3427 Fish combat lvl: 0
+3428 Fish combat lvl: 0
+3429 Fish combat lvl: 0
+3430 Fish combat lvl: 0
+3431 Fish combat lvl: 0
+3432 Fish combat lvl: 0
+3433 Fish combat lvl: 0
+3434 Fish combat lvl: 0
+3435 Fish combat lvl: 0
+3436 Fish combat lvl: 0
+3437 Fish combat lvl: 0
+3438 Fish combat lvl: 0
+3439 Fish combat lvl: 0
+3440 Fish combat lvl: 0
+3441 Fish combat lvl: 0
+3442 Fish combat lvl: 0
+3443 Fish combat lvl: 0
+3444 Fish combat lvl: 0
+3445 Fish combat lvl: 0
+3446 Fish combat lvl: 0
+3447 Fish combat lvl: 0
+3448 Fish combat lvl: 0
+3449 Lumbridge Guide combat lvl: 0
+3450 null combat lvl: 1
+3451 Lumbridge Guide combat lvl: 0
+3452 ? ? ? ? combat lvl: 0
+3453 ? ? ? ? combat lvl: 0
+3454 ? ? ? ? combat lvl: 0
+3455 ? ? ? ? combat lvl: 0
+3456 ? ? ? ? combat lvl: 0
+3457 ? ? ? ? combat lvl: 0
+3458 ? ? ? ? combat lvl: 0
+3459 ? ? ? ? combat lvl: 0
+3460 ? ? ? ? combat lvl: 0
+3461 ? ? ? ? combat lvl: 0
+3462 null combat lvl: 0
+3463 Skrach Uglogwee combat lvl: 0
+3464 Skrach Uglogwee combat lvl: 0
+3465 null combat lvl: 1
+3466 Rantz combat lvl: 0
+3467 Rantz combat lvl: 1
+3468 Rantz combat lvl: 1
+3469 null combat lvl: 1
+3470 null combat lvl: 1
+3471 Ogre boat combat lvl: 0
+3472 Ogre boat combat lvl: 0
+3473 Balloon Toad combat lvl: 0
+3474 Balloon Toad combat lvl: 0
+3475 Balloon Toad combat lvl: 0
+3476 Jubbly bird combat lvl: 9
+3477 Jubbly bird combat lvl: 0
+3478 King Awowogei combat lvl: 0
+3479 null combat lvl: 1
+3480 King Awowogei combat lvl: 0
+3481 Mizaru combat lvl: 0
+3482 Kikazaru combat lvl: 0
+3483 Iwazaru combat lvl: 0
+3484 Big Snake combat lvl: 84
+3485 Culinaromancer combat lvl: 0
+3486 Culinaromancer combat lvl: 0
+3487 Culinaromancer combat lvl: 0
+3488 Culinaromancer combat lvl: 0
+3489 Culinaromancer combat lvl: 0
+3490 Culinaromancer combat lvl: 0
+3491 Culinaromancer combat lvl: 75
+3492 Culinaromancer combat lvl: 0
+3493 Agrith-Na-Na combat lvl: 146
+3494 Flambeed combat lvl: 149
+3495 Karamel combat lvl: 136
+3496 Dessourt combat lvl: 121
+3497 Gelatinnoth Mother combat lvl: 130
+3498 Gelatinnoth Mother combat lvl: 130
+3499 Gelatinnoth Mother combat lvl: 130
+3500 Gelatinnoth Mother combat lvl: 130
+3501 Gelatinnoth Mother combat lvl: 130
+3502 Gelatinnoth Mother combat lvl: 130
+3503 Overgrown hellcat combat lvl: 0
+3504 Hellcat combat lvl: 0
+3505 Hell-kitten combat lvl: 0
+3506 Lazy hellcat combat lvl: 0
+3507 Wily hellcat combat lvl: 0
+3508 Leo combat lvl: 0
+3509 Sorin combat lvl: 0
+3510 null combat lvl: 1
+3511 Wiskit combat lvl: 0
+3512 null combat lvl: 1
+3513 null combat lvl: 1
+3514 Vampyre Juvinate combat lvl: 0
+3515 Vampyre Juvinate combat lvl: 0
+3516 null combat lvl: 1
+3517 Gadderanks combat lvl: 0
+3518 Gadderanks combat lvl: 35
+3519 Gadderanks combat lvl: 0
+3520 Vampyre Juvinate combat lvl: 50
+3521 Vampyre Juvinate combat lvl: 54
+3522 Vampyre Juvinate combat lvl: 54
+3523 Vampyre Juvinate combat lvl: 54
+3524 Vampyre Juvinate combat lvl: 54
+3525 Vampyre Juvinate combat lvl: 54
+3526 Vampyre Juvinate combat lvl: 64
+3527 Held Vampyre Juvinate combat lvl: 54
+3528 Vampyre Juvinate combat lvl: 0
+3529 Vampyre Juvinate combat lvl: 0
+3530 Mist combat lvl: 0
+3531 Vampyre Juvenile combat lvl: 45
+3532 Vampyre Juvenile combat lvl: 45
+3533 Vampyre Juvenile combat lvl: 45
+3534 Held Vampyre Juvenile combat lvl: 45
+3535 Ivan Strom combat lvl: 0
+3536 Ivan Strom combat lvl: 0
+3537 Vampyre Juvinate combat lvl: 75
+3538 Vampyre Juvinate combat lvl: 50
+3539 Veliaf Hurtz combat lvl: 0
+3540 Elisabeta combat lvl: 0
+3541 Aurel combat lvl: 0
+3542 Sorin combat lvl: 0
+3543 Luscion combat lvl: 0
+3544 Sergiu combat lvl: 0
+3545 Radu combat lvl: 0
+3546 Grigore combat lvl: 0
+3547 Ileana combat lvl: 0
+3548 Valeria combat lvl: 0
+3549 Emilia combat lvl: 0
+3550 Florin combat lvl: 0
+3551 Catalina combat lvl: 0
+3552 Ivan combat lvl: 0
+3553 Victor combat lvl: 0
+3554 Helena combat lvl: 0
+3555 Teodor combat lvl: 0
+3556 Marius combat lvl: 0
+3557 Gabriela combat lvl: 0
+3558 Vladimir combat lvl: 0
+3559 Calin combat lvl: 0
+3560 Mihail combat lvl: 0
+3561 Nicoleta combat lvl: 0
+3562 Simona combat lvl: 0
+3563 Vasile combat lvl: 0
+3564 Razvan combat lvl: 0
+3565 Luminata combat lvl: 0
+3566 null combat lvl: 1
+3567 null combat lvl: 1
+3568 Cornelius combat lvl: 0
+3569 Cornelius combat lvl: 0
+3570 Benjamin combat lvl: 0
+3571 Liam combat lvl: 0
+3572 Miala combat lvl: 0
+3573 Verak combat lvl: 0
+3574 Fishing spot combat lvl: 0
+3575 Fishing spot combat lvl: 0
+3576 Juvinate combat lvl: 59
+3577 Juvinate combat lvl: 90
+3578 Juvinate combat lvl: 119
+3579 Sheep combat lvl: 0
+3580 Tentacle combat lvl: 0
+3581 Skeleton combat lvl: 22
+3582 Guard dog combat lvl: 44
+3583 Hobgoblin combat lvl: 54
+3584 Troll combat lvl: 91
+3585 Huge spider combat lvl: 81
+3586 Hellhound combat lvl: 122
+3587 Ogre combat lvl: 53
+3588 Baby red dragon combat lvl: 65
+3589 Kalphite Soldier combat lvl: 85
+3590 Steel dragon combat lvl: 246
+3591 Dagannoth combat lvl: 135
+3592 Tok-Xil combat lvl: 135
+3593 Demon combat lvl: 82
+3594 Rocnar combat lvl: 97
+3595 Toy Soldier combat lvl: 0
+3596 Toy Doll combat lvl: 0
+3597 Toy Mouse combat lvl: 0
+3598 Clockwork cat combat lvl: 0
+3599 Swamp snake combat lvl: 80
+3600 Swamp snake combat lvl: 109
+3601 Swamp snake combat lvl: 139
+3602 Swamp snake combat lvl: 0
+3603 Dead swamp snake combat lvl: 0
+3604 Dead swamp snake combat lvl: 0
+3605 Dead swamp snake combat lvl: 0
+3606 Ghast combat lvl: 0
+3607 Ghast combat lvl: 0
+3608 Ghast combat lvl: 0
+3609 Ghast combat lvl: 79
+3610 Ghast combat lvl: 109
+3611 Ghast combat lvl: 139
+3612 Giant snail combat lvl: 80
+3613 Giant snail combat lvl: 109
+3614 Giant snail combat lvl: 139
+3615 Riyl shadow combat lvl: 80
+3616 Asyn shadow combat lvl: 110
+3617 Shade combat lvl: 140
+3618 Tentacle combat lvl: 99
+3619 Head combat lvl: 140
+3620 Head combat lvl: 140
+3621 Tentacle combat lvl: 136
+3622 Zombie combat lvl: 23
+3623 null combat lvl: 1
+3624 Smiddi Ryak combat lvl: 0
+3625 null combat lvl: 1
+3626 Rolayne Twickit combat lvl: 0
+3627 null combat lvl: 1
+3628 Jayene Kliyn combat lvl: 0
+3629 null combat lvl: 1
+3630 Valantay Eppel combat lvl: 0
+3631 null combat lvl: 1
+3632 Dalcian Fang combat lvl: 0
+3633 null combat lvl: 1
+3634 Fyiona Fray combat lvl: 0
+3635 Abidor Crank combat lvl: 0
+3636 Spirit tree combat lvl: 0
+3637 Spirit tree combat lvl: 0
+3638 null combat lvl: 0
+3639 Launa combat lvl: 0
+3640 Launa combat lvl: 0
+3641 Brana combat lvl: 0
+3642 Mawnis Burowgar combat lvl: 0
+3643 Tolna combat lvl: 0
+3644 Tolna combat lvl: 0
+3645 Angry bear combat lvl: 40
+3646 Angry unicorn combat lvl: 45
+3647 Angry giant rat combat lvl: 45
+3648 Angry goblin combat lvl: 45
+3649 Fear reaper combat lvl: 42
+3650 Confusion beast combat lvl: 43
+3651 Confusion beast combat lvl: 43
+3652 Confusion beast combat lvl: 43
+3653 Confusion beast combat lvl: 43
+3654 Confusion beast combat lvl: 43
+3655 Hopeless creature combat lvl: 40
+3656 Hopeless creature combat lvl: 40
+3657 Hopeless creature combat lvl: 40
+3658 Tolna combat lvl: 46
+3659 Tolna combat lvl: 46
+3660 Tolna combat lvl: 46
+3661 Angry unicorn combat lvl: 47
+3662 Angry giant rat combat lvl: 47
+3663 Angry goblin combat lvl: 47
+3664 Angry bear combat lvl: 47
+3665 Fear reaper combat lvl: 55
+3666 Confusion beast combat lvl: 63
+3667 Hopeless creature combat lvl: 71
+3668 Hopeless beast combat lvl: 71
+3669 Hopeless beast combat lvl: 71
+3670 Odd Old Man combat lvl: 0
+3671 Fortunato combat lvl: 0
+3672 Ram combat lvl: 2
+3673 Ram combat lvl: 2
+3674 Bones combat lvl: 0
+3675 Vulture combat lvl: 31
+3676 Vulture combat lvl: 31
+3677 Sinister Stranger combat lvl: 0
+3678 Sinister Stranger combat lvl: 0
+3679 Vestri combat lvl: 0
+3680 Ali the Leaflet Dropper combat lvl: 0
+3681 Nigel combat lvl: 0
+3682 Egg combat lvl: 0
+3683 Egg combat lvl: 0
+3684 Egg combat lvl: 0
+3685 Egg combat lvl: 0
+3686 Chocolate kebbit combat lvl: 0
+3687 Chocolate kebbit combat lvl: 0
+3688 Easter Bunny combat lvl: 1
+3689 Egg combat lvl: 0
+3690 Egg combat lvl: 0
+3691 Egg combat lvl: 0
+3692 Egg combat lvl: 0
+3693 Egg combat lvl: 0
+3694 Egg combat lvl: 0
+3695 Volf Olafson combat lvl: 0
+3696 Ingrid Hradson combat lvl: 0
+3697 Skeleton fremennik combat lvl: 40
+3698 Skeleton fremennik combat lvl: 40
+3699 Skeleton fremennik combat lvl: 40
+3700 Skeleton fremennik combat lvl: 50
+3701 Skeleton fremennik combat lvl: 50
+3702 Skeleton fremennik combat lvl: 50
+3703 Skeleton fremennik combat lvl: 60
+3704 Skeleton fremennik combat lvl: 60
+3705 Skeleton fremennik combat lvl: 60
+3706 Ulfric combat lvl: 100
+3707 Brine rat combat lvl: 70
+3708 Boulder combat lvl: 0
+3709 Boulder combat lvl: 0
+3710 Ulfric combat lvl: 0
+3711 Giant bat combat lvl: 27
+3712 Zanik combat lvl: 0
+3713 Sigmund combat lvl: 64
+3714 Zanik combat lvl: 41
+3715 Guard combat lvl: 22
+3716 Sigmund combat lvl: 64
+3717 Sigmund combat lvl: 64
+3718 Sigmund combat lvl: 64
+3719 Sigmund combat lvl: 64
+3720 Sigmund combat lvl: 64
+3721 Zanik combat lvl: 0
+3722 Zanik combat lvl: 0
+3723 General Bentnoze combat lvl: 0
+3724 General Wartface combat lvl: 0
+3725 Grubfoot combat lvl: 0
+3726 Goblin combat lvl: 0
+3727 Splatter combat lvl: 22
+3728 Splatter combat lvl: 33
+3729 Splatter combat lvl: 44
+3730 Splatter combat lvl: 54
+3731 Splatter combat lvl: 65
+3732 Shifter combat lvl: 38
+3733 Shifter combat lvl: 38
+3734 Shifter combat lvl: 57
+3735 Shifter combat lvl: 57
+3736 Shifter combat lvl: 76
+3737 Shifter combat lvl: 76
+3738 Shifter combat lvl: 90
+3739 Shifter combat lvl: 90
+3740 Shifter combat lvl: 104
+3741 Shifter combat lvl: 104
+3742 Ravager combat lvl: 36
+3743 Ravager combat lvl: 53
+3744 Ravager combat lvl: 71
+3745 Ravager combat lvl: 89
+3746 Ravager combat lvl: 106
+3747 Spinner combat lvl: 36
+3748 Spinner combat lvl: 55
+3749 Spinner combat lvl: 74
+3750 Spinner combat lvl: 92
+3751 Spinner combat lvl: 88
+3752 Torcher combat lvl: 33
+3753 Torcher combat lvl: 33
+3754 Torcher combat lvl: 49
+3755 Torcher combat lvl: 49
+3756 Torcher combat lvl: 66
+3757 Torcher combat lvl: 66
+3758 Torcher combat lvl: 79
+3759 Torcher combat lvl: 79
+3760 Torcher combat lvl: 91
+3761 Torcher combat lvl: 92
+3762 Defiler combat lvl: 33
+3763 Defiler combat lvl: 33
+3764 Defiler combat lvl: 50
+3765 Defiler combat lvl: 50
+3766 Defiler combat lvl: 66
+3767 Defiler combat lvl: 67
+3768 Defiler combat lvl: 80
+3769 Defiler combat lvl: 80
+3770 Defiler combat lvl: 97
+3771 Defiler combat lvl: 97
+3772 Brawler combat lvl: 51
+3773 Brawler combat lvl: 76
+3774 Brawler combat lvl: 101
+3775 Brawler combat lvl: 129
+3776 Brawler combat lvl: 158
+3777 Doomsayer combat lvl: 0
+3778 null combat lvl: 1
+3779 Arthur combat lvl: 0
+3780 null combat lvl: 1
+3781 Squire combat lvl: 0
+3782 Void Knight combat lvl: 0
+3783 Void Knight combat lvl: 0
+3784 Void Knight combat lvl: 0
+3785 Void Knight combat lvl: 0
+3786 Void Knight combat lvl: 0
+3787 Void Knight combat lvl: 0
+3788 Void Knight combat lvl: 0
+3789 Void Knight combat lvl: 0
+3790 Squire combat lvl: 0
+3791 Squire combat lvl: 0
+3792 Squire combat lvl: 0
+3793 Squire combat lvl: 0
+3794 Squire combat lvl: 0
+3795 Squire combat lvl: 0
+3796 Squire combat lvl: 0
+3797 Squire combat lvl: 0
+3798 Squire combat lvl: 0
+3799 Squire combat lvl: 0
+3800 Squire combat lvl: 0
+3801 Squire combat lvl: 0
+3802 Squire (Novice) combat lvl: 0
+3803 null combat lvl: 1
+3804 Fishing spot combat lvl: 0
+3805 Postie Pete combat lvl: 0
+3806 Millie Miller combat lvl: 0
+3807 Gillie Groats combat lvl: 0
+3808 Tortoise combat lvl: 92
+3809 Captain Dalbur combat lvl: 0
+3810 Captain Bleemadge combat lvl: 0
+3811 Captain Errdo combat lvl: 0
+3812 Captain Klemfoodle combat lvl: 0
+3813 Captain Wimto combat lvl: 0
+3814 Gnome Archer combat lvl: 5
+3815 Gnome Driver combat lvl: 5
+3816 Gnome Mage combat lvl: 5
+3817 Lieutenant Schepbur combat lvl: 0
+3818 Trainer Nacklepen combat lvl: 0
+3819 Tortoise combat lvl: 79
+3820 null combat lvl: 1
+3821 Wise Old Man combat lvl: 0
+3822 Herman Caranos combat lvl: 0
+3823 Franklin Caranos combat lvl: 0
+3824 Arnold Lydspor combat lvl: 0
+3825 Devin Mendelberg combat lvl: 0
+3826 George Laxmeister combat lvl: 0
+3827 Ramara du Croissant combat lvl: 0
+3828 null combat lvl: 1
+3829 null combat lvl: 1
+3830 Kathy Corkat combat lvl: 0
+3831 Kathy Corkat combat lvl: 0
+3832 null combat lvl: 1
+3833 null combat lvl: 1
+3834 null combat lvl: 1
+3835 Kalphite Queen combat lvl: 333
+3836 Kalphite Queen combat lvl: 333
+3837 Drunken Dwarf combat lvl: 0
+3838 Wise Old Man combat lvl: 0
+3839 Wise Old Man combat lvl: 0
+3840 Sea troll combat lvl: 79
+3841 Sea troll combat lvl: 65
+3842 Sea troll combat lvl: 87
+3843 Sea troll combat lvl: 101
+3844 Skeleton Mage combat lvl: 64
+3845 Sea troll combat lvl: 58
+3846 Sea Troll General combat lvl: 0
+3847 Sea Troll Queen combat lvl: 170
+3848 Fishing spot combat lvl: 0
+3849 Fishing spot combat lvl: 0
+3850 Skeleton Mage combat lvl: 0
+3851 Skeleton Mage combat lvl: 83
+3852 Suspect combat lvl: 0
+3853 Suspect combat lvl: 0
+3854 Suspect combat lvl: 0
+3855 Suspect combat lvl: 0
+3856 Suspect combat lvl: 0
+3857 Suspect combat lvl: 0
+3858 Suspect combat lvl: 0
+3859 Suspect combat lvl: 0
+3860 Suspect combat lvl: 0
+3861 Suspect combat lvl: 0
+3862 Suspect combat lvl: 0
+3863 Suspect combat lvl: 0
+3864 Suspect combat lvl: 0
+3865 Suspect combat lvl: 0
+3866 Suspect combat lvl: 0
+3867 Suspect combat lvl: 0
+3868 Suspect combat lvl: 0
+3869 Suspect combat lvl: 0
+3870 Suspect combat lvl: 0
+3871 Suspect combat lvl: 0
+3872 Suspect combat lvl: 0
+3873 Suspect combat lvl: 0
+3874 Suspect combat lvl: 0
+3875 Suspect combat lvl: 0
+3876 Suspect combat lvl: 0
+3877 Suspect combat lvl: 0
+3878 Suspect combat lvl: 0
+3879 Suspect combat lvl: 0
+3880 Suspect combat lvl: 0
+3881 Suspect combat lvl: 0
+3882 Suspect combat lvl: 0
+3883 Suspect combat lvl: 0
+3884 Suspect combat lvl: 0
+3885 Suspect combat lvl: 0
+3886 Suspect combat lvl: 0
+3887 Suspect combat lvl: 0
+3888 Suspect combat lvl: 0
+3889 Suspect combat lvl: 0
+3890 Suspect combat lvl: 0
+3891 Suspect combat lvl: 0
+3892 Molly combat lvl: 0
+3893 Molly combat lvl: 0
+3894 Molly combat lvl: 0
+3895 Molly combat lvl: 0
+3896 Molly combat lvl: 0
+3897 Molly combat lvl: 0
+3898 Molly combat lvl: 0
+3899 Molly combat lvl: 0
+3900 Molly combat lvl: 0
+3901 Molly combat lvl: 0
+3902 Molly combat lvl: 0
+3903 Molly combat lvl: 0
+3904 Molly combat lvl: 0
+3905 Molly combat lvl: 0
+3906 Molly combat lvl: 0
+3907 Molly combat lvl: 0
+3908 Molly combat lvl: 0
+3909 Molly combat lvl: 0
+3910 Molly combat lvl: 0
+3911 Molly combat lvl: 0
+3912 Flippa combat lvl: 0
+3913 Tilt combat lvl: 0
+3914 Gardener combat lvl: 4
+3915 Man combat lvl: 2
+3916 Carpenter Kjallak combat lvl: 0
+3917 Farmer Fromund combat lvl: 0
+3918 Prince Brand combat lvl: 0
+3919 Princess Astrid combat lvl: 0
+3920 Runa combat lvl: 0
+3921 Halla combat lvl: 0
+3922 Finn combat lvl: 0
+3923 Osvald combat lvl: 0
+3924 Runolf combat lvl: 0
+3925 Tjorvi combat lvl: 0
+3926 Ingrid combat lvl: 0
+3927 Thora combat lvl: 0
+3928 Signy combat lvl: 0
+3929 Hild combat lvl: 0
+3930 Armod combat lvl: 0
+3931 Beigarth combat lvl: 0
+3932 Reinn combat lvl: 0
+3933 Alviss combat lvl: 0
+3934 Fullangr combat lvl: 0
+3935 Jari combat lvl: 0
+3936 Thorodin combat lvl: 0
+3937 Ferd combat lvl: 0
+3938 Donal combat lvl: 0
+3939 Sea Snake Young combat lvl: 90
+3940 Sea Snake Hatchling combat lvl: 62
+3941 Guard combat lvl: 0
+3942 Guard combat lvl: 0
+3943 Giant Sea Snake combat lvl: 149
+3944 Hangman game combat lvl: 0
+3945 Hangman game combat lvl: 0
+3946 Hangman game combat lvl: 0
+3947 Hangman game combat lvl: 0
+3948 Hangman game combat lvl: 0
+3949 Hangman game combat lvl: 0
+3950 Hangman game combat lvl: 0
+3951 Hangman game combat lvl: 0
+3952 Hangman game combat lvl: 0
+3953 Hangman game combat lvl: 0
+3954 Treasure fairy combat lvl: 0
+3955 Jacky Jester combat lvl: 0
+3956 Combat stone combat lvl: 0
+3957 Combat stone combat lvl: 0
+3958 Combat stone combat lvl: 0
+3959 Combat stone combat lvl: 0
+3960 Combat stone combat lvl: 0
+3961 Combat stone combat lvl: 0
+3962 Combat stone combat lvl: 0
+3963 Combat stone combat lvl: 0
+3964 Combat stone combat lvl: 0
+3965 Combat stone combat lvl: 0
+3966 Combat stone combat lvl: 0
+3967 Combat stone combat lvl: 0
+3968 Combat stone combat lvl: 0
+3969 Combat stone combat lvl: 0
+3970 Combat stone combat lvl: 0
+3971 Combat stone combat lvl: 0
+3972 Combat stone combat lvl: 0
+3973 Combat stone combat lvl: 0
+3974 Combat stone combat lvl: 0
+3975 Combat stone combat lvl: 0
+3976 Combat stone combat lvl: 0
+3977 Combat stone combat lvl: 0
+3978 Combat stone combat lvl: 0
+3979 Combat stone combat lvl: 0
+3980 Combat stone combat lvl: 0
+3981 Combat stone combat lvl: 0
+3982 Combat stone combat lvl: 0
+3983 Combat stone combat lvl: 0
+3984 Combat stone combat lvl: 0
+3985 Combat stone combat lvl: 0
+3986 Combat stone combat lvl: 0
+3987 Combat stone combat lvl: 0
+3988 Combat stone combat lvl: 0
+3989 Combat stone combat lvl: 0
+3990 Combat stone combat lvl: 0
+3991 Combat stone combat lvl: 0
+3992 Combat stone combat lvl: 0
+3993 Combat stone combat lvl: 0
+3994 Combat stone combat lvl: 0
+3995 Combat stone combat lvl: 0
+3996 Combat stone combat lvl: 0
+3997 Combat stone combat lvl: 0
+3998 Combat stone combat lvl: 0
+3999 Combat stone combat lvl: 0
+4000 Combat stone combat lvl: 0
+4001 Combat stone combat lvl: 0
+4002 Combat stone combat lvl: 0
+4003 Combat stone combat lvl: 0
+4004 Combat stone combat lvl: 0
+4005 Combat stone combat lvl: 0
+4006 Combat stone combat lvl: 0
+4007 Combat stone combat lvl: 0
+4008 Combat stone combat lvl: 0
+4009 Combat stone combat lvl: 0
+4010 Combat stone combat lvl: 0
+4011 Combat stone combat lvl: 0
+4012 Combat stone combat lvl: 0
+4013 Combat stone combat lvl: 0
+4014 Combat stone combat lvl: 0
+4015 Combat stone combat lvl: 0
+4016 Combat stone combat lvl: 0
+4017 Combat stone combat lvl: 0
+4018 Combat stone combat lvl: 0
+4019 Combat stone combat lvl: 0
+4020 Combat stone combat lvl: 0
+4021 Elemental balance combat lvl: 0
+4022 Elemental balance combat lvl: 0
+4023 Elemental balance combat lvl: 0
+4024 Elemental balance combat lvl: 0
+4025 Elemental balance combat lvl: 0
+4026 Elemental balance combat lvl: 0
+4027 Elemental balance combat lvl: 0
+4028 Elemental balance combat lvl: 0
+4029 Elemental balance combat lvl: 0
+4030 Elemental balance combat lvl: 0
+4031 Elemental balance combat lvl: 0
+4032 Elemental balance combat lvl: 0
+4033 Elemental balance combat lvl: 0
+4034 Elemental balance combat lvl: 0
+4035 Elemental balance combat lvl: 0
+4036 Elemental balance combat lvl: 0
+4037 Elemental balance combat lvl: 0
+4038 Elemental balance combat lvl: 0
+4039 Elemental balance combat lvl: 0
+4040 Elemental balance combat lvl: 0
+4041 Elemental balance combat lvl: 0
+4042 Elemental balance combat lvl: 0
+4043 Elemental balance combat lvl: 0
+4044 Elemental balance combat lvl: 0
+4045 Elemental balance combat lvl: 0
+4046 Elemental balance combat lvl: 0
+4047 Elemental balance combat lvl: 0
+4048 Elemental balance combat lvl: 0
+4049 Elemental balance combat lvl: 0
+4050 Elemental balance combat lvl: 0
+4051 Elemental balance combat lvl: 0
+4052 Elemental balance combat lvl: 0
+4053 Elemental balance combat lvl: 0
+4054 Elemental balance combat lvl: 0
+4055 Elemental balance combat lvl: 0
+4056 Elemental balance combat lvl: 0
+4057 Elemental balance combat lvl: 0
+4058 Elemental balance combat lvl: 0
+4059 Elemental balance combat lvl: 0
+4060 Elemental balance combat lvl: 0
+4061 Elemental balance combat lvl: 0
+4062 Elemental balance combat lvl: 0
+4063 Elemental balance combat lvl: 0
+4064 Elemental balance combat lvl: 0
+4065 Elemental balance combat lvl: 0
+4066 Elemental balance combat lvl: 0
+4067 Elemental balance combat lvl: 0
+4068 Elemental balance combat lvl: 0
+4069 Elemental balance combat lvl: 0
+4070 Elemental balance combat lvl: 0
+4071 Elemental balance combat lvl: 0
+4072 Elemental balance combat lvl: 0
+4073 Elemental balance combat lvl: 0
+4074 Elemental balance combat lvl: 0
+4075 Elemental balance combat lvl: 0
+4076 Elemental balance combat lvl: 0
+4077 Elemental balance combat lvl: 0
+4078 Elemental balance combat lvl: 0
+4079 Elemental balance combat lvl: 0
+4080 Elemental balance combat lvl: 0
+4081 Elemental balance combat lvl: 0
+4082 Elemental balance combat lvl: 0
+4083 Elemental balance combat lvl: 0
+4084 Elemental balance combat lvl: 0
+4085 Elemental balance combat lvl: 0
+4086 Elemental balance combat lvl: 0
+4087 Elemental balance combat lvl: 0
+4088 Elemental balance combat lvl: 0
+4089 Elemental balance combat lvl: 0
+4090 Elemental balance combat lvl: 0
+4091 Elemental balance combat lvl: 0
+4092 Elemental balance combat lvl: 0
+4093 Elemental balance combat lvl: 0
+4094 Elemental balance combat lvl: 0
+4095 Elemental balance combat lvl: 0
+4096 Combat stone combat lvl: 0
+4097 Combat stone combat lvl: 0
+4098 Combat stone combat lvl: 0
+4099 Combat stone combat lvl: 0
+4100 Combat stone combat lvl: 0
+4101 Combat stone combat lvl: 0
+4102 Combat stone combat lvl: 0
+4103 Combat stone combat lvl: 0
+4104 Combat stone combat lvl: 0
+4105 Combat stone combat lvl: 0
+4106 Combat stone combat lvl: 0
+4107 Combat stone combat lvl: 0
+4108 Combat stone combat lvl: 0
+4109 Combat stone combat lvl: 0
+4110 Combat stone combat lvl: 0
+4111 Combat stone combat lvl: 0
+4112 Combat stone combat lvl: 0
+4113 Combat stone combat lvl: 0
+4114 Combat stone combat lvl: 0
+4115 Combat stone combat lvl: 0
+4116 Combat stone combat lvl: 0
+4117 Combat stone combat lvl: 0
+4118 Combat stone combat lvl: 0
+4119 Combat stone combat lvl: 0
+4120 Combat stone combat lvl: 0
+4121 Combat stone combat lvl: 0
+4122 Combat stone combat lvl: 0
+4123 Combat stone combat lvl: 0
+4124 Combat stone combat lvl: 0
+4125 Combat stone combat lvl: 0
+4126 Combat stone combat lvl: 0
+4127 Combat stone combat lvl: 0
+4128 Combat stone combat lvl: 0
+4129 Combat stone combat lvl: 0
+4130 Combat stone combat lvl: 0
+4131 Combat stone combat lvl: 0
+4132 Combat stone combat lvl: 0
+4133 Combat stone combat lvl: 0
+4134 Combat stone combat lvl: 0
+4135 Combat stone combat lvl: 0
+4136 Combat stone combat lvl: 0
+4137 Combat stone combat lvl: 0
+4138 Combat stone combat lvl: 0
+4139 Combat stone combat lvl: 0
+4140 Combat stone combat lvl: 0
+4141 Combat stone combat lvl: 0
+4142 Combat stone combat lvl: 0
+4143 Combat stone combat lvl: 0
+4144 Combat stone combat lvl: 0
+4145 Combat stone combat lvl: 0
+4146 Combat stone combat lvl: 0
+4147 Combat stone combat lvl: 0
+4148 Combat stone combat lvl: 0
+4149 Combat stone combat lvl: 0
+4150 Combat stone combat lvl: 0
+4151 Combat stone combat lvl: 0
+4152 Combat stone combat lvl: 0
+4153 Combat stone combat lvl: 0
+4154 Combat stone combat lvl: 0
+4155 Combat stone combat lvl: 0
+4156 Combat stone combat lvl: 0
+4157 Combat stone combat lvl: 0
+4158 Combat stone combat lvl: 0
+4159 Combat stone combat lvl: 0
+4160 Combat stone combat lvl: 0
+4161 Combat stone combat lvl: 0
+4162 Combat stone combat lvl: 0
+4163 Combat stone combat lvl: 0
+4164 Combat stone combat lvl: 0
+4165 Combat stone combat lvl: 0
+4166 Combat stone combat lvl: 0
+4167 Combat stone combat lvl: 0
+4168 Combat stone combat lvl: 0
+4169 Combat stone combat lvl: 0
+4170 Combat stone combat lvl: 0
+4171 Combat stone combat lvl: 0
+4172 Combat stone combat lvl: 0
+4173 Combat stone combat lvl: 0
+4174 Combat stone combat lvl: 0
+4175 Combat stone combat lvl: 0
+4176 Combat stone combat lvl: 0
+4177 Combat stone combat lvl: 0
+4178 Combat stone combat lvl: 0
+4179 Combat stone combat lvl: 0
+4180 Combat stone combat lvl: 0
+4181 Combat stone combat lvl: 0
+4182 Combat stone combat lvl: 0
+4183 Combat stone combat lvl: 0
+4184 Combat stone combat lvl: 0
+4185 Combat stone combat lvl: 0
+4186 Combat stone combat lvl: 0
+4187 Combat stone combat lvl: 0
+4188 Combat stone combat lvl: 0
+4189 Combat stone combat lvl: 0
+4190 Combat stone combat lvl: 0
+4191 Combat stone combat lvl: 0
+4192 Combat stone combat lvl: 0
+4193 Combat stone combat lvl: 0
+4194 Combat stone combat lvl: 0
+4195 Combat stone combat lvl: 0
+4196 Combat stone combat lvl: 0
+4197 Combat stone combat lvl: 0
+4198 Combat stone combat lvl: 0
+4199 Combat stone combat lvl: 0
+4200 Combat stone combat lvl: 0
+4201 Combat stone combat lvl: 0
+4202 Combat stone combat lvl: 0
+4203 Combat stone combat lvl: 0
+4204 Combat stone combat lvl: 0
+4205 Combat stone combat lvl: 0
+4206 Combat stone combat lvl: 0
+4207 Combat stone combat lvl: 0
+4208 Combat stone combat lvl: 0
+4209 Combat stone combat lvl: 0
+4210 Combat stone combat lvl: 0
+4211 Combat stone combat lvl: 0
+4212 Combat stone combat lvl: 0
+4213 Combat stone combat lvl: 0
+4214 Combat stone combat lvl: 0
+4215 Combat stone combat lvl: 0
+4216 Combat stone combat lvl: 0
+4217 Combat stone combat lvl: 0
+4218 Combat stone combat lvl: 0
+4219 Combat stone combat lvl: 0
+4220 Combat stone combat lvl: 0
+4221 Combat stone combat lvl: 0
+4222 Combat stone combat lvl: 0
+4223 Combat stone combat lvl: 0
+4224 Combat stone combat lvl: 0
+4225 Combat stone combat lvl: 0
+4226 Crawling hand combat lvl: 0
+4227 Cockatrice combat lvl: 0
+4228 Basilisk combat lvl: 0
+4229 Kurask combat lvl: 0
+4230 Abyssal demon combat lvl: 0
+4231 Left head combat lvl: 0
+4232 Middle head combat lvl: 0
+4233 Right head combat lvl: 0
+4234 Kalphite Queen combat lvl: 0
+4235 Rick combat lvl: 0
+4236 null combat lvl: 1
+4237 Maid combat lvl: 0
+4238 null combat lvl: 1
+4239 Cook combat lvl: 0
+4240 null combat lvl: 1
+4241 Butler combat lvl: 0
+4242 null combat lvl: 1
+4243 Demon butler combat lvl: 0
+4244 null combat lvl: 1
+4245 Chief servant combat lvl: 0
+4246 Taxidermist combat lvl: 0
+4247 Estate agent combat lvl: 0
+4248 Stonemason combat lvl: 0
+4249 Sir Renitee combat lvl: 0
+4250 Sawmill operator combat lvl: 0
+4251 Garden supplier combat lvl: 0
+4252 Macaroni Penguin combat lvl: 0
+4253 null combat lvl: 1
+4254 null combat lvl: 1
+4255 null combat lvl: 1
+4256 null combat lvl: 1
+4257 Guard combat lvl: 10
+4258 Guard combat lvl: 10
+4259 Guard combat lvl: 10
+4260 Guard combat lvl: 10
+4261 Goblin combat lvl: 2
+4262 Goblin combat lvl: 2
+4263 Goblin combat lvl: 2
+4264 Goblin combat lvl: 2
+4265 Goblin combat lvl: 2
+4266 Goblin combat lvl: 2
+4267 Goblin combat lvl: 2
+4268 Goblin combat lvl: 2
+4269 Goblin combat lvl: 2
+4270 Goblin combat lvl: 2
+4271 Goblin combat lvl: 2
+4272 Goblin combat lvl: 2
+4273 Goblin combat lvl: 2
+4274 Goblin combat lvl: 2
+4275 Goblin combat lvl: 2
+4276 Goblin combat lvl: 2
+4277 Buinn combat lvl: 1
+4278 Animated Bronze Armour combat lvl: 11
+4279 Animated Iron Armour combat lvl: 23
+4280 Animated Steel Armour combat lvl: 46
+4281 Animated Black Armour combat lvl: 69
+4282 Animated Mithril Armour combat lvl: 92
+4283 Animated Adamant Armour combat lvl: 113
+4284 Animated Rune Armour combat lvl: 138
+4285 Ghommal combat lvl: 0
+4286 Harrallak Menarous combat lvl: 0
+4287 Gamfred combat lvl: 0
+4288 Ajjat combat lvl: 0
+4289 Kamfreena combat lvl: 0
+4290 Shanomi combat lvl: 0
+4291 Cyclops combat lvl: 56
+4292 Cyclops combat lvl: 76
+4293 Lidio combat lvl: 0
+4294 Lilly combat lvl: 0
+4295 Anton combat lvl: 0
+4296 Jade combat lvl: 0
+4297 Sloane combat lvl: 0
+4298 Jimmy combat lvl: 0
+4299 Ref combat lvl: 0
+4300 Ref combat lvl: 0
+4301 Guard combat lvl: 22
+4302 Guard combat lvl: 22
+4303 Guard combat lvl: 22
+4304 Guard combat lvl: 22
+4305 Guard combat lvl: 22
+4306 Guard combat lvl: 22
+4307 Guard combat lvl: 22
+4308 Guard combat lvl: 22
+4309 Guard combat lvl: 22
+4310 Guard combat lvl: 22
+4311 Guard combat lvl: 22
+4312 Nardok combat lvl: 0
+4313 null combat lvl: 1
+4314 Dartog combat lvl: 0
+4315 null combat lvl: 1
+4316 Dwarf combat lvl: 0
+4317 null combat lvl: 1
+4318 H.A.M. Member combat lvl: 0
+4319 null combat lvl: 1
+4320 H.A.M. Member combat lvl: 0
+4321 null combat lvl: 1
+4322 Zanik combat lvl: 0
+4323 Zanik combat lvl: 0
+4324 Zanik combat lvl: 0
+4325 Light creature combat lvl: 0
+4326 Zanik combat lvl: 0
+4327 HAM member combat lvl: 22
+4328 Sigmund combat lvl: 0
+4329 H.A.M. Deacon combat lvl: 0
+4330 Johanhus Ulsbrecht combat lvl: 0
+4331 Sigmund combat lvl: 0
+4332 Sigmund combat lvl: 50
+4333 Sigmund combat lvl: 50
+4334 Sigmund combat lvl: 50
+4335 Sigmund combat lvl: 50
+4336 Guard combat lvl: 22
+4337 Zanik combat lvl: 0
+4338 null combat lvl: 1
+4339 Zanik combat lvl: 0
+4340 Zanik combat lvl: 0
+4341 Zanik combat lvl: 0
+4342 Zanik combat lvl: 41
+4343 Snake combat lvl: 35
+4344 Monkey combat lvl: 3
+4345 Albino bat combat lvl: 52
+4346 Crab combat lvl: 0
+4347 Giant mosquito combat lvl: 13
+4348 Jungle horror combat lvl: 70
+4349 Jungle horror combat lvl: 70
+4350 Jungle horror combat lvl: 70
+4351 Jungle horror combat lvl: 70
+4352 Jungle horror combat lvl: 70
+4353 Cave horror combat lvl: 80
+4354 Cave horror combat lvl: 80
+4355 Cave horror combat lvl: 80
+4356 Cave horror combat lvl: 80
+4357 Cave horror combat lvl: 80
+4358 Cavey Davey combat lvl: 0
+4359 Patchy combat lvl: 0
+4360 San Fan combat lvl: 0
+4361 Fancy Dan combat lvl: 0
+4362 Honest Jimmy combat lvl: 0
+4363 Monkey combat lvl: 0
+4364 Swarm combat lvl: 0
+4365 null combat lvl: 0
+4366 null combat lvl: 0
+4367 null combat lvl: 0
+4368 null combat lvl: 0
+4369 null combat lvl: 0
+4370 null combat lvl: 0
+4371 Blue Monkey combat lvl: 1
+4372 Red Monkey combat lvl: 1
+4373 Parrot combat lvl: 0
+4374 Parrot combat lvl: 0
+4375 Security Guard combat lvl: 0
+4376 Litara combat lvl: 0
+4377 Gate of War combat lvl: 1
+4378 Ricketty door combat lvl: 1
+4379 Oozing barrier combat lvl: 1
+4380 Portal of Death combat lvl: 1
+4381 Ankou combat lvl: 75
+4382 Ankou combat lvl: 82
+4383 Ankou combat lvl: 86
+4384 Skeleton combat lvl: 68
+4385 Skeleton combat lvl: 60
+4386 Skeleton combat lvl: 85
+4387 Ghost combat lvl: 77
+4388 Ghost combat lvl: 76
+4389 Flesh Crawler combat lvl: 28
+4390 Flesh Crawler combat lvl: 35
+4391 Flesh Crawler combat lvl: 41
+4392 Zombie combat lvl: 30
+4393 Zombie combat lvl: 44
+4394 Zombie combat lvl: 53
+4395 Giant rat combat lvl: 26
+4396 Rat combat lvl: 1
+4397 Catablepon combat lvl: 49
+4398 Catablepon combat lvl: 64
+4399 Catablepon combat lvl: 68
+4400 Giant spider combat lvl: 50
+4401 Spider combat lvl: 24
+4402 Scorpion combat lvl: 59
+4403 Scorpion combat lvl: 37
+4404 Minotaur combat lvl: 12
+4405 Minotaur combat lvl: 19
+4406 Minotaur combat lvl: 27
+4407 Goblin combat lvl: 5
+4408 Goblin combat lvl: 13
+4409 Goblin combat lvl: 11
+4410 Goblin combat lvl: 16
+4411 Goblin combat lvl: 25
+4412 Goblin combat lvl: 16
+4413 Wolf combat lvl: 14
+4414 Wolf combat lvl: 11
+4415 Rat combat lvl: 1
+4416 Bee keeper combat lvl: 0
+4417 Bees! combat lvl: 0
+4418 Gorak combat lvl: 145
+4419 Cosmic Being combat lvl: 0
+4420 null combat lvl: 0
+4421 null combat lvl: 0
+4422 null combat lvl: 1
+4423 null combat lvl: 1
+4424 null combat lvl: 0
+4425 null combat lvl: 0
+4426 null combat lvl: 1
+4427 null combat lvl: 1
+4428 null combat lvl: 1
+4429 null combat lvl: 1
+4430 null combat lvl: 1
+4431 null combat lvl: 1
+4432 null combat lvl: 1
+4433 Fairy Godfather combat lvl: 0
+4434 Fairy Nuff combat lvl: 0
+4435 null combat lvl: 1
+4436 null combat lvl: 1
+4437 Fairy Queen combat lvl: 0
+4438 Centaur combat lvl: 0
+4439 Centaur combat lvl: 0
+4440 Stag combat lvl: 15
+4441 Wood Dryad combat lvl: 0
+4442 Fairy Very Wise combat lvl: 0
+4443 Fairy combat lvl: 0
+4444 Fairy combat lvl: 0
+4445 Fairy combat lvl: 0
+4446 Fairy combat lvl: 0
+4447 Rabbit combat lvl: 1
+4448 Rabbit combat lvl: 1
+4449 Butterfly combat lvl: 0
+4450 Butterfly combat lvl: 0
+4451 Starflower combat lvl: 0
+4452 Starflower combat lvl: 0
+4453 null combat lvl: 1
+4454 null combat lvl: 1
+4455 Fairy Fixit combat lvl: 0
+4456 Ork combat lvl: 0
+4457 Ork combat lvl: 0
+4458 Ork combat lvl: 20
+4459 Ork combat lvl: 20
+4460 Fake Man combat lvl: 1
+4461 Held vampyre juvinate combat lvl: 90
+4462 Held vampyre juvinate combat lvl: 119
+4463 Angry juvinate combat lvl: 70
+4464 Angry juvinate combat lvl: 100
+4465 Angry juvinate combat lvl: 130
+4466 Benjamin combat lvl: 0
+4467 Liam combat lvl: 0
+4468 Miala combat lvl: 0
+4469 Verak combat lvl: 0
+4470 Tree spirit combat lvl: 14
+4471 Tree spirit combat lvl: 29
+4472 Tree spirit combat lvl: 49
+4473 Tree spirit combat lvl: 79
+4474 Tree spirit combat lvl: 120
+4475 Tree spirit combat lvl: 159
+4476 Guardian mummy combat lvl: 0
+4477 Annoyed guardian mummy combat lvl: 0
+4478 Tarik combat lvl: 0
+4479 Goblin combat lvl: 5
+4480 Goblin combat lvl: 5
+4481 Goblin combat lvl: 5
+4482 Goblin combat lvl: 5
+4483 Goblin combat lvl: 5
+4484 Goblin combat lvl: 5
+4485 Goblin combat lvl: 5
+4486 Goblin combat lvl: 5
+4487 Goblin combat lvl: 5
+4488 Goblin combat lvl: 5
+4489 Goblin combat lvl: 5
+4490 Goblin combat lvl: 5
+4491 Goblin combat lvl: 5
+4492 Goblin combat lvl: 5
+4493 General Bentnoze combat lvl: 0
+4494 General Wartface combat lvl: 0
+4495 null combat lvl: 1
+4496 Grubfoot combat lvl: 0
+4497 Grubfoot combat lvl: 0
+4498 Grubfoot combat lvl: 0
+4499 Goblin combat lvl: 5
+4500 Scarab swarm combat lvl: 98
+4501 Ethereal Man combat lvl: 0
+4502 Ethereal Lady combat lvl: 0
+4503 Ethereal Numerator combat lvl: 0
+4504 Ethereal Expert combat lvl: 0
+4505 Ethereal Perceptive combat lvl: 0
+4506 Ethereal Guide combat lvl: 0
+4507 Ethereal Fluke combat lvl: 0
+4508 Ethereal Mimic combat lvl: 0
+4509 Me combat lvl: 79
+4510 Me combat lvl: 79
+4511 Oneiromancer combat lvl: 0
+4512 House combat lvl: 0
+4513 Baba Yaga combat lvl: 0
+4514 Pauline Polaris combat lvl: 0
+4515 Meteora combat lvl: 0
+4516 Melana Moonlander combat lvl: 0
+4517 Selene combat lvl: 0
+4518 Rimae Sirsalis combat lvl: 0
+4519 Sirsal Banker combat lvl: 0
+4520 Clan Guard combat lvl: 0
+4521 Enchanted Broom combat lvl: 0
+4522 Enchanted Broom combat lvl: 0
+4523 Enchanted Broom combat lvl: 0
+4524 Enchanted Bucket combat lvl: 0
+4525 Enchanted Bucket combat lvl: 0
+4526 Bouquet Mac Hyacinth combat lvl: 0
+4527 Suqah combat lvl: 111
+4528 Suqah combat lvl: 111
+4529 Suqah combat lvl: 111
+4530 Suqah combat lvl: 111
+4531 Suqah combat lvl: 111
+4532 Suqah combat lvl: 111
+4533 Suqah combat lvl: 111
+4534 Moss giant combat lvl: 48
+4535 Parrot combat lvl: 1
+4536 Lokar Searunner combat lvl: 0
+4537 Lokar Searunner combat lvl: 0
+4538 null combat lvl: 1
+4539 Cabin boy combat lvl: 0
+4540 Captain Bentley combat lvl: 0
+4541 'Beefy' Burns combat lvl: 0
+4542 'Eagle-eye' Shultz combat lvl: 0
+4543 First mate 'Davey-boy' combat lvl: 0
+4544 'Bird's-Eye' Jack combat lvl: 0
+4545 'Picarron' Pete combat lvl: 0
+4546 Jake combat lvl: 37
+4547 Bedread the bold combat lvl: 0
+4548 Wilson combat lvl: 37
+4549 Tommy 2-times combat lvl: 0
+4550 Murky Pat combat lvl: 0
+4551 Jack Sails combat lvl: 0
+4552 Palmer combat lvl: 37
+4553 'Betty' B.Boppin combat lvl: 0
+4554 'Beedy-eye' Jones combat lvl: 0
+4555 Jenny Blade combat lvl: 0
+4556 'Lecherous' Lee combat lvl: 0
+4557 'Sticky' Sanders combat lvl: 0
+4558 Hirko combat lvl: 0
+4559 Holoy combat lvl: 0
+4560 Frizzy Skernip combat lvl: 0
+4561 Yulf Squecks combat lvl: 0
+4562 Praistan Ebola combat lvl: 0
+4563 Hura combat lvl: 0
+4564 Digsite workman combat lvl: 0
+4565 Digsite workman combat lvl: 0
+4566 Examiner combat lvl: 0
+4567 Examiner combat lvl: 0
+4568 Researcher combat lvl: 0
+4569 Nick combat lvl: 0
+4570 Crow combat lvl: 0
+4571 Crow combat lvl: 0
+4572 Gianne jnr. combat lvl: 0
+4573 Timble combat lvl: 0
+4574 Tamble combat lvl: 0
+4575 Spang combat lvl: 0
+4576 Brambickle combat lvl: 0
+4577 Wingstone combat lvl: 0
+4578 Penwie combat lvl: 0
+4579 Generic Diplomat combat lvl: 0
+4580 Ambassador Gimblewap combat lvl: 0
+4581 Ambassador Spanfipple combat lvl: 0
+4582 Ambassador Ferrnook combat lvl: 0
+4583 Professor Manglethorp combat lvl: 0
+4584 Damwin combat lvl: 0
+4585 Professor Onglewip combat lvl: 0
+4586 Professor Imblewyn combat lvl: 0
+4587 Perrdur combat lvl: 0
+4588 Dalila combat lvl: 0
+4589 Sorrn combat lvl: 0
+4590 Mimm combat lvl: 0
+4591 Eebel combat lvl: 0
+4592 Ermin combat lvl: 0
+4593 Portobello combat lvl: 0
+4594 Captain Ninto combat lvl: 0
+4595 Captain Daerkin combat lvl: 0
+4596 Captain Lamdoo combat lvl: 0
+4597 Meegle combat lvl: 0
+4598 Wurbel combat lvl: 0
+4599 Sarble combat lvl: 0
+4600 Guard Vemmeldo combat lvl: 0
+4601 Burkor combat lvl: 0
+4602 Froono combat lvl: 0
+4603 Fortress Guard combat lvl: 20
+4604 Fortress Guard combat lvl: 20
+4605 Fortress Guard combat lvl: 20
+4606 Fortress Guard combat lvl: 20
+4607 Black Cat combat lvl: 0
+4608 Monk combat lvl: 0
+4609 null combat lvl: 0
+4610 Brimstail combat lvl: 0
+4611 Saboteur combat lvl: 0
+4612 Gnome shop keeper combat lvl: 0
+4613 null combat lvl: 0
+4614 Cute creature combat lvl: 0
+4615 Evil creature combat lvl: 0
+4616 null combat lvl: 1
+4617 Cute creature combat lvl: 0
+4618 Evil creature combat lvl: 0
+4619 null combat lvl: 1
+4620 Cute creature combat lvl: 0
+4621 Evil creature combat lvl: 0
+4622 null combat lvl: 1
+4623 Cute creature combat lvl: 0
+4624 Evil creature combat lvl: 0
+4625 null combat lvl: 1
+4626 Cute creature combat lvl: 0
+4627 Evil creature combat lvl: 0
+4628 null combat lvl: 1
+4629 Cute creature combat lvl: 0
+4630 Evil creature combat lvl: 0
+4631 fluffie combat lvl: 0
+4632 fluffie combat lvl: 0
+4633 Goblin combat lvl: 0
+4634 Goblin combat lvl: 0
+4635 Goblin combat lvl: 0
+4636 Goblin combat lvl: 0
+4637 Goblin combat lvl: 0
+4638 Gnome soldier combat lvl: 0
+4639 Gnome soldier combat lvl: 0
+4640 Gnome soldier combat lvl: 0
+4641 Gnome soldier combat lvl: 0
+4642 Gnome soldier combat lvl: 0
+4643 Healthorg and tortoise combat lvl: 0
+4644 Oaknock the Engineer combat lvl: 0
+4645 Glouphrie the Untrusted combat lvl: 0
+4646 King Healthorg combat lvl: 0
+4647 Hazelmere combat lvl: 0
+4648 Nisha combat lvl: 0
+4649 Tyras guard combat lvl: 0
+4650 Trader Stan combat lvl: 0
+4651 Trader Crewmember combat lvl: 0
+4652 Trader Crewmember combat lvl: 0
+4653 Trader Crewmember combat lvl: 0
+4654 Trader Crewmember combat lvl: 0
+4655 Trader Crewmember combat lvl: 0
+4656 Trader Crewmember combat lvl: 0
+4657 Sir Prysin combat lvl: 0
+4658 Dark wizard combat lvl: 7
+4659 Dark wizard combat lvl: 7
+4660 Dark wizard combat lvl: 20
+4661 Dark wizard combat lvl: 20
+4662 Denath combat lvl: 0
+4663 Denath combat lvl: 0
+4664 Wally combat lvl: 1
+4665 Baby dragon combat lvl: 48
+4666 Baby dragon combat lvl: 48
+4667 Baby dragon combat lvl: 48
+4668 Baby dragon combat lvl: 48
+4669 Red dragon combat lvl: 152
+4670 Red dragon combat lvl: 152
+4671 Red dragon combat lvl: 152
+4672 Red dragon combat lvl: 152
+4673 Black dragon combat lvl: 227
+4674 Black dragon combat lvl: 227
+4675 Black dragon combat lvl: 227
+4676 Black dragon combat lvl: 227
+4677 Green dragon combat lvl: 79
+4678 Green dragon combat lvl: 79
+4679 Green dragon combat lvl: 79
+4680 Green dragon combat lvl: 79
+4681 Blue dragon combat lvl: 111
+4682 Blue dragon combat lvl: 111
+4683 Blue dragon combat lvl: 111
+4684 Blue dragon combat lvl: 111
+4685 Ice giant combat lvl: 53
+4686 Ice giant combat lvl: 53
+4687 Ice giant combat lvl: 53
+4688 Moss giant combat lvl: 42
+4689 Hill Giant combat lvl: 28
+4690 Hill Giant combat lvl: 28
+4691 Hill Giant combat lvl: 28
+4692 Hill Giant combat lvl: 28
+4693 Hill Giant combat lvl: 28
+4694 Lesser demon combat lvl: 82
+4695 Lesser demon combat lvl: 82
+4696 Lesser demon combat lvl: 82
+4697 Lesser demon combat lvl: 82
+4698 Greater demon combat lvl: 92
+4699 Greater demon combat lvl: 92
+4700 Greater demon combat lvl: 92
+4701 Greater demon combat lvl: 92
+4702 Black Demon combat lvl: 172
+4703 Black Demon combat lvl: 172
+4704 Black Demon combat lvl: 172
+4705 Black Demon combat lvl: 172
+4706 Moss giant combat lvl: 48
+4707 Magic combat tutor combat lvl: 0
+4708 Old Man Ral combat lvl: 0
+4709 Vertida Sefalatis combat lvl: 0
+4710 Aeonisig Raispher combat lvl: 0
+4711 null combat lvl: 0
+4712 null combat lvl: 0
+4713 Safalaan combat lvl: 0
+4714 null combat lvl: 0
+4715 Sarius Guile combat lvl: 0
+4716 Trader Sven combat lvl: 0
+4717 Meiyerditch citizen combat lvl: 0
+4718 Meiyerditch citizen combat lvl: 0
+4719 Meiyerditch citizen combat lvl: 0
+4720 Meiyerditch citizen combat lvl: 0
+4721 Meiyerditch citizen combat lvl: 0
+4722 Meiyerditch citizen combat lvl: 0
+4723 Meiyerditch citizen combat lvl: 0
+4724 Meiyerditch citizen combat lvl: 0
+4725 Meiyerditch citizen combat lvl: 0
+4726 Meiyerditch citizen combat lvl: 0
+4727 Meiyerditch citizen combat lvl: 0
+4728 Meiyerditch citizen combat lvl: 0
+4729 Meiyerditch citizen combat lvl: 0
+4730 Meiyerditch citizen combat lvl: 0
+4731 Meiyerditch citizen combat lvl: 0
+4732 Meiyerditch citizen combat lvl: 0
+4733 Meiyerditch citizen combat lvl: 0
+4734 Meiyerditch citizen combat lvl: 0
+4735 Meiyerditch citizen combat lvl: 0
+4736 Meiyerditch citizen combat lvl: 0
+4737 Meiyerditch citizen combat lvl: 0
+4738 Meiyerditch citizen combat lvl: 0
+4739 Meiyerditch citizen combat lvl: 0
+4740 Meiyerditch citizen combat lvl: 0
+4741 Meiyerditch citizen combat lvl: 0
+4742 Meiyerditch citizen combat lvl: 0
+4743 Meiyerditch citizen combat lvl: 0
+4744 Meiyerditch citizen combat lvl: 0
+4745 Meiyerditch citizen combat lvl: 0
+4746 A Meiyerditch child combat lvl: 0
+4747 A Meiyerditch child combat lvl: 0
+4748 A Meiyerditch child combat lvl: 0
+4749 A Meiyerditch child combat lvl: 0
+4750 A Meiyerditch child combat lvl: 0
+4751 A Meiyerditch child combat lvl: 0
+4752 A Meiyerditch child combat lvl: 0
+4753 A Meiyerditch child combat lvl: 0
+4754 A Meiyerditch child combat lvl: 0
+4755 A Meiyerditch child combat lvl: 0
+4756 Meiyerditch miner combat lvl: 0
+4757 Meiyerditch miner combat lvl: 0
+4758 Meiyerditch miner combat lvl: 0
+4759 Meiyerditch miner combat lvl: 0
+4760 Meiyerditch miner combat lvl: 0
+4761 Meiyerditch miner combat lvl: 0
+4762 Shadowy figure combat lvl: 0
+4763 Shadowy figure combat lvl: 0
+4764 Shadowy figure combat lvl: 0
+4765 null combat lvl: 0
+4766 Stray dog combat lvl: 0
+4767 Stray dog combat lvl: 0
+4768 Cat combat lvl: 0
+4769 Cat combat lvl: 0
+4770 Boat combat lvl: 0
+4771 Boat combat lvl: 0
+4772 Juvinate guard combat lvl: 54
+4773 Juvinate guard combat lvl: 54
+4774 Vampyre juvenile combat lvl: 45
+4775 Vampyre juvenile combat lvl: 45
+4776 Vampyre juvinate combat lvl: 54
+4777 Vampyre juvinate combat lvl: 54
+4778 Held vampyre juvenile combat lvl: 54
+4779 Held vampyre juvenile combat lvl: 54
+4780 Held vampyre juvinate combat lvl: 54
+4781 Held vampyre juvinate combat lvl: 54
+4782 Vampyre juvinate combat lvl: 0
+4783 Former vampyre combat lvl: 0
+4784 Former vampyre combat lvl: 0
+4785 Former vampyre combat lvl: 0
+4786 Former vampyre combat lvl: 0
+4787 Former vampyre combat lvl: 0
+4788 Former vampyre combat lvl: 0
+4789 Angry vampyre combat lvl: 64
+4790 Angry vampyre combat lvl: 64
+4791 Vanstrom Klause combat lvl: 0
+4792 Vanstrom Klause combat lvl: 0
+4793 Vanstrom Klause combat lvl: 169
+4794 Vanstrom Klause combat lvl: 0
+4795 Vanstrom Klause combat lvl: 0
+4796 Vanstrom Klause combat lvl: 0
+4797 Vanescula Drakan combat lvl: 0
+4798 Vanescula Drakan combat lvl: 0
+4799 Vanescula Drakan combat lvl: 0
+4800 Vanescula Drakan combat lvl: 0
+4801 Ranis Drakan combat lvl: 0
+4802 Ranis Drakan combat lvl: 0
+4803 Ranis Drakan combat lvl: 0
+4804 Ranis Drakan combat lvl: 0
+4805 Vyrewatch combat lvl: 105
+4806 Vyrewatch combat lvl: 110
+4807 Vyrewatch combat lvl: 120
+4808 Vyrewatch combat lvl: 125
+4809 Flying female vampire combat lvl: 105
+4810 Flying female vampire combat lvl: 110
+4811 Flying female vampire combat lvl: 120
+4812 Flying female vampire combat lvl: 125
+4813 Vyrewatch combat lvl: 105
+4814 Vyrewatch combat lvl: 110
+4815 Vyrewatch combat lvl: 120
+4816 Vyrewatch combat lvl: 125
+4817 Vyrewatch combat lvl: 105
+4818 Vyrewatch combat lvl: 110
+4819 Vyrewatch combat lvl: 120
+4820 Vyrewatch combat lvl: 125
+4821 Vyrewatch combat lvl: 105
+4822 Vyrewatch combat lvl: 110
+4823 Vyrewatch combat lvl: 120
+4824 Vyrewatch combat lvl: 125
+4825 Vyrewatch combat lvl: 105
+4826 Vyrewatch combat lvl: 110
+4827 Vyrewatch combat lvl: 120
+4828 Vyrewatch combat lvl: 125
+4829 Vyrewatch combat lvl: 105
+4830 Vyrewatch combat lvl: 110
+4831 Vyrewatch combat lvl: 120
+4832 Vyrewatch combat lvl: 125
+4833 Vyrewatch combat lvl: 105
+4834 Vyrewatch combat lvl: 110
+4835 Vyrewatch combat lvl: 120
+4836 Vyrewatch combat lvl: 125
+4837 Vyrewatch combat lvl: 105
+4838 Vyrewatch combat lvl: 110
+4839 Vyrewatch combat lvl: 120
+4840 Vyrewatch combat lvl: 125
+4841 Vyrewatch combat lvl: 105
+4842 Vyrewatch combat lvl: 110
+4843 Vyrewatch combat lvl: 120
+4844 Vyrewatch combat lvl: 125
+4845 Flying female vampire combat lvl: 105
+4846 Flying female vampire combat lvl: 110
+4847 Flying female vampire combat lvl: 120
+4848 Flying female vampire combat lvl: 125
+4849 Vyrewatch combat lvl: 105
+4850 Vyrewatch combat lvl: 110
+4851 Vyrewatch combat lvl: 120
+4852 Vyrewatch combat lvl: 125
+4853 null combat lvl: 1
+4854 null combat lvl: 1
+4855 null combat lvl: 1
+4856 Ezekial Lovecraft combat lvl: 0
+4857 null combat lvl: 1
+4858 null combat lvl: 1
+4859 null combat lvl: 1
+4860 null combat lvl: 1
+4861 Sarius Guile combat lvl: 0
+4862 Vanstrom Klause combat lvl: 169
+4863 Kennith combat lvl: 0
+4864 Kennith combat lvl: 0
+4865 null combat lvl: 1
+4866 Holgart combat lvl: 0
+4867 Holgart combat lvl: 0
+4868 Holgart combat lvl: 0
+4869 null combat lvl: 1
+4870 Fisherman combat lvl: 0
+4871 null combat lvl: 1
+4872 Col. O'Niall combat lvl: 0
+4873 Col. O'Niall combat lvl: 0
+4874 Mayor Hobb combat lvl: 0
+4875 Mayor Hobb combat lvl: 0
+4876 null combat lvl: 0
+4877 null combat lvl: 0
+4878 Brother Maledict combat lvl: 0
+4879 Brother Maledict combat lvl: 0
+4880 null combat lvl: 1
+4881 null combat lvl: 1
+4882 null combat lvl: 1
+4883 Witchaven villager combat lvl: 0
+4884 Witchaven villager combat lvl: 0
+4885 Witchaven villager combat lvl: 0
+4886 Witchaven villager combat lvl: 0
+4887 Witchaven villager combat lvl: 0
+4888 Witchaven villager combat lvl: 0
+4889 Mother Mallum combat lvl: 0
+4890 Slug Prince combat lvl: 62
+4891 null combat lvl: 1
+4892 Giant lobster combat lvl: 0
+4893 Giant Lobster combat lvl: 45
+4894 Sea slug combat lvl: 0
+4895 Jeb combat lvl: 0
+4896 Jeb combat lvl: 0
+4897 Sir Tinley combat lvl: 0
+4898 Hobgoblin combat lvl: 28
+4899 Cooking tutor combat lvl: 0
+4900 Crafting tutor combat lvl: 0
+4901 Fishing tutor combat lvl: 0
+4902 Mining tutor combat lvl: 0
+4903 Prayer tutor combat lvl: 0
+4904 Smithing apprentice combat lvl: 0
+4905 Master smithing tutor combat lvl: 0
+4906 Woodsman tutor combat lvl: 0
+4907 Banker tutor combat lvl: 0
+4908 Fishing spot combat lvl: 0
+4909 Fritz the Glassblower combat lvl: 0
+4910 Earth elemental combat lvl: 35
+4911 Elemental rock combat lvl: 0
+4912 null combat lvl: 0
+4913 Jig cart combat lvl: 0
+4914 Jig cart combat lvl: 0
+4915 Jig cart combat lvl: 0
+4916 Jig cart combat lvl: 0
+4917 Jig cart combat lvl: 0
+4918 Jig cart combat lvl: 0
+4919 Abidor Crank combat lvl: 0
+4920 Giant crypt rat combat lvl: 76
+4921 Giant crypt rat combat lvl: 76
+4922 Giant rat combat lvl: 3
+4923 Giant rat combat lvl: 3
+4924 Giant rat combat lvl: 3
+4925 Giant rat combat lvl: 3
+4926 Giant rat combat lvl: 6
+4927 Giant rat combat lvl: 6
+4928 Dungeon rat combat lvl: 12
+4929 Dungeon rat combat lvl: 12
+4930 Goat combat lvl: 23
+4931 Goat combat lvl: 23
+4932 Billy Goat combat lvl: 33
+4933 Goat combat lvl: 23
+4934 Goat combat lvl: 23
+4935 Billy Goat combat lvl: 33
+4936 Dungeon rat combat lvl: 12
+4937 Dungeon rat combat lvl: 12
+4938 Angry giant rat combat lvl: 45
+4939 Angry giant rat combat lvl: 45
+4940 Angry giant rat combat lvl: 47
+4941 Blessed giant rat combat lvl: 9
+4942 Giant rat combat lvl: 3
+4943 Giant rat combat lvl: 3
+4944 Giant rat combat lvl: 26
+4945 Giant rat combat lvl: 26
+4946 Ignatius Vulcan combat lvl: 0
+4947 My Arm combat lvl: 0
+4948 My Arm combat lvl: 0
+4949 My Arm combat lvl: 0
+4950 null combat lvl: 1
+4951 null combat lvl: 1
+4952 null combat lvl: 1
+4953 null combat lvl: 1
+4954 null combat lvl: 1
+4955 null combat lvl: 1
+4956 null combat lvl: 1
+4957 My Arm combat lvl: 0
+4958 My Arm combat lvl: 0
+4959 My Arm combat lvl: 0
+4960 Adventurer combat lvl: 0
+4961 null combat lvl: 1
+4962 Captain Barnaby combat lvl: 0
+4963 Murcaily combat lvl: 0
+4964 Jagbakoba combat lvl: 0
+4965 Tool Leprechaun combat lvl: 0
+4966 null combat lvl: 1
+4967 Flies combat lvl: 0
+4968 Unnamed troll child combat lvl: 0
+4969 Drunken dwarf's leg combat lvl: 0
+4970 null combat lvl: 1
+4971 Baby Roc combat lvl: 75
+4972 Giant Roc combat lvl: 172
+4973 Shadow combat lvl: 0
+4974 Captain Barnaby combat lvl: 0
+4975 Male slave combat lvl: 0
+4976 Male slave combat lvl: 0
+4977 Female slave combat lvl: 0
+4978 Female slave combat lvl: 0
+4979 Cart Camel combat lvl: 0
+4980 Mine Cart combat lvl: 0
+4981 Mine Cart combat lvl: 0
+4982 Ana combat lvl: 0
+4983 Mercenary combat lvl: 45
+4984 null combat lvl: 0
+4985 null combat lvl: 0
+4986 null combat lvl: 0
+4987 null combat lvl: 0
+4988 Irena combat lvl: 0
+4989 Mercenary combat lvl: 45
+4990 Mercenary combat lvl: 45
+4991 Mercenary combat lvl: 45
+4992 Mercenary combat lvl: 45
+4993 Guard combat lvl: 45
+4994 Guard combat lvl: 45
+4995 Guard combat lvl: 45
+4996 Guard combat lvl: 45
+4997 Guard combat lvl: 45
+4998 Guard combat lvl: 45
+4999 Guard combat lvl: 45
+5000 Guard combat lvl: 45
+5001 Guard combat lvl: 45
+5002 Guard combat lvl: 45
+5003 null combat lvl: 0
+5004 null combat lvl: 0
+5005 null combat lvl: 0
+5006 null combat lvl: 0
+5007 null combat lvl: 0
+5008 null combat lvl: 0
+5009 null combat lvl: 0
+5010 null combat lvl: 0
+5011 null combat lvl: 0
+5012 null combat lvl: 0
+5013 null combat lvl: 0
+5014 null combat lvl: 0
+5015 null combat lvl: 0
+5016 null combat lvl: 0
+5017 Gublinch combat lvl: 0
+5018 Gublinch combat lvl: 0
+5019 Gublinch combat lvl: 0
+5020 null combat lvl: 0
+5021 null combat lvl: 0
+5022 null combat lvl: 0
+5023 Jack combat lvl: 0
+5024 Jill combat lvl: 0
+5025 Jeff combat lvl: 0
+5026 Egg launcher combat lvl: 0
+5027 Egg launcher combat lvl: 0
+5028 Egg launcher combat lvl: 0
+5029 Commander Connad combat lvl: 0
+5030 Captain Cain combat lvl: 0
+5031 Private Paldo combat lvl: 0
+5032 Private Pendron combat lvl: 0
+5033 Private Pierreb combat lvl: 0
+5034 Private Paldon combat lvl: 0
+5035 Major Attack combat lvl: 0
+5036 Major Collect combat lvl: 0
+5037 Major Defend combat lvl: 0
+5038 Major Heal combat lvl: 0
+5039 Sergeant Sambur combat lvl: 0
+5040 Penance Fighter combat lvl: 0
+5041 Penance Ranger combat lvl: 0
+5042 Penance Runner combat lvl: 0
+5043 Penance Healer combat lvl: 0
+5044 Penance Fighter combat lvl: 30
+5045 Penance Fighter combat lvl: 32
+5046 Jack combat lvl: 0
+5047 Jill combat lvl: 0
+5048 Jeff combat lvl: 0
+5049 Auguste combat lvl: 0
+5050 Auguste combat lvl: 0
+5051 Auguste combat lvl: 0
+5052 Auguste combat lvl: 0
+5053 Assistant Serf combat lvl: 0
+5054 Assistant Brock combat lvl: 0
+5055 Assistant Marrow combat lvl: 0
+5056 Assistant Le Smith combat lvl: 0
+5057 Assistant Stan combat lvl: 0
+5058 Bob combat lvl: 0
+5059 Curly combat lvl: 0
+5060 Moe combat lvl: 0
+5061 Larry combat lvl: 0
+5062 null combat lvl: 1
+5063 null combat lvl: 1
+5064 null combat lvl: 1
+5065 null combat lvl: 1
+5066 null combat lvl: 1
+5067 Shark combat lvl: 0
+5068 Shark combat lvl: 0
+5069 Shark combat lvl: 0
+5070 null combat lvl: 0
+5071 null combat lvl: 0
+5072 Tropical wagtail combat lvl: 0
+5073 Crimson swift combat lvl: 0
+5074 Cerulean twitch combat lvl: 0
+5075 Golden warbler combat lvl: 0
+5076 Copper longtail combat lvl: 0
+5077 null combat lvl: 0
+5078 null combat lvl: 0
+5079 Chinchompa combat lvl: 1
+5080 Carnivorous chinchompa combat lvl: 2
+5081 Ferret combat lvl: 0
+5082 Black warlock combat lvl: 0
+5083 Snowy knight combat lvl: 0
+5084 Sapphire glacialis combat lvl: 0
+5085 Ruby harvest combat lvl: 0
+5086 Prickly kebbit combat lvl: 0
+5087 Sabre-toothed kebbit combat lvl: 0
+5088 Barb-tailed kebbit combat lvl: 0
+5089 Wild kebbit combat lvl: 0
+5090 null combat lvl: 0
+5091 null combat lvl: 0
+5092 Matthias combat lvl: 0
+5093 Matthias combat lvl: 0
+5094 Gyr Falcon combat lvl: 0
+5095 Gyr Falcon combat lvl: 0
+5096 Gyr Falcon combat lvl: 0
+5097 Gyr Falcon combat lvl: 0
+5098 Spotted kebbit combat lvl: 0
+5099 Dark kebbit combat lvl: 0
+5100 Dashing kebbit combat lvl: 0
+5101 null combat lvl: 0
+5102 null combat lvl: 0
+5103 Sabre-toothed kyatt combat lvl: 60
+5104 Spined larupia combat lvl: 40
+5105 Horned graahk combat lvl: 50
+5106 null combat lvl: 0
+5107 null combat lvl: 0
+5108 null combat lvl: 0
+5109 Artimeus combat lvl: 0
+5110 Aleck combat lvl: 0
+5111 Leon combat lvl: 0
+5112 Hunting expert combat lvl: 0
+5113 Hunting expert combat lvl: 0
+5114 Orange salamander combat lvl: 0
+5115 Red salamander combat lvl: 0
+5116 Black salamander combat lvl: 0
+5117 Swamp lizard combat lvl: 0
+5118 null combat lvl: 0
+5119 null combat lvl: 0
+5120 Eagle combat lvl: 0
+5121 Eagle combat lvl: 0
+5122 Eagle combat lvl: 0
+5123 Eagle combat lvl: 0
+5124 null combat lvl: 0
+5125 null combat lvl: 0
+5126 Nickolaus combat lvl: 0
+5127 Nickolaus combat lvl: 0
+5128 Nickolaus combat lvl: 0
+5129 Nickolaus combat lvl: 0
+5130 Desert eagle combat lvl: 0
+5131 Jungle eagle combat lvl: 0
+5132 Polar eagle combat lvl: 0
+5133 Eagle combat lvl: 0
+5134 null combat lvl: 0
+5135 null combat lvl: 0
+5136 null combat lvl: 0
+5137 Kebbit combat lvl: 13
+5138 Charlie combat lvl: 0
+5139 null combat lvl: 0
+5140 Boulder combat lvl: 0
+5141 Uri combat lvl: 0
+5142 Uri combat lvl: 0
+5143 Uri combat lvl: 0
+5144 Double agent combat lvl: 65
+5145 Double agent combat lvl: 108
+5146 Li'l lamb combat lvl: 0
+5147 Lamb combat lvl: 0
+5148 Sheep combat lvl: 0
+5149 Sheep combat lvl: 0
+5150 Sheep combat lvl: 0
+5151 Sheep combat lvl: 0
+5152 Sheep combat lvl: 0
+5153 Sheep combat lvl: 0
+5154 Sheep combat lvl: 0
+5155 Sheep combat lvl: 0
+5156 Sheep combat lvl: 0
+5157 Sheep combat lvl: 0
+5158 Sheep combat lvl: 0
+5159 Sheep combat lvl: 0
+5160 Sheep combat lvl: 0
+5161 Sheep combat lvl: 0
+5162 Sheep combat lvl: 0
+5163 Sheep combat lvl: 0
+5164 Sheep combat lvl: 0
+5165 Sheep combat lvl: 0
+5166 Mountain Goat combat lvl: 0
+5167 Mountain Goat combat lvl: 0
+5168 Ram combat lvl: 2
+5169 Ram combat lvl: 2
+5170 Ram combat lvl: 2
+5171 Mountain goat combat lvl: 0
+5172 Golden sheep combat lvl: 0
+5173 Golden sheep combat lvl: 0
+5174 Ogre chieftain combat lvl: 81
+5175 null combat lvl: 1
+5176 Ogre shaman combat lvl: 113
+5177 Ogre shaman combat lvl: 1
+5178 Blue dragon combat lvl: 27
+5179 Ogre shaman combat lvl: 113
+5180 null combat lvl: 1
+5181 Ogre shaman combat lvl: 113
+5182 Ogre shaman combat lvl: 113
+5183 null combat lvl: 1
+5184 Ogre shaman combat lvl: 113
+5185 Ogre shaman combat lvl: 113
+5186 null combat lvl: 1
+5187 Ogre shaman combat lvl: 113
+5188 Ogre shaman combat lvl: 113
+5189 null combat lvl: 1
+5190 Ogre shaman combat lvl: 113
+5191 Ogre shaman combat lvl: 113
+5192 null combat lvl: 1
+5193 Ogre shaman combat lvl: 113
+5194 Ogre shaman combat lvl: 113
+5195 Wizard combat lvl: 0
+5196 Wizard combat lvl: 0
+5197 Wizard combat lvl: 0
+5198 Ava combat lvl: 0
+5199 null combat lvl: 0
+5200 Witch combat lvl: 0
+5201 null combat lvl: 0
+5202 Alice's husband combat lvl: 0
+5203 Alice's husband combat lvl: 0
+5204 Alice's husband combat lvl: 0
+5205 Alice's husband combat lvl: 0
+5206 null combat lvl: 1
+5207 Tree combat lvl: 0
+5208 Undead tree combat lvl: 0
+5209  Sneaky undead fowl combat lvl: 1
+5210 Cow31337Killer combat lvl: 123
+5211 Undead cow combat lvl: 2
+5212 Alice combat lvl: 0
+5213 Penance Fighter combat lvl: 37
+5214 Penance Fighter combat lvl: 42
+5215 Penance Fighter combat lvl: 47
+5216 Penance Fighter combat lvl: 56
+5217 Penance Fighter combat lvl: 61
+5218 Penance Fighter combat lvl: 68
+5219 Penance Fighter combat lvl: 77
+5220 Penance Runner combat lvl: 0
+5221 Penance Runner combat lvl: 0
+5222 Penance Runner combat lvl: 0
+5223 Penance Runner combat lvl: 0
+5224 Penance Runner combat lvl: 0
+5225 Penance Runner combat lvl: 0
+5226 Penance Runner combat lvl: 0
+5227 Penance Runner combat lvl: 0
+5228 Penance Runner combat lvl: 0
+5229 Penance Ranger combat lvl: 21
+5230 Penance Ranger combat lvl: 25
+5231 Penance Ranger combat lvl: 32
+5232 Penance Ranger combat lvl: 38
+5233 Penance Ranger combat lvl: 43
+5234 Penance Ranger combat lvl: 51
+5235 Penance Ranger combat lvl: 57
+5236 Penance Ranger combat lvl: 64
+5237 Penance Ranger combat lvl: 72
+5238 Penance Healer combat lvl: 0
+5239 Penance Healer combat lvl: 0
+5240 Penance Healer combat lvl: 0
+5241 Penance Healer combat lvl: 0
+5242 Penance Healer combat lvl: 0
+5243 Penance Healer combat lvl: 0
+5244 Penance Healer combat lvl: 0
+5245 Penance Healer combat lvl: 0
+5246 Penance Healer combat lvl: 0
+5247 Penance Queen combat lvl: 209
+5248 Queen spawn combat lvl: 63
+5249 Captain Errdo combat lvl: 0
+5250 Scarab mage combat lvl: 93
+5251 Locust rider combat lvl: 106
+5252 Locust rider combat lvl: 98
+5253 Giant scarab combat lvl: 191
+5254 Scarab mage combat lvl: 66
+5255 Locust rider combat lvl: 68
+5256 Locust rider combat lvl: 68
+5257 null combat lvl: 1
+5258 Banker combat lvl: 0
+5259 null combat lvl: 1
+5260 Banker combat lvl: 0
+5261 null combat lvl: 1
+5262 Stone mason combat lvl: 0
+5263 null combat lvl: 1
+5264 Nathifa combat lvl: 0
+5265 null combat lvl: 1
+5266 Urbi combat lvl: 0
+5267 null combat lvl: 1
+5268 Jamila combat lvl: 0
+5269 null combat lvl: 1
+5270 Sophanem guard combat lvl: 0
+5271 null combat lvl: 1
+5272 Sophanem guard combat lvl: 0
+5273 null combat lvl: 1
+5274 Sophanem guard combat lvl: 0
+5275 null combat lvl: 1
+5276 Sophanem guard combat lvl: 0
+5277 Menaphite guard combat lvl: 0
+5278 Coenus combat lvl: 0
+5279 Jex combat lvl: 0
+5280 null combat lvl: 1
+5281 Maisa combat lvl: 0
+5282 null combat lvl: 1
+5283 null combat lvl: 1
+5284 Osman combat lvl: 0
+5285 Osman combat lvl: 0
+5286 Osman combat lvl: 0
+5287 Osman combat lvl: 0
+5288 Embalmer combat lvl: 0
+5289 Carpenter combat lvl: 0
+5290 Linen worker combat lvl: 0
+5291 Priest combat lvl: 0
+5292 Giant scarab combat lvl: 0
+5293 Zombie combat lvl: 13
+5294 Zombie combat lvl: 13
+5295 Zombie combat lvl: 13
+5296 Zombie combat lvl: 13
+5297 Zombie combat lvl: 13
+5298 Zombie combat lvl: 13
+5299 Zombie combat lvl: 13
+5300 Zombie combat lvl: 13
+5301 Zombie combat lvl: 13
+5302 Zombie combat lvl: 13
+5303 Zombie combat lvl: 13
+5304 Zombie combat lvl: 13
+5305 Zombie combat lvl: 13
+5306 Zombie combat lvl: 13
+5307 Zombie combat lvl: 13
+5308 Zombie combat lvl: 18
+5309 Zombie combat lvl: 18
+5310 Zombie combat lvl: 18
+5311 Zombie combat lvl: 18
+5312 Zombie combat lvl: 18
+5313 Zombie combat lvl: 18
+5314 Zombie combat lvl: 24
+5315 Zombie combat lvl: 24
+5316 Zombie combat lvl: 24
+5317 Zombie combat lvl: 24
+5318 Zombie combat lvl: 24
+5319 Zombie combat lvl: 24
+5320 Zombie combat lvl: 24
+5321 Zombie combat lvl: 24
+5322 Zombie combat lvl: 24
+5323 Zombie combat lvl: 24
+5324 Zombie combat lvl: 24
+5325 Zombie combat lvl: 24
+5326 Zombie combat lvl: 24
+5327 Zombie combat lvl: 24
+5328 Zombie combat lvl: 25
+5329 Zombie combat lvl: 25
+5330 Zombie combat lvl: 25
+5331 Zombie combat lvl: 25
+5332 Skeleton combat lvl: 22
+5333 Skeleton combat lvl: 22
+5334 Skeleton combat lvl: 22
+5335 Skeleton combat lvl: 21
+5336 Skeleton combat lvl: 21
+5337 Skeleton combat lvl: 25
+5338 Skeleton combat lvl: 25
+5339 Skeleton combat lvl: 25
+5340 Skeleton combat lvl: 25
+5341 Skeleton combat lvl: 45
+5342 Ghost combat lvl: 19
+5343 Ghost combat lvl: 19
+5344 Ghost combat lvl: 19
+5345 Ghost combat lvl: 19
+5346 Ghost combat lvl: 19
+5347 Ghost combat lvl: 19
+5348 Ghost combat lvl: 19
+5349 Ghost combat lvl: 19
+5350 Ghost combat lvl: 19
+5351 Ghost combat lvl: 19
+5352 Ghost combat lvl: 19
+5353 Undead one combat lvl: 68
+5354 Undead one combat lvl: 61
+5355 Undead one combat lvl: 68
+5356 Undead one combat lvl: 68
+5357 Undead one combat lvl: 73
+5358 Undead one combat lvl: 73
+5359 Giant skeleton combat lvl: 80
+5360 Mummy ashes combat lvl: 96
+5361 Waterfiend combat lvl: 115
+5362 Brutal green dragon combat lvl: 227
+5363 Mithril dragon combat lvl: 304
+5364 Confused barbarian combat lvl: 132
+5365 Skeleton combat lvl: 60
+5366 Skeleton combat lvl: 60
+5367 Skeleton combat lvl: 85
+5368 Skeleton combat lvl: 85
+5369 Ghost combat lvl: 77
+5370 Ghost combat lvl: 77
+5371 Ghost combat lvl: 77
+5372 Ghost combat lvl: 76
+5373 Ghost combat lvl: 76
+5374 Ghost combat lvl: 76
+5375 Zombie combat lvl: 30
+5376 Zombie combat lvl: 30
+5377 Zombie combat lvl: 44
+5378 Zombie combat lvl: 44
+5379 Zombie combat lvl: 53
+5380 Zombie combat lvl: 53
+5381 Skeleton combat lvl: 77
+5382 Animated steel armour combat lvl: 53
+5383 Odovacar combat lvl: 0
+5384 Giant skeleton combat lvl: 100
+5385 Skeleton combat lvl: 94
+5386 Skeleton combat lvl: 77
+5387 Skeleton combat lvl: 81
+5388 Skeleton combat lvl: 42
+5389 Skeleton combat lvl: 59
+5390 Skeleton combat lvl: 42
+5391 Skeleton combat lvl: 63
+5392 Skeleton combat lvl: 40
+5393 Zombie combat lvl: 40
+5394 Zombie combat lvl: 42
+5395 Zombie combat lvl: 47
+5396 Zombie combat lvl: 50
+5397 Zombie combat lvl: 56
+5398 Zombie combat lvl: 61
+5399 Zombie combat lvl: 67
+5400 Zombie combat lvl: 70
+5401 Zombie combat lvl: 72
+5402 Zombie combat lvl: 76
+5403 Zombie combat lvl: 80
+5404 Zombie combat lvl: 85
+5405 Zombie combat lvl: 86
+5406 Zombie combat lvl: 90
+5407 Zombie combat lvl: 95
+5408 Zombie combat lvl: 98
+5409 Zombie combat lvl: 100
+5410 Zombie combat lvl: 81
+5411 Skeleton combat lvl: 72
+5412 Skeleton combat lvl: 87
+5413 Possessed pickaxe combat lvl: 50
+5414 Animated spade combat lvl: 50
+5415 Terror dog statue combat lvl: 0
+5416 Terror dog statue combat lvl: 0
+5417 Terror dog combat lvl: 110
+5418 Terror dog combat lvl: 100
+5419 Tarn combat lvl: 0
+5420 Tarn combat lvl: 69
+5421 Mutant tarn combat lvl: 69
+5422 Skeleton combat lvl: 77
+5423 null combat lvl: 0
+5424 Larry combat lvl: 0
+5425 Larry combat lvl: 0
+5426 Larry combat lvl: 0
+5427 null combat lvl: 0
+5428 Penguin combat lvl: 0
+5429 Penguin combat lvl: 0
+5430 Penguin combat lvl: 0
+5431 KGP Guard combat lvl: 0
+5432 Pescaling Pax combat lvl: 0
+5433 Ping combat lvl: 0
+5434 Ping combat lvl: 0
+5435 Pong combat lvl: 0
+5436 Pong combat lvl: 0
+5437 Ping combat lvl: 0
+5438 Pong combat lvl: 0
+5439 null combat lvl: 0
+5440 null combat lvl: 0
+5441 KGP Agent combat lvl: 0
+5442 KGP Agent combat lvl: 0
+5443 null combat lvl: 1
+5444 Noodle combat lvl: 0
+5445 Penguin combat lvl: 0
+5446 Penguin suit combat lvl: 0
+5447 Agility Instructor combat lvl: 0
+5448 Army Commander combat lvl: 0
+5449 Penguin combat lvl: 0
+5450 Penguin combat lvl: 0
+5451 Penguin combat lvl: 0
+5452 Icelord combat lvl: 51
+5453 Icelord combat lvl: 51
+5454 Icelord combat lvl: 51
+5455 Icelord combat lvl: 51
+5456 Crusher combat lvl: 0
+5457 Crusher combat lvl: 0
+5458 Crusher combat lvl: 0
+5459 Crusher combat lvl: 0
+5460 Tree combat lvl: 0
+5461 Jungle Tree combat lvl: 0
+5462 Tolna combat lvl: 0
+5463 Honour guard combat lvl: 0
+5464 Honour guard combat lvl: 0
+5465 Fridleif Shieldson combat lvl: 0
+5466 Thakkrad Sigmundson combat lvl: 0
+5467 Iceberg combat lvl: 0
+5468 Iceberg combat lvl: 0
+5469 Arctic Pine combat lvl: 0
+5470 Fishing spot combat lvl: 0
+5471 Fishing spot combat lvl: 0
+5472 Ice Troll King combat lvl: 122
+5473 Ice troll runt combat lvl: 74
+5474 Ice troll male combat lvl: 82
+5475 Ice troll female combat lvl: 82
+5476 Ice troll grunt combat lvl: 102
+5477 Bork Sigmundson combat lvl: 0
+5478 King Gjuki Sorvott IV combat lvl: 0
+5479 HRH Hrafn combat lvl: 0
+5480 Thorkel Silkbeard combat lvl: 0
+5481 Mord Gunnars combat lvl: 0
+5482 Mord Gunnars combat lvl: 0
+5483 Hring Hring combat lvl: 0
+5484 Flosi Dalksson combat lvl: 0
+5485 Raum Urda-Stein combat lvl: 0
+5486 Skuli Myrka combat lvl: 0
+5487 Keepa Kettilon combat lvl: 0
+5488 Magnus Gram combat lvl: 0
+5489 Guard combat lvl: 0
+5490 Guard combat lvl: 0
+5491 Guard combat lvl: 0
+5492 Guard combat lvl: 0
+5493 Freygerd combat lvl: 0
+5494 Lensa combat lvl: 0
+5495 Vanligga Gastfrihet combat lvl: 0
+5496 Sassilik combat lvl: 0
+5497 Miner combat lvl: 0
+5498 Miner combat lvl: 0
+5499 Eric combat lvl: 0
+5500 Gruva Patrull combat lvl: 0
+5501 Brendt combat lvl: 0
+5502 Grundt combat lvl: 0
+5503 Mawnis Burowgar combat lvl: 0
+5504 Mawnis Burowgar combat lvl: 0
+5505 Fridleif Shieldson combat lvl: 0
+5506 Thakkrad Sigmundson combat lvl: 0
+5507 Maria Gunnars combat lvl: 0
+5508 Maria Gunnars combat lvl: 0
+5509 Jofridr Mordstatter combat lvl: 0
+5510 Morten Holdstrom combat lvl: 0
+5511 Gunnar Holdstrom combat lvl: 0
+5512 Anne Isaakson combat lvl: 0
+5513 Lisse Isaakson combat lvl: 0
+5514 Honour guard combat lvl: 115
+5515 Honour guard combat lvl: 115
+5516 Honour guard combat lvl: 115
+5517 Honour guard combat lvl: 115
+5518 Kjedelig Uppsen combat lvl: 0
+5519 Trogen Konungarde combat lvl: 0
+5520 Slug Hemligssen combat lvl: 0
+5521 Ice troll runt combat lvl: 74
+5522 Ice troll male combat lvl: 82
+5523 Ice troll female combat lvl: 82
+5524 Ice troll grunt combat lvl: 100
+5525 Ice troll runt combat lvl: 74
+5526 Ice troll male combat lvl: 82
+5527 Ice troll female combat lvl: 82
+5528 Ice troll grunt combat lvl: 100
+5529 Yak combat lvl: 22
+5530 null combat lvl: 1
+5531 Sorceress combat lvl: 0
+5532 Apprentice combat lvl: 0
+5533 Autumn Elemental combat lvl: 0
+5534 Autumn Elemental combat lvl: 0
+5535 Autumn Elemental combat lvl: 0
+5536 Autumn Elemental combat lvl: 0
+5537 Autumn Elemental combat lvl: 0
+5538 Autumn Elemental combat lvl: 0
+5539 Spring Elemental combat lvl: 0
+5540 Spring Elemental combat lvl: 0
+5541 Spring Elemental combat lvl: 0
+5542 Spring Elemental combat lvl: 0
+5543 Spring Elemental combat lvl: 0
+5544 Spring Elemental combat lvl: 0
+5545 Spring Elemental combat lvl: 0
+5546 Spring Elemental combat lvl: 0
+5547 Summer Elemental combat lvl: 0
+5548 Summer Elemental combat lvl: 0
+5549 Summer Elemental combat lvl: 0
+5550 Summer Elemental combat lvl: 0
+5551 Summer Elemental combat lvl: 0
+5552 Summer Elemental combat lvl: 0
+5553 Winter Elemental combat lvl: 0
+5554 Winter Elemental combat lvl: 0
+5555 Winter Elemental combat lvl: 0
+5556 Winter Elemental combat lvl: 0
+5557 Winter Elemental combat lvl: 0
+5558 Winter Elemental combat lvl: 0
+5559 Osman combat lvl: 0
+5560 Osman combat lvl: 0
+5561 Osman combat lvl: 0
+5562 null combat lvl: 0
+5563 Del-Monty combat lvl: 0
+5564 Bouncer combat lvl: 160
+5565 Bouncer combat lvl: 160
+5566 General Khazard combat lvl: 0
+5567 Scout combat lvl: 0
+5568 Scout combat lvl: 0
+5569 Scout combat lvl: 0
+5570 Scout combat lvl: 0
+5571 Sin Seer combat lvl: 0
+5572 Ghost combat lvl: 0
+5573 null combat lvl: 0
+5574 null combat lvl: 0
+5575 null combat lvl: 0
+5576 null combat lvl: 0
+5577 null combat lvl: 0
+5578 Effigy combat lvl: 0
+5579 Effigy combat lvl: 0
+5580 Bonafido combat lvl: 0
+5581 Homunculus combat lvl: 0
+5582 Homunculus combat lvl: 0
+5583 Homunculus combat lvl: 0
+5584 Cage combat lvl: 0
+5585 'Transmute' The Alchemist combat lvl: 0
+5586 'Transmute' The Alchemist combat lvl: 0
+5587 'Currency' The Alchemist combat lvl: 0
+5588 'Currency' The Alchemist combat lvl: 0
+5589 'Black-eye' combat lvl: 0
+5590 'No fingers' combat lvl: 0
+5591 'Gummy' combat lvl: 0
+5592 'The Guns' combat lvl: 0
+5593 Frogeel combat lvl: 103
+5594 Spidine combat lvl: 42
+5595 Swordchick combat lvl: 46
+5596 Jubster combat lvl: 87
+5597 Newtroost combat lvl: 19
+5598 null combat lvl: 0
+5599 null combat lvl: 0
+5600 null combat lvl: 0
+5601 null combat lvl: 0
+5602 null combat lvl: 0
+5603 Unicow combat lvl: 25
+5604 Elfinlocks combat lvl: 93
+5605 Clockwork cat combat lvl: 0
+5606 null combat lvl: 0
+5607 Clockwork cat combat lvl: 0
+5608 Monk combat lvl: 0
+5609 Monk combat lvl: 0
+5610 Monk combat lvl: 0
+5611 Monk combat lvl: 0
+5612 Rufus combat lvl: 0
+5613 Mi-Gor combat lvl: 0
+5614 Puffin combat lvl: 0
+5615 Puffin combat lvl: 0
+5616 Brother Tranquility combat lvl: 0
+5617 Brother Tranquility combat lvl: 0
+5618 Brother Tranquility combat lvl: 0
+5619 Monk combat lvl: 0
+5620 Monk combat lvl: 0
+5621 Monk combat lvl: 0
+5622 Monk combat lvl: 0
+5623 Zombie monk combat lvl: 0
+5624 Zombie monk combat lvl: 0
+5625 Zombie monk combat lvl: 0
+5626 Zombie monk combat lvl: 0
+5627 Sorebones combat lvl: 57
+5628 Sorebones combat lvl: 57
+5629 Zombie pirate combat lvl: 57
+5630 Zombie pirate combat lvl: 57
+5631 Zombie pirate combat lvl: 57
+5632 Zombie pirate combat lvl: 57
+5633 Zombie pirate combat lvl: 57
+5634 Zombie pirate combat lvl: 57
+5635 Zombie pirate combat lvl: 57
+5636 Zombie pirate combat lvl: 57
+5637 Zombie pirate combat lvl: 57
+5638 Zombie pirate combat lvl: 57
+5639 Zombie pirate combat lvl: 57
+5640 Zombie pirate combat lvl: 57
+5641 Zombie pirate combat lvl: 57
+5642 Zombie pirate combat lvl: 57
+5643 Zombie pirate combat lvl: 57
+5644 Zombie pirate combat lvl: 57
+5645 Zombie pirate combat lvl: 57
+5646 Zombie pirate combat lvl: 57
+5647 Zombie pirate combat lvl: 57
+5648 Zombie pirate combat lvl: 57
+5649 Zombie pirate combat lvl: 57
+5650 Zombie pirate combat lvl: 57
+5651 Zombie pirate combat lvl: 57
+5652 Zombie pirate combat lvl: 57
+5653 Zombie pirate combat lvl: 57
+5654 Zombie pirate combat lvl: 57
+5655 Zombie pirate combat lvl: 57
+5656 Zombie pirate combat lvl: 57
+5657 Zombie pirate combat lvl: 57
+5658 Zombie pirate combat lvl: 57
+5659 Zombie pirate combat lvl: 57
+5660 Zombie pirate combat lvl: 57
+5661 Zombie pirate combat lvl: 57
+5662 Zombie pirate combat lvl: 57
+5663 Zombie pirate combat lvl: 57
+5664 Zombie pirate combat lvl: 57
+5665 Zombie pirate combat lvl: 57
+5666 Barrelchest combat lvl: 190
+5667 null combat lvl: 0
+5668 null combat lvl: 0
+5669 null combat lvl: 0
+5670 null combat lvl: 0
+5671 null combat lvl: 0
+5672 null combat lvl: 0
+5673 null combat lvl: 0
+5674 null combat lvl: 0
+5675 null combat lvl: 0
+5676 null combat lvl: 0
+5677 null combat lvl: 0
+5678 Undead Lumberjack combat lvl: 30
+5679 Undead Lumberjack combat lvl: 30
+5680 Undead Lumberjack combat lvl: 30
+5681 Undead Lumberjack combat lvl: 30
+5682 Undead Lumberjack combat lvl: 30
+5683 Undead Lumberjack combat lvl: 30
+5684 Undead Lumberjack combat lvl: 35
+5685 Undead Lumberjack combat lvl: 35
+5686 Undead Lumberjack combat lvl: 35
+5687 Undead Lumberjack combat lvl: 35
+5688 Undead Lumberjack combat lvl: 35
+5689 Undead Lumberjack combat lvl: 35
+5690 Undead Lumberjack combat lvl: 35
+5691 Undead Lumberjack combat lvl: 35
+5692 Undead Lumberjack combat lvl: 40
+5693 Undead Lumberjack combat lvl: 40
+5694 Undead Lumberjack combat lvl: 40
+5695 Undead Lumberjack combat lvl: 40
+5696 Undead Lumberjack combat lvl: 40
+5697 Undead Lumberjack combat lvl: 40
+5698 Undead Lumberjack combat lvl: 40
+5699 Undead Lumberjack combat lvl: 40
+5700 Undead Lumberjack combat lvl: 45
+5701 Undead Lumberjack combat lvl: 45
+5702 Undead Lumberjack combat lvl: 45
+5703 Undead Lumberjack combat lvl: 45
+5704 Undead Lumberjack combat lvl: 45
+5705 Undead Lumberjack combat lvl: 45
+5706 Undead Lumberjack combat lvl: 45
+5707 Undead Lumberjack combat lvl: 45
+5708 Undead Lumberjack combat lvl: 50
+5709 Undead Lumberjack combat lvl: 50
+5710 Undead Lumberjack combat lvl: 50
+5711 Undead Lumberjack combat lvl: 50
+5712 Undead Lumberjack combat lvl: 50
+5713 Undead Lumberjack combat lvl: 50
+5714 Undead Lumberjack combat lvl: 50
+5715 Undead Lumberjack combat lvl: 50
+5716 Undead Lumberjack combat lvl: 55
+5717 Undead Lumberjack combat lvl: 55
+5718 Undead Lumberjack combat lvl: 55
+5719 Undead Lumberjack combat lvl: 55
+5720 Undead Lumberjack combat lvl: 55
+5721 Undead Lumberjack combat lvl: 55
+5722 Undead Lumberjack combat lvl: 55
+5723 Undead Lumberjack combat lvl: 55
+5724 Undead Lumberjack combat lvl: 60
+5725 Undead Lumberjack combat lvl: 60
+5726 Undead Lumberjack combat lvl: 60
+5727 Undead Lumberjack combat lvl: 60
+5728 Undead Lumberjack combat lvl: 60
+5729 Undead Lumberjack combat lvl: 60
+5730 Undead Lumberjack combat lvl: 60
+5731 Undead Lumberjack combat lvl: 60
+5732 Undead Lumberjack combat lvl: 64
+5733 Undead Lumberjack combat lvl: 64
+5734 Undead Lumberjack combat lvl: 64
+5735 Undead Lumberjack combat lvl: 64
+5736 Undead Lumberjack combat lvl: 64
+5737 Undead Lumberjack combat lvl: 64
+5738 Undead Lumberjack combat lvl: 64
+5739 Undead Lumberjack combat lvl: 64
+5740 Undead Lumberjack combat lvl: 70
+5741 Undead Lumberjack combat lvl: 70
+5742 Undead Lumberjack combat lvl: 70
+5743 Undead Lumberjack combat lvl: 70
+5744 Undead Lumberjack combat lvl: 70
+5745 Undead Lumberjack combat lvl: 70
+5746 Undead Lumberjack combat lvl: 70
+5747 Undead Lumberjack combat lvl: 70
+5748 Fishing spot combat lvl: 0
+5749 Fishing spot combat lvl: 0
+5750 Cave bug combat lvl: 96
+5751 Molanisk combat lvl: 51
+5752 Cave goblin combat lvl: 0
+5753 Cave goblin combat lvl: 0
+5754 Cave goblin combat lvl: 0
+5755 Cave goblin combat lvl: 0
+5756 Cave goblin combat lvl: 0
+5757 Cave goblin combat lvl: 0
+5758 Cave goblin combat lvl: 0
+5759 Cave goblin combat lvl: 0
+5760 Cave goblin combat lvl: 0
+5761 Cave goblin combat lvl: 0
+5762 Cave goblin combat lvl: 0
+5763 Cave goblin combat lvl: 0
+5764 Cave goblin combat lvl: 0
+5765 Cave goblin combat lvl: 0
+5766 Cave goblin combat lvl: 0
+5767 Cave goblin combat lvl: 0
+5768 Cave goblin combat lvl: 0
+5769 Cave goblin combat lvl: 0
+5770 Ur-zek combat lvl: 0
+5771 Ur-vass combat lvl: 0
+5772 Ur-taal combat lvl: 0
+5773 Ur-meg combat lvl: 0
+5774 Ur-lun combat lvl: 0
+5775 Ur-pel combat lvl: 0
+5776 Banker combat lvl: 0
+5777 Banker combat lvl: 0
+5778 Bartak combat lvl: 0
+5779 Turgall combat lvl: 0
+5780 Reldak combat lvl: 0
+5781 Miltog combat lvl: 0
+5782 Mernik combat lvl: 0
+5783 Cave goblin combat lvl: 0
+5784 Crate goblin combat lvl: 0
+5785 Cave goblin combat lvl: 0
+5786 Goblin scribe combat lvl: 0
+5787 Oldak combat lvl: 0
+5788 Gourmet combat lvl: 0
+5789 Gourmet combat lvl: 0
+5790 Gourmet combat lvl: 0
+5791 Gourmet combat lvl: 0
+5792 Turgok combat lvl: 0
+5793 Markog combat lvl: 0
+5794 Durgok combat lvl: 0
+5795 Tindar combat lvl: 0
+5796 Gundik combat lvl: 0
+5797 Zenkog combat lvl: 0
+5798 Lurgon combat lvl: 0
+5799 Ur-tag combat lvl: 0
+5800 Guard combat lvl: 26
+5801 Guard combat lvl: 24
+5802 null combat lvl: 1
+5803 Young 'un combat lvl: 0
+5804 Tyke combat lvl: 0
+5805 Nipper combat lvl: 0
+5806 Nipper combat lvl: 0
+5807 Cave goblin child combat lvl: 0
+5808 Cave goblin child combat lvl: 0
+5809 Cave goblin child combat lvl: 0
+5810 Cave goblin child combat lvl: 0
+5811 Cave goblin child combat lvl: 0
+5812 Cave goblin child combat lvl: 0
+5813 Cave goblin child combat lvl: 0
+5814 Cave goblin child combat lvl: 0
+5815 Cave goblin child combat lvl: 0
+5816 Cave goblin child combat lvl: 0
+5817 Cave goblin child combat lvl: 0
+5818 Cave goblin child combat lvl: 0
+5819 Cave goblin child combat lvl: 0
+5820 Cave goblin child combat lvl: 0
+5821 Cave goblin child combat lvl: 0
+5822 Cave goblin child combat lvl: 0
+5823 Spit goblin combat lvl: 0
+5824 Goblin fish combat lvl: 0
+5825 Movario combat lvl: 0
+5826 Darve combat lvl: 0
+5827 Moths combat lvl: 0
+5828 Barlak combat lvl: 0
+5829 Rabbit combat lvl: 2
+5830 null combat lvl: 1
+5831 null combat lvl: 1
+5832 null combat lvl: 1
+5833 Rat Burgiss combat lvl: 0
+5834 Surok Magis combat lvl: 0
+5835 Surok Magis combat lvl: 0
+5836 Zaff combat lvl: 0
+5837 Anna Jones combat lvl: 0
+5838 King Roald combat lvl: 47
+5839 Mishkal'un Dorn combat lvl: 0
+5840 Dakh'thoulan Aegis combat lvl: 0
+5841 Sil'as Dahcsnu combat lvl: 0
+5842 Outlaw combat lvl: 32
+5843 Outlaw combat lvl: 32
+5844 Outlaw combat lvl: 32
+5845 Outlaw combat lvl: 32
+5846 Outlaw combat lvl: 32
+5847 Outlaw combat lvl: 32
+5848 Outlaw combat lvl: 32
+5849 Outlaw combat lvl: 32
+5850 Outlaw combat lvl: 32
+5851 Outlaw combat lvl: 32
+5852 Monkey combat lvl: 1
+5853 null combat lvl: 0
+5854 Bench combat lvl: 0
+5855 Goblin combat lvl: 0
+5856 Goblin combat lvl: 0
+5857 Zanik combat lvl: 0
+5858 Ur-tag combat lvl: 0
+5859 H.A.M. Archer combat lvl: 30
+5860 H.A.M. Mage combat lvl: 30
+5861 Zanik combat lvl: 0
+5862 Sigmund and Zanik combat lvl: 0
+5863 Ambassador Alvijar combat lvl: 0
+5864 Builder combat lvl: 0
+5865 Builder combat lvl: 0
+5866 Builder combat lvl: 0
+5867 Builder combat lvl: 0
+5868 Tegdak combat lvl: 0
+5869 null combat lvl: 1
+5870 Zanik combat lvl: 0
+5871 Sergeant Mossfists combat lvl: 51
+5872 Sergeant Slimetoes combat lvl: 51
+5873 Cave goblin combat lvl: 0
+5874 Cave goblin combat lvl: 0
+5875 Cave goblin combat lvl: 0
+5876 Cave goblin combat lvl: 0
+5877 Cave goblin combat lvl: 0
+5878 Cave goblin combat lvl: 0
+5879 Ticket goblin combat lvl: 0
+5880 Dwarf combat lvl: 0
+5881 Dwarf combat lvl: 0
+5882 Dwarf combat lvl: 0
+5883 Dwarf combat lvl: 0
+5884 Dwarf combat lvl: 0
+5885 Dwarf combat lvl: 0
+5886 Ticket dwarf combat lvl: 0
+5887 null combat lvl: 1
+5888 null combat lvl: 1
+5889 null combat lvl: 1
+5890 null combat lvl: 1
+5891 null combat lvl: 1
+5892 null combat lvl: 1
+5893 Cyrisus combat lvl: 0
+5894 Cyrisus combat lvl: 0
+5895 Cyrisus combat lvl: 0
+5896 Cyrisus combat lvl: 0
+5897 Cyrisus combat lvl: 0
+5898 'Bird's-Eye' Jack combat lvl: 0
+5899 null combat lvl: 0
+5900 null combat lvl: 0
+5901 null combat lvl: 0
+5902 The Inadequacy combat lvl: 343
+5903 The Everlasting combat lvl: 223
+5904 The Untouchable combat lvl: 274
+5905 The Illusive combat lvl: 108
+5906 A Doubt combat lvl: 78
+5907 The Illusive combat lvl: 1
+5908 Dying tree combat lvl: 0
+5909 Barbarian combat lvl: 8
+5910 Cook combat lvl: 0
+5911 Cook combat lvl: 0
+5912 Banker combat lvl: 0
+5913 Banker combat lvl: 0
+5914 Iffie combat lvl: 0
+5915 Elsie combat lvl: 0
+5916 Cleaner combat lvl: 0
+5917 Stray dog combat lvl: 0
+5918 Stray dog combat lvl: 0
+5919 Guard combat lvl: 21
+5920 Guard combat lvl: 21
+5921 Trainee Guard combat lvl: 0
+5922 Captain combat lvl: 0
+5923 Man combat lvl: 2
+5924 Woman combat lvl: 2
+5925 Benny combat lvl: 0
+5926 Thief combat lvl: 16
+5927 Thief combat lvl: 16
+5928 Thief combat lvl: 16
+5929 Thief combat lvl: 16
+5930 Art Critic Jacques combat lvl: 0
+5931 Historian Minas combat lvl: 0
+5932 Barnabus Hurma combat lvl: 0
+5933 Marius Giste combat lvl: 0
+5934 Caden Azro combat lvl: 0
+5935 Thias Leacke combat lvl: 0
+5936 Sinco Doar combat lvl: 0
+5937 Tinse Torpe combat lvl: 0
+5938 Information clerk combat lvl: 0
+5939 Torrcs combat lvl: 0
+5940 Marfet combat lvl: 0
+5941 Museum guard combat lvl: 0
+5942 Museum guard combat lvl: 0
+5943 Museum guard combat lvl: 0
+5944 Teacher and pupil combat lvl: 0
+5945 Schoolboy combat lvl: 0
+5946 Schoolboy combat lvl: 0
+5947 Teacher and pupil combat lvl: 0
+5948 Teacher and pupil combat lvl: 1
+5949 Schoolboy combat lvl: 1
+5950 Teacher combat lvl: 1
+5951 Schoolgirl combat lvl: 1
+5952 Workman combat lvl: 0
+5953 Workman combat lvl: 0
+5954 Workman combat lvl: 0
+5955 Workman combat lvl: 0
+5956 Workman combat lvl: 0
+5957 Workman combat lvl: 0
+5958 Dig Site workman combat lvl: 0
+5959 Barge workman combat lvl: 0
+5960 Barge workman combat lvl: 0
+5961 Barge workman combat lvl: 0
+5962 Barge workman combat lvl: 0
+5963 Barge foreman combat lvl: 0
+5964 Ed Wood combat lvl: 0
+5965 Orlando Smith combat lvl: 0
+5966 Natural historian combat lvl: 0
+5967 Natural historian combat lvl: 0
+5968 Natural historian combat lvl: 0
+5969 Natural historian combat lvl: 0
+5970 Natural historian combat lvl: 0
+5971 Leech display combat lvl: 0
+5972 Sea slugs display combat lvl: 0
+5973 Snail display combat lvl: 0
+5974 Monkey display combat lvl: 0
+5975 Lizard display combat lvl: 0
+5976 Penguin display combat lvl: 0
+5977 Camel display combat lvl: 0
+5978 Terrorbird display combat lvl: 0
+5979 Dragon display combat lvl: 0
+5980 Wyvern display combat lvl: 0
+5981 Battle tortoise display combat lvl: 0
+5982 Mole display combat lvl: 0
+5983 Schoolgirl combat lvl: 0
+5984 Schoolgirl combat lvl: 0
+5985 Schoolgirl combat lvl: 0
+5986 Schoolgirl combat lvl: 0
+5987 Sylas combat lvl: 0
+5988 Miazrqa combat lvl: 0
+5989 Grimgnash combat lvl: 0
+5990 Rupert the Beard combat lvl: 1
+5991 Drain pipe combat lvl: 0
+5992 Rupert the Beard combat lvl: 1
+5993 Experiment No.2 combat lvl: 109
+5994 Mouse combat lvl: 95
+5995 Mouse combat lvl: 95
+5996 Glod combat lvl: 138
+5997 null combat lvl: 0
+5998 null combat lvl: 0
+5999 Rupert the Beard combat lvl: 0
+6000 null combat lvl: 0
+6001 Rupert the Beard combat lvl: 0
+6002 Gnome combat lvl: 0
+6003 Winkin combat lvl: 0
+6004 Gnome combat lvl: 0
+6005 Cage combat lvl: 0
+6006 Werewolf combat lvl: 88
+6007 Werewolf combat lvl: 88
+6008 Werewolf combat lvl: 88
+6009 Werewolf combat lvl: 88
+6010 Werewolf combat lvl: 88
+6011 Werewolf combat lvl: 88
+6012 Werewolf combat lvl: 88
+6013 Werewolf combat lvl: 88
+6014 Werewolf combat lvl: 88
+6015 Werewolf combat lvl: 88
+6016 Werewolf combat lvl: 88
+6017 Werewolf combat lvl: 88
+6018 Werewolf combat lvl: 88
+6019 Werewolf combat lvl: 88
+6020 Werewolf combat lvl: 88
+6021 Werewolf combat lvl: 88
+6022 Werewolf combat lvl: 88
+6023 Werewolf combat lvl: 88
+6024 Werewolf combat lvl: 88
+6025 Werewolf combat lvl: 88
+6026 Boris combat lvl: 24
+6027 Imre combat lvl: 24
+6028 Yuri combat lvl: 24
+6029 Joseph combat lvl: 24
+6030 Nikolai combat lvl: 24
+6031 Eduard combat lvl: 24
+6032 Lev combat lvl: 24
+6033 Georgy combat lvl: 24
+6034 Svetlana combat lvl: 24
+6035 Irina combat lvl: 24
+6036 Alexis combat lvl: 24
+6037 Milla combat lvl: 24
+6038 Galina combat lvl: 24
+6039 Sofiya combat lvl: 24
+6040 Ksenia combat lvl: 24
+6041 Yadviga combat lvl: 24
+6042 Nikita combat lvl: 24
+6043 Vera combat lvl: 24
+6044 Zoja combat lvl: 24
+6045 Liliya combat lvl: 24
+6046 Big Wolf combat lvl: 73
+6047 Wolf combat lvl: 25
+6048 Wolf combat lvl: 25
+6049 Wolf combat lvl: 25
+6050 Desert Wolf combat lvl: 27
+6051 Desert Wolf combat lvl: 27
+6052 Ice wolf combat lvl: 96
+6053 Ninja impling combat lvl: 0
+6054 Dragon impling combat lvl: 0
+6055 Baby impling combat lvl: 0
+6056 Young impling combat lvl: 0
+6057 Gourmet impling combat lvl: 0
+6058 Earth impling combat lvl: 0
+6059 Essence impling combat lvl: 0
+6060 Eclectic impling combat lvl: 0
+6061 Nature impling combat lvl: 0
+6062 Magpie impling combat lvl: 0
+6063 Ninja impling combat lvl: 0
+6064 Dragon impling combat lvl: 0
+6065 null combat lvl: 0
+6066 null combat lvl: 0
+6067 null combat lvl: 0
+6068 null combat lvl: 0
+6069 null combat lvl: 0
+6070 Elnock Inquisitor combat lvl: 0
+6071 Immenizz combat lvl: 0
+6072 Fairy Aeryka combat lvl: 0
+6073 Wandering impling combat lvl: 0
+6074 Imp defender combat lvl: 0
+6075 null combat lvl: 0
+6076 null combat lvl: 0
+6077 null combat lvl: 0
+6078 Cyclops combat lvl: 56
+6079 Cyclops combat lvl: 76
+6080 Cyclops combat lvl: 56
+6081 Cyclops combat lvl: 76
+6082 null combat lvl: 1
+6083 null combat lvl: 1
+6084 Captain Ned combat lvl: 0
+6085 Cabin boy Jenkins combat lvl: 0
+6086 Cabin boy Jenkins combat lvl: 0
+6087 Elvarg combat lvl: 83
+6088 Zombie rat combat lvl: 3
+6089 Zombie rat combat lvl: 3
+6090 Zombie rat combat lvl: 3
+6091 Skeleton combat lvl: 22
+6092 Skeleton combat lvl: 22
+6093 Skeleton combat lvl: 22
+6094 Ghost combat lvl: 19
+6095 Ghost combat lvl: 19
+6096 Ghost combat lvl: 19
+6097 Ghost combat lvl: 19
+6098 Ghost combat lvl: 19
+6099 Zombie combat lvl: 24
+6100 Zombie combat lvl: 24
+6101 Lesser demon combat lvl: 82
+6102 Lost barbarian combat lvl: 132
+6103 Skeleton hero combat lvl: 149
+6104 Skeleton brute combat lvl: 132
+6105 Skeleton warlord combat lvl: 132
+6106 Skeleton heavy combat lvl: 132
+6107 Skeleton thug combat lvl: 132
+6108 Entrana firebird combat lvl: 2
+6109 Mounted terrorbird gnome combat lvl: 49
+6110 Mounted terrorbird gnome combat lvl: 49
+6111 Mounted terrorbird gnome combat lvl: 49
+6112 Ducklings combat lvl: 0
+6113 Duck combat lvl: 0
+6114 Drake combat lvl: 0
+6115 Seagull combat lvl: 2
+6116 Seagull combat lvl: 3
+6117 Mr. Mordaut combat lvl: 0
+6118 Observatory assistant combat lvl: 0
+6119 null combat lvl: 0
+6120 null combat lvl: 0
+6121 Observatory professor combat lvl: 0
+6122 Sleeping guard combat lvl: 1
+6123 Naghead combat lvl: 0
+6124 Wagchin combat lvl: 0
+6125 Goblin combat lvl: 0
+6126 Goblin combat lvl: 0
+6127 Greasycheeks combat lvl: 0
+6128 Smellytoes combat lvl: 0
+6129 Creakyknees combat lvl: 0
+6130 Clothears combat lvl: 0
+6131 Zombie combat lvl: 0
+6132 Goblin combat lvl: 0
+6133 Goblin combat lvl: 0
+6134 Dunce combat lvl: 0
+6135 Town crier combat lvl: 0
+6136 Town crier combat lvl: 0
+6137 Town crier combat lvl: 0
+6138 Town crier combat lvl: 0
+6139 Town crier combat lvl: 0
+6140 Squire (Intermediate) combat lvl: 0
+6141 Squire (Veteran) combat lvl: 0
+6142 Portal combat lvl: 0
+6143 Portal combat lvl: 0
+6144 Portal combat lvl: 0
+6145 Portal combat lvl: 0
+6146 Portal combat lvl: 0
+6147 Portal combat lvl: 0
+6148 Portal combat lvl: 0
+6149 Portal combat lvl: 0
+6150 Portal combat lvl: 0
+6151 Portal combat lvl: 0
+6152 Portal combat lvl: 0
+6153 Portal combat lvl: 0
+6154 Portal combat lvl: 0
+6155 Portal combat lvl: 0
+6156 Portal combat lvl: 0
+6157 Portal combat lvl: 0
+6158 Sir Lucan combat lvl: 120
+6159 Sir Palomedes combat lvl: 118
+6160 Sir Lancelot combat lvl: 127
+6161 Sir Bedivere combat lvl: 110
+6162 Sir Tristram combat lvl: 115
+6163 Sir Pelleas combat lvl: 112
+6164 Sir Gawain combat lvl: 122
+6165 Sir Kay combat lvl: 124
+6166 Sir Pelleas combat lvl: 0
+6167 Sir Gawain combat lvl: 0
+6168 Sir Kay combat lvl: 0
+6169 Squire combat lvl: 0
+6170 Sir Lancelot combat lvl: 127
+6171 Sir Kay combat lvl: 124
+6172 Sir Gawain combat lvl: 122
+6173 Sir Lucan combat lvl: 120
+6174 Sir Palomedes combat lvl: 118
+6175 Sir Tristram combat lvl: 115
+6176 Sir Pelleas combat lvl: 112
+6177 Sir Bedivere combat lvl: 110
+6178 Anna combat lvl: 0
+6179 David combat lvl: 0
+6180 Anna combat lvl: 0
+6181 Court judge combat lvl: 0
+6182 Jury combat lvl: 0
+6183 Guard combat lvl: 0
+6184 Guard combat lvl: 0
+6185 Prosecutor combat lvl: 0
+6186 null combat lvl: 0
+6187 Morgan Le Faye combat lvl: 0
+6188 Renegade knight combat lvl: 37
+6189 Black Knight combat lvl: 33
+6190 Guard combat lvl: 0
+6191 null combat lvl: 1
+6192 null combat lvl: 1
+6193 null combat lvl: 1
+6194 null combat lvl: 1
+6195 null combat lvl: 1
+6196 null combat lvl: 1
+6197 null combat lvl: 1
+6198 Sinclair combat lvl: 0
+6199 null combat lvl: 1
+6200 Banker combat lvl: 0
+6201 Knight combat lvl: 0
+6202 null combat lvl: 1
+6203 K'ril Tsutsaroth combat lvl: 650
+6204 Tstanon Karlak combat lvl: 145
+6205  combat lvl: 1
+6206 Zakl'n Gritch combat lvl: 142
+6207  combat lvl: 1
+6208 Balfrug Kreeyath combat lvl: 151
+6209  combat lvl: 1
+6210 Hellhound combat lvl: 127
+6211 Imp combat lvl: 7
+6212 Werewolf combat lvl: 93
+6213 Werewolf combat lvl: 93
+6214 Vampire combat lvl: 77
+6215 Bloodveld combat lvl: 81
+6216 Pyrefiend combat lvl: 48
+6217 Icefiend combat lvl: 18
+6218 Gorak combat lvl: 149
+6219 Spiritual warrior combat lvl: 115
+6220 Spiritual ranger combat lvl: 118
+6221 Spiritual mage combat lvl: 121
+6222 Kree'arra combat lvl: 580
+6223 Wingman Skree combat lvl: 143
+6224  combat lvl: 1
+6225 Flockleader Geerin combat lvl: 149
+6226  combat lvl: 1
+6227 Flight Kilisa combat lvl: 159
+6228  combat lvl: 1
+6229 Spiritual warrior combat lvl: 123
+6230 Spiritual ranger combat lvl: 127
+6231 Spiritual mage combat lvl: 122
+6232 Aviansie combat lvl: 69
+6233 Aviansie combat lvl: 79
+6234 Aviansie combat lvl: 84
+6235 Aviansie combat lvl: 83
+6236 Aviansie combat lvl: 92
+6237 Aviansie combat lvl: 97
+6238 Aviansie combat lvl: 137
+6239 Aviansie combat lvl: 148
+6240 Aviansie combat lvl: 71
+6241 Aviansie combat lvl: 73
+6242 Aviansie combat lvl: 79
+6243 Aviansie combat lvl: 89
+6244 Aviansie combat lvl: 94
+6245 Aviansie combat lvl: 97
+6246 Aviansie combat lvl: 131
+6247 Commander Zilyana combat lvl: 596
+6248 Starlight combat lvl: 149
+6249  combat lvl: 1
+6250 Growler combat lvl: 139
+6251  combat lvl: 1
+6252 Bree combat lvl: 146
+6253  combat lvl: 1
+6254 Saradomin priest combat lvl: 113
+6255 Spiritual warrior combat lvl: 125
+6256 Spiritual ranger combat lvl: 122
+6257 Spiritual mage combat lvl: 120
+6258 Knight of Saradomin combat lvl: 103
+6259 Knight of Saradomin combat lvl: 101
+6260 General Graardor combat lvl: 624
+6261 Sergeant Strongstack combat lvl: 141
+6262  combat lvl: 1
+6263 Sergeant Steelwill combat lvl: 142
+6264  combat lvl: 1
+6265 Sergeant Grimspike combat lvl: 142
+6266  combat lvl: 1
+6267 Ogre combat lvl: 58
+6268 Jogre combat lvl: 58
+6269 Cyclops combat lvl: 81
+6270 Cyclops combat lvl: 81
+6271 Ork combat lvl: 107
+6272 Ork combat lvl: 107
+6273 Ork combat lvl: 107
+6274 Ork combat lvl: 107
+6275 Hobgoblin combat lvl: 47
+6276 Spiritual ranger combat lvl: 115
+6277 Spiritual warrior combat lvl: 134
+6278 Spiritual mage combat lvl: 121
+6279 Goblin combat lvl: 17
+6280 Goblin combat lvl: 12
+6281 Goblin combat lvl: 12
+6282 Goblin combat lvl: 15
+6283 Goblin combat lvl: 13
+6284 null combat lvl: 0
+6285 Warped terrorbird combat lvl: 81
+6286 Warped terrorbird combat lvl: 81
+6287 Warped terrorbird combat lvl: 81
+6288 Warped terrorbird combat lvl: 81
+6289 Warped terrorbird combat lvl: 81
+6290 Warped terrorbird combat lvl: 81
+6291 Warped terrorbird combat lvl: 81
+6292 Warped terrorbird combat lvl: 81
+6293 Warped terrorbird combat lvl: 143
+6294 Warped terrorbird combat lvl: 143
+6295 Warped terrorbird combat lvl: 143
+6296 Warped tortoise combat lvl: 96
+6297 Warped tortoise combat lvl: 96
+6298 Jeffery combat lvl: 0
+6299 Big monolith combat lvl: 0
+6300 Small monolith combat lvl: 0
+6301 Cute creature combat lvl: 0
+6302 Evil creature combat lvl: 0
+6303 Yewnock the engineer combat lvl: 0
+6304 Bolrie combat lvl: 0
+6305 Hazelmere combat lvl: 0
+6306 Bolrie combat lvl: 0
+6307 Advisor combat lvl: 0
+6308 King Argenthorg combat lvl: 0
+6309 Prince Argenthorg combat lvl: 0
+6310 null combat lvl: 0
+6311 Cute creature combat lvl: 0
+6312 Evil creature combat lvl: 0
+6313 Terrorbird servant combat lvl: 0
+6314 Guard no. 21 combat lvl: 0
+6315 Guard no. 72 combat lvl: 0
+6316 Guard no. 21 combat lvl: 0
+6317 Guard no. 72 combat lvl: 0
+6318 Longramble combat lvl: 0
+6319 null combat lvl: 0
+6320 Spirit tree combat lvl: 0
+6321 Spirit tree combat lvl: 0
+6322 Warped terrorbird combat lvl: 81
+6323 Warped terrorbird combat lvl: 81
+6324 Warped terrorbird combat lvl: 81
+6325 Warped terrorbird combat lvl: 81
+6326 Warped terrorbird combat lvl: 81
+6327 Warped terrorbird combat lvl: 81
+6328 Warped terrorbird combat lvl: 81
+6329 Warped terrorbird combat lvl: 81
+6330 Warped terrorbird combat lvl: 143
+6331 Warped terrorbird combat lvl: 143
+6332 Warped terrorbird combat lvl: 143
+6333 null combat lvl: 0
+6334 Child combat lvl: 0
+6335 Child combat lvl: 0
+6336 Child combat lvl: 0
+6337 Child combat lvl: 0
+6338 Child combat lvl: 0
+6339 Child combat lvl: 0
+6340 Child combat lvl: 0
+6341 Child combat lvl: 0
+6342 Child combat lvl: 0
+6343 Child combat lvl: 0
+6344 Child combat lvl: 0
+6345 Child combat lvl: 0
+6346 Pirate combat lvl: 23
+6347 Pirate combat lvl: 23
+6348 Pirate combat lvl: 23
+6349 Pirate combat lvl: 23
+6350 Pirate combat lvl: 23
+6351 Pirate combat lvl: 26
+6352 Pirate combat lvl: 26
+6353 Pirate combat lvl: 26
+6354 Pirate combat lvl: 26
+6355 Pirate combat lvl: 26
+6356 Pirate combat lvl: 26
+6357 Street urchin combat lvl: 0
+6358 Street urchin combat lvl: 0
+6359 Street urchin combat lvl: 0
+6360 Street urchin combat lvl: 0
+6361 Street urchin combat lvl: 0
+6362 Eniola combat lvl: 0
+6363 Zamorak warrior combat lvl: 84
+6364 Zamorak warrior combat lvl: 85
+6365 Zamorak ranger combat lvl: 81
+6366 Zamorak ranger combat lvl: 82
+6367 Zamorak mage combat lvl: 84
+6368 Zamorak mage combat lvl: 82
+6369 Cave lizard combat lvl: 37
+6370 Mage of Zamorak combat lvl: 0
+6371 Zamorak crafter combat lvl: 19
+6372 Zamorak crafter combat lvl: 19
+6373 Kennith combat lvl: 0
+6374 Guard dog combat lvl: 44
+6375 Wizard Cromperty combat lvl: 0
+6376 Jungle spider combat lvl: 40
+6377 Jungle spider combat lvl: 40
+6378 Tenacious toucan combat lvl: 70
+6379 Giant ant worker combat lvl: 40
+6380 Giant ant soldier combat lvl: 50
+6381 Giant wasp combat lvl: 62
+6382 Pernicious parrot combat lvl: 66
+6383 Giant wasp combat lvl: 62
+6384 Karamjan Jungle Eagle combat lvl: 0
+6385 Karamjan Jungle eagle combat lvl: 0
+6386 null combat lvl: 1
+6387 null combat lvl: 0
+6388 Frog combat lvl: 62
+6389 Gargoyle combat lvl: 1
+6390 Grim Reaper combat lvl: 0
