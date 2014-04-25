@@ -1,19 +1,18 @@
--https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
--there's no npc entry for the Khazard General Store in com/rs2/model/content/Shops.java (return 97;)
--crossbows don't work
--admin spawned npcs open the "rape store"
--Shilo village shop might be borkeds
--Gnome balls don't equip
--Canfis clothes shop missing purple top
--ice giants drop single coins instead of big bones
--highwaymen have no drop table
--god capes are unpurchable/obtainable
--gnome tree stronghold cave doesn't work
--lummy spinning wheel spawns items around it
--ignore yells from people on your ignore list
--crandor is accessable but you can't leave (you can use ::home)
--no way to the ape atoll/gate broken too
-
+https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
+there's no npc entry for the Khazard General Store in com/rs2/model/content/Shops.java (return 97;)
+crossbows don't work
+admin spawned npcs open the "rape store"
+Shilo village shop might be borkeds
+Gnome balls don't equip
+Canfis clothes shop missing purple top
+ice giants drop single coins instead of big bones
+highwaymen have no drop table
+god capes are unpurchable/obtainable
+gnome tree stronghold cave doesn't work
+lummy spinning wheel spawns items around it
+ignore yells from people on your ignore list
+crandor is accessable but you can't leave (you can use ::home)
+no way to the ape atoll/gate broken too
 addy platelegs(g) do not require 30 defence
 stairs in brimhaven dont work
 shilo village exit doesnt work
