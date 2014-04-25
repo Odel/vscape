@@ -1554,7 +1554,7 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 170 : //gnome pilot
+			case 4593 : //gnome pilot
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("Would you like to fly somewhere on the glider?", CONTENT);
