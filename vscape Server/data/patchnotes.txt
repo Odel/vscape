@@ -1,10 +1,10 @@
-@dre@=APR ?=
+@dre@=APR 25=
 @red@-Quite large Client Update.
 @red@ Apologies in advance if this causes problems.
 -Crystal Bow Fixed.
 -Crystal Bow "agility" requirement replaced by slayer.
 -Vendors for Crystal Shield/Bow - Ancient Staff
- and hero stuff.
+ haldberd vendor and hero vendor.
 @blu@-C'Bows
  This includes smithing and fletching and combat.
  When stringing C'bows use normal Bow Strings.

@@ -2393,7 +2393,7 @@
     "defenceRange": 10,
     "defenceMage": 20,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": true
   },
@@ -2415,7 +2415,7 @@
     "defenceRange": 14,
     "defenceMage": 28,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": true,
     "poisonous": false
   },

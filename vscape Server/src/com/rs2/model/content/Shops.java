@@ -460,11 +460,19 @@ public class Shops {
 				return 164;
 			case 747 :
 				return 165;
-			case 797:
-				return 166;
-				
+			/*case 797: //
+				return 166;*/
 			case 1334:
 				return 167;
+			case 797: //hero shop
+				return 168;
+			case 1208://halberd
+				return 169;
+			case 1923://ancient staff
+			case 1925://ancient staff
+				return 170;
+			case 1680://crystal
+				return 171;
 			/*
 				return 165;
 			case 536:
