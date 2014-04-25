@@ -13,6 +13,8 @@
  by clicking the skill icon.
 -Arrow requirements have been fixed. It's now required
  you have the correct range level to use them.
+@blu@-Fixed Bandit Camp mine (in wildy)
+-fixed some skelies (i hope)
 
 @dre@=APR 22=
 -@red@Easter event has ended.
@@ -61,21 +63,3 @@
  
 @dre@=APR 8=
 -diminishing returns in shops
-
-@dre@=APR 7=
--Slayer tasks will now save again.
--Fixed guthix plateskirt.
--Disabled Puzzle Clues.
--Fixed fletching amount options.
--Crafting silver now requires moulds.
--Fixed Jewelry crafting producing +1 items.
--Steel studs are now smithable.
--Buying and selling formula has been fixed 
- and correct.
--Special store will now buy items they sell 
- specifically tzhaar stores.
--Correct prices of some items to reflect the
- new buy and sell formula.
--::panic calls for assistance
--::report (name) (reason) now contacts staff
--extra explanation added for commands
