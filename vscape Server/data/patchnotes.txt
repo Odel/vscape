@@ -1,3 +1,9 @@
+@dre@=APR ?=
+-Changes to churning
+ making butter only requires milk
+ making cheese only requires butter
+ 
+
 @dre@=APR 25=
 @red@-Quite large Client Update.
 @red@ Apologies in advance if this causes problems.
