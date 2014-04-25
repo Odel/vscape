@@ -23,8 +23,14 @@ public class LogCuttingInterfaces {
 			} else if (itemUsed == 1519 || usedWith == 1519) {
 				Menus.sendSkillMenu(player, "willowCutting");
 				return true;
-			} else if (itemUsed == 1517 || usedWith == 1517) {
+			} else if (itemUsed == 6333 || usedWith == 6333) {
+				Menus.sendSkillMenu(player, "teakCutting");
+				return true;
+			}  else if (itemUsed == 1517 || usedWith == 1517) {
 				Menus.sendSkillMenu(player, "mapleCutting");
+				return true;
+			}  else if (itemUsed == 6332 || usedWith == 6332) {
+				Menus.sendSkillMenu(player, "mahoganyCutting");
 				return true;
 			} else if (itemUsed == 1515 || usedWith == 1515) {
 				Menus.sendSkillMenu(player, "yewCutting");

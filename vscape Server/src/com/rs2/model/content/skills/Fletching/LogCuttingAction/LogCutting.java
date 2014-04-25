@@ -100,7 +100,7 @@ public abstract class LogCutting {
 
 				player.getUpdateFlags().sendAnimation(LOG_CUTTING_ANIM);
 				String resultName = new Item(result).getDefinition().getName().toLowerCase();
-				player.getActionSender().sendMessage("You carefully cut the " + new Item(used).getDefinition().getName().toLowerCase() + " into " + (resultName.contains("shaft") ? "some arrow shafts" : resultName.contains("longbow") ? "a longbow" : "a shortbow") + ".");
+				player.getActionSender().sendMessage("You carefully cut the " + new Item(used).getDefinition().getName().toLowerCase() + " into " + (resultName.contains("shaft") ? "some arrow shafts" : "a " + resultName/* : resultName.contains("shortbow") ? "a shortbow" : "a stock"*/) + ".");
 
 				player.getInventory().removeItem(new Item(used));
 				player.getInventory().addItem(new Item(result, result == ARROW_SHAFT ? 15 : 1));

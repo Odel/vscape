@@ -2,8 +2,6 @@ package vscapeClient;
 
 import java.io.*;
 
-import vscapeClient.vscape.Items;
-
 public final class ItemDef {
 
 	public static void nullLoader() {
@@ -193,8 +191,6 @@ public final class ItemDef {
 			itemDef.itemActions = null;
 			itemDef.team = 0;
 		}
-		
-		Items.HandleItems(itemDef, i);
 		return itemDef;
 	}
 

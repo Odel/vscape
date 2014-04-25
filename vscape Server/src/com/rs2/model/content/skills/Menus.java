@@ -130,17 +130,21 @@ public class Menus {
 		}
 		// log cutting
 		else if (type == "normalCutting") {
-			display3Item(player, 52, 50, 48, "Arrow shafts", "Shortbow", "Longbow");
+			display4Item(player, 52, 50, 48, 9440, "Arrow shafts", "Shortbow", "Longbow","Wooden Stock");
 		} else if (type == "oakCutting") {
-			display2Item(player, 54, 56, "Oak shortbow", "Oak longbow");
+			display3Item(player, 54, 56, 9442, "Oak shortbow", "Oak longbow","Oak Stock");
 		} else if (type == "acheyCutting") {
 			display1Item(player, 4825, "Unstrung comp bow");
 		} else if (type == "willowCutting") {
-			display2Item(player, 60, 58, "Willow shortbow", "Willow longbow");
+			display3Item(player, 60, 58, 9444, "Willow shortbow", "Willow longbow","Willow Stock");
+		} else if (type == "teakCutting") {
+			display1Item(player, 9446, "Teak Stock");
 		} else if (type == "mapleCutting") {
-			display2Item(player, 64, 62, "Maple shortbow", "Maple longbow");
+			display3Item(player, 64, 62, 9448, "Maple shortbow", "Maple longbow","Maple Stock");
+		} else if (type == "mahoganyCutting") {
+			display1Item(player, 9450, "Mahogany Stock");
 		} else if (type == "yewCutting") {
-			display2Item(player, 68, 66, "Yew shortbow", "Yew longbow");
+			display3Item(player, 68, 66, 9452, "Yew shortbow", "Yew longbow", "Yew Stock");
 		} else if (type == "magicCutting") {
 			display2Item(player, 72, 70, "Magic shortbow", "Magic longbow");
 		}

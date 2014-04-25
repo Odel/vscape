@@ -22,8 +22,9 @@ public class MapleCut extends LogCutting {
 		return new MapleCut(player, mapleCutData.getUsed(), mapleCutData.getResult(), mapleCutData.getLevel(), mapleCutData.getExperience(), mapleCutData.getAmount(), manualAmount);
 	}
 	public static enum MapleCutData {
-		SHORTBOW(34170, 1517, 64, 1, 50, 50), SHORTBOW5(34169, 1517, 64, 5, 50, 50), SHORTBOW10(34168, 1517, 64, 10, 50, 50), SHORTBOWX(34167, 1517, 64, 0, 50, 50), LONGBOW(34174, 1517, 62, 1, 55, 58.3), LONGBOW5(34173, 1517, 62, 5, 55, 58.3), LONGBOW10(34172, 1517, 62, 10, 55, 58.3), LONGBOWX(34171, 1517, 62, 0, 55, 58.3);
-
+		SHORTBOW(34185, 1517, 64, 1, 50, 50), SHORTBOW5(34184, 1517, 64, 5, 50, 50), SHORTBOW10(34183, 1517, 64, 10, 50, 50), SHORTBOWX(34182, 1517, 64, 0, 50, 50), LONGBOW(34189, 1517, 62, 1, 55, 58.3), LONGBOW5(34188, 1517, 62, 5, 55, 58.3), LONGBOW10(34187, 1517, 62, 10, 55, 58.3), LONGBOWX(34186, 1517, 62, 0, 55, 58.3),
+		STOCK(34193, 1517, 9448, 1, 54, 32), STOCK5(34192, 1517, 9448, 5, 54, 32), STOCK10(34191, 1517, 9448, 10, 54, 32), STOCKX(34190, 1517, 9448, 0, 54, 32);
+		
 		private int buttonId;
 		private int used;
 		private int result;

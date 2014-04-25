@@ -781,6 +781,12 @@ public class Equipment {
 				}
 			}
 		} else if (targetSlot == Constants.ARROWS) {
+			if (rangeLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.RANGED) < rangeLevelReq) {
+					player.getActionSender().sendMessage("You need a Ranged level of " + rangeLevelReq + " to equip this ammo.");
+					return false;
+				}
+			}
 			if (slayerLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.SLAYER) < slayerLevelReq) {
 					player.getActionSender().sendMessage("You need a Slayer level of " + slayerLevelReq + " to equip this ammo.");
@@ -942,6 +948,20 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 1;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 1;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 1;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 1;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 1;
+			}
 			return;
 		}
 		if (itemName.contains("iron")) 
@@ -953,6 +973,20 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 1;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 26;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 10;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 1;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 1;
+			}
 			return;
 		}
 		if (itemName.contains("steel")) 
@@ -963,6 +997,20 @@ public class Equipment {
 			}
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 5;
+			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 31;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 20;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 5;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 5;
 			}
 			return;
 		}
@@ -979,6 +1027,20 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 10;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 31;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 10;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 10;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 10;
+			}
 			return;
 		}
 		if (itemName.contains("white")) 
@@ -994,9 +1056,23 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 10;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 31;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 10;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 10;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 10;
+			}
 			return;
 		}
-		if (itemName.contains("mithril")) 
+		if (itemName.contains("mithril") || itemName.contains("mith")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
@@ -1009,9 +1085,23 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 20;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 36;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 30;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 20;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 20;
+			}
 			return;
 		}
-		if (itemName.contains("adamant")) 
+		if (itemName.contains("adamant") || itemName.contains("addy")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
@@ -1024,9 +1114,23 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 30;
 			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 46;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 40;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 30;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 30;
+			}
 			return;
 		}
-		if (itemName.contains("rune")) 
+		if (itemName.contains("rune") || itemName.contains("runite")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
@@ -1038,6 +1142,20 @@ public class Equipment {
 			}
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
 				defenceLevelReq = 40;
+			}
+			if(itemName.contains("bow"))
+			{
+				rangeLevelReq = 61;
+			}
+			if(itemName.contains("bolt"))
+			{
+				rangeLevelReq = 50;
+			}
+			if (itemName.contains("arrow")) {
+				rangeLevelReq = 40;
+			}
+			if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
+				rangeLevelReq = 40;
 			}
 			return;
 		}
@@ -1107,13 +1225,7 @@ public class Equipment {
 		}
 		//range
 		if (itemName.contains("arrow")) {
-			if (itemName.contains("steel")) {
-				rangeLevelReq = 5;
-			} else if (itemName.contains("mithril")) {
-				rangeLevelReq = 20;
-			} else if (itemName.contains("adamant")) {
-				rangeLevelReq = 30;
-			} else if (itemName.contains("rune") || itemName.contains("ice")) {
+			if (itemName.contains("ice")) {
 				rangeLevelReq = 40;
 			} else if (itemName.contains("broad")) {
 				rangeLevelReq = 50;
@@ -1132,20 +1244,6 @@ public class Equipment {
 				rangeLevelReq = 40;
 			} else if (itemName.contains("magic")) {
 				rangeLevelReq = 50;
-			}
-			return;
-		}
-		if (itemName.contains("dart") || itemName.contains("javelin") || itemName.contains("thrownaxe") || itemName.contains("knife")) {
-			if (itemName.contains("steel")) {
-				rangeLevelReq = 5;
-			} else if (itemName.contains("black")) {
-				rangeLevelReq = 10;
-			} else if (itemName.contains("mithril")) {
-				rangeLevelReq = 20;
-			} else if (itemName.contains("adam")) {
-				rangeLevelReq = 30;
-			} else if (itemName.contains("rune")) {
-				rangeLevelReq = 40;
 			}
 			return;
 		}
@@ -1267,8 +1365,8 @@ public class Equipment {
 
 	public void checkRangeGear() {
 		String wep = player.getEquippedWeapon().name().toLowerCase();
-		player.setUsingBow((wep.contains("seercull") || wep.contains("bow")) && !wep.contains("crossbow"));
-		player.setUsingCross(wep.contains("crossbow") || wep.contains("x-bow"));
+		player.setUsingBow((wep.contains("seercull") || wep.contains("bow")) && !wep.contains("crossbow") && !wep.contains("c'bow"));
+		player.setUsingCross(wep.contains("crossbow") || wep.contains("x-bow") || wep.contains("c'bow"));
 		player.setUsingOtherRangedWeapon(wep.contains("knife") || wep.contains("dart") || wep.contains("javelin") || wep.contains("thrownaxe") || wep.contains("toktz-xil-ul") || wep.contains("throwing axe"));
 		player.setUsingCrystalBow(wep.contains("crystal bow"));
 		String ammo = ItemManager.getInstance().getItemName(player.getEquipment().getId(Constants.ARROWS)).toLowerCase();

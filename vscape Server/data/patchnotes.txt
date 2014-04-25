@@ -1,5 +1,18 @@
 @dre@=APR ?=
--Crystal bow Fixed
+@red@-Quite large Client Update.
+@red@ Apologies in advance if this causes problems.
+-Crystal Bow Fixed.
+-Crystal Bow "agility" requirement replaced by slayer.
+-Vendors for Crystal Shield/Bow - Ancient Staff
+ and hero stuff.
+@blu@-C'Bows
+ This includes smithing and fletching and combat.
+ When stringing C'bows use normal Bow Strings.
+ You can find the skill requirements to make c'bow
+ items in the fletching guide and smithing guide
+ by clicking the skill icon.
+-Arrow requirements have been fixed. It's now required
+ you have the correct range level to use them.
 
 @dre@=APR 22=
 -@red@Easter event has ended.

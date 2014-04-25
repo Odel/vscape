@@ -1,12 +1,6 @@
 package com.rs2.model.content.skills.Fletching;
 
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.AcheyCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.LogCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.MagicCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.MapleCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.OakCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.WillowCut;
-import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.YewCut;
+import com.rs2.model.content.skills.Fletching.LogCuttingAction.impl.*;
 import com.rs2.model.players.Player;
 
 /**
@@ -40,9 +34,21 @@ public class HandleLogCutting {
 				return true;
 			}
 		}
+		if (player.getStatedInterface() == "teakCutting") {
+			if (TeakCut.create(player, buttonId, amount) != null) {
+				TeakCut.create(player, buttonId, amount).logCuttingAction();
+				return true;
+			}
+		}
 		if (player.getStatedInterface() == "mapleCutting") {
 			if (MapleCut.create(player, buttonId, amount) != null) {
 				MapleCut.create(player, buttonId, amount).logCuttingAction();
+				return true;
+			}
+		}
+		if (player.getStatedInterface() == "mahoganyCutting") {
+			if (MahoganyCut.create(player, buttonId, amount) != null) {
+				MahoganyCut.create(player, buttonId, amount).logCuttingAction();
 				return true;
 			}
 		}

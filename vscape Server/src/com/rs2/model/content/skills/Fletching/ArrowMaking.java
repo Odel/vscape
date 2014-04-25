@@ -13,6 +13,7 @@ import com.rs2.model.tick.CycleEventHandler;
 
 public class ArrowMaking {
 	public static final int ARROW_COUNT = 15;
+	public static final int BOLT_COUNT = 10;
 
 	public enum ArrowData {// you attach item 1 with item2
 		ARROW_SHAFT(314, 52, 53, 1, 0.4), BRONZE_ARROW(39, 53, 882, 1, 1.3), IRON_ARROW(40, 53, 884, 15, 2.5), STEEL_ARROW(41, 53, 886, 30, 5), MITHRIL_ARROW(42, 53, 888, 45, 7.5), ADAMANT_ARROW(43, 53, 890, 60, 10), RUNE_ARROW(44, 53, 892, 75, 12.5),
@@ -21,7 +22,12 @@ public class ArrowMaking {
 
 		BRONZE_BRUTAL_ARROW(4819, 53, 4773, 7, 1.4), IRON_BRUTAL_ARROW(4820, 53, 4778, 18, 2.6), STEEL_BRUTAL_ARROW(1539, 53, 4783, 33, 5.1), BLACK_BRUTAL_ARROW(4821, 53, 4788, 38, 6.4), MITHRIL_BRUTAL_ARROW(4822, 53, 4793, 49, 7.5), ADAMANT_BRUTAL_ARROW(4823, 53, 4798, 62, 10.1), RUNE_BRUTAL_ARROW(4824, 53, 4803, 77, 12.5),
 
-		PEARL_BOLT(46, 877, 880, 41, 3.2);
+		BRONZE_BOLT(314, 9375, 877, 9, 0.5),
+		IRON_BOLT(314, 9377, 9140, 39, 1.5),
+		STEEL_BOLT(314, 9378, 9141, 46, 3.5),
+		MITHRIL_BOLT(314, 9379, 9142, 54, 5),
+		ADAMANT_BOLT(314, 9380, 9143, 61, 6.5),
+		RUNITE_BOLT(314, 9381, 9144, 69, 8);
 
 		private int item1;
 		private int item2;
@@ -82,7 +88,14 @@ public class ArrowMaking {
 			return true;
 		}
 		if (!player.getInventory().getItemContainer().contains(arrowData.getItem1()) || !player.getInventory().getItemContainer().contains(arrowData.getItem2())) {
-			player.getDialogue().sendStatement("You need " + ARROW_COUNT + " " + new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase() + " and " + ARROW_COUNT + " " + new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase() + "s to make this");
+			if(new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase().contains("bolts") || new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase().contains("bolts"))
+			{
+				player.getDialogue().sendStatement("You need " + BOLT_COUNT + " " + new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase() + " and " + BOLT_COUNT + " " + new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase() + "s to make this");
+			}
+			else
+			{
+				player.getDialogue().sendStatement("You need " + ARROW_COUNT + " " + new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase() + " and " + ARROW_COUNT + " " + new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase() + "s to make this");
+			}
 			return true;
 		}
 		int factor = 1;
@@ -102,6 +115,16 @@ public class ArrowMaking {
 		final int task = player.getTask();
 		int count1 = player.getInventory().getItemContainer().getCount(arrowData.getItem1()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem1()) : ARROW_COUNT;
 		int count2 = player.getInventory().getItemContainer().getCount(arrowData.getItem2()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem2()) : ARROW_COUNT;
+		if(new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase().contains("bolts") || new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase().contains("bolts"))
+		{
+			count1 = player.getInventory().getItemContainer().getCount(arrowData.getItem1()) < BOLT_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem1()) : BOLT_COUNT;
+			count2 = player.getInventory().getItemContainer().getCount(arrowData.getItem2()) < BOLT_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem2()) : BOLT_COUNT;
+		}
+		else
+		{
+			count1 = player.getInventory().getItemContainer().getCount(arrowData.getItem1()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem1()) : ARROW_COUNT;
+			count2 = player.getInventory().getItemContainer().getCount(arrowData.getItem2()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem2()) : ARROW_COUNT;
+		}
 		final int count = count1 < count2 ? count1 : count2;
 		player.setSkilling(new CycleEvent() {
 			@Override
