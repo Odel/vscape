@@ -883,13 +883,25 @@ public class SkillGuides {
 			clearMenu();
 			menuLine("1", "Crossbow", 837, 0);
 			menuLine("1", "Pheonix Crossbow", 767, 1);
-			menuLine("70", "Karil's Crossbow", 4734, 2);
+			menuLine("1", "Bronze C'bow", 9174, 2);
+			menuLine("26", "Iron C'bow", 9177, 3);
+			menuLine("31", "Steel C'bow", 9179, 4);
+			menuLine("36", "Mithril C'bow", 9181, 5);
+			menuLine("46", "Adamant C'bow", 9183, 6);
+			menuLine("61", "Rune C'bow", 9185, 7);
+			menuLine("70", "Karil's Crossbow", 4734, 8);
 			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 5) {
 			clearMenu();
-			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 0);
+			menuLine("1", "Bronze Bolt", 877, 0);
+			menuLine("10", "Iron Bolt", 9140, 1);
+			menuLine("20", "Steel Bolt", 9141, 2);
+			menuLine("30", "Mithril Bolt", 9142, 3);
+			menuLine("40", "Adamant Bolt", 9143, 4);
+			menuLine("50", "Rune Bolt", 9144, 5);
+			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 6);
 			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
