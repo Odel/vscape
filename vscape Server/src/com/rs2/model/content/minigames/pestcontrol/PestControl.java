@@ -89,7 +89,6 @@ public class PestControl {
 		new TaskScheduler().schedule(new Task(5, false) {
 			@Override
 			protected void execute() {
-				System.out.println("think ");
 				if(playersInLobby() <= 0 && playersInGame() <= 0) {
 					this.stop();
 					resetGame();
