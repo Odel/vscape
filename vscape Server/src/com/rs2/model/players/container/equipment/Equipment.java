@@ -799,7 +799,7 @@ public class Equipment {
 
 	public void getRequirements(int itemId) {
 		String itemName = ItemManager.getInstance().getItemName(itemId).toLowerCase();
-		attackLevelReq = defenceLevelReq = strengthLevelReq = rangeLevelReq = magicLevelReq = slayerLevelReq = 0;
+		attackLevelReq = strengthLevelReq = defenceLevelReq = rangeLevelReq = prayerLevelReq = magicLevelReq =runecraftLevelReq = hitpointsLevelReq = agilityLevelReq = herbloreLevelReq = thievingLevelReq = craftingLevelReq =fletchingLevelReq = slayerLevelReq = miningLevelReq = smithLevelReq = fishLevelReq = cookLevelReq = fireLevelReq = woodLevelReq = farmLevelReq = 0;
 		switch (itemId) {
 			case 6524 : // obby shield
 				defenceLevelReq = 60;
