@@ -602,6 +602,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getEmotes().activateEmoteButton(buttonId)) {
 			return;
 		}
+	/*	if (player.getSkillcapeEmotes().doEmote(buttonId)) {
+			return;
+		}*/
 		if (SkillsX.handleXButtons(player, buttonId)) {
 			return;
 		}

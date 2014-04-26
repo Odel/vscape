@@ -71,6 +71,7 @@ import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickH
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
+import com.rs2.model.content.skills.SkillcapeEmotes;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
@@ -174,6 +175,7 @@ public class Player extends Entity {
 	private Prayer prayer = new Prayer(this);
 	private Teleportation teleportation = new Teleportation(this);
 	private Emotes emotes = new Emotes(this);
+	private SkillcapeEmotes skillcapeEmotes = new SkillcapeEmotes(this);
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private Slayer slayer = new Slayer(this);
@@ -1603,13 +1605,10 @@ public class Player extends Entity {
 	
 	private void ModBan(String[] args) {
 		if (args.length < 1) {
-			actionSender.sendMessage("::ban username"); //use underscore instead of space if name is two words
+			actionSender.sendMessage("::ban username hours"); //use underscore instead of space if name is two words
 			return;
 		}
-		String name = "";
-		for (int i = 1; i < args.length; i++) {
-			name += args[0];
-		}
+		String name = args[0];
 		int hours = 2;
 		Player player = World.getPlayerByName(name);
 		if (player == null) {
@@ -2910,7 +2909,11 @@ public class Player extends Entity {
 	public Emotes getEmotes() {
 		return emotes;
 	}
-
+	
+	public SkillcapeEmotes getSkillcapeEmotes() {
+		return skillcapeEmotes;
+	}
+	
 	public boolean shouldAutoRetaliate() {
 		return autoRetaliate;
 	}
