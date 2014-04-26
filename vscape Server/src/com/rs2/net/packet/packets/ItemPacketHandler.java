@@ -29,6 +29,7 @@ import com.rs2.model.content.skills.herblore.PoisoningWeapon;
 import com.rs2.model.content.skills.herblore.PotionMaking;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
+import com.rs2.model.content.skills.magic.TeleTabs;
 import com.rs2.model.content.skills.prayer.GodBook;
 import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Runecrafting;
@@ -681,6 +682,10 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		if (SearchScrolls.loadClueInterface(player, itemId)) {
 			player.getActionSender().sendMessage("clue id: "+itemId);
+			return;
+		}
+		if(TeleTabs.breakTab(player, itemId, player.getSlot()))
+		{
 			return;
 		}
 		switch (itemId) {

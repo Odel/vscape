@@ -1740,6 +1740,8 @@ public class Player extends Entity {
 		movePlayer(position);
         getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
+		getUpdateFlags().sendAnimation(-1);
+		setAppearanceUpdateRequired(true);
         final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
         CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {

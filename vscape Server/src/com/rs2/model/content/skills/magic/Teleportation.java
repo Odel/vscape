@@ -67,6 +67,23 @@ public class Teleportation {
 		return true;
 	}
 
+	public boolean attemptTeleportTablet(Position pos) {
+		if (player.inWild() && player.getWildernessLevel() > 20) {
+			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
+			return false;
+		}
+		if (player.isTeleblocked()) {
+			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+			return false;
+		}
+		if (player.cantTeleport()) {
+			player.getActionSender().sendMessage("You can't teleport from here.");
+			return false;
+		}
+		teleport(pos.getX(), pos.getY(), pos.getZ(), false);
+		return true;
+	}
+	
 	public void teleport(final int x, final int y, final int height, final boolean modern) {
         if (player.isTeleblocked() || player.cantTeleport()) {
             player.getActionSender().sendMessage("You can't teleport out of here!");
