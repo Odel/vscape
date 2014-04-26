@@ -2,17 +2,42 @@ package com.rs2.model.content.minigames.castlewars;
 
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
 import com.rs2.model.content.minigames.MinigameAreas;
-//import server.model.players.Client;
+import com.rs2.model.content.minigames.castlewars.*;
 
 public class CastlewarsObjects {
 
     public static void handleObject(Player player, int id, int x, int y) {
-        /*if (!CastleWars.isInCw(c)) {
-            player.getActionSender().sendMessage("You gotta be in castle wars before you can use these objects");
-            return;
-        }*/
+    	//TODO this is a silly way to do this as it only checks if players are on the ground floor (0 level)
+    	//change this to check a player variable boolean
+    	if(!Castlewars.ENABLED)
+    	{
+    		player.getActionSender().sendMessage("This content is disabled.");
+    		return;
+    	}
+        if (!Castlewars.inCwArea(player)) {
+            //player.getActionSender().sendMessage("You gotta be in castle wars before you can use these objects");
+            //return;
+        }
         switch (id) {
+        	case 4408: //guthix portal
+        		player.getActionSender().sendMessage("Not implemented yet.");
+        	break;
+        	case 4388: //zammy portal
+        		Castlewars.sendPlayerToLobby(player, "zamorak");
+        	break;
+        	case 4387: //sara portal
+        		Castlewars.sendPlayerToLobby(player, "saradomin");
+        	break;
+        	case 4390:
+            	System.out.println("Player leaving CW zammy lobby");
+                Castlewars.removePlayerFromCw(player);
+        	break;
+        	case 4389:
+            	System.out.println("Player leaving CW sara lobby");
+                Castlewars.removePlayerFromCw(player);
+        	break;
             case 4469:
                 /*if (CastleWars.getTeamNumber(c) == 2) {
                     player.getActionSender().sendMessage("You are not allowed in the other teams spawn point.");
@@ -149,14 +174,13 @@ public class CastlewarsObjects {
 				}
                 break;
             case 4406:
-                //CastleWars.removePlayerFromCw(c);
-                break;
             case 4407:
-                //CastleWars.removePlayerFromCw(c);
+            	System.out.println("Player leaving cw");
+                Castlewars.removePlayerFromCw(player);
                 break;
             case 4458:
-                //player.startAnimation(881);
-                //player.getItems().addItem(4049, 1);
+            	player.getUpdateFlags().sendAnimation(881);
+            	player.getInventory().addItem(new Item(4049,1));
                 player.getActionSender().sendMessage("You get some bandages");
                 break;
             case 4902: //sara flag
@@ -183,15 +207,15 @@ public class CastlewarsObjects {
                 break;
             case 4461: //barricades
                 player.getActionSender().sendMessage("You get a barricade!");
-                //player.getItems().addItem(4053, 1);
+                player.getInventory().addItem(new Item(4053,1));
                 break;
             case 4463: // explosive potion!
                 player.getActionSender().sendMessage("You get an explosive potion!");
-                //player.getItems().addItem(4045, 1);
+                player.getInventory().addItem(new Item(4045,1));
                 break;
             case 4464: //pickaxe table
                 player.getActionSender().sendMessage("You get a bronzen pickaxe for mining.");
-                //player.getItems().addItem(1265, 1);
+                player.getInventory().addItem(new Item(1265,1));
                 break;
             case 4900:
             case 4901:

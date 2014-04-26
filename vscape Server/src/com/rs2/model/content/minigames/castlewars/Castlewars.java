@@ -7,11 +7,10 @@ import com.rs2.model.World;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.players.Player;
 
-/**
- * Created by IntelliJ IDEA. User: vayken Date: 4/26/12 Time: 2:51 PM To change
- * this template use File | Settings | File Templates.
- */
-public class GlobalGameHandling {
+public class Castlewars {
+	public static final boolean ENABLED = false;
+    private static final int GAME_TIMER = 200; //1500 * 600 = 900000ms = 15 minutes
+    private static final int GAME_START_TIMER = 30;
 
 	public static boolean isInZammyLobby(Player player) {
 		return MinigameAreas.isInArea(player.getPosition(), new MinigameAreas.Area(new Position(2410, 9510, 0), new Position(2427, 9533, 0)));
@@ -56,7 +55,7 @@ public class GlobalGameHandling {
 	public static void sendPlayerToLobby(Player player, String team) {
 		if (team == "zamorak")
 			player.teleport(MinigameAreas.randomPosition(new MinigameAreas.Area(new Position(2417, 9517, 0), new Position(2428, 9531, 0))));
-		else
+		else if (team == "saradomin")
 			player.teleport(MinigameAreas.randomPosition(new MinigameAreas.Area(new Position(2372, 9483, 0), new Position(2388, 9492, 0))));
 	}
 
@@ -67,13 +66,20 @@ public class GlobalGameHandling {
 	public static boolean inCwSafe(Player player, String team) {
 		if (team == "saradomin")
 			return MinigameAreas.isInArea(player.getPosition(), new MinigameAreas.Area(new Position(2423, 3072, 0), new Position(2431, 3080, 0)));
-		else
+		else if (team == "zamorak")
 			return MinigameAreas.isInArea(player.getPosition(), new MinigameAreas.Area(new Position(2368, 3127, 0), new Position(2376, 3135, 0)));
+		return false;
 	}
 
 	public static String getTeam(Player player) {
 		return null;
 
+	}
+
+	public static void removePlayerFromCw(Player player) {
+		player.teleport(new Position(2440, 3089, 0));
+		//TODO remove all cw items, check for carrying flag, etc.
+		
 	}
 
 }

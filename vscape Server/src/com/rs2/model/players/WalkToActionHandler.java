@@ -1071,6 +1071,8 @@ public class WalkToActionHandler {
 				case 3409: //Bellows in Elemental Workshop
 
 					break;
+		        //case 1747:
+		        //case 1757:
 				case 4411:
 	            case 4415:
 	            case 4417:
@@ -1081,8 +1083,6 @@ public class WalkToActionHandler {
 	            case 4470:
 	            case 4911:
 	            case 4912:
-	            //case 1747:
-	            //case 1757:
 	            case 4437:
 	            case 6281:
 	            case 6280:
@@ -1100,6 +1100,11 @@ public class WalkToActionHandler {
 	            case 4464:
 	            case 4377:
 	            case 4378:
+	            case 4408: //guthix portal
+	            case 4388: //zammy portal
+	            case 4387: //sara portal
+	            case 4390: //zammy portal out of lobby
+	            case 4389: //sara portal out of lobby
 	                CastlewarsObjects.handleObject(player, id, x, y);
 				break;
 	            /*case 1568:

@@ -1,0 +1,15 @@
+Odel used tele 2370 3120
+Odel used myos myos
+Odel used tele 2368 3120
+Odel used tele 2368 3130
+Odel used mypos mypos
+Odel used tele 2401 9509
+Odel used tele 2401 9513
+Odel used tele 2423 3072
+Odel used item 4053
+Odel used mypos mypos
+Odel used item 4049
+Odel used 4388 4388
+Odel used mypos mypos
+Odel used tele 2440 3089
+Odel used tele 2440 3089 0
