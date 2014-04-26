@@ -409,7 +409,7 @@ public class Allotments {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
-		if (farmingState[allotmentFieldsData.getAllotmentIndex()] == 1 || farmingStages[allotmentFieldsData.getAllotmentIndex()] <= 1 || farmingStages[allotmentFieldsData.getAllotmentIndex()] == allotmentData.getEndingState() - allotmentData.getStartingState() + 4) {
+        if (farmingState[allotmentFieldsData.getAllotmentIndex()] != 0 || farmingStages[allotmentFieldsData.getAllotmentIndex()] <= 1 || farmingStages[allotmentFieldsData.getAllotmentIndex()] == allotmentData.getEndingState() - allotmentData.getStartingState() + 4) {
 			player.getActionSender().sendMessage("This patch doesn't need watering.");
 			return true;
 		}

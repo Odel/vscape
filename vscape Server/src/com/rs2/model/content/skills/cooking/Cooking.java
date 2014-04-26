@@ -381,12 +381,19 @@ public class Cooking {
 					player.getActionSender().sendSound(1039, 1, 0);
 					return true;
 
-				case 5331:// watering can
-					player.getInventory().getItemContainer().replace(5331, 5340);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
+                case 5331:// watering can
+                case 5333:
+                case 5334:
+                case 5335:
+                case 5336:
+                case 5337:
+                case 5338:
+                case 5339:                                     
+                        player.getInventory().getItemContainer().replace(item, 5340);
+                        player.getUpdateFlags().sendAnimation(832);
+                        player.getActionSender().sendMessage("You fill the Watering Can from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
+                        player.getActionSender().sendSound(1039, 1, 0);
+                        return true;
 				}
 			}
 		}

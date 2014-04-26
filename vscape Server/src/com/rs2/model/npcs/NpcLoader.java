@@ -159,6 +159,19 @@ public class NpcLoader {
 	    if(message != null)
             npc.getUpdateFlags().sendForceMessage(message);
     }
+	
+	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean follow, boolean walk) {
+		Npc npc = new Npc(id);
+		npc.setPosition(new Position(x, y, heightLevel));
+		npc.setSpawnPosition(new Position(x, y, heightLevel));
+        npc.setWalkType(WalkType.STAND);
+        npc.setDontFollow(follow);
+        npc.setDontWalk(walk);
+		npc.setCurrentX(x);
+		npc.setCurrentY(y);
+        npc.setNeedsRespawn(false);
+		World.register(npc);
+	}
 
 	public static void destroyNpc(Npc npc) {
 		if (npc.getPlayerOwner() != null) {

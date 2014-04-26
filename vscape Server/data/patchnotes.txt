@@ -1,8 +1,12 @@
 @dre@=APR ?=
 -Changes to churning
- making butter only requires milk
- making cheese only requires butter
- 
+ making butter only requires milk,
+ making cheese only requires butter,
+-Bolt strength has been corrected.
+-Misc farming fixes
+ farming store will now sell the correct trowel,
+ garden pie now has skill effect,
+ watering diseased crops has been fixed.
 
 @dre@=APR 25=
 @red@-Quite large Client Update.

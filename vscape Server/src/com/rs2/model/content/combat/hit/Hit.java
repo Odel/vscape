@@ -14,6 +14,7 @@ import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.ground.GroundItem;
@@ -167,7 +168,7 @@ public class Hit {
 							break;
 						default :
 							player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
-							damage = 30 + Misc.random(30);
+							damage = 30 + Misc.random(20);
 							break;
 					}
 					if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
@@ -230,6 +231,13 @@ public class Hit {
                     }
                     RingEffect.ringOfLife(player);
                 }
+            }
+        }
+        if (attacker != null && attacker.isPlayer() && victim.isNpc()){
+            Player player = (Player) attacker;
+            if(player.inPestControlGameArea() && ((Npc)victim).inPestControlGameArea())
+            {
+        		PestControl.handlePlayerHit(player, ((Npc)victim), damage);
             }
         }
         if (hitDef.getSpecialEffect() != 5) { // d spear
