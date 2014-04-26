@@ -13,6 +13,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.skills.Menus;
@@ -1070,6 +1071,44 @@ public class WalkToActionHandler {
 				case 3409: //Bellows in Elemental Workshop
 
 					break;
+				case 4411:
+	            case 4415:
+	            case 4417:
+	            case 4418:
+	            case 4419:
+	            case 4420:
+	            case 4469:
+	            case 4470:
+	            case 4911:
+	            case 4912:
+	            //case 1747:
+	            //case 1757:
+	            case 4437:
+	            case 6281:
+	            case 6280:
+	            case 4472:
+	            case 4471:
+	            case 4406:
+	            case 4407:
+	            case 4458:
+	            case 4902:
+	            case 4903:
+	            case 4900:
+	            case 4901:
+	            case 4461:
+	            case 4463:
+	            case 4464:
+	            case 4377:
+	            case 4378:
+	                CastlewarsObjects.handleObject(player, id, x, y);
+				break;
+	            /*case 1568:
+	                if (x== 3097 && y == 3468) {
+						//c.getPA().movePlayer(3097, 9868, 0);
+	                } else {
+	                    CastleWarObjects.handleObject(player, x, y, z);
+	                }
+	                break;*/
 				case 4031: //shantay pass
 					if(player.getPosition().getY() < 3116)
 					{
