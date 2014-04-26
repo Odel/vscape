@@ -7,6 +7,15 @@
  farming store will now sell the correct trowel,
  garden pie now has skill effect,
  watering diseased crops has been fixed.
+-Animation fixes for these npc's
+ Goblins
+ Chickens
+ Bears
+ Scorpions
+ Small spiders
+ Giant spiders
+ Ghost
+ Unicorn
 
 @dre@=APR 25=
 @red@-Quite large Client Update.
