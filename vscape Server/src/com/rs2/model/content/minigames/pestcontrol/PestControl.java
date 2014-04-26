@@ -2,6 +2,7 @@ package com.rs2.model.content.minigames.pestcontrol;
 
 import java.util.ArrayList;
 
+import com.rs2.model.Entity;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -15,40 +16,96 @@ import com.rs2.util.Misc;
 public class PestControl {
 
 	private final static int LOBBY_TIME = 30;
-	private final static int GAME_TIME = 200;
+	private final static int GAME_TIME = 300;
 	private final static int PLAYERS_REQUIRED = 1;
 	
 	private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
 	
 	private static int lobbyTime = LOBBY_TIME;
-	private static int gameTime = -1;
+	private static int gameTime = 0;
 	
 	private static boolean gameActive = false;
 	
-	public static final Position LOBBY_EXIT = new Position(2657,2639,0);
-	public static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
-	public static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
+	private static final Position LOBBY_EXIT = new Position(2657,2639,0);
+	private static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
+	private static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
 	
 	//6142 - 6145 normal portal
 	//6146 - 6150 shielded portals
+
+	public enum PortalData {
+		WEST(6146, 6142, 2628, 2591, "W"), 
+		EAST(6147, 6143, 2680, 2588, "E"), 
+		SOUTHEAST(6148, 6144, 2669, 2570, "SE"), 
+		SOUTHWEST(6149, 6145, 2645, 2569, "SW"); 
+		
+		private int shieldId;
+		private int normalId;
+		private int x;
+		private int y;
+		private String name;
+		
+		private PortalData(int shieldId, int normalId, int x, int y, String name) {
+			this.shieldId = shieldId;
+			this.normalId = normalId;
+			this.x = x;
+			this.y = y;
+			this.name = name;
+		}
+
+		public static PortalData forShield(int shieldId)
+		{
+			for (PortalData portalData : PortalData.values()) {
+				if (shieldId == portalData.shieldId)
+					return portalData;
+			}
+			return null;
+		}
+		
+		public static PortalData forNormal(int normalId)
+		{
+			for (PortalData portalData : PortalData.values()) {
+				if (normalId == portalData.normalId)
+					return portalData;
+			}
+			return null;
+		}
+	}
+	private static int[] PORTAL_HEALTH = {250,250,250,250};
+	private static boolean[] PORTAL_SHIELD = {true, true, true, true};
+	private final static int SHIELD_TIME = 30;
+	private static int shieldTime = 0;
 	
-	//unshield - shield - x - y - health
-	private static final int[][] PORTAL_DATA = {
-		{6142, 6146, 2628, 2591}, 
-		{6143, 6147, 2680, 2588}, 
-		{6144, 6148, 2669, 2570},
-		{6145, 6149, 2645, 2569}
-	};
-	public static int[] PORTAL_HEALTH = {250,250,250,250};
-	
-	private final static int SHIELD_TIME = 60;
-	private static int shieldTime = -1;
+	public enum GruntData {
+		BRAWLER(3772, false); 
+		
+		private int npcId;
+		private boolean attackKnight;
+		
+		private GruntData(int npcId, boolean attackKnight) {
+			this.npcId = npcId;
+			this.attackKnight = attackKnight;
+		}
+
+		public static GruntData forId(int npcId)
+		{
+			for (GruntData gruntData : GruntData.values()) {
+				if (npcId == gruntData.npcId)
+					return gruntData;
+			}
+			return null;
+		}
+	}
+	private final static int GRUNT_TIME = 30;
+	private static int gruntTime = 0;
 	
 	private static int[][] KNIGHT_DATA = {
 			{3782, 2656, 2592}
 	};
-	public static int KNIGHT_HEALTH = 250;
+	private static int KNIGHT_HEALTH = 200;
+	
+	private static Npc knight;
 	
 	public static void lobbyInterface(Player player) {
 		try
@@ -135,9 +192,34 @@ public class PestControl {
 				{
 					if (gameTime > 0 ) {
 						gameTime -= 5;
+						if(!allPortalsUnShielded())
+						{
+							shieldTime += 5;
+							if(shieldTime >= SHIELD_TIME)
+							{
+								removePortalShield();
+							}
+						}
+						if (!allPortalsDead())
+						{
+							gruntTime += 5;
+							if(gruntTime >= GRUNT_TIME)
+							{
+								spawnGrunts();
+							}
+						}
 						if (allPortalsDead())
+						{
+							this.stop();
 							endGame(true);
-						if (gameTime <= 0) {
+							return;
+						}
+						if (gameTime <= 0 && allPortalsDead()) {
+							this.stop();
+							endGame(true);
+							return;
+						}
+						if (gameTime <= 0 && !allPortalsDead()) {
 							this.stop();
 							endGame(false);
 							return;
@@ -151,6 +233,8 @@ public class PestControl {
 	private static void startGame() {
 		try {
 			spawnMainNpcs();
+			shieldTime = 0;
+			gruntTime = 0;
 			gameTime = GAME_TIME;
 			lobbyTime = LOBBY_TIME;
 			gameActive = true;
@@ -201,11 +285,14 @@ public class PestControl {
 	
 	private static void resetGame()
 	{
+		gameActive = false;
+		shieldTime = 0;
+		gruntTime = 0;
 		gameTime = 0;
 		lobbyTime = LOBBY_TIME;
-		gameActive = false;
 		gamePlayers.clear();
 		destroyAllNpcs();
+		resetShields();
 	}
 	
 	private static void resetLobby()
@@ -214,16 +301,78 @@ public class PestControl {
 		lobbyPlayers.clear();
 	}
 	
-	public static void spawnMainNpcs() {
-		for(int i = 0; i < PORTAL_DATA.length; i++) {
+	private static void spawnMainNpcs() {
+		for(int i = 0; i < PortalData.values().length; i++) {
+			PortalData data = PortalData.values()[i];
 			setPortalHealth(i,250);
-			NpcLoader.spawnNpc(PORTAL_DATA[i][0], PORTAL_DATA[i][2], PORTAL_DATA[i][3], 0,false,false);
+			NpcLoader.spawnNpc(data.shieldId, data.x, data.y, 0,true,true);
 		}
-		setKnightHealth(250);
-		NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,false,false);
+		NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,true,true);
+		setKnightHealth(200);
+		for(Npc npc : World.getNpcs())
+		{
+			if(npc == null)
+				continue;
+			if(npc.getDefinition().getName().toLowerCase().contains("knight"))
+			{
+				if(npc.inPestControlGameArea() && knight == null)
+				{
+					knight = npc;
+				}
+			}
+		}
 	}
 	
-	public static void destroyAllNpcs() {
+	private static void spawnGrunts()
+	{
+		for(int i = 0; i < PortalData.values().length; i++) {
+			if(!isPortalDead(i)){
+				gruntTime = 0;
+				PortalData portalData = PortalData.values()[i];
+				GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
+				NpcLoader.spawnNpc(gruntData.npcId, portalData.x + Misc.random(3), portalData.y+ Misc.random(3), 0, true, true);
+			}
+		}
+	}
+	
+	private static void removePortalShield() {
+		shieldTime = 0;
+		int portalToUnShield = Misc.randomMinusOne(PORTAL_SHIELD.length);
+		if(!PORTAL_SHIELD[portalToUnShield])
+		{
+			removePortalShield();
+			return;
+		}
+		for(Npc npc : World.getNpcs())
+		{
+			if(npc == null)
+				continue;
+			PortalData portalData = PortalData.forShield(npc.getNpcId());
+			if(npc.inPestControlGameArea() && portalData != null)
+			{
+				npc.sendTransform(portalData.normalId, 999999);
+				PORTAL_SHIELD[portalToUnShield] = false;
+				sendGameMessage("@dbl@The Void Knight has disabled the "+ portalData.name +" Shield!");
+			}
+		}
+	}
+	
+	private static void resetShields() {
+		for (int i = 0; i < PORTAL_SHIELD.length; i++) {
+			PORTAL_SHIELD[i] = true;
+		}
+	}
+	
+	private static boolean allPortalsUnShielded() {
+		int count = 0;
+		for (int i = 0; i < PORTAL_SHIELD.length; i++) {
+			if (!PORTAL_SHIELD[i])
+				count++;
+		}
+		return count >= PORTAL_SHIELD.length;
+	}
+	
+	private static void destroyAllNpcs() {
 		for(Npc npc : World.getNpcs())
 		{
 			if(npc == null)
@@ -235,26 +384,30 @@ public class PestControl {
 		}
 	}
 	
-	public static void setKnightHealth(int amount) {
+	private static void setKnightHealth(int amount) {
 		if(amount <= 0)
 			amount = 0;
 		
 		KNIGHT_HEALTH = amount;
 	}
 	
-	public static int getKnightHealth() {
+	private static int getKnightHealth() {
 		return KNIGHT_HEALTH;
 	}
 	
-	public static void setPortalHealth(int index, int amount) {
+	private static void setPortalHealth(int index, int amount) {
 		if(amount <= 0)
 			amount = 0;
 		
 		PORTAL_HEALTH[index] = amount;
 	}
 	
-	public static int getPortalHealth(int index) {
+	private static int getPortalHealth(int index) {
 		return PORTAL_HEALTH[index];
+	}
+	
+	private static boolean isPortalDead(int index) {
+		return getPortalHealth(index) <= 0;
 	}
 	
 	private static boolean allPortalsDead() {
@@ -266,28 +419,42 @@ public class PestControl {
 		return count >= PORTAL_HEALTH.length;
 	}
 	
-	public static void handlePlayerHit(final Player player,final Npc npc, final int damage)
+	public static void handleHit(final Entity attacker,final Entity victim, final int damage)
 	{
-		if (npc.getNpcId() >= 3777 && npc.getNpcId() <= 3782 || npc.getNpcId() >= 6142 && npc.getNpcId() <= 6149) {
-			switch(npc.getNpcId())
-			{
-				case 3782:
-					setKnightHealth(npc.getCurrentHp());
-					break;
-				case 6142:
-					setPortalHealth(0, npc.getCurrentHp());
-					break;
-				case 6143:
-					setPortalHealth(1, npc.getCurrentHp());
-					break;
-				case 6144:
-					setPortalHealth(2, npc.getCurrentHp());
-					break;
-				case 6145:
-					setPortalHealth(3, npc.getCurrentHp());
-					break;
+		if (attacker.isPlayer() && victim.isNpc()){
+			Player player = (Player) attacker;
+			Npc npc = (Npc) victim;
+			if (npc.getNpcId() >= 3777 && npc.getNpcId() <= 3780 || npc.getNpcId() >= 6142 && npc.getNpcId() <= 6149) {
+				switch(npc.getNpcId())
+				{
+					case 6142:
+						setPortalHealth(0, npc.getCurrentHp());
+						break;
+					case 6143:
+						setPortalHealth(1, npc.getCurrentHp());
+						break;
+					case 6144:
+						setPortalHealth(2, npc.getCurrentHp());
+						break;
+					case 6145:
+						setPortalHealth(3, npc.getCurrentHp());
+						break;
+				}
+				player.addPcDamage(damage);
 			}
-			player.addPcDamage(damage);
+		}
+		if (attacker.isNpc() && victim.isNpc()){
+			Npc npc1 = (Npc) attacker;
+			Npc npc2 = (Npc) victim;
+			
+			if (npc1.getNpcId() >= 3777 && npc1.getNpcId() <= 3780 || npc1.getNpcId() >= 6142 && npc1.getNpcId() <= 6149) {
+				switch(npc2.getNpcId())
+				{
+					case 3782:
+						setKnightHealth(npc2.getCurrentHp());
+						break;
+				}
+			}
 		}
 	}
 	
@@ -296,7 +463,29 @@ public class PestControl {
 		
 	}
 	
-	public static void joinLobby(Player player) {
+	private static void sendLobbyMessage(String msg)
+	{
+		for(Player player : new ArrayList<Player>(lobbyPlayers))
+		{
+			if (player != null)
+			{
+				player.getActionSender().sendMessage(msg);
+			}
+		}
+	}
+	
+	private static void sendGameMessage(String msg)
+	{
+		for(Player player : new ArrayList<Player>(gamePlayers))
+		{
+			if (player != null)
+			{
+				player.getActionSender().sendMessage(msg);
+			}
+		}
+	}
+	
+	private static void joinLobby(Player player) {
 		if (player != null) {
 			if(!isInLobby(player))
 			{
@@ -359,11 +548,11 @@ public class PestControl {
 		return gamePlayers.size();
 	}
 	
-	public static boolean isInLobby(Player player) {
+	private static boolean isInLobby(Player player) {
 		return lobbyPlayers.contains(player);
 	}
 	
-	public static boolean isInGame(Player player) {
+	private static boolean isInGame(Player player) {
 		return gamePlayers.contains(player);
 	}
 	

@@ -160,13 +160,20 @@ public class NpcLoader {
             npc.getUpdateFlags().sendForceMessage(message);
     }
 	
-	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean follow, boolean walk) {
+	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean DontFollow, boolean DontWalk) {
 		Npc npc = new Npc(id);
 		npc.setPosition(new Position(x, y, heightLevel));
 		npc.setSpawnPosition(new Position(x, y, heightLevel));
-        npc.setWalkType(WalkType.STAND);
-        npc.setDontFollow(follow);
-        npc.setDontWalk(walk);
+        npc.setDontFollow(DontFollow);
+        npc.setDontWalk(DontWalk);
+        if(!DontWalk)
+        {
+    		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
+    		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
+            npc.setWalkType(WalkType.WALK);
+        }else{
+        	 npc.setWalkType(WalkType.STAND);
+        }
 		npc.setCurrentX(x);
 		npc.setCurrentY(y);
         npc.setNeedsRespawn(false);

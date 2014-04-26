@@ -233,12 +233,9 @@ public class Hit {
                 }
             }
         }
-        if (attacker != null && attacker.isPlayer() && victim.isNpc()){
-            Player player = (Player) attacker;
-            if(player.inPestControlGameArea() && ((Npc)victim).inPestControlGameArea())
-            {
-        		PestControl.handlePlayerHit(player, ((Npc)victim), damage);
-            }
+        if(attacker.inPestControlGameArea() && victim.inPestControlGameArea())
+        {
+    		PestControl.handleHit(attacker, victim, damage);
         }
         if (hitDef.getSpecialEffect() != 5) { // d spear
             display();
