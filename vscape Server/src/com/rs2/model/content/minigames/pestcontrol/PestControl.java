@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
+import com.rs2.model.World;
+import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
@@ -12,8 +15,8 @@ import com.rs2.util.Misc;
 public class PestControl {
 
 	private final static int LOBBY_TIME = 30;
-	private final static int GAME_TIME = 300;
-	private final static int PLAYERS_REQUIRED = 2;
+	private final static int GAME_TIME = 200;
+	private final static int PLAYERS_REQUIRED = 1;
 	
 	private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -27,12 +30,25 @@ public class PestControl {
 	public static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
 	public static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
 	
-	
 	//6142 - 6145 normal portal
 	//6146 - 6150 shielded portals
 	
+	//unshield - shield - x - y - health
+	private static final int[][] PORTAL_DATA = {
+		{6142, 6146, 2628, 2591}, 
+		{6143, 6147, 2680, 2588}, 
+		{6144, 6148, 2669, 2570},
+		{6145, 6149, 2645, 2569}
+	};
+	public static int[] PORTAL_HEALTH = {250,250,250,250};
+	
 	private final static int SHIELD_TIME = 60;
 	private static int shieldTime = -1;
+	
+	private static int[][] KNIGHT_DATA = {
+			{3782, 2656, 2592}
+	};
+	public static int KNIGHT_HEALTH = 250;
 	
 	public static void lobbyInterface(Player player) {
 		try
@@ -52,7 +68,7 @@ public class PestControl {
 			
 			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 18790);
 			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 18791);
-			player.getActionSender().sendString("Commendation Points: 0", 18792);
+			player.getActionSender().sendString("Commendation Points: "+player.getPcPoints(), 18792);
 		} catch (Exception e) {
 		}
 	}
@@ -65,12 +81,15 @@ public class PestControl {
 			seconds = gameTime % 60;
 			String timeLeft;
 			
-			player.getActionSender().sendString("0", 18800);
-			player.getActionSender().sendString("0", 18801);
-			player.getActionSender().sendString("port 1", 18802);
-			player.getActionSender().sendString("port 2", 18803);
-			player.getActionSender().sendString("port 3", 18804);
-			player.getActionSender().sendString("port 4", 18805);
+			player.getActionSender().sendString(""+KNIGHT_HEALTH, 18800);
+			player.getActionSender().sendString(""+player.getPcDamage(), 18801);
+			for (int i = 0; i < PORTAL_HEALTH.length; i++) {
+				if (PORTAL_HEALTH[i] > 0) {
+					player.getActionSender().sendString(""+PORTAL_HEALTH[i], 18802+i);
+				} else {
+					player.getActionSender().sendString("Dead", 18802+i);
+				}
+			}
 			if(seconds > 9)
 			 	timeLeft = "Time Remaining: "+minutes+":"+seconds;
 			else
@@ -115,9 +134,9 @@ public class PestControl {
 				else
 				{
 					if (gameTime > 0 ) {
-						gameTime -= 5;/*
+						gameTime -= 5;
 						if (allPortalsDead())
-							endGame(true);*/
+							endGame(true);
 						if (gameTime <= 0) {
 							this.stop();
 							endGame(false);
@@ -131,6 +150,7 @@ public class PestControl {
 	
 	private static void startGame() {
 		try {
+			spawnMainNpcs();
 			gameTime = GAME_TIME;
 			lobbyTime = LOBBY_TIME;
 			gameActive = true;
@@ -159,7 +179,7 @@ public class PestControl {
 			{
 				if (player != null)
 				{
-					if(player.inPestControlGameArea() && isInGame(player))
+					if(player.inPestControlGameArea())
 					{
 						leaveGame(player);
 						if(gameWon)
@@ -173,10 +193,10 @@ public class PestControl {
 					}
 				}
 			}
-			resetGame();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		resetGame();
 	}
 	
 	private static void resetGame()
@@ -185,6 +205,7 @@ public class PestControl {
 		lobbyTime = LOBBY_TIME;
 		gameActive = false;
 		gamePlayers.clear();
+		destroyAllNpcs();
 	}
 	
 	private static void resetLobby()
@@ -193,10 +214,86 @@ public class PestControl {
 		lobbyPlayers.clear();
 	}
 	
-	public static void spawnPortals() {
-		for(int i = 0; i < 4; i++) {
-			
+	public static void spawnMainNpcs() {
+		for(int i = 0; i < PORTAL_DATA.length; i++) {
+			setPortalHealth(i,250);
+			NpcLoader.spawnNpc(PORTAL_DATA[i][0], PORTAL_DATA[i][2], PORTAL_DATA[i][3], 0,false,false);
 		}
+		setKnightHealth(250);
+		NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,false,false);
+	}
+	
+	public static void destroyAllNpcs() {
+		for(Npc npc : World.getNpcs())
+		{
+			if(npc == null)
+				continue;
+			if(npc.inPestControlGameArea())
+			{
+				NpcLoader.destroyNpc(npc);
+			}
+		}
+	}
+	
+	public static void setKnightHealth(int amount) {
+		if(amount <= 0)
+			amount = 0;
+		
+		KNIGHT_HEALTH = amount;
+	}
+	
+	public static int getKnightHealth() {
+		return KNIGHT_HEALTH;
+	}
+	
+	public static void setPortalHealth(int index, int amount) {
+		if(amount <= 0)
+			amount = 0;
+		
+		PORTAL_HEALTH[index] = amount;
+	}
+	
+	public static int getPortalHealth(int index) {
+		return PORTAL_HEALTH[index];
+	}
+	
+	private static boolean allPortalsDead() {
+		int count = 0;
+		for (int i = 0; i < PORTAL_HEALTH.length; i++) {
+			if (PORTAL_HEALTH[i] <= 0)
+				count++;
+		}
+		return count >= PORTAL_HEALTH.length;
+	}
+	
+	public static void handlePlayerHit(final Player player,final Npc npc, final int damage)
+	{
+		if (npc.getNpcId() >= 3777 && npc.getNpcId() <= 3782 || npc.getNpcId() >= 6142 && npc.getNpcId() <= 6149) {
+			switch(npc.getNpcId())
+			{
+				case 3782:
+					setKnightHealth(npc.getCurrentHp());
+					break;
+				case 6142:
+					setPortalHealth(0, npc.getCurrentHp());
+					break;
+				case 6143:
+					setPortalHealth(1, npc.getCurrentHp());
+					break;
+				case 6144:
+					setPortalHealth(2, npc.getCurrentHp());
+					break;
+				case 6145:
+					setPortalHealth(3, npc.getCurrentHp());
+					break;
+			}
+			player.addPcDamage(damage);
+		}
+	}
+	
+	public static void handleDeath(final Player player)
+	{
+		
 	}
 	
 	public static void joinLobby(Player player) {
@@ -229,6 +326,7 @@ public class PestControl {
 		if (isInGame(player)) {
 			player.teleport(LOBBY_EXIT);
 			player.resetEffects();
+			player.setPcDamage(0);
 			gamePlayers.remove(player);
 		}
 	}

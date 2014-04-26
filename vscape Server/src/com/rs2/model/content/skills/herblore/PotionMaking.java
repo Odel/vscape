@@ -69,33 +69,34 @@ public class PotionMaking {// todo description items
 	 * 
 	 * @note herb, ingredient, unfinished, finished, exp, req
 	 */
-	private static final double[][] POTIONS = {{249, 221, 91, 121, 25, 0}, // Attack Potion.
-			{251, 235, 93, 175, 37.5, 5}, // Anti-Poison.
-			{253, 225, 95, 115, 50, 12}, // Strength Potion.
-			{253, 592, 95, 3408, 50, 15}, // Serum 207
-			{255, 223, 97, 127, 62.5, 22}, // Restore Potion.
-			{255, 1581, 97, 1582, 80, 25}, // Blamish Oil.
-			{255, 1975, 97, 3010, 67.5, 26}, // Energy Potion.
-			{257, 239, 99, 133, 75, 30}, // Defence Potion.
-			{2998, 2152, 3002, 3034, 80, 34}, // Agility Potion.
-			{257, 231, 99, 139, 87.5, 38}, // Prayer Potion.
-			{259, 221, 101, 145, 100, 45}, // Super Attack Potion.
-			{259, 235, 101, 181, 106.3, 48}, // Super Anti-Poison.
-			{261, 231, 103, 151, 112.5, 50}, // Fishing Potion.
-			{261, 2970, 103, 3018, 117.5, 52}, // Super Energy Potion.
-			{263, 225, 105, 157, 125, 55}, // Super Strength Potion.
-			{263, 241, 105, 187, 137.5, 60}, // Weapon Poison.
-			{3000, 223, 3004, 3026, 142.5, 63}, // Super Restore.
-			{265, 239, 107, 163, 150, 66}, // Super Defence.
-			{2481, 241, 2483, 2454, 157.5, 69}, // Antifire.
-			{267, 245, 109, 169, 162.5, 72}, // Ranging Potion.
-			{2481, 3138, 2483, 3042, 172.5, 76}, // Magic Potion.
-			{2998, 6049, 5942, 5945, 175, 78}, // antodote+ Potion.
-			{6016, 223, 5936, 5937, 175, 78}, // weapon+ Potion.
-			{2398, 5106, 5939, 5940, 175, 78}, // weapon++ Potion.
-			{259, 6051, 101, 5954, 175, 78}, // antidote++ Potion.
-			{2998, 6693, 111, 6687, 175, 78}, // sara brew Potion.
-			{269, 247, 111, 189, 175, 78}, // Zamorak Potion.
+	private static final double[][] POTIONS = {
+        {249, 221, 91, 121, 25, 0},             // Attack Potion.
+        {251, 235, 93, 175, 37.5, 5},           // Anti-Poison.
+        {253, 225, 95, 115, 50, 12},            // Strength Potion.
+        {253, 592, 95, 3408, 50, 15},           // Serum 207
+        {255, 223, 97, 127, 62.5, 22},          // Restore Potion.
+        {255, 1581, 97, 1582, 80, 25},          // Blamish Oil.
+        {255, 1975, 97, 3010, 67.5, 26},        // Energy Potion.
+        {257, 239, 99, 133, 75, 30},            // Defence Potion.
+        {2998, 2152, 3002, 3034, 80, 34},       // Agility Potion.
+        {257, 231, 99, 139, 87.5, 38},          // Prayer Potion.
+        {259, 221, 101, 145, 100, 45},          // Super Attack Potion.
+        {259, 235, 101, 181, 106.3, 48},        // Super Anti-Poison.
+        {261, 231, 103, 151, 112.5, 50},        // Fishing Potion.
+        {261, 2970, 103, 3018, 117.5, 52},      // Super Energy Potion.
+        {263, 225, 105, 157, 125, 55},          // Super Strength Potion.
+        {263, 241, 105, 187, 137.5, 60},        // Weapon Poison.
+        {3000, 223, 3004, 3026, 142.5, 63}, // Super Restore.
+        {265, 239, 107, 163, 150, 66},          // Super Defence.
+        {2998, 6049, 5942, 5945, 175, 68},      // antidote+ Potion.
+        {267, 245, 109, 169, 162.5, 69},        // Ranging Potion.
+        {2481, 241, 2483, 2454, 157.5, 72}, // Antifire.
+        {6016, 223, 5936, 5937, 175, 73},       // weapon+ Potion.
+        {2481, 3138, 2483, 3042, 172.5, 76},// Magic Potion.
+        {269, 247, 111, 189, 175, 78},          // Zamorak Potion.
+        {259, 6051, 101, 5954, 175, 79},        // antidote++ Potion.
+        {2998, 6693, 3002, 6687, 175, 81},      // sara brew Potion.
+        {2398, 6018, 5939, 5940, 175, 82},      // weapon++ Potion.                    
 	};
 
 	public static boolean createPotion(Player player, Item useItem, Item withItem, int slot, int slotUsed) {
@@ -152,9 +153,10 @@ public class PotionMaking {// todo description items
                     container.stop();
                     return;
                 }
-				if (player.getInventory().playerHasItem(item) && player.getInventory().playerHasItem(VIAL_OF_WATER)) {
+                int vialType = (item.getId() == 6016 || item.getId() == 2398  || item.getId() == 259) ? COCONUT_MILK : VIAL_OF_WATER;
+				if (player.getInventory().playerHasItem(item) && player.getInventory().playerHasItem(vialType)) {
 					player.getInventory().removeItem(item);
-					player.getInventory().removeItem(new Item(VIAL_OF_WATER));
+					player.getInventory().removeItem(new Item(vialType));
 					player.getInventory().addItem(new Item((int) unf));
 				}
 				container.stop();

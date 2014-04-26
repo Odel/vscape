@@ -1,5 +1,6 @@
 package com.rs2.model.content.consumables;
 
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
@@ -113,6 +114,8 @@ public class Food {
 			
 			eatEasterEgg(id);
 			
+			doOtherEffects(id);
+			
 			if (f.getNewItemId() != -1)
 				player.getInventory().addItem(new Item(f.getNewItemId()));
 			player.heal(heal);
@@ -178,6 +181,17 @@ public class Food {
 				break;
 			case 7933:
 				player.getActionSender().sendMessage("Mmm... nougat");
+				break;
+		}
+	}
+	
+	private void doOtherEffects(int itemId) {
+		switch (itemId) {
+			case 7180: // garden pie
+			case 7178:
+					player.getActionSender().statEdit(Skill.FARMING, 3, false);
+                break;
+			default :
 				break;
 		}
 	}

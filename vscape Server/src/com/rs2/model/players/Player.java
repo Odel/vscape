@@ -370,8 +370,11 @@ public class Player extends Entity {
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
 	
-	public int drunkTimer;
-	public boolean isDrunk;
+	private int drunkTimer;
+	private boolean isDrunk;
+	
+	private int pcDamage;
+	private int pcPoints;
 	
 	public CanoeStationData curCanoeStation;
 
@@ -2708,6 +2711,37 @@ public class Player extends Entity {
             }
         }, time);
 	}
+	
+	public void addPcDamage(int dmg)
+	{
+		pcDamage += dmg;
+	}
+	
+	public void setPcDamage(int dmg)
+	{
+		pcDamage = dmg;
+	}
+	
+	public int getPcDamage()
+	{
+		return pcDamage;
+	}
+	
+	public void addPcPoints(int amt)
+	{
+		pcPoints += amt;
+	}
+	
+	public void setPcPoints(int amt)
+	{
+		pcPoints = amt;
+	}
+	
+	public int getPcPoints()
+	{
+		return pcPoints;
+	}
+
 
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
