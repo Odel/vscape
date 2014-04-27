@@ -522,7 +522,7 @@ public class PestControl {
 	
 	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) 
 	{
-		switch(objectId)
+	/*	switch(objectId)
 		{
 			//lander
 			case 14315: //gangplank
@@ -536,7 +536,7 @@ public class PestControl {
 						leaveLobby(player);
 			return true;
 			//pest game objects
-		}
+		}*/
 		return false;
 	}
 	

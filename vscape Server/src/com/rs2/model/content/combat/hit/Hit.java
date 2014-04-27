@@ -233,10 +233,10 @@ public class Hit {
                 }
             }
         }
-        if(attacker.inPestControlGameArea() && victim.inPestControlGameArea())
+      /*  if(attacker.inPestControlGameArea() && victim.inPestControlGameArea())
         {
     		PestControl.handleHit(attacker, victim, damage);
-        }
+        }*/
         if (hitDef.getSpecialEffect() != 5) { // d spear
             display();
         }
