@@ -1,6 +1,7 @@
 @dre@= ? =
 -Fixed potion making
 -Semiprecious gems are now crushable
+-elegant clothing added to clue rewards
 
 @dre@=APR 26=
 -Changes to churning
