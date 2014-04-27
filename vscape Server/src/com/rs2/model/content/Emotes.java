@@ -77,6 +77,7 @@ public class Emotes {
 	}
 	
 	public void performEmote(int emoteId, int graphicId) {
+		player.getMovementHandler().reset();
 		player.getUpdateFlags().sendAnimation(emoteId, 0);
 		if(graphicId > 0)
 		{
