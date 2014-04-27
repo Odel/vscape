@@ -63,89 +63,131 @@ public class PotionMaking {// todo description items
 		}
 		return false;
 	}
+	
+	public enum PotionData {
+		ATTACK(VIAL_OF_WATER, 249, 221, 91, 121, 0, 25),
+		ANTIPOISON(VIAL_OF_WATER, 251, 235, 93, 175, 5, 37.5),
+		STRENGTH(VIAL_OF_WATER, 253, 225, 95, 115, 12, 50),
+		SERUM207(VIAL_OF_WATER, 253, 592, 95, 3408, 15, 50),
+		RESTORE(VIAL_OF_WATER, 255, 223, 97, 127, 22, 62.5),
+		BLAMISHOIL(VIAL_OF_WATER, 255, 1581, 97, 1582, 25, 80),
+		ENERGY(VIAL_OF_WATER, 255, 1975, 97, 3010, 26, 67.5),
+		DEFENCE(VIAL_OF_WATER, 257, 239, 99, 133, 30, 75),
+		AGILITY(VIAL_OF_WATER, 2998, 2152, 3002, 3034, 34, 80),
+		PRAYER(VIAL_OF_WATER, 257, 231, 99, 139, 38, 87.5),
+		SUPERATTACK(VIAL_OF_WATER, 259, 221, 101, 145, 45, 100),
+		SUPERANTIPOISON(VIAL_OF_WATER, 259, 235, 101, 181, 48, 106.3),
+		FISHING(VIAL_OF_WATER, 261, 231, 103, 151, 50, 112.5),
+		SUPERENERGY(VIAL_OF_WATER, 261, 2970, 103, 3010, 52, 117.5),
+		SUPERSTRENGTH(VIAL_OF_WATER, 263, 225, 105, 157, 55, 125),
+		WEAPONPOISON(VIAL_OF_WATER, 263, 241, 105, 187, 60, 137.5),
+		SUPERRESTORE(VIAL_OF_WATER, 3000, 223, 3004, 3026, 63, 142.5),
+		SUPERDEFENCE(VIAL_OF_WATER, 265, 239, 107, 163, 66, 150),
+		ANTIDOTEPLUS(COCONUT_MILK, 2998, 6049, 5942, 5945, 68, 175),
+		RANGING(VIAL_OF_WATER, 267, 245, 109, 169, 69, 162.5),
+		ANTIFIRE(VIAL_OF_WATER, 2481, 241, 2483, 2454, 72, 157.5),
+		WEAPONPLUS(COCONUT_MILK, 6016, 223, 5936, 5937, 73, 175),
+		MAGIC(VIAL_OF_WATER, 2481, 3138, 2483, 3042, 76, 172.5),
+		ZAMORAK(VIAL_OF_WATER, 269, 247, 111, 189, 78, 175),
+		ANTIDOTEPLUSPLUS(COCONUT_MILK, 259, 6051, 101, 5954, 79, 175),
+		SARABREW(VIAL_OF_WATER, 2998, 6693, 3002, 6687, 81, 175),
+		WEAPONPLUSPLUS(COCONUT_MILK, 2398, 6018, 5939, 5940, 82, 175);
+		
+		private int vial;
+		private int herb;
+		private int ingredient2;
+		private int unfItem;
+		private int finalItem;
+		private int level;
+		private double experience;
 
-	/**
-	 * Potion data.
-	 * 
-	 * @note herb, ingredient, unfinished, finished, exp, req
-	 */
-	private static final double[][] POTIONS = {
-        {249, 221, 91, 121, 25, 0},             // Attack Potion.
-        {251, 235, 93, 175, 37.5, 5},           // Anti-Poison.
-        {253, 225, 95, 115, 50, 12},            // Strength Potion.
-        {253, 592, 95, 3408, 50, 15},           // Serum 207
-        {255, 223, 97, 127, 62.5, 22},          // Restore Potion.
-        {255, 1581, 97, 1582, 80, 25},          // Blamish Oil.
-        {255, 1975, 97, 3010, 67.5, 26},        // Energy Potion.
-        {257, 239, 99, 133, 75, 30},            // Defence Potion.
-        {2998, 2152, 3002, 3034, 80, 34},       // Agility Potion.
-        {257, 231, 99, 139, 87.5, 38},          // Prayer Potion.
-        {259, 221, 101, 145, 100, 45},          // Super Attack Potion.
-        {259, 235, 101, 181, 106.3, 48},        // Super Anti-Poison.
-        {261, 231, 103, 151, 112.5, 50},        // Fishing Potion.
-        {261, 2970, 103, 3018, 117.5, 52},      // Super Energy Potion.
-        {263, 225, 105, 157, 125, 55},          // Super Strength Potion.
-        {263, 241, 105, 187, 137.5, 60},        // Weapon Poison.
-        {3000, 223, 3004, 3026, 142.5, 63}, // Super Restore.
-        {265, 239, 107, 163, 150, 66},          // Super Defence.
-        {2998, 6049, 5942, 5945, 175, 68},      // antidote+ Potion.
-        {267, 245, 109, 169, 162.5, 69},        // Ranging Potion.
-        {2481, 241, 2483, 2454, 157.5, 72}, // Antifire.
-        {6016, 223, 5936, 5937, 175, 73},       // weapon+ Potion.
-        {2481, 3138, 2483, 3042, 172.5, 76},// Magic Potion.
-        {269, 247, 111, 189, 175, 78},          // Zamorak Potion.
-        {259, 6051, 101, 5954, 175, 79},        // antidote++ Potion.
-        {2998, 6693, 3002, 6687, 175, 81},      // sara brew Potion.
-        {2398, 6018, 5939, 5940, 175, 82},      // weapon++ Potion.                    
-	};
+		private PotionData(int vial, int herb, int ingredient2, int unfItem, int finalItem, int level, double experience) {
+			this.vial = vial;
+			this.herb = herb;
+			this.ingredient2 = ingredient2;
+			this.unfItem = unfItem;
+			this.finalItem = finalItem;
+			this.level = level;
+			this.experience = experience;
+		}
+		
+		public int getVial() {
+			return vial;
+		}
+		
+		public int getHerb() {
+			return herb;
+		}
+
+		public int getIngredient() {
+			return ingredient2;
+		}
+		
+		public int getUnfished() {
+			return unfItem;
+		}
+
+		public int getFinalItem() {
+			return finalItem;
+		}
+
+		public int getLevel() {
+			return level;
+		}
+
+		public double getExperience() {
+			return experience;
+		}
+		
+		public static PotionData forId(int itemId, int usedWith) {
+			for (PotionData potionData : PotionData.values()) {
+				if ((potionData.herb == itemId && potionData.vial == usedWith) || (potionData.vial == itemId && potionData.herb == usedWith)
+						|| (potionData.ingredient2 == itemId && potionData.unfItem == usedWith) || (potionData.unfItem == itemId && potionData.ingredient2 == usedWith))
+					return potionData;
+			}
+			return null;
+		}
+	}
 
 	public static boolean createPotion(Player player, Item useItem, Item withItem, int slot, int slotUsed) {
-		int container = VIAL_OF_WATER;
-		int item = useItem.getId(), usedItem = withItem.getId(), herb = -1;
-		double ingre = -1, unf = -1, fin = -1, exp = -1, req = -1;
-		for (double[] data : POTIONS) {
-			herb = (int) data[0];
-			ingre = data[1];
-			unf = data[2];
-			fin = data[3];
-			exp = data[4];
-			req = data[5];
-			if (herb == 6016 || ingre == 5106 || ingre == 6049) {
-				container = COCONUT_MILK;
-			} else {
-				container = VIAL_OF_WATER;
-			}
-			if ((item == herb && usedItem == container) || (item == container && usedItem == herb)) {
-				if (player.getSkill().getLevel()[Skill.HERBLORE] < req) {
-					player.getDialogue().sendStatement("You need a Herblore level of " + (int) req + " in order to make this potion.");
-					return true;
-				}
-				createUnfinished(player, herb, unf, item == container ? slot : slotUsed, item == container ? slotUsed : slot);
+		final PotionData potionData = PotionData.forId(useItem.getId(), withItem.getId());
+		if (potionData == null)
+			return false;
+		int item = useItem.getId(), usedItem = withItem.getId();
+		int vial = potionData.getVial();
+		int herb = potionData.getHerb();
+		int ingredient = potionData.getIngredient();
+		int unf = potionData.getUnfished();
+		int finished = potionData.getFinalItem();
+		int lvl = potionData.getLevel();
+		double exp = potionData.getExperience();
+		if ((item == herb && usedItem == vial) || (item == vial && usedItem == herb)) {
+			if (player.getSkill().getLevel()[Skill.HERBLORE] < lvl) {
+				player.getDialogue().sendStatement("You need a Herblore level of " + (int) lvl + " in order to make this potion.");
 				return true;
 			}
-			if ((item == unf && usedItem == ingre) || (item == ingre && usedItem == unf)) {
-				if (player.getSkill().getLevel()[Skill.HERBLORE] < req) {
-					player.getDialogue().sendStatement("You need a Herblore level of " + (int) req + " in order to make this potion.");
-					return true;
-				}
-				createFinished(player, ingre, unf, fin, exp, item == ingre ? slot : slotUsed, item == ingre ? slotUsed : slot);
+			createUnfinished(player, herb, unf, vial);
+			return true;
+		}
+		if ((item == unf && usedItem == ingredient) || (item == ingredient && usedItem == unf)) {
+			if (player.getSkill().getLevel()[Skill.HERBLORE] < lvl) {
+				player.getDialogue().sendStatement("You need a Herblore level of " + (int) lvl + " in order to make this potion.");
 				return true;
 			}
+			createFinished(player, ingredient, unf, finished, exp, item == ingredient ? slot : slotUsed, item == ingredient ? slotUsed : slot);
+			return true;
 		}
 		return false;
 	}
 
-	public static void createUnfinished(final Player player, int herb, final double unf, final int slot, final int slotUsed) {
+	public static void createUnfinished(final Player player, int herb, final int unf, final int vial) {
 		final Item item = new Item(herb, 1);
 		if (!Constants.HERBLORE_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
-		// player.getActionSender().playSound(270, 1, 0);
 		player.getUpdateFlags().sendAnimation(UNFINISHED_ANIMATION);
-		player.getActionSender().sendMessage("You put the " + item.getDefinition().getName().replace(" herb", "").toLowerCase() + " into the vial of water.");
-
-        final int taskId = player.getTask();
+		final int taskId = player.getTask();
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -153,12 +195,14 @@ public class PotionMaking {// todo description items
                     container.stop();
                     return;
                 }
-                int vialType = (item.getId() == 6016 || item.getId() == 2398  || item.getId() == 259) ? COCONUT_MILK : VIAL_OF_WATER;
-				if (player.getInventory().playerHasItem(item) && player.getInventory().playerHasItem(vialType)) {
-					player.getInventory().removeItem(item);
-					player.getInventory().removeItem(new Item(vialType));
-					player.getInventory().addItem(new Item((int) unf));
+				if (!player.getInventory().playerHasItem(item) || !player.getInventory().playerHasItem(vial)) {
+                    container.stop();
+                    return;
 				}
+				player.getInventory().removeItem(item);
+				player.getInventory().removeItem(new Item(vial));
+				player.getInventory().addItem(new Item(unf));
+				player.getActionSender().sendMessage("You put the " + item.getDefinition().getName().replace(" herb", "").toLowerCase() + " into the "+ new Item(vial).getDefinition().getName() + ".");
 				container.stop();
 			}
 			@Override

@@ -1,4 +1,7 @@
-@dre@=APR ?=
+@dre@= ? =
+-Fixed potion making
+
+@dre@=APR 26=
 -Changes to churning
  making butter only requires milk,
  making cheese only requires butter,
@@ -66,19 +69,3 @@
 -Dropping items after dying to an npc will now show
  items to the player that died to that npc.
 -Changed drop rates
-
-@dre@=APR 9=
--Selling to shops fixed.
-@dbl@will no longer return 0gp for all items
-@dbl@the price will avg out before diminishing
-@dbl@to 0 and you will reviece the avg value 
-@dbl@for the items that were above 0.
--Metal Dragons have combat scripts and dragonfire.
--Wallasalki have correct hp and combat scripts.
--Dagannoths have correct hp and combat scripts.
--Left shield halves have been removed from
- the drop table for the time being.
--Axe prices have been corrected.
- 
-@dre@=APR 8=
--diminishing returns in shops
