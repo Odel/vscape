@@ -35,7 +35,7 @@ public class Equipment {
 
 	private Player player;
 
-	private static String[] hideArms = {"robe", "top", "shirt", "platebody", "brassard", "dragon chainbody"};
+	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody"};
 	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm"};
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
