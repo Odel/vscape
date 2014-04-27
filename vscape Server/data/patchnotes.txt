@@ -1,5 +1,6 @@
 @dre@= ? =
 -Fixed potion making
+-Semiprecious gems are now crushable
 
 @dre@=APR 26=
 -Changes to churning
