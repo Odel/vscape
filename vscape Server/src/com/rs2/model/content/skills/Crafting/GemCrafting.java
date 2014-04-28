@@ -110,7 +110,7 @@ public class GemCrafting extends GemData {
 			player.getActionSender().sendItemOnInterface(interfaceFrames[interfaceType][0], 0, -1);
 			player.getActionSender().sendString("", interfaceFrames[interfaceType][1] - subStringId);
 		} else {
-			player.getActionSender().sendItemOnInterface(interfaceFrames[interfaceType][0], 120, 1595);
+			player.getActionSender().sendItemOnInterface(interfaceFrames[interfaceType][0], 120, moulds[interfaceType]);
 			player.getActionSender().sendString(interfaceMessage[interfaceType], interfaceFrames[interfaceType][1] - subStringId);
 			for (int i = 0; i < GemData.craftInterfaceArray[interfaceType].length; i++) {
 				player.getActionSender().sendUpdateItem(i, interfaceFrames[interfaceType][1], new Item(0));
