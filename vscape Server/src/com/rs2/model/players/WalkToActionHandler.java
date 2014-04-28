@@ -1162,11 +1162,10 @@ public class WalkToActionHandler {
 				case 2647: //crafting guild door
 					if(player.getPosition().getY()+1 > y)
 					{
-						if (player.getSkill().getLevel()[Skill.CRAFTING] < 40) {
-							player.getDialogue().sendStatement("You need a crafting level of 40 to enter this guild.");
+						if (!SkillHandler.hasRequiredLevel(player, Skill.CRAFTING, 40, "enter the Crafting Guild")) {
 							break;
 						}
-						if(player.getEquipment().getId(Constants.CHEST) != 1757)
+						if(player.getEquipment().getId(Constants.CHEST) != 1757 && !player.getSkillCapeHandler().wearingCape(Constants.SKILL_CRAFT))
 						{
 							player.getDialogue().sendStatement("You need to wear a Brown Apron to enter this guild.");
 							break;

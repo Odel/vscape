@@ -3,7 +3,7 @@
 -Semiprecious gems are now crushable
 -Elegant clothing added to clue rewards
 -Bracelet crafting
--Crafting guild Fixes
+-Crafting guild changes
 
 @dre@=APR 26=
 -Changes to churning

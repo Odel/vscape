@@ -4354,6 +4354,14 @@ public class Dialogues {
 					return true;
 				}
 			break;
+			case 805 : //crafting master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hello, and welcome to the Crafting Guild. Accomplished","crafters from all over the land come here to use our","top notch workshops.", CONTENT);
+						player.getDialogue().endDialogue();
+					return true;
+				}
+			break;
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();

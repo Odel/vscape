@@ -72,6 +72,7 @@ import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
 import com.rs2.model.content.skills.SkillcapeEmotes;
+import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
@@ -176,6 +177,7 @@ public class Player extends Entity {
 	private Teleportation teleportation = new Teleportation(this);
 	private Emotes emotes = new Emotes(this);
 	private SkillcapeEmotes skillcapeEmotes = new SkillcapeEmotes(this);
+	private SkillCapeHandler skillcapeHandler = new SkillCapeHandler(this);
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private Slayer slayer = new Slayer(this);
@@ -2914,6 +2916,10 @@ public class Player extends Entity {
 		return skillcapeEmotes;
 	}
 	
+	public SkillCapeHandler getSkillCapeHandler() {
+		return skillcapeHandler;
+	}
+
 	public boolean shouldAutoRetaliate() {
 		return autoRetaliate;
 	}
