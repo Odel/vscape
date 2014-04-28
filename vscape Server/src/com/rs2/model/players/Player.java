@@ -54,6 +54,7 @@ import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
 import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
 import com.rs2.model.content.minigames.duelarena.DuelMainData;
@@ -373,6 +374,8 @@ public class Player extends Entity {
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
+
+	public CastlewarsPlayer cwplayer;
 	
 	private int drunkTimer;
 	private boolean isDrunk;

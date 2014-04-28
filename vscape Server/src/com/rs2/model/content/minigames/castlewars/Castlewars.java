@@ -8,6 +8,8 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.players.Player;
 
 public class Castlewars {
+	//TODO make a class that represents a game instance
+	//public gameinstance = new CastlewarsGame();
 	public static final boolean ENABLED = false;
     private static final int GAME_TIMER = 200; //1500 * 600 = 900000ms = 15 minutes
     private static final int GAME_START_TIMER = 30;

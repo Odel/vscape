@@ -26,23 +26,27 @@ public class CastlewarsObjects {
         	break;
         	case 4388: //zammy portal
         		Castlewars.sendPlayerToLobby(player, "zamorak");
+                player.cwplayer = new CastlewarsPlayer(2,true);
         	break;
         	case 4387: //sara portal
         		Castlewars.sendPlayerToLobby(player, "saradomin");
+                player.cwplayer = new CastlewarsPlayer(1,true);
         	break;
         	case 4390:
             	System.out.println("Player leaving CW zammy lobby");
                 Castlewars.removePlayerFromCw(player);
+                player.cwplayer = null;
         	break;
         	case 4389:
             	System.out.println("Player leaving CW sara lobby");
                 Castlewars.removePlayerFromCw(player);
+                player.cwplayer = null;
         	break;
             case 4469:
-                /*if (CastleWars.getTeamNumber(c) == 2) {
+                if (player.cwplayer.getTeamNumber() == 2) {
                     player.getActionSender().sendMessage("You are not allowed in the other teams spawn point.");
                     break;
-                }*/
+                }
                 if (x == 2426) {
                     if (player.getPosition().getX() == 3080) {
                         player.teleport(new Position(2426, 3081, player.getPosition().getZ()));
@@ -58,10 +62,10 @@ public class CastlewarsObjects {
                 }
                 break;
             case 4470:
-                /*if (CastleWars.getTeamNumber(c) == 1) {
+                if (player.cwplayer.getTeamNumber() == 1) {
                     player.getActionSender().sendMessage("You are not allowed in the other teams spawn point.");
                     break;
-                }*/
+                }
                 if (x == 2373 && y == 3126) {
                     if (player.getPosition().getY() == 3126) {
                         player.teleport(new Position(2373, 3127, 1));
@@ -185,25 +189,25 @@ public class CastlewarsObjects {
                 break;
             case 4902: //sara flag
             case 4377:
-                /*switch (//CastleWars.getTeamNumber(c)) {
+                switch (player.cwplayer.getTeamNumber()) {
                     case 1:
                         //CastleWars.returnFlag(c, player.playerEquipment[player.playerWeapon]);
                         break;
                     case 2:
                         //CastleWars.captureFlag(c);
                         break;
-                }*/
+                }
                 break;
             case 4903: //zammy flag
             case 4378:
-                /*switch (//CastleWars.getTeamNumber(c)) {
+                switch (player.cwplayer.getTeamNumber()) {
                     case 1:
                         //CastleWars.captureFlag(c);
                         break;
                     case 2:
                         //CastleWars.returnFlag(c, player.playerEquipment[player.playerWeapon]);
                         break;
-                }*/
+                }
                 break;
             case 4461: //barricades
                 player.getActionSender().sendMessage("You get a barricade!");
