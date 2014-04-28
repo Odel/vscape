@@ -1159,6 +1159,25 @@ public class WalkToActionHandler {
 						QuestHandler.completeQuest(player,6);
 					}
 					break;
+				case 2647: //crafting guild door
+					if(player.getPosition().getY()+1 > y)
+					{
+						if (player.getSkill().getLevel()[Skill.CRAFTING] < 40) {
+							player.getDialogue().sendStatement("You need a crafting level of 40 to enter this guild.");
+							break;
+						}
+						if(player.getEquipment().getId(Constants.CHEST) != 1757)
+						{
+							player.getDialogue().sendStatement("You need to wear a Brown Apron to enter this guild.");
+							break;
+						}
+					}
+					player.getActionSender().walkThroughDoor(2647, x, y, z);
+					player.getActionSender().walkTo(0, player.getPosition().getY()+1 > y ? -1 : 1, true);
+					break;
+				case 9582:// craftguild staircase up
+					Ladders.checkClimbTallStaircase(player, "up");
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;

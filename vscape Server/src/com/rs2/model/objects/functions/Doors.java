@@ -56,7 +56,7 @@ public class Doors {
 
 	public static boolean handleDoor(int id, int x, int y, int z) {
 		final String objectName = GameObjectData.forId(id) != null ? GameObjectData.forId(id).getName().toLowerCase() : "";
-		if (!objectName.contains("fence") && !objectName.contains("gate") && !objectName.contains("door") || objectName.contains("trapdoor") || objectName.contains("tree")) {
+		if (!objectName.contains("fence") && !objectName.contains("gate") && !objectName.contains("door") || objectName.contains("trapdoor") || objectName.contains("tree") || objectName.contains("guild") ) {
 			return false;
 		}
 		/* Special Doors */
