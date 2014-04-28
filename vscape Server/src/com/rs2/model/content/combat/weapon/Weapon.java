@@ -10,7 +10,8 @@ import com.rs2.model.players.item.ItemDefinition;
 public enum Weapon {
 
 	// movementAnimations are { stand, walk, run }
-	FISTS(WeaponInterface.FISTS, 4, new int[]{422, 423, 422}, Constants.MOVEMENT_ANIMS, 424), SHORT_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 4, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
+	FISTS(WeaponInterface.FISTS, 4, new int[]{422, 423, 422}, Constants.MOVEMENT_ANIMS, 424), 
+	SHORT_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 4, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     SPECIAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
 	CRYSTAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.CRYSTAL, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     OGRE_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.OGRE, 8, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),

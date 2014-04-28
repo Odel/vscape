@@ -1042,6 +1042,12 @@ public class ActionSender {
 		new GameObject(id1, x1, y1, h, g.getRotation() - 1, 0, id1, 2,
 				g.getRotation(), x1, y1, false);
 	}
+	public void walkThroughDoor(final int id1, final int x1, final int y1,
+			final int h, final int type, final int face) {
+		final CacheObject g = ObjectLoader.object(id1, x1, y1, h);
+		new GameObject(id1, x1, y1, h, face, type, id1, 2,
+				g.getRotation(), x1, y1, false);
+	}
 
 	public void walkThroughDoubleDoor(final int id1, final int id2,
 			final int x1, final int y1, final int x2, final int y2, final int h) {

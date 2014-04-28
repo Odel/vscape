@@ -1177,6 +1177,25 @@ public class WalkToActionHandler {
 				case 9582:// craftguild staircase up
 					Ladders.checkClimbTallStaircase(player, "up");
 					break;
+				case 2514: //range guild door
+					if(player.getPosition().getX()-1 < x)
+					{
+						if (!SkillHandler.hasRequiredLevel(player, Skill.RANGED, 40, "enter the Range Guild")) {
+							break;
+						}
+					}
+					player.getActionSender().walkTo(player.getPosition().getX()-1 < x ? 2 : -2, 0, true);
+					break;
+				case 2025: // fishing guild
+					if(player.getPosition().getY()-1 < y)
+					{
+						if (!SkillHandler.hasRequiredLevel(player, Skill.FISHING, 68, "enter the Fishing Guild")) {
+							break;
+						}
+					}
+					player.getActionSender().walkThroughDoor(2025, x, y, z);
+					player.getActionSender().walkTo(0, player.getPosition().getY()+1 > y ? -1 : 1, true);
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;
