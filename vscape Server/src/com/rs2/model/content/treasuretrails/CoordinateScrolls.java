@@ -36,7 +36,7 @@ public class CoordinateScrolls {
 		COORDINATE_1(2723, 25, 3, 23, 24, "north", "east", 3), //correct
 		COORDINATE_2(2725, 25, 3, 17, 5, "north", "east", 3), //correct
 		COORDINATE_3(2731, 24, 58, 18, 43, "north", "east", 3), //correct
-		COORDINATE_4(2733, 24, 56, 22, 58, "north", "east", 3), //correct
+		COORDINATE_4(2733, 24, 56, 22, 56, "north", "east", 3), //correct
 		COORDINATE_5(2735, 24, 24, 26, 24, "north", "east", 3), //correct
 		COORDINATE_6(2737, 22, 45, 26, 33, "north", "east", 3), //correct
 		COORDINATE_7(2739, 22, 35, 19, 18, "north", "east", 3), //correct

@@ -1537,6 +1537,29 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 10014 : //Combat bracelet
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Burthorpe", "Champions' Guild", "Monastery", "Ranging Guild", "Nowhere");
+						return true;
+					case 2 :
+						switch(optionId) {
+						case 1:
+							JewelleryTeleport.teleport(player, Teleportation.BURTHORPE);
+							break;
+						case 2:
+							JewelleryTeleport.teleport(player, Teleportation.CHAMPGUILD);
+							break;
+						case 3:
+							JewelleryTeleport.teleport(player, Teleportation.MONASTERY);
+							break;
+						case 4:
+							JewelleryTeleport.teleport(player, Teleportation.RANGEGUILD);
+							break;
+						}
+						break;
+				}
+				break;
 			case 10004 : //ring of duel
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

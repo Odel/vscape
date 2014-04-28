@@ -8,6 +8,7 @@ public class JewelleryTeleport {
 
 	public enum Jewellery {
 		GLORY(new int[]{1712, 1710, 1708, 1706, 1704}),
+		COMBATBRACELET(new int[]{11118, 11120, 11122, 11124, 11126}),
 		DUELLING(new int[]{2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, -1}),
 		GAMES(new int[]{3853, 3855, 3857, 3859, 3861, 3863, 3865, 3867, -1});
 

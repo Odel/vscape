@@ -4,6 +4,7 @@
 -Elegant clothing added to clue rewards
 -Bracelet crafting
 -Crafting guild changes
+-Clue 2733 has been fixed
 
 @dre@=APR 26=
 -Changes to churning
