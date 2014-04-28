@@ -51,19 +51,19 @@ public abstract class MagicSkill extends CycleEvent {
 			{451, 1, 453, 8, 2363, 50, 85}, // RUNE ORE
 	};
 
-	// unenchanted ring, unenchanted amulet,
-	// unenchanted necklace, enchanted ring,
-	// enchanted amulet, enchanted necklace,
+	// unenchanted ring, amulet, necklace, bracelet 
+	// enchanted ring, amulet, necklace, bracelet
 	// rune1, rune1 amount, rune2, rune2 amount,
-	// level required, xp, anim, gfx
-	private static final int[][] ENCHANT = {{1637, 1694, 1656, 2550, 1727, 3853, 555, 1, 0, 0, 7}, // sapphire
-			{1639, 1696, 1658, 2552, 1729, 5521, 556, 3, 0, 0, 27}, // emerald
-			{1641, 1698, -1, 2568, 1725, -1, 554, 5, 0, 0, 49, 59}, // ruby
-			{1643, 1700, -1, 2570, 1731, -1, 557, 10, 0, 0, 57, 67}, // diamond
-			{1645, 1702, -1, 2572, 1712, -1, 557, 15, 555, 15, 68}, // dragonstone
-			{6575, 6581, -1, 6583, 6585, -1, 557, 20, 554, 20, 87} // onyx
+	// level required
+	private static final int[][] ENCHANT = {
+  			{1637, 1694, 1656, 11072, 2550, 1727, 3853, 11074, 555, 1, 0, 0, 7}, // sapphire
+			{1639, 1696, 1658, 11076, 2552, 1729, 5521, 11079, 556, 3, 0, 0, 27}, // emerald
+			{1641, 1698, -1, 11085, 2568, 1725, -1, 11088, 554, 5, 0, 0, 49, 59}, // ruby
+			{1643, 1700, -1, 11092, 2570, 1731, -1, 11095, 557, 10, 0, 0, 57, 67}, // diamond
+			{1645, 1702, -1, 11115, 2572, 1712, -1, 11118, 557, 15, 555, 15, 68}, // dragonstone
+			{6575, 6581, -1, 11130, 6583, 6585, -1, 11133, 557, 20, 554, 20, 87} // onyx
 	};
-
+	
 	private MagicSkill(Player player, Spell spell) {
 		this.player = player;
 		this.spell = spell;
@@ -475,12 +475,14 @@ public abstract class MagicSkill extends CycleEvent {
 			index = 1;
 		} else if (item == ENCHANT[spellId][2]) {
 			index = 2;
+		} else if (item == ENCHANT[spellId][3]) {
+			index = 3;
 		} else {
 			player.getActionSender().sendMessage("You cannot enchant this item with this spell.");
 			return false;
 		}
 		player.getInventory().removeItem(new Item(ENCHANT[spellId][index], 1));
-		player.getInventory().addItem(new Item(ENCHANT[spellId][index + 3], 1));
+		player.getInventory().addItem(new Item(ENCHANT[spellId][index + 4], 1));
 		player.getActionSender().sendMessage("You enchant the " + ItemManager.getInstance().getItemName(ENCHANT[spellId][index]) + ".");
 		player.getActionSender().sendFrame106(6);
 		return true;

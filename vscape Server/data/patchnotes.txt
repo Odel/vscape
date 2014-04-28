@@ -1,8 +1,8 @@
-@dre@= ? =
+@dre@= APR 28 =
 -Fixed potion making
 -Semiprecious gems are now crushable
 -Elegant clothing added to clue rewards
--Bracelet crafting
+@blu@-Bracelet crafting & enchant
 -Crafting guild changes
 -Clue 2733 has been fixed
 
