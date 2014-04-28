@@ -1234,7 +1234,9 @@ public class Equipment {
 			return;
 		}
 		if (itemName.contains("bow")) {
-			if (itemName.contains("oak")) {
+			if(itemName.equalsIgnoreCase("shortbow") || itemName.equalsIgnoreCase("longbow")){
+				rangeLevelReq = 1;
+			} else if (itemName.contains("oak")) {
 				rangeLevelReq = 5;
 			} else if (itemName.contains("willow")) {
 				rangeLevelReq = 20;

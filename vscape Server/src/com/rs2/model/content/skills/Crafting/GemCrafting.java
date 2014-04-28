@@ -30,43 +30,46 @@ public class GemCrafting extends GemData {
 	public enum gem_Data {
 
 		/*
-		 * GOLD: Rings, Necklaces, Amulets.
+		 * GOLD: Rings, Necklaces, Amulets, bracelets.
 		 */
-		gold(2357, -1, -1, 5, 15, 1635, 6, 20, 1654, 8, 30, 1673, 1692),
+		gold(2357, -1, -1, 5, 15, 1635, 6, 20, 1654, 8, 30, 1673, 1692, 7, 25, 11069),
 
 		/*
 		 * SAPPGHIRE: Rings, Necklaces, Amulets.
 		 */
-		sapphire(1607, 20, 50, 20, 40, 1637, 22, 55, 1656, 24, 65, 1675, 1694),
+		sapphire(1607, 20, 50, 20, 40, 1637, 22, 55, 1656, 24, 65, 1675, 1694, 23, 60, 11072),
 
 		/*
 		 * EMERALD: Rings, Necklaces, Amulets.
 		 */
-		emerald(1605, 27, 67, 27, 55, 1639, 29, 60, 1658, 31, 70, 1677, 1696),
+		emerald(1605, 27, 67, 27, 55, 1639, 29, 60, 1658, 31, 70, 1677, 1696, 30, 65, 11076),
 
 		/*
 		 * RUBY: Rings, Necklaces, Amulets.
 		 */
-		ruby(1603, 34, 85, 34, 70, 1641, 40, 75, 1660, 50, 85, 1679, 1698),
+		ruby(1603, 34, 85, 34, 70, 1641, 40, 75, 1660, 50, 85, 1679, 1698, 42, 80, 11085),
 
 		/*
 		 * DIAMOND: Rings, Necklaces, Amulets.
 		 */
-		diamond(1601, 43, 107.5, 43, 85, 1643, 56, 90, 1662, 70, 100, 1681, 1700),
+		diamond(1601, 43, 107.5, 43, 85, 1643, 56, 90, 1662, 70, 100, 1681, 1700, 58, 95, 11092),
 
 		/*
 		 * DRAGON_STONE: Rings, Necklaces, Amulets.
 		 */
-		dragon_stone(1615, 55, 137.5, 55, 100, 1645, 72, 105, 1664, 80, 150, 1683, 1702),
+		dragon_stone(1615, 55, 137.5, 55, 100, 1645, 72, 105, 1664, 80, 150, 1683, 1702, 74, 110, 11115),
 
 		/*
 		 * ONYX: Rings, Necklaces, Amulets.
 		 */
-		onyx(6573, 67, 167.5, 67, 115, 6575, 82, 120, 6577, 90, 165, 6579, 6581);
+		onyx(6573, 67, 167.5, 67, 115, 6575, 82, 120, 6577, 90, 165, 6579, 6581, 84, 125, 11130);
 
-		private int[] mapLocation = new int[13];
+		private int[] mapLocation = new int[16];
 
-		gem_Data(int baseElement, int cutLevel, double cutExp, int ringLevel, double ringExp, int ringFinal, int necklaceLevel, double necklaceExp, int necklaceFinal, int amuletLevel, double amuletExp, int midAmulet, int finalAmulet) {
+		gem_Data(int baseElement, int cutLevel, double cutExp, int ringLevel, double ringExp, int ringFinal,
+				int necklaceLevel, double necklaceExp, int necklaceFinal,
+				int amuletLevel, double amuletExp, int midAmulet, int finalAmulet,
+				int braceletLevel, double braceletExp, int finalBracelet) {
 			this.mapLocation[GEM_SLOT] = baseElement;
 			this.mapLocation[GEM_CUT_LEVEL] = cutLevel;
 			this.mapLocation[GEM_CUT_EXP] = (int) cutExp;
@@ -80,6 +83,9 @@ public class GemCrafting extends GemData {
 			this.mapLocation[GEM_CRAFT_AMULET_EXP] = (int) amuletExp;
 			this.mapLocation[GEM_CRAFT_AMULET_MID_PRODUCT] = midAmulet;
 			this.mapLocation[GEM_CRAFT_AMULET_FINAL_PRODUCT] = finalAmulet;
+			this.mapLocation[GEM_CRAFT_BRACELET_LEVEL] = braceletLevel;
+			this.mapLocation[GEM_CRAFT_BRACELET_EXP] = (int) braceletExp;
+			this.mapLocation[GEM_CRAFT_BRACELET_FINAL_PRODUCT] = finalBracelet;
 		}
 	}
 	static {
@@ -92,18 +98,20 @@ public class GemCrafting extends GemData {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
-		int interfaceType = (face == 1592 ? 0 : face == 1597 ? 1 : face == 1595 ? 2 : -1);
+		//11065 bracelet mould
+		int interfaceType = (face == 1592 ? 0 : face == 1597 ? 1 : face == 1595 ? 2 : face == 11065 ? 3 : -1);
 		if (interfaceType < 0)
 			return;
+		int subStringId = interfaceType != 3 ? 3 : 5;
 		if (player.getInventory().getItemContainer().contains(face)) {
 			for (int i = 0; i < GemData.craftInterfaceArray[interfaceType].length; i++) {
 				player.getActionSender().sendUpdateItem(i, interfaceFrames[interfaceType][1], new Item(GemData.craftInterfaceArray[interfaceType][i], 1));
 			}
 			player.getActionSender().sendItemOnInterface(interfaceFrames[interfaceType][0], 0, -1);
-			player.getActionSender().sendString("Choose an item to make.", interfaceFrames[interfaceType][1] - 3);
+			player.getActionSender().sendString("", interfaceFrames[interfaceType][1] - subStringId);
 		} else {
 			player.getActionSender().sendItemOnInterface(interfaceFrames[interfaceType][0], 120, 1595);
-			player.getActionSender().sendString(interfaceMessage[interfaceType], interfaceFrames[interfaceType][1] - 3);
+			player.getActionSender().sendString(interfaceMessage[interfaceType], interfaceFrames[interfaceType][1] - subStringId);
 			for (int i = 0; i < GemData.craftInterfaceArray[interfaceType].length; i++) {
 				player.getActionSender().sendUpdateItem(i, interfaceFrames[interfaceType][1], new Item(0));
 			}
@@ -119,6 +127,7 @@ public class GemCrafting extends GemData {
 		showInterface(player, 1592);
 		showInterface(player, 1595);
 		showInterface(player, 1597);
+		showInterface(player, 11065);
 		player.getActionSender().sendInterface(4161);
 	}
 
@@ -204,6 +213,22 @@ public class GemCrafting extends GemData {
 							player.getActionSender().sendMessage("You craft an amulet.");
 						}
 						player.getSkill().addExp(Skill.CRAFTING, getData(gemType).mapLocation[10]);
+						break;
+					/*
+					 * BRACELETS
+					 */
+					case 3 :
+						if (player.getSkill().getLevel()[Skill.CRAFTING] < getData(gemType).mapLocation[13]) {
+							player.getDialogue().sendStatement("You need a Crafting level of " + getData(gemType).mapLocation[13] + " to craft this.");
+							container.stop();
+							return;
+						}
+						if (getData(gemType).mapLocation[0] != 2357)
+							player.getInventory().removeItem(new Item(getData(gemType).mapLocation[0], 1));
+						player.getInventory().removeItem(new Item(2357, 1));
+						player.getInventory().addItem(new Item(getData(gemType).mapLocation[15], 1));
+						player.getActionSender().sendMessage("You craft a bracelet.");
+						player.getSkill().addExp(Skill.CRAFTING, getData(gemType).mapLocation[14]);
 						break;
 					default :
 						container.stop();

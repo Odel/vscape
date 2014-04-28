@@ -2,6 +2,7 @@
 -Fixed potion making
 -Semiprecious gems are now crushable
 -elegant clothing added to clue rewards
+-bracelet crafting
 
 @dre@=APR 26=
 -Changes to churning

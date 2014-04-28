@@ -431,9 +431,24 @@ public class ItemPacketHandler implements PacketHandler {
 		player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
         RSInterface inter = RSInterface.forId(interfaceID);
+		switch (interfaceID) {
+			case 4233 : // make 1 ring crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 0);
+				break;
+			case 4239 : // make 1 neckalce crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 1);
+				break;
+			case 4245 : // make 1 amulet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 2);
+				break;
+			case 18821 : // make 1 bracelet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 3);
+				break;
+		}
         if (!player.hasInterfaceOpen(inter)) {
             //player.getActionSender().removeInterfaces();
-            return;
+        	
+        	return;
         }
 		if (interfaceID == 1119 || interfaceID == 1120 || interfaceID == 1121 || interfaceID == 1122 || interfaceID == 1123) {
 			//player.getSmithing().smithItem(itemId, 1);
@@ -463,18 +478,6 @@ public class ItemPacketHandler implements PacketHandler {
 		} else if (interfaceID == 6669) {
 			player.getDuelMainData().removeStakedItem(new Item(itemId, 1));
 		}
-		switch (interfaceID) {
-			case 4233 : // make 1 ring crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 0);
-				break;
-			case 4239 : // make 1 neckalce crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 1);
-				break;
-			case 4245 : // make 1 amulet crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 2);
-				break;
-		}
-
 	}
 
 	private void handleClick5(Player player, Packet packet) {
@@ -482,6 +485,20 @@ public class ItemPacketHandler implements PacketHandler {
 		int itemId = packet.getIn().readShort(true, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
 		player.setSlot(packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE));
         RSInterface inter = RSInterface.forId(interfaceID);
+		switch (interfaceID) {
+			case 4233 : // make 5 ring crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 0);
+				break;
+			case 4239 : // make 5 neckalce crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 1);
+				break;
+			case 4245 : // make 5 amulet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 2);
+				break;
+			case 18821 : // make 5 bracelet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 3);
+				break;
+		}
         if (!player.hasInterfaceOpen(inter)) {
             //player.getActionSender().removeInterfaces();
             return;
@@ -511,17 +528,6 @@ public class ItemPacketHandler implements PacketHandler {
 		} else if (interfaceID == 6669) {
 			player.getDuelMainData().removeStakedItem(new Item(itemId, 5));
 		}
-		switch (interfaceID) {
-			case 4233 : // make 1 ring crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 0);
-				break;
-			case 4239 : // make 1 neckalce crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 1);
-				break;
-			case 4245 : // make 1 amulet crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 2);
-				break;
-		}
 	}
 
 	private void handleClick10(Player player, Packet packet) {
@@ -529,7 +535,21 @@ public class ItemPacketHandler implements PacketHandler {
 		int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
 		player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
         RSInterface inter = RSInterface.forId(interfaceID);
-        if (!player.hasInterfaceOpen(inter)) {
+		switch (interfaceID) {
+			case 4233 : // make 10 ring crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 0);
+				break;
+			case 4239 : // make 10 neckalce crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 1);
+				break;
+			case 4245 : // make 10 amulet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 2);
+				break;
+			case 18821 : // make 10 bracelet crafting
+				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 3);
+				break;
+		}
+        if (!player.hasInterfaceOpen(inter) ) {
             //player.getActionSender().removeInterfaces();
             return;
         }
@@ -557,17 +577,6 @@ public class ItemPacketHandler implements PacketHandler {
 			SmithBars.startSmithing(player, itemId, 10);
 		} else if (interfaceID == 6669) {
 			player.getDuelMainData().removeStakedItem(new Item(itemId, 10));
-		}
-		switch (interfaceID) {
-			case 4233 : // make 1 ring crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 0);
-				break;
-			case 4239 : // make 1 neckalce crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 1);
-				break;
-			case 4245 : // make 1 amulet crafting
-				GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 2);
-				break;
 		}
 	}
 
