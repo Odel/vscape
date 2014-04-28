@@ -1,7 +1,8 @@
 #################
 ## Eclipse
 #################
-
+vscape.sublime-project
+vscape.sublime-workspace
 *.pydevproject
 .project
 .metadata
