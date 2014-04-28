@@ -1,3 +1,6 @@
+@dre@= ? =
+-Bank all has finally been fixed.
+
 @dre@= APR 28 =
 -Fixed potion making
 -Semiprecious gems are now crushable

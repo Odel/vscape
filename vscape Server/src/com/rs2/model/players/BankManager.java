@@ -93,10 +93,9 @@ public class BankManager {
 		{
 			Container container = player.getInventory().getItemContainer();
 			Item[] items = container.getItems();
-			for(Item item : items){
-				if (item == null || !item.validItem() ) {
-					return;
-				}
+			for (Item item : items) {
+				if(item == null ||!item.validItem())
+					continue;
 				int itemId = item.getId();
 				int slot = container.getSlotById(itemId);
 				int amount = item.getCount();
@@ -125,20 +124,14 @@ public class BankManager {
 					player.getBank().set(player.getBank().getSlotById(transferId), new Item(transferId, bankCount + amount));
 				}
 			}
-		} catch (Exception e) {
-			//refresh even if exception is thrown
-			Item[] bankItems = player.getBank().toArray();
-			player.getInventory().refresh(5064);
-			player.getInventory().refresh(7423);
-			player.getActionSender().sendUpdateItems(5382, bankItems);
-			player.getInventory().refresh();		
-		} finally {
-			Item[] bankItems = player.getBank().toArray();
-			player.getInventory().refresh(5064);
-			player.getInventory().refresh(7423);
-			player.getActionSender().sendUpdateItems(5382, bankItems);
-			player.getInventory().refresh();		
+		} catch (Exception e) {	
+		} finally {		
 		}
+		Item[] bankItems = player.getBank().toArray();
+		player.getInventory().refresh(5064);
+		player.getInventory().refresh(7423);
+		player.getActionSender().sendUpdateItems(5382, bankItems);
+		player.getInventory().refresh();	
 	}
 	
 	public void refresh() {
