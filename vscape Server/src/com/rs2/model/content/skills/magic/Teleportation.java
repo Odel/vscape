@@ -29,6 +29,11 @@ public class Teleportation {
 	public static final Position DUEL_ARENA = new Position(3317, 3233);
 	public static final Position GAMES_ROOM = new Position(2207, 4941);
 	
+	public static final Position BURTHORPE = new Position(2893, 3535);
+	public static final Position CHAMPGUILD = new Position(3191, 3364);
+	public static final Position MONASTERY = new Position(3051, 3490);
+	public static final Position RANGEGUILD = new Position(2656, 3440);
+	
 	public int x, y, height, teleTimer;
 
 	public boolean attemptTeleport(Position pos) {

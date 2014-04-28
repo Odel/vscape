@@ -1872,15 +1872,21 @@ public class WalkToActionHandler {
 					break;
 				case 2638: // glory fountain
 					if (item == 1704 || item == 1706 || item == 1708 || item == 1710) {
-						player.getActionSender().sendMessage("You dip your amulet into the fountain...");
-						player.getUpdateFlags().sendAnimation(827, 0);
-						for (int i = 0; i < Inventory.SIZE; i++) {
-							int[] glorys = { 1704, 1706, 1708, 1710 };
-							for (int glory : glorys) {
-								if (player.getInventory().getItemContainer().contains(glory)) {
-									player.getInventory().addItemToSlot(new Item(1712, 1), player.getInventory().getItemContainer().getSlotById(glory));
-								}
-							}
+						if (player.getInventory().playerHasItem(item)) 
+						{
+							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
+							player.getUpdateFlags().sendAnimation(827, 0);
+							player.getInventory().addItemToSlot(new Item(1712, 1), player.getSlot());
+						}
+					}
+					break;
+				case 2939: // legends totem
+					if (item == 11126 || item == 11124 || item == 11122 || item == 11120) {
+						if (player.getInventory().playerHasItem(item)) 
+						{
+							player.getActionSender().sendMessage("You charge the bracelet at the totem...");
+							player.getUpdateFlags().sendAnimation(827, 0);
+							player.getInventory().addItemToSlot(new Item(11118, 1), player.getSlot());
 						}
 					}
 					break;

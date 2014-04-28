@@ -289,6 +289,8 @@ public class Player extends Entity {
 	private int ringOfRecoilLife = 40;
 	private int ringOfForgingLife = 140;
 	private int bindingNeckCharge = 15;
+	private int clayBraceletLife = 28;
+	private int innoculationBraceletLife = 275;
 	private int fightMode, fightType, fightStyle, fightXp;
 	private boolean usingBow, usingCross, usingCrystalBow, usingArrows, usingBolts, usingOtherRangedWeapon, dropArrow;
 	private boolean fullDharok, fullAhrim, fullKaril, fullTorag, fullGuthan, fullVerac;
