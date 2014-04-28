@@ -1553,7 +1553,7 @@ public class Player extends Entity {
         if(player.getStaffRights() != rightLevel)
         {
 			player.setStaffRights(rightLevel);
-			World.messageToStaff("@dre@has made "+ playerName +" "+ rightType +".");
+			World.messageToStaff("@dre@"+getUsername()+" has made "+ playerName +" "+ rightType +".");
         }
         else
         {
