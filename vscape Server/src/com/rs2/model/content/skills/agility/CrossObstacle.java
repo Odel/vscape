@@ -14,16 +14,11 @@ import com.rs2.model.tick.CycleEventHandler;
  */
 public class CrossObstacle {
 
-	//no Z required to keep old shit working
-	public static void setForceMovement(final Player player, final int x, final int y, final int speed1, final int speed2, final int time, final boolean stopPacket, final double xp, final int walkAnim) {
-		setForceMovement(player, x, y, 0, speed1, speed2, time, stopPacket, xp, walkAnim);
-	}
-	
-	public static void walkAcross(final Player player, final double xp, final int walkX, final int walkY, final int time, final int speed, final int startAnim) {
-		walkAcross(player, xp, walkX, walkY, 0, time, speed, startAnim);
-	}
-
-	public static void walkAcross(final Player player, final double xp, final int walkX, final int walkY, final int changeZ, final int time, final int speed, final int startAnim) {
+	public static void walkAcross(final Player player, final int xp, final int walkX, final int walkY, final int time, final int speed, final int startAnim) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (startAnim > 0) {
 			player.getUpdateFlags().sendAnimation(startAnim);
 		}
@@ -31,7 +26,7 @@ public class CrossObstacle {
 			@Override
 			public void execute(CycleEventContainer container) {
 	        	player.getActionSender().animateObject(player.getClickX(), player.getClickY(), 3, 127);
-				setForceMovement(player, walkX, walkY, changeZ, speed, speed + 1, time, true, xp, startAnim);
+				setForceMovement(player, walkX, walkY, 1, speed, time, true, xp, 0);
 				container.stop();
 			}
 			@Override
@@ -40,7 +35,7 @@ public class CrossObstacle {
 		}, 2);
 	}
 
-	public static void setForceMovement(final Player player, final int x, final int y, final int z, final int speed1, final int speed2, final int time, final boolean stopPacket, final double xp, final int walkAnim) {
+	public static void setForceMovement(final Player player, final int x, final int y, final int speed1, final int speed2, final int time, final boolean stopPacket, final int xp, final int walkAnim) {
 		if (stopPacket) {
 			player.setStopPacket(true);
 		}
@@ -61,13 +56,13 @@ public class CrossObstacle {
 		//player.movePlayer(player.getPosition());
 		final int endX = player.getPosition().getX() + x;
 		final int endY = player.getPosition().getY() + y;
-		final int endZ = player.getPosition().getZ() + z;
+		final int endZ = player.getPosition().getZ();
 		final int dir = direction;
 		player.isCrossingObstacle = true;
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				//player.getUpdateFlags().sendForceMovement(player, x, y, speed1, speed2, dir);
+				player.getUpdateFlags().sendForceMovement(player, x, y, speed1, speed2, dir);
 				container.stop();
 			}
 			@Override
@@ -78,13 +73,14 @@ public class CrossObstacle {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getSkill().addExp(Skill.AGILITY, xp);
-		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				if (stopPacket) {
 					player.setStopPacket(false);
 				}
-				player.teleport(new Position(endX, endY, endZ));
 				player.getUpdateFlags().resetForceMovement();
+		        player.getUpdateFlags().setForceMovementUpdateRequired(false);
+				player.isCrossingObstacle = false;
+				player.getSkill().addExp(Skill.AGILITY, xp);
+				player.teleport(new Position(endX, endY, endZ));
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 				player.setAppearanceUpdateRequired(true);

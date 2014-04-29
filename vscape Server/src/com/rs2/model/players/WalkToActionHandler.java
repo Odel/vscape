@@ -24,7 +24,6 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Crafting.Tanning;
-import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.agility.ShortcutHandler;
 import com.rs2.model.content.skills.agility.CrossObstacle;
 import com.rs2.model.content.skills.farming.Farming;
@@ -148,9 +147,6 @@ public class WalkToActionHandler {
 				GameObjectData object = GameObjectData.forId(player.getClickId());
 				Position objectPosition;
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
-	            if(def.getId() == 2293){
-	                   objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), 2, object.getSizeY(def.getFace()), z);
-	            }
 				if (objectPosition == null)
 					return;
 				if (!canInteractWithObject(player, objectPosition, def)) {
@@ -261,14 +257,6 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-                if (Agility.trainingObject(player, id)){
-                    this.stop();
-                    return;
-                }
-                if (Agility.shortcutObject(player, id , x, y, z)) {
-                    this.stop();
-                    return;
-                }
 				if (ShortcutHandler.handleShortcut(player, id, x, y)) {
 					this.stop();
 					return;
