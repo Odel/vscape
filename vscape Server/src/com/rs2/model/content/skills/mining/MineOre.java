@@ -132,14 +132,15 @@ public class MineOre {
 			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");
 			return;
 		}
-		final int itemReceived = miningData.oreReceived;
-		final int getXp = miningData.expReceived;
-		final int respawnTimer = getRespawnTimerFormula(miningData.respawnTimer);
-		final int levelReq = miningData.levelRequired;
 		player.resetAnimation();
 		player.getUpdateFlags().sendAnimation(pickaxe.getAnimation());
 		player.getActionSender().sendSound(432, 0, 0);
 		player.setSkilling(new CycleEvent() {
+		    int itemReceived = miningData.oreReceived;
+			final int getXp = miningData.expReceived;
+			final int respawnTimer = getRespawnTimerFormula(miningData.respawnTimer);
+			final int levelReq = miningData.levelRequired;
+			
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (!player.checkTask(task)) {
@@ -163,6 +164,15 @@ public class MineOre {
 			    player.getUpdateFlags().sendAnimation(pickaxe.getAnimation());
 				player.getActionSender().sendSound(432, 0, 0);
 				if (SkillHandler.skillCheck(player.getSkill().getLevel()[Skill.MINING], levelReq, pickaxe.getBonus())) {
+					if (itemReceived == 434 && player.getEquipment().getId(Constants.HANDS) == 11074) {
+						player.setClayBraceletLife(player.getClayBraceletLife() - 1);
+						itemReceived = 1761;
+						if (player.getClayBraceletLife() < 1 && player.getEquipment().getId(Constants.HANDS) == 11074) {
+							player.getEquipment().removeAmount(Constants.HANDS, 1);
+							player.getActionSender().sendMessage("Your Bracelet of Clay shatters!");
+							player.setClayBraceletLife(28);
+						}
+					}
 					player.getInventory().addItem(new Item(getItemRecieved(object, itemReceived), 1));
 					player.getActionSender().sendMessage("You manage to mine some " + (object == 2111 ? "gem" : object == 10946 ? "sandstone" : object == 10947 ? "granite" : ItemManager.getInstance().getItemName(itemReceived).toLowerCase() + "."));
 					if (player.getNewComersSide().isInTutorialIslandStage()) {

@@ -3109,6 +3109,14 @@ public class Player extends Entity {
 	public void setBindingNeckCharge(int bindingNeckCharge) {
 		this.bindingNeckCharge = bindingNeckCharge;
 	}
+	
+	public void setClayBraceletLife(int clayBraceletLife) {
+		this.clayBraceletLife = clayBraceletLife;
+	}
+
+	public int getClayBraceletLife() {
+		return clayBraceletLife;
+	}
 
 	public void setFightMode(int fightMode) {
 		this.fightMode = fightMode;

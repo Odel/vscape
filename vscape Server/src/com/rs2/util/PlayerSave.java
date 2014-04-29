@@ -343,6 +343,7 @@ public class PlayerSave {
 			write.writeBoolean(player.getMagicBookType() == SpellBook.ANCIENT);
 			write.writeBoolean(player.isBrimhavenDungeonOpen());
 			write.writeBoolean(player.hasKilledClueAttacker());
+			write.writeInt(player.getClayBraceletLife());
             write.flush();
 			write.close();
 			
@@ -856,6 +857,10 @@ public class PlayerSave {
             }
             try {
             	player.setKilledClueAttacker(load.readBoolean());
+            } catch (IOException e) {
+            }
+            try {
+            	player.setClayBraceletLife(load.readInt());
             } catch (IOException e) {
             }
             

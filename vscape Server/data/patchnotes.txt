@@ -1,6 +1,7 @@
 @dre@= ? =
 -Bank all has finally been fixed.
 -Fluid containers have amount options.(except x)
+-Bracelet of clay now works.
 -Changes to barrows
 
 @dre@= APR 28 =
