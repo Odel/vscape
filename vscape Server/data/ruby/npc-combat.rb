@@ -192,7 +192,7 @@ class DagannothRange < NpcCombatDef
     end
 end
 
-NpcCombatDef.add([2025], Ahrims.new.bonusDef(500, 500, 500, 500, 1500))
+NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
 NpcCombatDef.add([2631], TokXil.new.bonusDef(600, 600, 600, 600, 300))
