@@ -19,6 +19,7 @@ import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.cooking.FlourRelated;
+import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.smithing.Smelting;
@@ -639,6 +640,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (Cooking.handleButtons(player, buttonId)) {
+			return;
+		}
+		if (FillHandler.handleButtons(player, buttonId)) {
 			return;
 		}
 		if (FlourRelated.handleButton(player, buttonId)) {

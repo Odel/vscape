@@ -164,6 +164,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+		        if (Barrows.handleObjectClicking(player, id, x, y)) {
+                    this.stop();
+                    return;
+                }
 				if (player.getSlayer().handleObjects(id, x, y)) {
 					this.stop();
 					return;
@@ -1810,8 +1814,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (player.getCooking().handleFillingObjectWater(item, id)) {
-					player.getInventory().refresh();
+				if (player.getFillHandler().handleInterface(item, id, x, y)) {
 					this.stop();
 					return;
 				}

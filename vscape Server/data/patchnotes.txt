@@ -1,5 +1,7 @@
 @dre@= ? =
 -Bank all has finally been fixed.
+-Fluid containers have amount options.(except x)
+-Changes to barrows
 
 @dre@= APR 28 =
 -Fixed potion making

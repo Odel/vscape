@@ -261,143 +261,21 @@ public class Cooking {
 	@SuppressWarnings("unused")
 	private static int[] fireIds = { 2732, 2724, 2725, 2726 };
 
-	// TODO set amount limit, so it stops when u chose 5 and not goes futher
-	// then that.
 	// playSound(240, 0, 0); -- good
 	// playSound(1053, 0, 0); -- burned
-	/**
-	 * All objects containing water ingame.
-	 */
-	public static final int[] WATER_CONTAINING_OBJECTS = { 153, // Fountain
-			879, // Fountain
-			880, // Fountain
-			2654, // Sinclair family fountain
-			2864, // Fountain
-			6232, // Fountain
-			10436, // Fountain
-			10437, // Fountain
-			11007, // Fountain
-			11759, // Fountain
-			13478, // Small fountain
-			13479, // Large fountain
-			13480, // Ornamental fountain
-			21764, // Fountain
-			24161, // Fountain
-			24214, // Fountain
-			24265, // Fountain
-			884, 11793, 43,
-
-			873, // Sink
-			874, // Sink
-			4063, // Sink
-			6151, // Sink
-			8699, // Sink
-			9143, // Sink
-			9684, // Sink
-			10175, // Sink
-			12279, // Sink
-			12974, // Sink
-			13563, // Sink
-			13564, // Sink
-			14868, // Sink
-			14917, // Sink
-			15678, // Sink
-			16704, // Sink
-			16705, // Sink
-			20358, // Sink
-			22715, // Sink
-			24112, // Sink
-			24314, // Sink
-
-			11661, // Waterpump in falador.
-
-			4176, // Tap
-			4285, // Tap
-			4482, // Tap
-
-	};
 
 	public static boolean handleButtons(Player player, int buttonId) {
 		switch (buttonId) {
-		case 53152:// cook 1
-			handleCookingTick(player, 1);
-			return true;
-		case 53151:// cook 5
-			handleCookingTick(player, 5);
-			return true;
-		case 53149:// cook all
-			handleCookingTick(player, 28);
-			return true;
+			case 53152:// cook 1
+				handleCookingTick(player, 1);
+				return true;
+			case 53151:// cook 5
+				handleCookingTick(player, 5);
+				return true;
+			case 53149:// cook all
+				handleCookingTick(player, 28);
+				return true;
 		}
 		return false;
-	}
-
-	public boolean handleFillingObjectWater(int item, int object) {
-		for (int i = 0; i < WATER_CONTAINING_OBJECTS.length - 1; i++) {
-			if (object == WATER_CONTAINING_OBJECTS[i]) {
-				switch (item) {
-				case 1831:
-				case 1829:
-				case 1827:
-				case 1825:
-					player.getInventory().getItemContainer().replace(item, 1823);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-				case 229:// Vial
-					player.getInventory().getItemContainer().replace(229, 227);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-				case 1925:// Bucket
-					player.getInventory().getItemContainer().replace(1925, 1929);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-				case 1923:// Bowl
-					player.getInventory().getItemContainer().replace(1923, 1921);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-				case 1935:// jug
-					player.getInventory().getItemContainer().replace(1935, 1937);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-				case 1980:// cup
-					player.getInventory().getItemContainer().replace(1980, 4458);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("You fill the " + ItemDefinition.forId(item).getName().toLowerCase() + " from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-					player.getActionSender().sendSound(1039, 1, 0);
-					return true;
-
-                case 5331:// watering can
-                case 5333:
-                case 5334:
-                case 5335:
-                case 5336:
-                case 5337:
-                case 5338:
-                case 5339:                                     
-                        player.getInventory().getItemContainer().replace(item, 5340);
-                        player.getUpdateFlags().sendAnimation(832);
-                        player.getActionSender().sendMessage("You fill the Watering Can from the " + GameObjectData.forId(object).getName().toLowerCase() + ".");
-                        player.getActionSender().sendSound(1039, 1, 0);
-                        return true;
-				}
-			}
-		}
-		return false;
-
 	}
 }

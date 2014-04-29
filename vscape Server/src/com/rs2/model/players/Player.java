@@ -77,6 +77,7 @@ import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
+import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.cooking.Wine;
 import com.rs2.model.content.skills.farming.Allotments;
 import com.rs2.model.content.skills.farming.Bushes;
@@ -199,6 +200,7 @@ public class Player extends Entity {
 	private Potion potion = new Potion(this);
 	private MineOre mining = new MineOre(this);
 	private Cooking cooking = new Cooking(this);
+	private FillHandler fillHandler = new FillHandler(this);
 	private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
@@ -2464,6 +2466,10 @@ public class Player extends Entity {
 
 	public Cooking getCooking() {
 		return cooking;
+	}
+	
+	public FillHandler getFillHandler() {
+		return fillHandler;
 	}
 
 	public ItemOnItemHandling getItemOnItem() {

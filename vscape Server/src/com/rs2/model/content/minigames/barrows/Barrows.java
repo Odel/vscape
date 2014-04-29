@@ -1,7 +1,9 @@
 package com.rs2.model.content.minigames.barrows;
 
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -51,9 +53,19 @@ public class Barrows {
 		}
 	}
 	
-	public static final int[] Items = {4708, 4710, 4712, 4714, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 1149, 165, 117, 141, 129, 385};
-	public static final int[][] Stackables = {{4740, 5}, {558, 25}, {562, 11}, {560, 5}, {565, 2}, {995, 55}};
-
+	private static final int[] Items = {4708, 4710, 4712, 4714, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 1149, 165, 117, 141, 129, 385};
+	private static final int[][] Stackables = {{4740, 5}, {558, 25}, {562, 11}, {560, 5}, {565, 2}, {995, 55}};
+	private static final int[] Monsters = {2031, 2033, 2034, 2035, 2037};
+	private static final MinigameAreas.Area NORTH = new MinigameAreas.Area(new Position(3549, 9709, 0), new Position(3554, 9714, 0));
+	private static final MinigameAreas.Area WEST = new MinigameAreas.Area(new Position(3531, 9691, 0), new Position(3537, 9697, 0));
+	private static final MinigameAreas.Area EAST = new MinigameAreas.Area(new Position(3566, 9692, 0), new Position(3571, 9697, 0));
+	private static final MinigameAreas.Area SOUTH = new MinigameAreas.Area(new Position(3548, 9675, 0), new Position(3554, 9680, 0));
+	private static final MinigameAreas.Area NORTHWEST = new MinigameAreas.Area(new Position(3531, 9710, 0), new Position(3537, 9713, 0));
+	private static final MinigameAreas.Area NORTHEAST = new MinigameAreas.Area(new Position(3565, 9712, 0), new Position(3572, 9714, 0));
+	private static final MinigameAreas.Area SOUTHWEST = new MinigameAreas.Area(new Position(3531, 9675, 0), new Position(3537, 9679, 0));
+	private static final MinigameAreas.Area SOUTHEAST = new MinigameAreas.Area(new Position(3565, 9676, 0), new Position(3571, 9679, 0));
+        
+        
 	public static boolean barrowsObject(Player player, int objectId) {
 		switch (objectId) {
 			case 10284 : // chest
@@ -224,6 +236,439 @@ public class Barrows {
 		resetBarrows(player);
 		return;
 	}
+	
+	private static boolean northSpawn = true;
+	private static boolean westSpawn = true;
+	private static boolean eastSpawn = true;
+	private static boolean southSpawn = true;
+	private static boolean northWestSpawn = true;
+	private static boolean northEastSpawn = true;
+	private static boolean southWestSpawn = true;
+	private static boolean southEastSpawn = true;
+	
+	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) {
+		Position North = new Position(3551,9711,0);
+		Position West = new Position(3534,9694,0);
+		Position East = new Position(3568,9694,0);
+		Position South = new Position(3551,9677,0);
+		Position Center = new Position(3551, 9694,0);
+		Position NorthEast = new Position(3568,9711,0);
+		Position NorthWest = new Position(3534,9711,0);
+		Position SouthEast = new Position(3568,9677,0);
+		Position SouthWest = new Position(3534,9677,0);
+		final int spawn1 = Monsters[Misc.randomMinusOne(Monsters.length)];
+		final int spawn2 = Monsters[Misc.randomMinusOne(Monsters.length)];
+		   
+		switch(objectId)
+		{
+			case 6739: //North tunnel
+				if(x == 3552 && y == 9701){
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH );
+						spawn(spawn2, NORTH );
+						northSpawn = false;
+					}
+				}
+				else if(x == 3551 && y == 9705)
+					player.teleport(Center);
+			return true;
+			case 6720: //North tunnel 2
+				if(x == 3551 && y == 9701) {
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH );
+						spawn(spawn2, NORTH );
+						northSpawn = false;
+					}
+				}
+				else if(x == 3552 && y == 9705)
+					player.teleport(Center);
+			return true;
+				
+			case 6743: //West tunnel
+				if(x == 3545 && y == 9695) {
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST );
+						westSpawn = false;
+					}
+				}
+				else if(x == 3541 && y == 9694)
+					player.teleport(Center);
+			return true;
+			case 6724: //West tunnel 2
+				if(x == 3545 && y == 9694) {
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST );
+						westSpawn = false;
+					}
+				}
+				else if(x == 3541 && y == 9695)
+					player.teleport(Center);
+			return true;
+				
+			case 6744: //East tunnel
+				if(x == 3558 && y == 9694){
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+				else if(x == 3562 && y == 9695)
+					player.teleport(Center);
+			return true;
+			case 6725: //East tunnel 2
+				if(x == 3558 && y == 9695) {
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+				else if(x == 3562 && y == 9694)
+					player.teleport(Center);
+			return true;
+				
+			case 6746: //South tunnel
+				if(x == 3551 && y == 9688) {
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+				else if(x == 3552 && y == 9684)
+					player.teleport(Center);
+			return true;
+			case 6727: //South tunnel 2
+				if(x == 3552 && y == 9688) {
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+				else if(x == 3551 && y == 9684)
+					player.teleport(Center);
+			return true;
+				 
+			case 6741: //East to northeast tunnel
+				if(x == 3569 && y == 9701) {
+					player.teleport(NorthEast);
+					if(northEastSpawn == true){
+						spawn(spawn1, NORTHEAST );
+						spawn(spawn2, NORTHEAST );
+						northEastSpawn = false;
+					}
+				}
+				else if(x == 3568 && y == 9705){
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+			return true;
+			case 6722: //East to northeast tunnel 2
+				if(x == 3568 && y == 9701) {
+					player.teleport(NorthEast);
+					if(northEastSpawn == true){
+						spawn(spawn1, NORTHEAST );
+						spawn(spawn2, NORTHEAST );
+						northEastSpawn = false;
+					}
+				}
+				else if(x == 3569 && y == 9705) {
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6747: //East to southeast tunnel
+				if(x == 3568 && y == 9688) {
+					player.teleport(SouthEast);
+					if(southEastSpawn == true){
+						spawn(spawn1, SOUTHEAST );
+						spawn(spawn2, SOUTHEAST );
+						southEastSpawn = false;
+					}
+				}
+				else if(x == 3569 && y == 9684){
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+			return true;
+			case 6728: //East to southeast tunnel 2
+				if(x == 3569 && y == 9688) {
+					player.teleport(SouthEast);
+					if(southEastSpawn == true){
+						spawn(spawn1, SOUTHEAST );
+						spawn(spawn2, SOUTHEAST );
+						southEastSpawn = false;
+					}
+				}
+				else if(x == 3568 && y == 9684) {
+					player.teleport(East);
+					if(eastSpawn == true){
+						spawn(spawn1, EAST );
+						spawn(spawn2, EAST );
+						eastSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6749: //Southeast to south tunnel
+				if(x == 3562 && y == 9678) {
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+				else if(x == 3558 && y == 9677){
+					player.teleport(SouthEast);
+					if(southEastSpawn == true){
+						spawn(spawn1, SOUTHEAST );
+						spawn(spawn2, SOUTHEAST );
+						southEastSpawn = false;
+					}
+				}
+			return true;
+			case 6730: //Southeast to east tunnel 2
+				if(x == 3562 && y == 9677) {
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+				else if(x == 3558 && y == 9678) {
+					player.teleport(SouthEast);
+					if(southEastSpawn == true){
+						spawn(spawn1, SOUTHEAST );
+						spawn(spawn2, SOUTHEAST );
+						southEastSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6748: //South to southwest tunnel
+				if(x == 3545 && y == 9678) {
+					player.teleport(SouthWest);
+					if(southWestSpawn == true){
+						spawn(spawn1, SOUTHWEST );
+						spawn(spawn2, SOUTHWEST );
+						southWestSpawn = false;
+					}
+				}
+				else if(x == 3541 && y == 9677){
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+			return true;
+			case 6729: //South to southwest tunnel 2
+				if(x == 3545 && y == 9677) {
+					player.teleport(SouthWest);
+					if(southWestSpawn == true){
+						spawn(spawn1, SOUTHWEST );
+						spawn(spawn2, SOUTHWEST);
+						southWestSpawn = false;
+					}
+				}
+				else if(x == 3541 && y == 9678) {
+					player.teleport(South);
+					if(southSpawn == true){
+						spawn(spawn1, SOUTH );
+						spawn(spawn2, SOUTH );
+						southSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6745: //Southwest to West tunnel 
+				if(x == 3535 && y == 9684) {
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST );
+						westSpawn = false;
+					}
+				}
+				else if(x == 3534 && y == 9688){
+					player.teleport(SouthWest);
+					if(southWestSpawn == true){
+						spawn(spawn1, SOUTHWEST );
+						spawn(spawn2, SOUTHWEST );
+						southWestSpawn = false;
+					}
+				}
+			return true;
+			case 6726: //Southwest to West tunnel 2
+				if(x == 3534 && y == 9684) {
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST);
+						westSpawn = false;
+					}
+				}
+				else if(x == 3535 && y == 9688) {
+					player.teleport(SouthWest);
+					if(southWestSpawn == true){
+						spawn(spawn1, SOUTHWEST );
+						spawn(spawn2, SOUTHWEST );
+						southWestSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6737: //West to NorthWest tunnel 
+				if(x == 3535 && y == 9701) {
+					player.teleport(NorthWest);
+					if(northWestSpawn == true){
+						spawn(spawn1, NORTHWEST );
+						spawn(spawn2, NORTHWEST );
+						northWestSpawn = false;
+					}
+				}
+				else if(x == 3534 && y == 9705){
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST );
+						westSpawn = false;
+					}
+				}
+			return true;
+			case 6718: //West to NorthWest tunnel 2
+				if(x == 3534 && y == 9701) {
+					player.teleport(NorthWest);
+					if(northWestSpawn == true){
+						spawn(spawn1, NORTHWEST);
+						spawn(spawn2, NORTHWEST);
+						northWestSpawn = false;
+					}
+				}
+				else if(x == 3535 && y == 9705) {
+					player.teleport(West);
+					if(westSpawn == true){
+						spawn(spawn1, WEST );
+						spawn(spawn2, WEST );
+						westSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6738: //Northwest to North tunnel 
+				if(x == 3541 && y == 9711) {
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH );
+						spawn(spawn2, NORTH );
+						northSpawn = false;
+					}
+				}
+				else if(x == 3545 && y == 9712){
+					player.teleport(NorthWest);
+					if(northWestSpawn == true){
+						spawn(spawn1, NORTHWEST );
+						spawn(spawn2, NORTHWEST );
+						northWestSpawn = false;
+					}
+				}
+			return true;
+			case 6719: //Northwest to north tunnel 2
+				if(x == 3541 && y == 9712) {
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH);
+						spawn(spawn2, NORTH);
+						northSpawn = false;
+					}
+				}
+				else if(x == 3545 && y == 9711) {
+					player.teleport(NorthWest);
+					if(northWestSpawn == true){
+						spawn(spawn1, NORTHWEST );
+						spawn(spawn2, NORTHWEST );
+						northWestSpawn = false;
+					}
+				}
+			return true;
+				
+			case 6740: //North to Northeast tunnel 
+				if(x == 3558 && y == 9711) {
+					player.teleport(NorthEast);
+					if(northEastSpawn == true){
+						spawn(spawn1, NORTHEAST );
+						spawn(spawn2, NORTHEAST );
+						northEastSpawn = false;
+					}
+				}
+				else if(x == 3562 && y == 9712){
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH );
+						spawn(spawn2, NORTH );
+						northSpawn = false;
+					}
+				}
+			return true;
+			case 6721: //North to northeast tunnel 2
+				if(x == 3558 && y == 9712) {
+					player.teleport(NorthEast);
+					if(northEastSpawn == true){
+						spawn(spawn1, NORTHEAST);
+						spawn(spawn2, NORTHEAST);
+						northEastSpawn = false;
+					}
+				}
+				else if(x == 3562 && y == 9711) {
+					player.teleport(North);
+					if(northSpawn == true){
+						spawn(spawn1, NORTH );
+						spawn(spawn2, NORTH );
+						northSpawn = false;
+					}
+				}
+			return true;
+		}
+		return false;    
+	}
+	
+	public static void spawn(int npcId, MinigameAreas.Area area) {
+		Npc npc = new Npc(npcId);
+		Position position = MinigameAreas.randomPosition(area);
+		npc.setPosition(position);
+		npc.setSpawnPosition(position);
+		npc.setCurrentX(position.getX());
+		npc.setCurrentY(position.getY());
+		World.register(npc);
+	}
 
 	private static int brotherKillCount(Player player) {
 		int brotherKillCount = 0;
@@ -242,6 +687,14 @@ public class Barrows {
 		player.setKillCount(0);
 		player.setRandomGrave(Misc.random(5));
 		player.getActionSender().resetCamera();
+        northSpawn = true;
+        westSpawn = true;
+        eastSpawn = true;
+        southSpawn = true;
+        northWestSpawn = true;
+        northEastSpawn = true;
+        southWestSpawn = true;
+        southEastSpawn = true;
 	}
 
 	public static void handleDeath(Player player, Npc npc) {
@@ -254,7 +707,19 @@ public class Barrows {
 				player.setSpawnedNpc(null);
 			}
 			player.setKillCount(player.getKillCount() + 1);
-			player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
 		}
+		if(monsterDeath(player, npc) ) {
+			player.setKillCount(player.getKillCount() + 1);
+		}
+		player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
+	}
+	
+	public static boolean monsterDeath(Player player, Npc npc) {
+		if(npc.getNpcId() == 2031) return true;
+		else if(npc.getNpcId() == 2033) return true;
+		else if(npc.getNpcId() == 2034) return true;
+		else if(npc.getNpcId() == 2035) return true;
+		else if(npc.getNpcId() == 2037) return true;
+		else return false; 
 	}
 }
