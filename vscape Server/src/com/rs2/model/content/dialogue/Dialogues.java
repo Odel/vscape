@@ -7,6 +7,7 @@ import com.rs2.model.content.BankPin;
 import com.rs2.model.content.Shops;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -726,7 +727,9 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1 :
-								player.teleport(new Position(3551, 9693));
+						        int i = Misc.randomMinusOne(Barrows.AREAS.length);
+						        Position position = MinigameAreas.randomPosition(Barrows.AREAS[i]);
+						        player.teleport(position);
 								break;
 							case 2 :
 								player.getDialogue().sendPlayerChat("No way, that looks scary!", DISTRESSED);

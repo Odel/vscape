@@ -64,7 +64,7 @@ public class Barrows {
 	private static final MinigameAreas.Area NORTHEAST = new MinigameAreas.Area(new Position(3565, 9712, 0), new Position(3572, 9714, 0));
 	private static final MinigameAreas.Area SOUTHWEST = new MinigameAreas.Area(new Position(3531, 9675, 0), new Position(3537, 9679, 0));
 	private static final MinigameAreas.Area SOUTHEAST = new MinigameAreas.Area(new Position(3565, 9676, 0), new Position(3571, 9679, 0));
-        
+	public static final MinigameAreas.Area[] AREAS = {NORTH, WEST, EAST, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST};  
         
 	public static boolean barrowsObject(Player player, int objectId) {
 		switch (objectId) {
@@ -258,11 +258,311 @@ public class Barrows {
         Position SouthWest = new Position(3534,9677,0);
         final int spawn1 = Monsters[Misc.randomMinusOne(Monsters.length)];
         final int spawn2 = Monsters[Misc.randomMinusOne(Monsters.length)];
+        final int spawn3 = Monsters[Misc.randomMinusOne(Monsters.length)];
            
                 switch(objectId)
                 {
-                    
-                        
+                   
+                    case 6736: //West outer tunnel
+                        if( x == 3528 && y == 9712 && player.getPosition().getX() == 3529 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9712, 3528, 9711, 0);
+                            player.movePlayer(new Position(3528,9712));
+                        }
+                        else if ( x == 3528 && y == 9712 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9712, 3528, 9711, 0);
+                            player.movePlayer(new Position(3529,9712));
+                            if(northWestSpawn == true){
+                                if(player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    NpcLoader.spawnNpc(player, new Npc(2029), true, true);
+                                }
+                                northWestSpawn = false;
+                            }
+                        }
+                        else if ( x == 3528 && y == 9678 && player.getPosition().getX() == 3529 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9678, 3528, 9677, 0);
+                            player.movePlayer(new Position(3528,9678));
+                        }
+                        else if ( x == 3528 && y == 9678 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9678, 3528, 9677, 0);
+                            player.movePlayer(new Position(3529,9678));
+                            if(southWestSpawn == true){
+                                spawn(spawn1, SOUTHWEST );
+                                spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
+                                southWestSpawn = false;
+                            }
+                        }
+                        return true;
+                    case 6717: //West outer tunnel
+                        if( x == 3528 && y == 9711 && player.getPosition().getX() == 3529  ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9712, 3528, 9711, 0);
+                            player.movePlayer(new Position(3528,9711));
+                        }
+                        else if ( x == 3528 && y == 9711 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9712, 3528, 9711, 0);
+                            player.movePlayer(new Position(3529,9711));
+                            if(northWestSpawn == true){
+                                if(player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    NpcLoader.spawnNpc(player, new Npc(2029), true, true);
+                                }
+                                northWestSpawn = false;
+                            }
+                        }
+                        else if ( x == 3528 && y == 9677 && player.getPosition().getX() == 3529 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9678, 3528, 9677, 0);
+                            player.movePlayer(new Position(3528,9677));
+                        }
+                        else if ( x == 3528 && y == 9677 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6736, 6717, 3528, 9678, 3528, 9677, 0);
+                            player.movePlayer(new Position(3529,9677));
+                            if(southWestSpawn == true){
+                                spawn(spawn1, SOUTHWEST );
+                                spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
+                                southWestSpawn = false;
+                            }
+                        }
+                        return true;
+                    case 6742: //East outer tunnel
+                        if( x == 3575 && y == 9711 && player.getPosition().getX() == 3574 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9711, 3575, 9712, 0);
+                            player.movePlayer(new Position(3575,9711));
+                        }
+                        else if ( x == 3575 && y == 9711 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9711, 3575, 9712, 0);
+                            player.movePlayer(new Position(3574,9711));
+                            if(northEastSpawn == true){
+                                spawn(spawn1, NORTHEAST );
+                                spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
+                                northEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3575 && y == 9677 && player.getPosition().getX() == 3574 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9677, 3575, 9678, 0);
+                            player.movePlayer(new Position(3575,9677));
+                        }
+                        else if ( x == 3575 && y == 9677 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9677, 3575, 9678, 0);
+                            player.movePlayer(new Position(3574,9677));
+                            if(southEastSpawn == true){
+                                if(player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    NpcLoader.spawnNpc(player, new Npc(2030), true, true);
+                                }
+                                southEastSpawn = false;
+                            }
+                        }
+                        return true;
+                    case 6723: //East outer tunnel
+                        if( x == 3575 && y == 9712 && player.getPosition().getX() == 3574  ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9711, 3575, 9712, 0);
+                            player.movePlayer(new Position(3575,9712));
+                        }
+                        else if ( x == 3575 && y == 9712 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9711, 3575, 9712, 0);
+                            player.movePlayer(new Position(3574,9712));
+                            if(northEastSpawn == true){
+                                spawn(spawn1, NORTHEAST );
+                                spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
+                                northEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3575 && y == 9678 && player.getPosition().getX() == 3574 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9677, 3575, 9678, 0);
+                            player.movePlayer(new Position(3575,9678));
+                        }
+                        else if ( x == 3575 && y == 9678 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6742, 6723, 3575, 9677, 3575, 9678, 0);
+                            player.movePlayer(new Position(3574,9678));
+                            if(southEastSpawn == true){
+                                if(player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    NpcLoader.spawnNpc(player, new Npc(2030), true, true);
+                                }
+                                southEastSpawn = false;
+                            }
+                        }
+                        return true;
+                       
+                    case 6750: //South outer tunnel
+                        if( x == 3568  && y == 9671 && player.getPosition().getY() == 9672 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3568, 9671, 3569, 9671, 0);
+                            player.movePlayer(new Position(3568,9671));
+                        }
+                        else if ( x == 3568 && y == 9671 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3568, 9671, 3569, 9671, 0);
+                            player.movePlayer(new Position(3568,9672));
+                            if(southEastSpawn == true){
+                                if(player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    NpcLoader.spawnNpc(player, new Npc(2030), true, true);
+                                }
+                            southEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3534 && y == 9671 && player.getPosition().getY() == 9672 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3534, 9671, 3535, 9671, 0);
+                            player.movePlayer(new Position(3534,9671));
+                        }
+                        else if ( x == 3534 && y == 9671 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3534, 9671, 3535, 9671, 0);
+                            player.movePlayer(new Position(3534,9672));
+                            if(southWestSpawn == true){
+                                spawn(spawn1, SOUTHWEST );
+                                spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
+                                southWestSpawn = false;
+                            }
+                        }
+                        return true;
+                    case 6731: //South outer tunnel
+                        if( x == 3569 && y == 9671 && player.getPosition().getY() == 9672 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3568, 9671, 3569, 9671, 0);
+                            player.movePlayer(new Position(3569,9671));
+                        }
+                        else if ( x == 3569 && y == 9671 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3568, 9671, 3569, 9671, 0);
+                            player.movePlayer(new Position(3569,9672));
+                            if(southEastSpawn == true){
+                                if(player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[5]){
+                                    spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
+                                    NpcLoader.spawnNpc(player, new Npc(2030), true, true);
+                                }
+                                southEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3535 && y == 9671 && player.getPosition().getY() == 9672 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3534, 9671, 3535, 9671, 0);
+                            player.movePlayer(new Position(3535,9671));
+                        }
+                        else if ( x == 3535 && y == 9671 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6750, 6731, 3534, 9671, 3535, 9671, 0);
+                            player.movePlayer(new Position(3535,9672));
+                            if(southWestSpawn == true){
+                                spawn(spawn1, SOUTHWEST );
+                                spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
+                                southWestSpawn = false;
+                            }
+                        }
+                        return true;
+                       
+                    case 6735: //North outer tunnel
+                        if( x == 3569  && y == 9718 && player.getPosition().getY() == 9717 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3569, 9718, 3568, 9718, 0);
+                            player.movePlayer(new Position(3569,9718));
+                        }
+                        else if ( x == 3569 && y == 9718 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3569, 9718, 3568, 9718, 0);
+                            player.movePlayer(new Position(3569,9717));
+                            if(northEastSpawn == true){
+                                spawn(spawn1, NORTHEAST );
+                                spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
+                                northEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3535 && y == 9718 && player.getPosition().getY() == 9717 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3535, 9718, 3534, 9718, 0);
+                            player.movePlayer(new Position(3535,9718));
+                        }
+                        else if ( x == 3535 && y == 9718 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3535, 9718, 3534, 9718, 0);
+                            player.movePlayer(new Position(3535,9717));
+                            if(northWestSpawn == true){
+                                if(player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    NpcLoader.spawnNpc(player, new Npc(2029), true, true);
+                                }
+                                northWestSpawn = false;
+                            }
+                        }
+                        return true;
+                    case 6716: //North outer tunnel
+                        if( x == 3568 && y == 9718 && player.getPosition().getY() == 9717 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3569, 9718, 3568, 9718, 0);
+                            player.movePlayer(new Position(3568,9718));
+                        }
+                        else if ( x == 3568 && y == 9718 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3569, 9718, 3568, 9718, 0);
+                            player.movePlayer(new Position(3568,9717));
+                            if(northEastSpawn == true){
+                                spawn(spawn1, NORTHEAST );
+                                spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
+                                northEastSpawn = false;
+                            }
+                        }
+                        else if ( x == 3534 && y == 9718 && player.getPosition().getY() == 9717 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3535, 9718, 3534, 9718, 0);
+                            player.movePlayer(new Position(3534,9718));
+                        }
+                        else if ( x == 3534 && y == 9718 ) {
+                            player.getActionSender().walkThroughDoubleDoor(6735, 6716, 3535, 9718, 3534, 9718, 0);
+                            player.movePlayer(new Position(3534,9717));
+                            if(northWestSpawn == true){
+                                if(player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
+                                }
+                                else if(!player.getBarrowsNpcDead()[4]){
+                                    spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
+                                    NpcLoader.spawnNpc(player, new Npc(2029), true, true);
+                                }
+                                northWestSpawn = false;
+                            }
+                        }
+                        return true;
+                       
+                       
                     case 6739: //North tunnel
                         if(x == 3552 && y == 9701){
                             player.teleport(North);
@@ -270,9 +570,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -288,9 +590,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -299,7 +603,7 @@ public class Barrows {
                         else if(x == 3552 && y == 9705)
                             player.teleport(Center);
                     return true;
-                        
+                       
                     case 6743: //West tunnel
                         if(x == 3545 && y == 9695) {
                             player.teleport(West);
@@ -307,9 +611,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
@@ -325,9 +631,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
@@ -336,7 +644,7 @@ public class Barrows {
                         else if(x == 3541 && y == 9695)
                             player.teleport(Center);
                     return true;
-                        
+                       
                     case 6744: //East tunnel
                         if(x == 3558 && y == 9694){
                             player.teleport(East);
@@ -344,9 +652,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
@@ -362,9 +672,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
@@ -373,7 +685,7 @@ public class Barrows {
                         else if(x == 3562 && y == 9694)
                             player.teleport(Center);
                     return true;
-                        
+                       
                     case 6746: //South tunnel
                         if(x == 3551 && y == 9688) {
                             player.teleport(South);
@@ -381,9 +693,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
@@ -399,9 +713,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
@@ -417,6 +733,7 @@ public class Barrows {
                             if(northEastSpawn == true){
                                 spawn(spawn1, NORTHEAST );
                                 spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
                                 northEastSpawn = false;
                             }
                         }
@@ -426,9 +743,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
@@ -441,6 +760,7 @@ public class Barrows {
                             if(northEastSpawn == true){
                                 spawn(spawn1, NORTHEAST );
                                 spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
                                 northEastSpawn = false;
                             }
                         }
@@ -450,16 +770,18 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
                             }
                         }
                     return true;
-                        
+                       
                     case 6747: //East to southeast tunnel
                         if(x == 3568 && y == 9688) {
                             player.teleport(SouthEast);
@@ -467,9 +789,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
                                     spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
                                     NpcLoader.spawnNpc(player, new Npc(2030), true, true);
                                 }
                                 southEastSpawn = false;
@@ -481,9 +805,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
@@ -497,9 +823,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
                                     spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
                                     NpcLoader.spawnNpc(player, new Npc(2030), true, true);
                                 }
                                 southEastSpawn = false;
@@ -511,16 +839,18 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
                                     spawn(spawn2, EAST );
+                                    spawn(spawn3, EAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[2]){
                                     spawn(spawn1, EAST );
+                                    spawn(spawn2, EAST );
                                     NpcLoader.spawnNpc(player, new Npc(2027), true, true);
                                 }
                                 eastSpawn = false;
                             }
                         }
                     return true;
-                        
+                       
                     case 6749: //Southeast to south tunnel
                         if(x == 3562 && y == 9678) {
                             player.teleport(South);
@@ -528,9 +858,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
@@ -542,9 +874,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
                                     spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
                                     NpcLoader.spawnNpc(player, new Npc(2030), true, true);
                                 }
                                 southEastSpawn = false;
@@ -558,9 +892,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
@@ -572,22 +908,25 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
                                     spawn(spawn2, SOUTHEAST );
+                                    spawn(spawn3, SOUTHEAST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[5]){
                                     spawn(spawn1, SOUTHEAST );
+                                    spawn(spawn2, SOUTHEAST );
                                     NpcLoader.spawnNpc(player, new Npc(2030), true, true);
                                 }
                                 southEastSpawn = false;
                             }
                         }
                     return true;
-                        
+                       
                     case 6748: //South to southwest tunnel
                         if(x == 3545 && y == 9678) {
                             player.teleport(SouthWest);
                             if(southWestSpawn == true){
                                 spawn(spawn1, SOUTHWEST );
                                 spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
                                 southWestSpawn = false;
                             }
                         }
@@ -597,9 +936,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
@@ -612,6 +953,7 @@ public class Barrows {
                             if(southWestSpawn == true){
                                 spawn(spawn1, SOUTHWEST );
                                 spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
                                 southWestSpawn = false;
                             }
                         }
@@ -621,26 +963,30 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
                                     spawn(spawn2, SOUTH );
+                                    spawn(spawn3, SOUTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[3]){
                                     spawn(spawn1, SOUTH );
+                                    spawn(spawn2, SOUTH );
                                     NpcLoader.spawnNpc(player, new Npc(2028), true, true);
                                 }
                                 southSpawn = false;
                             }
                         }
                     return true;
-                        
-                    case 6745: //Southwest to West tunnel 
+                       
+                    case 6745: //Southwest to West tunnel
                         if(x == 3535 && y == 9684) {
                             player.teleport(West);
                             if(westSpawn == true){
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
@@ -651,6 +997,7 @@ public class Barrows {
                             if(southWestSpawn == true){
                                 spawn(spawn1, SOUTHWEST );
                                 spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
                                 southWestSpawn = false;
                             }
                         }
@@ -662,9 +1009,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
@@ -675,21 +1024,24 @@ public class Barrows {
                             if(southWestSpawn == true){
                                 spawn(spawn1, SOUTHWEST );
                                 spawn(spawn2, SOUTHWEST );
+                                spawn(spawn3, SOUTHWEST );
                                 southWestSpawn = false;
                             }
                         }
                     return true;
-                        
-                    case 6737: //West to NorthWest tunnel 
+                       
+                    case 6737: //West to NorthWest tunnel
                         if(x == 3535 && y == 9701) {
                             player.teleport(NorthWest);
                             if(northWestSpawn == true){
                                 if(player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
                                     spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
                                     NpcLoader.spawnNpc(player, new Npc(2029), true, true);
                                 }
                                 northWestSpawn = false;
@@ -701,9 +1053,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
@@ -717,9 +1071,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
                                     spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
                                     NpcLoader.spawnNpc(player, new Npc(2029), true, true);
                                 }
                                 northWestSpawn = false;
@@ -731,26 +1087,30 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
                                     spawn(spawn2, WEST );
+                                    spawn(spawn3, WEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[1]){
                                     spawn(spawn1, WEST );
+                                    spawn(spawn2, WEST );
                                     NpcLoader.spawnNpc(player, new Npc(2026), true, true);
                                 }
                                 westSpawn = false;
                             }
                         }
                     return true;
-                        
-                    case 6738: //Northwest to North tunnel 
+                       
+                    case 6738: //Northwest to North tunnel
                         if(x == 3541 && y == 9711) {
                             player.teleport(North);
                             if(northSpawn == true){
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -762,9 +1122,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
                                     spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
                                     NpcLoader.spawnNpc(player, new Npc(2029), true, true);
                                 }
                                 northWestSpawn = false;
@@ -778,9 +1140,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -792,22 +1156,25 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
                                     spawn(spawn2, NORTHWEST );
+                                    spawn(spawn3, NORTHWEST );
                                 }
                                 else if(!player.getBarrowsNpcDead()[4]){
                                     spawn(spawn1, NORTHWEST );
+                                    spawn(spawn2, NORTHWEST );
                                     NpcLoader.spawnNpc(player, new Npc(2029), true, true);
                                 }
                                 northWestSpawn = false;
                             }
                         }
                     return true;
-                        
-                    case 6740: //North to Northeast tunnel 
+                       
+                    case 6740: //North to Northeast tunnel
                         if(x == 3558 && y == 9711) {
                             player.teleport(NorthEast);
                             if(northEastSpawn == true){
                                 spawn(spawn1, NORTHEAST );
                                 spawn(spawn2, NORTHEAST );
+                                spawn(spawn3, NORTHEAST );
                                 northEastSpawn = false;
                             }
                         }
@@ -817,9 +1184,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -832,6 +1201,7 @@ public class Barrows {
                             if(northEastSpawn == true){
                                 spawn(spawn1, NORTHEAST);
                                 spawn(spawn2, NORTHEAST);
+                                spawn(spawn3, NORTHEAST);
                                 northEastSpawn = false;
                             }
                         }
@@ -841,9 +1211,11 @@ public class Barrows {
                                 if(player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
                                     spawn(spawn2, NORTH );
+                                    spawn(spawn3, NORTH );
                                 }
                                 else if(!player.getBarrowsNpcDead()[0]){
                                     spawn(spawn1, NORTH );
+                                    spawn(spawn2, NORTH );
                                     NpcLoader.spawnNpc(player, new Npc(2025), true, true);
                                 }
                                 northSpawn = false;
@@ -851,8 +1223,8 @@ public class Barrows {
                         }
                     return true;
                 }
-
-        return false;         
+        return false;
+                   
     }
 	
 	public static void spawn(int npcId, MinigameAreas.Area area) {
