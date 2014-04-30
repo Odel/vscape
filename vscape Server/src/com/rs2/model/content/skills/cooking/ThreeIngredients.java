@@ -180,6 +180,7 @@ public class ThreeIngredients {
 		player.getInventory().removeItem(new Item(itemUsed));
 		if(withItem != recipient)
 		player.getInventory().removeItem(new Item(withItem));
+		
 		player.getInventory().addItemToSlot(new Item(result), itemUsed == recipient ? itemUsedSlot : withItemSlot);
 		player.getSkill().addExp(Skill.COOKING, rightData.getExperience() / 5);
 		/* empty recipients */
