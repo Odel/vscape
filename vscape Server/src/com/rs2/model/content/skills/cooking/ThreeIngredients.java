@@ -15,7 +15,12 @@ import com.rs2.model.players.item.ItemDefinition;
 public class ThreeIngredients {
 
 	public static enum MixItemData {
-		MUD_PIE(6032, 2953, 434, 2315, 7164, 7166, 7168, 29, 128, true, 3727, 3727, 0), GARDEN_PIE(1982, 1957, 1965, 2315, 7172, 7174, 7176, 34, 138, true, 0, 0, 0), FISH_PIE(339, 333, 1942, 2315, 7182, 7184, 7186, 47, 164, true, 0, 0, 0), ADMIRAL_PIE(329, 361, 1942, 2315, 7192, 7194, 7196, 70, 210, true, 0, 0, 0), WILD_PIE(2136, 2876, 3226, 2315, 7202, 7204, 7206, 85, 240, true, 0, 0, 0), SUMMER_PIE(5504, 5982, 1955, 2315, 7212, 7214, 7216, 95, 260, true, 0, 0, 0);
+		MUD_PIE(6032, 2953, 434, 2315, 7164, 7166, 7168, 29, 128, true, 3727, 3727, 0), 
+		GARDEN_PIE(1982, 1957, 1965, 2315, 7172, 7174, 7176, 34, 138, true, 0, 0, 0),
+		FISH_PIE(339, 333, 1942, 2315, 7182, 7184, 7186, 47, 164, true, 0, 0, 0), 
+		ADMIRAL_PIE(329, 361, 1942, 2315, 7192, 7194, 7196, 70, 210, true, 0, 0, 0),
+		WILD_PIE(2136, 2876, 3226, 2315, 7202, 7204, 7206, 85, 240, true, 0, 0, 0), 
+		SUMMER_PIE(5504, 5982, 1955, 2315, 7212, 7214, 7216, 95, 260, true, 0, 0, 0);
 
 		private int primaryIngredient;
 
@@ -171,7 +176,9 @@ public class ThreeIngredients {
 		else
 			player.getActionSender().sendMessage("You mix the " + ItemDefinition.forId(ingredient).getName().toLowerCase() + " with the " + ItemDefinition.forId(recipient).getName().toLowerCase() + " and make a " + ItemDefinition.forId(result).getName().toLowerCase() + ".");
 
+		if(itemUsed != recipient)
 		player.getInventory().removeItem(new Item(itemUsed));
+		if(withItem != recipient)
 		player.getInventory().removeItem(new Item(withItem));
 		player.getInventory().addItemToSlot(new Item(result), itemUsed == recipient ? itemUsedSlot : withItemSlot);
 		player.getSkill().addExp(Skill.COOKING, rightData.getExperience() / 5);
