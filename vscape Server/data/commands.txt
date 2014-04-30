@@ -13,3 +13,26 @@ Odel used 4388 4388
 Odel used mypos mypos
 Odel used tele 2440 3089
 Odel used tele 2440 3089 0
+Bobster used empty empty
+Bobster used item 329
+Bobster used item 361
+Bobster used item 1942 2
+Bobster used item 329 4
+Bobster used item 2315 4
+Bobster used empty empty
+Bobster used item 329 4
+Bobster used item 2315 4
+Bobster used empty empty
+Bobster used item 2315 4
+Bobster used item 329 4
+Bobster used empty empty
+Bobster used item 2315 4
+Bobster used item 329 4
+Bobster used empty empty
+Bobster used item 329 4
+Bobster used item 2315 4
+Bobster used item 361 4
+Bobster used item 7192
+Bobster used item 7196
+Bobster used item 7194
+Bobster used item 1942 4
