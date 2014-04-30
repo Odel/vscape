@@ -832,7 +832,13 @@ public class ItemPacketHandler implements PacketHandler {
 		switch(itemId) {
 			case 4566 : // rubber chicken
 				player.getUpdateFlags().sendAnimation(1835);
-				return;
+			return;
+			case 2568 : // RING OF FORGING CHARGE CHECK
+				player.getActionSender().sendMessage("You have "+player.getRingOfForgingLife()+" Ring of Forging charge(s) remaining.");
+			return;
+			case 11074 : // BRACELET OF CLAY CHARGE CHECK
+				player.getActionSender().sendMessage("You have "+player.getClayBraceletLife()+" Bracelet of Clay charge(s) remaining.");
+			return;
 		}
 	}
 

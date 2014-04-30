@@ -2,6 +2,8 @@
 -Bank all has finally been fixed.
 -Fluid containers have amount options.(except x)
 -Bracelet of clay now works.
+-Added "Check" right click options to forging ring 
+ and clay bracelet (Tells you your charges)
 -Changes to barrows
 
 @dre@= APR 28 =
