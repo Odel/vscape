@@ -5,6 +5,7 @@
 -Added "Check" right click options to forging ring 
  and clay bracelet (Tells you your charges)
 -Changes to barrows
+@blu@-Sheep Shearer
 
 @dre@= APR 28 =
 -Fixed potion making

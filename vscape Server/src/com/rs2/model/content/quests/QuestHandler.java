@@ -33,7 +33,8 @@ public class QuestHandler {
     	new ImpCatcher(),
     	new RuneMysteries(),
     	new WitchsPotion(),
-    	new EasterEvent()
+    	new EasterEvent(),
+    	new SheepShearer()
     };
     
     public static void init() {
@@ -124,6 +125,9 @@ public class QuestHandler {
         		return true;
         	case 28180: //witchs potion
         		showInterface(player,quests[6]);
+        		return true;
+        	case 28176: //Sheep Shearer
+        		showInterface(player,quests[8]);
         		return true;
         }
         return false;
