@@ -14,6 +14,7 @@ public class DoughHandler {
 	public static final int POT_OF_FLOUR = 1933;
 	public static final int BUCKET_OF_WATER = 1929;
 	public static final int BUCKET = 1925;
+	public static final int POT = 1931;
 	
 	public static enum DoughData {
 		BREAD(34185, 2307, 1), BREAD5(34184, 2307, 5), BREAD10(34183, 2307, 10), BREADX(34182, 2307, 0),
@@ -90,6 +91,7 @@ public class DoughHandler {
 				player.getInventory().removeItem(new Item(BUCKET_OF_WATER));
 				player.getInventory().removeItem(new Item(POT_OF_FLOUR));
 				player.getInventory().addItem(new Item(BUCKET));
+				player.getInventory().addItem(new Item(POT));
 				player.getInventory().addItem(new Item(dough.getResult()));
 				makeAmount--;
 				container.setTick(2);
