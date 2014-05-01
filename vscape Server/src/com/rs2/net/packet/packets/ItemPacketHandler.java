@@ -21,6 +21,7 @@ import com.rs2.model.content.skills.Fletching.CbowFletching;
 import com.rs2.model.content.skills.cooking.OneIngredients;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
+import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
@@ -214,6 +215,8 @@ public class ItemPacketHandler implements PacketHandler {
             return;
 		if(ThreeIngredients.mixItems(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot))
             return;
+		if(DoughHandler.handleInterface(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot))
+			return;
 		/* Fletching */
 		if(ArrowMaking.perform(player, firstItem, secondItem))
             return;
@@ -292,25 +295,6 @@ public class ItemPacketHandler implements PacketHandler {
 				}
 			}
 			player.getFiremaking().attemptFire(firstItem, secondItem, false, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-			return;
-		}
-		/* Cooking */
-		if ((firstItem == 1929 && secondItem == 1933) || (firstItem == 1933 && secondItem == 1929)) {
-			if (player.getNewComersSide().isInTutorialIslandStage()) {
-				player.getInventory().removeItem(new Item(1933));
-				player.getInventory().removeItem(new Item(1929));
-				player.getInventory().addItem(new Item(2307));
-				player.getInventory().addItem(new Item(1925));
-				player.getInventory().addItem(new Item(1931));
-				if (player.getNewComersSide().getTutorialIslandStage() == 17)
-					player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
-				return;
-			}
-			player.setStatedInterface("flour");
-			player.getActionSender().sendString("Bread dough", 13770);
-			player.getActionSender().sendString("Pastry dough", 13771);
-			player.getActionSender().sendString("Pizza base", 13772);
-			player.getActionSender().sendChatInterface(13768);
 			return;
 		}
 		

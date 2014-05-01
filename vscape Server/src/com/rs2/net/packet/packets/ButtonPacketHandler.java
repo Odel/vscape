@@ -18,7 +18,7 @@ import com.rs2.model.content.skills.Fletching.HandleLogCutting;
 import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
-import com.rs2.model.content.skills.cooking.FlourRelated;
+import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
@@ -645,7 +645,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (FillHandler.handleButtons(player, buttonId)) {
 			return;
 		}
-		if (FlourRelated.handleButton(player, buttonId)) {
+		if (DoughHandler.handleButtons(player, buttonId, 0)) {
 			return;
 		}
 		if (Smelting.handleSmelting(player, buttonId, 0)) {

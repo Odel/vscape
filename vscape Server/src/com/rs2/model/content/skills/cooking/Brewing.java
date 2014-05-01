@@ -133,11 +133,11 @@ public class Brewing {
 			player.getDialogue().sendStatement("You will need " + brewData.getAmount() + " " + ItemDefinition.forId(brewData.getUsed()).getName().toLowerCase() + " to do this");
 			return;
 		}
-		player.getActionSender().sendMessage(brewData.getUsed() != FlourRelated.BUCKET_OF_WATER ? "You put " + brewData.getAmount() + " " + ItemDefinition.forId(brewData.getUsed()).getName().toLowerCase() + " in the fermenting vat." : "You fill the Fermenting vat with " + brewData.getAmount() + " " + ItemDefinition.forId(brewData.getUsed()).getName().toLowerCase() + ".");
+		player.getActionSender().sendMessage(brewData.getUsed() != DoughHandler.BUCKET_OF_WATER ? "You put " + brewData.getAmount() + " " + ItemDefinition.forId(brewData.getUsed()).getName().toLowerCase() + " in the fermenting vat." : "You fill the Fermenting vat with " + brewData.getAmount() + " " + ItemDefinition.forId(brewData.getUsed()).getName().toLowerCase() + ".");
 		player.getInventory().removeItem(new Item(brewData.getUsed(), brewData.getAmount()));
-		if (brewData.getUsed() == FlourRelated.BUCKET_OF_WATER)
-			player.getInventory().addItem(new Item(FlourRelated.BUCKET, brewData.getAmount()));
-		player.getUpdateFlags().sendAnimation(brewData.getUsed() == FlourRelated.BUCKET_OF_WATER ? BUCKET_ANIM : PUTTING_ANIM);
+		if (brewData.getUsed() == DoughHandler.BUCKET_OF_WATER)
+			player.getInventory().addItem(new Item(DoughHandler.BUCKET, brewData.getAmount()));
+		player.getUpdateFlags().sendAnimation(brewData.getUsed() == DoughHandler.BUCKET_OF_WATER ? BUCKET_ANIM : PUTTING_ANIM);
 	}
 
 }
