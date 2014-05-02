@@ -11,9 +11,16 @@ public class Castlewars {
 	//TODO make a class that represents a game instance
 	//public gameinstance = new CastlewarsGame();
 	public static final boolean ENABLED = false;
+	public static final boolean LOGGING = true;
     private static final int GAME_TIMER = 200; //1500 * 600 = 900000ms = 15 minutes
     private static final int GAME_START_TIMER = 30;
 
+    public static void setupCastlewarsRound(){
+    	if(LOGGING){
+    		CastlewarsLogging log = new CastlewarsLogging();
+    	}
+    	
+    }
 	public static boolean isInZammyLobby(Player player) {
 		return MinigameAreas.isInArea(player.getPosition(), new MinigameAreas.Area(new Position(2410, 9510, 0), new Position(2427, 9533, 0)));
 	}

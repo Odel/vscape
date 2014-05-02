@@ -61,7 +61,7 @@ public class Server implements Runnable {
 	private static long minutesCounter;
 
     public static GroupMiniGame castleWarsGroup = new GroupMiniGame(new CastleWarsCounter());
-
+    
 	private Selector selector;
 	private InetSocketAddress address;
 	private ServerSocketChannel serverChannel;
