@@ -1,12 +1,31 @@
-@dre@= Mar ? =
+@dre@= May 2 =
+@blu@-Final Barrows fix
+	a.Major change to drop rates.
+	b.Ideal KC is from 12-15.
+-Runite limbs added to the drop table.
+-Strength potion price corrected.
+-Added the blue dragon in Hero's guild basement.
+-Added the banker to Miscellenia.
+-Added additional slayer tasks.
+-Added ogres to the Combat Training Camp cage.
+-Entrana is now suitable for glass crafting.
+-Fixed a few weapon speeds.
+-Sweetcorn has finally been fixed.
+
+@dre@= May 1 =
 -Bank all has finally been fixed.
 -Fluid containers have amount options.(except x)
 -Bracelet of clay now works.
 -Added "Check" right click options to forging ring 
  and clay bracelet (Tells you your charges)
--Changes to barrows
+-Changes to barrows (Functionality)
+	a. Verac and Dharok nerfed & mobs buffed
+	b. Outer tunnels working
+	c. Random room placement heading to chest
 -Fixed problem with removing extra pie dish for
  three ingredient pies.
+-All dough working, and pots do not dissapear
+ when making dough.
 @blu@-Sheep Shearer
 
 @dre@= APR 28 =
