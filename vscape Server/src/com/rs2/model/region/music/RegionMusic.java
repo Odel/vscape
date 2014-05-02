@@ -113,6 +113,89 @@ public class RegionMusic {
 			new Music(92, 2891, 3133, 2940, 3195), // Sea Shanty (PART 1)
 			new Music(92, 2941, 3133, 2971, 3185), // Sea Shanty (PART 2)
 			new Music(172, 2817, 3133, 2890, 3208), // Jungle Island
-			new Music(314, 2366, 3069, 2446, 3136) // Castlewars
+			new Music(314, 2366, 3069, 2446, 3136), // Castlewars
+//			song #103 is runescape-oriental.mid
+			new Music(104,2744,3482,2773,3518),//			song #104 is runescape-camelot.mid camelot castle
+			new Music(104,2689,3480,2737,3499),//			song #104 is runescape-camelot.mid seers bank and forge
+//			song #109 is runescape-theme.mid
+//			song #114 is runescape-jungly1.mid
+//			song #115 is runescape-jungly2.mid
+//			song #117 is runescape-jungly3.mid
+			new Music(119,2801,3424,2853,3448),//			song #119 is runescape-fishing.mid
+//			song #129 is runescape-spooky jungle.mid
+//			song #133 is runescape-the tower.mid
+//			song #14 is runescape-witching.mid
+//			song #140 is runescape-talkng forest.mid
+//			song #144 is runescape-scape cave.mid
+//			song #148 is runescape-emotion.mid
+//			song #15 is runescape-workshop.mid
+//			song #152 is runescape-ballad of enchantment.mid
+//			song #154 is runescape-bone dance.mid
+//			song #156 is runescape-mausoleum.mid
+//			song #162 is runescape-tribal background.mid
+//			song #164 is runescape-landlubber.mid
+//			song #165 is runescape-tribal.mid
+//			song #17 is runescape-escape.mid
+//			song #18 is runescape-horizon.mid
+//			song #180 is runescape-attention.mid
+//			song #184 is runescape-magical journey.mid
+//			song #185 is runescape-magic dance.mid
+//			song #191 is runescape-knightly.mid
+//			song #193 is runescape-mellow.mid
+//			song #20 is runescape-lullaby.mid
+//			song #21 is runescape-monarch waltz.mid
+//			song #24 is runescape-attack 1.mid
+//			song #245 is runescape-natural.mid
+//			song #26 is runescape-attack 3.mid
+//			song #267 is runescape-sunburn.mid
+//			song #28 is runescape-attack 5.mid
+//			song #286 is runescape-shadowland.mid
+//			song #30 is runescape-voodoo cult.mid
+//			song #317 is runescape-melodrama.mid
+//			song #318 is runescape-ready for battle.mid
+//			song #32 is runescape-voyage.mid
+//			song #323 is runescape-undergroundpass.mid
+//			song #325 is runescape-cave background.mid
+//			song #326 is runescape-dark.mid
+//			song #328 is runescape-march.mid
+//			song #336 is runescape-dangerous road.mid
+//			song #380 is runescape-dance of the undead.mid
+//			song #381 is runescape-dangerous way.mid
+//			song #389 is runescape-cave of the goblins.mid
+//			song #412 is runescape-into the abyss.mid
+//			song #412 is runescape-the monsters below.mid
+//			song #469 is runescape-in the pits.mid
+//			song #473 is runescape-tzhaar!.mid
+//			song #475 is runescape-wild side.mid
+//			song #479 is runescape-jungle troubles.mid
+//			song #5 is runescape-sad meadow.mid
+//			song #532 is runescape-diango's little helpers.mid
+//			song #533 is runescape-roll the bones.mid
+//			song #535 is runescape-golden touch.mid
+//			song #55 is runescape-high seas.mid
+//			song #56 is runescape-doorways.mid
+//			song #57 is runescape-rune essence.mid
+//			song #58 is runescape-nomad.mid
+//			song #587 is runescape-null and void.mid
+//			song #588 is runescape-pest control.mid
+//			song #59 is runescape-cursed.mid
+//			song #6 is runescape-jolly r.mid
+			new Music(60,2626,3410,2685,3447)//			song #60 is runescape-lasting.mid
+//			song #7 is runescape-overture.mid
+//			song #71 is runescape-chompy hunt.mid
+//			song #74 is runescape-lightwalk.mid
+//			song #74 is runescape-nightwalk.mid
+//			song #77 is runescape-splendour.mid
+//			song #80 is runescape-soundscape.mid
+//			song #81 is runescape-wonderous.mid
+//			song #82 is runescape-waterfall.mid
+//			song #83 is runescape-big chords.mid
+//			song #84 is runescape-dead quiet.mid
+//			song #87 is runescape-ice melody.mid
+//			song #89 is runescape-reggae2.mid
+//			song #90 is runescape-ambient jungle.mid
+//			song #91 is runescape-riverside.mid
+//			song #94 is runescape-tribal 2.mid
+//			song #99 is runescape-baroque.mid
 	};
 }
