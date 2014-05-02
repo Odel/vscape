@@ -4496,18 +4496,18 @@ public class Dialogues {
 								case 4:
 									if(player.carryingItem(1735))
 									{
-										player.getDialogue().sendNpcChat("Well, you’re halfway there already. You have some shears","in your inventory. Just use those on a sheep to shear it.", CONTENT);
+										player.getDialogue().sendNpcChat("Well, you're halfway there already. You have some shears","in your inventory. Just use those on a sheep to shear it.", CONTENT);
 									}
 									else
 									{
-										player.getDialogue().sendNpcChat("Well, Get some Shears from the general store South of here","and Just use those on a sheep to shear it.", CONTENT);
+										player.getDialogue().sendNpcChat("Well, get some shears from the general store south of here","and Just use those on a sheep to shear it.", CONTENT);
 									}
 								return true;
 								case 5:
-									player.getDialogue().sendPlayerChat("That’s all I have to do?", CONTENT);
+									player.getDialogue().sendPlayerChat("That's all i have to do?", CONTENT);
 								return true;
 								case 6:
-									player.getDialogue().sendNpcChat("Well, once you’ve collected some wool","you’ll need to spin it into balls.", CONTENT);
+									player.getDialogue().sendNpcChat("Well, Once you've collected some wool","you'll need to spin it into balls.", CONTENT);
 								return true;
 								case 7:
 									player.getDialogue().sendNpcChat("Do you know how to spin wool?", CONTENT);
