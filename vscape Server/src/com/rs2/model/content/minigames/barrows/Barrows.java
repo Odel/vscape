@@ -67,8 +67,8 @@ public class Barrows {
 	public static final MinigameAreas.Area[] AREAS = {NORTH, WEST, EAST, SOUTH, NORTHWEST, NORTHEAST, SOUTHWEST, SOUTHEAST};  
         
 	public static int random(int range) {
-            if(range < 0) {
-			int number = (int) Math.ceil(Math.random() * (-range - 2));
+            if(range == 6 || range < 0) {
+			int number = (int) Math.ceil(Math.random() * 20);
                 return number == 1 ? 0 : number;
             }
             else if( range > 0) {
@@ -210,7 +210,7 @@ public class Barrows {
 			player.getActionSender().sendMessage("You can only loot the chest after killing at least 1 brother.");
 			return;
 		}
-		boolean getBarrows = random(714 - (kills * 50)) == 0;
+		boolean getBarrows = random(126 - (kills * 8)) == 0;
 		if (getBarrows) {
 			if (player.getInventory().getItemContainer().freeSlots() == 1) {
 				if (!player.getInventory().playerHasItem(rune)) {
