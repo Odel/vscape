@@ -755,6 +755,7 @@ public class ActionSender {
 		if (player.currentSong == id)
 			return this;
 		player.currentSong = id;
+		System.out.println("sending song " + id);
 		if (id != -1) {
 			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
 			out.writeHeader(player.getEncryptor(), 74);

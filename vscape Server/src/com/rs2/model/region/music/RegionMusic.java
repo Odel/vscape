@@ -19,20 +19,20 @@ public class RegionMusic {
 	private Music getMusicId(Player player) {
 		int x = player.getPosition().getX(), y = player.getPosition().getY();
 		for (int i = 0; i < songs.length; i++) {
-			if (x >= songs[i].swX && x <= songs[i].neX && y >= songs[i].swY
-					&& y <= songs[i].neY) {
+			if ((x >= songs[i].swX && x <= songs[i].neX) && (y >= songs[i].swY && y <= songs[i].neY)) {
 				return songs[i];
 			}
 			else
 			{
-				return null;
+				//System.out.println("no song");
+				//return null;
 			}
 		}
 		return null;
 	}
 
 	// Music id, swX, swY, neX, neY
-	private final Music[] songs = { new Music(76, 3200, 3199, 3273, 3302), // Harmony
+	private final Music[] songs = {new Music(76, 3200, 3199, 3273, 3302), // Harmony
 			new Music(2, 3200, 3303, 3273, 3353), // Autumn Voyage
 			new Music(111, 3274, 3328, 3315, 3394), // Still Night
 			new Music(123, 3274, 3266, 3323, 3327), // Arabian2
@@ -112,6 +112,7 @@ public class RegionMusic {
 			// new Music(Id, 3212, 3905, 3392, 3967), // Regal MISSING
 			new Music(92, 2891, 3133, 2940, 3195), // Sea Shanty (PART 1)
 			new Music(92, 2941, 3133, 2971, 3185), // Sea Shanty (PART 2)
-			new Music(172, 2817, 3133, 2890, 3208) // Jungle Island
+			new Music(172, 2817, 3133, 2890, 3208), // Jungle Island
+			new Music(314, 2366, 3069, 2446, 3136) // Castlewars
 	};
 }
