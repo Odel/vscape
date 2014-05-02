@@ -126,9 +126,9 @@ public class RegionMusic {
 //			song #133 is runescape-the tower.mid
 //			song #14 is runescape-witching.mid
 //			song #140 is runescape-talkng forest.mid
-//			song #144 is runescape-scape cave.mid
+			new Music(144,3154,9858,3290,9915),//			song #144 is runescape-scape cave.mid
 //			song #148 is runescape-emotion.mid
-//			song #15 is runescape-workshop.mid
+			new Music(15,3016,9736,3047,9756),//			song #15 is runescape-workshop.mid
 //			song #152 is runescape-ballad of enchantment.mid
 //			song #154 is runescape-bone dance.mid
 //			song #156 is runescape-mausoleum.mid
@@ -137,7 +137,7 @@ public class RegionMusic {
 //			song #165 is runescape-tribal.mid
 //			song #17 is runescape-escape.mid
 //			song #18 is runescape-horizon.mid
-//			song #180 is runescape-attention.mid
+			new Music(180,2942,3201,2973,3190),//			song #180 is runescape-attention.mid
 //			song #184 is runescape-magical journey.mid
 //			song #185 is runescape-magic dance.mid
 //			song #191 is runescape-knightly.mid
@@ -174,16 +174,16 @@ public class RegionMusic {
 //			song #535 is runescape-golden touch.mid
 //			song #55 is runescape-high seas.mid
 //			song #56 is runescape-doorways.mid
-//			song #57 is runescape-rune essence.mid
+			new Music(57,2880,4808,2935,4860),//			song #57 is runescape-rune essence.mid
 //			song #58 is runescape-nomad.mid
 //			song #587 is runescape-null and void.mid
 //			song #588 is runescape-pest control.mid
 //			song #59 is runescape-cursed.mid
 //			song #6 is runescape-jolly r.mid
-			new Music(60,2626,3410,2685,3447)//			song #60 is runescape-lasting.mid
-//			song #7 is runescape-overture.mid
+			new Music(60,2626,3410,2685,3447),//			song #60 is runescape-lasting.mid
+			new Music(7,2746,3455,2778,3478),//			song #7 is runescape-overture.mid
 //			song #71 is runescape-chompy hunt.mid
-//			song #74 is runescape-lightwalk.mid
+			new Music(74,2747,3390,2777,3413),//			song #74 is runescape-lightwalk.mid
 //			song #74 is runescape-nightwalk.mid
 //			song #77 is runescape-splendour.mid
 //			song #80 is runescape-soundscape.mid
@@ -196,6 +196,6 @@ public class RegionMusic {
 //			song #90 is runescape-ambient jungle.mid
 //			song #91 is runescape-riverside.mid
 //			song #94 is runescape-tribal 2.mid
-//			song #99 is runescape-baroque.mid
+			new Music(99,2651,3295,2672,3318)//			song #99 is runescape-baroque.mid
 	};
 }
