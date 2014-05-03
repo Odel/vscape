@@ -95,6 +95,10 @@ public class ThieveStalls {
 		if (stall == null) {
 			return false;
 		}
+		if (player.getInventory().getItemContainer().freeSlots() < 1) {
+			player.getActionSender().sendMessage("Looks like you don't have enough room in your inventory.");
+			return true;
+		}
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
