@@ -34,3 +34,4 @@ no zammy wine spawn
 kq(drops zammy wine noted) is unreachable(blocking making ranged pots)
 Nechrtaels drop 9k gp
 Duradel is missing several tasks
+Crystal bows (all charge values) need a correct store/alch value
