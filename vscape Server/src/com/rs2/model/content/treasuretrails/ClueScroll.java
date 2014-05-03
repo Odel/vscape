@@ -204,6 +204,7 @@ public class ClueScroll {
 		player.getActionSender().sendInterface(6960);
 
 		player.getActionSender().sendMessage("Well done, you've completed the Treasure Trail!");
+        player.getActionSender().sendQuickSong(95, 12); //not the correct music but it fits fine
 	}
 
 	public static void dropClue(Player player, Npc npc) {
