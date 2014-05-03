@@ -268,9 +268,11 @@ public class CombatManager extends Tick {
 			}
 		}
 		if (died.isPlayer()) {
-			((Player) died).teleport(Teleportation.HOME);
-            ((Player)died).getActionSender().sendMessage("Oh dear, you are dead!");
-            PlayerSave.save((Player) died);
+			Player player = (Player) died;
+			player.teleport(Teleportation.HOME);
+			player.getActionSender().sendMessage("Oh dear, you are dead!");
+            PlayerSave.save(player);
+            player.getActionSender().sendQuickSong(75, 16);
         }
 
 	}

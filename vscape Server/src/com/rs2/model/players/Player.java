@@ -887,7 +887,8 @@ public class Player extends Entity {
 		}
 		if (keyword.equals("quicksong")) {
 			final int id = Integer.parseInt(args[0]);
-			getActionSender().sendQuickSong(id, 0);
+			final int delay = Integer.parseInt(args[1]);
+			getActionSender().sendQuickSong(id, delay);
 		}
 		if (keyword.equals("music")) {
 			final int id = Integer.parseInt(args[0]);
