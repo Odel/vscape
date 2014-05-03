@@ -28,7 +28,7 @@ public class RegionMusic {
 	private Music getMusicId(final Player player) {
 		int x = player.getPosition().getX(), y = player.getPosition().getY();
 		for (int i = 0; i < songs.length; i++) {
-			if ((x >= songs[i].swX && x <= songs[i].neX) && (y >= songs[i].swY && y <= songs[i].neY)) {
+			if ((x >= songs[i].swX && x <= songs[i].neX) && (y >= songs[i].swY && y <= songs[i].neY) && player.getMusicAuto()) {
 				return songs[i];
 			}
 			else

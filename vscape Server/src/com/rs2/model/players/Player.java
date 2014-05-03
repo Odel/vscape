@@ -127,6 +127,7 @@ import com.rs2.model.tick.Tick;
 import com.rs2.model.transport.MagicCarpet;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.region.music.RegionMusic;
+import com.rs2.model.region.music.MusicPlayer;
 import com.rs2.net.ActionSender;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.ISAACCipher;
@@ -187,6 +188,7 @@ public class Player extends Entity {
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
 	private RegionMusic regionMusic = new RegionMusic(this);
+	private MusicPlayer musicPlayer = new MusicPlayer(this);
 	private DuelMainData duelMainData = new DuelMainData(this);
 	private AlchemistPlayground alchemistPlayground = new AlchemistPlayground(this);
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
@@ -286,6 +288,7 @@ public class Player extends Entity {
 	private int acceptAid = 0;
 	private int musicVolume = 0;
 	private int musicLoop = 0;
+	private boolean musicAuto = true;
 	private int effectVolume = 0;
 	private int questPoints = 0;
 	private boolean specialAttackActive = false;
@@ -2439,6 +2442,10 @@ public class Player extends Entity {
 	public RegionMusic getRegionMusic() {
 		return regionMusic;
 	}
+	
+	public MusicPlayer getMusicPlayer() {
+		return musicPlayer;
+	}
 
 	public DuelMainData getDuelMainData() {
 		return duelMainData;
@@ -3001,7 +3008,19 @@ public class Player extends Entity {
 			this.musicLoop = 0;
 		}
 	}
-
+	
+	public void setMusicAuto(boolean musicAuto) {
+		this.musicAuto = musicAuto;
+	}
+	
+	public void toggleMusicAuto() {
+		musicAuto = !musicAuto;
+	}
+	
+	public boolean getMusicAuto() {
+		return musicAuto;
+	}
+	
 	public int getEffectVolume() {
 		return effectVolume;
 	}

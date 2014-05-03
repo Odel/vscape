@@ -116,6 +116,7 @@ public class ActionSender {
 
 	public ActionSender sendConfigsOnLogin() {
 		resetAutoCastInterface();
+		sendConfig(18, player.getMusicAuto() ? 1 : 0);// music auto
 		sendConfig(166, player.getScreenBrightness());// screenBrightness
 		sendConfig(168, player.getMusicVolume());// musicVolume
 		sendConfig(169, player.getEffectVolume());// effectVolume

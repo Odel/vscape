@@ -62,92 +62,16 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		// Buttons that can be used while packets stopped
 		switch (buttonId) {
-            // smithing
-			/*case 15147 :// bronze bar
-				player.getSmithing().startSmelting(1, 0);
-				break;
-			case 15151 :// iron
-				player.getSmithing().startSmelting(1, 1);
-				break;
-			case 15155 :// silver
-				player.getSmithing().startSmelting(1, 2);
-				break;
-			case 15159 :// steel
-				player.getSmithing().startSmelting(1, 3);
-				break;
-			case 15163 :// gold
-				player.getSmithing().startSmelting(1, 4);
-				break;
-			case 29017 :// mith
-				player.getSmithing().startSmelting(1, 5);
-				break;
-			case 29022 :// addy
-				player.getSmithing().startSmelting(1, 6);
-				break;
-			case 29026 :// rune
-				player.getSmithing().startSmelting(1, 7);
-				break;
-			case 15146 :
-				player.getSmithing().startSmelting(5, 0);
-				break;
-			case 15150 :
-				player.getSmithing().startSmelting(5, 1);
-				break;
-			case 15154 :
-				player.getSmithing().startSmelting(5, 2);
-				break;
-			case 15158 :
-				player.getSmithing().startSmelting(5, 3);
-				break;
-			case 15162 :
-				player.getSmithing().startSmelting(5, 4);
-				break;
-			case 29016 :
-				player.getSmithing().startSmelting(5, 5);
-				break;
-			case 29020 :
-				player.getSmithing().startSmelting(5, 6);
-				break;
-			case 29025 :
-				player.getSmithing().startSmelting(5, 7);
-				break;
-			case 10247 :// bronze bar 10
-				player.getSmithing().startSmelting(10, 0);
-				break;
-			case 15149 :// iron bar 10
-				player.getSmithing().startSmelting(10, 1);
-				break;
-			case 15153 :// silver bar 10
-				player.getSmithing().startSmelting(10, 2);
-				break;
-			case 15157 :// steel bar 10
-				player.getSmithing().startSmelting(10, 3);
-				break;
-			case 15161 :// gold bar 10
-				player.getSmithing().startSmelting(10, 4);
-				break;
-			case 24253 :// mith bar 10
-				player.getSmithing().startSmelting(10, 5);
-				break;
-			case 29019 :// addy bar 10
-				player.getSmithing().startSmelting(10, 6);
-				break;
-			case 29024 :// rune bar 10
-				player.getSmithing().startSmelting(10, 7);
-				break;*/
-			case 38197:  //music loop button
-				player.toggleMusicLooping();
-				break;
 			case 23132 : // unmorph
 				player.getActionSender().removeInterfaces();
 				player.transformNpc = -1;
 				player.getActionSender().sendSideBarInterfaces();
 				player.setAppearanceUpdateRequired(true);
 				//player.getEquipment().unequip(Constants.RING);
-				break;
+				return;
             case 9118:
                 player.getActionSender().removeInterfaces();
-                break;
+                return;
 			/* Skill menus */
 			case 33206 : // attack
 				player.getSkillGuide().attackComplex(1);
@@ -338,6 +262,15 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 48177 :
 				player.setAcceptAid(1);
 				return;
+			case 38197 :
+				player.toggleMusicLooping();
+				return;
+			case 24125 :
+				player.toggleMusicAuto();
+				return;
+			case 24126 :
+				player.setMusicAuto(false);
+				return;
 			case 3162 :// setMusicVolume (0/4)
 				player.setMusicVolume(4);
 				//player.getActionSender().sendConfig(168, player.getMusicVolume());
@@ -385,23 +318,13 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 31195 :
 				player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
-				// STOP ADDING QUEST BUTTONS HERE 
-				/*
-			case 28165: //quest tab entry for cook's assistant
-				QuestHandler.handleQuestButtons(player, buttonId);
-				return;
-			case 28178: //the knight's sword
-				QuestHandler.handleQuestButtons(player, buttonId);
-				return;
-			case 28169: //the restless ghost
-				QuestHandler.handleQuestButtons(player, buttonId);
-				return;*/
 		}
-		// YOU ONLY NEED THIS ONE LIKE HERE
 		if (QuestHandler.handleQuestButtons(player, buttonId))
 		{
 			return;
 		}
+		if(player.getMusicPlayer().handleButton(buttonId))
+			return;
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;
 		if (player.getEquipment().setFightMode(buttonId)) {
@@ -419,8 +342,8 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		switch (buttonId) {
-		case 73099: //Deposit all Inventory Items
-			BankManager.bankAll(player);
+			case 73099: //Deposit all Inventory Items
+				BankManager.bankAll(player);
 			return;
 			/** Destroy item **/
 			case 55095 :
@@ -430,118 +353,13 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 55096 :
 				player.setDestroyItem(null);
 				player.getActionSender().removeInterfaces();
-				break;
+				return;
 			/** Teleother **/
 			case 49022 :
 				player.getTeleportation().teleportObelisk(player.getTeleotherPosition());
 			case 49024 :
 				player.getActionSender().removeInterfaces();
 				return;
-			/** Emotes **/
-		/*	case 168 :
-				player.getUpdateFlags().sendAnimation(855);
-				return;
-			case 169 :
-				player.getUpdateFlags().sendAnimation(856);
-				return;
-			case 162 :
-				player.getUpdateFlags().sendAnimation(857);
-				return;
-			case 164 :
-				player.getUpdateFlags().sendAnimation(858);
-				return;
-			case 165 :
-				player.getUpdateFlags().sendAnimation(859);
-				return;
-			case 161 :
-				player.getUpdateFlags().sendAnimation(860);
-				return;
-			case 170 :
-				player.getUpdateFlags().sendAnimation(861);
-				return;
-			case 171 :
-				player.getUpdateFlags().sendAnimation(862);
-				return;
-			case 163 :
-				player.getUpdateFlags().sendAnimation(863);
-				return;
-			case 167 :
-				player.getUpdateFlags().sendAnimation(864);
-				return;
-			case 172 :
-				player.getUpdateFlags().sendAnimation(865);
-				return;
-			case 166 :
-				player.getUpdateFlags().sendAnimation(866);
-				return;
-			case 52050 :
-				player.getUpdateFlags().sendAnimation(2105);
-				return;
-			case 52051 :
-				player.getUpdateFlags().sendAnimation(2106);
-				return;
-			case 52052 :
-				player.getUpdateFlags().sendAnimation(2107);
-				return;
-			case 52053 :
-				player.getUpdateFlags().sendAnimation(2108);
-				return;
-			case 52054 :
-				player.getUpdateFlags().sendAnimation(2109);
-				return;
-			case 52055 :
-				player.getUpdateFlags().sendAnimation(2110);
-				return;
-			case 52056 :
-				player.getUpdateFlags().sendAnimation(2111);
-				return;
-			case 52057 :
-				player.getUpdateFlags().sendAnimation(2112);
-				return;
-			case 52058 :
-				player.getUpdateFlags().sendAnimation(2113);
-				return;
-			case 43092 :
-				player.getActionSender().stopPlayerPacket(4);
-				player.getUpdateFlags().sendAnimation(0x558);
-				player.getUpdateFlags().sendGraphic(574);
-				return;
-			case 2155 :
-				player.getUpdateFlags().sendAnimation(0x46B);
-				return;
-			case 25103 :
-				player.getUpdateFlags().sendAnimation(0x46A);
-				return;
-			case 25106 :
-				player.getUpdateFlags().sendAnimation(0x469);
-				return;
-			case 2154 :
-				player.getUpdateFlags().sendAnimation(0x468);
-				return;
-			case 52071 :
-				player.getUpdateFlags().sendAnimation(0x84F);
-				return;
-			case 52072 :
-				player.getUpdateFlags().sendAnimation(0x850);
-				return;
-			case 73003 :
-				player.getUpdateFlags().sendAnimation(2836);
-				return;
-			case 73001 :
-				player.getUpdateFlags().sendAnimation(3544);
-				return;
-			case 73000 :
-				player.getUpdateFlags().sendAnimation(3543);
-				return;
-			case 72032 :
-				player.getUpdateFlags().sendAnimation(3544);
-				return;
-			case 72033 :
-				player.getUpdateFlags().sendAnimation(3543);
-				return;
-			case 59062 :
-				player.getUpdateFlags().sendAnimation(2836);
-				return;*/
 			case 23132 :
 				player.getActionSender().removeInterfaces();
 				player.getEquipment().unequip(Constants.RING);
