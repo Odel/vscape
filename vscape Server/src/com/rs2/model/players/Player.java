@@ -126,6 +126,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.model.transport.MagicCarpet;
 import com.rs2.model.transport.Sailing;
+import com.rs2.model.region.music.RegionMusic;
 import com.rs2.net.ActionSender;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.ISAACCipher;
@@ -185,6 +186,7 @@ public class Player extends Entity {
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
+	private RegionMusic regionMusic = new RegionMusic(this);
 	private DuelMainData duelMainData = new DuelMainData(this);
 	private AlchemistPlayground alchemistPlayground = new AlchemistPlayground(this);
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
@@ -1777,6 +1779,7 @@ public class Player extends Entity {
 		//GlobalObjectHandler.createGlobalObject();
         GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
+		getRegionMusic().playMusic();
 	}
 	
     public void demoDelayedTask() {
@@ -2041,14 +2044,6 @@ public class Player extends Entity {
             b.start();
             if (getTradingEntity() != null) {
             	TradeManager.declineTrade(this);
-            }
-            if(inPestControlLobbyArea())
-            {
-            	PestControl.leaveLobby(this);
-            }
-            if(inPestControlGameArea())
-            {
-            	PestControl.leaveGame(this);
             }
             b.stop();
             b = Benchmarks.getBenchmark("duelDecline");
@@ -2438,6 +2433,10 @@ public class Player extends Entity {
 
 	public PlayerInteraction getDuelInteraction() {
 		return playerInteraction;
+	}
+
+	public RegionMusic getRegionMusic() {
+		return regionMusic;
 	}
 
 	public DuelMainData getDuelMainData() {

@@ -176,7 +176,7 @@ public class MovementHandler {
 			}
 			//if (!player.currentArea.equals(Position.getCurrentArea(player)))
 			WalkInterfaces.addWalkableInterfaces(player);
-			new RegionMusic().playMusic(player);
+			player.getRegionMusic().playMusic();
 		}
 	}
 

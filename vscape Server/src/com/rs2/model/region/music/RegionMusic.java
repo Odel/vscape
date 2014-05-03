@@ -7,16 +7,25 @@ import com.rs2.model.players.Player;
  * this template use File | Settings | File Templates.
  */
 public class RegionMusic {
-	public void playMusic(Player player) {
+	
+	private Player player;
+
+	public RegionMusic(Player player) {
+		this.player = player;
+	}
+	
+	public void playMusic() {
 		Music song = getMusicId(player);
 		if (song == null) {
-			//player.getActionSender().sendSong(2);
+			return;
+		}
+		if(player.currentSong == song.music){
 			return;
 		}
 		player.getActionSender().sendSong(song.music);
 	}
 
-	private Music getMusicId(Player player) {
+	private Music getMusicId(final Player player) {
 		int x = player.getPosition().getX(), y = player.getPosition().getY();
 		for (int i = 0; i < songs.length; i++) {
 			if ((x >= songs[i].swX && x <= songs[i].neX) && (y >= songs[i].swY && y <= songs[i].neY)) {
