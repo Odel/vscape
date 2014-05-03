@@ -192,7 +192,7 @@ final class Decompressor {
 			}*/
 			randomaccessfile.seek(j);
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
