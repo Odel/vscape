@@ -154145,7 +154145,7 @@
           28,
           42,
           70,
-          137,
+          137
 	
         ],
         "chance": 2
@@ -154153,98 +154153,98 @@
 	{
         "id": 377,
         "count": [
-          1,
+          1
         ],
         "chance": 2
       },
 	{
         "id": 363,
         "count": [
-          1,
+          1
         ],
         "chance": 2
       },
 	{
         "id": 1119,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 3098,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 1125,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 1355,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 6151,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 6145,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 1341,
         "count": [
-          1,
+          1
         ],
         "chance": 4
       },
 	{
         "id": 1301,
         "count": [
-          1,
+          1
         ],
         "chance": 4
       },
 	{
         "id": 1345,
         "count": [
-          1,
+          1
         ],
         "chance": 4
       },
 	{
         "id": 6157,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 6159,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       },
 	{
         "id": 6161,
         "count": [
-          1,
+          1
         ],
         "chance": 3
       }
@@ -155344,14 +155344,14 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 6147,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 6163,
