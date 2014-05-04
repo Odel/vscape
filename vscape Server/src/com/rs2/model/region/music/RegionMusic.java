@@ -71,7 +71,7 @@ public class RegionMusic {
 			// MISSING
 			// new Music(Id, 2972, 3137, 3037, 3185), // Tomorrow MISSING
 			new Music(35, 2993, 3186, 3065, 3260), // Sea Shanty 2
-			// new Music(Id, 2941, 3186, 2992, 3260), // Long Way Home MISSING
+			new Music(12, 2941, 3186, 2992, 3260), // Long Way Home
 			// new Music(Id, 2911, 3196, 2940, 3264), // Emperor MISSING
 			new Music(107, 2889, 3265, 2940, 3324), // Miles Away
 			new Music(127, 2941, 3261, 3013, 3324), // Nightfall
@@ -90,7 +90,7 @@ public class RegionMusic {
 			new Music(96, 2992, 3556, 3124, 3605), // Inspiration
 			new Music(182, 3035, 3525, 3124, 3555), // Dangerous
 			new Music(169, 3125, 3525, 3264, 3579), // Crystal Sword
-			// new Music(Id, 3265, 3525, 3392, 3562), // Shining MISSING
+			new Music(120, 3265, 3525, 3392, 3562), // Shining
 			new Music(121, 3265, 3563, 3392, 3619), // Forbidden
 			new Music(113, 2944, 3592, 2991, 3655), // Lightness
 			new Music(160, 2992, 3606, 3055, 3655), // Army of Darkness
@@ -108,9 +108,9 @@ public class RegionMusic {
 			new Music(68, 3127, 3715, 3197, 3758), // Cavern
 			new Music(332, 3198, 3704, 3264, 3758), // Scape Wild
 			new Music(182, 3265, 3717, 3392, 3842), // Dangerous
-			// new Music(Id, 3127, 3759, 3264, 3842), // Wolf Mountain UNKNOWN
+			new Music(87, 3127, 3759, 3264, 3842), // Wolf Mountain (ice melody)
 			new Music(37, 2944, 3800, 3003, 3903), // Deep Wildy
-			// new Music(Id, 3004, 3800, 3126, 3903), // Wilderness2 MISSING
+			new Music(435, 3004, 3800, 3126, 3903), // Wilderness2 MISSING NOT CORRECT BUT FITTING FOR NOW
 			// new Music(Id, 3127, 3843, 3211, 3903), // Close Quarters MISSING
 			new Music(331, 3212, 3843, 3392, 3903), // Scape Sad
 			new Music(52, 2944, 3904, 3009, 3969), // Serene
@@ -200,7 +200,6 @@ public class RegionMusic {
 //			song #82 is runescape-waterfall.mid
 //			song #83 is runescape-big chords.mid
 //			song #84 is runescape-dead quiet.mid
-//			song #87 is runescape-ice melody.mid
 //			song #89 is runescape-reggae2.mid
 //			song #90 is runescape-ambient jungle.mid
 //			song #91 is runescape-riverside.mid
