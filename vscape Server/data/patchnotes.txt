@@ -7,7 +7,7 @@ world
 -Level up, death and treasure trail songs
 now play
 @blu@-New Client with music volume support
-@blu@ (updating isnt required)
+@blu@ (updating is optional if you want music volume)
 
 @dre@= May 2 =
 @blu@-Final Barrows fix
