@@ -43,7 +43,7 @@ public class client extends RSApplet {
 
 	private void stopMidi()
 	{
-		SoundProvider.getSingleton().stopMidi();
+		MidiPlayer.getSingleton().stop();
 		signlink.midifade = 0;
 		signlink.midi = "stop";
 	}
@@ -1193,26 +1193,28 @@ public class client extends RSApplet {
 	            boolean flag = musicEnabled;
 	            if(k == 0)
 	            {
-	                adjustVolume(musicEnabled, 50);
+	            	musicVolume = 100;
 	                musicEnabled = true;
 	            }
 	            if(k == 1)
 	            {
-	                adjustVolume(musicEnabled, 35);
+	            	musicVolume = 75;
 	                musicEnabled = true;
 	            }
 	            if(k == 2)
 	            {
-	                adjustVolume(musicEnabled, 25);
+	                musicVolume = 50;
 	                musicEnabled = true;
 	            }
 	            if(k == 3)
 	            {
-	                adjustVolume(musicEnabled, 15);
+	                musicVolume = 25;
 	                musicEnabled = true;
 	            }
 	            if(k == 4)
 	                musicEnabled = false;
+	            
+	            adjustVolume(musicEnabled, musicVolume);
 	            if(musicEnabled != flag && !lowMem)
 	            {
 	                if(musicEnabled)
@@ -1948,8 +1950,8 @@ public class client extends RSApplet {
 		socketStream = null;
 		loggedIn = false;
 		loginScreenState = 0;
- 	   myUsername = "";
- 	   myPassword = "";
+ 	    //myUsername = "";
+ 	    //myPassword = "";
 		unlinkMRUNodes();
 		worldController.initToNull();
 		for(int i = 0; i < 4; i++)
@@ -1958,8 +1960,10 @@ public class client extends RSApplet {
 		System.gc();
 		stopMidi();
 		currentSong = -1;
-		nextSong = -1;
+		nextSong = 0;
 		prevSong = 0;
+		musicVolume = 100;
+		onDemandFetcher.method558(2, nextSong);
 	}
 
 	private void method45()
@@ -2652,7 +2656,7 @@ public class client extends RSApplet {
 				if(onDemandData.dataType == 1 && onDemandData.buffer != null)
 					Class36.method529(onDemandData.buffer,onDemandData.ID);
 				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null)
-                   SoundProvider.getSingleton().playMIDI(onDemandData.buffer, 0);
+					MidiPlayer.getSingleton().play(onDemandData.buffer,true,musicVolume);
 				if(onDemandData.dataType == 3 && loadingStage == 1)
 				{
 					for(int i = 0; i < aByteArrayArray1183.length; i++)
@@ -8977,6 +8981,7 @@ public class client extends RSApplet {
 
 	private void adjustVolume(boolean flag, int i)
 	{
+		MidiPlayer.getSingleton().setVolume(0, i);
 		signlink.midivol = i;
 		if(flag)
 			signlink.midi = "voladjust";
@@ -12191,6 +12196,7 @@ public class client extends RSApplet {
 	private static int anInt1226;
 	private int nextSong;
 	private boolean songChanging;
+	private int musicVolume = 100;
 	private final int[] anIntArray1229;
 	private Class11[] aClass11Array1230;
 	public static int anIntArray1232[];
