@@ -50,9 +50,9 @@ public class RegionMusic {
 			new Music(47, 3324, 3200, 3408, 3262), // Duel Arena
 			new Music(122, 3324, 3263, 3408, 3285), // Shine
 			new Music(541, 3324, 3286, 3408, 3327), // The Enchanter
-			// new Music(Id, 3194, 3137, 3256, 3199), // Yesteryear MISSING
+			new Music(145, 3194, 3137, 3256, 3199), // Yesteryear
 			new Music(64, 3136, 3136, 3193, 3199), // Book of Spells
-			// new Music(Id, 3074, 3136, 3135, 3199), // Vision MISSING
+			new Music(85, 3074, 3136, 3135, 3199), // Vision
 			new Music(3, 3066, 3200, 3120, 3272), // Unknown Land
 			new Music(327, 3121, 3200, 3199, 3268), // Dream
 			new Music(163, 3121, 3269, 3199, 3314), // Flute Salad
@@ -66,7 +66,7 @@ public class RegionMusic {
 			new Music(177, 3111, 3469, 3264, 3524), // Adventure
 			new Music(93, 3265, 3469, 3328, 3524), // Parade
 			new Music(48, 3329, 3447, 3418, 3524), // Morytania
-			// new Music(Id, 3054, 3058, 3156, 3135), // Newbie Melody MISSING
+			new Music(62, 3054, 3058, 3156, 3135), // Newbie Melody MISSING
 			// new Music(Id, 2972, 3103, 3014, 3136), // Mudskipper Melody
 			// MISSING
 			// new Music(Id, 2972, 3137, 3037, 3185), // Tomorrow MISSING
