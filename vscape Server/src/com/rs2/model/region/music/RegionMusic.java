@@ -108,7 +108,7 @@ public class RegionMusic {
 			new Music(68, 3127, 3715, 3197, 3758), // Cavern
 			new Music(332, 3198, 3704, 3264, 3758), // Scape Wild
 			new Music(182, 3265, 3717, 3392, 3842), // Dangerous
-			new Music(87, 3127, 3759, 3264, 3842), // Wolf Mountain (ice melody)
+			new Music(182, 3127, 3759, 3264, 3842), // (this isnt wolf mountain wut) some wildy shit
 			new Music(37, 2944, 3800, 3003, 3903), // Deep Wildy
 			new Music(435, 3004, 3800, 3126, 3903), // Wilderness2 MISSING NOT CORRECT BUT FITTING FOR NOW
 			// new Music(Id, 3127, 3843, 3211, 3903), // Close Quarters MISSING
@@ -200,6 +200,7 @@ public class RegionMusic {
 //			song #82 is runescape-waterfall.mid
 //			song #83 is runescape-big chords.mid
 //			song #84 is runescape-dead quiet.mid
+			new Music(87, 2818, 3456, 2882, 3520), // Wolf Mountain (ice melody)
 //			song #89 is runescape-reggae2.mid
 //			song #90 is runescape-ambient jungle.mid
 //			song #91 is runescape-riverside.mid
