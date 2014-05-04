@@ -69,6 +69,12 @@ public final class SoundProvider {
 		});
 	}
 
+    public void stopMidi()
+	{
+    	midiSequencer.stop();
+    	midiSequencer.close();
+	}
+    
    /** plays a WAV
     * @param data the WAV bytes to be read
     */

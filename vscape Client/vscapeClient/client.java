@@ -43,6 +43,7 @@ public class client extends RSApplet {
 
 	private void stopMidi()
 	{
+		SoundProvider.getSingleton().stopMidi();
 		signlink.midifade = 0;
 		signlink.midi = "stop";
 	}
@@ -1192,22 +1193,22 @@ public class client extends RSApplet {
 	            boolean flag = musicEnabled;
 	            if(k == 0)
 	            {
-	                adjustVolume(musicEnabled, 0);
+	                adjustVolume(musicEnabled, 50);
 	                musicEnabled = true;
 	            }
 	            if(k == 1)
 	            {
-	                adjustVolume(musicEnabled, -400);
+	                adjustVolume(musicEnabled, 35);
 	                musicEnabled = true;
 	            }
 	            if(k == 2)
 	            {
-	                adjustVolume(musicEnabled, -800);
+	                adjustVolume(musicEnabled, 25);
 	                musicEnabled = true;
 	            }
 	            if(k == 3)
 	            {
-	                adjustVolume(musicEnabled, -1200);
+	                adjustVolume(musicEnabled, 15);
 	                musicEnabled = true;
 	            }
 	            if(k == 4)
