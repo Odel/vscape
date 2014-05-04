@@ -1193,22 +1193,22 @@ public class client extends RSApplet {
 	            boolean flag = musicEnabled;
 	            if(k == 0)
 	            {
-	            	musicVolume = 100;
+	            	musicVolume = 160;
 	                musicEnabled = true;
 	            }
 	            if(k == 1)
 	            {
-	            	musicVolume = 75;
+	            	musicVolume = 120;
 	                musicEnabled = true;
 	            }
 	            if(k == 2)
 	            {
-	                musicVolume = 50;
+	                musicVolume = 80;
 	                musicEnabled = true;
 	            }
 	            if(k == 3)
 	            {
-	                musicVolume = 25;
+	                musicVolume = 40;
 	                musicEnabled = true;
 	            }
 	            if(k == 4)
@@ -1962,7 +1962,7 @@ public class client extends RSApplet {
 		currentSong = -1;
 		nextSong = 0;
 		prevSong = 0;
-		musicVolume = 100;
+		musicVolume = 160;
 		onDemandFetcher.method558(2, nextSong);
 	}
 
@@ -12196,7 +12196,7 @@ public class client extends RSApplet {
 	private static int anInt1226;
 	private int nextSong;
 	private boolean songChanging;
-	private int musicVolume = 100;
+	private int musicVolume = 160;
 	private final int[] anIntArray1229;
 	private Class11[] aClass11Array1230;
 	public static int anIntArray1232[];

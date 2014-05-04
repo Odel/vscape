@@ -1,4 +1,4 @@
-@dre@= May 3 =
+@dre@= May 4 =
 -Crystal bow shop value fixed
 -Thieving stalls no longer works when your
 inventory is full (to prevent an exploit)
@@ -6,6 +6,8 @@ inventory is full (to prevent an exploit)
 world
 -Level up, death and treasure trail songs
 now play
+@blu@-New Client with music volume support
+@blu@ (updating isnt required)
 
 @dre@= May 2 =
 @blu@-Final Barrows fix
