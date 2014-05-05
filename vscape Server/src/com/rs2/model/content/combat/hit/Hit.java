@@ -84,16 +84,16 @@ public class Hit {
         if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
        	 Player player = (Player) getAttacker();
        	 if(hitType == HitType.MISS){
-       		 player.getCombatSounds().npcBlockSound();
+       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
        	 }else{
-       		 player.getCombatSounds().npcDamageSound();
+       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
        	 }
        }
        if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
       	 Player att = (Player) getAttacker();
       	 Player vic = (Player) getVictim();
       	 if(hitType == HitType.MISS){
-      		att.getCombatSounds().blockSoundOtherPlayer(vic);
+      		att.getCombatSounds().blockSound(vic);
       	 }else{
       		att.getCombatSounds().damageSound();
       	 }
@@ -101,7 +101,7 @@ public class Hit {
        if (getVictim().isPlayer()) {
            Player player = (Player) getVictim();
 	       	 if(hitType == HitType.MISS){
-	    		 player.getCombatSounds().blockSound();
+	    		 player.getCombatSounds().blockSound(player);
 	    	 }else{
 	    		 player.getCombatSounds().damageSound();
 	    	 }

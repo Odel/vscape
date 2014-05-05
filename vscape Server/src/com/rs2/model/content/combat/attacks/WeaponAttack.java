@@ -192,10 +192,10 @@ public class WeaponAttack extends BasicAttack {
 					hit.addEffect(poisonEffect);
 			}
 		}
-		player.getCombatSounds().weaponSound();
-		if(getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer())
+		player.getCombatSounds().weaponSound(player);
+		if(getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer())
 		{
-			((Player) getVictim()).getCombatSounds().weaponSoundOtherPlayer(player);
+			((Player) getVictim()).getCombatSounds().weaponSound(player);
 		}
 		/*if (attackStyle.getAttackType() == AttackType.RANGED) {
 			player.getMovementPaused().setWaitDuration(2);

@@ -1,8 +1,11 @@
 package com.rs2.model.content.combat.weapon;
 
 import com.rs2.Constants;
+import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.ItemDefinition;
+import com.rs2.util.Misc;
 
 //Really basic weapon sounds class
 public class CombatSounds {
@@ -54,16 +57,7 @@ public class CombatSounds {
 		return 0;
 	}
 	
-	public void weaponSound()
-	{
-		int soundId = getWeaponSound(player.getEquipment().getId(Constants.WEAPON));
-		if(soundId > 0)
-		{
-			player.getActionSender().sendSound(soundId,0,0);
-		}
-	}
-	
-	public void weaponSoundOtherPlayer(Player ply)
+	public void weaponSound(final Player ply)
 	{
 		int soundId = getWeaponSound(ply.getEquipment().getId(Constants.WEAPON));
 		if(soundId > 0)
@@ -72,18 +66,18 @@ public class CombatSounds {
 		}
 	}
 	
-	public void blockSound()
+	public void blockSound(final Player ply)
 	{
-		int soundId = 68;
-		if(player.getEquipment().getId(Constants.SHIELD) <= 0) {
-			String weaponName = ItemDefinition.forId(player.getEquipment().getId(Constants.WEAPON)).getName().toLowerCase();
+		int soundId = 381;
+		if(ply.getEquipment().getId(Constants.SHIELD) <= 0) {
+			String weaponName = ItemDefinition.forId(ply.getEquipment().getId(Constants.WEAPON)).getName().toLowerCase();
 			if (weaponName.contains("2h sword") || weaponName.contains("2h")) {
-				soundId = 791;
+				soundId = Misc.random(410, 415);
 			}
 		} else {
-			String shieldName = ItemDefinition.forId(player.getEquipment().getId(Constants.SHIELD)).getName().toLowerCase();
+			String shieldName = ItemDefinition.forId(ply.getEquipment().getId(Constants.SHIELD)).getName().toLowerCase();
 			if (shieldName.contains("shield")) {
-				soundId = 791;
+				soundId = Misc.random(410, 415);
 			}
 		}
 		player.getActionSender().sendSound(soundId,0,0);
@@ -91,34 +85,57 @@ public class CombatSounds {
 	
 	public void damageSound()
 	{
-		player.getActionSender().sendSound(816,0,0);
+		player.getActionSender().sendSound(69,0,0);
 	}
 
-	public void blockSoundOtherPlayer(Player ply)
+	public void npcAttackSound(Npc npc)
 	{
-		int soundId = 68;
-		if(ply.getEquipment().getId(Constants.SHIELD) <= 0) {
-			String weaponName = ItemDefinition.forId(ply.getEquipment().getId(Constants.WEAPON)).getName().toLowerCase();
-			if (weaponName.contains("2h sword") || weaponName.contains("2h")) {
-				soundId = 791;
-			}
-		} else {
-			String shieldName = ItemDefinition.forId(ply.getEquipment().getId(Constants.SHIELD)).getName().toLowerCase();
-			if (shieldName.contains("shield")) {
-				soundId = 791;
-			}
+		int soundId = 417;
+		String npcName = NpcDefinition.forId(npc.getNpcId()).getName().toLowerCase();
+		if(npcName.contains("cow"))
+		{
+			soundId = 4;
 		}
 		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
-	public void npcBlockSound()
+	public void npcBlockSound(Npc npc)
 	{
-		player.getActionSender().sendSound(68,0,0);
+		int soundId = 381;
+		String npcName = NpcDefinition.forId(npc.getNpcId()).getName().toLowerCase();
+		if(npcName.contains("cow"))
+		{
+			soundId = 3;
+		}
+		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
-	public void npcDamageSound()
+	public void npcDamageSound(Npc npc)
 	{
-		player.getActionSender().sendSound(816,0,0);
+		int soundId = 69;
+		String npcName = NpcDefinition.forId(npc.getNpcId()).getName().toLowerCase();
+		if(npcName.contains("cow")){
+			soundId = 3;
+		} else if(npcName.contentEquals("man")) {
+			soundId = 72;
+		} else if(npcName.contentEquals("woman")) {
+			soundId = 73;
+		}
+		player.getActionSender().sendSound(soundId,0,0);
+	}
+	
+	public void npcDeathSound(Npc npc)
+	{
+		int soundId = 70;
+		String npcName = NpcDefinition.forId(npc.getNpcId()).getName().toLowerCase();
+		if(npcName.contains("cow")){
+			soundId = 5;
+		} else if(npcName.contentEquals("man")) {
+			soundId = 70;
+		} else if(npcName.contentEquals("woman")) {
+			soundId = 71;
+		}
+		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
 }

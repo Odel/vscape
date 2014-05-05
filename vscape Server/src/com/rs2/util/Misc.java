@@ -86,6 +86,11 @@ public class Misc {
 		int number = (int) (Math.random() * (range + 1));
 		return number < 0 ? 0 : number;
 	}
+	
+	public static int random(int min,int max) {
+		int number = min + (int)(Math.random() * ((max - min) + 1));
+		return number;
+	}
 
 	public static String format(int num) {
 		return NumberFormat.getInstance().format(num);

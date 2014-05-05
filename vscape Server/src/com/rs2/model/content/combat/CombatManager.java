@@ -160,6 +160,10 @@ public class CombatManager extends Tick {
 							death = new Npc(player.transformNpc).getDefinition().getDeathAnim();
 						}
 					}
+					if(killer != null && killer.isPlayer() && died.isNpc()){
+			            Player player = (Player) killer;
+			            player.getCombatSounds().npcDeathSound(((Npc) died));
+			       }
 					died.getUpdateFlags().sendAnimation(death);
 					stop();
 				}
