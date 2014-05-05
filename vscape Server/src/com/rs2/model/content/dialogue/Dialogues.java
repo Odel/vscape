@@ -4586,6 +4586,27 @@ public class Dialogues {
                                             return true;           
 				}
 			break;
+                        case 732 : //Cinco de mayo
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hola, quieres una cerveza?", CONTENT);
+                                        return true;
+                                        case 2 :
+						player.getDialogue().sendOption("Si.", "No.");
+                                            return true; 
+                                        case 3:
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendPlayerChat("Si.", HAPPY);
+                                                                player.getInventory().addItem(new Item(1917));
+								return true;
+                                                        case 2:
+                                                                player.getDialogue().sendPlayerChat("No", ANNOYED);
+                                                                player.getDialogue().endDialogue();
+                                                                return true;		
+						}         
+				}
+			break; 
                         case 4288 : //Attack master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
