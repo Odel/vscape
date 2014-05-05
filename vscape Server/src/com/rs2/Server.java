@@ -379,7 +379,6 @@ public class Server implements Runnable {
 					initiateRestart();
 				}*/
 				System.out.println("[WARNING]: Server load: " + cycle + "%!");
-				System.out.println(sleepTime);
                 Benchmarks.printAll();
                 Benchmarks.resetAll();
                 for (int i = 0; i < 5; i++)
