@@ -24,7 +24,7 @@
  <npcDefinition>
    <id>1</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -46,7 +46,7 @@
  <npcDefinition>
    <id>2</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
