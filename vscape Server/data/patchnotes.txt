@@ -1,5 +1,9 @@
 @dre@= May ? =
 @blu@-Basic Combat sound system (PVP&NPC)
+@blue@-Skillcapes and their vendors.
+-Waterbirth island monsters have correct drop tables.
+-Fixed Ahrim's set requirements.
+-Adjusted seaweed drop rate on Entrana. (Faster)
 
 @dre@= May 4 =
 -Crystal bow shop value fixed
