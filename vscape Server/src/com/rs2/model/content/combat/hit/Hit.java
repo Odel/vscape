@@ -80,6 +80,32 @@ public class Hit {
 			flags.setDamage2(damage);
 			flags.setHitType2(hitType.toInteger());
 		} else flags.queueDamage(damage, hitType.toInteger());
+		
+        if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
+       	 Player player = (Player) getAttacker();
+       	 if(hitType == HitType.MISS){
+       		 player.getCombatSounds().npcBlockSound();
+       	 }else{
+       		 player.getCombatSounds().npcDamageSound();
+       	 }
+       }
+       if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
+      	 Player att = (Player) getAttacker();
+      	 Player vic = (Player) getVictim();
+      	 if(hitType == HitType.MISS){
+      		att.getCombatSounds().blockSoundOtherPlayer(vic);
+      	 }else{
+      		att.getCombatSounds().damageSound();
+      	 }
+       }
+       if (getVictim().isPlayer()) {
+           Player player = (Player) getVictim();
+	       	 if(hitType == HitType.MISS){
+	    		 player.getCombatSounds().blockSound();
+	    	 }else{
+	    		 player.getCombatSounds().damageSound();
+	    	 }
+       }
     }
 
     @SuppressWarnings("rawtypes")
@@ -203,6 +229,7 @@ public class Hit {
             addCombatExp((Player) attacker, damage, hitDef.getAttackStyle());
         }
         currentHp -= damage;
+        
         if (hitDef.getHitAnimation() != -1)
             victim.getUpdateFlags().sendAnimation(hitDef.getHitAnimation());
         if (attacker != null) {

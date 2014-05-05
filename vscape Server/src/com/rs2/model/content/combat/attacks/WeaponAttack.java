@@ -193,6 +193,10 @@ public class WeaponAttack extends BasicAttack {
 			}
 		}
 		player.getCombatSounds().weaponSound();
+		if(getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer())
+		{
+			((Player) getVictim()).getCombatSounds().weaponSoundOtherPlayer(player);
+		}
 		/*if (attackStyle.getAttackType() == AttackType.RANGED) {
 			player.getMovementPaused().setWaitDuration(2);
 			player.getMovementPaused().reset();
