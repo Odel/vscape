@@ -34,3 +34,4 @@ kq(drops zammy wine noted) is unreachable(blocking making ranged pots)
 Nechrtaels drop 9k gp
 Duradel is missing several tasks
 Crystal bows need to decay/recharge/have shop and alch values set
+regen brace doesn't function

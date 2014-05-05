@@ -205,6 +205,7 @@ public class RegionMusic {
 //			song #90 is runescape-ambient jungle.mid
 //			song #91 is runescape-riverside.mid
 //			song #94 is runescape-tribal 2.mid
-			new Music(99,2651,3295,2672,3318)//			song #99 is runescape-baroque.mid
+			new Music(99,2651,3295,2672,3318),//			song #99 is runescape-baroque.mid
+			new Music(588,2649,2602,2666,2607) //Pest Control music
 	};
 }
