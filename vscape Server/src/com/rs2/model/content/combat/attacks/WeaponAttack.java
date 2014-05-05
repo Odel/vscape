@@ -192,6 +192,7 @@ public class WeaponAttack extends BasicAttack {
 					hit.addEffect(poisonEffect);
 			}
 		}
+		player.getCombatSounds().weaponSound();
 		/*if (attackStyle.getAttackType() == AttackType.RANGED) {
 			player.getMovementPaused().setWaitDuration(2);
 			player.getMovementPaused().reset();

@@ -51,6 +51,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
+import com.rs2.model.content.combat.weapon.CombatSounds;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
@@ -189,6 +190,7 @@ public class Player extends Entity {
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
 	private RegionMusic regionMusic = new RegionMusic(this);
 	private MusicPlayer musicPlayer = new MusicPlayer(this);
+	private CombatSounds combatSounds = new CombatSounds(this);
 	private DuelMainData duelMainData = new DuelMainData(this);
 	private AlchemistPlayground alchemistPlayground = new AlchemistPlayground(this);
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
@@ -2445,6 +2447,10 @@ public class Player extends Entity {
 	
 	public MusicPlayer getMusicPlayer() {
 		return musicPlayer;
+	}
+	
+	public CombatSounds getCombatSounds() {
+		return combatSounds;
 	}
 
 	public DuelMainData getDuelMainData() {
