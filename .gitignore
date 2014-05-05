@@ -3,6 +3,7 @@
 #################
 vscape.sublime-project
 vscape.sublime-workspace
+commands.txt
 *.pydevproject
 .project
 .metadata

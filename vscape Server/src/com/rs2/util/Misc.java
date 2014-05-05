@@ -543,7 +543,7 @@ public class Misc {
 	}
 	
 	public static String[] loadPatchNotes() throws IOException {
-		String[] patchNotes = new String[100];
+		String[] patchNotes = new String[50];
 		int count = 0;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(new File("data/patchnotes.txt")));
@@ -551,7 +551,7 @@ public class Misc {
 			String line = null;
 			// if no more lines the readLine() returns null
 			int q = 0;
-			while ((line = br.readLine()) != null) {
+			while (((line = br.readLine()) != null) && (q<50)) {
 				patchNotes[q]=line;
 				q++;
 			}
