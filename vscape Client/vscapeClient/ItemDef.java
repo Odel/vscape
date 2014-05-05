@@ -186,14 +186,34 @@ public final class ItemDef {
 		itemDef.id = i;
 		itemDef.setDefaults();
 		itemDef.readValues(stream);
-	/*	switch (i) {
-			case 2568:
+		switch (i) {
+			/*case 2568:
 				itemDef.itemActions[2] = "Check";
 				break;
 			case 11074:
-				itemDef.itemActions[2] = "Check";
-				break;
-		}*/
+				itemDef.itemActions[2] = "Check";				break;
+                    */
+                        case 5509:
+                                itemDef.itemActions[2] = "Check";
+                                itemDef.itemActions[3] = "Empty";
+                                itemDef.itemActions[1] = null;
+                                break;
+                        case 5510:
+                                itemDef.itemActions[2] = "Check";
+                                itemDef.itemActions[3] = "Empty";
+                                itemDef.itemActions[1] = null;
+                                break;
+                        case 5512:
+                                itemDef.itemActions[2] = "Check";
+                                itemDef.itemActions[3] = "Empty";
+                                itemDef.itemActions[1] = null;
+                                break;
+                        case 5514:
+                                itemDef.itemActions[2] = "Check";
+                                itemDef.itemActions[3] = "Empty";
+                                itemDef.itemActions[1] = null;
+                                break;
+		}
 		if(itemDef.certTemplateID != -1)
 			itemDef.toNote();
 		if(!isMembers && itemDef.membersObject) {

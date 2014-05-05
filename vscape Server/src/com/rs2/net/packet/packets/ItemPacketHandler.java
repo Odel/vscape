@@ -812,7 +812,7 @@ public class ItemPacketHandler implements PacketHandler {
 		Item item = player.getInventory().getItemContainer().get(player.getSlot());
 		if (item == null || item.getId() != itemId)
 			return;
-		Pouches.checkEssencePouch(player, itemId);
+		Pouches.checkEssencePouch(player, item.getId());
 		switch(itemId) {
 			case 4566 : // rubber chicken
 				player.getUpdateFlags().sendAnimation(1835);
@@ -843,6 +843,12 @@ public class ItemPacketHandler implements PacketHandler {
 		if (Runecrafting.clickTalisman(player, player.getClickItem())) {
 			return;
 		}
+               for (int[] element : Pouches.POUCHES) {
+			if (item.getId() == element[0]) {
+				Pouches.emptyEssencePouch(player, item.getId());
+				return;
+			}
+                    }
         switch(item.getId()){
 	        case 2552 : // ring of duelling
 	        case 2554 :
@@ -860,7 +866,7 @@ public class ItemPacketHandler implements PacketHandler {
             case 1706 :
         		Dialogues.startDialogue(player, 10003);
             	break;
-            case 3853 :
+		case 3853 :
         	case 3855 :
         	case 3857 :
         	case 3859 :
@@ -900,13 +906,7 @@ public class ItemPacketHandler implements PacketHandler {
 		if (item == null || item.getId() != itemId || !item.validItem())
 		{
 			return;
-		}
-		for (int[] element : Pouches.POUCHES) {
-			if (itemId == element[0]) {
-				Pouches.emptyEssencePouch(player, itemId);
-				return;
-			}
-		}
+		}      
 		player.getEquipment().equip(player.getSlot());
 	}
 
