@@ -4598,12 +4598,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Wh-what's going on here?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Nothing about a guild, that's for sure!", DISTRESSED);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -4636,12 +4636,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Wh-what's going on here?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Nothing! Certainly not a guild!", ANGRY_1);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -4674,12 +4674,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Do you have any tips for me?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Hmm. Your defence seems a bit low.", "You should probably train it!", DISTRESSED);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -4863,12 +4863,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Why do you look so suspicious?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Don't worry about it.", CALM);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -4901,12 +4901,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("I bet you make a lot of money.", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Bronze arrows usually sell quick!", LAUGHING);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -4968,7 +4968,7 @@ public class Dialogues {
                         case 308 : //Fish master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
-                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                            player.getDialogue().sendNpcChat("Hello, and welcome to the Fishing Guild!", CONTENT);
                                         return true;
                                         case 2 :
                                             if(player.getSkill().getLevel()[Skill.FISHING] == 99){ 
@@ -4977,12 +4977,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Can we catch monkfish yet?", ANGRY_3);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("In the near future.", CALM);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5006,7 +5006,7 @@ public class Dialogues {
                         case 847 : //Cooking master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
-                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                            player.getDialogue().sendNpcChat("Hello, and welcome to the Cooking Guild!", CONTENT);
                                         return true;
                                         case 2 :
                                             if(player.getSkill().getLevel()[Skill.COOKING] == 99){ 
@@ -5015,12 +5015,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Do I smell something burning?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Absolutely not!", DISTRESSED);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5053,12 +5053,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Why do you burn logs?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("It keeps me warm on long nights alone with my cape.", DISTRESSED);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5091,12 +5091,12 @@ public class Dialogues {
                                                 return true;
                                             }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("Boy, you sure like the outdoors!", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Ah, yes, the woods make me feel at peace.", CALM);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5129,12 +5129,12 @@ public class Dialogues {
                                                 return true;
                                             } 
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("What's with all the pigs?", NEAR_TEARS);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("(sobbing)", NEAR_TEARS_2);
                                             player.getDialogue().endDialogue();
                                             return true;
                                         case 4:
