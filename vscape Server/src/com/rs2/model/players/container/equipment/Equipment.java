@@ -889,6 +889,9 @@ public class Equipment {
 				attackLevelReq = 50;
 				strengthLevelReq = 50;
 				return;
+                        case 4708: //ahrim's hood
+                            magicLevelReq = 70;
+                            defenceLevelReq = 70;
 		}
 		
 		if (itemName.contains("cape") || itemName.contains("hood")) {
@@ -1198,11 +1201,13 @@ public class Equipment {
 		//barrows
 		if (itemName.contains("ahrim")) {
 			magicLevelReq = 70;
-			if (!itemName.contains("staff")) {
+			if (itemName.contains("staff")) {
 				attackLevelReq = 70;
-			} else {
-				defenceLevelReq = 70;
-			}
+                                defenceLevelReq = 1;
+                        
+			}  else {
+                                defenceLevelReq = 70;
+                        }
 			return;
 		}
 		if (itemName.contains("karil")) {
