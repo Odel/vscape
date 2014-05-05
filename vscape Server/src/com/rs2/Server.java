@@ -361,7 +361,7 @@ public class Server implements Runnable {
 	private void sleep() {
 		try {
 			long sleepTime = cycleRate - cycleTimer.elapsed();
-            boolean sleep = sleepTime > 0 && sleepTime < 600;
+            boolean sleep = sleepTime > 0 && sleepTime <= 600;
             for (int i = 0; i < PacketManager.SIZE; i++) {
                 Benchmark b = PacketManager.packetBenchmarks[i];
                 if (!sleep && b.getTime() > 0)
@@ -379,6 +379,7 @@ public class Server implements Runnable {
 					initiateRestart();
 				}*/
 				System.out.println("[WARNING]: Server load: " + cycle + "%!");
+				System.out.println(sleepTime);
                 Benchmarks.printAll();
                 Benchmarks.resetAll();
                 for (int i = 0; i < 5; i++)
