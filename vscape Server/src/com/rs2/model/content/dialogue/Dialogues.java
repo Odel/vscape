@@ -740,7 +740,45 @@ public class Dialogues {
 				}
 				break;
 			case 960 : //duel arena doctor
+                            return true;
 			case 961 :
+                            switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hey, what's up? you can call me " + NpcDefinition.forId(player.getClickId()).getName(), "my mission here is to take care of those players", "who would need some help to cure their wounds", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendNpcChat("So, anything I can do for someone like you?", CONTENT);
+						return true;
+					case 3 :
+                                            if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99)
+						player.getDialogue().sendOption("Yes, I would like you to heal me please.", "No, I am just playing around.", "I want my skillcape!");
+                                            else
+                                                player.getDialogue().sendOption("Yes, I would like you to heal me please.", "No, I am just playing around.");
+						return true;
+					case 4 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendPlayerChat("Yes, I would like you to heal me please.", CONTENT);
+								return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("No, I am just playing around.", CONTENT);
+								return true;
+							case 3:
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
+                                                                player.getDialogue().setNextChatId(6);
+                                                        return true;
+                                                }	
+						return true;	
+                                        case 6:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 7:
+                                            ShopManager.openShop(player, 179);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;
+                                            
+					}
+                                       break;
 			case 962 :
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -1277,29 +1315,41 @@ public class Dialogues {
 							case 0:
 							case 1:
 							case 2:
-								switch(player.getDialogue().getChatId()) 
-								{
+                                                            switch(player.getDialogue().getChatId())  {
+								case 1:
+                                                                    player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
+                                                                return true;
+                                                                case 2:
+                                                                    if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) 
+                                                                        player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!");
+                                                                    else
+                                                                        player.getDialogue().sendOption("Yes please!", "No thanks.");
+                                                                return true;
+                                                                case 3:
+                                                                    switch(optionId) {
 									case 1:
-										player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
-									return true;
+                                                                            player.getDialogue().sendPlayerChat("Yes please!", CONTENT);
+                                                                            Shops.openShop(player, 553);
+                                                                            player.getDialogue().dontCloseInterface();
+                                                                        return true;
 									case 2:
-										player.getDialogue().sendOption("Yes please!", "No thanks.");
-									return true;
-									case 3:
-										switch(optionId) {
-											case 1:
-												player.getDialogue().sendPlayerChat("Yes please!", CONTENT);
-												Shops.openShop(player, 553);
-												player.getDialogue().dontCloseInterface();
-												return true;
-											case 2:
-												player.getDialogue().sendPlayerChat("No thanks.", CONTENT);
-												player.getDialogue().endDialogue();
-												return true;
-										}
-									break;
-								}
-								break;
+                                                                            player.getDialogue().sendPlayerChat("No thanks.", CONTENT);
+                                                                            player.getDialogue().endDialogue();
+                                                                        return true;
+                                                                        case 3:
+                                                                            player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
+                                                                            player.getDialogue().setNextChatId(5);
+                                                                        return true;
+                                                                    }
+                                                                case 5:
+                                                                    player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                                                return true;
+                                                                case 6:
+                                                                    ShopManager.openShop(player, 178);
+                                                                    player.getDialogue().dontCloseInterface();
+                                                                return true;
+                                                            }
+                                                        break;
 							case 3: //stage 3
 								switch(player.getDialogue().getChatId()) 
 								{
@@ -1411,7 +1461,10 @@ public class Dialogues {
 								player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
 							return true;
 							case 2:
-								player.getDialogue().sendOption("Yes please!", "No thanks.");
+                                                            if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) 
+								player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!");
+                                                            else
+                                                                player.getDialogue().sendOption("Yes please!", "No thanks.");
 							return true;
 							case 3:
 								switch(optionId) {
@@ -1424,8 +1477,18 @@ public class Dialogues {
 										player.getDialogue().sendPlayerChat("No thanks.", CONTENT);
 										player.getDialogue().endDialogue();
 										return true;
-								}
-							break;
+                                                                        case 3:
+                                                                            player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
+                                                                            player.getDialogue().setNextChatId(5);
+                                                                        return true;
+                                                                }
+                                                        case 5:
+                                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                                        return true;
+                                                        case 6:
+                                                            ShopManager.openShop(player, 178);
+                                                            player.getDialogue().dontCloseInterface();
+                                                        return true;  
 						}
 					}
 				break;
@@ -1793,14 +1856,19 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 802 : //jered
+			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("Hello brother, would you like me to bless all", "of your unblessed symbols?", CONTENT);
 						return true;
 					case 2 :
-						player.getDialogue().sendOption("Yes please.", "No thanks.");
+                                            if(player.getSkill().getLevel()[Skill.PRAYER] == 99) {
+						player.getDialogue().sendOption("Yes please.", "No thanks.", "I want my skillcape!");
 						return true;
+                                            }
+                                            else
+                                                player.getDialogue().sendOption("Yes please.", "No thanks.");
+                                            return true;
 					case 3 :
 						switch(optionId) {
 							case 1:
@@ -1812,12 +1880,26 @@ public class Dialogues {
 											player.getInventory().replaceItemWithItem(new Item(1716), new Item(1718));
 										}
 									}
-									player.getDialogue().sendNpcChat("There you go, your welcome.", CONTENT);
+									player.getDialogue().sendNpcChat("There you go, you're welcome.", CONTENT);
 								}
 								player.getDialogue().endDialogue();
 								return true;
+                                                        case 2:
+                                                            player.getDialogue().sendPlayerChat("No thanks.", CONTENT);
+                                                            player.getDialogue().endDialogue();
+							    return true;
+                                                        case 3:
+                                                            player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS);
+                                                            player.getDialogue().setChatId(5);
+                                                        return true;
 						}
-						break;
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 176);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;  
 				}
 				break;
 			case 10006 : //ladder
@@ -3123,7 +3205,6 @@ public class Dialogues {
 			case 1596 :
 			case 1597 :
 			case 1598 :
-			case 1599 :
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("'Ello, and what are you after then?", HAPPY);
@@ -3171,6 +3252,72 @@ public class Dialogues {
 						ShopManager.openShop(player, 162);
 						player.getDialogue().dontCloseInterface();
 						break;
+				}
+				break;
+                        case 1599 : //slayer skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("'Ello, and what are you after then?", HAPPY);
+						return true;
+					case 2 :
+                                            if(player.getSkill().getLevel()[Skill.SLAYER] == 99)
+						player.getDialogue().sendOption("I need another assignment", "Do you have anything for trade?", "Er...nothing", "I want my skillcape!");
+                                            else
+                                                player.getDialogue().sendOption("I need another assignment", "Do you have anything for trade?", "Er...nothing");
+                                        return true;
+					case 3 :
+						switch(optionId) {
+							case 1 :
+								if (player.getSlayer().slayerMaster == Slayer.TURAEL) {
+									player.getDialogue().sendNpcChat((new StringBuilder()).append("You're still hunting ").append(player.getSlayer().slayerTask).append("s; come back").toString(), "when you've finished your task.", Dialogues.HAPPY);
+									player.getDialogue().endDialogue();
+								} else {
+									player.getSlayer().assignNewTask(id);
+								}
+								return true;
+							case 2 :
+								player.getDialogue().sendNpcChat("I have a wide selection of Slayer equipment; take a look!", Dialogues.HAPPY);
+								player.getDialogue().setNextChatId(6);
+								return true;
+                                                        case 4:
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
+                                                                player.getDialogue().setNextChatId(9);
+                                                        return true;
+                                                            
+						}
+						break;
+					case 4 :
+						player.getDialogue().sendOption("Do you have any tips for me?", "Thanks, I'll be on my way.");
+						return true;
+					case 5 :
+						switch(optionId) {
+							case 1 :
+								SlayerTipsData slayerTipsData = SlayerTipsData.forName(player.getSlayer().slayerTask);
+								if (slayerTipsData == null) {
+									player.getDialogue().sendNpcChat("There are no tips about this npc yet.", HAPPY);
+								} else {
+									player.getDialogue().sendNpcChat(slayerTipsData.getMonsterTips(), HAPPY);
+								}
+								player.getDialogue().endDialogue();
+								return true;
+							case 2 :
+								player.getDialogue().sendPlayerChat("Thanks, I'll be on my way.", HAPPY);
+								player.getDialogue().endDialogue();
+								return true;
+						}
+						break;
+					case 6 :
+						ShopManager.openShop(player, 162);
+						player.getDialogue().dontCloseInterface();
+					return true;
+                                        case 9:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                        return true;
+                                        case 10:
+                                            ShopManager.openShop(player, 185);
+                                            player.getDialogue().dontCloseInterface();
+                                        return true;
+                                             
 				}
 				break;
 			case 956 : //drunken dwarf
@@ -3494,7 +3641,7 @@ public class Dialogues {
 								else
 								{
 									player.getDialogue().sendNpcChat("Go away human.", CALM);
-									player.getDialogue().endDialogue();
+									player.getDialogue().setNextChatId(5);
 								}
 							return true;
 							case 2:
@@ -3505,14 +3652,40 @@ public class Dialogues {
 								player.getDialogue().endDialogue();
 								player.setQuestStage(1, 2);
 							return true;
+                                                        case 5:
+                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99)
+                                                                player.getDialogue().sendPlayerChat("B-but I need my skillcape!",SAD);
+                                                            else
+                                                                player.getDialogue().endDialogue();
+                                                            return true;
+                                                        case 6:
+                                                            player.getDialogue().sendNpcChat("stupid human always concerned with weak clothing", "but I s'pose you've earned it", ANGRY_2);
+                                                        return true;
+                                                        case 7:
+                                                            ShopManager.openShop(player, 187);
+                                                            player.getDialogue().dontCloseInterface();
+                                                        return true;
 						}
 					break;
 					default:
 						switch(player.getDialogue().getChatId()) {
 							case 1:
 								player.getDialogue().sendNpcChat("Go away human.", CALM);
-								player.getDialogue().endDialogue();
 							return true;
+                                                        case 2:
+                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99) {
+                                                                player.getDialogue().sendPlayerChat("B-but I need my skillcape!",SAD);
+                                                                player.getDialogue().setNextChatId(4);
+                                                            return true;
+                                                            }
+                                                            else return true;
+                                                        case 4:
+                                                            player.getDialogue().sendNpcChat("stupid human always concerned with weak clothing", "but I s'pose you've earned it", ANGRY_2);
+                                                        return true;
+                                                        case 5:
+                                                            ShopManager.openShop(player, 187);
+                                                            player.getDialogue().dontCloseInterface();
+                                                        return true;
 						}
 					break;
 				}
@@ -4380,12 +4553,606 @@ public class Dialogues {
 					return true;
 				}
 			break;
-			case 805 : //crafting master skillcape
+			case 805 : //Crafting master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
-						player.getDialogue().sendNpcChat("Hello, and welcome to the Crafting Guild. Accomplished","crafters from all over the land come here to use our","top notch workshops.", CONTENT);
-						player.getDialogue().endDialogue();
-					return true;
+                                            player.getDialogue().sendNpcChat("Hello, and welcome to the Crafting Guild. Accomplished","crafters from all over the land come here to use our","top notch workshops.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.CRAFTING] == 99) 
+						player.getDialogue().sendOption("Neat.", "(don't respond)", "Fuck off, I want my skillcape!");
+                                            else 
+                                                player.getDialogue().sendOption("Neat.", "(don't respond)");
+                                            return true; 
+                                        case 3:
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendPlayerChat("Neat.", CONTENT);
+								return true;
+                                                        case 2:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Fuck off, I want my skillcape!", NEAR_TEARS_2);
+                                                                player.getDialogue().setNextChatId(5);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("Yo-you've earned it.", DISTRESSED);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 183);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 4288 : //Attack master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.ATTACK] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 172);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 4297 : //Strength master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.STRENGTH] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 173);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 705 : //Defence master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.DEFENCE] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 174);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+                        case 682 : //Range master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.RANGED] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 175);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 1658 : //Magic master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.MAGIC] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 177);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 437 : //Agility master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.AGILITY] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 180);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 455 : //Herblore master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.HERBLORE] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 181);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 2270 : //Thieve master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.THIEVING] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 182);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 575 : //Fletch master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.FLETCHING] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 184);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 3295 : //Mining master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.MINING] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 186);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 308 : //Fish master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.FISHING] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 188);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 847 : //Cooking master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.COOKING] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 189);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 4946 : //Firemaking master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.FIREMAKING] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 190);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 4906 : //Woodcutting master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.WOODCUTTING] == 99){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 191);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
+				}
+			break;
+                        case 3299 : //Farming master skillcape
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.FARMING] == 99) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            } 
+                                            else {
+                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;		
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 192);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;           
 				}
 			break;
 			//SHEEP SHEARER
@@ -4623,5 +5390,5 @@ public class Dialogues {
 		}
 		return false;
 	}
-
 }
+

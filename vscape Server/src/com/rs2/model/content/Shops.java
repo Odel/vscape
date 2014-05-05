@@ -1,5 +1,6 @@
 package com.rs2.model.content;
 
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 
@@ -56,10 +57,7 @@ public class Shops {
 	
 			case 3824:
 				return 18;
-	
-			case 553:
-				return 19;
-	
+                            
 			case 3541:
 				return 20;
 	
@@ -473,6 +471,20 @@ public class Shops {
 				return 170;
 			case 1680://crystal
 				return 171;
+                        	
+			case 553:
+                            // if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) //auburry my dick so far
+				return 19;
+                       /* case 961:
+                            if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
+                                return 179;
+                            else return -1;
+                        case 805:
+                             if(player.getSkill().getLevel()[Skill.CRAFTING] == 99) //Master crafter
+                                 return 183;
+                             else return -1;
+                                    */
+	
 			/*
 				return 165;
 			case 536:
