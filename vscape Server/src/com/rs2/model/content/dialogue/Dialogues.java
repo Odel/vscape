@@ -4550,7 +4550,7 @@ public class Dialogues {
                                             return true;           
 				}
 			break;
-                        case 732 : //Cinco de mayo
+                        /*case 732 : //Cinco de mayo
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
                                             player.getDialogue().sendNpcChat("Hola, quieres una cerveza?", CONTENT);
@@ -4570,7 +4570,7 @@ public class Dialogues {
                                                                 return true;		
 						}         
 				}
-			break; 
+			break; */
                         case 4288 : //Attack master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
