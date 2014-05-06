@@ -95,7 +95,7 @@ public class ThieveStalls {
 		if (stall == null) {
 			return false;
 		}
-		if (player.getInventory().getItemContainer().freeSlots() < 1) {
+		if (player.getInventory().getItemContainer().freeSlots() < 1 && !(objectId == 7053)) {
 			player.getActionSender().sendMessage("Looks like you don't have enough room in your inventory.");
 			return true;
 		}

@@ -21,6 +21,7 @@ public class ThieveNpcs {
 	public enum ThieveNpc {
 		CITIZEN(new String[] { "man", "woman" }, 1, 8, new Item[] { new Item(995, 3) }, 5, 1),
 		FARMER(new String[] {"farmer"}, 10, 14.5, new Item[] { new Item(995, 9), new Item(5318, 1) }, 5, 1),
+                HAM(new String[] {"h.a.m. member"}, 15, 18, new Item[] { new Item(995, 12), new Item(882, 15), new Item(1349), new Item(1203), new Item(314, 8), new Item(2677) }, new Item[] {new Item(4298), new Item(4300), new Item(4302), new Item(4304), new Item(4306), new Item(4308), new Item(4310) }, 5, 1),
 		WARRIOR(new String[] { "warrior woman", "al-kharid warrior" }, 25, 26, new Item[] { new Item(995, 18) }, 5, 2),
 		ROGUE(new String[] { "rogue" }, 32, 36.5, new Item[] { new Item(995, 25), new Item(995, 40), new Item(7919, 1), new Item(556, 6), new Item(5686, 1), new Item(1523, 1), new Item(1944, 1) }, 5, 2),
 		MASTER_FARMER(new String[] { "master farmer"}, 38, 43, new Item[] { new Item(5318), new Item(5319), new Item(5324), new Item(5322), new Item(5320), new Item(5323), new Item(5305), new Item(5307),
@@ -33,7 +34,7 @@ public class ThieveNpcs {
 		DESERT_BANDIT(new String[] { "desert bandit" }, 53, 79.5, new Item[] { new Item(995, 30), new Item(2446), new Item(1523) }, 5, 3),
 		KNIGHT(new String[] { "knight of ardougne" }, 55, 84.3, new Item[] { new Item(995, 50) }, 5, 3),
 		POLLNIVIAN_BANDIT(new String[] { "pollnivian bandit" }, 55, 84.3, new Item[] { new Item(995, 30) }, 5, 5),
-		WATCHMAN(new String[] { "yanille watchman" }, 65, 137.5, new Item[] { new Item(995, 60), new Item(4593) }, 5, 3),
+		WATCHMAN(new String[] { "watchman" }, 65, 137.5, new Item[] { new Item(995, 60)}, 5, 3),
 		MENAPHITE_THUG(new String[] { "menaphite thug" }, 65, 137.5, new Item[] { new Item(995, 60) }, 5, 5),
 		PALADIN(new String[] { "paladin" }, 70, 151.75, new Item[] { new Item(995, 80), new Item(562, 2) }, 7, 5),
 		GNOME(new String[] { "gnome" }, 75, 198.5, new Item[] { new Item(995, 300), new Item(557), new Item(444), new Item(569), new Item(2150), new Item(2162) }, 5, 1),
@@ -102,17 +103,21 @@ public class ThieveNpcs {
 				if (npcName.equalsIgnoreCase(name)) {
 					return npc;
 				}
-			}
+
+                         }
 		}
 		return null;
 	}
+                    
 
 	public static boolean handleThieveNpc(final Player player, final Npc npc) {
 		if (player == null || player.isStunned() || !player.getSkill().canDoAction(2200)) {
 			return true;
 		}
+                
 		final String npcName = npc.getDefinition().getName().toLowerCase();
 		final ThieveNpc thieveNpc = getNpc(npcName.toLowerCase());
+                
 		if (thieveNpc == null) {
 			return false;
 		}
@@ -124,8 +129,9 @@ public class ThieveNpcs {
 			return true;
 		}
 		final boolean successful = Misc.random(player.getSkill().getLevel()[Skill.THIEVING]) > Misc.random(thieveNpc.getLevelReq());
-		final Item randomLoot = thieveNpc.getRareLoot() != null && Misc.random(99) == 0 ? thieveNpc.getRareLoot()[Misc.randomMinusOne(thieveNpc.getRareLoot().length)] : thieveNpc.getLoot()[Misc.randomMinusOne(thieveNpc.getLoot().length)];
+		final Item randomLoot = thieveNpc.getRareLoot() != null && Misc.random(1) == 0 ? thieveNpc.getRareLoot()[Misc.randomMinusOne(thieveNpc.getRareLoot().length)] : thieveNpc.getLoot()[Misc.randomMinusOne(thieveNpc.getLoot().length)];
 		final Item loot = new Item(randomLoot.getId(), randomLoot.getCount() > 1 ? Misc.random(randomLoot.getCount() + 1) : 1);
+                final Item gp = new Item(randomLoot.getId(), randomLoot.getCount());
 		final int stunnedHit = thieveNpc.getStunDamage();
 		player.setStopPacket(true);
 		player.getUpdateFlags().sendAnimation(THIEVING_ANIMATION);
@@ -136,8 +142,11 @@ public class ThieveNpcs {
 				if (successful) {
 					player.getActionSender().sendMessage("You manage to pick the " + npc.getDefinition().getName().toLowerCase() + "'s pocket.");
 					player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(loot.getId()).getName().toLowerCase() + ".");
-					player.getInventory().addItem(new Item(loot.getId(), loot.getCount() * multiple(player, thieveNpc.getLevelReq())));
-					player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
+                                        if(gp.getId() == 995)
+                                            player.getInventory().addItem(new Item(gp.getId(), gp.getCount()));
+					else
+                                            player.getInventory().addItem(new Item(loot.getId(), loot.getCount() * multiple(player, thieveNpc.getLevelReq())));
+                                        player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
 				} else {
 					npc.getUpdateFlags().sendForceMessage("What do you think you're doing?");
 					npc.getUpdateFlags().sendAnimation(401);

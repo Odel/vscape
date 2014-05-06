@@ -399,6 +399,21 @@ public class WalkToActionHandler {
 				case 5960 :
 					player.teleport(new Position(3091, 3956));
 					break;
+                                case 5492 : //ham entry
+                                        player.teleport(new Position(3149, 9652));
+                                        break;
+                                case 5493: //ham ladder exit
+                                        Ladders.climbLadder(player, new Position(3166, 3251, 0));
+                                        break;
+                                case 2833: //Watchtower ladder ground
+                                        Ladders.climbLadder(player, new Position(2544, 3112, 1));
+                                        break;
+                                case 2796: //Watchtower first floor ladder up
+                                        Ladders.climbLadder(player, new Position(2549, 3112, 2));
+                                        break;
+                                case 2797: //Watchtower second floor down
+                                        Ladders.climbLadder(player, new Position(2549, 3112, 1));
+                                        break;
 				case 4622 : // games room staircase
 					player.teleport(new Position(2899, 3565));
 					break;
@@ -865,12 +880,12 @@ public class WalkToActionHandler {
 					// player.objectWalkY, 3));
 					CrossObstacle.walkAcross(player, 50, walkX, 0, 2, 30, 751);
 					break;
-				case 5492: // H.A.M. trapdoor
-					/*
-					 * if (player.isHamTrapDoor()) { new GameObject(5491, x, y,
-					 * z, 0, 10, 5492, 999999); }
-					 */
-					break;
+				/*case 5492: // H.A.M. trapdoor
+					
+					  if (player.isHamTrapDoor()) { new GameObject(5491, x, y,
+					  z, 0, 10, 5492, 999999); }
+					 
+					break; */
 				case 5581: // take axe from log
 					AxeInLog.pullAxeFromLog(player, x, y);
 					break;
@@ -1199,10 +1214,6 @@ public class WalkToActionHandler {
 					}
 					player.getActionSender().walkThroughDoor(2025, x, y, z);
 					player.getActionSender().walkTo(0, player.getPosition().getY()+1 > y ? -1 : 1, true);
-					break;
-				case 190: // Gnome stronghold door
-					player.getActionSender().walkThroughDoor(190, x, y, z);
-					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -4 : 4, true);
 					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
@@ -1617,6 +1628,15 @@ public class WalkToActionHandler {
 				case 1595:
 					Dialogues.sendDialogue(player, 1595, 3, 1);
 					break;
+                                case 34:
+                                    ThieveNpcs.handleThieveNpc(player, npc);
+                                    break;
+                                case 1714:
+                                    ThieveNpcs.handleThieveNpc(player, npc);
+                                    break;
+                                case 1715:
+                                    ThieveNpcs.handleThieveNpc(player, npc);
+                                    break;
 				case 2824:
 				case 804:
 				case 1041:
