@@ -102,6 +102,7 @@ public class Food {
 		int foodTimer = f.getNewItemId() != -1 ? 600 : 1800;
 		if (player.getSkill().canDoAction(foodTimer) && player.getSkill().getLevel()[Skill.HITPOINTS] > 0) {
 			player.getUpdateFlags().sendAnimation(829);
+			player.getActionSender().sendSound(317, 0, 0);
 			if (!player.getInventory().removeItemSlot(new Item(id, 1), slot)) {
 				player.getInventory().removeItem(new Item(id, 1));
 			}

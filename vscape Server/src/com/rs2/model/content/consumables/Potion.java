@@ -91,6 +91,7 @@ public class Potion {
 				}
 			doOtherPotionEffects(itemId);
 			player.getUpdateFlags().sendAnimation(itemId == 3801 ? 1330 : 829, 0);
+			player.getActionSender().sendSound(334, 0, 0);
 			player.getTask();
 			player.getCombatDelayTick().setWaitDuration(player.getCombatDelayTick().getWaitDuration() + 2);
 				if (potionIdIndex < 3) {
