@@ -120,7 +120,7 @@ public class FillHandler
 			return;
 		}
 		player.getActionSender().removeInterfaces();
-		player.getActionSender().sendSound(334,0,0);
+		player.getUpdateFlags().sendAnimation(883);
 		player.getInventory().removeItem(new Item(item));
 		player.getInventory().addItem(new Item(fill.filledId));
 		player.getActionSender().sendMessage("You fill the "+new Item(item).getDefinition().getName()+" with water.");
