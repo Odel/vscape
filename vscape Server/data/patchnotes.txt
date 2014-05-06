@@ -5,6 +5,9 @@
 -It is no longer May 5th.
 -Pouches work, and drop from the abyss creatures.
 -Added and fixed some clothing.
+-H.A.M. Hideout is now open!
+-Watchtower / Watchmen are accessible.
+-Miscellaneous thieving fixes.
 
 @dre@= May 5 =
 @blu@-Basic Combat sound system (PVP&NPC)
