@@ -49,7 +49,7 @@ public class DoubleDoors {
 		if (!objectName.contains("fence") && !objectName.contains("gate") && !objectName.contains("door") || objectName.contains("trapdoor") || objectName.contains("tree")) {
 			return false;
 		}
-		if (id == 2882 || id == 2883 || id == 1589 || id == 1590) {
+		if (id == 2882 || id == 2883 || id == 1589 || id == 1590 || id == 190) {
 			return false;
 		}
 		DoubleDoors doorClicked = getDoor(x, y, z);

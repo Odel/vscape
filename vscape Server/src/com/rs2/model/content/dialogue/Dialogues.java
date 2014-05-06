@@ -1727,42 +1727,6 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 484 : //Gnome to get through gate
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("Our invisible gate is broken at the moment.", "Would you like to get through?.", CONTENT);
-						return true;
-					case 2 :
-						player.getDialogue().sendOption("Yes please.", "No thanks.");
-						return true;
-					case 3 :
-						switch(optionId) {
-							case 1:
-								player.teleport(new Position(2461, 3381, 0));
-								player.getDialogue().dontCloseInterface();
-								break;
-						}
-						break;
-				}
-				break;
-			case 485 : //Gnome to get through gate
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("Our invisible gate is broken at the moment.", "Would you like to get through?.", CONTENT);
-						return true;
-					case 2 :
-						player.getDialogue().sendOption("Yes please.", "No thanks.");
-						return true;
-					case 3 :
-						switch(optionId) {
-							case 1:
-								player.teleport(new Position(2461, 3388, 0));
-								player.getDialogue().dontCloseInterface();
-								break;
-						}
-						break;
-				}
-				break;
 			case 10005 : //iron ladder
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

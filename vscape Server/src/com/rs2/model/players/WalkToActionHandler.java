@@ -1200,6 +1200,10 @@ public class WalkToActionHandler {
 					player.getActionSender().walkThroughDoor(2025, x, y, z);
 					player.getActionSender().walkTo(0, player.getPosition().getY()+1 > y ? -1 : 1, true);
 					break;
+				case 190: // Gnome stronghold door
+					player.getActionSender().walkThroughDoor(190, x, y, z);
+					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -4 : 4, true);
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;
