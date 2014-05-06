@@ -1,8 +1,10 @@
 @dre@= May ? =
 @blu@-More and more sounds.
--Minor drop rates adjusted
--Shadow warriors exist now (sorry)
--It is no longer May 5th
+-Minor drop rates adjusted.
+-Shadow warriors exist now. (sorry)
+-It is no longer May 5th.
+-Pouches work, and drop from the abyss creatures.
+-Added and fixed some clothing.
 
 @dre@= May 5 =
 @blu@-Basic Combat sound system (PVP&NPC)
