@@ -1,4 +1,10 @@
 @dre@= May ? =
+@blu@-More and more sounds.
+-Minor drop rates adjusted
+-Shadow warriors exist now (sorry)
+-It is no longer May 5th
+
+@dre@= May 5 =
 @blu@-Basic Combat sound system (PVP&NPC)
 -Skillcapes and their vendors.
 -Waterbirth island monsters have correct drop tables.
