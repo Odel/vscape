@@ -1036,10 +1036,11 @@ public class WalkToActionHandler {
 					Ladders.climbLadder(player, new Position(2257, 4695, 0));
 					break;
 				case 1738: // staircase up
-                                    if( player.getPosition().getX() == 2675 && player.getPosition().getY() == 3300)
-					Ladders.checkClimbTallStaircase(player, "up");
-                                    else
-                                        player.teleport(new Position(2675, 3300, 1));
+                    if(x == 2673 && y == 3300) {
+                        player.teleport(new Position(2675, 3300, 1));
+                    }else{
+                    	Ladders.checkClimbTallStaircase(player, "up");
+                    }
 					break;
 				case 1740: // staircase down
 					Ladders.checkClimbTallStaircase(player, "down");
