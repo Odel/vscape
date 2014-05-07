@@ -1,13 +1,12 @@
 @dre@= May ? =
 @blu@-More and more sounds.
 -Minor drop rates adjusted.
--Shadow warriors exist now. (sorry)
+-Shadow warriors exist now. (Sorry)
 -It is no longer May 5th.
--Pouches work, and drop from the abyss creatures.
+-Pouches and abyss creatures.
 -Added and fixed some clothing.
 -H.A.M. Hideout is now open!
--Watchtower / Watchmen are accessible.
--Miscellaneous thieving fixes.
+-Miscellaneous thieving fixes. (Chests & Npcs)
 
 @dre@= May 5 =
 @blu@-Basic Combat sound system (PVP&NPC)
