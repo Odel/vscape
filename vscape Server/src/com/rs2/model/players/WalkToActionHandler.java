@@ -214,7 +214,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (id == 2551 || id == 2550 || id == 2556 || id == 2558 || id == 2557) {
+				if (id == 2551 || id == 2550 || id == 2556 || id == 2558 || id == 2557 || id == 2554) {
 					player.getActionSender().sendMessage("This door is locked.");
 					this.stop();
 					return;
@@ -1036,7 +1036,10 @@ public class WalkToActionHandler {
 					Ladders.climbLadder(player, new Position(2257, 4695, 0));
 					break;
 				case 1738: // staircase up
+                                    if( player.getPosition().getX() == 2675 && player.getPosition().getY() == 3300)
 					Ladders.checkClimbTallStaircase(player, "up");
+                                    else
+                                        player.teleport(new Position(2675, 3300, 1));
 					break;
 				case 1740: // staircase down
 					Ladders.checkClimbTallStaircase(player, "down");
