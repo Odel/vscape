@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatScript;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.randomevents.EventsConstants;
+import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.KeyToClue;
 import com.rs2.model.ground.GroundItem;
@@ -480,13 +481,10 @@ public class Npc extends Entity {
 			if (killer != null && drops != null) {
 				for (Item item : drops.getDrops()) {
 					if (item != null) {
-						if(item.getDefinition().getName().toLowerCase().contains("clue") && killer.isPlayer())
+						String itemName = item.getDefinition().getName().toLowerCase();
+						if(killer.isPlayer() && itemName.contains("clue") && ((Player)killer).hasPouchDrop(item.getId()))
 						{
 							return;
-						/*	Player player = (Player) killer;
-							if (player.hasClueScroll()) {
-								return;
-							}*/
 						}
                         GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
                         GroundItemManager.getManager().dropItem(drop);

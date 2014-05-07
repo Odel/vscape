@@ -100,6 +100,7 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.mining.MineOre;
 import com.rs2.model.content.skills.prayer.BoneBurying;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.content.skills.slayer.Slayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -3960,6 +3961,18 @@ public class Player extends Entity {
 
 	public void setPouchData(int i, int amount) {
 		pouchData[i] = amount;
+	}
+	
+	public boolean hasPouchDrop(int itemId) {
+		for (int i = 0; i < Pouches.POUCHES.length; i++) {
+			if (itemId == Pouches.POUCHES[i][0]) {
+				if(hasItem(itemId))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
