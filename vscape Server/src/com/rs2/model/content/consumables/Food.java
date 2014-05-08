@@ -42,7 +42,7 @@ public class Food {
 		THIRTEEN(13, -1, new int[]{365}), 
 		FOURTEEN(14, -1, new int[]{373, 2345, 6703, 7054}), 
 		FIFTHTEEN(15, -1, new int[]{2185, 2187}), 
-		SIXTEEN(16, -1, new int[]{7056, 6705}), 
+		SIXTEEN(16, -1, new int[]{7056, 6705, 7946}), 
 		EIGHTTEEN(18, -1, new int[]{3144, 3147}), 
 		NINETEEN(19, -1, new int[]{1883, 1885}), 
 		TWENTY(20, -1, new int[]{7058, 385}), 

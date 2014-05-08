@@ -1,6 +1,7 @@
 @dre@= May ? =
 -Access to Piscatoris Fishing Colony (monk fish)
  monk fish fishing and seaweed nets
+ monk fish can be cooked and eaten
 -changes to ice mountain and black knight fortress
 -Two ingredient container fixed
 -fixed some food not returning empty bowls when eaten.
