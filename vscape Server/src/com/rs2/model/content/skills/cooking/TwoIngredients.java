@@ -14,9 +14,11 @@ import com.rs2.model.players.item.ItemDefinition;
  */
 public class TwoIngredients {
 	public static enum MixItemData {
-		STEW(2142, 1942, 1921, 1999, 2001, 25, 117, true, 0, 0), STEW1(1942, 2142, 1921, 1997, 2001, 25, 117, true, 0, 0), PLAIN_PIZZA(1982, 1985, 2283, 2285, 2287, 35, 143, true, 0, 0), TUNE_AND_CORN(361, 5988, 1923, 7086, 7068, 67, 204, true, 0, 0), TUNE_AND_CORN2(5988, 361, 1923, 7088, 7068, 67, 204, true, 0, 0),
-
-		;
+		STEW(2142, 1942, 1921, 1999, 2001, 25, 117, true, 0, 0), 
+		STEW1(1942, 2142, 1921, 1997, 2001, 25, 117, true, 0, 0), 
+		PLAIN_PIZZA(1982, 1985, 2283, 2285, 2287, 35, 143, true, 0, 0), 
+		TUNA_AND_CORN(361, 5988, 1923, 7086, 7068, 67, 204, true, 0, 0),
+		TUNA_AND_CORN2(5988, 361, 1923, 7088, 7068, 67, 204, true, 0, 0);
 
 		private int primaryIngredient;
 		private int secondIngredient;
@@ -29,6 +31,19 @@ public class TwoIngredients {
 		private int emptyOne;
 		private int emptyTwo;
 
+		private MixItemData(int primaryIngredient, int secondIngredient, int recipient, int firstStage, int result, int level, double experience, boolean hasRecipient, int emptyOne, int emptyTwo) {
+			this.primaryIngredient = primaryIngredient;
+			this.secondIngredient = secondIngredient;
+			this.recipient = recipient;
+			this.firstStage = firstStage;
+			this.result = result;
+			this.level = level;
+			this.experience = experience;
+			this.hasRecipient = hasRecipient;
+			this.emptyOne = emptyOne;
+			this.emptyTwo = emptyTwo;
+		}
+		
 		public static HashMap<Integer, MixItemData> firstItems = new HashMap<Integer, MixItemData>();
 		public static HashMap<Integer, MixItemData> firstStages = new HashMap<Integer, MixItemData>();
 
@@ -45,19 +60,6 @@ public class TwoIngredients {
 				firstItems.put(data.primaryIngredient, data);
 				firstStages.put(data.firstStage, data);
 			}
-		}
-
-		private MixItemData(int primaryIngredient, int secondIngredient, int recipient, int firstStage, int result, int level, double experience, boolean hasRecipient, int emptyOne, int emptyTwo) {
-			this.primaryIngredient = primaryIngredient;
-			this.secondIngredient = secondIngredient;
-			this.recipient = recipient;
-			this.firstStage = firstStage;
-			this.result = result;
-			this.level = level;
-			this.experience = experience;
-			this.hasRecipient = hasRecipient;
-			this.emptyOne = emptyOne;
-			this.emptyTwo = emptyTwo;
 		}
 
 		public int getPrimaryIngredient() {
@@ -144,8 +146,11 @@ public class TwoIngredients {
 		else
 			player.getActionSender().sendMessage("You mix the " + ItemDefinition.forId(ingredient).getName().toLowerCase() + " with the " + ItemDefinition.forId(recipient).getName().toLowerCase() + " and make a " + ItemDefinition.forId(result).getName().toLowerCase() + ".");
 
+		if(itemUsed != recipient)
 		player.getInventory().removeItem(new Item(itemUsed));
+		if(withItem != recipient)
 		player.getInventory().removeItem(new Item(withItem));
+		
 		player.getInventory().addItemToSlot(new Item(result), itemUsed == recipient ? itemUsedSlot : withItemSlot);
 		player.getSkill().addExp(Skill.COOKING, rightData.getExperience());
 		/* empty recipients */

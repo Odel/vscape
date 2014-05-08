@@ -2,6 +2,8 @@
 -Access to Piscatoris Fishing Colony (monk fish)
  monk fish fishing and seaweed nets
 -changes to ice mountain and black knight fortress
+-Two ingredient container fixed
+-fixed some food not returning empty bowls when eaten.
 
 @dre@= May 7 =
 @blu@-More and more sounds.
