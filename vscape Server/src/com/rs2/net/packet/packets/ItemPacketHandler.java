@@ -187,6 +187,8 @@ public class ItemPacketHandler implements PacketHandler {
 			if (!player.getInventory().removeItemSlot(item, player.getSlot())) {
 				player.getInventory().removeItem(item);
 			}
+			player.getActionSender().removeInterfaces();
+			player.getDialogue().resetDialogue();
 		}
 		player.getEquipment().updateWeight();
 	}

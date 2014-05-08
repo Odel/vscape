@@ -1223,6 +1223,13 @@ public class WalkToActionHandler {
 					player.getActionSender().walkThroughDoor(190, x, y, z);
 					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -4 : 4, true);
 					break;
+				case 14922: // Piscatoris hole
+					if(x == 2344 && y == 3651){
+						player.teleport(new Position(2344,3655));
+					}else{
+						player.teleport(new Position(2344,3650));
+					}
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;
@@ -1728,6 +1735,13 @@ public class WalkToActionHandler {
 					{
 						player.getActionSender().sendMessage("You need "+SHANTAY_PASS_PRICE+" coins to buy a Shantay pass.");
 					}
+					break;
+				case 3824 :
+					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+					player.setInteractingEntity(npc);
+					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
+					BankManager.openBank(player);
+					Following.resetFollow(player);
 					break;
 				}
 				this.stop();

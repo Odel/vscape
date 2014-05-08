@@ -1,4 +1,7 @@
 @dre@= May ? =
+-Access to Piscatoris Fishing Colony (monk fish)
+
+@dre@= May 7 =
 @blu@-More and more sounds.
 -Minor drop rates adjusted.
 -Shadow warriors exist now. (Sorry)
@@ -64,40 +67,3 @@ now play
 -Crafting guild changes
 -Fishing guild entry changes
 -Clue 2733 has been fixed
-
-@dre@=APR 26=
--Changes to churning
- making butter only requires milk,
- making cheese only requires butter,
--Bolt strength has been corrected.
--Misc farming fixes
- farming store will now sell the correct trowel,
- garden pie now has skill effect,
- watering diseased crops has been fixed.
--Animation fixes for these npc's
- Goblins
- Chickens
- Bears
- Scorpions
- Small spiders
- Giant spiders
- Ghost
- Unicorn
-
-@dre@=APR 25=
-@red@-Quite large Client Update.
-@red@ Apologies in advance if this causes problems.
--Crystal Bow Fixed.
--Crystal Bow "agility" requirement replaced by slayer.
--Vendors for Crystal Shield/Bow - Ancient Staff
- haldberd vendor and hero vendor.
-@blu@-C'Bows
- This includes smithing and fletching and combat.
- When stringing C'bows use normal Bow Strings.
- You can find the skill requirements to make c'bow
- items in the fletching guide and smithing guide
- by clicking the skill icon.
--Arrow requirements have been fixed. It's now required
- you have the correct range level to use them.
-@blu@-Fixed Bandit Camp mine (in wildy)
--fixed some skelies (i hope)

@@ -5365,7 +5365,88 @@ public class Dialogues {
 					
 				}
 			break; // sheep shearer end
-			
+			case 3830 : //CATHY CORKAT
+				final Npc npc = World.getNpcs()[player.getNpcClickIndex()];
+				if(npc.getPosition().getX() == 2367 && npc.getPosition().getY() == 3488){
+					switch(player.getDialogue().getChatId())
+					{
+						case 1:
+							player.getDialogue().sendNpcChat("Hello, What can I do for you?", CONTENT);
+						return true;
+						case 2:
+							player.getDialogue().sendOption("I would like to travel to Piscatoris.", "Nevermind.");
+						return true;
+						case 3:
+							 switch(optionId) {
+								 case 1:
+									 player.getDialogue().sendPlayerChat("I would like to travel to Piscatoris.", CONTENT);
+									 player.getDialogue().setNextChatId(4);
+								 return true;
+								 case 2 :
+									 player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+									 player.getDialogue().endDialogue();
+								 return true;
+							 }
+						break;
+						case 4:
+							player.getDialogue().sendNpcChat("It will cost you 50gp for passage.", CONTENT);
+							if(player.getInventory().getItemAmount(995) >= 50){
+								player.getDialogue().setNextChatId(6);
+							}else{
+								player.getDialogue().setNextChatId(5);
+							}
+						return true;
+						case 5:
+							 player.getDialogue().sendPlayerChat("I don't have enough coins.", CONTENT);
+							 player.getDialogue().endDialogue();
+						return true;
+						case 6:
+							player.getDialogue().sendOption("Okay, Here you go!", "Nevermind.");
+						return true;
+						case 7:
+							 switch(optionId) {
+								 case 1:
+									 player.getDialogue().sendPlayerChat("Okay, Here you go!", CONTENT);
+									 player.getDialogue().endDialogue();
+									 player.getInventory().removeItem(new Item(995, 50));
+									 player.teleport(new Position(2356,3641));
+								 return true;
+								 case 2 :
+									 player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+									 player.getDialogue().endDialogue();
+								 return true;
+							 }
+						break;
+					}
+				}else{
+					switch(player.getDialogue().getChatId())
+					{
+						case 1:
+							player.getDialogue().sendNpcChat("Hello, What can I do for you?", CONTENT);
+						return true;
+						case 2:
+							player.getDialogue().sendOption("I would like to leave.", "Nevermind.");
+						return true;
+						case 3:
+							 switch(optionId) {
+								 case 1:
+									 player.getDialogue().sendPlayerChat("I would like to leave.", CONTENT);
+									 player.getDialogue().setNextChatId(4);
+								 return true;
+								 case 2 :
+									 player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+									 player.getDialogue().endDialogue();
+								 return true;
+							 }
+						break;
+						case 4:
+							player.getDialogue().sendNpcChat("Okay, Just a moment.", CONTENT);
+							player.getDialogue().endDialogue();
+							player.teleport(new Position(2367,3487));
+						return true;
+					}
+				}
+			break;
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();
