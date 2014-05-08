@@ -61,7 +61,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 
 	}
 
-	public static void pickTrap(final Player player, final int objectId, final int objectX, final int objectY, int level, final double xp, final Item[] rewards) {
+	public static void pickTrap(final Player player, final int objectId, final int objectX, final int objectY, int level, final double xp, final Item[] rewards, final int respawn) {
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
@@ -89,7 +89,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 				player.getSkill().addExp(Skill.THIEVING, xp);
 				for (Item item : rewards)
 					player.getInventory().addItem(item);
-				new GameObject(2588, objectX, objectY, player.getPosition().getZ(), SkillHandler.getFace(objectId, objectX, objectY, player.getPosition().getZ()), 10, objectId, 10);
+				new GameObject(2588, objectX, objectY, player.getPosition().getZ(), SkillHandler.getFace(objectId, objectX, objectY, player.getPosition().getZ()), 10, objectId, respawn);
 				container.stop();
 			}
 
@@ -156,36 +156,35 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			return true;
 		case 2566: //level 13 chest
 			if (objectX == 2673 && objectY == 3307)
-				pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[] { new Item(995, 10) });
+				pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[] { new Item(995, 10) }, 11);
                         else if (objectX == 2630 && objectY == 3655)
-				pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[] { new Item(995, 10) });
+				pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[] { new Item(995, 10) }, 11);
 			return true;
                 case 2567: //level 28 nat chest
                         if (objectX == 2671 && objectY == 3301)
-				pickTrap(player, objectId, objectX, objectY, 28, 25, new Item[] { new Item(995, 3), new Item(561) });
+				pickTrap(player, objectId, objectX, objectY, 28, 25, new Item[] { new Item(995, 3), new Item(561) }, 13);
 			return true;
                 case 2568: //level 43 chest
                         if (objectX == 2671 && objectY == 3299)
-				pickTrap(player, objectId, objectX, objectY, 43, 125, new Item[] { new Item(995, 50) });
+				pickTrap(player, objectId, objectX, objectY, 43, 125, new Item[] { new Item(995, 50) }, 88);
 			return true;
                 case 2573: //level 47 hemenster chest & relleka
                         if (objectX == 2639 && objectY == 3424)
-				pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[] { new Item(41, 5) });
+				pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[] { new Item(41, 5) }, 100);
                         else if(objectX == 2650 && objectY == 3659)
-                                pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[] { new Item(995, 75) });
+                                pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[] { new Item(995, 75) }, 100);
+			return true;  
+                case 2569: //level 59 chaos druid tower chests
+                        if (objectX == 2586 && objectY == 9737)
+				pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[] { new Item(995, 500), new Item(565,2) }, 216);
+                        else if(objectX == 2586 && objectY == 9734)
+                                pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[] { new Item(995, 500), new Item(565, 2) }, 216);
 			return true;  
                 case 2570: //level 72 king lathas chest
                         if (objectX == 2588 && objectY == 3291)
-				pickTrap(player, objectId, objectX, objectY, 72, 500, new Item[] { new Item(995, 1000), new Item(383), new Item(449), new Item(1623) });
+				pickTrap(player, objectId, objectX, objectY, 72, 500, new Item[] { new Item(995, 1000), new Item(383), new Item(449), new Item(1623) }, 192);
                         return true;
-                case 2569: //level 59 chaos druid tower chests
-                        if (objectX == 2586 && objectY == 9737)
-				pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[] { new Item(995, 500), new Item(565,2) });
-                        else if(objectX == 2586 && objectY == 9734)
-                                pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[] { new Item(995, 500), new Item(565, 2) });
-			return true;  
-		}
-                
+                }
 		return false;
 	}
 }
