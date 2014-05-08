@@ -1230,6 +1230,32 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2344,3650));
 					}
 					break;
+				case 14973: // Piscatoris seaweed nets
+					player.getActionSender().sendMessage("You search the nets...");
+					player.getUpdateFlags().sendAnimation(832);
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if (Misc.random(5) == 0) {
+								if (player.getInventory().getItemContainer().freeSlots() > 0){
+									player.getActionSender().sendMessage("You find some seaweed");
+									player.getInventory().addItem(new Item(401));
+								}else{
+									player.getActionSender().sendMessage("Not enough space in your inventory.");
+								}
+							} else {
+								player.getActionSender().sendMessage("You find nothing of interest.");
+							}
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					this.stop();
+					return;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;

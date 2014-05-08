@@ -1,5 +1,6 @@
 @dre@= May ? =
 -Access to Piscatoris Fishing Colony (monk fish)
+ monk fish fishing and seaweed nets
 
 @dre@= May 7 =
 @blu@-More and more sounds.
