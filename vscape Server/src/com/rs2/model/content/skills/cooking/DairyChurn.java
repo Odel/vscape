@@ -94,6 +94,9 @@ public class DairyChurn {
 				}
 				player.getUpdateFlags().sendAnimation(CHURN_ANIMATION);
 				player.getInventory().removeItem(new Item(churnData.getItem()));
+				if(churnData.getItem() == 1927){
+					player.getInventory().addItem(new Item(1925));
+				}
 				player.getInventory().addItem(new Item(churnData.getResult()));
 				player.getSkill().addExp(Skill.COOKING, churnData.getExperience());
 				player.getActionSender().sendMessage("You make a " + ItemDefinition.forId(churnData.getResult()).getName().toLowerCase() + ".");
