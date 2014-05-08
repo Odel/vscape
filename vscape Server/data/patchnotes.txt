@@ -1,5 +1,6 @@
 @dre@= May ? =
 -Access to Piscatoris Fishing Colony (monk fish)
+ monk fish fishing and seaweed nets
 -changes to ice mountain and black knight fortress
 
 @dre@= May 7 =
