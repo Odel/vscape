@@ -135,7 +135,7 @@ public class Constants {
 	public static final int SENNTISTEN_X = 3321, SENNTISTEN_Y = 3335;
 	public static final int KHARYRLL_X = 3492, KHARYRLL_Y = 3471;
 	public static final int LASSAR_X = 3001, LASSAR_Y = 3470;
-	public static final int DAREEYAK_X = 3161, DAREEYAK_Y = 3671;
+	public static final int DAREEYAK_X = 2968, DAREEYAK_Y = 3699;
 	public static final int CARRALLANGAR_X = 3156, CARRALLANGAR_Y = 3666;
 	public static final int ANNAKARL_X = 3287, ANNAKARL_Y = 3886;
 	public static final int GHORROCK_X = 2977, GHORROCK_Y = 3873;
@@ -146,7 +146,7 @@ public class Constants {
 
 	public static final String BONUS_NAME[] = { "Stab", "Slash", "Crush", "Magic", "Range", "Stab", "Slash", "Crush", "Magic", "Range", "Strength", "Prayer" };
 
-	public static final int[] TRADEABLE_ITEMS = {1458};
+	public static final int[] TRADEABLE_ITEMS = {1458, 6332};
 	public static final int[] UNTRADEABLE_ITEMS = {6529, 3690, 3691, 6125, 6126, 6127, 1590, 1591, 772};
 	public static final int[] FUN_WEAPONS = { 4566, 1419, 2460, 2462, 2464, 2466, 2468, 2470, 2472, 2474, 2476, 8936, 8938 };
 
