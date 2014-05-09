@@ -26,7 +26,7 @@ public class Pets {
 	 * Registers a pet for the player, and drops it.
 	 */
 	public void registerPet(int itemId, int petId) {
-		if (player.getInventory().getItemContainer().getCount(itemId) == 0) {
+		if (player.getInventory().getItemContainer().getCount(itemId) == 0 && itemId != -1) {
 			return;
 		}
 		if (pet != null) {
@@ -40,10 +40,16 @@ public class Pets {
 		pet.setSpawnPosition(new Position(player.getPosition().getX() - 1, player.getPosition().getY(), player.getPosition().getZ()));
 		pet.setCurrentX(player.getPosition().getX() - 1);
 		pet.setCurrentY(player.getPosition().getX() - 1);
-		World.register(pet);
+		World.register(pet);      
 		pet.setFollowingEntity(player);
+                pet.setPlayerOwner(player.getIndex());
+                pet.setDontAttack(true);
+                pet.setCombatDelay(100000000);
+                if(pet.getNpcId() == 1319)
+                    pet.getUpdateFlags().sendForceMessage("Yiff!");
+                else if(pet.getNpcId() == 2473)
+                    pet.getUpdateFlags().sendForceMessage("Ribbit.");
 	}
-
 	/**
 	 * Unregisters a pet for the player, and picks it up it.
 	 */
@@ -54,9 +60,10 @@ public class Pets {
                     player.getActionSender().sendMessage("You pick up your pet.");
                     player.getInventory().addItem(new Item(itemId, 1));
                     this.itemId = -1;
+                    pet.teleport(new Position(pet.getPosition().getX(), 10000, pet.getPosition().getZ()-1));
                     pet.setVisible(false);
-                    Following.resetFollow(pet);
                     World.unregister(pet);
+                    Following.resetFollow(pet);
                     pet = null;
 	}
 

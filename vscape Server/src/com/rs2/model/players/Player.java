@@ -1010,6 +1010,11 @@ public class Player extends Entity {
 			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
 		} else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
+		}else if (keyword.equals("pet")) {
+                final int petId = Integer.parseInt(args[0]);
+                this.getPets().registerPet(-1, petId);
+                	if ( petId == 1319)
+                            this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
 		} else if (keyword.equals("invisible")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
@@ -1226,6 +1231,7 @@ public class Player extends Entity {
             {
             	actionSender.sendMessage("That person is in pest control right now.");
             }
+		player.getPets().unregisterPet();
             player.teleport(getPosition().clone());
 		}
 		else if (keyword.equals("modern")) {
@@ -1756,6 +1762,7 @@ public class Player extends Entity {
 			setStopPacket(true);
 		}
 		resetAllActions();
+		this.getPets().unregisterPet();
 		movePlayer(position);
         getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
@@ -3951,6 +3958,9 @@ public class Player extends Entity {
 				if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {
 					npc.sendTransform(npc.isTransformOnAggression(), 999999);
 				}
+				if(this.getPets().getPet().getFollowingEntity() != this) {
+                                    this.getPets().getPet().setFollowingEntity(this);
+                                } 
 				CombatManager.attack(npc, this);
 				return;
 			}
