@@ -810,6 +810,278 @@ public class Dialogues {
 						return true;
 				}
 				break;
+				case 1281: //Sigli & spined armor
+                                    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                                player.getDialogue().sendPlayerChat("Hi.", "Could you craft me Spined Armor?", CONTENT);
+                                        return true;
+                                        case 3 :
+                                                player.getDialogue().sendNpcChat("Sure, which piece would you like made?", CONTENT);
+                                        return true;
+                                        case 4 :
+                                            player.getDialogue().sendOption("Spined Helm", "Spined Body", "Spined Chaps", "Nevermind.");
+						return true;
+					case 5 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendNpcChat("I'll need 5000 coins,","a dagannoth hide,", "and a circular hide.", CONTENT);
+								return true;
+							case 2:
+								player.getDialogue().sendNpcChat("I'll need 10,000 coins,","3 dagannoth hides,", "and a flattened hide.", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
+                                                        case 3:
+                                                                player.getDialogue().sendNpcChat("I'll need 7,500 coins,", "2 dagannoth hides,", "and a stretched hide.", CONTENT);
+                                                                player.getDialogue().setNextChatId(10);
+								return true;
+                                                        case 4:
+                                                                player.getDialogue().sendPlayerChat("Nevermind.", SLIGHTLY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                                return true;
+                                                }
+                                        case 6 :
+                                            if( player.getInventory().playerHasItem(6155) && player.getInventory().playerHasItem(6169)
+                                                && player.getInventory().playerHasItem(995, 5000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155));
+                                            player.getInventory().removeItem(new Item(6169));
+                                            player.getInventory().removeItem(new Item(995, 5000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 7 :
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6131));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 8 :
+                                            if( player.getInventory().playerHasItem(6155, 3) && player.getInventory().playerHasItem(6171)
+                                                && player.getInventory().playerHasItem(995, 10000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 3));
+                                            player.getInventory().removeItem(new Item(6171));
+                                            player.getInventory().removeItem(new Item(995, 10000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 9:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6133));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 10 :
+                                            if( player.getInventory().playerHasItem(6155, 2) && player.getInventory().playerHasItem(6173)
+                                                && player.getInventory().playerHasItem(995, 7500) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 2));
+                                            player.getInventory().removeItem(new Item(6173));
+                                            player.getInventory().removeItem(new Item(995, 7500));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6135));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                    }
+                                    case 1303: //Skulgrimen & rockshell armor
+                                    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                                player.getDialogue().sendPlayerChat("Hi.", "Could you craft me Rock-Shell Armor?", CONTENT);
+                                        return true;
+                                        case 3 :
+                                                player.getDialogue().sendNpcChat("Sure, which piece would you like made?", CONTENT);
+                                        return true;
+                                        case 4 :
+                                            player.getDialogue().sendOption("Rock-Shell Helm", "Rock-Shell Plate", "Rock-Shell Legs", "Nevermind.");
+						return true;
+					case 5 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendNpcChat("I'll need 5000 coins,","a dagannoth hide,", "and a rock-shell chunk.", CONTENT);
+								return true;
+							case 2:
+								player.getDialogue().sendNpcChat("I'll need 10,000 coins,","3 dagannoth hides,", "and a rock-shell shard.", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
+                                                        case 3:
+                                                                player.getDialogue().sendNpcChat("I'll need 7,500 coins,", "2 dagannoth hides,", "and a rock-shell splinter.", CONTENT);
+                                                                player.getDialogue().setNextChatId(10);
+								return true;
+                                                        case 4:
+                                                                player.getDialogue().sendPlayerChat("Nevermind.", SLIGHTLY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                                return true;
+                                                }
+                                        case 6 :
+                                            if( player.getInventory().playerHasItem(6155) && player.getInventory().playerHasItem(6157)
+                                                && player.getInventory().playerHasItem(995, 5000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155));
+                                            player.getInventory().removeItem(new Item(6157));
+                                            player.getInventory().removeItem(new Item(995, 5000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 7 :
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6128));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 8 :
+                                            if( player.getInventory().playerHasItem(6155, 3) && player.getInventory().playerHasItem(6159)
+                                                && player.getInventory().playerHasItem(995, 10000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 3));
+                                            player.getInventory().removeItem(new Item(6159));
+                                            player.getInventory().removeItem(new Item(995, 10000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 9:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6129));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 10 :
+                                            if( player.getInventory().playerHasItem(6155, 2) && player.getInventory().playerHasItem(6161)
+                                                && player.getInventory().playerHasItem(995, 7500) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 2));
+                                            player.getInventory().removeItem(new Item(6161));
+                                            player.getInventory().removeItem(new Item(995, 7500));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6130));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                    }
+                                break;
+                                case 1288: //Peer the seer & skeletal armor
+                                    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hello.", CONTENT);
+                                        return true;
+                                        case 2 :
+                                                player.getDialogue().sendPlayerChat("Hi.", "Could you craft me Skeletal Armor?", CONTENT);
+                                        return true;
+                                        case 3 :
+                                                player.getDialogue().sendNpcChat("Sure, which piece would you like made?", CONTENT);
+                                        return true;
+                                        case 4 :
+                                            player.getDialogue().sendOption("Skeletal Helm", "Skeletal Top", "Skeletal Bottoms", "Nevermind.");
+						return true;
+					case 5 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendNpcChat("I'll need 5000 coins,","a dagannoth hide,", "and a Wallasalki skull piece.", CONTENT);
+								return true;
+							case 2:
+								player.getDialogue().sendNpcChat("I'll need 10,000 coins,","3 dagannoth hides,", "and a Wallasalki ribcage piece.", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
+                                                        case 3:
+                                                                player.getDialogue().sendNpcChat("I'll need 7,500 coins,", "2 dagannoth hides,", "and a Wallasalki fibula piece.", CONTENT);
+                                                                player.getDialogue().setNextChatId(10);
+								return true;
+                                                        case 4:
+                                                                player.getDialogue().sendPlayerChat("Nevermind.", SLIGHTLY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                                return true;
+                                                }
+                                        case 6 :
+                                            if( player.getInventory().playerHasItem(6155) && player.getInventory().playerHasItem(6163)
+                                                && player.getInventory().playerHasItem(995, 5000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155));
+                                            player.getInventory().removeItem(new Item(6163));
+                                            player.getInventory().removeItem(new Item(995, 5000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 7 :
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6137));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 8 :
+                                            if( player.getInventory().playerHasItem(6155, 3) && player.getInventory().playerHasItem(6165)
+                                                && player.getInventory().playerHasItem(995, 10000) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 3));
+                                            player.getInventory().removeItem(new Item(6165));
+                                            player.getInventory().removeItem(new Item(995, 10000));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 9:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6139));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                        case 10 :
+                                            if( player.getInventory().playerHasItem(6155, 2) && player.getInventory().playerHasItem(6167)
+                                                && player.getInventory().playerHasItem(995, 7500) ) {
+                                            player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+                                            player.getInventory().removeItem(new Item(6155, 2));
+                                            player.getInventory().removeItem(new Item(6167));
+                                            player.getInventory().removeItem(new Item(995, 7500));
+                                            return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I don't seem to have the items...", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                                return true;
+                                            }
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("And here's your crafted piece.", CONTENT);
+                                            player.getInventory().addItem(new Item(6141));
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                    }
+                                break;
 				//RUNE MYSTERIES / DRAGON SLAYER / DUKE HORACIO
 				case 741 :
 					int dragonSlayerStage = 0;
