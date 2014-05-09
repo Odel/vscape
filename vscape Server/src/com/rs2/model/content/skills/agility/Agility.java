@@ -103,6 +103,7 @@ public class Agility {
 	}
 	
 	public static void climbObstacle(final Player player,final int x,final int y,final int z,final int anim,final int time, final double xp){
+		player.setStopPacket(true);
 		player.getMovementHandler().reset();
 		player.resetAnimation();
 		player.getUpdateFlags().sendAnimation(anim);
@@ -110,6 +111,7 @@ public class Agility {
 			@Override
 			public void execute(CycleEventContainer container) {
 				player.teleport(new Position(x,y,z));
+				player.setStopPacket(false);
 				if(xp > 0){
 					player.getSkill().addExp(Skill.AGILITY, xp);
 				}
