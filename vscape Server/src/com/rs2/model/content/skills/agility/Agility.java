@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.agility;
 
+import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
@@ -124,6 +125,10 @@ public class Agility {
 	
 	public static void crossLog(Player player, int x, int y, int level, double xp)
 	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross this log.");
 			return;
@@ -133,6 +138,10 @@ public class Agility {
 	
 	public static void crossRope(Player player, int x, int y, int level, double xp)
 	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross this log.");
 			return;
@@ -142,6 +151,10 @@ public class Agility {
 	
 	public static void crawlPipe(Player player, int x, int y, int level, double xp)
 	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to crawl through this pipe.");
 			return;
@@ -151,6 +164,10 @@ public class Agility {
 	
 	public static void climbNet(Player player, int x, int y, int z, int level, double xp)
 	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb this net.");
 			return;
@@ -160,6 +177,10 @@ public class Agility {
 	
 	public static void climbBranch(Player player, int x, int y, int z, int level, double xp)
 	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb this branch.");
 			return;

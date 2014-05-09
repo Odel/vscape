@@ -32,6 +32,7 @@ public class GnomeCourse {
 				}
 			return true;
 			case 154: // gnome pipe
+			case 4058:
 				if(x >= 2484 && x <= 2487 && y == 3431){
 					Agility.crawlPipe(player, x, 3437, 1, 7.5);
 				}

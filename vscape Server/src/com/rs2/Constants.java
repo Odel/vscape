@@ -100,7 +100,7 @@ public class Constants {
 	public static final int GENDER_MALE = 0;
 	public static final int GENDER_FEMALE = 1;
 
-	public static boolean AGILITY_ENABLED = false;
+	public static boolean AGILITY_ENABLED = true;
 	public static boolean COOKING_ENABLED = true;
 	public static boolean CRAFTING_ENABLED = true;
 	public static boolean FARMING_ENABLED = true;
