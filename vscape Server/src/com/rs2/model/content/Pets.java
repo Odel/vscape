@@ -20,7 +20,7 @@ public class Pets {
 	}
 
 	public static final int[][] PET_IDS = {// itemId, petId
-	{1561, 768}, {7585, 3507}};
+	{1561, 768}, {7585, 3507}, {5608, 1319}, {10721, 2473 } };
 
 	/**
 	 * Registers a pet for the player, and drops it.
@@ -51,13 +51,13 @@ public class Pets {
 		if (pet == null) {
 			return;
 		}
-		player.getActionSender().sendMessage("You pick up your pet.");
-		player.getInventory().addItem(new Item(itemId, 1));
-		this.itemId = -1;
-		pet.setVisible(false);
-		Following.resetFollow(pet);
-		World.unregister(pet);
-		pet = null;
+                    player.getActionSender().sendMessage("You pick up your pet.");
+                    player.getInventory().addItem(new Item(itemId, 1));
+                    this.itemId = -1;
+                    pet.setVisible(false);
+                    Following.resetFollow(pet);
+                    World.unregister(pet);
+                    pet = null;
 	}
 
 	/**

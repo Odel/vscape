@@ -1008,6 +1008,8 @@ public class Player extends Entity {
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
 			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
+		} else if(keyword.equals("resetpet")) {
+			this.getPets().unregisterPet();
 		} else if (keyword.equals("invisible")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
