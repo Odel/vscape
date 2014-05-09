@@ -24,6 +24,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Crafting.Tanning;
+import com.rs2.model.content.skills.agility.GnomeCourse;
 import com.rs2.model.content.skills.agility.ShortcutHandler;
 import com.rs2.model.content.skills.agility.CrossObstacle;
 import com.rs2.model.content.skills.farming.Farming;
@@ -138,7 +139,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if ((id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2295 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -258,6 +259,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (ShortcutHandler.handleShortcut(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if (GnomeCourse.handleCourse(player, id, x, y)) {
 					this.stop();
 					return;
 				}
@@ -452,15 +457,6 @@ public class WalkToActionHandler {
 					break;
 				case 5259 : // port phays entrance
 					player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -1, true);
-					break;
-			/*	case 2618 : // lumberyard fence (russian fence)
-					//player.movePlayer(player.getPosition());
-					player.getUpdateFlags().sendAnimation(839);
-					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3493 ? 1 : -1, 1, 80, 2, true, 0, 0); //exp is currently 0
-					break;*/
-				case 2295 : // gnome log
-					//player.movePlayer(player.getPosition());
-					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3436 ? 1 : -6, 1, 80, 2, true, 2, 0); // exp is set to 2 because 2.5k is ridiculous
 					break;
 				case 2266 :
 					if (player.getPosition().getY() > 2963) {

@@ -5,6 +5,7 @@
 -changes to ice mountain and black knight fortress
 -Two ingredient container fixed
 -fixed some food not returning empty bowls when eaten.
+-Cairn Isle accessible
 
 @dre@= May 7 =
 @blu@-More and more sounds.

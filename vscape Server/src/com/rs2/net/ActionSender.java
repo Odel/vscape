@@ -206,6 +206,40 @@ public class ActionSender {
 		}, 1);
 		return this;
 	}
+	
+	public ActionSender walkTo2(int x, int y, int time, final boolean crossing) {
+		time = time/2;
+		if(time <= 1)
+			time = 1;
+		if (player.isStunned() || player.isFrozen()) {
+			return this;
+		}
+		player.setStopPacket(true);
+		if (crossing)
+			player.isCrossingObstacle = true;
+		player.getMovementHandler().reset();
+		player.getMovementHandler().addToPath(new Position(x, y));
+		player.getMovementHandler().finish();
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			boolean walked = false;
+
+			@Override
+			public void execute(CycleEventContainer b) {
+				if (walked) { // && !player.isMoving
+					player.setStopPacket(false);
+					b.stop();
+				}
+				walked = true;
+			}
+
+			@Override
+			public void stop() {
+				if (crossing)
+					player.isCrossingObstacle = false;
+			}
+		}, time);
+		return this;
+	}
 
 	public ActionSender walkToNoForce(int x, int y) {
 		if (player.isStunned() || player.isFrozen()) {
