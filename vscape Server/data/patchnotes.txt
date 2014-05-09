@@ -1,12 +1,14 @@
 @dre@= May ? =
--Access to Piscatoris Fishing Colony (monk fish)
- monk fish fishing and seaweed nets
- monk fish can be cooked and eaten
--changes to ice mountain and black knight fortress
--Two ingredient container fixed
--fixed some food not returning empty bowls when eaten.
--Gnome agility course
--Cairn Isle accessible
+-Access to Piscatoris Fishing Colony (Monkfish)
+ Monkfish fishing and seaweed nets.
+ Monkfish can be cooked and eaten.
+-Changes to Ice Mountain and Black Knight Fortress.
+-Two ingredient container fixed.
+-Fixed some food not returning empty bowls when eaten.
+-Gnome agility course.
+-Cairn Isle accessible.
+-Waterbirth Dungeon armor is now able to be created.
+-Trimmed skillcape option and items.
 
 @dre@= May 7 =
 @blu@-More and more sounds.
