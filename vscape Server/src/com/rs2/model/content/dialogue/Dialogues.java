@@ -54,6 +54,22 @@ public class Dialogues {
 		player.getDialogue().setDialogueId(id);
 		player.getDialogue().setNextChatId(chatId);
 	}
+        
+        public static boolean checkTrim(Player player) {
+            int x = 0;
+            for(int i = 0; i < 21; i++) {
+                if (player.getSkill().getLevel()[i] == 99)
+                    x++;
+            }  
+            return x >= 2 ? true : false;
+        }
+        public static void trimCape(Player player, int capeId) {
+            if(player.getInventory().playerHasItem(capeId)) {
+                player.getInventory().removeItem(new Item(capeId));
+                player.getInventory().addItem(new Item(capeId+1));
+            }
+        }
+
 	/** Instruction
 	 * 
 	 * Use same format as example of Man below
@@ -741,7 +757,7 @@ public class Dialogues {
 				break;
 			case 960 : //duel arena doctor
                             return true;
-			case 961 :
+                        case 961 :
                             switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("Hey, what's up? you can call me " + NpcDefinition.forId(player.getClickId()).getName(), "my mission here is to take care of those players", "who would need some help to cure their wounds", CONTENT);
@@ -750,8 +766,10 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("So, anything I can do for someone like you?", CONTENT);
 						return true;
 					case 3 :
-                                            if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99)
+                                            if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99 && !checkTrim(player))
 						player.getDialogue().sendOption("Yes, I would like you to heal me please.", "No, I am just playing around.", "I want my skillcape!");
+                                            else if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99 && checkTrim(player))
+						player.getDialogue().sendOption("Yes, I would like you to heal me please.", "No, I am just playing around.", "I want my skillcape!", "Can you trim my skillcape?");
                                             else
                                                 player.getDialogue().sendOption("Yes, I would like you to heal me please.", "No, I am just playing around.");
 						return true;
@@ -766,7 +784,11 @@ public class Dialogues {
 							case 3:
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
                                                                 player.getDialogue().setNextChatId(6);
-                                                        return true;
+                                                                return true;
+                                                        case 4:
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(9);
+                                                                return true;
                                                 }	
 						return true;	
                                         case 6:
@@ -776,7 +798,19 @@ public class Dialogues {
                                             ShopManager.openShop(player, 179);
                                             player.getDialogue().dontCloseInterface();
                                             return true;
-                                            
+                                        case 9:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 10:
+                                            if(player.getInventory().playerHasItem(9768)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9768);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
 					}
                                        break;
 			case 962 :
@@ -1592,8 +1626,10 @@ public class Dialogues {
                                                                     player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
                                                                 return true;
                                                                 case 2:
-                                                                    if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) 
+                                                                    if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && !checkTrim(player)) 
                                                                         player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!");
+                                                                    else if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && checkTrim(player))
+                                                                        player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!", "Can you trim my skillcape?");
                                                                     else
                                                                         player.getDialogue().sendOption("Yes please!", "No thanks.");
                                                                 return true;
@@ -1612,6 +1648,10 @@ public class Dialogues {
                                                                             player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
                                                                             player.getDialogue().setNextChatId(5);
                                                                         return true;
+                                                                        case 4:
+                                                                            player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                            player.getDialogue().setNextChatId(8);
+                                                                        return true;
                                                                     }
                                                                 case 5:
                                                                     player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -1619,6 +1659,19 @@ public class Dialogues {
                                                                 case 6:
                                                                     ShopManager.openShop(player, 178);
                                                                     player.getDialogue().dontCloseInterface();
+                                                                return true;
+                                                                case 8:
+                                                                    player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                                                return true;
+                                                                case 9:
+                                                                    if(player.getInventory().playerHasItem(9765)) {
+                                                                        player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                                                        trimCape(player, 9765);
+                                                                    }
+                                                                    else {
+                                                                        player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                                        player.getDialogue().endDialogue();
+                                                                    }
                                                                 return true;
                                                             }
                                                         break;
@@ -1733,8 +1786,10 @@ public class Dialogues {
 								player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
 							return true;
 							case 2:
-                                                            if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) 
+                                                            if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && !checkTrim(player)) 
 								player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!");
+                                                            else if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && checkTrim(player)) 
+								player.getDialogue().sendOption("Yes please!", "No thanks.", "I want my skillcape!", "Can you trim my skillcape?");
                                                             else
                                                                 player.getDialogue().sendOption("Yes please!", "No thanks.");
 							return true;
@@ -1753,6 +1808,10 @@ public class Dialogues {
                                                                             player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
                                                                             player.getDialogue().setNextChatId(5);
                                                                         return true;
+                                                                        case 4:
+                                                                            player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                            player.getDialogue().setNextChatId(8);
+                                                                        return true;
                                                                 }
                                                         case 5:
                                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -1760,7 +1819,20 @@ public class Dialogues {
                                                         case 6:
                                                             ShopManager.openShop(player, 178);
                                                             player.getDialogue().dontCloseInterface();
-                                                        return true;  
+                                                        return true;
+                                                        case 8:
+                                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                                        return true;
+                                                        case 9:
+                                                            if(player.getInventory().playerHasItem(9765)) {
+                                                                player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                                                trimCape(player, 9765);
+                                                            }
+                                                            else {
+                                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                            }
+                                                        return true;
 						}
 					}
 				break;
@@ -2098,8 +2170,12 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("Hello brother, would you like me to bless all", "of your unblessed symbols?", CONTENT);
 						return true;
 					case 2 :
-                                            if(player.getSkill().getLevel()[Skill.PRAYER] == 99) {
+                                            if(player.getSkill().getLevel()[Skill.PRAYER] == 99 && !checkTrim(player)) {
 						player.getDialogue().sendOption("Yes please.", "No thanks.", "I want my skillcape!");
+						return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.PRAYER] == 99 && checkTrim(player)) {
+						player.getDialogue().sendOption("Yes please.", "No thanks.", "I want my skillcape!", "Can you trim my skillcape?");
 						return true;
                                             }
                                             else
@@ -2126,7 +2202,11 @@ public class Dialogues {
 							    return true;
                                                         case 3:
                                                             player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS);
-                                                            player.getDialogue().setChatId(5);
+                                                            player.getDialogue().setNextChatId(5);
+                                                        return true;
+                                                        case 4:
+                                                            player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                            player.getDialogue().setNextChatId(8);
                                                         return true;
 						}
                                         case 5:
@@ -2135,7 +2215,20 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 176);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;  
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9759)) {
+                                                player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                                trimCape(player, 9759);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                        return true;
 				}
 				break;
 			case 10006 : //ladder
@@ -3496,8 +3589,10 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("'Ello, and what are you after then?", HAPPY);
 						return true;
 					case 2 :
-                                            if(player.getSkill().getLevel()[Skill.SLAYER] == 99)
+                                            if(player.getSkill().getLevel()[Skill.SLAYER] == 99 && !checkTrim(player))
 						player.getDialogue().sendOption("I need another assignment", "Do you have anything for trade?", "Er...nothing", "I want my skillcape!");
+                                            else if(player.getSkill().getLevel()[Skill.SLAYER] == 99 && checkTrim(player))
+						player.getDialogue().sendOption("I need another assignment", "Do you have anything for trade?", "Er...nothing", "I want my skillcape!", "Can you trim my skillcape?");
                                             else
                                                 player.getDialogue().sendOption("I need another assignment", "Do you have anything for trade?", "Er...nothing");
                                         return true;
@@ -3518,6 +3613,10 @@ public class Dialogues {
                                                         case 4:
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", ANGRY_1);
                                                                 player.getDialogue().setNextChatId(9);
+                                                        return true;
+                                                        case 5:
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(12);
                                                         return true;
                                                             
 						}
@@ -3553,7 +3652,19 @@ public class Dialogues {
                                             ShopManager.openShop(player, 185);
                                             player.getDialogue().dontCloseInterface();
                                         return true;
-                                             
+                                        case 12:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 13:
+                                            if(player.getInventory().playerHasItem(9786)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9786);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true; 
 				}
 				break;
 			case 956 : //drunken dwarf
@@ -3872,14 +3983,14 @@ public class Dialogues {
 								if(!player.hasItem(667)) //check inv and bank idiot lost sword
 								{
 									player.getDialogue().sendNpcChat("what human want now?", CALM);
-									player.getDialogue().setNextChatId(2);
+									return true;
 								}
 								else
 								{
 									player.getDialogue().sendNpcChat("Go away human.", CALM);
-									player.getDialogue().setNextChatId(5);
+									player.getDialogue().setNextChatId(4);
+                                                                        return true;
 								}
-							return true;
 							case 2:
 								player.getDialogue().sendPlayerChat("I've lost the sword!", "can you make me a new one?", DISTRESSED);
 							return true;
@@ -3888,18 +3999,47 @@ public class Dialogues {
 								player.getDialogue().endDialogue();
 								player.setQuestStage(1, 2);
 							return true;
-                                                        case 5:
-                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99)
+                                                        case 4:
+                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99 && !checkTrim(player)) {
                                                                 player.getDialogue().sendPlayerChat("B-but I need my skillcape!",SAD);
+                                                                player.getDialogue().setNextChatId(7);
+                                                                return true;
+                                                            }
+                                                            else if(player.getSkill().getLevel()[Skill.SMITHING] == 99 && checkTrim(player))
+                                                                player.getDialogue().sendOption("B-but I need my skillcape!", "Can you trim my skillcape?");
                                                             else
                                                                 player.getDialogue().endDialogue();
                                                             return true;
-                                                        case 6:
+                                                        case 5 :
+                                                            switch(optionId) {
+                                                                case 1:
+                                                                    player.getDialogue().sendPlayerChat("B-but I need my skillcape!", NEAR_TEARS);
+                                                                    player.getDialogue().setNextChatId(7);
+								return true;
+                                                                case 2: 
+                                                                    player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                    player.getDialogue().setNextChatId(10);
+								return true;
+                                                            }
+                                                        case 7:
                                                             player.getDialogue().sendNpcChat("stupid human always concerned with weak clothing", "but I s'pose you've earned it", ANGRY_2);
                                                         return true;
-                                                        case 7:
+                                                        case 8:
                                                             ShopManager.openShop(player, 187);
                                                             player.getDialogue().dontCloseInterface();
+                                                        return true;
+                                                        case 10:
+                                                            player.getDialogue().sendNpcChat("i guess thurgo can, but thurgo can no undo trimming!", "human can always buy another anyways...", ANGRY_1);
+                                                        return true;
+                                                        case 11:
+                                                            if(player.getInventory().playerHasItem(9786)) {
+                                                                player.getDialogue().sendNpcChat("here", ANGRY_1);
+                                                                trimCape(player, 9786);
+                                                            }
+                                                            else {
+                                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                            }
                                                         return true;
 						}
 					break;
@@ -3909,19 +4049,49 @@ public class Dialogues {
 								player.getDialogue().sendNpcChat("Go away human.", CALM);
 							return true;
                                                         case 2:
-                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99) {
+                                                            if(player.getSkill().getLevel()[Skill.SMITHING] == 99 && !checkTrim(player)) {
                                                                 player.getDialogue().sendPlayerChat("B-but I need my skillcape!",SAD);
-                                                                player.getDialogue().setNextChatId(4);
+                                                                player.getDialogue().setNextChatId(5);
                                                             return true;
                                                             }
-                                                            else return true;
-                                                        case 4:
+                                                            else if(player.getSkill().getLevel()[Skill.SMITHING] == 99 && checkTrim(player)) {
+                                                                player.getDialogue().sendOption("B-but I need my skillcape!", "Can you trim my skillcape?");
+                                                                return true;
+                                                            }
+                                                            else {
+                                                                player.getDialogue().endDialogue();
+                                                                return true;
+                                                            }
+                                                        case 3 :
+                                                            switch(optionId) {
+                                                                case 1:
+                                                                    player.getDialogue().sendPlayerChat("B-but I need my skillcape!", NEAR_TEARS);
+                                                                    player.getDialogue().setNextChatId(5);
+								return true;
+                                                                case 2: 
+                                                                    player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                    player.getDialogue().setNextChatId(8);
+								return true;
+                                                            }
+                                                        case 5:
                                                             player.getDialogue().sendNpcChat("stupid human always concerned with weak clothing", "but I s'pose you've earned it", ANGRY_2);
                                                         return true;
-                                                        case 5:
+                                                        case 6:
                                                             ShopManager.openShop(player, 187);
                                                             player.getDialogue().dontCloseInterface();
                                                         return true;
+                                                        case 8:
+                                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                                        return true;
+                                                        case 9:
+                                                            if(player.getInventory().playerHasItem(9795)) {
+                                                                player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                                                trimCape(player, 9795);
+                                                            }
+                                                            else {
+                                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                                player.getDialogue().endDialogue();
+                                                            }
 						}
 					break;
 				}
@@ -4795,9 +4965,11 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello, and welcome to the Crafting Guild. Accomplished","crafters from all over the land come here to use our","top notch workshops.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.CRAFTING] == 99) 
+                                            if(player.getSkill().getLevel()[Skill.CRAFTING] == 99 && !checkTrim(player)) 
 						player.getDialogue().sendOption("Neat.", "(don't respond)", "Fuck off, I want my skillcape!");
-                                            else 
+                                            else if(player.getSkill().getLevel()[Skill.CRAFTING] == 99 && checkTrim(player)) 
+						player.getDialogue().sendOption("Neat.", "(don't respond)", "Fuck off, I want my skillcape!", "Can you trim my god damned skillcape?");
+                                            else
                                                 player.getDialogue().sendOption("Neat.", "(don't respond)");
                                             return true; 
                                         case 3:
@@ -4809,9 +4981,13 @@ public class Dialogues {
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
                                                                 return true;
                                                         case 3: 
-                                                                player.getDialogue().sendPlayerChat("Fuck off, I want my skillcape!", NEAR_TEARS_2);
+                                                                player.getDialogue().sendPlayerChat("Fuck off, I want my skillcape!", ANGRY_1);
                                                                 player.getDialogue().setNextChatId(5);
-								return true;		
+								return true;
+                                                        case 4: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my god damned skillcape?", ANGRY_1);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;	
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("Yo-you've earned it.", DISTRESSED);
@@ -4819,7 +4995,20 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 183);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9780)) {
+                                                player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                                trimCape(player, 9780);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
 				}
 			break;
                         /*case 732 : //Cinco de mayo
@@ -4849,8 +5038,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.ATTACK] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.ATTACK] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.ATTACK] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -4870,7 +5064,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -4878,7 +5076,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 172);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9747)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9747);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;
 				}
 			break;
                         case 4297 : //Strength master skillcape
@@ -4887,8 +5108,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.STRENGTH] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.STRENGTH] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.STRENGTH] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -4908,7 +5134,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -4916,6 +5146,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 173);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9750)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9750);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
@@ -4925,8 +5178,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.DEFENCE] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.DEFENCE] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.DEFENCE] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -4946,7 +5204,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -4954,7 +5216,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 174);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9753)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9753);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
                         case 682 : //Range master skillcape
 				switch(player.getDialogue().getChatId()) {
@@ -4962,8 +5247,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.RANGED] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.RANGED] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.RANGED] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -4983,7 +5273,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -4991,7 +5285,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 175);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9756)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9756);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;        
 				}
 			break;
                         case 1658 : //Magic master skillcape
@@ -5000,8 +5317,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.MAGIC] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.MAGIC] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.MAGIC] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5021,7 +5343,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5029,6 +5355,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 177);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9762)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9762);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
@@ -5038,18 +5387,23 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.AGILITY] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.AGILITY] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
+                                            else if(player.getSkill().getLevel()[Skill.AGILITY] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("What is Izzy short for?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Frederick.", CONTENT);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5059,7 +5413,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5067,7 +5425,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 180);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9771)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9771);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;            
 				}
 			break;
                         case 455 : //Herblore master skillcape
@@ -5076,18 +5457,23 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.HERBLORE] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
+                                            else if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("How do you spend your free time?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Cleaning guams, of course!", "It's my favorite activity next to napping!", CONTENT);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5097,7 +5483,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5105,6 +5495,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 181);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9774)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9774);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
@@ -5114,8 +5527,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.THIEVING] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.THIEVING] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.THIEVING] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5135,7 +5553,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5143,7 +5565,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 182);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9777)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9777);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
 			break;
                         case 575 : //Fletch master skillcape
@@ -5152,8 +5597,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.FLETCHING] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.FLETCHING] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.FLETCHING] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5173,7 +5623,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5181,6 +5635,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 184);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9783)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9783);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
@@ -5190,18 +5667,23 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.MINING] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.MINING] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
+                                            if(player.getSkill().getLevel()[Skill.MINING] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Tfw you'll never be 99.", NEAR_TEARS);
+                                                player.getDialogue().sendPlayerChat("What's so great about rocks anyways?", CONTENT);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("Feels bad.", DISTRESSED);
+                                            player.getDialogue().sendNpcChat("Humans are too dumb to appreciate the rocks!", ANGRY_1);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5211,7 +5693,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5219,7 +5705,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 186);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9792)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9792);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
 			break;
                         case 308 : //Fish master skillcape
@@ -5228,18 +5737,23 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello, and welcome to the Fishing Guild!", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.FISHING] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.FISHING] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
+                                            else if(player.getSkill().getLevel()[Skill.FISHING] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
                                             else {
-                                                player.getDialogue().sendPlayerChat("Can we catch monkfish yet?", ANGRY_3);
+                                                player.getDialogue().sendPlayerChat("Wait, we can catch monkfish now?", HAPPY);
                                                 player.getDialogue().setNextChatId(3);
                                                 return true;
                                             }
                                         case 3:
-                                            player.getDialogue().sendNpcChat("In the near future.", CALM);
+                                            player.getDialogue().sendNpcChat("The age of monkfish is here!", LAUGHING);
                                             player.getDialogue().endDialogue();
                                             return true; 
                                         case 4:
@@ -5249,7 +5763,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5257,7 +5775,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 188);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9798)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9798);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
 			break;
                         case 847 : //Cooking master skillcape
@@ -5266,8 +5807,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello, and welcome to the Cooking Guild!", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.COOKING] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.COOKING] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.COOKING] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5287,7 +5833,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5295,6 +5845,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 189);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9801)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9801);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
@@ -5304,8 +5877,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.FIREMAKING] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.FIREMAKING] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.FIREMAKING] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5325,7 +5903,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5333,7 +5915,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 190);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9804)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9804);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
 			break;
                         case 4906 : //Woodcutting master skillcape
@@ -5342,8 +5947,13 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.WOODCUTTING] == 99){ 
+                                            if(player.getSkill().getLevel()[Skill.WOODCUTTING] == 99 && !checkTrim(player)){ 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.WOODCUTTING] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             }
@@ -5363,7 +5973,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5371,7 +5985,30 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 191);
                                             player.getDialogue().dontCloseInterface();
-                                            return true;           
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9807)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9807);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;          
 				}
 			break;
                         case 3299 : //Farming master skillcape
@@ -5380,11 +6017,16 @@ public class Dialogues {
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
                                         return true;
                                         case 2 :
-                                            if(player.getSkill().getLevel()[Skill.FARMING] == 99) { 
+                                            if(player.getSkill().getLevel()[Skill.FARMING] == 99 && !checkTrim(player)) { 
 						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
                                                 player.getDialogue().setNextChatId(4);
                                                 return true;
                                             } 
+                                            else if(player.getSkill().getLevel()[Skill.FARMING] == 99 && checkTrim(player)) { 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
                                             else {
                                                 player.getDialogue().sendPlayerChat("What's with all the pigs?", NEAR_TEARS);
                                                 player.getDialogue().setNextChatId(3);
@@ -5401,7 +6043,11 @@ public class Dialogues {
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;		
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
 						}
                                         case 5:
                                             player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
@@ -5409,6 +6055,29 @@ public class Dialogues {
                                         case 6:
                                             ShopManager.openShop(player, 192);
                                             player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9810)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9810);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
                                             return true;           
 				}
 			break;
