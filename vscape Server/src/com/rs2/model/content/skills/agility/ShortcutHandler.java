@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.agility;
 
+import com.rs2.model.Position;
 import com.rs2.model.players.Player;
 
 public class ShortcutHandler {
@@ -13,9 +14,6 @@ public class ShortcutHandler {
 			case 2618: // lumberyard fence (russian fence)
 				targetY = player.getPosition().getY() < y ? 1 : -1;
 				Agility.crossObstacle(player, x, y+targetY, 839, 2, 0);
-				/*player.getUpdateFlags().sendAnimation(839);
-				CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < y ? 2 : -2, 1, 80, 2, true, 0, 0); //exp is currently 0
-				*/
 			return true;
 			case 12982: // stile
 				targetY = player.getPosition().getY() < y ? 2 : -1;
@@ -27,12 +25,42 @@ public class ShortcutHandler {
 					Agility.crossObstacle(player, targetX, y, 844, 4, 0);
 				}
 			return true;
-		/*	case 2834: // battlement
-				if(x == 2567 && y == 3021){
-					targetX = player.getPosition().getX() < x ? 2568 : 2566;
-					Agility.crossObstacle(player, targetX, y, 844, 4, 0);
+			//Arandar
+			case 9296:
+				if(y == 3299)//first rocks down
+				Agility.crossObstacle(player, 2345, 3294, 844, 7, 59, 0);
+				if(y == 3288)//second rocks down
+				Agility.crossObstacle(player, 2338, 3286, 844, 7, 68, 0);
+				if(y == 3252) //third rocks down
+				Agility.crossObstacle(player, 2338, 3253, 844, 7, 85, 0);
+				return true;
+			case 9297:
+				if(y == 3295) //first rocks up
+				Agility.crossObstacle(player, 2345, 3300, 844, 7, 59, 0);
+				if(y == 3285) //second rocks up
+				Agility.crossObstacle(player, 2338, 3281, 844, 7, 68, 0);
+				if(y == 3253) //third rocks up
+				Agility.crossObstacle(player, 2332, 3252, 844, 7, 85, 0);
+				return true;
+			//Tirannwn
+			case 3921: //tripwire
+				if(x == 2294 && y == 3243){
+					targetY = player.getPosition().getY() > y ? -1 : 1;
+					Agility.crossObstacle(player, x, y+targetY, 0, 2, 0, 0);
 				}
-			return true;*/
+				return true;
+			case 3933: //log
+				if(x == 2290 && y == 3238)
+					Agility.crossObstacle(player, x, 3232, 762, 8, 10, 0);
+				if(x == 2290 && y == 3233)
+					Agility.crossObstacle(player, x, 3239, 762, 8, 10, 0);
+				return true;
+			case 3937: //Dense Forest
+			case 3938:
+			case 3939:
+			case 3998:
+			case 3999:
+				return true;
 		}
 		return false;
 	}

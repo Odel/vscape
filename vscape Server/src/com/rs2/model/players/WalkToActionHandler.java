@@ -139,7 +139,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2295 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2295 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -1153,21 +1153,15 @@ public class WalkToActionHandler {
 						}
 					}
 					break;
-				//BUGGY SHIT 
 				//Tirannwn
-				case 3921: //tripwire
-					break;
 				case 3944: // Arandar double doors because fixing double doors right now
 				case 3945:
-					player.getActionSender().sendMessage("You pass through the gate.");
+					if(id == 3944){
+						player.getActionSender().walkThroughDoubleDoor(3944, 3945, x, y, 2384, 3334, 0);
+					}else if(id == 3945){
+						player.getActionSender().walkThroughDoubleDoor(3945, 3944, x, y, 2386, 3334, 0);
+					}
 					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
-					player.getActionSender().walkThroughDoor(id, x, y, z);
-					break;
-				case 3937: //Dense Forest
-				case 3938:
-				case 3939:
-				case 3998:
-				case 3999:
 					break;
 				case 2024: //HETTYS CAULDRON
 					if(player.getQuestStage(6) == 2)

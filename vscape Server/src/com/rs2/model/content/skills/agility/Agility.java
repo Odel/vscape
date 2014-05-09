@@ -11,12 +11,10 @@ import com.rs2.model.tick.CycleEventHandler;
 public class Agility {
 
 	public static void crossObstacle(final Player player,final int x,final int y,final int anim,final int time, final double xp){
-		player.getMovementHandler().reset();
+		player.setStopPacket(true);
 		final boolean wasRunning = player.getMovementHandler().isRunToggled();
-		if(wasRunning)
-		{
-			player.getMovementHandler().setRunToggled(false);
-		}
+		player.getMovementHandler().setRunToggled(false);
+		player.getMovementHandler().reset();
 		player.resetAnimation();
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
@@ -36,6 +34,7 @@ public class Agility {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
+				player.setStopPacket(false);
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 				player.setAppearanceUpdateRequired(true);
@@ -55,14 +54,20 @@ public class Agility {
 			}
 		}, time+1);
 	}
-	
-	public static void crossObstacle(final Player player,final int x,final int y,final int startAnim, final int endAnim,final int time, final double xp){
-		player.getMovementHandler().reset();
-		final boolean wasRunning = player.getMovementHandler().isRunToggled();
-		if(wasRunning)
-		{
-			player.getMovementHandler().setRunToggled(false);
+
+	public static void crossObstacle(final Player player,final int x,final int y,final int startAnim, final int time, final int level, final double xp){
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
 		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to use this shortcut.");
+			return;
+		}
+		player.setStopPacket(true);
+		final boolean wasRunning = player.getMovementHandler().isRunToggled();
+		player.getMovementHandler().setRunToggled(false);
+		player.getMovementHandler().reset();
 		player.resetAnimation();
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
@@ -73,6 +78,7 @@ public class Agility {
 					player.setAppearanceUpdateRequired(true);
 				}
 				player.getActionSender().walkTo2(x,y,time,true);
+				player.getUpdateFlags().sendFaceToDirection(new Position(player.getPosition().getX(),player.getPosition().getY()+1));
 				container.stop();
 			}
 			@Override
@@ -82,6 +88,7 @@ public class Agility {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
+				player.setStopPacket(false);
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 				player.setAppearanceUpdateRequired(true);
@@ -124,7 +131,7 @@ public class Agility {
 			}
 		}, time+1);
 	}
-	
+
 	public static void crossLog(Player player, int x, int y, int level, double xp)
 	{
 		if (!Constants.AGILITY_ENABLED) {
@@ -135,7 +142,7 @@ public class Agility {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross this log.");
 			return;
 		}
-		crossObstacle(player, x, y, 762, 7, xp);
+		crossObstacle(player, x, y, 762, 8, xp);
 	}
 	
 	public static void crossRope(Player player, int x, int y, int level, double xp)
@@ -161,7 +168,7 @@ public class Agility {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to crawl through this pipe.");
 			return;
 		}
-		crossObstacle(player, x, y, 746, 748, 7, xp);
+		crossObstacle(player, x, y, 746, 7, xp);
 	}
 	
 	public static void climbNet(Player player, int x, int y, int z, int level, double xp)
