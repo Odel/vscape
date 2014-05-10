@@ -78,7 +78,42 @@ public class PestControl {
 	private static int shieldTime = 0;
 	
 	public enum GruntData {
-		BRAWLER(3772, false); 
+                SPLATTER_22(3727,false),
+                SPLATTER_33(3728,false),
+                SPLATTER_44(3729,false),
+                SPLATTER_54(3730,false),
+                SPLATTER_65(3731,false),
+                SHIFTER_38(3732,false),
+                SHIFTER_57(3734,false),
+                SHIFTER_76(3736,false),
+                SHIFTER_90(3738,false),
+                SHIFTER_104(3740,false),
+                RAVAGER_36(3742,false),
+                RAVAGER_53(3743,false),
+                RAVAGER_71(3744,false),
+                RAVAGER_89(3745,false),
+                RAVAGER_106(3746,false),
+                SPINNER_36(3747,false),
+                SPINNER_55(3748,false),
+                SPINNER_74(3749,false),
+                SPINNER_88(3751,false),
+                SPINNER_92(3750,false),
+                TORCHER_33(3752,false),
+                TORCHER_49(3754,false),
+                TORCHER_66(3756,false),
+                TORCHER_79(3758,false),
+                TORCHER_91(3759,false),
+                DEFILER_33(3762,false),
+                DEFILER_50(3764,false),
+                DEFILER_66(3766,false),
+                DEFILER_80(3768,false),
+                DEFILER_97(3770,false),
+                BRAWLER_51(3772,false),
+                BRAWLER_76(3773,false),
+                BRAWLER_101(3774,false),
+                BRAWLER_129(3775,false),
+                BRAWLER_158(3776,false);
+                
 		
 		private int npcId;
 		private boolean attackKnight;
@@ -460,7 +495,7 @@ public class PestControl {
 	
 	public static void handleDeath(final Player player)
 	{
-		
+            player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
 	}
 	
 	private static void sendLobbyMessage(String msg)
@@ -522,7 +557,7 @@ public class PestControl {
 	
 	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) 
 	{
-	/*	switch(objectId)
+		switch(objectId)
 		{
 			//lander
 			case 14315: //gangplank
@@ -536,7 +571,7 @@ public class PestControl {
 						leaveLobby(player);
 			return true;
 			//pest game objects
-		}*/
+		}
 		return false;
 	}
 	

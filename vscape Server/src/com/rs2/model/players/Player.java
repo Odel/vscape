@@ -199,6 +199,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
+        private PestControl pestControl = new PestControl();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
 	private Wine wine = new Wine(this);
@@ -2447,6 +2448,9 @@ public class Player extends Entity {
 	public EnchantingChamber getEnchantingChamber() {
 		return enchantingChamber;
 	}
+        public PestControl getPestControl() {
+                return pestControl;
+        }
 
 	public PlayerInteraction getDuelInteraction() {
 		return playerInteraction;

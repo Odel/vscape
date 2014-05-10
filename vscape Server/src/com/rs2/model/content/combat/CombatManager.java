@@ -262,6 +262,10 @@ public class CombatManager extends Tick {
 			((Player) died).getCreatureGraveyard().handleDeath();
 			return;
 		}
+                if(died.isPlayer() && ((Player) died).inPestControlGameArea()) {
+                    ((Player) died).getPestControl().handleDeath((Player) died);
+			return;
+                }
 		if (died.isNpc() && ((Npc) died).getNpcId() == 655) {
 			if (killer != null && killer.isPlayer()) {
 				((Player) killer).setKilledTreeSpirit(true);
