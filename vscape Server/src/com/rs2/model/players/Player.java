@@ -766,8 +766,9 @@ public class Player extends Entity {
 			getActionSender().sendMessage("commands include ::outfit, ::yell/::y, ::hideyell/::hy, ::hidecolor/::hc, ::home,");
 			getActionSender().sendMessage(" ::players, ::changepass, ::patchnotes, ::report, ::panic");
 			
+		} else if(keyword.equals("resetpet")) {
+			this.getPets().unregisterPet();
 		}
-		
 	}
 
 	public void modCommands(String keyword, String[] args, String fullString) {
@@ -1008,8 +1009,6 @@ public class Player extends Entity {
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
 			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
-		} else if(keyword.equals("resetpet")) {
-			this.getPets().unregisterPet();
 		}else if (keyword.equals("pet")) {
                 final int petId = Integer.parseInt(args[0]);
                 this.getPets().registerPet(-1, petId);

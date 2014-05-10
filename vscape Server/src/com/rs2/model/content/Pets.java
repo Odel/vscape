@@ -20,7 +20,7 @@ public class Pets {
 	}
 
 	public static final int[][] PET_IDS = {// itemId, petId
-	{1561, 768}, {7585, 3507}, {5608, 1319}, {10721, 2473 } };
+	{1561, 768}, {7585, 3507}, {5608, 1319}, {10721, 2473 }, {9975, 4447}, {5609, 1401} };
 
 	/**
 	 * Registers a pet for the player, and drops it.
