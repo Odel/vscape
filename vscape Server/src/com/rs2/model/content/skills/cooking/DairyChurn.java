@@ -18,13 +18,20 @@ public class DairyChurn {
 	private static final int CHURN_ANIMATION = 894;
 
 	public static enum ChurnData {
-		CREAM(59238, 1927, 2130, 21, 18), 
-		BUTTER(59239, 1927, 6697, 38, 40),
-		CHEESE(59240, 6697, 1985, 48, 64);
+		CREAM1(34185, 1927, 2130, 1, 21, 18), 
+		CREAM5(34184, 1927, 2130, 5, 21, 18), 
+		CREAM10(34183, 1927, 2130, 10, 21, 18), 
+		BUTTER1(34189, 1927, 6697, 1, 38, 40),
+		BUTTER5(34188, 1927, 6697, 5, 38, 40),
+		BUTTER10(34187, 1927, 6697, 10, 38, 40),
+		CHEESE1(34193, 6697, 1985, 1, 48, 64),
+		CHEESE5(34192, 6697, 1985, 5, 48, 64),
+		CHEESE10(34191, 6697, 1985, 10, 48, 64);
 
 		private int buttonId;
 		private int item;
 		private int result;
+		private int amount;
 		private int level;
 		private double experience;
 		
@@ -36,10 +43,11 @@ public class DairyChurn {
 			return null;
 		}
 
-		private ChurnData(int buttonId, int item, int result, int level, double experience) {
+		private ChurnData(int buttonId, int item, int result, int amount,int level, double experience) {
 			this.buttonId = buttonId;
 			this.item = item;
 			this.result = result;
+			this.amount = amount;
 			this.level = level;
 			this.experience = experience;
 		}
@@ -66,32 +74,27 @@ public class DairyChurn {
 
 	}
 
-	public static boolean churnItem(final Player player, int buttonId) {
-		final ChurnData churnData = ChurnData.forId(buttonId);
-		if (churnData == null)
-			return false;
-		if (player.getStatedInterface() == "dairyChurn") {
-			player.getActionSender().removeInterfaces();
-			if (player.getSkill().getLevel()[Skill.COOKING] < churnData.getLevel()) {
-				player.getDialogue().sendStatement("You need a cooking level of " + churnData.getLevel() + " to make this.");
-				return true;
-			}
-			if (!player.getInventory().getItemContainer().contains(churnData.getItem())) {
-				player.getDialogue().sendStatement("You need a " + new Item(churnData.getItem()).getDefinition().getName().toLowerCase() + " to make this");
-				return true;
-			}
+	public static void churnItem(final Player player, final ChurnData churnData, final int amount) {
+		if (player.getSkill().getLevel()[Skill.COOKING] < churnData.getLevel()) {
+			player.getDialogue().sendStatement("You need a cooking level of " + churnData.getLevel() + " to make this.");
+			return;
 		}
-		
+		if (!player.getInventory().getItemContainer().contains(churnData.getItem())) {
+			player.getDialogue().sendStatement("You need a " + new Item(churnData.getItem()).getDefinition().getName().toLowerCase() + " to make this");
+			return;
+		}
+		player.getActionSender().removeInterfaces();
 		final int task = player.getTask();
 		player.setSkilling(new CycleEvent() {
-
+			int makeAmount = amount;
 			@Override
 			public void execute(CycleEventContainer container) {
 
-				if (!player.checkTask(task) || !player.getInventory().getItemContainer().contains(churnData.getItem())) {
+				if (!player.checkNewSkillTask() || !player.checkTask(task) || churnData == null || !player.getInventory().getItemContainer().contains(churnData.getItem()) || makeAmount == 0) {
 					container.stop();
 					return;
 				}
+				player.getActionSender().removeInterfaces();
 				player.getUpdateFlags().sendAnimation(CHURN_ANIMATION);
 				player.getInventory().removeItem(new Item(churnData.getItem()));
 				if(churnData.getItem() == 1927){
@@ -100,7 +103,13 @@ public class DairyChurn {
 				player.getInventory().addItem(new Item(churnData.getResult()));
 				player.getSkill().addExp(Skill.COOKING, churnData.getExperience());
 				player.getActionSender().sendMessage("You make a " + ItemDefinition.forId(churnData.getResult()).getName().toLowerCase() + ".");
-				container.stop();
+				if(player.getInventory().getItemContainer().freeSlots() == 0){
+					container.stop();
+					player.getDialogue().sendStatement("You don't have enough inventory space.");
+					return;
+				}
+				makeAmount--;
+				container.setTick(2);
 			}
 
 			@Override
@@ -109,6 +118,23 @@ public class DairyChurn {
 			}
 		});
 		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
-		return true;
+	}
+	
+	public static boolean handleButtons(Player player, int buttonId, int amount) {
+		if(player.getStatedInterface() == "dairyChurn")
+		{
+			final ChurnData churnData = ChurnData.forId(buttonId);
+			if(churnData != null)
+			{
+				if(amount == 0)
+				{
+					amount = churnData.amount;
+				}
+				player.setNewSkillTask();
+				churnItem(player,churnData,amount);
+				return true;
+			}
+		}
+		return false;
 	}
 }

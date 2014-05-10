@@ -92,7 +92,12 @@ public class DoughHandler {
 				player.getInventory().removeItem(new Item(POT_OF_FLOUR));
 				player.getInventory().addItem(new Item(BUCKET));
 				player.getInventory().addItem(new Item(POT));
-				player.getInventory().addItem(new Item(dough.getResult()));
+				player.getInventory().addItem(new Item(dough.getResult()));	
+				if(player.getInventory().getItemContainer().freeSlots() == 0){
+					container.stop();
+					player.getDialogue().sendStatement("You don't have enough inventory space.");
+					return;
+				}
 				makeAmount--;
 				container.setTick(2);
 			}

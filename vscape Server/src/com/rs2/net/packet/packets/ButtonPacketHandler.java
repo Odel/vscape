@@ -427,7 +427,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (SkillsX.handleXButtons(player, buttonId)) {
 			return;
 		}
-		if (DairyChurn.churnItem(player, buttonId)) {
+		if (DairyChurn.handleButtons(player, buttonId, 0)) {
 			return;
 		}
 		if (PotteryMaking.makePottery(player, buttonId, 0)) {

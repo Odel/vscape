@@ -151,7 +151,7 @@ public class Menus {
 
 		/* Cooking */
 		else if (type == "dairyChurn") {
-			player.getActionSender().sendChatInterface(15336);
+			display3Item(player, 2130, 6697, 1985, "Pot of cream", "Pat of butter", "Cheese");
 		}
 
 		player.setStatedInterface(type);
