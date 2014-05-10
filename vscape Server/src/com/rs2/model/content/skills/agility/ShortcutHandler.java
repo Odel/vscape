@@ -70,6 +70,13 @@ public class ShortcutHandler {
 						Agility.crossMonkeyBars(player, player.getPosition().getX(), 9964, 0, 0);
 				}
 			return true;
+			//barbarian agility pipe entrance
+			case 2287:
+				if(x == 2552 && y == 3559){
+					targetY = player.getPosition().getY() > y ? 3558 : 3561;
+					Agility.crawlPipe(player, x, targetY, 3, 35, 0);
+				}
+			return true;
 		}
 		return false;
 	}

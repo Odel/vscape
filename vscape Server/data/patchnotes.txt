@@ -1,11 +1,12 @@
 @dre@= May ? =
--Access to Piscatoris Fishing Colony (Monkfish)
+@blu@-Gnome agility course.
+@blu@-Barbarian Outpost agility course.
+@blu@-Access to Piscatoris Fishing Colony (Monkfish)
  Monkfish fishing and seaweed nets.
  Monkfish can be cooked and eaten.
 -Changes to Ice Mountain and Black Knight Fortress.
 -Two ingredient container fixed.
 -Fixed some food not returning empty bowls when eaten.
--Gnome agility course.
 -Cairn Isle accessible.
 -Waterbirth Dungeon armor is now able to be created.
 -Trimmed skillcape option and items.

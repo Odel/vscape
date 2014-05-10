@@ -134,7 +134,7 @@ public class Agility {
 		}, time+1);
 	}
 
-	public static void crossLog(Player player, int x, int y, int level, double xp)
+	public static void crossLog(Player player, int x, int y, int time, int level, double xp)
 	{
 		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
@@ -144,7 +144,7 @@ public class Agility {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross this log.");
 			return;
 		}
-		crossObstacle(player, x, y, 762, 8, xp);
+		crossObstacle(player, x, y, 762, time, xp);
 	}
 	
 	public static void crossRope(Player player, int x, int y, int level, double xp)
@@ -160,7 +160,7 @@ public class Agility {
 		crossObstacle(player, x, y, 762, 7, xp);
 	}
 	
-	public static void crawlPipe(Player player, int x, int y, int level, double xp)
+	public static void crawlPipe(Player player, int x, int y, int time, int level, double xp)
 	{
 		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
@@ -170,7 +170,7 @@ public class Agility {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to crawl through this pipe.");
 			return;
 		}
-		crossObstacle(player, x, y, 746, 7, xp);
+		crossObstacle(player, x, y, 749, time, xp);
 	}
 	
 	public static void climbNet(Player player, int x, int y, int z, int level, double xp)
@@ -199,6 +199,34 @@ public class Agility {
 		climbObstacle(player, x, y, z, 828, 2, xp);
 	}
 	
+	public static void crossLedge(Player player, int x, int y, int ledgeFace, int time, int level, double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross this ledge.");
+			return;
+		}
+		int anim = 754;
+		switch(ledgeFace)
+		{
+			case 0:
+				anim = 0; //east
+				break;
+			case 1:
+				anim = 754; //south
+				break;
+			case 2:
+				anim = 0; //west
+				break;
+			case 3:
+				anim = 756; //north
+				break;
+		}
+		crossObstacle(player, x, y, anim, 7, xp);
+	}
+	
 	public static void crossMonkeyBars(Player player, int x, int y, int level, double xp) {
 		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
@@ -209,5 +237,48 @@ public class Agility {
 			return;
 		}
 		crossObstacle(player, x, y, 744, 7, xp);
+	}
+	
+	public static void swingRope(final Player player,final int x,final int y,final int level,final double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to swing across this.");
+			return;
+		}
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
+		player.resetAnimation();
+		player.getUpdateFlags().sendAnimation(751);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.teleport(new Position(x,y,0));
+				player.setStopPacket(false);
+				if(xp > 0){
+					player.getSkill().addExp(Skill.AGILITY, xp);
+				}
+				player.getMovementHandler().reset();
+				player.resetAnimation();
+				container.stop();
+			}
+			@Override
+			public void stop() {
+			}
+		}, 3);
+	}
+	
+	public static void climbOver(Player player, int x, int y, int level, double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb over this.");
+			return;
+		}
+		crossObstacle(player, x, y, 839, 2, xp);
 	}
 }

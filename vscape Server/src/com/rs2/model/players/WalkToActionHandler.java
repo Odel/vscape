@@ -24,7 +24,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Crafting.Tanning;
-import com.rs2.model.content.skills.agility.GnomeCourse;
+import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.agility.ShortcutHandler;
 import com.rs2.model.content.skills.agility.CrossObstacle;
 import com.rs2.model.content.skills.farming.Farming;
@@ -139,7 +139,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2295 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2294 || id == 2295 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -262,7 +262,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (GnomeCourse.handleCourse(player, id, x, y)) {
+				if (AgilityCourses.handleCourse(player, id, x, y)) {
 					this.stop();
 					return;
 				}
