@@ -61,6 +61,15 @@ public class ShortcutHandler {
 			case 3998:
 			case 3999:
 				return true;
+			//edgeville dungeon monkey bars
+			case 2320:
+				if(x == 3119 || x == 3120){
+					if(y == 9964)
+						Agility.crossMonkeyBars(player, player.getPosition().getX(), 9969, 15, 0);
+					if(y == 9969)
+						Agility.crossMonkeyBars(player, player.getPosition().getX(), 9964, 0, 0);
+				}
+			return true;
 		}
 		return false;
 	}

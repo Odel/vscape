@@ -646,12 +646,6 @@ public class WalkToActionHandler {
 						player.getActionSender().walkTo(0, player.getPosition().getY() > 9689 ? -1 : 1, true);
 					}
 					break;
-				case 2320:
-					if (y < player.getPosition().getY())
-						player.teleport(new Position(player.getPosition().getX(), 9964));
-					else
-						player.teleport(new Position(player.getPosition().getX(), 9969));
-					break;
 				case 5083:
 					if (player.isBrimhavenDungeonOpen()) {
 						player.fadeTeleport(new Position(2713, 9564));

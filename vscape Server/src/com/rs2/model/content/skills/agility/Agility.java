@@ -11,6 +11,7 @@ import com.rs2.model.tick.CycleEventHandler;
 public class Agility {
 
 	public static void crossObstacle(final Player player,final int x,final int y,final int anim,final int time, final double xp){
+		player.isCrossingObstacle = true;
 		player.setStopPacket(true);
 		final boolean wasRunning = player.getMovementHandler().isRunToggled();
 		player.getMovementHandler().setRunToggled(false);
@@ -45,8 +46,8 @@ public class Agility {
 				{
 					player.getMovementHandler().setRunToggled(true);
 				}
-				player.getMovementHandler().reset();
 				player.resetAnimation();
+				player.isCrossingObstacle = false;
 				container.stop();
 			}
 			@Override
@@ -64,6 +65,7 @@ public class Agility {
 			player.getDialogue().sendStatement("You need an agility level of "+level+" to use this shortcut.");
 			return;
 		}
+		player.isCrossingObstacle = true;
 		player.setStopPacket(true);
 		final boolean wasRunning = player.getMovementHandler().isRunToggled();
 		player.getMovementHandler().setRunToggled(false);
@@ -99,8 +101,8 @@ public class Agility {
 				{
 					player.getMovementHandler().setRunToggled(true);
 				}
-				player.getMovementHandler().reset();
 				player.resetAnimation();
+				player.isCrossingObstacle = false;
 				container.stop();
 			}
 			@Override
@@ -195,5 +197,17 @@ public class Agility {
 			return;
 		}
 		climbObstacle(player, x, y, z, 828, 2, xp);
+	}
+	
+	public static void crossMonkeyBars(Player player, int x, int y, int level, double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross these bars.");
+			return;
+		}
+		crossObstacle(player, x, y, 744, 7, xp);
 	}
 }
