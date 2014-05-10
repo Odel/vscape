@@ -19,7 +19,7 @@ public class DairyChurn {
 
 	public static enum ChurnData {
 		CREAM(59238, 1927, 2130, 21, 18), 
-		BUTTER(59239, 2130, 6697, 38, 40),
+		BUTTER(59239, 1927, 6697, 38, 40),
 		CHEESE(59240, 6697, 1985, 48, 64);
 
 		private int buttonId;
@@ -95,11 +95,8 @@ public class DairyChurn {
 				player.getUpdateFlags().sendAnimation(CHURN_ANIMATION);
 				player.getInventory().removeItem(new Item(churnData.getItem()));
 				if(churnData.getItem() == 1927){
-					player.getInventory().addItem(new Item(1925));		
-				}
-				if(churnData.getResult() == 6697){
-					player.getInventory().removeItem(new Item(1927));		
-					player.getInventory().addItem(new Item(1925));		
+					player.getInventory().addItem(new Item(1925));
+					player.getInventory().removeItem(new Item(2130));
 				}
 				player.getInventory().addItem(new Item(churnData.getResult()));
 				player.getSkill().addExp(Skill.COOKING, churnData.getExperience());
