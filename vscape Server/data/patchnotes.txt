@@ -1,6 +1,3 @@
-@dre@= May ? =
--Churn 1 5 10 (no x)
-
 @dre@= May 10 =
 @blu@-Gnome agility course.
 @blu@-Barbarian Outpost agility course.
@@ -10,6 +7,7 @@
 -Changes to Ice Mountain and Black Knight Fortress.
 -Two ingredient container fixed.
 -Fixed some food not returning empty bowls when eaten.
+-Churn 1 5 10 (no x)
 -Cairn Isle accessible.
 -Waterbirth Dungeon armor is now able to be created.
 -Trimmed skillcape option and items.

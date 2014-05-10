@@ -262,7 +262,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (AgilityCourses.handleCourse(player, id, x, y)) {
+				if (player.getAgilityCourses().handleCourse(id, x, y)) {
 					this.stop();
 					return;
 				}

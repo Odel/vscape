@@ -76,6 +76,7 @@ import com.rs2.model.content.skills.SkillResources;
 import com.rs2.model.content.skills.SkillcapeEmotes;
 import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
+import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.FillHandler;
@@ -189,6 +190,7 @@ public class Player extends Entity {
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
+	private AgilityCourses agilityCourse = new AgilityCourses(this);
 	private RegionMusic regionMusic = new RegionMusic(this);
 	private MusicPlayer musicPlayer = new MusicPlayer(this);
 	private CombatSounds combatSounds = new CombatSounds(this);
@@ -2450,6 +2452,10 @@ public class Player extends Entity {
 		return playerInteraction;
 	}
 
+	public AgilityCourses getAgilityCourses(){
+		return agilityCourse;
+	}
+	
 	public RegionMusic getRegionMusic() {
 		return regionMusic;
 	}
