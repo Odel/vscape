@@ -73,9 +73,11 @@ public class PestControl {
 		}
 	}
 	private static int[] PORTAL_HEALTH = {250,250,250,250};
+        private static int[] PORTAL_IDS = {6146, 6147, 6148, 6149};
 	private static boolean[] PORTAL_SHIELD = {true, true, true, true};
-	private final static int SHIELD_TIME = 30;
+	private final static int[] SHIELD_TIME = {15, 30, 45, 60};
 	private static int shieldTime = 0;
+        private static int shieldTimeAdvance = 0;
 	
 	public enum GruntData {
                 SPLATTER_22(3727,false),
@@ -230,14 +232,15 @@ public class PestControl {
 						if(!allPortalsUnShielded())
 						{
 							shieldTime += 5;
-							if(shieldTime >= SHIELD_TIME)
+							if(shieldTime >= SHIELD_TIME[shieldTimeAdvance])
 							{
+                                                                shieldTimeAdvance++;
 								removePortalShield();
 							}
 						}
 						if (!allPortalsDead())
 						{
-							gruntTime += 5;
+							gruntTime += 2;
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
@@ -303,11 +306,11 @@ public class PestControl {
 						leaveGame(player);
 						if(gameWon)
 						{
-							player.getActionSender().sendMessage("@blu@Game Won");
+							player.getActionSender().sendMessage("@blu@Game Won!");
 						}
 						else
 						{
-							player.getActionSender().sendMessage("@red@Game lost");
+							player.getActionSender().sendMessage("@red@Game lost.");
 						}
 					}
 				}
@@ -372,24 +375,24 @@ public class PestControl {
 	
 	private static void removePortalShield() {
 		shieldTime = 0;
-		int portalToUnShield = Misc.randomMinusOne(PORTAL_SHIELD.length);
-		if(!PORTAL_SHIELD[portalToUnShield])
+		int portalToUnshield = PORTAL_IDS[Misc.randomMinusOne(PORTAL_IDS.length)];
+                int unShielded = Misc.randomMinusOne(PORTAL_SHIELD.length);
+		if(!PORTAL_SHIELD[unShielded])
 		{
 			removePortalShield();
-			return;
 		}
-		for(Npc npc : World.getNpcs())
-		{
-			if(npc == null)
-				continue;
-			PortalData portalData = PortalData.forShield(npc.getNpcId());
-			if(npc.inPestControlGameArea() && portalData != null)
-			{
-				npc.sendTransform(portalData.normalId, 999999);
-				PORTAL_SHIELD[portalToUnShield] = false;
-				sendGameMessage("@dbl@The Void Knight has disabled the "+ portalData.name +" Shield!");
-			}
-		}
+                	for(Npc npc : World.getNpcs()) {        
+                            if(npc == null)
+                                continue;
+                            PortalData portalData = PortalData.forShield(portalToUnshield);
+                            if(npc.inPestControlGameArea() && portalData != null && npc.getNpcId() == portalToUnshield) {
+                                npc.sendTransform(portalData.normalId, 999999);
+                                PORTAL_SHIELD[unShielded] = false;
+                                sendGameMessage("@dbl@The Void Knight has disabled the "+ portalData.name +" Shield!");
+                            }
+                            else 
+                                continue;
+                        }
 	}
 	
 	private static void resetShields() {
