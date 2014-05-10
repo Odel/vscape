@@ -90,14 +90,9 @@ public class DoughHandler {
 				player.getActionSender().sendMessage("You put the water on the flour and make it into a "+new Item(dough.getResult()).getDefinition().getName().toLowerCase() +".");
 				player.getInventory().removeItem(new Item(BUCKET_OF_WATER));
 				player.getInventory().removeItem(new Item(POT_OF_FLOUR));
-				player.getInventory().addItem(new Item(BUCKET));
-				player.getInventory().addItem(new Item(POT));
-				player.getInventory().addItem(new Item(dough.getResult()));	
-				if(player.getInventory().getItemContainer().freeSlots() == 0){
-					container.stop();
-					player.getDialogue().sendStatement("You don't have enough inventory space.");
-					return;
-				}
+				player.getInventory().addItemOrDrop(new Item(BUCKET));
+				player.getInventory().addItemOrDrop(new Item(POT));
+				player.getInventory().addItemOrDrop(new Item(dough.getResult()));	
 				makeAmount--;
 				container.setTick(2);
 			}
