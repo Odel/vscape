@@ -66,6 +66,11 @@ public class CombatManager extends Tick {
         	CombatManager.resetCombat(attacker);
         	return;
         }
+	if(attacker.isPlayer() && ((Player) attacker).getPets().getPet() == victim) {
+            ((Player) attacker).getActionSender().sendMessage("You cannot attack your own pet!");
+            CombatManager.resetCombat(attacker);
+            return;
+	}
 		if (attacker.isPlayer() && attacker.inDuelArena()) {
 			if (!((Player) attacker).getDuelMainData().canStartDuel()) {
 	        	CombatManager.resetCombat(attacker);

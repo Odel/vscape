@@ -3958,9 +3958,6 @@ public class Player extends Entity {
 				if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {
 					npc.sendTransform(npc.isTransformOnAggression(), 999999);
 				}
-				if(this.getPets().getPet().getFollowingEntity() != this) {
-                                    this.getPets().getPet().setFollowingEntity(this);
-                                } 
 				CombatManager.attack(npc, this);
 				return;
 			}
