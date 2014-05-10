@@ -79,6 +79,7 @@ import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.skills.agility.Agility;
 
 public class WalkToActionHandler {
 
@@ -385,6 +386,11 @@ public class WalkToActionHandler {
 				case 1294 :
 					Dialogues.startDialogue(player, 10011);
 					break;
+                                case 11844: //falador wall shortcut
+                                    if(player.getPosition().getX() ==  2934)
+                                        Agility.climbOver(player, 2936, 3355, 11, 5);
+                                    else if(player.getPosition().getX() ==  2936)
+                                        Agility.climbOver(player, 2934, 3355, 11, 5);    
 				case 1805 : // champions guild
 					player.getActionSender().walkTo(0, player.getPosition().getY() > 3362 ? -1 : 1, true);
 					player.getActionSender().walkThroughDoor(id, x, y, z);
