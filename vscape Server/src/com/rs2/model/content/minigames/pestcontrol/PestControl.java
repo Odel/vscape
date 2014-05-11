@@ -6,6 +6,7 @@ import com.rs2.model.Entity;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -75,9 +76,7 @@ public class PestControl {
 	private static int[] PORTAL_HEALTH = {250,250,250,250};
         private static int[] PORTAL_IDS = {6146, 6147, 6148, 6149};
 	private static boolean[] PORTAL_SHIELD = {true, true, true, true};
-	private final static int[] SHIELD_TIME = {15, 30, 45, 60};
 	private static int shieldTime = 0;
-        private static int shieldTimeAdvance = 0;
 	
 	public enum GruntData {
                 SPLATTER_22(3727,false),
@@ -85,31 +84,31 @@ public class PestControl {
                 SPLATTER_44(3729,false),
                 SPLATTER_54(3730,false),
                 SPLATTER_65(3731,false),
-                SHIFTER_38(3732,false),
-                SHIFTER_57(3734,false),
-                SHIFTER_76(3736,false),
-                SHIFTER_90(3738,false),
-                SHIFTER_104(3740,false),
-                RAVAGER_36(3742,false),
-                RAVAGER_53(3743,false),
-                RAVAGER_71(3744,false),
-                RAVAGER_89(3745,false),
-                RAVAGER_106(3746,false),
+                SHIFTER_38(3732,true),
+                SHIFTER_57(3734,true),
+                SHIFTER_76(3736,true),
+                SHIFTER_90(3738,true),
+                SHIFTER_104(3740,true),
+                RAVAGER_36(3742,true),
+                RAVAGER_53(3743,true),
+                RAVAGER_71(3744,true),
+                RAVAGER_89(3745,true),
+                RAVAGER_106(3746,true),
                 SPINNER_36(3747,false),
                 SPINNER_55(3748,false),
                 SPINNER_74(3749,false),
                 SPINNER_88(3751,false),
                 SPINNER_92(3750,false),
-                TORCHER_33(3752,false),
-                TORCHER_49(3754,false),
-                TORCHER_66(3756,false),
-                TORCHER_79(3758,false),
-                TORCHER_91(3759,false),
-                DEFILER_33(3762,false),
-                DEFILER_50(3764,false),
-                DEFILER_66(3766,false),
-                DEFILER_80(3768,false),
-                DEFILER_97(3770,false),
+                TORCHER_33(3752,true),
+                TORCHER_49(3754,true),
+                TORCHER_66(3756,true),
+                TORCHER_79(3758,true),
+                TORCHER_91(3759,true),
+                DEFILER_33(3762,true),
+                DEFILER_50(3764,true),
+                DEFILER_66(3766,true),
+                DEFILER_80(3768,true),
+                DEFILER_97(3770,true),
                 BRAWLER_51(3772,false),
                 BRAWLER_76(3773,false),
                 BRAWLER_101(3774,false),
@@ -232,18 +231,18 @@ public class PestControl {
 						if(!allPortalsUnShielded())
 						{
 							shieldTime += 5;
-							if(shieldTime >= SHIELD_TIME[shieldTimeAdvance])
+							if(shieldTime >= 30)
 							{
-                                                                shieldTimeAdvance++;
 								removePortalShield();
 							}
 						}
 						if (!allPortalsDead())
 						{
-							gruntTime += 2;
+							gruntTime += 5;
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
+								allAttackKnight();
 							}
 						}
 						if (allPortalsDead())
@@ -255,6 +254,11 @@ public class PestControl {
 						if (gameTime <= 0 && allPortalsDead()) {
 							this.stop();
 							endGame(true);
+							return;
+						}
+						if(getKnightHealth() == 0) {
+							this.stop();
+							endGame(false);
 							return;
 						}
 						if (gameTime <= 0 && !allPortalsDead()) {
@@ -368,7 +372,18 @@ public class PestControl {
 				gruntTime = 0;
 				PortalData portalData = PortalData.values()[i];
 				GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
-				NpcLoader.spawnNpc(gruntData.npcId, portalData.x + Misc.random(3), portalData.y+ Misc.random(3), 0, true, true);
+				Npc grunt = new Npc(gruntData.npcId);
+				if( gruntData.attackKnight ) {
+				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(2), portalData.y+ Misc.randomMinusOne(2), 0) );
+				    grunt.setSpawnPosition(knight.getPosition() );
+				    World.register(grunt);
+				    grunt.walkTo(knight.getPosition(), gameActive);
+				}
+				else {
+				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+				    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+				    World.register(grunt);
+				}   
 			}
 		}
 	}
@@ -448,6 +463,29 @@ public class PestControl {
 		return getPortalHealth(index) <= 0;
 	}
 	
+        public static void attackKnight(Npc grunt) {
+            CombatCycleEvent.startCombat(grunt, knight);
+        }
+	
+        public static void allAttackKnight() {
+            for (Npc npc : World.getNpcs()) {
+                if(npc == null)
+                    continue;
+                if( shouldAttackKnight(npc) )
+                    attackKnight(npc);
+                else
+                    continue;
+            }
+        }
+	
+        public static boolean shouldAttackKnight(Npc npc) {
+            for (GruntData gruntData : GruntData.values()) {
+                if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight)
+                    return true;
+            }
+            return false;
+        }
+	
 	private static boolean allPortalsDead() {
 		int count = 0;
 		for (int i = 0; i < PORTAL_HEALTH.length; i++) {
@@ -485,7 +523,7 @@ public class PestControl {
 			Npc npc1 = (Npc) attacker;
 			Npc npc2 = (Npc) victim;
 			
-			if (npc1.getNpcId() >= 3777 && npc1.getNpcId() <= 3780 || npc1.getNpcId() >= 6142 && npc1.getNpcId() <= 6149) {
+			if ( shouldAttackKnight(npc1) ) {
 				switch(npc2.getNpcId())
 				{
 					case 3782:

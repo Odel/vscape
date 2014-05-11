@@ -1194,7 +1194,7 @@ public class Equipment {
 				defenceLevelReq = 70;
 			} else {
 				rangeLevelReq = 70;
-				slayerLevelReq = 50;
+				agilityLevelReq = 50;
 			}
 			return;
 		}
