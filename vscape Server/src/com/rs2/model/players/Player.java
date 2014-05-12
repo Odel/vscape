@@ -1908,6 +1908,7 @@ public class Player extends Entity {
 		if (getCurrentHp() <= 0) {
 			CombatManager.startDeath(this);
 		}
+		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
         setAppearanceUpdateRequired(true);
         QuestHandler.initPlayer(this);
