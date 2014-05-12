@@ -16,18 +16,46 @@ public class ArrowMaking {
 	public static final int BOLT_COUNT = 10;
 
 	public enum ArrowData {// you attach item 1 with item2
-		ARROW_SHAFT(314, 52, 53, 1, 0.4), BRONZE_ARROW(39, 53, 882, 1, 1.3), IRON_ARROW(40, 53, 884, 15, 2.5), STEEL_ARROW(41, 53, 886, 30, 5), MITHRIL_ARROW(42, 53, 888, 45, 7.5), ADAMANT_ARROW(43, 53, 890, 60, 10), RUNE_ARROW(44, 53, 892, 75, 12.5),
+		ARROW_SHAFT(314, 52, 53, 1, 0.4), 
+		BRONZE_ARROW(39, 53, 882, 1, 1.3), 
+		IRON_ARROW(40, 53, 884, 15, 2.5), 
+		STEEL_ARROW(41, 53, 886, 30, 5),
+		MITHRIL_ARROW(42, 53, 888, 45, 7.5),
+		ADAMANT_ARROW(43, 53, 890, 60, 10),
+		RUNE_ARROW(44, 53, 892, 75, 12.5),
 
-		BRONZE_DART(819, 314, 806, 1, 1.8), IRON_DART(820, 314, 807, 22, 3.8), STEEL_DART(821, 314, 808, 37, 7.5), MITHRIL_DART(822, 314, 809, 52, 11.2), ADAMANT_DART(823, 314, 810, 67, 15), RUNE_DART(824, 314, 811, 81, 18.8),
+		BRONZE_DART(819, 314, 806, 1, 1.8), 
+		IRON_DART(820, 314, 807, 22, 3.8), 
+		STEEL_DART(821, 314, 808, 37, 7.5), 
+		MITHRIL_DART(822, 314, 809, 52, 11.2), 
+		ADAMANT_DART(823, 314, 810, 67, 15), 
+		RUNE_DART(824, 314, 811, 81, 18.8),
 
-		BRONZE_BRUTAL_ARROW(4819, 53, 4773, 7, 1.4), IRON_BRUTAL_ARROW(4820, 53, 4778, 18, 2.6), STEEL_BRUTAL_ARROW(1539, 53, 4783, 33, 5.1), BLACK_BRUTAL_ARROW(4821, 53, 4788, 38, 6.4), MITHRIL_BRUTAL_ARROW(4822, 53, 4793, 49, 7.5), ADAMANT_BRUTAL_ARROW(4823, 53, 4798, 62, 10.1), RUNE_BRUTAL_ARROW(4824, 53, 4803, 77, 12.5),
+		BRONZE_BRUTAL_ARROW(4819, 53, 4773, 7, 1.4), 
+		IRON_BRUTAL_ARROW(4820, 53, 4778, 18, 2.6), 
+		STEEL_BRUTAL_ARROW(1539, 53, 4783, 33, 5.1), 
+		BLACK_BRUTAL_ARROW(4821, 53, 4788, 38, 6.4), 
+		MITHRIL_BRUTAL_ARROW(4822, 53, 4793, 49, 7.5), 
+		ADAMANT_BRUTAL_ARROW(4823, 53, 4798, 62, 10.1), 
+		RUNE_BRUTAL_ARROW(4824, 53, 4803, 77, 12.5),
 
 		BRONZE_BOLT(314, 9375, 877, 9, 0.5),
 		IRON_BOLT(314, 9377, 9140, 39, 1.5),
 		STEEL_BOLT(314, 9378, 9141, 46, 3.5),
 		MITHRIL_BOLT(314, 9379, 9142, 54, 5),
 		ADAMANT_BOLT(314, 9380, 9143, 61, 6.5),
-		RUNITE_BOLT(314, 9381, 9144, 69, 8);
+		RUNITE_BOLT(314, 9381, 9144, 69, 8),
+		
+		OPAL_BOLT(45, 877, 879, 11, 1.6),
+		JADE_BOLT(9187, 9139, 9335, 26, 2.4),
+		PEARL_BOLT(46, 9140, 880, 41, 3.2),
+		TOPAZ_BOLT(9188, 9141, 9336, 48, 3.9),
+		SAPPHIRE_BOLT(9189, 9142, 9337, 56, 4),
+		EMERALD_BOLT(9190, 9142, 9338, 58, 5.5),
+		RUBY_BOLT(9191, 9143, 9339, 63, 6.3),
+		DIAMOND_BOLT(9192, 9143, 9340, 65, 7),
+		DRAGONSTONE_BOLT(9193, 9144, 9341, 71, 8.2),
+		OYNX_BOLT(9194, 9144, 9342, 73, 9.4);
 
 		private int item1;
 		private int item2;
@@ -133,7 +161,9 @@ public class ArrowMaking {
 					container.stop();
 					return;
 				}
-				player.getActionSender().sendMessage("You attach the " + new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase() + " to " + count / multiplier + " " + new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase() + "s.");
+				String item1 = new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase();
+				String item2 = new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase();
+				player.getActionSender().sendMessage("You attach the " + item1 + " to " + count / multiplier + " " + item2 + (item2.endsWith("s") ? ".":"s."));
 				player.getInventory().removeItem(new Item(arrowData.getItem1(), count));
 				player.getInventory().removeItem(new Item(arrowData.getItem2(), count));
 				player.getInventory().addItem(new Item(arrowData.getFinalItem(), count / multiplier));
