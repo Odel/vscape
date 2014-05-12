@@ -16,6 +16,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
 import com.rs2.model.content.skills.Fletching.ArrowMaking;
 import com.rs2.model.content.skills.Fletching.BowStringing;
+import com.rs2.model.content.skills.Fletching.GemTips;
 import com.rs2.model.content.skills.Fletching.LogCuttingInterfaces;
 import com.rs2.model.content.skills.Fletching.CbowFletching;
 import com.rs2.model.content.skills.cooking.OneIngredients;
@@ -227,6 +228,8 @@ public class ItemPacketHandler implements PacketHandler {
 		if (LogCuttingInterfaces.handleItemOnItem(player, firstItem, secondItem))
 			return;
 		if(CbowFletching.attachLimbs(player, firstItem, secondItem) || CbowFletching.stringCbow(player, firstItem, secondItem))
+            return;
+		if(GemTips.handleCutting(player, firstItem, secondItem, firstItem != GemTips.CHISEL ? itemFirstClickSlot : itemSecondClickSlot))
             return;
 		/* Crafting */
 		if(GemCutting.handleCutting(player, firstItem, secondItem, firstItem != GemCutting.CHISEL ? itemFirstClickSlot : itemSecondClickSlot))

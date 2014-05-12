@@ -143,7 +143,7 @@ public class ArrowMaking {
 		final int task = player.getTask();
 		int count1 = player.getInventory().getItemContainer().getCount(arrowData.getItem1()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem1()) : ARROW_COUNT;
 		int count2 = player.getInventory().getItemContainer().getCount(arrowData.getItem2()) < ARROW_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem2()) : ARROW_COUNT;
-		if(new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase().contains("bolts") || new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase().contains("bolts"))
+		if(new Item(arrowData.getItem1()).getDefinition().getName().toLowerCase().contains("bolt") || new Item(arrowData.getItem2()).getDefinition().getName().toLowerCase().contains("bolt"))
 		{
 			count1 = player.getInventory().getItemContainer().getCount(arrowData.getItem1()) < BOLT_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem1()) : BOLT_COUNT;
 			count2 = player.getInventory().getItemContainer().getCount(arrowData.getItem2()) < BOLT_COUNT ? player.getInventory().getItemContainer().getCount(arrowData.getItem2()) : BOLT_COUNT;
