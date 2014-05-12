@@ -7,6 +7,7 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -31,6 +32,7 @@ public class PestControl {
 	private static final Position LOBBY_EXIT = new Position(2657,2639,0);
 	private static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
 	private static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
+	private static final MinigameAreas.Area INSIDE_FORT = new MinigameAreas.Area(new Position(2645, 2587, 0), new Position(2667, 2603, 0));
 	
 	//6142 - 6145 normal portal
 	//6146 - 6150 shielded portals
@@ -242,7 +244,7 @@ public class PestControl {
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
-								allAttackKnight();
+								handleNpcBehavior();
 							}
 						}
 						if (allPortalsDead())
@@ -467,12 +469,17 @@ public class PestControl {
             CombatCycleEvent.startCombat(grunt, knight);
         }
 	
-        public static void allAttackKnight() {
+        public static void handleNpcBehavior() {
             for (Npc npc : World.getNpcs()) {
                 if(npc == null)
                     continue;
-                if( shouldAttackKnight(npc) )
+                if( shouldAttackKnight(npc) ) {
                     attackKnight(npc);
+		    if ( npc.getDefinition().getName().toLowerCase().contains("shifter")) {
+			teleportShifter(npc);
+			continue;
+		    }
+		}
                 else
                     continue;
             }
@@ -485,6 +492,20 @@ public class PestControl {
             }
             return false;
         }
+	
+	public static void teleportShifter(Npc npc) {
+	    int hp = npc.getCurrentHp();
+	    npc.setVisible(false);
+	    npc.setDead(true);
+	    World.unregister(npc);
+	    Npc newNpc = new Npc(npc.getNpcId());
+	    newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
+	    newNpc.setSpawnPosition(knight.getPosition());
+	    World.register(newNpc);
+	    newNpc.setCurrentHp(hp);
+	    newNpc.walkTo(knight.getPosition(), gameActive);
+	    attackKnight(newNpc);
+	}
 	
 	private static boolean allPortalsDead() {
 		int count = 0;
