@@ -25,7 +25,7 @@ public class GemTips {
 		RUBY_TIP(1603, 9191, 12, 887, 63, 6.3),
 		DIAMOND_TIP(1601, 9192, 12, 886, 65, 7),
 		DRAGONSTONE_TIP(1615, 9193, 12, 885, 71, 8.2),
-		OYNX_TIP(6573, 9194, 24, 885, 73, 9.4);
+		ONYX_TIP(6573, 9194, 24, 885, 73, 9.4);
 		
 		private int gemId;
 		private int tipId;

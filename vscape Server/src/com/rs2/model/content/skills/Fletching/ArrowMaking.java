@@ -55,7 +55,7 @@ public class ArrowMaking {
 		RUBY_BOLT(9191, 9143, 9339, 63, 6.3),
 		DIAMOND_BOLT(9192, 9143, 9340, 65, 7),
 		DRAGONSTONE_BOLT(9193, 9144, 9341, 71, 8.2),
-		OYNX_BOLT(9194, 9144, 9342, 73, 9.4);
+		ONYX_BOLT(9194, 9144, 9342, 73, 9.4);
 
 		private int item1;
 		private int item2;
