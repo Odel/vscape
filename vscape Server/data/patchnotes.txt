@@ -1,6 +1,9 @@
 @dre@= May ? =
--Gem bolts (crafting - combat)(no enchant)
--Fixed dharok ahrim guthan and karil alch prices
+@blu@-Agility shortcuts.
+-Gem bolts (crafting - combat)(no enchant).
+-Fixed Dharok, Ahrim, Guthan and Karil alch prices.
+-Gnome glider is now more functional.
+-Chaos Druid Tower is now populated.
 
 @dre@= May 10 =
 @blu@-Gnome agility course.
