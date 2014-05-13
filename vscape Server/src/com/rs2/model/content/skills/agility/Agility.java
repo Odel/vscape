@@ -193,7 +193,7 @@ public class Agility {
 			return;
 		}
 		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
-			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb this branch.");
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb this.");
 			return;
 		}
 		climbObstacle(player, x, y, z, 828, 2, xp);

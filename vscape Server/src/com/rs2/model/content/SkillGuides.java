@@ -1271,45 +1271,45 @@ public class SkillGuides {
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("5", "Falador Agility Shortcut", 6517, 0);
-			menuLine("8", "River Crossing To Al Kharid", 6515, 1);
-			menuLine("11", "Falador Wall", 6517, 2);
-			menuLine("13", "Varrock South Fence Jump", 6514, 3);
-			menuLine("16", "Yanille Agility Shortcut", 6516, 4);
-			menuLine("20", "Coal Truck Log Balance", 6515, 5);
-			menuLine("21", "Varrock Agility Shortcut", 6516, 6);
-			menuLine("26", "Falador wall Crawl", 6516, 7);
-			menuLine("28", "Draynor Manor Broken Railing", 6516, 8);
-			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 9);
-			menuLine("31", "Catherby Cliff", 6515, 10);
-			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 11);
-			menuLine("33", "Water Obelisk Island Escape", 6516, 12);
-			menuLine("36", "Gnome Stronghold Shortcut", 6517, 13);
-			menuLine("37", "Al Kharid Mining Pit Sliffside Scramble", 6517, 14);
-			menuLine("39", "Yanille Wall", 6517, 15);
-			menuLine("40", "Trollheim Easy Cliffside Scramble", 6517, 16);
-			menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 17);
-			menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 18);
-			menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 19);
-			menuLine("44", "Cosmic Temple Medium Narrow Walkway", 6517, 20);
-			menuLine("46", "Trollheim Hard Cliffside Scramble", 6516, 21);
-			menuLine("47", "Log Balance To The Fremennik Province", 6517, 22);
-			menuLine("48", "Edgeville Dungeon To Varrock Sewers Pipe", 6515, 23);
-			menuLine("51", "Karamja Crossing, South Of The Volcano", 6516, 24);
-			menuLine("53", "Port Phasmatys Ectopool Shortcut", 6517, 25);
-			menuLine("58", "Elven Overpass Easy Cliffside Scramble", 6517, 26);
-			menuLine("59", "Slayer Tower Medium Spiked Chain Climb", 6517, 27);
-			menuLine("61", "Slayer Dungon Narrow Crevice", 6517, 28);
-			menuLine("62", "Trollheim Wilderness Route", 6516, 29);
-			menuLine("64", "Paterdomus Temple To Morytania Shortcut", 6517, 30);
-			menuLine("66", "Cosmic Temple Advanced Narrow Walkway", 6517, 31);
-			menuLine("68", "Elven Overpass Medium Cliffside Scramble", 6517, 32);
-			menuLine("70", "Taverly Dungeon Pipe Squeeze", 6516, 33);
-			menuLine("71", "Slayer Tower Advanced Spiked Chain Climb", 6517, 34);
-			menuLine("74", "Shilo Village Stepping Stone", 6514, 35);
-			menuLine("80", "Taverly Dungeon Spiked Blade Jump", 6514, 36);
-			menuLine("81", "Slayer Dungeon Chasm Jump", 6514, 37);
-			menuLine("85", "Elven Overpass Advanced Cliff Scramble", 6517, 38);
+			menuLine("5", "Falador West Wall Shortcut", 6517, 0);
+			menuLine("8", "Central Karamja Log Balance", 6515, 1);
+			//menuLine("11", "Falador Park Wall", 6517, 1); grapple hook
+			menuLine("13", "Varrock South Fence Jump", 6514, 2);
+			menuLine("16", "Yanille Agility Shortcut", 6516, 3);
+			menuLine("20", "Coal Truck Log Balance", 6515, 4);
+			menuLine("21", "Varrock Agility Shortcut", 6516, 5);
+			menuLine("26", "Falador wall Crawl", 6516, 6);
+			//menuLine("28", "Draynor Manor Broken Railing", 6516, 8);   pointless
+			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 7);
+			//menuLine("31", "Catherby Cliff", 6515, 10);  doesn't exist
+			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 8);
+			//menuLine("33", "Water Obelisk Island Escape", 6516, 9); needs grapple
+			menuLine("36", "Gnome Stronghold Shortcut", 6517, 9);
+			menuLine("37", "Al Kharid Mining Pit Cliffside Scramble", 6517, 10);
+			//menuLine("39", "Yanille Wall", 6517, 12); grappling hook
+			menuLine("40", "Trollheim Easy Cliffside Scramble", 6517, 11);
+			menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 12);
+			menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 13);
+			menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 14);
+			menuLine("44", "Cosmic Temple Medium Narrow Walkway", 6517, 15);
+			menuLine("46", "Trollheim Hard Cliffside Scramble", 6516, 16);
+			menuLine("47", "Log Balance To The Fremennik Province", 6517, 17);
+			menuLine("48", "Edgeville Dungeon To Varrock Sewers Pipe", 6515, 18);
+			//menuLine("51", "Karamja Crossing, South Of The Volcano", 6516, 21); doesn't exist
+			menuLine("53", "Port Phasmatys Ectopool Shortcut", 6517, 19);
+			menuLine("58", "Elven Overpass Easy Cliffside Scramble", 6517, 20);
+			menuLine("59", "Slayer Tower Medium Spiked Chain Climb", 6517, 21);
+			menuLine("61", "Slayer Dungeon Narrow Crevice", 6517, 22);
+			menuLine("62", "Trollheim Wilderness Route", 6516, 23);
+			menuLine("64", "Paterdomus Temple To Morytania Shortcut", 6517, 24);
+			menuLine("66", "Cosmic Temple Advanced Narrow Walkway", 6517, 25);
+			menuLine("68", "Elven Overpass Medium Cliffside Scramble", 6517, 26);
+			menuLine("70", "Taverly Dungeon Pipe Squeeze", 6516, 27);
+			menuLine("71", "Slayer Tower Advanced Spiked Chain Climb", 6517, 28);
+			menuLine("74", "Shilo Village Stepping Stone", 6514, 29);
+			menuLine("80", "Taverly Dungeon Spiked Blade Jump", 6514, 30);
+			menuLine("81", "Slayer Dungeon Chasm Jump", 6514, 31);
+			menuLine("85", "Elven Overpass Advanced Cliff Scramble", 6517, 32);
 			optionTab("Agility", "Shortcuts", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 

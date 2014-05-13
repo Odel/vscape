@@ -140,7 +140,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2294 || id == 2295 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2294 || id == 2295 || id == 2296 || id == 9293 || id == 9328 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -386,11 +386,169 @@ public class WalkToActionHandler {
 				case 1294 :
 					Dialogues.startDialogue(player, 10011);
 					break;
-                                case 11844: //falador wall shortcut
-                                    if(player.getPosition().getX() ==  2934)
-                                        Agility.climbOver(player, 2936, 3355, 11, 5);
-                                    else if(player.getPosition().getX() ==  2936)
-                                        Agility.climbOver(player, 2934, 3355, 11, 5);    
+				case 11844: //falador wall shortcut
+				    if(player.getPosition().getX() ==  2934)
+					Agility.climbOver(player, 2936, 3355, 11, 5);
+				    else if(player.getPosition().getX() ==  2936)
+					Agility.climbOver(player, 2934, 3355, 11, 5); 
+				break;
+				case 9301:
+				case 9302: //watchtower tunnel
+				    if(y == 3111)
+					Agility.crossObstacle(player, 2575, 3107, 844, 6, 16, 7);
+				    else if(y == 3108)
+					Agility.crossObstacle(player, 2575, 3112, 844, 6, 16, 7);
+				break;
+				case 2296: //coal trucks log
+				    if(x == 2599)
+					Agility.crossLog(player, 2603, 3477, 8, 20, 10);
+				    else if(x == 2602)
+					Agility.crossLog(player, 2598, 3477, 8, 20, 10);
+				break;
+				case 2332: //karamja log
+				    if(x == 2909)
+					Agility.crossLog(player, 2906, 3049, 8, 20, 5);
+				    else if(x == 2907)
+					Agility.crossLog(player, 2910, 3049, 6, 8, 5);
+				break;
+				case 9311:
+				case 9312: //varrock underwall tunnel
+				    if(x == 3189)
+					Agility.crossObstacle(player, 3193, 3493, 844, 6, 21, 8);
+				    else if(x == 3192)
+					Agility.crossObstacle(player, 3188, 3493, 844, 6, 21, 8);
+				break;
+				case 9309:
+				case 9310: //fally underwall tunnel
+				    if(y == 3312)
+					Agility.crossObstacle(player, 2948, 3309, 844, 6, 26, 8);
+				    else if(y == 3310)
+					Agility.crossObstacle(player, 2948, 3313, 844, 6, 26, 8);
+				break;
+				case 9315: //jumping rocks to champs guild from draynor manor
+				    if(player.getPosition().getX() == 3149)
+					Agility.crossObstacle(player, 3150, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3150)
+					Agility.crossObstacle(player, 3151, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3151 && x == 3152)
+					Agility.crossObstacle(player, 3152, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3151 && x == 3150)
+					Agility.crossObstacle(player, 3150, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3152 && x == 3153)
+					Agility.crossObstacle(player, 3153, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3152 && x == 3151)
+					Agility.crossObstacle(player, 3151, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3153)
+					Agility.crossObstacle(player, 3152, 3363, 769, 5, 29, 9);
+				    else if(player.getPosition().getX() == 3154)
+					Agility.crossObstacle(player, 3153, 3363, 769, 5, 29, 9);
+				break;
+				case 9328: //ardy log cross
+				case 9330:
+				    if(x == 2599)
+					Agility.crossLog(player, 2602, 3336, 6, 32, 10);
+				    else if(x == 2601)
+					Agility.crossLog(player, 2598, 3336, 6, 32, 10);
+				break;
+				case 9316:
+				case 9317: //grand tree nw rocks
+				    if(x == 2487)
+					Agility.crossObstacle(player, 2489, 3521, 844, 10, 36, 13);
+				    else if(x == 2489)
+					Agility.crossObstacle(player, 2486, 3515, 844, 10, 36, 13);
+				break;
+				case 9331:
+				case 9332: //ak mine rockclimb
+				    if(x == 3303)
+					Agility.crossObstacle(player, 3306, 3315, 844, 6, 37, 13);
+				    else if(x == 3305)
+					Agility.crossObstacle(player, 3302, 3315, 820, 6, 37, 13);
+				break;
+				case 9325: //dwarf mine crevice
+				    if(x == 3029)
+					Agility.crossObstacle(player, 3035, 9806, 844, 8, 41, 15);
+				    else if(x == 3034)
+					Agility.crossObstacle(player, 3028, 9806, 844, 8, 41, 15);
+				break;
+				case 9322: 
+				case 9324: //frem log cross
+				    if(y == 3595)
+					Agility.crossLog(player, 2722, 3592, 6, 47, 20);
+				    else if(y == 3593)
+					Agility.crossLog(player, 2722, 3596, 6, 47, 20);
+				break;
+				case 9295: //moss giant pipe
+				    if(x == 3150)
+					Agility.crawlPipe(player, 3155, 9906, 6, 48, 20);
+				    else if(x == 3153)
+					Agility.crawlPipe(player, 3149, 9906, 6, 48, 20);
+				break;
+				case 9319:
+				case 9320: //slayer tower spike chains
+				    if(x == 3422 && z == 0)
+					Agility.climbBranch(player, 3423, 3550, 1, 59, 25);
+				    else if(x == 3422 && z == 1)
+					Agility.climbBranch(player, 3423, 3550, 0, 59, 25);
+				    else if(x == 3447 && z == 1)
+					Agility.climbBranch(player, 3448, 3576, 2, 71, 47);
+				    else if(x == 3447 && z == 2)
+					Agility.climbBranch(player, 3448, 3576, 1, 71, 47);
+				break;
+				case 9321: //slayer dungeon crevice 61
+				    if(x == 2734)
+					Agility.crossObstacle(player, 2730, 10008, 844, 6, 61, 35);
+				    else if(x == 2731)
+					Agility.crossObstacle(player, 2735, 10008, 844, 6, 61, 35);
+				break;
+				case 9334:
+				case 9335:
+				case 9336:
+				case 9337: //canifis/morytania shortcut 64
+				    if(x == 3424 && player.getPosition().getX() == 3423)
+					Agility.crossObstacle(player, 3424, 3476, 756, 4, 64, 35);
+				    else if(x == 3424 && player.getPosition().getX() == 3424)
+					Agility.crossObstacle(player, 3423, 3476, 756, 4, 64, 35);
+				    else if(x == 3425 && y == 3476)
+					Agility.crossObstacle(player, 3427, 3476, 820, 6, 64, 35);
+				    else if(x == 3426)
+					Agility.crossObstacle(player, 3424, 3476, 820, 6, 64, 35);
+				    else if(x == 3425 && player.getPosition().getY() == 3483)
+					Agility.crossObstacle(player, 3425, 3484, 756, 4, 64, 35);
+				    else if(x == 3425 && player.getPosition().getY() == 3484)
+					Agility.crossObstacle(player, 3425, 3483, 756, 4, 64, 35);
+				break;
+				case 9293: //taverly dung blue drag pipe
+				    if(x == 2887)
+					Agility.crawlPipe(player, 2892, 9799, 6, 70, 47);
+				    else if(x == 2890)
+					Agility.crawlPipe(player, 2886, 9799, 6, 70, 47);
+				    break;
+				case 2333:
+				case 2334:
+				case 2335: //shilo rock jump 74
+				    if(player.getPosition().getY() == 2948)
+					Agility.crossObstacle(player, 2925, 2949, 769, 5, 74, 50);
+				    else if(player.getPosition().getY() == 2950)
+					Agility.crossObstacle(player, 2925, 2949, 769, 5, 74, 50);
+				    else if(player.getPosition().getY() == 2947)
+					Agility.crossObstacle(player, 2925, 2948, 769, 5, 74, 50);
+				    else if(player.getPosition().getY() == 2949 && y == 2948)
+					Agility.crossObstacle(player, 2925, 2948, 769, 5, 74, 50);
+				    else if(player.getPosition().getY() == 2949 && y == 2950)
+					Agility.crossObstacle(player, 2925, 2950, 769, 5, 74, 50);
+				    else if(player.getPosition().getY() == 2951)
+					Agility.crossObstacle(player, 2925, 2950, 769, 5, 74, 50);
+				break;
+				case 9326: //slayer dungeon 81 floor
+				    if (x == 2774 && player.getPosition().getX() == 2775)
+					Agility.crossObstacle(player, 2773, 10003, 769, 5, 81, 56);
+				    else if(x == 2774 && player.getPosition().getX() == 2773)
+					Agility.crossObstacle(player, 2775, 10003, 769, 5, 81, 56);
+				    else if(x == 2769 && player.getPosition().getX() == 2770)
+					Agility.crossObstacle(player, 2768, 10002, 769, 5, 81, 56);
+				    else if(x == 2769 && player.getPosition().getX() == 2768 )
+					Agility.crossObstacle(player, 2770, 10002, 769, 5, 81, 56);
+				    break;
 				case 1805 : // champions guild
 					player.getActionSender().walkTo(0, player.getPosition().getY() > 3362 ? -1 : 1, true);
 					player.getActionSender().walkThroughDoor(id, x, y, z);
@@ -804,9 +962,6 @@ public class WalkToActionHandler {
 						player.getActionSender().walkTo(0, -1, true);
 					}
 					break;
-				case 9334: // canifis gate
-					player.getActionSender().sendMessage("Please use the trapdoor located a bit north of here.");
-					break;
 				case 3443: // holy barrier to canifis
 					player.teleport(new Position(3423, 3485, 0));
 					player.getActionSender().sendMessage("You step through the holy barrier and appear in Canifis.");
@@ -945,7 +1100,6 @@ public class WalkToActionHandler {
 				case 7056 : // single staircase
 					Ladders.checkClimbStaircaseBackwards(player, 4, 4, "down");
 					break;
-				case 9319: // climb up ladder
 				case 8744:
 				case 1747:
 				case 1750:
@@ -954,7 +1108,6 @@ public class WalkToActionHandler {
 				case 12964:// flour mill ladder to upstairs
 					Ladders.checkClimbLadder(player, "up");
 					break;
-				case 9320: // climb down ladder
 				case 8746:
 				case 9559:
 				case 11741:

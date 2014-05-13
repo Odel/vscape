@@ -27,16 +27,8 @@ public class GnomeGlider {
             return;
 		player.getActionSender().sendInterface(802);
 		int flight = getConfig(player.getInteractingEntity().getPosition().getX(), route);
-		if (flight < 1) {
-			player.getActionSender().sendMessage("You can't fly there from here.");
-			return;
-		}
 		if (flight == 20) {
 			player.getActionSender().sendMessage("You can't fly to the same place you are at.");
-			return;
-		}
-		if (flight == 25) {
-			player.getActionSender().sendMessage("You can't fly to that place yet.");
 			return;
 		}
 		player.getActionSender().sendConfig(153, flight);
@@ -70,7 +62,7 @@ public class GnomeGlider {
         TA_QUIR_PRIW(3057, new Position(2465, 3501, 3), 1),
         LEMANTO_ANDRA(3059, new Position(3321, 3427), 2),
         KAR_HEWO(3060, new Position(3278, 3212), 3),
-        GANDIUS(3056, new Position(2894, 2729), 4),
+        GANDIUS(3056, new Position(2971, 2970), 4),
         LEMANTOLLY_UNDRI(48054, new Position(2544, 2970), 5);
 
         int buttonId;
