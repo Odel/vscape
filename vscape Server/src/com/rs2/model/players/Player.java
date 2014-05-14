@@ -1450,8 +1450,8 @@ public class Player extends Entity {
 			return;
 		}
 		if(getStaffRights() < 1){
-			if(System.currentTimeMillis() - lastYell < 20000) {
-				getActionSender().sendMessage("You can only yell once every 20 seconds!");
+			if(System.currentTimeMillis() - lastYell < 30000) {
+				getActionSender().sendMessage("You can only yell once every 30 seconds!");
 				return;
 			}
 		}
