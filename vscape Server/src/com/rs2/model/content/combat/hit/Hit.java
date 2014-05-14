@@ -260,7 +260,7 @@ public class Hit {
                 }
             }
         }
-        if(attacker.inPestControlGameArea() && victim.inPestControlGameArea())
+        if(attacker != null && attacker.inPestControlGameArea() && victim != null && victim.inPestControlGameArea())
         {
     		PestControl.handleHit(attacker, victim, damage);
         }
