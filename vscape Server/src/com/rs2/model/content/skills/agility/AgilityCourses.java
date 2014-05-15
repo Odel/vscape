@@ -122,9 +122,11 @@ public class AgilityCourses {
 					setCourseStage(1,4);
 			return true;
 			case 3205: // barb ladder 1
+			    if(player.getPosition().getX() == 2532) {
 				Ladders.climbLadder(player, new Position(2532, 3546, 0));
 				if(getCourseStage(1) == 4) 
 					setCourseStage(1,5);
+			    }
 			return true;
 			case 1948: // walls
 				//1
