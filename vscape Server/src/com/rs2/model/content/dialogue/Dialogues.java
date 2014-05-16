@@ -2152,12 +2152,30 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("Would you like to sail back to Rellekka?", CONTENT);
 						return true;
 					case 2 :
-						player.getDialogue().sendOption("YES", "NO");
+						player.getDialogue().sendOption("Yes.", "No.");
 						return true;
 					case 3 :
 						switch(optionId) {
 							case 1:
 								Sailing.sailShip(player, ShipRoute.WATERBIRTH_TO_RELLEKKA);
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
+			case 3791 : // pc squire travel back
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Would you like to sail back to Port Sarim?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes.", "No.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								Sailing.sailShip(player, ShipRoute.PEST_CONTROL_TO_PORT_SARIM);
 								player.getDialogue().dontCloseInterface();
 								break;
 						}

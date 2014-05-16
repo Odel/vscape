@@ -80,6 +80,7 @@ import com.rs2.util.PlayerSave;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.transport.Sailing;
 
 public class WalkToActionHandler {
 
@@ -140,7 +141,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2294 || id == 2295 || id == 2296 || id == 9293 || id == 9328 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -444,10 +445,11 @@ public class WalkToActionHandler {
 					Agility.crossObstacle(player, 3153, 3363, 769, 5, 29, 9);
 				break;
 				case 9328: //ardy log cross
-				case 9330:
-				    if(x == 2599)
+				    if(player.getPosition().getX() == 2602) //x == 2601)
 					Agility.crossLog(player, 2602, 3336, 6, 32, 10);
-				    else if(x == 2601)
+				break;
+				case 9330: //ardy log cross
+				    if(player.getPosition().getX() == 2598) //x == 2599)
 					Agility.crossLog(player, 2598, 3336, 6, 32, 10);
 				break;
 				case 9316:
@@ -520,7 +522,7 @@ public class WalkToActionHandler {
 				case 9293: //taverly dung blue drag pipe
 				    if(x == 2887)
 					Agility.crawlPipe(player, 2892, 9799, 6, 70, 47);
-				    else if(x == 2890)
+				    else if(player.getPosition().getX() == 2891)
 					Agility.crawlPipe(player, 2886, 9799, 6, 70, 47);
 				    break;
 				case 2333:
@@ -1842,6 +1844,10 @@ public class WalkToActionHandler {
 					break;
 				case 958:
 					BankManager.openBank(player);
+					break;
+				case 3781: //pc squire
+					Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_PEST_CONTROL);
+					player.getDialogue().dontCloseInterface();	
 					break;
 
 				}
