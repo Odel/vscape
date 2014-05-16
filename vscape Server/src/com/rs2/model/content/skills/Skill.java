@@ -208,10 +208,16 @@ public class Skill {
 			player.getActionSender().sendString("@dbl@Congratulations, you just advanced a " + name[skill] + " level!", data[skill][1]);
 			player.getActionSender().sendString("Your " + name[skill] + " level is now " + getPlayerLevel(skill) + ".", data[skill][2]);
 			player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
-			if (skill == 19) {
+			if (skill == 9) {
+				player.getActionSender().sendFrame230(6235, 254, 1257, 408);
+				player.getActionSender().sendComponentInterface(6235, 2711);
+				player.getActionSender().sendFrame230(6236, 223, 177, 444);
+				player.getActionSender().sendComponentInterface(6236, 2711);
+			}else if (skill == 18) {
+				player.getActionSender().sendFrame230(12173, 221, 1944, 649);
+				player.getActionSender().sendComponentInterface(12173, 1733);
+			}else if (skill == 19) {
 				player.getActionSender().sendItemOnInterface(12173, 200, 5340);
-				// player.getActionSender().sendString("Check the Farming skill guide for information.",
-				// 4890);
 			}
 			if (getLevelForXP(getExp()[skill]) == 99) {
 				player.getActionSender().sendMessage("Well done! You've achieved the highest possible level in this skill!");
