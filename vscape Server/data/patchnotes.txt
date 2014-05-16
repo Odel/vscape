@@ -1,4 +1,12 @@
 @dre@= May ? =
+
+@red@-Fixes-
+-Fixed hit bug (normally from pick pocketing)
+-Barbarian course ladder fixed
+-Level up icons fixed (fletching/slayer/farming)
+
+
+@dre@= May 13 =
 @blu@-Agility shortcuts.
 -Gem bolts (crafting - combat)(no enchant).
 -Fixed Dharok, Ahrim, Guthan and Karil alch prices.
@@ -46,42 +54,3 @@ world
 now play
 @blu@-New Client with music volume support
 @blu@ (updating is optional if you want music volume)
-
-@dre@= May 2 =
-@blu@-Final Barrows fix
-	a.Major change to drop rates.
-	b.Ideal KC is from 12-15.
--Runite limbs added to the drop table.
--Strength potion price corrected.
--Added the blue dragon in Hero's guild basement.
--Added the banker to Miscellenia.
--Added additional slayer tasks.
--Added ogres to the Combat Training Camp cage.
--Entrana is now suitable for glass crafting.
--Fixed a few weapon speeds.
--Sweetcorn has finally been fixed.
-
-@dre@= May 1 =
--Bank all has finally been fixed.
--Fluid containers have amount options.(except x)
--Bracelet of clay now works.
--Added "Check" right click options to forging ring 
- and clay bracelet (Tells you your charges)
--Changes to barrows (Functionality)
-	a. Verac and Dharok nerfed & mobs buffed
-	b. Outer tunnels working
-	c. Random room placement heading to chest
--Fixed problem with removing extra pie dish for
- three ingredient pies.
--All dough working, and pots do not dissapear
- when making dough.
-@blu@-Sheep Shearer
-
-@dre@= APR 28 =
--Fixed potion making
--Semiprecious gems are now crushable
--Elegant clothing added to clue rewards
-@blu@-Bracelet crafting & enchant
--Crafting guild changes
--Fishing guild entry changes
--Clue 2733 has been fixed
