@@ -59,7 +59,7 @@ public class Npc extends Entity {
 
 	public static int[] npcsDontFollow = {1827, 2892, 2894, 2896};
 
-	public static int[] npcsDontAttack = {2440, 2443, 2446};
+	public static int[] npcsDontAttack = {2440, 2443, 2446, 6142, 6143, 6144, 6145, 3782};
 
 	/**
 	 * Creates a new Npc.
