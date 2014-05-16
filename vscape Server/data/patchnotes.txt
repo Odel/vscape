@@ -1,4 +1,6 @@
 @dre@= May ? =
+@red@-Changes-
+-Changes to c'bow speed
 
 @red@-Fixes-
 -Fixed hit bug (normally from pick pocketing)
