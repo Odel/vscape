@@ -1,4 +1,7 @@
 @dre@= May ? =
+@blue@-Additions-
+-Bob shirts (lvl 1 clues)
+
 @red@-Changes-
 -Changes to c'bow speed
 
