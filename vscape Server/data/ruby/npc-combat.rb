@@ -192,6 +192,14 @@ class DagannothRange < NpcCombatDef
     end
 end
 
+class DagannothSupreme < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 32, 8, 1343, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
+		];
+    end
+end
+
 class Spinolyp < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -235,7 +243,9 @@ NpcCombatDef.add([1591], IronDragon.new())
 NpcCombatDef.add([1592], SteelDragon.new())
 NpcCombatDef.add([2457,2884], Wallasalki.new())
 NpcCombatDef.add([2455,2888], DagannothMelee.new())
-NpcCombatDef.add([2456,2887, 2881], DagannothRange.new())
+NpcCombatDef.add([2456,2887], DagannothRange.new())
 NpcCombatDef.add([2892, 2894, 2896], Spinolyp.new())
+NpcCombatDef.add([2881], DagannothSupreme.new())
 NpcCombatDef.add([2882], DagannothPrime.new())
 NpcCombatDef.add([3200], ChaosElemental.new())
+
