@@ -58,167 +58,247 @@ public class client extends RSApplet {
 		return k == 337;
 	}
 	
-		public void drawChannelButtons() { 
+	public void drawChannelButtons() { 
+		String gameText[] = { "On", "Off" };
+		int gameTextColor[] = { 65280, 0xff0000 };
 		String text[] = { "On", "Friends", "Off", "Hide" };
 		int textColor[] = { 65280, 0xffff00, 0xff0000, 65535 };
-		switch(cButtonCPos) {
-			case 0:
-				//chatButtons[1].drawSprite(5, 142);
-				break;
-			case 1:
-				//chatButtons[1].drawSprite(71, 142);
-				break;
-			case 2:
-				//chatButtons[1].drawSprite(137, 142);
-				break;
-			case 3:
-				//chatButtons[1].drawSprite(203, 142);
-				break;
+		/* Draws main buttons sprite */
+		chatButtons.drawSprite(5, 143);
+		/* Button hovering */
+		if(cButtonHPos == 7) {
+			reportH.drawSprite(404, 143);
 		}
-		aTextDrawingArea_1271.method389(true, 422, 0xffffff, "Report Abuse", 147);
-		aTextDrawingArea_1271.method389(true, 25, 0xffffff, "Public chat", 142);
-		aTextDrawingArea_1271.method389(true, 150, 0xffffff, "Private chat", 142);
-		aTextDrawingArea_1271.method389(true, 285, 0xffffff, "Trade/compete", 142);
-		aTextDrawingArea_1271.method382(textColor[publicChatMode], 55, text[publicChatMode], 153, true);
-		aTextDrawingArea_1271.method382(textColor[privateChatMode], 180, text[privateChatMode], 153, true);
-		aTextDrawingArea_1271.method382(textColor[tradeMode], 325, text[tradeMode], 153, true);
+		if(cButtonCPos == 0)
+				chatButtonC.drawSprite(5, 143);
+			else if(cButtonCPos == 1)
+				chatButtonC.drawSprite(62, 143);
+			else if(cButtonCPos == 2)
+				chatButtonC.drawSprite(119, 143);
+			else if(cButtonCPos == 3)
+				chatButtonC.drawSprite(176, 143);
+			else if(cButtonCPos == 4)
+				chatButtonC.drawSprite(233, 143);
+			else if(cButtonCPos == 5)
+				chatButtonC.drawSprite(290, 143);
+		if(cButtonHPos == cButtonCPos) {
+			if(cButtonHPos == 0)
+				chatButtonHC.drawSprite(5, 143);
+			else if(cButtonHPos == 1)
+				chatButtonHC.drawSprite(62, 143);
+			else if(cButtonHPos == 2)
+				chatButtonHC.drawSprite(119, 143);
+			else if(cButtonHPos == 3)
+				chatButtonHC.drawSprite(176, 143);
+			else if(cButtonHPos == 4)
+				chatButtonHC.drawSprite(233, 143);
+			else if(cButtonHPos == 5)
+				chatButtonHC.drawSprite(290, 143);
+		} else {
+			if(cButtonHPos == 0)
+				chatButtonH.drawSprite(5, 143);
+			else if(cButtonHPos == 1)
+				chatButtonH.drawSprite(62, 143);
+			else if(cButtonHPos == 2)
+				chatButtonH.drawSprite(119, 143);
+			else if(cButtonHPos == 3)
+				chatButtonH.drawSprite(176, 143);
+			else if(cButtonHPos == 4)
+				chatButtonH.drawSprite(233, 143);
+			else if(cButtonHPos == 5)
+				chatButtonH.drawSprite(290, 143);
+		}
+		smallText.method389(true, 26, 0xffffff, "All", 158);
+		smallText.method389(true, 77, 0xffffff, "Game", 153);
+		smallText.method389(true, 131, 0xffffff, "Public", 153);
+		smallText.method389(true, 185, 0xffffff, "Private", 153);
+		smallText.method389(true, 247, 0xffffff, "Trade", 153);
+		smallText.method389(true, 304, 0xffffff, "Duel", 153);
+		smallText.method389(true, 427, 0xffffff, "Report Abuse", 158);
+		smallText.method382(gameTextColor[gameMode], 90, gameText[gameMode], 164, true);
+		smallText.method382(textColor[publicChatMode], 146, text[publicChatMode], 164, true);
+		smallText.method382(textColor[privateChatMode], 203, text[privateChatMode], 164, true);
+		smallText.method382(textColor[tradeMode], 260, text[tradeMode], 164, true);
+		smallText.method382(textColor[duelMode], 315, text[duelMode], 164, true);
 	}
 	
-	private void drawChatArea() {
+	private void drawChatArea() /* This draws/displays the chat area */
+	{
 		aRSImageProducer_1166.initDrawingArea();
 		Texture.anIntArray1472 = anIntArray1180;
 		chatArea.drawSprite(0, 0);
-	//	backBase1.method361(0, 116);
 		drawChannelButtons();
+		TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
 		if(messagePromptRaised) {
 			chatTextDrawingArea.drawText(0, aString1121, 60, 259);
 			chatTextDrawingArea.drawText(128, promptInput + "*", 80, 259);
-		} else if(inputDialogState == 1) {
+		} else
+		if(inputDialogState == 1) {
 			chatTextDrawingArea.drawText(0, "Enter amount:", 60, 259);
 			chatTextDrawingArea.drawText(128, amountOrNameInput + "*", 80, 259);
-		} else if(inputDialogState == 2) {
+		} else
+		if(inputDialogState == 2) {
 			chatTextDrawingArea.drawText(0, "Enter name:", 60, 259);
 			chatTextDrawingArea.drawText(128, amountOrNameInput + "*", 80, 259);
-		} else if(aString844 != null) {
+		} else
+		if(aString844 != null) {
 			chatTextDrawingArea.drawText(0, aString844, 60, 259);
 			chatTextDrawingArea.drawText(128, "Click to continue", 80, 259);
-		} else if(backDialogID != -1) {
+		} else
+		if(backDialogID != -1)
 			drawInterface(0, 20, RSInterface.interfaceCache[backDialogID], 20);
-		} else if(dialogID != -1) {
+		else
+		if(dialogID != -1) {
 			drawInterface(0, 20, RSInterface.interfaceCache[dialogID], 20);
 		} else {
 			int j77 = -3;
-			TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
 			int j = 0;
-			DrawingArea.setDrawingArea(96, 0, 463, 20);
-			for(int k = 0; k < 100; k++)
-				if(chatMessages[k] != null)
-				{
-					int l = chatTypes[k];
-					int i1 = (90 - j * 15) + anInt1089;
-					String s1 = chatNames[k];
-					byte byte0 = 0;
-					if(s1 != null && s1.startsWith("@cr1@"))
-					{
-						s1 = s1.substring(5);
-						byte0 = 1;
-					}
-					if(s1 != null && s1.startsWith("@cr2@"))
-					{
-						s1 = s1.substring(5);
-						byte0 = 2;
-					}
-					if(l == 0)
-					{
-						if(i1 > 0 && i1 < 110)
-							textDrawingArea.method389(false, 19, 19, chatMessages[k], i1);
+			DrawingArea.setDrawingArea(121, 8, 497, 7);
+			for(int k = 0; k < 500; k++)
+			if(chatMessages[k] != null) {
+				int l = chatTypes[k];
+				int i1 = (70 - j77 * 14) + anInt1089 + 5;
+				String s1 = chatNames[k];
+				byte byte0 = 0;
+				if(s1 != null && s1.startsWith("@cr1@")) {
+					s1 = s1.substring(5);
+					byte0 = 1;
+				}
+				if(s1 != null && s1.startsWith("@cr2@")) {
+					s1 = s1.substring(5);
+					byte0 = 2;
+				}
+				if(s1 != null && s1.startsWith("@cr3@")) {
+					s1 = s1.substring(5);
+					byte0 = 3;
+				}
+				if(l == 0) {
+					if ((chatTypeView == 5 || chatTypeView == 0) && gameMode == 0) {
+						if(i1 > 0 && i1 < 210)
+							textDrawingArea.method389(false, 9, 0, chatMessages[k], i1 - 1);//chat color enabled
 						j++;
-					}
-					if((l == 1 || l == 2) && (l == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(s1)))
-					{
-						if(i1 > 0 && i1 < 110)
-						{
-							int j1 = 19;
-							if(byte0 == 1)
-							{
-								modIcons[0].method361(j1, i1 - 12);
-								j1 += 14;
-							}
-							if(byte0 == 2)
-							{
-								modIcons[1].method361(j1, i1 - 12);
-								j1 += 14;
-							}
-							textDrawingArea.method385(2, s1 + ":", i1, j1);
-							j1 += textDrawingArea.getTextWidth(s1) + 8;
-							textDrawingArea.method385(255, chatMessages[k], i1, j1);
-						}
-						j++;
-					}
-					if((l == 3 || l == 7) && splitPrivateChat == 0 && (l == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(s1)))
-					{
-						if(i1 > 0 && i1 < 110)
-						{
-							int k1 = 4;
-							textDrawingArea.method385(0, "From", i1, k1);
-							k1 += textDrawingArea.getTextWidth("From ");
-							if(byte0 == 1)
-							{
-								modIcons[0].method361(k1, i1 - 12);
-								k1 += 14;
-							}
-							if(byte0 == 2)
-							{
-								modIcons[1].method361(k1, i1 - 12);
-								k1 += 14;
-							}
-							textDrawingArea.method385(0, s1 + ":", i1, k1);
-							k1 += textDrawingArea.getTextWidth(s1) + 8;
-							textDrawingArea.method385(0x800000, chatMessages[k], i1, k1);
-						}
-						j++;
-					}
-					if(l == 4 && (tradeMode == 0 || tradeMode == 1 && isFriendOrSelf(s1)))
-					{
-						if(i1 > 0 && i1 < 110)
-							textDrawingArea.method385(0x800080, s1 + " " + chatMessages[k], i1, 18);
-						j++;
-					}
-					if(l == 5 && splitPrivateChat == 0 && privateChatMode < 2)
-					{
-						if(i1 > 0 && i1 < 110)
-							textDrawingArea.method385(0x800000, chatMessages[k], i1, 4);
-						j++;
-					}
-					if(l == 6 && splitPrivateChat == 0 && privateChatMode < 2)
-					{
-						if(i1 > 0 && i1 < 110)
-						{
-							textDrawingArea.method385(0, "To " + s1 + ":", i1, 4);
-							textDrawingArea.method385(0x800000, chatMessages[k], i1, 12 + textDrawingArea.getTextWidth("To " + s1));
-						}
-						j++;
-					}
-					if(l == 8 && (tradeMode == 0 || tradeMode == 1 && isFriendOrSelf(s1)))
-					{
-						if(i1 > 0 && i1 < 110)
-							textDrawingArea.method385(0x7e3200, s1 + " " + chatMessages[k], i1, 4);
-						j++;
+						j77++;
 					}
 				}
+				if((l == 1 || l == 2) && (l == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(s1))) {
+					if (chatTypeView == 1 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210) {
+							int j1 = 8;
+							if(byte0 == 1) {
+								modIcons[0].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							if(byte0 == 2) {
+								modIcons[1].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							if(byte0 == 3) {
+								modIcons[2].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							/* draws playername in chatbox[history] */
+							textDrawingArea.method385(0, s1 + ":", i1 - 1, j1 + 1);
+							j1 += textDrawingArea.getTextWidth(s1) + 8;
+							/* draws chat in chatbox[history] */
+							textDrawingArea.method389(false, j1 + 1, 255, chatMessages[k], i1 - 1);//chat color enabled;
+						}
+						j++;
+						j77++;
+					}
+				}
+				if((l == 3 || l == 7) && (splitPrivateChat == 0 || chatTypeView == 2) && (l == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(s1)))
+				{
+					if (chatTypeView == 2 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210) {
+							int k1 = 8;
+							textDrawingArea.method385(0, "From", i1, k1);
+							k1 += textDrawingArea.getTextWidth("From ");
+							if(byte0 == 1) {
+								modIcons[0].method361(k1, i1 - 12);
+								k1 += 12;
+							}
+							if(byte0 == 2) {
+								modIcons[1].method361(k1, i1 - 12);
+								k1 += 12;
+							}
+							if(byte0 == 3) {
+								modIcons[2].method361(k1, i1 - 12);
+								k1 += 12;
+								k1 += 12;
+							}
+							textDrawingArea.method385(0, s1 + ":", i1 - 1, k1 + 1);
+							k1 += textDrawingArea.getTextWidth(s1) + 8;
+							textDrawingArea.method385(0x800000, chatMessages[k], i1 - 1, k1 + 1);
+						}
+						j++;
+						j77++;
+					}
+				}
+				if(l == 4 && (tradeMode == 0 || tradeMode == 1 && isFriendOrSelf(s1))) {
+					if (chatTypeView == 3 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210)
+							textDrawingArea.method385(0x800080, s1 + " " + chatMessages[k], i1, 8);
+						j++;
+						j77++;
+					}
+				}
+				if(l == 5 && splitPrivateChat == 0 && privateChatMode < 2) {
+					if (chatTypeView == 2 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210)
+							textDrawingArea.method385(0x800000, chatMessages[k], i1, 8);
+						j++;
+						j77++;
+					}
+				}
+				if(l == 6 && (splitPrivateChat == 0 || chatTypeView == 2) && privateChatMode < 2)
+				{
+					if (chatTypeView == 2 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210) {
+							textDrawingArea.method385(0, "To " + s1 + ":", i1, 8);
+							textDrawingArea.method385(0x800000, chatMessages[k], i1, 12 + textDrawingArea.getTextWidth("To :" + s1));
+						}
+					j++;
+					j77++;
+					}
+				}
+				if(l == 8 && (duelMode == 0 || duelMode == 1 && isFriendOrSelf(s1)))
+				{
+					if (chatTypeView == 4 || chatTypeView == 0) {
+						if(i1 > 0 && i1 < 210)
+							textDrawingArea.method385(0x7e3200, s1 + " " + chatMessages[k], i1, 8);
+						j++;
+						j77++;
+					}
+					if(l == 11 && (clanChatMode == 0))
+					{
+						if (chatTypeView == 11) {
+						if(i1 > 0 && i1 < 210)
+							textDrawingArea.method385(0x7e3200, s1 + " " + chatMessages[k], i1, 8);
+						j++;
+						j77++;
+					}
+					if(l == 12)//link
+					{
+						if(i1 > 0 && i1 < 110)
+							textDrawingArea.method385(0x7e3200, chatMessages[k] + " @blu@" + s1, i1, 8);
+							j++;
+						}
+					}
+				}
+			}
 			DrawingArea.defaultDrawingAreaSize();
-			anInt1211 = j * 14 + 7;
-			if(anInt1211 < 78)
-				anInt1211 = 78;
-			drawScrollbar(77, anInt1211 - anInt1089 - 77, 19, 480, anInt1211);
+			anInt1211 = j * 14 + 7 + 5;
+			if(anInt1211 < 111)
+				anInt1211 = 111;
+			drawScrollbar(113, anInt1211 - anInt1089 - 113, 7, 496, anInt1211);
 			String s;
 			if(myPlayer != null && myPlayer.name != null)
 				s = myPlayer.name;
 			else
 				s = TextClass.fixName(myUsername);
-			textDrawingArea.method385(0, s + ":", 110, 19);
-			textDrawingArea.drawChatInput(255, 20 + textDrawingArea.getTextWidth(s + ": "), inputString + "*", 110, false);
-			DrawingArea.method339(96, 0x000000, 479, 17);
+			textDrawingArea.method385(0, s + ":", 132, 9);
+			textDrawingArea.drawChatInput(255, 10 + textDrawingArea.getTextWidth(s + ": "), inputString + "*", 132, false);
+			DrawingArea.method339(120, 0x807660, 504, 7);
 		}
 		if(menuOpen && menuScreenArea == 2) {
 			drawMenu();
@@ -228,7 +308,7 @@ public class client extends RSApplet {
 		Texture.anIntArray1472 = anIntArray1182;
 	}
 
-	  public void init()
+	public void init()
     {
         try
         {
@@ -293,7 +373,7 @@ public class client extends RSApplet {
 					k -= 519;
 					j1 -= 0;
 				}
-				if(k < menuOffsetX - 10 || k > menuOffsetX + menuWidth + 10 || j1 < menuOffsetY - 10 || j1 > menuOffsetY + anInt952 + 10)
+				if(k < menuOffsetX - 10 || k > menuOffsetX + menuWidth + 10 || j1 < menuOffsetY - 10 || j1 > menuOffsetY + menuHeight + 10)
 				{
 					menuOpen = false;
 					if(menuScreenArea == 1)
@@ -1062,25 +1142,123 @@ public class client extends RSApplet {
 		}
 
 	}
-
-		private void drawScrollbar(int j, int k, int l, int i1, int j1)
-	{
+	public void drawScrollbar(int j, int k, int l, int i1, int j1) {
 		scrollBar1.method361(i1, l);
 		scrollBar2.method361(i1, (l + j) - 16);
-		DrawingArea.drawPixels(j - 32, l + 16, i1, anInt1002, 16);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x000001, 16);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x3d3426, 15);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x342d21, 13);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x2e281d, 11);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x29241b, 10);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x252019, 9);
+		DrawingArea.drawPixels(j - 32, l + 16, i1, 0x000001, 1);
 		int k1 = ((j - 32) * j) / j1;
 		if(k1 < 8)
 			k1 = 8;
 		int l1 = ((j - 32 - k1) * k) / (j1 - j);
 		DrawingArea.drawPixels(k1, l + 16 + l1, i1, barFillColor, 16);
-		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1);
-		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1 + 1);
-		DrawingArea.method339(l + 16 + l1, anInt902, 16, i1);
-		DrawingArea.method339(l + 17 + l1, anInt902, 16, i1);
-		DrawingArea.method341(l + 16 + l1, anInt927, k1, i1 + 15);
-		DrawingArea.method341(l + 17 + l1, anInt927, k1 - 1, i1 + 14);
-		DrawingArea.method339(l + 15 + l1 + k1, anInt927, 16, i1);
-		DrawingArea.method339(l + 14 + l1 + k1, anInt927, 15, i1 + 1);
+		DrawingArea.method341(l + 16 + l1, 0x000001, k1, i1);
+		DrawingArea.method341(l + 16 + l1, 0x8d8269, k1, i1 + 1);
+		DrawingArea.method341(l + 16 + l1, 0x6a614d, k1, i1 + 2);
+		DrawingArea.method341(l + 16 + l1, 0x706651, k1, i1 + 3);
+		DrawingArea.method341(l + 16 + l1, 0x706651, k1, i1 + 4);
+		DrawingArea.method341(l + 16 + l1, 0x6a614d, k1, i1 + 5);
+		DrawingArea.method341(l + 16 + l1, 0x6a614d, k1, i1 + 6);
+		DrawingArea.method341(l + 16 + l1, 0x685e4b, k1, i1 + 7);
+		DrawingArea.method341(l + 16 + l1, 0x685e4b, k1, i1 + 8);
+		DrawingArea.method341(l + 16 + l1, 0x665d4a, k1, i1 + 9);
+		DrawingArea.method341(l + 16 + l1, 0x665d4a, k1, i1 + 10);
+		DrawingArea.method341(l + 16 + l1, 0x58503f, k1, i1 + 11);
+		DrawingArea.method341(l + 16 + l1, 0x58503f, k1, i1 + 12);
+		DrawingArea.method341(l + 16 + l1, 0x544c3c, k1, i1 + 13);
+		DrawingArea.method341(l + 16 + l1, 0x4b4535, k1, i1 + 14);
+		DrawingArea.method339(l + 16 + l1, 0x000001, 15, i1);
+		DrawingArea.method339(l + 17 + l1, 0x000001, 15, i1);
+		DrawingArea.method339(l + 17 + l1, 0x6a614d, 14, i1);
+		DrawingArea.method339(l + 17 + l1, 0x706651, 13, i1);
+		DrawingArea.method339(l + 17 + l1, 0x6d5f48, 11, i1);
+		DrawingArea.method339(l + 17 + l1, 0x6a614d, 10, i1);
+		DrawingArea.method339(l + 17 + l1, 0x76684b, 7, i1);
+		DrawingArea.method339(l + 17 + l1, 0x7d715b, 5, i1);
+		DrawingArea.method339(l + 17 + l1, 0x7e6e50, 4, i1);
+		DrawingArea.method339(l + 17 + l1, 0x8d8269, 3, i1);
+		DrawingArea.method339(l + 17 + l1, 0x000001, 2, i1);
+		DrawingArea.method339(l + 18 + l1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 18 + l1, 0x625946, 15, i1);
+		DrawingArea.method339(l + 18 + l1, 0x665d4a, 14, i1);
+		DrawingArea.method339(l + 18 + l1, 0x625640, 11, i1);
+		DrawingArea.method339(l + 18 + l1, 0x6a614d, 10, i1);
+		DrawingArea.method339(l + 18 + l1, 0x706651, 7, i1);
+		DrawingArea.method339(l + 18 + l1, 0x726954, 5, i1);
+		DrawingArea.method339(l + 18 + l1, 0x716247, 4, i1);
+		DrawingArea.method339(l + 18 + l1, 0x7d715b, 3, i1);
+		DrawingArea.method339(l + 18 + l1, 0x8d8269, 2, i1);
+		DrawingArea.method339(l + 18 + l1, 0x000001, 1, i1);
+		DrawingArea.method339(l + 19 + l1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 19 + l1, 0x544c3c, 15, i1);
+		DrawingArea.method339(l + 19 + l1, 0x625946, 14, i1);
+		DrawingArea.method339(l + 19 + l1, 0x665d4a, 11, i1);
+		DrawingArea.method339(l + 19 + l1, 0x685e4b, 9, i1);
+		DrawingArea.method339(l + 19 + l1, 0x6a614d, 7, i1);
+		DrawingArea.method339(l + 19 + l1, 0x706651, 5, i1);
+		DrawingArea.method339(l + 19 + l1, 0x726954, 4, i1);
+		DrawingArea.method339(l + 19 + l1, 0x6a614d, 3, i1);
+		DrawingArea.method339(l + 19 + l1, 0x8d8269, 2, i1);
+		DrawingArea.method339(l + 19 + l1, 0x000001, 1, i1);
+		DrawingArea.method339(l + 20 + l1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 20 + l1, 0x4b4535, 15, i1);
+		DrawingArea.method339(l + 20 + l1, 0x4f4839, 14, i1);
+		DrawingArea.method339(l + 20 + l1, 0x58503f, 13, i1);
+		DrawingArea.method339(l + 20 + l1, 0x665d4a, 10, i1);
+		DrawingArea.method339(l + 20 + l1, 0x685e4b, 8, i1);
+		DrawingArea.method339(l + 20 + l1, 0x6a614d, 6, i1);
+		DrawingArea.method339(l + 20 + l1, 0x706651, 4, i1);
+		DrawingArea.method339(l + 20 + l1, 0x6a614d, 3, i1);
+		DrawingArea.method339(l + 20 + l1, 0x8d8269, 2, i1);
+		DrawingArea.method339(l + 20 + l1, 0x000001, 1, i1);
+		DrawingArea.method341(l + 16 + l1, 0x000001, k1, i1 + 15);
+		DrawingArea.method339(l + 15 + l1 + k1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x000001, 15, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x413a2e, 14, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x453d31, 10, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x4f4839, 9, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x4a402f, 7, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x4b4535, 4, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x625946, 3, i1);
+		DrawingArea.method339(l + 14 + l1 + k1, 0x000001, 2, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x453d31, 15, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x4b4535, 11, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x544c3c, 9, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x4f4839, 7, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x625946, 6, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x58503f, 4, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x625640, 3, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x706651, 2, i1);
+		DrawingArea.method339(l + 13 + l1 + k1, 0x000001, 1, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x453d31, 15, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x4b4535, 14, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x4f4839, 12, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x625946, 11, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x58503f, 10, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x665d4a, 7, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x685e4b, 4, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x726954, 3, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x7d715b, 2, i1);
+		DrawingArea.method339(l + 12 + l1 + k1, 0x000001, 1, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x000001, 16, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x4b4535, 15, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x544c3c, 14, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x625946, 13, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x58503f, 11, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x665d4a, 9, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x685e4b, 7, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x6a614d, 5, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x706651, 4, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x6a614d, 3, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x7d715b, 2, i1);
+		DrawingArea.method339(l + 11 + l1 + k1, 0x000001, 1, i1);
 	}
 
 		public void updateNPCs(Stream stream, int i) {
@@ -1114,6 +1292,107 @@ public class client extends RSApplet {
 		}
 		
 	private int cButtonHPos;
+	private int cButtonHCPos;
+	private int cButtonCPos;
+
+	private void processChatModeClick() {
+		if(super.mouseX >= 6 && super.mouseX <= 62 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 63 && super.mouseX <= 118 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 119 && super.mouseX <= 175 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 177 && super.mouseX <= 232 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 3;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 233 && super.mouseX <= 289 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 4;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 290 && super.mouseX <= 346 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 5;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		else if(super.mouseX >= 404 && super.mouseX <= 515 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 7;
+			aBoolean1233 = true;
+			inputTaken = true;
+		} else {
+			cButtonHPos = -1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}	
+	
+		if(super.clickMode3 == 1) {
+			if(super.saveClickX >= 6 && super.saveClickX <= 62 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 0;
+				chatTypeView = 0;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 63 && super.saveClickX <= 118 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 1;
+				chatTypeView = 5;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 119 && super.saveClickX <= 175 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 2;
+				chatTypeView = 1;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 177 && super.saveClickX <= 232 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 3;
+				chatTypeView = 2;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 233 && super.saveClickX <= 289 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 4;
+				chatTypeView = 3;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 290 && super.saveClickX <= 346 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 5;
+				chatTypeView = 4;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+			if(super.saveClickX >= 404 && super.saveClickX <= 515 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				if(openInterfaceID == -1) {
+					clearTopInterfaces();
+					reportAbuseInput = "";
+					canMute = false;
+					for(int i = 0; i < RSInterface.interfaceCache.length; i++) {
+						if(RSInterface.interfaceCache[i] == null || RSInterface.interfaceCache[i].contentType != 600)
+							continue;
+						reportAbuseInterfaceID = openInterfaceID = RSInterface.interfaceCache[i].parentID;
+						break;
+					}
+
+				} else {
+					pushMessage("Please close the interface you have open before using 'report abuse'", 0, "");
+				}
+			}
+		}
+	}
+		
+/*	private int cButtonHPos;
 	private int cButtonHCPos;
 	private int cButtonCPos;
 
@@ -1168,7 +1447,7 @@ public class client extends RSApplet {
 			}
 		}
 	}
-
+*/
 	 private void method33(int i)
 	    {
 	        int j = Varp.cache[i].anInt709;
@@ -1821,7 +2100,7 @@ public class client extends RSApplet {
 			xCameraCurve = i2;
 	}
 
-	private void drawMenu()
+	/*private void drawMenu()
 	{
 		int i = menuOffsetX;
 		int j = menuOffsetY;
@@ -1859,6 +2138,69 @@ public class client extends RSApplet {
 			chatTextDrawingArea.method389(true, i + 3, j2, menuActionName[l1], i2);
 		}
 
+	}*/
+	
+	private void drawMenu() {
+		int i = menuOffsetX;
+		int j = menuOffsetY;
+		int k = menuWidth;
+		int l = menuHeight + 1;//anInt952
+		//DrawingArea.drawPixels(height, yPos, xPos, color, width);
+		//DrawingArea.fillPixels(xPos, width, height, color, yPos);
+		DrawingArea.drawPixels(l - 4, j + 2, i, 0x706a5e, k);
+		DrawingArea.drawPixels(l - 2, j + 1, i + 1, 0x706a5e, k - 2);
+		DrawingArea.drawPixels(l, j, i + 2, 0x706a5e, k - 4);
+		DrawingArea.drawPixels(l - 2, j + 1, i + 3, 0x2d2822, k - 6);
+		DrawingArea.drawPixels(l - 4, j + 2, i + 2, 0x2d2822, k - 4);
+		DrawingArea.drawPixels(l - 6, j + 3, i + 1, 0x2d2822, k - 2);
+		DrawingArea.drawPixels(l - 22, j + 19, i + 2, 0x524a3d, k - 4);
+		DrawingArea.drawPixels(l - 22, j + 20, i + 3, 0x524a3d, k - 6);
+		DrawingArea.drawPixels(l - 23, j + 20, i + 3, 0x2b271c, k - 6);
+		DrawingArea.fillPixels(i + 3, k - 6, 1, 0x2a291b, j + 2);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x2a261b, j + 3);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x252116, j + 4);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x211e15, j + 5);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x1e1b12, j + 6);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x1a170e, j + 7);
+		DrawingArea.fillPixels(i + 2, k - 4, 2, 0x15120b, j + 8);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x100d08, j + 10);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 11);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x080703, j + 12);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 13);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x070802, j + 14);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 15);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x070802, j + 16);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x090a04, j + 17);
+		DrawingArea.fillPixels(i + 2, k - 4, 1, 0x2a291b, j + 18);
+		DrawingArea.fillPixels(i + 3, k - 6, 1, 0x564943, j + 19);
+		chatTextDrawingArea.method385(0xc6b895, "Choose Option", j + 14, i + 3);
+		int j1 = super.mouseX;
+		int k1 = super.mouseY;
+		if(menuScreenArea == 0) {
+			j1 -= 4;
+			k1 -= 4;
+		}
+		if(menuScreenArea == 1) {
+			j1 -= 519;
+			k1 -= 168;
+		}
+		if(menuScreenArea == 2) {
+			j1 -= 17;
+			k1 -= 338;
+		}
+		if(menuScreenArea == 3) {
+			j1 -= 516;
+			k1 -= 0;
+		}
+		for(int l1 = 0; l1 < menuActionRow; l1++) {
+			int i2 = j + 31 + (menuActionRow - 1 - l1) * 15;
+			int j2 = 0xc6b895;
+			if (j1 > i && j1 < i + k && k1 > i2 - 13 && k1 < i2 + 3) {
+				DrawingArea.drawPixels(15, i2 - 11, i + 3, 0x6f695d, menuWidth - 6);
+				j2 = 0xeee5c6;
+			}
+			chatTextDrawingArea.method389(true, i + 4, j2, menuActionName[l1], i2 + 1);
+		}
 	}
 
 	private void addFriend(long l)
@@ -3857,6 +4199,117 @@ public class client extends RSApplet {
 			if(RSInterface.interfaceCache[k].parentID == backDialogID)
 				atInventoryInterfaceType = 3;
 		}
+		if(l == 1001) {
+			gameMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 1000) {
+			gameMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 999) {
+			cButtonCPos = 0;
+			chatTypeView = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 998) {
+			cButtonCPos = 1;
+			chatTypeView = 5;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 997) {
+			publicChatMode = 3;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 996) {
+			publicChatMode = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 995) {
+			publicChatMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 994) {
+			publicChatMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 993) {
+			cButtonCPos = 2;
+			chatTypeView = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 992) {
+			privateChatMode = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 991) {
+			privateChatMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 990) {
+			privateChatMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 989) {
+			cButtonCPos = 3;
+			chatTypeView = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 987) {
+			tradeMode = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 986) {
+			tradeMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 985) {
+			tradeMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 984) {
+			cButtonCPos = 5;
+			chatTypeView = 3;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 983) {
+			duelMode = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 982) {
+			duelMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 981) {
+			duelMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 980) {
+			cButtonCPos = 6;
+			chatTypeView = 4;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
 		if(l == 493)
 		{
 			stream.createFrame(75);
@@ -4596,6 +5049,7 @@ public class client extends RSApplet {
 		aRSImageProducer_1125 = null;
 		/* Null pointers for custom sprites */
 		chatArea = null;
+		chatButtons = null;
 		chatButtonH = null;
 		chatButtonHC = null;
 		chatButtonC = null;
@@ -5839,6 +6293,69 @@ public class client extends RSApplet {
 	private void rightClickMapArea() {
 	}
 
+	private void rightClickChatButtons() {
+		if(super.mouseX >= 6 && super.mouseX <= 62 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "View All";
+			menuActionID[1] = 999;
+			menuActionRow = 2;
+		}
+		else if(super.mouseX >= 63 && super.mouseX <= 118 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Off Game";
+			menuActionID[1] = 1001;
+			menuActionName[2] = "On Game";
+			menuActionID[2] = 1000;
+			menuActionName[3] = "View Game";
+			menuActionID[3] = 998;
+			menuActionRow = 4;
+		}
+		else if(super.mouseX >= 119 && super.mouseX <= 175 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Hide public";
+			menuActionID[1] = 997;
+			menuActionName[2] = "Off public";
+			menuActionID[2] = 996;
+			menuActionName[3] = "Friends public";
+			menuActionID[3] = 995;
+			menuActionName[4] = "On public";
+			menuActionID[4] = 994;
+			menuActionName[5] = "View public";
+			menuActionID[5] = 993;
+			menuActionRow = 6;
+		}
+		else if(super.mouseX >= 177 && super.mouseX <= 232 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Off private";
+			menuActionID[1] = 992;
+			menuActionName[2] = "Friends private";
+			menuActionID[2] = 991;
+			menuActionName[3] = "On private";
+			menuActionID[3] = 990;
+			menuActionName[4] = "View private";
+			menuActionID[4] = 989;
+			menuActionRow = 5;
+		}
+		else if(super.mouseX >= 233 && super.mouseX <= 289 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Off trade";
+			menuActionID[1] = 987;
+			menuActionName[2] = "Friends trade";
+			menuActionID[2] = 986;
+			menuActionName[3] = "On trade";
+			menuActionID[3] = 985;
+			menuActionName[4] = "View trade";
+			menuActionID[4] = 984;
+			menuActionRow = 5;
+		}
+		else if(super.mouseX >= 290 && super.mouseX <= 346 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Off duel";
+			menuActionID[1] = 983;
+			menuActionName[2] = "Friends duel";
+			menuActionID[2] = 982;
+			menuActionName[3] = "On duel";
+			menuActionID[3] = 981;
+			menuActionName[4] = "View duel";
+			menuActionID[4] = 980;
+			menuActionRow = 5;
+		}
+	}
+	
 	private void processRightClick()
 	{
 		if(activeInterfaceType != 0)
@@ -5856,12 +6373,12 @@ public class client extends RSApplet {
 		if(anInt886 != anInt1026)
 			anInt1026 = anInt886;
 		anInt886 = 0;
-		if(super.mouseX > 553 && super.mouseY > 205 && super.mouseX < 743 && super.mouseY < 466)
+		if(super.mouseX > 548 && super.mouseY > 207 && super.mouseX < 740 && super.mouseY < 468)
 			if(invOverlayInterfaceID != -1)
-				buildInterfaceMenu(553, RSInterface.interfaceCache[invOverlayInterfaceID], super.mouseX, 205, super.mouseY, 0);
+				buildInterfaceMenu(548, RSInterface.interfaceCache[invOverlayInterfaceID], super.mouseX, 207, super.mouseY, 0);
 			else
 			if(tabInterfaceIDs[tabID] != -1)
-				buildInterfaceMenu(553, RSInterface.interfaceCache[tabInterfaceIDs[tabID]], super.mouseX, 205, super.mouseY, 0);
+				buildInterfaceMenu(548, RSInterface.interfaceCache[tabInterfaceIDs[tabID]], super.mouseX, 207, super.mouseY, 0);
 		if(anInt886 != anInt1048)
 		{
 			needDrawTabArea = true;
@@ -5869,20 +6386,20 @@ public class client extends RSApplet {
 		}
 		anInt886 = 0;
 		/* Chat area clicking */
-		if(super.mouseX > 17 && super.mouseY > 357 && super.mouseX < 496 && super.mouseY < 453)
+		if(super.mouseX > 0 && super.mouseY > 338 && super.mouseX < 490 && super.mouseY < 463)
 			if(backDialogID != -1)
-				buildInterfaceMenu(17, RSInterface.interfaceCache[backDialogID], super.mouseX, 357, super.mouseY, 0);
+				buildInterfaceMenu(20, RSInterface.interfaceCache[backDialogID], super.mouseX, 358, super.mouseY, 0);
 			else
-			if(super.mouseY < 434 && super.mouseX < 426)
-				buildChatAreaMenu(super.mouseY - 357);
+			if(super.mouseY < 463 && super.mouseX < 490)
+				buildChatAreaMenu(super.mouseY - 338);
 		if(backDialogID != -1 && anInt886 != anInt1039)
 		{
 			inputTaken = true;
 			anInt1039 = anInt886;
 		}
 		/* Enable custom right click areas */
-		if(super.mouseX > 519 && super.mouseY > 0 && super.mouseX < 765 && super.mouseY < 168)
-			rightClickMapArea();
+		if(super.mouseX > 4 && super.mouseY > 480 && super.mouseX < 516 && super.mouseY < 503)
+			rightClickChatButtons();
 		/**/
 		boolean flag = false;
 		while(!flag) 
@@ -6995,25 +7512,26 @@ public class client extends RSApplet {
 			drawLoadingText(80, "Unpacking media");
 			
 			/* Custom sprite unpacking */
-			chatArea = new Sprite("chatarea");
-			chatButtonH = new Sprite("chathover");
-			chatButtonC = new Sprite("chatclicked");
-			chatButtonHC = new Sprite("chatclickedh");
-			reportH = new Sprite("reporthover");
-			tabArea = new Sprite("tabarea");
-			mapArea = new Sprite("maparea");
-			compass = new Sprite("compass");
+			chatArea = new Sprite("chat/","chatarea");
+			chatButtons = new Sprite("chat/","chatbuttons");
+			chatButtonH = new Sprite("chat/","chathover");
+			chatButtonC = new Sprite("chat/","chatclicked");
+			chatButtonHC = new Sprite("chat/","chatclickedh");
+			reportH = new Sprite("chat/","reporthover");
+			tabArea = new Sprite("frame/","tabarea");
+			mapArea = new Sprite("frame/","maparea");
+			compass = new Sprite("frame/","compass");
             for(int nSI = 0; nSI < 14; nSI++)
-                newSideIcons[nSI] = new Sprite("sideicon_"+nSI);
+                newSideIcons[nSI] = new Sprite("icons/","sideicon_"+nSI);
 			
 			/**/
 			mapBack = new Background(streamLoader_2, "mapback", 0);
-			for(int j3 = 0; j3 < 14; j3++)
-				sideIcons[j3] = new Sprite(streamLoader_2, "sideicons", j3);
+			/*for(int j3 = 0; j3 < 14; j3++)
+				sideIcons[j3] = new Sprite(streamLoader_2, "sideicons", j3);*/
 			for(int r1 = 0; r1 < 10; r1++)
 				redStones[r1] = new Sprite(streamLoader_2, "redstones", r1);
 
-			compass = new Sprite(streamLoader_2, "compass", 0);
+//			compass = new Sprite(streamLoader_2, "compass", 0);
 			mapEdge = new Sprite(streamLoader_2, "mapedge", 0);
 			mapEdge.method345();
 			try
@@ -7065,7 +7583,7 @@ public class client extends RSApplet {
 			for(int l4 = 0; l4 < 2; l4++)
 				modIcons[l4] = new Background(streamLoader_2, "mod_icons", l4);
 
-			Sprite sprite = new Sprite("frame");
+			Sprite sprite = new Sprite("frame/","frame");
 			frame = new RSImageProducer(sprite.myWidth, sprite.myHeight, getGameComponent());
 			sprite.method346(0, 0);
 
@@ -7688,7 +8206,7 @@ public class client extends RSApplet {
 			if(loadingStage != 2)
 			{
 				aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
-				aRSImageProducer_1164.drawGraphics(0, super.graphics, 519);//519
+				aRSImageProducer_1164.drawGraphics(0, super.graphics, 519);
 			}
 		}
 		if(loadingStage == 2)
@@ -7712,14 +8230,14 @@ public class client extends RSApplet {
 		}
 		if(backDialogID == -1)
 		{
-			aClass9_1059.scrollPosition = anInt1211 - anInt1089 - 77;
-			if(super.mouseX > 448 && super.mouseX < 560 && super.mouseY > 332)
-				method65(463, 77, super.mouseX - 17, super.mouseY - 357, aClass9_1059, 0, false, anInt1211);
-			int i = anInt1211 - 77 - aClass9_1059.scrollPosition;
+			aClass9_1059.scrollPosition = anInt1211 - anInt1089 - 110;
+			if(super.mouseX > 478 && super.mouseX < 580 && super.mouseY > 342)
+				method65(494, 110, super.mouseX - 0, super.mouseY - 348, aClass9_1059, 0, false, anInt1211);
+			int i = anInt1211 - 110 - aClass9_1059.scrollPosition;
 			if(i < 0)
 				i = 0;
-			if(i > anInt1211 - 77)
-				i = anInt1211 - 77;
+			if(i > anInt1211 - 110)
+				i = anInt1211 - 110;
 			if(anInt1089 != i)
 			{
 				anInt1089 = i;
@@ -7748,7 +8266,7 @@ public class client extends RSApplet {
 		if(loadingStage == 2)
 		{
 			drawMinimap();
-			aRSImageProducer_1164.drawGraphics(0, super.graphics, 519);//519
+			aRSImageProducer_1164.drawGraphics(0, super.graphics, 519);
 		}
 		if(anInt1054 != -1)
 			tabAreaAltered = true;
@@ -8126,7 +8644,7 @@ public class client extends RSApplet {
 
 		DrawingArea.setDrawingArea(l1, i1, k1, j1);
 	}
-
+	
 	private void randomizeBackground(Background background)
 	{
 		int j = 256;
@@ -8695,7 +9213,7 @@ public class client extends RSApplet {
 			menuOffsetX = i1;
 			menuOffsetY = l1;
 			menuWidth = i;
-			anInt952 = 15 * menuActionRow + 22;
+			menuHeight = 15 * menuActionRow + 22;
 		}
 		if(super.saveClickX > 519 && super.saveClickY > 168 && super.saveClickX < 765 && super.saveClickY < 503)
 		{
@@ -8716,7 +9234,7 @@ public class client extends RSApplet {
 			menuOffsetX = j1;
 			menuOffsetY = i2;
 			menuWidth = i;
-			anInt952 = 15 * menuActionRow + 22;
+			menuHeight = 15 * menuActionRow + 22;
 		}
 		if(super.saveClickX > 0 && super.saveClickY > 338 && super.saveClickX < 516 && super.saveClickY < 503)
 		{
@@ -8737,7 +9255,7 @@ public class client extends RSApplet {
 			menuOffsetX = k1;
 			menuOffsetY = j2;
 			menuWidth = i;
-			anInt952 = 15 * menuActionRow + 22;
+			menuHeight = 15 * menuActionRow + 22;
 		}
 	}
 
@@ -11641,6 +12159,7 @@ public class client extends RSApplet {
 	{
 		chatTypeView = 0;
 		duelMode = 0;
+		gameMode = 0;
 		clanChatMode = 0;
 		cButtonCPos = 0;
 		if(DevMode)
@@ -11810,8 +12329,10 @@ public class client extends RSApplet {
 	public int chatTypeView;
 	public int clanChatMode;
 	public int duelMode;
+	public int gameMode;
 	/* Declare custom sprites */
 	private Sprite chatArea;
+	private Sprite chatButtons;
 	private Sprite chatButtonH;
 	private Sprite chatButtonHC;
 	private Sprite chatButtonC;
@@ -11921,7 +12442,7 @@ public class client extends RSApplet {
 	private int menuOffsetX;
 	private int menuOffsetY;
 	private int menuWidth;
-	private int anInt952;
+	private int menuHeight;
 	private long aLong953;
 	private boolean aBoolean954;
 	private long[] friendsListAsLongs;

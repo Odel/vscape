@@ -340,7 +340,7 @@ public final class RSInterface {
 		if(sprite != null)
 			return sprite;
 		try {
-			sprite = new Sprite(s+" "+i);
+			sprite = new Sprite("",s+" "+i);
 			aMRUNodes_238.removeFromCache(sprite, l);
 		} catch(Exception exception) {
 			return null;

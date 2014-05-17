@@ -67,12 +67,21 @@ public final class Sprite extends DrawingArea {
 		}
 	}
 
-	public Sprite(String img) {
+	public Sprite(String Dir, String img) {
 		try {
-			Image image = Toolkit.getDefaultToolkit().getImage(location + img + ".png");
+			Image image = Toolkit.getDefaultToolkit().getImage(location + Dir + img + ".png");
 			if (img.equalsIgnoreCase("chatarea")) {
 				myWidth = 519;
 				myHeight = 165;
+			} else if (img.equalsIgnoreCase("chatbuttons")) {
+				myWidth = 510;
+				myHeight = 22;
+			} else if (img.equalsIgnoreCase("chathover") || img.equalsIgnoreCase("chatclickedh") || img.equalsIgnoreCase("chatclicked")) {
+				myWidth = 56;
+				myHeight = 22;
+			} else if (img.equalsIgnoreCase("reporthover")) {
+				myWidth = 111;
+				myHeight = 22;
 			} else if (img.equalsIgnoreCase("tabarea")) {
 				myWidth = 246;
 				myHeight = 335;
