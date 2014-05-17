@@ -82505,7 +82505,7 @@
     "examine": "Eeewww!",
     "respawn": 10,
     "combat": 92,
-    "hitpoints": 10,
+    "hitpoints": 110,
     "maxHit": 8,
     "size": 1,
     "attackSpeed": 4000,

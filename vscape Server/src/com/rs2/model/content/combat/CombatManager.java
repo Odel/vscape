@@ -2,7 +2,6 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
@@ -14,6 +13,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -50,6 +50,8 @@ public class CombatManager extends Tick {
 
 	public static int [] randomItem = {4012, 4024, 4027, 1963};
 	private final List<Hit> hitsStory;
+	
+	public static boolean deathByPortal = false;
 
 	public CombatManager() {
 		super(1);
@@ -171,9 +173,19 @@ public class CombatManager extends Tick {
 			            Player player = (Player) killer;
 			            player.getCombatSounds().npcDeathSound(((Npc) died));
 			       }
-					if(PestControl.isSplatter((Npc) died) && died.isNpc()) {
+					if( died.isNpc() && PestControl.isSplatter((Npc) died)) {
 					    died.getUpdateFlags().sendAnimation(3888, 75);
 					    died.getUpdateFlags().sendGraphic(287, 100);
+					    stop();
+					}
+					else if(died.isNpc() && PestControl.isSpinner((Npc) died) && deathByPortal ) {
+					    died.getUpdateFlags().sendAnimation(3889);
+					    died.getUpdateFlags().sendGraphic(1207);
+					    deathByPortal = false;
+					    stop();
+					}
+					else if(died.isNpc() && PestControl.isSpinner((Npc) died) && !deathByPortal ) {
+					    died.getUpdateFlags().sendAnimation(3910);
 					    stop();
 					}
 					else {
@@ -296,8 +308,23 @@ public class CombatManager extends Tick {
 			    players.hit(15 + Misc.random(15), HitType.NORMAL);
 		    }
 		    for (Npc npcs : World.getNpcs()) {
-			if (npcs != null && npcs.goodDistanceEntity(died, 2) && npcs != died)
+			if (npcs != null && npcs.goodDistanceEntity(died, 2) && npcs != died && !PestControl.isPortal(npcs))
 			    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
+		    }
+		}
+		if(died.isNpc() && PestControl.isPortal((Npc) died) && died.inPestControlGameArea()) {
+		    for (Npc npcs : World.getNpcs()) {
+			if(npcs != null && npcs.goodDistanceEntity(died, 4) && !npcs.isDead() && PestControl.isSpinner(npcs)) {
+			    int hp = npcs.getCurrentHp();
+			    npcs.hit(hp, HitType.NORMAL);
+			    deathByPortal = true;
+			    for (Player players : World.getPlayers()) {
+				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 ) {
+				    players.hit(50, HitType.NORMAL);
+				    players.getActionSender().sendMessage("You are hurt by the spinner's lost connection to the portal.");
+				}
+			    }
+			}
 		    }
 		}
 		if (died.isPlayer()) {

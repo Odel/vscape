@@ -360,7 +360,7 @@ public class PestControl {
 		for(int i = 0; i < PortalData.values().length; i++) {
 			PortalData data = PortalData.values()[i];
 			setPortalHealth(i,250);
-			NpcLoader.spawnNpc(data.shieldId, data.x, data.y, 0,true,true);
+			NpcLoader.spawnNpc(data.shieldId, data.x, data.y, 0,true,true,true);
 		}
 		NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,true,true);
 		setKnightHealth(200);
@@ -378,33 +378,35 @@ public class PestControl {
 		}
 	}
 	
-	private static void spawnGrunts()
-	{
-		for(int i = 0; i < PortalData.values().length; i++) {
-			if(!isPortalDead(i)){
-				gruntTime = 0;
-				PortalData portalData = PortalData.values()[i];
-				GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
-				Npc grunt = new Npc(gruntData.npcId);
-				if( gruntData.attackKnight ) {
-				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(2), portalData.y+ Misc.randomMinusOne(2), 0) );
-				    grunt.setSpawnPosition(knight.getPosition() );
-				    World.register(grunt);
-				    grunt.walkTo(knight.getPosition(), gameActive);
-				}
-				else {
-				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
-				    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
-				    World.register(grunt);
-				    grunt.setDontAttack(false);
-				}   
+	private static void spawnGrunts() {
+	    for(int i = 0; i < PortalData.values().length; i++) {
+		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
+		    gruntTime = 0;
+		    PortalData portalData = PortalData.values()[i];
+		    GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
+		    Npc grunt = new Npc(gruntData.npcId);
+			if( gruntData.attackKnight ) {
+			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(2), portalData.y+ Misc.randomMinusOne(2), 0) );
+			    grunt.setSpawnPosition(knight.getPosition() );
+			    World.register(grunt);
+			    grunt.walkTo(knight.getPosition(), gameActive);
 			}
+			else {
+			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+			    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+			    grunt.setMinWalk(new Position(portalData.x - Constants.NPC_WALK_DISTANCE, portalData.y - Constants.NPC_WALK_DISTANCE));
+			    grunt.setMaxWalk(new Position(portalData.x + Constants.NPC_WALK_DISTANCE, portalData.y + Constants.NPC_WALK_DISTANCE));
+			    grunt.setWalkType(Npc.WalkType.WALK);
+			    World.register(grunt);
+			    grunt.setDontAttack(false);
+			}   
 		}
+	    }
 	}
 	
 	private static void removePortalShield() {
 		shieldTime = 0;
-		int portalToUnshield = PORTAL_IDS[Misc.randomMinusOne(PORTAL_IDS.length)];
+		//int portalToUnshield = PORTAL_IDS[Misc.randomMinusOne(PORTAL_IDS.length)];
                 int unShielded = Misc.randomMinusOne(PORTAL_SHIELD.length);
 		if(!PORTAL_SHIELD[unShielded])
 		{
@@ -413,8 +415,8 @@ public class PestControl {
                 	for(Npc npc : World.getNpcs()) {        
                             if(npc == null)
                                 continue;
-                            PortalData portalData = PortalData.forShield(portalToUnshield);
-                            if(npc.inPestControlGameArea() && portalData != null && npc.getNpcId() == portalToUnshield) {
+                            PortalData portalData = PortalData.forShield(PORTAL_IDS[unShielded]);
+                            if(npc.inPestControlGameArea() && portalData != null && npc.getNpcId() == PORTAL_IDS[unShielded]) {
                                 npc.sendTransform(portalData.normalId, 999999);
                                 PORTAL_SHIELD[unShielded] = false;
                                 sendGameMessage("@dbl@The Void Knight has disabled the "+ portalData.name +" Shield!");
@@ -464,8 +466,9 @@ public class PestControl {
 	
 	private static void setPortalHealth(int index, int amount) {
 		if(amount <= 0)
-			amount = 0;
-		
+		    amount = 0;
+		if(amount >= 250)
+		    amount = 250;
 		PORTAL_HEALTH[index] = amount;
 	}
 	
@@ -480,7 +483,24 @@ public class PestControl {
         public static void attackKnight(Npc grunt) {
             CombatCycleEvent.startCombat(grunt, knight);
         }
-	
+	public static void healPortal(Npc grunt) {
+	    for (Npc npc : World.getNpcs()) {
+		if(npc != null && isPortal(npc)) {
+		    PortalData portaldata = PortalData.forNormal(npc.getNpcId());
+		    for(int i = 0; i < PortalData.values().length; i++) {
+			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2)) {
+			    npc.getUpdateFlags().sendHighGraphic(606);
+			    setPortalHealth(i, npc.getCurrentHp() + 50);
+			    npc.heal(50);
+			    grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
+			    grunt.getUpdateFlags().sendAnimation(3911);
+			}
+
+		    }
+		}
+		    
+	    }
+        }
         public static void handleNpcBehavior() {
             for (Npc npc : World.getNpcs()) {
                 if(npc == null)
@@ -495,11 +515,8 @@ public class PestControl {
 			//new GameObject(Constants.EMPTY_OBJECT, npc.getPosition().getX(), npc.getPosition().getY(), 0, 0, 10, 3, 35); maybe
 			continue;
 		}
-		else if(!shouldAttackKnight(npc) ) {
-		    if(npc.getDefinition().getName().toLowerCase().contains("splatter")) {
-			    continue;
-		    }
-		}
+		else if( isSpinner(npc) )
+		    healPortal(npc);
                 else
                     continue;
             }
@@ -522,7 +539,30 @@ public class PestControl {
 		case 3731:
 		    return true;
 	    }
-		return false;
+	    return false;
+        }
+	
+	public static boolean isPortal(Npc npc) {
+	    switch(npc.getNpcId()) {
+		case 6142:
+		case 6143:
+		case 6144:
+		case 6145:
+		    return true;
+	    }
+	    return false; 
+	}
+	
+	public static boolean isSpinner(Npc npc) {
+            switch(npc.getNpcId()) {
+		case 3747:
+		case 3748:
+		case 3749:
+		case 3750:
+		case 3751:
+		    return true;
+	    }
+	    return false;
         }
 	
 	public static void teleportShifter(Npc npc) {

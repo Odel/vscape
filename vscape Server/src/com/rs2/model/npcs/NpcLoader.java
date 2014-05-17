@@ -12,6 +12,7 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 
@@ -178,6 +179,26 @@ public class NpcLoader {
 		npc.setCurrentY(y);
         npc.setNeedsRespawn(false);
 		World.register(npc);
+	}
+	
+	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean DontFollow, boolean DontWalk, boolean DontAttack) {
+	    Npc npc = new Npc(id);
+	    npc.setPosition(new Position(x, y, heightLevel));
+	    npc.setSpawnPosition(new Position(x, y, heightLevel));
+	    npc.setDontFollow(DontFollow);
+	    npc.setDontWalk(DontWalk);
+	    npc.setDontAttack(DontAttack);
+	    if(!DontWalk) {
+    		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
+    		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
+		npc.setWalkType(WalkType.WALK);
+	    }else{
+        	npc.setWalkType(WalkType.STAND);
+	    }
+	    npc.setCurrentX(x);
+	    npc.setCurrentY(y);
+	    npc.setNeedsRespawn(false);
+	    World.register(npc);
 	}
 
 	public static void destroyNpc(Npc npc) {
