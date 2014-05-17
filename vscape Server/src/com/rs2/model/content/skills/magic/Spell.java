@@ -7,6 +7,7 @@ import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.effect.impl.LeechEffect;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
+import com.rs2.model.content.combat.effect.impl.UnequipEffect;
 import com.rs2.model.content.combat.effect.impl.SummonNpc;
 import com.rs2.model.content.combat.effect.impl.TbEffect;
 import com.rs2.model.content.combat.hit.HitDef;
@@ -55,7 +56,8 @@ public enum Spell {
 	WALLASALKI(2365, magicHit(30, magicProjectile(162), Graphic.highGraphic(163)), true),
 	PRIME(2853, magicHit(61, magicProjectile(162), Graphic.highGraphic(163)), true),
 	NECROMANCER(811, magicHit(0, null, null), true, new SummonNpc(77)),
-
+	CHAOSMAIN(3146, magicHit(26, magicProjectile(557), Graphic.highGraphic(556)), true),
+	CHAOSDISARM(3146, magicHit(0, magicProjectile(551), Graphic.highGraphic(550)), true, new UnequipEffect()),
 	;
 
 	private int levelRequired, animation;

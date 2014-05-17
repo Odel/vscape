@@ -192,6 +192,31 @@ class DagannothRange < NpcCombatDef
     end
 end
 
+class Spinolyp < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.magicAttack(attacker, victim, Spell::SPINOLYP)
+		];
+    end
+end
+
+class DagannothPrime < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.magicAttack(attacker, victim, Spell::PRIME)
+		];
+    end
+end
+
+class ChaosElemental < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.magicAttack(attacker, victim, Spell::CHAOSMAIN),
+                        BasicAttack.magicAttack(attacker, victim, Spell::CHAOSDISARM),
+		];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
@@ -210,4 +235,7 @@ NpcCombatDef.add([1591], IronDragon.new())
 NpcCombatDef.add([1592], SteelDragon.new())
 NpcCombatDef.add([2457,2884], Wallasalki.new())
 NpcCombatDef.add([2455,2888], DagannothMelee.new())
-NpcCombatDef.add([2456,2887], DagannothRange.new())
+NpcCombatDef.add([2456,2887, 2881], DagannothRange.new())
+NpcCombatDef.add([2892, 2894, 2896], Spinolyp.new())
+NpcCombatDef.add([2882], DagannothPrime.new())
+NpcCombatDef.add([3200], ChaosElemental.new())
