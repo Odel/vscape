@@ -11,10 +11,33 @@ final class TextInput {
 		int k = -1;
 		for(int l = 0; l < i; l++)
 		{
-			int i1 = stream.readUnsignedByte();//recieved from server
-			aCharArray631[j++] = validChars[i1];
+			int i1 = stream.readUnsignedByte();
+			int j1 = i1 >> 4 & 0xf;
+			if(k == -1)
+			{
+				if(j1 < 13)
+					aCharArray631[j++] = validChars[j1];
+				else
+					k = j1;
+			} else
+			{
+				aCharArray631[j++] = validChars[((k << 4) + j1) - 195];
+				k = -1;
+			}
+			j1 = i1 & 0xf;
+			if(k == -1)
+			{
+				if(j1 < 13)
+					aCharArray631[j++] = validChars[j1];
+				else
+					k = j1;
+			} else
+			{
+				aCharArray631[j++] = validChars[((k << 4) + j1) - 195];
+				k = -1;
+			}
 		}
-	
+
 		boolean flag1 = true;
 		for(int k1 = 0; k1 < j; k1++)
 		{
@@ -27,14 +50,13 @@ final class TextInput {
 			if(c == '.' || c == '!' || c == '?')
 				flag1 = true;
 		}
-
 		return new String(aCharArray631, 0, j);
-	} 
+	}
 
 	public static void method526(String s, Stream stream)
 	{
 		if(s.length() > 80)
-		s = s.substring(0, 80);
+			s = s.substring(0, 80);
 		s = s.toLowerCase();
 		int i = -1;
 		for(int j = 0; j < s.length(); j++)
@@ -48,9 +70,29 @@ final class TextInput {
 				k = l;
 				break;
 			}
-			stream.writeWordBigEndian(k);//sending to server
+
+			if(k > 12)
+				k += 195;
+			if(i == -1)
+			{
+				if(k < 13)
+					i = k;
+				else
+					stream.writeWordBigEndian(k);
+			} else
+			if(k < 13)
+			{
+				stream.writeWordBigEndian((i << 4) + k);
+				i = -1;
+			} else
+			{
+				stream.writeWordBigEndian((i << 4) + (k >> 4));
+				i = k & 0xf;
+			}
 		}
-	} 
+		if(i != -1)
+			stream.writeWordBigEndian(i << 4);
+	}
 
 	public static String processText(String s)
 	{
@@ -72,7 +114,7 @@ final class TextInput {
 		'3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', 
 		'.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', 
 		'\'', '@', '#', '+', '=', '\243', '$', '%', '"', '[', 
-		']','/','_','^','>','<'
+		']'
 	};
 
 }
