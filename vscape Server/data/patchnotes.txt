@@ -1,6 +1,8 @@
 @dre@= May ? =
 @blu@-Additions-
 -Bob shirts (lvl 1 clues)
+-God cloaks/mitres (lvl 2 clues)
+-God d'hides (lvl 3 clues)
 
 @red@-Changes-
 -Changes to c'bow speed

@@ -35,7 +35,7 @@ public class Equipment {
 
 	private Player player;
 
-	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix dragonhide", "saradomin d'hide", "lunar torso"};
+	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso"};
 	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm"};
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
@@ -1187,6 +1187,18 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
 				defenceLevelReq = 40;
 			}
+			if (itemName.contains("mitre")) {
+				magicLevelReq = 40;
+				prayerLevelReq = 40;
+			}
+			if (itemName.contains("cloak")) {
+				prayerLevelReq = 40;
+			}
+			if(itemName.contains("d'hide") || itemName.contains("coif") || itemName.contains("chaps") || itemName.contains("bracers"))
+			{
+				defenceLevelReq = 40;
+				rangeLevelReq = 70;
+			}
 			return;
 		}
 		if (itemName.contains("crystal")) {
@@ -1203,11 +1215,11 @@ public class Equipment {
 			magicLevelReq = 70;
 			if (itemName.contains("staff")) {
 				attackLevelReq = 70;
-                                defenceLevelReq = 1;
+                defenceLevelReq = 1;
                         
 			}  else {
-                                defenceLevelReq = 70;
-                        }
+                defenceLevelReq = 70;
+            }
 			return;
 		}
 		if (itemName.contains("karil")) {
