@@ -24,8 +24,8 @@ import com.rs2.util.Misc;
 public class PestControl {
 
 	private final static int LOBBY_TIME = 30;
-	private final static int GAME_TIME = 300;
-	private final static int PLAYERS_REQUIRED = 1;
+	private final static int GAME_TIME = 600;
+	private final static int PLAYERS_REQUIRED = 3;
 	
 	private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -390,6 +390,7 @@ public class PestControl {
 			    grunt.setSpawnPosition(knight.getPosition() );
 			    World.register(grunt);
 			    grunt.walkTo(knight.getPosition(), gameActive);
+			    
 			}
 			else {
 			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
@@ -488,7 +489,7 @@ public class PestControl {
 		if(npc != null && isPortal(npc)) {
 		    PortalData portaldata = PortalData.forNormal(npc.getNpcId());
 		    for(int i = 0; i < PortalData.values().length; i++) {
-			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2)) {
+			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead() ) {
 			    npc.getUpdateFlags().sendHighGraphic(606);
 			    setPortalHealth(i, npc.getCurrentHp() + 50);
 			    npc.heal(50);
@@ -501,6 +502,7 @@ public class PestControl {
 		    
 	    }
         }
+	
         public static void handleNpcBehavior() {
             for (Npc npc : World.getNpcs()) {
                 if(npc == null)
