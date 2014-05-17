@@ -1,5 +1,6 @@
 package com.rs2.model.content.minigames.pestcontrol;
 
+import com.rs2.Constants;
 import java.util.ArrayList;
 
 import com.rs2.model.Entity;
@@ -8,8 +9,13 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.attacks.WeaponAttack;
+import com.rs2.model.content.combat.hit.Hit;
+import com.rs2.model.content.combat.hit.HitDef;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
@@ -309,14 +315,18 @@ public class PestControl {
 				{
 					if(player.inPestControlGameArea())
 					{
-						leaveGame(player);
 						if(gameWon)
 						{
-							player.getActionSender().sendMessage("@blu@Game Won!");
+							player.getActionSender().sendMessage("@blu@Game won!");
+							if(player.getPcDamage() >= 50)
+							    player.addPcPoints(2);
+							leaveGame(player);
+
 						}
 						else
 						{
 							player.getActionSender().sendMessage("@red@Game lost.");
+							leaveGame(player);
 						}
 					}
 				}
@@ -337,6 +347,7 @@ public class PestControl {
 		gamePlayers.clear();
 		destroyAllNpcs();
 		resetShields();
+		setKnightHealth(200);
 	}
 	
 	private static void resetLobby()
@@ -385,6 +396,7 @@ public class PestControl {
 				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
 				    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
 				    World.register(grunt);
+				    grunt.setDontAttack(false);
 				}   
 			}
 		}
@@ -479,6 +491,14 @@ public class PestControl {
 			teleportShifter(npc);
 			continue;
 		    }
+		    else if (npc.getDefinition().getName().toLowerCase().contains("ravager"))
+			//new GameObject(Constants.EMPTY_OBJECT, npc.getPosition().getX(), npc.getPosition().getY(), 0, 0, 10, 3, 35); maybe
+			continue;
+		}
+		else if(!shouldAttackKnight(npc) ) {
+		    if(npc.getDefinition().getName().toLowerCase().contains("splatter")) {
+			    continue;
+		    }
 		}
                 else
                     continue;
@@ -487,10 +507,22 @@ public class PestControl {
 	
         public static boolean shouldAttackKnight(Npc npc) {
             for (GruntData gruntData : GruntData.values()) {
-                if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight)
+                if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight && npc.inPestControlGameArea())
                     return true;
             }
             return false;
+        }
+	
+	public static boolean isSplatter(Npc npc) {
+            switch(npc.getNpcId()) {
+		case 3727:
+		case 3728:
+		case 3729:
+		case 3730:
+		case 3731:
+		    return true;
+	    }
+		return false;
         }
 	
 	public static void teleportShifter(Npc npc) {

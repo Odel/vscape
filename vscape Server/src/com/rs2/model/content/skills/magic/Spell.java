@@ -56,6 +56,7 @@ public enum Spell {
 	WALLASALKI(2365, magicHit(30, magicProjectile(162), Graphic.highGraphic(163)), true),
 	PRIME(2853, magicHit(61, magicProjectile(162), Graphic.highGraphic(163)), true),
 	NECROMANCER(811, magicHit(0, null, null), true, new SummonNpc(77)),
+	TORCHER(3880, magicHit(5, magicProjectile(660), Graphic.highGraphic(101)), true),
 	CHAOSMAIN(3146, magicHit(26, magicProjectile(557), Graphic.highGraphic(556)), true),
 	CHAOSDISARM(3146, magicHit(0, magicProjectile(551), Graphic.highGraphic(550)), true, new UnequipEffect()),
 	;

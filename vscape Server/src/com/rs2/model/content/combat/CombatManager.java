@@ -1,18 +1,17 @@
 package com.rs2.model.content.combat;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Graphic;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
@@ -28,6 +27,9 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *  TODO: on death remove all victims hits from hitsStory
@@ -59,7 +61,7 @@ public class CombatManager extends Tick {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
         }
-        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId())))) {
+        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()))) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
         	}
@@ -109,7 +111,7 @@ public class CombatManager extends Tick {
 				if (hit.shouldExecute()) {
 					if (!hit.getVictim().isDead())
 						hit.execute(recoilHits);
-					if (hit.getVictim().getCurrentHp() <= 0 && !hit.getVictim().isDead()) {
+					if (hit.getVictim().getCurrentHp() <= 0 && !hit.getVictim().isDead() ) {
 						hit.getVictim().setDead(true);
 						startDeath(hit.getVictim());
                         if (hit.getVictim().isPlayer() && hit.getVictim().inDuelArena()) {
@@ -169,8 +171,15 @@ public class CombatManager extends Tick {
 			            Player player = (Player) killer;
 			            player.getCombatSounds().npcDeathSound(((Npc) died));
 			       }
-					died.getUpdateFlags().sendAnimation(death);
-					stop();
+					if(PestControl.isSplatter((Npc) died) && died.isNpc()) {
+					    died.getUpdateFlags().sendAnimation(3888, 75);
+					    died.getUpdateFlags().sendGraphic(287, 100);
+					    stop();
+					}
+					else {
+					    died.getUpdateFlags().sendAnimation(death);
+					    stop();
+					}
 				}
 			};
 			World.getTickManager().submit(tick);
@@ -210,7 +219,8 @@ public class CombatManager extends Tick {
             if (!npc.needsRespawn()) {
                 npc.setVisible(false);
                 World.unregister(npc);
-            } else {
+            } 
+	    else {
                 if (npc.isVisible()) {
                     npc.setVisible(false);
                 	npc.setPosition(npc.getSpawnPosition().clone());
@@ -280,16 +290,25 @@ public class CombatManager extends Tick {
 				//[Misc.random(1)]
 			}
 		}
+		if (died.isNpc() && PestControl.isSplatter((Npc) died) && died.inPestControlGameArea() ) {
+		    for (Player players : World.getPlayers()) {
+			if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 3 )
+			    players.hit(15 + Misc.random(15), HitType.NORMAL);
+		    }
+		    for (Npc npcs : World.getNpcs()) {
+			if (npcs != null && npcs.goodDistanceEntity(died, 2) && npcs != died)
+			    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
+		    }
+		}
 		if (died.isPlayer()) {
-			Player player = (Player) died;
-			player.teleport(Teleportation.HOME);
-			player.getActionSender().sendMessage("Oh dear, you are dead!");
-            PlayerSave.save(player);
-            player.getActionSender().sendQuickSong(75, 16);
-        }
-
-	}
-
+		    Player player = (Player) died;
+		    player.teleport(Teleportation.HOME);
+		    player.getActionSender().sendMessage("Oh dear, you are dead!");
+		    PlayerSave.save(player);
+		    player.getActionSender().sendQuickSong(75, 16);
+		}
+	    }
+	
 	public static void init() {
 		combatManager = new CombatManager();
 	}
