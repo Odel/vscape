@@ -63399,7 +63399,7 @@
     "defenceRange": 151,
     "defenceMage": 303,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false
   },
