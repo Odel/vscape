@@ -192,6 +192,22 @@ class DagannothRange < NpcCombatDef
     end
 end
 
+class Defiler < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 6, 8, 3920, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
+		];
+    end
+end
+
+class Torcher < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.magicAttack(attacker, victim, Spell::TORCHER)
+		];
+    end
+end
+
 class DagannothSupreme < NpcCombatDef
     def attackScripts attacker, victim
         return [
