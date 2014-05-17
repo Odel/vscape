@@ -119,11 +119,14 @@ public class ThieveStalls {
 			if (n == null)
 				continue;
 			if (!n.isDead() && n.getMaxHp() > 0 && !n.isAttacking() && Misc.goodDistance(n.getPosition().getX(), n.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), 4)) {
-				n.getUpdateFlags().sendForceMessage("Hey! Get away from there!");
-				if (n.getDefinition().isAttackable()) {
-					CombatManager.attack(n, player);
+				String NpcName = n.getDefinition().getName().toLowerCase();
+				if(NpcName.contains("guard") || NpcName.contains("knight") || NpcName.contains("paladin")){
+					n.getUpdateFlags().sendForceMessage("Hey! Get away from there!");
+					if (n.getDefinition().isAttackable()) {
+						CombatManager.attack(n, player);
+					}
+					return true;
 				}
-				return true;
 			}
 		}
 		final int task = player.getTask();
