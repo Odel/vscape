@@ -255,22 +255,30 @@ public class PestControl {
 						}
 						if (allPortalsDead())
 						{
-							this.stop();
+							if(playersInLobby() <= 0){
+								this.stop();
+							}
 							endGame(true);
 							return;
 						}
 						if (gameTime <= 0 && allPortalsDead()) {
-							this.stop();
+							if(playersInLobby() <= 0){
+								this.stop();
+							}
 							endGame(true);
 							return;
 						}
 						if(getKnightHealth() == 0 || knight.isDead()) {
-							this.stop();
+							if(playersInLobby() <= 0){
+								this.stop();
+							}
 							endGame(false);
 							return;
 						}
 						if (gameTime <= 0 && !allPortalsDead()) {
-							this.stop();
+							if(playersInLobby() <= 0){
+								this.stop();
+							}
 							endGame(false);
 							return;
 						}
