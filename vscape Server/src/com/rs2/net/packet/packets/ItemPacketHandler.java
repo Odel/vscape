@@ -750,8 +750,11 @@ public class ItemPacketHandler implements PacketHandler {
 				return;
 			case 4033:
 			  //  ShopManager.openShop(player, 39);
-			  player.getActionSender().sendMessage("You poke the monkey");
+			    player.getActionSender().sendMessage("You poke the monkey.");
 			    return;
+			case 10592:
+			    player.getPets().registerPet(10592, 5428);
+			return;
 			case 952 : //spade
 				player.getUpdateFlags().sendAnimation(830);
 				player.getActionSender().sendMessage("You dig into the ground...");
@@ -898,6 +901,10 @@ public class ItemPacketHandler implements PacketHandler {
         if (!player.hasInterfaceOpen(inter)) {
             return;
         }
+		if(itemId == 6541) {
+		    player.getPets().registerPet(6541, 901);
+		    return;
+		}
 		if (new Item(itemId).getDefinition().getSlot() == -1)
 		{
 			return;

@@ -20,7 +20,10 @@ public class Pets {
 	}
 
 	public static final int[][] PET_IDS = {// itemId, petId
-	{1561, 768}, {7585, 3507}, {5608, 1319}, {10721, 2473 }, {9975, 4447}, {5609, 1401} };
+	{1561, 768}, {1562, 769}, {1563, 770}, {1564, 771}, {1565, 772}, {1566, 773}, {7582, 3504},
+	{5608, 1319}, {5609, 1401}, {9975, 4447}, {9952, 709}, {4606, 1875}, {10092, 5081},
+	{9965, 5073}, {9966, 5076}, {9967, 5074}, {9968, 5075}, {9969, 5072},
+	{8132, 3582}, {4033, 4363} };
 
 	/**
 	 * Registers a pet for the player, and drops it.
@@ -43,12 +46,9 @@ public class Pets {
 		World.register(pet);      
 		pet.setFollowingEntity(player);
                 pet.setPlayerOwner(player.getIndex());
+		pet.getMovementHandler().setRunToggled(true);
                 pet.setDontAttack(true);
                 pet.setCombatDelay(100000000);
-                if(pet.getNpcId() == 1319)
-                    pet.getUpdateFlags().sendForceMessage("Yiff!");
-                else if(pet.getNpcId() == 2473)
-                    pet.getUpdateFlags().sendForceMessage("Ribbit.");
 	}
 	/**
 	 * Unregisters a pet for the player, and picks it up it.
