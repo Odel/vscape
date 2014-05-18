@@ -2182,6 +2182,163 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 3787:
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("Would you like to exchange some of your points?", CONTENT);
+				return true;
+				case 2 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 3 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("I can reward you with some of our armor,", "is that what you are interested in?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 4 :
+				    player.getDialogue().sendOption("Of course!", "No, thank you.");
+				return true;
+				case 5 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("What piece would you like?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 6 :
+				    player.getDialogue().sendOption("Void Robe Top (250 Points)", "Void Robe Bottoms (250 Points)", "Void Mace (250 Points)", "Void Gloves (150 Points)", "Nothing.");
+				return true;
+				case 7 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 250 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 250 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(12);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 250 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(16);
+					return true;
+					case 4:
+					    player.getDialogue().sendNpcChat("This will cost you 150 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(20);
+					return true;
+					case 5:
+					    player.getDialogue().sendPlayerChat("Nothing.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 8 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 9 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 10 :
+				    if(player.getPcPoints() >= 250) {
+					player.getInventory().addItem(new Item(8839));
+					player.setPcPoints(player.getPcPoints() - 250);
+					break;
+				    }
+				    else if(player.getPcPoints() < 250){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 12 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 13 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 14 :
+				    if(player.getPcPoints() >= 250) {
+					player.getInventory().addItem(new Item(8840));
+					player.setPcPoints(player.getPcPoints() - 250);
+					break;
+				    }
+				    else if(player.getPcPoints() < 250){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 16 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 17 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 18 :
+				    if(player.getPcPoints() >= 250) {
+					player.getInventory().addItem(new Item(8841));
+					player.setPcPoints(player.getPcPoints() - 250);
+					break;
+				    }
+				    else if(player.getPcPoints() < 250){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 20 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 21 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 22 :
+				    if(player.getPcPoints() >= 150) {
+					player.getInventory().addItem(new Item(8842));
+					player.setPcPoints(player.getPcPoints() - 150);
+					break;
+				    }
+				    else if(player.getPcPoints() < 150){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+			    }
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
