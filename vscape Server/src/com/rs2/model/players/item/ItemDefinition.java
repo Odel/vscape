@@ -54,7 +54,7 @@ public class ItemDefinition {
 		}
 		ItemDefinition def = definitions[id];
 		if (def == null) {
-			def = new ItemDefinition(id, "# + id", "It's an item!", "NONE", false, false, false, -1, -1, true, 0, 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+			def = new ItemDefinition(id, "# + id", "It's an item!", "NONE", false, false, false, -1, -1, true, 0, 0, 0, 0, new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, true);
 		}
 		return def;
 	}
@@ -74,8 +74,10 @@ public class ItemDefinition {
 			//List<ItemDefinition> defs = (List<ItemDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/itemDefinitions.xml"));
 			List<ItemDefinition> defs = new Gson().fromJson(reader, new TypeToken<List<ItemDefinition>>(){}.getType());
 	        for (int i = 0; i < Constants.MAX_ITEMS; i++) {// ItemDefinition def : defs) {
-				definitions[defs.get(i).getId()] = defs.get(i).addSlot().addTwoHanded().addShopPrice().addUntradable();
-			}
+	        	if(i < defs.size()){
+	        		definitions[defs.get(i).getId()] = defs.get(i).addSlot().addTwoHanded().addShopPrice().addUntradable();
+	        	}
+	        }
 			System.out.println("Loaded " + definitions.length + " item definitions json");
 			reader.close();
 			/*	this converts xml defs into json
@@ -232,7 +234,7 @@ public class ItemDefinition {
 	 * @param lowAlcValue
 	 *            The low alc value.
 	 */
-	private ItemDefinition(int id, String name, String examine, String equipmentType, boolean noted, boolean noteable, boolean stackable, int parentId, int notedId, boolean members, int specialStorePrice, int generalStorePrice, int highAlcValue, int lowAlcValue, int[] bonus) {
+	private ItemDefinition(int id, String name, String examine, String equipmentType, boolean noted, boolean noteable, boolean stackable, int parentId, int notedId, boolean members, int specialStorePrice, int generalStorePrice, int highAlcValue, int lowAlcValue, int[] bonus, boolean untradable) {
 		this.id = id;
 		this.name = name;
 		this.examine = examine;
@@ -251,7 +253,7 @@ public class ItemDefinition {
 		this.getSlot = getSlot(equipmentType);
 		this.twoHanded = isTwoHanded(name);
 		this.shopPrice =  getShopPrice(); //(int) Math.ceil(highAlcValue * (1.666666666666));
-		this.untradable = isUntradable(id, stackable, noteable);
+		this.untradable = isUntradable(id, stackable, noteable, untradable);
 	}
 
 	public ItemDefinition addSlot() {
@@ -265,7 +267,7 @@ public class ItemDefinition {
 	}
 
 	public ItemDefinition addUntradable() {
-		this.untradable = isUntradable(this.id, this.stackable, this.noteable);
+		this.untradable = isUntradable(this.id, this.stackable, this.noteable, this.untradable);
 		return this;
 	}
 
@@ -459,7 +461,10 @@ public class ItemDefinition {
 		return untradable;
 	}
 
-    public boolean isUntradable(int id, boolean stackable, boolean noteable) {
+    public boolean isUntradable(int id, boolean stackable, boolean noteable, boolean untradable) {
+    	if(!untradable){
+    		return false;
+    	}
     	if (!stackable && !noteable) {
     		return true;
     	}

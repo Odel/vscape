@@ -158,7 +158,6 @@ public class PlayerSave {
 				write.writeBoolean(player.getBarrowsNpcDead(i));
 			}
 			write.writeInt(player.getKillCount());
-			write.writeInt(player.getPcPoints());
 			write.writeInt(player.getRandomGrave());
 			write.writeInt(player.getPoisonImmunity().ticksRemaining());
 			write.writeInt(player.getFireImmunity().ticksRemaining());
@@ -345,6 +344,7 @@ public class PlayerSave {
 			write.writeBoolean(player.isBrimhavenDungeonOpen());
 			write.writeBoolean(player.hasKilledClueAttacker());
 			write.writeInt(player.getClayBraceletLife());
+			write.writeInt(player.getPcPoints());
             write.flush();
 			write.close();
 			
@@ -647,7 +647,6 @@ public class PlayerSave {
                 	player.setBarrowsNpcDead(i, load.readBoolean());
                 }
                 player.setKillCount(load.readInt());
-		player.setPcPoints(load.readInt());
                 player.setRandomGrave(load.readInt());
                 player.getPoisonImmunity().setWaitDuration(load.readInt());
                 player.getPoisonImmunity().reset();
@@ -865,8 +864,11 @@ public class PlayerSave {
             	player.setClayBraceletLife(load.readInt());
             } catch (IOException e) {
             }
-            
-          //  player.setKilledJungleDemon(load.readBoolean());
+            try {
+            	player.setPcPoints(load.readInt());
+            } catch (IOException e) {
+            }
+
             load.close();
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);
