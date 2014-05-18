@@ -158,6 +158,7 @@ public class PlayerSave {
 				write.writeBoolean(player.getBarrowsNpcDead(i));
 			}
 			write.writeInt(player.getKillCount());
+			write.writeInt(player.getPcPoints());
 			write.writeInt(player.getRandomGrave());
 			write.writeInt(player.getPoisonImmunity().ticksRemaining());
 			write.writeInt(player.getFireImmunity().ticksRemaining());
@@ -646,6 +647,7 @@ public class PlayerSave {
                 	player.setBarrowsNpcDead(i, load.readBoolean());
                 }
                 player.setKillCount(load.readInt());
+		player.setPcPoints(load.readInt());
                 player.setRandomGrave(load.readInt());
                 player.getPoisonImmunity().setWaitDuration(load.readInt());
                 player.getPoisonImmunity().reset();

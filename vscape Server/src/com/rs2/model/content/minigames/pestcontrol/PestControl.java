@@ -169,7 +169,7 @@ public class PestControl {
 			
 			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 18790);
 			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 18791);
-			player.getActionSender().sendString("Commendation Points: "+player.getPcPoints(), 18792);
+			player.getActionSender().sendString("Commendation Points: " + player.getPcPoints(), 18792);
 		} catch (Exception e) {
 		}
 	}
@@ -264,7 +264,7 @@ public class PestControl {
 							endGame(true);
 							return;
 						}
-						if(getKnightHealth() == 0) {
+						if(getKnightHealth() == 0 || knight.isDead()) {
 							this.stop();
 							endGame(false);
 							return;
@@ -319,7 +319,7 @@ public class PestControl {
 						{
 							player.getActionSender().sendMessage("@blu@Game won!");
 							if(player.getPcDamage() >= 50)
-							    player.addPcPoints(2);
+							    player.addPcPoints(5);
 							leaveGame(player);
 
 						}
@@ -576,6 +576,11 @@ public class PestControl {
 	    newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
 	    newNpc.setSpawnPosition(knight.getPosition());
 	    World.register(newNpc);
+	    if(hp == 0) {
+		newNpc.setDead(true);
+		newNpc.setVisible(false);
+		World.unregister(newNpc);
+	    }
 	    newNpc.setCurrentHp(hp);
 	    newNpc.walkTo(knight.getPosition(), gameActive);
 	    attackKnight(newNpc);
@@ -645,7 +650,7 @@ public class PestControl {
 		}
 	}
 	
-	private static void sendGameMessage(String msg)
+	public static void sendGameMessage(String msg)
 	{
 		for(Player player : new ArrayList<Player>(gamePlayers))
 		{

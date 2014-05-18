@@ -2762,12 +2762,12 @@ public class Player extends Entity {
 	
 	public void addPcDamage(int dmg)
 	{
-		pcDamage += dmg;
+		this.pcDamage += dmg;
 	}
 	
 	public void setPcDamage(int dmg)
 	{
-		pcDamage = dmg;
+		this.pcDamage = dmg;
 	}
 	
 	public int getPcDamage()
@@ -2777,12 +2777,12 @@ public class Player extends Entity {
 	
 	public void addPcPoints(int amt)
 	{
-		pcPoints += amt;
+		this.pcPoints += amt;
 	}
 	
 	public void setPcPoints(int amt)
 	{
-		pcPoints = amt;
+		this.pcPoints = amt;
 	}
 	
 	public int getPcPoints()
