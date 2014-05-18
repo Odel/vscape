@@ -603,6 +603,14 @@ public class Player extends Entity {
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
             return;
+        if(inPestControlLobbyArea())
+        {
+        	PestControl.leaveLobby(this);
+        }
+        if(inPestControlGameArea())
+        {
+        	PestControl.leaveGame(this);
+        }
 		setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -2062,6 +2070,14 @@ public class Player extends Entity {
 
 	public void logout() {
 		//SQL.saveHighScore(this);
+        if(inPestControlLobbyArea())
+        {
+        	PestControl.leaveLobby(this);
+        }
+        if(inPestControlGameArea())
+        {
+        	PestControl.leaveGame(this);
+        }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
