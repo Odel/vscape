@@ -1,16 +1,20 @@
-@dre@= May ? =
+@dre@= May 18? =
+@blu@ Pest Control!
+
 @blu@-Additions-
--Bob shirts (lvl 1 clues)
--God cloaks/mitres (lvl 2 clues)
--God d'hides (lvl 3 clues)
+-Bob shirts. (Level 1 clues)
+-God cloaks/mitres. (Level 2 clues)
+-God d'hides. (Level 3 clues)
 
 @red@-Changes-
--Changes to c'bow speed
+-Changes to c'bow speed.
 
 @red@-Fixes-
--Fixed hit bug (normally from pick pocketing)
--Barbarian course ladder fixed
--Level up icons fixed (fletching/slayer/farming)
+-Dagannoth Kings are now working and open.
+-Various other combat scripts fixed.
+-Fixed hit bug. (Normally from pick-pocketing)
+-Barbarian course ladder fixed.
+-Level up icons fixed. (Fletching/Slayer/Farming)
 
 
 @dre@= May 13 =
