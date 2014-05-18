@@ -37,7 +37,7 @@ public class Equipment {
 
 	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso"};
 	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm"};
-	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm"};
+	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
 	private Container itemContainer = new Container(Type.STANDARD, 14) {
@@ -892,6 +892,22 @@ public class Equipment {
                         case 4708: //ahrim's hood
                             magicLevelReq = 70;
                             defenceLevelReq = 70;
+			    return;
+			case 8839:
+			case 8840:
+			case 8841:
+			case 8842:
+			case 11663:
+			case 11664:
+			case 11665: //void equipment
+			    hitpointsLevelReq = 42;
+			    attackLevelReq = 42;
+			    strengthLevelReq = 42;
+                            defenceLevelReq = 42;
+			    magicLevelReq = 42;
+			    rangeLevelReq = 42;
+			    prayerLevelReq = 22;
+			    return;
 		}
 		
 		if (itemName.contains("cape") || itemName.contains("hood")) {
