@@ -6373,12 +6373,12 @@ public class client extends RSApplet {
 		if(anInt886 != anInt1026)
 			anInt1026 = anInt886;
 		anInt886 = 0;
-		if(super.mouseX > 548 && super.mouseY > 207 && super.mouseX < 740 && super.mouseY < 468)
+		if(super.mouseX > 553 && super.mouseY > 205 && super.mouseX < 743 && super.mouseY < 466)
 			if(invOverlayInterfaceID != -1)
-				buildInterfaceMenu(548, RSInterface.interfaceCache[invOverlayInterfaceID], super.mouseX, 207, super.mouseY, 0);
+				buildInterfaceMenu(553, RSInterface.interfaceCache[invOverlayInterfaceID], super.mouseX, 205, super.mouseY, 0);
 			else
 			if(tabInterfaceIDs[tabID] != -1)
-				buildInterfaceMenu(548, RSInterface.interfaceCache[tabInterfaceIDs[tabID]], super.mouseX, 207, super.mouseY, 0);
+				buildInterfaceMenu(553, RSInterface.interfaceCache[tabInterfaceIDs[tabID]], super.mouseX, 205, super.mouseY, 0);
 		if(anInt886 != anInt1048)
 		{
 			needDrawTabArea = true;
@@ -6397,10 +6397,8 @@ public class client extends RSApplet {
 			inputTaken = true;
 			anInt1039 = anInt886;
 		}
-		/* Enable custom right click areas */
 		if(super.mouseX > 4 && super.mouseY > 480 && super.mouseX < 516 && super.mouseY < 503)
 			rightClickChatButtons();
-		/**/
 		boolean flag = false;
 		while(!flag) 
 		{
@@ -6428,7 +6426,7 @@ public class client extends RSApplet {
 
 		}
 	}
-
+	
 	private int method83(int i, int j, int k)
 	{
 		int l = 256 - k;
