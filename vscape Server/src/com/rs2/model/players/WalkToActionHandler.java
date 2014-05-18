@@ -1218,6 +1218,7 @@ public class WalkToActionHandler {
 					break;
 				case 2213: //bank booth
 				case 11758:
+				case 14367: //pc bank booth
 					Dialogues.startDialogue(player, 494);
 					break;
 				case 2491: // mine rune/pure ess
@@ -1516,6 +1517,7 @@ public class WalkToActionHandler {
 				case 12121: // entrana bank
 				case 2213:
 				case 11758:
+				case 14367: //pc bank booth
 					BankManager.openBank(player);
 					break;
 				case 8717:

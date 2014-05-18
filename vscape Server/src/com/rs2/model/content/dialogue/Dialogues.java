@@ -2339,6 +2339,747 @@ public class Dialogues {
 				player.getDialogue().endDialogue();
 				return true;
 			    }
+			case 3788:
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("Would you like to exchange some of your points?", CONTENT);
+				return true;
+				case 2 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 3 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("I can reward you with a unique pet!", "Is that what you are interested in?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 4 :
+				    player.getDialogue().sendOption("Of course!", "No, thank you.");
+				return true;
+				case 5 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("What kind of pet would you like?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 6 :
+				    player.getDialogue().sendOption("Low Tier (150-175 Points)", "Medium Tier (200 Points)", "High Tier (225-300 Points)", "Grind Tier (325 Points)", "Nevermind.");
+				return true;
+				case 7 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendOption("Mouse (150 Points)", "Imp (175 Points)", "Rabbit (175 Points)", "Back.");
+					return true;
+					case 2:
+					    player.getDialogue().sendOption("Birds (200 Points)", "Cats (200 Points)", "Snake (200 Points)", "Ferret (200 Points)", "Back.");
+					    player.getDialogue().setNextChatId(18);
+					return true;
+					case 3:
+					    player.getDialogue().sendOption("Monkey (225 Points)", "Hellcat (250 Points)", "Guard Dog (275 Points)", "Penguin (275 Points)", "Back.");
+					    player.getDialogue().setNextChatId(61);
+					return true;
+					case 4:
+					    player.getDialogue().sendOption("Carryable Chicken (325 Points)", "Carryable Fox (325 Points)", "Back.");
+					    player.getDialogue().setNextChatId(74);
+					return true;
+					case 5:
+					    player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 8 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 150 commendation points, is this okay?", CONTENT);
+					return true; //mouse
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 175 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(12); //imp
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 175 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(15); //Rabbit
+					return true;
+					case 4:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+				    }
+				case 9 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 10 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 11 :
+				    if(player.getPcPoints() >= 150) {
+					player.getInventory().addItem(new Item(6541));
+					player.setPcPoints(player.getPcPoints() - 150);
+					break;
+				    }
+				    else if(player.getPcPoints() < 150){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 12 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 13 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 14 :
+				    if(player.getPcPoints() >= 175) {
+					player.getInventory().addItem(new Item(9952));
+					player.setPcPoints(player.getPcPoints() - 175);
+					break;
+				    }
+				    else if(player.getPcPoints() < 175){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 15 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 16 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 17 :
+				    if(player.getPcPoints() >= 175) {
+					player.getInventory().addItem(new Item(9975));
+					player.setPcPoints(player.getPcPoints() - 175);
+					break;
+				    }
+				    else if(player.getPcPoints() < 175){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 18 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendOption("Crimson Swift (200 Points)", "Copper Longtail (200 Points)", "Cerulean Twitch (200 Points)", "Golden Warbler (200 Points)", "Tropical Wagtail (200 Points)");
+					return true;
+					case 2:
+					    player.getDialogue().sendOption("Black & Grey (200 Points)", "White (200 Points)", "Orange Tabby (200 Points)", "More...");
+					    player.getDialogue().setNextChatId(41);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(35); //snake
+					    return true;
+					case 4:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(38); //ferret
+					return true;
+					case 5:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+				    }
+				case 19 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(23);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(26);
+					return true;
+					case 4:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(29);
+					return true;
+					case 5:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(32);
+					return true;
+				    }
+				case 20 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 21 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 22 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(9965));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 23 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 24 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 25 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(9966));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 26 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 27 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 28 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(9967));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 29 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 30 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 31 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(9968));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 32 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 33 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 34 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(9969));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 35 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 36 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 37 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(4606));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 38 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 39 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 40 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(10092));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 41 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(45);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(48);
+					return true;
+					case 4:
+					    player.getDialogue().sendOption("Black (200 Points)", "Orange & Grey Tabby (200 Points)", "Slate Blue & Grey (200 Points)", "Back.");
+					    player.getDialogue().setNextChatId(51);
+					return true;
+				    }
+				case 42 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 43 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 44 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1561));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 45 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 46 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 47 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1562));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 48 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 49 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 50 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1563));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 51 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(55);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(58);
+					return true;
+					case 4:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+				    }
+				case 52 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 53 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 54 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1564));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 55 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 56 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 57 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1565));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 58 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 59 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 60 :
+				    if(player.getPcPoints() >= 200) {
+					player.getInventory().addItem(new Item(1566));
+					player.setPcPoints(player.getPcPoints() - 200);
+					break;
+				    }
+				    else if(player.getPcPoints() < 200){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 61 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 225 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 250 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(65);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("This will cost you 275 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(68);
+					return true;
+					case 4:
+					    player.getDialogue().sendNpcChat("This will cost you 275 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(71);
+					return true;
+					case 5:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+				    }
+				case 62 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 63 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 64 :
+				    if(player.getPcPoints() >= 225) {
+					player.getInventory().addItem(new Item(4033));
+					player.setPcPoints(player.getPcPoints() - 225);
+					break;
+				    }
+				    else if(player.getPcPoints() < 225){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 65 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 66 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 67 :
+				    if(player.getPcPoints() >= 250) {
+					player.getInventory().addItem(new Item(7582));
+					player.setPcPoints(player.getPcPoints() - 250);
+					break;
+				    }
+				    else if(player.getPcPoints() < 250){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 68 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 69 : //;)
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 70 :
+				    if(player.getPcPoints() >= 275) {
+					player.getInventory().addItem(new Item(8132));
+					player.setPcPoints(player.getPcPoints() - 275);
+					break;
+				    }
+				    else if(player.getPcPoints() < 275){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 71 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 72 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 73 :
+				    if(player.getPcPoints() >= 275) {
+					player.getInventory().addItem(new Item(10592));
+					player.setPcPoints(player.getPcPoints() - 275);
+					break;
+				    }
+				    else if(player.getPcPoints() < 275){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 74 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("This will cost you 325 commendation points, is this okay?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("This will cost you 325 commendation points, is this okay?", CONTENT);
+					    player.getDialogue().setNextChatId(78);
+					return true;
+					case 3:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+				    }
+				case 75 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 76 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 77 :
+				    if(player.getPcPoints() >= 325) {
+					player.getInventory().addItem(new Item(5609));
+					player.setPcPoints(player.getPcPoints() - 325);
+					break;
+				    }
+				    else if(player.getPcPoints() < 325){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+				case 78 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 79 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+				case 80 :
+				    if(player.getPcPoints() >= 325) {
+					player.getInventory().addItem(new Item(5608));
+					player.setPcPoints(player.getPcPoints() - 325);
+					break;
+				    }
+				    else if(player.getPcPoints() < 325){
+					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					break;
+				    }
+				player.getDialogue().endDialogue();
+				return true;
+			    }
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

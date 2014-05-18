@@ -308,6 +308,10 @@ public abstract class Entity {
 	public boolean inPestControlGameArea() {
 		return Area(2620, 2690, 2555, 2620);
 	}
+	
+	public boolean onPestControlIsland() {
+		return Area(2640, 2671, 2637, 2678);
+	}
 
 	public void setIndex(int index) {
 		this.index = index;
@@ -691,7 +695,16 @@ public abstract class Entity {
     public void walkTo(int x, int y, boolean clipped) {
         walkTo(new Position(x, y, getPosition().getZ()), clipped);
     }
-
+    public void walkVoidTo(Position to, boolean clipped) {
+        PathFinder pf = new StraightPathFinder();
+        Path p = pf.findPath(this, to, clipped);
+        while (!p.getPoints().isEmpty()) {
+            com.rs2.pf.Point point = p.getPoints().poll();
+            getMovementHandler().addToPath(new Position(point.getX(), point.getY(), getPosition().getZ()));
+        }
+        getMovementHandler().finish();
+    }
+    
     public void walkTo(Position to, boolean clipped) {
         PathFinder pf = new StraightPathFinder();
         Path p = pf.findPath(this, to, clipped);

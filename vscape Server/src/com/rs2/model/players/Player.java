@@ -772,6 +772,10 @@ public class Player extends Entity {
 		} else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
 		}
+		} else if(keyword.equals("pcpoints")) {
+			getActionSender().sendMessage("You have " + this.getPcPoints() + " commendation points." );
+		}
+	
 	}
 
 	public void modCommands(String keyword, String[] args, String fullString) {
