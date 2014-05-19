@@ -1218,14 +1218,15 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("crystal")) {
-			if (itemName.contains("shield")) {
+		if (itemName.contains("crystal shield")) {
 				defenceLevelReq = 70;
-			} else {
+				agilityLevelReq = 50;
+		return;
+		}
+		if (itemName.contains("crystal bow")) {
 				rangeLevelReq = 70;
 				agilityLevelReq = 50;
-			}
-			return;
+		return;
 		}
 		//barrows
 		if (itemName.contains("ahrim")) {
