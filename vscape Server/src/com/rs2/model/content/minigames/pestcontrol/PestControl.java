@@ -494,7 +494,7 @@ public class PestControl {
         }
 	public static void healPortal(Npc grunt) {
 	    for (Npc npc : World.getNpcs()) {
-		if(npc != null && isPortal(npc)) {
+		if(npc != null && isPortal(npc) && !npc.isDead() ) {
 		    PortalData portaldata = PortalData.forNormal(npc.getNpcId());
 		    for(int i = 0; i < PortalData.values().length; i++) {
 			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead() ) {

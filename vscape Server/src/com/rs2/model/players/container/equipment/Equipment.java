@@ -889,10 +889,10 @@ public class Equipment {
 				attackLevelReq = 50;
 				strengthLevelReq = 50;
 				return;
-                        case 4708: //ahrim's hood
-                            magicLevelReq = 70;
-                            defenceLevelReq = 70;
-			    return;
+			case 4708: //ahrim's hood
+				magicLevelReq = 70;
+				defenceLevelReq = 70;
+				return;
 			case 8839:
 			case 8840:
 			case 8841:
@@ -900,14 +900,15 @@ public class Equipment {
 			case 11663:
 			case 11664:
 			case 11665: //void equipment
-			    hitpointsLevelReq = 42;
-			    attackLevelReq = 42;
-			    strengthLevelReq = 42;
-                            defenceLevelReq = 42;
-			    magicLevelReq = 42;
-			    rangeLevelReq = 42;
-			    prayerLevelReq = 22;
-			    return;
+				hitpointsLevelReq = 42;
+				attackLevelReq = 42;
+				strengthLevelReq = 42;
+				defenceLevelReq = 42;
+				magicLevelReq = 42;
+				rangeLevelReq = 42;
+				prayerLevelReq = 22;
+				return;
+
 		}
 		
 		if (itemName.contains("cape") || itemName.contains("hood")) {
