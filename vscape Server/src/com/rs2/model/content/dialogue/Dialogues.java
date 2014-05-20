@@ -2251,17 +2251,18 @@ public class Dialogues {
 					    player.getDialogue().endDialogue();
 					return true;
 				    }
+				return true;
 				case 10 :
 				    if(player.getPcPoints() >= 250) {
 					player.getInventory().addItem(new Item(8839));
-					player.setPcPoints(player.getPcPoints() - 250);
+					player.setPcPoints(player.getPcPoints() - 250, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 250){
 					player.getActionSender().sendMessage("You don't have enough commendation points!");
+					player.getDialogue().endDialogue();
 					break;
 				    }
-				player.getDialogue().endDialogue();
 				return true;
 				case 12 :
 				    player.getDialogue().sendOption("Yes!", "No, thank you.");
@@ -2276,10 +2277,11 @@ public class Dialogues {
 					    player.getDialogue().endDialogue();
 					return true;
 				    }
+				return true;
 				case 14 :
 				    if(player.getPcPoints() >= 250) {
 					player.getInventory().addItem(new Item(8840));
-					player.setPcPoints(player.getPcPoints() - 250);
+					player.setPcPoints(player.getPcPoints() - 250, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 250){
@@ -2301,10 +2303,11 @@ public class Dialogues {
 					    player.getDialogue().endDialogue();
 					return true;
 				    }
+				return true;
 				case 18 :
 				    if(player.getPcPoints() >= 250) {
 					player.getInventory().addItem(new Item(8841));
-					player.setPcPoints(player.getPcPoints() - 250);
+					player.setPcPoints(player.getPcPoints() - 250, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 250){
@@ -2326,10 +2329,11 @@ public class Dialogues {
 					    player.getDialogue().endDialogue();
 					return true;
 				    }
+				return true;
 				case 22 :
 				    if(player.getPcPoints() >= 150) {
 					player.getInventory().addItem(new Item(8842));
-					player.setPcPoints(player.getPcPoints() - 150);
+					player.setPcPoints(player.getPcPoints() - 150, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 150){
@@ -2339,6 +2343,7 @@ public class Dialogues {
 				player.getDialogue().endDialogue();
 				return true;
 			    }
+			break;
 			case 3788:
 			    switch(player.getDialogue().getChatId()) {
 				case 1 :
@@ -2429,7 +2434,7 @@ public class Dialogues {
 				case 11 :
 				    if(player.getPcPoints() >= 150) {
 					player.getInventory().addItem(new Item(6541));
-					player.setPcPoints(player.getPcPoints() - 150);
+					player.setPcPoints(player.getPcPoints() - 150, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 150){
@@ -2454,7 +2459,7 @@ public class Dialogues {
 				case 14 :
 				    if(player.getPcPoints() >= 175) {
 					player.getInventory().addItem(new Item(9952));
-					player.setPcPoints(player.getPcPoints() - 175);
+					player.setPcPoints(player.getPcPoints() - 175, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 175){
@@ -2479,7 +2484,7 @@ public class Dialogues {
 				case 17 :
 				    if(player.getPcPoints() >= 175) {
 					player.getInventory().addItem(new Item(9975));
-					player.setPcPoints(player.getPcPoints() - 175);
+					player.setPcPoints(player.getPcPoints() - 175, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 175){
@@ -2548,7 +2553,7 @@ public class Dialogues {
 				case 22 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(9965));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2573,7 +2578,7 @@ public class Dialogues {
 				case 25 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(9966));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2598,7 +2603,7 @@ public class Dialogues {
 				case 28 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(9967));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2623,7 +2628,7 @@ public class Dialogues {
 				case 31 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(9968));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2648,7 +2653,7 @@ public class Dialogues {
 				case 34 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(9969));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2673,7 +2678,7 @@ public class Dialogues {
 				case 37 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(4606));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2698,7 +2703,7 @@ public class Dialogues {
 				case 40 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(10092));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2741,7 +2746,7 @@ public class Dialogues {
 				case 44 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1561));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2766,7 +2771,7 @@ public class Dialogues {
 				case 47 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1562));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2791,7 +2796,7 @@ public class Dialogues {
 				case 50 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1563));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2834,7 +2839,7 @@ public class Dialogues {
 				case 54 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1564));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2859,7 +2864,7 @@ public class Dialogues {
 				case 57 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1565));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2884,7 +2889,7 @@ public class Dialogues {
 				case 60 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(1566));
-					player.setPcPoints(player.getPcPoints() - 200);
+					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 200){
@@ -2931,7 +2936,7 @@ public class Dialogues {
 				case 64 :
 				    if(player.getPcPoints() >= 225) {
 					player.getInventory().addItem(new Item(4033));
-					player.setPcPoints(player.getPcPoints() - 225);
+					player.setPcPoints(player.getPcPoints() - 225, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 225){
@@ -2956,7 +2961,7 @@ public class Dialogues {
 				case 67 :
 				    if(player.getPcPoints() >= 250) {
 					player.getInventory().addItem(new Item(7582));
-					player.setPcPoints(player.getPcPoints() - 250);
+					player.setPcPoints(player.getPcPoints() - 250, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 250){
@@ -2981,7 +2986,7 @@ public class Dialogues {
 				case 70 :
 				    if(player.getPcPoints() >= 275) {
 					player.getInventory().addItem(new Item(8132));
-					player.setPcPoints(player.getPcPoints() - 275);
+					player.setPcPoints(player.getPcPoints() - 275, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 275){
@@ -3006,7 +3011,7 @@ public class Dialogues {
 				case 73 :
 				    if(player.getPcPoints() >= 275) {
 					player.getInventory().addItem(new Item(10592));
-					player.setPcPoints(player.getPcPoints() - 275);
+					player.setPcPoints(player.getPcPoints() - 275, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 275){
@@ -3045,7 +3050,7 @@ public class Dialogues {
 				case 77 :
 				    if(player.getPcPoints() >= 325) {
 					player.getInventory().addItem(new Item(5609));
-					player.setPcPoints(player.getPcPoints() - 325);
+					player.setPcPoints(player.getPcPoints() - 325, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 325){
@@ -3070,7 +3075,7 @@ public class Dialogues {
 				case 80 :
 				    if(player.getPcPoints() >= 325) {
 					player.getInventory().addItem(new Item(5608));
-					player.setPcPoints(player.getPcPoints() - 325);
+					player.setPcPoints(player.getPcPoints() - 325, player);
 					break;
 				    }
 				    else if(player.getPcPoints() < 325){
@@ -3080,6 +3085,7 @@ public class Dialogues {
 				player.getDialogue().endDialogue();
 				return true;
 			    }
+			break;
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

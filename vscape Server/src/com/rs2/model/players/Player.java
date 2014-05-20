@@ -1297,6 +1297,13 @@ public class Player extends Entity {
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
 			getActionSender().sendMessage("GFX #" + gfxId);
 		}
+		else if (keyword.equals("setpcpoints")) {
+		    int points = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    setPcPoints(points, player);
+		}
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
 		} else if (keyword.equals("unmute")) {
@@ -2799,9 +2806,9 @@ public class Player extends Entity {
 		this.pcPoints += amt;
 	}
 	
-	public void setPcPoints(int amt)
+	public void setPcPoints(int amt, Player player)
 	{
-		this.pcPoints = amt;
+		player.pcPoints = amt;
 	}
 	
 	public int getPcPoints()

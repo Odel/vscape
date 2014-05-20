@@ -905,6 +905,14 @@ public class ItemPacketHandler implements PacketHandler {
 		    player.getPets().registerPet(6541, 901);
 		    return;
 		}
+		if(itemId == 5608) {
+		    player.getEquipment().equip(player.getSlot());
+		    return;
+		}
+		if(itemId == 5609) {
+		    player.getEquipment().equip(player.getSlot());
+		    return;
+		}
 		if (new Item(itemId).getDefinition().getSlot() == -1)
 		{
 			return;

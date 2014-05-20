@@ -2,6 +2,7 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
@@ -13,7 +14,6 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -284,10 +284,14 @@ public class CombatManager extends Tick {
 			((Player) died).getCreatureGraveyard().handleDeath();
 			return;
 		}
-                if(died.isPlayer() && ((Player) died).inPestControlGameArea()) {
+                if(died != null && died.isPlayer() && ((Player) died).inPestControlGameArea()) {
                     ((Player) died).getPestControl().handleDeath((Player) died);
-			return;
+		    return;
                 }
+		if(died != null && died.isPlayer() && ((Player) died).onPestControlIsland() ) {
+		    ((Player) died).getPestControl().handleDeath((Player) died);
+		    return;
+		}
 		if (died.isNpc() && ((Npc) died).getNpcId() == 655) {
 			if (killer != null && killer.isPlayer()) {
 				((Player) killer).setKilledTreeSpirit(true);
@@ -319,7 +323,7 @@ public class CombatManager extends Tick {
 			    npcs.hit(hp, HitType.NORMAL);
 			    deathByPortal = true;
 			    for (Player players : World.getPlayers()) {
-				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 ) {
+				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 && !players.getPestControl().allPortalsDead() ) {
 				    players.hit(50, HitType.NORMAL);
 				    players.getActionSender().sendMessage("You are hurt by the spinner's lost connection to the portal.");
 				}

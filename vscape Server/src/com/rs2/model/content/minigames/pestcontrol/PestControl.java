@@ -20,12 +20,13 @@ import com.rs2.model.players.Player;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
 import com.rs2.util.Misc;
+import com.rs2.util.PlayerSave;
 
 public class PestControl {
 
-	private final static int LOBBY_TIME = 30;
+	private final static int LOBBY_TIME = 10;
 	private final static int GAME_TIME = 600;
-	private final static int PLAYERS_REQUIRED = 3;
+	private final static int PLAYERS_REQUIRED = 2;
 	
 	private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -250,8 +251,14 @@ public class PestControl {
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
+								if(playersInGame() >= 5)
+								    spawnGrunts();
+								else if(playersInGame() >= 10)
+								    spawnGrunts();
 								handleNpcBehavior();
 							}
+							else if(getKnightHealth() != knight.getCurrentHp())
+							    setKnightHealth(knight.getCurrentHp());
 						}
 						if (allPortalsDead())
 						{
@@ -328,12 +335,22 @@ public class PestControl {
 							player.getActionSender().sendMessage("@blu@Game won!");
 							if(player.getPcDamage() >= 50)
 							    player.addPcPoints(5);
+							player.resetEffects();
+							player.removeAllEffects();
+							player.heal(100);
+							player.getPrayer().resetAll();
+							player.getSkill().refresh();
 							leaveGame(player);
 
 						}
 						else
 						{
 							player.getActionSender().sendMessage("@red@Game lost.");
+							player.resetEffects();
+							player.removeAllEffects();
+							player.heal(100);
+							player.getPrayer().resetAll();
+							player.getSkill().refresh();
 							leaveGame(player);
 						}
 					}
@@ -370,19 +387,41 @@ public class PestControl {
 			setPortalHealth(i,250);
 			NpcLoader.spawnNpc(data.shieldId, data.x, data.y, 0,true,true,true);
 		}
-		NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,true,true);
-		setKnightHealth(200);
-		for(Npc npc : World.getNpcs())
-		{
+		if(knight == null) {
+		    NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,true,true);
+		    setKnightHealth(200);
+		    for(Npc npc : World.getNpcs())
+		    {
 			if(npc == null)
 				continue;
 			if(npc.getDefinition().getName().toLowerCase().contains("knight"))
 			{
-				if(npc.inPestControlGameArea() && knight == null)
+				if(npc.inPestControlGameArea() )
 				{
 					knight = npc;
 				}
 			}
+		    }
+		}
+		else if( knight != null)
+		{
+		    knight.setDead(true);
+		    knight.setVisible(false);
+		    World.unregister(knight);
+		    NpcLoader.spawnNpc(KNIGHT_DATA[0][0], KNIGHT_DATA[0][1], KNIGHT_DATA[0][2], 0,true,true);
+		    setKnightHealth(200);
+		    for(Npc npc : World.getNpcs())
+		    {
+			if(npc == null)
+				continue;
+			if(npc.getDefinition().getName().toLowerCase().contains("knight"))
+			{
+				if(npc.inPestControlGameArea() )
+				{
+					knight = npc;
+				}
+			}
+		    }
 		}
 	}
 	
@@ -465,7 +504,8 @@ public class PestControl {
 	private static void setKnightHealth(int amount) {
 		if(amount <= 0)
 			amount = 0;
-		
+		if(amount >= 200)
+			amount = 200;
 		KNIGHT_HEALTH = amount;
 	}
 	
@@ -494,13 +534,19 @@ public class PestControl {
         }
 	public static void healPortal(Npc grunt) {
 	    for (Npc npc : World.getNpcs()) {
-		if(npc != null && isPortal(npc) && !npc.isDead() ) {
+		if(npc != null && isPortal(npc) && !npc.isDead()) {
 		    PortalData portaldata = PortalData.forNormal(npc.getNpcId());
 		    for(int i = 0; i < PortalData.values().length; i++) {
 			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead() ) {
 			    npc.getUpdateFlags().sendHighGraphic(606);
-			    setPortalHealth(i, npc.getCurrentHp() + 50);
-			    npc.heal(50);
+			    if(playersInGame() >= 5) {
+				setPortalHealth(i, npc.getCurrentHp() + 100);
+				npc.heal(100);
+			    }
+			    else {
+				setPortalHealth(i, npc.getCurrentHp() + 50);
+				npc.heal(50);
+			    }
 			    grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
 			    grunt.getUpdateFlags().sendAnimation(3911);
 			}
@@ -558,6 +604,10 @@ public class PestControl {
 		case 6143:
 		case 6144:
 		case 6145:
+		case 6146:
+		case 6147:
+		case 6148:
+		case 6149:
 		    return true;
 	    }
 	    return false; 
@@ -594,7 +644,7 @@ public class PestControl {
 	    attackKnight(newNpc);
 	}
 	
-	private static boolean allPortalsDead() {
+	public static boolean allPortalsDead() {
 		int count = 0;
 		for (int i = 0; i < PORTAL_HEALTH.length; i++) {
 			if (PORTAL_HEALTH[i] <= 0)
@@ -608,7 +658,7 @@ public class PestControl {
 		if (attacker.isPlayer() && victim.isNpc()){
 			Player player = (Player) attacker;
 			Npc npc = (Npc) victim;
-			if (npc.getNpcId() >= 3777 && npc.getNpcId() <= 3780 || npc.getNpcId() >= 6142 && npc.getNpcId() <= 6149) {
+			//if (npc.getNpcId() >= 3777 && npc.getNpcId() <= 3780 || npc.getNpcId() >= 6142 && npc.getNpcId() <= 6149) {
 				switch(npc.getNpcId())
 				{
 					case 6142:
@@ -625,26 +675,24 @@ public class PestControl {
 						break;
 				}
 				player.addPcDamage(damage);
-			}
+			//}
 		}
 		if (attacker.isNpc() && victim.isNpc()){
 			Npc npc1 = (Npc) attacker;
 			Npc npc2 = (Npc) victim;
 			
-			if ( shouldAttackKnight(npc1) ) {
-				switch(npc2.getNpcId())
-				{
-					case 3782:
-						setKnightHealth(npc2.getCurrentHp());
-						break;
-				}
+			if ( shouldAttackKnight(npc1) || isSplatter(npc1) ) {
+			    setKnightHealth(npc2.getCurrentHp());
 			}
 		}
 	}
 	
 	public static void handleDeath(final Player player)
 	{
-            player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
+	    if(player.onPestControlIsland())
+		player.teleport(new Position(2657, 2639, 0));
+	    else if(player.inPestControlGameArea())
+		player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
 	}
 	
 	private static void sendLobbyMessage(String msg)
@@ -702,6 +750,9 @@ public class PestControl {
 			player.setPcDamage(0);
 			gamePlayers.remove(player);
 		}
+		else if(isInGame(player) && player.getCurrentHp() == 0)
+		    player.teleport(new Position(2657, 2639, 0));
+		    PlayerSave.save(player);
 	}
 	
 	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) 

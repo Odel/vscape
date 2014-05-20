@@ -865,7 +865,7 @@ public class PlayerSave {
             } catch (IOException e) {
             }
             try {
-            	player.setPcPoints(load.readInt());
+            	player.setPcPoints(load.readInt(), player);
             } catch (IOException e) {
             }
 
