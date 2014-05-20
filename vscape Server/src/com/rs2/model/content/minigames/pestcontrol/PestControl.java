@@ -24,9 +24,9 @@ import com.rs2.util.PlayerSave;
 
 public class PestControl {
 
-	private final static int LOBBY_TIME = 10;
+	private final static int LOBBY_TIME = 100;
 	private final static int GAME_TIME = 600;
-	private final static int PLAYERS_REQUIRED = 2;
+	private final static int PLAYERS_REQUIRED = 3;
 	
 	private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
@@ -539,14 +539,8 @@ public class PestControl {
 		    for(int i = 0; i < PortalData.values().length; i++) {
 			if(npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead() ) {
 			    npc.getUpdateFlags().sendHighGraphic(606);
-			    if(playersInGame() >= 5) {
-				setPortalHealth(i, npc.getCurrentHp() + 100);
-				npc.heal(100);
-			    }
-			    else {
-				setPortalHealth(i, npc.getCurrentHp() + 50);
-				npc.heal(50);
-			    }
+			    setPortalHealth(i, npc.getCurrentHp() + 50);
+			    npc.heal(50);
 			    grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
 			    grunt.getUpdateFlags().sendAnimation(3911);
 			}
