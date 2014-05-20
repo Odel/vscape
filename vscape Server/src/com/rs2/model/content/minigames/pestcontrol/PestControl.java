@@ -24,7 +24,7 @@ import com.rs2.util.PlayerSave;
 
 public class PestControl {
 
-	private final static int LOBBY_TIME = 100;
+	private final static int LOBBY_TIME = 90;
 	private final static int GAME_TIME = 600;
 	private final static int PLAYERS_REQUIRED = 3;
 	
@@ -334,7 +334,7 @@ public class PestControl {
 						{
 							player.getActionSender().sendMessage("@blu@Game won!");
 							if(player.getPcDamage() >= 50)
-							    player.addPcPoints(5);
+							    player.addPcPoints(5, player);
 							player.resetEffects();
 							player.removeAllEffects();
 							player.heal(100);
@@ -683,10 +683,10 @@ public class PestControl {
 	
 	public static void handleDeath(final Player player)
 	{
-	    if(player.onPestControlIsland())
-		player.teleport(new Position(2657, 2639, 0));
-	    else if(player.inPestControlGameArea())
+	    if( player.inPestControlGameArea() && gameActive)
 		player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
+	    if( player.inPestControlGameArea() && !gameActive)
+		player.teleport(LOBBY_EXIT);
 	}
 	
 	private static void sendLobbyMessage(String msg)
@@ -738,15 +738,12 @@ public class PestControl {
 	}
 	
 	public static void leaveGame(Player player) {
-		if (isInGame(player)) {
+		if (isInGame(player) && !player.isDead() ) {
 			player.teleport(LOBBY_EXIT);
 			player.resetEffects();
 			player.setPcDamage(0);
 			gamePlayers.remove(player);
 		}
-		else if(isInGame(player) && player.getCurrentHp() == 0)
-		    player.teleport(new Position(2657, 2639, 0));
-		    PlayerSave.save(player);
 	}
 	
 	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) 

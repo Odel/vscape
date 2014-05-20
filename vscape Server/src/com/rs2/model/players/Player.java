@@ -1297,12 +1297,27 @@ public class Player extends Entity {
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
 			getActionSender().sendMessage("GFX #" + gfxId);
 		}
+		else if (keyword.equals("addpcpoints")) {
+		    int points = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    addPcPoints(points, player);
+		    this.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.");
+		}
 		else if (keyword.equals("setpcpoints")) {
 		    int points = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    setPcPoints(points, player);
+		    this.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".");
+		}
+		else if (keyword.equals("getpcpoints")) {
+		    String name = fullString;
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
 		}
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
@@ -2801,14 +2816,19 @@ public class Player extends Entity {
 		return pcDamage;
 	}
 	
-	public void addPcPoints(int amt)
+	public void addPcPoints(int amt, Player player)
 	{
-		this.pcPoints += amt;
+		player.pcPoints += amt;
 	}
 	
 	public void setPcPoints(int amt, Player player)
 	{
 		player.pcPoints = amt;
+	}
+	
+	public int getPcPoints(Player player)
+	{
+		return player.pcPoints;
 	}
 	
 	public int getPcPoints()
