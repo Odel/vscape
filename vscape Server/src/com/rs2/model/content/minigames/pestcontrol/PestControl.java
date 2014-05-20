@@ -240,7 +240,19 @@ public class PestControl {
 						if(!allPortalsUnShielded())
 						{
 							shieldTime += 5;
-							if(shieldTime >= 30)
+							if(shieldTime >= 30 && portalsUnshielded() == 0)
+							{
+								removePortalShield();
+							}
+							else if(shieldTime >= 60 && portalsUnshielded() == 1)
+							{
+								removePortalShield();
+							}
+							else if(shieldTime >= 90 && portalsUnshielded() == 2)
+							{
+								removePortalShield();
+							}
+							else if(shieldTime >= 120 && portalsUnshielded() == 3)
 							{
 								removePortalShield();
 							}
@@ -251,9 +263,9 @@ public class PestControl {
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
-								if(playersInGame() >= 5)
+								if(playersInGame() >= 6)
 								    spawnGrunts();
-								else if(playersInGame() >= 10)
+								else if(playersInGame() >= 12)
 								    spawnGrunts();
 								handleNpcBehavior();
 							}
@@ -550,6 +562,15 @@ public class PestControl {
 		    
 	    }
         }
+	
+	public static int portalsUnshielded() {
+	    int x = 0;
+	    for(int i = 0; i < PORTAL_SHIELD.length; i++) {
+		if(!PORTAL_SHIELD[i])
+		    x++;
+	    }
+	    return x;
+	}
 	
         public static void handleNpcBehavior() {
             for (Npc npc : World.getNpcs()) {
