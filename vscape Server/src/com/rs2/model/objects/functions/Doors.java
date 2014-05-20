@@ -67,6 +67,10 @@ public class Doors {
 		{
 			return false;
 		}
+		if((id == 2307 || id == 2308) && x >= 2997 && x <= 2998 && y == 3931)
+		{
+			return false;
+		}
 		Doors d = getDoor(id, x, y, z);
 		if (d == null) {
 			return false;

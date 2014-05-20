@@ -1,4 +1,12 @@
-@dre@= May 18? =
+@dre@= May ? =
+
+@blu@-Additions-
+-Wilderness agility course
+
+@red@-Fixes-
+-Fixed lvl 1 clue scroll crash
+
+@dre@= May 18 =
 @blu@ Pest Control!
 
 @blu@-Additions-

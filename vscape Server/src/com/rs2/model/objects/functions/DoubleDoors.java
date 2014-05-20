@@ -52,6 +52,10 @@ public class DoubleDoors {
 		if (id == 2882 || id == 2883 || id == 1589 || id == 1590 || id == 190) {
 			return false;
 		}
+		if((id == 2307 || id == 2308) && x >= 2997 && x <= 2998 && y == 3931)
+		{
+			return false;
+		}
 		DoubleDoors doorClicked = getDoor(x, y, z);
 		if (doorClicked == null) {
 			return false;

@@ -147,6 +147,19 @@ public class Agility {
 		crossObstacle(player, x, y, 762, time, xp);
 	}
 	
+	public static void crossSkippingStones(Player player, int x, int y, int time, int level, double xp)
+	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross these stones.");
+			return;
+		}
+		crossObstacle(player, x, y, 769, time, xp);
+	}
+	
 	public static void crossRope(Player player, int x, int y, int level, double xp)
 	{
 		if (!Constants.AGILITY_ENABLED) {

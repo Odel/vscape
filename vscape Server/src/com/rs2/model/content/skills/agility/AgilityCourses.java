@@ -15,25 +15,27 @@ public class AgilityCourses {
 		this.player = player;
 	}
 	
-	public int[] courseStage = {
+	private int[] courseStage = {
+		0,
 		0,
 		0
 	};
 	
 	public boolean handleCourse(int id, int x, int y)
 	{
-		if(gnomeCourse(id, x, y))
-		{
+		if(gnomeCourse(id, x, y)){
 			return true;
 		}
-		if(barbOutpost(id, x, y))
-		{
+		if(barbOutpost(id, x, y)){
+			return true;
+		}
+		if(wildyCourse(id,x,y)){
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean gnomeCourse(int id, int x, int y)
+	private boolean gnomeCourse(int id, int x, int y)
 	{
 		int targetX = 0;
 		int targetY = 0;
@@ -93,7 +95,7 @@ public class AgilityCourses {
 		return false;
 	}
 	
-	public boolean barbOutpost(int id, int x, int y)
+	private boolean barbOutpost(int id, int x, int y)
 	{
 		int targetX = 0;
 		int targetY = 0;
@@ -159,6 +161,60 @@ public class AgilityCourses {
 					}
 				}
 			return true;
+		}
+		return false;
+	}
+	
+	private boolean wildyCourse(int id, int x, int y)
+	{
+		int targetX = 0;
+		int targetY = 0;
+		switch(id)
+		{
+			case 2288:
+				if(x == 3004 && y == 3938){
+					Agility.crawlPipe(player, x, 3950, 14, 49, 12.5);
+					setCourseStage(2,1);
+				}
+				return true;
+			case 2283:
+				if(x == 3005 && y == 3952){
+					Agility.swingRope(player, x, 3958, 49, 20);
+					if(getCourseStage(2) == 1) 
+						setCourseStage(2,2);
+				}
+				return true;
+			case 2311:
+				if(x == 3001 && y == 3960){
+					Agility.crossSkippingStones(player, 2996, y, 8, 49, 20);
+					if(getCourseStage(2) == 2) 
+						setCourseStage(2,3);
+				}
+				return true;
+			case 2297:
+				if(x == 3001 && y == 3945){
+					Agility.crossLog(player, 2994, y, 11, 49, 20);
+					if(getCourseStage(2) == 3) 
+						setCourseStage(2,4);
+				}
+				return true;
+			case 2328:
+				if(x >= 2993 && x <= 2995 && y == 3936){
+					if(getCourseStage(2) == 4) {
+						setCourseStage(2,5);
+					}
+					if(getCourseStage(2) != 5) {
+						Agility.crossObstacle(player, x, 3933, 844, 7, 1, 0);
+						player.getDialogue().sendStatement("You have completed the course");
+						setCourseStage(2,0);
+					}else if(getCourseStage(2) == 5) {
+						double bonusXp = (499d*Constants.EXP_RATE);
+						Agility.crossObstacle(player, x, 3933, 844, 7, 1, bonusXp);
+						player.getDialogue().sendStatement("You have completed the course","You were rewarded "+bonusXp+" bonus experience!" );
+						setCourseStage(2,0);
+					}
+				}
+				return true;
 		}
 		return false;
 	}
