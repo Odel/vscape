@@ -26,7 +26,7 @@ public class MapScrolls {
 		NECROMANCER(3516, 9632, new Position(2650, 3230), false, 3),
 		LUMBERYARD(3518, 7221, new Position(3309, 3503), true, 1),
 		VARROCK_MINE(3520, 7045, new Position(3290, 3373), false, 1),
-		YANILLE(3522, 9040, new Position(2616, 3077), false, 1),
+		YANILLE(3522, 9043, new Position(2616, 3077), false, 1),
 		RIMMINGTON(3524, 9839, new Position(2924, 3209), false, 1),
 		HOBGOBLIN(3525, 4305, new Position(2906, 3294), false, 2),
 		MCGRUBOR(3596, 9196, new Position(2658, 3488), true, 2),
