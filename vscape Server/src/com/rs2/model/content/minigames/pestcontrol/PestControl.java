@@ -263,9 +263,9 @@ public class PestControl {
 							if(gruntTime >= GRUNT_TIME)
 							{
 								spawnGrunts();
-								if(playersInGame() >= 6)
+								if(playersInGame() >= 5)
 								    spawnGrunts();
-								else if(playersInGame() >= 12)
+								else if(playersInGame() >= 10)
 								    spawnGrunts();
 								handleNpcBehavior();
 							}
