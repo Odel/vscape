@@ -5,6 +5,7 @@
 
 @red@-Fixes-
 -Fixed lvl 1 clue scroll crash
+-Edible Seaweed is now edible
 
 @dre@= May 18 =
 @blu@ Pest Control!
