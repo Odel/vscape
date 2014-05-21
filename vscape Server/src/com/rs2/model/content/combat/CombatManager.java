@@ -63,7 +63,7 @@ public class CombatManager extends Tick {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
         }
-        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()))) ) {
+        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 )) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
         	}
@@ -370,9 +370,13 @@ public class CombatManager extends Tick {
 			styleBonus = 3;
 		else if (attackStyle.getMode() == AttackStyle.Mode.LONGRANGE)
 			styleBonus = 1;
+		else if (player.hasFullVoidRange())
+			rangedLevel = (int) styleBonus + (int)(rangedLevel * 1.1);
 		rangedLevel += styleBonus;
 		double rangedStrength = weaponAttack.getRangedAmmo().getRangeStrength();
 		double maxHit = (rangedLevel + rangedStrength / 8 + rangedLevel * rangedStrength * Math.pow(64, -1) + 14) / 10;
+		if(player.hasFullVoidRange())
+		    maxHit = maxHit * 1.1;
 		return (int) Math.floor(maxHit);
 	}
 
@@ -392,6 +396,8 @@ public class CombatManager extends Tick {
 			styleBonus = 1;
 		int effectiveStrengthDamage = (int) (strengthLevel + styleBonus);
 		double baseDamage = 5 + (effectiveStrengthDamage + 8) * (player.getBonus(10) + 64) / 64; //10 = str bonus
+		if(player.hasFullVoidMelee())
+		    baseDamage = baseDamage * 1.1;
 		int maxHit = (int) Math.floor(baseDamage);
 		return (int) Math.floor(maxHit / 10);
 	}
@@ -421,6 +427,8 @@ public class CombatManager extends Tick {
 				baseAttack *= 1.1;
 			else if (player.getIsUsingPrayer()[Prayer.INCREDIBLE_REFLEXES])
 				baseAttack *= 1.15;
+			else if(player.hasFullVoidMelee())
+				baseAttack *= 1.1;
 		}
 		return Math.floor(baseAttack + attackBonus) + 8;
 	}

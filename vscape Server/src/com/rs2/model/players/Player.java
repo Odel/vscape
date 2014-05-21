@@ -307,7 +307,7 @@ public class Player extends Entity {
 	private int innoculationBraceletLife = 275;
 	private int fightMode, fightType, fightStyle, fightXp;
 	private boolean usingBow, usingCross, usingCrystalBow, usingArrows, usingBolts, usingOtherRangedWeapon, dropArrow;
-	private boolean fullDharok, fullAhrim, fullKaril, fullTorag, fullGuthan, fullVerac;
+	private boolean fullDharok, fullAhrim, fullKaril, fullTorag, fullGuthan, fullVerac, fullVoidMelee, fullVoidRange, fullVoidMage, voidMace;
 	private List<LocalPlugin> plugins = new ArrayList<LocalPlugin>();
 	private long lastFire;
 	private long stopProtectPrayer;
@@ -1928,6 +1928,7 @@ public class Player extends Entity {
 		Tiaras.handleTiara(this, getEquipment().getId(Constants.HAT));
 		getEquipment().checkRangeGear();
 		getEquipment().checkBarrowsGear();
+		getEquipment().checkVoidGear();
 		refreshOnLogin();
 		setStopPacket(false);
 		wildyWarned = inWild();
@@ -3349,6 +3350,31 @@ public class Player extends Entity {
 	public boolean hasFullTorag() {
 		return fullTorag;
 	}
+	
+	public boolean hasFullVoidMelee() {
+		return fullVoidMelee;
+	}
+	public void setFullVoidMelee(boolean fullVoidMelee) {
+		this.fullVoidMelee = fullVoidMelee;
+	}
+	public boolean hasFullVoidRange() {
+		return fullVoidRange;
+	}
+	public void setFullVoidRange(boolean fullVoidRange) {
+		this.fullVoidRange = fullVoidRange;
+	}
+	public boolean hasFullVoidMage() {
+		return fullVoidMage;
+	}
+	public void setFullVoidMage(boolean fullVoidMage) {
+		this.fullVoidMage = fullVoidMage;
+	}
+	public boolean hasVoidMace() {
+		return voidMace;
+	}
+	public void setVoidMace(boolean voidMace) {
+		this.voidMace = voidMace;
+	}
 
 	public void setFullGuthan(boolean fullGuthan) {
 		this.fullGuthan = fullGuthan;
@@ -3708,7 +3734,12 @@ public class Player extends Entity {
 		if (spell == null) {
 			getActionSender().resetAutoCastInterface();
 			this.autoCasting = false;
-		} else {
+		} 
+		else if(hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
+		    	getActionSender().sendSidebarInterface(0, 3796);
+			getActionSender().updateAutoCastInterface(spell);
+			this.autoCasting = true;
+		}else {
 			getActionSender().sendSidebarInterface(0, 328);
 			getActionSender().updateAutoCastInterface(spell);
 			this.autoCasting = true;

@@ -103,19 +103,34 @@ public class SpellAttack extends BasicAttack {
         //     setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{new StatEffect(Skill.STRENGTH, .1)})});
         //     getVictim().getUpdateFlags().sendGraphic(400, 100 << 16);
         //}else
+	if(getAttacker().isPlayer() ) {
+	    Player player = (Player) getAttacker();
+	    if(player.hasFullVoidMage())
+		 setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy(1.3).addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
+	}
+	    
         setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
 		setGraphic(spell.getGraphic());
 		setAttackDelay(5);
 		Item[] runesRequired = spell.getRunesRequired();
-
 		int staffRequired = -1;
-		if (spell == Spell.FLAMES_OF_ZAMORAK)
+		
+		if(getAttacker().isPlayer()) {
+		    Player player = (Player) getAttacker();
+		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
+			staffRequired = 8841;
+		    else if (spell == Spell.FLAMES_OF_ZAMORAK)
 			staffRequired = 2417;
-		else if (spell == Spell.CLAWS_OF_GUTHIX)
+		    else if (spell == Spell.CLAWS_OF_GUTHIX)
 			staffRequired = 2416;
-		else if (spell == Spell.SARADOMIN_STRIKE)
+		    else if (spell == Spell.SARADOMIN_STRIKE)
 			staffRequired = 2415;
-
+		    else if (spell == Spell.IBAN_BLAST)
+			staffRequired = 1409;
+		    else if (spell == Spell.MAGIC_DART)
+			staffRequired = 4170;
+		}
+		    
 		int reqs = (staffRequired != -1 ? 1 : 0) + (runesRequired != null ? runesRequired.length : 0) + 1;
 		Requirement[] requirements = new Requirement[reqs];
 		int i = 0;
@@ -139,7 +154,7 @@ public class SpellAttack extends BasicAttack {
 			requirements[i] = new EquipmentRequirement(Constants.WEAPON, staffRequired, 1, false) {
 				@Override
 				public String getFailMessage() {
-					return "You must equip the proper god staff to use this spell!";
+					return "You must equip the proper staff to use this spell!";
 				}
 			};
 		}

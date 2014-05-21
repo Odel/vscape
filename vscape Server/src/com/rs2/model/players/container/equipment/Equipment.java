@@ -104,6 +104,7 @@ public class Equipment {
 		player.getActionSender().sendUpdateItems(EQUIPMENT_INTERFACE, items);
 		player.getEquipment().checkRangeGear();
 		player.getEquipment().checkBarrowsGear();
+		player.getEquipment().checkVoidGear();
 		player.setEquippedWeapon(Weapon.getWeapon(items[Constants.WEAPON]));
 		sendBonus(player);
 		sendWeaponInterface();
@@ -113,6 +114,7 @@ public class Equipment {
 		player.getActionSender().sendUpdateItem(slot, EQUIPMENT_INTERFACE, item);
 		player.getEquipment().checkRangeGear();
 		player.getEquipment().checkBarrowsGear();
+		player.getEquipment().checkVoidGear();
 		sendBonus(player);
 		sendWeaponInterface();
 	}
@@ -851,6 +853,10 @@ public class Equipment {
 			case 6724 : // seercull
 				rangeLevelReq = 50;
 				return;
+			case 4212 : //crystal bow
+			    rangeLevelReq = 70;
+			    agilityLevelReq = 50;
+			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;
@@ -1218,14 +1224,10 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("crystal shield")) {
-				defenceLevelReq = 70;
-				agilityLevelReq = 50;
-		return;
-		}
-		if (itemName.contains("crystal bow")) {
-				rangeLevelReq = 70;
-				agilityLevelReq = 50;
+		if (itemName.contains("crystal") || itemId == 4212) {
+		    agilityLevelReq = 50;
+		    if(itemName.contains("shield"))
+			defenceLevelReq = 70;
 		return;
 		}
 		//barrows
@@ -1233,12 +1235,12 @@ public class Equipment {
 			magicLevelReq = 70;
 			if (itemName.contains("staff")) {
 				attackLevelReq = 70;
-                defenceLevelReq = 1;
+			defenceLevelReq = 1;
                         
 			}  else {
-                defenceLevelReq = 70;
-            }
-			return;
+			defenceLevelReq = 70;
+			}
+		return;
 		}
 		if (itemName.contains("karil")) {
 			rangeLevelReq = 70;
@@ -1399,6 +1401,12 @@ public class Equipment {
 		player.setFullTorag(fullTorag());
 		player.setFullGuthan(fullGuthan());
 	}
+	
+	public void checkVoidGear() {
+	    player.setFullVoidMelee(fullVoidMelee());
+	    player.setFullVoidRange(fullVoidRange());
+	    player.setFullVoidMage(fullVoidMage());
+	}
 
 	public void checkRangeGear() {
 		String wep = player.getEquippedWeapon().name().toLowerCase();
@@ -1453,6 +1461,25 @@ public class Equipment {
 			return false;
 
 		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("torags helm") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("torags platebody") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("torags platelegs") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("torags hammers"));
+	}
+	
+	public boolean fullVoidMelee() {
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+			return false;
+
+		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11665 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
+	}
+	public boolean fullVoidRange() {
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+			return false;
+
+		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11664 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
+	}
+	public boolean fullVoidMage() {
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+			return false;
+
+		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11663 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
 	}
 
 }

@@ -326,7 +326,9 @@ public class Hit {
         	} else if (((attacker.isPlayer() && ((Player) attacker).hasFullDharok()) || (attacker.isNpc() && ((Npc) attacker).getDefinition().getId() == 2026))) {
         		double hpLost = attacker.getMaxHp() - attacker.getCurrentHp();
         		this.damage += damage * hpLost * 0.01;
-        	}
+        	} else if((attacker.isPlayer() && ((Player) attacker).hasFullVoidMage()) ) {
+			((Player) attacker).setBonuses(3, 1000);
+		}
         }
         if (getAttacker().isNpc() && getVictim().isPlayer()) { // slayer npc effects
             if (!((Player) getVictim()).getSlayer().hasSlayerRequirement((Npc) getAttacker())) {
