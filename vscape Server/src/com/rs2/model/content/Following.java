@@ -103,10 +103,9 @@ public class Following {
 		    newnpc.setCombatDelay(100000000);
 		    return; 
 	    }
-	    Npc pet = ((Player) leader).getPets().getPet();
 	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() == npc 
-		&& !Misc.goodDistance(pet.getSpawnPosition(), npc.getPosition(), 8) ) {
-		pet.setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
+		&& !Misc.goodDistance(npc.getSpawnPosition(), npc.getPosition(), 8) ) {
+		((Player) leader).getPets().getPet().setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
 		return;
 	    } 
 	    if (Following.withinRange(entity, leader)) {
