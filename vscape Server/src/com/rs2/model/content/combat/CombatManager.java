@@ -289,7 +289,7 @@ public class CombatManager extends Tick {
 		    return;
                 }
 		if(died != null && died.isPlayer() && ((Player) died).onPestControlIsland() ) {
-		    ((Player) died).getPestControl().handleDeath((Player) died);
+		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
 		}
 		if (died.isNpc() && ((Npc) died).getNpcId() == 655) {

@@ -162,6 +162,14 @@ public class ItemPacketHandler implements PacketHandler {
 		if (!player.getInventory().getItemContainer().contains(item.getId())) {
 			return;
 		}
+		if(item.getId() == 10592) {
+		    player.getActionSender().sendMessage("Play the bongos instead.");
+		    return;
+		}
+		if(item.getId() == 6541) {
+		    player.getActionSender().sendMessage("You don't want to destroy your pet!");
+		    return;
+		}
 		for (int[] element : Pets.PET_IDS) {
 			if (item.getDefinition().getId() == element[0]) {
 				player.getPets().registerPet(element[0], element[1]);

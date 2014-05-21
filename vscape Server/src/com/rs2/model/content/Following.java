@@ -3,6 +3,7 @@ package com.rs2.model.content;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -84,10 +85,34 @@ public class Following {
             	stepAway();
             	return;
             }
-			if (Following.withinRange(entity, leader)) {
-				return;
-			}
-        	followMethod(npc, leader);
+	    if( npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() == npc 
+		&& !Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8) ) {
+		    int petId = npc.getNpcId();
+		    npc.teleport(new Position(npc.getPosition().getX(), 10000, npc.getPosition().getZ()+1));
+                    npc.setVisible(false);
+                    World.unregister(npc);
+                    
+		    Npc newnpc = new Npc(petId);
+		    newnpc.setPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
+		    newnpc.setPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
+		    World.register(newnpc);
+		    ((Player) leader).getPets().setPet(newnpc);
+		    newnpc.setFollowingEntity(leader);
+		    newnpc.setPlayerOwner(((Player) leader).getIndex());
+		    newnpc.setDontAttack(true);
+		    newnpc.setCombatDelay(100000000);
+		    return; 
+	    }
+	    Npc pet = ((Player) leader).getPets().getPet();
+	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() == npc 
+		&& !Misc.goodDistance(pet.getSpawnPosition(), npc.getPosition(), 8) ) {
+		pet.setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
+		return;
+	    } 
+	    if (Following.withinRange(entity, leader)) {
+		return;
+	    }
+	    followMethod(npc, leader);
         }
         /*else {
             Position followPos = leader.getPosition();

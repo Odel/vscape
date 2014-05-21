@@ -23,7 +23,7 @@ public class Pets {
 	{1561, 768}, {1562, 769}, {1563, 770}, {1564, 771}, {1565, 772}, {1566, 773}, {7582, 3504},
 	{5608, 1319}, {5609, 1401}, {9975, 4447}, {9952, 709}, {4606, 1875}, {10092, 5081},
 	{9965, 5073}, {9966, 5076}, {9967, 5074}, {9968, 5075}, {9969, 5072},
-	{8132, 3582}, {4033, 4363} };
+	{8132, 3582}, {4033, 4363}, {10592, 5428}, {6541, 901} };
 
 	/**
 	 * Registers a pet for the player, and drops it.
@@ -39,14 +39,12 @@ public class Pets {
 		player.getInventory().removeItem(new Item(itemId, 1));
 		this.itemId = itemId;
 		this.pet = new Npc(petId);
-		pet.setPosition(new Position(player.getPosition().getX() - 1, player.getPosition().getY(), player.getPosition().getZ()));
-		pet.setSpawnPosition(new Position(player.getPosition().getX() - 1, player.getPosition().getY(), player.getPosition().getZ()));
-		pet.setCurrentX(player.getPosition().getX() - 1);
-		pet.setCurrentY(player.getPosition().getX() - 1);
+		pet.setPosition(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()));
+		pet.setSpawnPosition(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()));
 		World.register(pet);      
+		player.getPets().setPet(pet);
 		pet.setFollowingEntity(player);
                 pet.setPlayerOwner(player.getIndex());
-		pet.getMovementHandler().setRunToggled(true);
                 pet.setDontAttack(true);
                 pet.setCombatDelay(100000000);
 	}
@@ -57,6 +55,7 @@ public class Pets {
 		if (pet == null) {
 			return;
 		}
+		if(player.getInventory().canAddItem(new Item(itemId))) {
                     player.getActionSender().sendMessage("You pick up your pet.");
                     player.getInventory().addItem(new Item(itemId, 1));
                     this.itemId = -1;
@@ -65,6 +64,17 @@ public class Pets {
                     World.unregister(pet);
                     Following.resetFollow(pet);
                     pet = null;
+		}
+		else if(!player.getInventory().canAddItem(new Item(itemId))) {
+		    player.getActionSender().sendMessage("Your inventory is full! Your pet has been sent to your bank.");
+                    player.getBank().add(new Item(itemId));
+                    this.itemId = -1;
+                    pet.teleport(new Position(pet.getPosition().getX(), 10000, pet.getPosition().getZ()-1));
+                    pet.setVisible(false);
+                    World.unregister(pet);
+                    Following.resetFollow(pet);
+                    pet = null;
+		}
 	}
 
 	/**
@@ -72,6 +82,12 @@ public class Pets {
 	 */
 	public Npc getPet() {
 		return pet;
+	}
+	public void setPet(Npc npc) {
+	    this.pet = npc;
+	}
+	public int getPetItemId() {
+	    return itemId;
 	}
 
 }

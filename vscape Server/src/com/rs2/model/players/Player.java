@@ -1080,10 +1080,6 @@ public class Player extends Entity {
 			new GameObject(objectId, getPosition().getX(), getPosition().getY(), getPosition().getZ(), face, type, 0, 999999, false);
 		}
 		else if (keyword.equals("item")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			int id = Integer.parseInt(args[0]);
 			int amount = 1;
 			if (args.length > 1) {
@@ -1092,6 +1088,19 @@ public class Player extends Entity {
 			}
 			inventory.addItem(new Item(id, amount));
 			getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").");
+		}
+		else if (keyword.equals("giveitem")) {
+			int id = Integer.parseInt(args[0]);
+			int amount = 1;
+			String name = fullString.substring(fullString.indexOf("-")+1);
+			long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+			Player player = World.getPlayerByName(nameLong);
+			if (args.length > 1) {
+				amount = Integer.parseInt(args[1]);
+				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
+			}
+			player.getInventory().addItem(new Item(id, amount));
+			getActionSender().sendMessage("You give a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ") to " + name + "." );
 		}
 		else if (keyword.equals("runes")) {
 			if (inWild()) {
@@ -3608,10 +3617,13 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea()) {
+		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() ) {
 			return; //prevents the dropping of items when you die in the duel arena
 		 }
 		if (killer == null) {
+			killer = this;
+		}
+		if (killer.isNpc() ) {
 			killer = this;
 		}
 	/*	if (!killer.isPlayer()) {
@@ -3622,6 +3634,10 @@ public class Player extends Entity {
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
 		ArrayList<Item> keptItems = getItemsKeptOnDeath(items);
 		List<Item> allItems = new ArrayList<Item>(Arrays.asList(items));
+		for(int i = 0; i < getPets().PET_IDS.length; i++) {
+		    if(inventory.playerHasItem(new Item(getPets().PET_IDS[i][0])) )
+				keptItems.add(new Item(getPets().PET_IDS[i][0]));
+		}
 		for (Item kept : keptItems) {
 			if (kept == null)
 				continue;
@@ -3644,6 +3660,10 @@ public class Player extends Entity {
 		for (Item dropped : allItems) {
 			if (dropped == null)
 				continue;
+			for(int i = 0; i < getPets().PET_IDS.length; i++) {
+			    if(dropped.getId() == getPets().PET_IDS[i][0])
+				inventory.addItem(dropped);
+			}
 			if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
