@@ -853,10 +853,6 @@ public class Equipment {
 			case 6724 : // seercull
 				rangeLevelReq = 50;
 				return;
-			case 4212 : //crystal bow
-			    rangeLevelReq = 70;
-			    agilityLevelReq = 50;
-			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;
@@ -1224,11 +1220,15 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("crystal") || itemId == 4212) {
+		if (itemName.contains("crystal")) {
 		    agilityLevelReq = 50;
-		    if(itemName.contains("shield"))
-			defenceLevelReq = 70;
-		return;
+		    if(itemName.contains("shield")){
+		    	defenceLevelReq = 70;
+		    }
+		    if(itemName.contains("bow")){
+		    	rangeLevelReq = 70;
+		    }
+		    return;
 		}
 		//barrows
 		if (itemName.contains("ahrim")) {

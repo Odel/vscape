@@ -1,4 +1,12 @@
-@dre@= May ? =
+@dre@= ? =
+
+@red@-Changes-
+When binding a talisman with a tiara the talisman
+will now be removed, on top of which RC exp will be
+given upon binding.
+
+
+@dre@= May 20 =
 
 @blu@-Additions-
 -Wilderness agility course
@@ -66,14 +74,3 @@
 -Waterbirth island monsters have correct drop tables.
 -Fixed Ahrim's set requirements.
 -Adjusted seaweed drop rate on Entrana. (Faster)
-
-@dre@= May 4 =
--Crystal bow shop value fixed
--Thieving stalls no longer works when your
-inventory is full (to prevent an exploit)
--74 songs now play as you walk around the
-world
--Level up, death and treasure trail songs
-now play
-@blu@-New Client with music volume support
-@blu@ (updating is optional if you want music volume)
