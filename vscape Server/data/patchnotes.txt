@@ -1,11 +1,16 @@
-@dre@= ? =
+@dre@= May 22 =
+@blu@ -Additions-
+-Void Knight Helmets & their set effects.
+-Void Mace now autocasts Claws of Guthix.
+-PC rewards money. (10 * cb level per win).
+-PC experience vendor.
 
 @red@-Changes-
-When binding a talisman with a tiara the talisman
+-When binding a talisman with a tiara the talisman
 will now be removed, on top of which RC exp will be
 given upon binding.
--drops-
-Rock crab drop changes
+-Drops-
+Rock crab drop changes.
 
 
 @dre@= May 20 =
