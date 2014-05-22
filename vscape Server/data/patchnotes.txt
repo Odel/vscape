@@ -4,6 +4,8 @@
 When binding a talisman with a tiara the talisman
 will now be removed, on top of which RC exp will be
 given upon binding.
+-drops-
+Rock crab drop changes
 
 
 @dre@= May 20 =
