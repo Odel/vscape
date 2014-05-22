@@ -117,7 +117,7 @@ public class SpellAttack extends BasicAttack {
 		
 		if(getAttacker().isPlayer()) {
 		    Player player = (Player) getAttacker();
-		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
+		    if(player.hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX)
 			staffRequired = 8841;
 		    else if (spell == Spell.FLAMES_OF_ZAMORAK)
 			staffRequired = 2417;

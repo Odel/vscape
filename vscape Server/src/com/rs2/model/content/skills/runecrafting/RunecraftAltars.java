@@ -122,9 +122,9 @@ public class RunecraftAltars {
 		return null;
 	}
 
-	public static Altar getAltarByAltarId(int talisman, int ruinId) {
+	public static Altar getAltarByAltarId(int talisman, int altarId) {
 		for (Altar altar : Altar.values()) {
-			if (talisman == altar.getTalisman() && ruinId == altar.getAltarId()) {
+			if (talisman == altar.getTalisman() && altarId == altar.getAltarId()) {
 				return altar;
 			}
 		}
