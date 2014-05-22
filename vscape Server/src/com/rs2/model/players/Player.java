@@ -376,6 +376,8 @@ public class Player extends Entity {
 	public boolean killedClueAttacker;
 	public int clueLevel;
 	public int challengeScroll;
+	public int skillAnswer;
+	public int pcSkillPoints;
 	public Item[] puzzleStoredItems = new Item[ClueScroll.PUZZLE_LENGTH];
 	private int tempInteger;
 	public boolean isCrossingObstacle = false;
@@ -3375,7 +3377,22 @@ public class Player extends Entity {
 	public void setVoidMace(boolean voidMace) {
 		this.voidMace = voidMace;
 	}
-
+	
+	public int getSkillAnswer() {
+	    return this.skillAnswer;
+	}
+	
+	public void setSkillAnswer(int answer){
+	    this.skillAnswer = answer;
+	}
+	    
+	public int getPcSkillPoints() {
+	    return this.pcSkillPoints;
+	}
+	
+	public void setPcSkillPoints(int answer){
+	    this.pcSkillPoints = answer;
+	}
 	public void setFullGuthan(boolean fullGuthan) {
 		this.fullGuthan = fullGuthan;
 	}

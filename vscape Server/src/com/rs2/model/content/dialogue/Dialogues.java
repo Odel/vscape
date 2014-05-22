@@ -35,6 +35,9 @@ import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Dialogues {
 
@@ -69,6 +72,14 @@ public class Dialogues {
                 player.getInventory().addItem(new Item(capeId+1));
             }
         }
+	
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
+	}
 
 	/** Instruction
 	 * 
@@ -2182,7 +2193,7 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 3787:
+			case 3787: //void knight armor rewards
 			    switch(player.getDialogue().getChatId()) {
 				case 1 :
 				    player.getDialogue().sendNpcChat("Would you like to exchange some of your points?", CONTENT);
@@ -2448,7 +2459,7 @@ public class Dialogues {
 				return true;
 			    }
 			break;
-			case 3788:
+			case 3788: //pet rewards
 			    switch(player.getDialogue().getChatId()) {
 				case 1 :
 				    player.getDialogue().sendNpcChat("Would you like to exchange some of your points?", CONTENT);
@@ -3173,9 +3184,9 @@ public class Dialogues {
 					    return true;
 					case 2:
 					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
+					    player.getDialogue().endDialogue();
 					return true;
-				}
+				    }
 				case 80 :
 				    if(player.getPcPoints() >= 325) {
 					player.getInventory().addItem(new Item(5608));
@@ -3190,6 +3201,139 @@ public class Dialogues {
 				return true;
 			    }
 			break;
+			case 3789:
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("Would you like to exchange some of your points?", CONTENT);
+				return true;
+				case 2 :
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 3 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("I can reward you with experience!", "Is that what you are interested in?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 4 :
+				    player.getDialogue().sendOption("Of course!", "No, thank you.");
+				return true;
+				case 5 :
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("Which skill would you like to put points into?", CONTENT);
+					return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 6:
+				    player.getDialogue().sendOption("Attack", "Strength", "Defence", "Hitpoints", "More...");
+				return true;
+				case 7:
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(0);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(2);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(1);
+					return true;
+					case 4:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(3);
+					return true;
+					case 5:
+					    player.getDialogue().sendOption("Range", "Magic", "Prayer", "Back.", "Nevermind.");
+					    player.getDialogue().setNextChatId(13);
+					return true;
+				    }
+				case 8:
+				    player.getActionSender().openXInterface(208);
+				    player.getDialogue().dontCloseInterface();
+				    return true;
+				case 9:
+				    if(player.getPcPoints() < player.getPcSkillPoints()) {
+					player.getDialogue().sendNpcChat("Do you think I am a fool?!", "You don't have that many points!", ANGRY_2);
+					player.setSkillAnswer(0);
+					player.getDialogue().endDialogue();
+					return true;
+				    }
+				    else if(player.getSkill().getPlayerLevel(player.getSkillAnswer()) <= 24) {
+					player.getDialogue().sendNpcChat("You need to be atleast level 25", "in any skill to recieve an experience reward.", SAD);
+					player.setSkillAnswer(0);
+					player.getDialogue().endDialogue();
+					return true;
+				    }
+				    else {
+					int points = player.getPcSkillPoints();
+					player.getDialogue().sendNpcChat(points + " point(s) will grant you...", round(PestControl.handlePoints(player, points)*2.25, 3) + " experience, is this alright?", CONTENT);
+					return true;
+				    }
+				case 10:
+				    player.getDialogue().sendOption("Yes!", "No, thank you.");
+				return true;
+				case 11:
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					    player.setSkillAnswer(0);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+				case 12:
+				    double reward = round(PestControl.handlePoints(player, player.getPcSkillPoints()) * 2.25, 3);
+				    PestControl.handleReward(player, PestControl.handlePoints(player, player.getPcSkillPoints()));
+				    player.setPcPoints(player.getPcPoints() - player.getPcSkillPoints(), player);
+				    player.getActionSender().sendMessage(reward + " experience added to " + Skill.SKILL_NAME[player.getSkillAnswer()] + ".");
+				    player.setSkillAnswer(0);
+				    player.setPcSkillPoints(0);
+				    player.getDialogue().sendPlayerChat("Thank you!", HAPPY);
+				    player.getDialogue().endDialogue();
+				return true;
+				case 13:
+				    switch(optionId) {
+					case 1:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(4);
+					    player.getDialogue().setNextChatId(8);
+					return true;
+					case 2:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(6);
+					    player.getDialogue().setNextChatId(8);
+					return true;
+					case 3:
+					    player.getDialogue().sendNpcChat("How many points would you like to put in?", CONTENT);
+					    player.setSkillAnswer(5);
+					    player.getDialogue().setNextChatId(8);
+					return true;
+					case 4:
+					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
+					    player.setSkillAnswer(0);
+					    player.getDialogue().setNextChatId(6);
+					return true;
+					case 5:
+					    player.getDialogue().sendPlayerChat("Nevermind...", CONTENT);
+					    player.setSkillAnswer(0);
+					    player.getDialogue().endDialogue();
+					return true;
+				    }
+			    }
+			return true;
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

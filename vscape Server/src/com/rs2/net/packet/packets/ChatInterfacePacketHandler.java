@@ -98,6 +98,11 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		} else if (player.getEnterXInterfaceId() == 207) {
 			ChallengeScrolls.handleAnswer(player, amount, player.challengeScroll);
 			return;
+		} else if (player.getEnterXInterfaceId() == 208) {
+			player.setPcSkillPoints(amount);
+			Dialogues.setNextDialogue(player, 3789, 9);
+			player.getDialogue().sendPlayerChat(amount + " please.", Dialogues.HAPPY);
+			return;
 		} else if (player.getEnterXInterfaceId() == 53150) {
 			Cooking.handleCookingTick(player, amount);
 			return;
