@@ -8,19 +8,13 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.attacks.WeaponAttack;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
 import com.rs2.util.Misc;
-import com.rs2.util.PlayerSave;
 
 public class PestControl {
 
@@ -353,7 +347,8 @@ public class PestControl {
 							player.getPrayer().resetAll();
 							player.getSkill().refresh();
 							leaveGame(player);
-
+							int reward = player.getCombatLevel() * 10;
+							player.getInventory().addItem(new Item(995, reward));
 						}
 						else
 						{
