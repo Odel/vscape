@@ -1,3 +1,8 @@
+@dre@= May 24 =
+@red@-Changes-
+-Shilo Fishing shop now works
+-Debug messages no longer enabled
+
 @dre@= May 22 =
 @blu@ -Additions-
 -Void Knight Helmets & their set effects.
