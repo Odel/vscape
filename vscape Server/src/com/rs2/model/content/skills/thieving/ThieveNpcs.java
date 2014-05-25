@@ -131,7 +131,7 @@ public class ThieveNpcs {
 		final boolean successful = Misc.random(player.getSkill().getLevel()[Skill.THIEVING]) > Misc.random(thieveNpc.getLevelReq());
 		final Item randomLoot = thieveNpc.getRareLoot() != null && Misc.random(1) == 0 ? thieveNpc.getRareLoot()[Misc.randomMinusOne(thieveNpc.getRareLoot().length)] : thieveNpc.getLoot()[Misc.randomMinusOne(thieveNpc.getLoot().length)];
 		final Item loot = new Item(randomLoot.getId(), randomLoot.getCount() > 1 ? Misc.random(randomLoot.getCount() + 1) : 1);
-                final Item gp = new Item(randomLoot.getId(), randomLoot.getCount());
+                final Item specialLoot = new Item(randomLoot.getId(), randomLoot.getCount());
 		final int stunnedHit = thieveNpc.getStunDamage();
 		player.setStopPacket(true);
 		player.getUpdateFlags().sendAnimation(THIEVING_ANIMATION);
@@ -141,11 +141,18 @@ public class ThieveNpcs {
 			public void execute(CycleEventContainer container) {
 				if (successful) {
 					player.getActionSender().sendMessage("You manage to pick the " + npc.getDefinition().getName().toLowerCase() + "'s pocket.");
-					player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(loot.getId()).getName().toLowerCase() + ".");
-                                        if(gp.getId() == 995)
-                                            player.getInventory().addItem(new Item(gp.getId(), gp.getCount()));
-					else
+					if(specialLoot.getId() == 995 && !player.getInventory().ownsItem(2677) && thieveNpc.getNpcName()[0] == "h.a.m. member") {
+					    player.getInventory().addItem(new Item(2677, 1)); //ham clue
+					    player.getActionSender().sendMessage("You steal a " + ItemDefinition.forId(2677).getName().toLowerCase() + "!");
+					}
+					else if(specialLoot.getId() == 995) {
+                                            player.getInventory().addItem(new Item(995, specialLoot.getCount()));
+					    player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(specialLoot.getId()).getName().toLowerCase() + ".");
+					}
+					else {
                                             player.getInventory().addItem(new Item(loot.getId(), loot.getCount() * multiple(player, thieveNpc.getLevelReq())));
+					    player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(loot.getId()).getName().toLowerCase() + ".");
+					}
                                         player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
 				} else {
 					npc.getUpdateFlags().sendForceMessage("What do you think you're doing?");

@@ -252,7 +252,7 @@
 	</potiondef>
 	<potiondef>
 		<potionName>Fishing potion</potionName>
-		<potionType>RESTORE</potionType>
+		<potionType>BOOST</potionType>
 		<potionIds>
 			<int>2434</int>
 			<int>139</int>
@@ -271,7 +271,7 @@
 	</potiondef>
 	<potiondef>
 		<potionName>Ranging potion</potionName>
-		<potionType>RESTORE</potionType>
+		<potionType>BOOST</potionType>
 		<potionIds>
 			<int>2444</int>
 			<int>169</int>
