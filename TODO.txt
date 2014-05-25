@@ -18,7 +18,6 @@ shilo village exit doesnt work
 some clue scroll doesnt let you open it, but instead disconnects you
 When you talk to the charter boat guy at port sarim, he teles you into the jungle demon boss battle from monkey madness.
 Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
-Missing NPCs: Monastary
 Missing NPCs: Black Knight Fortress
 Missing NPCs: Dwarf Mountain
 Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
