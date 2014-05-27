@@ -3,6 +3,7 @@ package com.rs2.model.content.combat.hit;
 import java.util.List;
 
 import com.rs2.model.Entity;
+import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.Graphic;
 import com.rs2.model.UpdateFlags;
 import com.rs2.model.content.combat.AttackType;
@@ -88,7 +89,7 @@ public class Hit {
        	 }else{
        		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
        	 }
-       }
+	}
        if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
       	 Player att = (Player) getAttacker();
       	 Player vic = (Player) getVictim();
@@ -201,12 +202,20 @@ public class Hit {
             			player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
             			damage = Misc.random(10);
             		}
-            	} else if (victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker) && hitDef.getSpecialEffect() != 11) {
+            	} else if (victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker) && hitDef.getSpecialEffect() != 11 ) {
                     if (attacker != null && attacker.isPlayer())
                         damage = (int) Math.ceil(damage * .6);
                     else
                         damage = 0;
                 }
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1158 ) {
+		    if( hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
+			damage = 0;
+		}
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1160 ) {
+		    if( hitDef.getAttackStyle().getAttackType() == AttackType.MELEE)
+			damage = 0;
+		}
             }
         }
         SpecialType.doSpecEffect(attacker, victim, hitDef, damage);

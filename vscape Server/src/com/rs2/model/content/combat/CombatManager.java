@@ -18,7 +18,9 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -188,6 +190,11 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(3910);
 					    stop();
 					}
+					else if (died.isNpc() && ((Npc) died).getNpcId() == 1158) {
+					    died.setDeathAnimationLength(10);
+					    died.getUpdateFlags().sendGraphic(1055);
+					    stop();
+					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
@@ -217,69 +224,89 @@ public class CombatManager extends Tick {
 
 	public static void endDeath(final Entity died, final Entity killer, final boolean firstTime) {
 		if (firstTime) {
-        	died.dropItems(killer);
-            died.setDeathPosition(null);
-    		if (killer != null && killer.isPlayer() && died.isNpc()) {
+		    died.dropItems(killer);
+		    died.setDeathPosition(null);
+		    if (killer != null && killer.isPlayer() && died.isNpc()) {
 	    		final Npc npc = (Npc) died;
-                ClueScroll.handleAttackerDeath((Player)killer, npc);
-                ((Player) killer).getSlayer().handleNpcDeath(npc);
-            	Barrows.handleDeath(((Player)killer), npc);
-			}
+			ClueScroll.handleAttackerDeath((Player)killer, npc);
+			((Player) killer).getSlayer().handleNpcDeath(npc);
+			Barrows.handleDeath(((Player)killer), npc);
+		    }
 		}
-        if (died.isNpc()) {
+	    if (died != null && died.isNpc()) {
     		final Npc npc = (Npc) died;
-            if (!npc.needsRespawn()) {
-                npc.setVisible(false);
-                World.unregister(npc);
-            } 
-	    else {
-                if (npc.isVisible()) {
-                    npc.setVisible(false);
+		
+		if ( npc.getNpcId() == 1158 ) { // kq
+		    npc.setDead(true);
+		    npc.setNeedsRespawn(false);
+		    Npc newQueen = new Npc(1160);
+		    newQueen.setSpawnPosition(died.getPosition().clone());
+		    newQueen.setPosition(died.getPosition().clone());
+		    newQueen.setCombatDelay(10);
+		    newQueen.getMovementPaused().setWaitDuration(10);
+		    World.register(newQueen);
+		    newQueen.setNeedsRespawn(false);
+		}
+		else if( npc.getNpcId() == 1160) {
+		    npc.setDead(true);
+		    npc.setVisible(false);
+		    World.unregister(npc);
+		    return;
+		}
+		
+		if (!npc.needsRespawn()) {
+		    npc.setVisible(false);
+		    World.unregister(npc);
+		}
+		else {
+		    if (npc.isVisible()) {
+			npc.setVisible(false);
                 	npc.setPosition(npc.getSpawnPosition().clone());
             		npc.getMovementHandler().reset();
             		npc.sendTransform(npc.getOriginalNpcId(), 0);
             		CombatManager.resetCombat(npc);
-                    // Set respawn
-                    CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
-    					@Override
-    					public void execute(CycleEventContainer container) {
-            				endDeath(npc, killer, false);
-            				container.stop();
-    					}
-    					@Override
-    					public void stop() {
-    					}
-                    }, npc.getRespawnTimer());
-                    //died.setDeathTimer(npc.getRespawnTimer());
+			// Set respawn
+			CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer container) {
+				endDeath(npc, killer, false);
+				container.stop();
+			    }
+			    @Override
+			    public void stop() {
+			    }
+			}, npc.getRespawnTimer());
+			//died.setDeathTimer(npc.getRespawnTimer());
                     return;
-                } else {
-    				npc.setVisible(true);
-    			}
-            }
-        }
-        died.getUpdateFlags().faceEntity(-1);
-		died.setDead(false);
-		died.setCurrentHp(died.getMaxHp());
-		died.getUpdateFlags().sendAnimation(65535, 0);
-		died.removeAllEffects();
-		if (killer != null && killer.isPlayer() && died.isPlayer()) {
-			Player attacker = (Player) killer;
-			Player victim = (Player) died;
-			attacker.getActionSender().sendMessage("You have defeated " + Misc.formatPlayerName(victim.getUsername()) + ".");
+		    } 
+		    else {
+			npc.setVisible(true);
+		    }
 		}
-		if (died.isPlayer()) {
-			Player player = (Player) died;
-			player.setStopPacket(false);
-			player.setHideWeapons(false);
-			player.setAutoSpell(null);
-			player.resetEffects();
-			player.getSkill().refresh();
-		}
-        died.getHitRecordQueue().clear();
-		if (died.isPlayer() && died.inDuelArena()) {
-			((Player) died).getDuelMainData().handleDeath(false);
-			return;
-		}
+	    }
+	    died.getUpdateFlags().faceEntity(-1);
+	    died.setDead(false);
+	    died.setCurrentHp(died.getMaxHp());
+	    died.getUpdateFlags().sendAnimation(65535, 0);
+	    died.removeAllEffects();
+	    if (killer != null && killer.isPlayer() && died.isPlayer()) {
+		Player attacker = (Player) killer;
+		Player victim = (Player) died;
+		attacker.getActionSender().sendMessage("You have defeated " + Misc.formatPlayerName(victim.getUsername()) + ".");
+	    }
+	    if (died.isPlayer()) {
+		Player player = (Player) died;
+		player.setStopPacket(false);
+		player.setHideWeapons(false);
+		player.setAutoSpell(null);
+		player.resetEffects();
+		player.getSkill().refresh();
+	    }
+	    died.getHitRecordQueue().clear();
+	    if (died.isPlayer() && died.inDuelArena()) {
+		((Player) died).getDuelMainData().handleDeath(false);
+		return;
+	    }
 		if (died.isPlayer() && ((Player) died).getCreatureGraveyard().isInCreatureGraveyard()) {
 			((Player) died).getCreatureGraveyard().handleDeath();
 			return;

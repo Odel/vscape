@@ -2136,6 +2136,20 @@ public class WalkToActionHandler {
 						}
 					}
 					break;
+				case 3827:
+				case 3830:
+				    if(item == 954 && player.getPosition().getZ() == 0) {
+					player.getActionSender().sendMessage("As you are tying the rope, you fall down the hole!");
+					player.teleport(new Position(3484, 9509, 2));
+				    }
+				    else if(item == 954 && player.getPosition().getZ() == 2) {
+					player.getActionSender().sendMessage("As you are tying the rope, you fall down the hole!");
+					player.teleport(new Position(3507, 9494, 0));
+				    }
+				    else {
+					player.getActionSender().sendMessage("Maybe I should use a rope instead.");
+				    }
+				break;
 				case 2939: // legends totem
 					if (item == 11126 || item == 11124 || item == 11122 || item == 11120) {
 						if (player.getInventory().playerHasItem(item)) 
