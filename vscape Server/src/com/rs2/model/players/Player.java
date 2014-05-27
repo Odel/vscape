@@ -3459,6 +3459,10 @@ public class Player extends Entity {
 	public int getDeathAnimationLength() {
 		return 6;
 	}
+	
+	@Override
+	public void setDeathAnimationLength(int length) {
+	}
 
 	@Override
 	public int getBaseAttackLevel(AttackType attackType) {

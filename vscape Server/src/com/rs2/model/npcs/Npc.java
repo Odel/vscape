@@ -436,6 +436,11 @@ public class Npc extends Entity {
 	public int getDeathAnimationLength() {
 		return npcCombatDef.getDeathAnimationLength();
 	}
+	
+	@Override
+	public void setDeathAnimationLength(int length) {
+	   npcCombatDef.setDeathAnimationLength(length);
+	}
 
 	@Override
 	public int getBaseAttackLevel(AttackType attackType) {

@@ -211,7 +211,7 @@ end
 class DagannothSupreme < NpcCombatDef
     def attackScripts attacker, victim
         return [
-			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 32, 8, 1343, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 32, 8, 2855, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
 		];
     end
 end
@@ -264,4 +264,6 @@ NpcCombatDef.add([2892, 2894, 2896], Spinolyp.new())
 NpcCombatDef.add([2881], DagannothSupreme.new())
 NpcCombatDef.add([2882], DagannothPrime.new())
 NpcCombatDef.add([3200], ChaosElemental.new())
+NpcCombatDef.add([3762,3764,3766,3768,3770], Defiler.new())
+NpcCombatDef.add([3752, 3754, 3756, 3758, 3759], Torcher.new())
 

@@ -97,6 +97,10 @@ public abstract class NpcCombatDef {
 	public int getDeathAnimationLength() {
 		return deathAnimationLength;
 	}
+	
+	public void setDeathAnimationLength(int length) {
+		this.deathAnimationLength = length;
+	}
 
 	public int getSpawnDelay() {
 		return spawnDelay;

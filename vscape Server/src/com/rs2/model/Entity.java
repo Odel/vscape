@@ -457,6 +457,8 @@ public abstract class Entity {
 	public abstract int getBlockAnimation();
 
 	public abstract int getDeathAnimationLength();
+	
+	public abstract void setDeathAnimationLength(int length);
 
 	public abstract int getBaseAttackLevel(AttackType attackType);
 
