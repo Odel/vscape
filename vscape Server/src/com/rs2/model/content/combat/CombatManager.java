@@ -291,6 +291,8 @@ public class CombatManager extends Tick {
 			int respawnTimer = npc.getRespawnTimer();
 			if(npc.getNpcId() == 1158)
 			    respawnTimer = 300;
+			else if(npc.getNpcId() == 2881 || npc.getNpcId() == 2882 || npc.getNpcId() == 2883)
+			    respawnTimer = 60;
 			// Set respawn
 			CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
 			    @Override
@@ -557,11 +559,6 @@ public class CombatManager extends Tick {
 		entity.setSkilling(null);
 		entity.getUpdateFlags().faceEntity(-1);
 		Following.resetFollow(entity);
-	}
-	public static void spawnKQ(Npc npc) {
-	    npc.setSpawnPosition(new Position(3478, 9498, 0));
-	    npc.setPosition(new Position(3478, 9498, 0));
-	    World.register(npc);
 	}
 
 }
