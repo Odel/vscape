@@ -36,6 +36,7 @@ import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.transport.MagicCarpet;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -3334,6 +3335,26 @@ public class Dialogues {
 				    }
 			    }
 			return true;
+			case 859 :
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("WOULD HUMAN LIKE THROWN OVER?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("YES!", "NO!");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								if(player.getPosition().getX() <= 2566)
+								    MagicCarpet.fly(player, new Position(2571, 3030, 0));
+								else if(player.getPosition().getX() > 2566)
+								    MagicCarpet.fly(player, new Position(2566, 3022, 0));
+								break;
+						}
+						break;
+				}
+				break;
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

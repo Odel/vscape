@@ -195,7 +195,7 @@ end
 class Defiler < NpcCombatDef
     def attackScripts attacker, victim
         return [
-			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 6, 8, 3920, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 7, 8, 3920, Graphic.new(-1, 0), Graphic.new(-1, 0), 214, ProjectileTrajectory.KNIFE)		
 		];
     end
 end
@@ -241,6 +241,24 @@ class ChaosElemental < NpcCombatDef
     end
 end
 
+class KalphiteQueenFirstForm < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 31, 5, 6241),
+                    BasicAttack.magicAttack(attacker, victim, Spell::KQ1)
+		];
+    end
+end
+
+class KalphiteQueenSecondForm < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::KQ2),
+                    BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 31, 8, 6235, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)
+		];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
@@ -266,4 +284,5 @@ NpcCombatDef.add([2882], DagannothPrime.new())
 NpcCombatDef.add([3200], ChaosElemental.new())
 NpcCombatDef.add([3762,3764,3766,3768,3770], Defiler.new())
 NpcCombatDef.add([3752, 3754, 3756, 3758, 3759], Torcher.new())
-
+NpcCombatDef.add([1158], KalphiteQueenFirstForm.new())
+NpcCombatDef.add([1160], KalphiteQueenSecondForm.new())

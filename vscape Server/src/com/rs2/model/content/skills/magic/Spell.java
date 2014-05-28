@@ -59,6 +59,8 @@ public enum Spell {
 	TORCHER(3880, magicHit(5, magicProjectile(660), Graphic.highGraphic(101)), true),
 	CHAOSMAIN(3146, magicHit(26, magicProjectile(557), Graphic.highGraphic(556)), true),
 	CHAOSDISARM(3146, magicHit(0, magicProjectile(551), Graphic.highGraphic(550)), true, new UnequipEffect()),
+	KQ1(0, 6240, new Graphic(278, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
+	KQ2(0, 6234, new Graphic(279, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
 	;
 
 	private int levelRequired, animation;

@@ -18,15 +18,14 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
+import com.rs2.model.tick.TickStopWatch;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
 import java.util.LinkedList;
@@ -142,6 +141,17 @@ public class CombatManager extends Tick {
 		if (died.isDoorSupport()) {
 			((Npc) died).sendTransform(((Npc) died).getNpcId() + 1, 10);
 			new GameObject(Constants.EMPTY_OBJECT, died.getPosition().getX(), died.getPosition().getY(), died.getPosition().getZ(), 0, 10, 3, 35);
+			for(Player player : World.getPlayers()) {
+			    if(player == null)
+				continue;
+			    else if( player != null && player.getPosition().getY()-1 == died.getPosition().getY())
+				player.walkTo(new Position(2545, 10144, 0), true);
+			    else if(player != null && player.getPosition().getY()+1 == died.getPosition().getY())
+				player.walkTo(new Position(2545, 10142, 0), true);
+			    else if(player != null && player.getPosition().getX()+1 == died.getPosition().getX())
+				player.walkTo(new Position(2544, 10143, 0), true);
+			}
+			
 		}
 		final Entity killer = died.findKiller();// == null ? possibleKiller : died.findKiller();
 		died.getTask();
@@ -190,11 +200,6 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(3910);
 					    stop();
 					}
-					else if (died.isNpc() && ((Npc) died).getNpcId() == 1158) {
-					    died.setDeathAnimationLength(10);
-					    died.getUpdateFlags().sendGraphic(1055);
-					    stop();
-					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
@@ -203,7 +208,26 @@ public class CombatManager extends Tick {
 			};
 			World.getTickManager().submit(tick);
 		}
-		Tick deathTimer = new Tick(died.getDeathAnimationLength()) {
+		if(died.isNpc() && ((Npc)died).getNpcId() == 1158) {
+		Tick deathTimer = new Tick(5) {
+			@Override
+			public void execute() {
+				endDeath(died, killer, true);
+				this.stop();
+			}
+		};
+		World.getTickManager().submit(deathTimer);
+		died.getUpdateFlags().sendAnimation(6242);
+		died.setDead(true);
+		died.getTask();
+		died.removeAllEffects();
+		died.getInCombatTick().setWaitDuration(0);
+		died.getInCombatTick().reset();
+		died.getPjTimer().setWaitDuration(0);
+		died.getPjTimer().reset();
+		}
+		else {
+		   Tick deathTimer = new Tick(died.getDeathAnimationLength()) {
 			@Override
 			public void execute() {
 				endDeath(died, killer, true);
@@ -216,7 +240,8 @@ public class CombatManager extends Tick {
 		died.getInCombatTick().setWaitDuration(0);
 		died.getInCombatTick().reset();
 		died.getPjTimer().setWaitDuration(0);
-		died.getPjTimer().reset();
+		died.getPjTimer().reset(); 
+		}
 		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[Prayer.RETRIBUTION]) {
 			Prayer.applyRetribution(died, killer);
 		}
@@ -236,18 +261,16 @@ public class CombatManager extends Tick {
 	    if (died != null && died.isNpc()) {
     		final Npc npc = (Npc) died;
 		
-		if ( npc.getNpcId() == 1158 ) { // kq
-		    npc.setDead(true);
-		    npc.setNeedsRespawn(false);
+		if ( npc.getNpcId() == 1158 && firstTime ) { // kq
 		    Npc newQueen = new Npc(1160);
 		    newQueen.setSpawnPosition(died.getPosition().clone());
 		    newQueen.setPosition(died.getPosition().clone());
 		    newQueen.setCombatDelay(10);
 		    newQueen.getMovementPaused().setWaitDuration(10);
 		    World.register(newQueen);
-		    newQueen.setNeedsRespawn(false);
+		    newQueen.getUpdateFlags().sendForceMessage("Bzzzzz");
 		}
-		else if( npc.getNpcId() == 1160) {
+		else if( npc.getNpcId() == 1160 ) {
 		    npc.setDead(true);
 		    npc.setVisible(false);
 		    World.unregister(npc);
@@ -265,6 +288,9 @@ public class CombatManager extends Tick {
             		npc.getMovementHandler().reset();
             		npc.sendTransform(npc.getOriginalNpcId(), 0);
             		CombatManager.resetCombat(npc);
+			int respawnTimer = npc.getRespawnTimer();
+			if(npc.getNpcId() == 1158)
+			    respawnTimer = 300;
 			// Set respawn
 			CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
 			    @Override
@@ -275,10 +301,10 @@ public class CombatManager extends Tick {
 			    @Override
 			    public void stop() {
 			    }
-			}, npc.getRespawnTimer());
+			}, respawnTimer);
 			//died.setDeathTimer(npc.getRespawnTimer());
                     return;
-		    } 
+		    }
 		    else {
 			npc.setVisible(true);
 		    }
@@ -531,6 +557,11 @@ public class CombatManager extends Tick {
 		entity.setSkilling(null);
 		entity.getUpdateFlags().faceEntity(-1);
 		Following.resetFollow(entity);
+	}
+	public static void spawnKQ(Npc npc) {
+	    npc.setSpawnPosition(new Position(3478, 9498, 0));
+	    npc.setPosition(new Position(3478, 9498, 0));
+	    World.register(npc);
 	}
 
 }

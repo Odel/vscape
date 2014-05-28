@@ -62,5 +62,46 @@ public class MagicCarpet {
         return true;
         
     }
+    public static boolean fly(final Player player, final Position to) {
+        final int waitDuration = 2;
+        player.getMovementPaused().setWaitDuration(waitDuration);
+        player.getMovementPaused().reset();
+        player.getUpdateFlags().sendAnimation(768);
+        Tick t = new Tick(waitDuration) {
+            @Override
+            public void execute() {
+                MovementLock lock = new MovementLock() {
+                    @Override
+                    public boolean forcesRun() {
+                        return true;
+                    }
+
+                    @Override
+                    public void start(Entity entity) {
+                        player.setRunAnim(768);
+                        player.setWalkAnim(768);
+                        player.setAppearanceUpdateRequired(true);
+                    }
+
+                    @Override
+                    public void end(Entity entity) {
+                        player.setStandAnim(-1);
+                        player.setRunAnim(-1);
+                        player.setWalkAnim(-1);
+                        player.getUpdateFlags().sendAnimation(770);
+                        player.setAppearanceUpdateRequired(true);
+                        player.getMovementPaused().setWaitDuration(waitDuration);
+                        player.getMovementPaused().reset();
+                    }
+                };
+                player.walkTo(to, false);
+                player.getMovementHandler().lock(lock);
+                stop();
+            }
+        };
+        World.getTickManager().submit(t);
+        return true;
+        
+    }
 
 }

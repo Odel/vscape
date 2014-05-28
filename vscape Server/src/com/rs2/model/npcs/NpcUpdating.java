@@ -4,7 +4,11 @@ import java.util.Iterator;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 
@@ -45,8 +49,6 @@ public class NpcUpdating {
 
 		// Update the local NPC list itself.
 		int npcsAdded = 0;
-		boolean kqSpawned1 = false;
-		boolean kqSpawned2 = false;
 		for (int i = 0; i < World.getNpcs().length; i++) {
 			if (npcsAdded > 15)
 				// too many npcs added in cycle
@@ -54,12 +56,6 @@ public class NpcUpdating {
 			Npc npc = World.getNpcs()[i];
 			if (npc == null || !npc.isVisible()) {
 				continue;
-			}
-			if(npc != null && npc.getNpcId() == 1158) {
-			    kqSpawned1 = true;
-			}
-			if(npc != null && npc.getNpcId() == 1160) {
-			    kqSpawned2 = true;
 			}
 			synchronized (player.getNpcs()) {
 				if (!player.getNpcs().contains(npc) && npc.getPosition().isViewableFrom(player.getPosition())) {
@@ -71,12 +67,6 @@ public class NpcUpdating {
 					}
 				}
 			}
-		}
-		if(!kqSpawned1 && !kqSpawned2) {
-		    Npc npc = new Npc(1158);
-		    npc.setSpawnPosition(new Position(3478, 9498, 0));
-		    npc.setPosition(new Position(3478, 9498, 0));
-		    World.register(npc);
 		}
 		// Append the update block to the packet if need be.
 		if (block.getBuffer().position() > 0) {
