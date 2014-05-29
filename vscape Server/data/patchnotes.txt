@@ -1,3 +1,17 @@
+@dre@=May 29=
+@dre@=Pickles' Vacation Edition=
+@blu@ Dagannoth Kings! (Bring a teleport)
+@blu@ Kalphite Queen! (Bring an anti and a rope)
+@blu@ Mage Arena!
+
+-Dharok's set bonus fixed.
+-Gul'Tanoth island clue location fixed.
+-HAM members can be pick-pocketed for clues.
+-Range and Fishing potions fixed.
+-Defilers and Torchers in PC do ranged attacks.
+-Khazard General Store.
+-Mage Bank fixed.
+
 @dre@= May 24 =
 @red@-Changes-
 -Shilo Fishing shop now works

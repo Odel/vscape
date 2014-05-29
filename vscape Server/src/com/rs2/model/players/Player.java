@@ -297,6 +297,7 @@ public class Player extends Entity {
 	private boolean musicAuto = true;
 	private int effectVolume = 0;
 	private int questPoints = 0;
+	private boolean canHaveGodCape = true; //cadillac
 	private boolean specialAttackActive = false;
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
@@ -399,6 +400,10 @@ public class Player extends Entity {
 	
 	private int pcDamage;
 	private int pcPoints;
+	private int zamorakCasts;
+	private int saradominCasts;
+	private int guthixCasts;
+	private int mageArenaStage;
 	
 	public CanoeStationData curCanoeStation;
 
@@ -2170,8 +2175,71 @@ public class Player extends Entity {
             World.unregister(this);
             b.stop();
         }
-	}
-
+    }
+/*public int destroyBarrowItemOnDeath(Item item) {	//cadillac
+         String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
+         if(itemName.contains("ahrim")) {
+             if(itemName.contains("staff"))
+                 return 4866;
+             if(itemName.contains("skirt"))
+                 return 4878;
+             if(itemName.contains("top"))
+                 return 4872;
+             if(itemName.contains("hood"))
+                 return 4860;
+         }
+         if(itemName.contains("guthan")) {
+             if(itemName.contains("spear"))
+                 return 4914;
+             if(itemName.contains("skirt"))
+                 return 4926;
+             if(itemName.contains("body"))
+                 return 4920;
+             if(itemName.contains("helm"))
+                 return 4908;
+         }
+         if(itemName.contains("torag")) {
+             if(itemName.contains("hammers"))
+                 return 4962;
+             if(itemName.contains("legs"))
+                 return 4974;
+             if(itemName.contains("body"))
+                 return 4968;
+             if(itemName.contains("helm"))
+                 return 4956;
+         }
+         if(itemName.contains("dharok")) {
+             if(itemName.contains("axe"))
+                 return 4890;
+             if(itemName.contains("legs"))
+                 return 4902;
+             if(itemName.contains("body"))
+                 return 4896;
+             if(itemName.contains("helm"))
+                 return 4884;
+         }
+         if(itemName.contains("verac")) {
+             if(itemName.contains("flail"))
+                 return 4986;
+             if(itemName.contains("skirt"))
+                 return 4998;
+             if(itemName.contains("top") || itemName.contains("brassard"))
+                 return 4992;
+             if(itemName.contains("helm"))
+                 return 4980;
+         }
+         if(itemName.contains("karil")) {
+             if(itemName.contains("bow"))
+                 return 4938;
+             if(itemName.contains("skirt"))
+                 return 4950;
+             if(itemName.contains("top"))
+                 return 4944;
+             if(itemName.contains("coif"))
+                 return 4932;
+         }
+         return -1;
+     }*/
     @Override
     public String toString() {
 		return getUsername() == null ? "Client(" + getHost() + ")" : "Player(" + getUsername() + ":" + getPassword() + " - " + getHost() + ")";
@@ -3113,6 +3181,51 @@ public class Player extends Entity {
 	public void setEffectVolume(int effectVolume) {
 		this.effectVolume = effectVolume;
 	}
+	
+	public boolean getCanHaveGodCape() {	//cadillac
+	    return canHaveGodCape;
+	}
+	
+	public void setCanHaveGodCape(boolean bool){ //cadillac-ack-ack-ack
+	    this.canHaveGodCape = bool;
+	}
+	
+	public int getMageArenaCasts(Spell spell) {
+	    if(spell == Spell.FLAMES_OF_ZAMORAK)
+		return zamorakCasts;
+	    else if(spell == Spell.SARADOMIN_STRIKE)
+		return saradominCasts;
+	    else if(spell == Spell.CLAWS_OF_GUTHIX)
+		return guthixCasts;
+	    else return 100;
+	}
+	
+	public void setMageArenaCasts(Spell spell, int casts) {
+	    if(spell == Spell.FLAMES_OF_ZAMORAK)
+		this.zamorakCasts = casts;
+	    else if(spell == Spell.SARADOMIN_STRIKE)
+		this.saradominCasts = casts;
+	    else if(spell == Spell.CLAWS_OF_GUTHIX)
+		this.guthixCasts = casts;
+	}
+	
+	public void saveZamorakCasts(int casts) {
+	    this.zamorakCasts = casts;
+	}
+	public void saveSaradominCasts(int casts) {
+	    this.saradominCasts = casts;
+	}
+	public void saveGuthixCasts(int casts) {
+	    this.guthixCasts = casts;
+	}
+	
+	public int getMageArenaStage() {
+	    return mageArenaStage;
+	}
+		
+	public void setMageArenaStage(int stage) {
+	    this.mageArenaStage = stage;
+	}
 
 	public int getQuestPoints() {
 		return questPoints;
@@ -3711,6 +3824,10 @@ public class Player extends Entity {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
+			/*if (destroyBarrowItemOnDeath(dropped) != -1) {	//cadillac
+				GroundItem barrows = new GroundItem(new Item(destroyBarrowItemOnDeath(dropped), dropped.getCount()), this, killer, getDeathPosition());
+				GroundItemManager.getManager().dropItem(barrows);
+			}*/
 			if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);

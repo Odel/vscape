@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackUsableResponse;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.projectile.Projectile;
@@ -54,6 +55,14 @@ public class SpellAttack extends BasicAttack {
 					((Player) getAttacker()).setAutoSpell(null);
 				}
 				return AttackUsableResponse.Type.FAIL;
+			}
+			if(!((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
+			    Player player = (Player)getAttacker();
+			    player.getActionSender().sendMessage("You need to charge this staff in the Mage Arena with " +(100-player.getMageArenaCasts(spell))+" more casts.");
+			    player.setCastedSpell(null);
+			    player.setAutoSpell(null);
+			    CombatManager.resetCombat(player);
+			    return AttackUsableResponse.Type.FAIL;
 			}
 		}
 		if (spell.equals(Spell.CRUMBLE_UNDEAD)) {
@@ -117,7 +126,7 @@ public class SpellAttack extends BasicAttack {
 		
 		if(getAttacker().isPlayer()) {
 		    Player player = (Player) getAttacker();
-		    if(player.hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX)
+		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
 			staffRequired = 8841;
 		    else if (spell == Spell.FLAMES_OF_ZAMORAK)
 			staffRequired = 2417;
@@ -190,6 +199,36 @@ public class SpellAttack extends BasicAttack {
                 World.getTickManager().submit(t);
             }
         }
+	if (spell == Spell.FLAMES_OF_ZAMORAK) {
+	    for(Player player : World.getPlayers()) {
+		if(player == null)
+		    continue;
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
+		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
+		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
+	    }
+	}
+	if (spell == Spell.SARADOMIN_STRIKE) {
+	    for(Player player : World.getPlayers()) {
+		if(player == null)
+		    continue;
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
+		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
+		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
+	    }
+	}
+	if (spell == Spell.CLAWS_OF_GUTHIX) {
+	    for(Player player : World.getPlayers()) {
+		if(player == null)
+		    continue;
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
+		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
+		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
+		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
+	    }
+	}
         if (getAttacker().isPlayer()) {
             Player player = (Player)getAttacker();
             player.getSkill().addExp(Skill.MAGIC, spell.getExpEarned());

@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -53,6 +54,7 @@ public class CombatManager extends Tick {
 	private final List<Hit> hitsStory;
 	
 	public static boolean deathByPortal = false;
+	public static boolean kolodionDeath = false;
 
 	public CombatManager() {
 		super(1);
@@ -167,6 +169,31 @@ public class CombatManager extends Tick {
 			Player player = (Player) died;
 			player.setStopPacket(true);
 		}
+		if(died != null && died.isPlayer() && ((Player)died).inMageArena() && ((Player) died).getMageArenaStage() == 1 ) {
+		    Player player = (Player)died;
+		    Position pos = player.getPosition().clone();
+		    for(Npc npc : World.getNpcs()) {
+			if(npc == null)
+			    continue;
+			if(npc.getDefinition().getName().equalsIgnoreCase("kolodion")
+			    && Misc.getDistance(pos, npc.getPosition().clone()) <= 8) {
+				player.teleport(new Position(2541, 4714, 0));
+				player.setStopPacket(false);
+				player.setHideWeapons(false);
+				player.setDead(false);
+				player.heal(100);
+				player.resetEffects();
+				player.getSkill().refresh();
+				died.getInCombatTick().setWaitDuration(0);
+				died.getInCombatTick().reset();
+				died.getPjTimer().setWaitDuration(0);
+				died.getPjTimer().reset();
+				Dialogues.setNextDialogue(player, 905, 1);
+				player.getDialogue().sendNpcChat("Better luck next time!", Dialogues.LAUGHING);
+				return;
+			}	
+		    }
+		}
 		final int deathAnimation = died.getDeathAnimation();
 		if (deathAnimation != -1) {
 			Tick tick = new Tick(2) {
@@ -275,6 +302,35 @@ public class CombatManager extends Tick {
 		    npc.setVisible(false);
 		    World.unregister(npc);
 		    return;
+		}
+		else if(npc.getDefinition().getName().equalsIgnoreCase("kolodion")) {
+		    if(npc.getNpcId() == 911 && killer.isPlayer()) {
+			Player player = (Player) killer;
+			player.getActionSender().sendMessage("You have defeated Kolodion!");
+			player.setMageArenaStage(2);
+			player.teleport(new Position(2540, 4714, 0));
+			player.resetEffects();
+			player.removeAllEffects();
+			player.heal(100);
+			player.getPrayer().resetAll();
+			player.getSkill().refresh();
+			player.getDialogue().sendNpcChat("You've done well, step into the pool.", "Beyond the pool is your prize.", Dialogues.CALM);
+			PlayerSave.save((Player)killer);
+		    }
+		    else {
+			Npc newKol = new Npc(npc.getNpcId()+1);
+			newKol.setSpawnPosition(npc.getPosition().clone());
+			newKol.setPosition(npc.getPosition().clone());
+			newKol.setNeedsRespawn(false);
+			newKol.setCombatDelay(2);
+			newKol.setPlayerOwner(((Player)killer).getIndex());
+			World.register(newKol);
+			attack(newKol, killer);
+			if(newKol.getNpcId() == 911)
+			    newKol.getUpdateFlags().sendForceMessage("Aaargh! I cannot lose!");
+			else
+			    newKol.getUpdateFlags().sendForceMessage("How about this?");
+		    }
 		}
 		
 		if (!npc.needsRespawn()) {
@@ -451,8 +507,13 @@ public class CombatManager extends Tick {
 			styleBonus = 1;
 		int effectiveStrengthDamage = (int) (strengthLevel + styleBonus);
 		double baseDamage = 5 + (effectiveStrengthDamage + 8) * (player.getBonus(10) + 64) / 64; //10 = str bonus
-		if(player.hasFullVoidMelee())
+		if(player.hasFullVoidMelee()) {
 		    baseDamage = baseDamage * 1.1;
+		}
+		else if(player.hasFullDharok()) {
+		    double hpLost = player.getMaxHp() - player.getCurrentHp();
+		    baseDamage += baseDamage * hpLost * 0.01;
+		}
 		int maxHit = (int) Math.floor(baseDamage);
 		return (int) Math.floor(maxHit / 10);
 	}
@@ -559,6 +620,11 @@ public class CombatManager extends Tick {
 		entity.setSkilling(null);
 		entity.getUpdateFlags().faceEntity(-1);
 		Following.resetFollow(entity);
+	}
+	public static boolean arenaNpc(Npc npc) {
+	    if(npc.getNpcId() == 912 || npc.getNpcId() == 913 || npc.getNpcId() == 914)
+		return true;
+	    else return false;
 	}
 
 }

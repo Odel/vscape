@@ -212,7 +212,7 @@ public class Hit {
 		    if( hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
 			damage = 0;
 		}
-		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1160 ) {
+		else if (getAttacker() != null && getAttacker().isPlayer() && ((Player)attacker).getStaffRights() < 1 && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1160 ) {
 		    if( hitDef.getAttackStyle().getAttackType() == AttackType.MELEE)
 			damage = 0;
 		}
@@ -332,9 +332,9 @@ public class Hit {
         		hitDef.setSpecialEffect(10);
         	} else if (((attacker.isPlayer() && ((Player) attacker).hasFullVerac()) || (attacker.isNpc() && ((Npc) attacker).getDefinition().getId() == 2030))) {
         		hitDef.setSpecialEffect(11);
-        	} else if (((attacker.isPlayer() && ((Player) attacker).hasFullDharok()) || (attacker.isNpc() && ((Npc) attacker).getDefinition().getId() == 2026))) {
+        	} else if (((attacker.isNpc() && ((Npc) attacker).getDefinition().getId() == 2026))) {
         		double hpLost = attacker.getMaxHp() - attacker.getCurrentHp();
-        		this.damage += damage * hpLost * 0.01;
+        		this.damage += damage * hpLost * 0.01; 
         	} else if((attacker.isPlayer() && ((Player) attacker).hasFullVoidMage()) ) {
 			((Player) attacker).setBonuses(3, 1000);
 		}

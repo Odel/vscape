@@ -141,7 +141,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -561,6 +561,89 @@ public class WalkToActionHandler {
 				case 5959 : // magebank lever
 					player.teleport(new Position(2539, 4712));
 					break;
+				case 9706 : //mage arena lever
+				case 9707 :
+					if(player.getCombatingEntity() != null)
+					    player.getActionSender().sendMessage("You cannot use this in combat!");
+					else if(player.getCombatingEntity() == null && y == 3956)
+					    player.teleport(new Position(3106, 3952, 0));
+					else if(player.getCombatingEntity() == null && y == 3952)
+					    player.teleport(new Position(3105, 3956, 0));
+				break;
+				case 2878: //magebank pool - cadillac
+				    if(player.getMageArenaStage() >= 2) {
+					player.getActionSender().sendMessage("The world starts to shimmer around you...");
+					player.teleport(new Position(2509, 4690));
+					break;
+				    }
+				    else {
+					player.getActionSender().sendMessage("The water feels cool, yet seems to repel your presence.");
+					break;
+				    }
+				case 2879: //magebank pool2 - cadillac
+				    if(player.getMageArenaStage() >= 2) {
+					player.getActionSender().sendMessage("The world starts to shimmer around you...");
+					player.teleport(new Position(2541, 4718));
+					break;
+				    }
+				    else {
+					player.getActionSender().sendMessage("The water feels cool, yet seems to repel your presence.");
+					break;
+				    }
+				case 2873: //sara statue - cadillac
+				    if(player.getMageArenaStage() >= 2) {
+					if (player.getCanHaveGodCape()) {
+						if(player.getInventory().canAddItem(new Item(2412))) {
+						    player.getUpdateFlags().sendAnimation(645);
+						    player.getActionSender().sendMessage("Saradomin rewards you with a cape.");
+						    player.getInventory().addItem(new Item(2412));
+						    player.setCanHaveGodCape(false);
+						}
+						else
+						    player.getActionSender().sendMessage("Your inventory is full!");
+					} else {
+						player.getActionSender().sendMessage("You already have a God Cape.");
+					}
+				    }
+				    else
+					player.getActionSender().sendMessage("You cannot obtain a God Cape yet.");
+				break;
+				case 2874: //zammy statue - cadillac
+					if(player.getMageArenaStage() >= 2) {
+					if (player.getCanHaveGodCape()) {
+						if(player.getInventory().canAddItem(new Item(2414))) {
+						    player.getUpdateFlags().sendAnimation(645);
+						    player.getActionSender().sendMessage("Zamorak rewards you with a cape.");
+						    player.getInventory().addItem(new Item(2414));
+						    player.setCanHaveGodCape(false);
+						}
+						else
+						    player.getActionSender().sendMessage("Your inventory is full!");
+					} else {
+						player.getActionSender().sendMessage("You already have a God Cape.");
+					}
+				    }
+				    else
+					player.getActionSender().sendMessage("You cannot obtain a God Cape yet.");
+				break;
+				case 2875: //guthix statue - cadillac
+					if(player.getMageArenaStage() >= 2) {
+					if (player.getCanHaveGodCape()) {
+						if(player.getInventory().canAddItem(new Item(2413))) {
+						    player.getUpdateFlags().sendAnimation(645);
+						    player.getActionSender().sendMessage("Guthix rewards you with a cape.");
+						    player.getInventory().addItem(new Item(2413));
+						    player.setCanHaveGodCape(false);
+						}
+						else
+						    player.getActionSender().sendMessage("Your inventory is full!");
+					} else {
+						player.getActionSender().sendMessage("You already have a God Cape.");
+					}
+				    }
+				    else
+					player.getActionSender().sendMessage("You cannot obtain a God Cape yet.");
+				break;
 				case 1815 : // magebank lever near webs
 					player.teleport(new Position(2561, 3311)); //3153 3923
 					break;
@@ -589,6 +672,17 @@ public class WalkToActionHandler {
 					player.teleport(new Position(2899, 3565));
 					break;
 				case 2834 : // battlements
+					/*if(player.getPosition().getX() ==  2566) {
+					    //player.getUpdateFlags().sendAnimation(839);
+					    //player.getActionSender().walkTo(-2, 0, true);
+					    Agility.climbOver(player, 2569, 3022, 1, 0);
+					}
+					else if(player.getPosition().getX() ==  2568) {
+					    //player.getUpdateFlags().sendAnimation(2750);
+					    //CrossObstacle.setForceMovement(player, 2, 0, 1, 80, 2, true, 0, 0);
+					    Agility.climbOver(player, 2566, 3022, 1, 0);
+					} */
+
 					if (player.getPosition().getX() > 2567) {
 						player.getUpdateFlags().sendAnimation(839);
 						player.getActionSender().walkTo(-2, 0, true);
@@ -1814,6 +1908,7 @@ public class WalkToActionHandler {
 				case 495 :
 				case 496 :
 				case 499 :
+				case 902 : //magebank banker
 				case 2619:
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);

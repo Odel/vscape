@@ -27,6 +27,7 @@ import com.rs2.net.packet.packets.AppearancePacketHandler;
 
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.skills.magic.Spell;
 /**
  * Static utility methods for saving and loading players.
  * 
@@ -345,6 +346,10 @@ public class PlayerSave {
 			write.writeBoolean(player.hasKilledClueAttacker());
 			write.writeInt(player.getClayBraceletLife());
 			write.writeInt(player.getPcPoints());
+			write.writeInt(player.getMageArenaCasts(Spell.FLAMES_OF_ZAMORAK));
+			write.writeInt(player.getMageArenaCasts(Spell.SARADOMIN_STRIKE));
+			write.writeInt(player.getMageArenaCasts(Spell.CLAWS_OF_GUTHIX));
+			write.writeInt(player.getMageArenaStage());
             write.flush();
 			write.close();
 			
@@ -387,6 +392,12 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("hide-colors = ", 0, 14);
 			characterfile.write(Boolean.toString(player.getHideColors()), 0, Boolean.toString(player.getHideColors()).length());
+			characterfile.newLine();
+			characterfile.write("has god-cape = ", 0, 11);	//cadillac
+			characterfile.write(Boolean.toString(player.getCanHaveGodCape()), 0, Boolean.toString(player.getCanHaveGodCape()).length());
+			characterfile.newLine();
+			characterfile.write("Mage Arena stage = ", 0, 11);
+			characterfile.write(Integer.toString(player.getMageArenaStage()), 0, Integer.toString(player.getMageArenaStage()).length());
 			characterfile.newLine();
 			
 			characterfile.write("[EOF]", 0, 5);
@@ -866,6 +877,22 @@ public class PlayerSave {
             }
             try {
             	player.setPcPoints(load.readInt(), player);
+            } catch (IOException e) {
+	    }
+	    try {
+            	player.saveZamorakCasts(load.readInt());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.saveSaradominCasts(load.readInt());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.saveGuthixCasts(load.readInt());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.setMageArenaStage(load.readInt());
             } catch (IOException e) {
             }
 

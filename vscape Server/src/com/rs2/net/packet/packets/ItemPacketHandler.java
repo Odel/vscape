@@ -184,6 +184,18 @@ public class ItemPacketHandler implements PacketHandler {
 			}
 			player.setDestroyItem(item);
 			player.getActionSender().sendChatInterface(14170);
+			if (item.getId() == 2412) {	//cadillac
+				player.getActionSender().sendMessage("You can now obtain another God Cape.");	
+				player.setCanHaveGodCape(true);
+			}
+			if (item.getId() == 2413) {
+				player.getActionSender().sendMessage("You can now obtain another God Cape.");	
+				player.setCanHaveGodCape(true);
+			}
+			if (item.getId() == 2414) {
+				player.getActionSender().sendMessage("You can now obtain another God Cape.");	
+				player.setCanHaveGodCape(true);
+			}
 			return;
 		}
 		if (player.getInventory().getItemContainer().contains(item.getId())) {
@@ -921,6 +933,11 @@ public class ItemPacketHandler implements PacketHandler {
 		    player.getEquipment().equip(player.getSlot());
 		    return;
 		}
+		if(itemId == 11664 )
+		    if( player.hasFullVoidRange() && player.getSkill().getLevel()[4] <= player.getSkill().getPlayerLevel(4) ) {
+			player.getSkill().getLevel()[4] = (int)(player.getSkill().getPlayerLevel(4) * 1.1);
+			return;
+		    }	
 		if (new Item(itemId).getDefinition().getSlot() == -1)
 		{
 			return;

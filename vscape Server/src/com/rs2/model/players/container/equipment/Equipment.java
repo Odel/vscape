@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.Container;
@@ -818,6 +819,9 @@ public class Equipment {
 				attackLevelReq = 60;
 				magicLevelReq = 60;
 				return;
+			case 2609 : //addy platelegs (g)	//cadillac
+				defenceLevelReq = 30;
+				return;
 			case 4164 : // facemask
 				slayerLevelReq = 10;
 				return;
@@ -853,6 +857,10 @@ public class Equipment {
 			case 6724 : // seercull
 				rangeLevelReq = 50;
 				return;
+			case 4212 : //crystal bow
+			    rangeLevelReq = 70;
+			    agilityLevelReq = 50;
+			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;
@@ -1220,15 +1228,11 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("crystal")) {
+		if (itemName.contains("crystal") || itemId == 4212) {
 		    agilityLevelReq = 50;
-		    if(itemName.contains("shield")){
-		    	defenceLevelReq = 70;
-		    }
-		    if(itemName.contains("bow")){
-		    	rangeLevelReq = 70;
-		    }
-		    return;
+		    if(itemName.contains("shield"))
+			defenceLevelReq = 70;
+		return;
 		}
 		//barrows
 		if (itemName.contains("ahrim")) {
@@ -1406,6 +1410,7 @@ public class Equipment {
 	    player.setFullVoidMelee(fullVoidMelee());
 	    player.setFullVoidRange(fullVoidRange());
 	    player.setFullVoidMage(fullVoidMage());
+	    player.setVoidMace(voidMace());
 	}
 
 	public void checkRangeGear() {
@@ -1464,22 +1469,28 @@ public class Equipment {
 	}
 	
 	public boolean fullVoidMelee() {
-		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.HANDS) == null)
 			return false;
 
 		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11665 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
 	}
 	public boolean fullVoidRange() {
-		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.HANDS) == null)
 			return false;
 
 		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11664 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
 	}
 	public boolean fullVoidMage() {
-		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.HANDS) == null)
 			return false;
 
 		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11663 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
+	}
+	public boolean voidMace() {
+		if (player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
+			return false;
+		return (player.getEquipment().getItemContainer().get(Constants.WEAPON).getId() == 8841);
+	    
 	}
 
 }

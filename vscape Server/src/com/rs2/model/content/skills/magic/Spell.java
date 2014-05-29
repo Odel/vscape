@@ -52,6 +52,7 @@ public enum Spell {
 	VARROCK(25, 714, Graphic.highGraphic(301), 35, new Item[]{new Item(563), new Item(556, 3), new Item(554, 1)}), LUMBRIDGE(31, 714, Graphic.highGraphic(301), 41, new Item[]{new Item(563), new Item(556, 3), new Item(557, 1)}), FALADOR(37, 714, Graphic.highGraphic(301), 47, new Item[]{new Item(563), new Item(556, 3), new Item(555, 1)}), CAMELOT(45, 714, Graphic.highGraphic(301), 55, new Item[]{new Item(563), new Item(556, 5)}), ARDOUGNE(51, 714, Graphic.highGraphic(301), 61, new Item[]{new Item(563, 2), new Item(555, 2)}), WATCHTOWER(58, 714, Graphic.highGraphic(301), 68, new Item[]{new Item(563, 2), new Item(557, 2)}), TROLLHEIM(61, 714, Graphic.highGraphic(301), 68, new Item[]{new Item(563, 2), new Item(554, 2)}), APE_ATOLL(64, 714, Graphic.highGraphic(301), 74, new Item[]{new Item(563, 2), new Item(554, 2), new Item(555, 2), new Item(1963, 1)}),
 
 	//npc spells
+	CLAWS_OF_GUTHIX_BATTLE(198, magicHit(20, null, Graphic.highGraphic(77)), true),
 	SPINOLYP(2868, magicHit(10, magicProjectile(94), Graphic.highGraphic(95)), true, new StatEffect(5, 1)), 
 	WALLASALKI(2365, magicHit(30, magicProjectile(162), Graphic.highGraphic(163)), true),
 	PRIME(2853, magicHit(61, magicProjectile(162), Graphic.highGraphic(163)), true),
@@ -61,6 +62,9 @@ public enum Spell {
 	CHAOSDISARM(3146, magicHit(0, magicProjectile(551), Graphic.highGraphic(550)), true, new UnequipEffect()),
 	KQ1(0, 6240, new Graphic(278, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
 	KQ2(0, 6234, new Graphic(279, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
+	KOLODION1(62, 711, Graphic.highGraphic(158), 36, new Item[]{new Item(556, 5), new Item(565)}, magicHit(17, magicProjectile(159), Graphic.highGraphic(160)), true),
+	KOLODION2(65, 132, Graphic.highGraphic(161), 37.5, new Item[]{new Item(556, 5), new Item(565), new Item(555, 7)}, magicHit(20, magicProjectile(162), Graphic.highGraphic(163)), true),
+	KOLODION4(75, 711, Graphic.highGraphic(155), 42.5, new Item[]{new Item(556, 5), new Item(565), new Item(554, 7)}, magicHit(25, magicProjectile(156), Graphic.highGraphic(157)), true),
 	;
 
 	private int levelRequired, animation;

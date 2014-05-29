@@ -5,6 +5,7 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
 import com.rs2.model.content.Shops;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
@@ -3355,6 +3356,219 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 904 :
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Would you like a God Staff?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes!", "No.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								if(player.getMageArenaStage() >= 2) {
+								    player.getDialogue().sendNpcChat("Which staff would you like?", CONTENT);
+								    return true;
+								}
+								else {
+								    player.getDialogue().sendNpcChat("You still have to defeat Kolodion!", CONTENT);
+								    player.getDialogue().endDialogue();
+								    return true;
+								}
+							case 2:
+							    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+							    player.getDialogue().endDialogue();
+							    return true;
+						}
+					case 4 :
+					    player.getDialogue().sendOption("Guthix.", "Zamorak.", "Saradomin.", "Nevermind.");
+					    return true;
+					case 5 :
+						switch(optionId) {
+							case 1:
+							    if(player.getMageArenaStage() == 2) {
+								player.getDialogue().sendPlayerChat("I've chosen Guthix!",HAPPY);
+								player.getDialogue().setNextChatId(7);
+								return true;
+							    }
+							    else if(player.getMageArenaStage() == 3)
+							    player.getDialogue().sendNpcChat("That'll be 80,000 coins please.", CONTENT);
+							    return true;
+							case 2:
+							    if(player.getMageArenaStage() == 2) {
+								player.getDialogue().sendPlayerChat("I've chosen Zamorak!",HAPPY);
+								player.getDialogue().setNextChatId(9);
+								return true;
+							    }
+							    else if(player.getMageArenaStage() == 3) {
+							    player.getDialogue().sendNpcChat("That'll be 80,000 coins please.", CONTENT);
+							    player.getDialogue().setNextChatId(8);
+							    return true;
+							    }
+							case 3:
+							    if(player.getMageArenaStage() == 2) {
+								player.getDialogue().sendPlayerChat("I've chosen Saradomin!",HAPPY);
+								player.getDialogue().setNextChatId(11);
+								return true;
+							    }
+							    else if(player.getMageArenaStage() == 3) {
+							    player.getDialogue().sendNpcChat("That'll be 80,000 coins please.", CONTENT);
+							    player.getDialogue().setNextChatId(10);
+							    return true;
+							    }
+							case 4:
+							    player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+							    player.getDialogue().endDialogue();
+							    break;
+						}
+					return true;
+					case 6:
+					    if(player.getInventory().playerHasItem(995, 80000)) {
+						player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+						player.getInventory().removeItem(new Item(995, 80000));
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("Oh... I don't have the funds...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 7:
+					    if(player.getInventory().canAddItem(new Item(2416))) {
+						player.getDialogue().sendNpcChat("And here you are!", CONTENT);
+						player.getDialogue().endDialogue();
+						player.getInventory().addItem(new Item(2416));
+						player.setMageArenaStage(3);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("Your inventory is full!", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 8:
+					    if(player.getInventory().playerHasItem(995, 80000)) {
+						player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+						player.getInventory().removeItem(new Item(995, 80000));
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("Oh... I don't have the funds...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 9:
+					    if(player.getInventory().canAddItem(new Item(2417))) {
+						player.getDialogue().sendNpcChat("And here you are!", CONTENT);
+						player.getDialogue().endDialogue();
+						player.getInventory().addItem(new Item(2417));
+						player.setMageArenaStage(3);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("Your inventory is full!", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 10:
+					    if(player.getInventory().playerHasItem(995, 80000)) {
+						player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
+						player.getInventory().removeItem(new Item(995, 80000));
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("Oh... I don't have the funds...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 11:
+					    if(player.getInventory().canAddItem(new Item(2415))) {
+						player.getDialogue().sendNpcChat("And here you are!", CONTENT);
+						player.getDialogue().endDialogue();
+						player.getInventory().addItem(new Item(2415));
+						player.setMageArenaStage(3);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("Your inventory is full!", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					    } 
+				    }
+				break;
+			case 905 : //kolodian
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getMageArenaStage() == 0) {
+						player.getDialogue().sendNpcChat("Care for a challenge?", "The reward is incomparable.", CONTENT);
+						return true;
+					    }
+					    else if(player.getMageArenaStage() == 1) {
+						player.getDialogue().sendNpcChat("Care for a re-match?", CONTENT);
+						return true;
+					    }
+					    else if(player.getMageArenaStage() == 2) {
+						player.getDialogue().sendNpcChat("You've done well, step into the pool.", "Beyond the pool is your prize.", CALM);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					    else
+						player.getDialogue().sendNpcChat("You're quite the mage to have beaten me!", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes!", "No.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+							    player.getDialogue().sendPlayerChat("Yes!", HAPPY);
+							    return true;
+							case 2:
+							    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+							    player.getDialogue().endDialogue();
+							    return true;
+						}
+					case 4 :
+					    if(player.getSkill().getLevel()[Skill.MAGIC] >= 60){
+						player.getDialogue().sendNpcChat("You'll be fighting me in the Mage Arena...", "Are you up for it?", CONTENT);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("I'm sorry, I'm quite powerful, you'll need atleast", "level 60 Magic to fight me.", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 5 :
+						player.getDialogue().sendOption("Yes!", "No.");
+						return true;
+					case 6 :
+						switch(optionId) {
+							case 1:
+							    player.getDialogue().sendPlayerChat("Yes!", HAPPY);
+							    return true;
+							case 2:
+							    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+							    player.getDialogue().endDialogue();
+							    return true;
+						}
+					case 7 :
+					    player.teleport(new Position(3097, 3934, 0));
+					    player.setMageArenaStage(1);
+					    Npc newKol = new Npc(907);
+					    newKol.setSpawnPosition(new Position(3098, 3934, 0));
+					    newKol.setPosition(new Position(3098, 3934, 0));
+					    newKol.setNeedsRespawn(false);
+					    newKol.setCombatDelay(5);
+					    newKol.setPlayerOwner(player.getIndex());
+					    World.register(newKol);
+					    newKol.getUpdateFlags().sendForceMessage("Ready?");
+					    CombatManager.attack(newKol, player);
+					    break;
+					
+			    }
+			break;
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

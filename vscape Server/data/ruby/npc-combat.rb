@@ -259,6 +259,54 @@ class KalphiteQueenSecondForm < NpcCombatDef
     end
 end
 
+class BattleMageGuthix < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::CLAWS_OF_GUTHIX_BATTLE)
+		];
+    end
+end
+
+class BattleMageZamorak < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::FLAMES_OF_ZAMORAK)
+		];
+    end
+end
+
+class BattleMageSaradomin < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::SARADOMIN_STRIKE)
+		];
+    end
+end
+
+class KolodionFirstForm < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::KOLODION1)
+		];
+    end
+end
+
+class KolodionSecondForm < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::KOLODION2)
+		];
+    end
+end
+
+class KolodionFourthForm < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                    BasicAttack.magicAttack(attacker, victim, Spell::KOLODION4)
+		];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
@@ -286,3 +334,9 @@ NpcCombatDef.add([3762,3764,3766,3768,3770], Defiler.new())
 NpcCombatDef.add([3752, 3754, 3756, 3758, 3759], Torcher.new())
 NpcCombatDef.add([1158], KalphiteQueenFirstForm.new())
 NpcCombatDef.add([1160], KalphiteQueenSecondForm.new())
+NpcCombatDef.add([914], BattleMageGuthix.new())
+NpcCombatDef.add([912], BattleMageZamorak.new())
+NpcCombatDef.add([913], BattleMageSaradomin.new())
+NpcCombatDef.add([907], KolodionFirstForm.new())
+NpcCombatDef.add([908], KolodionSecondForm.new())
+NpcCombatDef.add([910], KolodionFourthForm.new())

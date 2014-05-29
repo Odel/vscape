@@ -471,6 +471,8 @@ public class Shops {
 				return 170;
 			case 1680://crystal
 				return 171;
+			case 555:
+				return 97;	//khazard general store	- cadillac
                         	
 			case 553:
                             // if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) //auburry my dick so far
