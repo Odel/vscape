@@ -99,6 +99,7 @@ public class Server implements Runnable {
 		int cycleRate = 600;
 		Constants.DEVELOPER_MODE = false;
 		Constants.SERVER_DEBUG = false;
+		Constants.UNLIMITED_RUN = true;
 
         //PlayerCleaner.start();
         //System.exit(0);

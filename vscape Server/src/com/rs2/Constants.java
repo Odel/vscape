@@ -193,4 +193,6 @@ public class Constants {
             SKILL_FISH = 10, SKILL_FM = 11, SKILL_CRAFT = 12, SKILL_SMITH = 13,
             SKILL_MINE = 14, SKILL_HERB = 15, SKILL_AGILITY = 16,
             SKILL_THIEVE = 17, SKILL_SLAY = 18, SKILL_FARM = 19, SKILL_RC = 20;
+
+	public static boolean UNLIMITED_RUN = true;
 }
