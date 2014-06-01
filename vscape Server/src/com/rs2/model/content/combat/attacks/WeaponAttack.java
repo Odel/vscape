@@ -111,8 +111,10 @@ public class WeaponAttack extends BasicAttack {
 		    HitDef hitDef = new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy().setProjectile(projectile);
 		    return new HitDef[]{hitDef};
 		}
-		else
-		    return null;
+		else {
+		    HitDef hitDef = new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy();
+		    return new HitDef[]{hitDef};
+		}
 	}
 
 	@Override
