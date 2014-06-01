@@ -861,6 +861,9 @@ public class Equipment {
 			    rangeLevelReq = 70;
 			    agilityLevelReq = 50;
 			    return;
+			case 11235 : //dark bow
+			    rangeLevelReq = 60;
+			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;

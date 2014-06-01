@@ -6,6 +6,8 @@ package com.rs2.model.content.combat.projectile;
 public class ProjectileTrajectory {
 
 	public static ProjectileTrajectory ARROW = new ProjectileTrajectory(44, 3, 43, 31, 15);
+	public static ProjectileTrajectory DOUBLE_ARROW1 = new ProjectileTrajectory(46, 10, 43, 35, 10);
+	public static ProjectileTrajectory DOUBLE_ARROW2 = new ProjectileTrajectory(46, 10, 43, 27, 10);
 	public static ProjectileTrajectory CRYSTAL = ARROW.clone().setDelay(30).setSlowness(3);
 	public static ProjectileTrajectory KNIFE = new ProjectileTrajectory(33, 3, 45, 37, 5);
 	public static ProjectileTrajectory DART = KNIFE.clone().setDelay(40).setSlowness(2);

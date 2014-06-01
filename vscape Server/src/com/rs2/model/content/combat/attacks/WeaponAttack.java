@@ -10,11 +10,15 @@ import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
+import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
+import com.rs2.model.content.combat.weapon.RangedAmmoType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
@@ -76,19 +80,39 @@ public class WeaponAttack extends BasicAttack {
 	}
 
 	public Graphic generateGraphic() {
-		if (rangedAmmo != null && weapon.getAmmoType() != null)
+		if (rangedAmmo != null && weapon.getAmmoType() != null && weapon == Weapon.DARK_BOW && getAttacker().isPlayer() ) {
+		    Player player = (Player) getAttacker();
+		    return new Graphic(player.getDarkBowPullGfx(rangedAmmo), 90);
+		}
+		else if (rangedAmmo != null && weapon.getAmmoType() != null && weapon != Weapon.DARK_BOW) {
 			return new Graphic(rangedAmmo.getGraphicId(), weapon.getAmmoType().getGraphicHeight());
-		return null;
+		}
+		else
+		    return null;
 	}
 
 	public final HitDef[] generateHits() {
 		double maxDamage = generateMaxHit();
 		ProjectileDef projectile = null;
-		if (rangedAmmo != null)
-			projectile = new ProjectileDef(rangedAmmo.getProjectileId(), weapon.getAmmoType().getProjectileTrajectory());
-		HitDef hitDef = new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy().setProjectile(projectile);
-
-        return new HitDef[]{hitDef};
+		if(rangedAmmo != null && weapon == Weapon.DARK_BOW) {
+		    int projectileId = rangedAmmo.getProjectileId();
+		    ProjectileDef firstProjectile = new ProjectileDef(projectileId, ProjectileTrajectory.DOUBLE_ARROW1);
+		    ProjectileDef secondProjectile = new ProjectileDef(projectileId, ProjectileTrajectory.DOUBLE_ARROW2);
+		    HitDef[] hitDef = new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy(1.0).setProjectile(firstProjectile).setCheckAccuracy(true), new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy(1.0).setProjectile(secondProjectile).setCheckAccuracy(true)};
+		    return hitDef;
+		}
+		else if(rangedAmmo != null && rangedAmmo == RangedAmmo.DRAGON_DART) {
+		    projectile = new ProjectileDef(rangedAmmo.getProjectileId(), weapon.getAmmoType().getProjectileTrajectory());
+		    HitDef hitDef = new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy(1.1).setProjectile(projectile);
+		    return new HitDef[]{hitDef};
+		}
+		else if (rangedAmmo != null && weapon != Weapon.DARK_BOW) { 
+		    projectile = new ProjectileDef(rangedAmmo.getProjectileId(), weapon.getAmmoType().getProjectileTrajectory());
+		    HitDef hitDef = new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().applyAccuracy().setProjectile(projectile);
+		    return new HitDef[]{hitDef};
+		}
+		else
+		    return null;
 	}
 
 	@Override
@@ -102,7 +126,24 @@ public class WeaponAttack extends BasicAttack {
 			}
 		}
 		String weaponName = player.getEquippedWeapon().name().toLowerCase();
-		if (getAttackStyle().getAttackType() == AttackType.RANGED && !weaponName.contains("crystal")) {
+		if (getAttackStyle().getAttackType() == AttackType.RANGED && weapon != Weapon.CRYSTAL_BOW) {
+		    if(weapon == Weapon.DARK_BOW) {
+			rangedAmmo = RangedAmmo.getRangedAmmo(player, weapon, true);
+			if (rangedAmmo == null) {
+				failedInitialize = true;
+				return;
+			}
+			int ammoSlot = weapon.getAmmoType().getEquipmentSlot();
+			dropId = player.getEquipment().getId(ammoSlot);
+			setRequirements(new Requirement[]{new EquipmentRequirement(ammoSlot, dropId, 2, true) {
+				@Override
+				public String getFailMessage() {
+					return CombatManager.NO_AMMO_MESSAGE;
+				}
+			}});
+			poisonEffect = checkPoison(player, AttackType.RANGED, ammoSlot);
+		    }
+		    else {
 			rangedAmmo = RangedAmmo.getRangedAmmo(player, weapon, true);
 			if (rangedAmmo == null) {
 				failedInitialize = true;
@@ -117,11 +158,12 @@ public class WeaponAttack extends BasicAttack {
 				}
 			}});
 			poisonEffect = checkPoison(player, AttackType.RANGED, ammoSlot);
+		    }
 		} else if (getAttackStyle().getAttackType() == AttackType.MELEE){
 			poisonEffect = checkPoison(player, AttackType.MELEE, Constants.WEAPON);
-		}else if (weaponName.contains("crystal")) 
-	        rangedAmmo = RangedAmmo.CRYSTAL_ARROW; //This allows the bow to ignore ammo
-
+		} else if (weaponName.contains("crystal")) {
+		    rangedAmmo = RangedAmmo.CRYSTAL_ARROW; //This allows the bow to ignore ammo
+		}
 		setHits(generateHits());
 		setAttackDelay(generateHitDelay());
 		setGraphic(generateGraphic());
@@ -184,8 +226,13 @@ public class WeaponAttack extends BasicAttack {
 			player.setSpecialAttackActive(false);
 			player.updateSpecialBar();
 		}
-		if (getHits() != null) {
+		if (getHits() != null ) {
 			for (HitDef hit : getHits()) {
+				/*if (player.isDropArrow() && weapon == Weapon.DARK_BOW && Misc.getRandom().nextInt(10) < 6) {
+				    Item arrowItem = player.getEquipment().getItemContainer().get(Constants.ARROWS);
+				    GroundItem dropItem = new GroundItem(new Item(arrowItem.getId()), player, getVictim().getPosition().clone());
+				    GroundItemManager.getManager().dropItem(dropItem);
+				}*/
 				if (dropId != -1)
 					hit.setDroppedItem(new Item(dropId));
 				if (poisonEffect != null && Misc.random(3) == 0)
@@ -224,5 +271,6 @@ public class WeaponAttack extends BasicAttack {
 			return attackType == AttackType.MELEE ? NORMAL_POISON_MELEE : NORMAL_POISON_RANGED;
 		return null;
 	}
+	
 
 }

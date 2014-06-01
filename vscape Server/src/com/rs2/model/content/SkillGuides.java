@@ -1628,6 +1628,7 @@ public class SkillGuides {
 			menuLine("62", "Adamant 'brutal' arrow", 4798, 11);
 			menuLine("75", "Rune arrow", 892, 12);
 			menuLine("77", "Rune 'brutal' arrow", 4803, 13);
+			menuLine("90", "Dragon arrow", 11212, 14);
 			optionTab("Fletching", "Arrows", "Arrows", "Bows", "Darts", "Bolts", "C'bows", "Milestones", "", "", "", "", "", "", "");
 		}
 
@@ -1657,6 +1658,7 @@ public class SkillGuides {
 			menuLine("52", "Mithril Dart", 809, 3);
 			menuLine("67", "Adamant Dart", 810, 4);
 			menuLine("81", "Rune Dart", 811, 5);
+			menuLine("95", "Dragon Dart", 11230, 6);
 			optionTab("Fletching", "Darts", "Arrows", "Bows", "Darts", "Bolts", "C'bows", "Milestones", "", "", "", "", "", "", "");
 		}
 

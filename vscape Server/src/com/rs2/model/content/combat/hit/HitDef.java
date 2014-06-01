@@ -27,6 +27,8 @@ public class HitDef {
 	private ProjectileDef projectileDef;
 	private int startingHitDelay, specialEffect;
 	private boolean checkAccuracy, randomizeDamage, unblockable;
+	private boolean darkBowSpec = false;
+	private boolean darkBowDragonSpec = false;
     private byte radius;
     private boolean firstHit;
     private boolean block;
@@ -247,7 +249,25 @@ public class HitDef {
 	public boolean shouldRandomizeDamage() {
 		return randomizeDamage;
 	}
-
+	
+	public boolean isDarkBowSpec() {
+		return darkBowSpec;
+	}
+	
+	public HitDef setDarkBowSpec(boolean set) {
+		this.darkBowSpec = set;
+		return this;
+	}
+	
+	public boolean isDarkBowDragonSpec() {
+		return darkBowDragonSpec;
+	}
+	
+	public HitDef setDarkBowDragonSpec(boolean set) {
+		this.darkBowDragonSpec = set;
+		return this;
+	}
+	
 	public HitDef setRandomizeDamage(boolean randomizeDamage) {
 		this.randomizeDamage = randomizeDamage;
 		return this;

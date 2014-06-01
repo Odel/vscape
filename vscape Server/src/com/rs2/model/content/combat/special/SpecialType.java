@@ -384,6 +384,55 @@ public enum SpecialType {
 			};
 			return weaponAttack;
 		}
+	},
+	DARK_BOW(50) {
+		@Override
+		public WeaponAttack getSpecialAttack(final Player attacker, final Entity victim, final Weapon weapon) {
+			final WeaponAttack weaponAttack = new WeaponAttack(attacker, victim, weapon) {
+				@Override
+				public boolean canInitialize() {
+					//if (!super.canInitialize())
+					//	return false;
+					RangedAmmo rangedAmmo = getRangedAmmo();
+					RangedAmmoType rangedAmmoType = weapon.getAmmoType();
+					Item arrowItem = attacker.isPlayer() ? (attacker).getEquipment().getItemContainer().get(rangedAmmoType.getEquipmentSlot()) : null;
+					if (arrowItem == null)
+						return false;
+					setRequirements(new Requirement[]{new EquipmentRequirement(rangedAmmoType.getEquipmentSlot(), arrowItem.getId(), 2, true) {
+						@Override
+						public String getFailMessage() {
+							return "You do not have enough arrows!";
+						}
+					}});
+					double maxDamage = generateMaxHit();
+					setAnimation(426);
+					setGraphic(new Graphic( attacker.getDarkBowPullGfx(rangedAmmo), 90) );
+					if(rangedAmmo != RangedAmmo.DRAGON_ARROW) {
+					    ProjectileDef firstProjectile = new ProjectileDef(1101, ProjectileTrajectory.DOUBLE_ARROW1.clone().setSlowness(30));
+					    ProjectileDef secondProjectile = new ProjectileDef(1101, ProjectileTrajectory.DOUBLE_ARROW2.clone().setStartHeight(35).setSlowness(30));
+					    setHits(new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage*1.3).randomizeDamage().applyAccuracy(1.1).setProjectile(firstProjectile).setStartingHitDelay(1).setCheckAccuracy(true).setHitGraphic(new Graphic(1103, 90)).setDarkBowSpec(true), new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage*1.3).randomizeDamage().applyAccuracy(1.1).setProjectile(secondProjectile).setStartingHitDelay(0).setCheckAccuracy(true).setHitGraphic(new Graphic(1103, 90)).setDarkBowSpec(true)});
+					}
+					else if(rangedAmmo == RangedAmmo.DRAGON_ARROW) {
+					    ProjectileDef firstProjectile = new ProjectileDef(1099, ProjectileTrajectory.DOUBLE_ARROW1.clone().setSlowness(20));
+					    ProjectileDef secondProjectile = new ProjectileDef(1099, ProjectileTrajectory.DOUBLE_ARROW2.clone().setStartHeight(30).setSlowness(20));
+					    setHits(new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage*1.5).randomizeDamage().applyAccuracy(1.1).setProjectile(firstProjectile).setStartingHitDelay(1).setCheckAccuracy(true).setHitGraphic(new Graphic(1103, 90)).setDarkBowDragonSpec(true), new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage*1.3).randomizeDamage().applyAccuracy(1.1).setProjectile(secondProjectile).setStartingHitDelay(0).setCheckAccuracy(true).setHitGraphic(new Graphic(1103, 90)).setDarkBowDragonSpec(true)});
+					}
+					return true;
+				}
+				@Override
+				public int execute(CycleEventContainer container) {
+					World.getTickManager().submit(new Tick(1) {
+						@Override
+						public void execute() {
+							stop();
+
+						}
+					});
+					return super.execute(container) + 1;
+				}
+			};
+			return weaponAttack;
+		}
 	};
 
 	private byte energyRequired;

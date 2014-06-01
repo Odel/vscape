@@ -3,7 +3,6 @@ package com.rs2.model.content.combat.hit;
 import java.util.List;
 
 import com.rs2.model.Entity;
-import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.Graphic;
 import com.rs2.model.UpdateFlags;
 import com.rs2.model.content.combat.AttackType;
@@ -51,8 +50,14 @@ public class Hit {
     }
 
 	public void initialize(boolean queue) {
-		if (hitDef.shouldRandomizeDamage())
+		if (hitDef.shouldRandomizeDamage()) {
+		    if(hitDef.isDarkBowSpec()) 
+			this.damage = Misc.random(5, damage);
+		    else if(hitDef.isDarkBowDragonSpec())
+			this.damage = Misc.random(8, damage);
+		    else
 			this.damage = Misc.random(damage);
+		}
 		if (attacker != null && !hitDef.isUnblockable() && hitDef.shouldCheckAccuracy()) {
 			executeAccuracy();
 		}
@@ -72,6 +77,14 @@ public class Hit {
 			return;
 		UpdateFlags flags = victim.getUpdateFlags();
 		HitType hitType = damage == 0 ? HitType.MISS : hitDef.getHitType();
+		if(hitDef.isDarkBowSpec() && hitType == HitType.MISS) {
+		    hitType = hitDef.getHitType();
+		    damage = 5;
+		}
+		if(hitDef.isDarkBowDragonSpec() && hitType == HitType.MISS) {
+		    hitType = hitDef.getHitType();
+		    damage = 8;
+		}
 		if (!flags.isDamage1Set()) {
 			flags.setHitUpdate(true);
 			flags.setDamage(damage);

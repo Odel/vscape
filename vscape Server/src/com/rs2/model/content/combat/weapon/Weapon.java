@@ -17,6 +17,7 @@ public enum Weapon {
     OGRE_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.OGRE, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     OGRE_COMP_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.BRUTAL, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     LONG_BOW(WeaponInterface.LONG_BOW, RangedAmmoType.ARROW, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
+    DARK_BOW(WeaponInterface.LONG_BOW, RangedAmmoType.DARK_BOW, 7, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     WAND(WeaponInterface.STAFF, 5, new int[]{406, 407, 408}, new int[]{809, 1146, 1210}, 435),
     STAFF(WeaponInterface.STAFF, 5, new int[]{406, 406, 406}, new int[]{809, 1146, 1210}, 435),
     SPECSTAFF(WeaponInterface.STAFF, 4, new int[]{406, 407, 408}, new int[]{809, 1146, 1210}, 435),
@@ -170,6 +171,8 @@ public enum Weapon {
 			return Weapon.PICKAXE;
 		} else if (name.contains("shortbow")) {
 			return Weapon.SHORT_BOW;
+		} else if (weaponItem.getId() == 11235) {
+			return Weapon.DARK_BOW;
 		} else if (name.contains("comp bow") || name.contains("seercull")) {
 			return Weapon.SPECIAL_BOW;
 		} else if (name.contains("crystal bow")) {
