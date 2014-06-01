@@ -226,13 +226,8 @@ public class WeaponAttack extends BasicAttack {
 			player.setSpecialAttackActive(false);
 			player.updateSpecialBar();
 		}
-		if (getHits() != null ) {
+		if (getHits() != null) {
 			for (HitDef hit : getHits()) {
-				/*if (player.isDropArrow() && weapon == Weapon.DARK_BOW && Misc.getRandom().nextInt(10) < 6) {
-				    Item arrowItem = player.getEquipment().getItemContainer().get(Constants.ARROWS);
-				    GroundItem dropItem = new GroundItem(new Item(arrowItem.getId()), player, getVictim().getPosition().clone());
-				    GroundItemManager.getManager().dropItem(dropItem);
-				}*/
 				if (dropId != -1)
 					hit.setDroppedItem(new Item(dropId));
 				if (poisonEffect != null && Misc.random(3) == 0)
@@ -271,6 +266,5 @@ public class WeaponAttack extends BasicAttack {
 			return attackType == AttackType.MELEE ? NORMAL_POISON_MELEE : NORMAL_POISON_RANGED;
 		return null;
 	}
-	
 
 }
