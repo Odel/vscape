@@ -232,6 +232,12 @@ public class Potion {
 				player.getActionSender().statEdit(Skill.DEFENCE, ((int) (player.getSkill().getPlayerLevel(Skill.DEFENCE) * 0.10) + 2) * -1, false);
 				player.hit((int) (player.getSkill().getLevel()[Skill.HITPOINTS] * 0.1) + 2, HitType.NORMAL);
 				break;
+			case 151: //fishing
+			case 153:
+			case 155:
+			case 2438:
+				player.getActionSender().statEdit(Skill.FISHING, 3, true);
+				break;
 			default :
 				break;
 		}
