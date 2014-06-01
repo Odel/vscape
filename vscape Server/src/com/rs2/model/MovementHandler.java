@@ -150,7 +150,7 @@ public class MovementHandler {
 				if (isRunToggled() || isRunPath()) {
 					if (player.getEnergy() > 0) {
 						if (!forcesRun) {
-							if (!Constants.SERVER_DEBUG) {
+							if (Constants.UNLIMITED_RUN == false) {
 								player.setEnergy(player.getEnergy() - Math.log(player.totalWeight + 20) / 3);
 	                        }
 							if (player.getEnergy() <= 0) {
