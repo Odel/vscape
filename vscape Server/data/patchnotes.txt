@@ -1,3 +1,12 @@
+@dre@=June 1st=
+@blu@ Dark bows / Dragon Arrows / Dragon Darts.
+@blu@ Infinite run is back. (Sorry!)
+-All of the normal dragons drop the dragon
+arrowtips / dart tips in varying amounts and
+chances.
+-Fishing Potions work.
+-Melee bug fixed.
+
 @dre@=May 29=
 @dre@=Pickles' Vacation Edition=
 @blu@ Dagannoth Kings! (Bring a teleport)
