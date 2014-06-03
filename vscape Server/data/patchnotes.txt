@@ -5,6 +5,10 @@
 -Skills necklace enchant.
 -Nechryael drop table cleaned.
 -Misc. drops changed.
+-Aubury Rune Vendor sells more runes.
+-Mortar and Pestle and Knife can 
+now be used on Chocolate Bar.
+-Chaos druids now drop mithril bolts.
 
 @dre@=June 1st=
 @blu@ Dark bows / Dragon Arrows / Dragon Darts.
