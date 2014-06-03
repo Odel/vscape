@@ -60,7 +60,7 @@ public abstract class MagicSkill extends CycleEvent {
 			{1639, 1696, 1658, 11076, 2552, 1729, 5521, 11079, 556, 3, 0, 0, 27}, // emerald
 			{1641, 1698, -1, 11085, 2568, 1725, -1, 11088, 554, 5, 0, 0, 49, 59}, // ruby
 			{1643, 1700, -1, 11092, 2570, 1731, -1, 11095, 557, 10, 0, 0, 57, 67}, // diamond
-			{1645, 1702, -1, 11115, 2572, 1712, -1, 11118, 557, 15, 555, 15, 68}, // dragonstone
+			{1645, 1702, 1664, 11115, 2572, 1712, 11105, 11118, 557, 15, 555, 15, 68}, // dragonstone
 			{6575, 6581, -1, 11130, 6583, 6585, -1, 11133, 557, 20, 554, 20, 87} // onyx
 	};
 	
@@ -74,6 +74,9 @@ public abstract class MagicSkill extends CycleEvent {
 			return;
 		}
 		for (Item rune : spell.getRunesRequired()) {
+		    if(player.inPestControlGameArea()) {
+			break;
+		    }
 			requirements[i++] = new RuneRequirement(rune.getId(), rune.getCount()) {
 				@Override
 				public String getFailMessage() {

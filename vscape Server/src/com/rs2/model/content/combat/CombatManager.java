@@ -227,6 +227,18 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(3910);
 					    stop();
 					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == 916) { // joe
+					    died.getUpdateFlags().sendAnimation(836);
+					    stop();
+					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == 919) { // keli
+					    died.getUpdateFlags().sendAnimation(424);
+					    stop();
+					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == 920) { // prince ali
+					    died.getUpdateFlags().sendAnimation(804);
+					    stop();
+					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
@@ -349,6 +361,10 @@ public class CombatManager extends Tick {
 			    respawnTimer = 300;
 			else if(npc.getNpcId() == 2881 || npc.getNpcId() == 2882 || npc.getNpcId() == 2883)
 			    respawnTimer = 60;
+			else if(npc.getNpcId() == 916) // joe
+			    respawnTimer = 120;
+			else if(npc.getNpcId() == 920) // prince ali
+			    respawnTimer = 120;
 			// Set respawn
 			CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
 			    @Override

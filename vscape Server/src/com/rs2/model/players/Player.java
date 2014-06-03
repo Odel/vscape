@@ -922,7 +922,11 @@ public class Player extends Entity {
 			final int id = Integer.parseInt(args[0]);
 			getActionSender().sendSong(id);
 		}
-		
+		if(keyword.equals("setqueststage")) {
+		    final int quest = Integer.parseInt(args[0]);
+		    final int stage = Integer.parseInt(args[1]);
+		    setQuestStage(quest, stage);
+		}
 		
 		if (keyword.equals("run")) {
 			final int id = Integer.parseInt(args[0]);
@@ -4846,7 +4850,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7383);
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
 		getActionSender().sendString("", 7341);
-		getActionSender().sendString("", 7342); //ali rescue
+		getActionSender().sendString("@red@Prince Ali Rescue", 7342); //ali rescue
 		getActionSender().sendString("", 7343);
 		getActionSender().sendString("@red@Rune Mysteries", 7335);
 		getActionSender().sendString("@red@Sheep Shearer", 7344);

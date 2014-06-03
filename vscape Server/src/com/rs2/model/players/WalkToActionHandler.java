@@ -9,6 +9,7 @@ import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.Pets;
 import com.rs2.model.content.Shops;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
@@ -1300,10 +1301,33 @@ public class WalkToActionHandler {
 				case 2884:
 					Dialogues.startDialogue(player, 10006);
 					break;
+				case 2881: // prince ali prison door
+					Dialogues.startDialogue(player, 920);
+					break;
 				case 2882: // alkharid gate
 				case 2883:
+				    if(player.getQuestStage(9) >= 12) {
+					player.getActionSender().walkTo(player.getPosition().getX() < 3268 ? 1 : -1, 0, true);
+					player.getActionSender().walkThroughDoubleDoor(2882, 2883, 3268, 3227, 3268, 3228, 0);
+					if(player.getPosition().getX() == 3268 && player.getPets().getPet() != null) {
+					    int petId = player.getPets().getPet().getNpcId();
+					    int itemId = player.getPets().getPetItemId();
+					    player.getPets().unregisterPet();
+					    player.getPets().registerPet(itemId, petId);
+					}
+					if(player.getPosition().getX() == 3267 && player.getPets().getPet() != null) {
+					    int petId = player.getPets().getPet().getNpcId();
+					    int itemId = player.getPets().getPetItemId();
+					    player.getPets().unregisterPet();
+					    player.getPets().registerPet(itemId, petId);
+					}
+					player.getActionSender().sendMessage("The guards give you a nod and a wink as you pass through the gate.");
+					break;
+				    }
+				    else {
 					Dialogues.startDialogue(player, 9999);
 					break;
+				    }
 				case 3203:
 					Dialogues.startDialogue(player, 10010);
 					break;
@@ -2342,6 +2366,16 @@ public class WalkToActionHandler {
 					break;
 				}
 				switch (item) { // item ids
+				case 954:
+				    if(player.getQuestStage(9) == 10 && player.getClickId() == 919) {
+					player.getInventory().removeItem(new Item(954));
+					player.getActionSender().sendMessage("You tie up Lady Keli.");
+					npc.setDead(true);
+					CombatManager.startDeath(npc);
+					player.setQuestStage(9, 11);
+					this.stop();
+					return;
+				    }
 				case 1735:
 					if (player.getClickId() == 43 || player.getClickId() == 1765) {
 						NpcActions.shearSheep(player);

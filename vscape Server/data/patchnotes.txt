@@ -1,3 +1,11 @@
+@dre@=June 3rd=
+@blu@ Prince Ali Rescue!
+-Uncommon drop rate adjusted.
+-Bartender in Falador sells beer.
+-Skills necklace enchant.
+-Nechryael drop table cleaned.
+-Misc. drops changed.
+
 @dre@=June 1st=
 @blu@ Dark bows / Dragon Arrows / Dragon Darts.
 @blu@ Infinite run is back. (Sorry!)

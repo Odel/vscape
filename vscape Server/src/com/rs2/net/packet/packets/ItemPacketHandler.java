@@ -326,6 +326,13 @@ public class ItemPacketHandler implements PacketHandler {
 		if (GodBook.addPageToBook(player, firstClickItem, secondClickItem, itemFirstClickSlot, itemSecondClickSlot)) {
 			return;
 		}
+		if(firstClickItem.getId() == 1765 && secondClickItem.getId() == 2421) {
+		    player.getActionSender().sendMessage("You carefully dye the wig blonde.");
+		    player.getInventory().removeItem(new Item(2421));
+		    player.getInventory().removeItem(new Item(1765));
+		    player.getInventory().addItem(new Item(2419));
+		    return;
+		}
         player.getActionSender().sendMessage("Nothing interesting happens.");
 
 	}

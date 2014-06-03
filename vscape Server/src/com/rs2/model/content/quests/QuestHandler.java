@@ -34,7 +34,8 @@ public class QuestHandler {
     	new RuneMysteries(),
     	new WitchsPotion(),
     	new EasterEvent(),
-    	new SheepShearer()
+    	new SheepShearer(),
+	new PrinceAli()
     };
     
     public static void init() {
@@ -128,6 +129,9 @@ public class QuestHandler {
         		return true;
         	case 28176: //Sheep Shearer
         		showInterface(player,quests[8]);
+        		return true;
+		case 28174: //Prince ali
+        		showInterface(player,quests[9]);
         		return true;
         }
         return false;
