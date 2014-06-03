@@ -8027,5 +8027,102 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+  },
+    {
+    "shopId": 193,
+    "name": "Obli's General Store",
+    "items": [
+      {
+        "id": 29,
+        "count": 10
+      },
+      {
+        "id": 229,
+        "count": 10
+      },
+	  {
+        "id": 233,
+        "count": 10
+      },
+	  {
+        "id": 1931,
+        "count": 30
+      },
+	  {
+        "id": 1351,
+        "count": 10
+      },
+	  {
+        "id": 1265,
+        "count": 10
+      },
+	  {
+        "id": 1349,
+        "count": 10
+      },
+	  {
+        "id": 1129,
+        "count": 10
+      },
+	  {
+        "id": 1059,
+        "count": 10
+      },
+	  {
+        "id": 1061,
+        "count": 10
+      },
+	  {
+        "id": 2142,
+        "count": 10
+      },
+	  {
+        "id": 1865,
+        "count": 10
+      },
+	  {
+        "id": 952,
+        "count": 10
+      },
+	  {
+        "id": 36,
+        "count": 10
+      },
+	  {
+        "id": 596,
+        "count": 10
+      },
+	  {
+        "id": 1755,
+        "count": 10
+      },
+	  {
+        "id": 2347,
+        "count": 10
+      },
+	  {
+        "id": 970,
+        "count": 10
+      },
+	  {
+        "id": 973,
+        "count": 10
+      },
+	  {
+        "id": 227,
+        "count": 10
+      },
+	  {
+        "id": 975,
+        "count": 10
+      },
+	  {
+        "id": 954,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]

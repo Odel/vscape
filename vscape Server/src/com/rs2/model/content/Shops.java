@@ -473,7 +473,8 @@ public class Shops {
 				return 171;
 			case 555:
 				return 97;	//khazard general store	- cadillac
-                        	
+            case 516:
+				return 193; //Shilo village general store      	
 			case 553:
                             // if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) //auburry my dick so far
 				return 19;
