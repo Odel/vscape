@@ -333,6 +333,18 @@ public class ItemPacketHandler implements PacketHandler {
 		    player.getInventory().addItem(new Item(2419));
 		    return;
 		}
+		if(firstClickItem.getId() == 1973 && secondClickItem.getId() == 233) {
+		    player.getActionSender().sendMessage("You use your pestle and mortar to turn the chocolate to dust.");
+		    player.getInventory().removeItem(new Item(1973));
+		    player.getInventory().addItem(new Item(1975));
+		    return;
+		}
+		if(firstClickItem.getId() == 946 && secondClickItem.getId() == 1973) {
+		    player.getActionSender().sendMessage("You use your knife to turn the chocolate to dust.");
+		    player.getInventory().removeItem(new Item(1973));
+		    player.getInventory().addItem(new Item(1975));
+		    return;
+		}
         player.getActionSender().sendMessage("Nothing interesting happens.");
 
 	}
