@@ -805,7 +805,8 @@ public class SkillGuides {
 			menuLine("40", "Yew Bow", 855, 6);
 			menuLine("50", "Magic Bow", 859, 7);
 			menuLine("50", "Seercull", 6724, 8);
-			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 9);
+			menuLine("60", "Dark Bow", 11235, 9);
+			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 10);
 			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
@@ -1562,26 +1563,32 @@ public class SkillGuides {
 			menuLine("20", "Sapphire Ring", 1637, 9);
 			menuLine("22", "Sapphire Necklace", 1656, 10);
 			menuLine("23", "Tiara", 5525, 11);
-			menuLine("24", "Sapphire Amulet", 1675, 12);
-			menuLine("27", "Cut Emerald", 1605, 13);
-			menuLine("27", "Emerald Ring", 1639, 14);
-			menuLine("29", "Emerald Necklace", 1658, 15);
-			menuLine("31", "Emerald Amulet", 1677, 16);
-			menuLine("34", "Cut Ruby", 1603, 17);
-			menuLine("34", "Ruby Ring", 1641, 18);
-			menuLine("40", "Ruby Necklace", 1660, 19);
-			menuLine("43", "Cut Diamond", 1601, 20);
-			menuLine("43", "Diamond Ring", 1643, 21);
-			menuLine("50", "Ruby Amulet", 1679, 22);
-			menuLine("55", "Cut Dragonstone", 1615, 23);
-			menuLine("55", "Dragonstone Ring", 1645, 24);
-			menuLine("56", "Diamond Necklace", 1662, 25);
-			menuLine("67", "Cut Onyx", 6573, 26);
-			menuLine("67", "Onyx Ring", 6575, 27);
-			menuLine("70", "Diamond Amulet", 1681, 28);
-			menuLine("80", "Dragonstone Amulet", 1683, 29);
-			menuLine("82", "Onyx Necklace", 6577, 30);
-			menuLine("90", "Onyx Amulet", 6579, 31);
+			menuLine("23", "Sapphire Bracelet", 11072, 12);
+			menuLine("24", "Sapphire Amulet", 1675, 13);
+			menuLine("27", "Cut Emerald", 1605, 14);
+			menuLine("27", "Emerald Ring", 1639, 15);
+			menuLine("29", "Emerald Necklace", 1658, 16);
+			menuLine("30", "Emerald Bracelet", 11076, 17);
+			menuLine("31", "Emerald Amulet", 1677, 18);
+			menuLine("34", "Cut Ruby", 1603, 19);
+			menuLine("34", "Ruby Ring", 1641, 20);
+			menuLine("40", "Ruby Necklace", 1660, 21);
+			menuLine("42", "Ruby Bracelet", 11085, 22);
+			menuLine("43", "Cut Diamond", 1601, 23);
+			menuLine("43", "Diamond Ring", 1643, 24);
+			menuLine("50", "Ruby Amulet", 1679, 25);
+			menuLine("55", "Cut Dragonstone", 1615, 26);
+			menuLine("55", "Dragonstone Ring", 1645, 27);
+			menuLine("56", "Diamond Necklace", 1662, 28);
+			menuLine("58", "Diamond Bracelet", 11092, 29);
+			menuLine("67", "Cut Onyx", 6573, 30);
+			menuLine("67", "Onyx Ring", 6575, 31);
+			menuLine("70", "Diamond Amulet", 1681, 32);
+			menuLine("74", "Dragonstone Bracelet", 11115, 33);
+			menuLine("80", "Dragonstone Amulet", 1683, 34);
+			menuLine("82", "Onyx Necklace", 6577, 35);
+			menuLine("84", "Onyx Bracelet", 11130, 36);
+			menuLine("90", "Onyx Amulet", 6579, 37);
 			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
@@ -2185,10 +2192,11 @@ public class SkillGuides {
 			menuLine("40", "Lobster - Lobster Pot Fishing", 377, 16);
 			menuLine("46", "Bass - Big Net Fishing", 363, 17);
 			menuLine("50", "Swordfish - Harpoon Fishing", 371, 18);
-			menuLine("65", "Karambwan - Vessel Fishing", 3142, 19);
-			menuLine("76", "Shark - Harpoon Fishing", 383, 20);
-			menuLine("79", "Sea Turtle - Fishing Trawler", 395, 21);
-			menuLine("81", "Manta Ray - Fishing Trawler", 389, 22);
+			menuLine("62", "Monkfish - Net Fishing (Picscatoris Colony)", 7944, 19);
+			menuLine("65", "Karambwan - Vessel Fishing", 3142, 20);
+			menuLine("76", "Shark - Harpoon Fishing", 383, 21);
+			menuLine("79", "Sea Turtle - Fishing Trawler", 395, 22);
+			menuLine("81", "Manta Ray - Fishing Trawler", 389, 23);
 			optionTab("Fishing", "Catches", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 
