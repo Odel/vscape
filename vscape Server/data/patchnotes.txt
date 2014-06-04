@@ -7,6 +7,7 @@
 -Mortar and Pestle or Knife can 
 now be used on Chocolate Bar (for dust).
 -Chaos druids now drop mithril bolts.
+-Gem Bolt Tips now have store prices.
 
 @dre@=June 3rd=
 @blu@ Prince Ali Rescue!
