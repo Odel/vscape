@@ -1,6 +1,10 @@
 @dre@=June ?=
--Aubury Rune Vendor sells more runes.
--Mortar and Pestle + Knife can 
+@blu@ Druidic Ritual!
+-Shilo Village General Store.
+-Wine of Zamorak spawn.
+-Various skill guide additions.
+-Aubury sells more runes.
+-Mortar and Pestle or Knife can 
 now be used on Chocolate Bar (for dust).
 -Chaos druids now drop mithril bolts.
 
