@@ -864,6 +864,25 @@ public class Equipment {
 			case 11235 : //dark bow
 			    rangeLevelReq = 60;
 			    return;
+			case 10346: //2rd age melee
+			case 10348:
+			case 10350:
+			case 10352:
+			    defenceLevelReq = 65;
+			    return;
+			case 10338: //3rd age mage
+			case 10340:
+			case 10342:
+			    defenceLevelReq = 30;
+			    magicLevelReq = 65;
+			    return;
+			case 10330: //3rd age range
+			case 10332:
+			case 10334:
+			case 10336:
+			    defenceLevelReq = 45;
+			    rangeLevelReq = 65;
+			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;

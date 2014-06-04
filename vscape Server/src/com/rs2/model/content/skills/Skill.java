@@ -82,7 +82,7 @@ public class Skill {
 					}
 				}
 			}
-			if (player.getIsUsingPrayer()[Prayer.RAPID_HEAL]) {
+			if (player.getIsUsingPrayer()[Prayer.RAPID_HEAL] || (player.getEquipment().getItemContainer().get(Constants.HANDS) != null && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 11133)) {
 				if (level[3] != getLevelForXP(getExp()[3])) {
 					if (level[3] < getLevelForXP(getExp()[3])) {
 						level[3] += 1;
