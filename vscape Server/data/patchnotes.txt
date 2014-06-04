@@ -1,5 +1,6 @@
 @dre@=June ?=
 @blu@ Druidic Ritual!
+@blu@ 3rd Age Armor added to level 3 clues.
 -Shilo Village General Store.
 -Wine of Zamorak spawn.
 -Various skill guide additions.
@@ -8,6 +9,9 @@
 now be used on Chocolate Bar (for dust).
 -Chaos druids now drop mithril bolts.
 -Gem Bolt Tips now have store prices.
+-Dragon Axe Special fixed.
+-You can boost Range/Fishing stats to
+gain entry to their respective guilds.
 
 @dre@=June 3rd=
 @blu@ Prince Ali Rescue!
