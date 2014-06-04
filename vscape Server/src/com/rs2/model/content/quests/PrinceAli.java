@@ -173,6 +173,22 @@ public class PrinceAli implements Quest {
 	    
 	    player.getActionSender().sendString("Free Prince Ali by dealing with Lady Keli.", 8158);
         }
+	else if (questStage == ALI_NEEDS_DISGUISE) {
+	    player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "To start the quest, you should talk to Hassan", 8147);
+            player.getActionSender().sendString("@str@" + "found in the Al-Kharid palace.", 8148);
+	    player.getActionSender().sendString("@str@" + "Hassan has told you to talk to Osman.", 8149);
+	    player.getActionSender().sendString("@str@" + "Osman told you to find Leela near Draynor.", 8150);
+	    player.getActionSender().sendString("@str@" + "You have a feeling Ned the wool man can make you a wig.", 8151);
+	    player.getActionSender().sendString("@str@" + "Speak with Aggie for skin paste and dye for the wig.", 8152);
+	    player.getActionSender().sendString("@str@" + "You now need to get a key imprint from Lady Keli near", 8153);
+	    player.getActionSender().sendString("@str@" + "Draynor's prison.", 8154);
+	    player.getActionSender().sendString("@str@" + "Take the key imprint to Osman.", 8155);
+	    player.getActionSender().sendString("@str@" + "Find a way around Joe, the guard, to rescue Prince Ali.", 8156);
+	    
+	    player.getActionSender().sendString("Make sure you have a blonde wig (yellow dye), the skirt,", 8158);
+	    player.getActionSender().sendString("the skin paste and the cell door key.", 8159);
+        }
 	else if (questStage == RETURN_TO_HASSAN) {
 	    player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start the quest, you should talk to Hassan", 8147);
