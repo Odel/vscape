@@ -2255,13 +2255,21 @@ public class WalkToActionHandler {
 				case 2714: // grain hopper
 					FlourMill.putFlourInHopper(player);
 					break;
-				case 2638: // glory fountain
+				case 2638: // glory / skills fountain
 					if (item == 1704 || item == 1706 || item == 1708 || item == 1710) {
 						if (player.getInventory().playerHasItem(item)) 
 						{
 							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
 							player.getUpdateFlags().sendAnimation(827, 0);
 							player.getInventory().addItemToSlot(new Item(1712, 1), player.getSlot());
+						}
+					}
+					if (item == 11113 || item == 11111 || item == 11109 || item == 11107 ) {
+						if (player.getInventory().playerHasItem(item)) 
+						{
+							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
+							player.getUpdateFlags().sendAnimation(827, 0);
+							player.getInventory().addItemToSlot(new Item(11105, 1), player.getSlot());
 						}
 					}
 					break;

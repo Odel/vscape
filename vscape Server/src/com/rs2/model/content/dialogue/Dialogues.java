@@ -1986,6 +1986,29 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 10015 : //skills
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Fishing Guild", "Mining Guild", "Crafting Guild", "Cooking Guild", "Nowhere");
+						return true;
+					case 2 :
+						switch(optionId) {
+						case 1:
+							JewelleryTeleport.teleport(player, Teleportation.FISHING_GUILD);
+							break;
+						case 2:
+							JewelleryTeleport.teleport(player, Teleportation.MINING_GUILD);
+							break;
+						case 3:
+							JewelleryTeleport.teleport(player, Teleportation.CRAFTING_GUILD);
+							break;
+						case 4:
+							JewelleryTeleport.teleport(player, Teleportation.COOKING_GUILD);
+							break;
+						}
+						break;
+				}
+				break;
 			case 10004 : //ring of duel
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

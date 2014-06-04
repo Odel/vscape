@@ -34,6 +34,12 @@ public class Teleportation {
 	public static final Position MONASTERY = new Position(3051, 3490);
 	public static final Position RANGEGUILD = new Position(2656, 3440);
 	
+	public static final Position FISHING_GUILD = new Position(2611, 3392);
+	public static final Position MINING_GUILD = new Position(3016, 3339);
+	public static final Position CRAFTING_GUILD = new Position(2933, 3292);
+	public static final Position COOKING_GUILD = new Position(3143, 3442);
+	
+	
 	public int x, y, height, teleTimer;
 
 	public boolean attemptTeleport(Position pos) {

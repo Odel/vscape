@@ -913,6 +913,12 @@ public class ItemPacketHandler implements PacketHandler {
             case 1706 :
         		Dialogues.startDialogue(player, 10003);
             	break;
+	    case 11105 : // glory
+            case 11107 :
+            case 11109 :
+            case 11111 :
+        		Dialogues.startDialogue(player, 10015);
+            	break;
 		case 3853 :
         	case 3855 :
         	case 3857 :

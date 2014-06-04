@@ -82,13 +82,13 @@ public class Tiaras {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return false;
 		}
+		final Tiara tiara = Tiara.getAltar(objectId);
+		if (tiara == null) {
+			return false;
+		}
 		if(!QuestHandler.questCompleted(player, 5))
 		{
 			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
-			return false;
-		}
-		final Tiara tiara = Tiara.getAltar(objectId);
-		if (tiara == null) {
 			return false;
 		}
 		if(player.carryingItem(5525) && player.carryingItem(tiara.getTalisman())){
