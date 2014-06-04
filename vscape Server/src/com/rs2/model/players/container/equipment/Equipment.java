@@ -38,7 +38,7 @@ public class Equipment {
 
 	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso"};
 	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm"};
-	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm"};
+	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm", "3rd age mage hat"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
 	private Container itemContainer = new Container(Type.STANDARD, 14) {
