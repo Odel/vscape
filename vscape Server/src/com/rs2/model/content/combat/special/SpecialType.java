@@ -153,6 +153,8 @@ public enum SpecialType {
 						return false;
 					setAnimation(2876);
 					setGraphic(new Graphic(479, 100));
+					attacker.getUpdateFlags().setForceChatMessage("Time to get wood!");
+					attacker.getActionSender().statEdit(Skill.WOODCUTTING, 3, true);
 					double maxDamage = generateMaxHit();
 					setHits(new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().setSpecialEffect(3).setCheckAccuracy(true)});
 					return true;
@@ -489,7 +491,7 @@ public enum SpecialType {
 		player.getActionSender().updateSpecialAmount(7511);
 		player.getActionSender().updateSpecialBarText(7511);
 	}
-
+	
 	public static void excaliburSpec(Player player) {
 		if (RulesData.NO_SPEC.activated(player)) {
 			player.getActionSender().sendMessage("Special attacks have been disabled during this fight!");

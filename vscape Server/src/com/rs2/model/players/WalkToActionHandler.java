@@ -1044,7 +1044,7 @@ public class WalkToActionHandler {
 					Prayer.rechargePrayerGuild(player);
 					break;
 				case 2641: // prayer guild ladder
-					if (player.getSkill().getPlayerLevel(Skill.PRAYER) < 31) {
+					if (player.getSkill().getLevel()[5] < 31) {
 						player.getDialogue().sendStatement("You need a Prayer level of 31 to enter the Prayer guild.");
 					} else {
 						Ladders.checkClimbLadder(player, "up");
@@ -1477,8 +1477,9 @@ public class WalkToActionHandler {
 				case 2514: //range guild door
 					if(player.getPosition().getX()-1 < x)
 					{
-						if (!SkillHandler.hasRequiredLevel(player, Skill.RANGED, 40, "enter the Range Guild")) {
-							break;
+						if (player.getSkill().getLevel()[4] < 40) {
+						    player.getDialogue().sendStatement("You need a Ranged level of 40 to enter the Range guild.");
+						    break;
 						}
 					}
 					player.getActionSender().walkTo(player.getPosition().getX()-1 < x ? 2 : -2, 0, true);
@@ -1486,8 +1487,9 @@ public class WalkToActionHandler {
 				case 2025: // fishing guild
 					if(player.getPosition().getY()-1 < y)
 					{
-						if (!SkillHandler.hasRequiredLevel(player, Skill.FISHING, 68, "enter the Fishing Guild")) {
-							break;
+						if (player.getSkill().getLevel()[10] < 68) {
+						    player.getDialogue().sendStatement("You need a Fishing level of 68 to enter the Fishing guild.");
+						    break;
 						}
 					}
 					player.getActionSender().walkThroughDoor(2025, x, y, z);
