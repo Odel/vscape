@@ -35,7 +35,8 @@ public class QuestHandler {
     	new WitchsPotion(),
     	new EasterEvent(),
     	new SheepShearer(),
-	new PrinceAli()
+	new PrinceAli(),
+	new DruidicRitual()
     };
     
     public static void init() {
@@ -132,6 +133,9 @@ public class QuestHandler {
         		return true;
 		case 28174: //Prince ali
         		showInterface(player,quests[9]);
+        		return true;
+		case 28187: //Druidic Ritual
+			showInterface(player,quests[10]);
         		return true;
         }
         return false;

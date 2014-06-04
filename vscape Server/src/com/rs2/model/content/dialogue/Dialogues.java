@@ -3572,6 +3572,7 @@ public class Dialogues {
 					
 			    }
 			break;
+			    //** beginning of prince ali and friends **//
 			case 923 : //hassanawannarescueali
 			    switch(player.getDialogue().getChatId()) {    
 				case 1 :
@@ -4310,6 +4311,292 @@ public class Dialogues {
 					    return true;
 			    }
 			break;
+			    //** end of prince ali and friends **//
+			    //** beginning of druidic rituals**//
+			case 454 : //sanfew good men
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getQuestStage(10) == 0) {
+						player.getDialogue().sendNpcChat("Hello there, are you interested in Herblore?", CONTENT);
+						return true;
+					    }
+					    else if(player.getQuestStage(10) == 1) {
+						player.getDialogue().sendPlayerChat("Kaqemeex sent me.", "It's about your dark wizard problem.", CONTENT);
+						player.getDialogue().setNextChatId(5);
+						return true;
+					    }
+					    else if(player.getQuestStage(10) == 2 || player.getQuestStage(10) == 3) {
+						player.getDialogue().sendNpcChat("Did you get those meats dipped into the Cauldron?", CONTENT);
+						player.getDialogue().setNextChatId(25);
+						return true;
+					    }
+					case 2 :
+					    player.getDialogue().sendOption("Yes.", "No.");
+					    return true;
+					case 3 :
+					    switch(optionId) {
+						case 1:
+						    player.getDialogue().sendPlayerChat("Yes.", CONTENT);
+						    return true;
+						case 2:
+						    player.getDialogue().sendPlayerChat("No.", CONTENT);
+						    player.getDialogue().endDialogue();
+						    return true;
+					    }
+					case 4 :
+					    player.getDialogue().sendNpcChat("Hmm, well, you should speak to Kaqemeex.", "He's in the druidic circle north of here.", "We have a slight problem on our hands.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 5 :
+					    player.getDialogue().sendNpcChat("Ah yes, the circle near Varrock.", "Such a pity.", "Unfortunately there is not much we can do...", SAD);
+					    return true;
+					case 6 :
+					    player.getDialogue().sendNpcChat("...Unless...", CONTENT);
+					    return true;
+					case 7 :
+					    player.getDialogue().sendStatement("Sanfew begins to mumble and argue to himself.");
+					    return true;
+					case 8 :
+					    player.getDialogue().sendPlayerChat("Erm, hello?", CONTENT);
+					    return true;
+					case 9 :
+					    player.getDialogue().sendNpcChat("Oh, yes, sorry...", "...You wouldn't happen to have an affinity", "for killing animals would you?", CONTENT);
+					    return true;
+					case 10 :
+					    player.getDialogue().sendNpcChat("Because there is a way to dispell the dark wizard's", "influence over the circle.", CONTENT);
+					    return true;
+					case 11 :
+					    player.getDialogue().sendPlayerChat("What do animals have to do with it?", CONTENT);
+					    return true;
+					case 12 :
+					    player.getDialogue().sendNpcChat("There's an ancient herblore recipe that is", "very, very powerful.", "Only a few elders, such as myself, know it.", "It may just fend off the dark magic.", CONTENT);
+					    return true;
+					case 13 :
+					    player.getDialogue().sendPlayerChat("Well, what do I need to do?", CONTENT);
+					    return true;
+					case 14 :
+					    player.getDialogue().sendNpcChat("I need you to gather some raw meat.", "Raw beef, raw rat meat, raw bear, and raw chicken...", "...to be exact.", CONTENT);
+					    return true;
+					case 15 :
+					    player.getDialogue().sendPlayerChat("That's all you need for the recipe?", CONTENT);
+					    return true;
+					case 16 :
+					    player.getDialogue().sendNpcChat("No, you need to take all four raw meats", "to the dungeon southwest of here.", "You then need to dip them in the almighty", "Cauldron of Thunder!", CONTENT);
+					    player.setQuestStage(10, 2);
+					    return true;
+					case 17 :
+					    player.getDialogue().sendStatement("Sanfew begins making wild gestures and sounds.");
+					    return true;
+					case 18 :
+					    player.getDialogue().sendPlayerChat("Err, I'm still here.", CONTENT);
+					    return true;
+					case 19 :
+					    player.getDialogue().sendNpcChat("Well, what are you waiting for!?", "This is a dire matter!", ANGRY_2);
+					    return true;
+					case 20 :
+					    player.getDialogue().sendPlayerChat("I suppose I'll go fetch some meat.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 25 :
+					    if(player.getInventory().playerHasItem(522) && player.getInventory().playerHasItem(523) && player.getInventory().playerHasItem(524) && player.getInventory().playerHasItem(525)) {
+						player.getDialogue().sendPlayerChat("I've got them all right here.", CONTENT);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("I'm afraid not...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 26 :
+					    player.getDialogue().sendStatement("You hand Sanfew the 4 enchanted meats.");
+					    player.getInventory().removeItem(new Item(522));
+					    player.getInventory().removeItem(new Item(523));
+					    player.getInventory().removeItem(new Item(524));
+					    player.getInventory().removeItem(new Item(525));
+					    player.setQuestStage(10, 4);
+					    return true;
+					case 27 :
+					    player.getDialogue().sendNpcChat("Let me see if I can whip these up.", HAPPY);
+					    return true;
+					case 28 :
+					    player.getDialogue().sendStatement("After some odd motions, lights, and more mumbling...", "...Sanfew seems to have dispelled the dark magic.");
+					    return true;
+					case 29 :
+					    player.getDialogue().sendNpcChat("IT WORKED!", "This is a great day indeed my friend!", LAUGHING);
+					    return true;
+					case 30 :
+					    player.getDialogue().sendNpcChat("Go tell Kaqemeex the good news!", HAPPY);
+					    player.getDialogue().endDialogue();
+					    return true;
+			    }
+			break;
+			case 10999: //gates to cauldron
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getQuestStage(10) == 2) {
+						player.getDialogue().sendStatement("As you touch the gates, a suit of armor jumps out behind you!");
+						player.getDialogue().endDialogue();
+						Npc suit = new Npc(4279);
+						suit.setSpawnPosition(new Position(2886, 9832, 0));
+						suit.setPosition(new Position(2886, 9832, 0));
+						suit.setNeedsRespawn(false);
+						suit.setPlayerOwner(player.getIndex());
+						suit.setCombatDelay(2);
+						World.register(suit);
+						CombatManager.attack(suit, player);
+						
+						player.setQuestStage(10, 3);
+						return true;
+					    }
+			    }
+			break;
+			case 455 : //Herblore master skillcape kaqemeex it up
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getQuestStage(10) < 1) {
+						player.getDialogue().sendNpcChat("Oh dear... Oh dear...", VERY_SAD);
+						player.getDialogue().setNextChatId(15);
+						return true;
+					    }
+					    else if(player.getQuestStage(10) == 4) {
+						player.getDialogue().sendPlayerChat("It worked! Sanfew's meats worked!", HAPPY);
+						player.getDialogue().setNextChatId(25);
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("Hello!", CONTENT);
+						return true;
+					    }
+                                        case 2 :
+                                            if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && !checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && checkTrim(player)){ 
+						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
+                                                player.getDialogue().setNextChatId(4);
+                                                return true;
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("How do you spend your free time?", CONTENT);
+                                                player.getDialogue().setNextChatId(3);
+                                                return true;
+                                            }
+                                        case 3:
+                                            player.getDialogue().sendNpcChat("Cleaning guams, of course!", "It's my favorite activity next to napping!", CONTENT);
+                                            player.getDialogue().endDialogue();
+                                            return true; 
+                                        case 4:
+						switch(optionId) {
+                                                        case 1:
+                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
+                                                                return true;
+                                                        case 2: 
+                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
+								return true;
+                                                        case 3: 
+                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
+                                                                player.getDialogue().setNextChatId(8);
+								return true;
+						}
+                                        case 5:
+                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
+                                            return true;
+                                        case 6:
+                                            ShopManager.openShop(player, 181);
+                                            player.getDialogue().dontCloseInterface();
+                                            return true;
+                                        case 8:
+                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
+                                            return true;
+                                        case 9:
+                                            if(player.getInventory().playerHasItem(9774)) {
+                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
+                                            trimCape(player, 9774);
+                                            }
+                                            else {
+                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
+                                                player.getDialogue().endDialogue();
+                                            }
+                                            return true;
+                                        case 10:
+                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
+                                            return true;
+                                        case 11:
+                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
+                                            return true;
+                                        case 12:
+                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
+                                            player.getDialogue().endDialogue();
+                                            return true;
+					case 15:
+					    player.getDialogue().sendPlayerChat("What's wrong?", CONTENT);
+                                            return true;
+					case 16:
+					    player.getDialogue().sendNpcChat("Well, we druids used to own the circle", "just south of Varrock...", SAD);
+					    return true;
+					case 17:
+					    player.getDialogue().sendNpcChat("But, recently the dark wizards have", "used dark magic to corrupt it!", ANNOYED);
+					    return true;
+					case 18:
+					    player.getDialogue().sendOption("Sounds like you could use some help!", "Good luck with that.");
+					    return true;
+					case 19:
+					    switch(optionId) {
+						case 1:
+						    player.getDialogue().sendPlayerChat("Sounds like you could use some help!", HAPPY);
+						    return true;
+						case 2:
+						    player.getDialogue().sendPlayerChat("Good luck with that.", CONTENT);
+						    player.getDialogue().endDialogue();
+						    return true;
+					    }
+					case 20:
+					    player.getDialogue().sendNpcChat("You're willing to help!?","Speak to Sanfew in the center of town,", "he knows the details better than I!", HAPPY);
+					    return true;
+					case 21:
+					    player.getDialogue().sendPlayerChat("Okay, I'll go find Sanfew.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    player.setQuestStage(10, 1);
+					    QuestHandler.getQuests()[10].startQuest(player);
+					    return true;
+					case 25:
+					    player.getDialogue().sendNpcChat("That's  wonderful!", "Finally the dark magic is dispelled!", HAPPY);
+					    return true;
+					case 26:
+					    player.getDialogue().sendStatement("Kaqemeex pauses.");
+					    return true;
+					case 27:
+					    player.getDialogue().sendNpcChat("You do know what we have to thank for this, right?", CONTENT);
+					    return true;
+					case 28:
+					    player.getDialogue().sendPlayerChat("Uhm... Me?", CONTENT);
+					    return true;
+					case 29:
+					    player.getDialogue().sendNpcChat("Not quite! It's the power of herblore!", "Herblore is the great art of potion making.", CONTENT);
+					    return true;
+					case 30:
+					    player.getDialogue().sendNpcChat("Potions can do everything from healing ailments,", "to boosting your natural abilities!", HAPPY);
+					    return true;
+					case 31:
+					    player.getDialogue().sendNpcChat("Oh? It seems you don't know much about Herblore.", "Well, that needs to change!", CONTENT);
+					    return true;
+					case 32:
+					    player.getDialogue().sendStatement("Kaqemeex delves into the lore and history of Herblore.");
+					    return true;
+					case 33:
+					    player.getDialogue().sendNpcChat("And that's how all of Gielinor was saved by herbs!", LAUGHING);
+					    return true;
+					case 34:
+					    player.getDialogue().endDialogue();
+					    player.setQuestStage(10, 5);
+					    QuestHandler.getQuests()[10].completeQuest(player);
+					    return true;
+				}
+			break;
+			    //**end of druidic ritual **//
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -7125,6 +7412,7 @@ public class Dialogues {
 								return true;
                                                         case 2:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 3: 
                                                                 player.getDialogue().sendPlayerChat("Fuck off, I want my skillcape!", ANGRY_1);
@@ -7207,6 +7495,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7277,6 +7566,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7347,6 +7637,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7416,6 +7707,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7486,6 +7778,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7556,6 +7849,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7597,76 +7891,6 @@ public class Dialogues {
                                             return true;            
 				}
 			break;
-                        case 455 : //Herblore master skillcape
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-                                            player.getDialogue().sendNpcChat("Hello.", CONTENT);
-                                        return true;
-                                        case 2 :
-                                            if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && !checkTrim(player)){ 
-						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!");
-                                                player.getDialogue().setNextChatId(4);
-                                                return true;
-                                            }
-                                            else if(player.getSkill().getLevel()[Skill.HERBLORE] == 99 && checkTrim(player)){ 
-						player.getDialogue().sendOption("(don't respond)", "I want my skillcape!", "Can you trim my skillcape?");
-                                                player.getDialogue().setNextChatId(4);
-                                                return true;
-                                            }
-                                            else {
-                                                player.getDialogue().sendPlayerChat("How do you spend your free time?", CONTENT);
-                                                player.getDialogue().setNextChatId(3);
-                                                return true;
-                                            }
-                                        case 3:
-                                            player.getDialogue().sendNpcChat("Cleaning guams, of course!", "It's my favorite activity next to napping!", CONTENT);
-                                            player.getDialogue().endDialogue();
-                                            return true; 
-                                        case 4:
-						switch(optionId) {
-                                                        case 1:
-                                                                player.getDialogue().sendPlayerChat("...", DISTRESSED);
-                                                                return true;
-                                                        case 2: 
-                                                                player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
-								return true;
-                                                        case 3: 
-                                                                player.getDialogue().sendPlayerChat("Can you trim my skillcape?", CONTENT);
-                                                                player.getDialogue().setNextChatId(8);
-								return true;
-						}
-                                        case 5:
-                                            player.getDialogue().sendNpcChat("You've earned it.", CONTENT);
-                                            return true;
-                                        case 6:
-                                            ShopManager.openShop(player, 181);
-                                            player.getDialogue().dontCloseInterface();
-                                            return true;
-                                        case 8:
-                                            player.getDialogue().sendNpcChat("Sure, but this is irreversible!", "However, you can always buy another untrimmed cape.", CONTENT);
-                                            return true;
-                                        case 9:
-                                            if(player.getInventory().playerHasItem(9774)) {
-                                            player.getDialogue().sendNpcChat("Here you are.", CONTENT);
-                                            trimCape(player, 9774);
-                                            }
-                                            else {
-                                                player.getDialogue().sendPlayerChat("I guess I don't have the cape on me.", VERY_SAD);
-                                                player.getDialogue().endDialogue();
-                                            }
-                                            return true;
-                                        case 10:
-                                            player.getDialogue().sendPlayerChat("Hey... can you also trim armor?", CONTENT);
-                                            return true;
-                                        case 11:
-                                            player.getDialogue().sendNpcChat("Yes! Just meet me at level 55 in the wilderness,", "and bring 500,000 coins!", DELIGHTED_EVIL);
-                                            return true;
-                                        case 12:
-                                            player.getDialogue().sendPlayerChat("....", ANNOYED);
-                                            player.getDialogue().endDialogue();
-                                            return true;           
-				}
-			break;
                         case 2270 : //Thieve master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -7696,6 +7920,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7766,6 +7991,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7836,6 +8062,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7906,6 +8133,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -7976,6 +8204,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -8046,6 +8275,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -8116,6 +8346,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);
@@ -8186,6 +8417,7 @@ public class Dialogues {
 						switch(optionId) {
                                                         case 1:
                                                                 player.getDialogue().sendPlayerChat("...", DISTRESSED);
+								player.getDialogue().endDialogue();
                                                                 return true;
                                                         case 2: 
                                                                 player.getDialogue().sendPlayerChat("I want my skillcape!", NEAR_TEARS_2);

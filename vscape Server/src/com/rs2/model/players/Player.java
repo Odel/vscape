@@ -4840,29 +4840,29 @@ public class Player extends Entity {
 	
 	public void sendQuestTab(){
 		getActionSender().sendString("Player Quests", 663);
-		getActionSender().sendString("", 7332);
+		getActionSender().sendString("", 7332); // black knight's fortress
 		getActionSender().sendString("@red@Cook's Assistant", 7333);
-		getActionSender().sendString("", 7334);
+		getActionSender().sendString("", 7334); //demon slayer
 		getActionSender().sendString("@red@Doric's Quest", 7336);
-		getActionSender().sendString("", 7339);
-		getActionSender().sendString("", 7338);
+		getActionSender().sendString("", 7339); // ernest the chicken
+		getActionSender().sendString("", 7338); //goblin diplomacy
 		getActionSender().sendString("@Red@The Restless Ghost", 7337);
-		getActionSender().sendString("", 7383);
+		getActionSender().sendString("", 7383); //Dragon Slayer
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
-		getActionSender().sendString("", 7341);
+		getActionSender().sendString("", 7341); //pirate's treasure
 		getActionSender().sendString("@red@Prince Ali Rescue", 7342); //ali rescue
-		getActionSender().sendString("", 7343);
+		getActionSender().sendString("", 7343); //romeo & juliet
 		getActionSender().sendString("@red@Rune Mysteries", 7335);
 		getActionSender().sendString("@red@Sheep Shearer", 7344);
-		getActionSender().sendString("", 7345);
+		getActionSender().sendString("", 7345); //shield of arrav
 		getActionSender().sendString("@red@The Knight's Sword", 7346);
-		getActionSender().sendString("", 7347);
+		getActionSender().sendString("", 7347); //vampire slayer
 		getActionSender().sendString("@red@Witch's Potion", 7348);
-		getActionSender().sendString("", 8438);
-		getActionSender().sendString("", 12852);
-		getActionSender().sendString("", 7354);
-		getActionSender().sendString("", 7355);
-		getActionSender().sendString("", 7356);
+		getActionSender().sendString("", 8438); //death plateau
+		getActionSender().sendString("", 12852); //desert treasure
+		getActionSender().sendString("", 7354); //dig site
+		getActionSender().sendString("@red@Druidic Ritual", 7355);
+		getActionSender().sendString("", 7356); //dwarf cannon
 		getActionSender().sendString("", 8679);
 		getActionSender().sendString("", 7459);
 		getActionSender().sendString("", 7357);

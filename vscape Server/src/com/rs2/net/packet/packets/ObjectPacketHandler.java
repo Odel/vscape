@@ -68,10 +68,34 @@ public class ObjectPacketHandler implements PacketHandler {
 		if (item == null || item.getId() != player.getClickItem())
 			return;
 		RSInterface inter = RSInterface.forId(player.getInterfaceId());
-        if (!player.hasInterfaceOpen(inter)) {
-            //player.getActionSender().removeInterfaces();
-            return;
-        }
+		if (!player.hasInterfaceOpen(inter)) {
+		    //player.getActionSender().removeInterfaces();
+		return;
+		}
+		if(player.getClickId() == 2142) {
+		    if(player.getQuestStage(10) > 2) {
+			if(player.getClickItem() == 2132) {
+			    player.getActionSender().sendMessage("You slowly dip the beef into the cauldron.");
+			    player.getInventory().removeItem(new Item(2132));
+			    player.getInventory().addItem(new Item(522));
+			}
+			if(player.getClickItem() == 2134) {
+			    player.getActionSender().sendMessage("You slowly dip the rat meat into the cauldron.");
+			    player.getInventory().removeItem(new Item(2134));
+			    player.getInventory().addItem(new Item(523));
+			}
+			if(player.getClickItem() == 2136) {
+			    player.getActionSender().sendMessage("You slowly dip the bear meat into the cauldron.");
+			    player.getInventory().removeItem(new Item(2136));
+			    player.getInventory().addItem(new Item(524));
+			}
+			if(player.getClickItem() == 2138) {
+			    player.getActionSender().sendMessage("You slowly dip your chicken into the cauldron.");
+			    player.getInventory().removeItem(new Item(2138));
+			    player.getInventory().addItem(new Item(525));
+			}
+		    }
+		}
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
 		}*/

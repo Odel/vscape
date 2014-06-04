@@ -736,31 +736,31 @@
     "items": [
       {
         "id": 554,
-        "count": 300
+        "count": 1500
       },
       {
         "id": 555,
-        "count": 300
+        "count": 1500
       },
       {
         "id": 556,
-        "count": 300
+        "count": 1500
       },
       {
         "id": 557,
-        "count": 300
+        "count": 1500
       },
       {
         "id": 558,
-        "count": 100
+        "count": 500
       },
       {
         "id": 562,
-        "count": 100
+        "count": 500
       },
       {
         "id": 560,
-        "count": 100
+        "count": 500
       }
     ],
     "isGeneralStore": false,

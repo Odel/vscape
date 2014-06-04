@@ -142,7 +142,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2142 || id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -388,6 +388,16 @@ public class WalkToActionHandler {
 				case 1294 :
 					Dialogues.startDialogue(player, 10011);
 					break;
+				case 2143:
+				case 2144:
+				    if(player.getQuestStage(10) == 2) {
+					Dialogues.startDialogue(player, 10999);
+				    }
+				    else if(player.getQuestStage(10) >= 3) {
+					player.getActionSender().walkTo(player.getPosition().getX() < 2889 ? 1 : -1, 0, true);
+					player.getActionSender().walkThroughDoubleDoor(2144, 2143, 2889, 9830, 2889, 9831, 0);
+				    }
+				break;
 				case 11844: //falador wall shortcut
 				    if(player.getPosition().getX() ==  2934)
 					Agility.climbOver(player, 2936, 3355, 11, 5);
@@ -2255,7 +2265,7 @@ public class WalkToActionHandler {
 						}
 					}
 					break;
-				case 3827:
+				case 3827: //kq
 				case 3830:
 				    if(item == 954 && player.getPosition().getZ() == 0) {
 					player.getActionSender().sendMessage("As you are tying the rope, you fall down the hole!");
@@ -2267,6 +2277,34 @@ public class WalkToActionHandler {
 				    }
 				    else {
 					player.getActionSender().sendMessage("Maybe I should use a rope instead.");
+				    }
+				break;
+				case 2142:
+				    if(player.getQuestStage(10) > 2) {
+				    if(item == 2132) {
+					player.getActionSender().sendMessage("You slowly dip the beef into the cauldron.");
+					player.getInventory().removeItem(new Item(2132));
+					player.getInventory().addItem(new Item(522));
+					break;
+				    }
+				    if(item == 2134) {
+					player.getActionSender().sendMessage("You slowly dip the rat meat into the cauldron.");
+					player.getInventory().removeItem(new Item(2134));
+					player.getInventory().addItem(new Item(523));
+					break;
+				    }
+				    if(item == 2136) {
+					player.getActionSender().sendMessage("You slowly dip the bear meat into the cauldron.");
+					player.getInventory().removeItem(new Item(2136));
+					player.getInventory().addItem(new Item(524));
+					break;
+				    }
+				    if(item == 2138) {
+					player.getActionSender().sendMessage("You slowly dip your chicken into the cauldron.");
+					player.getInventory().removeItem(new Item(2138));
+					player.getInventory().addItem(new Item(525));
+					break;
+				    }
 				    }
 				break;
 				case 2939: // legends totem
@@ -2392,6 +2430,9 @@ public class WalkToActionHandler {
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
 		if (def.getId() == 2638) {
 			return true;
+		}
+		if(def.getId() == 2142) {
+		    return true;
 		}
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
 		boolean canInteract = Misc.checkClip(player.getPosition(), objectPos, false);
