@@ -1,4 +1,9 @@
 @dre@=June ?=
+-Regen Bracelet fix.
+-Skills necklace fix.
+-Void Melee Helm bug fix and others.
+
+@dre@=June 4th=
 @blu@ Druidic Ritual!
 @blu@ 3rd Age Armor added to level 3 clues.
 -Shilo Village General Store.
