@@ -256,6 +256,7 @@ public class PestControl {
 							gruntTime += 5;
 							if(gruntTime >= GRUNT_TIME)
 							{
+								gruntTime = 0;
 								spawnGrunts();
 								if(playersInGame() >= 5)
 								    spawnGrunts();
@@ -339,8 +340,12 @@ public class PestControl {
 						if(gameWon)
 						{
 							player.getActionSender().sendMessage("@blu@Game won!");
-							if(player.getPcDamage() >= 50)
+							if(player.getPcDamage() >= 50) {
 							    player.addPcPoints(5, player);
+							    if(player.getPcDamage() >= 150)
+								player.addPcPoints((int)Math.floor(player.getPcDamage()-50/100d), player);
+							}
+							
 							player.resetEffects();
 							player.removeAllEffects();
 							player.heal(100);
@@ -435,7 +440,6 @@ public class PestControl {
 	private static void spawnGrunts() {
 	    for(int i = 0; i < PortalData.values().length; i++) {
 		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
-		    gruntTime = 0;
 		    PortalData portalData = PortalData.values()[i];
 		    GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
 		    Npc grunt = new Npc(gruntData.npcId);
@@ -454,7 +458,7 @@ public class PestControl {
 			    grunt.setWalkType(Npc.WalkType.WALK);
 			    World.register(grunt);
 			    grunt.setDontAttack(false);
-			}   
+			}
 		}
 	    }
 	}
