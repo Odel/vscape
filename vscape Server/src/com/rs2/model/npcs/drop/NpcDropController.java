@@ -86,7 +86,7 @@ public class NpcDropController {
 	private NpcDropItem[] rareTableRare;
 	private NpcDropItem[] rareTableSuperrare;
 
-	private static int superChance = 175; //original 105
+	private static int superChance = 200; //original 105
 	private static int rareTableChance = 130;
 	private static int rareChance = 100; //original 45
 	private static int uncommonChance = 20; //original 10
