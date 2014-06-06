@@ -238,6 +238,12 @@ public class Potion {
 			case 2438:
 				player.getActionSender().statEdit(Skill.FISHING, 3, true);
 				break;
+			case 169: //ranging
+			case 171:
+			case 173:
+			case 2444:
+				player.getActionSender().statEdit(Skill.RANGED, ((int) Math.floor(player.getSkill().getPlayerLevel(Skill.RANGED) * 0.10)) + 4, true);
+				break;
 			default :
 				break;
 		}

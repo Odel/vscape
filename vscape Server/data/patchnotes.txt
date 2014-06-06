@@ -1,6 +1,9 @@
 @dre@=June ?=
+-PC nows adds 1 point extra for every 100
+damage done beyond the initial 50.
 -Regen Bracelet fix.
 -Skills necklace fix.
+-Ranging Potion fix.
 -Void Melee Helm bug fix and others.
 -Tzhaar npcs drops cleaned and tweaked.
 
