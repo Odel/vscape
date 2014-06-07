@@ -657,6 +657,17 @@ public class PestControl {
 	    return false; 
 	}
 	
+	public static boolean isShieldedPortal(Npc npc) {
+	    switch(npc.getNpcId()) {
+		case 6146:
+		case 6147:
+		case 6148:
+		case 6149:
+		    return true;
+	    }
+	    return false; 
+	}
+	
 	public static boolean isSpinner(Npc npc) {
             switch(npc.getNpcId()) {
 		case 3747:

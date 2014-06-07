@@ -631,7 +631,7 @@ public enum SpecialType {
     					}
     				}
     				for (Npc npcs : World.getNpcs()) {
-				    if(npcs != null && npcs.getNpcId() == 3782)
+				    if(npcs != null && npcs.getNpcId() != 3782)
 					continue;
     					if (npcs != null && npcs != attacker.getCombatingEntity()) {
     						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, npcs);

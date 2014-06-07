@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -26,7 +27,6 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
-import com.rs2.model.tick.TickStopWatch;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
 import java.util.LinkedList;
@@ -66,7 +66,7 @@ public class CombatManager extends Tick {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
         }
-        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 )) ) {
+        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || PestControl.isShieldedPortal((Npc)victim)) ) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
         	}
@@ -295,11 +295,11 @@ public class CombatManager extends Tick {
 			ClueScroll.handleAttackerDeath((Player)killer, npc);
 			((Player) killer).getSlayer().handleNpcDeath(npc);
 			Barrows.handleDeath(((Player)killer), npc);
+			WarriorsGuild.dropDefender((Player) killer, npc);
 		    }
 		}
 	    if (died != null && died.isNpc()) {
     		final Npc npc = (Npc) died;
-		
 		if ( npc.getNpcId() == 1158 && firstTime ) { // kq
 		    Npc newQueen = new Npc(1160);
 		    newQueen.setSpawnPosition(died.getPosition().clone());
@@ -344,6 +344,8 @@ public class CombatManager extends Tick {
 			    newKol.getUpdateFlags().sendForceMessage("How about this?");
 		    }
 		}
+		else if(WarriorsGuild.isAnimatedArmor(npc) && killer.isPlayer())
+		    ((Player)killer).getInventory().addItem(new Item(8851, WarriorsGuild.getTokenAmount(npc)));
 		
 		if (!npc.needsRespawn()) {
 		    npc.setVisible(false);
