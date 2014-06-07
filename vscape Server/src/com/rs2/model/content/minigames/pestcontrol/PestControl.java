@@ -27,6 +27,7 @@ public class PestControl {
 	
 	private static int lobbyTime = LOBBY_TIME;
 	private static int gameTime = 0;
+	private static int foxterTime = 0;
 	
 	private static boolean gameActive = false;
 	
@@ -262,6 +263,11 @@ public class PestControl {
 								    spawnGrunts();
 								else if(playersInGame() >= 10)
 								    spawnGrunts();
+								else if(foxterTime == 1) {
+								    spawnGrunts();
+								    spawnGrunts();
+								    spawnGrunts();
+								}
 								handleNpcBehavior();
 							}
 							else if(getKnightHealth() != knight.getCurrentHp())
@@ -310,6 +316,7 @@ public class PestControl {
 			gameTime = GAME_TIME;
 			lobbyTime = LOBBY_TIME;
 			gameActive = true;
+			foxterTime = Misc.random(40);
 			for(Player player : new ArrayList<Player>(lobbyPlayers))
 			{
 				if (player != null)
@@ -320,7 +327,10 @@ public class PestControl {
 					}
 					player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
 					gamePlayers.add(player);
-					player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
+					if(foxterTime != 1)
+					    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
+					else
+					    player.getActionSender().sendMessage("@blu@BUCKLE THE FUCK UP IT'S FOXTER TIME");
 				}
 			}
 		} catch (Exception e) {
@@ -438,6 +448,7 @@ public class PestControl {
 	}
 	
 	private static void spawnGrunts() {
+	    if(foxterTime != 1) {
 	    for(int i = 0; i < PortalData.values().length; i++) {
 		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
 		    PortalData portalData = PortalData.values()[i];
@@ -459,6 +470,23 @@ public class PestControl {
 			    World.register(grunt);
 			    grunt.setDontAttack(false);
 			}
+		}
+	    }
+	    }
+	    else {
+		for(int i = 0; i < PortalData.values().length; i++) {
+		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
+		    PortalData portalData = PortalData.values()[i];
+		    Npc grunt = new Npc(1319);
+			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+			    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
+			    grunt.setMinWalk(new Position(portalData.x - 6, portalData.y - 6));
+			    grunt.setMaxWalk(new Position(portalData.x + 6, portalData.y + 6));
+			    grunt.setWalkType(Npc.WalkType.WALK);
+			    World.register(grunt);
+			    grunt.getUpdateFlags().setForceChatMessage("Yiff!");
+			    grunt.setDontAttack(true);
+		    }
 		}
 	    }
 	}
@@ -587,6 +615,8 @@ public class PestControl {
 		}
 		else if( isSpinner(npc) )
 		    healPortal(npc);
+		else if(npc.getNpcId() == 1319)
+		    npc.getUpdateFlags().setForceChatMessage("Yiff!");
                 else
                     continue;
             }
