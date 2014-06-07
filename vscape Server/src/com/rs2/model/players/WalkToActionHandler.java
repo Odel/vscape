@@ -13,6 +13,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
@@ -25,7 +26,6 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Crafting.Tanning;
-import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.agility.ShortcutHandler;
 import com.rs2.model.content.skills.agility.CrossObstacle;
 import com.rs2.model.content.skills.farming.Farming;
@@ -67,7 +67,6 @@ import com.rs2.model.objects.functions.ObeliskTick;
 import com.rs2.model.objects.functions.PickableObjects;
 import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.objects.functions.Webs;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
@@ -76,9 +75,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
-import com.rs2.model.players.Player;
-import com.rs2.util.PlayerSave;
-import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.transport.Sailing;
@@ -210,6 +206,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (PestControl.handleObjectClicking(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if (WarriorsGuild.handleObjectClicking(player, id, x, y)) {
 					this.stop();
 					return;
 				}

@@ -312,6 +312,22 @@ public abstract class Entity {
 	public boolean onPestControlIsland() {
 		return Area(2640, 2671, 2637, 2678);
 	}
+	
+	public boolean inWarriorGuild() {
+		return Area(2585, 2619, 3139, 3171);
+	}
+	
+	public boolean inWarriorGuildArena() {
+		return Area(2580, 2608, 3150, 3173);
+	}
+	
+	public boolean inWarriorGuildCagesNorth() {
+		return Area(2614, 2616, 3158, 3170);
+	}
+	
+	public boolean inWarriorGuildCagesWest() {
+		return Area(2586, 2601, 3142, 3144);
+	}
 
 	public void setIndex(int index) {
 		this.index = index;

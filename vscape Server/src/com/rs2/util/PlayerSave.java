@@ -350,6 +350,7 @@ public class PlayerSave {
 			write.writeInt(player.getMageArenaCasts(Spell.SARADOMIN_STRIKE));
 			write.writeInt(player.getMageArenaCasts(Spell.CLAWS_OF_GUTHIX));
 			write.writeInt(player.getMageArenaStage());
+			write.writeInt(player.getDefender());
             write.flush();
 			write.close();
 			
@@ -893,6 +894,10 @@ public class PlayerSave {
             }
 	    try {
             	player.setMageArenaStage(load.readInt());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.setDefender(load.readInt());
             } catch (IOException e) {
             }
 

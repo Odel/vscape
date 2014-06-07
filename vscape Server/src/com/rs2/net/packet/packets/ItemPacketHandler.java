@@ -5,6 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
@@ -23,7 +24,6 @@ import com.rs2.model.content.skills.cooking.OneIngredients;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
-import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -161,6 +161,9 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		if (!player.getInventory().getItemContainer().contains(item.getId())) {
 			return;
+		}
+		if(WarriorsGuild.itemHandling(player, itemId)) {
+		    return;
 		}
 		if(item.getId() == 10592) {
 		    player.getActionSender().sendMessage("Play the bongos instead.");

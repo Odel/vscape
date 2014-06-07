@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.rs2.model.Entity;
+import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -43,6 +44,9 @@ public class CombatCycleEvent extends CycleEvent {
 					switch (canAttackResponse) {
 						case CANT_ATTACK :
 							((Player) attacker).getActionSender().sendMessage("You can't attack that npc from here.");
+							break;
+						case WARRIORS_GUILD :
+							((Player) attacker).getActionSender().sendMessage("You can only use melee in the Warriors' Guild!");
 							break;
 						case WILD_LEVEL :
 							((Player) attacker).getActionSender().sendMessage("Your level difference is too great!");
@@ -220,6 +224,7 @@ public class CombatCycleEvent extends CycleEvent {
 				player.setAppearanceUpdateRequired(true);
 			}
 		}
+		
 		//attacker.setFollowDistance(DistanceCheck.getDistanceForCombatType(attacker));
 		//if (Following.withinRange(attacker, victim)) {
         //    System.out.println("WITHIN RANGE!");
@@ -229,6 +234,6 @@ public class CombatCycleEvent extends CycleEvent {
 	}
 
 	public enum CanAttackResponse {
-		CANT_ATTACK, WILD_LEVEL, NOT_IN_COMBAT_AREA, ALREADY_IN_COMBAT, INCORRECT_DUEL_OPPONENT, FAIL, SUCCESS
+		CANT_ATTACK, WARRIORS_GUILD, WILD_LEVEL, NOT_IN_COMBAT_AREA, ALREADY_IN_COMBAT, INCORRECT_DUEL_OPPONENT, FAIL, SUCCESS
 	}
 }

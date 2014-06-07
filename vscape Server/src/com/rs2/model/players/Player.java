@@ -55,6 +55,7 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
 import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
@@ -305,6 +306,7 @@ public class Player extends Entity {
 	private int ringOfForgingLife = 140;
 	private int bindingNeckCharge = 15;
 	private int clayBraceletLife = 28;
+	private int defender = 8844;
 	private int innoculationBraceletLife = 275;
 	private int fightMode, fightType, fightStyle, fightXp;
 	private boolean usingBow, usingCross, usingCrystalBow, usingArrows, usingBolts, usingOtherRangedWeapon, dropArrow;
@@ -618,7 +620,10 @@ public class Player extends Entity {
         {
         	PestControl.leaveGame(this);
         }
-		setLogoutTimer(System.currentTimeMillis() + 600000);
+	if(inWarriorGuildArena()) {
+	    WarriorsGuild.exitArena(this);
+	}
+	setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
@@ -2121,6 +2126,10 @@ public class Player extends Entity {
         {
         	PestControl.leaveGame(this);
         }
+	if(inWarriorGuildArena())
+        {
+        	WarriorsGuild.exitArena(this);
+        }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -2941,6 +2950,14 @@ public class Player extends Entity {
 		return 1112;
 	    else
 		return 0;
+	}
+	
+	public int getDefender() {
+	    return defender;
+	}
+	
+	public void setDefender(int stage) {
+	    this.defender = stage;
 	}
 	
 	public void setEnergy(double energy) {
