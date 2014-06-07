@@ -28,6 +28,7 @@ public class Teleportation {
 	public static final Position CASTLE_WARS = new Position(2441, 3090);
 	public static final Position DUEL_ARENA = new Position(3317, 3233);
 	public static final Position GAMES_ROOM = new Position(2207, 4941);
+	public static final Position PEST_CONTROL = new Position(2658, 2660);
 	
 	public static final Position BURTHORPE = new Position(2893, 3535);
 	public static final Position CHAMPGUILD = new Position(3191, 3364);

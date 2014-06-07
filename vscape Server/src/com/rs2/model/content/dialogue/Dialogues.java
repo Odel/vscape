@@ -1929,12 +1929,15 @@ public class Dialogues {
 			case 10002 : //games necklace
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
-						player.getDialogue().sendOption("Burthorpe", "Nowhere");
+						player.getDialogue().sendOption("Burthorpe Games Room", "Pest Control", "Nowhere");
 						return true;
 					case 2 :
 						switch(optionId) {
 							case 1:
 								JewelleryTeleport.teleport(player, Teleportation.GAMES_ROOM);
+								break;
+							case 2:
+								JewelleryTeleport.teleport(player, Teleportation.PEST_CONTROL);
 								break;
 						}
 						break;

@@ -3,6 +3,7 @@ package com.rs2.model.content.combat.attacks;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.AttackUsableResponse;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
@@ -47,6 +48,10 @@ public class SpellAttack extends BasicAttack {
 				((Player) getAttacker()).getActionSender().sendMessage("You cannot cast a spell on this npc.");
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
+			}
+			if(getAttacker().isPlayer() && (getAttacker().inWarriorGuildArena() || getAttacker().inWarriorGuild()) ) {
+			    ((Player) getAttacker()).getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
+			    return AttackUsableResponse.Type.FAIL;
 			}
 			if (RulesData.NO_MAGIC.activated((Player) getAttacker())) {
 				if (getAttacker().isPlayer()) {

@@ -129,6 +129,11 @@ public class WeaponAttack extends BasicAttack {
 		}
 		String weaponName = player.getEquippedWeapon().name().toLowerCase();
 		if (getAttackStyle().getAttackType() == AttackType.RANGED && weapon != Weapon.CRYSTAL_BOW) {
+		    if(player.inWarriorGuildArena() || player.inWarriorGuild()) {
+			    failedInitialize = true;
+			    player.getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
+			    return;
+		    }
 		    if(weapon == Weapon.DARK_BOW) {
 			rangedAmmo = RangedAmmo.getRangedAmmo(player, weapon, true);
 			if (rangedAmmo == null) {
@@ -164,6 +169,11 @@ public class WeaponAttack extends BasicAttack {
 		} else if (getAttackStyle().getAttackType() == AttackType.MELEE){
 			poisonEffect = checkPoison(player, AttackType.MELEE, Constants.WEAPON);
 		} else if (weaponName.contains("crystal")) {
+		    if(player.inWarriorGuildArena()) {
+			    failedInitialize = true;
+			    player.getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
+			    return;
+		    }
 		    rangedAmmo = RangedAmmo.CRYSTAL_ARROW; //This allows the bow to ignore ammo
 		}
 		setHits(generateHits());

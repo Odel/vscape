@@ -46,6 +46,7 @@ public class CombatManager extends Tick {
 	private static CombatManager combatManager;
 
 	public static final String NO_AMMO_MESSAGE = "You have no ammo left!";
+	public static final String WARRIORS_GUILD = "You can only use melee in the Warriors' Guild!";
 	public static final String WRONG_AMMO_MESSAGE = "You can not use that kind of ammo!";
 	public static final String AMMO_COMPATIBILITY_MESSAGE = "You cannot use that ammo with that weapon!";
 	public static final String NO_SPECIAL_ENERGY_MESSAGE = "You have no special energy left.";
