@@ -6,6 +6,7 @@ damage done beyond the initial 50.
 -Ranging Potion fix.
 -Void Melee Helm bug fix and others.
 -Tzhaar npcs drops cleaned and tweaked.
+-Games Necklace has an option for Pest Control.
 
 @dre@=June 4th=
 @blu@ Druidic Ritual!

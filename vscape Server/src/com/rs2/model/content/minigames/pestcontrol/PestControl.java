@@ -1,12 +1,12 @@
 package com.rs2.model.content.minigames.pestcontrol;
 
-import com.rs2.Constants;
 import java.util.ArrayList;
 
 import com.rs2.model.Entity;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.AttackScript;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
@@ -353,7 +353,7 @@ public class PestControl {
 							if(player.getPcDamage() >= 50) {
 							    player.addPcPoints(5, player);
 							    if(player.getPcDamage() >= 150)
-								player.addPcPoints((int)Math.floor(player.getPcDamage()-50/100d), player);
+								player.addPcPoints((int)Math.floor((player.getPcDamage()-50)/100d), player);
 							}
 							
 							player.resetEffects();
@@ -464,8 +464,8 @@ public class PestControl {
 			else {
 			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
 			    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
-			    grunt.setMinWalk(new Position(portalData.x - Constants.NPC_WALK_DISTANCE, portalData.y - Constants.NPC_WALK_DISTANCE));
-			    grunt.setMaxWalk(new Position(portalData.x + Constants.NPC_WALK_DISTANCE, portalData.y + Constants.NPC_WALK_DISTANCE));
+			    grunt.setMinWalk(new Position(portalData.x - 4, portalData.y - 4));
+			    grunt.setMaxWalk(new Position(portalData.x + 4, portalData.y + 4));
 			    grunt.setWalkType(Npc.WalkType.WALK);
 			    World.register(grunt);
 			    grunt.setDontAttack(false);
@@ -603,6 +603,8 @@ public class PestControl {
             for (Npc npc : World.getNpcs()) {
                 if(npc == null)
                     continue;
+		if(npc.getCombatingEntity() != null)
+		    continue;
                 if( shouldAttackKnight(npc) ) {
                     attackKnight(npc);
 		    if ( npc.getDefinition().getName().toLowerCase().contains("shifter")) {
