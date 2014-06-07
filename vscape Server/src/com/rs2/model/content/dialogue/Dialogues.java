@@ -38,7 +38,8 @@ import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
-import com.rs2.model.content.quests.PrinceAli;
+import com.rs2.model.content.skills.smithing.Smelting;
+import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.transport.MagicCarpet;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -1966,6 +1967,88 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 10200 : //blurite smelt
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("1", "5", "10", "28");
+						return true;
+					case 2 :
+						switch(optionId) {
+							case 1:
+								if(player.getInventory().playerHasItem(668, 1)) {
+								    player.getInventory().removeItem(new Item(668, 1));
+								    player.getInventory().addItem(new Item(9467, 1));
+								    player.getActionSender().sendMessage("You smelt the blurite ore in the furnace.");
+								    player.getActionSender().sendMessage("You retrieve a blurite bar from the furnace.");
+								    player.getUpdateFlags().sendAnimation(899);
+								    player.getActionSender().sendSound(469, 0, 0);
+								    break;
+								}
+							case 2:
+								player.setOldItem(9467);
+								Smelting.smeltBar(player, 5);
+								break;
+							case 3:
+								player.setOldItem(9467);
+								Smelting.smeltBar(player, 10);
+								break;
+							case 4:
+								player.setOldItem(9467);
+								Smelting.smeltBar(player, 28);
+								break;
+						}
+						break;
+				}
+				break;
+			case 10201 : //blurite smith
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Blurite Bolts", "Blurite Limbs");
+						return true;
+					case 2 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendOption("1", "5", "10", "28");
+								return true;
+							case 2:
+								player.getDialogue().sendOption("1", "5", "10", "28");
+								player.getDialogue().setNextChatId(5);
+								return true;
+						}
+					case 3 :
+						switch(optionId) {
+							case 1:
+								SmithBars.startSmithingBlurite(player, 9376, 1);
+								break;
+							case 2:
+								SmithBars.startSmithingBlurite(player, 9376, 5);
+								break;
+							case 3:
+								SmithBars.startSmithingBlurite(player, 9376, 10);
+								break;
+							case 4:
+								SmithBars.startSmithingBlurite(player, 9376, 28);
+								break;
+						}
+					break;
+					case 5 :
+						switch(optionId) {
+							case 1:
+								SmithBars.startSmithingBlurite(player, 9422, 1);
+								break;
+							case 2:
+								SmithBars.startSmithingBlurite(player, 9422, 5);
+								break;
+							case 3:
+								SmithBars.startSmithingBlurite(player, 9422, 10);
+								break;
+							case 4:
+								SmithBars.startSmithingBlurite(player, 9422, 28);
+								break;
+						}
+					break;
+				}
+			    break;
 			case 10014 : //Combat bracelet
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -8414,7 +8497,7 @@ public class Dialogues {
                                             return true;          
 				}
 			break;
-                        case 3299 : //Farming master skillcape
+                        /*case 3299 : //Farming master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
                                             player.getDialogue().sendNpcChat("Hello.", CONTENT);
@@ -8484,7 +8567,7 @@ public class Dialogues {
                                             player.getDialogue().endDialogue();
                                             return true;           
 				}
-			break;
+			break;*/
 			//SHEEP SHEARER
 			case 758 : //fred
 				if(!QuestHandler.questCompleted(player, 8))
@@ -8802,4 +8885,3 @@ public class Dialogues {
 		return false;
 	}
 }
-

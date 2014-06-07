@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.smithing;
 
 import com.rs2.Constants;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.players.Player;
@@ -12,7 +13,7 @@ import com.rs2.model.tick.CycleEventHandler;
 
 public class SmithBars {
 
-	private static final String[] smithItems = {"dagger", "axe", "mace", "med helm", "sword", "nails", "dart tip", "arrowtips", "scimitar", "longsword", "full helm", "knife", "sq shield", "warhammer", "battleaxe", "chainbody", "kiteshield", "claws", "2h sword", "plateskirt", "platelegs", "platebody", "Steel studs","bolts (unf)","limbs"};
+	private static final String[] smithItems = {"dagger", "axe", "mace", "med helm", "sword", "nails", "dart tip", "arrowtips", "scimitar", "longsword", "full helm", "knife", "sq shield", "warhammer", "battleaxe", "chainbody", "kiteshield", "claws", "2h sword", "plateskirt", "platelegs", "platebody", "Steel studs", "bolts (unf)", "limbs"};
 
 	private static final String[] smithMetal = {"bronze", "iron", "steel", "mithril", "adamant", "rune"};
 
@@ -27,6 +28,10 @@ public class SmithBars {
 		if (!player.getInventory().playerHasItem(2347)) {
 			player.getDialogue().sendStatement("You need a hammer to start smithing.");
 			return;
+		}
+		if (itemId == 9467) {
+		    Dialogues.startDialogue(player, 10201);
+		    return;
 		}
 		if (itemId == 2349) {
 			player.setSmithInterface(0);
@@ -150,7 +155,7 @@ public class SmithBars {
 		if (id > -1) {
 			final Item finalItem = new Item(item);
 			final String itemName = finalItem.getDefinition().getName().toLowerCase();
-			if (!SkillHandler.hasRequiredLevel(player, Skill.SMITHING, smithLevel(id, player.getSmithInterface()), "smith " + itemName)) {
+			if (!SkillHandler.hasRequiredLevel(player, Skill.SMITHING, smithLevel(id, player.getSmithInterface()), "smith " + itemName) ) {
 				return;
 			}
 			if (!player.getInventory().getItemContainer().contains(2347)) {
@@ -225,6 +230,73 @@ public class SmithBars {
 		}
 	}
 
+	public static void startSmithingBlurite(final Player player, final int item, final int amount) {
+		final int id = 0;
+		if (id > -1) {
+			final Item finalItem = new Item(item);
+			if (!player.getInventory().getItemContainer().contains(2347)) {
+				player.getActionSender().sendMessage("You need a hammer to smith on an anvil.");
+				return;
+			}
+			final Item bar = new Item(9467, 1);
+			if (player.getNewComersSide().isInTutorialIslandStage()) {
+				//TutorialIsland.sendStartInfo(player);
+			} else {
+				player.getActionSender().removeInterfaces();
+			}
+			final int task = player.getTask();
+			player.getUpdateFlags().sendAnimation(898);
+			player.getActionSender().sendSound(468, 0, 0);
+			player.setSkilling(new CycleEvent() {
+				int amounts = amount;
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (!player.checkTask(task)) {
+						container.stop();
+						return;
+					}
+					if (!player.getInventory().playerHasItem(bar)) {
+						player.getActionSender().sendMessage("You have run out of bars!");
+						container.stop();
+						return;
+					}
+					player.getInventory().removeItem(bar);
+					if (item == 9376 ) {
+						player.getInventory().addItem(new Item(item, 10));
+					} else {
+						player.getInventory().addItem(new Item(item, 1));
+					}
+					player.getSkill().addExp(Skill.SMITHING, 5);
+					if (player.getNewComersSide().isInTutorialIslandStage()) {
+						if (player.getNewComersSide().getTutorialIslandStage() == 36)
+							player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
+						player.setClickId(0);
+						player.getDialogue().sendStatement("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+					} else {
+						player.getActionSender().sendMessage("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+					}
+					amounts--;
+					if (amounts < 1) {
+						container.stop();
+						return;
+					}
+					if (!player.getInventory().playerHasItem(bar)) {
+						player.getActionSender().sendMessage("You have run out of bars!");
+						container.stop();
+						return;
+					}
+					player.getUpdateFlags().sendAnimation(898);
+					player.getActionSender().sendSound(468, 0, 0);
+				}
+				@Override
+				public void stop() {
+					player.getTask();
+					player.resetAnimation();
+				}
+			});
+			CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 4);
+		}
+	}
 	public static final int addLevel(int id) {
 		switch (id) {
 			case 1 :

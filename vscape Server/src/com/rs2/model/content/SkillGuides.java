@@ -1672,22 +1672,34 @@ public class SkillGuides {
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("9", "Bronze Bolt", 877, 0);
-			menuLine("39", "Iron Bolt", 9140, 1);
-			menuLine("46", "Steel Bolt", 9141, 2);
-			menuLine("54", "Mithril Bolt", 9142, 3);
-			menuLine("61", "Adamant Bolt", 9143, 4);
-			menuLine("69", "Rune Bolt", 9144, 5);
+			menuLine("11", "Opal Bolt (Opal Tipped Bronze)", 879, 1);
+			menuLine("24", "Blurite Bolt", 9139, 2);
+			menuLine("26", "Jade Bolt (Jade Tipped Blurite)", 9335, 3);
+			menuLine("39", "Iron Bolt", 9140, 4);
+			menuLine("41", "Pearl Bolt (Pearl Tipped Iron)", 880, 5);
+			menuLine("46", "Steel Bolt", 9141, 6);
+			menuLine("48", "Topaz Bolt (Topaz Tipped Steel)", 9336, 7);
+			menuLine("54", "Mithril Bolt", 9142, 8);
+			menuLine("56", "Sapphire Bolt (Sapphire Tipped Mithril)", 9337, 9);
+			menuLine("58", "Emerald Bolt (Emerald Tipped Mithril)", 9338, 10);
+			menuLine("61", "Adamant Bolt", 9143, 11);
+			menuLine("63", "Ruby Bolt (Ruby Tipped Adamant)", 9339, 12);
+			menuLine("65", "Diamond Bolt (Diamond Tipped Adamant)", 9340, 13);
+			menuLine("69", "Runite Bolt", 9144, 14);
+			menuLine("71", "Dragon Bolt (Dragonstone Tipped Runite)", 9341, 15);
+			menuLine("73", "Onyx Bolt (Onyx Tipped Runite)", 9342, 16);
 			optionTab("Fletching", "Bolts", "Arrows", "Bows", "Darts", "Bolts", "C'bows", "Milestones", "", "", "", "", "", "", "");
 		}
 		
 		else if (screen == 5) {
 			clearMenu();
 			menuLine("9", "Bronze C'bow", 9174, 0);
-			menuLine("39", "Iron C'bow", 9177, 1);
-			menuLine("46", "Steel C'bow", 9179, 2);
-			menuLine("54", "Mithril C'bow", 9181, 3);
-			menuLine("61", "Adamant C'bow", 9183, 4);
-			menuLine("69", "Rune C'bow", 9185, 5);
+			menuLine("24", "Blurite C'bow", 9176, 1);
+			menuLine("39", "Iron C'bow", 9177, 2);
+			menuLine("46", "Steel C'bow", 9179, 3);
+			menuLine("54", "Mithril C'bow", 9181, 4);
+			menuLine("61", "Adamant C'bow", 9183, 5);
+			menuLine("69", "Rune C'bow", 9185, 6);
 			optionTab("Fletching", "C'bows", "Arrows", "Bows", "Darts", "Bolts", "C'bows", "Milestones", "", "", "", "", "", "", "");
 		}
 		
@@ -1837,14 +1849,15 @@ public class SkillGuides {
 		if (screen == 1) {
 			clearMenu();
 			menuLine("1", "Bronze(1 Tin Ore + 1 Copper Ore", 2349, 0);
-			menuLine("15", "Iron(50% Chance of Success)", 2351, 1);
-			menuLine("20", "Elemental Metal(After Elemental Workshop", 2893, 2);
-			menuLine("20", "Silver", 2355, 3);
-			menuLine("30", "Steel(2 Coal + 1 Iron Ore", 2353, 4);
-			menuLine("40", "Gold", 2357, 5);
-			menuLine("50", "Mithril(4 Coal + 1 Mithril Ore", 2359, 6);
-			menuLine("70", "Adamant(6 Coal + 1 Adamantite Ore", 2361, 7);
-			menuLine("85", "Runite(8 Coal + 1 Runite Ore", 2363, 8);
+			menuLine("1", "Blurite", 9467, 1);
+			menuLine("15", "Iron(50% Chance of Success)", 2351, 2);
+			menuLine("20", "Elemental Metal(After Elemental Workshop)", 2893, 3);
+			menuLine("20", "Silver", 2355, 4);
+			menuLine("30", "Steel(2 Coal + 1 Iron Ore)", 2353, 5);
+			menuLine("40", "Gold", 2357, 6);
+			menuLine("50", "Mithril(4 Coal + 1 Mithril Ore)", 2359, 7);
+			menuLine("70", "Adamant(6 Coal + 1 Adamantite Ore)", 2361, 8);
+			menuLine("85", "Runite(8 Coal + 1 Runite Ore)", 2363, 9);
 			optionTab("Smithing", "Smelting", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		}
 
@@ -2140,7 +2153,9 @@ public class SkillGuides {
 			optionTab("Smithing", "Elemental", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 10) {
 			clearMenu();
-			menuLine("60", "Dragon Square Shield", 1187, 0);
+			menuLine("8", "Blurite Bolts (unf) - 1 Bar makes 10", 9376, 0);
+			menuLine("13", "Blurite Limbs - 1 Bar", 9422, 1);
+			menuLine("60", "Dragon Square Shield", 1187, 2);
 			optionTab("Smithing", "Other", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 11) {
 			clearMenu();

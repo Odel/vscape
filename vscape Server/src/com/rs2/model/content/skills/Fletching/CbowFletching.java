@@ -14,7 +14,8 @@ public class CbowFletching {
 	private static final int STRING_BOW = 713;
 	
 	public enum AttachData {// you attach item 1 with item2
-		BRONZE(9440, 9420, 9454, 9, 12), 
+		BRONZE(9440, 9420, 9454, 9, 12),
+		BLURITE(9442, 9422, 9456, 24, 32),
 		IRON(9444, 9423, 9457, 39, 44), 
 		STEEL(9446, 9425, 9459, 46, 54), 
 		MITHRIL(9448, 9427, 9461, 54, 64), 
@@ -66,6 +67,7 @@ public class CbowFletching {
 	
 	public enum UnstrungData {// you attach item 1 with item2
 		BRONZE(9454, 1777, 9174, 9, 6), 
+		BLURITE(9456, 1777, 9176, 24, 15),
 		IRON(9457, 1777, 9177, 39, 22), 
 		STEEL(9459, 1777, 9179, 46, 27), 
 		MITHRIL(9461, 1777, 9181, 54, 32), 

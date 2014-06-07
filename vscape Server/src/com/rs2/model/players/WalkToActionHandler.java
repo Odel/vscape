@@ -1650,7 +1650,7 @@ public class WalkToActionHandler {
 				case 2781:
 				case 3044:
 					Smelting.smeltInterface(player);
-					// player.getSmithing().setUpSmelting();
+					// player.getSmithing().setUpSmelting();or
 					break;
 				case 2644:
 					Menus.sendSkillMenu(player, "spinning");
@@ -2191,7 +2191,6 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-
 				// farming
 				if (Farming.prepareCrop(player, item, id, x, y)) {
 					this.stop();
@@ -2251,8 +2250,7 @@ public class WalkToActionHandler {
 						}
 						break;
 					}
-					SmithBars.smithInterface(player, item);
-					// player.getSmithing().setUpSmithing(item);
+					    SmithBars.smithInterface(player, item);
 					break;
 				case 2714: // grain hopper
 					FlourMill.putFlourInHopper(player);
@@ -2358,9 +2356,11 @@ public class WalkToActionHandler {
 						GemCrafting.openInterface(player);
 					} else if (item == SilverCrafting.SILVER_BAR) {
 						Menus.sendSkillMenu(player, "silverCrafting");
-					} else if (ItemManager.getInstance().getItemName(item).toLowerCase().endsWith("ore")) {
+					} else if (ItemManager.getInstance().getItemName(item).toLowerCase().endsWith("ore") && item != 668) {
 						Smelting.smeltInterface(player);
 						// player.getSmithing().setUpSmelting();
+					} else if(item == 668) {
+					    Dialogues.startDialogue(player, 10200);
 					}
 					break;
 				case 2642:// pottery unfire
