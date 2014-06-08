@@ -54,22 +54,24 @@ public class WarriorsGuild {
 			case 81: //entrance doors
 			    int req = player.getSkill().getPlayerLevel(0) + player.getSkill().getPlayerLevel(2);
 			    if(x == 2617 && y == 3171) {
-				if(req >= 130) {
+				if(req >= 1300) {
 				    player.getActionSender().walkTo(0, player.getPosition().getY() > 3171 ? -1 : 1, true);
 				    player.getActionSender().walkThroughDoor(81, x, y, 0);
 				}
 				else {
-				    player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
+				    player.getDialogue().sendStatement("The Warriors' Guild is not open yet.");
+				    //player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
 				}
 				return true;
 			    }
 			    else if(x == 2585 && y == 3141) {
-				if(req >= 130) {
+				if(req >= 1300) {
 				    player.getActionSender().walkTo(player.getPosition().getX() < 2585 ? 1 : -1, 0, true);
 				    player.getActionSender().walkThroughDoor(81, x, y, 0);
 				}
 				else {
-				    player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
+				    player.getDialogue().sendStatement("The Warriors' Guild is not open yet.");
+				    //player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
 				}
 				return true;
 			    }

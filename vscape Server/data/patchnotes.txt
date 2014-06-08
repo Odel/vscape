@@ -1,4 +1,5 @@
 @dre@=June ?=
+-Blurite smithing / fletching.
 -PC nows adds 1 point extra for every 100
 damage done beyond the initial 50.
 -Regen Bracelet fix.
