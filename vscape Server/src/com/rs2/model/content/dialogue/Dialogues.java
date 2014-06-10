@@ -4790,7 +4790,7 @@ public class Dialogues {
 				    player.getDialogue().sendPlayerChat("And these tokens matter how?", ANNOYED);
 				    return true;
 				case 20 :
-				    player.getDialogue().sendNpcChat("10 tokens is equal to one minute in the arena!", "As a precaution to our precious cyclops, you need to gather", "100 tokens minimum befre entering.", CONTENT);
+				    player.getDialogue().sendNpcChat("10 tokens is equal to one minute in the arena!", "As a precaution to our precious cyclops, you need to gather", "100 tokens minimum before entering.", CONTENT);
 				    return true;
 				case 21 :
 				    player.getDialogue().sendPlayerChat("So a full helmet, platelegs, and platebody...", "...of any kind works?", CONTENT);
@@ -4810,7 +4810,7 @@ public class Dialogues {
 			case 4285 : //ghommal warriors guild
 			    switch(player.getDialogue().getChatId()) {
 				case 1 :
-				    player.getDialogue().sendNpcChat("Ghommal is busy building new challenges. You leave Ghommal alone!", CONTENT);
+				    player.getDialogue().sendNpcChat("Ghommal is busy building new challenges.", "You leave Ghommal alone!", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
 			    }
