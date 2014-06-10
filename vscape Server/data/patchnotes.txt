@@ -3,6 +3,7 @@
 (It's in the Fight Arena)
 -Experiment's Cave is open.
 -Ring of Wealth adjustments.
+-Death Plateau shortcut to Relekka. (25 Agility)
 
 @dre@=June 8th=
 -Blurite smithing / fletching.

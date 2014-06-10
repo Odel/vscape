@@ -398,6 +398,44 @@ public class WalkToActionHandler {
 					player.getActionSender().walkThroughDoubleDoor(2144, 2143, 2889, 9830, 2889, 9831, 0);
 				    }
 				break;
+				case 3782: //death plateau doors west
+				case 3783:
+				    if(x == 2897) {
+					player.getActionSender().walkTo(player.getPosition().getX() < 2897 ? 1 : -1, 0, true);
+				    }
+				break;
+				case 3790:
+				case 3791: //death plateau rocks
+				case 3748:
+				case 3723:
+				case 3722:
+				    if(x == 2879)
+					Agility.crossObstacle(player, 2877, 3623, 844, 6, 25, 1);
+				    else if(x == 2878)
+					Agility.crossObstacle(player, 2880, 3622, 844, 6, 25, 1);
+				    else if(x == 2860)
+					Agility.crossObstacle(player, 2858, 3626, 844, 6, 25, 1);
+				    else if(x == 2859)
+					Agility.crossObstacle(player, 2861, 3626, 844, 6, 25, 1);
+				    else if(y == 3612 && player.getPosition().getY() == 3613)
+					Agility.crossObstacle(player, 2856, 3611, 844, 3, 25, 1);
+				    else if(y == 3612 && player.getPosition().getY() == 3611)
+					Agility.crossObstacle(player, 2856, 3613, 844, 3, 25, 1);
+				    else if(y == 3628 && player.getPosition().getY() == 3629)
+					Agility.crossObstacle(player, 2833, 3627, 844, 3, 25, 1);
+				    else if(y == 3628 && player.getPosition().getY() == 3627)
+					Agility.crossObstacle(player, 2833, 3629, 844, 3, 25, 1);
+				    else if(x == 2821) {
+					if(player.getPosition().getX() == 2822)
+					    Agility.crossObstacle(player, 2820, 3635, 844, 3, 25, 1);
+					else if(player.getPosition().getX() == 2820)
+					    Agility.crossObstacle(player, 2822, 3635, 844, 3, 25, 1);
+				    }
+				    else if(y == 3595)
+					Agility.crossObstacle(player, 2880, 3593, 844, 6, 25, 1);
+				    else if(y == 3594)
+					Agility.crossObstacle(player, 2880, 3596, 844, 6, 25, 1);
+				break;
 				case 11844: //falador wall shortcut
 				    if(player.getPosition().getX() ==  2934)
 					Agility.climbOver(player, 2936, 3355, 11, 5);
