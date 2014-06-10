@@ -32,5 +32,16 @@ public class RingEffect {
             }
         }
 	}
+	
+	public static boolean ringOfWealth(Player player) {
+        Item ring = player.getEquipment().getItemContainer().get(Constants.RING);
+	    if (ring != null && ring.getId() == 2572) { //Ring of life
+		return true;
+	    }
+	    else {
+		return false;
+	    }
+	    
+	}
 
 }

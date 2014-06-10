@@ -1,7 +1,5 @@
 package com.rs2.model.npcs.drop;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
 //import com.rs2.util.XStreamUtil;
@@ -102,6 +99,11 @@ public class NpcDropController {
 
 	public NpcDropItem[] getDropList() {
 		return drops;
+	}
+	
+	public void setRareTableChance(boolean bool) {
+	    if(bool) this.rareTableChance = 100;
+	    else if(!bool) this.rareTableChance = 130;
 	}
 
 	/**

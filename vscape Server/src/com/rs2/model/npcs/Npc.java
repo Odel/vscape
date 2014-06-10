@@ -7,9 +7,9 @@ import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatScript;
+import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.randomevents.EventsConstants;
-import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.KeyToClue;
 import com.rs2.model.ground.GroundItem;
@@ -484,6 +484,10 @@ public class Npc extends Entity {
 	public void dropItems(Entity killer) {
 			NpcDropController drops = NpcDropController.forId(getNpcId());
 			if (killer != null && drops != null) {
+			    if(killer.isPlayer()) {
+				boolean bool = RingEffect.ringOfWealth((Player)killer);
+				drops.setRareTableChance(bool);
+			    }
 				for (Item item : drops.getDrops()) {
 					if (item != null) {
 						String itemName = item.getDefinition().getName().toLowerCase();
@@ -500,6 +504,7 @@ public class Npc extends Entity {
                     Abyss.dropPouches((Player)killer, this);
                     KeyToClue.dropKey((Player)killer, this);
                     ClueScroll.dropClue((Player)killer, this);
+		    //WarriorsGuild.dropDefender((Player) killer, this);
                 }
 			}
 		}
