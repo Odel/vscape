@@ -411,6 +411,10 @@ public class WalkToActionHandler {
 				    else if(y == 3108)
 					Agility.crossObstacle(player, 2575, 3112, 844, 6, 16, 7);
 				break;
+				case 5167: //experiment entrance
+				    if(x == 3578 && y == 3527)
+					player.teleport(new Position(3577, 9927));
+				break;
 				case 2296: //coal trucks log
 				    if(x == 2599)
 					Agility.crossLog(player, 2603, 3477, 8, 20, 10);
