@@ -1,4 +1,8 @@
-@dre@=June ?=
+@dre@=June 10th=
+@blu@Pickle's Warriors' Guild!
+(It's in the Fight Arena)
+
+@dre@=June 8th=
 -Blurite smithing / fletching.
 -PC nows adds 1 point extra for every 100
 damage done beyond the initial 50.

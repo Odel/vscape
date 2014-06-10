@@ -581,6 +581,7 @@ public class Dialogues {
 			case 495 :
 			case 496 :
 			case 2619 :
+			case 4296 : //jade warriors guild banker
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("What can I do for you?", CONTENT);
@@ -4716,6 +4717,156 @@ public class Dialogues {
 				}
 			break;
 			    //**end of druidic ritual **//
+			case 4286 : //harralak warriors guild
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("Welcome to the Warriors' Guild!", CONTENT);
+				    return true;
+				case 2 :
+				    if(player.getPosition().getZ() == 0) {
+					player.getDialogue().sendNpcChat("Come talk to me on the top floor for more information.", CONTENT);
+					player.getDialogue().endDialogue();
+				    }
+				    else {
+					player.getDialogue().sendOption("What is this place?", "What do I do here?");
+				    }
+				    return true;
+				case 3 :
+				    switch(optionId) {
+					case 1 :
+					    player.getDialogue().sendPlayerChat("What is this place?", CONTENT);
+					    return true;
+					case 2 :
+					    player.getDialogue().sendPlayerChat("What do I do here?", CONTENT);
+					    player.getDialogue().setNextChatId(7);
+					    return true;
+				    }
+				case 4 :
+				    player.getDialogue().sendNpcChat("This is the beginning of a guild for all great warriors!", "We haven't quite finished our design", "plans for our main building.", CONTENT);
+				    return true;
+				case 5 :
+				    player.getDialogue().sendNpcChat("However, we are happy and functional here!", CONTENT);
+				    return true;
+				case 6 :
+				    player.getDialogue().sendPlayerChat("What do I do here?", CONTENT);
+				    return true;
+				case 7 :
+				    player.getDialogue().sendNpcChat("A fair question! The main goal of our guild is to", "honor those warriors mighty enough to enter!", "But, we do own a rare breed of monster.", CONTENT);
+				    return true;
+				case 8 :
+				    player.getDialogue().sendNpcChat("We found these ancient cyclops living deep in a cave.", "Every once in a while you slay one that seemed", "to have enjoyed an ancient human snack!", CONTENT);
+				    return true;
+				case 9 :
+				    player.getDialogue().sendPlayerChat("Erm, what does that mean for me?", CONTENT);
+				    return true;
+				case 10 :
+				    player.getDialogue().sendNpcChat("Well, we believe the ancient humans who existed alongside", "the cyclops to have been a race of berzerkers.", CONTENT);
+				    return true;
+				case 11 :
+				    player.getDialogue().sendPlayerChat("And...?", ANNOYED);
+				    return true;
+				case 12 :
+				    player.getDialogue().sendNpcChat("These berzerkers used a weapon called a defender.", "It provides small defense bonuses...", "...but powerful attack bonuses!", CONTENT);
+				    return true;
+				case 13 :
+				    player.getDialogue().sendPlayerChat("Well let me at these cyclops! I'll grind 1000 of them!", LAUGHING);
+				    return true;
+				case 14 :
+				    player.getDialogue().sendNpcChat("Not so fast! We've devised a way for these", "rare cyclops to not be wiped out!", CONTENT);
+				    return true;
+				case 15 :
+				    player.getDialogue().sendPlayerChat("And that is...?", CONTENT);
+				    return true;
+				case 16 :
+				    player.getDialogue().sendNpcChat("A game of course!", "Inside the guild you will find 6 cages.", "We used our friends at the Magic Guild", "to help us enchant them.", CONTENT);
+				    return true;
+				case 17 :
+				    player.getDialogue().sendNpcChat("Inside the cages, if you drop a full set of metal armor...", "...It will jump to life in front of you!", "Now the goal is to test your skills and fight these armors.", CONTENT);
+				    return true;
+				case 18 :
+				    player.getDialogue().sendNpcChat("When you defeat a set of armor", "the ref in the cage will reward", "you with tokens for fighting well!", CONTENT);
+				    return true;
+				case 19 :
+				    player.getDialogue().sendPlayerChat("And these tokens matter how?", ANNOYED);
+				    return true;
+				case 20 :
+				    player.getDialogue().sendNpcChat("10 tokens is equal to one minute in the arena!", "As a precaution to our precious cyclops, you need to gather", "100 tokens minimum befre entering.", CONTENT);
+				    return true;
+				case 21 :
+				    player.getDialogue().sendPlayerChat("So a full helmet, platelegs, and platebody...", "...of any kind works?", CONTENT);
+				    return true;
+				case 22 :
+				    player.getDialogue().sendNpcChat("All your basic metal armors through Runite!", CONTENT);
+				    return true;
+				case 23 :
+				    player.getDialogue().sendPlayerChat("I'll get to earning tokens then! Thank you!", CONTENT);
+				    return true;
+				case 24 :
+				    player.getDialogue().sendNpcChat("Enjoy the guild, warrior!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;   
+			case 4285 : //ghommal warriors guild
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("Ghommal is busy building new challenges. You leave Ghommal alone!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
+			case 4299 : //ref warriors guild
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendNpcChat("You're fighting nice and clean, keep it up.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
+			case 4289 : //kamfreena warriors guild
+			    switch(player.getDialogue().getChatId()) {
+				case 1 :
+				    player.getDialogue().sendPlayerChat("Hi.", CONTENT);
+					return true;
+				case 2 :
+				    player.getDialogue().sendNpcChat("Hello adventurer! The cyclops are quite restless today!", LAUGHING);
+				    player.getDialogue().setNextChatId(7);
+				    return true;
+				case 3 :
+				    switch(optionId) {
+					case 1 :
+					    player.getDialogue().sendNpcChat("Oh you got a defender! Congratulations!", HAPPY);
+					    return true;
+					case 2 :
+					    player.getDialogue().sendNpcChat("No luck with that defender? I'm sorry...", "...Maybe next time.", SAD);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 3 :
+					    player.getDialogue().sendNpcChat("A rune defender, very impressive. Good work.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+				case 4 :
+				    player.getDialogue().sendNpcChat("I've set up the cyclops to drop your next defender!", "Good luck with the next one!", HAPPY);
+				    player.getDialogue().endDialogue();
+				    return true;
+				case 7 :
+				    player.getDialogue().sendPlayerChat("Can you tell me which defender I'm on?", CONTENT);
+				    return true;
+				case 8 :
+				    Item item = new Item(player.getDefender()+1);
+				    String name = item.getDefinition().getName();
+				    if(player.getDefender() != 8850) {
+					player.getDialogue().sendNpcChat("Your next defender is the " + name + ".", CONTENT);
+					player.getDialogue().endDialogue();
+				    }
+				    else {
+					player.getDialogue().sendNpcChat("You already have the Rune defender, congratuluations!", HAPPY);
+					player.getDialogue().endDialogue();
+				    }
+				    return true;
+			    }
+			break;		
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

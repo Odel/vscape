@@ -97,7 +97,7 @@ public class TradeManager {
 		if (inv.getId() <= 0 || !inv.validItem() || amount < 1) {
 			return;
 		}
-		if (new Item(tradeItem).getDefinition().isUntradable()) {
+		if (new Item(tradeItem).getDefinition().isUntradable() || tradeItem == 8851) {
 			player.getActionSender().sendMessage("You cannot trade that item.");
 			return;
 		}

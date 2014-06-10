@@ -11,7 +11,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
+import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -345,8 +345,10 @@ public class CombatManager extends Tick {
 			    newKol.getUpdateFlags().sendForceMessage("How about this?");
 		    }
 		}
-		else if(WarriorsGuild.isAnimatedArmor(npc) && killer.isPlayer())
+		else if(WarriorsGuild.isAnimatedArmor(npc) && killer.isPlayer()) {
+		    ((Player)killer).getActionSender().sendMessage("The ref awards you with some tokens.");
 		    ((Player)killer).getInventory().addItem(new Item(8851, WarriorsGuild.getTokenAmount(npc)));
+		}
 		
 		if (!npc.needsRespawn()) {
 		    npc.setVisible(false);

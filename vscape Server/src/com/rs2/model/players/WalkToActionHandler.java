@@ -13,7 +13,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
-import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
+import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
@@ -1945,6 +1945,7 @@ public class WalkToActionHandler {
 				case 496 :
 				case 499 :
 				case 902 : //magebank banker
+				case 4296 : //warriors guild banker jade
 				case 2619:
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);

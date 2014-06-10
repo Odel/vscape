@@ -5,7 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
+import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;

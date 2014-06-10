@@ -55,7 +55,8 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.minigames.WarriorsGuild.WarriorsGuild;
+import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
 import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
@@ -329,6 +330,8 @@ public class Player extends Entity {
 	private List<SkullRecord> skullRecords;
 	private Spell castedSpell, autoSpell;
 	private boolean autoCasting = false;
+	private boolean warriorsGuildGameActive;
+	private boolean warriorsGuildFirstTime;
 	public int currentX, currentY;
 	private boolean hideWeapons;
     String[] badNames = {"mod", "Mod", "admin", "Admin", "owner", "Owner"};
@@ -621,7 +624,7 @@ public class Player extends Entity {
         	PestControl.leaveGame(this);
         }
 	if(inWarriorGuildArena()) {
-	    WarriorsGuild.exitArena(this);
+	    WarriorsGuild.exitArena(this, true);
 	}
 	setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
@@ -1044,6 +1047,8 @@ public class Player extends Entity {
                 this.getPets().registerPet(-1, petId);
                 	if ( petId == 1319)
                             this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
+		} else if (keyword.equals("talkpet") || keyword.equals("tp")) {
+		    this.getPets().getPet().getUpdateFlags().sendForceMessage(fullString);
 		} else if (keyword.equals("invisible")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
@@ -2128,7 +2133,7 @@ public class Player extends Entity {
         }
 	if(inWarriorGuildArena())
         {
-        	WarriorsGuild.exitArena(this);
+        	WarriorsGuild.exitArena(this, true);
         }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -2960,6 +2965,22 @@ public class Player extends Entity {
 	    this.defender = stage;
 	}
 	
+	public boolean warriorsGuildGameActive() {
+	    return warriorsGuildGameActive;
+	}
+	
+	public void setWarriorsGuildGameActive(boolean set) {
+	    this.warriorsGuildGameActive = set;
+	}
+	
+	public boolean warriorsGuildFirstTime() {
+	    return warriorsGuildFirstTime;
+	}
+	
+	public void setWarriorsGuildFirstTime(boolean set) {
+	    this.warriorsGuildFirstTime = set;
+	}
+	
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
@@ -3607,6 +3628,8 @@ public class Player extends Entity {
 			String name = ItemDefinition.forId(shield.getId()).getName().toLowerCase();
 			if (name.contains("shield"))
 				return 1156;
+			else if(name.contains("defender"))
+				return 4177;
 		}
 		return equippedWeapon.getBlockAnimation();
 	}

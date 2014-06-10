@@ -1,6 +1,7 @@
-package com.rs2.model.content.minigames.WarriorsGuild;
+package com.rs2.model.content.minigames.warriorsguild;
 
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -17,31 +18,36 @@ import com.rs2.util.Misc;
 public class WarriorsGuild {
 	private static int TOKEN_TIME = 0;
 	
-	private static boolean gameActive = false;
-	
 	private static final Position ENTRANCE = new Position(2605,3153,0);
 	private static final Position EXIT = new Position(2607,3151,0);
 	private static final Position DC_EXIT = new Position(2610, 3148, 0);
 	private static final MinigameAreas.Area NORTH_CAGES = new MinigameAreas.Area(new Position(2614, 3158, 0), new Position(2616, 3170, 0));
 	private static final MinigameAreas.Area WEST_CAGES = new MinigameAreas.Area(new Position(2586, 3142, 0), new Position(2601, 3144, 0));
 
-	private static void think(final Player player) {
+	private static void execute(final Player player) {
 		new TaskScheduler().schedule(new Task(8, false) {
 		    @Override
 		    protected void execute() {
-			if(!player.inWarriorGuildArena()) {
-			    this.stop();
-			}
 			Inventory inventory = player.getInventory();
-			if (inventory.playerHasItem(8851, 10) && TOKEN_TIME > 0) {
-			    TOKEN_TIME -= 5;
-			if(TOKEN_TIME%60 == 0)
-			    inventory.removeItem(new Item(8851, 10));
-			}
 			if(!inventory.playerHasItem(8851, 10)) {
-			    exitArena(player);
-			    player.getActionSender().sendMessage("You have run out of tokens!");
 			    this.stop();
+			    exitArena(player, false);
+			    player.getActionSender().sendMessage("You have run out of tokens!");
+			}
+			if(!player.inWarriorGuildArena() || !player.warriorsGuildGameActive() ) {
+			    this.stop();
+			}
+			if (inventory.playerHasItem(8851, 10) && TOKEN_TIME > 0 && player.inWarriorGuildArena()) {
+			    TOKEN_TIME -= 5;
+			    if(TOKEN_TIME%60 == 0 && !player.warriorsGuildFirstTime()) {
+				inventory.removeItem(new Item(8851, 10));
+				player.getActionSender().sendMessage("You have " + TOKEN_TIME / 60 + " minutes left in the arena.");
+			    }
+			    else if(TOKEN_TIME%60 == 0 && player.warriorsGuildFirstTime()) {
+				inventory.removeItem(new Item(8851, 10));
+				player.getActionSender().sendMessage("Your first minute has passed, you have " + TOKEN_TIME / 60 + " minutes left in the arena.");
+				player.setWarriorsGuildFirstTime(false);
+			    }
 			}
 		    }
 		});
@@ -54,24 +60,26 @@ public class WarriorsGuild {
 			case 81: //entrance doors
 			    int req = player.getSkill().getPlayerLevel(0) + player.getSkill().getPlayerLevel(2);
 			    if(x == 2617 && y == 3171) {
-				if(req >= 1300) {
+				if(req >= 130) {
 				    player.getActionSender().walkTo(0, player.getPosition().getY() > 3171 ? -1 : 1, true);
 				    player.getActionSender().walkThroughDoor(81, x, y, 0);
+				    if(player.getPosition().getY() > 3171)
+					Dialogues.startDialogue(player, 4286);
 				}
 				else {
-				    player.getDialogue().sendStatement("The Warriors' Guild is not open yet.");
-				    //player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
+				    player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
 				}
 				return true;
 			    }
 			    else if(x == 2585 && y == 3141) {
-				if(req >= 1300) {
+				if(req >= 130) {
 				    player.getActionSender().walkTo(player.getPosition().getX() < 2585 ? 1 : -1, 0, true);
 				    player.getActionSender().walkThroughDoor(81, x, y, 0);
+				    if(player.getPosition().getX() < 2585)
+					Dialogues.startDialogue(player, 4286);
 				}
 				else {
-				    player.getDialogue().sendStatement("The Warriors' Guild is not open yet.");
-				    //player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
+				    player.getDialogue().sendStatement("You need a combined Attack and Strength level of 130 to enter", "the Warriors' Guild.");
 				}
 				return true;
 			    }
@@ -83,7 +91,10 @@ public class WarriorsGuild {
 					TOKEN_TIME = (player.getInventory().getItemAmount(8851)/10) * 60;
 					player.getActionSender().sendMessage("You have " + TOKEN_TIME / 60 + " minutes in the arena.");
 					player.teleport(ENTRANCE);
-					think(player);
+					player.setWarriorsGuildGameActive(true);
+					player.setWarriorsGuildFirstTime(true);
+					findDefender(player);
+					execute(player);
 				    }
 				    else {
 					player.getDialogue().sendStatement("You need atleast 100 tokens to spend time in the arena.");
@@ -91,7 +102,12 @@ public class WarriorsGuild {
 				    return true;
 				}
 				else if(player.getPosition().getX() <= 2606 && player.getPosition().getY() >= 3151) {
-				    exitArena(player);
+				    if(player.warriorsGuildFirstTime())
+					player.getActionSender().sendMessage("You cannot leave until your first minute in the arena has passed!");
+				    else {
+					exitArena(player, false);
+					player.setWarriorsGuildGameActive(false);
+				    }
 				    return true;
 				}
 				else
@@ -101,7 +117,7 @@ public class WarriorsGuild {
 			    //north cells
 			    if(x == 2617 && y == 3163) {
 				if(player.getPosition().getY() != 3163) {
-				    player.getActionSender().walkTo(player.getPosition().getX() < 2617 ? 1 : -1, player.getPosition().getY() < 3633 ? 1 : -1, true);
+				    player.getActionSender().walkTo(player.getPosition().getX() < 2617 ? 1 : -1, player.getPosition().getY() < 3163 ? 1 : -1, true);
 				    player.getActionSender().walkThroughDoor(79, x, y, 0);
 				}
 				else if(player.getPosition().getY() == 3163) {
@@ -312,24 +328,104 @@ public class WarriorsGuild {
 	    else if(died.getNpcId() == 4284) return true;
 	    else return false;
 	}
+	public static int defenderChance(int defender) {
+	    if(defender == 8850 || defender == 8851) return 150;
+	    else if(defender == 8849) return 125;
+	    else if(defender == 8848) return 100;
+	    else if(defender == 8847) return 75;
+	    else if(defender == 8846) return 50;
+	    else if(defender == 8845) return 25;
+	    else if(defender == 8844) return 15;
+	    else return 25;
+	}
+	public static int findBankDefender(Player player) {
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8850){ return 8850; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8849){ return 8849; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8848){ return 8848; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8847){ return 8847; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8846){ return 8846; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8845){ return 8845; }
+	    }
+	    for(Item item : player.getBank().getItems()) {
+		if(item == null) continue;
+		else if(item.getId() == 8844){ return 8844; }
+	    }
+	    return 8843;
+	}
+	public static int findInventoryDefender(Player player) {
+	    Inventory inventory = player.getInventory();
+		if(inventory.playerHasItem(8850)) return 8850;
+		else if(inventory.playerHasItem(8849)) return 8849;
+		else if(inventory.playerHasItem(8848)) return 8848;
+		else if(inventory.playerHasItem(8847)) return 8847;
+		else if(inventory.playerHasItem(8846)) return 8846;
+		else if(inventory.playerHasItem(8845)) return 8845;
+		else if(inventory.playerHasItem(8844)) return 8844;
+		else return 8843;
+	}
+	public static void findDefender(Player player) {
+	    int bank = findBankDefender(player);
+	    int inventory = findInventoryDefender(player);
+	    if(bank > inventory)
+		player.setDefender(bank);
+	    else
+		player.setDefender(inventory);
+	}
 	
 	public static void dropDefender(Player player, Npc npc) {
-		if (Misc.random(5) != 1) {
+		if (Misc.random(defenderChance(player.getDefender()+1)) != 1) {
 			return;
 		}
 		if (npc.getNpcId() == 4291 || npc.getNpcId() == 4292 ) {
-		    GroundItem drop = new GroundItem(new Item(player.getDefender()), player,  new Position(npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ()));
+		    GroundItem drop = new GroundItem(new Item(player.getDefender() == 8850 ? 8850 : player.getDefender()+1), player,  new Position(npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ()));
 		    GroundItemManager.getManager().dropItem(drop);
 		}
 	
 	}
-	public static void exitArena(Player player) {
-	    if(player.getInventory().ownsItem(player.getDefender())) {
-		if(player.getDefender() != 8850) { //roon
-		    player.setDefender(player.getDefender()+1);
+	public static void exitArena(Player player, boolean DC) {
+	    if(!DC) {
+		if(findInventoryDefender(player) - 1 == player.getDefender()) {
+		    if(player.getDefender() != 8850) { //not roon
+			player.teleport(EXIT);
+			player.setWarriorsGuildGameActive(false);
+			Dialogues.sendDialogue(player, 4289, 3, 1);
+			findDefender(player);
+		    }
+		}
+		else if(player.getDefender() == 8850) {
+		    player.teleport(EXIT);
+		    player.setWarriorsGuildGameActive(false);
+		    Dialogues.sendDialogue(player, 4289, 3, 3);
+		    findDefender(player);
+		}
+		else {
+		    player.teleport(EXIT);
+		    player.setWarriorsGuildGameActive(false);
+		    Dialogues.sendDialogue(player, 4289, 3, 2);
+		    findDefender(player);
 		}
 	    }
-	    player.teleport(DC_EXIT);
+	    else if(DC) {
+		player.teleport(DC_EXIT);
+		player.setWarriorsGuildGameActive(false);
+	    }
 	}
 	
 }
