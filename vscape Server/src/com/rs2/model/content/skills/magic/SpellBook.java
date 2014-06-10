@@ -115,6 +115,10 @@ public enum SpellBook {
 		spells.put(62005, Spell.BONES_TO_PEACH);
 		spells.put(1162, Spell.LOW_ALCH);
 		spells.put(1178, Spell.HIGH_ALCH);
+		spells.put(1179, Spell.CHARGE_WATER);
+		spells.put(1182, Spell.CHARGE_EARTH);
+		spells.put(1184, Spell.CHARGE_FIRE);
+		spells.put(1186, Spell.CHARGE_AIR);
 		spells.put(1173, Spell.SUPERHEAT);
 		spells.put(1155, Spell.ENCHANT_LV_1);
 		spells.put(1165, Spell.ENCHANT_LV_2);

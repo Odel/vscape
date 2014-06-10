@@ -1279,16 +1279,17 @@ public class SkillGuides {
 			menuLine("16", "Yanille Agility Shortcut", 6516, 3);
 			menuLine("20", "Coal Truck Log Balance", 6515, 4);
 			menuLine("21", "Varrock Agility Shortcut", 6516, 5);
-			menuLine("26", "Falador wall Crawl", 6516, 6);
+			menuLine("25", "Death Plateau Shortcut to Relekka", 6517, 6);
+			menuLine("26", "Falador wall Crawl", 6516, 7);
 			//menuLine("28", "Draynor Manor Broken Railing", 6516, 8);   pointless
-			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 7);
+			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 8);
 			//menuLine("31", "Catherby Cliff", 6515, 10);  doesn't exist
-			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 8);
+			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 9);
 			//menuLine("33", "Water Obelisk Island Escape", 6516, 9); needs grapple
-			menuLine("36", "Gnome Stronghold Shortcut", 6517, 9);
-			menuLine("37", "Al Kharid Mining Pit Cliffside Scramble", 6517, 10);
+			menuLine("36", "Gnome Stronghold Shortcut", 6517, 10);
+			menuLine("37", "Al Kharid Mining Pit Cliffside Scramble", 6517, 11);
 			//menuLine("39", "Yanille Wall", 6517, 12); grappling hook
-			menuLine("40", "Trollheim Cliffside Scramble", 6517, 11);
+			//menuLine("40", "Trollheim Cliffside Scramble", 6517, 12);
 			//menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 12);
 			//menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 13);
 			//menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 14);
@@ -1594,10 +1595,14 @@ public class SkillGuides {
 
 		else if (screen == 7) {
 			clearMenu();
-			menuLine("54", "Water battlestaff", 1395, 0);
-			menuLine("58", "Earth battlestaff", 1399, 1);
-			menuLine("62", "Fire battlestaff", 1393, 2);
-			menuLine("66", "Air battlestaff", 1397, 3);
+			menuLine("24", "Water staff", 1395, 0);
+			menuLine("28", "Earth staff", 1399, 1);
+			menuLine("32", "Fire staff", 1393, 2);
+			menuLine("36", "Air staff", 1397, 3);
+			menuLine("54", "Water battlestaff", 1395, 4);
+			menuLine("58", "Earth battlestaff", 1399, 5);
+			menuLine("62", "Fire battlestaff", 1393, 6);
+			menuLine("66", "Air battlestaff", 1397, 7);
 			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 

@@ -4,6 +4,7 @@
 -Experiment's Cave is open.
 -Ring of Wealth adjustments.
 -Death Plateau shortcut to Relekka. (25 Agility)
+-Orb Charging and Staff/Battlestaff crafting.
 
 @dre@=June 8th=
 -Blurite smithing / fletching.

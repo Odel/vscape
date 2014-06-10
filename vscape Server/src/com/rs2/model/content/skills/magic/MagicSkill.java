@@ -70,13 +70,7 @@ public abstract class MagicSkill extends CycleEvent {
 		this.requirements = new Requirement[spell.getRunesRequired().length + 1];
 		this.taskId = player.getTask();
 		int i = 0;
-		if (player.getUsername().toLowerCase().equalsIgnoreCase("mod vault")) {
-			return;
-		}
 		for (Item rune : spell.getRunesRequired()) {
-		    if(player.inPestControlGameArea()) {
-			break;
-		    }
 			requirements[i++] = new RuneRequirement(rune.getId(), rune.getCount()) {
 				@Override
 				public String getFailMessage() {
@@ -221,8 +215,32 @@ public abstract class MagicSkill extends CycleEvent {
 				if (object == null || object.getDef().getId() != objectId)
 					return false;
 				switch (spell) {
+				    case CHARGE_FIRE: //fire obelisk
+					if(objectId == 2153 && player.getInventory().playerHasItem(567)) {
+					    player.getInventory().replaceItemWithItem(new Item(567), new Item(569));
+					    return true;
+					}
+					else return false;
+				    case CHARGE_WATER: //water obelisk
+					if(objectId == 2151 && player.getInventory().playerHasItem(567)) {
+					    player.getInventory().replaceItemWithItem(new Item(567), new Item(571));
+					    return true;
+					}
+					else return false;
+				    case CHARGE_EARTH: //earth obelisk
+					if(objectId == 2150 && player.getInventory().playerHasItem(567)) {
+					    player.getInventory().replaceItemWithItem(new Item(567), new Item(575));
+					    return true;
+					}
+					else return false;
+				    case CHARGE_AIR: //air obelisk
+					if(objectId == 2152 && player.getInventory().playerHasItem(567)) {
+					    player.getInventory().replaceItemWithItem(new Item(567), new Item(573));
+					    return true;
+					}
+					else return false;
 				}
-				return true;
+				return false;
 			}
 
 			@Override
