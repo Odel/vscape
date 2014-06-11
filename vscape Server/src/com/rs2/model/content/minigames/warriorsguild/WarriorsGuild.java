@@ -16,8 +16,6 @@ import com.rs2.task.Task;
 import com.rs2.util.Misc;
 
 public class WarriorsGuild {
-	private static int TOKEN_TIME = 0;
-	
 	private static final Position ENTRANCE = new Position(2605,3153,0);
 	private static final Position EXIT = new Position(2607,3151,0);
 	private static final Position DC_EXIT = new Position(2610, 3148, 0);
@@ -37,15 +35,15 @@ public class WarriorsGuild {
 			if(!player.inWarriorGuildArena() || !player.warriorsGuildGameActive() ) {
 			    this.stop();
 			}
-			if (inventory.playerHasItem(8851, 10) && TOKEN_TIME > 0 && player.inWarriorGuildArena()) {
-			    TOKEN_TIME -= 5;
-			    if(TOKEN_TIME%60 == 0 && !player.warriorsGuildFirstTime()) {
+			if (inventory.playerHasItem(8851, 10) && player.getTokenTime() > 0 && player.inWarriorGuildArena()) {
+			    player.setTokenTime(player.getTokenTime()-5);
+			    if(player.getTokenTime()%60 == 0 && !player.warriorsGuildFirstTime()) {
 				inventory.removeItem(new Item(8851, 10));
-				player.getActionSender().sendMessage("You have " + TOKEN_TIME / 60 + " minutes left in the arena.");
+				player.getActionSender().sendMessage("You have " + player.getTokenTime() / 60 + " minutes left in the arena.");
 			    }
-			    else if(TOKEN_TIME%60 == 0 && player.warriorsGuildFirstTime()) {
+			    else if(player.getTokenTime()%60 == 0 && player.warriorsGuildFirstTime()) {
 				inventory.removeItem(new Item(8851, 10));
-				player.getActionSender().sendMessage("Your first minute has passed, you have " + TOKEN_TIME / 60 + " minutes left in the arena.");
+				player.getActionSender().sendMessage("Your first minute has passed, you have " + player.getTokenTime() / 60 + " minutes left in the arena.");
 				player.setWarriorsGuildFirstTime(false);
 			    }
 			}
@@ -88,8 +86,8 @@ public class WarriorsGuild {
 			case 82: //main door to arena
 				if(player.getPosition().getX() >= 2606 && player.getPosition().getY() <= 3152) {
 				    if(player.getInventory().playerHasItem(8851, 100)) {
-					TOKEN_TIME = (player.getInventory().getItemAmount(8851)/10) * 60;
-					player.getActionSender().sendMessage("You have " + TOKEN_TIME / 60 + " minutes in the arena.");
+					player.setTokenTime((player.getInventory().getItemAmount(8851)/10) * 60);
+					player.getActionSender().sendMessage("You have " + player.getTokenTime() / 60 + " minutes in the arena.");
 					player.teleport(ENTRANCE);
 					player.setWarriorsGuildGameActive(true);
 					player.setWarriorsGuildFirstTime(true);

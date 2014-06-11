@@ -332,6 +332,7 @@ public class Player extends Entity {
 	private boolean autoCasting = false;
 	private boolean warriorsGuildGameActive;
 	private boolean warriorsGuildFirstTime;
+	private int tokenTime;
 	public int currentX, currentY;
 	private boolean hideWeapons;
     String[] badNames = {"mod", "Mod", "admin", "Admin", "owner", "Owner"};
@@ -2979,6 +2980,14 @@ public class Player extends Entity {
 	
 	public void setWarriorsGuildFirstTime(boolean set) {
 	    this.warriorsGuildFirstTime = set;
+	}
+	
+	public int getTokenTime() {
+	    return tokenTime;
+	}
+	
+	public void setTokenTime(int set) {
+	    this.tokenTime = set;
 	}
 	
 	public void setEnergy(double energy) {
