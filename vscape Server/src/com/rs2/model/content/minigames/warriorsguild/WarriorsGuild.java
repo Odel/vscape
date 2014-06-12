@@ -32,7 +32,7 @@ public class WarriorsGuild {
 			    exitArena(player, false);
 			    player.getActionSender().sendMessage("You have run out of tokens!");
 			}
-			if(!player.inWarriorGuildArena() || !player.warriorsGuildGameActive() ) {
+			else if(!player.inWarriorGuildArena() || !player.warriorsGuildGameActive()) {
 			    this.stop();
 			}
 			if (inventory.playerHasItem(8851, 10) && player.getTokenTime() > 0 && player.inWarriorGuildArena()) {

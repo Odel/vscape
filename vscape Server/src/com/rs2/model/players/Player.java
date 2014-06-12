@@ -620,11 +620,11 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-        if(inPestControlGameArea())
+	else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	if(inWarriorGuildArena()) {
+	else if(inWarriorGuildArena()) {
 	    WarriorsGuild.exitArena(this, true);
 	}
 	setLogoutTimer(System.currentTimeMillis() + 600000);
@@ -2128,14 +2128,13 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-        if(inPestControlGameArea())
+	else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	if(inWarriorGuildArena())
-        {
-        	WarriorsGuild.exitArena(this, true);
-        }
+	else if(inWarriorGuildArena()) {
+	    WarriorsGuild.exitArena(this, true);
+	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
