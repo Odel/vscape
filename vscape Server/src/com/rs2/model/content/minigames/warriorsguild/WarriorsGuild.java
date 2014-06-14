@@ -1,5 +1,6 @@
 package com.rs2.model.content.minigames.warriorsguild;
 
+import com.rs2.Constants;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.Position;
@@ -9,6 +10,7 @@ import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.task.TaskScheduler;
@@ -369,13 +371,14 @@ public class WarriorsGuild {
 	}
 	public static int findInventoryDefender(Player player) {
 	    Inventory inventory = player.getInventory();
-		if(inventory.playerHasItem(8850)) return 8850;
-		else if(inventory.playerHasItem(8849)) return 8849;
-		else if(inventory.playerHasItem(8848)) return 8848;
-		else if(inventory.playerHasItem(8847)) return 8847;
-		else if(inventory.playerHasItem(8846)) return 8846;
-		else if(inventory.playerHasItem(8845)) return 8845;
-		else if(inventory.playerHasItem(8844)) return 8844;
+	    int equipId = player.getEquipment().getId(Constants.SHIELD);
+		if(inventory.playerHasItem(8850) || equipId == 8850) return 8850;
+		else if(inventory.playerHasItem(8849) || equipId == 8849) return 8849;
+		else if(inventory.playerHasItem(8848) || equipId == 8848) return 8848;
+		else if(inventory.playerHasItem(8847) || equipId == 8847) return 8847;
+		else if(inventory.playerHasItem(8846) || equipId == 8846) return 8846;
+		else if(inventory.playerHasItem(8845) || equipId == 8845) return 8845;
+		else if(inventory.playerHasItem(8844) || equipId == 8844) return 8844;
 		else return 8843;
 	}
 	public static void findDefender(Player player) {
