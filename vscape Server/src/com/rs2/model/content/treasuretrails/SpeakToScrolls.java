@@ -29,7 +29,7 @@ public class SpeakToScrolls {
 		NPC_10(new String[]{"Speak to Hajedy"}, 3505, 510, "", 1),
 		NPC_12(new String[]{"Speak to Hazelmere"}, 3507, 669, "", 1),
 		NPC_13(new String[]{"Speak to Kangai Mau"}, 3508, 846, "", 1),
-		NPC_14(new String[]{"Speak to Ned in Draynor "}, 3509, 743, "", 1),
+		NPC_14(new String[]{"Speak to Ned in Draynor "}, 3509, 918, "", 1),
 		//NPC_15(new String[]{"Speak to Ned in Draynor "}, 3510, 918, "", 1),
 		NPC_16(new String[]{"Speak to Roavar"}, 3512, 1042, "", 2),
 		NPC_17(new String[]{"Speak to Sir Kay in Camelot", "Castle"}, 3513, 241, "", 1),

@@ -4170,12 +4170,12 @@ public class Dialogues {
 				    }
 				case 3 :
 				    if(player.getQuestStage(9) == 3) {
-					player.getDialogue().sendOption("I need a wig made.", "You can't!");
+					player.getDialogue().sendOption("I need a wig made.", "I need some rope.", "You can't!");
 					return true;
 				    }
 				    else {
-					player.getDialogue().sendPlayerChat("You can't!", ANGRY_2);
-					player.getDialogue().endDialogue();
+					player.getDialogue().sendPlayerChat("I need some rope.", CONTENT);
+					player.getDialogue().setNextChatId(15);
 					return true;
 				    }
 				case 4 :
@@ -4184,6 +4184,10 @@ public class Dialogues {
 					    player.getDialogue().sendPlayerChat("I need a wig made.", CONTENT);
 					    return true;
 					case 2:
+					    player.getDialogue().sendPlayerChat("Actually, I need some rope.", CONTENT);
+					    player.getDialogue().setNextChatId(15);
+					    return true;
+					case 3:
 					    player.getDialogue().sendPlayerChat("You can't!", ANGRY_2);
 					    player.getDialogue().endDialogue();
 					    return true;
@@ -4225,6 +4229,55 @@ public class Dialogues {
 				    player.getDialogue().sendNpcChat("I may be able to make pretty hair...", "But I'll never be a little girl...", NEAR_TEARS_2);
 				    player.getDialogue().endDialogue();
 				    player.setQuestStage(9, 4);
+				    return true;
+				case 15 :
+				    player.getDialogue().sendNpcChat("Some rope eh? I can do that!", "Either pay me, or hand over 4 balls of wool!", CONTENT);
+				    return true;
+				case 16 :
+				    player.getDialogue().sendOption("Pay Ned (18 gp)", "Give wool.", "Nevermind.");
+				    return true;
+				case 17 :
+				    switch(optionId) {
+					case 1:
+					    if(player.getInventory().playerHasItem(995, 18)) {
+						player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+						player.getInventory().removeItem(new Item(995, 18));
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("I'm afraid I don't have the coin...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 2:
+					    if(player.getInventory().playerHasItem(1759, 4)) {
+						player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+						player.getDialogue().setNextChatId(20);
+						player.getInventory().removeItem(new Item(1759, 4));
+						return true;
+					    }
+					    else {
+						player.getDialogue().sendPlayerChat("I'm afraid I don't have the balls...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 3:
+					    player.getDialogue().sendPlayerChat("Nevermind.", SAD);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+				case 18:
+				    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+				    player.getInventory().addItem(new Item(954));
+				    player.getDialogue().endDialogue();
+				    return true;
+				case 20:
+				    player.getDialogue().sendStatement("Ned works with the wool.");
+				    return true;
+				case 21:
+				    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+				    player.getInventory().addItem(new Item(954));
+				    player.getDialogue().endDialogue();
 				    return true;
 			    }
 			break;
