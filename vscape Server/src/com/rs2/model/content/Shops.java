@@ -217,7 +217,8 @@ public class Shops {
 	
 			case 586:
 				return 69;
-	
+			case 736:
+				return 194;
 			case 2330:
 				return 70;
 	

@@ -7,9 +7,6 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
-/**
- * By Mikey` of Rune-Server
- */
 public class Potion {
 
 	Player player;
@@ -94,7 +91,7 @@ public class Potion {
 			player.getActionSender().sendSound(334, 0, 0);
 			player.getTask();
 			player.getCombatDelayTick().setWaitDuration(player.getCombatDelayTick().getWaitDuration() + 2);
-				if (potionIdIndex < 3) {
+				if (potionIdIndex < 18) { //booze
 						if (player.getInventory().removeItemSlot(new Item(itemId, 1), slot)) {
 							if(potionIdIndex + 1 < potionIds.length)
 							player.getInventory().addItemToSlot(new Item(potionIds[potionIdIndex + 1], 1), slot);
@@ -118,7 +115,10 @@ public class Potion {
 	}
 
 	private boolean isDose(int itemId) {
-		return itemId != 1993 && itemId != 1978 && itemId != 1917 && itemId != 7919 && itemId != 3801;
+		return itemId != 1993 && itemId != 1978 && itemId != 1917 && itemId != 7919 && itemId != 3801
+			&& itemId != 1905 && itemId != 5751 && itemId != 4627 && itemId != 5755 && itemId != 5763
+			 && itemId != 1911 && itemId != 1913 && itemId != 1909 && itemId != 1915 && itemId != 2955
+			 && itemId != 5759 && itemId != 1907 && itemId != 2015 && itemId != 2017;
 	}
 
 	private void doOtherPotionEffects(int itemId) {
@@ -132,7 +132,7 @@ public class Potion {
 				player.getActionSender().statEdit(Skill.STRENGTH, 10, true);
 				player.heal(1);
 				player.getActionSender().sendMessage("You chug the keg. You feel reinvigorated... ...but extremely drunk, too.");
-				player.setDrunkState(true, 60);
+				player.setDrunkState(true, 600);
 				break;
 			case 1993 : // Jug of wine
 				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
@@ -149,7 +149,108 @@ public class Potion {
 				player.getActionSender().statEdit(Skill.STRENGTH, (int) (player.getSkill().getPlayerLevel(Skill.STRENGTH) * 0.04) * 1, true);
 				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
 				player.heal(1);
-				player.setDrunkState(true, 60); // change to beers a second
+				player.setDrunkState(true, 60);
+				break;
+			case 1905 : // asgarnian ale
+				player.getActionSender().statEdit(Skill.ATTACK, -4, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, 2, true);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.heal(2);
+				player.setDrunkState(true, 60);
+				break;
+			case 5751 : // axeman's folly
+				player.getActionSender().statEdit(Skill.ATTACK, -3, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, -3, false);
+				player.getActionSender().statEdit(Skill.WOODCUTTING, 1, true);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.heal(1);
+				player.setDrunkState(true, 60);
+				break;
+			case 4627 : //bandit's brew
+				player.getActionSender().statEdit(Skill.ATTACK, 1, true);
+				player.getActionSender().statEdit(Skill.STRENGTH, -1, false);
+				player.getActionSender().statEdit(Skill.DEFENCE, -6, false);
+				player.getActionSender().statEdit(Skill.THIEVING, 1, true);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 5755 : //chef's delight
+				player.getActionSender().statEdit(Skill.COOKING, (int) (player.getSkill().getPlayerLevel(Skill.COOKING) * 0.05) + 1, true);
+				player.getActionSender().statEdit(Skill.STRENGTH, -2, false);
+				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 5763 : //cider
+				player.getActionSender().statEdit(Skill.FARMING, 1, true);
+				player.getActionSender().statEdit(Skill.STRENGTH, -2, false);
+				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
+				player.heal(2);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 1911 : //dragon bitter
+				player.getActionSender().statEdit(Skill.STRENGTH, 2, true);
+				player.getActionSender().statEdit(Skill.ATTACK, -1, false);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 1913 : //dwarven stout
+				player.getActionSender().statEdit(Skill.MINING, 1, true);
+				player.getActionSender().statEdit(Skill.SMITHING, 1, true);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 1909 : //greenman's ale
+				player.getActionSender().statEdit(Skill.HERBLORE, 1, true);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 1915 : //grog
+				player.getActionSender().statEdit(Skill.STRENGTH, 3, true);
+				player.getActionSender().statEdit(Skill.ATTACK, -6, false);
+				player.heal(3);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 2955 : //moonlight mead
+				player.heal(4);
+				player.getActionSender().sendMessage("It tastes like something just died in your mouth.");
+				player.setDrunkState(true, 120);
+				break;
+			case 5759 : //slayer's respite
+				player.getActionSender().statEdit(Skill.SLAYER, 2, true);
+				player.getActionSender().statEdit(Skill.ATTACK, -2, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, -2, false);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 1907 : //wizard's mind bomb
+				player.getActionSender().statEdit(Skill.MAGIC,player.getSkill().getPlayerLevel(Skill.MAGIC) >= 50 ? 3 : 2, true);
+				player.getActionSender().statEdit(Skill.ATTACK, -4, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, -3, false);
+				player.getActionSender().statEdit(Skill.DEFENCE, -3, false);
+				player.heal(1);
+				player.getActionSender().sendMessage("You drink your " + potionDefinitions[potionIndex].getPotionName() + ".");
+				player.setDrunkState(true, 60);
+				break;
+			case 2015 : //vodka
+				player.getActionSender().statEdit(Skill.ATTACK, -3, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, 3, true);
+				player.getActionSender().sendMessage("You drink your vodka and smash the bottle on your head.");
+				player.setDrunkState(true, 300);
+				break;
+			case 2017 : //whisky
+				player.getActionSender().statEdit(Skill.ATTACK, -4, false);
+				player.getActionSender().statEdit(Skill.STRENGTH, 3, true);
+				player.heal(5);
+				player.getActionSender().sendMessage("You drink your whisky and drop the bottle, whoops!");
+				player.setDrunkState(true, 300);
 				break;
 			case 2446 : // Antipoison
 			case 175 :

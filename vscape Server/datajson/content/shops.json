@@ -8120,8 +8120,73 @@
         "id": 954,
         "count": 10
       }
+      ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+    },
+    {
+    "shopId": 194,
+    "name": "Alcoholics Anonymous Store",
+    "items": [
+      {
+        "id": 1905,
+        "count": 10
+      },
+      {
+        "id": 5751,
+        "count": 10
+      },
+      {
+        "id": 4627,
+        "count": 10
+      },
+      {
+        "id": 5755,
+        "count": 10
+      },
+      {
+        "id": 5763,
+        "count": 10
+      },
+      {
+        "id": 1911,
+        "count": 10
+      },
+      {
+        "id": 1913,
+        "count": 10
+      },
+      {
+        "id": 1909,
+        "count": 10
+      },
+      {
+        "id": 1915,
+        "count": 10
+      },
+      {
+        "id": 2955,
+        "count": 10
+      },
+      {
+        "id": 5759,
+        "count": 10
+      },
+      {
+        "id": 1907,
+        "count": 10
+      },
+      {
+        "id": 2015,
+        "count": 10
+      },
+      {
+        "id": 2017,
+        "count": 10
+      }
     ],
-    "isGeneralStore": true,
+    "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
   }

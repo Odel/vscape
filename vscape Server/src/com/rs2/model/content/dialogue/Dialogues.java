@@ -4398,7 +4398,7 @@ public class Dialogues {
 			case 736 : //emily the bartender
 			    switch(player.getDialogue().getChatId()) {
 					case 1 :
-					    player.getDialogue().sendNpcChat("Care for a beer?", CONTENT);
+					    player.getDialogue().sendNpcChat("Care for a drink?", CONTENT);
 					    return true;
 					case 2 :
 					    player.getDialogue().sendOption("Yes!", "No.");
@@ -4406,14 +4406,15 @@ public class Dialogues {
 					case 3 :
 					    switch(optionId) {
 						case 1:
-						    player.getDialogue().sendNpcChat("That will be 2 coins please.", CONTENT);
+						    ShopManager.openShop(player, 194);
+						    player.getDialogue().dontCloseInterface();
 						    return true;
 						case 2:
 						    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
 						    player.getDialogue().endDialogue();
 						    return true;
 					    }
-					case 4 :
+					/*case 4 :
 					    if(player.getInventory().playerHasItem(995, 2)) {
 						player.getInventory().removeItem(new Item(995, 2));
 						player.getDialogue().sendPlayerChat("Here you are!", HAPPY);
@@ -4428,7 +4429,7 @@ public class Dialogues {
 					    player.getDialogue().sendStatement("Emily hands you a cold glass of ale.");
 					    player.getDialogue().endDialogue();
 					    player.getInventory().addItem(new Item(1917));
-					    return true;
+					    return true; */
 			    }
 			break;
 			    //** end of prince ali and friends **//

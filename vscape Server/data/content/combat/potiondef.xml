@@ -14,6 +14,216 @@
 		<statModifiers>
 		</statModifiers>
 	</potiondef>
+        <potiondef>
+		<potionName>Asgarnian Ale</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1905</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Axeman's Folly</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>5751</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Bandit's Brew</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>4627</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Chef's Delight</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>5755</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Cider</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>5763</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Dragon Bitter</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1911</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Dwarven Stout</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1913</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Greenman's Ale</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1909</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Grog</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1915</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Moonlight Mead</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>2955</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Slayer's Respite</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>5759</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Wizard's Mind Bomb</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>1907</int>
+			<int>1919</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Vodka</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>2015</int>
+			<int>733</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+        <potiondef>
+		<potionName>Whisky</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<!-- Always start at (4) and go to (1) -->
+			<int>2017</int>
+			<int>690</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
 	<potiondef>
 		<potionName>Cup Of Tea</potionName>
 		<potionType>DRINK</potionType>
