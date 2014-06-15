@@ -1595,14 +1595,17 @@ public class SkillGuides {
 
 		else if (screen == 7) {
 			clearMenu();
-			menuLine("24", "Water staff", 1395, 0);
-			menuLine("28", "Earth staff", 1399, 1);
-			menuLine("32", "Fire staff", 1393, 2);
-			menuLine("36", "Air staff", 1397, 3);
-			menuLine("54", "Water battlestaff", 1395, 4);
-			menuLine("58", "Earth battlestaff", 1399, 5);
-			menuLine("62", "Fire battlestaff", 1393, 6);
-			menuLine("66", "Air battlestaff", 1397, 7);
+			menuLine("17", "Opal Machete (3 Opals + Machete)", 6313, 0);
+			menuLine("20", "Jade Machete (4 Jades + Machete)", 6315, 1);
+			menuLine("23", "Red Topaz Machete (6 Topaz + Machete)", 6317, 2);
+			menuLine("24", "Water staff", 1395, 3);
+			menuLine("28", "Earth staff", 1399, 4);
+			menuLine("32", "Fire staff", 1393, 5);
+			menuLine("36", "Air staff", 1397, 6);
+			menuLine("54", "Water battlestaff", 1395, 7);
+			menuLine("58", "Earth battlestaff", 1399, 8);
+			menuLine("62", "Fire battlestaff", 1393, 9);
+			menuLine("66", "Air battlestaff", 1397, 10);
 			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 

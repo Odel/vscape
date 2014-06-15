@@ -79,6 +79,70 @@ public class GemTips {
 	public static boolean handleCutting(final Player player, int selectedItemId, int usedItemId, final int slot) {
 		final int itemId = selectedItemId != CHISEL ? selectedItemId : usedItemId;
 		final TipData tipData = TipData.forId(itemId);
+		//Machete crafting
+		if ((usedItemId == 975 && selectedItemId == 1609)) // Opal machete
+		{
+			if (!Constants.CRAFTING_ENABLED) {
+				player.getActionSender().sendMessage("This skill is currently disabled.");
+				return true;
+			}
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 17) {
+				player.getDialogue().sendStatement("You need a crafting level of 17 to do this.");
+				return true;
+			}
+			if(!player.getInventory().playerHasItem(1609, 3)) {
+			    player.getActionSender().sendMessage("You need 3 Opals to alter this blade!");
+			    return true;
+			}
+			    player.getActionSender().sendMessage("You attach the gems to the back of the machete.");
+			    player.getInventory().removeItem(new Item(selectedItemId, 3));
+			    player.getInventory().removeItem(new Item(usedItemId));
+			    player.getInventory().addItem(new Item(6313));
+			    player.getSkill().addExp(Skill.CRAFTING, 13);
+			    return true;
+		}
+		if ((usedItemId == 975 && selectedItemId == 1611)) // Jade machete
+		{
+			if (!Constants.CRAFTING_ENABLED) {
+				player.getActionSender().sendMessage("This skill is currently disabled.");
+				return true;
+			}
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 20) {
+				player.getDialogue().sendStatement("You need a crafting level of 20 to do this.");
+				return true;
+			}
+			if(!player.getInventory().playerHasItem(1611, 4)) {
+			    player.getActionSender().sendMessage("You need 4 Jades to alter this blade!");
+			    return true;
+			}
+			player.getActionSender().sendMessage("You attach the gems to the back of the machete.");
+			player.getInventory().removeItem(new Item(selectedItemId, 4));
+			player.getInventory().removeItem(new Item(usedItemId));
+			player.getInventory().addItem(new Item(6315));
+			player.getSkill().addExp(Skill.CRAFTING, 17);
+			return true;
+		}
+		if ((usedItemId == 975 && selectedItemId == 1613)) // Jade machete
+		{
+			if (!Constants.CRAFTING_ENABLED) {
+				player.getActionSender().sendMessage("This skill is currently disabled.");
+				return true;
+			}
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 23) {
+				player.getDialogue().sendStatement("You need a crafting level of 23 to do this.");
+				return true;
+			}
+			if(!player.getInventory().playerHasItem(1613, 6)) {
+			    player.getActionSender().sendMessage("You need 6 Red Topaz to alter this blade!");
+			    return true;
+			}
+			player.getActionSender().sendMessage("You attach the gems to the back of the machete.");
+			player.getInventory().removeItem(new Item(selectedItemId, 6));
+			player.getInventory().removeItem(new Item(usedItemId));
+			player.getInventory().addItem(new Item(6317));
+			player.getSkill().addExp(Skill.CRAFTING, 21);
+			return true;
+		}
 		if(tipData != null) {
 			if (!Constants.FLETCHING_ENABLED) {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
