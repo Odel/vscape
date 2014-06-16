@@ -1523,7 +1523,7 @@ public class Player extends Entity {
 		
 		for(int i = 0; i < Constants.bad.length; i++)
 		{
-			if(YellMsg.indexOf(Constants.bad[i]) >= 0)
+			if(YellMsg.toLowerCase().contains(Constants.bad[i]))
 			{
 				getActionSender().sendMessage("You are trying to say something that should not be said!");
 				return;
