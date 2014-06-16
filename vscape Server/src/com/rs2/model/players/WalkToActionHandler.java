@@ -453,6 +453,23 @@ public class WalkToActionHandler {
 				    if(x == 3578 && y == 3527)
 					player.teleport(new Position(3577, 9927));
 				break;
+				case 1528: //curtain
+				    if(x == 3182 && y == 2984) {
+					player.getActionSender().walkTo(player.getPosition().getX() < 3183 ? 1 : -1, 0, true);
+					
+					//ObjectHandler.getInstance().removeClip(1528, x, y, 0, 0, 0);
+					//new GameObject(Constants.EMPTY_OBJECT, x, y, 0, 0, 0, 1528, 999999, false);
+					//new GameObject(1529, x+1, y, 0, 0, 0, 1528, 999999, false);
+					//ObjectHandler.getInstance().removeClip(1529, x-, y, 0, 0, 0);
+					
+				    }
+				    else if(x == 3172 && y == 2977) {
+					player.getActionSender().walkTo(0, player.getPosition().getY() < 2977 ? 1 : -1, true);
+					//ObjectHandler.getInstance().removeClip(1528, x, y, z, 0, 0);
+					//new GameObject(Constants.EMPTY_OBJECT, x, y, 0, 0, 0, 1528, 999999, false);
+					//new GameObject(1529, x, y-1, 0, 1, 0, 1528, 999999, false);
+				    }
+				    break;
 				case 2296: //coal trucks log
 				    if(x == 2599)
 					Agility.crossLog(player, 2603, 3477, 8, 20, 10);

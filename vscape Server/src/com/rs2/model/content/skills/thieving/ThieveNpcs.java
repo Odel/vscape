@@ -31,7 +31,7 @@ public class ThieveNpcs {
 		GUARD(new String[] { "guard" }, 40, 46.5, new Item[] { new Item(995, 30) }, 5, 2),
 		FREMENNIK_CITIZIN(new String[] { "inga", "freidir", "jennella", "sassilik", "agnar", "lanzig", "pontak", "lensa" }, 45, 65, new Item[] { new Item(995, 40) }, 5, 2),
 		BEARDED_POLLNIVIAN_BANDIT(new String[] { "bearded pollnivnian bandit" }, 45, 65, new Item[] { new Item(995, 40) }, 5, 5),
-		DESERT_BANDIT(new String[] { "desert bandit" }, 53, 79.5, new Item[] { new Item(995, 30), new Item(2446), new Item(1523) }, 5, 3),
+		DESERT_BANDIT(new String[] { "bandit" }, 53, 79.5, new Item[] { new Item(995, 30), new Item(2446), new Item(1523) }, 5, 3),
 		KNIGHT(new String[] { "knight of ardougne" }, 55, 84.3, new Item[] { new Item(995, 50) }, 5, 3),
 		POLLNIVIAN_BANDIT(new String[] { "pollnivian bandit" }, 55, 84.3, new Item[] { new Item(995, 30) }, 5, 5),
 		WATCHMAN(new String[] { "watchman" }, 65, 137.5, new Item[] { new Item(995, 60), new Item(2309)}, 5, 3),

@@ -4241,6 +4241,9 @@ public class Player extends Entity {
 		if (npc.getNpcId() == 18) {
 			return getCombatingEntity() != null;
 		}
+		if (npc.getNpcId() == 1931) {
+			return getCombatingEntity() != null;
+		}
 		if (npc.inWild()) {
 			return true;
 		}
@@ -4274,6 +4277,9 @@ public class Player extends Entity {
 				}
 				if (npc.getNpcId() == 18) {
 					npc.getUpdateFlags().setForceChatMessage("Brother, I will help thee with this infidel!");
+				}
+				if (npc.getNpcId() == 1931) {
+					npc.getUpdateFlags().setForceChatMessage("You chose the wrong place to start trouble!");
 				}
 				if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {
 					npc.sendTransform(npc.isTransformOnAggression(), 999999);
