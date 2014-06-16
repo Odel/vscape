@@ -2273,9 +2273,10 @@ public class SkillGuides {
 			menuLine("43", "Bass", 365, 27);
 			menuLine("45", "Swordfish", 373, 28);
 			menuLine("53", "Lava Eel", 2149, 29);
-			menuLine("80", "Shark", 385, 30);
-			menuLine("82", "Sea Turtle", 397, 31);
-			menuLine("91", "Manta Ray", 391, 32);
+			menuLine("62", "Monkfish", 7946, 30);
+			menuLine("80", "Shark", 385, 31);
+			menuLine("82", "Sea Turtle", 397, 32);
+			menuLine("91", "Manta Ray", 391, 33);
 			optionTab("Cooking", "Meats", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
