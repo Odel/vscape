@@ -55,7 +55,6 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
@@ -150,6 +149,7 @@ import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.randomevents.TalkToEvent;
 
 /**
  * Represents a logged-in player.
@@ -859,23 +859,23 @@ public class Player extends Entity {
 	public void adminCommands(String keyword, String[] args, String fullString) {
 		saveCommand(getUsername(), keyword+" "+fullString);
 		if (keyword.equals("getrandom")) {
-			switch(Misc.random(4)) {
-				case 1 :
+			switch(Misc.random(5)) {
+				case 0 :
 					SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
 					break;
-				case 2 :
+				case 1 :
 					SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
 					break;
-				case 3 :
+				case 2 :
 					SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
 					break;
-				case 4 :
+				case 3 :
 					SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
 					break;
-				case 5 :
+				case 4 :
 					SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
 					break;
-				case 6 :
+				case 5 :
 					SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
 					break;
 			}
@@ -893,7 +893,49 @@ public class Player extends Entity {
 				if (player == null)
 					continue;
 				if (player.getUsername().equalsIgnoreCase(fullString)) {
-					player.getRandomInterfaceClick().sendEventRandomly();
+				    switch(Misc.random(1)) {
+					case 0:
+					    switch(Misc.random(5)) {
+						case 0 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
+						    break;
+						case 1 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
+						    break;
+						case 2 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
+						    break;
+						case 3 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
+						    break;
+						case 4 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
+						    break;
+						case 5 :
+						    SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
+						    break;
+					    }
+					break;
+					case 1:
+					    switch(Misc.random(4)) {
+						case 0 :
+						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
+						    break;
+						case 1 :
+						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.GENIE);
+						    break;
+						case 2 :
+						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.JEKYLL);
+						    break;
+						case 3 :
+						    //TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.RICK);
+						    break;
+						case 4 :
+						    player.getRandomInterfaceClick().sendEventRandomly();
+						    break;
+					    }
+					break;      
+				    }
 					return;
 				}
 			}
