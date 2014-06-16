@@ -1,3 +1,12 @@
+@dre@=June ?=
+-All the alcohol now works. (*Should all work)
+-Ned sells rope and responds to clues again.
+-Gem machetes can be crafted.
+-Snapegrass respawns faster, and now on Waterbirth.
+-Desert Bandit Camp is open. (Bandit pickpocketing)
+-Moss Giants added to Brimhaven Dungeon.
+
+
 @dre@=June 10th=
 @blu@Pickle's Warriors' Guild!
 (It's in the Fight Arena)
