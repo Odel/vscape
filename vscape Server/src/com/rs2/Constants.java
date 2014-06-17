@@ -184,7 +184,7 @@ public class Constants {
     public static final int[][][] APPEARANCE_RANGES = new int[][][] { { { 18, 26, 36, 0, 33, 42, 10 }, { 25, 31, 40, 8, 34, 43, 17 } }, { { 56, 61, 70, 45, 67, 79, -1 }, { 60, 65, 77, 54, 68, 80, -1 } } };
 
     public static final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
-	public static final String[] bad = {":chalreq:", ":tradereq:", "ded", ":duelreq:"};
+	public static final String[] bad = {":chalreq:", ":tradereq:", ":duelreq:"};
 	public static final String[] bannedChars = {"!","$","%","^","&","*","+","=","@",":",";","~","#","<",">",",",".","?","\\","/","`","|","[","]","{","}","(",")","-","'","\""};
 	
     public static final int SKILL_ATTACK = 0, SKILL_DEFENCE = 1,

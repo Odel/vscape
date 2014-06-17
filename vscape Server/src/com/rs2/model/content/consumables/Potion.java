@@ -91,7 +91,7 @@ public class Potion {
 			player.getActionSender().sendSound(334, 0, 0);
 			player.getTask();
 			player.getCombatDelayTick().setWaitDuration(player.getCombatDelayTick().getWaitDuration() + 2);
-				if (potionIdIndex < 18) { //booze
+				if (potionIdIndex < 3) {
 						if (player.getInventory().removeItemSlot(new Item(itemId, 1), slot)) {
 							if(potionIdIndex + 1 < potionIds.length)
 							player.getInventory().addItemToSlot(new Item(potionIds[potionIdIndex + 1], 1), slot);

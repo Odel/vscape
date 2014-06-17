@@ -35,7 +35,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_2_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("wait till I get my hands on Penda, he's nicked the key again.");
+					player.getActionSender().sendMessage("Wait till I get my hands on Penda, he's nicked the key again.");
 					return false;
 				}
 			case 7280 :
@@ -43,7 +43,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_3_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("I'm guarding the key at the market");
+					player.getActionSender().sendMessage("I'm guarding the key at the market.");
 					return false;
 				}
 			case 7282 :
@@ -51,7 +51,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_4_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("Don't forget to feed the chickens");
+					player.getActionSender().sendMessage("Don't forget to feed the chickens.");
 					return false;
 				}
 			case 7284 :
@@ -59,7 +59,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_6_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("It's a guard's life");
+					player.getActionSender().sendMessage("It's a guard's life.");
 					return false;
 				}
 			case 7296 :
@@ -67,7 +67,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_1_CHEST, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("Stand by your man");
+					player.getActionSender().sendMessage("Stand by your man.");
 					return false;
 				}
 			case 7298 :
@@ -75,7 +75,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_7_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("Beware of dog");
+					player.getActionSender().sendMessage("Beware of dog.");
 					return false;
 				}
 			case 7300 :
@@ -83,7 +83,7 @@ public class KeyToClue {
 					player.getInventory().removeItem(new Item(KEY_9_DRAWERS, 1));
 					return true;
 				} else {
-					player.getActionSender().sendMessage("One of the wizards might have the key");
+					player.getActionSender().sendMessage("One of the wizards might have the key.");
 					return false;
 				}
 			case 7301 :
