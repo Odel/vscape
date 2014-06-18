@@ -205,7 +205,7 @@ public class WalkToActionHandler {
 				    }
 				}
 				if(x == 3016 && y == 3246 && player.getClickId() == 59) {
-				    if(player.getQuestStage(11) == 7 || player.getQuestStage(11) == 8) {
+				    if(player.getQuestStage(11) == 7) {
 					if(!MerlinsCrystal.beggarSpawned()) {
 					    Npc npc = new Npc(252);
 					    npc.setPosition(new Position(3016, 3253, 0));

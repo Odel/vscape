@@ -1,6 +1,7 @@
 package com.rs2.model.content.dialogue;
 
 import com.rs2.Constants;
+import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
@@ -8211,10 +8212,11 @@ public class Dialogues {
 				    player.getDialogue().sendNpcChat("Return to me personally in Taverly with the bread.", "Only then can you have Excalibur.", ANNOYED);
 				    for(Npc npc : World.getNpcs()) {
 					if(npc == null) continue;
-					if(npc.getNpcId() == 250 && player.getPosition().getX() > 3010) {
+					if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5)) {
 					    player.getActionSender().sendStillGraphic(86, npc.getPosition().clone(), 0);
 					    npc.setVisible(false);
 					    World.unregister(npc);
+					    break;
 					}
 				    }
 				    player.getDialogue().endDialogue();
@@ -8233,12 +8235,15 @@ public class Dialogues {
 					player.getDialogue().sendNpcChat("Here is the sword Excalibur, wield it well.", CONTENT);
 					player.getInventory().addItem(new Item(35));
 					player.getDialogue().endDialogue();
-					for(Npc npc : World.getNpcs()) {
-					    if(npc == null) continue;
-					    if(npc.getNpcId() == 250 && player.getPosition().getX() > 3010) {
-						player.getActionSender().sendStillGraphic(86, npc.getPosition().clone(), 0);
-						npc.setVisible(false);
-						World.unregister(npc);
+					if(player.getQuestStage(11) == 9) {
+					    for(Npc npc : World.getNpcs()) {
+						if(npc == null) continue;
+						if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5)) {
+						    player.getActionSender().sendStillGraphic(86, npc.getPosition().clone(), 0);
+						    npc.setVisible(false);
+						    World.unregister(npc);
+						    break;
+						}
 					    }
 					}
 					return true;
@@ -8428,10 +8433,8 @@ public class Dialogues {
 					if(npc.getNpcId() == 247) {
 					    npc.setVisible(false);
 					    World.unregister(npc);
-					    Npc newNpc = new Npc(247);
-					    newNpc.setPosition(npc.getPosition().clone());
-					    newNpc.setSpawnPosition(npc.getPosition().clone());
-					    World.register(newNpc);
+					    NpcDefinition newNpc = NpcDefinition.forId(247);
+					    player.appendToAutoSpawn(newNpc);
 					}
 				    }
 				return true;
@@ -8585,6 +8588,11 @@ public class Dialogues {
 				    else if(player.getQuestStage(11) == 12) {
 					player.getDialogue().sendNpcChat("Thank you young traveller.", "As a token of my appreciation...", "...you can keep Excalibur.", HAPPY);
 					player.getDialogue().setNextChatId(25);
+					return true;
+				    }
+				    else if(player.getQuestStage(11) > 12) {
+					player.getDialogue().sendNpcChat("Oh it's you! Thank you again!", HAPPY);
+					player.getDialogue().endDialogue();
 					return true;
 				    }
 				    else {
