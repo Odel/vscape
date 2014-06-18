@@ -3734,7 +3734,7 @@ public class Dialogues {
 				    }
 				case 4 :
 				    player.getDialogue().sendNpcChat("I need the services of someone, yes.", "If you are interested, see the spymaster, Osman.", CONTENT);
-				    player.setQuestStage(1, 9);
+				    player.setQuestStage(9, 1);
 				    QuestHandler.getQuests()[9].startQuest(player);
 				    player.getDialogue().endDialogue();
 				    return true;
