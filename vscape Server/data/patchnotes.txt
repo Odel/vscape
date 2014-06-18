@@ -1,4 +1,8 @@
-@dre@=June ?=
+@dre@=June 18=
+@blu@ Merlin's Crystal
+-Barrows Gloves added to Barrows rewards.
+
+@dre@=June 16=
 -All the alcohol now works. (*Should all work)
 -Ned sells rope and responds to clues again.
 -Gem machetes can be crafted.
