@@ -884,6 +884,9 @@ public class Equipment {
 			    defenceLevelReq = 45;
 			    rangeLevelReq = 65;
 			    return;
+			case 35: //excalibur
+			    attackLevelReq = 20;
+			    return;
 			case 6889 :
 			case 6914 :
 				magicLevelReq = 60;

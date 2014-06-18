@@ -103,7 +103,7 @@ public class Shops {
 			case 1083:
 				return 35;
 	
-			case 562:
+			case 1834:
 				return 36;
 	
 			case 2158:
@@ -208,8 +208,6 @@ public class Shops {
 	
 			case 578:
 				return 66;
-			case 1921:
-				return 194;
 			case 1316:
 				return 64;
 	
@@ -218,8 +216,6 @@ public class Shops {
 	
 			case 586:
 				return 69;
-			case 736:
-				return 194;
 			case 2330:
 				return 70;
 	
@@ -473,6 +469,10 @@ public class Shops {
 				return 170;
 			case 1680://crystal
 				return 171;
+			case 1921:
+			case 849:
+			case 736:
+				return 194;
 			case 555:
 				return 97;	//khazard general store	- cadillac
             case 516:

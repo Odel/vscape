@@ -2,6 +2,7 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
@@ -240,6 +241,10 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(804);
 					    stop();
 					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == 247 && killer.isPlayer() && ((Player)killer).getQuestStage(11) == 5) { // mordred
+					    died.getUpdateFlags().sendAnimation(1331);
+					    stop();
+					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
@@ -247,6 +252,26 @@ public class CombatManager extends Tick {
 				}
 			};
 			World.getTickManager().submit(tick);
+		}
+		if(died.isNpc() && ((Npc)died).getNpcId() == 247 && killer.isPlayer() && ((Player)killer).getQuestStage(11) == 5) {
+		Tick deathTimer = new Tick(10) {
+			@Override
+			public void execute() {
+			    died.getUpdateFlags().sendAnimation(1332);
+			    this.stop();
+			}
+		};
+		World.getTickManager().submit(deathTimer);
+		Npc npc = new Npc(248);
+		npc.setPosition(new Position(2766, 3401, 2));
+		npc.setSpawnPosition(died.getPosition().clone());
+		World.register(npc);
+		npc.getUpdateFlags().sendGraphic(86);
+		npc.setFollowingEntity(killer);
+		Dialogues.startDialogue((Player)killer, 248);
+		died.heal(5);
+		died.removeAllEffects();
+		return;
 		}
 		if(died.isNpc() && ((Npc)died).getNpcId() == 1158) {
 		Tick deathTimer = new Tick(5) {
@@ -297,6 +322,7 @@ public class CombatManager extends Tick {
 			((Player) killer).getSlayer().handleNpcDeath(npc);
 			Barrows.handleDeath(((Player)killer), npc);
 			WarriorsGuild.dropDefender((Player) killer, npc);
+			((Player) killer).setSpawnedNpc(null);
 		    }
 		}
 	    if (died != null && died.isNpc()) {
@@ -349,7 +375,11 @@ public class CombatManager extends Tick {
 		    ((Player)killer).getActionSender().sendMessage("The ref awards you with some tokens.");
 		    ((Player)killer).getInventory().addItem(new Item(8851, WarriorsGuild.getTokenAmount(npc)));
 		}
-		
+		else if(npc.getNpcId() == 238 && killer.isPlayer()) {
+		    ((Player)killer).setQuestStage(11, 11);
+		    ((Player)killer).getDialogue().sendStatement("With the spirit dead, you can now smash Merlin's crystal.");
+		}
+		    
 		if (!npc.needsRespawn()) {
 		    npc.setVisible(false);
 		    World.unregister(npc);

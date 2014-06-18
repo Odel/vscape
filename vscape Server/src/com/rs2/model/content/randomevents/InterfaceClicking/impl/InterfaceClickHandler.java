@@ -1,5 +1,6 @@
 package com.rs2.model.content.randomevents.InterfaceClicking.impl;
 
+import com.rs2.model.content.combat.hit.HitType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,7 +97,8 @@ public class InterfaceClickHandler {
 			player.getRandomInterfaceClick().completed = true;
 			player.getInventory().addItem(interfaceClickEvent.rewards()[randomNumber]);
 		} else {
-			npc.sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), interfaceClickEvent.goodByeMessage()[1], false);
+			//npc.sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), interfaceClickEvent.goodByeMessage()[1], false);
+			player.hit(1, HitType.NORMAL);
 		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override

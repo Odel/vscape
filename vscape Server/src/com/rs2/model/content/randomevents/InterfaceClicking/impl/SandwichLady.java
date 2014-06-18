@@ -1,8 +1,8 @@
 package com.rs2.model.content.randomevents.InterfaceClicking.impl;
 
+import com.rs2.model.content.combat.hit.HitType;
 import java.util.ArrayList;
 
-import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
@@ -95,8 +95,7 @@ public class SandwichLady implements InterfaceClickEvent {
 
 	@Override
 	public void handleFailure(Player player) {
-		final int randNum = Misc.random(EventsConstants.remoteLocations.length - 1);
-		player.getSpawnedNpc().sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), goodByeMessage()[2], true);
+	    player.hit(5, HitType.NORMAL);
 	}
 
 	@Override

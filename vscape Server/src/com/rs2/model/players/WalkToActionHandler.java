@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
+import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
@@ -18,6 +19,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -175,6 +177,53 @@ public class WalkToActionHandler {
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
 					return;
+				}
+				if(x == 2763 && y == 3402 && player.getClickId() == 71) {
+				    if(player.getQuestStage(11) < 6) {
+					player.getDialogue().sendStatement("These doors are locked.");
+					this.stop();
+					return;
+				    }
+				    else {
+					player.getActionSender().walkTo(player.getPosition().getX() == 2764 ? -1 : 1, 0, true);
+					player.getActionSender().walkThroughDoubleDoor(71, 72, 2763, 3402, 2763, 3401, 0);
+					this.stop();
+					return;
+				    }
+				}
+				if(x == 2763 && y == 3401 && player.getClickId() == 72) {
+				    if(player.getQuestStage(11) < 6) {
+					player.getDialogue().sendStatement("These doors are locked.");
+					this.stop();
+					return;
+				    }
+				    else {
+					player.getActionSender().walkTo(player.getPosition().getX() == 2764 ? -1 : 1, 0, true);
+					player.getActionSender().walkThroughDoubleDoor(71, 72, 2763, 3402, 2763, 3401, 0);
+					this.stop();
+					return;
+				    }
+				}
+				if(x == 3016 && y == 3246 && player.getClickId() == 59) {
+				    if(player.getQuestStage(11) == 7 || player.getQuestStage(11) == 8) {
+					if(!MerlinsCrystal.beggarSpawned()) {
+					    Npc npc = new Npc(252);
+					    npc.setPosition(new Position(3016, 3253, 0));
+					    npc.setSpawnPosition(player.getPosition().clone());
+					    World.register(npc);      
+					    npc.setFollowingEntity(player);
+					    npc.setPlayerOwner(player.getIndex());
+					}
+					Dialogues.startDialogue(player, 252);
+					this.stop();
+					return;
+				    }
+				    else {
+					player.getActionSender().walkTo(player.getPosition().getX() > 3015 ? -1 : 1, 0, true);
+					player.getActionSender().walkThroughDoor(59, 3016, 3246, 0);
+					this.stop();
+					return;
+				    }
 				}
 				if (player.getNewComersSide().handleObjectClicking(id, new Position(x, y, z))) {
 					this.stop();
@@ -396,6 +445,28 @@ public class WalkToActionHandler {
 				    else if(player.getQuestStage(10) >= 3) {
 					player.getActionSender().walkTo(player.getPosition().getX() < 2889 ? 1 : -1, 0, true);
 					player.getActionSender().walkThroughDoubleDoor(2144, 2143, 2889, 9830, 2889, 9831, 0);
+				    }
+				break;
+				case 62: //merlin's crystal prison
+				    if(player.getQuestStage(11) == 11) {
+					if(player.getEquipment().getItemContainer().get(Constants.WEAPON).getId() == 35) {
+					    if(!MerlinsCrystal.merlinSpawned()) {
+						Npc npc = new Npc(249);
+						npc.setPosition(new Position(2763, 3512, 0));
+						npc.setSpawnPosition(new Position(2763, 3512, 0));
+						World.register(npc);
+					    }
+					    player.getUpdateFlags().sendAnimation(451);
+					    player.getActionSender().sendStillGraphic(new Graphic(287, 0), new Position(2767, 3494));
+					    player.getActionSender().sendStillGraphic(new Graphic(287, 0), new Position(2767, 3493));
+					    player.getActionSender().sendStillGraphic(new Graphic(287, 0), new Position(2768, 3494));
+					    player.getActionSender().sendStillGraphic(new Graphic(287, 0), new Position(2768, 3493));
+					    player.fadeTeleport(new Position(2764, 3512, 0));
+					    player.setQuestStage(11, 12);
+					}
+					else {
+					    player.getDialogue().sendStatement("You need to equip Excalibur first.");
+					}
 				    }
 				break;
 				case 3782: //death plateau doors west
@@ -1723,6 +1794,27 @@ public class WalkToActionHandler {
 				case 8717:
 					Menus.sendSkillMenu(player, "weaving");
 					break;
+				case 61: //chaos altar
+				    if(player.getQuestStage(11) >= 9) {
+					player.getDialogue().sendStatement("You find some words inscribed on the edge of the altar...", "They read: Snarthon Candtrick Termanto.");
+					player.setQuestStage(11, 10);
+					break;
+				    }
+				case 63: //merlin's crystal crate
+				    if(player.getQuestStage(11) >= 4 && player.getPosition().clone() != new Position(2801, 3442)) {
+					player.teleport(new Position(2801, 3442));
+					player.getActionSender().sendMessage("You climb into the crate.");
+					if(!MerlinsCrystal.workerSpawned()) {
+					    Npc npc = new Npc(675);
+					    npc.setPosition(new Position(2805, 3431, 0));
+					    npc.setSpawnPosition(new Position(2803, 3442, 0));
+					    World.register(npc);      
+					    npc.walkTo(new Position(2803, 3442), true);
+					    npc.setPlayerOwner(player.getIndex());
+					}
+					Dialogues.startDialogue(player, 10505);
+				    }
+				break;
 				}
 				this.stop();
 			}

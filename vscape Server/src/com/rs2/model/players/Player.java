@@ -893,49 +893,23 @@ public class Player extends Entity {
 				if (player == null)
 					continue;
 				if (player.getUsername().equalsIgnoreCase(fullString)) {
-				    switch(Misc.random(1)) {
-					case 0:
-					    switch(Misc.random(5)) {
+					    switch(Misc.random(3)) {
 						case 0 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
+						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
 						    break;
 						case 1 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
+						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.GENIE);
 						    break;
 						case 2 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
+						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.JEKYLL);
 						    break;
-						case 3 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
-						    break;
-						case 4 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
-						    break;
-						case 5 :
-						    SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
-						    break;
-					    }
-					break;
-					case 1:
-					    switch(Misc.random(4)) {
-						case 0 :
-						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
-						    break;
-						case 1 :
-						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.GENIE);
-						    break;
-						case 2 :
-						    TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.JEKYLL);
-						    break;
-						case 3 :
+						//case 3 :
 						    //TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.RICK);
-						    break;
-						case 4 :
+						    //break;
+						case 3 :
 						    player.getRandomInterfaceClick().sendEventRandomly();
 						    break;
 					    }
-					break;      
-				    }
 					return;
 				}
 			}
@@ -977,6 +951,15 @@ public class Player extends Entity {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
+		}
+		
+		if(keyword.equals("setplayerqueststage")) {
+		    final int quest = Integer.parseInt(args[0]);
+		    final int stage = Integer.parseInt(args[1]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    player.setQuestStage(quest, stage);
 		}
 		
 		if (keyword.equals("run")) {
@@ -4959,92 +4942,92 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7354); //dig site
 		getActionSender().sendString("@red@Druidic Ritual", 7355);
 		getActionSender().sendString("", 7356); //dwarf cannon
-		getActionSender().sendString("", 8679);
-		getActionSender().sendString("", 7459);
-		getActionSender().sendString("", 7357);
-		getActionSender().sendString("", 12836);
-		getActionSender().sendString("", 7358);
-		getActionSender().sendString("", 7359);
-		getActionSender().sendString("", 14169);
-		getActionSender().sendString("", 10115);
-		getActionSender().sendString("", 14604);
-		getActionSender().sendString("", 7360);
-		getActionSender().sendString("", 12282);
-		getActionSender().sendString("", 13577);
-		getActionSender().sendString("", 12839);
-		getActionSender().sendString("", 7361);
-		getActionSender().sendString("", 11857);
-		getActionSender().sendString("", 7362);
-		getActionSender().sendString("", 7363);
-		getActionSender().sendString("", 7364);
-		getActionSender().sendString("", 10135);
-		getActionSender().sendString("", 4508);
-		getActionSender().sendString("", 11907);
-		getActionSender().sendString("", 7365);
-		getActionSender().sendString("", 7366);
-		getActionSender().sendString("", 7367);
-		getActionSender().sendString("", 13389);
-		getActionSender().sendString("", 7368);
-		getActionSender().sendString("", 11132);
-		getActionSender().sendString("", 7369);
-		getActionSender().sendString("", 12389);
-		getActionSender().sendString("", 13974);
-		getActionSender().sendString("", 7370);
-		getActionSender().sendString("", 8137);
-		getActionSender().sendString("", 7371);
-		getActionSender().sendString("", 12345);
-		getActionSender().sendString("", 7372);
-		getActionSender().sendString("", 8115);
+		getActionSender().sendString("", 8679);//Eadgar's ruse
+		getActionSender().sendString("", 7459); //elemental workshop
+		getActionSender().sendString("", 7357); //Family crest
+		getActionSender().sendString("", 12836); //the feud
+		getActionSender().sendString("", 7358); //fight arena
+		getActionSender().sendString("", 7359); //Fishing Content
+		getActionSender().sendString("", 14169); //forgettable tale
+		getActionSender().sendString("", 10115); //the fremennik trials
+		getActionSender().sendString("", 14604); //garden of tranquility
+		getActionSender().sendString("", 7360); //gertrude's cat
+		getActionSender().sendString("", 12282); //ghosts ahoy
+		getActionSender().sendString("", 13577); //the giant dwarf
+		getActionSender().sendString("", 12839); //the golem
+		getActionSender().sendString("", 7361); //the grand tree
+		getActionSender().sendString("", 11857); //haunted mine
+		getActionSender().sendString("", 7362); //hazeel cult
+		getActionSender().sendString("", 7363); //heroes quest
+		getActionSender().sendString("", 7364); //holy grail
+		getActionSender().sendString("", 10135); //horror from the deep
+		getActionSender().sendString("", 4508); //Icthlarin's Little Helper 
+		getActionSender().sendString("", 11907); //in search of the myreque
+		getActionSender().sendString("", 7365); //jungle potion
+		getActionSender().sendString("", 7366);  //legends quest
+		getActionSender().sendString("", 7367); //lost city
+		getActionSender().sendString("", 13389); //the lost tribe
+		getActionSender().sendString("@red@Merlin's Crystal", 7368); //merlin's crystal
+		getActionSender().sendString("", 11132); //monkey madness
+		getActionSender().sendString("", 7369); //monk's friend
+		getActionSender().sendString("", 12389); //mountain daughter
+		getActionSender().sendString("", 13974); //mourning's end pt 1
+		getActionSender().sendString("", 7370); //murder mystery
+		getActionSender().sendString("", 8137); //nature spirit
+		getActionSender().sendString("", 7371); //observatory quest
+		getActionSender().sendString("", 12345); //one small favour
+		getActionSender().sendString("", 7372); //plague city
+		getActionSender().sendString("", 8115); //priest in peril
 		// unknown id
-		getActionSender().sendString("", 8576);
-		getActionSender().sendString("", 12139);
-		getActionSender().sendString("", 7373);
-		getActionSender().sendString("", 7374);
-		getActionSender().sendString("", 8969);
-		getActionSender().sendString("", 7375);
-		getActionSender().sendString("", 7376);
-		getActionSender().sendString("", 1740);
-		getActionSender().sendString("", 3278);
-		getActionSender().sendString("", 7378);
-		getActionSender().sendString("", 6518);
-		getActionSender().sendString("", 7379);
-		getActionSender().sendString("", 7380);
-		getActionSender().sendString("", 7381);
-		getActionSender().sendString("", 11858);
+		getActionSender().sendString("", 8576); //regicide
+		getActionSender().sendString("", 12139); //roving elves
+		getActionSender().sendString("", 7373); //scorpion catcher
+		getActionSender().sendString("", 7374); //sea slug quest
+		getActionSender().sendString("", 8969); //shades of mort'ton
+		getActionSender().sendString("", 7375); //sheep herder
+		getActionSender().sendString("", 7376); //shilo village
+		getActionSender().sendString("", 1740); // tai bwo wannai trio
+		getActionSender().sendString("", 3278); //tears of guthix
+		getActionSender().sendString("", 7378); //temple of ikov
+		getActionSender().sendString("", 6518); //throne of miscellania
+		getActionSender().sendString("", 7379); //the tourist trap
+		getActionSender().sendString("", 7380); //tree gnome village
+		getActionSender().sendString("", 7381); //tribal totem
+		getActionSender().sendString("", 11858); //troll romance
 		// unknown id
-		getActionSender().sendString("", 9927);
-		getActionSender().sendString("", 7349);
-		getActionSender().sendString("", 7350);
-		getActionSender().sendString("", 7351);
-		getActionSender().sendString("", 13356);
+		getActionSender().sendString("", 9927); //underground pass
+		getActionSender().sendString("", 7349); //watchtower
+		getActionSender().sendString("", 7350); //waterfall quest
+		getActionSender().sendString("", 7351); //witch's house
+		getActionSender().sendString("", 13356); //zogre flesh eaters
 		// more
-		getActionSender().sendString("", 6024);
-		getActionSender().sendString("", 191);
-		getActionSender().sendString("", 15235);
-		getActionSender().sendString("", 249);
-		getActionSender().sendString("", 15592);
-		getActionSender().sendString("", 15098);
-		getActionSender().sendString("", 15352);
-		getActionSender().sendString("", 14912);
-		getActionSender().sendString("", 668);
-		getActionSender().sendString("", 18306);
-		getActionSender().sendString("", 15499);
-		getActionSender().sendString("", 18684);
-		getActionSender().sendString("", 6027);
-		getActionSender().sendString("", 15487);
-		getActionSender().sendString("", 18517);
-		getActionSender().sendString("", 16128);
-		getActionSender().sendString("", 6987);
-		getActionSender().sendString("", 16149);
-		getActionSender().sendString("", 15841);
-		getActionSender().sendString("", 7353);
-		getActionSender().sendString("", 682);
-		getActionSender().sendString("", 12772);
-		getActionSender().sendString("", 673);
-		getActionSender().sendString("", 17510);
+		getActionSender().sendString("", 6024); //wanted!
+		getActionSender().sendString("", 191); //troll stronghold
+		getActionSender().sendString("", 15235); //a tail of two cats
+		getActionSender().sendString("", 249); //swan song
+		getActionSender().sendString("", 15592); //spirits of the elid
+		getActionSender().sendString("", 15098); //a soul's bane
+		getActionSender().sendString("", 15352); //shadow of the storm
+		getActionSender().sendString("", 14912); //rum deal
+		getActionSender().sendString("", 668); //recruitment drive
+		getActionSender().sendString("", 18306); //recipe for disaster
+		getActionSender().sendString("", 15499); //rat catchers
+		getActionSender().sendString("", 18684); //rag and bone man
+		getActionSender().sendString("", 6027); //mournings end pt 2
+		getActionSender().sendString("", 15487); //making history
+		getActionSender().sendString("", 18517); //in aid of the myreque
+		getActionSender().sendString("", 16128);//the hand in the sand
+		getActionSender().sendString("", 6987);//a fairy tale pt 1
+		getActionSender().sendString("", 16149); //enakhra's lament
+		getActionSender().sendString("", 15841); //devious minds
+		getActionSender().sendString("", 7353); //clock tower
+		getActionSender().sendString("", 682); //members quests lel
+		getActionSender().sendString("", 12772); //between a rock...
+		getActionSender().sendString("", 673); //big chompy bird hunting
+		getActionSender().sendString("", 17510); //cabin fever
 		// unknown id
-		getActionSender().sendString("", 7352);
-		getActionSender().sendString("", 12129);
+		getActionSender().sendString("", 7352); //biohazard
+		getActionSender().sendString("", 12129); //creature of fenkenstrain
 	}
 
     public boolean getHideYell()

@@ -7,6 +7,7 @@ import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Crafting.BasicCraft;
@@ -161,6 +162,17 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		if (!player.getInventory().getItemContainer().contains(item.getId())) {
 			return;
+		}
+		if(item.getId() == 530 && player.getPosition().getX() == 2780 && player.getPosition().getY() == 3515) {
+		    if(player.getInventory().playerHasItem(32)) {
+			player.getInventory().removeItem(new Item(530));
+			MerlinsCrystal.summon(player);
+			return;
+		    }
+		    else {
+			player.getDialogue().sendStatement("Nothing happens. Perhaps you should light the candle first.");
+			return;
+		    }
 		}
 		if(WarriorsGuild.itemHandling(player, itemId)) {
 		    return;
