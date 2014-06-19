@@ -1057,6 +1057,9 @@ public class Player extends Entity {
 				}
 			}
 			skill.refresh();
+		}else if (keyword.equals("objanim")) {
+			final int index = Integer.parseInt(args[0]);
+			getActionSender().animateObject(2734, 9882, 0, index);
 		}else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;
@@ -4943,7 +4946,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Druidic Ritual", 7355);
 		getActionSender().sendString("", 7356); //dwarf cannon
 		getActionSender().sendString("", 8679);//Eadgar's ruse
-		getActionSender().sendString("", 7459); //elemental workshop
+		getActionSender().sendString("@red@Elemental Workshop", 7459); //elemental workshop
 		getActionSender().sendString("", 7357); //Family crest
 		getActionSender().sendString("", 12836); //the feud
 		getActionSender().sendString("", 7358); //fight arena

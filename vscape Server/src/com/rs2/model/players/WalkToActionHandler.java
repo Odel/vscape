@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
@@ -166,13 +167,17 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-		        if (Barrows.handleObjectClicking(player, id, x, y)) {
-                    this.stop();
-                    return;
-                }
+				if (Barrows.handleObjectClicking(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				if (player.getSlayer().handleObjects(id, x, y)) {
 					this.stop();
 					return;
+				}
+				if(ElementalWorkshop.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
 				}
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
@@ -318,6 +323,17 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(id == 3403) {
+				    if(!QuestHandler.questCompleted(player, 12) && player.getFollowingEntity() == null) {
+					Npc npc = new Npc(1020);
+					npc.setPosition(player.getPosition().clone());
+					npc.setSpawnPosition(player.getPosition().clone());
+					World.register(npc);      
+					npc.setPlayerOwner(player.getIndex());
+					CombatManager.attack(npc, player);
+					player.setFollowingEntity(npc);
+				    }
+				}
 				if (MineOre.miningRocks(id)) {
 					if (player.getMining().canMine(id)) {
 						player.getMining().startMining(id, x, y);
@@ -379,7 +395,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (objectName.contains("crate")) {
+				if (objectName.contains("crate") && id != 3398) {
 					player.getActionSender().sendMessage("You search the crate...");
 					player.getUpdateFlags().sendAnimation(832);
 					player.setStopPacket(true);
@@ -1491,18 +1507,7 @@ public class WalkToActionHandler {
 					player.teleport(new Position(2716, 9888));
 					break;
 				case 3416: //stairs up from elemental workshop
-					player.teleport(new Position(2709, 3498));
-					break;
-				case 3389:
-					break;
-				case 3390: //Odd looking wall
-				case 3391:
-					break;
-				case 3406: //Water Wheel lever in Elemental Workshop
-					player.getActionSender().animateObject(2719, 9907, 0, 472);
-					break;
-				case 3409: //Bellows in Elemental Workshop
-
+					player.fadeTeleport(new Position(2709, 3495));
 					break;
 		        //case 1747:
 		        //case 1757:
@@ -1800,6 +1805,7 @@ public class WalkToActionHandler {
 					player.setQuestStage(11, 10);
 					break;
 				    }
+				break;
 				case 63: //merlin's crystal crate
 				    if(player.getQuestStage(11) >= 4 && player.getPosition().clone() != new Position(2801, 3442)) {
 					player.teleport(new Position(2801, 3442));
@@ -2336,7 +2342,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				// smithing
-
+				if(ElementalWorkshop.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
 				if (id == 3044 && player.getNewComersSide().isInTutorialIslandStage() && (item == 438 || item == 436)) {
 					Smelting.oreOnFurnace(player, item);
 					// player.getSmithing().startSmelting(1, 0);
@@ -2492,7 +2501,7 @@ public class WalkToActionHandler {
 				case 2966:
 				case 3044:
 				case 3294:
-				case 3413:
+				//case 3413: //elemental workshop furnace
 				case 4304:
 				case 4305:
 				case 6189:

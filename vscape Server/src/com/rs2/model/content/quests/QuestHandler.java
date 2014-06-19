@@ -37,7 +37,8 @@ public class QuestHandler {
     	new SheepShearer(),
 	new PrinceAli(),
 	new DruidicRitual(),
-	new MerlinsCrystal()
+	new MerlinsCrystal(),
+	new ElementalWorkshop()
     };
     
     public static void init() {
@@ -140,6 +141,9 @@ public class QuestHandler {
         		return true;
 		case 28200: //Merlin's Crystal
 			showInterface(player,quests[11]);
+        		return true;
+		case 29035: //Elemental Workshop
+			showInterface(player,quests[12]);
         		return true;
         }
         return false;

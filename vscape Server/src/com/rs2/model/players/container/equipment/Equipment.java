@@ -6,11 +6,10 @@ import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
-import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.Container;
@@ -531,6 +530,12 @@ public class Equipment {
 				}
 			}
 		} else if (targetSlot == Constants.FEET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
+			if(itemId == 2890) {
+			    if(!QuestHandler.questCompleted(player, 12)) {
+				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
+				return false;
+			    }
+			}
 			if (defenceLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.DEFENCE) < defenceLevelReq) {
 					player.getActionSender().sendMessage("You need a Defence level of " + defenceLevelReq + " to wear this item.");

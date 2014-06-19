@@ -7,6 +7,7 @@ import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
@@ -283,6 +284,9 @@ public class ItemPacketHandler implements PacketHandler {
 				GemCrafting.string(player, i);
 				return;
 			}
+		}
+		if(ElementalWorkshop.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
 		}
 		/* Farming */
 		if (player.getSeedling().placeSeedInPot(firstClickItem.getId(), secondClickItem.getId(), itemFirstClickSlot, itemSecondClickSlot)) {
@@ -739,6 +743,9 @@ public class ItemPacketHandler implements PacketHandler {
 		if(TeleTabs.breakTab(player, itemId, player.getSlot()))
 		{
 			return;
+		}
+		if(ElementalWorkshop.itemHandling(player, itemId)) {
+		    return;
 		}
 		switch (itemId) {
 			case 2528 : // genie lamp
