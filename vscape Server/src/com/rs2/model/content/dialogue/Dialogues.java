@@ -1,7 +1,6 @@
 package com.rs2.model.content.dialogue;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
@@ -42,6 +41,7 @@ import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.transport.MagicCarpet;
@@ -99,7 +99,6 @@ public class Dialogues {
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
 	}
-	public static boolean aggieNeedsSupplies;
 
 	/** Instruction
 	 * 
@@ -118,6 +117,9 @@ public class Dialogues {
 		player.getDialogue().setChatId(chatId);
 		player.getDialogue().setDialogueId(id);
 		player.getDialogue().setLastNpcTalk(npcChatId);
+		if(ShieldOfArrav.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
 		switch(id) {
 			case 1 : //Man
 			case 2 : //Man
@@ -3708,7 +3710,6 @@ public class Dialogues {
 				    else if(player.getQuestStage(9) == 12) {
 					player.getDialogue().sendNpcChat("Oh! My son is rescued! Thank you so very much!", HAPPY);
 					player.getDialogue().setNextChatId(50);
-					player.setQuestStage(9, 13);
 					return true;
 				    }
 				    else {
@@ -3772,7 +3773,7 @@ public class Dialogues {
 				    }
 				case 50 :
 				    player.getDialogue().endDialogue();
-				    player.setQuestStage(1, 4);
+				    player.setQuestStage(9, 13);
 				    QuestHandler.completeQuest(player, 9);
 				    return true;
 			    }
@@ -4770,7 +4771,7 @@ public class Dialogues {
 					case 34:
 					    player.getDialogue().endDialogue();
 					    player.setQuestStage(10, 5);
-					    QuestHandler.getQuests()[10].completeQuest(player);
+					    QuestHandler.completeQuest(player, 10);
 					    return true;
 				}
 			break;
@@ -5556,6 +5557,27 @@ public class Dialogues {
 						break;
 				}
 				break;
+			/*case 2660: //reldo
+			    switch(player.getDialogue().getChatId()) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				case 10:
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+				case 16:
+				    ShieldOfArrav.sendDialogue(player, id, chatId, optionId, npcChatId);
+			    }
+			return true;*/
 			case 954 : //brother brace
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -8212,7 +8234,7 @@ public class Dialogues {
 				    player.getDialogue().sendNpcChat("Return to me personally in Taverly with the bread.", "Only then can you have Excalibur.", ANNOYED);
 				    for(Npc npc : World.getNpcs()) {
 					if(npc == null) continue;
-					if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5)) {
+					if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5) && player.getPosition().getX() > 3005) {
 					    player.getActionSender().sendStillGraphic(86, npc.getPosition().clone(), 0);
 					    npc.setVisible(false);
 					    World.unregister(npc);
@@ -8238,7 +8260,7 @@ public class Dialogues {
 					if(player.getQuestStage(11) == 9) {
 					    for(Npc npc : World.getNpcs()) {
 						if(npc == null) continue;
-						if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5)) {
+						if(npc.getNpcId() == 250 && Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 5) && player.getPosition().getX() > 3005) {
 						    player.getActionSender().sendStillGraphic(86, npc.getPosition().clone(), 0);
 						    npc.setVisible(false);
 						    World.unregister(npc);

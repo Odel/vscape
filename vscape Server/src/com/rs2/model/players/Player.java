@@ -410,6 +410,8 @@ public class Player extends Entity {
 	private int saradominCasts;
 	private int guthixCasts;
 	private int mageArenaStage;
+	private boolean phoenixGang;
+	private boolean blackArmGang;
 	
 	public CanoeStationData curCanoeStation;
 
@@ -3017,6 +3019,21 @@ public class Player extends Entity {
 	    this.tokenTime = set;
 	}
 	
+	public boolean isPhoenixGang() {
+	    return phoenixGang;
+	}
+	public void joinPhoenixGang(boolean bool) {
+	    if(this.isBlackArmGang()) this.phoenixGang = false;
+	    else this.phoenixGang = bool;
+	}
+	
+	public boolean isBlackArmGang() {
+	    return blackArmGang;
+	}
+	public void joinBlackArmGang(boolean bool) {
+	    if(this.isPhoenixGang()) this.blackArmGang = false;
+	    else this.blackArmGang = bool;
+	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
@@ -4936,7 +4953,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7343); //romeo & juliet
 		getActionSender().sendString("@red@Rune Mysteries", 7335);
 		getActionSender().sendString("@red@Sheep Shearer", 7344);
-		getActionSender().sendString("", 7345); //shield of arrav
+		getActionSender().sendString("@red@Shield of Arrav", 7345); //shield of arrav
 		getActionSender().sendString("@red@The Knight's Sword", 7346);
 		getActionSender().sendString("", 7347); //vampire slayer
 		getActionSender().sendString("@red@Witch's Potion", 7348);

@@ -816,6 +816,9 @@ public class Equipment {
 			case 6522 : // obby rings
 				rangeLevelReq = 60;
 				return;
+			case 767 : //phoenix crossbow
+				rangeLevelReq = 1;
+				return;
 			case 6523 : // obby sword
 			case 6525 : // obby knife
 			case 6527 : // obby mace

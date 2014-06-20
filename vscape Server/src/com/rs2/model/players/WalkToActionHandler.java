@@ -79,6 +79,7 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.transport.Sailing;
 
@@ -176,6 +177,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(ElementalWorkshop.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(ShieldOfArrav.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}

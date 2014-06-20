@@ -9,6 +9,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.MerlinsCrystal;
+import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Crafting.BasicCraft;
@@ -192,7 +193,7 @@ public class ItemPacketHandler implements PacketHandler {
 				return;
 			}
 		}
-		if (item.getDefinition().isUntradable()) {
+		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769) {
 			String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make you lose it forever.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
 			player.getActionSender().sendUpdateItem(item, 0, 14171, 1);
 			for (String[] element : info) {
@@ -745,6 +746,9 @@ public class ItemPacketHandler implements PacketHandler {
 			return;
 		}
 		if(ElementalWorkshop.itemHandling(player, itemId)) {
+		    return;
+		}
+		if(ShieldOfArrav.itemHandling(player, itemId)) {
 		    return;
 		}
 		switch (itemId) {

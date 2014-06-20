@@ -38,7 +38,8 @@ public class QuestHandler {
 	new PrinceAli(),
 	new DruidicRitual(),
 	new MerlinsCrystal(),
-	new ElementalWorkshop()
+	new ElementalWorkshop(),
+	new ShieldOfArrav()
     };
     
     public static void init() {
@@ -144,6 +145,9 @@ public class QuestHandler {
         		return true;
 		case 29035: //Elemental Workshop
 			showInterface(player,quests[12]);
+        		return true;
+		case 28177: //Shield of Arrav
+			showInterface(player,quests[13]);
         		return true;
         }
         return false;

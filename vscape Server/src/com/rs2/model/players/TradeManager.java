@@ -217,6 +217,8 @@ public class TradeManager {
 				}
 				otherPlayer.getTrade().remove(newItems);
 				player.getInventory().addItem(newItems);
+				if(newItems.getId() == 769 && player.getQuestStage(13) == 10)
+				    player.setQuestStage(13, 11);
 			}
 			player.setTradeStage(TradeStage.WAITING);
 			otherPlayer.setTradeStage(TradeStage.WAITING);

@@ -2,7 +2,6 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
@@ -15,6 +14,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
@@ -245,6 +245,11 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(1331);
 					    stop();
 					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == 643) { //weaponsmaster phoenix gang
+					    died.getUpdateFlags().sendForceMessage("Damn crossbows...");
+					    died.getUpdateFlags().sendAnimation(death);
+					    stop();
+					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
@@ -322,6 +327,7 @@ public class CombatManager extends Tick {
 			((Player) killer).getSlayer().handleNpcDeath(npc);
 			Barrows.handleDeath(((Player)killer), npc);
 			WarriorsGuild.dropDefender((Player) killer, npc);
+			ShieldOfArrav.handleDrops((Player) killer, npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
 		}

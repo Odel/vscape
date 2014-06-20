@@ -351,6 +351,8 @@ public class PlayerSave {
 			write.writeInt(player.getMageArenaCasts(Spell.CLAWS_OF_GUTHIX));
 			write.writeInt(player.getMageArenaStage());
 			write.writeInt(player.getDefender());
+			write.writeBoolean(player.isPhoenixGang());
+			write.writeBoolean(player.isBlackArmGang());
             write.flush();
 			write.close();
 			
@@ -900,7 +902,14 @@ public class PlayerSave {
             	player.setDefender(load.readInt());
             } catch (IOException e) {
             }
-
+	    try {
+            	player.joinPhoenixGang(load.readBoolean());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.joinBlackArmGang(load.readBoolean());
+            } catch (IOException e) {
+            }
             load.close();
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);

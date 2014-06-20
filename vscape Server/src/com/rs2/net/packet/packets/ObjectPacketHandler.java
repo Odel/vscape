@@ -3,14 +3,18 @@ package com.rs2.net.packet.packets;
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.Following;
+import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.transport.Travel;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
@@ -113,11 +117,24 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickId(packet.getIn().readShort());
 		player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickZ(player.getPosition().getZ());
-        if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("first click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY() + " type " + SkillHandler.getType(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ()));
 		//if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 		//	return;
 		//}
+		if(player.getClickId() == 2404) { //phoneix gang open chest
+		    if(!player.getInventory().ownsItem(763)) {
+			player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
+			player.getInventory().addItem(new Item(763));
+			player.setQuestStage(13, 10);
+			return;
+		    }
+		    return;
+		}
+		if(player.getClickId() == 2401) { //black arm open cupboard
+		    new GameObject(2401, 3189, 3385, 1, 2, 10, 2400, 0);
+		    return;
+		}
 		Following.resetFollow(player);
 		//ObjectHandler.getObjectDetails(player, player.getClickId(), player.getClickX(), player.getClickY());
 		WalkToActionHandler.setActions(Actions.OBJECT_FIRST_CLICK);
@@ -134,6 +151,14 @@ public class ObjectPacketHandler implements PacketHandler {
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
 		}*/
+		if(player.getClickId() == 2401) { //black arm open cupboard
+		    if(!player.getInventory().ownsItem(765)) {
+			player.getDialogue().sendStatement("You find the right half of the Shield of Arrav.");
+			player.getInventory().addItem(new Item(765));
+			player.setQuestStage(13, 10);
+			return;
+		    }
+		}
 		Following.resetFollow(player);
 		ObjectHandler.getObjectDetails(player, player.getClickId(), player.getClickX(), player.getClickY());
 		WalkToActionHandler.setActions(Actions.OBJECT_SECOND_CLICK);
