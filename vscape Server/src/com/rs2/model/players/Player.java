@@ -618,9 +618,6 @@ public class Player extends Entity {
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
             return;
-	if (!getInCombatTick().completed()) {
-	    logout();
-	}
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this);
@@ -968,7 +965,7 @@ public class Player extends Entity {
 				    int line = 8145;
 				    for (Item item : player.getBank().getItems()) {
 					if (item != null) {
-					    if (line > 9000 && line < 12174) {
+					    if (line > 8195 && line < 12174) {
 						line = 12174;
 					    }
 					    if(item.getCount() == 1) {
@@ -5018,7 +5015,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 11907); //in search of the myreque
 		getActionSender().sendString("", 7365); //jungle potion
 		getActionSender().sendString("", 7366);  //legends quest
-		getActionSender().sendString("", 7367); //lost city
+		getActionSender().sendString("@red@Lost City", 7367); //lost city
 		getActionSender().sendString("", 13389); //the lost tribe
 		getActionSender().sendString("@red@Merlin's Crystal", 7368); //merlin's crystal
 		getActionSender().sendString("", 11132); //monkey madness
