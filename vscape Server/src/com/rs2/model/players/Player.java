@@ -957,6 +957,36 @@ public class Player extends Entity {
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
 		}
+		if(keyword.equals("bankof")) {
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(fullString)) {
+				    getActionSender().sendInterface(8134);
+				    ClearNotes();
+				    getActionSender().sendString("Bank of: " + player.getUsername(), 8144);
+				    int line = 8145;
+				    for (Item item : player.getBank().getItems()) {
+					if (item != null) {
+					    if (line > 9000 && line < 12174) {
+						line = 12174;
+					    }
+					    if(item.getCount() == 1) {
+						String count = "";
+						getActionSender().sendString(item.getDefinition().getName() + count, line);
+					    }
+					    else if(item.getCount() != 1) {
+						String count = " [ " + item.getCount() + " ]";
+						getActionSender().sendString(item.getDefinition().getName() + count, line);
+					    }
+					    line++;
+					}
+				    }
+				    break;
+				}
+			getActionSender().sendMessage("That player is not online... rip");
+			}
+		}
 		
 		if(keyword.equals("setplayerqueststage")) {
 		    final int quest = Integer.parseInt(args[0]);
