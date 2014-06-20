@@ -618,6 +618,9 @@ public class Player extends Entity {
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
             return;
+	if (!getInCombatTick().completed()) {
+	    logout();
+	}
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this);
