@@ -393,7 +393,7 @@ public class World {
 				continue;
 			}
 			if (player.getStaffRights() >= 1) {
-				player.getActionSender().sendMessage("Staff: " + NameUtil.uppercaseFirstLetter(message));
+				player.getActionSender().sendMessage("@red@[StaffAlert] " + "@bla@" + NameUtil.uppercaseFirstLetter(message));
 			}
 		}
 	}
