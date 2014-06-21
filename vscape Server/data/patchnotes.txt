@@ -1,9 +1,11 @@
+@dre@=June 21=
+@blu@Lost City
+-Yell ignores players on your ignore list.
+-Ice Giant drops fixed.
+
 @dre@=June 20=
 @blu@Elemental Workshop
 @blu@Shield of Arrav
-@blue@Lost City
--yell ignores players on your ignore list
--Ice Giant drop fixes
 
 @dre@=June 18=
 @blu@ Merlin's Crystal
