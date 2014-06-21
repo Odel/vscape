@@ -7826,6 +7826,7 @@ public class Dialogues {
 			case 4297 : //strength
 			case 705 : //defence
 			case 1658 : //magic
+			case 682 : //range
 			case 437 : //agility
 			case 2270 : //thieving
 			case 575 : //fletching

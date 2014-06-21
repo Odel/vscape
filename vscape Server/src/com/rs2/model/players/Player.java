@@ -965,28 +965,44 @@ public class Player extends Entity {
 				    ClearNotes();
 				    getActionSender().sendString("Bank of: " + player.getUsername(), 8144);
 				    int line = 8145;
-				    for (Item item : player.getBank().getItems()) {
-					if (item != null) {
+				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
 					    if (line > 8195 && line < 12174) {
 						line = 12174;
 					    }
-					    if(item.getCount() == 1) {
-						String count = "";
-						getActionSender().sendString(item.getDefinition().getName() + count, line);
+					    Item item1 = player.getBank().getItems()[counter];
+					    Item item2 = player.getBank().getItems()[counter+1];
+					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
+					    line++;
+				    }
+				    break;
+				}
+			}
+		}
+		if(keyword.equals("bank2of")) {
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(fullString)) {
+				    getActionSender().sendInterface(8134);
+				    ClearNotes();
+				    getActionSender().sendString("Bank part deux of: " + player.getUsername(), 8144);
+				    int line = 8145;
+				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
+					if(counter < 200) continue;
+					else {
+					    if (line > 8195 && line < 12174) {
+						line = 12174;
 					    }
-					    else if(item.getCount() != 1) {
-						String count = " [ " + item.getCount() + " ]";
-						getActionSender().sendString(item.getDefinition().getName() + count, line);
-					    }
+					    Item item1 = player.getBank().getItems()[counter];
+					    Item item2 = player.getBank().getItems()[counter+1];
+					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
 					    line++;
 					}
 				    }
 				    break;
 				}
-			getActionSender().sendMessage("That player is not online... rip");
 			}
 		}
-		
 		if(keyword.equals("setplayerqueststage")) {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
@@ -1620,9 +1636,7 @@ public class Player extends Entity {
 						YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
 					}
 				}
-				if (player != null && !player.getPrivateMessaging().isIgnoringPlayer(this.getUsernameAsLong())) {
-					player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
-				}
+				player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
 			}
 		}
 	}
