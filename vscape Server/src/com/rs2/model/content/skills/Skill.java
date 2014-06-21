@@ -204,10 +204,24 @@ public class Skill {
 		};
 		String[] name = {"Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting",};
 		if (skill == data[skill][0]) {
-			player.getActionSender().sendQuickSong(67, 18);
-			player.getActionSender().sendString("@dbl@Congratulations, you just advanced a " + name[skill] + " level!", data[skill][1]);
+						player.getActionSender().sendQuickSong(67, 18);
+			if(name[skill].charAt(0) == 'A')
+			{
+				player.getActionSender().sendString("@dbl@Congratulations, you just advanced an " + name[skill] + " level!", data[skill][1]);
+			}
+			else
+			{
+				player.getActionSender().sendString("@dbl@Congratulations, you just advanced a " + name[skill] + " level!", data[skill][1]);
+			}
 			player.getActionSender().sendString("Your " + name[skill] + " level is now " + getPlayerLevel(skill) + ".", data[skill][2]);
-			player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
+			if(name[skill].charAt(0) == 'A')
+			{
+				player.getActionSender().sendMessage("You've just advanced an " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
+			}
+			else
+			{
+				player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
+			}
 			if (skill == 9) {
 				player.getActionSender().sendFrame230(6235, 254, 1257, 408);
 				player.getActionSender().sendComponentInterface(6235, 2711);

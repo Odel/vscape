@@ -2,6 +2,9 @@
 @blu@Lost City
 -Yell ignores players on your ignore list.
 -Ice Giant drops fixed.
+-Fixed a issue a autist had with a 
+instance where a article wasn't used 
+correctly in level up text.
 
 @dre@=June 20=
 @blu@Elemental Workshop
