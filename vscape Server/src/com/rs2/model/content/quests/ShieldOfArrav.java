@@ -155,7 +155,7 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("You are now a member of the Phoenix Gang.", 8160);
 	    player.getActionSender().sendString("The Phoenix half of the shield should be nearby.", 8161);
         }
-	else if (questStage == GET_CROSSBOWS) {
+	else if (questStage == BLACK_ARM_GANG) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -313,7 +313,7 @@ public class ShieldOfArrav implements Quest {
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);
-    	if ((questStage >= QUEST_STARTED)) {
+    	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 7345);
     	} else if (questStage == QUEST_COMPLETE) {
     		player.getActionSender().sendString("@gre@"+getQuestName(), 7345);

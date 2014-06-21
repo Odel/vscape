@@ -162,7 +162,7 @@ public class DruidicRitual implements Quest {
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);
-    	if ((questStage >= QUEST_STARTED)) {
+    	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 7355);
     	} else if (questStage == QUEST_COMPLETE) {
     		player.getActionSender().sendString("@gre@"+getQuestName(), 7355);
