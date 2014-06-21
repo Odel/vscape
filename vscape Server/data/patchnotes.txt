@@ -5,6 +5,7 @@
 -Fixed a issue a autist had with a 
 instance where a article wasn't used 
 correctly in level up text.
+-Green d'hide vamp alch price fixed.
 
 @dre@=June 20=
 @blu@Elemental Workshop
