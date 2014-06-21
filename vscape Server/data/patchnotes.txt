@@ -4,9 +4,6 @@
 @blue@Lost City
 -yell ignores players on your ignore list
 -Ice Giant drop fixes
--Fixed a issue a autist had with a 
-instance where a article wasn't
-used correctly in level up text.
 
 @dre@=June 18=
 @blu@ Merlin's Crystal
