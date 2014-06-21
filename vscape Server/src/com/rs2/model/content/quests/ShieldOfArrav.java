@@ -448,7 +448,14 @@ public class ShieldOfArrav implements Quest {
 	}
 	return false;
     }
-    
+    public static boolean moreThanTwoCertificates(Player player) {
+	int x = 0;
+	for(Item item : player.getInventory().getItemContainer().getItems()) {
+	    if(item == null) continue;
+	    if(item.getId() == 769) x++;
+	}
+	return x >= 2 ? true : false;
+    }
     public static void handleDrops(Player player, Npc npc) {
 	if (npc.getNpcId() == 645 && player.getQuestStage(13) == 3) {
 	    GroundItem drop = new GroundItem(new Item(761), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
@@ -577,8 +584,8 @@ public class ShieldOfArrav implements Quest {
 			    player.getInventory().removeItem(new Item(769));
 			    return true;
 			}
-			else if(player.getInventory().playerHasExactItem(769, 2)) {
-			    player.getDialogue().sendStatement("Having two certificates is fishy. Give your partner his certificate.");
+			else if(moreThanTwoCertificates(player)) {
+			    player.getDialogue().sendStatement("You have too many certificates.", "Give your partner his due certificate, or bank any extras.");
 			    player.getDialogue().endDialogue();
 			    return true;
 			}
