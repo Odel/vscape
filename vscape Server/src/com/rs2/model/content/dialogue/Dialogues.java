@@ -41,6 +41,7 @@ import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
@@ -118,6 +119,9 @@ public class Dialogues {
 		player.getDialogue().setDialogueId(id);
 		player.getDialogue().setLastNpcTalk(npcChatId);
 		if(ShieldOfArrav.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(LostCity.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {
@@ -588,6 +592,7 @@ public class Dialogues {
 			case 496 :
 			case 2619 :
 			case 4296 : //jade warriors guild banker
+			case 4446 : //fairy bankers
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("What can I do for you?", CONTENT);

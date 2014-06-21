@@ -116,6 +116,9 @@ public class DramenBranch {
 					player.getActionSender().sendMessage("You cut the branch into a " + new Item(dramenItem.getResult()).getDefinition().getName().toLowerCase() + "s.");
 					player.getInventory().removeItem(new Item(dramenItem.getUsed(), dramenItem.getAmountNeeded()));
 					player.getInventory().addItem(new Item(dramenItem.getResult()));
+					if(player.getQuestStage(14) == 2) {
+					    player.setQuestStage(14, 3);
+					}
 					player.getSkill().addExp(Skill.CRAFTING, dramenItem.getExperience());
 					amnt--;
 				}

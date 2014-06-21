@@ -67,6 +67,7 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -149,6 +150,7 @@ import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.model.content.quests.QuestHandler;
+import static com.rs2.model.content.quests.QuestHandler.resetInterface;
 import com.rs2.model.content.randomevents.TalkToEvent;
 
 /**
@@ -1019,9 +1021,9 @@ public class Player extends Entity {
             HighscoresManager.debug = !HighscoresManager.debug;
             getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
         } else if (keyword.equals("empty")) {
-			getInventory().getItemContainer().clear();
-			getInventory().refresh();
-		} else if (keyword.equals("hsstatus")) {
+	    getInventory().getItemContainer().clear();
+	    getInventory().refresh();
+	} else if (keyword.equals("hsstatus")) {
             getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
         } else if (keyword.equals("rebooths")) {
             HighscoresManager.running = !HighscoresManager.running;
@@ -1031,16 +1033,12 @@ public class Player extends Entity {
             getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
         }
         else if (keyword.equals("save")) {
-        	PlayerSave.saveAllPlayers();
-            actionSender.sendMessage("Saved players");
+	    PlayerSave.saveAllPlayers();
+	    actionSender.sendMessage("Saved players.");
         }
-        else if (keyword.equals("error")) {
-        	Player p = World.getPlayers()[9999];
-        	p.getActionSender().sendMessage("trolol");
-        }
-		else if (keyword.equals("staff")) {
-			World.messageToStaff(fullString);
-		}
+	else if (keyword.equals("staff")) {
+	    World.messageToStaff(this, fullString);
+	}
 		/*
 		 * if (keyword.equals("forcespace")) { String name = fullString;
 		 * getActionSender().sendMessage("You have sent " +
@@ -1089,9 +1087,6 @@ public class Player extends Entity {
 				}
 			}
 			skill.refresh();
-		}else if (keyword.equals("objanim")) {
-			final int index = Integer.parseInt(args[0]);
-			getActionSender().animateObject(2734, 9882, 0, index);
 		}else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;

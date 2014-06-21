@@ -39,7 +39,8 @@ public class QuestHandler {
 	new DruidicRitual(),
 	new MerlinsCrystal(),
 	new ElementalWorkshop(),
-	new ShieldOfArrav()
+	new ShieldOfArrav(),
+	new LostCity()
     };
     
     public static void init() {
@@ -149,6 +150,9 @@ public class QuestHandler {
 		case 28177: //Shield of Arrav
 			showInterface(player,quests[13]);
         		return true;
+		case 28199: //Lost City
+			showInterface(player,quests[14]);
+        		return true;
         }
         return false;
     }
@@ -157,7 +161,8 @@ public class QuestHandler {
     {
         if (quest != null) 
         {
-        	quest.showInterface(player);
+	    quest.showInterface(player);
+	    quest.sendQuestTabStatus(player);
             resetInterface(player);
             quest.sendQuestRequirements(player);
 

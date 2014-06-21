@@ -8,6 +8,7 @@ import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
@@ -499,6 +500,12 @@ public class Equipment {
 	public boolean checkRequirements(int itemId, int targetSlot) {
 		getRequirements(itemId);
 		if (targetSlot == Constants.WEAPON) {
+			if(LostCity.isWeapon(itemId)) {
+			    if(!QuestHandler.questCompleted(player, 14)) {
+				player.getDialogue().sendStatement("You must complete Lost City to equip this.");
+				return false;
+			    }
+			}
 			if (attackLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
 					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wield this weapon.");
@@ -817,6 +824,7 @@ public class Equipment {
 				rangeLevelReq = 60;
 				return;
 			case 767 : //phoenix crossbow
+			case 9175: //blurite c'bow
 				rangeLevelReq = 1;
 				return;
 			case 6523 : // obby sword

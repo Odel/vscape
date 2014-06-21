@@ -376,13 +376,24 @@ public class World {
 		return null;
 	}
 
+	public static void messageToStaff(Player sender, String message) {
+		for (Player player : players) {
+			if (player == null) {
+				continue;
+			}
+			if (player.getStaffRights() >= 1) {
+				player.getActionSender().sendMessage("@red@[StaffChat] " + "@blu@" + Misc.formatPlayerName(sender.getUsername()) + ": " + NameUtil.uppercaseFirstLetter(message));
+			}
+		}
+	}
+	
 	public static void messageToStaff(String message) {
 		for (Player player : players) {
 			if (player == null) {
 				continue;
 			}
-			if (player.getStaffRights() >= 2) {
-				player.getActionSender().sendMessage(Misc.formatPlayerName(player.getUsername()) + ": " + NameUtil.uppercaseFirstLetter(message));
+			if (player.getStaffRights() >= 1) {
+				player.getActionSender().sendMessage("Staff: " + NameUtil.uppercaseFirstLetter(message));
 			}
 		}
 	}

@@ -123,12 +123,12 @@ public class ChopTree {
 			return;
 		}
 		  if (tree == Tree.DRAMEN_TREE) {
-			   if (NpcLoader.checkSpawn(player, 655)) {
-			    player.getActionSender().sendMessage("You need to kill the tree spirit first! Logout and in if broken!");
+			   if (NpcLoader.checkSpawn(player, 655) && player.getQuestStage(14) == 2) {
+			    player.getActionSender().sendMessage("You need to kill the tree spirit first!");
 			    return;
 			   }
-			   if (!player.hasKilledTreeSpirit()) {
-			   NpcLoader.spawnNpc(player, new Npc(655), false, true);
+			   if (!player.hasKilledTreeSpirit() && player.getQuestStage(14) == 2) {
+			   NpcLoader.spawnNpc(player, new Npc(655), true, true);
 			   return;
 			  }
 		  }

@@ -5,15 +5,21 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.skills.Crafting.GemCrafting;
+import com.rs2.model.content.skills.Crafting.GlassMaking;
+import com.rs2.model.content.skills.Crafting.SilverCrafting;
+import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
+import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.transport.Travel;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
@@ -100,6 +106,19 @@ public class ObjectPacketHandler implements PacketHandler {
 			}
 		    }
 		}
+		if(player.getClickId() == 12100) {
+		    if (item.getId() == GlassMaking.BUCKET_OF_SAND)
+			    GlassMaking.makeMoltenGlass(player);
+			else if (item.getId() == GemCrafting.GOLD_BAR)
+			    GemCrafting.openInterface(player);
+			else if (item.getId() == SilverCrafting.SILVER_BAR)
+			    Menus.sendSkillMenu(player, "silverCrafting");
+			else if (ItemManager.getInstance().getItemName(item.getId()).toLowerCase().endsWith("ore") && item.getId() != 668)
+			    Smelting.smeltInterface(player);
+			else if(item.getId() == 668)
+			    Dialogues.startDialogue(player, 10200);
+			return;
+		}
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
 		}*/
@@ -158,6 +177,10 @@ public class ObjectPacketHandler implements PacketHandler {
 			player.setQuestStage(13, 10);
 			return;
 		    }
+		}
+		if(player.getClickId() == 12100) {	
+		    Smelting.smeltInterface(player);
+		    return;
 		}
 		Following.resetFollow(player);
 		ObjectHandler.getObjectDetails(player, player.getClickId(), player.getClickX(), player.getClickY());

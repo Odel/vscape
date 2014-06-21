@@ -20,6 +20,7 @@ import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.ElementalWorkshop;
+import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
@@ -181,6 +182,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(ShieldOfArrav.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(LostCity.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}
@@ -1156,15 +1161,6 @@ public class WalkToActionHandler {
 						player.teleport(new Position(2445, 3413, 0));
 					}
 					break;
-				case 2406: // zanaris shed door
-					if (player.getEquipment().getId(Constants.WEAPON) == 772) {
-						if (player.getTeleportation().attemptTeleportJewellery(new Position(2452, 4473, 0))) {
-							player.getActionSender().sendMessage("You are suddenly teleported away.");
-						}
-					} else {
-						player.getActionSender().sendMessage("The door seems to be locked.");
-					}
-					break;
 				case 10640: //altar for skull
 					
 					
@@ -1299,12 +1295,15 @@ public class WalkToActionHandler {
 					AxeInLog.pullAxeFromLog(player, x, y);
 					break;
 				case 8689: // Milk cow
+				case 12111: // milk cow zanaris
 					MilkCow.milkCow(player);
 					break;
 				case 2718: // operate hopper
+				case 2720: //operate hopper zanaris
 					FlourMill.operateHopper(player);
 					break;
 				case 1782: // grain bin
+				case 1781: //grain bin zanaris
 					FlourMill.takeFromBin(player);
 					break;
 				case 2609: // crandor tunnel
@@ -1364,6 +1363,7 @@ public class WalkToActionHandler {
 				case 9558:
 				case 11739:
 				case 12964:// flour mill ladder to upstairs
+				case 12112: //zanaris flour mill ladder up
 					Ladders.checkClimbLadder(player, "up");
 					break;
 				case 8746:
@@ -1371,6 +1371,7 @@ public class WalkToActionHandler {
 				case 11741:
 				case 9560:
 				case 12966:// flour mill staircase down
+				case 12113: //zanaris flourmill ladder down
 				case 1746: // climb down a height ladder
 				case 1749:
 				case 11742:
@@ -1789,6 +1790,8 @@ public class WalkToActionHandler {
 				case 9390:
 				case 2781:
 				case 3044:
+				case 12100:
+				
 					Smelting.smeltInterface(player);
 					// player.getSmithing().setUpSmelting();or
 					break;
@@ -1803,6 +1806,9 @@ public class WalkToActionHandler {
 					break;
 				case 8717:
 					Menus.sendSkillMenu(player, "weaving");
+					break;
+				case 12111: // milk cow zanaris
+					MilkCow.milkCow(player);
 					break;
 				case 61: //chaos altar
 				    if(player.getQuestStage(11) >= 9) {
@@ -2038,6 +2044,7 @@ public class WalkToActionHandler {
 					case 496 :
 					case 499 :
 					case 2619:
+					case 4446 : //fairy bankers
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
@@ -2398,6 +2405,10 @@ public class WalkToActionHandler {
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, item);
 					break;
+				case 1781: //grain bin zanaris
+				    if(item == 1931)
+					FlourMill.takeFromBin(player);
+				break;
 				case 2782:
 				case 2783: // anvil
 					if(id == 2782)
@@ -2419,6 +2430,7 @@ public class WalkToActionHandler {
 					    SmithBars.smithInterface(player, item);
 					break;
 				case 2714: // grain hopper
+				case 2716: //grain hopper zanaris
 					FlourMill.putFlourInHopper(player);
 					break;
 				case 2638: // glory / skills fountain
