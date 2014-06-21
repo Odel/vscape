@@ -7,6 +7,8 @@ instance where a article wasn't used
 correctly in level up text.
 -Green d'hide vamp alch price fixed.
 
+(In loving memory of Zaper93)
+
 @dre@=June 20=
 @blu@Elemental Workshop
 @blu@Shield of Arrav
