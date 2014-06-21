@@ -71,8 +71,7 @@ public class PrivateMessaging {
 		return false;
 	}
 
-	public void sendPrivateMessage(Player from, long to, byte[] message,
-			int messageSize) {
+	public void sendPrivateMessage(Player from, long to, byte[] message, int messageSize) {
 		for (Player p : World.getPlayers()) {
 			if (p != null && p.getUsernameAsLong() == to && !p.getPrivateMessaging().isIgnoringPlayer(player.getUsernameAsLong())) {
 				p.getActionSender().sendPrivateMessage(from.getUsernameAsLong(), from.getStaffRights(), message, messageSize);

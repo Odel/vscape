@@ -1,9 +1,7 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome balls don't equip
--Ice giants drop single coins instead of big bones
 -Gnome tree stronghold cave doesn't work
--Ignore yells from people on your ignore list
 -(Will do when I do dragon slayer -Pickles)Crandor is accessable but you can't leave (you can use ::home)
 -No way to the ape atoll/gate broken too
 -When you talk to the charter boat guy at port sarim, he teles you into the jungle demon boss battle from monkey madness.

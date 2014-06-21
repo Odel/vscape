@@ -1620,7 +1620,9 @@ public class Player extends Entity {
 						YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
 					}
 				}
-				player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
+				if (player != null && !player.getPrivateMessaging().isIgnoringPlayer(this.getUsernameAsLong())) {
+					player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
+				}
 			}
 		}
 	}
