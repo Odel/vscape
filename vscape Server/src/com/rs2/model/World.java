@@ -382,7 +382,18 @@ public class World {
 				continue;
 			}
 			if (player.getStaffRights() >= 1) {
-				player.getActionSender().sendMessage("@red@[StaffChat] " + "@blu@" + Misc.formatPlayerName(sender.getUsername()) + ": " + NameUtil.uppercaseFirstLetter(message));
+				player.getActionSender().sendMessage("@red@[StaffChat] " + "@mag@" + Misc.formatPlayerName(sender.getUsername()) + ": @blu@" + NameUtil.uppercaseFirstLetter(message));
+			}
+		}
+	}
+	
+	public static void messageToPc(Player sender, String message) {
+		for (Player player : players) {
+			if (player == null) {
+				continue;
+			}
+			if (player.inPestControlGameArea()) {
+				player.getActionSender().sendMessage("@red@[Pest Control] " + "@bla@" + Misc.formatPlayerName(sender.getUsername()) + ": @blu@" + NameUtil.uppercaseFirstLetter(message));
 			}
 		}
 	}
@@ -393,7 +404,7 @@ public class World {
 				continue;
 			}
 			if (player.getStaffRights() >= 1) {
-				player.getActionSender().sendMessage("@red@[StaffAlert] " + "@bla@" + NameUtil.uppercaseFirstLetter(message));
+				player.getActionSender().sendMessage("@red@[StaffAlert]: @bla@" + NameUtil.uppercaseFirstLetter(message));
 			}
 		}
 	}

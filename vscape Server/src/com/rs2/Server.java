@@ -154,6 +154,7 @@ public class Server implements Runnable {
             Misc.loadScripts(new File("./data/ruby/"));
             
             GlobalVariables.patchNotes = Misc.loadPatchNotes();
+	    GlobalVariables.info = Misc.loadInfo();
 
 
 			// load all xstream related files.
@@ -188,7 +189,7 @@ public class Server implements Runnable {
 			// global drops
 			GlobalGroundItem.initialize();
 
-			// load npc drops
+			// load npc ls
 			Npc.loadNpcDrops();
 			
 			// mage arena timers

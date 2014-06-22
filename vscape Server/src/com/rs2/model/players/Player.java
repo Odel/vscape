@@ -784,23 +784,46 @@ public class Player extends Entity {
 			getActionSender().sendInterface(8134);
 			ClearNotes();	
 			this.getActionSender().sendString("@dre@-=vscape patch notes=-", 8144);
-			int k = 8147;
+			int line = 8147;
 			for(String q: GlobalVariables.patchNotes)
 			{
 				if(q!=null)
 				{	
-					this.getActionSender().sendString(q, k);
-					k++;
+					if(line > 8195 && line < 12174) {
+					    line = 12174;
+					}
+					this.getActionSender().sendString(q, line);
+					line++;
 				}
 			}
-		} else if (keyword.equals("commands")) {
-			getActionSender().sendMessage("commands include ::outfit, ::yell/::y, ::hideyell/::hy, ::hidecolor/::hc, ::home,");
-			getActionSender().sendMessage(" ::players, ::changepass, ::patchnotes, ::report, ::panic");
-			
+		} else if (keyword.equals("info")) {
+			getActionSender().sendInterface(8134);
+			ClearNotes();	
+			this.getActionSender().sendString("@dre@-=vscape information=-", 8144);
+			int line = 8147;
+			for(String q: GlobalVariables.info)
+			{
+				if(q!=null)
+				{	
+					if(line > 8195 && line < 12174) {
+					    line = 12174;
+					}
+					this.getActionSender().sendString(q, line);
+					line++;
+				}
+			}	
 		} else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
 		} else if(keyword.equals("pcpoints")) {
 			getActionSender().sendMessage("You have " + this.getPcPoints() + " commendation points." );
+		} else if(keyword.equals("pc")) {
+			World.messageToPc(this, fullString);
+		} else if(keyword.equals("pcactive")) {
+		    if(PestControl.gameActive())
+			getActionSender().sendMessage("There is an active Pest Control game.");
+		    else {
+			getActionSender().sendMessage("Pest Control is not running at the moment.");
+		    }
 		}
 	
 	}
@@ -971,6 +994,10 @@ public class Player extends Entity {
 					    }
 					    Item item1 = player.getBank().getItems()[counter];
 					    Item item2 = player.getBank().getItems()[counter+1];
+					    if(item1 == null) {
+						counter++;
+						continue;
+					    }
 					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
 					    line++;
 				    }

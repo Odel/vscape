@@ -824,7 +824,7 @@ public class Equipment {
 				rangeLevelReq = 60;
 				return;
 			case 767 : //phoenix crossbow
-			case 9175: //blurite c'bow
+			case 9176: //blurite c'bow
 				rangeLevelReq = 1;
 				return;
 			case 6523 : // obby sword

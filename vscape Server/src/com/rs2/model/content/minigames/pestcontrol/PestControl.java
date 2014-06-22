@@ -859,6 +859,10 @@ public class PestControl {
 		return gamePlayers.size();
 	}
 	
+	public static boolean gameActive() {
+	    return gameActive;
+	}
+	
 	private static boolean isInLobby(Player player) {
 		return lobbyPlayers.contains(player);
 	}

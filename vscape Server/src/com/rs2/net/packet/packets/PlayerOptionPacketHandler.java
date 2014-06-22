@@ -1,12 +1,15 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
+import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.skills.magic.MagicSkill;
+import com.rs2.model.content.minigames.gnomeball.GnomeBall;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
+import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
 import com.rs2.model.players.item.Item;
@@ -79,8 +82,10 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		}
 		//player.setClickId(otherPlayerId);
 		player.setInteractingEntity(otherPlayer);
-		player.setFollowDistance(1);
-		player.setFollowingEntity(otherPlayer);
+		if(item.getId() != 751) {
+		    player.setFollowDistance(1);
+		    player.setFollowingEntity(otherPlayer);
+		}
 		World.submit(new Tick(1) {
 			@Override
 			public void execute() {
@@ -90,6 +95,12 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 					player.getMovementHandler().reset();
 					this.stop();
 					return;
+				}
+				if(item.getId() == 751) {
+				    GnomeBall.throwGnomeBall(player, otherPlayer);
+				    player.getMovementHandler().reset();
+				    this.stop();
+				    return;
 				}
 				if (player.goodDistanceEntity(otherPlayer, 1) && !player.inEntity(otherPlayer) && !Following.standingDiagonal(player.getPosition(), otherPlayer.getPosition())) {
 					switch(item.getId()) {
