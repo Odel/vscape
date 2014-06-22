@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.Woodcutting;
 
 import com.rs2.Constants;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
@@ -123,6 +124,10 @@ public class ChopTree {
 			return;
 		}
 		  if (tree == Tree.DRAMEN_TREE) {
+			   if (player.getQuestStage(14) < 2) {
+				player.getDialogue().sendPlayerChat("I don't know anything about this tree...", Dialogues.SAD);
+				return;
+			   }
 			   if (NpcLoader.checkSpawn(player, 655) && player.getQuestStage(14) == 2) {
 			    player.getActionSender().sendMessage("You need to kill the tree spirit first!");
 			    return;
