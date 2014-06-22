@@ -1,8 +1,10 @@
 package com.rs2.model.content.skills;
 
 import com.rs2.Constants;
+import com.rs2.model.World;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.players.Player;
+import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
 
 public class Skill {
@@ -235,7 +237,16 @@ public class Skill {
 			}
 			if (getLevelForXP(getExp()[skill]) == 99) {
 				player.getActionSender().sendMessage("Well done! You've achieved the highest possible level in this skill!");
-			}
+				for (Player p : World.getPlayers()) 
+				{
+					if (p == null)
+					{
+						continue;
+					}
+					p.getActionSender().sendMessage(NameUtil.uppercaseFirstLetter(p.getUsername() + " just hit level 99 in " + name[skill] + "!"));
+					}
+				}
+			
 			player.getActionSender().sendChatInterface(data[skill][3]);
 			player.getDialogue().endDialogue();
 		}
