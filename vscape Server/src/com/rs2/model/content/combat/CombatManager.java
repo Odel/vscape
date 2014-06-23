@@ -381,7 +381,7 @@ public class CombatManager extends Tick {
 		    ((Player)killer).getActionSender().sendMessage("The ref awards you with some tokens.");
 		    ((Player)killer).getInventory().addItem(new Item(8851, WarriorsGuild.getTokenAmount(npc)));
 		}
-		else if(npc.getNpcId() == 238 && killer.isPlayer()) {
+		else if(npc.getNpcId() == 238 && killer.isPlayer() && ((Player)killer).getQuestStage(11) == 10) {
 		    ((Player)killer).setQuestStage(11, 11);
 		    ((Player)killer).getDialogue().sendStatement("With the spirit dead, you can now smash Merlin's crystal.");
 		}
