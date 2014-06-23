@@ -6,6 +6,9 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
+import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
+import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
+import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
@@ -227,7 +230,7 @@ public class ElementalWorkshop implements Quest {
     public boolean questCompleted(Player player)
     {
     	int questStage = player.getQuestStage(getQuestID());
-    	if(questStage >= QUEST_COMPLETE)
+    	if((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE))
     	{
     		return true;
     	}
@@ -237,7 +240,7 @@ public class ElementalWorkshop implements Quest {
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
     	sendQuestRequirements(player);
-    	if ((questStage >= QUEST_STARTED)) {
+    	if ((questStage >= QUEST_STARTED) && questStage != QUEST_COMPLETE) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 7459);
     	} else if (questStage == QUEST_COMPLETE) {
     		player.getActionSender().sendString("@gre@"+getQuestName(), 7459);
@@ -283,7 +286,7 @@ public class ElementalWorkshop implements Quest {
     }
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	if(firstItem == 946 && secondItem == 2886) {
+	if(firstItem == 946 && secondItem == 2886 && player.getQuestStage(12) == 1) {
 	    player.getInventory().removeItem(new Item(2886));
 	    player.getDialogue().sendStatement("You cut apart the book to find a key.");
 	    player.getInventory().addItem(new Item(2887));
@@ -303,6 +306,7 @@ public class ElementalWorkshop implements Quest {
 			if(player.getQuestStage(12) == 10) {
 			    player.setQuestStage(12, 11);
 			    QuestHandler.completeQuest(player, 12);
+			    return true;
 			}
 			return true;
 		    }
@@ -323,7 +327,7 @@ public class ElementalWorkshop implements Quest {
 			player.setQuestStage(12, 9);
 			return true;
 		    }
-		    if(item == 2892 && player.getQuestStage(12) >= 9) {
+		    else if(item == 2892 && player.getQuestStage(12) >= 9) {
 			if(player.getInventory().playerHasItem(453, 4)) {
 			    player.getInventory().removeItem(new Item(2892));
 			    player.getInventory().removeItem(new Item(453, 4));
@@ -332,7 +336,9 @@ public class ElementalWorkshop implements Quest {
 			    player.getActionSender().sendMessage("You retrieve elemental metal from the furnace.");
 			    player.getUpdateFlags().sendAnimation(899);
 			    player.getActionSender().sendSound(469, 0, 0);
-			    player.setQuestStage(12, 10);
+			    if(player.getQuestStage(12) == 9) {
+				player.setQuestStage(12, 10);
+			    }
 			    return true;
 			}
 			else {
@@ -368,7 +374,7 @@ public class ElementalWorkshop implements Quest {
     public static boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 3389: //elemental workshop bookshelf
-		if(x == 2716 && y == 3481 && !player.getInventory().ownsItem(2886)) {
+		if(x == 2716 && y == 3481 && !player.getInventory().ownsItem(2886) && player.getQuestStage(12) < 1) {
 		    player.setQuestStage(12, 1);
 		    QuestHandler.getQuests()[12].startQuest(player);
 		    player.getDialogue().sendStatement("You find an old, beaten book.");
@@ -401,12 +407,10 @@ public class ElementalWorkshop implements Quest {
 		}
 	    break;
 	    case 3398: //elemental workshop crate for stone bowl
-		if(player.getQuestStage(12) >= 7 && !player.getInventory().playerHasItem(2888)) {
+		if(player.getQuestStage(12) == 7 && !player.getInventory().playerHasItem(2888)) {
 		    player.getDialogue().sendStatement("You find an empty stone bowl.");
 		    player.getInventory().addItem(new Item(2888));
-		    if(player.getQuestStage(12) == 7) {
-			player.setQuestStage(12, 8);
-		    }
+		    player.setQuestStage(12, 8);
 		    return true;
 		}
 	    break;

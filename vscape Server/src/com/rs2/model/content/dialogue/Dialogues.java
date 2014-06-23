@@ -8178,7 +8178,9 @@ public class Dialogues {
 					    World.unregister(npc);
 					}
 				    }
-				    player.setQuestStage(11, 5);
+				    if(player.getQuestStage(11) == 4 ) {
+					player.setQuestStage(11, 5);
+				    }
 				    player.getDialogue().endDialogue();
 				    player.transformNpc = -1;
 				    player.resetEffects();
@@ -8337,7 +8339,9 @@ public class Dialogues {
 						}
 					    }
 					    player.getDialogue().endDialogue();
-					    player.setQuestStage(11, 11);
+					    if(player.getQuestStage(11) == 10) {
+						player.setQuestStage(11, 11);
+					    }
 					    return true;
 					case 1:
 					case 3:
@@ -8365,7 +8369,9 @@ public class Dialogues {
 					    if(player.getInventory().playerHasItem(2309)) {
 						player.getDialogue().sendStatement("You hand the beggar a loaf of bread.");
 						player.getInventory().removeItem(new Item(2309));
-						player.setQuestStage(11, 9);
+						if(player.getQuestStage(11) == 7) {
+						    player.setQuestStage(11, 9);
+						}
 						sendDialogue(player, 250, 14, 0);
 						return true;
 					    }
@@ -8376,7 +8382,9 @@ public class Dialogues {
 					    }
 					case 2:
 					    player.getDialogue().sendPlayerChat("No, you dirty beggar.", ANGRY_1);
-					    player.setQuestStage(11, 8);
+					    if(player.getQuestStage(11) == 7) {
+						player.setQuestStage(11, 8);
+					    }
 					    sendDialogue(player, 250, 9, 0);
 					    return true;
 				    }
