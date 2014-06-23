@@ -1,13 +1,17 @@
+@dre@=June ?=
+-Hitting 99 sends a yell announcement.
+-Gnome Balls now work.
+-::info instead of ::commands
+-Blurite C'bow now works.
+-Yell properly ignores players.
+
 @dre@=June 21=
 @blu@Lost City
--Yell ignores players on your ignore list.
 -Ice Giant drops fixed.
 -Fixed a issue a autist had with a 
 instance where a article wasn't used 
 correctly in level up text.
 -Green d'hide vamp alch price fixed.
-
-(In loving memory of Zaper93)
 
 @dre@=June 20=
 @blu@Elemental Workshop
