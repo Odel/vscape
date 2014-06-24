@@ -1014,7 +1014,7 @@ public class Player extends Entity {
 				if (player.getUsername().equalsIgnoreCase(fullString)) {
 				    getActionSender().sendInterface(8134);
 				    ClearNotes();
-				    getActionSender().sendString("Bank part deux of: " + player.getUsername(), 8144);
+				    getActionSender().sendString("Bank part two of: " + player.getUsername(), 8144);
 				    int line = 8145;
 				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
 					if(counter < 200) continue;
