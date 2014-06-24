@@ -286,11 +286,13 @@ public class ElementalWorkshop implements Quest {
     }
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	if(firstItem == 946 && secondItem == 2886 && player.getQuestStage(12) == 1) {
+	if(firstItem == 946 && secondItem == 2886) {
 	    player.getInventory().removeItem(new Item(2886));
 	    player.getDialogue().sendStatement("You cut apart the book to find a key.");
 	    player.getInventory().addItem(new Item(2887));
-	    player.setQuestStage(12, 2);
+	    if(player.getQuestStage(12) == 1) {
+		player.setQuestStage(12, 2);
+	    }
 	    return true;
 	}
 	return false;
@@ -374,9 +376,11 @@ public class ElementalWorkshop implements Quest {
     public static boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 3389: //elemental workshop bookshelf
-		if(x == 2716 && y == 3481 && !player.getInventory().ownsItem(2886) && player.getQuestStage(12) < 1) {
-		    player.setQuestStage(12, 1);
-		    QuestHandler.getQuests()[12].startQuest(player);
+		if(x == 2716 && y == 3481 && !player.getInventory().ownsItem(2886)) {
+		    if(player.getQuestStage(12) < 1) {
+			player.setQuestStage(12, 1);
+			QuestHandler.getQuests()[12].startQuest(player);
+		    }
 		    player.getDialogue().sendStatement("You find an old, beaten book.");
 		    player.getInventory().addItem(new Item(2886));
 		    return true;
