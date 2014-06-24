@@ -843,7 +843,9 @@ public class Player extends Entity {
                 return;
             player.disconnect();
             actionSender.sendMessage("You have kicked "+player.getUsername());
-        }  else if (keyword.equals("mute")) {
+        }  	else if (keyword.equals("staff")) {
+	    World.messageToStaff(this, fullString);
+		}	else if (keyword.equals("mute")) {
             if (args.length < 2) {
                 actionSender.sendMessage("::mute hours username");
                 return;
@@ -1078,10 +1080,10 @@ public class Player extends Entity {
         else if (keyword.equals("save")) {
 	    PlayerSave.saveAllPlayers();
 	    actionSender.sendMessage("Saved players.");
-        }
+        }/*
 	else if (keyword.equals("staff")) {
 	    World.messageToStaff(this, fullString);
-	}
+	}*/
 		/*
 		 * if (keyword.equals("forcespace")) { String name = fullString;
 		 * getActionSender().sendMessage("You have sent " +
