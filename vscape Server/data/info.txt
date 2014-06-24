@@ -1,0 +1,36 @@
+@dre@ =Commands=
+::outfit
+::yell/::y
+::hideyell/::hy
+::hidecolor/::hc (Hides color text in yell.)
+::home
+::players
+::changepass
+::patchnotes
+::report
+::panic (Send a request for assistance to Staff.)
+::pcpoints (Tells you your commendation points.)
+::pc (General chat for Pest Control games.)
+::pcactive (Tells you if a PC game is running.)
+::resetpet (Picks up custom pets from PC.)
+
+@dre@ =General Info=
+-2.25x higher experience rate.
+-Infinite run.
+-If a quest is not in the log, it has not been coded.
+-Quests reward 2.25x the experience as well.
+-Getting a hammer: Imps or Falador General store.
+-Coordinate clues only require a spade.
+-Gnome Glider goes everywhere from the Tree,
+but only to the Tree from Al-Kharid.
+
+@dre@ =Minigames=
+-Barrows.
+-Mage Arena.
+-Pest Control.
+-Custom Warrior's Guild. (Fight Arena, south of Ard.)
+-The Abyss.
+
+
+@blu@If you need any help, pm Pickles.
+@blu@Enjoy the grind.
