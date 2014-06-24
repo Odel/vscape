@@ -103,8 +103,8 @@ public class ActionSender {
 		for (int i = 0; i < 4; i++)
 			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
-		sendMessage("Welcome to vscape.");
-		sendMessage("Check out ::commands and ::patchnotes");
+		sendMessage("Welcome to /v/scape.");
+		sendMessage("Check out ::info and ::patchnotes");
 		//QPEdit(player.getQuestPoints());
 		return this;
 	}
