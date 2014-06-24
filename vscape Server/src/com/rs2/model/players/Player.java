@@ -1097,28 +1097,16 @@ public class Player extends Entity {
 		 * ().sendMessage("The player is not online at the moment."); }
 		 */
 		else if (keyword.equalsIgnoreCase("fillspec")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			setSpecialAmount(100);
 			updateSpecialBar();
 		}
 		else if (keyword.equals("master")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			for (int i = 0; i < skill.getLevel().length; i++) {
 				skill.getLevel()[i] = 99;
 				skill.getExp()[i] = 200000000;
 			}
 			skill.refresh();
 		}else if (keyword.equals("resetstats")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			for (int i = 0; i < skill.getLevel().length; i++) {
 				if(i == 3)
 				{
@@ -1225,10 +1213,6 @@ public class Player extends Entity {
 			getActionSender().sendMessage("You give a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ") to " + name + "." );
 		}
 		else if (keyword.equals("runes")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			for (int i = 0; i < 566 - 554 + 1; i++) {
 				inventory.addItem(new Item(554 + i, 1000));
 			}
@@ -1260,10 +1244,6 @@ public class Player extends Entity {
                player.getBankPin().deleteBankPin();
 		}
 		else if (keyword.equals("melee")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			inventory.addItem(new Item(4152, 100));
 			inventory.addItem(new Item(1164, 100));
 			inventory.addItem(new Item(1128, 100));
@@ -1275,10 +1255,6 @@ public class Player extends Entity {
 			inventory.addItem(new Item(7462, 1));
 		}
 		else if (keyword.equals("range")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			inventory.addItem(new Item(2492, 100));
 			inventory.addItem(new Item(2498, 100));
 			inventory.addItem(new Item(2504, 100));
@@ -1290,10 +1266,6 @@ public class Player extends Entity {
 			inventory.addItem(new Item(7462, 1));
 		}
 		else if (keyword.equals("mage")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			getActionSender().sendMessage("Use the ::runes command for runes.");
 			inventory.addItem(new Item(4090, 100));
 			inventory.addItem(new Item(4092, 100));
@@ -1307,20 +1279,12 @@ public class Player extends Entity {
 			inventory.addItem(new Item(7462, 1));
 		}
 		else if (keyword.equals("potions")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			inventory.addItem(new Item(2437, 100));
 			inventory.addItem(new Item(2441, 100));
 			inventory.addItem(new Item(2443, 100));
 			inventory.addItem(new Item(2435, 100));
 		}
 		else if (keyword.equals("food")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			inventory.addItem(new Item(391, 28));
 		}
 		else if (keyword.equals("spawn")) {
@@ -1379,18 +1343,10 @@ public class Player extends Entity {
             player.teleport(getPosition().clone());
 		}
 		else if (keyword.equals("modern")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			getActionSender().sendSidebarInterface(6, 1151);
 			magicBookType = SpellBook.MODERN;
 		}
 		else if (keyword.equals("ancient")) {
-			if (inWild()) {
-				getActionSender().sendMessage("You can't use this command in the wilderness.");
-				return;
-			}
 			getActionSender().sendSidebarInterface(6, 12855);
 			magicBookType = SpellBook.ANCIENT;
 		}
