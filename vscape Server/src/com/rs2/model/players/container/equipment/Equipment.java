@@ -538,7 +538,7 @@ public class Equipment {
 			}
 		} else if (targetSlot == Constants.FEET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
 			if(itemId == 2890) {
-			    if(!QuestHandler.questCompleted(player, 12)) {
+			    if(player.getQuestStage(12) < 11) {
 				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
 				return false;
 			    }
