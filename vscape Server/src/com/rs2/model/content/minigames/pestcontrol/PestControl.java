@@ -852,7 +852,12 @@ public class PestControl {
 	}
 	
 	private static int playersInLobby() {
-		return lobbyPlayers.size();
+	    int i = 0;
+	    for(Player player : World.getPlayers()) {
+		if(player == null) continue;
+		if(player.inPestControlLobbyArea()) i++;
+	    }
+		return i;
 	}
 
 	private static int playersInGame() {
