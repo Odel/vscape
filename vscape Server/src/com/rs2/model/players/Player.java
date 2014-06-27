@@ -2212,7 +2212,10 @@ public class Player extends Entity {
 	}
 
 	public void logout() {
-		SQL.saveHighScore(this);
+		if(Constants.SQL_ENABLED)
+		{
+			SQL.saveHighScore(this);
+		}
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this);

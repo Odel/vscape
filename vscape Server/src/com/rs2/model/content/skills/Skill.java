@@ -243,7 +243,7 @@ public class Skill {
 					{
 						continue;
 					}
-					p.getActionSender().sendMessage(NameUtil.uppercaseFirstLetter(p.getUsername() + " just hit level 99 in " + name[skill] + "!"));
+					p.getActionSender().sendMessage(NameUtil.uppercaseFirstLetter(player.getUsername() + " just hit level 99 in " + name[skill] + "!"));
 					}
 				}
 			
