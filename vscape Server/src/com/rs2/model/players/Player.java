@@ -1113,22 +1113,22 @@ public class Player extends Entity {
         else if (keyword.equals("save")) {
 	    PlayerSave.saveAllPlayers();
 	    actionSender.sendMessage("Saved players.");
-        }/*
-	else if (keyword.equals("staff")) {
-	    World.messageToStaff(this, fullString);
-	}*/
-		/*
-		 * if (keyword.equals("forcespace")) { String name = fullString;
-		 * getActionSender().sendMessage("You have sent " +
-		 * args[0].toLowerCase() + "to space."); for (Player player :
-		 * World.getPlayers()) { if (player == null) continue; if
-		 * (player.getUsername().equalsIgnoreCase(name)) {
-		 * player.teleport(new Position(20, 20));
-		 * player.getActionSender().sendMessage
-		 * ("You have been sent to space. Good luck escaping!"); return; } }
-		 * getActionSender
-		 * ().sendMessage("The player is not online at the moment."); }
-		 */
+        }
+		else if (keyword.equals("forcespace")) { 
+	   	 String name = fullString;
+		 getActionSender().sendMessage("You have sent " +
+		 args[0].toLowerCase() + "to space."); 
+		 for (Player player : World.getPlayers()) { 
+		 if (player == null) continue; 
+		 if(player.getUsername().equalsIgnoreCase(name)) {
+		 player.teleport(new Position(3108, 3954));
+		 player.getActionSender().sendMessage
+		 ("You have been sent to space. Good luck escaping!"); return;
+			} 
+		 }
+		 getActionSender
+		 ().sendMessage("Player offline or not found."); 
+		}
 		else if (keyword.equalsIgnoreCase("fillspec")) {
 			setSpecialAmount(100);
 			updateSpecialBar();
@@ -1171,7 +1171,7 @@ public class Player extends Entity {
                             this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
 		} else if (keyword.equals("talkpet") || keyword.equals("tp")) {
 		    this.getPets().getPet().getUpdateFlags().sendForceMessage(fullString);
-		} else if (keyword.equals("invisible")) {
+		} else if (keyword.equals("invisible") || keyword.equals("invis") {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
 		}
