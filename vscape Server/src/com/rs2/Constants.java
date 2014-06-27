@@ -52,7 +52,8 @@ public class Constants {
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	
-   	public static final int MAX_CONNECTIONS_PER_IP = 1;
+   	public static final int MAX_CONNECTIONS_PER_MAC = 1;
+   	public static final int MAX_CONNECTIONS_PER_IP = 3;
    	
    	public static final int START_X = 3222;
 	public static final int START_Y = 3218;
@@ -66,7 +67,6 @@ public class Constants {
 	public static final int MAX_PLAYERS_AMOUNT = 1000;
 	public static final int LOGIN_RESPONSE_OK = 2;
 	public static final int LOGIN_RESPONSE_INVALID_CREDENTIALS = 3;
-	//k == 3)
 	public static final int LOGIN_RESPONSE_ACCOUNT_DISABLED = 4;
 	public static final int LOGIN_RESPONSE_ACCOUNT_ONLINE = 5;
 	public static final int LOGIN_RESPONSE_UPDATED = 6;

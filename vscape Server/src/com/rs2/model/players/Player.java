@@ -2118,7 +2118,24 @@ public class Player extends Entity {
                 }
             }
         }
-        int connections = 0;
+        int macconnections = 0;
+        for(Player p : World.getPlayers())
+		{
+			if(p == null)
+			{
+				continue;
+			}
+			if(getMacAddress().contentEquals(p.getMacAddress()))
+			{
+				macconnections++;
+			}
+		}
+        if(macconnections >= Constants.MAX_CONNECTIONS_PER_MAC)
+        {
+			setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
+			return false;
+		}
+        int ipconnections = 0;
         for(Player p : World.getPlayers())
 		{
 			if(p == null)
@@ -2127,10 +2144,10 @@ public class Player extends Entity {
 			}
 			if(getHost().contentEquals(p.getHost()))
 			{
-				connections++;
+				ipconnections++;
 			}
 		}
-        if(connections >= Constants.MAX_CONNECTIONS_PER_IP)
+        if(ipconnections >= Constants.MAX_CONNECTIONS_PER_IP)
         {
 			setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
 			return false;
