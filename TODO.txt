@@ -1,6 +1,5 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
--Gnome balls don't equip
 -Gnome tree stronghold cave doesn't work
 -(Will do when I do dragon slayer -Pickles)Crandor is accessable but you can't leave (you can use ::home)
 -No way to the ape atoll/gate broken too
