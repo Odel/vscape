@@ -469,6 +469,12 @@ public class Shops {
 				return 170;
 			case 1680://crystal
 				return 171;
+			case 4295:  // Warrior's Guild Equipment shop
+				return 196;
+			case 4293:  //Warrior's Guild Food Shop
+				return 197;
+			case 4294:  //Warrior's Guild Potion Shop
+				return 195;
 			case 1921:
 			case 849:
 			case 736:

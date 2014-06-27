@@ -8189,5 +8189,216 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
-  }
+    },
+    {
+    "shopId": 195,
+    "name": "Warriors' Guild Potion Shop",
+    "items": [
+      {
+        "id": 115,
+        "count": 10
+      },
+      {
+        "id": 121,
+        "count": 10
+      },
+	  {
+        "id": 133,
+        "count": 10
+      }
+      ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+    },
+	{
+    "shopId": 196,
+    "name": "Warriors' Guild Armoury",
+    "items": [
+      {
+        "id": 1363,
+        "count": 10
+      },
+	  {
+        "id": 1365,
+        "count": 10
+      },
+	  {
+        "id": 1369,
+        "count": 10
+      },
+	  {
+        "id": 1277,
+        "count": 10
+      },
+	  {
+        "id": 1279,
+        "count": 10
+      },
+	  {
+        "id": 1281,
+        "count": 10
+      },
+	  {
+        "id": 1283,
+        "count": 10
+      },
+	  {
+        "id": 1285,
+        "count": 10
+      },
+	  {
+        "id": 1287,
+        "count": 10
+      },
+	  {
+        "id": 1291,
+        "count": 10
+      },
+	  {
+        "id": 1293,
+        "count": 10
+      },
+	  {
+        "id": 1295,
+        "count": 10
+      },
+	  {
+        "id": 1297,
+        "count": 10
+      },
+	  {
+        "id": 1299,
+        "count": 10
+      },
+	  {
+        "id": 1301,
+        "count": 10
+      },
+	  {
+        "id": 1205,
+        "count": 10
+      },
+	  {
+        "id": 1203,
+        "count": 10
+      },
+	  {
+        "id": 1217,
+        "count": 10
+      },
+	  {
+        "id": 1209,
+        "count": 10
+      },
+	  {
+        "id": 1211,
+        "count": 10
+      },
+	  {
+        "id": 1215,
+        "count": 10
+      },
+	  {
+        "id": 1422,
+        "count": 10
+      },
+	  {
+        "id": 1420,
+        "count": 10
+      },
+    {
+        "id": 1424,
+        "count": 10
+      },
+    {
+        "id": 1428,
+        "count": 10
+      },
+    {
+        "id": 1430,
+        "count": 10
+      },
+    {
+        "id": 1307,
+        "count": 10
+      },
+    {
+        "id": 1309,
+        "count": 10
+      },
+    {
+        "id": 1311,
+        "count": 10
+      },
+    {
+        "id": 1313,
+        "count": 10
+      },
+    {
+        "id": 1315,
+        "count": 10
+      },
+    {
+        "id": 1317,
+        "count": 10
+      },
+    {
+        "id": 1103,
+        "count": 10
+      },
+    {
+        "id": 1101,
+        "count": 10
+      },
+    {
+        "id": 1105,
+        "count": 10
+      },
+    {
+        "id": 1139,
+        "count": 10
+      },
+    {
+        "id": 1137,
+        "count": 10
+      },
+	  {
+        "id": 1141,
+        "count": 10
+      }
+      ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+    },
+    {
+    "shopId": 197,
+    "name": "Warriors' Guild Food Shop",
+    "items": [
+      {
+        "id": 334,
+        "count": 10
+      },
+      {
+        "id": 365,
+        "count": 10
+      },
+	  {
+        "id": 2289,
+        "count": 10
+      },
+	  {
+        "id": 6705,
+        "count": 10
+      },
+	  {
+        "id": 2003,
+        "count": 10
+      }
+      ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+    }
 ]
