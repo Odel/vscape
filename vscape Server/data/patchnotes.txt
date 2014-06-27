@@ -1,3 +1,8 @@
+@dre@=June 27=
+-::highscores - nuff said
+-pc lobby fixes
+-99 msg fixed
+
 @dre@=June ?=
 -Hitting 99 sends a yell announcement.
 -Gnome Balls now work.
