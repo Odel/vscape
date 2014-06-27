@@ -513,8 +513,7 @@ public class PlayerSave {
 	}
     
     static int readFile(Player player) {
-        File file = new File(directory + player.getUsername()
-                + ".dat");
+        File file = new File(directory + player.getUsername() + ".dat");
         if (!file.exists()) {
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);
@@ -532,7 +531,7 @@ public class PlayerSave {
             	inFile.close();
             	return 3;
             } else {
-            	System.out.println("correct login- "+password+"");//try bthat
+            	System.out.println("correct login- "+password+"");//try that
             }
             
             player.setPassword(password);

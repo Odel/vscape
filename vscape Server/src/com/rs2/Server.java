@@ -100,6 +100,7 @@ public class Server implements Runnable {
 		Constants.DEVELOPER_MODE = false;
 		Constants.SERVER_DEBUG = false;
 		Constants.UNLIMITED_RUN = true;
+		Constants.SQL_ENABLED = false;
 
         //PlayerCleaner.start();
         //System.exit(0);
@@ -107,12 +108,27 @@ public class Server implements Runnable {
         if (host.equals("127.0.0.1")) {
             System.out.println("Starting live server!");
             Constants.DEVELOPER_MODE = false;
-            Constants.MYSQL_ENABLED = false;
+            Constants.SQL_ENABLED = false;
             Constants.SERVER_DEBUG = false;
             Constants.HIGHSCORES_ENABLED = false;
             Constants.ADMINS_CAN_INTERACT = true;
             Constants.RSA_CHECK = true;
             Constants.CLIENT_VERSION = 317;
+        }
+        
+        if(Constants.SQL_ENABLED)
+        {
+        
+        	File f = new File("./test.db"); 
+        	if(!f.exists())
+        	{
+        		
+        		SQL.initHighScores();
+        	}
+        	else
+        	{
+            	SQL.createConnection();
+        	}
         }
 
         //PlayerCleaner.start();
@@ -154,7 +170,7 @@ public class Server implements Runnable {
             Misc.loadScripts(new File("./data/ruby/"));
             
             GlobalVariables.patchNotes = Misc.loadPatchNotes();
-	    GlobalVariables.info = Misc.loadInfo();
+            GlobalVariables.info = Misc.loadInfo();
 
 
 			// load all xstream related files.

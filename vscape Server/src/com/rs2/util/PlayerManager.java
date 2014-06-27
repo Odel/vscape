@@ -12,7 +12,6 @@ public class PlayerManager {
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Constants.MYSQL_ENABLED = false;
         Constants.DEVELOPER_MODE = true;
         boolean next = true;
         do {

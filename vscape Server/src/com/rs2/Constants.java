@@ -26,7 +26,7 @@ public class Constants {
 		"dark skies"
 	};*/
 
-	public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	//public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
 	public static final String GAME_DB_URL = "jdbc:mysql://2006remade.com:3306/remade_highscores";
 	public static final String GAME_DB_USER = "remade_xero";
 	public static final String GAME_DB_PASS = "winnie12";
@@ -35,7 +35,8 @@ public class Constants {
 	public static final String FORUM_DB_USER = "admin06_b00mah3";
 	public static final String FORUM_DB_PASS = "O1xS?rx%qEGS";
 
-	public static boolean MYSQL_ENABLED = false;
+	public static boolean SQL_ENABLED = false;
+	public static int SQL_TYPE = 2;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
 	public static boolean SERVER_DEBUG = true;
 	public static boolean DEVELOPER_MODE = true;
 	public static boolean HIGHSCORES_ENABLED = false;

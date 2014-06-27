@@ -12,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -149,8 +151,11 @@ import com.rs2.util.PlayerSave;
 import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
+import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+
 import static com.rs2.model.content.quests.QuestHandler.resetInterface;
+
 import com.rs2.model.content.randomevents.TalkToEvent;
 
 /**
@@ -718,7 +723,31 @@ public class Player extends Entity {
 	public void playerCommands(String keyword, String[] args, String fullString) {
 		if (keyword.equals("outfit")) {
 			getActionSender().sendInterface(3559);
-		} else if (keyword.equals("panic")) {
+		}
+		else if (keyword.equals("highscores"))
+		{
+	        if(Constants.SQL_ENABLED)
+	        {
+			try {
+				ResultSet rs = SQL.query("SELECT * FROM `skillsoverall` ORDER BY totallevel DESC LIMIT 50;");
+				getActionSender().sendInterface(8134);
+				ClearNotes();
+				this.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
+				int line = 8147;
+				while ( rs.next() ) {
+					String  name = rs.getString("playerName");
+					int lv  = rs.getInt("totallevel");
+					//getActionSender().sendMessage(name + " , level " + lv + " , xp " + x);
+					this.getActionSender().sendString(name + " - level " + lv, line);
+					line++;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        }
+		}
+		else if (keyword.equals("panic")) {
 			if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
@@ -909,6 +938,10 @@ public class Player extends Entity {
 					break;
 			}
 		}
+		/*if (keyword.equals("highscoresinit"))
+		{
+			SQL.initHighScores();
+		}*/
 		if (keyword.equals("resettask")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null)
@@ -2179,7 +2212,7 @@ public class Player extends Entity {
 	}
 
 	public void logout() {
-		//SQL.saveHighScore(this);
+		SQL.saveHighScore(this);
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this);
