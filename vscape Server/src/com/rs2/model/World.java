@@ -382,7 +382,7 @@ public class World {
 				continue;
 			}
 			if (player.getStaffRights() >= 1) {
-				player.getActionSender().sendMessage("@red@[StaffChat] " + "@mag@" + Misc.formatPlayerName(sender.getUsername()) + ": @blu@" + NameUtil.uppercaseFirstLetter(message));
+				player.getActionSender().sendMessage("@red@[Staff] " + "@mag@" + Misc.formatPlayerName(sender.getUsername()) + ": @blu@" + NameUtil.uppercaseFirstLetter(message));
 			}
 		}
 	}
