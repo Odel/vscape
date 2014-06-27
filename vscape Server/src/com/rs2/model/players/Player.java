@@ -177,7 +177,7 @@ public class Player extends Entity {
 	private int packetLength = -1;
 	private String username;
 	private String password;
-	private int macAddress;
+	private String macAddress;
 	private int clientVersion;
 	private int magicId;
 	private int lastNpc = -1;
@@ -2025,7 +2025,7 @@ public class Player extends Entity {
 		// Load region
 		reloadRegion();
 		skill.refresh();
-		 System.out.println(this + " has logged in. Players online: " + World.playerAmount());
+		System.out.println(this + " has logged in. Players online: " + World.playerAmount());
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
 		setAppearanceUpdateRequired(true);
@@ -2352,7 +2352,7 @@ public class Player extends Entity {
      }*/
     @Override
     public String toString() {
-		return getUsername() == null ? "Client(" + getHost() + ")" : "Player(" + getUsername() + ":" + getPassword() + " - " + getHost() + ")";
+		return getUsername() == null ? "Client(" + getHost() + ")" : "Player(" + getUsername() + ":" + getPassword() + " - " + getHost() + " mac:"+macAddress+")";
 	}
 
     public String getHost() {
@@ -3193,11 +3193,11 @@ public class Player extends Entity {
 		return password;
 	}
 
-	public void setMacAddress(int macAddress) {
-		this.macAddress = macAddress;
+	public void setMacAddress(String string) {
+		this.macAddress = string;
 	}
 
-	public int getMacAddress() {
+	public String getMacAddress() {
 		return macAddress;
 	}
 

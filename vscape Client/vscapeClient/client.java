@@ -26,7 +26,7 @@ public class client extends RSApplet {
 	
 	public static int getPort() {
 		return 43594;
-	}	
+	}
 
 	private static String intToKOrMilLongName(int i)
 	{
@@ -346,6 +346,35 @@ public class client extends RSApplet {
 			return new Socket(InetAddress.getByName(server), port);
 	}
 
+	public String getMac()
+	{
+		InetAddress ipp = null;
+		try {
+			ipp = InetAddress.getLocalHost();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		NetworkInterface network = null;
+		byte[] mac = null;
+		try {
+			network = NetworkInterface.getByInetAddress(ipp);
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			mac = network.getHardwareAddress();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mac.length; i++) {
+            sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));        
+        }
+        return sb.toString();
+	}
 	private void processMenuClick()
 	{
 		if(activeInterfaceType != 0)
@@ -6493,6 +6522,9 @@ public class client extends RSApplet {
 				aStream_847.writeWordBigEndian(255);
 				aStream_847.writeWord(317);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
+				
+				aStream_847.writeString(getMac());
+				
 				for(int l1 = 0; l1 < 9; l1++)
 					aStream_847.writeDWord(expectedCRCs[l1]);
 
