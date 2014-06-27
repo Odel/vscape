@@ -1171,7 +1171,7 @@ public class Player extends Entity {
                             this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
 		} else if (keyword.equals("talkpet") || keyword.equals("tp")) {
 		    this.getPets().getPet().getUpdateFlags().sendForceMessage(fullString);
-		} else if (keyword.equals("invisible") || keyword.equals("invis") {
+		} else if (keyword.equals("invisible") || keyword.equals("invis")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
 		}
