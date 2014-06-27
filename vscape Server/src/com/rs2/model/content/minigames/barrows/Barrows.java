@@ -53,7 +53,7 @@ public class Barrows {
 		}
 	}
 	
-	private static final int[] Items = {4708, 4710, 4712, 4714, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 7462};
+	private static final int[] Items = {4708, 4710, 4712, 4714, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 7462, 7462};
 	private static final int[][] Stackables = {{4740, 5}, {558, 25}, {562, 11}, {560, 5}, {565, 2}, {995, 55}};
 	private static final int[] Monsters = {2031, 2033, 2034, 2035, 2037};
 	private static final MinigameAreas.Area NORTH = new MinigameAreas.Area(new Position(3549, 9709, 0), new Position(3554, 9714, 0));
