@@ -872,7 +872,7 @@ public class Player extends Entity {
                 return;
             player.disconnect();
             actionSender.sendMessage("You have kicked "+player.getUsername());
-        }  	else if (keyword.equals("staff")) {
+        }  	else if (keyword.equals("staff") || keyword.equals("s")) {
 	    World.messageToStaff(this, fullString);
 		}	else if (keyword.equals("mute")) {
             if (args.length < 2) {
@@ -912,6 +912,57 @@ public class Player extends Entity {
             player.actionSender.sendMessage("You have been muted for "+hours+" hours");
             player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
         }
+		if(keyword.equals("bankof")) {
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(fullString)) {
+				    getActionSender().sendInterface(8134);
+				    ClearNotes();
+				    getActionSender().sendString("Bank of: " + player.getUsername(), 8144);
+				    int line = 8145;
+				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
+					    if (line > 8195 && line < 12174) {
+						line = 12174;
+					    }
+					    Item item1 = player.getBank().getItems()[counter];
+					    Item item2 = player.getBank().getItems()[counter+1];
+					    if(item1 == null) {
+						counter++;
+						continue;
+					    }
+					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
+					    line++;
+				    }
+				    break;
+				}
+			}
+		}
+		if(keyword.equals("bank2of")) {
+			for (Player player : World.getPlayers()) {
+				if (player == null)
+					continue;
+				if (player.getUsername().equalsIgnoreCase(fullString)) {
+				    getActionSender().sendInterface(8134);
+				    ClearNotes();
+				    getActionSender().sendString("Bank part two of: " + player.getUsername(), 8144);
+				    int line = 8145;
+				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
+					if(counter < 200) continue;
+					else {
+					    if (line > 8195 && line < 12174) {
+						line = 12174;
+					    }
+					    Item item1 = player.getBank().getItems()[counter];
+					    Item item2 = player.getBank().getItems()[counter+1];
+					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
+					    line++;
+					}
+				    }
+				    break;
+				}
+			}
+		}
 	}
 
 	public void adminCommands(String keyword, String[] args, String fullString) {
@@ -1013,57 +1064,6 @@ public class Player extends Entity {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
-		}
-		if(keyword.equals("bankof")) {
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(fullString)) {
-				    getActionSender().sendInterface(8134);
-				    ClearNotes();
-				    getActionSender().sendString("Bank of: " + player.getUsername(), 8144);
-				    int line = 8145;
-				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
-					    if (line > 8195 && line < 12174) {
-						line = 12174;
-					    }
-					    Item item1 = player.getBank().getItems()[counter];
-					    Item item2 = player.getBank().getItems()[counter+1];
-					    if(item1 == null) {
-						counter++;
-						continue;
-					    }
-					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
-					    line++;
-				    }
-				    break;
-				}
-			}
-		}
-		if(keyword.equals("bank2of")) {
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(fullString)) {
-				    getActionSender().sendInterface(8134);
-				    ClearNotes();
-				    getActionSender().sendString("Bank part two of: " + player.getUsername(), 8144);
-				    int line = 8145;
-				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
-					if(counter < 200) continue;
-					else {
-					    if (line > 8195 && line < 12174) {
-						line = 12174;
-					    }
-					    Item item1 = player.getBank().getItems()[counter];
-					    Item item2 = player.getBank().getItems()[counter+1];
-					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
-					    line++;
-					}
-				    }
-				    break;
-				}
-			}
 		}
 		if(keyword.equals("setplayerqueststage")) {
 		    final int quest = Integer.parseInt(args[0]);
