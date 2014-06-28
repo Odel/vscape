@@ -24,6 +24,20 @@
 -Gnome Glider goes everywhere from the Tree,
 but only to the Tree from Al-Kharid.
 
+@dre@=Admins=
+Mr Telescope
+Pickles
+Bobster
+Odel
+Mr Foxter
+
+@dre@=Player Mods=
+Shiggydiggy
+Dr Grind
+Benny
+Noiryx
+God Dammit
+
 @dre@ =Minigames=
 -Barrows.
 -Mage Arena.
@@ -31,6 +45,8 @@ but only to the Tree from Al-Kharid.
 -Custom Warrior's Guild. (Fight Arena, south of Ard.)
 -The Abyss.
 
+@dre@ =/v/scape wiki=
+vscape.wikidot.com
 
 @blu@If you need any help, pm Pickles.
 @blu@Enjoy the grind.
