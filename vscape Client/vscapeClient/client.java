@@ -12,6 +12,9 @@ import javax.sound.midi.*;
 import javax.sound.sampled.*;
 
 import java.net.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.CRC32;
 
 import vscapeClient.sign.signlink;
@@ -348,7 +351,9 @@ public class client extends RSApplet {
 
 	public String getMac()
 	{
-		InetAddress ipp = null;
+		
+		// old method, works fine on windows, fails on linux (and maybe osx)
+		/*InetAddress ipp = null;
 		try {
 			ipp = InetAddress.getLocalHost();
 		} catch (UnknownHostException e1) {
@@ -374,6 +379,51 @@ public class client extends RSApplet {
             sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));        
         }
         return sb.toString();
+        */
+		
+	    String firstInterface = null;        
+	    Map<String, String> addressByNetwork = new HashMap<>();
+	    Enumeration<NetworkInterface> networkInterfaces = null;
+		try {
+			networkInterfaces = NetworkInterface.getNetworkInterfaces();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    while(networkInterfaces.hasMoreElements()){
+	        NetworkInterface network = networkInterfaces.nextElement();
+
+	        byte[] bmac = null;
+			try {
+				bmac = network.getHardwareAddress();
+			} catch (SocketException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        if(bmac != null){
+	            StringBuilder sb = new StringBuilder();
+	            for (int i = 0; i < bmac.length; i++){
+	                sb.append(String.format("%02X%s", bmac[i], (i < bmac.length - 1) ? "-" : ""));        
+	            }
+
+	            if(sb.toString().isEmpty()==false){
+	                addressByNetwork.put(network.getName(), sb.toString());
+	                //System.out.println("MAC = "+sb.toString()+" @ ["+network.getName()+"] "+network.getDisplayName());
+	            }
+
+	            if(sb.toString().isEmpty()==false && firstInterface == null){
+	                firstInterface = network.getName();
+	            }
+	        }
+	    }
+
+	    if(firstInterface != null){
+	        return addressByNetwork.get(firstInterface);
+	    }
+
+	    return null;
+	    
 	}
 	private void processMenuClick()
 	{
