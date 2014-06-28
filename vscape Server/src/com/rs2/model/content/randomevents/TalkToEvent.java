@@ -228,7 +228,7 @@ public class TalkToEvent {
 			if (player.getGenieSelect() == -1) {
 				player.getActionSender().sendMessage("You need to select a skill that you wish to level.");
 			} else if (player.getInventory().removeItem(new Item(2528))) {
-				int xp = player.getSkill().getPlayerLevel(player.getGenieSelect()) * 10 * 2.25;
+				int xp = player.getSkill().getPlayerLevel(player.getGenieSelect()) * 10;
 				player.getSkill().addExp(player.getGenieSelect(), xp);
 				player.getActionSender().sendMessage("Congratulations, " + xp + " xp was added to your " + Skill.SKILL_NAME[player.getGenieSelect()] + " skill.");
 				player.setGenieSelect(-1);
