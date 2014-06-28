@@ -230,7 +230,7 @@ public class TalkToEvent {
 			} else if (player.getInventory().removeItem(new Item(2528))) {
 				int xp = player.getSkill().getPlayerLevel(player.getGenieSelect()) * 10;
 				player.getSkill().addExp(player.getGenieSelect(), xp);
-				player.getActionSender().sendMessage("Congratulations, " + xp + " xp was added to your " + Skill.SKILL_NAME[player.getGenieSelect()] + " skill.");
+				player.getActionSender().sendMessage("Congratulations, " + xp * 2.25 + " xp was added to your " + Skill.SKILL_NAME[player.getGenieSelect()] + " skill.");
 				player.setGenieSelect(-1);
 				player.getActionSender().sendConfig(261, 0);
 			}
