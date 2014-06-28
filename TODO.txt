@@ -9,7 +9,8 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -(Will do when I do goblin diplomacy -Pickles)Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
 -Can't thieve from relleka citizens
 -Clue 2837 is defective in that the NPC only gives broken puzzle boxes
--Brews don't work
+-Brews don't work.
+-"Empty" option on all pies / pie dishes.
 -coconut milk can't be mixed(so no p+ or p++) (I think this may be fixed)
 -Crystal bows need to decay as well as barrows - and repair functionality for both
 -Spell splashing / magic accuracy overhaul
