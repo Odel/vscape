@@ -1,9 +1,16 @@
-@dre@=June 27=
--::highscores - nuff said
--pc lobby fixes
--99 msg fixed
+@dre@=June 30=
+@blu@Dragon Slayer
+-Soft clay mixing fixed.
+-Teleport tab crafting. (Law rune with soft clay)
+-Iron dragons drop noted bars.
+-More battlestaves in Zaff's store.
+-Ring of wealth gives better gems while mining.
 
-@dre@=June ?=
+@dre@=June 27=
+-PC lobby fix.
+-99 announcement fixed.
+
+@dre@=June 26=
 -Hitting 99 sends a yell announcement.
 -Gnome Balls now work.
 -::info instead of ::commands
