@@ -378,7 +378,7 @@ public class Dialogues {
 								player.getDialogue().sendNpcChat("This is the town of Lumbridge my friend.", HAPPY);
 								return true;
 							case 2:
-								player.getDialogue().sendNpcChat("Aye, not too bad thank you. Lovely weather", "in 06Scape this fine day.", HAPPY);
+								player.getDialogue().sendNpcChat("Aye, not too bad thank you. Lovely weather", "in vscape this fine day.", HAPPY);
 								player.getDialogue().setNextChatId(10);
 								return true;
 							case 3:
@@ -397,7 +397,7 @@ public class Dialogues {
 					case 5:
 						switch(optionId) {
 							case 1:
-								player.getDialogue().sendNpcChat("Aye, not too bad thank you. Lovely weather", "in 06Scape this fine day.", HAPPY);
+								player.getDialogue().sendNpcChat("Aye, not too bad thank you. Lovely weather", "in vscape this fine day.", HAPPY);
 								player.getDialogue().setNextChatId(10);
 								return true;
 							case 2:
