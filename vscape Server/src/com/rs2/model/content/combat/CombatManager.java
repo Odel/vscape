@@ -5,6 +5,7 @@ import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
+import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
@@ -14,6 +15,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
@@ -77,6 +79,11 @@ public class CombatManager extends Tick {
         }
 	if(attacker.isPlayer() && ((Player) attacker).getPets().getPet() == victim) {
             ((Player) attacker).getActionSender().sendMessage("You cannot attack your own pet!");
+            CombatManager.resetCombat(attacker);
+            return;
+	}
+	if(attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 742 && ((Player)attacker).getQuestStage(15) != 7) {
+            ((Player) attacker).getActionSender().sendMessage("I better not try this.");
             CombatManager.resetCombat(attacker);
             return;
 	}
@@ -328,6 +335,7 @@ public class CombatManager extends Tick {
 			Barrows.handleDeath(((Player)killer), npc);
 			WarriorsGuild.dropDefender((Player) killer, npc);
 			ShieldOfArrav.handleDrops((Player) killer, npc);
+			DragonSlayer.handleDrops((Player) killer, npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
 		}
@@ -347,6 +355,15 @@ public class CombatManager extends Tick {
 		    npc.setVisible(false);
 		    World.unregister(npc);
 		    return;
+		}
+		else if(npc.getNpcId() == 742 && killer.isPlayer()) {
+		    if(((Player)killer).getQuestStage(15) == 7) {
+			((Player)killer).setQuestStage(15, 8);
+			((Player)killer).getDialogue().sendStatement("You sever Elvarg's head as proof for Oziach.");
+			if(!((Player)killer).getInventory().ownsItem(11279)) {
+			    ((Player)killer).getInventory().addItem(new Item(11279));
+			}
+		    }
 		}
 		else if(npc.getDefinition().getName().equalsIgnoreCase("kolodion")) {
 		    if(npc.getNpcId() == 911 && killer.isPlayer()) {

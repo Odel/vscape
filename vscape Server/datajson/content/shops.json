@@ -7522,11 +7522,15 @@
   },
   {
     "shopId": 165,
-    "name": "Renual's not rape shop",
+    "name": "Oziach's Armor Shop",
     "items": [
       {
         "id": 1127,
-        "count": 10
+        "count": 5
+      },
+      {
+        "id": 1135,
+        "count": 5
       }
     ],
     "isGeneralStore": false,
@@ -8296,10 +8300,6 @@
         "count": 10
       },
 	  {
-        "id": 1215,
-        "count": 10
-      },
-	  {
         "id": 1422,
         "count": 10
       },
@@ -8377,7 +8377,7 @@
     "name": "Warriors' Guild Food Shop",
     "items": [
       {
-        "id": 334,
+        "id": 333,
         "count": 10
       },
       {

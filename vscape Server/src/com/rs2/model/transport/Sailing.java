@@ -28,6 +28,9 @@ public class Sailing {
         }
         player.setStopPacket(true);
         player.teleport(route.to.clone());
+	if(player.getQuestStage(15) == 7 && route == ShipRoute.PORT_SARIM_TO_CRANDOR) {
+	    Dialogues.startDialogue(player, 918);
+	}
         if (route.ordinal() < 16) {
             player.getActionSender().sendConfig(75, route.ordinal() + 1);
             player.getActionSender().sendInterface(3281);
@@ -45,6 +48,9 @@ public class Sailing {
                 player.getActionSender().removeInterfaces();
                 player.getActionSender().sendMapState(0);
                 player.setStopPacket(false);
+		if(player.getQuestStage(15) == 7 && route == ShipRoute.PORT_SARIM_TO_CRANDOR) {
+		    Dialogues.startDialogue(player, 918);
+		}
                 stop();
             }
         };

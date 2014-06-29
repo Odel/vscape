@@ -7,6 +7,7 @@ import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.ShieldOfArrav;
@@ -287,6 +288,9 @@ public class ItemPacketHandler implements PacketHandler {
 			}
 		}
 		if(ElementalWorkshop.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(DragonSlayer.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		/* Farming */
@@ -749,6 +753,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(ShieldOfArrav.itemHandling(player, itemId)) {
+		    return;
+		}
+		if(DragonSlayer.itemHandling(player, itemId)) {
 		    return;
 		}
 		switch (itemId) {

@@ -1,6 +1,6 @@
 package com.rs2.model.content;
 
-import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 
@@ -455,7 +455,10 @@ public class Shops {
 			case 1303:
 				return 164;
 			case 747 :
+			    if(player.getQuestStage(15) >= 9){
 				return 165;
+			    }
+			break;
 			/*case 797: //
 				return 166;*/
 			case 1334:
@@ -469,16 +472,16 @@ public class Shops {
 				return 170;
 			case 1680://crystal
 				return 171;
+			case 1921:
+			case 849:
+			case 736:
+				return 194;
 			case 4295:  // Warrior's Guild Equipment shop
 				return 196;
 			case 4293:  //Warrior's Guild Food Shop
 				return 197;
 			case 4294:  //Warrior's Guild Potion Shop
 				return 195;
-			case 1921:
-			case 849:
-			case 736:
-				return 194;
 			case 555:
 				return 97;	//khazard general store	- cadillac
             case 516:

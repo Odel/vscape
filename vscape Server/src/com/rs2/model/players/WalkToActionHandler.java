@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -189,6 +190,10 @@ public class WalkToActionHandler {
 				    this.stop();
 				    return;
 				}
+				if(DragonSlayer.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
 					return;
@@ -332,17 +337,6 @@ public class WalkToActionHandler {
 				if (player.getAgilityCourses().handleCourse(id, x, y)) {
 					this.stop();
 					return;
-				}
-				if(id == 3403) {
-				    if(!QuestHandler.questCompleted(player, 12) && player.getFollowingEntity() == null) {
-					Npc npc = new Npc(1020);
-					npc.setPosition(player.getPosition().clone());
-					npc.setSpawnPosition(player.getPosition().clone());
-					World.register(npc);      
-					npc.setPlayerOwner(player.getIndex());
-					CombatManager.attack(npc, player);
-					player.setFollowingEntity(npc);
-				    }
 				}
 				if (MineOre.miningRocks(id)) {
 					if (player.getMining().canMine(id)) {
@@ -718,17 +712,14 @@ public class WalkToActionHandler {
 				    else if(x == 2769 && player.getPosition().getX() == 2768 )
 					Agility.crossObstacle(player, 2770, 10002, 769, 5, 81, 56);
 				    break;
-				case 1805 : // champions guild
-					player.getActionSender().walkTo(0, player.getPosition().getY() > 3362 ? -1 : 1, true);
-					player.getActionSender().walkThroughDoor(id, x, y, z);
-					break;
+				
 				case 4624 : // burthorpe staircase
 					player.teleport(new Position(2208, 4938));
 					break;
 				case 5959 : // magebank lever
 					player.teleport(new Position(2539, 4712));
 					break;
-				case 9706 : //mage arena lever
+				case 9706 : //magebank lever
 				case 9707 :
 					if(player.getCombatingEntity() != null)
 					    player.getActionSender().sendMessage("You cannot use this in combat!");
@@ -1208,14 +1199,6 @@ public class WalkToActionHandler {
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, player.getEquipment().getId(Constants.WEAPON));
 					break;
-				case 2606: // wall in karamja dungeon
-					player.getActionSender().walkThroughDoor(id, x, y, 0);
-					if (player.getPosition().getY() < 9600) {
-						player.getActionSender().walkTo(0, 1, true);
-					} else {
-						player.getActionSender().walkTo(0, -1, true);
-					}
-					break;
 				case 3443: // holy barrier to canifis
 					player.teleport(new Position(3423, 3485, 0));
 					player.getActionSender().sendMessage("You step through the holy barrier and appear in Canifis.");
@@ -1307,7 +1290,7 @@ public class WalkToActionHandler {
 					FlourMill.takeFromBin(player);
 					break;
 				case 2609: // crandor tunnel
-					Ladders.climbLadder(player, new Position(2834, 9657, 0));
+					player.fadeTeleport(new Position(2834, 9657, 0));
 					break;
 				case 2610: // karamja rope
 					Ladders.climbLadder(player, new Position(2833, 3257, 0));
@@ -1811,7 +1794,7 @@ public class WalkToActionHandler {
 					MilkCow.milkCow(player);
 					break;
 				case 61: //chaos altar
-				    if(player.getQuestStage(11) >= 9) {
+				    if(player.getQuestStage(11) == 9) {
 					player.getDialogue().sendStatement("You find some words inscribed on the edge of the altar...", "They read: Snarthon Candtrick Termanto.");
 					player.setQuestStage(11, 10);
 					break;

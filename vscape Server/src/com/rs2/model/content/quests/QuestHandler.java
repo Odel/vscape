@@ -40,7 +40,8 @@ public class QuestHandler {
 	new MerlinsCrystal(),
 	new ElementalWorkshop(),
 	new ShieldOfArrav(),
-	new LostCity()
+	new LostCity(),
+	new DragonSlayer()
     };
     
     public static void init() {
@@ -152,6 +153,9 @@ public class QuestHandler {
         		return true;
 		case 28199: //Lost City
 			showInterface(player,quests[14]);
+        		return true;
+		case 28215: //Dragon Slayer
+			showInterface(player,quests[15]);
         		return true;
         }
         return false;

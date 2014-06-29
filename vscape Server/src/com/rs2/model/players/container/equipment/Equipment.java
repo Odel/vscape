@@ -8,6 +8,7 @@ import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
@@ -540,6 +541,12 @@ public class Equipment {
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
 				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
+				return false;
+			    }
+			}
+			if(DragonSlayer.isArmor(itemId)) {
+			    if(player.getQuestStage(15) < 9) {
+				player.getDialogue().sendStatement("You must complete Dragon Slayer to equip this.");
 				return false;
 			    }
 			}

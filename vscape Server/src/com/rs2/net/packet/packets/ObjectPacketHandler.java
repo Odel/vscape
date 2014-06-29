@@ -2,6 +2,7 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.QuestHandler;
@@ -154,6 +155,10 @@ public class ObjectPacketHandler implements PacketHandler {
 		    new GameObject(2401, 3189, 3385, 1, 2, 10, 2400, 0);
 		    return;
 		}
+		if(player.getClickId() == 2609) { // crandor tunnel
+		    player.fadeTeleport(new Position(2834, 9657, 0));
+		    return;
+		}   
 		Following.resetFollow(player);
 		//ObjectHandler.getObjectDetails(player, player.getClickId(), player.getClickX(), player.getClickY());
 		WalkToActionHandler.setActions(Actions.OBJECT_FIRST_CLICK);

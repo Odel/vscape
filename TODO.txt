@@ -1,7 +1,6 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
--(Will do when I do dragon slayer -Pickles)Crandor is accessable but you can't leave (you can use ::home)
 -No way to the ape atoll/gate broken too
 -When you talk to the charter boat guy at port sarim, he teles you into the jungle demon boss battle from monkey madness.
 -Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
@@ -10,6 +9,7 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Can't thieve from relleka citizens
 -Clue 2837 is defective in that the NPC only gives broken puzzle boxes
 -Brews don't work.
+-Thieving chests (ask pickles)
 -"Empty" option on all pies / pie dishes.
 -Wizards from level 3 clues, proper attacks (poison / spells);
 -Iron dragons need to drop noted iron bars like the other metal dragons.
