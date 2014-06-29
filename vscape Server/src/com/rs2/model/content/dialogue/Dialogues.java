@@ -45,6 +45,8 @@ import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
+import com.rs2.model.content.skills.cooking.wetClayHandler;
+import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.transport.MagicCarpet;
@@ -130,6 +132,12 @@ public class Dialogues {
 		    return true;
 		}
 		if(RomeoAndJuliet.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(wetClayHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {

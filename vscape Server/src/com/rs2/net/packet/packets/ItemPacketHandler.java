@@ -28,6 +28,7 @@ import com.rs2.model.content.skills.cooking.OneIngredients;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
+import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -39,6 +40,7 @@ import com.rs2.model.content.skills.magic.TeleTabs;
 import com.rs2.model.content.skills.prayer.GodBook;
 import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Runecrafting;
+import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.slayer.Slayer;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.content.treasuretrails.AnagramsScrolls;
@@ -291,6 +293,12 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(DragonSlayer.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(wetClayHandler.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		/* Farming */

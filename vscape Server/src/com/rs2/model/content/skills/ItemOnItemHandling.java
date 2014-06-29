@@ -42,9 +42,7 @@ public class ItemOnItemHandling {
 		MINING_HELMET(590, 5014, new Item[]{new Item(5014)}, new Item[]{new Item(5013)}, -1, new int[]{Skill.FIREMAKING, 65}, 0, "You light the mining helmet."), 
 		
 		CRYSTAL_KEY(985, 987, new Item[]{new Item(985), new Item(987)}, new Item[]{new Item(989)}, -1, null, 0, "You join the two halves of the key together."),
-		
-		CLAY(434, 1929, new Item[]{new Item(434), new Item(1929)}, new Item[]{new Item(1761), new Item(1925)}, -1, null, 0, "You add water to the clay to soften it up."),
-		
+
 		;
 
 		private int itemFirstClick;

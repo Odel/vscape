@@ -2,17 +2,14 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
 -No way to the ape atoll/gate broken too
--When you talk to the charter boat guy at port sarim, he teles you into the jungle demon boss battle from monkey madness.
 -Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
--(Will do when I do black knight fortress -PicklesMissing NPCs: Black Knight Fortress
 -(Will do when I do goblin diplomacy -Pickles)Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
--Can't thieve from relleka citizens
 -Clue 2837 is defective in that the NPC only gives broken puzzle boxes
 -Brews don't work.
 -Thieving chests (ask pickles)
+-Slayer tower stairs (puts you in the wrong place)
 -"Empty" option on all pies / pie dishes.
 -Wizards from level 3 clues, proper attacks (poison / spells);
--Iron dragons need to drop noted iron bars like the other metal dragons.
 -coconut milk can't be mixed(so no p+ or p++) (I think this may be fixed)
 -Crystal bows need to decay as well as barrows - and repair functionality for both
 -Spell splashing / magic accuracy overhaul
@@ -25,7 +22,7 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Metal dragons need to be weaker to mage (see magic accuracy overhaul)
 -Lighthouse south rocks need to work (use Agility.crossObstacle(blah) under stepping stones?)
 -Nightshade & Potato Cactus spawns
--Dead herb inspection gives a null exception?
+-Dead herb inspection (stage 3) gives a null exception?
 -Enchanted necklace (not amulet) specials
 -Strawberry and watermelon seeds in Draynor shop
 -Multi-targetting with ancients
