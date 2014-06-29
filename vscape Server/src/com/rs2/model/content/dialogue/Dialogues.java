@@ -43,6 +43,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.LostCity;
+import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
@@ -126,6 +127,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(DragonSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(RomeoAndJuliet.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {
@@ -5553,7 +5557,7 @@ public class Dialogues {
 						player.getDialogue().sendNpcChat("Let's start with combat, as it is probably still fresh in", "your mind. Many enamies, both human and monster,", "will drop items when they die.", HAPPY);
 						return true;
 					case 7 :
-						player.getDialogue().sendNpcChat("Now, the next way to earn money quickly is by quests.", "Many people on 2006Scape have things they need", "doing, which they will reward you for.", HAPPY);
+						player.getDialogue().sendNpcChat("Now, the next way to earn money quickly is by quests.", "Many people on vscape have things they need", "doing, which they will reward you for.", HAPPY);
 						return true;
 					case 8 :
 						player.getDialogue().sendNpcChat("By getting a high level in skills such as cooking, mining,", "smithing, or fishing, you can create your own items and", "sell them for pure profit.", HAPPY);
@@ -5599,7 +5603,7 @@ public class Dialogues {
 						player.getDialogue().sendStatement("the castle's countyard and the others you will find", "scattered around Lumbridge.");
 						return true;
 					case 11 :
-						player.getDialogue().sendNpcChat("If all else falls, visit the 2006Scape website for a whole", "board of information on quests, skills and minigames", "as well as a very good starter's guide", HAPPY);
+						player.getDialogue().sendNpcChat("If all else falls, visit the vscape website for a whole", "board of information on quests, skills and minigames", "as well as a very good starter's guide", HAPPY);
 						return true;
 					case 12 :
 						player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
@@ -5780,7 +5784,7 @@ public class Dialogues {
 						}
 						break;
 					case 4 :
-						player.getDialogue().sendNpcChat("First I must warn you to take every precaution to", "keep your 2006Scape password and PIN secure. The", "most important thing to remember is to never give your", "password to, or share your account with, anyone.", CONTENT);
+						player.getDialogue().sendNpcChat("First I must warn you to take every precaution to", "keep your vscape password and PIN secure. The", "most important thing to remember is to never give your", "password to, or share your account with, anyone.", CONTENT);
 						return true;
 					case 5 :
 						player.getDialogue().sendNpcChat("I have much more information to impart; what would", "you like to know about?", CONTENT);
