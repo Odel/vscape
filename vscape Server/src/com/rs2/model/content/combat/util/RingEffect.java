@@ -7,7 +7,12 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
+
+
 public class RingEffect {
+    
+    public static final int[] normalGems = {1623, 1621, 1621, 1619, 1619, 1617};
+    public static final int[] specialGems = {1625, 1625, 1627, 1629};
 
 	public static void ringOfRecoil(Entity attacker, Player player, int damage) {
         Item ring = player.getEquipment().getItemContainer().get(Constants.RING);

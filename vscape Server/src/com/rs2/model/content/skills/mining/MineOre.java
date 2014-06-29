@@ -5,6 +5,7 @@ import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
@@ -27,7 +28,7 @@ import com.rs2.util.Misc;
 // TODO: Add rune ess mining
 public class MineOre {
 
-	private Player player;
+	public static Player player;
 
 	public MineOre(Player player) {
 		this.player = player;
@@ -247,13 +248,28 @@ public class MineOre {
 	public static int getItemRecieved(int object, int itemReceived) {
 		switch (object) {
 			case 0 : // random gem event
+			    if(RingEffect.ringOfWealth(player)) {
+				return RingEffect.normalGems[Misc.randomMinusOne(RingEffect.normalGems.length)];
+			    }
+			    else {
 				return normalGems[Misc.randomMinusOne(normalGems.length)];
+			    }
 			case 2111 :
 				while (true) {
 					if (Misc.random(2) == 0) {
+					    if(RingEffect.ringOfWealth(player)) {
+						return RingEffect.normalGems[Misc.randomMinusOne(RingEffect.normalGems.length)];
+					    }
+					    else {
 						return normalGems[Misc.randomMinusOne(normalGems.length)];
+					    }
 					} else {
+					    if(RingEffect.ringOfWealth(player)) {
+						return RingEffect.specialGems[Misc.randomMinusOne(RingEffect.specialGems.length)];
+					    }
+					    else {
 						return specialGems[Misc.randomMinusOne(specialGems.length)];
+					    }
 					}
 				}
 			case 10947 :
