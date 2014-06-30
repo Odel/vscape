@@ -43,7 +43,6 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.LostCity;
-//import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
@@ -131,9 +130,6 @@ public class Dialogues {
 		if(DragonSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		/*if(RomeoAndJuliet.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}*/
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
