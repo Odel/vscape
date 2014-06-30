@@ -28,7 +28,7 @@ import com.rs2.util.Misc;
 // TODO: Add rune ess mining
 public class MineOre {
 
-	public static Player player;
+	private Player player;
 
 	public MineOre(Player player) {
 		this.player = player;
@@ -248,28 +248,13 @@ public class MineOre {
 	public static int getItemRecieved(int object, int itemReceived) {
 		switch (object) {
 			case 0 : // random gem event
-			    if(RingEffect.ringOfWealth(player)) {
 				return RingEffect.normalGems[Misc.randomMinusOne(RingEffect.normalGems.length)];
-			    }
-			    else {
-				return normalGems[Misc.randomMinusOne(normalGems.length)];
-			    }
 			case 2111 :
 				while (true) {
 					if (Misc.random(2) == 0) {
-					    if(RingEffect.ringOfWealth(player)) {
-						return RingEffect.normalGems[Misc.randomMinusOne(RingEffect.normalGems.length)];
-					    }
-					    else {
 						return normalGems[Misc.randomMinusOne(normalGems.length)];
-					    }
 					} else {
-					    if(RingEffect.ringOfWealth(player)) {
-						return RingEffect.specialGems[Misc.randomMinusOne(RingEffect.specialGems.length)];
-					    }
-					    else {
 						return specialGems[Misc.randomMinusOne(specialGems.length)];
-					    }
 					}
 				}
 			case 10947 :
