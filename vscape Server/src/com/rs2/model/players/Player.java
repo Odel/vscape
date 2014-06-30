@@ -1072,6 +1072,22 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestStage(quest, stage);
 		}
+		if(keyword.equals("subtractexp")) {
+		    final int skill = Integer.parseInt(args[0]);
+		    final int exp = Integer.parseInt(args[1]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    player.getSkill().subtractExp(skill, exp/2.25);
+		}
+		if(keyword.equals("addexp")) {
+		    final int skill = Integer.parseInt(args[0]);
+		    final int exp = Integer.parseInt(args[1]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    player.getSkill().addExp(skill, exp/2.25);
+		}
 		
 		if (keyword.equals("run")) {
 			final int id = Integer.parseInt(args[0]);

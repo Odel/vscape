@@ -180,7 +180,35 @@ public class Skill {
 		}
 		refresh(skill);
 	}
-
+	
+	public void subtractExp(int skill, double xp) {
+		if (getLevel()[skill] >= 3 && player.getNewComersSide().isInTutorialIslandStage())
+			return;
+		if(xp <= 0) {
+		    return;
+		}
+		int oldLevel = getLevelForXP(exp[skill]);
+		xp *= Constants.EXP_RATE;
+		if (player.getEnchantingChamber().isInEnchantingChamber() || player.getAlchemistPlayground().isInAlchemistPlayGround() || player.getCreatureGraveyard().isInCreatureGraveyard() || player.getTelekineticTheatre().isInTelekineticTheatre())
+			exp[skill] -= xp * 0.75;
+		else
+			exp[skill] -= xp;
+		if (exp[skill] > MAXIMUM_EXP) {
+			exp[skill] = MAXIMUM_EXP;
+		}
+		int newLevel = getLevelForXP(exp[skill]);
+		int levelDiff = newLevel - oldLevel;
+		if (levelDiff > 0) {
+		    level[skill] += levelDiff;
+		    if (skill > Skill.ATTACK && skill <= Skill.MAGIC) {
+			player.setCombatLevel(calculateCombatLevel());
+		    }
+		    player.getUpdateFlags().sendGraphic(199);
+		    sendLevelUpMessage(skill);
+		    player.setAppearanceUpdateRequired(true);
+		}
+		refresh(skill);
+	}
 	private void sendLevelUpMessage(int skill) {
 		int[][] data = {{0, 6248, 6249, 6247}, // ATTACK
 				{1, 6254, 6255, 6253}, // DEFENCE
