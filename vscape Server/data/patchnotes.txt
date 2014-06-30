@@ -5,6 +5,7 @@
 -Iron dragons drop noted bars.
 -More battlestaves in Zaff's store.
 -Ring of wealth gives better gems while mining.
+-Yell now tells you the time left until next yell.
 
 @dre@=June 27=
 -PC lobby fix.
