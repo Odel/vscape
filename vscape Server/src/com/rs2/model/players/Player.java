@@ -69,7 +69,6 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -154,7 +153,6 @@ import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
 
-import static com.rs2.model.content.quests.QuestHandler.resetInterface;
 
 import com.rs2.model.content.randomevents.TalkToEvent;
 
@@ -419,6 +417,7 @@ public class Player extends Entity {
 	private int mageArenaStage;
 	private boolean phoenixGang;
 	private boolean blackArmGang;
+	private boolean melzarsDoor;
 	
 	public CanoeStationData curCanoeStation;
 
@@ -1602,7 +1601,7 @@ public class Player extends Entity {
 			getActionSender().sendMessage("Your yelling is currently disabled ::hideyell");
 			return;
 		}
-		 if(getStaffRights() < 1){
+		if(getStaffRights() < 1){
 			 if(System.currentTimeMillis() - lastYell < 30000) {
 				 getActionSender().sendMessage("You can only yell once every 30 seconds!");
 				 //getActionSender().sendMessage("You can only yell once every 30 seconds!");
@@ -3115,6 +3114,14 @@ public class Player extends Entity {
 	public void joinBlackArmGang(boolean bool) {
 	    if(this.isPhoenixGang()) this.blackArmGang = false;
 	    else this.blackArmGang = bool;
+	}
+	
+	public boolean getMelzarsDoorUnlock() {
+	    return melzarsDoor;
+	}
+	
+	public void setMelzarsDoorUnlock(boolean bool) {
+	    this.melzarsDoor = bool;
 	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;

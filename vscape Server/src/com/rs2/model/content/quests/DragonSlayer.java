@@ -129,7 +129,7 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
 	    
 	    player.getActionSender().sendString("The guildmaster told me I need 3 core things:", 8155);
-	    if(player.getInventory().ownsItem(1540)) {
+	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540) {
 		player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
 	    }
 	    else {
@@ -175,7 +175,7 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
 	    
 	    player.getActionSender().sendString("The guildmaster told me I need 3 core things:", 8155);
-	    if(player.getInventory().ownsItem(1540)) {
+	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540) {
 		player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
 	    }
 	    else {
@@ -208,7 +208,7 @@ public class DragonSlayer implements Quest {
 		}
 	    }
 	    player.getActionSender().sendString("@dre@" + "-I found a boat, it just needs some repair.", 8157);
-	    if(player.getInventory().playerHasItem(1538) && player.getInventory().playerHasItem(1540)) {
+	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540)) {
 		player.getActionSender().sendString("I need to find a captain.", 8159);
 	    }
 	}
@@ -221,7 +221,7 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
 	    
 	    player.getActionSender().sendString("The guildmaster told me I need 3 core things:", 8155);
-	    if(player.getInventory().ownsItem(1540)) {
+	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540) {
 		player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
 	    }
 	    else {
@@ -254,7 +254,7 @@ public class DragonSlayer implements Quest {
 		    player.getActionSender().sendString("@dre@" + "-Wormbrain in Sarim's jail led the raid on Lozar's home.", 8168);
 		}
 	    }
-	    if(player.getInventory().playerHasItem(1538) && player.getInventory().playerHasItem(1540)) {
+	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540)) {
 		player.getActionSender().sendString("I need to find a captain.", 8159);
 	    }
 	}
@@ -549,7 +549,7 @@ public class DragonSlayer implements Quest {
 			return true;
 		    }
 		}
-		else if(player.getPosition().getX() > 9651) {
+		else if(player.getPosition().getY() > 9651) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    player.getActionSender().walkTo(0, player.getPosition().getY() < 9652 ? 1 : -1, true);
 		    return true;
@@ -558,7 +558,7 @@ public class DragonSlayer implements Quest {
 		if(player.getPosition().getX() > 2930) {
 		    if(player.getInventory().playerHasItem(BLUE_KEY)) {
 			player.getActionSender().walkThroughDoor(object, x, y, 0);
-			player.getActionSender().walkTo(player.getPosition().getX() > 2930 ? -1 : 1, 0, true);
+			player.getActionSender().walkTo(player.getPosition().getX() > 2930 ? -1 : 1, player.getPosition().getY() < 9643 ? 1 : 0, true);
 			player.getActionSender().sendMessage("The key disintegrates as it unlocks the door.");
 			player.getInventory().removeItem(new Item(BLUE_KEY));
 			return true;
@@ -570,7 +570,7 @@ public class DragonSlayer implements Quest {
 		}
 		else if(player.getPosition().getX() < 2931) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(player.getPosition().getX() > 2930 ? -1 : 1, 0, true);
+		    player.getActionSender().walkTo(player.getPosition().getX() > 2930 ? -1 : 1, player.getPosition().getY() < 9643 ? 1 : 0, true);
 		    return true;
 		}
 	    case 2597: //melzar's orange door
@@ -588,7 +588,7 @@ public class DragonSlayer implements Quest {
 		    }
 		}
 		else if(player.getPosition().getX() > 2929) {
-		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    player.getActionSender().walkThroughDoor(object, x, y, 1);
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2931 ? 1 : -1, 0, true);
 		    return true;
 		}
@@ -623,9 +623,10 @@ public class DragonSlayer implements Quest {
 		    return true;
 		}
 	    case 2595: //melzar's front door
-		if(player.getInventory().playerHasItem(MAZE_KEY)) {
+		if(player.getInventory().playerHasItem(MAZE_KEY) || player.getMelzarsDoorUnlock()) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    player.getActionSender().walkTo(player.getPosition().getX() > 2940 ? -1 : 1, 0, true);
+		    player.setMelzarsDoorUnlock(true);
 		    player.getActionSender().sendMessage("The door slams shut behind you.");
 		    return true;
 		}
@@ -1076,7 +1077,7 @@ public class DragonSlayer implements Quest {
 			}
 			else {
 			    player.getDialogue().sendNpcChat("Ship's ready to sail mister.", CONTENT);
-			    player.getDialogue().endDialogue();
+			    player.getDialogue().setNextChatId(15);
 			    return true;
 			}
 		    case 2:
@@ -1184,6 +1185,16 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 14:
 			player.getDialogue().sendPlayerChat("Thank you very much Jenkins.", HAPPY);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 15:
+			player.getDialogue().sendPlayerChat("You wouldn't happen to know a captain,", "would you?", CONTENT);
+			return true;
+		    case 16:
+			player.getDialogue().sendNpcChat("No mister, but I reckon someone who works", "with rope all day has seen many days at sea.", CONTENT);
+			return true;
+		    case 17:
+			player.getDialogue().sendPlayerChat("Hmm...", CONTENT);
 			player.getDialogue().endDialogue();
 			return true;
 		}
