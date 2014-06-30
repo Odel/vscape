@@ -106,14 +106,14 @@ public class DragonSlayer implements Quest {
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             
             player.getActionSender().sendString("The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("His house is near Edgeville.", 8150);
         }
 	else if (questStage == BACK_TO_GUILDMASTER) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    
@@ -122,7 +122,7 @@ public class DragonSlayer implements Quest {
         }
 	else if (questStage == CRANDOR_PREP) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -168,7 +168,7 @@ public class DragonSlayer implements Quest {
         }
 	else if (questStage == BOAT_BOUGHT) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -214,7 +214,7 @@ public class DragonSlayer implements Quest {
 	}
 	else if (questStage == BOAT_READY) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -260,7 +260,7 @@ public class DragonSlayer implements Quest {
 	}
 	else if (questStage == TO_CRANDOR) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -274,7 +274,7 @@ public class DragonSlayer implements Quest {
         }
 	else if (questStage == ON_CRANDOR) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -290,7 +290,7 @@ public class DragonSlayer implements Quest {
         }
 	else if (questStage == BACK_TO_OZIACH) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+            player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
@@ -308,7 +308,7 @@ public class DragonSlayer implements Quest {
         }
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
-	    player.getActionSender().sendString("@str@" + "To start this quest, find the camp in Lumbridge Swamp.", 8147);
+	    player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
 
