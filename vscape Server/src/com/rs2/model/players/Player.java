@@ -1602,11 +1602,14 @@ public class Player extends Entity {
 			getActionSender().sendMessage("Your yelling is currently disabled ::hideyell");
 			return;
 		}
-		if(getStaffRights() < 1){
-			if(System.currentTimeMillis() - lastYell < 30000) {
-				getActionSender().sendMessage("You can only yell once every 30 seconds!");
-				return;
-			}
+		 if(getStaffRights() < 1){
+			 if(System.currentTimeMillis() - lastYell < 30000) {
+				 getActionSender().sendMessage("You can only yell once every 30 seconds!");
+				 //getActionSender().sendMessage("You can only yell once every 30 seconds!");
+				 long secBeforeNextYell = ((((System.currentTimeMillis() - lastYell)  / 1000 ) - 30) * -1);
+				 getActionSender().sendMessage("You can yell again in " + secBeforeNextYell + " seconds!");
+				 return;
+			 }
 		}
 		String YellMsg = Msg;
 		
