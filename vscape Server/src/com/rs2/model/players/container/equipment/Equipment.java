@@ -1379,7 +1379,7 @@ public class Equipment {
 			return;
 		}
 		if (itemName.contains("snakeskin")) {
-			rangeLevelReq = 40;
+			rangeLevelReq = 30;
 			defenceLevelReq = 30;
 			return;
 		}
