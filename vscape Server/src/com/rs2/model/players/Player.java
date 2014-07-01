@@ -1132,7 +1132,7 @@ public class Player extends Entity {
 		else if (keyword.equals("forcespace")) { 
 	   	 String name = fullString;
 		 getActionSender().sendMessage("You have sent " +
-		 args[0].toLowerCase() + "to space."); 
+		 args[0].toLowerCase() + " to space."); 
 		 for (Player player : World.getPlayers()) { 
 		 if (player == null) continue; 
 		 if(player.getUsername().equalsIgnoreCase(name)) {
