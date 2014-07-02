@@ -702,12 +702,12 @@ public class DragonSlayer implements Quest {
 		player.fadeTeleport(new Position(2834, 9657, 0));
 		return true;
 	    case 1805 : // champions guild
-		if (player.getQuestPoints() >= 25) {
+		if (player.getQuestPoints() >= 32) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() > 3362 ? -1 : 1, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		} else {
-		    player.getDialogue().sendStatement("You need 25 quest points to access the Champion's Guild.");
+		    player.getDialogue().sendStatement("You need 32 a qp to access the Champion's Guild.");
 		    return true;
 		}
 	    case 2593:

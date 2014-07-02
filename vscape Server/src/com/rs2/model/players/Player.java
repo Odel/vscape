@@ -155,6 +155,8 @@ import com.rs2.model.content.quests.QuestHandler;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.treasuretrails.SearchScrolls;
+import com.rs2.model.content.treasuretrails.SearchScrolls.SearchData;
 
 /**
  * Represents a logged-in player.
@@ -1041,7 +1043,13 @@ public class Player extends Entity {
 				teleport(new Position(x, y, getPosition().getZ()));
 				getActionSender().sendMessage("You teleported to clue:"+id+" at " + x + ", " + y + ", " + getPosition().getZ());
 			} catch (Exception e1) {
-				getActionSender().sendMessage("Please use the syntax ::teletoclue clueid");
+				final int id = Integer.parseInt(args[0]);
+				if(SearchScrolls.SearchData.forIdClue(id).getClueId() == id) {
+				    teleport(SearchScrolls.SearchData.forIdClue(id).getObjectPosition().clone());
+				}
+				else {
+				    getActionSender().sendMessage("Yeah something something can't tele to that clue, fak u code");
+				}
 			}
 		}
 	
