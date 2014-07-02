@@ -6,6 +6,7 @@
 -Wormbrain's map piece not dropping fixed.
 -Buffed Silverlight in general and against demons.
 -You can now burn meat by cooking it twice.
+-Added bartenders to all the bars around the world.
 
 @dre@=June 30=
 @blu@Dragon Slayer
