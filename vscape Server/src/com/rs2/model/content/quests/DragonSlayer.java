@@ -792,7 +792,7 @@ public class DragonSlayer implements Quest {
 	    }
 	}
 	if(npc.getNpcId() == 745) { //wormbrain
-	    if(player.getQuestStage(15) == 3 && !player.getInventory().ownsItem(1537)) {
+	    if((player.getQuestStage(15) >= 3 && player.getQuestStage(15) < 6) && !player.getInventory().ownsItem(1537)) {
 		GroundItem drop = new GroundItem(new Item(1537), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
 		GroundItemManager.getManager().dropItem(drop);
 	    }
