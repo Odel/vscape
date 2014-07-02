@@ -1048,7 +1048,7 @@ public class Player extends Entity {
 				    teleport(SearchScrolls.SearchData.forIdClue(id).getObjectPosition().clone());
 				}
 				else {
-				    getActionSender().sendMessage("Yeah something something can't tele to that clue, fak u code");
+				    getActionSender().sendMessage("Please use ::teletoclue clueid. If you did, an error occured, sorry.");
 				}
 			}
 		}
