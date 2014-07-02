@@ -813,6 +813,14 @@ public class DragonSlayer implements Quest {
 	switch(id) {
 	    case 1135: //green dhide body
 	    case 1127: //rune plate
+	    case 2661: //saradomin plate
+	    case 2653: //zamorak plate
+	    case 2669: //guthix plate
+	    case 2615: //rune plate (g)
+	    case 2623: //rune plate(t)
+	    case 3481: //gilded plate
+	    case 7372: //green dhide body (t)
+	    case 7370: //green dhide body (g)
 		return true;
 	}
 	return false;

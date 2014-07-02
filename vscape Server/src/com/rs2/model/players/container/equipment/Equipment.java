@@ -914,19 +914,33 @@ public class Equipment {
 			case 6914 :
 				magicLevelReq = 60;
 				return;
-			case 2503 :
+			case 2503 : //black dhide body
 				rangeLevelReq = 70;
 				defenceLevelReq = 40;
 				return;
-			case 2501 :
+			case 2501 : //red dhide body
 				rangeLevelReq = 60;
 				defenceLevelReq = 40;
 				return;
-			case 2499 :
+			case 2499 : //blue dhide body
 				rangeLevelReq = 50;
 				defenceLevelReq = 40;
 				return;
-			case 1135 :
+			case 7372:
+			case 7370: //green (t) and (g) body
+			    rangeLevelReq = 40;
+			    defenceLevelReq = 40;
+			case 7380:
+			case 7378: //green (t) and (g) chap
+			    rangeLevelReq = 40;  
+			case 7376:
+			case 7374: //blue (t) and (g) body
+			    rangeLevelReq = 50;
+			    defenceLevelReq = 40;
+			case 7384:
+			case 7382: //blue (t) and (g) chap
+			    rangeLevelReq = 50;
+			case 1135: //green dhide body
 				rangeLevelReq = 40;
 				defenceLevelReq = 40;
 				return;
