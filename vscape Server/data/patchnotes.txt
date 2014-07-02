@@ -1,3 +1,12 @@
+@dre@=July 3rd=
+@blu@Demon Slayer
+@blu@Romeo and Juliet
+-All (t) and (g) dragonhide fixed.
+-Snakeskin level req fixed.
+-Wormbrain's map piece not dropping fixed.
+-Buffed Silverlight in general and against demons.
+-You can now burn meat by cooking it twice.
+
 @dre@=June 30=
 @blu@Dragon Slayer
 -Soft clay mixing fixed.
