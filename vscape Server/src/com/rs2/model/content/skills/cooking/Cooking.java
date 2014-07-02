@@ -91,7 +91,8 @@ public class Cooking {
 		MONKFISH(7944, 7946, 7948, 62, 150, 90, 90, true),
 		SHARK(383, 385, 387, 80, 210, 104, 94, true), 
 		SEA_TURTLE(395, 397, 399, 82, 212, 110, 110, true), 
-		MANTA_RAY(389, 391, 393, 91, 216, 112, 112, true);
+		MANTA_RAY(389, 391, 393, 91, 216, 112, 112, true),
+		COOKED_MEAT(2142, 2146, 2146, 1, 0, 99, 99, true);
 
 		private int rawId;
 		private int cookedId;

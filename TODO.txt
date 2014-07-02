@@ -6,7 +6,6 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -(Will do when I do goblin diplomacy -Pickles)Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
 -Clue 2837 is defective in that the NPC only gives broken puzzle boxes
 -Brews don't work.
--Cooked meat needs to burn when used with a range.
 -Thieving chests (ask pickles)
 -Slayer tower stairs (puts you in the wrong place)
 -"Empty" option on all pies / pie dishes.
