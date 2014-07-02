@@ -707,7 +707,7 @@ public class DragonSlayer implements Quest {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		} else {
-		    player.getDialogue().sendStatement("You need 32 a qp to access the Champion's Guild.");
+		    player.getDialogue().sendStatement("You need a qp total of 32 to access the Champion's Guild.");
 		    return true;
 		}
 	    case 2593:

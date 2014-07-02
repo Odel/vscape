@@ -22,9 +22,10 @@ public class RomeoAndJuliet implements Quest {
                 LAWRENCE = 4,
                 POTION = 5,
                 PLAN =  6,
-                COMPLETE = 7;
+		TELL_ROMEO = 7,
+                COMPLETE = 8;
                
-        public static int dialogueStage = 0, questStage = 0;
+    public static int dialogueStage = 0, questStage = 0;
     private int reward[][] = {
     };
     private int expReward[][] = {
@@ -107,7 +108,7 @@ public class RomeoAndJuliet implements Quest {
                     player.getActionSender().sendString("The apothecary needs cadava berries.", 8152);
                     player.getActionSender().sendString("Return to him when you have them.", 8153);
             }
-            else if (questStage == PLAN) {
+            else if (questStage == PLAN || questStage == TELL_ROMEO) {
                     player.getActionSender().sendString(getQuestName(), 8144);
                     player.getActionSender().sendString("@str@" + "To start this quest, speak to Romeo in Varrock Square.", 8147);
                     player.getActionSender().sendString("@str@" + "Romeo has asked you to speak to Juliet", 8148);
@@ -398,9 +399,16 @@ public class RomeoAndJuliet implements Quest {
 				player.getDialogue().sendNpcChat("Alright, thank you so much for all of your help.", CONTENT);
 				return true;
 			    case 8:
-				player.setQuestStage(16, 7);
+				player.setQuestStage(16, 8);
 				QuestHandler.completeQuest(player, 16);
 				player.getDialogue().dontCloseInterface();
+				return true;
+			}
+		    case 8:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("I can't thank you enough, oh the love!", HAPPY);
+				player.getDialogue().endDialogue();
 				return true;
 			}
 		}

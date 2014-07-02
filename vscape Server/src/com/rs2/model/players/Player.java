@@ -806,6 +806,24 @@ public class Player extends Entity {
 					line++;
 				}
 			}
+		} else if (keyword.equals("playersquestpoints")) {
+			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
+			getActionSender().sendInterface(8134);
+			ClearNotes();
+			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
+			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
+			int line = 8147;
+			for (Player player : World.getPlayers()) {
+				if(player != null)
+				{	
+					if(line > 8195 && line < 12174)
+					{
+						line = 12174;
+					}
+					getActionSender().sendString("@dre@"+player.getUsername()+ " - QP: " + player.getQuestPoints(), line);
+					line++;
+				}
+			}
 		} else if (keyword.equals("changepass")) {
 			String pass = fullString;
 			setPassword(pass);// setPassword
@@ -1079,6 +1097,20 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestStage(quest, stage);
+		}
+		if(keyword.equals("getplayerquestpoints")) {
+		    String name = fullString;
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    this.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.");
+		}
+		if(keyword.equals("setplayerquestpoints")) {
+		    final int qp = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    player.setQuestPoints(qp);
+		    this.getActionSender().sendMessage("That player now has " +qp+ " quest points.");
 		}
 		if(keyword.equals("getexp")) {
 		    final int skill = Integer.parseInt(args[0]);
