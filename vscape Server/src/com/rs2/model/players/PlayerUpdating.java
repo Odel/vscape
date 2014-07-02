@@ -3,7 +3,9 @@ package com.rs2.model.players;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
@@ -65,7 +67,16 @@ public final class PlayerUpdating {
 		if (player.getUpdateFlags().isUpdateRequired()) {
 			PlayerUpdating.updateState(player, block, false, true);
 		}
-
+		if (player.inDarkWizardCircle() && player.getQuestStage(17) == 5 && !DemonSlayer.delrithSpawned()) {
+		    DemonSlayer.spawnDelrith(player);
+		    for(Npc npc : World.getNpcs()) {
+			if(npc == null) continue;
+			if(npc.inDarkWizardCircle() && npc.getDefinition().getName().contains("wizard")) {
+			    npc.getUpdateFlags().sendForceMessage("Arise Delrith! Arise Delrith!");
+			    npc.getUpdateFlags().sendFaceToDirection(new Position(3228, 3369, 0));
+			}
+		    }
+		}
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());
 		for (Iterator<Player> i = player.getPlayers().iterator(); i.hasNext();) {

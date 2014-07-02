@@ -328,6 +328,10 @@ public abstract class Entity {
 	public boolean inWarriorGuildCagesWest() {
 		return Area(2586, 2601, 3142, 3144);
 	}
+	
+	public boolean inDarkWizardCircle() {
+		return Area(3224, 3231, 3367, 3372);
+	}
 
 	public void setIndex(int index) {
 		this.index = index;

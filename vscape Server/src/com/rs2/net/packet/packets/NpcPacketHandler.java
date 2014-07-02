@@ -3,6 +3,7 @@ package com.rs2.net.packet.packets;
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
@@ -74,6 +75,9 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("First click npc: "+player.getClickId());
+		}
+		if (DemonSlayer.handleNpcClick(player, npc.getNpcId())) {
+		    return;
 		}
 		WalkToActionHandler.setActions(Actions.NPC_FIRST_CLICK);
 		WalkToActionHandler.doActions(player);

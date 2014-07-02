@@ -14,11 +14,9 @@ import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
-import com.rs2.model.content.combat.weapon.RangedAmmoType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
@@ -133,6 +131,11 @@ public class WeaponAttack extends BasicAttack {
 			    failedInitialize = true;
 			    player.getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
 			    return;
+		    }
+		    if(getVictim().isNpc() && ((Npc)getVictim()).getNpcId() == 879) {
+			failedInitialize = true;
+			player.getActionSender().sendMessage("You must use Silverlight to fight Delrith!");
+			return;
 		    }
 		    if(weapon == Weapon.DARK_BOW) {
 			rangedAmmo = RangedAmmo.getRangedAmmo(player, weapon, true);

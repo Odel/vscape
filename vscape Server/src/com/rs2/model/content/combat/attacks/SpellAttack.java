@@ -3,10 +3,12 @@ package com.rs2.model.content.combat.attacks;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.AttackUsableResponse;
+import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
+import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
@@ -21,10 +23,13 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.Tick;
+import com.rs2.util.Misc;
 import com.rs2.util.requirement.EquipmentRequirement;
 import com.rs2.util.requirement.Requirement;
 import com.rs2.util.requirement.RuneRequirement;
 import com.rs2.util.requirement.SkillLevelRequirement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -51,6 +56,10 @@ public class SpellAttack extends BasicAttack {
 			}
 			if(getAttacker().isPlayer() && (getAttacker().inWarriorGuildArena() || getAttacker().inWarriorGuild()) ) {
 			    ((Player) getAttacker()).getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
+			    return AttackUsableResponse.Type.FAIL;
+			}
+			if(getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)getVictim()).getNpcId() == 879 ) {
+			    ((Player) getAttacker()).getActionSender().sendMessage("You need to use Silverlight to fight Delrith!");
 			    return AttackUsableResponse.Type.FAIL;
 			}
 			if (RulesData.NO_MAGIC.activated((Player) getAttacker())) {
@@ -121,14 +130,43 @@ public class SpellAttack extends BasicAttack {
 	    Player player = (Player) getAttacker();
 	    if(player.hasFullVoidMage())
 		 setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy(1.3).addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
-	}
-	    
-        setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
-		setGraphic(spell.getGraphic());
-		setAttackDelay(5);
-		Item[] runesRequired = spell.getRunesRequired();
-		int staffRequired = -1;
-		
+	} 
+	
+	setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
+	setGraphic(spell.getGraphic());
+	setAttackDelay(5);
+	Item[] runesRequired = spell.getRunesRequired();
+	int staffRequired = -1;
+	/* multi target ancients needs more time
+	if(getAttacker().isPlayer() && getMultiAncients(spell) && ((Player)getAttacker()).inMulti()) {
+	    for (Npc npcs : World.getNpcs()) {
+		if(npcs == null || npcs.getNpcId() == 3782) continue;
+		if(npcs != getVictim() ) {
+		    CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), npcs);
+		    HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
+		    if (getVictim().goodDistanceEntity(npcs, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
+			Hit hit = new Hit(getAttacker(), npcs, hitDefMulti);
+			List<Hit> hitList = new LinkedList<Hit>();
+			hitList.add(hit);
+			hit.setDamage(Misc.random(spell.getHitDef().getDamage()));
+			hit.execute(hitList);
+			hitList.clear();
+		    }
+		}
+	    }
+	    if( ((Player)getAttacker()).inWild() && CombatCycleEvent.canAttack(getAttacker(), getVictim()) != CanAttackResponse.WILD_LEVEL) {
+		for (Player players : World.getPlayers()) {
+		    if (players == null) continue;
+		    if (players != getVictim() && players != getAttacker().getCombatingEntity()) {
+    			CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), players);
+			HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
+			if (getVictim().goodDistanceEntity(players, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
+			    new Hit(getAttacker(), players, hitDefMulti).initialize();
+    			}
+		    }
+		}
+	    }	
+	} */
 		if(getAttacker().isPlayer()) {
 		    Player player = (Player) getAttacker();
 		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
@@ -204,6 +242,7 @@ public class SpellAttack extends BasicAttack {
                 World.getTickManager().submit(t);
             }
         }
+
 	if (spell == Spell.FLAMES_OF_ZAMORAK) {
 	    for(Player player : World.getPlayers()) {
 		if(player == null)
@@ -257,5 +296,17 @@ public class SpellAttack extends BasicAttack {
 
 	public Spell getSpell() {
 		return spell;
+	}
+	
+	public static boolean getMultiAncients(Spell spell) {
+	    if(spell == Spell.ICE_BARRAGE || spell == Spell.ICE_BURST)
+		return true;
+	    else if(spell == Spell.BLOOD_BARRAGE || spell == Spell.BLOOD_BURST)
+		return true;
+	    else if(spell == Spell.SHADOW_BARRAGE || spell == Spell.SHADOW_BURST)
+		return true;
+	    else if(spell == Spell.SMOKE_BARRAGE || spell == Spell.SMOKE_BURST)
+		return true;
+	    else return false;
 	}
 }

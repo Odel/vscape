@@ -7,6 +7,7 @@ import com.rs2.model.content.Pets;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -423,6 +424,9 @@ public class ItemPacketHandler implements PacketHandler {
 		if (ClueScroll.hasClue(player) && new Item(player.getClickId()).getDefinition().getName().toLowerCase().contains("clue scroll")) {
 			player.getActionSender().sendMessage("You can only pick up one scroll at a time.");
 			return;
+		}
+		if (DemonSlayer.itemPickupHandling(player, player.getClickId())) {
+		    return;
 		}
 		if ((Boolean) player.getAttributes().get("canPickup")) {
 			ItemManager.getInstance().pickupItem(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()));

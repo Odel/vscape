@@ -1072,6 +1072,13 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestStage(quest, stage);
 		}
+		if(keyword.equals("getexp")) {
+		    final int skill = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    this.getActionSender().sendMessage("That player has " + player.getSkill().getExp()[skill] + " experience in " + Skill.SKILL_NAME[skill]);
+		}
 		if(keyword.equals("subtractexp")) {
 		    final int skill = Integer.parseInt(args[0]);
 		    final int exp = Integer.parseInt(args[1]);
@@ -5046,7 +5053,7 @@ public class Player extends Entity {
 		getActionSender().sendString("Player Quests", 663);
 		getActionSender().sendString("", 7332); // black knight's fortress
 		getActionSender().sendString("@red@Cook's Assistant", 7333);
-		getActionSender().sendString("", 7334); //demon slayer
+		getActionSender().sendString("@red@Demon Slayer", 7334); //demon slayer
 		getActionSender().sendString("@red@Doric's Quest", 7336);
 		getActionSender().sendString("", 7339); // ernest the chicken
 		getActionSender().sendString("", 7338); //goblin diplomacy
@@ -5055,7 +5062,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
 		getActionSender().sendString("", 7341); //pirate's treasure
 		getActionSender().sendString("@red@Prince Ali Rescue", 7342); //ali rescue
-		getActionSender().sendString("", 7343); //romeo & juliet
+		getActionSender().sendString("@red@Romeo and Juliet", 7343); //romeo & juliet
 		getActionSender().sendString("@red@Rune Mysteries", 7335);
 		getActionSender().sendString("@red@Sheep Shearer", 7344);
 		getActionSender().sendString("@red@Shield of Arrav", 7345); //shield of arrav

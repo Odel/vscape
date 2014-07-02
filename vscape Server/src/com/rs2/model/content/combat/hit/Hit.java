@@ -15,6 +15,7 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.ground.GroundItem;
@@ -60,6 +61,9 @@ public class Hit {
 		}
 		if (attacker != null && !hitDef.isUnblockable() && hitDef.shouldCheckAccuracy()) {
 			executeAccuracy();
+		}
+		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
+		    DemonSlayer.sendDelrithMessages();
 		}
 		if (hitDef.getProjectileDef() != null)
 			new Projectile(attacker, victim, hitDef.getProjectileDef()).show();

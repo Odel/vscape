@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.LostCity;
@@ -191,6 +192,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(DragonSlayer.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(DemonSlayer.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}
@@ -1105,7 +1110,7 @@ public class WalkToActionHandler {
 				case 6552:
 					player.getUpdateFlags().sendAnimation(645);
 					if (player.getMagicBookType() == SpellBook.MODERN) {
-						player.getActionSender().sendMessage(" You feel a strange wisdom fill your mid...");
+						player.getActionSender().sendMessage("You feel a strange wisdom fill your mind...");
 						player.getActionSender().sendSidebarInterface(6, 12855);
 						player.setMagicBookType(SpellBook.ANCIENT);
 					} else {
@@ -2338,6 +2343,10 @@ public class WalkToActionHandler {
 				}
 				// smithing
 				if(ElementalWorkshop.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(DemonSlayer.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

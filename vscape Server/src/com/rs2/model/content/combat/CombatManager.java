@@ -15,6 +15,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -39,7 +40,7 @@ import java.util.Random;
 /**
  *  TODO: on death remove all victims hits from hitsStory
  *         log out during death Spell delays for ancients
- *         http://www.2006scape.com/services
+ *         http://www.vscape.com/services
  *         /forums/thread.ws?3,4,13136,38613,goto,3
  * 
  * 
@@ -79,6 +80,12 @@ public class CombatManager extends Tick {
         }
 	if(attacker.isPlayer() && ((Player) attacker).getPets().getPet() == victim) {
             ((Player) attacker).getActionSender().sendMessage("You cannot attack your own pet!");
+            CombatManager.resetCombat(attacker);
+            return;
+	}
+	if(attacker.isPlayer() && ( ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON) == null || ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON).getId() != 2402)
+	   && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
+            ((Player) attacker).getActionSender().sendMessage("You need to equip Silverlight to fight Delrith!");
             CombatManager.resetCombat(attacker);
             return;
 	}
@@ -365,6 +372,15 @@ public class CombatManager extends Tick {
 			}
 		    }
 		}
+		else if ( npc.getNpcId() == 879 && firstTime ) { // delrith
+		    Npc delrith = new Npc(880);
+		    delrith.setSpawnPosition(died.getPosition().clone());
+		    delrith.setPosition(died.getPosition().clone());
+		    delrith.setCombatDelay(10);
+		    delrith.getMovementPaused().setWaitDuration(10);
+		    World.register(delrith);
+		    Dialogues.startDialogue((Player)killer, 10666);
+		}
 		else if(npc.getDefinition().getName().equalsIgnoreCase("kolodion")) {
 		    if(npc.getNpcId() == 911 && killer.isPlayer()) {
 			Player player = (Player) killer;
@@ -587,6 +603,9 @@ public class CombatManager extends Tick {
 		else if(player.hasFullDharok()) {
 		    double hpLost = player.getMaxHp() - player.getCurrentHp();
 		    baseDamage += baseDamage * hpLost * 0.01;
+		}
+		else if(DemonSlayer.fightingDemon(player)) {
+		    baseDamage = baseDamage * 1.75;
 		}
 		int maxHit = (int) Math.floor(baseDamage);
 		return (int) Math.floor(maxHit / 10);

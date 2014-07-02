@@ -41,7 +41,9 @@ public class QuestHandler {
 	new ElementalWorkshop(),
 	new ShieldOfArrav(),
 	new LostCity(),
-	new DragonSlayer()
+	new DragonSlayer(),
+	new RomeoAndJuliet(),
+	new DemonSlayer()
     };
     
     public static void init() {
@@ -157,6 +159,13 @@ public class QuestHandler {
 		case 28215: //Dragon Slayer
 			showInterface(player,quests[15]);
         		return true;
+		case 28175: //Romeo and Juliet
+			showInterface(player,quests[16]);
+        		return true;
+		case 28166: //Demon Slayer
+			showInterface(player,quests[17]);
+        		return true;
+
         }
         return false;
     }
