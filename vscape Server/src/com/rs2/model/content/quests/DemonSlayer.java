@@ -342,7 +342,7 @@ public class DemonSlayer implements Quest {
 	    if (player.getQuestStage(17) < 2) {
 		player.getDialogue().sendPlayerChat("I'd better not touch this.", "I don't know who it belongs to!", CONTENT);
 		return true;
-	    } else if (player.getQuestStage(17) > 2) {
+	    } else if (player.getQuestStage(17) > 3) {
 		player.getDialogue().sendStatement("You have no need for this key.");
 		return true;
 	    }

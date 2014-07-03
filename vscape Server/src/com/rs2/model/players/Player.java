@@ -2109,6 +2109,9 @@ public class Player extends Entity {
 		reloadRegion();
 		skill.refresh();
 		System.out.println(this + " has logged in. Players online: " + World.playerAmount());
+		if(this.getStaffRights() >= 1) {
+		   World.messageToStaff(this.getUsername() + " has logged in.");
+		}
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
 		setAppearanceUpdateRequired(true);
