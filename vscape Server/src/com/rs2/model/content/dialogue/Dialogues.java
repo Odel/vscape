@@ -287,6 +287,105 @@ public class Dialogues {
 						return true;
 				}
 				break;
+			//fourth of july
+			case 2790: //sergeant damien
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("HELLO SOLDIER!", "ARE YOU READY TO FIGHT BACK THE TERROR?", ANGRY_1);
+						return true;
+					case 2 :
+					    player.getDialogue().sendOption("YES", "NO", "I HAVE SCARABS FOR YOU, SIR!");
+					    return true;
+					case 3:
+					    switch(optionId) {
+						case 1:
+						    player.getDialogue().sendPlayerChat("SIR, YES SIR!", CONTENT);
+						    return true;
+						case 2:
+						    player.getDialogue().sendPlayerChat("SIR, NO SIR!", CONTENT);
+						    player.getDialogue().endDialogue();
+						    return true;
+						case 3:
+						    player.getDialogue().sendPlayerChat("I HAVE SCARABS FOR YOU, SIR!", CONTENT);
+						    player.getDialogue().setNextChatId(6);
+						    return true;
+					    }
+					case 4:
+					    player.getDialogue().sendNpcChat("GOOD LUCK OUT THERE SOLDIER!", ANGRY_1);
+					    return true;
+					case 5:
+					    player.fadeTeleport(new Position(3170, 2992, 0));
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 6:
+					    player.getDialogue().sendNpcChat("EXCELLENT SOLDIER! WHAT WOULD YOU LIKE?", ANGRY_1);
+					    return true;
+					case 7:
+					    player.getDialogue().sendOption("Camo Helmet (100 scarabs)", "Camo Top (250 scarabs)", "Camo Legs (200 scarabs)");
+					    return true;
+					case 8:
+					    switch(optionId) {
+						case 1:
+						    if(player.getInventory().playerHasItem(9028, 100)) {
+							player.getInventory().replaceItemWithItem(new Item(9028, 100), new Item(6656));
+							player.getDialogue().sendNpcChat("THERE YOU ARE SOLDIER!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						    else {
+							player.getDialogue().sendNpcChat("YOU DON'T HAVE ENOUGH SCARABS!", "GET BACK OUT TO THE BATTLEFRONT!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						case 2:
+						    if(player.getInventory().playerHasItem(9028, 250)) {
+							player.getInventory().replaceItemWithItem(new Item(9028, 250), new Item(6654));
+							player.getDialogue().sendNpcChat("THERE YOU ARE SOLDIER!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						    else {
+							player.getDialogue().sendNpcChat("YOU DON'T HAVE ENOUGH SCARABS!", "GET BACK OUT TO THE BATTLEFRONT!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						case 3:
+						    if(player.getInventory().playerHasItem(9028, 200)) {
+							player.getInventory().replaceItemWithItem(new Item(9028, 200), new Item(6655));
+							player.getDialogue().sendNpcChat("THERE YOU ARE SOLDIER!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						    else {
+							player.getDialogue().sendNpcChat("YOU DON'T HAVE ENOUGH SCARABS!", "GET BACK OUT TO THE BATTLEFRONT!", ANGRY_1);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+					    }
+			    }
+			break;
+			case 886: //claus the 4th of july chef
+			    switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Care for a burger?", CONTENT);
+						return true;
+					case 2:
+					    player.getDialogue().sendOption("YES!", "No.");
+					    return true;
+					case 3:
+					    switch(optionId) {
+						case 1:
+						    player.getDialogue().sendNpcChat("Here you go!", CONTENT);
+						    player.getInventory().addItem(new Item(10962));
+						    player.getDialogue().endDialogue();
+						    return true;
+						case 2:
+						    player.getDialogue().sendPlayerChat("No.", CONTENT);
+						    player.getDialogue().endDialogue();
+						    return true;
+					    }
+			    }
+			break;
 			case 539 : //Silk trader
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
