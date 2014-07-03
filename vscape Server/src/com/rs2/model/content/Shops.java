@@ -475,6 +475,7 @@ public class Shops {
 			case 1921:
 			case 849:
 			case 736:
+			case 733: //bartenders
 				return 194;
 			case 4295:  // Warrior's Guild Equipment shop
 				return 196;
