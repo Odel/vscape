@@ -872,8 +872,10 @@ public class Player extends Entity {
 		    else {
 			getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }
-		}
-	
+		} else if(keyword.equals("sortbank")) {
+            sortItems(getBank());
+        }
+		
 	}
 
 	public void modCommands(String keyword, String[] args, String fullString) {
@@ -5236,4 +5238,47 @@ public class Player extends Entity {
 			}
 		}
 	}
+	
+	private void sortItems(Container container) {
+        int value;
+
+        if(container.getItems().length == 0)
+            return;
+        
+        QuickSort(container.getItems(), 0, container.size() - 1);
+    }
+
+    private void QuickSort(Item[] items, int low, int high) {
+        int i = low, j = high;
+        //Item[] items = container.getItems();
+        ItemManager im = ItemManager.getInstance();
+        Item pivot = items[low + (high-low)/2];
+        
+        while( i<=j ) {
+            while (im.getItemValue(items[i].getId(), "buyfromshop") < im.getItemValue(pivot.getId(), "buyfromshop")) {
+                i++;
+            }
+            
+            while (im.getItemValue(items[j].getId(), "buyfromshop") > im.getItemValue(pivot.getId(), "buyfromshop")) {
+                j--;
+            }
+            
+            if(i <= j) {
+                exchange(items, i, j);
+                i++;
+                j--;
+            }
+            
+            if(low < j)
+                QuickSort(items, low, j);
+            if(i < high)
+                QuickSort(items, i, high);
+        }
+    }
+    
+    private void exchange(Item[] items, int i, int j) {
+        Item temp = items[i];
+        items[i] = items[j];
+        items[j] = temp;
+    }
 }
