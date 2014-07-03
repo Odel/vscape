@@ -725,7 +725,7 @@ public class Player extends Entity {
 		if (keyword.equals("outfit")) {
 			getActionSender().sendInterface(3559);
 		}
-		else if (keyword.equals("highscores"))
+		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") )
 		{
 	        if(Constants.SQL_ENABLED)
 	        {
@@ -748,7 +748,7 @@ public class Player extends Entity {
 			}
 	        }
 		}
-		else if (keyword.equals("panic")) {
+		else if (keyword.equals("panic") || keyword.equals("helpme")) {
 			if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
@@ -781,6 +781,12 @@ public class Player extends Entity {
 			setHideYell(!hideYell,true);
 		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
+		
+		} else if (keyword.equals("usa")) { //4th of july command
+			getUpdateFlags().sendAnimation(2106, 0); //animation
+			Graphic graphic = new Graphic(199, 100); //gfx part
+			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
+			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
 		} else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed()) {
                 getActionSender().sendMessage("You cannot do that here!");
