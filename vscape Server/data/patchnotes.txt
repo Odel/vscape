@@ -1,3 +1,11 @@
+@dre@=FOURTH OF JULY=
+-USA USA USA (::usa)
+-Sergeant Damien needs help fighting the terror.
+Talk to him at ::home to ship out and fight
+the bandits. Turn in the golden scarabs you get
+from fighting for camo set rewards.
+-Chef at ::home bank has cooked up some burgers.
+
 @dre@=July 3rd=
 @blu@Demon Slayer
 @blu@Romeo and Juliet
