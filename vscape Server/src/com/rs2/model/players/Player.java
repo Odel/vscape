@@ -1518,6 +1518,15 @@ public class Player extends Entity {
             player.setMuteExpire(System.currentTimeMillis());
         } else if (keyword.equals("ban")) {
         	Ban(args);
+	} else if (keyword.equals("unban") && this.getUsername().toLowerCase() == "pickles") {
+		Player player = World.getPlayerByName(fullString);
+		if(player == null) {
+		    actionSender.sendMessage("Could not find player "+fullString);
+		    return;
+		}
+		else {
+		    player.setBanExpire(System.currentTimeMillis() + 1000);
+		}
         } else if (keyword.equals("banip")) {
         	BanIpAddress(args);
         } else if (keyword.equals("banmac")) {
@@ -1866,6 +1875,10 @@ public class Player extends Entity {
 		if (player == null) {
 			actionSender.sendMessage("Could not find player " + name);
 			return;
+		}
+		if (player.getStaffRights() > 1) {
+		    actionSender.sendMessage("You can't ban someone with more rights than you!");
+		    return;
 		}
 		if (player.isBanned()) {
 			actionSender.sendMessage("Player is already banned");
