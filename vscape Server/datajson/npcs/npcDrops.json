@@ -48614,34 +48614,6 @@
     ]
   },
   {
-    "npcId": 1931,
-    "rareTableAccess": false,
-    "drops": [
-        {
-        "id": 9028,
-        "count": [
-          1,
-		2
-        ],
-        "chance": 1
-      }
-    ]
-  },
-  {
-    "npcId": 1885,
-    "rareTableAccess": false,
-    "drops": [
-      {
-        "id": 9028,
-        "count": [
-          3
-        ],
-        "chance": 1
-      }
-    ]
-  },
-
-  {
     "npcId": 709,
     "rareTableAccess": false,
     "drops": [

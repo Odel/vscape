@@ -725,7 +725,7 @@ public class Player extends Entity {
 		if (keyword.equals("outfit")) {
 			getActionSender().sendInterface(3559);
 		}
-		else if (keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs"))
+		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") )
 		{
 	        if(Constants.SQL_ENABLED)
 	        {
@@ -781,6 +781,7 @@ public class Player extends Entity {
 			setHideYell(!hideYell,true);
 		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
+		
 		} else if (keyword.equals("usa")) { //4th of july command
 			getUpdateFlags().sendAnimation(2106, 0); //animation
 			Graphic graphic = new Graphic(199, 100); //gfx part
@@ -4497,7 +4498,7 @@ public class Player extends Entity {
 					npc.getUpdateFlags().setForceChatMessage("Brother, I will help thee with this infidel!");
 				}
 				if (npc.getNpcId() == 1931) {
-					npc.getUpdateFlags().setForceChatMessage("Allahu Ackbar!");
+					npc.getUpdateFlags().setForceChatMessage("You chose the wrong place to start trouble!");
 				}
 				if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {
 					npc.sendTransform(npc.isTransformOnAggression(), 999999);
