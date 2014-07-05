@@ -782,11 +782,6 @@ public class Player extends Entity {
 		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
 		
-		} else if (keyword.equals("usa")) { //4th of july command
-			getUpdateFlags().sendAnimation(2106, 0); //animation
-			Graphic graphic = new Graphic(199, 100); //gfx part
-			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
-			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
 		} else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed()) {
                 getActionSender().sendMessage("You cannot do that here!");
@@ -1057,8 +1052,12 @@ public class Player extends Entity {
 			final int id = Integer.parseInt(args[0]);
 			CoordinateData clue = CoordinateData.forIdClue(id);
 			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
-		}
-		else if (keyword.equals("teletoclue")) {
+		} else if (keyword.equals("usa")) { //4th of july command
+			getUpdateFlags().sendAnimation(2106, 0); //animation
+			Graphic graphic = new Graphic(199, 100); //gfx part
+			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
+			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
+		} else if (keyword.equals("teletoclue")) {
 			try {
 				final int id = Integer.parseInt(args[0]);
 				CoordinateData clue = CoordinateData.forIdClue(id);
