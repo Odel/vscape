@@ -1518,7 +1518,7 @@ public class Player extends Entity {
             player.setMuteExpire(System.currentTimeMillis());
         } else if (keyword.equals("ban")) {
         	Ban(args);
-	} else if (keyword.equals("unban") {
+	} else if (keyword.equals("unban")) {
 		Player player = World.getPlayerByName(fullString);
 		if(player == null) {
 		    actionSender.sendMessage("Could not find player "+fullString);

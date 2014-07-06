@@ -15,13 +15,15 @@ import java.net.*;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 
 import vscapeClient.sign.signlink;
 
 public class client extends RSApplet {
 	
-	private static boolean DevMode = true;
+	private static boolean DevMode = false;
 
 	public static String getHost() {
 		return "127.0.0.1";
@@ -351,79 +353,97 @@ public class client extends RSApplet {
 
 	public String getMac()
 	{
+		//this command is undergoing constant change and fixes
+		//on *nix based systems it uses ifconfig to get a mac address
+		//on windows systems it gets a list of interfaces, and returns the first non-null mac
 		
-		// old method, works fine on windows, fails on linux (and maybe osx)
-		/*InetAddress ipp = null;
-		try {
-			ipp = InetAddress.getLocalHost();
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		NetworkInterface network = null;
-		byte[] mac = null;
-		try {
-			network = NetworkInterface.getByInetAddress(ipp);
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			mac = network.getHardwareAddress();
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < mac.length; i++) {
-            sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));        
-        }
-        return sb.toString();
-        */
-		
-	    String firstInterface = null;        
-	    Map<String, String> addressByNetwork = new HashMap<>();
-	    Enumeration<NetworkInterface> networkInterfaces = null;
-		try {
-			networkInterfaces = NetworkInterface.getNetworkInterfaces();
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String command = "";
 
-	    while(networkInterfaces.hasMoreElements()){
-	        NetworkInterface network = networkInterfaces.nextElement();
+	    String sOsName = System.getProperty("os.name");
+	    if ((sOsName.startsWith("Linux")) || (sOsName.startsWith("Mac")) || (sOsName.startsWith("HP-UX"))) {
+	            command = "/sbin/ifconfig";
+	    
 
-	        byte[] bmac = null;
+	    Pattern p = Pattern.compile("([a-fA-F0-9]{1,2}(-|:)){5}[a-fA-F0-9]{1,2}");
+	    try {
+	        Process pa = null;
 			try {
-				bmac = network.getHardwareAddress();
+				pa = Runtime.getRuntime().exec(command);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(pa == null)
+			{
+				System.out.println("the command 'ifconfig' failed to run on your system");
+			}
+	        pa.waitFor();
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(pa.getInputStream()));
+
+	        String line;
+	        Matcher m;
+	        while ((line = reader.readLine()) != null) {
+
+	            m = p.matcher(line);
+
+	            if (!m.find())
+	                continue;
+	            line = m.group();
+	            break;
+
+	        }
+	        System.out.println(line);
+	        return line;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    }
+	    else
+	    {
+		    String firstInterface = null;        
+		    Map<String, String> addressByNetwork = new HashMap<>();
+		    Enumeration<NetworkInterface> networkInterfaces = null;
+			try {
+				networkInterfaces = NetworkInterface.getNetworkInterfaces();
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        if(bmac != null){
-	            StringBuilder sb = new StringBuilder();
-	            for (int i = 0; i < bmac.length; i++){
-	                sb.append(String.format("%02X%s", bmac[i], (i < bmac.length - 1) ? "-" : ""));        
-	            }
-
-	            if(sb.toString().isEmpty()==false){
-	                addressByNetwork.put(network.getName(), sb.toString());
-	                //System.out.println("MAC = "+sb.toString()+" @ ["+network.getName()+"] "+network.getDisplayName());
-	            }
-
-	            if(sb.toString().isEmpty()==false && firstInterface == null){
-	                firstInterface = network.getName();
-	            }
-	        }
+	
+		    while(networkInterfaces.hasMoreElements()){
+		        NetworkInterface network = networkInterfaces.nextElement();
+	
+		        byte[] bmac = null;
+				try {
+					bmac = network.getHardwareAddress();
+				} catch (SocketException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        if(bmac != null){
+		            StringBuilder sb = new StringBuilder();
+		            for (int i = 0; i < bmac.length; i++){
+		                sb.append(String.format("%02X%s", bmac[i], (i < bmac.length - 1) ? "-" : ""));        
+		            }
+	
+		            if(sb.toString().isEmpty()==false){
+		                addressByNetwork.put(network.getName(), sb.toString());
+		                //System.out.println("MAC = "+sb.toString()+" @ ["+network.getName()+"] "+network.getDisplayName());
+		            }
+	
+		            if(sb.toString().isEmpty()==false && firstInterface == null){
+		                firstInterface = network.getName();
+		            }
+		        }
+		    }
+	
+		    if(firstInterface != null){
+		        return addressByNetwork.get(firstInterface);
+		    }
+	
+		    return null;
 	    }
-
-	    if(firstInterface != null){
-	        return addressByNetwork.get(firstInterface);
-	    }
-
-	    return null;
-	    
+		return null;
 	}
 	private void processMenuClick()
 	{
