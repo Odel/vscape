@@ -1,5 +1,16 @@
-all skeletons ;_;
+all skeletons start here ;_;
+90-94 fixed
+459 bork - working as intended ;) ;) ;); );) ;) (no seriously i can't find the anims)
+1471 fixed
+1575 fixed
+1973 fixed
+2036 fixed (but is invisible)
+2037 fixed 
+2715 fixed (but is invisible)
+(more to do)
+skeletons end here
 
+** Wizards can't get fixed because their attack isn't magic/melee mix yet **
 saradomin wizard (punches you with dagger)
 zammy wizard ^same
 
