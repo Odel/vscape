@@ -8,7 +8,7 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Brews don't work.
 -Thieving chests (ask pickles)
 -Slayer tower stairs (puts you in the wrong place)
--"Empty" option on all pies / pie dishes. (There is no option, should there be one?)
+-"Empty" option on all pies / pie dishes. (think of burnt pie, you need to be able to empty it since you can't eat it)
 -Wizards from level 3 clues, proper attacks (poison / spells);
 -coconut milk can't be mixed(so no p+ or p++) (I think this may be fixed)
 -Crystal bows need to decay as well as barrows - and repair functionality for both
