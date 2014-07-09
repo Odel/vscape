@@ -789,7 +789,7 @@ public class Player extends Entity {
 			setHideColors(!hideColors,true);
 		} else if (keyword.equals("bugreport") || keyword.equals("bug")){
 			if (args.length < 2) {
-				actionSender.sendMessage("Please write more than two words.");
+				getActionSender().sendMessage("Please write more than two words.");
 				return;
 			}
 			if(System.currentTimeMillis() - lastReport < 1800000) {
