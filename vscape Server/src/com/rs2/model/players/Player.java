@@ -767,13 +767,13 @@ public class Player extends Entity {
 			}
 			String name = args[0];
 			Player player = World.getPlayerByName(name);
-            String reporter = player.getUserName();
 			if (player == null) {
                 getActionSender().sendMessage("Cannot report an offline player.");
                 return;
             }
-			if( reporter == getUsername()){
+			if( player.getUsername() == getUsername()){
 				getActionSender().sendMessage("You can't report yourself, silly.");
+				return;
 			}
             if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
