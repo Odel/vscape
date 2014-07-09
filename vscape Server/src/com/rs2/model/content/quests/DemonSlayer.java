@@ -77,6 +77,10 @@ public class DemonSlayer implements Quest {
     }
 
     public void completeQuest(Player player) {
+	    int questStage = player.getQuestStage(getQuestID());
+		if(questStage == QUEST_COMPLETE){
+		player.getActionSender().sendMessage("You have already completed this quest!");
+		}else{
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
@@ -87,7 +91,8 @@ public class DemonSlayer implements Quest {
         player.getActionSender().sendString(" ", 12147);
         player.setQuestStage(getQuestID(), QUEST_COMPLETE);
         player.getActionSender().sendString("@gre@"+ getQuestName(), 7334);
-    }
+		}
+	}
     
     public void sendQuestRequirements(Player player) {
         String prefix = "";
