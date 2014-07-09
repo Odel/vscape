@@ -1068,7 +1068,7 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("I'm not sure laddy. It looks like he didn't make it.", SAD);
 			return true;
 		    case 52:
-			player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rest in peace.", NEAR_TEARS_2);
+			player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rip in pepperonis.", NEAR_TEARS_2);
 			return true;
 		    case 53:
 			player.getDialogue().sendNpcChat("Aye. He was a brave one.", "Use the memory of Jenkins to fight Elvarg.", "Go now laddy, rid the world of this evil.", CONTENT);

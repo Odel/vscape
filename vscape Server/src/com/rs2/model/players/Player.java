@@ -1469,7 +1469,7 @@ public class Player extends Entity {
 			MagicCarpet.ride(this, pos);
 		}
 		else if (keyword.equals("ranim")) {
-			int animationId = (int)Misc.random(3000);
+			int animationId = (int)Misc.random(7200);
 			getUpdateFlags().sendAnimation(animationId, 0);
 			getActionSender().sendMessage("Animation #" + animationId);
 		}
@@ -1508,7 +1508,8 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
-		} else if (keyword.equals("unmute")) {
+		} 
+		else if (keyword.equals("unmute")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null) {
                 actionSender.sendMessage("Could not find player "+fullString);
@@ -1557,6 +1558,7 @@ public class Player extends Entity {
                 player.getSkill().refresh(skillId);
             }
             catch (Exception e) {
+				getActionSender().sendMessage("Wrong syntaxis (or some other error), please use (skillid) (level) -(name).");
                 e.printStackTrace();
 
             }
