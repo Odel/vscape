@@ -749,16 +749,20 @@ public class Player extends Entity {
 	        }
 		}
 		else if (keyword.equals("panic") || keyword.equals("helpme")) {
+			if (args.length < 1) {
+				actionSender.sendMessage("Please use ::panic/::helpme (reason) (can be multiple words).");
+				return;
+			}
 			if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
 			}
 			lastReport = System.currentTimeMillis();
-			World.messageToStaff("@blu@"+getUsername() + " is in need of assistance!");
+			World.messageToStaff("@blu@"+ getUsername() + " paniced because:" + fullString + "!");
 			getActionSender().sendMessage("A message for assistance has been sent to the staff.");
 		} else if (keyword.equals("report")) {
 			if (args.length < 2) {
-				actionSender.sendMessage("Please use ::report username reason.");
+				actionSender.sendMessage("Please use ::report username reason (reason can be multiple words).");
 				return;
 			}
 			String name = args[0];
@@ -774,10 +778,9 @@ public class Player extends Entity {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
 			}
-            String reason = args[1];
             lastReport = System.currentTimeMillis();
 			getActionSender().sendMessage("A message has been sent to staff about your report.");
-			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ reason);
+			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ fullString);
 		} else if (keyword.equals("yell") || keyword.equals("y")) {
 			Yell(fullString);
 		} else if (keyword.equals("hideyell") || keyword.equals("hy")) {
