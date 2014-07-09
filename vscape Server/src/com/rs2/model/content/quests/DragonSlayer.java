@@ -707,8 +707,8 @@ public class DragonSlayer implements Quest {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		} else {
-		    player.getDialogue().sendStatement("You need a qp total of 32 to access the Champion's Guild.");
-		    return true;
+		    player.getDialogue().sendStatement("You need a q p total of 32 to access the Champion's Guild.");
+		    return true; //                                 w 
 		}
 	    case 2593:
 	    case 2594:
@@ -1577,8 +1577,13 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("Adventurers sometimes go in there to prove themselves,", "so I can give you this key to Melzar's Maze.", CONTENT);
 			return true;
 		    case 28:
+			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
 			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(1542));
+			player.getInventory().addItem(new Item(MAZE_KEY));
+			}else{
+			player.getDialogue().sendStatement("Your inventory is full!");
+		    player.getDialogue().endDialogue();
+			}
 			return true;
 		    case 29:
 			player.getDialogue().sendOption("Where can I find Thalzar's piece?", "Where can I find Lozar's piece?");
@@ -1662,8 +1667,13 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("Adventurers sometimes go in there to prove themselves,", "so I can give you this key to Melzar's Maze.", CONTENT);
 			return true;
 		    case 50:
+			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
 			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(1542));
+			player.getInventory().addItem(new Item(MAZE_KEY));
+			}else{
+			player.getDialogue().sendStatement("Your inventory is full!");
+		    player.getDialogue().endDialogue();
+			}
 			return true;
 		    case 51:
 			player.getDialogue().sendPlayerChat("And where can I find Thalzar's piece?", CONTENT);
@@ -1698,8 +1708,13 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("Adventurers sometimes go in there to prove themselves,", "so I can give you this key to Melzar's Maze.", CONTENT);
 			return true;
 		    case 61:
+			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
 			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(1542));
+			player.getInventory().addItem(new Item(MAZE_KEY));
+			}else{
+			player.getDialogue().sendStatement("Your inventory is full!");
+		    player.getDialogue().endDialogue();
+			}
 			return true;
 		    case 62:
 			player.getDialogue().sendPlayerChat("Thank you, I'll get to work.", CONTENT);
@@ -1735,8 +1750,13 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("Adventurers sometimes go in there to prove themselves,", "so I can give you this key to Melzar's Maze.", CONTENT);
 			return true;
 		    case 70:
+			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
 			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(1542));
+			player.getInventory().addItem(new Item(MAZE_KEY));
+			}else{
+			player.getDialogue().sendStatement("Your inventory is full!");
+		    player.getDialogue().endDialogue();
+			}
 			return true;
 		    case 71:
 			player.getDialogue().sendPlayerChat("And where can I find Lozar's piece?", CONTENT);
@@ -1771,8 +1791,13 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("Adventurers sometimes go in there to prove themselves,", "so I can give you this key to Melzar's Maze.", CONTENT);
 			return true;
 		    case 81:
+			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
 			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(1542));
+			player.getInventory().addItem(new Item(MAZE_KEY));
+			}else{
+			player.getDialogue().sendStatement("Your inventory is full!");
+		    player.getDialogue().endDialogue();
+			}
 			return true;
 		    case 82:
 			player.getDialogue().sendPlayerChat("Thank you, I'll get to work.", CONTENT);
