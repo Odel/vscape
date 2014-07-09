@@ -8,7 +8,8 @@
 ::changepass
 ::patchnotes
 ::report
-::panic (Send a request for assistance to Staff.)
+::bugreport
+::helpme/::panic(Send a request for assistance to Staff.)
 ::pcpoints (Tells you your commendation points.)
 ::pc (General chat for Pest Control games.)
 ::pcactive (Tells you if a PC game is running.)

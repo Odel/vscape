@@ -208,7 +208,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-        private PestControl pestControl = new PestControl();
+    private PestControl pestControl = new PestControl();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
 	private Wine wine = new Wine(this);
@@ -758,15 +758,18 @@ public class Player extends Entity {
 			getActionSender().sendMessage("A message for assistance has been sent to the staff.");
 		} else if (keyword.equals("report")) {
 			if (args.length < 2) {
-				actionSender.sendMessage("::report username reason");
+				actionSender.sendMessage("Please use ::report username reason.");
 				return;
 			}
 			String name = args[0];
 			Player player = World.getPlayerByName(name);
             if (player == null) {
-                actionSender.sendMessage("Cannot report an offline player");
+                actionSender.sendMessage("Cannot report an offline player.");
                 return;
             }
+			if(player.getUserName() == getUsername()){
+				actionsender.sendMessage("You can't report yourself, silly.");
+			}
             if(System.currentTimeMillis() - lastReport < 1800000) {
 				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
 				return;
@@ -781,7 +784,18 @@ public class Player extends Entity {
 			setHideYell(!hideYell,true);
 		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
-		
+		} else if (keyword.equals("bugreport") || keyword.equals("bug")){
+			if (args.length < 2) {
+				actionSender.sendMessage("Please write more than two words.");
+				return;
+			}
+			if(System.currentTimeMillis() - lastReport < 1800000) {
+				getActionSender().sendMessage("You can only report, ask for assistance or report a bug once every 30 minutes!");
+				return;
+			}
+			lastReport = System.currentTimeMillis();
+			getActionSender().sendMessage("The bug has been reported. Thank you!");
+			appendToBugList(fullString);
 		} else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed()) {
                 getActionSender().sendMessage("You cannot do that here!");
@@ -1519,7 +1533,7 @@ public class Player extends Entity {
             player.setMuteExpire(System.currentTimeMillis());
         } else if (keyword.equals("ban")) {
         	Ban(args);
-	} else if (keyword.equals("unban")) {
+		} else if (keyword.equals("unban")) {
 		Player player = World.getPlayerByName(fullString);
 		if(player == null) {
 		    actionSender.sendMessage("Could not find player "+fullString);
@@ -1563,12 +1577,10 @@ public class Player extends Entity {
 
             }
         }
-        else if (keyword.equals("rights")) 
-        {
+        else if (keyword.equals("rights")) {
         	GiveRights(args);
         }
-        else if(keyword.equals("staffyell"))
-        {
+        else if(keyword.equals("staffyell")) {
         	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
             getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"));
     		for (Player player : World.getPlayers()) 
@@ -1681,9 +1693,7 @@ public class Player extends Entity {
 			return;
 		}
 		if(getStaffRights() < 1){
-			 if(System.currentTimeMillis() - lastYell < 30000) {
-				 getActionSender().sendMessage("You can only yell once every 30 seconds!");
-				 //getActionSender().sendMessage("You can only yell once every 30 seconds!");
+			 if(System.currentTimeMillis() - lastYell < 25000) {
 				 long secBeforeNextYell = ((((System.currentTimeMillis() - lastYell)  / 1000 ) - 30) * -1);
 				 getActionSender().sendMessage("You can yell again in " + secBeforeNextYell + " seconds!");
 				 return;
