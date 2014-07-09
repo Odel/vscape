@@ -29,6 +29,7 @@ public class DemonSlayer implements Quest {
     public static final int KEYS_TO_PRYSIN = 4;
     public static final int FIGHT_DELRITH = 5;
     public static final int QUEST_COMPLETE = 6;
+	public static final int REPEAT_PROTECTION = 7;
     
     public static final int BUCKET = 1925;
     public static final int BUCKET_OF_WATER = 1929;
@@ -78,7 +79,7 @@ public class DemonSlayer implements Quest {
 
     public void completeQuest(Player player) {
 	    int questStage = player.getQuestStage(getQuestID());
-		if(questStage == QUEST_COMPLETE){
+		if(questStage == REPEAT_PROTECTION){
 		player.getActionSender().sendMessage("You have already completed this quest!");
 		}else{
         getReward(player);
@@ -89,7 +90,7 @@ public class DemonSlayer implements Quest {
         player.getActionSender().sendString("Silverlight", 12151);
         player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
         player.getActionSender().sendString(" ", 12147);
-        player.setQuestStage(getQuestID(), QUEST_COMPLETE);
+        player.setQuestStage(getQuestID(), REPEAT_PROTECTION);
         player.getActionSender().sendString("@gre@"+ getQuestName(), 7334);
 		}
 	}
