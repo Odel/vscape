@@ -1065,11 +1065,16 @@ public class DemonSlayer implements Quest {
 				    }
 				}
 			    player.getDialogue().sendPlayerChat("Carlem Aber Camerinthum Purchai Gabindo!", CONTENT);
-			    player.setQuestStage(17, 6);
-			    return true;
+				
+				if(questStage != REPEAT_PROTECTION){
+				player.setQuestStage(17, 6);
+			    }
+				return true;
 			}
 		    case 3:
+			if(questStage != REPEAT_PROTECTION){
 			QuestHandler.completeQuest(player, 17);
+			}
 			player.getDialogue().dontCloseInterface();
 			return true;
 		}
