@@ -171,6 +171,7 @@ public class Server implements Runnable {
             
             GlobalVariables.patchNotes = Misc.loadPatchNotes();
             GlobalVariables.info = Misc.loadInfo();
+	    GlobalVariables.npcDump = Misc.getNpcDump();
 
 
 			// load all xstream related files.
