@@ -29,7 +29,6 @@ public class DemonSlayer implements Quest {
     public static final int KEYS_TO_PRYSIN = 4;
     public static final int FIGHT_DELRITH = 5;
     public static final int QUEST_COMPLETE = 6;
-	public static final int REPEAT_PROTECTION = 7;
     
     public static final int BUCKET = 1925;
     public static final int BUCKET_OF_WATER = 1929;
@@ -78,10 +77,6 @@ public class DemonSlayer implements Quest {
     }
 
     public void completeQuest(Player player) {
-	    int questStage = player.getQuestStage(getQuestID());
-		if(questStage == REPEAT_PROTECTION){
-		player.getActionSender().sendMessage("You have already completed this quest!");
-		}else{
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
@@ -90,10 +85,9 @@ public class DemonSlayer implements Quest {
         player.getActionSender().sendString("Silverlight", 12151);
         player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
         player.getActionSender().sendString(" ", 12147);
-        player.setQuestStage(getQuestID(), REPEAT_PROTECTION);
+        player.setQuestStage(getQuestID(), QUEST_COMPLETE);
         player.getActionSender().sendString("@gre@"+ getQuestName(), 7334);
-		}
-	}
+    }
     
     public void sendQuestRequirements(Player player) {
         String prefix = "";
@@ -1065,16 +1059,13 @@ public class DemonSlayer implements Quest {
 				    }
 				}
 			    player.getDialogue().sendPlayerChat("Carlem Aber Camerinthum Purchai Gabindo!", CONTENT);
-				
-				if(questStage != REPEAT_PROTECTION){
+			    if(player.getQuestStage(17) == 5) {
 				player.setQuestStage(17, 6);
 			    }
-				return true;
+			    return true;
 			}
 		    case 3:
-			if(questStage != REPEAT_PROTECTION){
 			QuestHandler.completeQuest(player, 17);
-			}
 			player.getDialogue().dontCloseInterface();
 			return true;
 		}
