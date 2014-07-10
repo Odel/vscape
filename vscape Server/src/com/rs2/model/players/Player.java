@@ -340,6 +340,8 @@ public class Player extends Entity {
 	private boolean warriorsGuildGameActive;
 	private boolean warriorsGuildFirstTime;
 	private int tokenTime;
+	//private int fightCavesWave;
+	//private int fightCavesKillCount;
 	public int currentX, currentY;
 	private boolean hideWeapons;
     String[] badNames = {"mod", "Mod", "admin", "Admin", "owner", "Owner"};
@@ -637,6 +639,10 @@ public class Player extends Entity {
 	else if(inWarriorGuildArena()) {
 	    WarriorsGuild.exitArena(this, true);
 	}
+	/*else if(inFightCaves()) {
+	    FightCaves.exitCave(this);
+	    World.messageToStaff(this.getUsername() + " has disconnected from Fight Caves.");
+	}*/
 	setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -891,7 +897,9 @@ public class Player extends Entity {
 		    else {
 			getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }
-		}
+		} /*else if(keyword.equals("resetcaves")) {
+		    this.setFightCavesWave(0);
+		} */
 	
 	}
 
@@ -1244,7 +1252,11 @@ public class Player extends Entity {
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
 		}else if (keyword.equals("rnpc")) {
-			int index = (int)Misc.random(2000);
+			int index = (int)Misc.random(6390);
+			if(GlobalVariables.npcDump[index].toLowerCase().contains("null")) {
+			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
+			    return;
+			}
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
@@ -1276,6 +1288,10 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("npc")) {
 			int npcId = Integer.parseInt(args[0]);
+			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
+			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
+			    return;
+			}
 			Npc npc = new Npc(npcId);
 			npc.setPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
 			npc.setSpawnPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
@@ -1362,15 +1378,15 @@ public class Player extends Entity {
                player.getBankPin().deleteBankPin();
 		}
 		else if (keyword.equals("melee")) {
-			inventory.addItem(new Item(4152, 100));
-			inventory.addItem(new Item(1164, 100));
-			inventory.addItem(new Item(1128, 100));
-			inventory.addItem(new Item(1080, 100));
-			inventory.addItem(new Item(4132, 100));
-			inventory.addItem(new Item(1202, 100));
-			inventory.addItem(new Item(1732, 100));
-			inventory.addItem(new Item(6570, 1));
-			inventory.addItem(new Item(7462, 1));
+			inventory.addItem(new Item(4151)); //whip
+			inventory.addItem(new Item(11335)); //d full
+			inventory.addItem(new Item(3140)); //d chain
+			inventory.addItem(new Item(4087)); //d legs
+			inventory.addItem(new Item(11732)); //dragon boots
+			inventory.addItem(new Item(1187)); //d square
+			inventory.addItem(new Item(6585)); //amulet of fury
+			inventory.addItem(new Item(6570)); //fire cape
+			inventory.addItem(new Item(7461)); //dragon gloves
 		}
 		else if (keyword.equals("range")) {
 			inventory.addItem(new Item(2492, 100));
@@ -1407,12 +1423,12 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("spawn")) {
 			int id = Integer.parseInt(args[0]);
+			if(GlobalVariables.npcDump[id].toLowerCase().contains("null")) {
+			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
+			    return;
+			}
 			NpcDefinition npc = NpcDefinition.forId(id);
 			appendToAutoSpawn(npc);
-		}
-		else if (keyword.equals("wave")) {
-			int index = Integer.parseInt(args[0]);
-			WavesHandling.spawnWave(this, index);
 		}
 		else if (keyword.equals("team")) {
 			int cape = Integer.parseInt(args[0]);
@@ -1451,7 +1467,6 @@ public class Player extends Entity {
             }
             if (player.inDuelArena()) {
                 actionSender.sendMessage("That person is dueling right now.");
-                return;
             }
             if(player.inPestControlLobbyArea() || player.inPestControlGameArea())
             {
@@ -1468,7 +1483,7 @@ public class Player extends Entity {
 			getActionSender().sendSidebarInterface(6, 12855);
 			magicBookType = SpellBook.ANCIENT;
 		}
-		else if (keyword.equals("hitz")) {
+		else if (keyword.equals("hits")) {
             int hits = Integer.parseInt(args[0]);
             for (int i = 0; i < hits; i++) {
                 hit(i, HitType.NORMAL);
@@ -1524,6 +1539,32 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
 		}
+		/*else if (keyword.equals("setwave")) {
+		    int wave = Integer.parseInt(args[0]);
+		    this.setFightCavesWave(wave);
+		    this.getActionSender().sendMessage("Set fight caves wave to " + wave + ".");
+		}
+		else if (keyword.equals("setplayerwave")) {
+		    int wave = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    player.setFightCavesWave(wave);
+		    this.getActionSender().sendMessage("Set " + player.getUsername() + " fight caves wave to " + wave + ".");
+		}
+		else if (keyword.equals("forcefightcaves")) {
+		    String name = fullString;
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    FightCaves.enterCave(player);
+		    this.getActionSender().sendMessage("Forced " + player.getUsername() + "into the Fight Caves.");
+		}
+		else if(keyword.equals("hurko")) {
+		    FightCaves.spawnYtHurko(this);
+		}
+		else if(keyword.equals("testhurko")) {
+		    FightCaves.hurkoTargetJad(FightCaves.getJad());
+		}*/
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
 		} 
@@ -2128,6 +2169,9 @@ public class Player extends Entity {
 		if(this.getStaffRights() >= 1) {
 		   World.messageToStaff(this.getUsername() + " has logged in.");
 		}
+		/*if(this.inFightCaves() && this.getFightCavesWave() > 0) {
+		    WavesHandling.spawnWave(this, this.getFightCavesWave());
+		}*/
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
 		setAppearanceUpdateRequired(true);
@@ -2346,6 +2390,10 @@ public class Player extends Entity {
 	else if(inWarriorGuildArena()) {
 	    WarriorsGuild.exitArena(this, true);
 	}
+	/*else if(inFightCaves()) {
+	    FightCaves.exitCave(this);
+	    World.messageToStaff(this.getUsername() + " has logged-out from Fight Caves.");
+	}*/
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -3223,6 +3271,22 @@ public class Player extends Entity {
 	public void setMelzarsDoorUnlock(boolean bool) {
 	    this.melzarsDoor = bool;
 	}
+	/*
+	public int getFightCavesWave() {
+	    return fightCavesWave;
+	}
+	
+	public void setFightCavesWave(int wave) {
+	    this.fightCavesWave = wave;
+	}
+	
+	public int getFightCavesKillCount() {
+	    return fightCavesKillCount;
+	}
+	
+	public void setFightCavesKillCount(int killCount) {
+	    this.fightCavesKillCount = killCount;
+	}*/
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
@@ -4085,7 +4149,7 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() ) {
+		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland()) {
 			return; //prevents the dropping of items when you die in the duel arena
 		 }
 		if (killer == null) {
