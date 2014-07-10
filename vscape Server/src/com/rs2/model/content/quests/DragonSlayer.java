@@ -707,8 +707,8 @@ public class DragonSlayer implements Quest {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		} else {
-		    player.getDialogue().sendStatement("You need a q p total of 32 to access the Champion's Guild.");
-		    return true; //                                 w 
+		    player.getDialogue().sendStatement("You need a qp total of 32 to access the Champion's Guild.");
+		    return true;
 		}
 	    case 2593:
 	    case 2594:
@@ -1068,7 +1068,7 @@ public class DragonSlayer implements Quest {
 			player.getDialogue().sendNpcChat("I'm not sure laddy. It looks like he didn't make it.", SAD);
 			return true;
 		    case 52:
-			player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rip in pepperonis.", NEAR_TEARS_2);
+			player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rest in peace.", NEAR_TEARS_2);
 			return true;
 		    case 53:
 			player.getDialogue().sendNpcChat("Aye. He was a brave one.", "Use the memory of Jenkins to fight Elvarg.", "Go now laddy, rid the world of this evil.", CONTENT);
@@ -1578,11 +1578,11 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 28:
 			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
-			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(MAZE_KEY));
-			}else{
-			player.getDialogue().sendStatement("Your inventory is full!");
-		    player.getDialogue().endDialogue();
+			    player.getDialogue().sendGiveItemNpc("The Guildmaster hands you a key.",new Item(MAZE_KEY));
+			    player.getInventory().addItem(new Item(MAZE_KEY));
+			} else {
+			    player.getDialogue().sendStatement("Your inventory is full!");
+			    player.getDialogue().endDialogue();
 			}
 			return true;
 		    case 29:
@@ -1668,11 +1668,11 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 50:
 			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
-			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(MAZE_KEY));
-			}else{
-			player.getDialogue().sendStatement("Your inventory is full!");
-		    player.getDialogue().endDialogue();
+			    player.getDialogue().sendGiveItemNpc("The Guildmaster hands you a key.",new Item(MAZE_KEY));
+			    player.getInventory().addItem(new Item(MAZE_KEY));
+			} else {
+			    player.getDialogue().sendStatement("Your inventory is full!");
+			    player.getDialogue().endDialogue();
 			}
 			return true;
 		    case 51:
@@ -1709,11 +1709,11 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 61:
 			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
-			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(MAZE_KEY));
-			}else{
-			player.getDialogue().sendStatement("Your inventory is full!");
-		    player.getDialogue().endDialogue();
+			    player.getDialogue().sendGiveItemNpc("The Guildmaster hands you a key.",new Item(MAZE_KEY));
+			    player.getInventory().addItem(new Item(MAZE_KEY));
+			} else {
+			    player.getDialogue().sendStatement("Your inventory is full!");
+			    player.getDialogue().endDialogue();
 			}
 			return true;
 		    case 62:
@@ -1751,11 +1751,11 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 70:
 			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
-			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(MAZE_KEY));
-			}else{
-			player.getDialogue().sendStatement("Your inventory is full!");
-		    player.getDialogue().endDialogue();
+			    player.getDialogue().sendGiveItemNpc("The Guildmaster hands you a key.",new Item(MAZE_KEY));
+			    player.getInventory().addItem(new Item(MAZE_KEY));
+			} else {
+			    player.getDialogue().sendStatement("Your inventory is full!");
+			    player.getDialogue().endDialogue();
 			}
 			return true;
 		    case 71:
@@ -1792,11 +1792,11 @@ public class DragonSlayer implements Quest {
 			return true;
 		    case 81:
 			if(player.getInventory().canAddItem(new Item(MAZE_KEY))){
-			player.getDialogue().sendStatement("The Guildmaster hands you a key.");
-			player.getInventory().addItem(new Item(MAZE_KEY));
-			}else{
-			player.getDialogue().sendStatement("Your inventory is full!");
-		    player.getDialogue().endDialogue();
+			    player.getDialogue().sendGiveItemNpc("The Guildmaster hands you a key.",new Item(MAZE_KEY));
+			    player.getInventory().addItem(new Item(MAZE_KEY));
+			} else {
+			    player.getDialogue().sendStatement("Your inventory is full!");
+			    player.getDialogue().endDialogue();
 			}
 			return true;
 		    case 82:
