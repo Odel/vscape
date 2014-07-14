@@ -282,7 +282,7 @@ public class Equipment {
 		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getOriginalId() == item.getId()) {
 		    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()] <= 0) {
 			player.setBarrowsHits(BarrowsItems.getBarrowsItem(item).getPlayerArraySlot(), 0);
-			player.getActionSender().sendMessage("You have 250 hits on this piece until the next degrade.");
+			//player.getActionSender().sendMessage("You have 250 hits on this piece until the next degrade.");
 		    }
 		}
 		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getFirstDegradeId() == item.getId()) {

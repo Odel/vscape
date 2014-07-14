@@ -48,6 +48,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
 			return false;
 		}
+		if(player.inFightCaves()) {
+		    player.getActionSender().sendMessage("You can't teleport here.");
+		    return false;
+		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
 			return false;

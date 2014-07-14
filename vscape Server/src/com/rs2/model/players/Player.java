@@ -811,7 +811,7 @@ public class Player extends Entity {
 			getActionSender().sendMessage("The bug has been reported. Thank you!");
 			appendToBugList(fullString);
 		} else if (keyword.equals("home")) {
-            if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed()) {
+            if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
                 getActionSender().sendMessage("You cannot do that here!");
             } else {
                 teleport(new Position(Constants.START_X, Constants.START_Y, 0));
@@ -1563,7 +1563,7 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    FightCaves.enterCave(player, false);
-		    this.getActionSender().sendMessage("Forced " + player.getUsername() + "into the Fight Caves.");
+		    this.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.");
 		}
 		else if(keyword.equals("hurko")) {
 		    FightCaves.spawnYtHurko(this);

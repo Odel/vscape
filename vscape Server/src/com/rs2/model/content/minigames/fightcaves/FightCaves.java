@@ -177,12 +177,12 @@ public class FightCaves {
 		    exitCave(player);
 		    player.getDialogue().sendGiveItemNpc("Congratulations! You survived the Tzhaar Fight Caves!", new Item(FIRE_CAPE));
 		    if(!player.getInventory().canAddItem(new Item(FIRE_CAPE))) {
-			player.getActionSender().sendMessage("Your fire cape has been sent to your bank.");
-			player.getBank().add(new Item(FIRE_CAPE));
+			//player.getActionSender().sendMessage("Your fire cape has been sent to your bank.");
+			//player.getBank().add(new Item(FIRE_CAPE));
 			
 		    }
 		    else {
-			player.getInventory().addItem(new Item(FIRE_CAPE));
+			//player.getInventory().addItem(new Item(FIRE_CAPE));
 		    }
 		}
 	    }
