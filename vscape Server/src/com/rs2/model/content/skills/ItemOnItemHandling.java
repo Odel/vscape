@@ -42,7 +42,10 @@ public class ItemOnItemHandling {
 		MINING_HELMET(590, 5014, new Item[]{new Item(5014)}, new Item[]{new Item(5013)}, -1, new int[]{Skill.FIREMAKING, 65}, 0, "You light the mining helmet."), 
 		
 		CRYSTAL_KEY(985, 987, new Item[]{new Item(985), new Item(987)}, new Item[]{new Item(989)}, -1, null, 0, "You join the two halves of the key together."),
-
+		
+		PINEAPPLE_CHUNKS(946, 2114, new Item[]{new Item(2114)}, new Item[]{new Item(2116)}, -1, null, 0, "You cut the pineapple into chunks."),
+		
+		PINEAPPLE_RING(2114, 946, new Item[]{new Item(2114)}, new Item[]{new Item(2118), new Item(2118), new Item(2118), new Item(2118)}, -1, null, 0, "You cut the pineapple into rings.")
 		;
 
 		private int itemFirstClick;
