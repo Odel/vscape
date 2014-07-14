@@ -11,6 +11,7 @@ all skeletons start here ;_;
 skeletons end here
 
 ** Wizards can't get fixed because their attack isn't magic/melee mix yet **
+-Use npc-combat.rb and just assign the npcs the spells to use / a hardcoded melee
 saradomin wizard (punches you with dagger)
 zammy wizard ^same
 
@@ -18,6 +19,11 @@ some guards (goblin village?)
 
 some slayer monsters
 
+Saradomin Spiritual Mage - 6257
+Zamorak Spiritual Mage - 6221
+
+
 -ask in yell or thread, some are missing-
+
 
 Note: I am working on these - Noiryx
