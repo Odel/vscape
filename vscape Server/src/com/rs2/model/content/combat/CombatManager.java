@@ -373,9 +373,6 @@ public class CombatManager extends Tick {
 			}
 		    }
 		}
-		else if(npc.getNpcId() == 1931 || npc.getNpcId() == 1885) {
-		    ((Player)killer).getUpdateFlags().sendAnimation(865);
-		}
 		else if ( npc.getNpcId() == 879 && firstTime ) { // delrith
 		    Npc delrith = new Npc(880);
 		    delrith.setSpawnPosition(died.getPosition().clone());
@@ -500,7 +497,7 @@ public class CombatManager extends Tick {
 		if(died != null && died.isPlayer() && ((Player) died).inFightCaves()) {
                     FightCaves.exitCave((Player) died);
 		    return;
-                }
+		}
 		if (died.isNpc() && ((Npc) died).getNpcId() == 655) {
 			if (killer != null && killer.isPlayer()) {
 				((Player) killer).setKilledTreeSpirit(true);

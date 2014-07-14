@@ -857,8 +857,6 @@ public class Player extends Entity {
 			String pass = fullString;
 			setPassword(pass);// setPassword
 			getActionSender().sendMessage("Your new password is " + pass + ".");
-		} else if(keyword.equals("rights")) {
-		    this.setStaffRights(2);
 		} else if (keyword.equals("patchnotes")) {
 			getActionSender().sendInterface(8134);
 			ClearNotes();	
@@ -4210,10 +4208,10 @@ public class Player extends Entity {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
-			if(BarrowsItems.droppableForDeath(BarrowsItems.getBarrowsItem(dropped), dropped)) {
+			/*if(BarrowsItems.droppableForDeath(BarrowsItems.getBarrowsItem(dropped), dropped)) {
 				GroundItemManager.getManager().dropItem(new GroundItem(new Item(BarrowsItems.getBarrowsItem(dropped).getBrokenId()), killer));
 				setBarrowsHits(BarrowsItems.getBarrowsItem(dropped).getPlayerArraySlot(), 0);
-			}
+			}*/
 			if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
