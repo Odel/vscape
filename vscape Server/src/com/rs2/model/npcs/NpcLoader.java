@@ -145,14 +145,15 @@ public class NpcLoader {
 
 	public static void spawnNpc(Entity entityToAttack, Npc npc, Position spawningPosition, boolean hintIcon, String message) {
 		npc.setPosition(spawningPosition);
+		npc.setSpawnPosition(spawningPosition);
 		npc.setWalkType(Npc.WalkType.STAND);
 		npc.setCurrentX(spawningPosition.getX());
 		npc.setCurrentY(spawningPosition.getY());
-        npc.setNeedsRespawn(false);
+		npc.setNeedsRespawn(false);
 		World.register(npc);
 		if (entityToAttack != null){
-			npc.setFollowingEntity(entityToAttack);
-            CombatManager.attack(npc, entityToAttack);
+		    npc.setFollowingEntity(entityToAttack);
+		CombatManager.attack(npc, entityToAttack);
 		    npc.getUpdateFlags().sendFaceToDirection(entityToAttack.getPosition());
         }
         if(entityToAttack.isPlayer() && hintIcon)
