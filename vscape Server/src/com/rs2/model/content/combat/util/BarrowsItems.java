@@ -126,7 +126,25 @@ public enum BarrowsItems {
 	}
     }
     public static boolean notDroppable(BarrowsItems compare, Item item) {
+	if(compare == null) {
+	    return false;
+	}
 	if(item.getId() == compare.getFirstDegradeId() ||
+		item.getId() == compare.getSecondDegradeId() ||
+		item.getId() == compare.getThirdDegradeId() ||
+		item.getId() == compare.getFourthDegradeId() ) {
+	    return true;
+	}
+	else {
+	    return false;
+	}
+    }
+    public static boolean droppableForDeath(BarrowsItems compare, Item item) {
+	if(compare == null) {
+	    return false;
+	}
+	if( item.getId() == compare.getOriginalId() ||
+		item.getId() == compare.getFirstDegradeId() ||
 		item.getId() == compare.getSecondDegradeId() ||
 		item.getId() == compare.getThirdDegradeId() ||
 		item.getId() == compare.getFourthDegradeId() ) {

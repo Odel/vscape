@@ -338,6 +338,10 @@ public class PlayerSave {
 			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
 				write.writeInt(player.getFarmingTools().getTools()[i]);
 			}
+			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+				write.writeInt(player.getBarrowsHits()[i]);
+			}
+			
 			write.writeInt(player.getSlayer().slayerMaster);
 			write.writeUTF(player.getSlayer().slayerTask);
 			write.writeInt(player.getSlayer().taskAmount);
@@ -354,7 +358,8 @@ public class PlayerSave {
 			write.writeBoolean(player.isPhoenixGang());
 			write.writeBoolean(player.isBlackArmGang());
 			write.writeBoolean(player.getMelzarsDoorUnlock());
-            write.flush();
+			write.writeInt(player.getFightCavesWave());
+			write.flush();
 			write.close();
 			
             PlayerSave.saveQuests(player);
@@ -854,6 +859,9 @@ public class PlayerSave {
     			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
     				player.getFarmingTools().setTools(i, load.readInt());
     			}
+			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+    				player.setBarrowsHits(i, load.readInt());
+    			}
             } catch (IOException e) {
             }
             try {
@@ -917,6 +925,10 @@ public class PlayerSave {
             }
 	    try {
             	player.setMelzarsDoorUnlock(load.readBoolean());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.setFightCavesWave(load.readInt());
             } catch (IOException e) {
             }
             load.close();

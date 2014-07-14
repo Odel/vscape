@@ -6,6 +6,8 @@ import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
+import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -143,8 +145,8 @@ public class Equipment {
 			return;
 		}
 		int equipSlot = item.getDefinition().getSlot();
-        if(!player.getInventory().playerHasItem(item))
-            return;
+		if(!player.getInventory().playerHasItem(item))
+			return;
 		if (!checkRequirements(item.getId(), equipSlot)) {
 			return;
 		}
@@ -165,13 +167,13 @@ public class Equipment {
 		}
 		if (item.getId() == 1205 && player.getNewComersSide().getTutorialIslandStage() == 40)
 			player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
-        if (player.inDuelArena()) {
-            for (int funWeapon : Constants.FUN_WEAPONS) {
-                if (!RulesData.FUN_WEAPON.activated(player) && item.getId() == funWeapon) {
-                    player.getActionSender().sendMessage("Usage of 'Fun weapons' haven't been enabled during this fight!");
-                    return;
-                }
-            }
+		if (player.inDuelArena()) {
+		    for (int funWeapon : Constants.FUN_WEAPONS) {
+			if (!RulesData.FUN_WEAPON.activated(player) && item.getId() == funWeapon) {
+			    player.getActionSender().sendMessage("Usage of 'Fun weapons' haven't been enabled during this fight!");
+			    return;
+			}
+		}
         }
 		boolean disabled = false;
 		switch (equipSlot) {
@@ -276,6 +278,28 @@ public class Equipment {
 			player.setEquippedWeapon(Weapon.getWeapon(item));
 			player.setSpecialType(SpecialType.getSpecial(item));
 			player.setAutoSpell(null);
+		}
+		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getOriginalId() == item.getId()) {
+		    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()] <= 0) {
+			player.setBarrowsHits(BarrowsItems.getBarrowsItem(item).getPlayerArraySlot(), 0);
+			player.getActionSender().sendMessage("You have 250 hits on this piece until the next degrade.");
+		    }
+		}
+		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getFirstDegradeId() == item.getId()) {
+		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
+		    player.getActionSender().sendMessage("You have " + (250 - hitCount) + " hits left on this piece until the next degrade.");
+		}
+		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getSecondDegradeId() == item.getId()) {
+		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
+		    player.getActionSender().sendMessage("You have " + (500 - hitCount) + " hits left on this piece until the next degrade.");
+		}
+		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getThirdDegradeId() == item.getId()) {
+		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
+		    player.getActionSender().sendMessage("You have " + (750 - hitCount) + " hits left on this piece until the next degrade.");
+		}
+		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getFourthDegradeId() == item.getId()) {
+		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
+		    player.getActionSender().sendMessage("You have " + (1000 - hitCount) + " hits left on this piece until the next degrade.");
 		}
 		refresh();
 		updateWeight();
@@ -507,6 +531,15 @@ public class Equipment {
 				return false;
 			    }
 			}
+			if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
+			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				player.getActionSender().sendMessage("You already have this piece bound to you!");
+				return false;
+			    }
+			    else {
+				return true;
+			    }
+			}
 			if (attackLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
 					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wield this weapon.");
@@ -548,6 +581,15 @@ public class Equipment {
 			    if(player.getQuestStage(15) < 9) {
 				player.getDialogue().sendStatement("You must complete Dragon Slayer to equip this.");
 				return false;
+			    }
+			}
+			if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
+			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				player.getActionSender().sendMessage("You already have this piece bound to you!");
+				return false;
+			    }
+			    else {
+				return true;
 			    }
 			}
 			if (defenceLevelReq > 0) {

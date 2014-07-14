@@ -23,6 +23,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitRecord;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -331,6 +332,10 @@ public abstract class Entity {
 	
 	public boolean inDarkWizardCircle() {
 		return Area(3224, 3231, 3367, 3372);
+	}
+	
+	public boolean inFightCaves() {
+		return FightCaves.inFightCaves(this);
 	}
 
 	public void setIndex(int index) {

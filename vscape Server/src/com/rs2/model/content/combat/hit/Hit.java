@@ -13,7 +13,9 @@ import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.RingEffect;
+import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.skills.Skill;
@@ -65,6 +67,15 @@ public class Hit {
 		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
 		    DemonSlayer.sendDelrithMessages();
 		}
+		if(attacker != null && victim != null && victim.isNpc()) {
+		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);
+		}
+		/*if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {
+		    WeaponDegrading.handlePlayerHit((Player)attacker);
+		}
+		if(attacker != null && attacker.isNpc() && victim != null && victim.isPlayer()) {
+		    WeaponDegrading.handleNpcHit((Player)victim);
+		}*/
 		if (hitDef.getProjectileDef() != null)
 			new Projectile(attacker, victim, hitDef.getProjectileDef()).show();
 		hitDelay = hitDef.calculateHitDelay(attacker != null ? attacker.getPosition() : null, victim.getPosition());
@@ -73,6 +84,7 @@ public class Hit {
 
 		if (hit && victim.isPlayer()) {
 			RingEffect.ringOfRecoil(attacker, (Player) victim, damage);
+			FightCaves.handleNpcHit(attacker, (Player)victim, damage);
 		}
 	}
 

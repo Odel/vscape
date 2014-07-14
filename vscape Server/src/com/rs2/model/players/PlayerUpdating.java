@@ -3,6 +3,7 @@ package com.rs2.model.players;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
@@ -76,6 +77,10 @@ public final class PlayerUpdating {
 			    npc.getUpdateFlags().sendFaceToDirection(new Position(3228, 3369, 0));
 			}
 		    }
+		}
+		if(player.inFightCaves()) {
+		    FightCaves.attack(player);
+		    FightCaves.healerTargeting(player);
 		}
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());

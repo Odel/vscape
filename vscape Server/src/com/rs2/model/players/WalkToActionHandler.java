@@ -18,6 +18,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -452,8 +453,14 @@ public class WalkToActionHandler {
 					break;
 				case 2693 : // shantay bank chest
 				case 4483 : // castle wars bank chest
+				    if(player.getFightCavesWave() > 0 ) {
+					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					break;
+				    }
+				    else {
 					BankManager.openBank(player);
 					break;
+				    }
 				case 3193 : // closed bank chest
 					player.getUpdateFlags().sendAnimation(832);
 					new GameObject(3194, x, y, z, def.getFace(), def.getType(), id, 500);
@@ -462,6 +469,12 @@ public class WalkToActionHandler {
 				case 1294 :
 					Dialogues.startDialogue(player, 10011);
 					break;
+				case 9356: //fight caves entrance
+				    if(x == 2437 && player.getStaffRights() >= 1) {
+					FightCaves.enterCave(player, true);
+					break;
+				    }
+				break;
 				case 2143:
 				case 2144:
 				    if(player.getQuestStage(10) == 2) {
@@ -736,7 +749,7 @@ public class WalkToActionHandler {
 				case 2878: //magebank pool - cadillac
 				    if(player.getMageArenaStage() >= 2) {
 					player.getActionSender().sendMessage("The world starts to shimmer around you...");
-					player.teleport(new Position(2509, 4690));
+					player.fadeTeleport(new Position(2509, 4690));
 					break;
 				    }
 				    else {
@@ -746,7 +759,7 @@ public class WalkToActionHandler {
 				case 2879: //magebank pool2 - cadillac
 				    if(player.getMageArenaStage() >= 2) {
 					player.getActionSender().sendMessage("The world starts to shimmer around you...");
-					player.teleport(new Position(2541, 4718));
+					player.fadeTeleport(new Position(2541, 4718));
 					break;
 				    }
 				    else {
@@ -1487,8 +1500,14 @@ public class WalkToActionHandler {
 				case 2213: //bank booth
 				case 11758:
 				case 14367: //pc bank booth
+				    if(player.getFightCavesWave() > 0 ) {
+					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					break;
+				    }
+				    else {
 					Dialogues.startDialogue(player, 494);
 					break;
+				    }
 				case 2491: // mine rune/pure ess
 					MineEssence.startMiningEss(player);
 					break;
@@ -1749,8 +1768,14 @@ public class WalkToActionHandler {
 					CoalTruck.checkCoal(player);
 					break;
 				case 3194 : // opened bank chest
+				    if(player.getFightCavesWave() > 0 ) {
+					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					break;
+				    }
+				    else {
 					BankManager.openBank(player);
 					break;
+				    }
 				case 8930: //waterbirth snow cave to daggnoth
 					Ladders.climbLadder(player, new Position(2545, 10143, 0));
 					break;
@@ -1790,8 +1815,14 @@ public class WalkToActionHandler {
 				case 2213:
 				case 11758:
 				case 14367: //pc bank booth
+				    if(player.getFightCavesWave() > 0 ) {
+					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					break;
+				    }
+				    else {
 					BankManager.openBank(player);
 					break;
+				    }
 				case 8717:
 					Menus.sendSkillMenu(player, "weaving");
 					break;
@@ -1965,7 +1996,13 @@ public class WalkToActionHandler {
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						Dialogues.startDialogue(player, player.getClickId());
+						if(player.getFightCavesWave() > 0 ) {
+						    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+						    this.stop();
+						}
+						else {
+						    Dialogues.startDialogue(player, player.getClickId());
+						}
 						Following.resetFollow(player);
 						this.stop();
 					}
@@ -2036,7 +2073,13 @@ public class WalkToActionHandler {
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						Dialogues.startDialogue(player, player.getClickId());
+						if(player.getFightCavesWave() > 0 ) {
+						    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+						    break;
+						}
+						else {
+						    Dialogues.startDialogue(player, player.getClickId());
+						}
 						Following.resetFollow(player);
 						break;
 				}
@@ -2064,7 +2107,13 @@ public class WalkToActionHandler {
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						BankManager.openBank(player);
+						if(player.getFightCavesWave() > 0 ) {
+						    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+						    this.stop();
+						}
+						else {
+						    BankManager.openBank(player);
+						}
 						Following.resetFollow(player);
 						this.stop();
 					}
@@ -2107,7 +2156,13 @@ public class WalkToActionHandler {
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-					BankManager.openBank(player);
+					if(player.getFightCavesWave() > 0 ) {
+					    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					    break;
+					}
+					else {
+					    BankManager.openBank(player);
+					}
 					Following.resetFollow(player);
 					break;
 				case 2437:
@@ -2145,8 +2200,14 @@ public class WalkToActionHandler {
 					player.getFarmingTools().loadInterfaces();
 					break;
 				case 958:
-					BankManager.openBank(player);
-					break;
+					if(player.getFightCavesWave() > 0 ) {
+					    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					    break;
+					}
+					else {
+					    BankManager.openBank(player);
+					    break;
+					}
 				case 3781: //pc squire
 					Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_PEST_CONTROL);
 					player.getDialogue().dontCloseInterface();	
@@ -2217,7 +2278,13 @@ public class WalkToActionHandler {
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-					BankManager.openBank(player);
+					if(player.getFightCavesWave() > 0 ) {
+					    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					    break;
+					}
+					else {
+					    BankManager.openBank(player);
+					}
 					Following.resetFollow(player);
 					break;
 				}
@@ -2250,8 +2317,14 @@ public class WalkToActionHandler {
 				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				switch (player.getClickId()) {
 				case 494:
+				    if(player.getFightCavesWave() > 0 ) {
+					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
+					break;
+				    }
+				    else {
 					BankManager.openBank(player);
 					break;
+				    }
 				}
 				this.stop();
 			}

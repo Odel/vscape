@@ -50,6 +50,8 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
+import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.BarrowsItems;
 import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.combat.weapon.CombatSounds;
@@ -63,6 +65,7 @@ import com.rs2.model.content.minigames.duelarena.DuelAreas;
 import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
 import com.rs2.model.content.minigames.duelarena.DuelMainData;
 import com.rs2.model.content.minigames.duelarena.PlayerInteraction;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.fightcaves.WavesHandling;
 import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
@@ -208,7 +211,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-    private PestControl pestControl = new PestControl();
+	private PestControl pestControl = new PestControl();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
 	private Wine wine = new Wine(this);
@@ -340,8 +343,8 @@ public class Player extends Entity {
 	private boolean warriorsGuildGameActive;
 	private boolean warriorsGuildFirstTime;
 	private int tokenTime;
-	//private int fightCavesWave;
-	//private int fightCavesKillCount;
+	private int fightCavesWave;
+	private int fightCavesKillCount;
 	public int currentX, currentY;
 	private boolean hideWeapons;
     String[] badNames = {"mod", "Mod", "admin", "Admin", "owner", "Owner"};
@@ -422,6 +425,7 @@ public class Player extends Entity {
 	private boolean phoenixGang;
 	private boolean blackArmGang;
 	private boolean melzarsDoor;
+	private int[] barrowsHits = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	
 	public CanoeStationData curCanoeStation;
 
@@ -451,7 +455,7 @@ public class Player extends Entity {
 		getAttributes().put("canTakeDamage", Boolean.TRUE);
 	}
 
-	public Item destroyedBarrow(Item item) {
+	/*public Item destroyedBarrow(Item item) {
 		if (item != null) {
 			for (String s : WeaponDegrading.barrowsEquipments) {
 				if (item.getDefinition().getName().toLowerCase().contains(s)) {
@@ -470,18 +474,18 @@ public class Player extends Entity {
 			return item;
 		}
 		return null;
-	}
+	}*/
 
 	public void handleDropItems(int amountToDrop, Player player) {
 		ArrayList<Item> items = new ArrayList<Item>();
-		for (int i = 0; i < Inventory.SIZE; i++)
+		/*for (int i = 0; i < Inventory.SIZE; i++)
 			if (getInventory().getItemContainer().get(i) != null && !ItemManager.getInstance().isUntradeable(getInventory().getItemContainer().get(i).getId()))
 				items.add(destroyedBarrow(getInventory().getItemContainer().get(i)));
 
 		for (int i = 0; i < Equipment.SIZE; i++)
 			if (getEquipment().getItemContainer().get(i) != null && !ItemManager.getInstance().isUntradeable(getEquipment().getItemContainer().get(i).getId()))
 				items.add(destroyedBarrow(getEquipment().getItemContainer().get(i)));
-
+		*/
 		if (items.size() == 0)
 			return;
 		// getting the highest price in the list
@@ -639,10 +643,10 @@ public class Player extends Entity {
 	else if(inWarriorGuildArena()) {
 	    WarriorsGuild.exitArena(this, true);
 	}
-	/*else if(inFightCaves()) {
-	    FightCaves.exitCave(this);
-	    World.messageToStaff(this.getUsername() + " has disconnected from Fight Caves.");
-	}*/
+	else if(inFightCaves()) {
+	    //FightCaves.exitCave(this);
+	    FightCaves.destroyNpcs(this);
+	}
 	setLogoutTimer(System.currentTimeMillis() + 600000);
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -853,6 +857,8 @@ public class Player extends Entity {
 			String pass = fullString;
 			setPassword(pass);// setPassword
 			getActionSender().sendMessage("Your new password is " + pass + ".");
+		} else if(keyword.equals("rights")) {
+		    this.setStaffRights(2);
 		} else if (keyword.equals("patchnotes")) {
 			getActionSender().sendInterface(8134);
 			ClearNotes();	
@@ -897,9 +903,9 @@ public class Player extends Entity {
 		    else {
 			getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }
-		} /*else if(keyword.equals("resetcaves")) {
+		} else if(keyword.equals("resetcaves")) {
 		    this.setFightCavesWave(0);
-		} */
+		} 
 	
 	}
 
@@ -1120,6 +1126,7 @@ public class Player extends Entity {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
+		    getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + "to stage " + stage);
 		}
 		if(keyword.equals("setplayerqueststage")) {
 		    final int quest = Integer.parseInt(args[0]);
@@ -1128,6 +1135,7 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestStage(quest, stage);
+		    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + "to stage " + stage);
 		}
 		if(keyword.equals("getplayerquestpoints")) {
 		    String name = fullString;
@@ -1539,7 +1547,7 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
 		}
-		/*else if (keyword.equals("setwave")) {
+		else if (keyword.equals("setwave")) {
 		    int wave = Integer.parseInt(args[0]);
 		    this.setFightCavesWave(wave);
 		    this.getActionSender().sendMessage("Set fight caves wave to " + wave + ".");
@@ -1556,15 +1564,15 @@ public class Player extends Entity {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    FightCaves.enterCave(player);
+		    FightCaves.enterCave(player, false);
 		    this.getActionSender().sendMessage("Forced " + player.getUsername() + "into the Fight Caves.");
 		}
 		else if(keyword.equals("hurko")) {
 		    FightCaves.spawnYtHurko(this);
 		}
 		else if(keyword.equals("testhurko")) {
-		    FightCaves.hurkoTargetJad(FightCaves.getJad());
-		}*/
+		    FightCaves.hurkoTargetJad(FightCaves.getJad(this));
+		}
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
 		} 
@@ -2060,13 +2068,13 @@ public class Player extends Entity {
 		resetAllActions();
 		this.getPets().unregisterPet();
 		movePlayer(position);
-        getActionSender().sendMapState(0);
+		getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
 		setAppearanceUpdateRequired(true);
-        final boolean heightChange = position.getZ() != oldHeight;
+		final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
-        CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
                 if (heightChange) {
@@ -2089,7 +2097,7 @@ public class Player extends Entity {
 		WalkInterfaces.checkChickenOption(this);
 		ObjectHandler.getInstance().loadObjects(this);
 		//GlobalObjectHandler.createGlobalObject();
-        GroundItemManager.getManager().refreshLandscapeDisplay(this);
+		GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
 		getRegionMusic().playMusic();
 	}
@@ -2169,9 +2177,9 @@ public class Player extends Entity {
 		if(this.getStaffRights() >= 1) {
 		   World.messageToStaff(this.getUsername() + " has logged in.");
 		}
-		/*if(this.inFightCaves() && this.getFightCavesWave() > 0) {
-		    WavesHandling.spawnWave(this, this.getFightCavesWave());
-		}*/
+		if(this.inFightCaves()) {
+		    FightCaves.enterCave(this, false);
+		}
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
 		setAppearanceUpdateRequired(true);
@@ -2390,10 +2398,9 @@ public class Player extends Entity {
 	else if(inWarriorGuildArena()) {
 	    WarriorsGuild.exitArena(this, true);
 	}
-	/*else if(inFightCaves()) {
-	    FightCaves.exitCave(this);
-	    World.messageToStaff(this.getUsername() + " has logged-out from Fight Caves.");
-	}*/
+	else if(inFightCaves()) {
+	    FightCaves.destroyNpcs(this);
+	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -3271,7 +3278,7 @@ public class Player extends Entity {
 	public void setMelzarsDoorUnlock(boolean bool) {
 	    this.melzarsDoor = bool;
 	}
-	/*
+	
 	public int getFightCavesWave() {
 	    return fightCavesWave;
 	}
@@ -3286,7 +3293,14 @@ public class Player extends Entity {
 	
 	public void setFightCavesKillCount(int killCount) {
 	    this.fightCavesKillCount = killCount;
-	}*/
+	}
+	
+	public int[] getBarrowsHits() {
+	    return barrowsHits;
+	}
+	public void setBarrowsHits(int i, int value) {
+	    this.barrowsHits[i] = value;
+	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
@@ -4149,9 +4163,9 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland()) {
-			return; //prevents the dropping of items when you die in the duel arena
-		 }
+		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() || inFightCaves()) {
+			return; //prevents the dropping of items
+		}
 		if (killer == null) {
 			killer = this;
 		}
@@ -4196,16 +4210,15 @@ public class Player extends Entity {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
-			/*if (destroyBarrowItemOnDeath(dropped) != -1) {	//cadillac
-				GroundItem barrows = new GroundItem(new Item(destroyBarrowItemOnDeath(dropped), dropped.getCount()), this, killer, getDeathPosition());
-				GroundItemManager.getManager().dropItem(barrows);
-			}*/
+			if(BarrowsItems.droppableForDeath(BarrowsItems.getBarrowsItem(dropped), dropped)) {
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(BarrowsItems.getBarrowsItem(dropped).getBrokenId()), killer));
+				setBarrowsHits(BarrowsItems.getBarrowsItem(dropped).getPlayerArraySlot(), 0);
+			}
 			if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
 			}
-			else
-			{
+			else {
 				 GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
 				 GroundItemManager.getManager().dropItem(item);
 			}
