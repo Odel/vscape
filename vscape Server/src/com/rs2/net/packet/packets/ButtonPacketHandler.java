@@ -3,6 +3,7 @@ package com.rs2.net.packet.packets;
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.Emotes.EMOTE;
+import com.rs2.model.content.combat.util.BarrowsItems;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
@@ -24,6 +25,8 @@ import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.Sextant;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.TradeManager;
@@ -348,6 +351,23 @@ public class ButtonPacketHandler implements PacketHandler {
 			/** Destroy item **/
 			case 55095 :
 				if (player.getDestroyItem() != null) {
+				    Item item = player.getDestroyItem();
+				    if (item.getId() == 2412) {
+					player.getActionSender().sendMessage("You can now obtain another God Cape.");
+					player.setCanHaveGodCape(true);
+				    }
+				    if (item.getId() == 2413) {
+					player.getActionSender().sendMessage("You can now obtain another God Cape.");
+					player.setCanHaveGodCape(true);
+				    }
+				    if (item.getId() == 2414) {
+					player.getActionSender().sendMessage("You can now obtain another God Cape.");
+					player.setCanHaveGodCape(true);
+				    }
+				    if (BarrowsItems.notDroppable(BarrowsItems.getBarrowsItem(item), item)) {
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(BarrowsItems.getBarrowsItem(item).getBrokenId()), player));
+					player.setBarrowsHits(BarrowsItems.getBarrowsItem(item).getPlayerArraySlot(), 0);
+				    }
 					player.getInventory().removeItem(player.getDestroyItem());
 				}
 			case 55096 :
