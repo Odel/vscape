@@ -1,9 +1,5 @@
 package com.rs2.model.content.treasuretrails;
 
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -196,10 +192,6 @@ public class SpeakToScrolls {
 				player.getInventory().removeItem(new Item(ClueScroll.OGRE_PUZZLE, 1));
 				player.getInventory().removeItem(new Item(ClueScroll.TREE_PUZZLE, 1));
 				player.getInventory().removeItem(new Item(speakData.getClueId(), 1));
-				HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
-				Hit hit = new Hit(player, player, hitDef);
-				BindingEffect bind = new BindingEffect(1000000);
-				bind.initialize(hit); //try and step away during dialogue now :-)
 				player.clueLevel = speakData.getLevel();
 			} else if (player.hasPuzzle()) {
 				player.getDialogue().sendNpcChat("The puzzle doesn't seem to be complete yet.", Dialogues.HAPPY);
@@ -211,12 +203,7 @@ public class SpeakToScrolls {
 			Dialogues.setNextDialogue(player, 10009, 2);
 			player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
 			player.getInventory().removeItem(new Item(speakData.getClueId(), 1));
-			HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
-			Hit hit = new Hit(player, player, hitDef);
-			BindingEffect bind = new BindingEffect(1000000);
-			bind.initialize(hit); //try and step away during dialogue now :-)
 			player.clueLevel = speakData.getLevel();
-			//ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward.");
 		}
 
 		return true;
