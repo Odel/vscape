@@ -43,7 +43,7 @@ public class HealingScript extends AttackScript {
 			getAttacker().getUpdateFlags().sendGraphic(startGraphic.getId(), startGraphic.getValue());
 
 		if (endGraphic!= null)
-			getVictim().getUpdateFlags().sendGraphic(startGraphic.getId(), startGraphic.getValue());
+			getVictim().getUpdateFlags().sendGraphic(endGraphic.getId(), endGraphic.getValue());
 
 		if (animation != -1)
 			getAttacker().getUpdateFlags().sendAnimation(animation);
