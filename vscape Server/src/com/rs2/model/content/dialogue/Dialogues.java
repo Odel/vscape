@@ -5176,6 +5176,7 @@ public class Dialogues {
 						break;
 					case 2 :
 						ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward");
+						player.resetEffects();
 						return true;
 					case 3 :
 						player.getActionSender().openXInterface(207);
