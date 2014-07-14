@@ -309,8 +309,11 @@ public class ClueScroll {
 
 	public static void spawnAttacker(Player player) {
 		int id = player.inWild() ? 1007 : 1264;
-		if (!NpcLoader.checkSpawn(player, id)) {
-			NpcLoader.spawnNpc(player, player.inWild() ? new Npc(1007) : new Npc(1264), true, true);
+		if (!NpcLoader.checkSpawn(player, id) && id == 1007) {
+			NpcLoader.spawnNpc(player, new Npc(id), player.getPosition().clone(), true, "For Zamorak!");
+		}
+		else if(!NpcLoader.checkSpawn(player, id) && id == 1264) {
+			NpcLoader.spawnNpc(player, new Npc(id), player.getPosition().clone(), true, "For Saradomin!");
 		}
 	}
 
