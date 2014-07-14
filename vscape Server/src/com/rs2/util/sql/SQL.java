@@ -26,7 +26,6 @@ public class SQL {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				con = DriverManager.getConnection("jdbc:mysql://2006remade.com:3306/remade_highscores","remade_xero","winnie12");
 				stmt = con.createStatement();
-				System.out.println("Opened MySql database successfully");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -34,15 +33,30 @@ public class SQL {
 		else if(Constants.SQL_TYPE == 2)
 		{
 			try {
-				Class.forName("org.sqlite.JDBC");
+				Class.forName("org.sqlite.JDBC").newInstance();
 			    con = DriverManager.getConnection("jdbc:sqlite:test.db");
 			    stmt = con.createStatement();
-			    System.out.println("Opened sqlite database successfully");
 			    query("create table if not exists skillsoverall (playerName CHAR(50), totalxp INT, totallevel INT )");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+		}
+		
+		if(con == null)
+		{
+			System.out.println("Something went wrong setting up the SQL connection");
+		}
+		else
+		{
+			if(Constants.SQL_TYPE == 1)
+			{
+				System.out.println("Opened MySql database successfully");
+			}
+			else if(Constants.SQL_TYPE == 2)
+			{
+				System.out.println("Opened SQLite database successfully");
+			}
 		}
 	}
 	public static ResultSet query(String s) throws SQLException {
@@ -156,7 +170,8 @@ public class SQL {
 		    			//System.out.println(sname);
 		    			//query("DELETE FROM `skillsoverall` WHERE playerName = '"+sname+"';");
 		    			//query("INSERT INTO `skillsoverall` (`playerName`,`xp`,`lvl`) VALUES ('"+sname+"',"+(xptotal)+","+(leveltotal)+");");
-		    			PreparedStatement del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE playerName = ?;");
+		    			PreparedStatement del;
+		    			del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE playerName = ?;");
 		    			del.setString(1, sname);
 		    			del.executeUpdate();
 		    			

@@ -747,10 +747,12 @@ public class Player extends Entity {
 				int line = 8147;
 				while ( rs.next() ) {
 					String  name = rs.getString("playerName");
-					int lv  = rs.getInt("totallevel");
-					//getActionSender().sendMessage(name + " , level " + lv + " , xp " + x);
-					this.getActionSender().sendString(name + " - level " + lv, line);
-					line++;
+					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark"))
+					{
+						int lv  = rs.getInt("totallevel");
+						this.getActionSender().sendString(name + " - level " + lv, line);
+						line++;
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

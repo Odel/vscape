@@ -23,7 +23,7 @@ import vscapeClient.sign.signlink;
 
 public class client extends RSApplet {
 	
-	private static boolean DevMode = false;
+	private static boolean DevMode = true;
 
 	public static String getHost() {
 		return "127.0.0.1";
