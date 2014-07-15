@@ -35,7 +35,7 @@ public class Constants {
 	public static final String FORUM_DB_USER = "admin06_b00mah3";
 	public static final String FORUM_DB_PASS = "O1xS?rx%qEGS";
 
-	public static boolean SQL_ENABLED = false;
+	public static boolean SQL_ENABLED = true;
 	public static int SQL_TYPE = 2;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
 	public static boolean SERVER_DEBUG = true;
 	public static boolean DEVELOPER_MODE = true;
@@ -52,6 +52,7 @@ public class Constants {
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	
+   	public static final boolean MAC_CHECK = true;
    	public static final int MAX_CONNECTIONS_PER_MAC = 1;
    	public static final int MAX_CONNECTIONS_PER_IP = 3;
    	

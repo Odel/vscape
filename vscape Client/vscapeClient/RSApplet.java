@@ -558,7 +558,7 @@ public class RSApplet extends Applet
 		delayTime = 20;
 		minDelay = 1;
 		aLongArray7 = new long[10];
-		shouldDebug = false;
+		shouldDebug = true;
 		shouldClearScreen = true;
 		awtFocus = true;
 		keyArray = new int[128];

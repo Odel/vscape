@@ -180,7 +180,7 @@ public class Player extends Entity {
 	private int packetLength = -1;
 	private String username;
 	private String password;
-	private String macAddress;
+	private String macAddress = "NONE";
 	private int clientVersion;
 	private int magicId;
 	private int lastNpc = -1;
@@ -2272,23 +2272,26 @@ public class Player extends Entity {
                 }
             }
         }
-        int macconnections = 0;
-        for(Player p : World.getPlayers())
-		{
-			if(p == null)
-			{
-				continue;
-			}
-			if(getMacAddress().contentEquals(p.getMacAddress()))
-			{
-				macconnections++;
-			}
-		}
-        if(macconnections >= Constants.MAX_CONNECTIONS_PER_MAC)
+        if(Constants.MAC_CHECK)
         {
-			setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
-			return false;
-		}
+        	int macconnections = 0;
+        	for(Player p : World.getPlayers())
+        	{
+        		if(p == null)
+        		{
+        			continue;
+        		}
+        		if(getMacAddress().contentEquals(p.getMacAddress()))
+        		{
+        			macconnections++;
+        		}
+        	}
+        	if(macconnections >= Constants.MAX_CONNECTIONS_PER_MAC)
+        	{
+        		setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
+        		return false;
+        	}
+        }
         int ipconnections = 0;
         for(Player p : World.getPlayers())
 		{

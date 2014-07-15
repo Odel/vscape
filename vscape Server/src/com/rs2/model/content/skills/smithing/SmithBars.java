@@ -203,9 +203,9 @@ public class SmithBars {
 						if (player.getNewComersSide().getTutorialIslandStage() == 36)
 							player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
 						player.setClickId(0);
-						player.getDialogue().sendStatement("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+						player.getDialogue().sendStatement("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make a " + finalItem.getDefinition().getName().toLowerCase() + ".");
 					} else {
-						player.getActionSender().sendMessage("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+						player.getActionSender().sendMessage("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make a " + finalItem.getDefinition().getName().toLowerCase() + ".");
 					}
 					amounts--;
 					if (amounts < 1) {
@@ -271,9 +271,9 @@ public class SmithBars {
 						if (player.getNewComersSide().getTutorialIslandStage() == 36)
 							player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
 						player.setClickId(0);
-						player.getDialogue().sendStatement("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+						player.getDialogue().sendStatement("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make a " + finalItem.getDefinition().getName().toLowerCase() + ".");
 					} else {
-						player.getActionSender().sendMessage("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make " + finalItem.getDefinition().getName().toLowerCase() + ".");
+						player.getActionSender().sendMessage("You hammer the " + bar.getDefinition().getName().toLowerCase() + " and make a " + finalItem.getDefinition().getName().toLowerCase() + ".");
 					}
 					amounts--;
 					if (amounts < 1) {

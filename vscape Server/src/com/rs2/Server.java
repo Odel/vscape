@@ -100,7 +100,6 @@ public class Server implements Runnable {
 		Constants.DEVELOPER_MODE = false;
 		Constants.SERVER_DEBUG = false;
 		Constants.UNLIMITED_RUN = true;
-		Constants.SQL_ENABLED = true;
 
         //PlayerCleaner.start();
         //System.exit(0);

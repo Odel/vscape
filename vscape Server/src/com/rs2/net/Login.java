@@ -89,9 +89,10 @@ public class Login {
 			player.setClientVersion(in.readShort());
 
 			in.readByte(); // Skip the high/low memory version.
-			
-			player.setMacAddress(in.readString().trim());
-			
+			if(Constants.MAC_CHECK)
+			{
+				player.setMacAddress(in.readString().trim());
+			}
 			// Skip the CRC keys.
 			for (int i = 0; i < 9; i++) {
 				in.readInt();
