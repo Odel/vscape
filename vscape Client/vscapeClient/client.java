@@ -5240,7 +5240,7 @@ public class client extends RSApplet {
 		System.out.println("psize:" + pktSize);
 		if(socketStream != null)
 			socketStream.printDebug();
-		super.shouldDebug = true;
+		super.shouldDebug = false;
 	}
 
 	Component getGameComponent()

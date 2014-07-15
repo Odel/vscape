@@ -1,3 +1,8 @@
+@dre@=July 3rd=
+-Banking now banks the item you click, not
+the first one it finds
+-Maybe highscores is fixed?
+
 @dre@=FOURTH OF JULY=
 -USA USA USA (::usa)
 -Sergeant Damien needs help fighting the terror.

@@ -558,7 +558,7 @@ public class RSApplet extends Applet
 		delayTime = 20;
 		minDelay = 1;
 		aLongArray7 = new long[10];
-		shouldDebug = true;
+		shouldDebug = false;
 		shouldClearScreen = true;
 		awtFocus = true;
 		keyArray = new int[128];
@@ -570,7 +570,7 @@ public class RSApplet extends Applet
 	int minDelay;
 	private final long[] aLongArray7;
 	int fps;
-	boolean shouldDebug;
+	boolean shouldDebug = false;
 	int myWidth;
 	int myHeight;
 	Graphics graphics;

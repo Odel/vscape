@@ -65,7 +65,7 @@ public class BankManager {
 		}
 		if (!inventoryItem.getDefinition().isStackable()) {
 			for (int i = 0; i < amount; i++) {
-				player.getInventory().removeItem(new Item(bankItem, 1));
+				player.getInventory().removeItemSlot(new Item(bankItem, amount), slot);
 			}
 		} else {
 			player.getInventory().removeItem(new Item(bankItem, amount));
