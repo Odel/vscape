@@ -1,31 +1,14 @@
 package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
-import com.rs2.model.Position;
-import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
-import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
-import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS_2;
-import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.DragonSlayer.nedSpawnedOnCrandor;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
-import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.model.transport.Sailing;
-import com.rs2.util.Misc;
 
 public class TabHandler {
     private static final int AIR_RUNE = 556;
@@ -34,6 +17,11 @@ public class TabHandler {
     private static final int WATER_RUNE = 555;
     private static final int LAW_RUNE = 563;
     private static final int SOFT_CLAY = 1761;
+    
+    private static final int FIRE_STAFF[] = {1387, 1393, 1401, 3053, 3054};
+    private static final int AIR_STAFF[] = {1381, 1397, 1405};
+    private static final int WATER_STAFF[] = {1383, 1395, 1403, 6726, 6727}; //11736 & 11738 - steam battlestaff and mystic steam
+    private static final int EARTH_STAFF[] = {1385, 1399, 1407, 6726, 6727, 3053, 3054};
     
     private static final int VARROCK = 1;
     private static final int LUMBRIDGE = 2;
@@ -52,61 +40,127 @@ public class TabHandler {
     private static final int[][] WATCHTOWER_RUNES = { {EARTH_RUNE, 2}, {LAW_RUNE, 2}, {0, 0} };
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	if(firstItem == LAW_RUNE && secondItem == SOFT_CLAY) {
+	if(firstItem == LAW_RUNE && secondItem == SOFT_CLAY || firstItem == SOFT_CLAY && secondItem == LAW_RUNE) {
 	    Dialogues.startDialogue(player, 10565);
 	    return true;
 	}
 	return false;
     }
     
+    public static boolean fireStaff(int itemId) {
+	for(int i : FIRE_STAFF) {
+	    if(i == itemId) return true;
+	}
+	return false;
+    }
+    
+    public static boolean airStaff(int itemId) {
+	for(int i : AIR_STAFF) {
+	    if(i == itemId) return true;
+	}
+	return false;
+    }
+    
+    public static boolean waterStaff(int itemId) {
+	for(int i : WATER_STAFF) {
+	    if(i == itemId) return true;
+	}
+	return false;
+    }
+    
+    public static boolean earthStaff(int itemId) {
+	for(int i : EARTH_STAFF) {
+	    if(i == itemId) return true;
+	}
+	return false;
+    }
+    
     public static boolean varrockRunes(Player player) {
 	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
 	if(i.playerHasItem(AIR_RUNE, 3) && i.playerHasItem(FIRE_RUNE) && i.playerHasItem(LAW_RUNE)) {
 	    return true;
 	}
+	else if(airStaff(id) && i.playerHasItem(FIRE_RUNE) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
+	else if(i.playerHasItem(AIR_RUNE, 3) && fireStaff(id) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
 	else {
 	    return false;
 	}
     }
+    
     public static boolean lumbridgeRunes(Player player) {
 	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
 	if(i.playerHasItem(AIR_RUNE, 3) && i.playerHasItem(EARTH_RUNE) && i.playerHasItem(LAW_RUNE)) {
 	    return true;
 	}
+	else if(airStaff(id) && i.playerHasItem(EARTH_RUNE) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
+	else if(i.playerHasItem(AIR_RUNE, 3) && earthStaff(id) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
 	else {
 	    return false;
 	}
     }
+    
     public static boolean faladorRunes(Player player) {
 	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
 	if(i.playerHasItem(AIR_RUNE, 3) && i.playerHasItem(WATER_RUNE) && i.playerHasItem(LAW_RUNE)) {
 	    return true;
 	}
+	else if(airStaff(id) && i.playerHasItem(WATER_RUNE) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
+	else if(i.playerHasItem(AIR_RUNE, 3) && waterStaff(id) && i.playerHasItem(LAW_RUNE)) {
+	    return true;
+	}
 	else {
 	    return false;
 	}
     }
+    
     public static boolean camelotRunes(Player player) {
 	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
 	if(i.playerHasItem(AIR_RUNE, 5) && i.playerHasItem(LAW_RUNE)) {
 	    return true;
 	}
-	else {
-	    return false;
-	}
-    }
-    public static boolean ardougneRunes(Player player) {
-	Inventory i = player.getInventory();
-	if(i.playerHasItem(WATER_RUNE, 2) && i.playerHasItem(LAW_RUNE, 2)) {
+	else if(airStaff(id) && i.playerHasItem(LAW_RUNE)) {
 	    return true;
 	}
 	else {
 	    return false;
 	}
     }
+    
+    public static boolean ardougneRunes(Player player) {
+	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
+	if(i.playerHasItem(WATER_RUNE, 2) && i.playerHasItem(LAW_RUNE, 2)) {
+	    return true;
+	}
+	else if(waterStaff(id) && i.playerHasItem(LAW_RUNE, 2)) {
+	    return true;
+	}
+	else {
+	    return false;
+	}
+    }
+    
     public static boolean watchtowerRunes(Player player) {
 	Inventory i = player.getInventory();
+	int id = player.getEquipment().getId(Constants.WEAPON);
 	if(i.playerHasItem(EARTH_RUNE, 2) && i.playerHasItem(LAW_RUNE, 2)) {
+	    return true;
+	}
+	else if(earthStaff(id) && i.playerHasItem(LAW_RUNE, 2)) {
 	    return true;
 	}
 	else {
@@ -132,6 +186,25 @@ public class TabHandler {
 	else if(spell == WATCHTOWER) return WATCHTOWER_RUNES;
 	else return null;
     }
+    
+    public static boolean checkStaffs(int rune, int weaponId) {
+	if(rune == FIRE_RUNE && fireStaff(weaponId)) {
+	    return true;
+	}
+	else if(rune == AIR_RUNE && airStaff(weaponId)) {
+	    return true;
+	}
+	else if(rune == WATER_RUNE && waterStaff(weaponId)) {
+	    return true;
+	}
+	else if(rune == EARTH_RUNE && earthStaff(weaponId)) {
+	    return true;
+	}
+	else {
+	    return false;
+	}
+    }
+    
     public static void craftTab(final Player player,final int spell, final int count) {
 	final int task = player.getTask();
 	player.setSkilling(new CycleEvent() {
@@ -139,6 +212,7 @@ public class TabHandler {
 
 	    @Override
 	    public void execute(CycleEventContainer container) {
+		int weaponId = player.getEquipment().getId(Constants.WEAPON);
 		if (!player.checkTask(task) || !checkRunes(player, spell) || amnt == 0) {
 		    container.stop();
 		    return;
@@ -150,9 +224,15 @@ public class TabHandler {
 		}
 		player.getUpdateFlags().sendAnimation(791);
 		player.getActionSender().sendMessage("You craft the tab.");
-		player.getInventory().removeItem(new Item(getRunes(spell)[0][0], getRunes(spell)[0][1]));
-		player.getInventory().removeItem(new Item(getRunes(spell)[1][0], getRunes(spell)[1][1]));
-		player.getInventory().removeItem(new Item(getRunes(spell)[2][0], getRunes(spell)[2][1]));
+		if(!checkStaffs(getRunes(spell)[0][0], weaponId)) {
+		    player.getInventory().removeItem(new Item(getRunes(spell)[0][0], getRunes(spell)[0][1]));
+		}
+		if(!checkStaffs(getRunes(spell)[1][0], weaponId)) {
+		    player.getInventory().removeItem(new Item(getRunes(spell)[1][0], getRunes(spell)[1][1]));
+		}
+		if(!checkStaffs(getRunes(spell)[2][0], weaponId)) {
+		    player.getInventory().removeItem(new Item(getRunes(spell)[2][0], getRunes(spell)[2][1]));
+		}
 		player.getInventory().removeItem(new Item(SOFT_CLAY));
 		player.getInventory().addItem(new Item(TABS[spell]));
 		amnt--;
@@ -166,12 +246,6 @@ public class TabHandler {
 	});
 	CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 3);
 	return;
-    }
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-
-	}
-	return false;
     }
     
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
@@ -390,5 +464,4 @@ public class TabHandler {
 	}
     return false;
     }
-    
 }
