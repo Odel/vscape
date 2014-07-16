@@ -627,7 +627,6 @@ public class RomeoAndJuliet implements Quest {
 				return true;
 			}
 		    case 5:
-		    case 6:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				if (player.getInventory().playerHasItem(new Item(753))) {
@@ -649,6 +648,28 @@ public class RomeoAndJuliet implements Quest {
 				player.getDialogue().endDialogue();
 				return true;
 			}
+		    case 6:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if (player.getInventory().playerHasItem(new Item(753))) {
+				    player.getDialogue().sendNpcChat("Well done. You have the berries.", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Looks like you haven't found those berries.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendGiveItemNpc("You give the Apothecary the berries.", new Item(753));
+				player.getInventory().removeItem(new Item(753));
+				return true;
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("The Apothecary gives you the potion.", new Item(756));
+				player.getInventory().addItem(new Item(756));
+				player.getDialogue().endDialogue();
+				return true;
+			}
+			
 		}
 		return false;
         }
