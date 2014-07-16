@@ -8,6 +8,9 @@ when making teleport tabs. (Like spells)
 -Banking now banks the item you click, not
 the first one it finds.
 -Maybe highscores is fixed?
+-Bug with Prayer Guild entrance req fixed.
+-You can now boost smithing to make an item.
+(Dwarven Stout)
 
 @dre@=FOURTH OF JULY=
 -USA USA USA (::usa)
