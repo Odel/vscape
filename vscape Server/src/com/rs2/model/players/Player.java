@@ -747,7 +747,7 @@ public class Player extends Entity {
 				int line = 8147;
 				while ( rs.next() ) {
 					String  name = rs.getString("playerName");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr Foxter"))
+					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
 					{
 						int lv  = rs.getInt("totallevel");
 						this.getActionSender().sendString(name + " - level " + lv, line);
