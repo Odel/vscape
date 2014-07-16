@@ -402,13 +402,12 @@ public class PlayerSave {
 			characterfile.write("hide-colors = ", 0, 14);
 			characterfile.write(Boolean.toString(player.getHideColors()), 0, Boolean.toString(player.getHideColors()).length());
 			characterfile.newLine();
-			characterfile.write("has god-cape = ", 0, 11);	//cadillac
+			characterfile.write("Has God-Cape = ", 0, 15);	//cadillac
 			characterfile.write(Boolean.toString(player.getCanHaveGodCape()), 0, Boolean.toString(player.getCanHaveGodCape()).length());
 			characterfile.newLine();
-			characterfile.write("Mage Arena stage = ", 0, 11);
+			characterfile.write("Mage Arena stage = ", 0, 19);
 			characterfile.write(Integer.toString(player.getMageArenaStage()), 0, Integer.toString(player.getMageArenaStage()).length());
 			characterfile.newLine();
-			
 			characterfile.write("MAC = ", 0, 6);
 			characterfile.write(player.getMacAddress(), 0, player.getMacAddress().length());
 			characterfile.newLine();

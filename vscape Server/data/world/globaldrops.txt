@@ -1,4 +1,5 @@
 #id - amount - x - y - h - timer
+9174:1:3174:3663:0:30 //bronze crossbow wilderness
 245:1:2930:3515:0:10 //wine of zamorak
 245:1:2933:3518:0:10 //wine of zamorak
 401:1:2811:3388:0:5 //seaweed

@@ -1122,28 +1122,33 @@ public class Player extends Entity {
 			final int id = Integer.parseInt(args[0]);
 			getActionSender().sendSong(id);
 		}
-		if(keyword.equals("setqueststage")) {
+		if(keyword.equals("testinterfaceitem")) {
+		    final int item = Integer.parseInt(args[0]);
+		    final int line = Integer.parseInt(args[1]);
+		    getActionSender().sendItemOnInterface(item, 200, line);
+		}
+		if(keyword.equals("setqueststage") || keyword.equals("queststage")) {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
-		    getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + "to stage " + stage);
+		    getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
 		}
-		if(keyword.equals("setplayerqueststage")) {
+		if(keyword.equals("setplayerqueststage") || keyword.equals("playerqueststage")) {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestStage(quest, stage);
-		    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + "to stage " + stage);
+		    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
 		}
-		if(keyword.equals("getplayerquestpoints")) {
+		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.");
 		}
-		if(keyword.equals("setplayerquestpoints")) {
+		if(keyword.equals("setplayerquestpoints") || keyword.equals("setplayerqp")) {
 		    final int qp = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -1151,12 +1156,14 @@ public class Player extends Entity {
 		    player.setQuestPoints(qp);
 		    this.getActionSender().sendMessage("That player now has " +qp+ " quest points.");
 		}
-		if(keyword.equals("getexp")) {
+		if(keyword.equals("getexp") || keyword.equals("getlevel") || keyword.equals("getstat")) {
 		    final int skill = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    this.getActionSender().sendMessage("That player has " + player.getSkill().getExp()[skill] + " experience in " + Skill.SKILL_NAME[skill]);
+		    final double exp = player.getSkill().getExp()[skill];
+		    this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill]);
+		    this.getActionSender().sendMessage("and is level " + player.getSkill().getLevelForXP(exp) + ".");
 		}
 		if(keyword.equals("subtractexp")) {
 		    final int skill = Integer.parseInt(args[0]);
@@ -1361,6 +1368,14 @@ public class Player extends Entity {
 			inventory.addItem(new Item(1381, 1));
 			inventory.addItem(new Item(4675, 1));
 		}
+		else if (keyword.equals("tabs") || keyword.equals("teleports")) {
+		    for(int i = 0; i < 8012 - 8007 + 1; i++) {
+			inventory.addItem(new Item(8007 + i, 100));
+		    }
+		    inventory.addItem(new Item(1712, 2)); //glories
+		    inventory.addItem(new Item(3853)); //games necklace
+		    inventory.addItem(new Item(11105)); //skills necklace
+		}
 		else if (keyword.equals("tele")) {
 			try {
 				int x = Integer.parseInt(args[0]);
@@ -1456,6 +1471,10 @@ public class Player extends Entity {
 			for (Player player : World.getPlayers()) {
 				if (player == null)
 					continue;
+				if (player.inFightCaves()) {
+				    getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+				    break;
+				}
 				if (player.getUsername().equalsIgnoreCase(name)) {
 					teleport(player.getPosition().clone());
 					break;
@@ -1480,6 +1499,10 @@ public class Player extends Entity {
             {
             	actionSender.sendMessage("That person is in pest control right now.");
             }
+	    if(player.inFightCaves()) {
+		getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.");
+		return;
+	    }
 		player.getPets().unregisterPet();
             player.teleport(getPosition().clone());
 		}
@@ -1607,12 +1630,14 @@ public class Player extends Entity {
         }
         else if (keyword.equals("stat")) {
             try {
-                if (fullString.indexOf("-") == 0) {
-                    getActionSender().sendMessage("Don't forget - before player name!");
-                    return;
-                }
-                int skillId = Integer.parseInt(args[0]);
+		int skillId = Integer.parseInt(args[0]);
                 int lvl = Integer.parseInt(args[1]);
+                if (!fullString.contains("-")) {
+		    this.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
+		    this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - 1;
+		    this.getSkill().getLevel()[skillId] = lvl;
+		    this.getSkill().refresh(skillId);
+                }
                 String name = fullString.substring(fullString.indexOf("-")+1);
                 long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
                 Player player = World.getPlayerByName(nameLong);
@@ -1621,7 +1646,8 @@ public class Player extends Entity {
                     return;
                 }
                 player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-                player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl);
+                player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - 1;
+		player.getSkill().getLevel()[skillId] = lvl;
                 player.getSkill().refresh(skillId);
             }
             catch (Exception e) {
@@ -5208,7 +5234,7 @@ public class Player extends Entity {
 	
 	public void sendQuestTab(){
 		getActionSender().sendString("Player Quests", 663);
-		getActionSender().sendString("", 7332); // black knight's fortress
+		getActionSender().sendString("@red@Black Knight's Fortress", 7332); // black knight's fortress
 		getActionSender().sendString("@red@Cook's Assistant", 7333);
 		getActionSender().sendString("@red@Demon Slayer", 7334); //demon slayer
 		getActionSender().sendString("@red@Doric's Quest", 7336);

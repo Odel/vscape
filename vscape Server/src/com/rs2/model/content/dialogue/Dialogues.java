@@ -41,6 +41,7 @@ import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.LostCity;
@@ -136,6 +137,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(DemonSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(BlackKnightsFortress.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {

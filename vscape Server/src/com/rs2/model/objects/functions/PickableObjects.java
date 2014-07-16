@@ -16,7 +16,7 @@ import com.rs2.util.Misc;
  */
 public class PickableObjects {
 
-	public static final int[][] pickableObjects = {{5585, 1947}, {3366, 1957}, {1161, 1965}, {312, 1942}, {313, 1947}, {2646, 1779}};
+	public static final int[][] pickableObjects = {{5585, 1947}, {3366, 1957}, {1161, 1965}, {312, 1942}, {313, 1947}, {2646, 1779}, {11494, 1967}};
 
 	public static boolean pickObject(final Player player, final int id, final int obX, final int obY) {
 		if (!SkillHandler.checkObject(id, obX, obY, player.getPosition().getZ())) {

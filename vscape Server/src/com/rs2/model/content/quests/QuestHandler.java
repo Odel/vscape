@@ -10,7 +10,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.util.PlayerSave;
 
 /**
- * @date 1-jun-2011
+ * @date 1-jun-
  * @author Satan666
  */
 public class QuestHandler {
@@ -43,7 +43,8 @@ public class QuestHandler {
 	new LostCity(),
 	new DragonSlayer(),
 	new RomeoAndJuliet(),
-	new DemonSlayer()
+	new DemonSlayer(),
+	new BlackKnightsFortress()
     };
     
     public static void init() {
@@ -164,6 +165,9 @@ public class QuestHandler {
         		return true;
 		case 28166: //Demon Slayer
 			showInterface(player,quests[17]);
+        		return true;
+		case 28164: //Black Knight's Fortress
+			showInterface(player,quests[18]);
         		return true;
 
         }

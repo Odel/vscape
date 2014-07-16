@@ -20,6 +20,7 @@ import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
@@ -176,6 +177,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if (PickableObjects.pickObject(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				if (player.getSlayer().handleObjects(id, x, y)) {
 					this.stop();
 					return;
@@ -197,6 +202,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(DemonSlayer.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(BlackKnightsFortress.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}
@@ -2420,6 +2429,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(DemonSlayer.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(BlackKnightsFortress.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

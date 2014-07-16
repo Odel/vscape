@@ -8,6 +8,7 @@ import com.rs2.model.content.combat.util.BarrowsItems;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
@@ -765,6 +766,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(DragonSlayer.itemHandling(player, itemId)) {
+		    return;
+		}
+		if(BlackKnightsFortress.itemHandling(player, itemId)) {
 		    return;
 		}
 		switch (itemId) {
