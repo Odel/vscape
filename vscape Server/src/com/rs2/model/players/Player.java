@@ -735,7 +735,7 @@ public class Player extends Entity {
 		if (keyword.equals("outfit")) {
 			getActionSender().sendInterface(3559);
 		}
-		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") )
+		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") || keyword.equals("hiscores") )
 		{
 	        if(Constants.SQL_ENABLED)
 	        {
@@ -747,7 +747,7 @@ public class Player extends Entity {
 				int line = 8147;
 				while ( rs.next() ) {
 					String  name = rs.getString("playerName");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark"))
+					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr Foxter"))
 					{
 						int lv  = rs.getInt("totallevel");
 						this.getActionSender().sendString(name + " - level " + lv, line);
@@ -1569,6 +1569,13 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
+		}
+		else if (keyword.equals("maxqp")) {
+		    int x = 0;
+		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
+			x += QuestHandler.getQuests()[i].getQuestPoints();
+		    }
+		    this.getActionSender().sendMessage("The total possible quest points is: " + x + ".");
 		}
 		else if (keyword.equals("setwave")) {
 		    int wave = Integer.parseInt(args[0]);

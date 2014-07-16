@@ -1,13 +1,13 @@
 @dre@=July 3rd=
 @blu@Black Knight's Fortress
 @blu@Goblin Diplomacy
+@blu@Highscores!
 -All dyes can be gotten from Aggie and mixed.
 -Woad Leaves from Wyson the Gardener in Falador.
 -Elemental staves can be used in place of runes
 when making teleport tabs. (Like spells)
 -Banking now banks the item you click, not
 the first one it finds.
--Maybe highscores is fixed?
 -Bug with Prayer Guild entrance req fixed.
 -You can now boost smithing to make an item.
 (Dwarven Stout)

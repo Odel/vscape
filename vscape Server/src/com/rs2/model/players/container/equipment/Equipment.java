@@ -531,7 +531,7 @@ public class Equipment {
 				return false;
 			    }
 			}
-			if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
+			/*if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
 			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
 				player.getActionSender().sendMessage("You already have this piece bound to you!");
 				return false;
@@ -539,7 +539,7 @@ public class Equipment {
 			    else {
 				return true;
 			    }
-			}
+			}*/
 			if (attackLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
 					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wield this weapon.");
@@ -583,7 +583,7 @@ public class Equipment {
 				return false;
 			    }
 			}
-			if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
+			/*if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
 			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
 				player.getActionSender().sendMessage("You already have this piece bound to you!");
 				return false;
@@ -591,7 +591,7 @@ public class Equipment {
 			    else {
 				return true;
 			    }
-			}
+			}*/
 			if (defenceLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.DEFENCE) < defenceLevelReq) {
 					player.getActionSender().sendMessage("You need a Defence level of " + defenceLevelReq + " to wear this item.");

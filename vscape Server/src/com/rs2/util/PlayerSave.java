@@ -859,7 +859,12 @@ public class PlayerSave {
     				player.getFarmingTools().setTools(i, load.readInt());
     			}
 			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+			    try {
     				player.setBarrowsHits(i, load.readInt());
+			    }
+			    catch (IOException e) {
+				player.setBarrowsHits(i, 0);
+			    }
     			}
             } catch (IOException e) {
             }
