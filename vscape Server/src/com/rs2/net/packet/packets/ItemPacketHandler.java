@@ -12,6 +12,7 @@ import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
+import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.Menus;
@@ -199,7 +200,7 @@ public class ItemPacketHandler implements PacketHandler {
 				return;
 			}
 		}
-		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769) {
+		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288) {
 		    if(BarrowsItems.notDroppable(BarrowsItems.getBarrowsItem(item), item)) {
 			String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
 			for (String[] element : info) {
@@ -292,6 +293,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(DragonSlayer.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(GoblinDiplomacy.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
@@ -1002,6 +1006,9 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		if(itemId == 5609) {
 		    player.getEquipment().equip(player.getSlot());
+		    return;
+		}
+		if(GoblinDiplomacy.itemHandling(player, itemId)) {
 		    return;
 		}
 		if(itemId == 11664 )

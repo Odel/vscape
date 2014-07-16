@@ -18,6 +18,7 @@ import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.ground.GroundItem;
@@ -66,6 +67,14 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
 		    DemonSlayer.sendDelrithMessages();
+		}
+		if(attacker != null && victim != null && victim.isNpc() && attacker.isNpc()
+			&& ((Npc)victim).getNpcId() == 4479 && ((Npc)attacker).getNpcId() == 4486) {
+		    GoblinDiplomacy.sendGreenMessages((Npc)attacker);
+		}
+		if(attacker != null && victim != null && victim.isNpc() && attacker.isNpc()
+			&& ((Npc)attacker).getNpcId() == 4479 && ((Npc)victim).getNpcId() == 4486) {
+		    GoblinDiplomacy.sendRedMessages((Npc)attacker);
 		}
 		if(attacker != null && victim != null && victim.isNpc()) {
 		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);

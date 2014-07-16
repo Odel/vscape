@@ -3,7 +3,6 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Gnome tree stronghold cave doesn't work
 -No way to the ape atoll/gate broken too
 -Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
--(Will do when I do goblin diplomacy -Pickles)Generals Bentnoze and Wartface don't have dialogue like they should have. Neither does any other goblin in the village
 -Brews don't work.
 -Thieving chests (ask pickles)
 -Slayer tower stairs (puts you in the wrong place)

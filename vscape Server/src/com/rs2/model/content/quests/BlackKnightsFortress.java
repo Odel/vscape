@@ -617,6 +617,7 @@ public class BlackKnightsFortress implements Quest {
 				player.getDialogue().sendNpcChat("Please accept this reward.", HAPPY);
 				return true;
 			    case 4:
+				player.setQuestStage(18, 5);
 				QuestHandler.completeQuest(player, 18);
 				player.getDialogue().dontCloseInterface();
 				return true;

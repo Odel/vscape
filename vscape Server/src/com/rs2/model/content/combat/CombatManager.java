@@ -419,7 +419,9 @@ public class CombatManager extends Tick {
 		    ((Player)killer).setQuestStage(11, 11);
 		    ((Player)killer).getDialogue().sendStatement("With the spirit dead, you can now smash Merlin's crystal.");
 		}
-		FightCaves.handleDeath((Player) killer, npc);
+		if(killer != null && killer.isPlayer()) {
+		    FightCaves.handleDeath((Player) killer, npc);
+		}
 		if (!npc.needsRespawn()) {
 		    npc.setVisible(false);
 		    World.unregister(npc);

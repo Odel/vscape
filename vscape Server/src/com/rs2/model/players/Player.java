@@ -5239,7 +5239,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Demon Slayer", 7334); //demon slayer
 		getActionSender().sendString("@red@Doric's Quest", 7336);
 		getActionSender().sendString("", 7339); // ernest the chicken
-		getActionSender().sendString("", 7338); //goblin diplomacy
+		getActionSender().sendString("@red@Goblin Diplomacy", 7338); //goblin diplomacy
 		getActionSender().sendString("@Red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7383); //Dragon Slayer
 		getActionSender().sendString("@red@The Imp Catcher", 7340);

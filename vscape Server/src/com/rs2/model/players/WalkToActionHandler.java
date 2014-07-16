@@ -24,6 +24,7 @@ import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
+import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.skills.Menus;
@@ -206,6 +207,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(BlackKnightsFortress.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(GoblinDiplomacy.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}

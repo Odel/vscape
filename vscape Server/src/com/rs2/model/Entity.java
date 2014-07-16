@@ -233,6 +233,10 @@ public abstract class Entity {
 	public boolean inMageArena() {
 		return Area(3078, 3133, 3908, 3959);
 	}
+	
+	public boolean inGoblinVillage() {
+		return Area(2949, 2964, 3478, 3514);
+	}
 
 	public boolean inWild() {
 		return Area(2942, 3391, 3520, 3965) || Area(2942, 3391, 9919, 10365);

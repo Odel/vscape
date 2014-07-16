@@ -3,9 +3,12 @@ package com.rs2.model.players;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
@@ -13,6 +16,7 @@ import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
+import java.util.ArrayList;
 
 import java.util.Iterator;
 
@@ -85,6 +89,18 @@ public final class PlayerUpdating {
 		}
 		if(BlackKnightsFortress.attackPlayer(player)) {
 		    BlackKnightsFortress.attackPlayer(player, true);
+		}
+		if(player.inGoblinVillage() && player.getQuestStage(19) < 4) {
+		    ArrayList<Npc> goblins = GoblinDiplomacy.getGreenGoblin();
+		    Npc green = goblins.get(Misc.randomMinusOne(goblins.size()));
+		    for(Npc npc : World.getNpcs()) {
+			if(npc == null) continue;
+			if(npc.getNpcId() == GoblinDiplomacy.RED_GOBLIN && !npc.isAttacking() 
+			    && Misc.goodDistance(npc.getPosition().clone(), green.getPosition().clone(), 4)) {
+			    if(green != null && !green.isAttacking())
+				CombatManager.attack(npc, green);
+			}
+		    }
 		}
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());

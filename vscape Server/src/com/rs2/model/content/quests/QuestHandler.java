@@ -10,7 +10,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.util.PlayerSave;
 
 /**
- * @date 1-jun-
+ * @date 1-jun-2011
  * @author Satan666
  */
 public class QuestHandler {
@@ -44,7 +44,8 @@ public class QuestHandler {
 	new DragonSlayer(),
 	new RomeoAndJuliet(),
 	new DemonSlayer(),
-	new BlackKnightsFortress()
+	new BlackKnightsFortress(),
+	new GoblinDiplomacy()
     };
     
     public static void init() {
@@ -169,6 +170,9 @@ public class QuestHandler {
 		case 28164: //Black Knight's Fortress
 			showInterface(player,quests[18]);
         		return true;
+		case 28170: //Goblin Diplomacy
+			showInterface(player,quests[19]);
+        		return true;   
 
         }
         return false;
