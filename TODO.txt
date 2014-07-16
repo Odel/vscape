@@ -1,15 +1,11 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
--No way to the ape atoll/gate broken too
 -Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
--Brews don't work.
 -Thieving chests (ask pickles)
 -Slayer tower stairs (puts you in the wrong place)
--"Empty" option on all pies / pie dishes. (think of burnt pie, you need to be able to empty it since you can't eat it)
 -Wizards from level 3 clues, proper attacks (poison / spells);
 -coconut milk can't be mixed(so no p+ or p++) (I think this may be fixed)
--Crystal bows need to decay as well as barrows - and repair functionality for both
 -Spell splashing / magic accuracy overhaul
 -All pies need stat bonuses upon eating
 -Agility potions
@@ -30,4 +26,4 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Warrior's Guild cyclops drops
 -Skeletal Wyverns since elemental workshop is dun
 -Farming needs overhaul
--Chests are bork
+-Berzerker necklace enchant and effect
