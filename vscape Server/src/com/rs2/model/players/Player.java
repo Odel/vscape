@@ -1629,32 +1629,23 @@ public class Player extends Entity {
 			SystemUpdate(seconds);
         }
         else if (keyword.equals("stat")) {
-            try {
 		int skillId = Integer.parseInt(args[0]);
                 int lvl = Integer.parseInt(args[1]);
                 if (!fullString.contains("-")) {
 		    this.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-		    this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - 1;
-		    this.getSkill().getLevel()[skillId] = lvl;
+		    this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
 		    this.getSkill().refresh(skillId);
                 }
                 String name = fullString.substring(fullString.indexOf("-")+1);
                 long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
                 Player player = World.getPlayerByName(nameLong);
-                if (player == null) {
+                if (player == null && fullString.contains("-")) {
                     getActionSender().sendMessage("Can't find player "+name);
                     return;
                 }
-                player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-                player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - 1;
-		player.getSkill().getLevel()[skillId] = lvl;
+		this.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
+		this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
                 player.getSkill().refresh(skillId);
-            }
-            catch (Exception e) {
-				getActionSender().sendMessage("Wrong syntaxis (or some other error), please use (skillid) (level) -(name).");
-                e.printStackTrace();
-
-            }
         }
         else if (keyword.equals("rights")) {
         	GiveRights(args);

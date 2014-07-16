@@ -1214,7 +1214,7 @@ public class WalkToActionHandler {
 					Prayer.rechargePrayerGuild(player);
 					break;
 				case 2641: // prayer guild ladder
-					if (player.getSkill().getLevel()[5] < 31) {
+					if (player.getSkill().getLevel()[Skill.SMITHING] < 31) {
 						player.getDialogue().sendStatement("You need a Prayer level of 31 to enter the Prayer guild.");
 					} else {
 						Ladders.checkClimbLadder(player, "up");
