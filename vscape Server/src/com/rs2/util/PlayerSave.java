@@ -415,6 +415,9 @@ public class PlayerSave {
 			characterfile.write("Mage Arena stage = ", 0, 19);
 			characterfile.write(Integer.toString(player.getMageArenaStage()), 0, Integer.toString(player.getMageArenaStage()).length());
 			characterfile.newLine();
+			characterfile.write("PC points = ", 0, 12);
+			characterfile.write(Integer.toString(player.getPcPoints()), 0, Integer.toString(player.getPcPoints()).length());
+			characterfile.newLine();
 			characterfile.write("MAC = ", 0, 6);
 			characterfile.write(player.getMacAddress(), 0, player.getMacAddress().length());
 			characterfile.newLine();
