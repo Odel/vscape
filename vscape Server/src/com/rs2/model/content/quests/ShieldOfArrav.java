@@ -284,6 +284,24 @@ public class ShieldOfArrav implements Quest {
 	    
 	    player.getActionSender().sendString("@red@You have completed this quest!", 8169);
 	}
+	else if (questStage == QUEST_COMPLETE && !player.isBlackArmGang() && !player.isPhoenixGang()) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
+	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
+            player.getActionSender().sendString("@str@" + "Reldo showed you a book on the Shield of Arrav.", 8150);
+	    player.getActionSender().sendString("@str@" + "Talk to Charlie the Tramp for the Black Arm Gang...", 8151);
+	    player.getActionSender().sendString("@str@" + "Or Baraek for the Phoenix Gang.", 8152);
+	    player.getActionSender().sendString("@str@" + "Charlie has told you where the Black Arm Gang is.", 8154);
+	    player.getActionSender().sendString("@str@" + "He said it's behind him in the alleyway.", 8155);
+	    player.getActionSender().sendString("@str@" + "You found the gang hideout.", 8157);
+	    player.getActionSender().sendString("@str@" + "You are now a member of the gang.", 8160);
+	    player.getActionSender().sendString("@str@" + "Work with your friend in the other gang,", 8163);
+	    player.getActionSender().sendString("@str@" + "to get the other half of the Shielf of Arrav.", 8164);
+	    player.getActionSender().sendString("@str@" + "Have one turn in both halves to the Museum Curator.", 8165);
+	    player.getActionSender().sendString("@str@" + "Take your certificate to King Roald.", 8167);
+	    
+	    player.getActionSender().sendString("@red@You have completed this quest!", 8169);
+	}
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("To start this quest, talk with Reldo.", 8147);
@@ -427,7 +445,9 @@ public class ShieldOfArrav implements Quest {
 		if(!player.getInventory().ownsItem(763)) {
 		    player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
 		    player.getInventory().addItem(new Item(763));
-		    player.setQuestStage(13, 10);
+		    if(player.getQuestStage(13) == 9) {
+			player.setQuestStage(13, 10);
+		    }
 		    return true;
 		}
 	    return true;
@@ -441,7 +461,9 @@ public class ShieldOfArrav implements Quest {
 		if(!player.getInventory().ownsItem(765)) {
 		    player.getDialogue().sendStatement("You find the right half of the Shield of Arrav.");
 		    player.getInventory().addItem(new Item(765));
-		    player.setQuestStage(13, 10);
+		    if(player.getQuestStage(13) == 9) {
+			player.setQuestStage(13, 10);
+		    }
 		    return true;
 		}
 	    return true;

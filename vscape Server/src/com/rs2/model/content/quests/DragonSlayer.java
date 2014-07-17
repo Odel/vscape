@@ -129,7 +129,7 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
 	    
 	    player.getActionSender().sendString("The guildmaster told me I need 3 core things:", 8155);
-	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540) {
+	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getId(Constants.SHIELD) == 1540) {
 		player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
 	    }
 	    else {
@@ -175,7 +175,7 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
 	    
 	    player.getActionSender().sendString("The guildmaster told me I need 3 core things:", 8155);
-	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540) {
+	    if(player.getInventory().ownsItem(1540) || player.getEquipment().getId(Constants.SHIELD) == 1540) {
 		player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
 	    }
 	    else {
@@ -208,7 +208,7 @@ public class DragonSlayer implements Quest {
 		}
 	    }
 	    player.getActionSender().sendString("@dre@" + "-I found a boat, it just needs some repair.", 8157);
-	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540)) {
+	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getId(Constants.SHIELD) == 1540)) {
 		player.getActionSender().sendString("I need to find a captain.", 8159);
 	    }
 	}
@@ -254,7 +254,7 @@ public class DragonSlayer implements Quest {
 		    player.getActionSender().sendString("@dre@" + "-Wormbrain in Sarim's jail led the raid on Lozar's home.", 8168);
 		}
 	    }
-	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getItemContainer().get(Constants.SHIELD).getId() == 1540)) {
+	    if(player.getInventory().playerHasItem(1538) && (player.getInventory().ownsItem(1540) || player.getEquipment().getId(Constants.SHIELD) == 1540)) {
 		player.getActionSender().sendString("I need to find a captain.", 8159);
 	    }
 	}
@@ -829,251 +829,156 @@ public class DragonSlayer implements Quest {
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 918: // fuck you ned
-		switch (player.getDialogue().getChatId()) {
-		    case 1:
-			if(player.getQuestStage(15) == 6 && player.getPosition().getX() < 3050) {
-			    player.getDialogue().sendNpcChat("I'M DOWN HERE LADDY!","ARE YOU READY TO SAIL!?", HAPPY);
-			    player.getDialogue().setNextChatId(45);
-			    return true;
-			} 
-			else if(player.getQuestStage(15) == 7 && player.getPosition().getY() < 3250) {
-			    player.getDialogue().sendNpcChat("Oomph. That was a rough trip.", SAD);
-			    player.getDialogue().setNextChatId(50);
-			    return true;
-			}
-			player.getDialogue().sendPlayerChat("Hello there!", CONTENT);
-			return true;
-		    case 2:
-			if (player.getEquipment().getItemContainer().get(Constants.HAT) != null && (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("boater")
-				|| player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("cavalier"))) {
-			    player.getDialogue().sendNpcChat("Nice hat, sir. I make wool hats sometimes!", "How can I help you?", HAPPY);
-			    return true;
-			} else {
-			    player.getDialogue().sendNpcChat("Why hello! I'm the wool man. I make wool things.", "How can I help you today?", HAPPY);
-			    return true;
-			}
+		switch (player.getQuestStage(15)) {
 		    case 3:
-			if (player.getQuestStage(9) == 3) {
-			    player.getDialogue().sendOption("I need a wig made.", "I need some rope.", "You can't!");
-			    return true;
-			} else if (player.getQuestStage(15) >= 3 && player.getQuestStage(15) < 6) {
-			    player.getDialogue().sendPlayerChat("You used to be a sailor, right?", "Can you take me to Crandor?", CONTENT);
-			    player.getDialogue().setNextChatId(25);
-			    return true;
-			} else {
-			    player.getDialogue().sendPlayerChat("I need some rope.", CONTENT);
-			    player.getDialogue().setNextChatId(15);
-			    return true;
-			}
 		    case 4:
-			switch (optionId) {
-			    case 1:
-				player.getDialogue().sendPlayerChat("I need a wig made.", CONTENT);
-				return true;
-			    case 2:
-				player.getDialogue().sendPlayerChat("Actually, I need some rope.", CONTENT);
-				player.getDialogue().setNextChatId(15);
-				return true;
-			    case 3:
-				player.getDialogue().sendPlayerChat("You can't!", ANGRY_2);
-				player.getDialogue().endDialogue();
-				return true;
-			}
 		    case 5:
-			player.getDialogue().sendNpcChat("I normally make ropes and sweaters...", "But I suppose a wig wouldn't be too tough.", HAPPY);
-			return true;
-		    case 6:
-			player.getDialogue().sendNpcChat("What do you need it for?", "If you don't mind me asking?", CONTENT);
-			return true;
-		    case 7:
-			player.getDialogue().sendPlayerChat("I'm trying to stop having to talk", "to the guards outside Al-Kharid.", SAD);
-			return true;
-		    case 8:
-			player.getDialogue().sendNpcChat("Enough said, bring me 3 balls of wool.", CONTENT);
-			return true;
-		    case 9:
-			if (player.getInventory().playerHasItem(1759, 3)) {
-			    player.getInventory().removeItem(new Item(1759, 3));
-			    player.getDialogue().sendStatement("You hand Ned 3 balls of wool...", "Ned works with the wool...", "His hands move with a speed you can't comprehend.");
-			    return true;
-			} else {
-			    player.getDialogue().sendPlayerChat("It seems I don't have the wool.", SAD);
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
-		    case 10:
-			player.getDialogue().sendNpcChat("Here you go! How's that for quick work?", HAPPY);
-			return true;
-		    case 11:
-			player.getDialogue().sendStatement("Ned hands you a pretty good wig.", "However, it is plain and undyed.");
-			player.getInventory().addItem(new Item(2421));
-			return true;
-		    case 12:
-			player.getDialogue().sendPlayerChat("Thanks Ned, there's more to you than there seems.", HAPPY);
-			return true;
-		    case 13:
-			player.getDialogue().sendNpcChat("I may be able to make pretty hair...", "But I'll never be a little girl...", NEAR_TEARS_2);
-			player.getDialogue().endDialogue();
-			player.setQuestStage(9, 4);
-			return true;
-		    case 15:
-			player.getDialogue().sendNpcChat("Some rope eh? I can do that!", "Either pay me, or hand over 4 balls of wool!", CONTENT);
-			return true;
-		    case 16:
-			player.getDialogue().sendOption("Pay Ned (18 gp)", "Give wool.", "Nevermind.");
-			return true;
-		    case 17:
-			switch (optionId) {
+			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if (player.getInventory().playerHasItem(995, 18)) {
-				    player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
-				    player.getInventory().removeItem(new Item(995, 18));
-				    return true;
-				} else {
-				    player.getDialogue().sendPlayerChat("I'm afraid I don't have the coin...", SAD);
-				    player.getDialogue().endDialogue();
-				    return true;
-				}
+				player.getDialogue().sendPlayerChat("Hello there!", CONTENT);
+				return true;
 			    case 2:
-				if (player.getInventory().playerHasItem(1759, 4)) {
-				    player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
-				    player.getDialogue().setNextChatId(20);
-				    player.getInventory().removeItem(new Item(1759, 4));
-				    return true;
-				} else {
-				    player.getDialogue().sendPlayerChat("I'm afraid I don't have the balls...", SAD);
-				    player.getDialogue().endDialogue();
-				    return true;
-				}
+				player.getDialogue().sendPlayerChat("You used to be a sailor, right?", "Can you take me to Crandor?", CONTENT);
+				return true;
 			    case 3:
-				player.getDialogue().sendPlayerChat("Nevermind.", SAD);
+				player.getDialogue().sendNpcChat("Well, I was a sailor. I've not been able to get work at", "sea these days, though. They say I'm too old.", SAD);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Sorry, where was it you said you wanted to go?", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("To the island of Crandor.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Crandor?", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("Hmm... It would be a chance to sail a ship once more.", "I'd sail anywhere if it was a chance to sail again.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("Then again, no captain in his right mind would sail to", "that island.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendNpcChat("Where's your ship boy?", CONTENT);
+				return true;
+			    case 10:
+				if (player.getQuestStage(15) == 3) {
+				    player.getDialogue().sendPlayerChat("I'm afraid I don't have one...", SAD);
+				    return true;
+				} else if (player.getQuestStage(15) == 4) {
+				    player.getDialogue().sendPlayerChat("The Lady Lumbridge, in Port Sarim.", "She does need some repairs though...", CONTENT);
+				    player.getDialogue().setNextChatId(12);
+				    return true;
+				} else if (player.getQuestStage(15) == 5) {
+				    player.getDialogue().sendPlayerChat("The Lady Lumbridge, in Port Sarim.", HAPPY);
+				    player.getDialogue().setNextChatId(13);
+				    return true;
+				}
+			    case 11:
+				player.getDialogue().sendNpcChat("How can you expect us to sail without a boat!", "Come back to me when you find a worthy vessel.", CONTENT);
 				player.getDialogue().endDialogue();
 				return true;
-			}
-		    case 18:
-			player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
-			player.getInventory().addItem(new Item(954));
-			player.getDialogue().endDialogue();
-			return true;
-		    case 20:
-			player.getDialogue().sendStatement("Ned works with the wool.");
-			return true;
-		    case 21:
-			player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
-			player.getInventory().addItem(new Item(954));
-			player.getDialogue().endDialogue();
-			return true;
-		    case 25:
-			player.getDialogue().sendNpcChat("Well, I was a sailor. I've not been able to get work at", "sea these days, though. They say I'm too old.", SAD);
-			return true;
-		    case 26:
-			player.getDialogue().sendNpcChat("Sorry, where was it you said you wanted to go?", CONTENT);
-			return true;
-		    case 27:
-			player.getDialogue().sendPlayerChat("To the island of Crandor.", CONTENT);
-			return true;
-		    case 28:
-			player.getDialogue().sendNpcChat("Crandor?", CONTENT);
-			return true;
-		    case 29:
-			player.getDialogue().sendNpcChat("Hmm... It would be a chance to sail a ship once more.", "I'd sail anywhere if it was a chance to sail again.", CONTENT);
-			return true;
-		    case 30:
-			player.getDialogue().sendNpcChat("Then again, no captain in his right mind would sail to", "that island.", CONTENT);
-			return true;
-		    case 31:
-			player.getDialogue().sendNpcChat("Where's your ship boy?", CONTENT);
-			return true;
-		    case 32:
-			if (player.getQuestStage(15) == 3) {
-			    player.getDialogue().sendPlayerChat("I'm afraid I don't have one...", SAD);
-			    return true;
-			} else if (player.getQuestStage(15) == 4) {
-			    player.getDialogue().sendPlayerChat("The Lady Lumbridge, in Port Sarim.", "She does need some repairs though...", CONTENT);
-			    player.getDialogue().setNextChatId(34);
-			    return true;
-			} else if (player.getQuestStage(15) == 5) {
-			    player.getDialogue().sendPlayerChat("The Lady Lumbridge, in Port Sarim.", HAPPY);
-			    player.getDialogue().setNextChatId(35);
-			    return true;
-			}
-		    case 33:
-			player.getDialogue().sendNpcChat("How can you expect us to sail without a boat!", "Come back to me when you find a worthy vessel.", CONTENT);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 34:
-			player.getDialogue().sendNpcChat("How can you expect us to sail with a broken boat!", "Come back to me when the vessel is repaired.", CONTENT);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 35:
-			player.getDialogue().sendNpcChat("That old pile of junk? Last I heard, she wasn't", "seaworthy.", CONTENT);
-			return true;
-		    case 36:
-			player.getDialogue().sendPlayerChat("I had the cabin boy Jenkins fix 'er up!", HAPPY);
-			return true;
-		    case 37:
-			player.getDialogue().sendNpcChat("You did? Great! Now it's just a matter of getting there.", "Did you manage to find a map to Crandor?", CONTENT);
-			return true;
-		    case 38:
-			if (player.getInventory().playerHasItem(1538)) {
-			    player.getDialogue().sendPlayerChat("Yes, I did! It's right here.", HAPPY);
-			    player.getDialogue().setNextChatId(40);
-			    return true;
-			} else {
-			    player.getDialogue().sendPlayerChat("No, not yet...", SAD);
-			    return true;
-			}
-		    case 39:
-			player.getDialogue().sendNpcChat("Well, go find one lad! I'll be waiting here!", CONTENT);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 40:
-			player.getDialogue().sendStatement("You hand Ned the map.");
-			player.getInventory().removeItem(new Item(1538));
-			if (player.getQuestStage(15) == 5) {
-			    player.setQuestStage(15, 6);
-			}
-			return true;
-		    case 41:
-			player.getDialogue().sendNpcChat("Fantastic! I'll meet you on the ship laddy!", HAPPY);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 45:
-			player.getDialogue().sendOption("Yes, let's go!", "No, I'm not quite ready yet.");
-			return true;
-		    case 46:
-			switch(optionId) {
-			    case 1:
-				player.getDialogue().sendPlayerChat("Yes, let's go!", HAPPY);
-				if(nedSpawnedOnCrandor()) {
-				    NpcLoader.spawnNpc(918, 2852, 3238, 0, false, true);
+			    case 12:
+				player.getDialogue().sendNpcChat("How can you expect us to sail with a broken boat!", "Come back to me when the vessel is repaired.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 13:
+				player.getDialogue().sendNpcChat("That old pile of junk? Last I heard, she wasn't", "seaworthy.", CONTENT);
+				return true;
+			    case 14:
+				player.getDialogue().sendPlayerChat("I had the cabin boy Jenkins fix 'er up!", HAPPY);
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("You did? Great! Now it's just a matter of getting there.", "Did you manage to find a map to Crandor?", CONTENT);
+				return true;
+			    case 16:
+				if (player.getInventory().playerHasItem(1538)) {
+				    player.getDialogue().sendPlayerChat("Yes, I did! It's right here.", HAPPY);
+				    player.getDialogue().setNextChatId(18);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("No, not yet...", SAD);
+				    return true;
+				}
+			    case 17:
+				player.getDialogue().sendNpcChat("Well, go find one lad! I'll be waiting here!", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 18:
+				player.getDialogue().sendStatement("You hand Ned the map.");
+				player.getInventory().removeItem(new Item(1538));
+				if (player.getQuestStage(15) == 5) {
+				    player.setQuestStage(15, 6);
 				}
 				return true;
-			    case 2:
-				player.getDialogue().sendPlayerChat("No, I'm not quite ready yet.", SAD);
+			    case 19:
+				player.getDialogue().sendNpcChat("Fantastic! I'll meet you on the ship laddy!", HAPPY);
 				player.getDialogue().endDialogue();
 				return true;
 			}
-		    case 47:
-			Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_CRANDOR);
-			player.getDialogue().dontCloseInterface();
-			if(player.getQuestStage(15) == 6) {
-			    player.setQuestStage(15, 7);
+		    return false;
+		    case 6: //sailing time
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.getPosition().getX() < 3050 && player.getPosition().getY() > 3200) {
+				    player.getDialogue().sendNpcChat("I'M DOWN HERE LADDY!","ARE YOU READY TO SAIL!?", HAPPY);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Meet me on the ship boy!", HAPPY);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendOption("Yes, let's go!", "No, I'm not quite ready yet.");
+				return true;
+			    case 3:
+				switch (optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("Yes, let's go!", HAPPY);
+					if (nedSpawnedOnCrandor()) {
+					    NpcLoader.spawnNpc(918, 2852, 3238, 0, false, true);
+					}
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("No, I'm not quite ready yet.", SAD);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 4:
+				Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_CRANDOR);
+				player.getDialogue().dontCloseInterface();
+				if (player.getQuestStage(15) == 6) {
+				    player.setQuestStage(15, 7);
+				}
+				return true;
 			}
-			return true;
-		    case 50:
-			player.getDialogue().sendPlayerChat("W-where's Jenkins?", SAD);
-			return true;
-		    case 51:
-			player.getDialogue().sendNpcChat("I'm not sure laddy. It looks like he didn't make it.", SAD);
-			return true;
-		    case 52:
-			player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rest in peace.", NEAR_TEARS_2);
-			return true;
-		    case 53:
-			player.getDialogue().sendNpcChat("Aye. He was a brave one.", "Use the memory of Jenkins to fight Elvarg.", "Go now laddy, rid the world of this evil.", CONTENT);
-			player.getDialogue().endDialogue();
-			return true;
+		    return false;
+		    case 7: //crashed on crandor
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.getPosition().getX() < 2860 && player.getPosition().getY() < 3250) {
+				    player.getDialogue().sendNpcChat("Oomph. That was a rough trip.", SAD);
+				    return true;
+				}
+				else {
+				    return false;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("W-where's Jenkins?", SAD);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("I'm not sure laddy. It looks like he didn't make it.", SAD);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("Poor Jenkins... May his soul rest in peace.", NEAR_TEARS_2);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Aye. He was a brave one.", "Use the memory of Jenkins to fight Elvarg.", "Go now laddy, rid the world of this evil.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
 		}
 	    return false;
 	    case 6085: //cabin boy jenkins rip

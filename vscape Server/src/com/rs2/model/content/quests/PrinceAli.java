@@ -14,6 +14,7 @@ import static com.rs2.model.content.dialogue.Dialogues.DISORIENTED_RIGHT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
+import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS_2;
 import static com.rs2.model.content.dialogue.Dialogues.PLAIN_EVIL;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import static com.rs2.model.content.dialogue.Dialogues.startDialogue;
@@ -766,6 +767,136 @@ public class PrinceAli implements Quest {
 				    return true;
 			    }
 			break;
+			case 918: //get fucked ned
+			    switch(player.getQuestStage(9)) {
+				case 3: //ned makes wig
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				case 10: //just in case
+				    switch(player.getDialogue().getChatId()) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Hello there!", CONTENT);
+					    return true;
+					case 2:
+					    if (player.getEquipment().getItemContainer().get(Constants.HAT) != null && (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("boater")
+						    || player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("cavalier"))) {
+						player.getDialogue().sendNpcChat("Nice hat, sir. I make wool hats sometimes!", "How can I help you?", HAPPY);
+						return true;
+					    } else {
+						player.getDialogue().sendNpcChat("Why hello! I'm the wool man. I make wool things.", "How can I help you today?", HAPPY);
+						return true;
+					    }
+					case 3:
+						player.getDialogue().sendOption("I need a wig made.", "I need some rope.", "You can't!");
+						return true;
+					case 4:
+					    switch (optionId) {
+						case 1:
+						    player.getDialogue().sendPlayerChat("I need a wig made.", CONTENT);
+						    return true;
+						case 2:
+						    player.getDialogue().sendPlayerChat("Actually, I need some rope.", CONTENT);
+						    player.getDialogue().setNextChatId(15);
+						    return true;
+						case 3:
+						    player.getDialogue().sendPlayerChat("You can't!", ANGRY_2);
+						    player.getDialogue().endDialogue();
+						    return true;
+					    }
+					case 5:
+					    player.getDialogue().sendNpcChat("I normally make ropes and sweaters...", "But I suppose a wig wouldn't be too tough.", HAPPY);
+					    return true;
+					case 6:
+					    player.getDialogue().sendNpcChat("What do you need it for?", "If you don't mind me asking?", CONTENT);
+					    return true;
+					case 7:
+					    player.getDialogue().sendPlayerChat("I'm trying to stop having to talk", "to the guards outside Al-Kharid.", SAD);
+					    return true;
+					case 8:
+					    player.getDialogue().sendNpcChat("Enough said, bring me 3 balls of wool.", CONTENT);
+					    return true;
+					case 9:
+					    if (player.getInventory().playerHasItem(1759, 3)) {
+						player.getInventory().removeItem(new Item(1759, 3));
+						player.getDialogue().sendStatement("You hand Ned 3 balls of wool...", "Ned works with the wool...", "His hands move with a speed you can't comprehend.");
+						return true;
+					    } else {
+						player.getDialogue().sendPlayerChat("It seems I don't have the wool.", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 10:
+					    player.getDialogue().sendNpcChat("Here you go! How's that for quick work?", HAPPY);
+					    return true;
+					case 11:
+					    player.getDialogue().sendStatement("Ned hands you a pretty good wig.", "However, it is plain and undyed.");
+					    player.getInventory().addItem(new Item(2421));
+					    if(player.getQuestStage(9) == 3) {
+						player.setQuestStage(9, 4);
+					    }
+					    return true;
+					case 12:
+					    player.getDialogue().sendPlayerChat("Thanks Ned, there's more to you than there seems.", HAPPY);
+					    return true;
+					case 13:
+					    player.getDialogue().sendNpcChat("I may be able to make pretty hair...", "But I'll never be a little girl...", NEAR_TEARS_2);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 15:
+					    player.getDialogue().sendNpcChat("Some rope eh? I can do that!", "Either pay me, or hand over 4 balls of wool!", CONTENT);
+					    return true;
+					case 16:
+					    player.getDialogue().sendOption("Pay Ned (18 gp)", "Give wool.", "Nevermind.");
+					    return true;
+					case 17:
+					    switch (optionId) {
+						case 1:
+						    if (player.getInventory().playerHasItem(995, 18)) {
+							player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+							player.getInventory().removeItem(new Item(995, 18));
+							return true;
+						    } else {
+							player.getDialogue().sendPlayerChat("I'm afraid I don't have the coin...", SAD);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						case 2:
+						    if (player.getInventory().playerHasItem(1759, 4)) {
+							player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+							player.getDialogue().setNextChatId(8);
+							player.getInventory().removeItem(new Item(1759, 4));
+							return true;
+						    } else {
+							player.getDialogue().sendPlayerChat("I'm afraid I don't have the balls...", SAD);
+							player.getDialogue().endDialogue();
+							return true;
+						    }
+						case 3:
+						    player.getDialogue().sendPlayerChat("Nevermind.", SAD);
+						    player.getDialogue().endDialogue();
+						    return true;
+					    }
+					case 18:
+					    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+					    player.getInventory().addItem(new Item(954));
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 19:
+					    player.getDialogue().sendStatement("Ned works with the wool.");
+					    return true;
+					case 20:
+					    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+					    player.getInventory().addItem(new Item(954));
+					    player.getDialogue().endDialogue();
+					    return true; 
+				    }
+				return false;
+			    }
+			return false;
 			case 922 : //aggie
 			    switch(player.getQuestStage(9)) {
 				case 5:

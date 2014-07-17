@@ -330,7 +330,7 @@ public class DemonSlayer implements Quest {
     }
     
     public static boolean handleNpcClick(Player player, int npcId) {
-	if(npcId == 880) {
+	if(npcId == 880 && NpcLoader.checkSpawn(player, 880)) {
 	    Dialogues.startDialogue(player, 10666);
 	    return true;
 	}
@@ -784,13 +784,8 @@ public class DemonSlayer implements Quest {
 		    case 6: //re-buying silverlight
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getInventory().ownsItem(SILVERLIGHT)) {
 				    player.getDialogue().sendPlayerChat("I lost Silverlight...", SAD);
 				    return true;
-				}
-				else {
-				    return false;
-				}
 			    case 2:
 				player.getDialogue().sendNpcChat("Lucky for you, I had another forged.", "It will cost 8000 gp for this one.", CONTENT);
 				return true;
@@ -1049,6 +1044,9 @@ public class DemonSlayer implements Quest {
 				player.getDialogue().endDialogue();
 				return true;
 			    case 2:
+				if(player.getQuestStage(17) == 5) {
+				    player.setQuestStage(17, 6);
+				}
 				for(Npc delrith : World.getNpcs()){
 				    if(delrith == null) continue;
 				    if(delrith.getNpcId() == 880) {
@@ -1059,9 +1057,6 @@ public class DemonSlayer implements Quest {
 				    }
 				}
 			    player.getDialogue().sendPlayerChat("Carlem Aber Camerinthum Purchai Gabindo!", CONTENT);
-			    if(player.getQuestStage(17) == 5) {
-				player.setQuestStage(17, 6);
-			    }
 			    return true;
 			}
 		    case 3:
