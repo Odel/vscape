@@ -30,6 +30,7 @@ import com.rs2.model.content.skills.Fletching.BowStringing;
 import com.rs2.model.content.skills.Fletching.GemTips;
 import com.rs2.model.content.skills.Fletching.LogCuttingInterfaces;
 import com.rs2.model.content.skills.Fletching.CbowFletching;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.OneIngredients;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
@@ -929,6 +930,7 @@ public class ItemPacketHandler implements PacketHandler {
 			case 4566 : // rubber chicken
 				player.getUpdateFlags().sendAnimation(1835);
 			return;
+			
 			case 2568 : // RING OF FORGING CHARGE CHECK
 				player.getActionSender().sendMessage("You have "+player.getRingOfForgingLife()+" Ring of Forging charge(s) remaining.");
 			return;
@@ -972,6 +974,13 @@ public class ItemPacketHandler implements PacketHandler {
 	        case 2566 :
         		Dialogues.startDialogue(player, 10004);
 	        	break;
+		    case 431: //karamjan rum
+			    player.getActionSender().statEdit(Skill.ATTACK, -3, false);
+			    player.getActionSender().statEdit(Skill.STRENGTH, 2, true);
+			    player.getActionSender().sendMessage("You drink your Karamjan Rum and drop the bottle, whoops!.");
+			    player.getInventory().removeItem(new Item(431));
+			    player.setDrunkState(true, 300);
+			    break;
             case 1712 : // glory
             case 1710 :
             case 1708 :

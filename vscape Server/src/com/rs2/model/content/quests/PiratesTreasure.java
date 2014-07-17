@@ -53,6 +53,8 @@ public class PiratesTreasure implements Quest {
     public static final int SPADE = 952;
     public static final int CHEST = 6759;
     public static final int BANANA = 1963;
+    public static final int SILK = 950;
+    public static final int CLEANING_CLOTH = 3188;
     
     public static final int STORE_CRATE = 2071;
     public static final int BANANA_CRATE = 2072;
@@ -333,6 +335,12 @@ public class PiratesTreasure implements Quest {
 		GroundItem drop = new GroundItem(new Item(995, 3570), player, new Position(player.getPosition().getX(), player.getPosition().getY()));
 		GroundItemManager.getManager().dropItem(drop);
 	    }
+	    return true;
+	}
+	else if((firstItem == KARAMJAN_RUM && secondItem == SILK) || (firstItem == SILK && secondItem == KARAMJAN_RUM)) {
+	    player.getActionSender().sendMessage("You use the rum on the silk to make a sterile cleaning cloth.");
+	    player.getInventory().replaceItemWithItem(new Item(SILK), new Item(CLEANING_CLOTH));
+	    player.getInventory().removeItem(new Item(KARAMJAN_RUM));
 	    return true;
 	}
 	return false;
