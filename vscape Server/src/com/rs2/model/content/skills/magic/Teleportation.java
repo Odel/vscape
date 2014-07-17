@@ -3,6 +3,7 @@ package com.rs2.model.content.skills.magic;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -60,6 +61,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport from here.");
 			return false;
 		}
+		if (player.getInventory().playerHasItem(new Item(431))) {
+			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
+			return false;
+		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), player.getMagicBookType() == SpellBook.MODERN);
 		return true;
 	}
@@ -75,6 +80,10 @@ public class Teleportation {
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
+			return false;
+		}
+		if (player.getInventory().playerHasItem(new Item(431))) {
+			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
 		player.getUpdateFlags().sendAnimation(714);
@@ -94,6 +103,10 @@ public class Teleportation {
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
+			return false;
+		}
+		if (player.getInventory().playerHasItem(new Item(431))) {
+			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), false);

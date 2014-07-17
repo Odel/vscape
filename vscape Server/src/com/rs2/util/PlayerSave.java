@@ -339,7 +339,12 @@ public class PlayerSave {
 				write.writeInt(player.getFarmingTools().getTools()[i]);
 			}
 			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+			    try {
 				write.writeInt(player.getBarrowsHits()[i]);
+			    }
+			    catch(IOException e) {
+				write.writeInt(0);
+			    }
 			}
 			
 			write.writeInt(player.getSlayer().slayerMaster);
@@ -359,6 +364,8 @@ public class PlayerSave {
 			write.writeBoolean(player.isBlackArmGang());
 			write.writeBoolean(player.getMelzarsDoorUnlock());
 			write.writeInt(player.getFightCavesWave());
+			write.writeBoolean(player.getBananaCrate());
+			write.writeInt(player.getBananaCrateCount());
 			write.flush();
 			write.close();
 			
@@ -402,7 +409,7 @@ public class PlayerSave {
 			characterfile.write("hide-colors = ", 0, 14);
 			characterfile.write(Boolean.toString(player.getHideColors()), 0, Boolean.toString(player.getHideColors()).length());
 			characterfile.newLine();
-			characterfile.write("Has God-Cape = ", 0, 15);	//cadillac
+			characterfile.write("Has GodCape = ", 0, 14);	//cadillac
 			characterfile.write(Boolean.toString(player.getCanHaveGodCape()), 0, Boolean.toString(player.getCanHaveGodCape()).length());
 			characterfile.newLine();
 			characterfile.write("Mage Arena stage = ", 0, 19);
@@ -933,6 +940,14 @@ public class PlayerSave {
             }
 	    try {
             	player.setFightCavesWave(load.readInt());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.setBananaCrate(load.readBoolean());
+            } catch (IOException e) {
+            }
+	    try {
+            	player.setBananaCrateCount(load.readInt());
             } catch (IOException e) {
             }
             load.close();

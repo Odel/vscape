@@ -46,6 +46,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
+import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
@@ -148,6 +149,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(GoblinDiplomacy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(PiratesTreasure.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
@@ -2163,8 +2167,15 @@ public class Dialogues {
 			case 510 : //hajedy
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.getInventory().playerHasItem(new Item(431))) {
+						player.getDialogue().sendNpcChat("I see you're carrying some Karamjan Rum.", "That'll cost you extra to smuggle. 1000 gold up front.", CONTENT);
+						player.getDialogue().setNextChatId(4);
+						return true;
+					    }
+					    else {
 						player.getDialogue().sendNpcChat("Would you like to travel to Shilo village?", "It will only cost you 10gp.", CONTENT);
 						return true;
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
 						return true;
@@ -2176,6 +2187,17 @@ public class Dialogues {
 								break;
 						}
 						break;
+					case 4:
+					    player.getDialogue().sendOption("Yes please.", "No thanks.");
+					    return true;
+					case 5:
+					    switch(optionId) {
+						case 1:
+						    Travel.startTravel(player, Route.BRIMHAVEN_TO_SHILO_SMUGGLE);
+						    player.getDialogue().dontCloseInterface();
+						    break;
+					    }
+					break;
 				}
 				break;
 			case 511 : // Vigroy
@@ -3711,6 +3733,72 @@ public class Dialogues {
 					
 			    }
 			break;
+			case 918: //holy shit fuck off ned
+			    switch(player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendPlayerChat("Hello there!", CONTENT);
+				    return true;
+				case 2:
+				    if (player.getEquipment().getItemContainer().get(Constants.HAT) != null && (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("boater")
+					    || player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("cavalier"))) {
+					player.getDialogue().sendNpcChat("Nice hat, sir. I make wool hats sometimes!", "How can I help you?", HAPPY);
+					return true;
+				    } else {
+					player.getDialogue().sendNpcChat("Why hello! I'm the wool man. I make wool things.", "How can I help you today?", HAPPY);
+					return true;
+				    }
+				case 3:
+				    player.getDialogue().sendPlayerChat("I need some rope.", CONTENT);
+				    return true;
+				case 4:
+				    player.getDialogue().sendNpcChat("Some rope eh? I can do that!", "Either pay me, or hand over 4 balls of wool!", CONTENT);
+				    return true;
+				case 5:
+				    player.getDialogue().sendOption("Pay Ned (18 gp)", "Give wool.", "Nevermind.");
+				    return true;
+				case 6:
+				    switch (optionId) {
+					case 1:
+					    if (player.getInventory().playerHasItem(995, 18)) {
+						player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+						player.getInventory().removeItem(new Item(995, 18));
+						return true;
+					    } else {
+						player.getDialogue().sendPlayerChat("I'm afraid I don't have the coin...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 2:
+					    if (player.getInventory().playerHasItem(1759, 4)) {
+						player.getDialogue().sendPlayerChat("Here you are!", CONTENT);
+						player.getDialogue().setNextChatId(8);
+						player.getInventory().removeItem(new Item(1759, 4));
+						return true;
+					    } else {
+						player.getDialogue().sendPlayerChat("I'm afraid I don't have the balls...", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 3:
+					    player.getDialogue().sendPlayerChat("Nevermind.", SAD);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+				case 7:
+				    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+				    player.getInventory().addItem(new Item(954));
+				    player.getDialogue().endDialogue();
+				    return true;
+				case 8:
+				    player.getDialogue().sendStatement("Ned works with the wool.");
+				    return true;
+				case 9:
+				    player.getDialogue().sendNpcChat("And here's yer rope!", CONTENT);
+				    player.getInventory().addItem(new Item(954));
+				    player.getDialogue().endDialogue();
+				    return true;    
+			    }
+			break;
 			case 922: //aggie
 			    switch(player.getDialogue().getChatId()) {
 				case 1:
@@ -4403,10 +4491,10 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 380 : //karamja sailor
+			case 380 : //customs officer
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
-						player.getDialogue().sendNpcChat("Would you like to sail back to Port Sarim?", "It will cost 30gp.", CONTENT);
+						player.getDialogue().sendNpcChat("Would you like to sail back to Port Sarim?", "It will cost 30gp.", "We'll also have to search you for illegal exports.", CONTENT);
 						return true;
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
@@ -4414,9 +4502,16 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
+							    if(player.getInventory().playerHasItem(431)) {
+								player.getDialogue().sendNpcChat("I'm afraid the export of Karamjan Rum", "is prohibited at this date and time.", "Please do not try to violate our import laws.", ANNOYED);
+								player.getDialogue().endDialogue();
+								return true;
+							    }
+							    else {
 								Sailing.sailShip(player, ShipRoute.KARAMJA_TO_PORT_SARIM);
 								player.getDialogue().dontCloseInterface();
 								break;
+							    }
 						}
 						break;
 				}
@@ -5823,8 +5918,14 @@ public class Dialogues {
 			case 500 : //Mosol Rei
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.getInventory().playerHasItem(new Item(431))) {
+						player.getDialogue().sendNpcChat("Bah! We do not allow smugglers in our village!", ANGRY_1);
+						player.getDialogue().endDialogue();
+					    }
+					    else {
 						player.getDialogue().sendNpcChat("Would you like to enter this village?", "Note that once you enter, you cannot get out", "through this way.", CONTENT);
 						return true;
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Yes let me in please.", "No thanks.");
 						return true;

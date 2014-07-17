@@ -45,7 +45,8 @@ public class QuestHandler {
 	new RomeoAndJuliet(),
 	new DemonSlayer(),
 	new BlackKnightsFortress(),
-	new GoblinDiplomacy()
+	new GoblinDiplomacy(),
+	new PiratesTreasure()
     };
     
     public static void init() {
@@ -172,7 +173,10 @@ public class QuestHandler {
         		return true;
 		case 28170: //Goblin Diplomacy
 			showInterface(player,quests[19]);
-        		return true;   
+        		return true;
+		case 28173: //Pirate's treasure
+			showInterface(player,quests[20]);
+        		return true;
 
         }
         return false;

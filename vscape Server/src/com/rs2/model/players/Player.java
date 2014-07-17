@@ -59,6 +59,7 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
@@ -72,6 +73,7 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -425,6 +427,8 @@ public class Player extends Entity {
 	private boolean phoenixGang;
 	private boolean blackArmGang;
 	private boolean melzarsDoor;
+	private boolean bananaCrate;
+	private int bananaCrateCount;
 	private int[] barrowsHits = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	
 	public CanoeStationData curCanoeStation;
@@ -905,7 +909,14 @@ public class Player extends Entity {
 		    }
 		} else if(keyword.equals("resetcaves")) {
 		    this.setFightCavesWave(0);
-		} 
+		} else if (keyword.equals("maxqp")) {
+		    int x = 0;
+		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
+			x += QuestHandler.getQuests()[i].getQuestPoints();
+		    }
+		    this.getActionSender().sendMessage("The total possible quest points is: " + x + ".");
+		}
+		
 	
 	}
 
@@ -1162,8 +1173,12 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    final double exp = player.getSkill().getExp()[skill];
-		    this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill]);
-		    this.getActionSender().sendMessage("and is level " + player.getSkill().getLevelForXP(exp) + ".");
+		    if(player != null) {
+			this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".");
+		    }
+		    else {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
 		}
 		if(keyword.equals("subtractexp")) {
 		    final int skill = Integer.parseInt(args[0]);
@@ -1172,6 +1187,12 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.getSkill().subtractExp(skill, exp/2.25);
+		    if(player != null) {
+			this.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+		    }
+		    else {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
 		}
 		if(keyword.equals("addexp")) {
 		    final int skill = Integer.parseInt(args[0]);
@@ -1180,6 +1201,12 @@ public class Player extends Entity {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.getSkill().addExp(skill, exp/2.25);
+		    if(player != null) {
+			this.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+		    }
+		    else {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
 		}
 		
 		if (keyword.equals("run")) {
@@ -1411,6 +1438,12 @@ public class Player extends Entity {
 			inventory.addItem(new Item(6570)); //fire cape
 			inventory.addItem(new Item(7461)); //dragon gloves
 		}
+		else if (keyword.equals("purple")) {
+			for(int i = 2934; i < 2944; i += 2) {
+			    inventory.addItem(new Item(i));
+			}
+			inventory.addItem(new Item(3785)); //purple cloak
+		}
 		else if (keyword.equals("range")) {
 			inventory.addItem(new Item(2492, 100));
 			inventory.addItem(new Item(2498, 100));
@@ -1548,6 +1581,17 @@ public class Player extends Entity {
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
 			getActionSender().sendMessage("GFX #" + gfxId);
 		}
+		else if (keyword.equals("barrowsreward")) {
+		    int amount = Integer.parseInt(args[0]);
+		    for(int i = 0; i < amount; i++) {
+			this.setKillCount(14);
+			for(int i2 = 0; i < this.getBarrowsNpcDead().length; i++) {
+			    this.setBarrowsNpcDead(i, true);
+			}
+			Barrows.getReward(this);
+		    }
+		    this.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.");
+		}
 		else if (keyword.equals("addpcpoints")) {
 		    int points = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
@@ -1570,13 +1614,7 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
 		}
-		else if (keyword.equals("maxqp")) {
-		    int x = 0;
-		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
-			x += QuestHandler.getQuests()[i].getQuestPoints();
-		    }
-		    this.getActionSender().sendMessage("The total possible quest points is: " + x + ".");
-		}
+		
 		else if (keyword.equals("setwave")) {
 		    int wave = Integer.parseInt(args[0]);
 		    this.setFightCavesWave(wave);
@@ -1650,8 +1688,8 @@ public class Player extends Entity {
                     getActionSender().sendMessage("Can't find player "+name);
                     return;
                 }
-		this.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-		this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
+		player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
+		player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
                 player.getSkill().refresh(skillId);
         }
         else if (keyword.equals("rights")) {
@@ -2098,6 +2136,18 @@ public class Player extends Entity {
 		setAppearanceUpdateRequired(true);
 		final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
+		if(player.getInventory().playerHasItem(new Item(PiratesTreasure.KARAMJAN_RUM))) {
+		    for (Item item : player.getInventory().getItemContainer().getItems()) {
+			if (item == null) {
+			    continue;
+			}
+			if (item.getId() == 431) {
+			    player.getInventory().removeItem(new Item(431));
+			}
+		    }
+		    player.getUpdateFlags().sendGraphic(287);
+		    player.getActionSender().sendMessage("Your Karamjan rum breaks.");
+		}
 		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
@@ -2212,7 +2262,7 @@ public class Player extends Entity {
 		setSpecialType(SpecialType.getSpecial(weapon));
 		getDuelMainData().handleLogin();
 		getActionSender().hideAllSideBars();
-        setCombatLevel(getSkill().calculateCombatLevel());
+		setCombatLevel(getSkill().calculateCombatLevel());
 		// getNewComersSide().setTutorialIslandStage(100, true);
 		Tiaras.handleTiara(this, getEquipment().getId(Constants.HAT));
 		getEquipment().checkRangeGear();
@@ -2247,17 +2297,18 @@ public class Player extends Entity {
         QuestHandler.initPlayer(this);
         getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
         getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+	
 	}
 
 	public boolean beginLogin() throws Exception {
 		// check login status before sql
 		if (checkLoginStatus())  {
 			PlayerSave.load(this);
-            return true;
-        } else {
+			return true;
+		} else {
 			sendLoginResponse();
 			disconnect();
-            return false;
+			return false;
 		}
 	}
 
@@ -3306,6 +3357,22 @@ public class Player extends Entity {
 	    this.melzarsDoor = bool;
 	}
 	
+	public boolean getBananaCrate() {
+	    return bananaCrate;
+	}
+	
+	public void setBananaCrate(boolean bool) {
+	    this.bananaCrate = bool;
+	}
+	
+	public int getBananaCrateCount() {
+	    return bananaCrateCount;
+	}
+	
+	public void setBananaCrateCount(int count) {
+	    this.bananaCrateCount = count;
+	}
+	
 	public int getFightCavesWave() {
 	    return fightCavesWave;
 	}
@@ -3656,7 +3723,7 @@ public class Player extends Entity {
     }
 
     public void setQuestStage(int index, int questStage) {
-        this.questStage[index] = questStage; //0 = not started, 1 = started, 2 = asked for items (Cooks assist), 3 = complete.
+        this.questStage[index] = questStage;
     }
 
 	public void setMagicBookType(SpellBook magicBookType) {
@@ -5241,7 +5308,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@Red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7383); //Dragon Slayer
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
-		getActionSender().sendString("", 7341); //pirate's treasure
+		getActionSender().sendString("@red@Pirate's Treasure", 7341); //pirate's treasure
 		getActionSender().sendString("@red@Prince Ali Rescue", 7342); //ali rescue
 		getActionSender().sendString("@red@Romeo and Juliet", 7343); //romeo & juliet
 		getActionSender().sendString("@red@Rune Mysteries", 7335);

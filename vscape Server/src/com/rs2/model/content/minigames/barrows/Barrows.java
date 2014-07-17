@@ -211,7 +211,8 @@ public class Barrows {
 			return;
 		}
 		boolean getBarrows = random(126 - (kills * 8)) == 0;
-		if (getBarrows) {
+		boolean getBarrows2 = (Misc.random(24) == 0 && brotherKillCount(player) == 6);
+		if (getBarrows || getBarrows2) {
 			if (player.getInventory().getItemContainer().freeSlots() == 1) {
 				if (!player.getInventory().playerHasItem(rune)) {
 					player.getActionSender().sendMessage("You must have three empty spaces in order to take this loot.");

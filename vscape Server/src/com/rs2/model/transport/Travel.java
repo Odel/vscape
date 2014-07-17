@@ -23,7 +23,9 @@ public class Travel {
 
     public enum Route {
         BRIMHAVEN_TO_SHILO(new Position(2836, 2956), 3, 10),
-        SHILO_TO_BRIMHAVEN(new Position(2780, 3211), 3, 10);
+	BRIMHAVEN_TO_SHILO_SMUGGLE(new Position(2836, 2956), 3, 1000),
+        SHILO_TO_BRIMHAVEN(new Position(2780, 3211), 3, 10),
+	CRATE_TO_KEEP(new Position(2779, 3400), 10, 0);
 
         int cost;
         Position to;

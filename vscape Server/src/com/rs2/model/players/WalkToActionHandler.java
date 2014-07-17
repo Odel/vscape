@@ -27,6 +27,7 @@ import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
+import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -211,6 +212,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(GoblinDiplomacy.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(PiratesTreasure.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}
@@ -1430,10 +1435,24 @@ public class WalkToActionHandler {
 					Ladders.climbLadder(player, new Position(2856, 3167, 0));
 					break;
 				case 9358: // enter tzhaar cave
-					player.sendTeleport(2480, 5175, 0);
+				    if(player.getInventory().playerHasItem(new Item(431))) { //karamjan rum
+					for(Item item : player.getInventory().getItemContainer().getItems()) {
+					    if(item == null) continue;
+					    if(item.getId() == 431) {
+						player.hit(5, HitType.NORMAL);
+						player.getInventory().removeItem(new Item(431));
+					    }
+					}
+					player.getUpdateFlags().sendGraphic(287);
+					player.getActionSender().sendMessage("Your Karamjan rum explodes from the heat near the Tzhaar caves.");
 					break;
+				    }
+				    else {
+					player.fadeTeleport(new Position(2480, 5175, 0));
+					break;
+				    }
 				case 9359: // exit tzhaar cave
-					player.sendTeleport(2862, 9571, 0);
+					player.fadeTeleport(new Position(2862, 9571, 0));
 					break;
 				case 3828: // climb into kalphite tunnel
 					Ladders.climbLadder(player, new Position(3484, 9509, 2));
@@ -2158,6 +2177,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(PiratesTreasure.handleNpcClick(player, npc.getNpcId())) {
+				    this.stop();
+				    return;
+				}
 				switch (player.getClickId()) {
 				case 166 :
 				case 494 :
@@ -2438,6 +2461,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(BlackKnightsFortress.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(PiratesTreasure.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

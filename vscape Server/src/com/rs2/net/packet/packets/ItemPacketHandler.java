@@ -14,6 +14,8 @@ import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MerlinsCrystal;
+import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
@@ -296,6 +298,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(GoblinDiplomacy.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(PiratesTreasure.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
@@ -775,6 +780,9 @@ public class ItemPacketHandler implements PacketHandler {
 		if(BlackKnightsFortress.itemHandling(player, itemId)) {
 		    return;
 		}
+		if(PiratesTreasure.itemHandling(player, itemId)) {
+		    return;
+		}
 		switch (itemId) {
 			case 2528 : // genie lamp
 				player.setGenieSelect(-1);
@@ -858,8 +866,15 @@ public class ItemPacketHandler implements PacketHandler {
 							return;
 						}
 						if (player.getPosition().getX() == 2566 && (player.getPosition().getY() == 3331 || player.getPosition().getY() == 3333)) {
-							player.teleport(new Position(2530, 3303));
+							player.fadeTeleport(new Position(2530, 3303));
 							player.getActionSender().sendMessage("and find yourself in plague city.");
+							container.stop();
+							return;
+						}
+						if (player.getPosition().getX() == 2999 && player.getPosition().getY() == 3383 && (player.getQuestStage(20) == 6 || player.getQuestStage(20) == 7)) {
+							player.setQuestStage(20, 8);
+							QuestHandler.completeQuest(player, 20);
+							player.getInventory().addItem(new Item(PiratesTreasure.CHEST));
 							container.stop();
 							return;
 						}
