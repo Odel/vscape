@@ -8,6 +8,7 @@
 ::changepass
 ::patchnotes
 ::highscores / ::hs / ::hiscores
+::maxqp
 ::report
 ::bugreport
 ::helpme/::panic(Send a request for assistance to Staff.)
@@ -25,6 +26,8 @@
 -Coordinate clues only require a spade.
 -Gnome Glider goes everywhere from the Tree,
 but only to the Tree from Al-Kharid.
+-Dig in the garden of the quest marker house near
+West Ardougne to tunnel into West Ardouge.
 
 @dre@=Admins=
 Mr Telescope
