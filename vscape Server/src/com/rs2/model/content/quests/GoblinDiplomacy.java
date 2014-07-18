@@ -303,26 +303,23 @@ public class GoblinDiplomacy implements Quest {
     public static boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 23:
-		if(x == 2962 && y == 3506 && player.getQuestStage(19) == 1)
-		    if(NpcLoader.checkSpawn(player, GRUBFOOT)) {
-			for(Npc npc : World.getNpcs()) {
-			    if(npc == null) continue;
-			    if(npc.getNpcId() == GRUBFOOT) {
-				npc.getUpdateFlags().sendForceMessage("Ooph!");
-				Dialogues.startDialogue(player, GRUBFOOT);
-			    }
+		if(x == 2962 && y == 3506 && player.getQuestStage(19) == 1) {
+		    for (Npc npc : World.getNpcs()) {
+			if (npc == null) {
+			    continue;
 			}
-			return true;
+			if (npc.getNpcId() == GRUBFOOT) {
+			    return false;
+			}
 		    }
-		    else {
-			NpcLoader.spawnNpc(null, new Npc(GRUBFOOT), GRUBFOOT_SPAWN, false, "Ooph!");
-			player.walkTo(GRUBFOOT_STEP_AWAY, false);
-			return true;
+		    NpcLoader.spawnNpc(null, new Npc(GRUBFOOT), GRUBFOOT_SPAWN, false, "Ooph!");
+		    player.walkTo(GRUBFOOT_STEP_AWAY, false);
+		    return true;
 		    }
 	    return false;
 	    case 365:
-		if(x == 2951 && y == 3507 && player.getQuestStage(19) == 1) {
-		    if(player.getInventory().playerHasExactItem(GOBLIN_MAIL, 1)) {
+		if(x == 2951 && y == 3507 && (player.getQuestStage(19) > 0 && player.getQuestStage(19) < 4)) {
+		    if(player.getInventory().playerHasExactItem(GOBLIN_MAIL, 1) || player.getInventory().playerHasExactItem(GOBLIN_MAIL, 2)) {
 			player.getInventory().addItem(new Item(GOBLIN_MAIL));
 			player.getDialogue().sendGiveItemNpc("You find an old, dusty goblin mail.", new Item(GOBLIN_MAIL));
 		    }
@@ -617,6 +614,15 @@ public class GoblinDiplomacy implements Quest {
 				}
 				else {
 				    player.getDialogue().sendNpcChat("Yousa already have goblin mail!", ANGRY_1);
+				    player.getDialogue().endDialogue();
+				    for (Npc npc : World.getNpcs()) {
+					if (npc == null) {
+					    continue;
+					}
+					if (npc.getNpcId() == GRUBFOOT) {
+					    NpcLoader.destroyNpc(npc);
+					}
+				    }
 				    return true;
 				}
 			    case 13:
