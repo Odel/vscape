@@ -1288,6 +1288,9 @@ public class Player extends Entity {
 				}
 			}
 			skill.refresh();
+		}else if (keyword.equals("poisondump")) {
+		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
+		    PiratesTreasure.dumpAllPoisonedItems(this);
 		}else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;

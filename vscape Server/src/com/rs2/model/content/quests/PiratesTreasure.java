@@ -1,6 +1,7 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
+import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -31,6 +32,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Sailing;
 import com.rs2.util.Misc;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PiratesTreasure implements Quest {
@@ -66,6 +68,9 @@ public class PiratesTreasure implements Quest {
     public static final int LUTHAS = 379;
     public static final int CUSTOMS_OFFICER = 380;
     public static final int WYDIN = 557;
+    
+    public static final Position BRIMHAVEN_DOCKS = new Position(2772, 3232, 0);
+    public static final Position ARDOUGNE_DOCKS = new Position(2683, 3272, 0);
     
     public int dialogueStage = 0;
     private int reward[][] = {
@@ -343,9 +348,115 @@ public class PiratesTreasure implements Quest {
 	    player.getInventory().removeItem(new Item(KARAMJAN_RUM));
 	    return true;
 	}
+	else if(firstItem == CLEANING_CLOTH) {
+	    for(int i = 0; i < getPoisonedWeapons().size(); i++) {
+		Item item = getPoisonedWeapons().get(i);
+		if(item == null) continue;
+		if(item.getId() == secondItem) {
+		    if(item.getDefinition().isStackable() && player.getInventory().playerHasItem(item.getId(), 15)) {
+			if(player.getInventory().canAddItem(new Item(item.getId(), 15))) {
+			    player.getInventory().replaceItemWithItem(new Item(item.getId(), 15), new Item(getUnpoisonedWeaponId(item), 15));
+			}
+			else {
+			    player.getInventory().removeItem(new Item(item.getId(), 15));
+			    GroundItem drop = new GroundItem(new Item(getUnpoisonedWeaponId(item), 15), player, player.getPosition().clone());
+			    GroundItemManager.getManager().dropItem(drop);
+			}
+			if(player.getStaffRights() > 1) {
+			    player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "." + " (" + item.getId() + ")");
+			}
+			else {
+			   player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "."); 
+			}
+			return true;
+		    }
+		    else if(item.getDefinition().isStackable() && !player.getInventory().playerHasItem(item.getId(), 15)) {
+			int amount = player.getInventory().getItemAmount(item.getId());
+			if(player.getInventory().canAddItem(new Item(item.getId(), amount))) {
+			    player.getInventory().replaceItemWithItem(new Item(item.getId(), amount), new Item(getUnpoisonedWeaponId(item), amount));
+			}
+			else {
+			    player.getInventory().removeItem(new Item(item.getId(), amount));
+			    GroundItem drop = new GroundItem(new Item(getUnpoisonedWeaponId(item), amount), player, player.getPosition().clone());
+			    GroundItemManager.getManager().dropItem(drop);
+			}
+			if(player.getStaffRights() > 1) {
+			    player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "." + " (" + item.getId() + ")");
+			}
+			else {
+			   player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "."); 
+			}
+			return true;
+		    }
+		    else {
+			player.getInventory().replaceItemWithItem(item, new Item(getUnpoisonedWeaponId(item)));
+			if(player.getStaffRights() > 1) {
+			    player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "." + " (" + item.getId() + ")");
+			}
+			else {
+			   player.getActionSender().sendMessage("You clean the poison off your " + item.getDefinition().getName() + "."); 
+			}
+			return true;
+		    }
+		}
+	    }
+	}
 	return false;
     }
-    
+    public static int getUnpoisonedWeaponId(Item original) {
+	switch(original.getId()) {
+	    case 5688: //br'ze dagger(p++)
+		return 1205;
+	    case 5698: //drag dagger(p++)
+		return 1215;
+	    case 5648: //bronze jav'n(p++)
+		return 825;
+	}
+	String originalName = original.getDefinition().getName().toLowerCase(); //iron dagger(p)
+	for(int i = 0; i < Constants.MAX_ITEMS; i++) {
+	    if(GlobalVariables.itemDump[i].contains("(") || GlobalVariables.itemDump[i].contains("tips")) continue;
+	    String matching = GlobalVariables.itemDump[i].substring(GlobalVariables.itemDump[i].indexOf(":")+2);// iron dagger desc
+	    if(matching.toLowerCase().contains(originalName.substring(0, originalName.indexOf("(")))) {
+		return getItemIdFromDump(i);
+	    }
+	}
+	return 0;
+    }
+    public static int getItemIdFromDump(int i) {
+	if (GlobalVariables.itemDump[i].substring(0, GlobalVariables.itemDump[i].indexOf(":")).contains(Integer.toString(i))) {
+	    return i;
+	}
+	return 0;
+    }
+    public static void dumpAllPoisonedItems(final Player player) {
+	for (int i = 0; i < PiratesTreasure.getPoisonedWeapons().size(); i++) {
+	    Item item = PiratesTreasure.getPoisonedWeapons().get(i);
+	    if (item == null) {
+		continue;
+	    }
+	    if (player.getBank().hasRoomFor(item)) {
+		player.getBank().add(item);
+	    } else {
+		player.getActionSender().sendMessage("Did not have room in bank for " + item.getDefinition().getName() + ".");
+	    }
+	}
+    }
+    public static ArrayList<Item> getPoisonedWeapons() {
+	ArrayList<Item> poisoned = new ArrayList<Item>();
+	int count = 0;
+	for(int i = 0; i < 11789; i++) {
+	    if(GlobalVariables.itemDump[i].contains("(p)") || GlobalVariables.itemDump[i].contains("(p+)")
+		|| GlobalVariables.itemDump[i].contains("(p++)") || GlobalVariables.itemDump[i].contains("(kp)")) {
+		Item item = new Item(getItemIdFromDump(i));
+		String name = item.getDefinition().getName().toLowerCase();
+		if(!item.getDefinition().isNoted() && item.getId() != 7001 && !name.contains("hasta") && !name.contains("poison")) { //remove the hasta check if they are ever added
+		    poisoned.add(count, item);
+		    count++;
+		}
+	    }
+	}
+	return poisoned;
+    }
     public static boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case BANANA_CRATE:

@@ -599,6 +599,25 @@ public class Misc {
 		}
 		return info;
 	}
+	public static String[] getItemDump() throws IOException {
+		String[] info = new String[12000];
+		int count = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("datajson/items.txt")));
+	
+			String line = null;
+			// if no more lines the readLine() returns null
+			int q = 0;
+			while (((line = br.readLine()) != null) && (q < 12000)) {
+				info[q] = line;
+				q++;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
 
     public static String durationFromTicks(long ticks, boolean shortened) {
         long seconds = ticksToSeconds(ticks);

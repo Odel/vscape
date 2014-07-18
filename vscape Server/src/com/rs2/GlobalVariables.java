@@ -12,6 +12,7 @@ public class GlobalVariables {
 	public static String[] patchNotes = null;
 	public static String[] info = null;
 	public static String[] npcDump = null;
+	public static String[] itemDump = null;
 	// public static long leverTimer[] = new long[LeverHandler.lever.length];
 	public static int grainHopper = 0, grainBin = 0;
 

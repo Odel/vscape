@@ -418,6 +418,9 @@ public class PlayerSave {
 			characterfile.write("PC points = ", 0, 12);
 			characterfile.write(Integer.toString(player.getPcPoints()), 0, Integer.toString(player.getPcPoints()).length());
 			characterfile.newLine();
+			characterfile.write("Latest defender = ", 0, 18);
+			characterfile.write(Integer.toString(player.getDefender()), 0, Integer.toString(player.getDefender()).length());
+			characterfile.newLine();
 			characterfile.write("MAC = ", 0, 6);
 			characterfile.write(player.getMacAddress(), 0, player.getMacAddress().length());
 			characterfile.newLine();

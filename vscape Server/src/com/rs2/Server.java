@@ -171,6 +171,7 @@ public class Server implements Runnable {
             GlobalVariables.patchNotes = Misc.loadPatchNotes();
             GlobalVariables.info = Misc.loadInfo();
 	    GlobalVariables.npcDump = Misc.getNpcDump();
+	    GlobalVariables.itemDump = Misc.getItemDump();
 
 
 			// load all xstream related files.
@@ -324,6 +325,7 @@ public class Server implements Runnable {
 				player.setLoginStage(LoginStages.LOGGED_IN);
 			} catch (Exception ex) {
 				//ex.printStackTrace();
+				System.out.println("Error, infinite DC loop for this player");
 				player.disconnect();
 			}
 		}
