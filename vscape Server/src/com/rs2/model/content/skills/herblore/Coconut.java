@@ -18,7 +18,7 @@ public class Coconut {
 			player.getActionSender().sendMessage("You crush the coconut with a hammer.");
 			player.getInventory().removeItem(new Item(5974));
 			player.getInventory().addItem(new Item(5976));
-			return false;
+			return true;
 		}
 		if ((itemUsed.getId() == 229 && usedWith.getId() == 5976) || (itemUsed.getId() == 5976 && usedWith.getId() == 229)) {
 			if (!Constants.HERBLORE_ENABLED) {

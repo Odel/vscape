@@ -2296,11 +2296,13 @@ public class Player extends Entity {
 		}
 		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
-        setAppearanceUpdateRequired(true);
-        QuestHandler.initPlayer(this);
-        getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
-        getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
-	
+	    setAppearanceUpdateRequired(true);
+	    QuestHandler.initPlayer(this);
+	    getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
+	    getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+	    if(this.getQuestStage(20) < 1) {
+		PiratesTreasure.getAndDestroyRum(this);
+	    }
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -4431,16 +4433,27 @@ public class Player extends Entity {
 	{
 		return curCanoeStation;
 	}
-
 	public int getStandAnim() {
 		if (standAnim == -1)
 			return getEquipment().getStandAnim();
+		else if(getEquipment().getId(Constants.WEAPON) == 7158) // d2h
+			return 7047;
+		else if(getEquipment().getItemContainer().get(Constants.WEAPON) != null
+			&& (getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
+			|| getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
+			return 7047;
 		return standAnim;
 	}
 
 	public int getWalkAnim() {
 		if (walkAnim == -1)
 			return getEquipment().getWalkAnim();
+		else if(getEquipment().getId(Constants.WEAPON) == 7158) // d2h
+			return 7047;
+		else if(getEquipment().getItemContainer().get(Constants.WEAPON) != null
+			&& (getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
+			|| getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
+			return 7047;
 		return walkAnim;
 	}
 

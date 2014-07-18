@@ -477,10 +477,22 @@ public class Equipment {
 	}
 
 	public int getStandAnim() {
+		if(player.getEquipment().getId(Constants.WEAPON) == 7158) // d2h
+			return 7047;
+		else if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null
+			&& (player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
+			|| player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
+			return 7047;
 		return player.getEquippedWeapon().getMovementAnimations()[0];
 	}
 
 	public int getWalkAnim() {
+		if(player.getEquipment().getId(Constants.WEAPON) == 7158) // d2h
+			return 7046;
+		else if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null
+			&& (player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
+			|| player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
+			return 7046;
 		return player.getEquippedWeapon().getMovementAnimations()[1];
 	}
 
