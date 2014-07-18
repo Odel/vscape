@@ -403,6 +403,22 @@ public class PiratesTreasure implements Quest {
 	}
 	return false;
     }
+    public static void getAndDestroyRum(final Player player) {
+	for(Item item : player.getBank().getItems()) {
+	    if(item == null) continue;
+	    if(item.getId() == KARAMJAN_RUM) {
+		player.getBank().remove(item);
+		player.getActionSender().sendMessage("Your karamjan rum breaks because you haven't started Pirate's Treasure!");
+	    }
+	}
+	for(Item item : player.getInventory().getItemContainer().getItems()) {
+	    if(item == null) continue;
+	    if(item.getId() == KARAMJAN_RUM) {
+		player.getInventory().removeItem(item);
+		player.getActionSender().sendMessage("Your karamjan rum breaks because you haven't started Pirate's Treasure!");
+	    }
+	}
+    }
     public static int getUnpoisonedWeaponId(Item original) {
 	switch(original.getId()) {
 	    case 5688: //br'ze dagger(p++)
