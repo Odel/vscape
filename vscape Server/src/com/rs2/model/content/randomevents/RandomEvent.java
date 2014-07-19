@@ -44,7 +44,7 @@ public class RandomEvent {
 					case 0 : //Wasp
 						player.getPjTimer().setWaitDuration(0);
 						player.getPjTimer().reset();
-						NpcLoader.spawnNpc(player, new Npc(411), true, false);
+						NpcLoader.spawnNpc(player, new Npc(411), player.getPosition().clone(), true, null);
 						break;
 					case 1 :
 						TalkToEvent.spawnNpc(player, TalkToNpc.DRUNKEN_DWARF);
