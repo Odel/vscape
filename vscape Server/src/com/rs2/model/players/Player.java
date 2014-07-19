@@ -1474,25 +1474,52 @@ public class Player extends Entity {
 				String direction = args[1].toLowerCase();
 				String name = fullString.substring(fullString.indexOf("-")+1);
 				long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-				Player player = World.getPlayerByName(nameLong);	
+				Player player = World.getPlayerByName(nameLong);
+				if(player == null) {
+				    this.getActionSender().sendMessage("Could not find player.");
+				    return;
+				}
 				switch(direction) {
 				    case "e":
 				    case "east":
-					player.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
-					return;
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX() - amount, player.getPosition().getY(), player.getPosition().getZ()));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
+					    break;
+					}
 				    case "w":
 				    case "west":
-					player.teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
-					return;
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX() + amount, player.getPosition().getY(), player.getPosition().getZ()));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
+					    break; 
+					}
 				    case "n":
 				    case "north":
-					player.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
-					return;
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY() + amount, player.getPosition().getZ()));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
+					    break;
+					}
 				    case "s":
 				    case "south":
-					player.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
-					return;
-					
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY() - amount, player.getPosition().getZ()));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
+					    break;
+					}
 				}
 			} catch (Exception e) {
 			    getActionSender().sendMessage("Please use the syntax ::bump amount direction (east, e, west, w, etc.)");
@@ -4526,24 +4553,12 @@ public class Player extends Entity {
 	public int getStandAnim() {
 		if (standAnim == -1)
 			return getEquipment().getStandAnim();
-		else if(getEquipment().getId(Constants.WEAPON) == 7158) // d2h
-			return 7047;
-		else if(getEquipment().getItemContainer().get(Constants.WEAPON) != null
-			&& (getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
-			|| getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
-			return 7047;
 		return standAnim;
 	}
 
 	public int getWalkAnim() {
 		if (walkAnim == -1)
 			return getEquipment().getWalkAnim();
-		else if(getEquipment().getId(Constants.WEAPON) == 7158) // d2h
-			return 7047;
-		else if(getEquipment().getItemContainer().get(Constants.WEAPON) != null
-			&& (getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
-			|| getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
-			return 7047;
 		return walkAnim;
 	}
 
