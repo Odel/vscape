@@ -194,6 +194,7 @@ public class VampireSlayer implements Quest {
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to Morgan in Draynor Village to start this quest.", 8147);
+	    player.getActionSender().sendString("Requirements: Ability to kill a strong level 32 vampire.", 8148);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
     
@@ -271,10 +272,9 @@ public class VampireSlayer implements Quest {
 	}
 	return false;
     }
-    
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
-	    case 2612: //black arm cupboard
+	    case 2612: //cupboard
 		if(x == 3096) {
 		    new GameObject(2612, 3096, 3269, 1, 0, 10, 2613, 0);
 		    return true;
@@ -298,6 +298,11 @@ public class VampireSlayer implements Quest {
 		    }
 		}, 2);
 		return true;
+	}
+	return false;
+    }
+    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+	switch(object) {
 	    case STAIRS_DOWN:
 		if(player.getQuestStage(21) == 2) {
 		    player.fadeTeleport(DOWN_TO_VAMPIRE);

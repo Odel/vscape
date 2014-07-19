@@ -44,6 +44,7 @@ import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
+import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -156,6 +157,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(VampireSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(ErnestTheChicken.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {

@@ -928,12 +928,9 @@ public class PrinceAli implements Quest {
 					    return true;
 					case 6:
 					    player.getDialogue().sendGiveItemNpc("Aggie hands you the completed paste.", new Item(2424));
+					    player.getDialogue().endDialogue();
 					    player.setQuestStage(9, 6);
 					    player.getInventory().addItem(new Item(2424));
-					    return true;
-					case 7:
-					    player.getDialogue().sendNpcChat("Now begone with you!", "I have important brewing to do!", ANNOYED);
-					    player.getDialogue().endDialogue();
 					    return true;
 					case 25 :
 					    player.getDialogue().sendStatement("Aggie shows you a list of supplies:", "Ash, flour, a bucket of water, and some redberries.");

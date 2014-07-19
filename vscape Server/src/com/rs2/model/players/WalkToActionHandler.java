@@ -24,6 +24,7 @@ import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
+import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -221,6 +222,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(VampireSlayer.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(ErnestTheChicken.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
 				    return;
 				}
@@ -2470,6 +2475,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(PiratesTreasure.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(ErnestTheChicken.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

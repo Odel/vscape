@@ -296,6 +296,7 @@ public class Player extends Entity {
 	private int skullIcon = -1;
 	private int serverPoints = 0;
 	private boolean[] isUsingPrayer = new boolean[18];
+	private boolean[] ernestLevers = new boolean[6];
 	private int prayerDrainTimer = 6;
 	private SpellBook magicBookType = SpellBook.MODERN;
 	private boolean autoRetaliate = false;
@@ -3555,6 +3556,14 @@ public class Player extends Entity {
 	public boolean[] getIsUsingPrayer() {
 		return isUsingPrayer;
 	}
+	
+	public void setErnestLevers(int slot, boolean bool) {
+		this.ernestLevers[slot] = bool;
+	}
+
+	public boolean[] getErnestLevers() {
+		return ernestLevers;
+	}
 
 	public void setPrayerDrainTimer(int prayerDrainTimer) {
 		this.prayerDrainTimer = prayerDrainTimer;
@@ -4063,6 +4072,8 @@ public class Player extends Entity {
 				return 1156;
 			else if(name.contains("defender"))
 				return 4177;
+			else if(name.contains("2h") || name.contains("godsword"))
+				return 7050;
 		}
 		return equippedWeapon.getBlockAnimation();
 	}
@@ -5333,7 +5344,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Cook's Assistant", 7333);
 		getActionSender().sendString("@red@Demon Slayer", 7334); //demon slayer
 		getActionSender().sendString("@red@Doric's Quest", 7336);
-		getActionSender().sendString("", 7339); // ernest the chicken
+		getActionSender().sendString("@red@Ernest the Chicken", 7339); // ernest the chicken
 		getActionSender().sendString("@red@Goblin Diplomacy", 7338); //goblin diplomacy
 		getActionSender().sendString("@Red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7383); //Dragon Slayer

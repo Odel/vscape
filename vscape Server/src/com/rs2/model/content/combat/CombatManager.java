@@ -18,6 +18,7 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
+import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
@@ -460,6 +461,8 @@ public class CombatManager extends Tick {
 			    respawnTimer = 120;
 			else if(npc.getNpcId() == 920) // prince ali
 			    respawnTimer = 120;
+			else if(npc.getNpcId() == ErnestTheChicken.ERNEST_CHICKEN)
+			    respawnTimer = 60;
 			// Set respawn
 			CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
 			    @Override

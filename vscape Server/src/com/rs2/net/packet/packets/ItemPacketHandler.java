@@ -12,6 +12,7 @@ import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
+import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -36,6 +37,7 @@ import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
+import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -302,6 +304,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(PiratesTreasure.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(ErnestTheChicken.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {

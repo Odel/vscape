@@ -562,7 +562,7 @@ public class Misc {
 		return patchNotes;
 	}
 	public static String[] loadInfo() throws IOException {
-		String[] info = new String[50];
+		String[] info = new String[200];
 		int count = 0;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(new File("data/info.txt")));
@@ -570,7 +570,7 @@ public class Misc {
 			String line = null;
 			// if no more lines the readLine() returns null
 			int q = 0;
-			while (((line = br.readLine()) != null) && (q<50)) {
+			while (((line = br.readLine()) != null) && (q<200)) {
 				info[q]=line;
 				q++;
 			}

@@ -5,6 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
@@ -143,6 +144,9 @@ public class ObjectPacketHandler implements PacketHandler {
 		//if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 		//	return;
 		//}
+		if(VampireSlayer.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+		    return;
+		}
 		if(player.getClickId() == 2404) { //phoneix gang open chest
 		    if(!player.getInventory().ownsItem(763)) {
 			player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
@@ -150,9 +154,6 @@ public class ObjectPacketHandler implements PacketHandler {
 			player.setQuestStage(13, 10);
 			return;
 		    }
-		    return;
-		}
-		if(VampireSlayer.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}
 		if(player.getClickId() == 2401) { //black arm open cupboard

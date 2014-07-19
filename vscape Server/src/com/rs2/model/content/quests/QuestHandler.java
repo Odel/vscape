@@ -47,7 +47,8 @@ public class QuestHandler {
 	new BlackKnightsFortress(),
 	new GoblinDiplomacy(),
 	new PiratesTreasure(),
-	new VampireSlayer()
+	new VampireSlayer(),
+	new ErnestTheChicken()
     };
     
     public static void init() {
@@ -180,6 +181,9 @@ public class QuestHandler {
         		return true;
 		case 28179: //Vampire Slayer
 			showInterface(player,quests[21]);
+        		return true;
+		case 28171: //Ernest the Chicken
+			showInterface(player,quests[22]);
         		return true;
 
         }
