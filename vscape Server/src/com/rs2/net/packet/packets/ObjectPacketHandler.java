@@ -13,6 +13,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.SkillHandler;
+import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.smithing.Smelting;
@@ -163,7 +164,18 @@ public class ObjectPacketHandler implements PacketHandler {
 		if(player.getClickId() == 2609) { // crandor tunnel
 		    player.fadeTeleport(new Position(2834, 9657, 0));
 		    return;
-		}   
+		}
+		if(player.getClickId() == 9299) { //lumby fence fix FINALLY
+		    if (player.getPosition().getY() < 3191) {
+			Agility.crossObstacle(player, 3240, 3191, 756, 4, 0, 0);
+			player.getActionSender().sendMessage("You squeeze through the fence.");
+			return;
+		    } else {
+			Agility.crossObstacle(player, 3240, 3190, 756, 4, 0, 0);
+			player.getActionSender().sendMessage("You squeeze through the fence.");
+			return;
+		    }
+		}
 		Following.resetFollow(player);
 		//ObjectHandler.getObjectDetails(player, player.getClickId(), player.getClickX(), player.getClickY());
 		WalkToActionHandler.setActions(Actions.OBJECT_FIRST_CLICK);

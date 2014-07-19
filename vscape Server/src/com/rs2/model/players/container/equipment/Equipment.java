@@ -234,7 +234,7 @@ public class Equipment {
 		} else {
 			int slotType = equipSlot;
 			if (slotType == Constants.WEAPON) {
-				if (item.getDefinition().isTwoHanded()) {
+				if (item.getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().contains("godsword")) {
 					if (itemContainer.get(Constants.WEAPON) != null && itemContainer.get(Constants.SHIELD) != null && player.getInventory().getItemContainer().freeSlot() == -1) {
 						player.getActionSender().sendMessage("Not enough space in your inventory.");
 						return;
@@ -248,7 +248,7 @@ public class Equipment {
 				}
 			}
 			if (slotType == Constants.SHIELD && itemContainer.get(Constants.WEAPON) != null) {
-				if (itemContainer.get(Constants.WEAPON).getDefinition().isTwoHanded()) {
+				if (itemContainer.get(Constants.WEAPON).getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().contains("godsword")) {
 					player.getInventory().removeItemSlot(item, slot);
 					removedItem = true;
 					unequip(Constants.WEAPON);
@@ -477,22 +477,10 @@ public class Equipment {
 	}
 
 	public int getStandAnim() {
-		if(player.getEquipment().getId(Constants.WEAPON) == 7158) // d2h
-			return 7047;
-		else if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null
-			&& (player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
-			|| player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
-			return 7047;
 		return player.getEquippedWeapon().getMovementAnimations()[0];
 	}
 
 	public int getWalkAnim() {
-		if(player.getEquipment().getId(Constants.WEAPON) == 7158) // d2h
-			return 7046;
-		else if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null
-			&& (player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("godsword")
-			|| player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("2h")))
-			return 7046;
 		return player.getEquippedWeapon().getMovementAnimations()[1];
 	}
 
