@@ -2237,6 +2237,7 @@ public class Player extends Entity {
 		if (!stopPacket) {
 			setStopPacket(true);
 		}
+		//
 		resetAllActions();
 		this.getPets().unregisterPet();
 		movePlayer(position);

@@ -536,19 +536,21 @@ public class ErnestTheChicken implements Quest {
 		}
 	    return false;
 	    case CRATE:
-		if(player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
-		    player.getUpdateFlags().sendAnimation(832);
-		    player.getActionSender().sendMessage("You find an old oil can in the crate.");
-		    player.getInventory().addItem(new Item(OIL_CAN));
-		    player.fadeTeleport(MANOR);
-		    resetLevers(player);
-		    return true;
-		}
-		else if(!player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
-		    player.getActionSender().sendMessage("Not enough room in your inventory.");
-		    return true;
-		}
-		else {
+		if (player.getPosition().getX() < 3100 && player.getPosition().getY() < 9758) {
+		    if (player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
+			player.getUpdateFlags().sendAnimation(832);
+			player.getActionSender().sendMessage("You find an old oil can in the crate.");
+			player.getInventory().addItem(new Item(OIL_CAN));
+			player.fadeTeleport(MANOR);
+			resetLevers(player);
+			return true;
+		    } else if (!player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
+			player.getActionSender().sendMessage("Not enough room in your inventory.");
+			return true;
+		    } else {
+			return false;
+		    }
+		} else {
 		    return false;
 		}
 	    case RUBBER_TUBE_DOOR:
