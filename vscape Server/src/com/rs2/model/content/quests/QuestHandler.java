@@ -46,7 +46,8 @@ public class QuestHandler {
 	new DemonSlayer(),
 	new BlackKnightsFortress(),
 	new GoblinDiplomacy(),
-	new PiratesTreasure()
+	new PiratesTreasure(),
+	new VampireSlayer()
     };
     
     public static void init() {
@@ -176,6 +177,9 @@ public class QuestHandler {
         		return true;
 		case 28173: //Pirate's treasure
 			showInterface(player,quests[20]);
+        		return true;
+		case 28179: //Vampire Slayer
+			showInterface(player,quests[21]);
         		return true;
 
         }

@@ -6,6 +6,7 @@ import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
@@ -149,6 +150,9 @@ public class ObjectPacketHandler implements PacketHandler {
 			player.setQuestStage(13, 10);
 			return;
 		    }
+		    return;
+		}
+		if(VampireSlayer.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}
 		if(player.getClickId() == 2401) { //black arm open cupboard

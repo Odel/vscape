@@ -651,12 +651,26 @@ public class Player extends Entity {
 	    //FightCaves.exitCave(this);
 	    FightCaves.destroyNpcs(this);
 	}
-	setLogoutTimer(System.currentTimeMillis() + 600000);
+	else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
+	    Entity attacker = this.getInCombatTick().getOther();
+	    if(attacker != null && attacker.isNpc()) {
+		Npc npc = (Npc)attacker;
+		npc.reset();
+		npc.resetActions();
+		npc.setCombatDelay(5);
+		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
+	    }
+	    else if(attacker != null && attacker.isPlayer()) {
+		attacker.setCombatingEntity(null);
+		attacker.getMovementHandler().reset();
+	    }
+	}
+	setLogoutTimer(System.currentTimeMillis() + 100); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
         try {
-			socketChannel.close();
+	    socketChannel.close();
             HostGateway.exit(host);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -5331,7 +5345,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Sheep Shearer", 7344);
 		getActionSender().sendString("@red@Shield of Arrav", 7345); //shield of arrav
 		getActionSender().sendString("@red@The Knight's Sword", 7346);
-		getActionSender().sendString("", 7347); //vampire slayer
+		getActionSender().sendString("@red@Vampire Slayer", 7347); //vampire slayer
 		getActionSender().sendString("@red@Witch's Potion", 7348);
 		getActionSender().sendString("", 8438); //death plateau
 		getActionSender().sendString("", 12852); //desert treasure

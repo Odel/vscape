@@ -386,11 +386,9 @@ public class DragonSlayer implements Quest {
 	    }
 	    if (npc.getNpcId() == 918 && npc.getPosition().getY() == 3238) {
 		return false;
-	    } else {
-		return true;
 	    }
 	}
-	return false;
+	return true;
     }
     public static boolean thalzarDoorItems(Player player) {
 	Inventory inventory = player.getInventory();
@@ -936,7 +934,7 @@ public class DragonSlayer implements Quest {
 				switch (optionId) {
 				    case 1:
 					player.getDialogue().sendPlayerChat("Yes, let's go!", HAPPY);
-					if (nedSpawnedOnCrandor()) {
+					if (!nedSpawnedOnCrandor()) {
 					    NpcLoader.spawnNpc(918, 2852, 3238, 0, false, true);
 					}
 					return true;

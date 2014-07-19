@@ -50,6 +50,7 @@ import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
+import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.Smelting;
@@ -152,6 +153,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(PiratesTreasure.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(VampireSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {

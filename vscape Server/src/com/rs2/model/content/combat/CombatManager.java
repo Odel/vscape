@@ -18,7 +18,9 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
+import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
@@ -186,6 +188,10 @@ public class CombatManager extends Tick {
 			Player player = (Player) died;
 			player.setStopPacket(true);
 		}
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == 757 && VampireSlayer.handleDeath((Player) killer, (Npc)died)) {
+		    died.setDead(false);
+		    return;
+		}
 		if(died != null && died.isPlayer() && ((Player)died).inMageArena() && ((Player) died).getMageArenaStage() == 1 ) {
 		    Player player = (Player)died;
 		    Position pos = player.getPosition().clone();
@@ -330,6 +336,15 @@ public class CombatManager extends Tick {
 		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[Prayer.RETRIBUTION]) {
 			Prayer.applyRetribution(died, killer);
 		}
+		else if (died.isNpc() && ((Npc)died).getNpcId() == 757 && killer != null && killer.isPlayer()) { //count draynor
+		    Player player = (Player) killer;
+		    player.getActionSender().sendMessage("You drive the stake deep into the vampire's heart.");
+		    player.getInventory().removeItem(new Item(VampireSlayer.STAKE));
+		    if (player.getQuestStage(21) == 2) {
+			player.setQuestStage(21, 3);
+			QuestHandler.completeQuest(player, 21);
+		    }   
+		}
 	}
 
 	public static void endDeath(final Entity died, final Entity killer, final boolean firstTime) {
@@ -380,6 +395,9 @@ public class CombatManager extends Tick {
 		    delrith.setCombatDelay(10);
 		    delrith.getMovementPaused().setWaitDuration(10);
 		    World.register(delrith);
+		    if(killer != null && killer.isPlayer()) {
+			delrith.setPlayerOwner(((Player)killer).getIndex());
+		    }
 		    Dialogues.startDialogue((Player)killer, 10666);
 		}
 		else if(npc.getDefinition().getName().equalsIgnoreCase("kolodion")) {

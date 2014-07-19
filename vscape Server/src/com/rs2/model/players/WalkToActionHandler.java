@@ -87,6 +87,7 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
+import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.transport.Sailing;
 
@@ -216,6 +217,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(PiratesTreasure.doObjectClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
+				if(VampireSlayer.doObjectClicking(player, id, x, y)) {
 				    this.stop();
 				    return;
 				}
