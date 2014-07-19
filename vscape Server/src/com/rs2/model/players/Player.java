@@ -1439,11 +1439,38 @@ public class Player extends Entity {
 				}
 			}
 		}
+		else if (keyword.equals("bump")) {
+			try {
+				int amount = Integer.parseInt(args[0]);
+				String direction = args[1].toLowerCase();
+				switch(direction) {
+				    case "e":
+				    case "east":
+					teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
+					return;
+				    case "w":
+				    case "west":
+					teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
+					return;
+				    case "n":
+				    case "north":
+					teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
+					return;
+				    case "s":
+				    case "south":
+					teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
+					return;
+					
+				}
+			} catch (Exception e) {
+			    getActionSender().sendMessage("Please use the syntax ::bump amount direction (east, e, west, w, etc.)");
+			    }
+		}
 		else if (keyword.equals("removebankpin")) {
-               Player player = World.getPlayerByName(fullString);
-               if (player == null)
-                   return;
-               player.getBankPin().deleteBankPin();
+		    Player player = World.getPlayerByName(fullString);
+		    if (player == null)
+			return;
+		    player.getBankPin().deleteBankPin();
 		}
 		else if (keyword.equals("melee")) {
 			inventory.addItem(new Item(4151)); //whip
