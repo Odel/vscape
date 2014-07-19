@@ -1443,22 +1443,25 @@ public class Player extends Entity {
 			try {
 				int amount = Integer.parseInt(args[0]);
 				String direction = args[1].toLowerCase();
+				String name = fullString.substring(fullString.indexOf("-")+1);
+				long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+				Player player = World.getPlayerByName(nameLong);	
 				switch(direction) {
 				    case "e":
 				    case "east":
-					teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
+					player.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
 					return;
 				    case "w":
 				    case "west":
-					teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
+					player.teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
 					return;
 				    case "n":
 				    case "north":
-					teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
+					player.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
 					return;
 				    case "s":
 				    case "south":
-					teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
+					player.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
 					return;
 					
 				}
