@@ -30,7 +30,7 @@ public enum Weapon {
     SPEAR(WeaponInterface.SPEAR, 5, new int[]{2080, 2081, 2082, 2080}, new int[]{809, 1146, 1210}, 435),
     DRAGON_DAGGER(WeaponInterface.DAGGER, null, 4, new int[]{402, 402, 451, 400}, Constants.MOVEMENT_ANIMS, 403),
     DAGGER(WeaponInterface.DAGGER, 4, new int[]{386, 386, 390, 386}, Constants.MOVEMENT_ANIMS, 404),
-    TWO_HANDED(WeaponInterface.TWO_HANDED, 6, new int[]{406, 407, 406, 406}, new int[]{2561, 2562, 2563}, 410),
+    TWO_HANDED(WeaponInterface.TWO_HANDED, 6, new int[]{7048, 7041, 7042, 7049}, new int[]{7047, 7046, 7039}, 7050),
     PICKAXE(WeaponInterface.PICKAXE, 5, new int[]{395, 400, 401, 395}, Constants.MOVEMENT_ANIMS, 410),
     AXE(WeaponInterface.AXE, 6, new int[]{395, 395, 401, 395}, Constants.MOVEMENT_ANIMS, 404),
     LONGSWORD(WeaponInterface.LONGSWORD, 5, new int[]{451, 451, 412, 451}, new int[]{809, 1146, 1210}, 404),
@@ -110,7 +110,7 @@ public enum Weapon {
 			return Weapon.DAGGER;
 		} else if (name.contains("longsword") || name.contains("darklight") || name.contains("silverlight") || name.contains("excalibur") || name.contains("machete")) {
 			return Weapon.LONGSWORD;
-		} else if (name.endsWith("2h sword")) {
+		} else if (name.endsWith("2h sword") || name.contains("2h") || name.contains("godsword")) {
 			return Weapon.TWO_HANDED;
 		} else if (name.endsWith("granite maul")) {
 			return Weapon.GRANITE_MAUL;
@@ -185,6 +185,10 @@ public enum Weapon {
 			}
 		} else if ((name.startsWith("karils"))) {
 			return Weapon.KARILS_CROSSBOW;
+		} else if ((name.contains("fox"))) {
+			return Weapon.SCIMITAR;
+		} else if ((name.contains("chicken"))) {
+			return Weapon.FISTS;
 		} else if (name.contains("crossbow")) {// Also Dorgeshuun.
 			return Weapon.CROSSBOW;
 		} else if (name.contains("c'bow")) { // 474 
