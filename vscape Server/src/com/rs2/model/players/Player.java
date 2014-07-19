@@ -580,7 +580,7 @@ public class Player extends Entity {
 
 	public boolean timeOutCheck() {
 		// If no packet for more than 5 seconds, disconnect.
-		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 5000) {
+		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 5000 && getStaffRights() < 2) {
 			disconnect();
 			return true; // true;
 		}
@@ -2255,7 +2255,6 @@ public class Player extends Entity {
 			    player.getInventory().removeItem(new Item(431));
 			}
 		    }
-		    player.getUpdateFlags().sendGraphic(287);
 		    player.getActionSender().sendMessage("Your Karamjan rum breaks.");
 		}
 		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {

@@ -554,6 +554,9 @@ public class PiratesTreasure implements Quest {
 		}
 	    case STORE_DOOR:
 		switch(player.getQuestStage(20)) {
+		    case 0:
+		    case 1:
+		    case 2:
 		    case 3:
 			if(x == 3012 && y == 3204) {
 			    player.getDialogue().sendNpcChat("Hey, you can't go in there. Only employees of the", "grocery store can enter.", ANNOYED);
@@ -566,6 +569,7 @@ public class PiratesTreasure implements Quest {
 		    case 5:
 		    case 6:
 		    case 7:
+		    case 8:
 			if(player.getEquipment().getId(Constants.CHEST) == WHITE_APRON && x == 3012 && y == 3204 && player.getPosition().getX() > 3011) {
 			    player.getActionSender().walkTo(-1, 0, true);
 			    player.getActionSender().walkThroughDoor(object, x, y, 0);
@@ -640,7 +644,7 @@ public class PiratesTreasure implements Quest {
 				player.getDialogue().sendNpcChat("A bottle of delicious Karamjan Rum of course!", CONTENT);
 				return true;
 			    case 9:
-				player.getDialogue().sendPlayerChat("I heard people have died drinking that,", "and death sounds dangerous to me. What do I get in return?", CONTENT);
+				player.getDialogue().sendPlayerChat("I heard people have died drinking that, and death", "sounds dangerous to me. What do I get in return?", CONTENT);
 				return true;
 			    case 10:
 				player.getDialogue().sendNpcChat("Humph, I s'pose I can tell you the location of a pirate", "treasure in return for some of tha' rum.", CONTENT);
