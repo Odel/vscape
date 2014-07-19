@@ -1591,7 +1591,7 @@ public class Player extends Entity {
 				}
 			}
 		}
-		else if (keyword.equals("teletome")) {
+		else if (keyword.equals("teletome") || keyword.equals("bring")) {
 			String name = fullString;
            // if (inWild())  {
              //   actionSender.sendMessage("You can't teleport someone into the wild!");
