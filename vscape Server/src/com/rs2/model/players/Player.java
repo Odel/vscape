@@ -1475,7 +1475,7 @@ public class Player extends Entity {
 				String name = fullString.substring(fullString.indexOf("-")+1);
 				long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 				Player player = World.getPlayerByName(nameLong);
-				if(player == null) {
+				if(player == null && fullString.toLowerCase().contains("-")) {
 				    this.getActionSender().sendMessage("Could not find player.");
 				    return;
 				}
