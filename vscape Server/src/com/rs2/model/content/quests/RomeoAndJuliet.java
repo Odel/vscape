@@ -437,7 +437,7 @@ public class RomeoAndJuliet implements Quest {
 				player.getDialogue().sendPlayerChat("Certainely, I'll do so straight away.", CONTENT);
 				return true;
 			    case 7:
-				if (player.getInventory().getItemContainer().freeSlots() > 1) {
+				if (player.getInventory().getItemContainer().freeSlots() >= 1) {
 				    player.getDialogue().sendNpcChat("Many thanks! Oh, I'm so very grateful. You may be", "our only hope.", CONTENT);
 				    return true;
 				} else {
