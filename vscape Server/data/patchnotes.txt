@@ -1,4 +1,16 @@
-@dre@=July 3rd=
+@dre@=July 19th=
+@blu@Pirate's Treasure
+@blu@Vampire Slayer
+@blu@Ernest the Chicken
+-Goblin Mail drop rate increased.
+-Slight increase in reward chance for Barrows if
+all 6 brothers are dead when opening the chest.
+-Karamjan Rum on a piece of Silk makes a 
+cleaning cloth, you can clean your poisoned weps.
+-2h stand animation changed to cape waving thing.
+-Beer added to the alcoholic store.
+
+@dre@=July 16th=
 @blu@Black Knight's Fortress
 @blu@Goblin Diplomacy
 @blu@Highscores!
