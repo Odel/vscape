@@ -791,7 +791,8 @@ public class Player extends Entity {
 			lastReport = System.currentTimeMillis();
 			World.messageToStaff("@blu@"+ getUsername() + " paniced because:" + fullString + "!");
 			getActionSender().sendMessage("A message for assistance has been sent to the staff.");
-		} else if (keyword.equals("report")) {
+		}
+		else if (keyword.equals("report")) {
 			if (args.length < 2) {
 				actionSender.sendMessage("Please use ::report username reason (reason can be multiple words).");
 				return;
@@ -813,13 +814,17 @@ public class Player extends Entity {
             lastReport = System.currentTimeMillis();
 			getActionSender().sendMessage("A message has been sent to staff about your report.");
 			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ fullString);
-		} else if (keyword.equals("yell") || keyword.equals("y")) {
+		}
+		else if (keyword.equals("yell") || keyword.equals("y")) {
 			Yell(fullString);
-		} else if (keyword.equals("hideyell") || keyword.equals("hy")) {
+		}
+		else if (keyword.equals("hideyell") || keyword.equals("hy")) {
 			setHideYell(!hideYell,true);
-		} else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
+		}
+		else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
-		} else if (keyword.equals("bugreport") || keyword.equals("bug")){
+		}
+		else if (keyword.equals("bugreport") || keyword.equals("bug")){
 			if (args.length < 2) {
 				getActionSender().sendMessage("Please write more than two words.");
 				return;
@@ -831,14 +836,16 @@ public class Player extends Entity {
 			lastReport = System.currentTimeMillis();
 			getActionSender().sendMessage("The bug has been reported. Thank you!");
 			appendToBugList(fullString);
-		} else if (keyword.equals("home")) {
+		}
+		else if (keyword.equals("home")) {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
                 getActionSender().sendMessage("You cannot do that here!");
             } else {
                 teleport(new Position(Constants.START_X, Constants.START_Y, 0));
                 getActionSender().sendMessage("You teleported home.");
             } 
-		} else if (keyword.equals("players")) {
+		}
+		else if (keyword.equals("players")) {
 			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
 			getActionSender().sendInterface(8134);
 			ClearNotes();
@@ -856,7 +863,8 @@ public class Player extends Entity {
 					line++;
 				}
 			}
-		} else if (keyword.equals("playersquestpoints")) {
+		}
+		else if (keyword.equals("playersquestpoints")) {
 			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
 			getActionSender().sendInterface(8134);
 			ClearNotes();
@@ -874,11 +882,13 @@ public class Player extends Entity {
 					line++;
 				}
 			}
-		} else if (keyword.equals("changepass")) {
+		}
+		else if (keyword.equals("changepass")) {
 			String pass = fullString;
 			setPassword(pass);// setPassword
 			getActionSender().sendMessage("Your new password is " + pass + ".");
-		} else if (keyword.equals("patchnotes")) {
+		}
+		else if (keyword.equals("patchnotes")) {
 			getActionSender().sendInterface(8134);
 			ClearNotes();	
 			this.getActionSender().sendString("@dre@-=vscape patch notes=-", 8144);
@@ -894,7 +904,8 @@ public class Player extends Entity {
 					line++;
 				}
 			}
-		} else if (keyword.equals("info")) {
+		}
+		else if (keyword.equals("info")) {
 			getActionSender().sendInterface(8134);
 			ClearNotes();	
 			this.getActionSender().sendString("@dre@-=vscape information=-", 8144);
@@ -910,21 +921,27 @@ public class Player extends Entity {
 					line++;
 				}
 			}	
-		} else if(keyword.equals("resetpet")) {
+		}
+		else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
-		} else if(keyword.equals("pcpoints")) {
+		}
+		else if(keyword.equals("pcpoints")) {
 			getActionSender().sendMessage("You have " + this.getPcPoints() + " commendation points." );
-		} else if(keyword.equals("pc")) {
+		}
+		else if(keyword.equals("pc")) {
 			World.messageToPc(this, fullString);
-		} else if(keyword.equals("pcactive")) {
+		}
+		else if(keyword.equals("pcactive")) {
 		    if(PestControl.gameActive())
 			getActionSender().sendMessage("There is an active Pest Control game.");
 		    else {
 			getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }
-		} else if(keyword.equals("resetcaves")) {
+		}
+		else if(keyword.equals("resetcaves")) {
 		    this.setFightCavesWave(0);
-		} else if (keyword.equals("maxqp")) {
+		}
+		else if (keyword.equals("maxqp")) {
 		    int x = 0;
 		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
 			x += QuestHandler.getQuests()[i].getQuestPoints();
@@ -1110,12 +1127,14 @@ public class Player extends Entity {
 			final int id = Integer.parseInt(args[0]);
 			CoordinateData clue = CoordinateData.forIdClue(id);
 			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
-		} else if (keyword.equals("usa")) { //4th of july command
+		}
+		else if (keyword.equals("usa")) { //4th of july command
 			getUpdateFlags().sendAnimation(2106, 0); //animation
 			Graphic graphic = new Graphic(199, 100); //gfx part
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
 			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
-		} else if (keyword.equals("teletoclue")) {
+		}
+		else if (keyword.equals("teletoclue")) {
 			try {
 				final int id = Integer.parseInt(args[0]);
 				CoordinateData clue = CoordinateData.forIdClue(id);
@@ -1248,12 +1267,15 @@ public class Player extends Entity {
         else if (keyword.equals("dbhs")) {
             HighscoresManager.debug = !HighscoresManager.debug;
             getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
-        } else if (keyword.equals("empty")) {
+        }
+		else if (keyword.equals("empty")) {
 	    getInventory().getItemContainer().clear();
 	    getInventory().refresh();
-	} else if (keyword.equals("hsstatus")) {
+		}
+		else if (keyword.equals("hsstatus")) {
             getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
-        } else if (keyword.equals("rebooths")) {
+        }
+		else if (keyword.equals("rebooths")) {
             HighscoresManager.running = !HighscoresManager.running;
             getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
         }
@@ -1289,7 +1311,8 @@ public class Player extends Entity {
 				skill.getExp()[i] = 200000000;
 			}
 			skill.refresh();
-		}else if (keyword.equals("resetstats")) {
+		}
+		else if (keyword.equals("resetstats")) {
 			for (int i = 0; i < skill.getLevel().length; i++) {
 				if(i == 3)
 				{
@@ -1303,15 +1326,18 @@ public class Player extends Entity {
 				}
 			}
 			skill.refresh();
-		}else if (keyword.equals("poisondump")) {
+		}
+		else if (keyword.equals("poisondump")) {
 		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 		    PiratesTreasure.dumpAllPoisonedItems(this);
-		}else if (keyword.equals("pnpc")) {
+		}
+		else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
-		}else if (keyword.equals("rnpc")) {
+		}
+		else if (keyword.equals("rnpc")) {
 			int index = (int)Misc.random(6390);
 			if(GlobalVariables.npcDump[index].toLowerCase().contains("null")) {
 			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
@@ -1321,14 +1347,17 @@ public class Player extends Entity {
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(index).getDefinition().getSize());
 			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
-		}else if (keyword.equals("pet")) {
+		}
+		else if (keyword.equals("pet")) {
                 final int petId = Integer.parseInt(args[0]);
                 this.getPets().registerPet(-1, petId);
                 	if ( petId == 1319)
                             this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
-		} else if (keyword.equals("talkpet") || keyword.equals("tp")) {
+		}
+		else if (keyword.equals("talkpet") || keyword.equals("tp")) {
 		    this.getPets().getPet().getUpdateFlags().sendForceMessage(fullString);
-		} else if (keyword.equals("invisible") || keyword.equals("invis")) {
+		}
+		else if (keyword.equals("invisible") || keyword.equals("invis")) {
 			visible = !visible;
 			getActionSender().sendMessage("Invisible: " + !visible);
 		}
@@ -1700,9 +1729,11 @@ public class Player extends Entity {
             }
             actionSender.sendMessage("Unmuted "+fullString);
             player.setMuteExpire(System.currentTimeMillis());
-        } else if (keyword.equals("ban")) {
+        } 
+		else if (keyword.equals("ban")) {
         	Ban(args);
-		} else if (keyword.equals("unban")) {
+		} 
+		else if (keyword.equals("unban")) {
 		Player player = World.getPlayerByName(fullString);
 		if(player == null) {
 		    actionSender.sendMessage("Could not find player "+fullString);
@@ -1711,13 +1742,17 @@ public class Player extends Entity {
 		else {
 		    player.setBanExpire(System.currentTimeMillis() + 1000);
 		}
-        } else if (keyword.equals("banip")) {
+        } 
+		else if (keyword.equals("banip")) {
         	BanIpAddress(args);
-        } else if (keyword.equals("banmac")) {
+        } 
+		else if (keyword.equals("banmac")) {
         	//BanMacAddress(args);
-        } else if (keyword.equals("checkips")) {
+        } 
+		else if (keyword.equals("checkips")) {
         //	checkHosts();
-        } else if (keyword.equals("update") ) {
+        } 
+		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
 			SystemUpdate(seconds);
         }
