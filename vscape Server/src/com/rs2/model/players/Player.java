@@ -580,7 +580,7 @@ public class Player extends Entity {
 
 	public boolean timeOutCheck() {
 		// If no packet for more than 5 seconds, disconnect.
-		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 5000 && getStaffRights() < 2) {
+		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 5000 && this.getStaffRights() < 2) {
 			disconnect();
 			return true; // true;
 		}
@@ -666,7 +666,7 @@ public class Player extends Entity {
 		attacker.getMovementHandler().reset();
 	    }
 	}
-	setLogoutTimer(System.currentTimeMillis() + 100); //originally 600000
+	setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
@@ -2407,9 +2407,6 @@ public class Player extends Entity {
 	    QuestHandler.initPlayer(this);
 	    getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
 	    getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
-	    if(this.getQuestStage(20) < 1) {
-		PiratesTreasure.getAndDestroyRum(this);
-	    }
 	}
 
 	public boolean beginLogin() throws Exception {
