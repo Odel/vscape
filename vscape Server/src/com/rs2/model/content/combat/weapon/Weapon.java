@@ -106,7 +106,7 @@ public enum Weapon {
 		String name = ItemDefinition.forId(weaponItem.getId()).getName().toLowerCase();
 		if (name.contains("dragon dagger") || name.contains("drag dagger"))
 			return DRAGON_DAGGER;
-		if (name.contains("dagger")) { // Contains, because they might be poisonous.
+		if (name.contains("dagger") || name.toLowerCase().contains("wolfbane")) { // Contains, because they might be poisonous.
 			return Weapon.DAGGER;
 		} else if (name.contains("longsword") || name.contains("darklight") || name.contains("silverlight") || name.contains("excalibur") || name.contains("machete")) {
 			return Weapon.LONGSWORD;
