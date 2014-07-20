@@ -5,8 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.quests.ErnestTheChicken;
-import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
@@ -24,7 +23,6 @@ import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
-import com.rs2.model.transport.Travel;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
@@ -85,6 +83,15 @@ public class ObjectPacketHandler implements PacketHandler {
 		if (!player.hasInterfaceOpen(inter)) {
 		    //player.getActionSender().removeInterfaces();
 		return;
+		}
+		if(player.getClickId() == PriestInPeril.COFFIN) {
+		    if(player.getQuestStage(23) == 8 && player.getClickItem() == PriestInPeril.BUCKET_OF_BLESSED_WATER) {
+			player.getDialogue().sendStatement("You pour the blessed water on the vampire's coffin.", "You hear muted screams of rage from inside the coffin.", "It seems safe to say the vampire is trapped now.");
+			player.getInventory().replaceItemWithItem(new Item(PriestInPeril.BUCKET_OF_BLESSED_WATER), new Item(PriestInPeril.BUCKET));
+			player.getUpdateFlags().sendAnimation(832);
+			player.setQuestStage(23, 9);
+			return;
+		    }
 		}
 		if(player.getClickId() == 2142) {
 		    if(player.getQuestStage(10) > 2) {

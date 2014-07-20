@@ -48,6 +48,7 @@ import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
@@ -160,6 +161,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(ErnestTheChicken.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(PriestInPeril.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
@@ -4688,7 +4692,7 @@ public class Dialogues {
 						return true;
 				}
 				break;
-			case 10009 : //treasure trials
+			case 10009 : //treasure trails
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						ClueScroll.itemReward(player, player.clueLevel);

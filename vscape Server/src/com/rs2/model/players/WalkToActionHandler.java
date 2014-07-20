@@ -29,6 +29,7 @@ import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -226,6 +227,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(ErnestTheChicken.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+				    this.stop();
+				    return;
+				}
+				if(PriestInPeril.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
 				    return;
 				}
@@ -1246,10 +1251,6 @@ public class WalkToActionHandler {
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, player.getEquipment().getId(Constants.WEAPON));
 					break;
-				case 3443: // holy barrier to canifis
-					player.teleport(new Position(3423, 3485, 0));
-					player.getActionSender().sendMessage("You step through the holy barrier and appear in Canifis.");
-					break;
 				case 6434: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 6435, def);
 					break;
@@ -1784,7 +1785,10 @@ public class WalkToActionHandler {
 				Position loc = new Position(player.getClickX(), player.getClickY(), z);
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
-
+				if (PriestInPeril.doObjectSecondClicking(player, id, x, y)) {
+				    this.stop();
+				    return;
+				}
 				if (ThieveOther.handleObjectClick2(player, id, x, y)) {
 					this.stop();
 					return;
@@ -2479,6 +2483,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(ErnestTheChicken.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(PriestInPeril.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

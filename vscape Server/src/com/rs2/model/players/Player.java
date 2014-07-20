@@ -1483,21 +1483,21 @@ public class Player extends Entity {
 				    case "e":
 				    case "east":
 					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX() - amount, player.getPosition().getY(), player.getPosition().getZ()));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
-					    break;
-					}
-				    case "w":
-				    case "west":
-					if(fullString.toLowerCase().contains("-")) {
 					    player.teleport(new Position(player.getPosition().getX() + amount, player.getPosition().getY(), player.getPosition().getZ()));
 					    break;
 					}
 					else {
 					    this.teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
+					    break;
+					}
+				    case "w":
+				    case "west":
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX() - amount, player.getPosition().getY(), player.getPosition().getZ()));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
 					    break; 
 					}
 				    case "n":
@@ -5478,7 +5478,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7371); //observatory quest
 		getActionSender().sendString("", 12345); //one small favour
 		getActionSender().sendString("", 7372); //plague city
-		getActionSender().sendString("", 8115); //priest in peril
+		getActionSender().sendString("@red@Priest in Peril", 8115); //priest in peril
 		// unknown id
 		getActionSender().sendString("", 8576); //regicide
 		getActionSender().sendString("", 12139); //roving elves

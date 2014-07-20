@@ -48,7 +48,8 @@ public class QuestHandler {
 	new GoblinDiplomacy(),
 	new PiratesTreasure(),
 	new VampireSlayer(),
-	new ErnestTheChicken()
+	new ErnestTheChicken(),
+	new PriestInPeril()
     };
     
     public static void init() {
@@ -184,6 +185,9 @@ public class QuestHandler {
         		return true;
 		case 28171: //Ernest the Chicken
 			showInterface(player,quests[22]);
+        		return true;
+		case 31179: //Priest in Peril
+			showInterface(player,quests[23]);
         		return true;
 
         }

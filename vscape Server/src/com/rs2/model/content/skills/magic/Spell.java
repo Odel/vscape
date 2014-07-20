@@ -53,6 +53,7 @@ public enum Spell {
 
 	//npc spells
 	CLAWS_OF_GUTHIX_BATTLE(198, magicHit(20, null, Graphic.highGraphic(77)), true),
+	FIRE_BOLT_ZAMORAK(711, magicHit(12, magicProjectile(127), Graphic.highGraphic(128)), true),
 	SPINOLYP(2868, magicHit(10, magicProjectile(94), Graphic.highGraphic(95)), true, new StatEffect(5, 1)), 
 	WALLASALKI(2365, magicHit(30, magicProjectile(162), Graphic.highGraphic(163)), true),
 	PRIME(2853, magicHit(61, magicProjectile(162), Graphic.highGraphic(163)), true),

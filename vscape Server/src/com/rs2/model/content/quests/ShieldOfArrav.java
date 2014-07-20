@@ -586,45 +586,40 @@ public class ShieldOfArrav implements Quest {
 		}
 	    return false;
 	    case 648: //king roald
-		switch(player.getDialogue().getChatId()) {
-		    case 1 :
-			if(player.getQuestStage(13) == 11) {
-			    player.getDialogue().sendPlayerChat("I found the Shield of Arrav!", HAPPY);
-			    return true;
+		switch (player.getQuestStage(13)) {
+		    case 11:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				    player.getDialogue().sendPlayerChat("I found the Shield of Arrav!", HAPPY);
+				    return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("Prove it.", CONTENT);
+				return true;
+			    case 3:
+				if (player.getInventory().playerHasExactItem(769, 1)) {
+				    player.getDialogue().sendStatement("You give King Roald your certificate.");
+				    player.getInventory().removeItem(new Item(769));
+				    return true;
+				} else if (moreThanTwoCertificates(player)) {
+				    player.getDialogue().sendStatement("You have too many certificates.", "Give your partner his due certificate, or bank any extras.");
+				    player.getDialogue().endDialogue();
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("I-I can't...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 4:
+				player.getDialogue().sendNpcChat("Fantastic! It's true!", "Here's your reward!", HAPPY);
+				return true;
+			    case 5:
+				player.setQuestStage(13, 12);
+				QuestHandler.completeQuest(player, 13);
+				player.getDialogue().endDialogue();
+				return true;
 			}
-			else {
-			    player.getDialogue().sendNpcChat("Leave me presence, peasant.", ANNOYED);
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
-		    case 2 :
-			player.getDialogue().sendNpcChat("Prove it.", CONTENT);
-			return true;
-		    case 3 :
-			if(player.getInventory().playerHasExactItem(769, 1)) {
-			    player.getDialogue().sendStatement("You give King Roald your certificate.");
-			    player.getInventory().removeItem(new Item(769));
-			    return true;
-			}
-			else if(moreThanTwoCertificates(player)) {
-			    player.getDialogue().sendStatement("You have too many certificates.", "Give your partner his due certificate, or bank any extras.");
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
-			else {
-			    player.getDialogue().sendPlayerChat("I-I can't...", SAD);
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
-		    case 4:
-			player.getDialogue().sendNpcChat("Fantastic! It's true!", "Here's your reward!", HAPPY);
-			return true;
-		    case 5:
-			player.setQuestStage(13, 12);
-			QuestHandler.completeQuest(player, 13);
-			player.getDialogue().endDialogue();
-			return true;
-		}
+			return false;
+		    }
 	    return false;
 	    case 646: //curator
 		switch(player.getDialogue().getChatId()) {

@@ -13,6 +13,7 @@ import com.rs2.cache.obj.ObjectDefinitionListener;
 import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.ObjectHandler;
 
 /**
@@ -60,6 +61,8 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 				new LandscapeParser(cache, index.getIdentifier(), this).parse();
 			}
 			logger.info("Loaded " + objectCount + " objects.");
+			removeUnnecessaryClipping();
+			addNecessaryClipping();
 		} catch(Exception e) { 
             e.printStackTrace();
         } finally {
@@ -82,6 +85,20 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3367, 9636, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(3360, 9637, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(3359, 9636, 0, 10, 0);
+		
+		ObjectHandler.getInstance().removeClip(2787, 3439, 0, 10, 0); //catherby oak tree
+		ObjectHandler.getInstance().removeClip(2792, 3432, 0, 10, 0); //catherby fence
+		
+		ObjectHandler.getInstance().removeClip(3424, 9895, 0, 10, 0); //undernearth paterdomus temple
+		ObjectHandler.getInstance().removeClip(3424, 9896, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(3423, 9896, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(3429, 9891, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(3428, 9891, 0, 10, 0);
+	}
+	
+	public static void addNecessaryClipping() {
+		ObjectHandler.getInstance().addDoorClip(3408, 3488, 0, 2); //paterdomus doors
+		ObjectHandler.getInstance().addDoorClip(3408, 3489, 0, 2);
 	}
 
 	@Override

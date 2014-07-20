@@ -18,6 +18,15 @@ class Man < NpcCombatDef
     end
 end
 
+class MonkOfZamorak < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+		BasicAttack.magicAttack(attacker, victim, Spell::FIRE_BOLT_ZAMORAK),
+		BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, 4, Weapon::FISTS)
+	];
+    end
+end
+
 class DarkWizard < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -309,11 +318,11 @@ end
 
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
-NpcCombatDef.add([2746], YtHurkot.new.bonusDef(1000, 1000, 1000, 1000, 600))
-NpcCombatDef.add([2631], TokXil.new.bonusDef(600, 600, 600, 600, 300))
-NpcCombatDef.add([2741], MejKot.new.bonusDef(1000, 1000, 1000, 1000, 600))
-NpcCombatDef.add([2743], KetZek.new.bonusDef(1300, 1300, 1300, 1300, 700))
-NpcCombatDef.add([2745], Jad.new.bonusDef(2000, 2000, 2000, 2000, 1700))
+NpcCombatDef.add([2746], YtHurkot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
+NpcCombatDef.add([2631], TokXil.new()) #.bonusDef(600, 600, 600, 600, 300)
+NpcCombatDef.add([2741], MejKot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
+NpcCombatDef.add([2743], KetZek.new()) #.bonusDef(1300, 1300, 1300, 1300, 700)
+NpcCombatDef.add([2745], Jad.new()) #.bonusDef(2000, 2000, 2000, 2000, 1700)
 NpcCombatDef.add([1, 2, 3, 4], Man.new.respawnSeconds(10))
 NpcCombatDef.add([174], DarkWizard.new.respawnSeconds(10))
 NpcCombatDef.add([941, 742], GreenDragon.new())
@@ -340,3 +349,4 @@ NpcCombatDef.add([913], BattleMageSaradomin.new())
 NpcCombatDef.add([907], KolodionFirstForm.new())
 NpcCombatDef.add([908], KolodionSecondForm.new())
 NpcCombatDef.add([910], KolodionFourthForm.new())
+NpcCombatDef.add([1046], MonkOfZamorak.new())

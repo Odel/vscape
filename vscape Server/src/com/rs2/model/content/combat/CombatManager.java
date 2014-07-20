@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
@@ -360,6 +361,7 @@ public class CombatManager extends Tick {
 			WarriorsGuild.dropDefender((Player) killer, npc);
 			ShieldOfArrav.handleDrops((Player) killer, npc);
 			DragonSlayer.handleDrops((Player) killer, npc);
+			PriestInPeril.handleDeath((Player) killer, npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
 		}
