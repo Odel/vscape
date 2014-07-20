@@ -933,7 +933,7 @@ public class Player extends Entity {
 		}
 		else if(keyword.equals("pcactive")) {
 		    if(PestControl.gameActive())
-			getActionSender().sendMessage("There is an active Pest Control game.");
+			getActionSender().sendMessage("There is an active Pest Control game with " +PestControl.playerCount() + " players playing.");
 		    else {
 			getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }

@@ -864,6 +864,13 @@ public class PestControl {
 		return gamePlayers.size();
 	}
 	
+	public static int playerCount() {
+	    if(gamePlayers != null) {
+		return gamePlayers.size();
+	    }
+	    return 0;
+	}
+	
 	public static boolean gameActive() {
 	    return gameActive;
 	}
