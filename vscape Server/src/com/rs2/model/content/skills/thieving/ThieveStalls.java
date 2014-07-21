@@ -36,7 +36,7 @@ public class ThieveStalls {
 		SPICE_STALL(new int[] { 633, 2564, 6572 }, new Item[] { new Item(2007) }, 65, 82, 133),
 		RUNE_STALL(new int[] { 4877 }, new Item[] { new Item(557), new Item(556), new Item(554), new Item(555), new Item(563)}, 65, 100, 133),
 		SCIMITAR_STALL(new int[] { 4878 }, new Item[] { new Item(1325)}, 65, 160, 133),
-		GEM_STALL(new int[] { 6162, 631, 2562, 6570 }, new Item[] { new Item(1617), new Item(1619), new Item(1621), new Item(1623) }, 75, 160, 300);
+		GEM_STALL(new int[] { 6162, 631, 2562, 6570 }, new Item[] { new Item(1601), new Item(1603), new Item(1605), new Item(1607) }, 75, 160, 300);
 
 		private int[] id;
 		private Item[] loot;
