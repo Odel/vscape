@@ -20,3 +20,5 @@ https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 -Warrior's Guild cyclops drops
 -Skeletal Wyverns since elemental workshop is dun
 -Farming needs overhaul
+-Theiving stall give cut gems, they need to give uncuts
+-East ardy general store is the same store id as iraq

@@ -678,6 +678,10 @@ public class CombatManager extends Tick {
 
 	private static double getEffectiveDefence(Entity victim, AttackStyle attackStyle) {
 		double baseDefence = victim.getBaseDefenceLevel(attackStyle.getAttackType());
+		if((attackStyle.getMode() == AttackStyle.Mode.MAGIC && victim.isPlayer()) || (attackStyle.getAttackType() == AttackType.MAGIC && victim.isPlayer())) {
+		    Player player = (Player)victim;
+		    return player.getBonus(8);
+		}
 		if (attackStyle.getAttackType() == AttackType.MELEE && victim.isPlayer()) {
 			Player player = (Player) victim;
 			if (player.getIsUsingPrayer()[Prayer.THICK_SKIN])
@@ -690,10 +694,6 @@ public class CombatManager extends Tick {
 		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isNpc()) {
 		    Npc npc = (Npc)victim;
 		    return npc.getDefinition().getDefenceMage();
-		}
-		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isPlayer()) {
-		    Player player = (Player)victim;
-		    return player.getBonus(8);
 		}
 		return Math.floor(baseDefence) + 8;
 	}
@@ -710,9 +710,11 @@ public class CombatManager extends Tick {
 		if (victim.isPlayer()) {
 			Player pVictim = ((Player) victim);
 			if (attackStyle.getAttackType() == AttackType.MAGIC) {
+			    if(victim.getInCombatTick().getOther() != null && victim.getInCombatTick().getOther().isPlayer()) {
 				int level = pVictim.getSkill().getLevel()[Skill.MAGIC];
 				effectiveDefence = (int) (Math.floor(level * 0.125) + Math.floor(effectiveDefence * 0.875));
 				styleBonusDefence = 19;
+			    }
 			} else {
 				AttackStyle defenceStyle = pVictim.getEquippedWeapon().getWeaponInterface().getAttackStyles()[pVictim.getFightMode()];
 				if (defenceStyle.getMode() == AttackStyle.Mode.DEFENSIVE || defenceStyle.getMode() == AttackStyle.Mode.LONGRANGE)
@@ -750,7 +752,6 @@ public class CombatManager extends Tick {
 			specAccuracy = 1;
 		}
 		effectiveAccuracy *= (1 + (styleBonusAttack) / 64);
-		
 		return (int) (effectiveAccuracy * specAccuracy);
 	}
 
