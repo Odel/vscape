@@ -687,6 +687,14 @@ public class CombatManager extends Tick {
 			else if (player.getIsUsingPrayer()[Prayer.STEEL_SKIN])
 				baseDefence *= 1.15;
 		}
+		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isNpc()) {
+		    Npc npc = (Npc)victim;
+		    return npc.getDefinition().getDefenceMage();
+		}
+		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isPlayer()) {
+		    Player player = (Player)victim;
+		    return player.getBonus(8);
+		}
 		return Math.floor(baseDefence) + 8;
 	}
 
@@ -731,7 +739,13 @@ public class CombatManager extends Tick {
 			styleBonusAttack = 3;
 		else if (attackStyle.getMode() == AttackStyle.Mode.CONTROLLED)
 			styleBonusAttack = 1;
+		else if(attackStyle.getMode() == AttackStyle.Mode.MAGIC && attacker.isPlayer()) {
+			Player player = (Player)attacker;
+			styleBonusAttack = (int)((player.getSkill().getLevel()[Skill.MAGIC] + player.getBonus(3)) / 82.5);
+			specAccuracy = 1;
+		}
 		effectiveAccuracy *= (1 + (styleBonusAttack) / 64);
+		
 		return (int) (effectiveAccuracy * specAccuracy);
 	}
 

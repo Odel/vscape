@@ -390,8 +390,6 @@ public class Hit {
         	} else if (((attacker.isNpc() && ((Npc) attacker).getDefinition().getId() == 2026))) {
         		double hpLost = attacker.getMaxHp() - attacker.getCurrentHp();
         		this.damage += damage * hpLost * 0.01; 
-        	} else if((attacker.isPlayer() && ((Player) attacker).hasFullVoidMage()) ) {
-			((Player) attacker).setBonuses(3, 1000);
 		}
         }
         if (getAttacker().isNpc() && getVictim().isPlayer()) { // slayer npc effects
@@ -432,14 +430,21 @@ public class Hit {
         }
         if (hit) {
             double defence = CombatManager.getDefenceRoll(victim, hitDef);
-			double accuracy = CombatManager.getAttackRoll(attacker, hitDef);
+	    double accuracy = CombatManager.getAttackRoll(attacker, hitDef);
             double chance = CombatManager.getChance(accuracy, defence);
             boolean accurate = CombatManager.isAccurateHit(chance);
+	    if(getAttacker().isPlayer() && ((Player)attacker).hasFullVoidMage()) {
+		if(chance * 1.3 >= 1.0) { chance = 1.0; }
+		else { chance *= 1.3; }
+	    }
             if (getAttacker().isPlayer() && ((Player) getAttacker()).isDebugCombat()) {
             	((Player) getAttacker()).getActionSender().sendMessage("Chance to hit: "+(int) (chance * 100)+"% (Rounded)");
             }
             if (getVictim().isPlayer() && ((Player) getVictim()).isDebugCombat() && getAttacker().isNpc()) {
-            	((Player) getVictim()).getActionSender().sendMessage("Chance of npc hitting u: "+(int) (chance * 100)+"% (Rounded)");
+            	((Player) getVictim()).getActionSender().sendMessage("Chance of npc hitting you: "+(int) (chance * 100)+"% (Rounded)");
+            }
+	    if (getVictim().isPlayer() && ((Player) getVictim()).isDebugCombat() && getAttacker().isPlayer()) {
+            	((Player) getVictim()).getActionSender().sendMessage("Chance of player hitting you: "+(int) (chance * 100)+"% (Rounded)");
             }
             hit = accurate;
         }

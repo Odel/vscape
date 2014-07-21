@@ -1331,6 +1331,14 @@ public class Player extends Entity {
 		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 		    PiratesTreasure.dumpAllPoisonedItems(this);
 		}
+		else if (keyword.equals("debugcombat")) {
+		    this.debugCombat = true;
+		    this.getActionSender().sendMessage("Starting accuracy messages for combat debugging.");
+		}
+		else if (keyword.equals("stopdebugcombat")) {
+		    this.debugCombat = false;
+		    this.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.");
+		}
 		else if (keyword.equals("pnpc")) {
 			final int index = Integer.parseInt(args[0]);
 			transformNpc = index;
@@ -1561,16 +1569,17 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("mage")) {
 			getActionSender().sendMessage("Use the ::runes command for runes.");
-			inventory.addItem(new Item(4090, 100));
-			inventory.addItem(new Item(4092, 100));
-			inventory.addItem(new Item(4094, 100));
-			inventory.addItem(new Item(4096, 100));
-			inventory.addItem(new Item(4098, 100));
-			inventory.addItem(new Item(1382, 100));
-			inventory.addItem(new Item(1728, 100));
-			inventory.addItem(new Item(6890, 100));
-			inventory.addItem(new Item(6570, 1));
-			inventory.addItem(new Item(7462, 1));
+			inventory.addItem(new Item(3053)); //lava battlestaff
+			inventory.addItem(new Item(1397)); //air battlestaff
+			inventory.addItem(new Item(6563)); //mystic mud battlestaff
+			inventory.addItem(new Item(1712)); //glory
+			inventory.addItem(new Item(10342)); //3 age mage hat
+			inventory.addItem(new Item(10338)); //3rd age mage top
+			inventory.addItem(new Item(10340)); //3rd age mage bottoms
+			inventory.addItem(new Item(2579)); //wizard boots
+			inventory.addItem(new Item(4095)); //mystic gloves
+			inventory.addItem(new Item(2890)); //elemental shield
+			this.setQuestStage(12, 11);
 		}
 		else if (keyword.equals("potions")) {
 			inventory.addItem(new Item(2437, 100));

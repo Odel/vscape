@@ -36,9 +36,9 @@ public class NpcDefinition {
 				}
 	            World.getDefinitions()[def.getId()] = def;
 	            //if (def.attackBonus < def.combat) {
-	            def.attackBonus = (int) (def.combat);
+			def.attackBonus = (int) (def.combat);
 	        	def.defenceMelee = (int) (def.combat / 2);
-	        	def.defenceMage = (int) (def.combat);
+	        	def.defenceMage = (int) (def.combat / 3);
 	        	def.defenceRange = (int) (def.combat / 2);
 	            /*}
 	            if (def.defenceMage == 0) {
@@ -185,9 +185,14 @@ public class NpcDefinition {
 	public int getHitpoints() {
 		return hitpoints;
 	}
+	
 
 	public int getMaxhit() {
 		return maxHit;
+	}
+	
+	public int getDefenceMage() {
+		return defenceMage;
 	}
 
 	public static NpcDefinition produceDefinition(int id) {
