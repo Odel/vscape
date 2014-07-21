@@ -1,5 +1,6 @@
 package com.rs2.model.content.combat.hit;
 
+import com.rs2.Constants;
 import java.util.List;
 
 import com.rs2.model.Entity;
@@ -81,6 +82,16 @@ public class Hit {
 			&& ((Player)victim).getInventory().playerHasItem(VampireSlayer.GARLIC) 
 			&& ((Npc)attacker).getNpcId() == VampireSlayer.COUNT_DRAYNOR) {
 		    damage = damage/6;
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
+		    Player player = (Player)attacker;
+		    Npc npc = (Npc)victim;
+		    if(player.getEquipment().getId(Constants.AMULET) == 11128 && player.getEquipment().getItemContainer().get(Constants.WEAPON) != null) {
+			int id = player.getEquipment().getId(Constants.WEAPON);
+			if(id >= 6522 && id < 6529) {
+			    damage += damage/4;
+			}
+		    }
 		}
 		if(attacker != null && victim != null && victim.isNpc()) {
 		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);

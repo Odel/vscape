@@ -573,7 +573,7 @@ public class PriestInPeril implements Quest {
 	if(npc.getNpcId() >= 6006 && npc.getNpcId() < 6046 ) {
 	    GroundItem drop = new GroundItem(new Item(WOLF_BONES), player, npc.getPosition().clone());
 	    GroundItemManager.getManager().dropItem(drop);
-	    if(Misc.random(500) == 333) { //very rare
+	    if(Misc.random(600) == 1) { //very rare
 		GroundItem drop1 = new GroundItem(new Item(SHIELD_LEFT_HALF), player, npc.getPosition().clone());
 		GroundItemManager.getManager().dropItem(drop1);
 		return;
@@ -841,6 +841,72 @@ public class PriestInPeril implements Quest {
 				return true;
 			}
 		    return false;
+		}
+	    return false;
+	    case 6028: //yuri orlov
+		switch(player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendNpcChat("They say, 'Evil prevails when good men fail to act.'", "What they ought to say is, 'Evil prevails.'", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("What?", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case 6026: //boris the spider
+		switch(player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendNpcChat("Hello, my name is Boris, what can I do for you?", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("The spider?", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendNpcChat("Look, kid, if you're just going to waste time,", "please go away.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case 6043: //vera wang
+		switch(player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendNpcChat("Hello, my name is Vera, what can I do for you?", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("You make such lovely dresses.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendNpcChat("Thank you? But I'm not sure I've ever made any dresses...", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case 6027:
+	    case 6029:
+	    case 6030:
+	    case 6031:
+	    case 6032:
+	    case 6033:
+	    case 6034:
+	    case 6035:
+	    case 6036:
+	    case 6037:
+	    case 6038:
+	    case 6039:
+	    case 6040:
+	    case 6041:
+	    case 6042:
+	    case 6044:
+	    case 6045:
+		switch(player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendNpcChat("Hello, traveller my name is " + new Npc(id).getDefinition().getName() + ".", "what can I do for you?", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("Nothing, but thank you.", HAPPY);
+			player.getDialogue().endDialogue();
+			return true;
 		}
 	    return false;
 	    case DREZEL:
