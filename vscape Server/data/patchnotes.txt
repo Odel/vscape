@@ -1,3 +1,12 @@
+@dre@=July 22nd?=
+@blu@Priest in Peril
+-Berserker necklace functions, adds 25% damage to
+obsidian weapons.
+-Ring of Wealth increases global clue drop rate.
+-Werewolves in Canifis / Wolfbane
+-Magic accuracy overhaul?
+-Clues added to various npcs missing them.
+
 @dre@=July 19th=
 @blu@Pirate's Treasure
 @blu@Vampire Slayer
