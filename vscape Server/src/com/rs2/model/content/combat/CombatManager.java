@@ -703,14 +703,16 @@ public class CombatManager extends Tick {
         //if (victim.isNpc())
         //    return victim.getBonus(attackStyle.getBonus().toInteger() + AttackStyle.Bonus.values().length);
 		double effectiveDefence = getEffectiveDefence(victim, attackStyle);
-		effectiveDefence += victim.getBonus(attackStyle.getBonus().toInteger() + AttackStyle.Bonus.values().length);
-
+		if(victim.isPlayer() && attackStyle.getAttackType() != AttackType.MAGIC) {
+		   effectiveDefence += victim.getBonus(attackStyle.getBonus().toInteger() + AttackStyle.Bonus.values().length); 
+		}
 		int styleBonusDefence = 0;
 		if (victim.isPlayer()) {
 			Player pVictim = ((Player) victim);
 			if (attackStyle.getAttackType() == AttackType.MAGIC) {
 				int level = pVictim.getSkill().getLevel()[Skill.MAGIC];
-				effectiveDefence = (int) (Math.floor(level * 0.7) + Math.floor(effectiveDefence * 0.3));
+				effectiveDefence = (int) (Math.floor(level * 0.125) + Math.floor(effectiveDefence * 0.875));
+				styleBonusDefence = 19;
 			} else {
 				AttackStyle defenceStyle = pVictim.getEquippedWeapon().getWeaponInterface().getAttackStyles()[pVictim.getFightMode()];
 				if (defenceStyle.getMode() == AttackStyle.Mode.DEFENSIVE || defenceStyle.getMode() == AttackStyle.Mode.LONGRANGE)
@@ -722,6 +724,9 @@ public class CombatManager extends Tick {
 		effectiveDefence *= (1 + (styleBonusDefence) / 64);
 		if (hitDef.getSpecialEffect() == 11) { //verac effect
 			effectiveDefence *= 0.75;
+		}
+		if(effectiveDefence < 0) {
+		    effectiveDefence = 0;
 		}
 		return effectiveDefence;
 	}

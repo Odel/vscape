@@ -437,6 +437,9 @@ public class Hit {
 		if(chance * 1.3 >= 1.0) { chance = 1.0; }
 		else { chance *= 1.3; }
 	    }
+	    if(getAttacker().isPlayer() && ((Player)attacker).getBonus(3) < 0 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+		chance = .0001;
+	    }
             if (getAttacker().isPlayer() && ((Player) getAttacker()).isDebugCombat()) {
             	((Player) getAttacker()).getActionSender().sendMessage("Chance to hit: "+(int) (chance * 100)+"% (Rounded)");
             }
