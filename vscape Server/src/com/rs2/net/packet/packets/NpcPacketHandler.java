@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
@@ -148,8 +149,12 @@ public class NpcPacketHandler implements PacketHandler {
 			player.getActionSender().sendMessage(npc.getDefinition().getName() + " is not interested in interacting with you right now.");
 			return;
 		}
-		if (npc.getDefinition().isAttackable())
+		if (npc.getDefinition().isAttackable()) {
+		    if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046 && player.getEquipment().getId(Constants.WEAPON) != PriestInPeril.WOLFBANE) {
+			npc.sendTransform(npc.getNpcId() - 20, 100000);
+		    }
 			CombatManager.attack(player, npc);
+		}
 		else
 			player.getActionSender().sendMessage("You cannot attack that npc!");
 		/*

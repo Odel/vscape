@@ -67,11 +67,13 @@ public class Skill {
 			skillRenewalTimer = 100;
 			return;
 		}
-		if (skillRenewalTimer == 50) {
-			if (player.getSpecialAmount() < 100) {
+		if (skillRenewalTimer == 100 || skillRenewalTimer == 50) {
+		    if (player.getSpecialAmount() < 100) {
 				player.setSpecialAmount(player.getSpecialAmount() + 10);
 				player.updateSpecialBar();
 			}
+		}
+		if (skillRenewalTimer == 50) {
 			if (player.getIsUsingPrayer()[Prayer.RAPID_RESTORE]) {
 				for (int i = 0; i < SKILL_COUNT; i++) {
 					if (level[i] != getLevelForXP(getExp()[i])) {

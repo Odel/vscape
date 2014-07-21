@@ -52,6 +52,8 @@ public class PriestInPeril implements Quest {
     public static final int THROUGH_BARRIER = 11;
     public static final int QUEST_COMPLETE = 12;
     
+    public static final int[][] commonDrops = { {1325, 1}, {1353, 1}, {995, 10}, {995, 100}, {995, 120}, {995, 222}, {995, 364}, {958, 1}, {6814, 1}, {245, 1}, {2139, 5}, {2137, 5}, {2132, 2}, {229, 1} };
+    public static final int[][] unCommonDrops = { {1157, 1}, {1109, 1}, {1181, 1}, {207, 1} };
     public static final int WOLFBANE = 2952;
     public static final int BUCKET_OF_MURKY_WATER = 2953;
     public static final int BUCKET_OF_BLESSED_WATER = 2954;
@@ -60,6 +62,9 @@ public class PriestInPeril implements Quest {
     public static final int BUCKET = 1925;
     public static final int GOLDEN_KEY = 2944;
     public static final int IRON_KEY = 2945;
+    public static final int WOLF_BONES = 2859;
+    public static final int RUNE_MED = 1147;
+    public static final int SHIELD_LEFT_HALF = 2366;
     
     public static final int TEMPLE_DOOR_1 = 3489;
     public static final int TEMPLE_DOOR_2 = 3490;
@@ -565,8 +570,34 @@ public class PriestInPeril implements Quest {
     }
     
     public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, player.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
+	if(npc.getNpcId() >= 6006 && npc.getNpcId() < 6046 ) {
+	    GroundItem drop = new GroundItem(new Item(WOLF_BONES), player, npc.getPosition().clone());
+	    GroundItemManager.getManager().dropItem(drop);
+	    if(Misc.random(500) == 333) { //very rare
+		GroundItem drop1 = new GroundItem(new Item(SHIELD_LEFT_HALF), player, npc.getPosition().clone());
+		GroundItemManager.getManager().dropItem(drop1);
+		return;
+	    }
+	    else if(Misc.random(60) == 1) { //rare
+		GroundItem drop2 = new GroundItem(new Item(RUNE_MED), player, npc.getPosition().clone());
+		GroundItemManager.getManager().dropItem(drop2);
+		return;
+	    }
+	    else if(Misc.random(20) == 1) { //uncommon
+		int index = Misc.randomMinusOne(unCommonDrops.length);
+		Item dropped = new Item(unCommonDrops[index][0], unCommonDrops[index][1]);
+		GroundItem drop3 = new GroundItem(dropped, player, npc.getPosition().clone());
+		GroundItemManager.getManager().dropItem(drop3);
+		return;
+	    }
+	    else {
+		int index = Misc.randomMinusOne(commonDrops.length);
+		Item dropped = new Item(commonDrops[index][0], commonDrops[index][1]);
+		GroundItem drop4 = new GroundItem(dropped, player, npc.getPosition().clone());
+		GroundItemManager.getManager().dropItem(drop4);
+		return;
+	    }
+	}
     }
     
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
@@ -726,15 +757,8 @@ public class PriestInPeril implements Quest {
 				player.getDialogue().sendPlayerChat("I'm looking for a quest!", CONTENT);
 				return true;
 			    case 4:
-				if(player.getQuestStage(5) >= 7) {
-				    player.getDialogue().sendNpcChat("A quest you say? Hmm, what an odd request to make", "of the king. It's funny you should mention it though, as", "there is something you can do for me.", CONTENT);
-				    return true;
-				}
-				else {
-				    player.getDialogue().sendNpcChat("Hmm, I'm afraid I can't think of anything.", "Check back later, perhaps something will come about.", CONTENT);
-				    player.getDialogue().setNextChatId(15);
-				    return true;
-				}
+				player.getDialogue().sendNpcChat("A quest you say? Hmm, what an odd request to make", "of the king. It's funny you should mention it though, as", "there is something you can do for me.", CONTENT);
+				return true;
 			    case 5:
 				player.getDialogue().sendNpcChat("Are you aware of the temple east of here?", "It stands on the river Salve and guards", "the entrance to the lands of Morytania.", CONTENT);
 				return true;
@@ -1085,8 +1109,15 @@ public class PriestInPeril implements Quest {
 				player.getDialogue().sendNpcChat("I have never heard of such a rock, however. You must", "tell me of what you speak!", CONTENT);
 				return true;
 			    case 15:
-				player.getDialogue().sendPlayerChat("Well, it is somewhat of a secret, but recently I helped", "the Mages at the Wizards' Tower discover a new kind", "of rock that absorbed magic and could be used to make", "runes from.", CONTENT);
-				return true;
+				if(player.getQuestStage(5) >= 7) {
+				    player.getDialogue().sendPlayerChat("Well, it is somewhat of a secret, but recently I helped", "the Mages at the Wizards' Tower discover a new kind", "of rock that absorbed magic and could be used to make", "runes from.", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("It's known as 'Rune Essence' or 'Pure Essence' in it's", "stronger form, and it very absorbant of magical", "energy.", "I know because I craft runes with it all the time.", CONTENT);
+				    player.getDialogue().setNextChatId(17);
+				    return true;
+				}
 			    case 16:
 				player.getDialogue().sendPlayerChat("It's known as 'Rune Essence' or 'Pure Essence' in it's", "stronger form, and it very absorbant of magical", "energy.", CONTENT);
 				return true;

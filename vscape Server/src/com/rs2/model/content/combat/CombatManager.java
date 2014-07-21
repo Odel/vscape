@@ -362,6 +362,7 @@ public class CombatManager extends Tick {
 			ShieldOfArrav.handleDrops((Player) killer, npc);
 			DragonSlayer.handleDrops((Player) killer, npc);
 			PriestInPeril.handleDeath((Player) killer, npc);
+			PriestInPeril.handleDrops((Player) killer, npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
 		}
@@ -381,6 +382,9 @@ public class CombatManager extends Tick {
 		    npc.setVisible(false);
 		    World.unregister(npc);
 		    return;
+		}
+		else if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046) {
+		    npc.setTransformUpdate(true);
 		}
 		else if(npc.getNpcId() == 742 && killer.isPlayer()) {
 		    if(((Player)killer).getQuestStage(15) == 7) {

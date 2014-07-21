@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -60,9 +61,10 @@ public class ClueScroll {
 
 	public static String[] levelOneClueNpc = {"Man", "Woman", "Goblin", "Mugger", "Barbarian", "Farmer", "Al-Kharid", "Thug", "Rock Crabs", "Rogue", "Thief", "H.A.M", "Banshees", "Cave Slime", "Afflicted", "Borrakar", "Freidar", "Freygerd", "Inga", "Jennella", "Lensa", "Lanzig"};
 
-	public static String[] levelTwoClueNpc = {"Guard", "Tribesman", "Bandit Camp Human", "Cockatrice", "Abyssal Leech", "Pyrefiend", "Harpie Bug Swarm", "Black Guard", "Rellekka Warrior", "Market Guard", "Jogre", "Ice Warrior", "Abyssal Guardian", "Paladin", "Vampire", "Dagannoth", "Skeleton", "Abyssal Walker", "Dagannoth", "Wallasalki", "Mummy", "Giant Rock Crab"};
+	public static String[] levelTwoClueNpc = {"Guard", "Tribesman", "Bandit Camp Human", "Cockatrice", "Abyssal Leech", "Pyrefiend", "Harpie Bug Swarm", "Black Guard", "Rellekka Warrior", "Market Guard", "Jogre", "Ice Warrior", "Abyssal Guardian", "Paladin", "Vampire", "Dagannoth", "Skeleton", "Abyssal Walker", "Dagannoth", "Wallasalki", "Mummy", "Giant Rock Crab", "Bloodveld", "Werewolf", "Hill Giant",
+						    "Alexis", "Boris", "Eduard", "Galina", "Georgy", "Imre", "Irina", "Joseph", "Ksenia", "Liliya", "Lev", "Milla", "Nikita", "Nikolai", "Sofiya", "Svetlana", "Vera", "Yadviga", "Yuri", "Zoja"};
 
-	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon"};
+	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon", "Black Demon", "Aberrant Spectre"};
 
 	// todo torn page make into mage books + firelighters + junk items to reward
 
@@ -208,7 +210,8 @@ public class ClueScroll {
 	}
 
 	public static void dropClue(Player player, Npc npc) {
-		if (Misc.random(40) != 0) { //1% chance //originally 25 
+		int chance = RingEffect.ringOfWealth(player) ? 30 : 40;
+		if (Misc.random(chance) != 0) { //1% chance //originally 25 
 			return;
 		}
 		if (player.hasClueScroll()) {
