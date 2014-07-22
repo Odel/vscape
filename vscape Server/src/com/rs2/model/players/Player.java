@@ -1472,6 +1472,7 @@ public class Player extends Entity {
 		    inventory.addItem(new Item(1712, 2)); //glories
 		    inventory.addItem(new Item(3853)); //games necklace
 		    inventory.addItem(new Item(11105)); //skills necklace
+		    inventory.addItem(new Item(2552)); //duel ring
 		}
 		else if (keyword.equals("tele")) {
 			try {
@@ -2425,6 +2426,9 @@ public class Player extends Entity {
 		if (getCurrentHp() <= 0) {
 			CombatManager.startDeath(this);
 		}
+		/*if(Constants.SYSTEM_UPDATE) {
+		    this.getActionSender().sendUpdateServer(GlobalVariables.getServerUpdateTimer().ticksRemaining());
+		}*/
 		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
 	    setAppearanceUpdateRequired(true);

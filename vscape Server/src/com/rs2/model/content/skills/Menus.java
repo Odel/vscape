@@ -16,7 +16,7 @@ public class Menus {
 		} else if (type == "potteryFired") {
 			display5Item(player, 1931, 2313, 1923, 5350, 4440, "Pot", "Pie Dish", "Bowl", "Plant pot", "Pot lid");
 		} else if (type == "silverCrafting") {
-			display3Item(player, 1714, 2961, 5525, "Unstrung symbol", "Silver sickle", "Tiara");
+			display4Item(player, 1714, 2961, 5525, 1720, "Unstrung symbol", "Silver sickle", "Tiara", "Unstrung Emblem");
 		} else if (type == "spinning") {
 			display3Item(player, 1737, 1779, 6051, "Wool", "Flax", "Magic tree");
 		} else if (type == "glassMaking") {

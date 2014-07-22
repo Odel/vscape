@@ -4315,7 +4315,50 @@ public class Dialogues {
 				    }
 				    return true;
 			    }
-			break;		
+			break;
+			case 492: //spirit of scorpius
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendNpcChat("Yesssss mortal? What issss it you want?", CONTENT);
+				    return true;
+				case 2:
+				    player.getDialogue().sendOption("Can you bless my symbols with the power of Zamorak?", "Hello.");
+				    return true;
+				case 3:
+				    switch (optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("Can you bless my symbols with the power of Zamorak?", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("Hello.", CONTENT);
+					    player.getDialogue().setNextChatId(7);
+					    return true;
+				    }
+				case 4:
+				    player.getDialogue().sendNpcChat("If that is your wissssh...So be it.", CONTENT);
+				    return true;
+				case 5:
+				    if (!player.getInventory().playerHasItem(1722)) {
+					player.getDialogue().sendNpcChat("You don't have any sssssymbols mortal.", "Careful not to wasssste a powerful ssspirit's time.", CONTENT);
+				    } else {
+					for (Item item : player.getInventory().getItemContainer().getItems()) {
+					    if (item != null && item.getId() == 1722) {
+						player.getInventory().replaceItemWithItem(new Item(1722), new Item(1724));
+					    }
+					}
+					player.getDialogue().sendStatement("The Spirit of Scorpius enchants your symbols.");
+				    }
+				    player.getDialogue().endDialogue();
+				    return true;
+				case 7:
+				    player.getDialogue().sendPlayerChat("Who are you?", CONTENT);
+				    return true;
+				case 8:
+				    player.getDialogue().sendNpcChat("That isssss none of your businessss mortal.", "Leave my sssssight.", ANGRY_1);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			    break;
 			case 802 : //jered prayer master skillcape
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

@@ -31,7 +31,11 @@ public class SilverCrafting {
 		TIARA(34193, 2355, 5523, 5525, 1, 23, 52.5),
 		TIARA5(34192, 2355, 5523, 5525, 5, 23, 52.5),
 		TIARA10(34191, 2355, 5523, 5525, 10, 23, 52.5),
-		TIARAX(34190, 2355, 5523, 5525, 0, 23, 52.5);
+		TIARAX(34190, 2355, 5523, 5525, 0, 23, 52.5),
+		EMBLEM(34217, 2355, 1594, 1720, 1, 17, 50),
+		EMBLEM5(34216, 2355, 1594, 1720, 5, 17, 50),
+		EMBLEM10(34215, 2355, 1594, 1720, 10, 17, 50),
+		EMBLEMX(34214, 2355, 1594, 1720, 0, 17, 50);
 
 		private int buttonId;
 		private int used;
@@ -147,5 +151,17 @@ public class SilverCrafting {
 		}
 		return false;
 	}
+	
+	public static boolean chaosAltar(Player player, int object, int item, int x, int y) {
+                if((item == 1722 && object == 411)) {
+                    player.getActionSender().sendMessage("You vigorously rub the Unpowered Symbol on the altar.");
+                    player.getInventory().removeItem(new Item(1722, 1));
+                    player.getInventory().addItem(new Item(1724, 1));
+                    return true;
+                }
+                else {
+                    return false;
+                }
+        }
 
 }
