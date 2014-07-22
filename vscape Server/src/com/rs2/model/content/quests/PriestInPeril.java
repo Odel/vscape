@@ -452,6 +452,8 @@ public class PriestInPeril implements Quest {
 		switch(player.getQuestStage(23)) {
 		    case 6:
 		    case 7:
+		    case 8:
+		    case 9:
 			if(item == BUCKET) {
 			    player.getDialogue().sendStatement("You fill your bucket with water from the well");
 			    player.getUpdateFlags().sendAnimation(832);
