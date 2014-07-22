@@ -774,6 +774,14 @@ public class ItemPacketHandler implements PacketHandler {
 		{
 			return;
 		}
+		if(TabHandler.breakEnchantTab(player, itemId, player.getSlot()))
+		{
+			return;
+		}
+		if(TabHandler.breakBonesTab(player, itemId, player.getSlot()))
+		{
+			return;
+		}
 		if(ElementalWorkshop.itemHandling(player, itemId)) {
 		    return;
 		}

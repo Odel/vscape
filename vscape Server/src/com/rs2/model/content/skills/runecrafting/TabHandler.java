@@ -2,10 +2,13 @@ package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
+import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -42,7 +45,7 @@ public class TabHandler {
     private static final int BANANAS = 13;
     private static final int PEACHES = 14;
     
-    private static final int[] TABS = {0, 8007, 8008, 8009, 8010, 8011, 8012, 8016, 8017, 8018, 8019, 8020, 8021, 8014, 8015};
+    public static final int[] TABS = {0, 8007, 8008, 8009, 8010, 8011, 8012, 8016, 8017, 8018, 8019, 8020, 8021, 8014, 8015};
     
     private static final int[][] VARROCK_RUNES = { {FIRE_RUNE, 1}, {AIR_RUNE, 3}, {LAW_RUNE, 1} };
     private static final int[][] LUMBRIDGE_RUNES = { {EARTH_RUNE, 1}, {AIR_RUNE, 3}, {LAW_RUNE, 1} };
@@ -61,6 +64,23 @@ public class TabHandler {
     private static final int[][] BANANAS_RUNES = { {EARTH_RUNE, 2}, {WATER_RUNE, 2}, {NATURE_RUNE, 1} };
     private static final int[][] PEACHES_RUNES = { {EARTH_RUNE, 4}, {WATER_RUNE, 2}, {NATURE_RUNE, 2} };
     
+    public static final int[][] ENCHANTABLES = {
+  			{1637, 1694, 1656, 11072}, // sapphire
+			{1639, 1696, 1658, 11076}, // emerald
+			{1641, 1698, -1, 11085}, // ruby
+			{1643, 1700, -1, 11092}, // diamond
+			{1645, 1702, 1664, 11115}, // dragonstone
+			{6575, 6581, 6577, 11130} // onyx
+    };
+    private static final int[][] ENCHANTED = {
+  			{2550, 1727, 3853, 11074}, // sapphire
+			{2552, 1729, 5521, 11079}, // emerald
+			{2568, 1725, -1, 11088}, // ruby
+			{2570, 1731, -1, 11095}, // diamond
+			{2572, 1712, 11105, 11118}, // dragonstone
+			{6583, 6585, 11128, 11133} // onyx
+	};
+    
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if(firstItem == LAW_RUNE && secondItem == SOFT_CLAY || firstItem == SOFT_CLAY && secondItem == LAW_RUNE) {
 	    Dialogues.startDialogue(player, 10565);
@@ -73,6 +93,11 @@ public class TabHandler {
 	else if(firstItem == NATURE_RUNE && secondItem == SOFT_CLAY || firstItem == SOFT_CLAY && secondItem == NATURE_RUNE) {
 	    Dialogues.startDialogue(player, 10568);
 	    return true;
+	}
+	else if((firstItem >= 8016 && firstItem < 8022 ) && isChantableItemForLevel(secondItem, getChantableArrayIndex(firstItem))) {
+	    /*useEnchantTab(player, firstItem, secondItem, getChantableArrayIndex(firstItem));
+	    return true;*/ //too much trouble for now, doesn't quite make much sense anyways
+	    return false;
 	}
 	return false;
     }
@@ -128,7 +153,160 @@ public class TabHandler {
 	    return false;
 	}
     }
+    public static boolean breakBonesTab(final Player player, final int item, int slot) {
+	player.getActionSender().removeInterfaces();
+	int fruit = item == 8014 ? 1963 : 6883;
+	if (!player.getInventory().playerHasItem(item)) {
+	    return false;
+	}
+	if(item != 8014 && item != 8015) {
+	    return false;
+	}
+	if (!player.getInventory().playerHasItem(526)) {
+	    player.getActionSender().sendMessage("You don't have any bones to convert into fruit.");
+	    return true;
+	}
+	else {
+	    player.getUpdateFlags().sendAnimation(getSpell(item).getAnimation());
+	    player.getUpdateFlags().sendGraphic(getSpell(item).getGraphic());
+	    player.getInventory().removeItem(new Item(item));
+	    player.getActionSender().sendMessage("You break the tab.");
+	    for (Item items : player.getInventory().getItemContainer().getItems()) {
+		if (items != null && items.getId() == 526) {
+		    player.getInventory().replaceItemWithItem(items, new Item(fruit));
+		}
+	    }
+	    return true;
+	}
+    }
+    public static boolean breakEnchantTab(final Player player, final int item, int slot) {
+	player.getActionSender().removeInterfaces();
+	final int index = getChantableArrayIndex(item);
+	if (!player.getInventory().playerHasItem(item)) {
+	    return false;
+	}
+	if (!isEnchantTab(item)) {
+	    return false;
+	}
+	if (!hasChantableItemForEnchant(player, item, index)) {
+	    player.getActionSender().sendMessage("You do not have an enchantable item of that level in your inventory!");
+	    return true;
+	}
+	if (getChantableItemForEnchant(player, item, index) == null) {
+	    return false;
+	} else if (hasChantableItemForEnchant(player, item, index)) {
+	    final int indexTwo = getChantableItemForEnchant(player, item, index)[0];
+	    player.getActionSender().sendMessage("You enchant the " + ItemManager.getInstance().getItemName(ENCHANTABLES[index][indexTwo]) + ".");
+	    player.getInventory().removeItem(new Item(TABS[index + 7]));
+	    player.setStopPacket(true);
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		@Override
+		public void execute(CycleEventContainer b) {
+		    player.getUpdateFlags().sendAnimation(getSpell(item).getAnimation());
+		    player.getUpdateFlags().sendGraphic(getSpell(item).getGraphic());
+		    player.getInventory().replaceItemWithItem(new Item(getChantableItemForEnchant(player, item, index)[1]), new Item(ENCHANTED[index][indexTwo]));
+		    b.stop();
+		}
+
+		@Override
+		public void stop() {
+		    player.setStopPacket(false);
+		}
+	    }, 3);
+	    return true;
+	} else {
+	    return false;
+	}
+    }
     
+    public static void useEnchantTab(final Player player, final int firstItem, final int secondItem, final int enchantArraySlot) {
+	final int index = getChantableArrayIndex(firstItem);
+	player.getActionSender().sendMessage("You enchant the " + ItemManager.getInstance().getItemName(secondItem) + ".");
+	player.getInventory().removeItem(new Item(firstItem));
+	player.getInventory().removeItem(new Item(secondItem));
+	player.setStopPacket(true);
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		player.getActionSender().removeInterfaces();
+		if (!player.getInventory().playerHasItem(firstItem)) {
+		    b.stop();
+		    return;
+		}
+		if (getChantableItemForEnchant(player, firstItem, index) == null) {
+		    b.stop();
+		    return;
+		}
+		player.getUpdateFlags().sendAnimation(getSpell(firstItem).getAnimation());
+		player.getUpdateFlags().sendGraphic(getSpell(firstItem).getGraphic());
+		int indexTwo = getChantableItemForEnchant(player, firstItem, index)[0];
+		player.getInventory().addItem(new Item(ENCHANTED[index][indexTwo]));
+		b.stop();
+	    }
+
+	    @Override
+	    public void stop() {
+		player.setStopPacket(false);
+	    }
+	}, 3);
+    }
+    
+    public static int getChantableArrayIndex(final int itemId) {
+	for(int i = 0; i < TABS.length; i++) {
+	    if(itemId >= 8016 && itemId < 8022 && itemId == TABS[i]) { 
+		return i - 7;
+	    }
+	}
+	return -1;
+    }
+    
+    public static boolean isChantableItemForLevel(final int itemId, final int index) {
+	for(int i : ENCHANTABLES[index]) {
+	    if(i == -1) continue;
+	    if(i == itemId) return true;
+	}
+	return false;
+    }
+    public static boolean isEnchantTab(final int itemId) {
+	return itemId >= 8016 && itemId < 8022;
+    }
+    public static boolean hasChantableItemForEnchant(final Player player, final int itemId, final int enchant) {
+	for(Item item : player.getInventory().getItemContainer().getItems()) {
+	    if(item == null) continue;
+	    for (int x = 0; x < 4; x++) {
+		if (ENCHANTABLES[enchant][x] == item.getId()) {
+		    return true;
+		}
+	    }
+	}
+	return false;
+    }
+    
+    
+    public static int[] getChantableItemForEnchant(final Player player, final int itemId, final int enchant) {
+	for(Item item : player.getInventory().getItemContainer().getItems()) {
+	    if(item == null) continue;
+		for(int x = 0; x < 4; x++) {
+		    if(ENCHANTABLES[enchant][x] == item.getId()) {
+			int[] array = {x, ENCHANTABLES[enchant][x]};
+			return array;
+		    }
+		}
+	}
+	return null;
+    }
+    public static Spell getSpell(int itemId) {
+	if(itemId == TABS[SAPPHIRE]) return Spell.ENCHANT_LV_1;
+	else if(itemId == TABS[EMERALD]) return Spell.ENCHANT_LV_2;
+	else if(itemId == TABS[RUBY]) return Spell.ENCHANT_LV_3;
+	else if(itemId == TABS[DIAMOND]) return Spell.ENCHANT_LV_4;
+	else if(itemId == TABS[DRAGONSTONE]) return Spell.ENCHANT_LV_5;
+	else if(itemId == TABS[ONYX]) return Spell.ENCHANT_LV_6;
+	else if(itemId == TABS[BANANAS]) return Spell.BONES_TO_BANANA;
+	else if(itemId == TABS[PEACHES]) return Spell.BONES_TO_PEACH;
+	else return null;
+    }
+
     public static int[][] getRunes(int spell) {
 	switch(spell) {
 	    case VARROCK:

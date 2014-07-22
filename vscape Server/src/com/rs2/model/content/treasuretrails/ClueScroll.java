@@ -62,7 +62,7 @@ public class ClueScroll {
 	public static String[] levelOneClueNpc = {"Man", "Woman", "Goblin", "Mugger", "Barbarian", "Farmer", "Al-Kharid", "Thug", "Rock Crabs", "Rogue", "Thief", "H.A.M", "Banshees", "Cave Slime", "Afflicted", "Borrakar", "Freidar", "Freygerd", "Inga", "Jennella", "Lensa", "Lanzig"};
 
 	public static String[] levelTwoClueNpc = {"Guard", "Tribesman", "Bandit Camp Human", "Cockatrice", "Abyssal Leech", "Pyrefiend", "Harpie Bug Swarm", "Black Guard", "Rellekka Warrior", "Market Guard", "Jogre", "Ice Warrior", "Abyssal Guardian", "Paladin", "Vampire", "Dagannoth", "Skeleton", "Abyssal Walker", "Dagannoth", "Wallasalki", "Mummy", "Giant Rock Crab", "Bloodveld", "Werewolf", "Hill Giant",
-						    "Alexis", "Boris", "Eduard", "Galina", "Georgy", "Imre", "Irina", "Joseph", "Ksenia", "Liliya", "Lev", "Milla", "Nikita", "Nikolai", "Sofiya", "Svetlana", "Vera", "Yadviga", "Yuri", "Zoja"};
+						    "Alexis", "Boris", "Eduard", "Galina", "Georgy", "Imre", "Irina", "Joseph", "Ksenia", "Liliya", "Lev", "Milla", "Nikita", "Nikolai", "Sofiya", "Svetlana", "Vera", "Yadviga", "Yuri", "Zoja", "Moss Giant"};
 
 	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon", "Black Demon", "Aberrant Spectre"};
 
@@ -311,13 +311,10 @@ public class ClueScroll {
 	}
 
 	public static void spawnAttacker(Player player) {
-		int id = player.inWild() ? 1007 : 1264;
-		if (!NpcLoader.checkSpawn(player, id) && id == 1007) {
-			NpcLoader.spawnNpc(player, new Npc(id), player.getPosition().clone(), true, "For Zamorak!");
-		}
-		else if(!NpcLoader.checkSpawn(player, id) && id == 1264) {
-			NpcLoader.spawnNpc(player, new Npc(id), player.getPosition().clone(), true, "For Saradomin!");
-		}
+	    int id = player.inWild() ? 1007 : 1264;
+	    if (!NpcLoader.checkSpawn(player, id)) {
+		NpcLoader.spawnNpc(player, player.inWild() ? new Npc(1007) : new Npc(1264), true, true);
+	    }
 	}
 
 	public static void handleAttackerDeath(Player player, Npc npc) {

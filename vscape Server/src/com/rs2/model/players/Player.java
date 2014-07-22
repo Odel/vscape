@@ -160,6 +160,7 @@ import com.rs2.model.content.quests.QuestHandler;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.SearchScrolls.SearchData;
 
@@ -1330,6 +1331,20 @@ public class Player extends Entity {
 		else if (keyword.equals("poisondump")) {
 		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 		    PiratesTreasure.dumpAllPoisonedItems(this);
+		}
+		else if (keyword.equals("enchantdump")) {
+		    bank.add(new Item(8016, 100));
+		    bank.add(new Item(8017, 100));
+		    bank.add(new Item(8018, 100));
+		    bank.add(new Item(8019, 100));
+		    bank.add(new Item(8020, 100));
+		    bank.add(new Item(8021, 100));
+		    for(int i = 0; i < 6; i++) {
+			for(int x = 0; x < 4; x++) {
+			    if(TabHandler.ENCHANTABLES[i][x] == -1) continue;
+			    bank.add(new Item(TabHandler.ENCHANTABLES[i][x]));
+			}
+		    }
 		}
 		else if (keyword.equals("debugcombat")) {
 		    this.debugCombat = true;
