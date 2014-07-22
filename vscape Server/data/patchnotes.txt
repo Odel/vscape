@@ -1,11 +1,16 @@
-@dre@=July 22nd?=
+@dre@=July 23rd=
+@blu@Magic accuracy overhaul
 @blu@Priest in Peril
 -Berserker necklace functions, adds 25% damage to
 obsidian weapons.
 -Ring of Wealth increases global clue drop rate.
--Werewolves in Canifis / Wolfbane
--Magic accuracy overhaul?
+-Werewolves in Canifis / Wolfbane.
 -Clues added to various npcs missing them.
+-Fixed the timer on special energy regeneration.
+(It's faster.)
+-You can now craft enchant tabs, as well as bones
+to bananas/peaches. (The enchant tabs look for the 
+first viable item in your inventory.)
 
 @dre@=July 19th=
 @blu@Pirate's Treasure
