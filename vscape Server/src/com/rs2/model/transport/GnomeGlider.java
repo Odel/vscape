@@ -27,7 +27,7 @@ public class GnomeGlider {
             return;
 		player.getActionSender().sendInterface(802);
 		int flight = getConfig(player.getInteractingEntity().getPosition().getX(), route);
-		if (flight == 20) {
+		if (flight == 666) {
 			player.getActionSender().sendMessage("You can't fly to the same place you are at.");
 			return;
 		}
