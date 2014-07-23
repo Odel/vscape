@@ -2272,7 +2272,7 @@ public class Player extends Entity {
 		setAppearanceUpdateRequired(true);
 		final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
-		if(player.getInventory().playerHasItem(new Item(PiratesTreasure.KARAMJAN_RUM))) {
+		if(player.getInventory() != null && player.getInventory().playerHasItem(new Item(PiratesTreasure.KARAMJAN_RUM))) {
 		    for (Item item : player.getInventory().getItemContainer().getItems()) {
 			if (item == null) {
 			    continue;
@@ -2444,6 +2444,7 @@ public class Player extends Entity {
 			return true;
 		} else {
 			sendLoginResponse();
+			System.out.println("17");
 			disconnect();
 			return false;
 		}

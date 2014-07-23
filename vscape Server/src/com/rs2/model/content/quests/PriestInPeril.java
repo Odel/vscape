@@ -303,12 +303,6 @@ public class PriestInPeril implements Quest {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@King Roald @bla@in the @dre@Varrock Palace @bla@to begin this quest.", 8147);
 	    player.getActionSender().sendString("@dre@Requirements:", 8148);
-	    if(player.getQuestStage(5) >= 7) {
-		player.getActionSender().sendString("-Completion of @str@Rune Mysteries", 8149);
-	    }
-	    else {
-		player.getActionSender().sendString("-Completion of @blu@Rune Mysteries", 8149);
-	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 30 enemy", 8150);
         }
     }
@@ -357,12 +351,6 @@ public class PriestInPeril implements Quest {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@King Roald @bla@in the @dre@Varrock Palace @bla@to begin this quest.", 8147);
 	    player.getActionSender().sendString("@dre@Requirements:", 8148);
-	    if(player.getQuestStage(5) >= 7) {
-		player.getActionSender().sendString("@str@-Completion of Rune Mysteries", 8149);
-	    }
-	    else {
-		player.getActionSender().sendString("-Completion of @blu@Rune Mysteries", 8149);
-	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 30 enemy", 8150);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
@@ -424,6 +412,10 @@ public class PriestInPeril implements Quest {
 		switch(player.getQuestStage(23)) {
 		    case 7:
 		    case 8:
+		    case 9:
+		    case 10:
+		    case 11:
+		    case 12:
 			if(item == IRON_KEY) {
 			    player.getActionSender().walkTo(player.getPosition().getX() < 3416 ? 1 : -1, 0, true);
 			    player.getActionSender().walkThroughDoor(CELL_DOOR, 3415, 3489, 2);

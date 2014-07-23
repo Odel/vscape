@@ -63,7 +63,6 @@ public class QuestHandler {
     	{
     		player.setQuestStage(q.getQuestID(), 0);
     	}
-
         player.sendQuestTab(); //Makes the quest log empty except implemented quests
         PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
     	

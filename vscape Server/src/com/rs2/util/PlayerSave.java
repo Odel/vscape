@@ -372,6 +372,7 @@ public class PlayerSave {
             PlayerSave.saveQuests(player);
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("here");
 		}
 	}
 	
@@ -480,9 +481,14 @@ public class PlayerSave {
 				}
 				for(Quest q : QuestHandler.getQuests())
 				{
-					if (token.equals(q.getQuestSaveName())) 
+					if (token != null && token.contains(q.getQuestSaveName())) 
 					{
+					    if(token2 != null) {
 						player.setQuestStage(q.getQuestID(), Integer.parseInt(token2));
+					    }
+					    else {
+						player.setQuestStage(q.getQuestID(), 0);
+					    }
 					}
 				}
 				if (token.equals("hide-yell")) {

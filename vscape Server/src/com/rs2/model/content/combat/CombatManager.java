@@ -710,11 +710,9 @@ public class CombatManager extends Tick {
 		if (victim.isPlayer()) {
 			Player pVictim = ((Player) victim);
 			if (attackStyle.getAttackType() == AttackType.MAGIC) {
-			    if(victim.getInCombatTick().getOther() != null && victim.getInCombatTick().getOther().isPlayer()) {
 				int level = pVictim.getSkill().getLevel()[Skill.MAGIC];
 				effectiveDefence = (int) (Math.floor(level * 0.125) + Math.floor(effectiveDefence * 0.875));
 				styleBonusDefence = 19;
-			    }
 			} else {
 				AttackStyle defenceStyle = pVictim.getEquippedWeapon().getWeaponInterface().getAttackStyles()[pVictim.getFightMode()];
 				if (defenceStyle.getMode() == AttackStyle.Mode.DEFENSIVE || defenceStyle.getMode() == AttackStyle.Mode.LONGRANGE)
