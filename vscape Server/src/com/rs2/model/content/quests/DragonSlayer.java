@@ -311,8 +311,18 @@ public class DragonSlayer implements Quest {
 	    player.getActionSender().sendString("@str@" + "Speak with the Guildmaster in the Champion's Guild.", 8147);
             player.getActionSender().sendString("@str@" + "The guildmaster said to speak with Oziach.", 8149);
 	    player.getActionSender().sendString("@str@" + "His house is near Edgeville.", 8150);
+	    player.getActionSender().sendString("@str@" + "I need to kill the dragon Elvarg, beneath Crandor.", 8152);
+	    player.getActionSender().sendString("@str@" + "The guildmaster should have more information.", 8153);
+	    player.getActionSender().sendString("@str@" + "The guildmaster told me I need 3 core things:", 8155);
+	    player.getActionSender().sendString("@str@" + "-An anti-dragon fire shield.", 8156);
+	    player.getActionSender().sendString("@str@" + "-A boat to sail to Crandor.", 8157);
+	    player.getActionSender().sendString("@str@" + "-A map to Crandor.", 8158);
+	    player.getActionSender().sendString("@str@" + "I have everything. I need to go to the ship.", 8160);
+	    player.getActionSender().sendString("@str@" + "There I can set sail with Ned.", 8161);
+	    player.getActionSender().sendString("@str@" + "We barely made it to Crandor. Elvarg should be near.", 8163);
+	    player.getActionSender().sendString("@str@" + "Elvarg has been slain, I have proved myself.", 8163);
 
-	    player.getActionSender().sendString("@red@" + "You have completed this quest!", 8159);
+	    player.getActionSender().sendString("@red@" + "You have completed this quest!", 8165);
 	}
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -342,7 +352,6 @@ public class DragonSlayer implements Quest {
     
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
-    	sendQuestRequirements(player);
     	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 7383);
     	} else if (questStage == QUEST_COMPLETE) {

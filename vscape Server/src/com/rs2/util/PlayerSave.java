@@ -368,8 +368,7 @@ public class PlayerSave {
 			write.writeInt(player.getBananaCrateCount());
 			write.flush();
 			write.close();
-			
-            PlayerSave.saveQuests(player);
+			PlayerSave.saveQuests(player);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("here");
@@ -387,11 +386,11 @@ public class PlayerSave {
 			for(Quest q : QuestHandler.getQuests())
 			{
 				characterfile.write(q.getQuestSaveName() + " = ", 0, q.getQuestSaveName().length()+3);
-				if(player.questStage.length > 0)
-				{
-					characterfile.write(Integer.toString(player.getQuestStage(q.getQuestID())), 0, Integer.toString(player.getQuestStage(q.getQuestID())).length());
+				try {
+					int questStage = player.getQuestStage(q.getQuestID());
+					characterfile.write(Integer.toString(questStage), 0, Integer.toString(questStage).length());
 				}
-				else
+				catch(IOException e)
 				{
 					characterfile.write("0", 0, 1);
 				}
@@ -452,6 +451,7 @@ public class PlayerSave {
 			characterfile = new BufferedReader(new FileReader("./data/characters/"+player.getUsername()+".txt"));
 			File1 = true;
 		} catch(FileNotFoundException fileex1) {
+		    return 1;
 		}
 		
 		if (File1) {
@@ -466,7 +466,9 @@ public class PlayerSave {
 			System.out.println(player.getUsername()+": error loading file.");
 			return 3;
 		}
-		
+		if(line.contains("EOF")) {
+		    EndOfFile = true;
+		}
 		while(EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
@@ -476,22 +478,10 @@ public class PlayerSave {
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
 				token3 = token2.split("\t");
-				if (token.equals("quest-points")) {
+				switch(token) {
+				    case "quest-points":
 					player.setQuestPoints(Integer.parseInt(token2));
-				}
-				for(Quest q : QuestHandler.getQuests())
-				{
-					if (token != null && token.contains(q.getQuestSaveName())) 
-					{
-					    if(token2 != null) {
-						player.setQuestStage(q.getQuestID(), Integer.parseInt(token2));
-					    }
-					    else {
-						player.setQuestStage(q.getQuestID(), 0);
-					    }
-					}
-				}
-				if (token.equals("hide-yell")) {
+				    case "hide-yell":
 					boolean yellhide = Boolean.parseBoolean(token2);
 					if(yellhide)
 					{
@@ -499,7 +489,7 @@ public class PlayerSave {
 					}else{
 						player.setHideYell(false,false);
 					}
-				} else if (token.equals("hide-colors")) {
+				    case "hide-colors":
 					boolean colorhide = Boolean.parseBoolean(token2);
 					if(colorhide)
 					{
@@ -507,10 +497,28 @@ public class PlayerSave {
 					}else{
 						player.setHideColors(false,false);
 					}
+					
+				}
+				for(Quest q : QuestHandler.getQuests())
+				{
+					if(q == null) continue;
+					if (token != null && token.equals(q.getQuestSaveName())) 
+					{
+					    if(q == QuestHandler.getQuests()[7]) {
+						player.setQuestStage(7, 0);
+					    }
+					    else {
+						if(token2 != null) {
+						    player.setQuestStage(q.getQuestID(), Integer.parseInt(token2));
+						    q.sendQuestTabStatus(player);
+						}
+					    }
+					}
+					else { continue; }
 				}
 			}
 		
-	
+		
 		try {
 			line = characterfile.readLine();
 		} catch(IOException ioexception1) { EndOfFile = true; }

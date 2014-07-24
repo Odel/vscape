@@ -74,6 +74,7 @@ import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -667,6 +668,7 @@ public class Player extends Entity {
 		attacker.getMovementHandler().reset();
 	    }
 	}
+	RandomEvent.resetEvents(this);
 	setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -675,6 +677,7 @@ public class Player extends Entity {
 	    socketChannel.close();
             HostGateway.exit(host);
         } catch (Exception ex) {
+	    System.out.println("error disconnecting player");
             ex.printStackTrace();
         } finally {
             if (getIndex() != -1) {

@@ -151,7 +151,6 @@ public class TheRestlessGhost implements Quest {
     
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
-    	sendQuestRequirements(player);
     	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@The Restless Ghost", 7337);
     	} else if (questStage >= QUEST_COMPLETE) {

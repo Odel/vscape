@@ -132,7 +132,6 @@ public class ImpCatcher implements Quest {
     
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
-    	sendQuestRequirements(player);
     	switch(questStage)
     	{
     		case 0:

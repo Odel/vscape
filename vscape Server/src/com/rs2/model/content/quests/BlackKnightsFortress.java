@@ -192,7 +192,6 @@ public class BlackKnightsFortress implements Quest {
     
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
-    	sendQuestRequirements(player);
     	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 7332);
     	} else if (questStage == QUEST_COMPLETE) {
@@ -239,8 +238,12 @@ public class BlackKnightsFortress implements Quest {
     }
     
     public static boolean guardOutfit(final Player player) {
+	if(player.getEquipment().getItemContainer().get(Constants.HAT) != null
+		&& player.getEquipment().getItemContainer().get(Constants.CHEST) != null) {
 	return player.getEquipment().getId(Constants.HAT) == BRONZE_MED
 		&& player.getEquipment().getId(Constants.CHEST) == IRON_CHAINBODY;
+	}
+	return false;
     }
     public static boolean attackPlayer(final Player player) {
 	for(Npc npc : World.getNpcs()) {
@@ -257,7 +260,7 @@ public class BlackKnightsFortress implements Quest {
     public static void attackPlayer(final Player player, final boolean attack) {
 	for(Npc npc : World.getNpcs()) {
 	    if(npc == null) continue;
-	    if(npc.getNpcId() == 178 && attack) {
+	    if(npc.getNpcId() == 178 && attack && player != null) {
 		CombatManager.attack(npc, player);
 	    }
 	}

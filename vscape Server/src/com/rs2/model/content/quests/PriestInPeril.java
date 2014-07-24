@@ -264,7 +264,7 @@ public class PriestInPeril implements Quest {
 	    player.getActionSender().sendString("Pure Essence to purify the river, Drezel told me he would", 8167);
 	    player.getActionSender().sendString("need 25 essence to finish the task.", 8168);
 	}
-	else if (questStage == ESSENCE) {
+	else if (questStage == THROUGH_BARRIER) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to King Roald in the Varrock Palace to begin this quest.", 8147);
 	    player.getActionSender().sendString("@str@" + "King Roald told me to check on the priest Drezel.", 8149);
@@ -283,7 +283,6 @@ public class PriestInPeril implements Quest {
 	}
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to King Roald in the Varrock Palace to begin this quest.", 8147);
 	    player.getActionSender().sendString("@str@" + "King Roald told me to check on the priest Drezel.", 8149);
 	    player.getActionSender().sendString("@str@" + "He said I can find him in the temple towards Morytania.", 8150);
@@ -296,7 +295,7 @@ public class PriestInPeril implements Quest {
 	    player.getActionSender().sendString("@str@" + "Drezel told me a very long story about the River Salve.", 8161);
 	    player.getActionSender().sendString("@str@" + "I unlocked Drezel's cell and trapped the vampire.", 8163);
 	    player.getActionSender().sendString("@str@" + "I gave Drezel the essence to purify the Salve.", 8165);
-
+	    
 	    player.getActionSender().sendString("@red@" + "You have completed this quest!", 8167);
 	}
         else {
@@ -328,7 +327,6 @@ public class PriestInPeril implements Quest {
     
     public void sendQuestTabStatus(Player player) {
     	int questStage = player.getQuestStage(getQuestID());
-    	sendQuestRequirements(player);
     	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
     		player.getActionSender().sendString("@yel@"+getQuestName(), 8115);
     	} else if (questStage == QUEST_COMPLETE) {
