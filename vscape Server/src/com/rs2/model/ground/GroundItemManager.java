@@ -39,9 +39,16 @@ public class GroundItemManager implements Runnable {
                 GroundItem item = groundItems.get(i);
                 switch (item.getStage()) {
                     case HIDDEN:
-                        if (item.getTimer().elapsed() < HIDDEN_TICKS) {
-                        	break;
-                        }
+                        if(item.getGlobalTimer() == 0) {
+			    if (item.getTimer().elapsed() < HIDDEN_TICKS) {
+				break;
+			    }
+			}
+			else if(item.getGlobalTimer() > 0) {
+			    if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
+				break;
+			    }
+			}
                         //going to update
                         item.getTimer().reset();
                         //make it respawn as public
@@ -62,9 +69,16 @@ public class GroundItemManager implements Runnable {
                         addItem(item, World.getPlayers());
                         break;
                     case PUBLIC:
-                        if (item.getTimer().elapsed() < PUBLIC_HIDE_TICKS) {
-                        	break;
-                        }
+			if(item.getGlobalTimer() == 0) {
+			    if (item.getTimer().elapsed() < PUBLIC_HIDE_TICKS) {
+				break;
+			    }
+			}
+			else if(item.getGlobalTimer() > 0) {
+			    if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
+				break;
+			    }
+			}
                         //going to update
                         item.getTimer().reset();
                         //remove if doesn't respawn

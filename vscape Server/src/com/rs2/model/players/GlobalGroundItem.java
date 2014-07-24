@@ -20,15 +20,18 @@ public class GlobalGroundItem {
 	public static void initialize() {
 		String Data;
 		BufferedReader Checker = null;
-        int drops = 0;
+		int drops = 0;
 		try {
 			Checker = new BufferedReader(new FileReader("./data/world/globaldrops.txt"));
 			while ((Data = Checker.readLine()) != null) {
 				if (Data.startsWith("#")) {
 					continue;
 				}
+				if (Data.contains("//")) {
+				    Data = Data.substring(0, Data.indexOf("//") - 1);
+				}
 				String[] args = Data.split(":");
-                GroundItem item = new GroundItem(new Item(Integer.parseInt(args[0]), Integer.parseInt(args[1])), new Position(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4])), true);
+                GroundItem item = new GroundItem(new Item(Integer.parseInt(args[0]), Integer.parseInt(args[1])), new Position(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4])), Integer.parseInt(args[5]), true);
                 GroundItemManager.getManager().dropItem(item);
                 drops++;
 			}

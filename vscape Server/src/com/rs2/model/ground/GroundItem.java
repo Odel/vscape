@@ -14,17 +14,28 @@ public class GroundItem {
     private Item item;
     private EntityRecord dropper = null, viewFirst = null;
     private TickStopWatch timer;
+    private int globalTimer;
     private GroundStage stage = null;
     private Position position;
     private boolean respawns;
 
-    public enum GroundStage {PRIVATE, PUBLIC, HIDDEN}
+    public enum GroundStage {PRIVATE, PUBLIC, HIDDEN, GLOBAL}
 
     /*Use for world items*/
     public GroundItem(Item item, Position position, boolean respawns) {
         this.item = item;
         this.setPosition(position.clone());
         this.timer = new TickStopWatch();
+	this.globalTimer = 0;
+        this.stage = GroundStage.PUBLIC;
+        this.respawns = respawns;
+    }
+    
+    public GroundItem(Item item, Position position, int timer, boolean respawns) {
+        this.item = item;
+        this.setPosition(position.clone());
+        this.timer = new TickStopWatch();
+	this.globalTimer = timer;
         this.stage = GroundStage.PUBLIC;
         this.respawns = respawns;
     }
@@ -65,6 +76,10 @@ public class GroundItem {
 
     public TickStopWatch getTimer() {
         return timer;
+    }
+    
+    public int getGlobalTimer() {
+        return globalTimer;
     }
 
     public GroundStage getStage() {
