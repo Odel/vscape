@@ -24,12 +24,10 @@
 -Quests reward 2.25x the experience as well.
 -Getting a hammer: Imps or Falador General store.
 -Coordinate clues only require a spade.
--Gnome Glider goes everywhere from the Tree,
-but only to the Tree from Al-Kharid.
 -Dig in the garden of the quest marker house near
 West Ardougne to tunnel into West Ardouge.
 -If a global drop isn't appearing: wait a minute or
-two, and then re-log.
+two, and then re-log. (Height change issues)
 
 @dre@=Admins=
 Mr Telescope
@@ -55,5 +53,8 @@ God Dammit
 @dre@ =/v/scape wiki=
 vscape.wikidot.com
 
-@blu@If you need any help, pm Pickles.
+@dbl@If you are brand new, re-log to save your character.
+@dbl@This will allow you to interact with the world.
+
+@blu@If you need any help, pm one of the staff.
 @blu@Enjoy the grind.

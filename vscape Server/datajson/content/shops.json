@@ -7539,23 +7539,75 @@
   },
   {
     "shopId": 166,
-    "name": "Slayer store",
+    "name": "Slayer Equipment",
     "items": [
       {
-        "id": 3753,
-        "count": 10
+        "id": 4155,
+        "count": 100
       },
       {
-        "id": 3749,
-        "count": 10
+        "id": 4166,
+        "count": 100
       },
       {
-        "id": 3755,
-        "count": 10
+        "id": 4161,
+        "count": 100
       },
       {
-        "id": 3751,
-        "count": 10
+        "id": 6696,
+        "count": 100
+      },
+      {
+        "id": 7053,
+        "count": 100
+      },
+      {
+        "id": 4551,
+        "count": 100
+      },
+      {
+        "id": 7159,
+        "count": 100
+      },
+      {
+        "id": 6720,
+        "count": 100
+      },
+      {
+        "id": 4168,
+        "count": 100
+      },
+      {
+        "id": 4164,
+        "count": 100
+      },
+      {
+        "id": 4158,
+        "count": 100
+      },
+      {
+        "id": 4160,
+        "count": 5000
+      },
+      {
+        "id": 4170,
+        "count": 100
+      },
+      {
+        "id": 7432,
+        "count": 100
+      },
+      {
+        "id": 7431,
+        "count": 100
+      },
+      {
+        "id": 4162,
+        "count": 100
+      },
+      {
+        "id": 4156,
+        "count": 100
       }
     ],
     "isGeneralStore": false,

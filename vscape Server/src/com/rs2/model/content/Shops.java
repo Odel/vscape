@@ -448,8 +448,12 @@ public class Shops {
 				return 160;
 			case 589:
 				return 161;
-			case 1263:
-				return 162;
+			case 1596:
+			case 1597:
+			case 1598:
+			case 1599:
+			case 70:
+				return 162; //slayer equipment
 			case 587:
 				return 163;
 			case 1303:

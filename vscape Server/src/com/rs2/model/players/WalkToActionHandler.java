@@ -2304,7 +2304,7 @@ public class WalkToActionHandler {
 				case 1598:
 				case 1599:
 					ShopManager.openShop(player, 166);
-					break;
+					break; // formally known as the rape shop
 				// case 958 :
 				// ShopManager.openShop(player, 164);
 				// break;

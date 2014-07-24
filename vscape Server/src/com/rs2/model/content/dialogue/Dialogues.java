@@ -5768,12 +5768,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1 :
-								if (player.getSlayer().slayerMaster == Slayer.TURAEL) {
-									player.getDialogue().sendNpcChat((new StringBuilder()).append("You're still hunting ").append(player.getSlayer().slayerTask).append("s; come back").toString(), "when you've finished your task.", Dialogues.HAPPY);
-									player.getDialogue().endDialogue();
-								} else {
-									player.getSlayer().assignNewTask(id);
-								}
+								player.getSlayer().assignNewTask(id);
 								return true;
 							case 2 :
 								player.getDialogue().sendNpcChat("I have a wide selection of Slayer equipment; take a look!", Dialogues.HAPPY);

@@ -1,3 +1,11 @@
+@dre@=July 24th=
+-Quest bug fixed.
+-Unholy Symbols can be crafted and blessed.
+-Fixed the timer on global drops.
+-Potato cactus spawns added to the Kalphite area.
+-Nightshade added outside the cave near Gu'Tanoth.
+-Turael no longer forces you to stay on a task.
+
 @dre@=July 23rd=
 @blu@Magic accuracy overhaul
 @blu@Priest in Peril
