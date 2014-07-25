@@ -115,6 +115,9 @@ public abstract class BasicAttack extends AttackScript {
 	public AttackUsableResponse.Type isUsable() {
 		Entity attacker = getAttacker();
 		Entity victim = getVictim();
+		if(attacker.isPlayer() && ((Player)attacker).getCastedSpell() != null && victim.isNpc() && ((Npc)victim).getNpcId() == 745) {
+		    return AttackUsableResponse.Type.SUCCESS;
+		}
 		if (requirements != null) {
 			for (Requirement requirement : requirements) {
 				if (!requirement.meets(attacker)) {
@@ -230,17 +233,34 @@ public abstract class BasicAttack extends AttackScript {
 				ProjectileDef projectileDef = trajectory != null && projectileId != -1 ? new ProjectileDef(projectileId, trajectory) : null;
 				setHits(new HitDef[]{new HitDef(new AttackStyle(attackType, mode, attackType == AttackType.RANGED ? AttackStyle.Bonus.RANGED : AttackStyle.Bonus.MAGIC), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()});
 				if (effects != null)
-                    addEffect(effects);
-                setAnimation(animation);
+				    addEffect(effects);
+				setAnimation(animation);
 				setAttackDelay(delay);
 				setGraphic(startGfx);
+			}
+		};
+	}
+	
+	public static BasicAttack jadRangeAttack(final Entity attacker, final Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory, final int addedHitDelay) {
+		return new BasicAttack(attacker, victim) {
+			@Override
+			public int distanceRequired() {
+				return 8;
+			}
+
+			@Override
+			public void initialize() {
+				ProjectileDef projectileDef = trajectory != null && projectileId != -1 ? new ProjectileDef(projectileId, trajectory) : null;
+				setHits(new HitDef[]{new HitDef(new AttackStyle(attackType, mode, AttackStyle.Bonus.RANGED), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()});
+				setAnimation(animation);
+				setAttackDelay(delay);
 			}
 		};
 	}
    public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory) {
         return projectileAttack(attacker, victim, attackType, mode, damage,  delay, animation, startGfx, endGfx, projectileId, trajectory, 0, null);
     }
-/*
+   /*
    public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory, final int addedHitDelay) {
         return projectileAttack(attacker, victim, attackType, mode, damage,  delay, animation, startGfx, endGfx, projectileId, trajectory, addedHitDelay);
     }

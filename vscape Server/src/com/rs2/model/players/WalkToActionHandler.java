@@ -504,8 +504,8 @@ public class WalkToActionHandler {
 					Dialogues.startDialogue(player, 10011);
 					break;
 				case 9356: //fight caves entrance
-				    if(x == 2437 && player.getStaffRights() >= 1) {
-					FightCaves.enterCave(player, true);
+				    if(x == 2437) {
+					FightCaves.enterCave(player);
 					break;
 				    }
 				break;

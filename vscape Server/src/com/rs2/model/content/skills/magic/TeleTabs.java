@@ -2,6 +2,7 @@ package com.rs2.model.content.skills.magic;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
@@ -49,7 +50,7 @@ public class TeleTabs {
 				return false;
 			}
 			if (!player.getTeleportation().attemptTeleportTablet(new Position(tab.posX,tab.posY,0))) {
-				return false;
+				return true;
 			}
 			player.getInventory().removeItemSlot(new Item(tab.tabletId,1), slot);
 			player.getActionSender().sendMessage("You break the teleport tab.");
@@ -59,4 +60,5 @@ public class TeleTabs {
 		}
 		return false;
 	}
+	
 }

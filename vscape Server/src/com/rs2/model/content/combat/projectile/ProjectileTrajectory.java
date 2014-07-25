@@ -12,8 +12,8 @@ public class ProjectileTrajectory {
 	public static ProjectileTrajectory KNIFE = new ProjectileTrajectory(33, 3, 45, 37, 5);
 	public static ProjectileTrajectory DART = KNIFE.clone().setDelay(40).setSlowness(2);
 	public static ProjectileTrajectory SPELL = new ProjectileTrajectory(50, 6, 45, 30, 15);
-	public static ProjectileTrajectory JAD_SPELL = new ProjectileTrajectory(50, 25, 100, 26, 15);
-	public static ProjectileTrajectory JAD_RANGE = new ProjectileTrajectory(50, 50, 60, 26, 15);
+	public static ProjectileTrajectory JAD_SPELL = new ProjectileTrajectory(50, 35, 100, 26, 15);
+	public static ProjectileTrajectory JAD_RANGE = new ProjectileTrajectory(55, 45, 1000, 1000, 15);
 	public static ProjectileTrajectory FISHING_EXPLOSION = new ProjectileTrajectory(50, 6, 45, 0, 15);
 	// hitDelayMilli = (delay*18)+
 	// the max delay (100) takes 1800 milliseconds to fire

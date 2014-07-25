@@ -27,6 +27,14 @@ class MonkOfZamorak < NpcCombatDef
     end
 end
 
+class BloodVeld < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 5, 6, 1552),
+	];
+    end
+end
+
 class DarkWizard < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -66,8 +74,8 @@ class Jad < NpcCombatDef
     def attackScripts attacker, victim
         return [
                 BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 97, 8, 2655),
-                BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 97, 8, 2652, Graphic.new(-1, 0), Graphic.new(451, 0), 411, ProjectileTrajectory.JAD_RANGE),
-                BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::MAGIC, 97, 8, 2656, Graphic.new(447, 250), Graphic.new(157, 0), 448, ProjectileTrajectory.JAD_SPELL)
+                BasicAttack.jadRangeAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 97, 10, 2652, Graphic.new(-1, 0), Graphic.new(451, 50), 441, ProjectileTrajectory.JAD_RANGE, 1),
+                BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::MAGIC, 97, 8, 2656, Graphic.new(447, 100), Graphic.new(157, 0), 448, ProjectileTrajectory.JAD_SPELL)
         ];
     end
 end
@@ -350,3 +358,4 @@ NpcCombatDef.add([907], KolodionFirstForm.new())
 NpcCombatDef.add([908], KolodionSecondForm.new())
 NpcCombatDef.add([910], KolodionFourthForm.new())
 NpcCombatDef.add([1046], MonkOfZamorak.new())
+NpcCombatDef.add([1618], BloodVeld.new())

@@ -848,7 +848,19 @@ public abstract class Entity {
 	public Entity getTradingEntity() {
 		return tradingEntity;
 	}
-
+	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
+	    if (leader != null && leader.isNpc() && ( ((Npc)leader).inFightCaves() || ((Npc)leader).inFightCaves() ) ) {
+		for (Npc npc : World.getNpcs()) {
+		    if (npc == null) {
+			continue;
+		    }
+		    if ((npc.getPosition().getX() == endX && npc.getPosition().getY() == endY)) {
+			return false;
+		    }
+		}
+	    }
+		return Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
+	}
 	public boolean canMove(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
 		return Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
 	}

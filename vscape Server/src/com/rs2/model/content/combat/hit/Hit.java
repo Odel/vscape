@@ -67,6 +67,13 @@ public class Hit {
 		if (attacker != null && !hitDef.isUnblockable() && hitDef.shouldCheckAccuracy()) {
 			executeAccuracy();
 		}
+		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 2745 && attacker.isPlayer()) { //jad
+		    Player player = (Player)attacker;
+		    if(victim.getCurrentHp() < (victim.getMaxHp() / 2) && !player.hurkotsSpawned()) {
+			FightCaves.spawnYtHurkots(player);
+			player.setHurkotsSpawned(true);
+		    }
+		}
 		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
 		    DemonSlayer.sendDelrithMessages();
 		}
@@ -93,7 +100,7 @@ public class Hit {
 			}
 		    }
 		}
-		if(attacker != null && victim != null && victim.isNpc()) {
+		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() != 2745) {
 		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);
 		}
 		/*if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {

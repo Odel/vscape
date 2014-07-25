@@ -299,6 +299,7 @@ public class Player extends Entity {
 	private int serverPoints = 0;
 	private boolean[] isUsingPrayer = new boolean[18];
 	private boolean[] ernestLevers = new boolean[6];
+	private boolean hurkotsSpawned = false;
 	private int prayerDrainTimer = 6;
 	private SpellBook magicBookType = SpellBook.MODERN;
 	private boolean autoRetaliate = false;
@@ -868,25 +869,6 @@ public class Player extends Entity {
 				}
 			}
 		}
-		else if (keyword.equals("playersquestpoints")) {
-			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
-			getActionSender().sendInterface(8134);
-			ClearNotes();
-			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
-			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
-			int line = 8147;
-			for (Player player : World.getPlayers()) {
-				if(player != null)
-				{	
-					if(line > 8195 && line < 12174)
-					{
-						line = 12174;
-					}
-					getActionSender().sendString("@dre@"+player.getUsername()+ " - QP: " + player.getQuestPoints(), line);
-					line++;
-				}
-			}
-		}
 		else if (keyword.equals("changepass")) {
 			String pass = fullString;
 			setPassword(pass);// setPassword
@@ -1181,21 +1163,47 @@ public class Player extends Entity {
 		    final int stage = Integer.parseInt(args[1]);
 		    setQuestStage(quest, stage);
 		    getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
-		}
-		if(keyword.equals("setplayerqueststage") || keyword.equals("playerqueststage")) {
-		    final int quest = Integer.parseInt(args[0]);
-		    final int stage = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    player.setQuestStage(quest, stage);
-		    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
+		    if(!fullString.contains("-")) {
+			this.setQuestStage(quest, stage);
+			getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
+		    }
+		    else if (fullString.contains("-")) {
+			try {
+			    player.setQuestStage(quest, stage);
+			    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
+			}
+			catch(Exception e) {
+			    this.getActionSender().sendMessage("Could not find player.");
+			}
+		    }
 		}
-		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp")) {
+		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp") || keyword.equals("getqp")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    this.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.");
+		}
+		else if (keyword.equals("playersquestpoints")) {
+			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
+			getActionSender().sendInterface(8134);
+			ClearNotes();
+			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
+			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
+			int line = 8147;
+			for (Player player : World.getPlayers()) {
+				if(player != null)
+				{	
+					if(line > 8195 && line < 12174)
+					{
+						line = 12174;
+					}
+					getActionSender().sendString("@dre@"+player.getUsername()+ " - QP: " + player.getQuestPoints(), line);
+					line++;
+				}
+			}
 		}
 		if(keyword.equals("setplayerquestpoints") || keyword.equals("setplayerqp")) {
 		    final int qp = Integer.parseInt(args[0]);
@@ -1747,31 +1755,25 @@ public class Player extends Entity {
 		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
 		}
 		
-		else if (keyword.equals("setwave")) {
+		else if (keyword.equals("setwave") || keyword.equals("wave")) {
 		    int wave = Integer.parseInt(args[0]);
-		    this.setFightCavesWave(wave);
-		    this.getActionSender().sendMessage("Set fight caves wave to " + wave + ".");
+		    this.setFightCavesWave(wave - 1);
+		    this.getActionSender().sendMessage("Set Fight Caves wave to " + wave + ".");
 		}
-		else if (keyword.equals("setplayerwave")) {
+		else if (keyword.equals("setplayerwave") || keyword.equals("playerwave")) {
 		    int wave = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setFightCavesWave(wave);
-		    this.getActionSender().sendMessage("Set " + player.getUsername() + " fight caves wave to " + wave + ".");
+		    this.getActionSender().sendMessage("Set " + player.getUsername() + " Fight Caves wave to " + wave + ".");
 		}
 		else if (keyword.equals("forcefightcaves")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    FightCaves.enterCave(player, false);
+		    FightCaves.enterCave(player);
 		    this.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.");
-		}
-		else if(keyword.equals("hurko")) {
-		    FightCaves.spawnYtHurko(this);
-		}
-		else if(keyword.equals("testhurko")) {
-		    FightCaves.hurkoTargetJad(FightCaves.getJad(this));
 		}
 		else if (keyword.equals("interface")) {
 			actionSender.sendInterface(Integer.parseInt(args[0]));
@@ -2390,7 +2392,7 @@ public class Player extends Entity {
 		   World.messageToStaff(this.getUsername() + " has logged in.");
 		}
 		if(this.inFightCaves()) {
-		    FightCaves.enterCave(this, false);
+		    FightCaves.enterCave(this);
 		}
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
@@ -3684,6 +3686,14 @@ public class Player extends Entity {
 
 	public boolean[] getErnestLevers() {
 		return ernestLevers;
+	}
+	
+	public void setHurkotsSpawned(boolean bool) {
+		this.hurkotsSpawned = bool;
+	}
+
+	public boolean hurkotsSpawned() {
+		return hurkotsSpawned;
 	}
 
 	public void setPrayerDrainTimer(int prayerDrainTimer) {

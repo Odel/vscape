@@ -8,6 +8,7 @@ import java.util.List;
 import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
@@ -381,7 +382,15 @@ public class MovementHandler {
 		{2545, 10145},
 		{3225, 3238},
 		};
-	
+	public boolean walkIntoNpcCheck(Entity entity, int x, int y) {
+	    if (entity.isNpc() && entity.getFollowingEntity() != null && (entity.inFightCaves() || entity.inPestControlGameArea())) {
+			Npc n = (Npc) entity;
+			if (n.walkIntoNpc(x, y)) {
+			    return true;
+			}
+	    }
+	    return false;
+	}
 	public boolean walkCheck(int x, int y) {
 		boolean unclip = false;
 		for (int[] clip : unclipped) {
@@ -390,14 +399,16 @@ public class MovementHandler {
 				break;
 			}
 		}
-		if (!unclip && !entity.canMove(entity.getPosition().getX(), entity.getPosition().getY(), entity.getPosition().getX() + x, entity.getPosition().getY() + y, entity.getPosition().getZ(), entity.getSize(), entity.getSize())) {
+		//Optional prevention of npc stacking, see Entity.canMove
+		if (!unclip && ( !entity.canMove(entity, entity.getPosition().getX(), entity.getPosition().getY(), entity.getPosition().getX() + x, entity.getPosition().getY() + y, entity.getPosition().getZ(), entity.getSize(), entity.getSize()) || walkIntoNpcCheck(entity, x, y) ) ) {
 			return false;
 		}
-		// Prevents npc from walking into other npcs while in combat
-		/*if (entity.isNpc() && entity.getFollowingEntity() != null) {
+		/*
+		//Prevents npc stacking in certain areas
+		if (entity.isNpc() && entity.getFollowingEntity() != null && (entity.inFightCaves() || entity.inPestControlGameArea())) {
 			Npc n = (Npc) entity;
 			if (n.walkIntoNpc(x, y)) {
-				return false;
+			    return false;
 			}
 		}*/
 		// Prevents walking if in range of attack

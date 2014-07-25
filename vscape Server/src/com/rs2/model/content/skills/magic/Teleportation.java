@@ -47,23 +47,23 @@ public class Teleportation {
 	public boolean attemptTeleport(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 20) {
 			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
-			return false;
+			return true;
 		}
 		if(player.inFightCaves()) {
 		    player.getActionSender().sendMessage("You can't teleport here.");
-		    return false;
+		    return true;
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
-			return false;
+			return true;
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
-			return false;
+			return true;
 		}
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
-			return false;
+			return true;
 		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), player.getMagicBookType() == SpellBook.MODERN);
 		return true;
@@ -72,19 +72,19 @@ public class Teleportation {
 	public boolean attemptTeleportJewellery(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 30) {
 			player.getActionSender().sendMessage("You can't teleport above level 30 in the wilderness.");
-			return false;
+			return true;
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
-			return false;
+			return true;
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
-			return false;
+			return true;
 		}
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
-			return false;
+			return true;
 		}
 		player.getUpdateFlags().sendAnimation(714);
 		player.getUpdateFlags().sendHighGraphic(301);
@@ -95,7 +95,7 @@ public class Teleportation {
 	public boolean attemptTeleportTablet(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 20) {
 			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
-			return false;
+			return false; //keep these false
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");

@@ -114,10 +114,11 @@ public class WavesHandling {
 		}
 		player.setFightCavesKillCount(waves[wave].length);
 		if(wave == 62) { //jad
+		    FightCaves.dialogueCycle(player);
 		    player.getActionSender().sendMessage("You hear thunderous footsteps... Something big is near.");
 		}
 		else {
-		    player.getActionSender().sendMessage("Wave " + wave +"...");
+		    player.getActionSender().sendMessage("Wave " + (wave + 1) +"...");
 		}
 		container.stop();
 	    }

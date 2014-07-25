@@ -8,7 +8,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.HealersCombatScript;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.minigames.barrows.Barrows.spawn;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
@@ -30,17 +30,16 @@ public class FightCaves {
     public static final int[] npcIds = {TZ_KIH, TZ_KEK_SPAWN, TZ_KEK, TOK_XIL, YT_MEJ_KOT, KET_ZEK, TZTOK_JAD, YT_HURKO};
     public static final Position EXIT = new Position(2439, 5168, 0);
     public static final int FIRE_CAPE = 6570;
+    public static final int TOKKUL = 6529;
     
-    public static void enterCave(final Player player, final boolean firstTime) {
+    public static void enterCave(final Player player) {
 	player.teleport(new Position(2413, 5117, player.getIndex() * 4));
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer container) {
-		if(firstTime) {
-		    dialogueCycle(player);
-		}
+		dialogueCycle(player);
 		//player.setFightCavesWave(0);
-		player.getActionSender().walkTo(-5, -35, true);
+		player.getActionSender().walkTo(-5, -25, true);
 		WavesHandling.spawnWave(player, player.getFightCavesWave());
 		container.stop();
 	    }
@@ -52,7 +51,15 @@ public class FightCaves {
     }
     public static void exitCave(final Player player) {
 	destroyNpcs(player);
-	player.fadeTeleport(FightCaves.EXIT);
+	//Dialogues.startDialogue(player, 2617); the exit guy
+	player.teleport(FightCaves.EXIT);
+	if (!player.getInventory().canAddItem(new Item(TOKKUL))) {
+	    player.getActionSender().sendMessage("Your tokkul has been sent to your bank.");
+	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player)));
+
+	} else {
+	    player.getInventory().addItem(new Item(TOKKUL, getTokkulMultiplier(player)));
+	}
 	player.setFightCavesWave(0);
     }
     
@@ -60,9 +67,14 @@ public class FightCaves {
 	return (npc.getPosition().getX() > 2365 && npc.getPosition().getX() < 2430 
 		&& npc.getPosition().getY() < 5120 && npc.getPosition().getY() > 5060);
     }
-    private static void dialogueCycle(final Player player) {
+    public static void dialogueCycle(final Player player) {
 	player.getDialogue().setLastNpcTalk(2617);
-	player.getDialogue().sendNpcChat("You're on your own now " +player.getUsername()+".", "Prepare to fight for your life!", Dialogues.CONTENT);
+	if(player.getFightCavesWave() > 61) {
+	    player.getDialogue().sendNpcChat("Look out! Here comes Tz-Tok-Jad.", Dialogues.CONTENT);
+	}
+	else {
+	    player.getDialogue().sendNpcChat("You're on your own now " +player.getUsername()+".", "Prepare to fight for your life!", Dialogues.CONTENT);
+	}
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer container) {
@@ -73,10 +85,18 @@ public class FightCaves {
 		player.getActionSender().removeInterfaces();
 		return;
 	    }
-	}, 6);
+	}, 8);
     }
-    public static void spawnYtHurko(final Player player) {
-	NpcLoader.spawnNpc(player, new Npc(World.getDefinitions()[YT_HURKO], YT_HURKO, new HealersCombatScript(10, 2639, 5, new Graphic(-1, 100), new Graphic(444, 1), TZTOK_JAD)), player.getPosition().clone(), false, null);
+    public static void spawnYtHurkots(final Player player) {
+	//Position spawn = MinigameAreas.randomPosition(FightCaveAreas.getRandomSpawningArea(player.getPosition()));
+	//spawn.setZ(player.getPosition().getZ()); use this if they all spawn on top of each other
+	int count = 0;
+	while(count < 4) {
+	    Position spawn = MinigameAreas.randomPosition(FightCaveAreas.getRandomSpawningArea(player.getPosition()));
+	    spawn.setZ(player.getPosition().getZ());
+	    NpcLoader.spawnNpc(getJad(player), new Npc(World.getDefinitions()[YT_HURKO], YT_HURKO, new HealersCombatScript(10, 2639, 5, new Graphic(-1, 100), new Graphic(444, 1), TZTOK_JAD)), spawn, false, null);
+	    count++;
+	}
     }
     public static void hurkoTargetJad(Npc jad) {
 	for(Npc npc : World.getNpcs()) {
@@ -95,6 +115,39 @@ public class FightCaves {
 	}
 	return null;
     }
+    public static int getTokkulMultiplier(final Player player) {
+	if(player.getFightCavesWave() > 0 && player.getFightCavesWave() < 10) {
+	    return 100;
+	}
+	else if(player.getFightCavesWave() > 10 && player.getFightCavesWave() < 20) {
+	    return 150;
+	}
+	else if(player.getFightCavesWave() > 20 && player.getFightCavesWave() < 30) {
+	    return 225;
+	}
+	else if(player.getFightCavesWave() > 30 && player.getFightCavesWave() < 40) {
+	    return 325;
+	}
+	else if(player.getFightCavesWave() > 40 && player.getFightCavesWave() < 50) {
+	    return 450;
+	}
+	else if(player.getFightCavesWave() > 50 && player.getFightCavesWave() < 63) {
+	    return 600;
+	}
+	else {
+	    return 0;
+	}
+    }
+    public static int getHurkots(final Player player) {
+	int count = 0;
+	for(Npc npc : World.getNpcs()) {
+	    if(npc == null) continue;
+	    if(npc.getNpcId() == YT_HURKO && npc.getPosition().getZ() == player.getPosition().getZ()) {
+		count++;
+	    }
+	}
+	return count;
+    }
     public static void destroyNpcs(final Player player) {
 	for(Npc npc : World.getNpcs()) {
 	    if(npc == null) continue;
@@ -110,6 +163,10 @@ public class FightCaves {
 		if(!npc.isAttacking() && npc.getNpcId() != YT_HURKO) {
 		    npc.walkTo(player.getPosition().clone(), false);
 		    CombatManager.attack(npc, player);
+		}
+		else if(!npc.isAttacking() && npc.getNpcId() == YT_HURKO && getJad(player) != null) {
+		    npc.walkTo(getJad(player).getPosition().clone(), false);
+		    CombatManager.attack(npc, getJad(player));
 		}
 	    }
 	}
@@ -128,11 +185,12 @@ public class FightCaves {
     public static void healerTargeting(final Player player) {
 	for(Npc npc : World.getNpcs()) {
 	    if(npc == null) continue;
-	    if((npc.getNpcId() == YT_MEJ_KOT || npc.getNpcId() == YT_HURKO) 
+	    if((npc.getNpcId() == YT_MEJ_KOT) 
 		&& npc.getPosition().getZ() == player.getPosition().getZ()) {
 		Npc toHeal = belowHalfHealth(player);
 		if(npc != belowHalfHealth(player) && toHeal != null && npc.getTarget() != toHeal
 		   && toHeal.getCurrentHp() != toHeal.getMaxHp()) {
+		    npc.walkTo(toHeal.getPosition().clone(), true);
 		    CombatManager.attack(npc, toHeal);
 		}
 		else {
@@ -160,7 +218,7 @@ public class FightCaves {
 	for(int id : npcIds) {
 	    if(id == died.getNpcId()) {
 		player.setFightCavesKillCount(player.getFightCavesKillCount() - 1);
-		if(player.getFightCavesKillCount() == 0 && died.getNpcId() != TZTOK_JAD) {
+		if(player.getFightCavesKillCount() == 0 && player.getFightCavesWave() < 62) {
 		    player.setFightCavesWave(player.getFightCavesWave() + 1);
 		    WavesHandling.spawnWave(player, player.getFightCavesWave());
 		    break;
@@ -173,16 +231,39 @@ public class FightCaves {
 		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn2, false, null);
 		    break;
 		}
+		else if(died.getNpcId() == YT_HURKO) {
+		    if(getJad(player) != null) {
+			Npc jad = getJad(player);
+			if(jad.getCurrentHp() == jad.getMaxHp()) {
+			    Position spawn = MinigameAreas.randomPosition(FightCaveAreas.getRandomSpawningArea(player.getPosition()));
+			    spawn.setZ(player.getPosition().getZ());
+			    NpcLoader.spawnNpc(getJad(player), new Npc(World.getDefinitions()[YT_HURKO], YT_HURKO, new HealersCombatScript(10, 2639, 5, new Graphic(-1, 100), new Graphic(444, 1), TZTOK_JAD)), spawn, false, null);
+			}
+		    }
+		}
 		else if(died.getNpcId() == TZTOK_JAD) {
 		    exitCave(player);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+			    player.getDialogue().sendGiveItemNpc("Congratulations! You survived the Tzhaar Fight Caves!", new Item(FIRE_CAPE));
+			    container.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.getActionSender().removeInterfaces();
+			    return;
+			}
+		    }, 8);
 		    player.getDialogue().sendGiveItemNpc("Congratulations! You survived the Tzhaar Fight Caves!", new Item(FIRE_CAPE));
 		    if(!player.getInventory().canAddItem(new Item(FIRE_CAPE))) {
-			//player.getActionSender().sendMessage("Your fire cape has been sent to your bank.");
-			//player.getBank().add(new Item(FIRE_CAPE));
+			player.getActionSender().sendMessage("Your fire cape has been sent to your bank.");
+			player.getBank().add(new Item(FIRE_CAPE));
 			
 		    }
 		    else {
-			//player.getInventory().addItem(new Item(FIRE_CAPE));
+			player.getInventory().addItem(new Item(FIRE_CAPE));
 		    }
 		}
 	    }

@@ -33,7 +33,7 @@ public class HealingScript extends AttackScript {
 
     @Override
     public int distanceRequired(){
-        return 10;
+        return 5;
     }
 
 
