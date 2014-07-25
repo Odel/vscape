@@ -94,6 +94,10 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3423, 9896, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(3429, 9891, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(3428, 9891, 0, 10, 0);
+		
+		ObjectHandler.getInstance().removeClip(2910, 9802, 0, 10, 0); //blue dragon eggs
+		
+		
 	}
 	
 	public static void addNecessaryClipping() {
