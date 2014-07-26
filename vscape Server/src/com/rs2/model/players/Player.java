@@ -1603,15 +1603,21 @@ public class Player extends Entity {
 			inventory.addItem(new Item(3785)); //purple cloak
 		}
 		else if (keyword.equals("range")) {
-			inventory.addItem(new Item(2492, 100));
-			inventory.addItem(new Item(2498, 100));
-			inventory.addItem(new Item(2504, 100));
-			inventory.addItem(new Item(862, 100));
-			inventory.addItem(new Item(1479, 100));
-			inventory.addItem(new Item(6329, 100));
-			inventory.addItem(new Item(892, 100000));
-			inventory.addItem(new Item(6570, 1));
-			inventory.addItem(new Item(7462, 1));
+			inventory.addItem(new Item(2581)); //Robin hood
+			inventory.addItem(new Item(6585)); //fury
+			inventory.addItem(new Item(4736)); //karil's top
+			inventory.addItem(new Item(4738)); //karil's skirt
+			inventory.addItem(new Item(2577)); //ranger boots
+			inventory.addItem(new Item(10368)); //zamorak bracers
+			inventory.addItem(new Item(6570)); //fire cape
+			inventory.addItem(new Item(1540)); //anti
+			inventory.addItem(new Item(892, 10000)); //rune arrows
+			inventory.addItem(new Item(11212, 10000)); //dragon arrows
+			inventory.addItem(new Item(9342, 10000)); //onyx bolts
+			inventory.addItem(new Item(861)); //msb
+			inventory.addItem(new Item(4212)); //crystal bow
+			inventory.addItem(new Item(11235)); //dark bow
+			inventory.addItem(new Item(9185)); //rune cbow
 		}
 		else if (keyword.equals("mage")) {
 			getActionSender().sendMessage("Use the ::runes command for runes.");

@@ -55,6 +55,7 @@ import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
+import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.transport.MagicCarpet;
@@ -876,6 +877,64 @@ public class Dialogues {
                                             return true;
 					}
                                        break;
+			case 1918: //archaeologist
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendNpcChat("It's amazing! I've never seen anything like it!", HAPPY);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
+			case 2725: //otto godbless
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendNpcChat("Careful adventurer! Up these steps are ancient, powerful", "monsters. Are you sure you want to go up there?", CONTENT);
+				    return true;
+				case 2:
+				    player.getDialogue().sendOption("Yes.", "No.", "Ancient monsters?");
+				    return true;
+				case 3:
+				    switch(optionId) {
+					case 1:
+					    if(player.getPosition().getY() > 9590) {
+						player.fadeTeleport(new Position(2643, 9594, 2));
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					    else {
+						player.fadeTeleport(new Position(2637, 9510, 2));
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, I'm not ready yet.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 3:
+					    player.getDialogue().sendPlayerChat("Ancient monsters?", CONTENT);
+					    return true;
+				    }
+				case 4:
+				    player.getDialogue().sendNpcChat("Yes my friend! Recently a team of archaeologists from", "the Dig Site west of Varrock uncovered an entire extra", "cavern down in this dungeon. When they broke through", "the outer layer, they found monsters that seemingly", CONTENT);
+				    return true;
+				case 5:
+				    player.getDialogue().sendNpcChat("have been locked away for centuries.", "I would give a few gold to bet that the monsters are not", "quite happy. But, I would also wager that the monsters", CONTENT);
+				    return true;
+				case 6:
+				    player.getDialogue().sendNpcChat("are a part of a larger secret!", "Who knows what treasures they could hold!", HAPPY);
+				    return true;
+				case 7:
+				    player.getDialogue().sendPlayerChat("So, let me guess. You want me to kill them for you?", CONTENT);
+				    return true;
+				case 8:
+				    player.getDialogue().sendNpcChat("Oh, quite the opposite my friend. I warn passerbys of", "the danger, hoping they will stay away! I fear these", "monsters could be devastating, should they escape.", CONTENT);
+				    return true;
+				case 9:
+				    player.getDialogue().sendPlayerChat("Alright, well, I'll make sure none follow me out. Thanks.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
 			case 962 :
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -7166,6 +7225,24 @@ public class Dialogues {
 							player.getInventory().addItem(new Item(7927,1));
 							return true;
 					}
+				}
+			break;
+			case 10604 : // dragonfire shield smithing
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendStatement("You set to work, trying to attach the ancient draconic", "visage to your anti-dragonbreath shield. It's not easy to", "work with the ancient artifact and it takes all your", "skill as a master smith.");
+						player.getUpdateFlags().sendAnimation(898);
+						player.getActionSender().sendSound(468, 0, 0);
+						return true;
+					case 2 :
+						DragonfireShieldSmithing.smithShield(player);
+						player.getDialogue().resetDialogue();
+						player.getActionSender().removeInterfaces();
+						return true;
+					case 3 :
+						player.getDialogue().sendStatement("Even for an expert armourer it is not an easy task,","but eventually it is ready. You have crafted the", "draconic visage and anti-dragonbreath shield into a", "dragonfire shield.");
+						player.getDialogue().endDialogue();
+						return true;
 				}
 			break;
 			case 10013 : // dragon shield smithing

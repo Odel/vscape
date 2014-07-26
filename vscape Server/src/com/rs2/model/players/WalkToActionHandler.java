@@ -91,6 +91,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.transport.Sailing;
 
 public class WalkToActionHandler {
@@ -495,6 +496,20 @@ public class WalkToActionHandler {
 					BankManager.openBank(player);
 					break;
 				    }
+				case 5098: //brimhaven stairs back down
+				case 5096:
+				    if(player.getPosition().getY() > 9585) {
+					player.teleport(new Position(2650, 9591, 0));
+					break;
+				    }
+				    else if(player.getPosition().getY() < 9520) {
+					player.teleport(new Position(2636, 9517, 0));
+					break;
+				    }
+				case 5097:
+				case 5094: //north brimhaven dungeon stairs
+					Dialogues.startDialogue(player, 2725);
+					break;
 				case 3193 : // closed bank chest
 					player.getUpdateFlags().sendAnimation(832);
 					new GameObject(3194, x, y, z, def.getFace(), def.getType(), id, 500);
@@ -2556,6 +2571,14 @@ public class WalkToActionHandler {
 						if(DragonShieldSmith.canSmith(player))
 						{
 							Dialogues.startDialogue(player, 10013);
+						}
+						break;
+					}
+					if(item == 1540 || item == 11286)
+					{
+						if(DragonfireShieldSmithing.canSmith(player))
+						{
+							Dialogues.startDialogue(player, 10604);
 						}
 						break;
 					}
