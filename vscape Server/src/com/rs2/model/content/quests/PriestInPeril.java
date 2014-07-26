@@ -92,6 +92,7 @@ public class PriestInPeril implements Quest {
 	{WOLFBANE, 1}
     };
     private int expReward[][] = {
+	{Skill.PRAYER, 1406},
     };
     
     private static final int questPointReward = 1;

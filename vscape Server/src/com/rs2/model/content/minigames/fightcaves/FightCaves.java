@@ -55,10 +55,10 @@ public class FightCaves {
 	player.teleport(FightCaves.EXIT);
 	if (!player.getInventory().canAddItem(new Item(TOKKUL))) {
 	    player.getActionSender().sendMessage("Your tokkul has been sent to your bank.");
-	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player) * player.getFightCavesWave()));
+	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));
 
 	} else {
-	    player.getInventory().addItem(new Item(TOKKUL, getTokkulMultiplier(player)));
+	    player.getInventory().addItem(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));
 	}
 	player.setFightCavesWave(0);
     }
@@ -116,22 +116,22 @@ public class FightCaves {
 	return null;
     }
     public static int getTokkulMultiplier(final Player player) {
-	if(player.getFightCavesWave() > 0 && player.getFightCavesWave() < 10) {
+	if(player.getFightCavesWave() > 0 && player.getFightCavesWave() <= 10) {
 	    return 100;
 	}
-	else if(player.getFightCavesWave() > 10 && player.getFightCavesWave() < 20) {
+	else if(player.getFightCavesWave() > 10 && player.getFightCavesWave() <= 20) {
 	    return 150;
 	}
-	else if(player.getFightCavesWave() > 20 && player.getFightCavesWave() < 30) {
+	else if(player.getFightCavesWave() > 20 && player.getFightCavesWave() <= 30) {
 	    return 225;
 	}
-	else if(player.getFightCavesWave() > 30 && player.getFightCavesWave() < 40) {
+	else if(player.getFightCavesWave() > 30 && player.getFightCavesWave() <= 40) {
 	    return 325;
 	}
-	else if(player.getFightCavesWave() > 40 && player.getFightCavesWave() < 50) {
+	else if(player.getFightCavesWave() > 40 && player.getFightCavesWave() <= 50) {
 	    return 450;
 	}
-	else if(player.getFightCavesWave() > 50 && player.getFightCavesWave() < 63) {
+	else if(player.getFightCavesWave() > 50 && player.getFightCavesWave() <= 63) {
 	    return 600;
 	}
 	else {
