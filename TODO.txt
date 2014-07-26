@@ -1,16 +1,13 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
--Trying to enter the back entrance of mcgrubbor's wood traps you and makes you stuck.
 -Thieving chests (ask pickles)
 -Wizards from level 3 clues, proper attacks (poison / spells);
 -All pies need stat bonuses upon eating
--Agility potions
 -Fruit tree patch in Catherby doesn't work
 -Dragon Fire Shield (Will get to it -Pickles)
 -Coal trucks delete a player's stored coal on logout
 -Lighthouse south rocks need to work (use Agility.crossObstacle(blah) under stepping stones?)
--Nightshade & Potato Cactus spawns
 -Dead herb inspection (stage 3) gives a null exception?
 -Strawberry and watermelon seeds in Draynor shop
 -Multi-targetting with ancients

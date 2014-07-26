@@ -74,6 +74,7 @@ import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.PiratesTreasure;
+import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
@@ -1515,6 +1516,24 @@ public class Player extends Entity {
 				    return;
 				}
 				switch(direction) {
+				    case "up":
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ() + amount));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ() + amount));
+					    break;
+					}
+				    case "down":
+					if(fullString.toLowerCase().contains("-")) {
+					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ() - amount < 0 ? 0 : player.getPosition().getZ() - amount));
+					    break;
+					}
+					else {
+					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ() - amount < 0 ? 0 : this.getPosition().getZ() - amount));
+					    break;
+					}
 				    case "e":
 				    case "east":
 					if(fullString.toLowerCase().contains("-")) {
@@ -2303,7 +2322,7 @@ public class Player extends Entity {
 			@Override
 			public void stop() {
 			}
-        }, 1);
+        }, 2);
 	}
 
 	public void reloadRegion() {
@@ -2314,6 +2333,7 @@ public class Player extends Entity {
 		GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
 		getRegionMusic().playMusic();
+	    
 	}
 	
     public void demoDelayedTask() {

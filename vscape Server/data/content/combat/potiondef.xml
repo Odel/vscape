@@ -654,6 +654,25 @@
 		</statModifiers>
 	</potiondef>
 	<potiondef>
+		<potionName>Agility potion</potionName>
+		<potionType>BOOST</potionType>
+		<potionIds>
+			<int>3032</int>
+			<int>3034</int>
+			<int>3036</int>
+			<int>3038</int>
+		</potionIds>
+		<affectedStats>
+			<int>16</int>
+		</affectedStats>
+		<statAddons>
+			<int>3</int>
+		</statAddons>
+		<statModifiers>
+			<double>0.0</double>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
 		<potionName>Magic potion</potionName>
 		<potionType>BOOST</potionType>
 		<potionIds>

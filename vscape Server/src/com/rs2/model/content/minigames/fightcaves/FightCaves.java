@@ -224,11 +224,9 @@ public class FightCaves {
 		    break;
 		}
 		else if(died.getNpcId() == TZ_KEK) {
-		    Position spawn = died.getPosition();
-		    Position spawn1 = new Position(spawn.getX() - 1, spawn.getY(), spawn.getZ());
-		    Position spawn2 = new Position(spawn.getX() + 1, spawn.getY(), spawn.getZ());
-		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn1, false, null);
-		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn2, false, null);
+		    Position spawn = died.getPosition().clone();
+		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn, false, null);
+		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn, false, null);
 		    break;
 		}
 		else if(died.getNpcId() == YT_HURKO) {

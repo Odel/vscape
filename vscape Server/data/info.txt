@@ -26,8 +26,6 @@
 -Coordinate clues only require a spade.
 -Dig in the garden of the quest marker house near
 West Ardougne to tunnel into West Ardouge.
--If a global drop isn't appearing: wait a minute or
-two, and then re-log. (Height change issues)
 
 @dre@=Admins=
 Mr Telescope
@@ -45,6 +43,7 @@ God Dammit
 
 @dre@ =Minigames=
 -Barrows.
+-Fight Caves.
 -Mage Arena.
 -Pest Control.
 -Custom Warrior's Guild. (Fight Arena, south of Ard.)
