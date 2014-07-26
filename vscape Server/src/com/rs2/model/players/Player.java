@@ -4819,6 +4819,9 @@ public class Player extends Entity {
 		if (getEquipment().getId(Constants.SHIELD) == 1540) {
 			fire += 1;
 		}
+		if (getEquipment().getId(Constants.SHIELD) == 11284 || getEquipment().getId(Constants.SHIELD) == 11283) {
+			fire += 1;
+		}
 		return fire;
 	}
 
