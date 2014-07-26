@@ -1,3 +1,13 @@
+@dre@=July 26th?=
+@blu@Fight Caves
+-Ancient Cavern npcs added to upstairs Brimhaven
+dungeon.
+-Iron through Mithril dragons drop draconic visage.
+-Fixed global drops / objects height glitching.
+-Moved Turael to his proper spot.
+-Mangled / Chewed bones functionality to come.
+
+
 @dre@=July 24th=
 -Quest bug fixed.
 -Unholy Symbols can be crafted and blessed.

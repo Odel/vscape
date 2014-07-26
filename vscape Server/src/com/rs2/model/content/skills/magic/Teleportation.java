@@ -47,23 +47,23 @@ public class Teleportation {
 	public boolean attemptTeleport(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 20) {
 			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
-			return true;
+			return false;
 		}
 		if(player.inFightCaves()) {
 		    player.getActionSender().sendMessage("You can't teleport here.");
-		    return true;
+		    return false;
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
-			return true;
+			return false;
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
-			return true;
+			return false;
 		}
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
-			return true;
+			return false;
 		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), player.getMagicBookType() == SpellBook.MODERN);
 		return true;

@@ -1608,7 +1608,7 @@ public class Player extends Entity {
 			inventory.addItem(new Item(4736)); //karil's top
 			inventory.addItem(new Item(4738)); //karil's skirt
 			inventory.addItem(new Item(2577)); //ranger boots
-			inventory.addItem(new Item(10368)); //zamorak bracers
+			inventory.addItem(new Item(10376)); //guthix bracers
 			inventory.addItem(new Item(6570)); //fire cape
 			inventory.addItem(new Item(1540)); //anti
 			inventory.addItem(new Item(892, 10000)); //rune arrows
