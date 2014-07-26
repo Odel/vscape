@@ -142,7 +142,20 @@ public class NpcLoader {
 	public static boolean checkSpawn(Player player, int id) {
 		return player.getSpawnedNpc() != null && !player.getSpawnedNpc().isDead() && player.getSpawnedNpc().getNpcId() == id;
 	}
-
+	public static void spawnStepAwayNpc(Entity entityToAttack, Npc npc, Position spawningPosition) {
+		npc.setPosition(spawningPosition);
+		npc.setSpawnPosition(spawningPosition);
+		npc.setWalkType(Npc.WalkType.STAND);
+		npc.setCurrentX(spawningPosition.getX());
+		npc.setCurrentY(spawningPosition.getY());
+		npc.setNeedsRespawn(false);
+		World.register(npc);
+		npc.getFollowing().stepAway();
+		if (entityToAttack != null) {
+		    CombatManager.attack(npc, entityToAttack);
+		    npc.getUpdateFlags().sendFaceToDirection(entityToAttack.getPosition());
+		}
+    }
 	public static void spawnNpc(Entity entityToAttack, Npc npc, Position spawningPosition, boolean hintIcon, String message) {
 		npc.setPosition(spawningPosition);
 		npc.setSpawnPosition(spawningPosition);

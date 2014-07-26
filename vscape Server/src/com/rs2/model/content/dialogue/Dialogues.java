@@ -40,6 +40,7 @@ import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
 
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -877,6 +878,51 @@ public class Dialogues {
                                             return true;
 					}
                                        break;
+			case 2617: //fight caves entrance guide
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendNpcChat("Hello, " +player.getUsername()+ "! Up for a challenge?", CONTENT);
+				    return true;
+				case 2:
+				    player.getDialogue().sendPlayerChat("What sort of challenge?", CONTENT);
+				    return true;
+				case 3:
+				    player.getDialogue().sendNpcChat("A trial of arms of course! Enter this cave here and", "you'll be faced by various powerful and unique monsters", "the Tzhaar people have captured over the years.", CONTENT);
+				    return true;
+				case 4:
+				    player.getDialogue().sendNpcChat("There is a grand reward for those who survive", "through all the waves of enemies! The legendary", "cape of fire, crafted deep in the heart of this volcano.", CONTENT);
+				    return true;
+				case 5:
+				    player.getDialogue().sendPlayerChat("What happens if I die?", CONTENT);
+				    return true;
+				case 6:
+				    player.getDialogue().sendNpcChat("We'll be watching you adventurer, if you die", "we'll pull you out so you don't lose any precious items.", CONTENT);
+				    return true;
+				case 7:
+				    player.getDialogue().sendPlayerChat("Okay, dying is safe, survive to the end and I get", "a legendary cape... Is that it?", CONTENT);
+				    return true;
+				case 8:
+				    player.getDialogue().sendNpcChat("We'll also award you some Tokkul for your bravery.", "The reward will increase based on how close", "you come to defeating all the waves of enemies!", CONTENT);
+				    return true;
+				case 9:
+				    player.getDialogue().sendNpcChat("So, what do you say? Ready to enter the Fight Caves?", CONTENT);
+				    return true;
+				case 10:
+				    player.getDialogue().sendOption("Yes!", "No.");
+				    return true;
+				case 11:
+				    switch(optionId) {
+					case 1:
+					    FightCaves.enterCave(player);
+					    player.getDialogue().endDialogue();
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("No, I'm afraid I'm not quite ready yet.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+			    }
+			break;
 			case 1918: //archaeologist
 			    switch (player.getDialogue().getChatId()) {
 				case 1:

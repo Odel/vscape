@@ -55,7 +55,7 @@ public class FightCaves {
 	player.teleport(FightCaves.EXIT);
 	if (!player.getInventory().canAddItem(new Item(TOKKUL))) {
 	    player.getActionSender().sendMessage("Your tokkul has been sent to your bank.");
-	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player)));
+	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player) * player.getFightCavesWave()));
 
 	} else {
 	    player.getInventory().addItem(new Item(TOKKUL, getTokkulMultiplier(player)));
@@ -156,9 +156,22 @@ public class FightCaves {
 	    }
 	}
     }
+    public static Npc getNpcForPosition(final Npc first, final Position position, final Player player) {
+	for(Npc npc : World.getNpcs()) {
+	    if(npc == null) continue;
+	    if(npc == first) continue;
+	    if(npc.inFightCaves() && npc.getPosition().getZ() == player.getPosition().getZ()) {
+		if(npc.getPosition().getX() == position.getX() && npc.getPosition().getY() == position.getY()) {
+		    return npc;
+		}
+	    }
+	}
+	return null;
+    }
     public static void attack(final Player player) {
 	for(Npc npc : World.getNpcs()) {
 	    if(npc == null) continue;
+	    if(npc.getNpcId() == TZ_KEK_SPAWN) continue;
 	    if(npc.inFightCaves() && npc.getPosition().getZ() == player.getPosition().getZ()) {
 		if(!npc.isAttacking() && npc.getNpcId() != YT_HURKO) {
 		    npc.walkTo(player.getPosition().clone(), false);
@@ -224,9 +237,9 @@ public class FightCaves {
 		    break;
 		}
 		else if(died.getNpcId() == TZ_KEK) {
-		    final Position spawn = died.getPosition().clone();
-		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn, false, null);
-		    NpcLoader.spawnNpc(player, new Npc(TZ_KEK_SPAWN), spawn, false, null);
+		    Position spawn = died.getPosition().clone();
+		    NpcLoader.spawnStepAwayNpc(player, new Npc(TZ_KEK_SPAWN), spawn);
+		    NpcLoader.spawnStepAwayNpc(player, new Npc(TZ_KEK_SPAWN), spawn);
 		}
 		else if(died.getNpcId() == YT_HURKO) {
 		    if(getJad(player) != null) {
