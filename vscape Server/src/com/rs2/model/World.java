@@ -378,12 +378,12 @@ public class World {
 
 	public static void messageToStaff(Player sender, String message) {
 	    String name = "@mag" + Misc.formatPlayerName(sender.getUsername());
+	    if (sender.getUsername().equals("Pickles")) {
+		name = "@gre@" + Misc.formatPlayerName(sender.getUsername());
+	    }
 	    for (Player player : players) {
 		if (player == null) {
 		    continue;
-		}
-		if (player.getUsername().equals("Pickles")) {
-		    name = "@gre@" + Misc.formatPlayerName(sender.getUsername());
 		}
 		if (player.getStaffRights() >= 1) {
 		    player.getActionSender().sendMessage("@red@[Staff] " + name + ": @blu@" + NameUtil.uppercaseFirstLetter(message));
