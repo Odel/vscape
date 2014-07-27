@@ -1292,7 +1292,14 @@ public class Player extends Entity {
             HighscoresManager.running = !HighscoresManager.running;
             getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
         }
-        else if (keyword.equals("uptime")) {
+        else if (keyword.equals("fox")) {
+        transformNpc = 1319;
+        setStandAnim(6561);
+        setWalkAnim(6560);
+        setRunAnim(6560);
+        setAppearanceUpdateRequired(true);
+		}
+		else if (keyword.equals("uptime")) {
             getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
         }
         else if (keyword.equals("save")) {
