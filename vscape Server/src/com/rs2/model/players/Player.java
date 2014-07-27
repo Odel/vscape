@@ -165,6 +165,8 @@ import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.SearchScrolls.SearchData;
+import com.rs2.model.tick.TickStopWatch;
+import com.rs2.model.tick.TickTimer;
 
 /**
  * Represents a logged-in player.
@@ -1162,8 +1164,6 @@ public class Player extends Entity {
 		if(keyword.equals("setqueststage") || keyword.equals("queststage")) {
 		    final int quest = Integer.parseInt(args[0]);
 		    final int stage = Integer.parseInt(args[1]);
-		    setQuestStage(quest, stage);
-		    getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
@@ -1669,13 +1669,15 @@ public class Player extends Entity {
 			for (Player player : World.getPlayers()) {
 				if (player == null)
 					continue;
-				if (player.inFightCaves()) {
-				    getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
-				    break;
-				}
 				if (player.getUsername().equalsIgnoreCase(name)) {
+				    if (player.inFightCaves()) {
+					getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+					break;
+				    }
+				    else {
 					teleport(player.getPosition().clone());
 					break;
+				    }
 				}
 			}
 		}

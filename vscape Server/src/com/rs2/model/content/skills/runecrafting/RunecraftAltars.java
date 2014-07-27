@@ -282,5 +282,37 @@ public class RunecraftAltars {
 		}, 2);
 		return true;
 	}
+	
+	public static boolean useTiaraOnRuin(final Player player, final int itemId, int objectId) {
+		final Altar altar = getAltarByRuinId(Tiaras.Tiara.getTiara(itemId).getTalisman(), objectId);
+		if (altar == null) {
+			return false;
+		}
+		if (!Constants.RUNECRAFTING_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return false;
+		}
+		if(!QuestHandler.questCompleted(player, 5))
+		{
+			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
+			return false;
+		}
+		player.getActionSender().sendMessage("You hold the " + ItemManager.getInstance().getItemName(altar.getTiara()) + " towards the mysterious ruins.");
+		player.getUpdateFlags().sendAnimation(827);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.getActionSender().sendMessage("You feel a powerful force take hold of you...");
+				player.sendTeleport(altar.getXAltar(), altar.getYAltar(), 0);
+				container.stop();
+			}
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+			}
+		}, 2);
+		return true;
+	}
 
 }

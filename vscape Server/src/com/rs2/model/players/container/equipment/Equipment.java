@@ -531,6 +531,12 @@ public class Equipment {
 				return false;
 			    }
 			}
+			if(itemId == 4212 || itemId == 4224) {
+			    if(player.getSkill().getLevel()[Skill.AGILITY] < 50) {
+				player.getDialogue().sendStatement("You need 50 Agility to equip this.");
+				return false;
+			    }
+			}
 			/*if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
 			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
 				player.getActionSender().sendMessage("You already have this piece bound to you!");

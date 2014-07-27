@@ -2521,6 +2521,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if (RunecraftAltars.useTiaraOnRuin(player, item, id)) {
+					this.stop();
+					return;
+				}
 				if (Tiaras.bindTiara(player, item, id)) {
 					this.stop();
 					return;
