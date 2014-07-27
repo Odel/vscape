@@ -49,7 +49,8 @@ public class QuestHandler {
 	new PiratesTreasure(),
 	new VampireSlayer(),
 	new ErnestTheChicken(),
-	new PriestInPeril()
+	new PriestInPeril(),
+	new GhostsAhoy()
     };
     
     public static void init() {
@@ -182,6 +183,9 @@ public class QuestHandler {
         		return true;
 		case 31179: //Priest in Peril
 			showInterface(player,quests[23]);
+        		return true;
+		case 47250: //Ghosts Ahoy
+			showInterface(player,quests[24]);
         		return true;
 
         }

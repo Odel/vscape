@@ -15,8 +15,10 @@ import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
@@ -162,6 +164,10 @@ public class ObjectPacketHandler implements PacketHandler {
 			player.setQuestStage(13, 10);
 			return;
 		    }
+		    return;
+		}
+		if (player.getClickId() == 1754 && player.getClickX() == 3653 && player.getClickY() == 3519) {
+		    Ladders.climbLadder(player, Ectofungus.DOWN_FROM_TRAPDOOR);
 		    return;
 		}
 		if(player.getClickId() == 2401) { //black arm open cupboard

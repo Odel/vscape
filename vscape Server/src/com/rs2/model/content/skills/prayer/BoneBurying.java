@@ -21,13 +21,16 @@ public class BoneBurying {
 	}
 
 	public enum Bone {
-		BONES(new int[]{526, 528, 2530, 2859}, 4.5),
+		BONES(new int[]{526, 2530}, 4.5),
+		BURNT_BONES(new int[]{528}, 6),
+		WOLF_BONES(new int[]{2859}, 7),
 		MONKEY_BONES(new int[]{3179, 3181, 3183, 3185}, 5),
 		BAT_BONES(new int[]{530}, 5.3),
 		BIG_BONES(new int[]{532, 3125, 3127}, 15),
 		SHAIKAHAN_BONES(new int[]{3123}, 25),
 		BABYDRAGON_BONES(new int[]{534}, 30),
 		DRAGON_BONES(new int[]{536}, 72),
+		JOGRE_BONES(new int[]{3125}, 22.5),
 		ZOGRE_BONES(new int[]{4812}, 22.5),
 		FAYRG_BONES(new int[]{4830}, 84),
 		RAURG_BONES(new int[]{4832}, 96),

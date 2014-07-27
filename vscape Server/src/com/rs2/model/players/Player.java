@@ -436,8 +436,10 @@ public class Player extends Entity {
 	private boolean melzarsDoor;
 	private boolean bananaCrate;
 	private int bananaCrateCount;
-	private int[] barrowsHits = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	
+	private int[] barrowsHits = new int[24];
+	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
+	private boolean bonesGrinded = false;
+	private int ectoWorshipCount = 0;
 	public CanoeStationData curCanoeStation;
 
 	public void resetAnimation() {
@@ -3573,6 +3575,28 @@ public class Player extends Entity {
 	public void setBarrowsHits(int i, int value) {
 	    this.barrowsHits[i] = value;
 	}
+	
+	public ArrayList<BoneBurying.Bone> getBonesGround() {
+	    return bonesGround;
+	}
+	public void addBonesGround(BoneBurying.Bone bone) {
+	    this.bonesGround.add(bone);
+	}
+	public void clearBonesGround() {
+	    this.bonesGround.clear();
+	}
+	public boolean bonesGrinded() {
+	    return bonesGrinded;
+	}
+	public void setBonesGrinded(boolean bool) {
+	    this.bonesGrinded = bool;
+	}
+	public int getEctoWorshipCount() {
+	    return ectoWorshipCount;
+	}
+	public void setEctoWorshipCount(int count) {
+	    this.ectoWorshipCount = count;
+	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
@@ -5503,7 +5527,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Doric's Quest", 7336);
 		getActionSender().sendString("@red@Ernest the Chicken", 7339); // ernest the chicken
 		getActionSender().sendString("@red@Goblin Diplomacy", 7338); //goblin diplomacy
-		getActionSender().sendString("@Red@The Restless Ghost", 7337);
+		getActionSender().sendString("@red@The Restless Ghost", 7337);
 		getActionSender().sendString("", 7383); //Dragon Slayer
 		getActionSender().sendString("@red@The Imp Catcher", 7340);
 		getActionSender().sendString("@red@Pirate's Treasure", 7341); //pirate's treasure
@@ -5530,7 +5554,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 10115); //the fremennik trials
 		getActionSender().sendString("", 14604); //garden of tranquility
 		getActionSender().sendString("", 7360); //gertrude's cat
-		getActionSender().sendString("", 12282); //ghosts ahoy
+		getActionSender().sendString("@red@Ghosts Ahoy", 12282); //ghosts ahoy
 		getActionSender().sendString("", 13577); //the giant dwarf
 		getActionSender().sendString("", 12839); //the golem
 		getActionSender().sendString("", 7361); //the grand tree

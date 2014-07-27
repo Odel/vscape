@@ -384,6 +384,9 @@ public class World {
 	    if (sender.getUsername().equals("Noiryx")) {
 		name = "@bla@" + Misc.formatPlayerName(sender.getUsername());
 	    }
+	    if (sender.getUsername().toLowerCase().equals("mr telescope")) {
+		name = "@cya@" + Misc.formatPlayerName(sender.getUsername());
+	    }
 	    if (sender.getUsername().toLowerCase().equals("god dammit")) {
 		name = "@whi@" + Misc.formatPlayerName(sender.getUsername());
 	    }

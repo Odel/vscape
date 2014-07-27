@@ -1,15 +1,23 @@
 package com.rs2.model.content.skills.prayer;
 
 import com.rs2.model.Position;
+import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
+import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 
 
 public class Ectofungus {
+    public static final Position UP_TO_BONEGRINDER = new Position(3666, 3522, 1);
+    public static final Position DOWN_FROM_BONEGRINDER = new Position(3666, 3517, 0);
     public static final Position DOWN_AT_SLIME = new Position(3683, 9888, 0);
     public static final Position UP_FROM_SLIME = new Position(3687, 9888, 1);
     public static final Position DOWN_FROM_FIRST_LEVEL = new Position(3675, 9888, 1);
@@ -44,6 +52,7 @@ public class Ectofungus {
     public static final int STAIRS_DOWN_SLIME = 5263;
     public static final int LADDER_UP = 5264;
     public static final int JUMP_DOWN = 9308;
+    public static final int LOADER = 11162;
     public static final int BONEGRINDER = 11163;
     public static final int BONEGRINDER_BIN = 11164;
     public static final int BARRIER_NORTH = 5259;
@@ -67,18 +76,41 @@ public class Ectofungus {
     //public static final int[] BONEMEAL_LARGE_ZOMBIE_MONKEY = {4269, 3186};
     //public static final int[] BONEMEAL_SKELETON_BONES = {4270, 3187}; //may not be right.
     public static final int[] BONEMEAL_JOGRE_BONES = {4271, 3125};
+    public static final int[] BONEMEAL_DAG_BONES = {6728, 6729};
+    public static final int[][] BONE_ITERATOR = {BONEMEAL_BONES, BONEMEAL_BAT_BONES, BONEMEAL_BIG_BONES, BONEMEAL_BURNT_BONES, BONEMEAL_BABY_DRAGON, BONEMEAL_DRAGON_BONES, BONEMEAL_WOLF_BONES, BONEMEAL_JOGRE_BONES, BONEMEAL_DAG_BONES };
     
     public static final int BUCKET = 1925;
     public static final int BUCKET_OF_SLIME = 4286;
+    public static final int POT = 1931;
+    public static final int ECTOTOKEN = 4278;
     
     public static double getExp(int bone) {
 	return BoneBurying.getBone(bone).getXp() * 4;
+    }
+    
+    public static int getGroundBones(final Player player) {
+	for(int i[] : BONE_ITERATOR) {
+	    if(player.getInventory().playerHasItem(i[0])) {
+		return i[0];
+	    }
+	}
+	return 0;
+    }
+    
+    public static int getBones(final Player player) {
+	for(int i[] : BONE_ITERATOR) {
+	    if(player.getInventory().playerHasItem(i[1])) {
+		return i[1];
+	    }
+	}
+	return 0;
     }
     
     public static boolean doObjectFirstClick(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case ECTOFUNGUS:
 		if(x == ECTOFUNGUS_OBJ[X] && y == ECTOFUNGUS_OBJ[Y]) {
+		    worship(player);
 		    return true;
 		}
 	    case STAIRS_UP_SLIME:
@@ -114,16 +146,120 @@ public class Ectofungus {
 		}
 	    case TRAPDOOR:
 		player.getUpdateFlags().sendAnimation(827);
-		
 		GameObject o = new GameObject(1754, TRAPDOOR_OBJ[X], TRAPDOOR_OBJ[Y], 0, 1, 10, TRAPDOOR, 999999);
 		ObjectHandler.getInstance().removeObject(TRAPDOOR, TRAPDOOR_OBJ[X], TRAPDOOR_OBJ[Y], 22);
 		ObjectHandler.getInstance().addObject(o, true);
 		return true;
+	    case BONEGRINDER:
+		if(player.getBonesGround().size() > 0 && !player.bonesGrinded()) {
+		    player.getUpdateFlags().sendAnimation(1648);
+		    player.getActionSender().sendMessage("You grind the bones.");
+		    player.setBonesGrinded(true);
+		    return true;
+		}
+		else if(player.getBonesGround().size() > 0 && player.bonesGrinded()) {
+		    player.getActionSender().sendMessage("You already ground these bones. Collect the bonemeal in the bin.");
+		    return true;
+		}
+		else if(player.getBonesGround().isEmpty()) {
+		    player.getActionSender().sendMessage("You haven't added any bones to the grinder!");
+		    return true;
+		}
+		else {
+		    return false;
+		}
+	    case BONEGRINDER_BIN:
+		if(player.getBonesGround().isEmpty() || !player.bonesGrinded()) {
+		    player.getActionSender().sendMessage("The bin is empty.");
+		    return true;
+		}
+		else {
+		    for(BoneBurying.Bone bone : player.getBonesGround()) {
+			if(player.getBonesGround().isEmpty()) {
+				    break;
+			}
+			for(int i : bone.getBoneIds()) {
+			    if(getGroundBoneForNormal(i) != 0) {
+				if(player.getInventory().playerHasItem(POT)) {
+				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(getGroundBoneForNormal(i)));
+				}
+				else if(!player.getInventory().playerHasItem(POT)) {
+				    player.getActionSender().sendMessage("You don't have an empty pot with which to collect this bonemeal!");
+				    return true;
+				}
+			    }
+			}
+		    }
+		    player.setBonesGrinded(false);
+		    player.clearBonesGround();
+		    player.getUpdateFlags().sendAnimation(827);
+		    player.getActionSender().sendMessage("You magically sort the bonemeal into pots.");
+		    return true;
+		}
 	}
 	return false;
     }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
+    public static String getBonesAdded(final Player player) {
+	String toReturn = "You have no bones in the grinder.";
+	if(player.getBonesGround().size() > 0  &&  !player.bonesGrinded()) {
+	    if(player.getBonesGround().size() == 1) {
+		toReturn = "You have one bone in the grinder.";
+	    }
+	    else {
+		toReturn = "You have " + player.getBonesGround().size() + " bones in the grinder.";
+	    }
+	}
+	else if(player.getBonesGround().size() > 0  &&  player.bonesGrinded()) {
+		toReturn = "You have some bonemeal in the bin. Collect it with an empty pot.";
+	}
+	/*
+	int bones = 0;
+	int batbones = 0, bigbones = 0, burntbones = 0, babydragon = 0, dragonbones = 0, wolfbones = 0, jogrebones = 0;
+	String BONES = "", BATBONES = "", BIGBONES = "", BURNTBONES = "", BABYDRAGON = "", DRAGONBONES = "", WOLFBONES = "", JOGREBONES = "";
+	for(int i = 0; i < player.getBonesGround().size(); i++) {
+		switch(player.getBonesGround().get(i)) {
+		    case BONES:
+			bones++;
+		    case BAT_BONES:
+			batbones++;
+		    case BIG_BONES:
+			bigbones++;
+		    case BABYDRAGON_BONES:
+			babydragon++;
+		    case DRAGON_BONES:
+			dragonbones++;
+		    case WOLF_BONES:
+			wolfbones++;
+		    case JOGRE_BONES:
+			jogrebones++;
+	    }
+	}
+	if(bones > 0) BONES = "Bones X" + bones + " ";
+	if(batbones > 0) BATBONES = "Bat Bones X" + batbones + " ";
+	if(bigbones > 0) BIGBONES = "Big Bones X" + bigbones + " ";
+	if(burntbones > 0) BURNTBONES = "Burnt Bones X" + burntbones + " ";
+	if(babydragon > 0) BABYDRAGON = "Baby Dragon X" + babydragon + " ";
+	if(dragonbones > 0) DRAGONBONES = "Dragon Bones X" + bigbones + " ";
+	if(wolfbones > 0) WOLFBONES = "Wolf Bones X" + bigbones + " ";
+	if(jogrebones > 0) JOGREBONES = "Jogre Bones X" + bigbones + " ";
+	return toReturn + BONES + BATBONES + BIGBONES + BURNTBONES + BABYDRAGON + DRAGONBONES + WOLFBONES + JOGREBONES;
+		*/
+	return toReturn;
+     }
+    
+    public static boolean doObjectSecondClick(final Player player, int object, int x, int y) {
+	switch(object) {
+	    case BONEGRINDER:
+		if(x == BONEGRINDER_OBJ[X] && y == BONEGRINDER_OBJ[Y]) {
+		    player.getActionSender().sendMessage("" + getBonesAdded(player));
+		    return true;
+		}
+	}
+	return false;
+    }
+    
+    public static boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
 	    case SLIME:
 	    case SLIME_2:
@@ -133,6 +269,119 @@ public class Ectofungus {
 		    player.getInventory().replaceItemWithItem(new Item(BUCKET), new Item(BUCKET_OF_SLIME));
 		    return true;
 		}
+	    case LOADER:
+		    final int BONES = getBones(player);
+		    if(BONES == 0) {
+			player.getActionSender().sendMessage("Those aren't bones!");
+			return true;
+		    }
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    player.getActionSender().sendMessage("You add some " + new Item(BONES).getDefinition().getName() + " to the grinder.");
+			    player.getInventory().removeItem(new Item(BONES));
+			    player.addBonesGround(BoneBurying.getBone(BONES));
+			    player.getUpdateFlags().sendAnimation(1649);
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			}
+		    }, 1);
+		return true;
+	}
+	return false;
+    }
+    
+    public static boolean hasGroundBones(final Player player) {
+	for(int i[] : BONE_ITERATOR) {
+	    if(player.getInventory().playerHasItem(i[0])) {
+		return true;
+	    }
+	}
+	return false;
+    }
+    
+    public static int getNormalBoneForGround(int ground) {
+	for(int i[] : BONE_ITERATOR) {
+	    if(i[0] == ground) {
+		return i[1];
+	    }
+	}
+	return 0;
+    }
+    
+    public static int getGroundBoneForNormal(int normal) {
+	for(int i[] : BONE_ITERATOR) {
+	    if(i[1] == normal) {
+		return i[0];
+	    }
+	}
+	return 0;
+    }
+    
+    public static void worship(final Player player) {
+	if(!player.getInventory().playerHasItem(BUCKET_OF_SLIME)) {
+	    player.getActionSender().sendMessage("You need a bucket of slime to worship the Ectofuntus!");
+	    return;
+	}
+	if(!hasGroundBones(player)) {
+	    player.getActionSender().sendMessage("You do not have any ground bones to worship the Ectofuntus with!");
+	    return;
+	}
+	if(player.getEctoWorshipCount() >= 12) {
+	   player.getActionSender().sendMessage("The Ectofuntus is full of power! Talk to a ghost disciple to claim your tokens.");
+	   return; 
+	}
+	else {
+	    final int BONES = getGroundBones(player);
+	    if(BONES != 0) {
+		player.setStopPacket(true);
+		player.getUpdateFlags().sendAnimation(832);
+		player.getActionSender().sendMessage("You place your slime and ground bones into the Ectofuntus.");
+		player.getInventory().replaceItemWithItem(new Item(BONES), new Item(POT));
+		player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_SLIME), new Item(BUCKET));
+		player.setEctoWorshipCount(player.getEctoWorshipCount() + 1);
+	    }
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You worship the Ectofuntus.");
+			player.getUpdateFlags().sendAnimation(1651);
+			player.getSkill().addExp(Skill.PRAYER, getExp(getNormalBoneForGround(BONES)));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 4);
+	}
+    }
+    
+    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+	switch(id) {
+	    case 1686: //ghost disciple
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			if(player.getEctoWorshipCount() > 0) {
+			    player.getDialogue().sendPlayerChat("I've worshipped the Ectofuntus, I'd like", "tokens in exchange for the power it has recieved.", CONTENT);
+			    return true;
+			}
+		    case 2:
+			player.getDialogue().sendNpcChat("Yes, good work adventurer. The Ectofuntus is mighty!", "Here are some Ectotokens in reward.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendGiveItemNpc("The disciple hands you some Ectotokens.", new Item(4278));
+			player.getDialogue().endDialogue();
+			player.getInventory().addItemOrDrop(new Item(ECTOTOKEN, player.getEctoWorshipCount() * 5));
+			player.setEctoWorshipCount(0);
+			return true;
+		}
+		return false;
 	}
 	return false;
     }

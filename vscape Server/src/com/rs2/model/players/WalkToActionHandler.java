@@ -1833,6 +1833,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(Ectofungus.doObjectSecondClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 2114 : // coal truck
 					CoalTruck.checkCoal(player);

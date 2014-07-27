@@ -46,6 +46,7 @@ import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -55,6 +56,7 @@ import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.content.skills.smithing.Smelting;
@@ -166,6 +168,12 @@ public class Dialogues {
 		    return true;
 		}
 		if(PriestInPeril.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(GhostsAhoy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {

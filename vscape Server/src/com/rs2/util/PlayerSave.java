@@ -346,6 +346,14 @@ public class PlayerSave {
 				write.writeInt(0);
 			    }
 			}
+			/*for (int i = 0; i < player.getBonesGround().length; i++) {
+			    try {
+				write.writeInt(player.getBonesGround()[i]);
+			    }
+			    catch(IOException e) {
+				write.writeInt(0);
+			    }
+			}*/
 			
 			write.writeInt(player.getSlayer().slayerMaster);
 			write.writeUTF(player.getSlayer().slayerTask);
@@ -366,6 +374,7 @@ public class PlayerSave {
 			write.writeInt(player.getFightCavesWave());
 			write.writeBoolean(player.getBananaCrate());
 			write.writeInt(player.getBananaCrateCount());
+			write.writeInt(player.getEctoWorshipCount());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -420,6 +429,9 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("Latest defender = ", 0, 18);
 			characterfile.write(Integer.toString(player.getDefender()), 0, Integer.toString(player.getDefender()).length());
+			characterfile.newLine();
+			characterfile.write("Ecto Count = ", 0, 13);
+			characterfile.write(Integer.toString(player.getEctoWorshipCount()), 0, Integer.toString(player.getEctoWorshipCount()).length());
 			characterfile.newLine();
 			characterfile.write("MAC = ", 0, 6);
 			characterfile.write(player.getMacAddress(), 0, player.getMacAddress().length());
@@ -893,6 +905,14 @@ public class PlayerSave {
 				player.setBarrowsHits(i, 0);
 			    }
     			}
+			/*for (int i = 0; i < player.getBonesGround().length; i++) {
+			    try {
+    				player.setBonesGround(i, load.readInt());
+			    }
+			    catch (IOException e) {
+				player.setBonesGround(i, 0);
+			    }
+    			}*/
             } catch (IOException e) {
             }
             try {
@@ -969,6 +989,11 @@ public class PlayerSave {
 	    try {
             	player.setBananaCrateCount(load.readInt());
             } catch (IOException e) {
+            }
+	    try {
+            	player.setEctoWorshipCount(load.readInt());
+            } catch (IOException e) {
+		player.setEctoWorshipCount(0);
             }
             load.close();
             if (Server.getSingleton() != null)
