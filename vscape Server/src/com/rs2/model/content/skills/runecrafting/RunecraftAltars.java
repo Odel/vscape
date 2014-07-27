@@ -284,6 +284,9 @@ public class RunecraftAltars {
 	}
 	
 	public static boolean useTiaraOnRuin(final Player player, final int itemId, int objectId) {
+		if(Tiaras.Tiara.getTiara(itemId) == null) {
+		    return false;
+		}
 		final Altar altar = getAltarByRuinId(Tiaras.Tiara.getTiara(itemId).getTalisman(), objectId);
 		if (altar == null) {
 			return false;

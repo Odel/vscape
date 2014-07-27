@@ -381,8 +381,11 @@ public class World {
 	    if (sender.getUsername().equals("Pickles")) {
 		name = "@gre@" + Misc.formatPlayerName(sender.getUsername());
 	    }
-		if (sender.getUsername().equals("Noiryx")) {
+	    if (sender.getUsername().equals("Noiryx")) {
 		name = "@bla@" + Misc.formatPlayerName(sender.getUsername());
+	    }
+	    if (sender.getUsername().toLowerCase().equals("god dammit")) {
+		name = "@whi@" + Misc.formatPlayerName(sender.getUsername());
 	    }
 	    for (Player player : players) {
 		if (player == null) {

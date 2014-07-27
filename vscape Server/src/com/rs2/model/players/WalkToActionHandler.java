@@ -91,6 +91,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.transport.Sailing;
 
@@ -232,6 +233,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(PriestInPeril.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+				    this.stop();
+				    return;
+				}
+				if(Ectofungus.doObjectFirstClick(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
 				    return;
 				}
@@ -1269,6 +1274,9 @@ public class WalkToActionHandler {
 				case 6434: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 6435, def);
 					break;
+				/*case Ectofungus.TRAPDOOR:
+					TrapDoor.handleTrapdoor(player, id, 1754, def);
+					break;*/
 				case 1568: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1570, def);
 					break;
@@ -2502,6 +2510,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(PriestInPeril.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(Ectofungus.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}
