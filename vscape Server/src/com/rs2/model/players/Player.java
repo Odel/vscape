@@ -1303,6 +1303,7 @@ public class Player extends Entity {
         setWalkAnim(6560);
         setRunAnim(6560);
         setAppearanceUpdateRequired(true);
+		getUpdateFlags().setForceChatMessage("Yiff!");
 		}
 		else if (keyword.equals("uptime")) {
             getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
@@ -1379,21 +1380,21 @@ public class Player extends Entity {
 		    this.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.");
 		}
 		else if (keyword.equals("pnpc")) {
-			final int index = Integer.parseInt(args[0]);
-			transformNpc = index;
+			final int npcId = Integer.parseInt(args[0]);
+			transformNpc = npcId;
 			setAppearanceUpdateRequired(true);
-			setSize(new Npc(index).getDefinition().getSize());
+			setSize(new Npc(npcId).getDefinition().getSize());
 		}
 		else if (keyword.equals("rnpc")) {
-			int index = (int)Misc.random(6390);
-			if(GlobalVariables.npcDump[index].toLowerCase().contains("null")) {
+			int npcId = (int)Misc.random(6390);
+			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
 			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
 			    return;
 			}
-			transformNpc = index;
+			transformNpc = npcId;
 			setAppearanceUpdateRequired(true);
-			setSize(new Npc(index).getDefinition().getSize());
-			getActionSender().sendMessage("Wow you look epic now :^) epic for the win!");
+			setSize(new Npc(npcId).getDefinition().getSize());
+			getActionSender().sendMessage("NPC #" + npcId);
 		}
 		else if (keyword.equals("pet")) {
                 final int petId = Integer.parseInt(args[0]);
