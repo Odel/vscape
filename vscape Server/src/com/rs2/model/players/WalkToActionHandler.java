@@ -2519,6 +2519,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(GhostsAhoy.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
 				if(Ectofungus.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;

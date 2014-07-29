@@ -27,6 +27,7 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.ObjectHandler;
@@ -47,7 +48,9 @@ public class GhostsAhoy implements Quest {
     public static final int CRONE_NEEDS_MILKY_TEA = 6;
     public static final int CRONES_STORY = 7;
     public static final int ITEMS_FOR_ENCHANTMENT = 8;
-    public static final int CAST_SPELL = 9;
+    public static final int ITEMS_FOR_ENCHANTMENT_2 = 9;
+    public static final int CAST_SPELL = 10;
+    public static final int TELL_VELORINA = 11;
     public static final int QUEST_COMPLETE = 12;
     
     public static final int BUCKET = 1925;
@@ -92,13 +95,13 @@ public class GhostsAhoy implements Quest {
     public static final int KNIFE = 946;
     public static final int BOWL_OF_WATER = 1921;
     public static final int OAK_LONGBOW = 845;
-    public static final int[] DYES = {1763, 1765, 1767, 1769, 1771, 1773};
-    public static final int RED_DYE = DYES[0];
-    public static final int YELLOW_DYE = DYES[1];
-    public static final int BLUE_DYE = DYES[2];
-    public static final int ORANGE_DYE = DYES[3];
-    public static final int GREEN_DYE = DYES[4];
-    public static final int PURPLE_DYE = DYES[5];
+    public static final String[] DYES = {"red", "yellow", "blue", "orange", "green", "purple"};
+    public static final int RED_DYE = 1763;
+    public static final int YELLOW_DYE = 1765;
+    public static final int BLUE_DYE = 1767;
+    public static final int ORANGE_DYE = 1769;
+    public static final int GREEN_DYE = 1771;
+    public static final int PURPLE_DYE = 1773;
     
     public static final int BARRIER = 5259;
     public static final int SHIPS_LADDER_UP = 5265;
@@ -111,20 +114,25 @@ public class GhostsAhoy implements Quest {
     public static final int NETTLES_5 = 5257;
     public static final int NETTLES_6 = 5258;
     public static final int NETTLES_7 = 1181;
+    public static final int PIRATE_CAPTAIN = 5287;
+    public static final int TREASURE_CHEST_1 = 5270;
+    public static final int[] TREASURE_CHEST_1_OBJ = {3619, 3545};
+    
+    public static boolean lowWind = false;
     
     
+    public static final Position ECTOFUNTUS_POS = new Position(3659, 3517, 0);
     
-    
-    public static final int RUNE_DRAW = 12231;
     public static final int MAP_INTERFACE = 12266;
     public static final int BLACK_INTERFACE_TEXT = 12283, STRING_ON_BLACK = 12285;
     
     
     public static final int VELORINA = 1683;
     public static final int NECROVARUS = 1684;
-    public static final int OLD_CRONE = 1695;
-    public static final int GHOST_GUARD = 1706;
     public static final int ROBIN = 1694;
+    public static final int OLD_CRONE = 1695;
+    public static final int OLD_MAN = 1696;
+    public static final int GHOST_GUARD = 1706;
     
     public int dialogueStage = 0;
     
@@ -243,7 +251,7 @@ public class GhostsAhoy implements Quest {
 	    player.getActionSender().sendString("The Old Crone warmed up after some milky nettle tea.", 8151);
 	    player.getActionSender().sendString("I then proceeded to walk away while she was talking.", 8152);
 	}
-	else if (questStage == ITEMS_FOR_ENCHANTMENT) {
+	else if (questStage == ITEMS_FOR_ENCHANTMENT || questStage == ITEMS_FOR_ENCHANTMENT) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
 	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
@@ -389,9 +397,71 @@ public class GhostsAhoy implements Quest {
     public static boolean playerHasItemsInInventory(final Player player) {
 	return player.getInventory().playerHasItem(NECROVARUS_ROBES) && player.getInventory().playerHasItem(BOOK_OF_HARICANTO) && player.getInventory().playerHasItem(TRANSLATION_MANUAL);
     }
-    public static boolean itemHandling(Player player, int itemId) {
-	switch(itemId) {
+    public static void handleWindSpeed(final Player player) {
+	if(Misc.random(10) == 2) {
+	    lowWind = true;
+	    player.getActionSender().sendString("Low", 12281);
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		@Override
+		public void execute(CycleEventContainer b) {
+		    lowWind = false;
+		    b.stop();
+		}
 
+		@Override
+		public void stop() {
+		}
+	    }, 6);
+	} else {
+	    player.getActionSender().sendString("High", 12281);
+	}
+    }
+    
+    public static boolean itemHandling(final Player player, int itemId) {
+	switch(itemId) {
+	    case MODEL_SHIP_SILK:
+		player.getDialogue().sendStatement("The top half of the flag is " + player.getTopHalfFlag() + ".", "The bottom half of the flag is " + player.getBottomHalfFlag() + ".", "The skull emblem of the flag is " + player.getSkullFlag() + ".");
+		return true;
+	    case MODEL_SHIP:
+		if (player.getInventory().playerHasItem(SILK)) {
+		    if (player.getInventory().playerHasItem(THREAD) && player.getInventory().playerHasItem(NEEDLE) && player.getInventory().playerHasItem(KNIFE)) {
+			player.getDialogue().sendGiveItemNpc("You replace the model ship's missing flag.", new Item(MODEL_SHIP_SILK));
+			player.getInventory().removeItem(new Item(THREAD));
+			player.getInventory().removeItem(new Item(SILK));
+			player.getInventory().replaceItemWithItem(new Item(MODEL_SHIP), new Item(MODEL_SHIP_SILK));
+			return true;
+		    } else {
+			player.getDialogue().sendStatement("You need a knife, needle, and some thread to cut", "and attach the sail to the model ship.");
+			return true;
+		    }
+		} else {
+		    player.getDialogue().sendPlayerChat("Hmm, I should probably add some sort of sail", "to this. Some silk would do.", CONTENT);
+		    return true;
+		}
+	    case ECTOPHIAL:
+		if(player.getTeleportation().attemptEctophialTeleport(ECTOFUNTUS_POS)) {
+		    player.getInventory().replaceItemWithItem(new Item(ECTOPHIAL), new Item(ECTOPHIAL_EMPTY));
+		    player.getActionSender().sendMessage("You empty the ectoplasm on the ground around your feet...");
+		    player.getUpdateFlags().sendAnimation(714);
+		    player.getUpdateFlags().sendHighGraphic(301);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    player.getActionSender().sendMessage("...and the world changes around you.");
+			    player.teleport(ECTOFUNTUS_POS);
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			}
+		    }, 4);
+		    return true;
+		}
+		else {
+		    return false;
+		}
 	}
 	return false;
     }
@@ -413,6 +483,32 @@ public class GhostsAhoy implements Quest {
     }
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+	switch(firstItem) {
+	    case RED_DYE:
+	    case BLUE_DYE:
+	    case YELLOW_DYE:
+	    case ORANGE_DYE:
+	    case GREEN_DYE: 
+	    case PURPLE_DYE:
+		if(secondItem == MODEL_SHIP_SILK) {
+		    Dialogues.startDialogue(player, 11575);
+		    player.setTempInteger(firstItem);
+		    return true;
+		}
+	}
+	if(firstItem == SILK && secondItem == MODEL_SHIP) {
+	    if(player.getInventory().playerHasItem(THREAD) && player.getInventory().playerHasItem(NEEDLE) && player.getInventory().playerHasItem(KNIFE) ) {
+		player.getDialogue().sendGiveItemNpc("You replace the model ship's missing flag.", new Item(MODEL_SHIP_SILK));
+		player.getInventory().removeItem(new Item(THREAD));
+		player.getInventory().removeItem(new Item(SILK));
+		player.getInventory().replaceItemWithItem(new Item(MODEL_SHIP), new Item(MODEL_SHIP_SILK));
+		return true;
+	    }
+	    else {
+		player.getDialogue().sendStatement("You need a knife, needle, and some thread to cut", "and attach the sail to the model ship.");
+		return true;
+	    }
+	}
 	if(firstItem == NETTLE_TEA_BOWL && secondItem == EMPTY_CUP) {
 	    player.getActionSender().sendMessage("You pour the tea into the cup.");
 	    player.getInventory().replaceItemWithItem(new Item(NETTLE_TEA_BOWL), new Item(EMPTY_BOWL));
@@ -454,13 +550,55 @@ public class GhostsAhoy implements Quest {
     
     public static boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
-	   
+	    case Ectofungus.ECTOFUNGUS:
+		if(item == ECTOPHIAL_EMPTY) {
+		    player.getUpdateFlags().sendAnimation(883);
+		    player.getInventory().replaceItemWithItem(new Item(ECTOPHIAL_EMPTY), new Item(ECTOPHIAL));
+		    player.getActionSender().sendMessage("You refill the ectophial from the Ectofuntus.");
+		    return true;
+		}
 	}
 	return false;
     }
     
     public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case PIRATE_CAPTAIN:
+		player.getDialogue().sendStatement("The pirate captain ignore you and continues to stare lifelessly", "at nothing, as he has clearly been dead for some time.");
+		return true;
+	    case MAST:
+		if(!lowWind) {
+		    player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The wind is blowing too hard to make out any details.");
+		    return true;
+		} else {
+		    int index1 = Misc.randomMinusOne(DYES.length);
+		    int index2 = 0, index3 = 0;
+		    if(player.getDesiredTopHalfFlag().equals("black")) {
+			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The top half of the flag is colored " + DYES[index1] + ".");
+			player.setDesiredGhostsAhoyFlag("top", DYES[index1]);
+			return true;
+		    }
+		    else if(!player.getDesiredTopHalfFlag().equals("black") && player.getDesiredBottomHalfFlag().equals("black")) {
+			do {
+			    index2 = Misc.randomMinusOne(DYES.length);
+			} while (DYES[index2].equals(player.getDesiredTopHalfFlag()));
+			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The bottom half of the flag is colored " + DYES[index2] + ".");
+			player.setDesiredGhostsAhoyFlag("bottom", DYES[index2]);
+			return true;
+		    }
+		    else if(!player.getDesiredTopHalfFlag().equals("black") && !player.getDesiredBottomHalfFlag().equals("black") && player.getDesiredSkullFlag().equals("black")) {
+			do {
+			    index3 = Misc.randomMinusOne(DYES.length);
+			} while (DYES[index3].equals(player.getDesiredBottomHalfFlag()));
+			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The skull emblem on the flag is colored " + DYES[index3] + ".");
+			player.setDesiredGhostsAhoyFlag("skull", DYES[index3]);
+			return true;
+		    }
+		    else if(!player.getDesiredTopHalfFlag().equals("black") && !player.getDesiredBottomHalfFlag().equals("black") && !player.getDesiredSkullFlag().equals("black")){
+			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.",  "The top half of the flag is colored " + player.getDesiredTopHalfFlag() + ".", "The bottom half of the flag is colored " + player.getDesiredBottomHalfFlag() + ".","The skull emblem on the flag is colored " + player.getDesiredSkullFlag() + ".");
+			return true;
+		    }
+		}
 	    case NETTLES_1:
 	    case NETTLES_2:
 	    case NETTLES_3:
@@ -557,9 +695,157 @@ public class GhostsAhoy implements Quest {
 	GroundItemManager.getManager().dropItem(drop);
 	return;
     }
-    
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+	    case 11575: //the ship's flag
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendOption("Dye the top half of the flag.", "Dye the bottom half of the flag.", "Dye the flag's skull emblem.");
+			//player.getDialogue().sendTitledOption("@dre@Which part of the flag do you want to dye?", "Top Half", "Bottom Half", "Skull Emblem");
+			return true;
+		    case 2:
+			switch(optionId) {
+			    case 1: //top half
+				switch(player.getTempInteger()) {
+				    case RED_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag red.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(RED_DYE));
+					player.dyeGhostsAhoyFlag("top", "red");
+					player.setTempInteger(0);
+					return true;
+				    case BLUE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag blue.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(BLUE_DYE));
+					player.dyeGhostsAhoyFlag("top", "blue");
+					player.setTempInteger(0);
+					return true;
+				    case YELLOW_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag yellow.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(YELLOW_DYE));
+					player.dyeGhostsAhoyFlag("top", "yellow");
+					player.setTempInteger(0);
+					return true;
+				    case ORANGE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag orange.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(ORANGE_DYE));
+					player.dyeGhostsAhoyFlag("top", "orange");
+					player.setTempInteger(0);
+					return true;
+				    case PURPLE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag purple.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(PURPLE_DYE));
+					player.dyeGhostsAhoyFlag("top", "purple");
+					player.setTempInteger(0);
+					return true;
+				    case GREEN_DYE:
+					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag green.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(GREEN_DYE));
+					player.dyeGhostsAhoyFlag("top", "green");
+					player.setTempInteger(0);
+					return true;
+				}
+			    return false;
+			    case 2: //bottom half
+				switch(player.getTempInteger()) {
+				    case RED_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag red.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(RED_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "red");
+					player.setTempInteger(0);
+					return true;
+				    case BLUE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag blue.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(BLUE_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "blue");
+					player.setTempInteger(0);
+					return true;
+				    case YELLOW_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag yellow.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(YELLOW_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "yellow");
+					player.setTempInteger(0);
+					return true;
+				    case ORANGE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag orange.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(ORANGE_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "orange");
+					player.setTempInteger(0);
+					return true;
+				    case PURPLE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag purple.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(PURPLE_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "purple");
+					player.setTempInteger(0);
+					return true;
+				    case GREEN_DYE:
+					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag green.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(GREEN_DYE));
+					player.dyeGhostsAhoyFlag("bottom", "green");
+					player.setTempInteger(0);
+					return true;
+				}
+			    return false;
+			    case 3: //skull
+				switch(player.getTempInteger()) {
+				    case RED_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag red.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(RED_DYE));
+					player.dyeGhostsAhoyFlag("skull", "red");
+					player.setTempInteger(0);
+					return true;
+				    case BLUE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag blue.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(BLUE_DYE));
+					player.dyeGhostsAhoyFlag("skull", "blue");
+					player.setTempInteger(0);
+					return true;
+				    case YELLOW_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag yellow.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(YELLOW_DYE));
+					player.dyeGhostsAhoyFlag("skull", "yellow");
+					player.setTempInteger(0);
+					return true;
+				    case ORANGE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag orange.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(ORANGE_DYE));
+					player.dyeGhostsAhoyFlag("skull", "orange");
+					player.setTempInteger(0);
+					return true;
+				    case PURPLE_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag purple.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(PURPLE_DYE));
+					player.dyeGhostsAhoyFlag("skull", "purple");
+					player.setTempInteger(0);
+					return true;
+				    case GREEN_DYE:
+					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag green.");
+					player.getDialogue().endDialogue();
+					player.getInventory().removeItem(new Item(GREEN_DYE));
+					player.dyeGhostsAhoyFlag("skull", "green");
+					player.setTempInteger(0);
+					return true;
+				}
+			    return false;
+			}
+		}
+	    return false;
 	    case 11111: //energy barrier
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
@@ -635,7 +921,170 @@ public class GhostsAhoy implements Quest {
 			    case 6:
 				player.getDialogue().sendNpcChat("Get out of my sight!! Or I promise you that", "you will regret your insolence for the rest of eternity!!", ANGRY_2);
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 2);
+				player.setQuestStage(24, BACK_TO_VELORINA);
+				return true;
+			}
+		    return false;
+		    case CAST_SPELL:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("You dare to face me again, you must be truly insane!!", ANGRY_2);
+				return true;
+			    case 2:
+				if(player.getEquipment().getId(Constants.AMULET) == ENCHANTED_GHOSTSPEAK) {
+				    player.getDialogue().sendPlayerChat("No, Necrovarus, I am not insane. With this enchanted", "amulet, I have the power to command you to do my will!", CONTENT);
+				    return true;
+				}
+				else if(player.getEquipment().getId(Constants.AMULET) != ENCHANTED_GHOSTSPEAK && player.getInventory().playerHasItem(ENCHANTED_GHOSTSPEAK)) {
+				    player.getDialogue().sendPlayerChat("No, Necrovarus, I am not insane! Err...", "Hold on...", CONTENT);
+				    player.getDialogue().setNextChatId(13);
+				    return true;
+				}
+				else if(player.getEquipment().getId(Constants.AMULET) != ENCHANTED_GHOSTSPEAK && !player.getInventory().playerHasItem(ENCHANTED_GHOSTSPEAK)) {
+				    player.getDialogue().sendPlayerChat("No, Necrovarus, I am not insane! Err...", "Hold on...", CONTENT);
+				    player.getDialogue().setNextChatId(15);
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendStatement("A beam of intense green light radiates out from the", "amulet of ghostspeak, enveloping Necrovarus in it's power.", "His eyes become softer, and appear to stare into nothingness.");
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("I - will - let....", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Carry on.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("...any...", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("Yes?", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("...any ghost who so wishes...", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("I think we're almost getting there.", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("...pass into the next world.", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendPlayerChat("That's it. Now I don't have to deal with you", "any longer.", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendGiveItemNpc("The amulet of ghostspeak fades back to it's original state.", new Item(GHOSTSPEAK_AMULET));
+				player.getDialogue().endDialogue();
+				if(player.getEquipment().getItemContainer().get(Constants.AMULET) != null && player.getEquipment().getItemContainer().get(Constants.AMULET).getId() == ENCHANTED_GHOSTSPEAK) {
+				    player.getEquipment().getItemContainer().set(Constants.AMULET, new Item(GHOSTSPEAK_AMULET));
+				    player.getEquipment().refresh();
+				    player.setQuestStage(24, TELL_VELORINA);
+				}
+			    return true;
+			    case 13:
+				player.getDialogue().sendStatement("You need to equip the enchanted ghostspeak to", "compel Necrovarus to do your will.");
+				player.getDialogue().endDialogue();
+				return true;
+			    case 15:
+				player.getDialogue().sendStatement("You need an enchanted amulet of ghostspeak to", "compel Necrovarus to do your will.");
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case OLD_MAN:
+		switch(player.getQuestStage(24)) {
+		    case ITEMS_FOR_ENCHANTMENT: //start
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("What is your name old man?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("My name? I... I cannot remember my name...", "But I am a fierce pirate! Sailor of the seven seas!", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("Interesting.", CONTENT);
+				if(!player.getInventory().playerHasItem(MODEL_SHIP_SILK)) {
+				    player.getDialogue().endDialogue();
+				}
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("Is this your model ship?", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendGiveItemNpc("You show the Old Man the model ship.", new Item(MODEL_SHIP_SILK));
+				return true;
+			    case 6:
+				if(player.getTopHalfFlag().equals(player.getDesiredTopHalfFlag()) && player.getBottomHalfFlag().equals(player.getDesiredBottomHalfFlag()) && player.getSkullFlag().equals(player.getDesiredSkullFlag()) ) {
+				    player.getDialogue().sendNpcChat("My word - so it is!!! I never thought I would", "see it again!! Where did you get it from?", HAPPY);
+				    return true;
+				}
+				else if(!player.getTopHalfFlag().equals(player.getDesiredTopHalfFlag())) {
+				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the top of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getBottomHalfFlag().equals(player.getDesiredBottomHalfFlag())) {
+				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the bottom of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getSkullFlag().equals(player.getDesiredSkullFlag())) {
+				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the skull of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("I don't recognize that at all...", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 7:
+				player.getDialogue().sendPlayerChat("Your mother gave it to me to pass on to you.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("My mother? She still lives??", HAPPY);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("Yes, in a shack to the west of here.", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("After all these years...", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendNpcChat("Thank you adventurer, you have provided me with", "some hope in my life! Let me keep my old boat", "and I'll give you this key to an old pirate's chest.", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendPlayerChat("Sounds reasonable.", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendGiveItemNpc("You hand the Old Man his model ship.", "He gives you an old key in return.", new Item(MODEL_SHIP_SILK), new Item(CHEST_KEY));
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(MODEL_SHIP_SILK), new Item(CHEST_KEY));
+				player.setQuestStage(24, ITEMS_FOR_ENCHANTMENT_2);
+				return true;
+			}
+		    return false;
+		case ITEMS_FOR_ENCHANTMENT_2: //start
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(!player.getInventory().ownsItem(CHEST_KEY)) {
+				    player.getDialogue().sendPlayerChat("I seem to have misplaced that key you gave me.", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Thank you again adventurer, for bringing", "an old man some joy.", HAPPY);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("Luckily I have a copy, and this key is worth", "nothing to me compared to this model ship.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("The old man hands you a replacement key.", new Item(CHEST_KEY));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(CHEST_KEY));
 				return true;
 			}
 		    return false;
@@ -719,7 +1168,7 @@ public class GhostsAhoy implements Quest {
 			    case 17:
 				player.getDialogue().sendPlayerChat("Thanks, I'll go talk to him.", CONTENT);
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 1);
+				player.setQuestStage(24, QUEST_STARTED);
 				QuestHandler.getQuests()[24].startQuest(player);
 				return true;
 			}
@@ -758,7 +1207,34 @@ public class GhostsAhoy implements Quest {
 			    case 8:
 				player.getDialogue().sendPlayerChat("I'll try and find her.", CONTENT);
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 3);
+				player.setQuestStage(24, TO_CRONE);
+				return true;
+			}
+		    return false;
+		    case TELL_VELORINA:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("You dont need to tell me " + player.getUsername() + ",", "I sensed the removal of Necrovarus' psychic barrier!", HAPPY);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("Only happy to help out.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Here, take this as a thank you for the service", "you have given us.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendGiveItemNpc("Velorina brandishes a vial of bright green ectoplasm.", new Item(ECTOPHIAL));
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("This is an Ectophial. If you ever want to", "come back to Port Phastmatys, empty this on the floor", "beneath your feet, and you will instantly be teleported", "to the temple - the source of it's power.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Remember that once the Ectophial has been used,", "you need to refill it from the Ectofuntus.", "Thank you again adventurer.", HAPPY);
+				return true;
+			    case 7:
+				player.setQuestStage(24, QUEST_COMPLETE);
+				QuestHandler.completeQuest(player, 24);
+				player.getDialogue().dontCloseInterface();
 				return true;
 			}
 		    return false;
@@ -788,7 +1264,7 @@ public class GhostsAhoy implements Quest {
 				else {
 				    player.getDialogue().sendPlayerChat("I'm afraid I don't have any tea like that.", "I'll go fetch some.", CONTENT);
 				    player.getDialogue().endDialogue();
-				    player.setQuestStage(24, 4);
+				    player.setQuestStage(24, CRONE_NEEDS_TEA);
 				    return true;
 				}
 			    case 6:
@@ -802,9 +1278,9 @@ public class GhostsAhoy implements Quest {
 				return true;
 			    case 9:
 				player.getDialogue().sendGiveItemNpc("The Old Crone hands you her 'special cup'.", new Item(PORCELAIN_CUP));
-				player.getInventory().addItem(new Item(PORCELAIN_CUP));
+				player.getInventory().addItemOrDrop(new Item(PORCELAIN_CUP));
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 5);
+				player.setQuestStage(24, CRONE_NEEDS_TEA_IN_CUP);
 				return true;
 			}
 		    return false;
@@ -835,15 +1311,23 @@ public class GhostsAhoy implements Quest {
 			    case 6:
 				player.getDialogue().sendGiveItemNpc("The Old Crone hands you her 'special cup'.", new Item(PORCELAIN_CUP));
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 5);
+				player.getInventory().addItemOrDrop(new Item(PORCELAIN_CUP));
+				player.setQuestStage(24, CRONE_NEEDS_TEA_IN_CUP);
 				return true;
 			}
 		    return false;
 		    case CRONE_NEEDS_TEA_IN_CUP:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("Did you get me some tea in my special cup?", CONTENT);
-				return true;
+				if(!player.getInventory().ownsItem(PORCELAIN_CUP)) {
+				    player.getDialogue().sendPlayerChat("I'm afraid I lost your cup.", CONTENT);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Did you get me some tea in my special cup?", CONTENT);
+				    return true;
+				}
 			    case 2:
 				if(player.getInventory().playerHasItem(PORCELAIN_CUP_NETTLE)) {
 				    player.getDialogue().sendPlayerChat("Here's that tea you wanted, in your special cup...", CONTENT);
@@ -869,7 +1353,15 @@ public class GhostsAhoy implements Quest {
 			    case 7:
 				player.getDialogue().sendPlayerChat("Alright. I'll go put some milk in your tea.", ANNOYED);
 				player.getDialogue().endDialogue();
-				player.setQuestStage(24, 6);
+				player.setQuestStage(24, CRONE_NEEDS_MILKY_TEA);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("How foolish of you! I used to only have one", "special cup. But years ago another adventurer just like", "you lost that one, just as you have. So I have a few", "special cups made.", ANGRY_1);
+				return true;
+			    case 11:
+				player.getDialogue().sendGiveItemNpc("The Old Crone hands you another 'special cup'.", new Item(PORCELAIN_CUP));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(PORCELAIN_CUP));
 				return true;
 			}
 		    return false;
@@ -892,7 +1384,7 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendGiveItemNpc("You hand the Old Crone her very specific tea.", new Item(PORCELAIN_CUP_NETTLE_MILKY));
 				player.getDialogue().setNextChatId(1);
 				player.getInventory().removeItem(new Item(PORCELAIN_CUP_NETTLE_MILKY));
-				player.setQuestStage(24, 7);
+				player.setQuestStage(24, CRONES_STORY);
 				return true;
 			}
 		    return false;
@@ -991,7 +1483,7 @@ public class GhostsAhoy implements Quest {
 				    player.getDialogue().sendGiveItemNpc("The Old Crone hands you a model ship.", new Item(MODEL_SHIP));
 				    player.getDialogue().endDialogue();
 				    player.getInventory().addItem(new Item(MODEL_SHIP));
-				    player.setQuestStage(24, 8);
+				    player.setQuestStage(24, ITEMS_FOR_ENCHANTMENT);
 				    return true;
 				}
 				else {
@@ -1046,7 +1538,7 @@ public class GhostsAhoy implements Quest {
 				    player.getInventory().removeItem(new Item(NECROVARUS_ROBES));
 				    player.getInventory().removeItem(new Item(BOOK_OF_HARICANTO));
 				    player.getInventory().removeItem(new Item(TRANSLATION_MANUAL));
-				    player.setQuestStage(24, 9);
+				    player.setQuestStage(24, CAST_SPELL);
 				    return true;
 				}
 				else {

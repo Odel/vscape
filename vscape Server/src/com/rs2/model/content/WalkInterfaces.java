@@ -4,6 +4,11 @@ import com.rs2.Constants;
 import com.rs2.model.players.Player;
 
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.util.Misc;
 
 /**
  * By Mikey` of Rune-Server
@@ -53,6 +58,14 @@ public class WalkInterfaces {
 			changeWalkableInterface(player, 18793);
 			PestControl.gameInterface(player);
 		} 
+		else if(player.getPosition().getX() > 3615 && player.getPosition().getX() < 3630
+			&& player.getPosition().getY() > 3540 && player.getPosition().getY() < 3546
+			&& player.getPosition().getZ() == 2) {
+			changeWalkableInterface(player, 12278);
+			if(!GhostsAhoy.lowWind) {
+			    GhostsAhoy.handleWindSpeed(player);
+			}
+		}
 		else if (player.inWaterbirthIsland()) {
 			if (changeWalkableInterface(player, 11877)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);

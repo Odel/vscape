@@ -101,6 +101,9 @@ public class UpdateFlags {
 	public void sendAnimation(int animationId) {
         if(owner.isPlayer()){
         }
+	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
+		return;
+	    }
 		this.animationId = animationId;
 		this.animationDelay = 0;
 		animationUpdateRequired = true;
@@ -110,6 +113,9 @@ public class UpdateFlags {
 	public void sendAnimation(int animationId, int animationDelay) {
         if(owner.isPlayer()){
         }
+	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
+		return;
+	    }
 		this.animationId = animationId;
 		this.animationDelay = animationDelay;
 		animationUpdateRequired = true;

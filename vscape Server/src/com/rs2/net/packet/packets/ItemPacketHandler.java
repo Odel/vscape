@@ -716,6 +716,9 @@ public class ItemPacketHandler implements PacketHandler {
         if(Nests.handleNest(player, itemId)){
             return;
         }
+	if(GhostsAhoy.itemHandling(player, itemId)) {
+	    return;
+	}
         if (itemId == Slayer.ENCHANTED_GEM) {
         	Dialogues.startDialogue(player, 10012);
         	return;

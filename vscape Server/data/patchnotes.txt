@@ -1,4 +1,4 @@
-@dre@=July 26th?=
+@dre@=July 26th=
 @blu@Fight Caves
 -Ancient Cavern npcs added to upstairs Brimhaven
 dungeon.

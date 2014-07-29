@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
@@ -113,6 +114,18 @@ public class Equipment {
 		player.setEquippedWeapon(Weapon.getWeapon(items[Constants.WEAPON]));
 		sendBonus(player);
 		sendWeaponInterface();
+		if(player.getEquipment().getId(Constants.HAT) == GhostsAhoy.BEDSHEET) {
+		    player.transformNpc = 1707;
+		    player.setWalkAnim(1640);
+		    player.setRunAnim(1640);
+		    player.setStandAnim(1639);
+		}
+		if(player.getEquipment().getId(Constants.HAT) == GhostsAhoy.ECTOPLASM_BEDSHEET) {
+		    player.transformNpc = 1708;
+		    player.setWalkAnim(1640);
+		    player.setRunAnim(1640);
+		    player.setStandAnim(1639);
+		}
 	}
 
 	public void refresh(int slot, Item item) {
@@ -301,6 +314,18 @@ public class Equipment {
 		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
 		    player.getActionSender().sendMessage("You have " + (1000 - hitCount) + " hits left on this piece until the next degrade.");
 		}
+		if(item.getId() == GhostsAhoy.BEDSHEET) {
+		    player.transformNpc = 1707;
+		    player.setWalkAnim(1640);
+		    player.setRunAnim(1640);
+		    player.setStandAnim(1639);
+		}
+		if(item.getId() == GhostsAhoy.ECTOPLASM_BEDSHEET) {
+		    player.transformNpc = 1708;
+		    player.setWalkAnim(1640);
+		    player.setRunAnim(1640);
+		    player.setStandAnim(1639);
+		}
 		refresh();
 		updateWeight();
 		player.getAttributes().put("usedGlory", Boolean.FALSE);
@@ -328,6 +353,13 @@ public class Equipment {
 			player.transformNpc = -1;
 			player.getActionSender().sendSideBarInterfaces();
 			player.setAppearanceUpdateRequired(true);
+		}
+		if(item.getId() == GhostsAhoy.BEDSHEET || item.getId() == GhostsAhoy.ECTOPLASM_BEDSHEET) {
+		    player.transformNpc = -1;
+		    player.setWalkAnim(-1);
+		    player.setRunAnim(-1);
+		    player.setStandAnim(-1);
+		    player.setAppearanceUpdateRequired(true);
 		}
 		if (slot == Constants.HAT) {
 			Tiaras.handleTiara(player, -1);

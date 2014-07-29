@@ -91,6 +91,30 @@ public class Teleportation {
 		teleport(pos.getX(), pos.getY(), pos.getZ(), true);
 		return true;
 	}
+	
+	public boolean attemptEctophialTeleport(Position pos) {
+	    if (player.inWild() && player.getWildernessLevel() > 20) {
+		player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
+		return false; //keep these false
+	    }
+	    if (player.isTeleblocked()) {
+		player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+		return false;
+	    }
+	    if (player.cantTeleport()) {
+		player.getActionSender().sendMessage("You can't teleport from here.");
+		return false;
+	    }
+	    if(player.inFightCaves() || player.inPestControlGameArea() || player.inDuelArena()) {
+		    player.getActionSender().sendMessage("You can't teleport here.");
+		    return false;
+	    }
+	    if (player.getInventory().playerHasItem(new Item(431))) {
+		player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
+		return false;
+	    }
+	    return true;
+	}
 
 	public boolean attemptTeleportTablet(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 20) {

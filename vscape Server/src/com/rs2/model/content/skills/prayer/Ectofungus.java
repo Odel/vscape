@@ -3,6 +3,7 @@ package com.rs2.model.content.skills.prayer;
 import com.rs2.model.Position;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
+import com.rs2.model.content.quests.GhostsAhoy;
 import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
@@ -274,6 +275,12 @@ public class Ectofungus {
 	switch(object) {
 	    case SLIME:
 	    case SLIME_2:
+		if(item == GhostsAhoy.BEDSHEET) {
+		    player.getUpdateFlags().sendAnimation(827);
+		    player.getActionSender().sendMessage("You dip the bedsheet into the ectoplasm, and it comes out dripping with green slime.");
+		    player.getInventory().replaceItemWithItem(new Item(GhostsAhoy.BEDSHEET), new Item(GhostsAhoy.ECTOPLASM_BEDSHEET));
+		    return true;
+		}
 		if(item == BUCKET) {
 		    player.setStatedInterface("Ectoplasm");
 		    Menus.display1Item(player, BUCKET_OF_SLIME, "");

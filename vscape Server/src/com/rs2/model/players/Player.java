@@ -74,6 +74,7 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.PiratesTreasure;
 import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.quests.Quest;
@@ -443,6 +444,12 @@ public class Player extends Entity {
 	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
 	private boolean bonesGrinded = false;
 	private int ectoWorshipCount = 0;
+	private String topHalfOfGhostsAhoyFlag = "undyed";
+	private String bottomHalfOfGhostsAhoyFlag = "undyed";
+	private String skullOfGhostsAhoyFlag = "undyed";
+	private String desiredTopHalfOfGhostsAhoyFlag = "black";
+	private String desiredBottomHalfOfGhostsAhoyFlag = "black";
+	private String desiredSkullOfGhostsAhoyFlag = "black";
 	public CanoeStationData curCanoeStation;
 
 	public void resetAnimation() {
@@ -1303,7 +1310,7 @@ public class Player extends Entity {
         setWalkAnim(6560);
         setRunAnim(6560);
         setAppearanceUpdateRequired(true);
-		getUpdateFlags().setForceChatMessage("Yiff!");
+	getUpdateFlags().setForceChatMessage("Yiff!");
 		}
 		else if (keyword.equals("uptime")) {
             getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
@@ -1357,6 +1364,14 @@ public class Player extends Entity {
 		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 		    PiratesTreasure.dumpAllPoisonedItems(this);
 		}
+		else if (keyword.equals("dyedump")) {
+		    inventory.addItem(new Item(GhostsAhoy.RED_DYE));
+		    inventory.addItem(new Item(GhostsAhoy.YELLOW_DYE));
+		    inventory.addItem(new Item(GhostsAhoy.BLUE_DYE));
+		    inventory.addItem(new Item(GhostsAhoy.ORANGE_DYE));
+		    inventory.addItem(new Item(GhostsAhoy.PURPLE_DYE));
+		    inventory.addItem(new Item(GhostsAhoy.GREEN_DYE));
+		}
 		else if (keyword.equals("enchantdump")) {
 		    bank.add(new Item(8016, 100));
 		    bank.add(new Item(8017, 100));
@@ -1384,6 +1399,7 @@ public class Player extends Entity {
 			transformNpc = npcId;
 			setAppearanceUpdateRequired(true);
 			setSize(new Npc(npcId).getDefinition().getSize());
+			getActionSender().sendMessage("NPC #" + npcId);
 		}
 		else if (keyword.equals("rnpc")) {
 			int npcId = (int)Misc.random(6390);
@@ -1824,9 +1840,7 @@ public class Player extends Entity {
 			this.getActionSender().sendInterface(Integer.parseInt(args[0]));
 		} 
 		else if (keyword.equals("teststring")) {
-		    for(int i = 12200; i < 13000; i++) {
-			this.getActionSender().sendString("" + i, i);
-		    }
+			this.getActionSender().sendString("test", Integer.parseInt(args[0]));
 		}
 		else if (keyword.equals("testitem")) {
 		    for(int i = 12240; i < 12300; i++) {
@@ -3631,6 +3645,54 @@ public class Player extends Entity {
 	}
 	public void setEctoWorshipCount(int count) {
 	    this.ectoWorshipCount = count;
+	}
+	public String getTopHalfFlag() {
+	    return topHalfOfGhostsAhoyFlag;
+	}
+	public String getBottomHalfFlag() {
+	    return bottomHalfOfGhostsAhoyFlag;
+	}
+	public String getSkullFlag() {
+	    return skullOfGhostsAhoyFlag;
+	}
+	public String getDesiredTopHalfFlag() {
+	    return desiredTopHalfOfGhostsAhoyFlag;
+	}
+	public String getDesiredBottomHalfFlag() {
+	    return desiredBottomHalfOfGhostsAhoyFlag;
+	}
+	public String getDesiredSkullFlag() {
+	    return desiredSkullOfGhostsAhoyFlag;
+	}
+	public void dyeGhostsAhoyFlag(String part, String color) {
+	    switch(part) {
+		case "topHalf":
+		case "top":
+		    this.topHalfOfGhostsAhoyFlag = color;
+		    return;
+		case "bottomHalf":
+		case "bottom":
+		    this.bottomHalfOfGhostsAhoyFlag = color;
+		    return;
+		case "skull":
+		    this.skullOfGhostsAhoyFlag = color;
+		    return;	
+	    }
+	}
+	public void setDesiredGhostsAhoyFlag(String part, String color) {
+	    switch(part) {
+		case "topHalf":
+		case "top":
+		    this.desiredTopHalfOfGhostsAhoyFlag = color;
+		    return;
+		case "bottomHalf":
+		case "bottom":
+		    this.desiredBottomHalfOfGhostsAhoyFlag = color;
+		    return;
+		case "skull":
+		    this.desiredSkullOfGhostsAhoyFlag = color;
+		    return;	
+	    }
 	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;

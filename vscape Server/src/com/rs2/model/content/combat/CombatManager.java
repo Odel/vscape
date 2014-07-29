@@ -88,6 +88,11 @@ public class CombatManager extends Tick {
             CombatManager.resetCombat(attacker);
             return;
 	}
+	if(attacker.isPlayer() && (((Player) attacker).transformNpc == 1707 || ((Player) attacker).transformNpc == 1708)) {
+            ((Player) attacker).getDialogue().sendPlayerChat("I can't see to attack!", Dialogues.DISTRESSED);
+            CombatManager.resetCombat(attacker);
+            return;
+	}
 	if(attacker.isPlayer() && ( ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON) == null || ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON).getId() != 2402)
 	   && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
             ((Player) attacker).getActionSender().sendMessage("You need to equip Silverlight to fight Delrith!");
