@@ -23,6 +23,7 @@ import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.Sextant;
 import com.rs2.model.ground.GroundItem;
@@ -444,6 +445,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getSkillcapeEmotes().doEmote(buttonId)) {
 			return;
 		}
+		if (player.getRuneDraw().handleButtons(player, buttonId)) {
+		    return;
+		}
 		if (SkillsX.handleXButtons(player, buttonId)) {
 			return;
 		}
@@ -454,6 +458,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (SilverCrafting.makeSilver(player, buttonId, 0)) {
+			return;
+		}
+		if (Ectofungus.handleButtons(player, buttonId)) {
 			return;
 		}
 		if (Spinning.spin(player, buttonId, 0)) {

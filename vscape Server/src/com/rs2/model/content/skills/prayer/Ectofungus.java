@@ -2,7 +2,9 @@ package com.rs2.model.content.skills.prayer;
 
 import com.rs2.model.Position;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
+import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
+import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
@@ -42,7 +44,7 @@ public class Ectofungus {
     public static final int[] LADDER_UP_OBJ = {3668, 9888};
     public static final int[] BONEGRINDER_OBJ = {3659, 3525};
     public static final int[] BONEGRINDER_BIN_OBJ = {3658, 3525};
-    public static final int[] BARRIER_NORTH_OBJ = {3659, 3508};
+    
     
     public static final int ECTOFUNGUS = 5282;
     public static final int TRAPDOOR = 5267;
@@ -55,14 +57,13 @@ public class Ectofungus {
     public static final int LOADER = 11162;
     public static final int BONEGRINDER = 11163;
     public static final int BONEGRINDER_BIN = 11164;
-    public static final int BARRIER_NORTH = 5259;
     public static final int SLIME = 5461;
     public static final int SLIME_2 = 5462;
     
     public static final int[] BONEMEAL_BONES = {4255, 526};
     public static final int[] BONEMEAL_BAT_BONES = {4256, 530};
     public static final int[] BONEMEAL_BIG_BONES = {4257, 532};
-    public static final int[] BONEMEAL_BURNT_BONES = {4258, 538};
+    public static final int[] BONEMEAL_BURNT_BONES = {4258, 528};
     //public static final int[] BONEMEAL_BURNT_JOGRE = {4259, 3127};
     public static final int[] BONEMEAL_BABY_DRAGON = {4260, 534};
     public static final int[] BONEMEAL_DRAGON_BONES = {4261, 536};
@@ -108,7 +109,17 @@ public class Ectofungus {
     
     public static boolean doObjectFirstClick(final Player player, int object, int x, int y) {
 	switch(object) {
-	    case ECTOFUNGUS:
+	    case STAIRS_UP:
+		if(x == STAIRS_UP_OBJ[X] && y == STAIRS_UP_OBJ[Y]) {
+		    player.teleport(UP_TO_BONEGRINDER);
+		    return true;
+		}
+	    case STAIRS_DOWN:
+		if(x == STAIRS_DOWN_OBJ[X] && y == STAIRS_DOWN_OBJ[Y]) {
+		    player.teleport(DOWN_FROM_BONEGRINDER);
+		    return true;
+		}
+ 	    case ECTOFUNGUS:
 		if(x == ECTOFUNGUS_OBJ[X] && y == ECTOFUNGUS_OBJ[Y]) {
 		    worship(player);
 		    return true;
@@ -264,10 +275,15 @@ public class Ectofungus {
 	    case SLIME:
 	    case SLIME_2:
 		if(item == BUCKET) {
+		    player.setStatedInterface("Ectoplasm");
+		    Menus.display1Item(player, BUCKET_OF_SLIME, "");
+		    return true;
+		    /*
 		    player.getUpdateFlags().sendAnimation(827);
 		    player.getActionSender().sendMessage("You fill your bucket with some slime.");
 		    player.getInventory().replaceItemWithItem(new Item(BUCKET), new Item(BUCKET_OF_SLIME));
 		    return true;
+		    */
 		}
 	    case LOADER:
 		    final int BONES = getBones(player);
@@ -295,6 +311,61 @@ public class Ectofungus {
 	return false;
     }
     
+    public static boolean handleButtons(Player player, int buttonId) {
+		switch (buttonId) {
+			case 10239:
+				handleFillTick(player, 1);
+				return true;
+			case 10238:
+				handleFillTick(player, 5);
+				return true;
+			case 6212:
+			    System.out.println(player.getEnterXInterfaceId());
+			    return true;
+			case 6211:
+				handleFillTick(player, 28);
+				return true;
+		}
+		return false;
+	}
+    
+    public static void handleFillTick(final Player player, final int amount) {
+		final int task = player.getTask();
+		player.getMovementHandler().reset();
+		player.setNewSkillTask();
+		player.getActionSender().removeInterfaces();
+		player.setSkilling(new CycleEvent() {
+			int fillAmount = amount;
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (!player.checkNewSkillTask() || !player.checkTask(task) || !player.getInventory().getItemContainer().contains(BUCKET) || fillAmount == 0) {
+					container.stop();
+					return;
+				}
+				handleFill(player);
+				fillAmount--;
+				container.setTick(2);
+			}
+
+			@Override
+			public void stop() {
+				player.resetAnimation();
+			}
+		});
+		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+	}
+	
+	public static void handleFill(final Player player) {
+		if (!player.getInventory().getItemContainer().contains(BUCKET))
+		{
+			return;
+		}
+		player.getActionSender().removeInterfaces();
+		player.getUpdateFlags().sendAnimation(827);
+		player.getInventory().replaceItemWithItem(new Item(BUCKET), new Item(BUCKET_OF_SLIME));
+		player.getActionSender().sendMessage("You fill the bucket with Ectoplasm.");
+	}
+	
     public static boolean hasGroundBones(final Player player) {
 	for(int i[] : BONE_ITERATOR) {
 	    if(player.getInventory().playerHasItem(i[0])) {
@@ -371,6 +442,11 @@ public class Ectofungus {
 			    player.getDialogue().sendPlayerChat("I've worshipped the Ectofuntus, I'd like", "tokens in exchange for the power it has recieved.", CONTENT);
 			    return true;
 			}
+			else {
+			    player.getDialogue().sendPlayerChat("What is this strange fountain?", CONTENT);
+			    player.getDialogue().setNextChatId(5);
+			    return true;
+			}
 		    case 2:
 			player.getDialogue().sendNpcChat("Yes, good work adventurer. The Ectofuntus is mighty!", "Here are some Ectotokens in reward.", CONTENT);
 			return true;
@@ -379,6 +455,89 @@ public class Ectofungus {
 			player.getDialogue().endDialogue();
 			player.getInventory().addItemOrDrop(new Item(ECTOTOKEN, player.getEctoWorshipCount() * 5));
 			player.setEctoWorshipCount(0);
+			return true;
+		    case 5:
+			player.getDialogue().sendNpcChat("This is the Ectofuntus, the most marvellous", "creation of Necrovarus, our glorious leader.", HAPPY);
+			return true;
+		    case 6:
+			player.getDialogue().sendOption("What is the Ectofuntus for?", "Where do I get ectoplasm from?", "How do I grind bones?", "How do I receive Ecto-tokens?", "Thank you for your time.");
+			return true;
+		    case 7:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("What is the Ectofuntus for?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("Where do I get ectoplasm from?", CONTENT);
+				player.getDialogue().setNextChatId(17);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("How do I grind bones?", CONTENT);
+				player.getDialogue().setNextChatId(20);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("How do I recieve Ecto-tokens?", CONTENT);
+				player.getDialogue().setNextChatId(24);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Thank you for your time.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 8:
+			player.getDialogue().sendNpcChat("It provides the power to keep us ghosts", "from passing over into the next plane of", "existence.", CONTENT);
+			return true;
+		    case 9:
+			player.getDialogue().sendPlayerChat("And how does it work?", CONTENT);
+			return true;
+		    case 10:
+			player.getDialogue().sendNpcChat("You have to pour a bucket of ectoplasm and", "a pot of ground bones into the Ectofuntus,", " and then worship at it. A unit of unholy", "power will then be created.", CONTENT);
+			return true;
+		    case 11:
+			player.getDialogue().sendPlayerChat("Can you do it yourself?", CONTENT);
+			return true;
+		    case 12:
+			player.getDialogue().sendNpcChat("No, we must rely upon the living, as the", "worship of the undead no longer holds any", "inherent power.", CONTENT);
+			return true;
+		    case 13:
+			player.getDialogue().sendPlayerChat("Why would people waste their time helping you out?", CONTENT);
+			return true;
+		    case 14:
+			player.getDialogue().sendNpcChat("For every unit of power produced, we will", "give you five Ecto-tokens. These tokens can be used", "in Port Phasmatys to purchase various services,", "not least of which includes access through the main gates.", CONTENT);
+			return true;
+		    case 15:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 17:
+			player.getDialogue().sendNpcChat("Necrovarus sensed the power bubbling beneath our feet", "and we delved long and deep beneath Port Phasmatys,", "until we found a pool of natural ectoplasm. You may", "find it by using the trapdoor over there.", CONTENT);
+			return true;
+		    case 18:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 20:
+			player.getDialogue().sendNpcChat("There is a bone grinding machine upstairs. Put bones", "of any type into the machine's hopper, and then turn", "the handle when you have loaded all your bones.", CONTENT);
+			return true;
+		    case 21:
+			player.getDialogue().sendNpcChat("Necrovarus, in his mighty power, enchanted the bin to allow", " you to seperate all the bonemeal into pots instantaneously.", CONTENT);
+			return true;
+		    case 22:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 24:
+			player.getDialogue().sendNpcChat("We disciples keep track of how many units", "of power have been produced. Just talk to us", "once you have generated some and we will reimburse you.", CONTENT);
+			return true;
+		    case 25:
+			player.getDialogue().sendPlayerChat("How do I produce units of power?", CONTENT);
+			return true;
+		    case 26:
+			player.getDialogue().sendNpcChat("You have to pour a bucket of ectoplasm and", "a pot of ground bones into the Ectofuntus,", " and then worship at it. A unit of unholy", "power will then be created.", CONTENT);
+			return true;
+		    case 27:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
 			return true;
 		}
 		return false;

@@ -59,6 +59,7 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
@@ -206,6 +207,8 @@ public class Player extends Entity {
 	private SkillCapeHandler skillcapeHandler = new SkillCapeHandler(this);
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
+	private RuneDraw runeDraw = new RuneDraw(this);
+	private boolean[] runeDrawWins = {false, false, false};
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -1724,11 +1727,16 @@ public class Player extends Entity {
 			magicBookType = SpellBook.ANCIENT;
 		}
 		else if (keyword.equals("hits")) {
-            int hits = Integer.parseInt(args[0]);
-            for (int i = 0; i < hits; i++) {
-                hit(i, HitType.NORMAL);
-            }
-        }
+		    int hits = Integer.parseInt(args[0]);
+		    for (int i = 0; i < hits; i++) {
+			hit(i, HitType.NORMAL);
+		    }
+		}
+		else if(keyword.equals("hitme")) {
+		    this.hit(Integer.parseInt(args[0]), HitType.NORMAL);
+		    getActionSender().sendMessage("Your hp is at " + (getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".");
+		    skill.refresh();
+		}
 		else if (keyword.equals("mypos")) {
 			getActionSender().sendMessage("You are at: " + getPosition());
 		}
@@ -1812,8 +1820,21 @@ public class Player extends Entity {
 		    this.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.");
 		}
 		else if (keyword.equals("interface")) {
-			actionSender.sendInterface(Integer.parseInt(args[0]));
+			this.getActionSender().sendInterface(Integer.parseInt(args[0]));
 		} 
+		else if (keyword.equals("teststring")) {
+		    for(int i = 12200; i < 13000; i++) {
+			this.getActionSender().sendString("" + i, i);
+		    }
+		}
+		else if (keyword.equals("testitem")) {
+		    for(int i = 12240; i < 12300; i++) {
+			this.getActionSender().sendItemOnInterface(i, 75, i - 11691);
+		    }
+		}
+		else if (keyword.equals("resetinterface")) {
+		    this.getActionSender().removeInterfaces();
+		}
 		else if (keyword.equals("unmute")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null) {
@@ -1902,6 +1923,7 @@ public class Player extends Entity {
 			}
 		}
 	}
+	
 	
 	/**
 	 * get players by host
@@ -3088,6 +3110,18 @@ public class Player extends Entity {
 
 	public ActionSender getActionSender() {
 		return actionSender;
+	}
+	
+	public RuneDraw getRuneDraw() {
+		return runeDraw;
+	}
+	
+	public boolean[] getRuneDrawWins() {
+		return runeDrawWins;
+	}
+	
+	public void setRuneDrawWins(int slot, boolean bool) {
+	    this.runeDrawWins[0] = bool;
 	}
 
     public Slayer getSlayer() {

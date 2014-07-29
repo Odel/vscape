@@ -12,6 +12,7 @@ import com.rs2.model.content.skills.Crafting.Tanning;
 import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
 import com.rs2.model.content.skills.cooking.Cooking;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
 import com.rs2.model.players.BankManager;
@@ -110,6 +111,12 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		else if (player.getEnterXInterfaceId() == 3823) {
 			ShopManager.sellItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
+		}
+		else if (player.getEnterXInterfaceId() == 6212) {
+		    if(player.getStatedInterface().equals("Ectoplasm")) {
+			Ectofungus.handleFillTick(player, amount);
+			return;
+		    }
 		}/* else if (player.getEnterXInterfaceId() == 9110) {
             player.getSmithing().startSmelting(amount, 0);
 			return;

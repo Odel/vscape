@@ -53,6 +53,7 @@ public class FightCaves {
 	destroyNpcs(player);
 	//Dialogues.startDialogue(player, 2617); the exit guy
 	player.teleport(FightCaves.EXIT);
+	player.setHurkotsSpawned(false);
 	if (!player.getInventory().canAddItem(new Item(TOKKUL))) {
 	    player.getActionSender().sendMessage("Your tokkul has been sent to your bank.");
 	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));

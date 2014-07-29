@@ -25,6 +25,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -233,6 +234,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(PriestInPeril.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+				    this.stop();
+				    return;
+				}
+				if(GhostsAhoy.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
 				    return;
 				}
@@ -944,9 +949,6 @@ public class WalkToActionHandler {
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(754);
 					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3161 ? 1 : -1, 1, 80, 2, true, 0, 0);
-					break;
-				case 5259 : // port phays entrance
-					player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -1, true);
 					break;
 				case 2266 :
 					if (player.getPosition().getY() > 2963) {

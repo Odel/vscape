@@ -72,7 +72,6 @@ public class GhostsAhoy implements Quest {
     public static final int PETITION = 4283;
     public static final int BEDSHEET = 4284;
     public static final int ECTOPLASM_BEDSHEET = 4285;
-    public static final int BUCKET_OF_SLIME = 4286;
     public static final int BONES = 526;
     public static final int POT = 1951;
     public static final int SPADE = 952;
@@ -91,9 +90,20 @@ public class GhostsAhoy implements Quest {
     public static final int GREEN_DYE = DYES[4];
     public static final int PURPLE_DYE = DYES[5];
     
+    public static final int BARRIER = 5259;
+    public static final int SHIPS_LADDER_UP = 5265;
+    public static final int SHIPS_LADDER_DOWN = 5266;
+    public static final int MAST = 5274;
+    
+    public static final int RUNE_DRAW = 12231;
+    public static final int MAP_INTERFACE = 12266;
+    public static final int BLACK_INTERFACE_TEXT = 12283, STRING_ON_BLACK = 12285;
+    
     
     public static final int VELORINA = 1683;
-
+    public static final int NECROVARUS = 1684;
+    public static final int GHOST_GUARD = 1706;
+    public static final int ROBIN = 1694;
     
     public int dialogueStage = 0;
     
@@ -156,7 +166,8 @@ public class GhostsAhoy implements Quest {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
 	    
-	    player.getActionSender().sendString("x", 8149);
+	    player.getActionSender().sendString("Velorina told me to try and plead with Necrovarus", 8149);
+	    player.getActionSender().sendString("to allow the ghosts of Phasmatys to pass on.", 8150);
 	}
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -167,8 +178,26 @@ public class GhostsAhoy implements Quest {
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@Velorina @bla@in @dre@Port Phasmatys @bla@to begin this quest.", 8147);
-	    player.getActionSender().sendString("@dre@Requirements:", 8149);
-	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8150);
+	    player.getActionSender().sendString("@dre@Requirements:", 8148);
+	    if(player.getSkill().getLevel()[Skill.AGILITY] < 25) {
+		player.getActionSender().sendString("-Level 25 Agility.", 8150);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@-25 Agility.", 8150);
+	    }
+	    if(player.getSkill().getLevel()[Skill.COOKING] < 20) {
+		player.getActionSender().sendString("-Level 20 Cooking.", 8151);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@-20 Cooking.", 8151);
+	    }
+	    if(player.getQuestStage(23) < 12) {
+		player.getActionSender().sendString("-Access to Canifis.", 8152);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@ -Access to Canifis.", 8152);
+	    }
+	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
         }
     }
     
@@ -213,9 +242,27 @@ public class GhostsAhoy implements Quest {
     	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("Talk to @dre@King Roald @bla@in the @dre@Varrock Palace @bla@to begin this quest.", 8147);
+            player.getActionSender().sendString("Talk to @dre@Velorina @bla@in @dre@Port Phasmatys @bla@to begin this quest.", 8147);
 	    player.getActionSender().sendString("@dre@Requirements:", 8148);
-	    player.getActionSender().sendString("-Ability to defeat a level 30 enemy", 8150);
+	    if(player.getSkill().getLevel()[Skill.AGILITY] < 25) {
+		player.getActionSender().sendString("-Level 25 Agility.", 8150);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@-25 Agility.", 8150);
+	    }
+	    if(player.getSkill().getLevel()[Skill.COOKING] < 20) {
+		player.getActionSender().sendString("-Level 20 Cooking.", 8151);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@-20 Cooking.", 8151);
+	    }
+	    if(player.getQuestStage(23) < 12) {
+		player.getActionSender().sendString("-Access to Canifis.", 8152);
+	    }
+	    else {
+		player.getActionSender().sendString("@str@ -Access to Canifis.", 8152);
+	    }
+	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
     
@@ -267,6 +314,40 @@ public class GhostsAhoy implements Quest {
     
     public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case SHIPS_LADDER_UP:
+		if(x == 3615 && y == 3541) {
+		    Ladders.climbLadder(player, new Position(3616, 3541, 2));
+		    return true;
+		}
+		else {
+		    Ladders.climbLadder(player, new Position(x < 3612 ? 3608 : 3614, 3543, 1));
+		    return true;
+		}
+	    case SHIPS_LADDER_DOWN:
+		if(x == 3615 && y == 3541) {
+		    Ladders.climbLadder(player, new Position(3614, 3541, 1));
+		    return true;
+		}
+		else {
+		    Ladders.climbLadder(player, new Position(x < 3612 ? 3610 : 3612, 3543, 0));
+		    return true;
+		}
+	    case BARRIER:
+		if((player.getPosition().getX() > 3657 && player.getPosition().getY() > 3507) || (player.getPosition().getX() < 3653 && player.getPosition().getY() < 3490)) {
+		    Dialogues.startDialogue(player, 11111);
+		    return true;
+		}
+		else if(player.getPosition().getX() > 3657 && player.getPosition().getY() < 3508) {
+		    player.getActionSender().walkTo(0, 2, true);
+		    return true;
+		}
+		else if(player.getPosition().getX() > 3652 && player.getPosition().getY() < 3490) {
+		    player.getActionSender().walkTo(-2, 0, true);
+		    return true;
+		}
+		else {
+		    return false;
+		}
 	}
 	return false;
     }
@@ -286,12 +367,166 @@ public class GhostsAhoy implements Quest {
     
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+	    case 11111: //energy barrier
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().setLastNpcTalk(GHOST_GUARD);
+			player.getDialogue().sendNpcChat("All visitors to Port Phasmatys must pay a toll charge", "of 2 Ecto-Tokens.", CONTENT);
+			return true;
+		    case 2:
+			if(player.getInventory().playerHasItem(ECTOTOKEN, 2)) {
+			    player.getDialogue().sendOption("Pay Toll (2 Ecto-Tokens)", "Nevermind.");
+			    return true;
+			}
+			else {
+			    player.getDialogue().sendOption("I don't have that many Ecto-tokens.", "Where can I get Ecto-tokens?");
+			    player.getDialogue().setNextChatId(5);
+			    return true;
+			}
+		    case 3:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().setLastNpcTalk(GHOST_GUARD);
+				player.getDialogue().sendNpcChat("Thank you.", CONTENT);
+				player.getInventory().removeItem(new Item(ECTOTOKEN, 2));
+				player.getDialogue().endDialogue();
+				if(player.getPosition().getY() > 3500) {
+				    player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -2, true);
+				    return true;
+				}
+				else {
+				   player.getActionSender().walkTo(player.getPosition().getX() < 3653 ? 2 : -1, 0, true);
+				   return true; 
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 5:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I don't have that many Ecto-tokens.", SAD);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("Where can I get Ecto-tokens?", CONTENT);
+				return true;
+			}
+		    case 6:
+			player.getDialogue().setLastNpcTalk(GHOST_GUARD);
+			player.getDialogue().sendNpcChat("You need to go to the Temple and earn some.", "Talk to the disciples - they will tell you how.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
 	    case VELORINA:
 		switch(player.getQuestStage(23)) {
 		    case 0: //start
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("fag u", CONTENT);
+				player.getDialogue().sendPlayerChat("Take pity on me, please - eternity stretches", "out before me and I am helpless in it's grasp.", SAD);
+				return true;
+			    case 2:
+				player.getDialogue().sendOption("Why, what is the matter?", "Sorry, I'm scared ghosts.");
+				return true;
+			    case 3:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("Why, what is the matter?", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("Sorry, you're a little too spooky.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 4:
+				player.getDialogue().sendNpcChat("Oh, I'm sorry - I was just wailing out loud.", "I didn't mean to scare you.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("No, that's okay. It takes more than a ghost", "to scare me. What is wrong?", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Do you know the history of our town?", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("Something about how you are all stuck", "in the mortal world as ghosts?", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("Would you help us obtain our release into the next world?", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendOption("Yes.", "No.");
+				return true;
+			    case 10:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("Yes, I'll help you", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("No, I have better things to do.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 11:
+				player.getDialogue().sendNpcChat("Oh, thank you!", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendNpcChat("Necrovarus will not listen to those of us who", "are already dead. He might rethink his position", "if someone with a mortal soul pleaded our cause.", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendNpcChat("If he declines, there may yet be another way.", CONTENT);
+				return true;
+			    case 14:
+				player.getDialogue().sendOption("I'll go talk to him.", "Necrovarus?");
+				return true;
+			    case 15:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("I'll go talk to him.", CONTENT);
+					player.getDialogue().endDialogue();
+					player.setQuestStage(24, 1);
+					QuestHandler.getQuests()[24].startQuest(player);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("Who is Necrovarus?", CONTENT);
+					return true;
+				}
+			    case 16:
+				player.getDialogue().sendNpcChat("Necrovarus is the powerful creator of the Ectofuntus.", "You can find him amongst his disciples there.", CONTENT);
+				return true;
+			    case 17:
+				player.getDialogue().sendPlayerChat("Thanks, I'll go talk to him", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 1);
+				QuestHandler.getQuests()[24].startQuest(player);
+				return true;
+			}
+		    return false;
+		    case 1: //talk to necrovarus
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("I sense that you have not yet spoken to Necrovarus...", SAD);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case ROBIN:
+		switch(player.getQuestStage(23)) {
+		    case 0: //start
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.getInventory().playerHasItem(995, 50)) {
+				    player.getRuneDraw().openGame(50);
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I don't have that much money to bet.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				player.getDialogue().dontCloseInterface();
 				return true;
 			}
 		    return false;
