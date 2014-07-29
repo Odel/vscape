@@ -13,6 +13,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -307,6 +308,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(ErnestTheChicken.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(GhostsAhoy.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {

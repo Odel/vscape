@@ -6933,11 +6933,18 @@ public class Dialogues {
 					}
 				break;
 				//------ Imp catcher end -----//
-			case 1696: //Old man to get into Kharazi Jungle
+			case 1152: //Weird Old Man, in / out of kharazi
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.getPosition().getY() > 2945) {
 						player.getDialogue().sendNpcChat("Want me to get you inside the Kharazi Jungle?", CONTENT);
 						return true;
+					    }
+					    else {
+						player.getDialogue().sendNpcChat("Would you like me to bring you back", "to Shilo Village?", CONTENT);
+						player.getDialogue().setNextChatId(5);
+						return true;
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
 						return true;
@@ -6949,17 +6956,10 @@ public class Dialogues {
 								break;
 						}
 						break;
-				}
-				break;
-			case 1152: //to get out of kharazi jungle
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("Would you like me to bring you back", "to Shilo Village?", CONTENT);
-						return true;
-					case 2 :
+					case 5 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
 						return true;
-					case 3 :
+					case 6 :
 						switch(optionId) {
 							case 1:
 								player.teleport(new Position(2863, 2961, 0));

@@ -40,6 +40,14 @@ import java.util.ArrayList;
 public class GhostsAhoy implements Quest {
 
     public static final int QUEST_STARTED = 1;
+    public static final int BACK_TO_VELORINA = 2;
+    public static final int TO_CRONE = 3;
+    public static final int CRONE_NEEDS_TEA = 4;
+    public static final int CRONE_NEEDS_TEA_IN_CUP = 5;
+    public static final int CRONE_NEEDS_MILKY_TEA = 6;
+    public static final int CRONES_STORY = 7;
+    public static final int ITEMS_FOR_ENCHANTMENT = 8;
+    public static final int CAST_SPELL = 9;
     public static final int QUEST_COMPLETE = 12;
     
     public static final int BUCKET = 1925;
@@ -51,8 +59,10 @@ public class GhostsAhoy implements Quest {
     public static final int NETTLE_WATER = 4237;
     public static final int PUDDLE_OF_SLIME = 4238;
     public static final int NETTLE_TEA_BOWL = 4239;
+    public static final int EMPTY_CUP = 1918;
     public static final int NETTLE_TEA_BOWL_MILKY = 4240;
     public static final int NETTLES = 4241;
+    public static final int EMPTY_BOWL = 1923;
     public static final int NETTLE_TEA_CUP = 4242;
     public static final int NETTLE_TEA_CUP_MILKY = 4243;
     public static final int PORCELAIN_CUP = 4244;
@@ -94,6 +104,16 @@ public class GhostsAhoy implements Quest {
     public static final int SHIPS_LADDER_UP = 5265;
     public static final int SHIPS_LADDER_DOWN = 5266;
     public static final int MAST = 5274;
+    public static final int NETTLES_1 = 5253;
+    public static final int NETTLES_2 = 5254;
+    public static final int NETTLES_3 = 5255;
+    public static final int NETTLES_4 = 5256;
+    public static final int NETTLES_5 = 5257;
+    public static final int NETTLES_6 = 5258;
+    public static final int NETTLES_7 = 1181;
+    
+    
+    
     
     public static final int RUNE_DRAW = 12231;
     public static final int MAP_INTERFACE = 12266;
@@ -102,6 +122,7 @@ public class GhostsAhoy implements Quest {
     
     public static final int VELORINA = 1683;
     public static final int NECROVARUS = 1684;
+    public static final int OLD_CRONE = 1695;
     public static final int GHOST_GUARD = 1706;
     public static final int ROBIN = 1694;
     
@@ -168,6 +189,91 @@ public class GhostsAhoy implements Quest {
 	    
 	    player.getActionSender().sendString("Velorina told me to try and plead with Necrovarus", 8149);
 	    player.getActionSender().sendString("to allow the ghosts of Phasmatys to pass on.", 8150);
+	}
+	else if (questStage == BACK_TO_VELORINA) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    
+	    player.getActionSender().sendString("Necrovarus was not interested in negotiating. I should", 8150);
+	    player.getActionSender().sendString("probably return to Velorina and see what else can be done.", 8151);
+	}
+	else if (questStage == TO_CRONE) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    
+	    player.getActionSender().sendString("Velorina told me of an old disciple who escaped the fate of", 8150);
+	    player.getActionSender().sendString("Phasmatys. She said she can be found west of here, near", 8151);
+	    player.getActionSender().sendString("the sea and in between two large castles.", 8152);
+	}
+	else if (questStage == CRONE_NEEDS_TEA) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    
+	    player.getActionSender().sendString("The Old Crone seems to not remember anything without some", 8151);
+	    player.getActionSender().sendString("nettle tea. I should fetch that if I want any answers.", 8152);
+	}
+	else if (questStage == CRONE_NEEDS_TEA_IN_CUP) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    
+	    player.getActionSender().sendString("Apparently any old container wasn't good enough for the", 8151);
+	    player.getActionSender().sendString("Crone, I should put some tea in her 'special' porcelain cup.", 8152);
+	}
+	else if (questStage == CRONE_NEEDS_MILKY_TEA) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    
+	    player.getActionSender().sendString("Even the special cup tea wasn't good enough. The Old Crone", 8151);
+	    player.getActionSender().sendString("only drinks her nettle tea with milk...", 8152);
+	}
+	else if (questStage == CRONES_STORY) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    
+	    player.getActionSender().sendString("The Old Crone warmed up after some milky nettle tea.", 8151);
+	    player.getActionSender().sendString("I then proceeded to walk away while she was talking.", 8152);
+	}
+	else if (questStage == ITEMS_FOR_ENCHANTMENT) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    player.getActionSender().sendString("@str@" + "The Old Crone warmed up after some milky nettle tea.", 8150);
+	    
+	    player.getActionSender().sendString("The Old Crone told me I need 3 things to enchant an", 8152);
+	    player.getActionSender().sendString("Amulet of Ghostspeak to be able to control Necrovarus:", 8153);
+	    if(player.getInventory().ownsItem(NECROVARUS_ROBES)) {
+		player.getActionSender().sendString("@str@-Necrovarus' old robes.", 8154);
+	    }
+	    else {
+		player.getActionSender().sendString("@dre@-Necrovarus' old robes.", 8154);
+	    }
+	    if(player.getInventory().ownsItem(BOOK_OF_HARICANTO)) {
+		player.getActionSender().sendString("@str@-A book of encantations written by one Haricanto.", 8155);
+	    }
+	    else {
+		player.getActionSender().sendString("@dre@-A book of encantations written by one Haricanto.", 8155);
+	    }
+	    if(player.getInventory().ownsItem(TRANSLATION_MANUAL)) {
+		player.getActionSender().sendString("@str@-A translation manual for the encantation book.", 8156);
+	    }
+	    else {
+		player.getActionSender().sendString("@dre@-A translation manual for the encantation book.", 8156);
+	    }
+	    if(playerHasItems(player)) {
+		player.getActionSender().sendString("I have all the items, I should bring them to the", 8157);
+		player.getActionSender().sendString("Crone to get my Ghostspeak Amulet enchanted.", 8158);
+	    }
 	}
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -277,7 +383,12 @@ public class GhostsAhoy implements Quest {
     public void setDialogueStage(int in){
     	dialogueStage = in;
     }
-
+    public static boolean playerHasItems(final Player player) {
+	return player.getInventory().ownsItem(NECROVARUS_ROBES) && player.getInventory().ownsItem(BOOK_OF_HARICANTO) && player.getInventory().ownsItem(TRANSLATION_MANUAL);
+    }
+    public static boolean playerHasItemsInInventory(final Player player) {
+	return player.getInventory().playerHasItem(NECROVARUS_ROBES) && player.getInventory().playerHasItem(BOOK_OF_HARICANTO) && player.getInventory().playerHasItem(TRANSLATION_MANUAL);
+    }
     public static boolean itemHandling(Player player, int itemId) {
 	switch(itemId) {
 
@@ -302,6 +413,42 @@ public class GhostsAhoy implements Quest {
     }
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+	if(firstItem == NETTLE_TEA_BOWL && secondItem == EMPTY_CUP) {
+	    player.getActionSender().sendMessage("You pour the tea into the cup.");
+	    player.getInventory().replaceItemWithItem(new Item(NETTLE_TEA_BOWL), new Item(EMPTY_BOWL));
+	    player.getInventory().replaceItemWithItem(new Item(EMPTY_CUP), new Item(NETTLE_TEA_CUP));
+	    return true;
+	}
+	else if(firstItem == BUCKET_OF_MILK && secondItem == NETTLE_TEA_BOWL) {
+	    player.getActionSender().sendMessage("You pour your milk into the nettle tea bowl.");
+	    player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_MILK), new Item(BUCKET));
+	    player.getInventory().replaceItemWithItem(new Item(NETTLE_TEA_BOWL), new Item(NETTLE_TEA_BOWL_MILKY));
+	    return true;
+	}
+	else if(firstItem == BUCKET_OF_MILK && secondItem == NETTLE_TEA_CUP) {
+	    player.getActionSender().sendMessage("You pour your milk into the nettle tea cup.");
+	    player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_MILK), new Item(BUCKET));
+	    player.getInventory().replaceItemWithItem(new Item(NETTLE_TEA_CUP), new Item(NETTLE_TEA_CUP_MILKY));
+	    return true;
+	}
+	else if(firstItem == BUCKET_OF_MILK && secondItem == PORCELAIN_CUP_NETTLE) {
+	    player.getActionSender().sendMessage("You pour your milk into the Old Crone's special cup.");
+	    player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_MILK), new Item(BUCKET));
+	    player.getInventory().replaceItemWithItem(new Item(PORCELAIN_CUP_NETTLE), new Item(PORCELAIN_CUP_NETTLE_MILKY));
+	    return true;
+	}
+	else if((firstItem == NETTLE_TEA_BOWL && secondItem == PORCELAIN_CUP) || (firstItem == NETTLE_TEA_CUP && secondItem == PORCELAIN_CUP)) {
+	    player.getActionSender().sendMessage("You pour your tea into the Old Crone's special cup.");
+	    player.getInventory().replaceItemWithItem(new Item(firstItem == NETTLE_TEA_BOWL ? NETTLE_TEA_BOWL : NETTLE_TEA_CUP), new Item(firstItem == NETTLE_TEA_BOWL ? EMPTY_BOWL : EMPTY_CUP));
+	    player.getInventory().replaceItemWithItem(new Item(PORCELAIN_CUP), new Item(PORCELAIN_CUP_NETTLE));
+	    return true;
+	}
+	else if((firstItem == NETTLE_TEA_BOWL_MILKY && secondItem == PORCELAIN_CUP) || (firstItem == NETTLE_TEA_CUP_MILKY && secondItem == PORCELAIN_CUP)) {
+	    player.getActionSender().sendMessage("You pour your milky tea into the Old Crone's special cup.");
+	    player.getInventory().replaceItemWithItem(new Item(firstItem == NETTLE_TEA_BOWL_MILKY ? NETTLE_TEA_BOWL_MILKY : NETTLE_TEA_CUP_MILKY), new Item(firstItem == NETTLE_TEA_BOWL_MILKY ? EMPTY_BOWL : EMPTY_CUP));
+	    player.getInventory().replaceItemWithItem(new Item(PORCELAIN_CUP), new Item(PORCELAIN_CUP_NETTLE_MILKY));
+	    return true;
+	}
 	return false;
     }
     
@@ -314,6 +461,52 @@ public class GhostsAhoy implements Quest {
     
     public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case NETTLES_1:
+	    case NETTLES_2:
+	    case NETTLES_3:
+	    case NETTLES_4:
+	    case NETTLES_5:
+	    case NETTLES_6:
+	    case NETTLES_7:
+		if(player.getEquipment().getItemContainer().get(Constants.HANDS) != null 
+		   && player.getEquipment().getItemContainer().get(Constants.HANDS).getDefinition().getName().toLowerCase().contains("gloves")) {
+		    player.getUpdateFlags().sendAnimation(827);
+		    player.getActionSender().sendMessage("You attempt to pick some nettles...");
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    player.getActionSender().sendMessage("You safely pick them with your gloves.");
+			    player.getInventory().addItemOrDrop(new Item(NETTLES));
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			}
+		    }, 2);
+		    return true;
+		}
+		else {
+		    player.getUpdateFlags().sendAnimation(827);
+		    player.getActionSender().sendMessage("You attempt to pick some nettles...");
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    player.getActionSender().sendMessage("You get stung terribly without gloves on!");
+			    player.hit(2, HitType.NORMAL);
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			}
+		    }, 3);
+		    return true;
+		}
 	    case SHIPS_LADDER_UP:
 		if(x == 3615 && y == 3541) {
 		    Ladders.climbLadder(player, new Position(3616, 3541, 2));
@@ -420,15 +613,43 @@ public class GhostsAhoy implements Quest {
 			return true;
 		}
 	    return false;
+	    case NECROVARUS:
+		switch(player.getQuestStage(24)) {
+		    case 1: //talk to meeeee
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I must speak with you on behalf of Velorina.", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("You dare to speak that name in this place?!", ANGRY_1);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("She wants to pass...", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Silence!! Or I will incinerate the flesh from your bones!", ANGRY_1);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("But, she...", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Get out of my sight!! Or I promise you that", "you will regret your insolence for the rest of eternity!!", ANGRY_2);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 2);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
 	    case VELORINA:
-		switch(player.getQuestStage(23)) {
+		switch(player.getQuestStage(24)) {
 		    case 0: //start
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("Take pity on me, please - eternity stretches", "out before me and I am helpless in it's grasp.", SAD);
+				player.getDialogue().sendNpcChat("Take pity on me, please - eternity stretches", "out before me and I am helpless in it's grasp.", SAD);
 				return true;
 			    case 2:
-				player.getDialogue().sendOption("Why, what is the matter?", "Sorry, I'm scared ghosts.");
+				player.getDialogue().sendOption("Why, what is the matter?", "Sorry, I'm scared of ghosts.");
 				return true;
 			    case 3:
 				switch(optionId) {
@@ -461,7 +682,7 @@ public class GhostsAhoy implements Quest {
 			    case 10:
 				switch(optionId) {
 				    case 1:
-					player.getDialogue().sendPlayerChat("Yes, I'll help you", CONTENT);
+					player.getDialogue().sendPlayerChat("Yes, I'll help you!", HAPPY);
 					return true;
 				    case 2:
 					player.getDialogue().sendPlayerChat("No, I have better things to do.", CONTENT);
@@ -496,7 +717,7 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendNpcChat("Necrovarus is the powerful creator of the Ectofuntus.", "You can find him amongst his disciples there.", CONTENT);
 				return true;
 			    case 17:
-				player.getDialogue().sendPlayerChat("Thanks, I'll go talk to him", CONTENT);
+				player.getDialogue().sendPlayerChat("Thanks, I'll go talk to him.", CONTENT);
 				player.getDialogue().endDialogue();
 				player.setQuestStage(24, 1);
 				QuestHandler.getQuests()[24].startQuest(player);
@@ -511,10 +732,348 @@ public class GhostsAhoy implements Quest {
 				return true;
 			}
 		    return false;
+		    case BACK_TO_VELORINA:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I'm sorry, but Necrovarus will not let you go.", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("I feared as much.", "His spirit is a thing of fire and wrath.", SAD);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("You spoke of another way.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("It is a small chance. During the building of the Ectofuntus", "one of Necrovarus' disciples spoke out against him.", "It is such a long time ago I cannot remember her name,", "although I knew her as a friend.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("She fled before the Ectofuntus took control over us,", "but being a disciple of Necrovarus she would have privy", "to many of his darkest secrets. She may know of a way", "to aid us without Necrovarus.", CONTENT);
+				return true;
+			    case 6:
+				 player.getDialogue().sendPlayerChat("Do you know where this woman can be found?", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("I have a vision of a small wooden shack, the land", "it was built on is the unholy soil of Morytania.", "I sense the sea is very close, and that there looms", "castles to the west and the east.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendPlayerChat("I'll try and find her.", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 3);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case OLD_CRONE:
+		switch(player.getQuestStage(24)) {
+		    case TO_CRONE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("Were you once a disciple of Necrovarus in the", "Temple of Phasmatys, old woman?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("I don't remember; I am so old and my memory only", "goes back so far...", SAD);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("Is there anything I can do to refresh your memory?", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Yes, I would love some nice hot nettle tea.", CONTENT);
+				return true;
+			    case 5:
+				if(player.getInventory().playerHasItem(NETTLE_TEA_BOWL) || player.getInventory().playerHasItem(NETTLE_TEA_CUP)) {
+				    player.getDialogue().sendPlayerChat("Here's some nice tea for you, like you asked.", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I'm afraid I don't have any tea like that.", "I'll go fetch some.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    player.setQuestStage(24, 4);
+				    return true;
+				}
+			    case 6:
+				player.getDialogue().sendStatement("You go to hand the tea to the Old Crone...");
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("Ack! That tea isn't in my special cup!", "I only ever drink from my special cup!!", DISTRESSED);
+				return true;
+			    case 8:
+				player.getDialogue().sendPlayerChat("I see... Can I have this special cup, then?", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendGiveItemNpc("The Old Crone hands you her 'special cup'.", new Item(PORCELAIN_CUP));
+				player.getInventory().addItem(new Item(PORCELAIN_CUP));
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 5);
+				return true;
+			}
+		    return false;
+		    case CRONE_NEEDS_TEA:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Did you get me some nice hot nettle tea?", CONTENT);
+				return true;
+			    case 2:
+				if(player.getInventory().playerHasItem(NETTLE_TEA_BOWL) || player.getInventory().playerHasItem(NETTLE_TEA_CUP)) {
+				    player.getDialogue().sendPlayerChat("Here's some nice tea for you, like you asked.", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I'm afraid I don't have any tea like that.", "I'll go fetch some.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendStatement("You go to hand the tea to the Old Crone...");
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Ack! That tea isn't in my special cup!", "I only ever drink from my special cup!!", DISTRESSED);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("I see... Can I have this special cup, then?", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendGiveItemNpc("The Old Crone hands you her 'special cup'.", new Item(PORCELAIN_CUP));
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 5);
+				return true;
+			}
+		    return false;
+		    case CRONE_NEEDS_TEA_IN_CUP:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Did you get me some tea in my special cup?", CONTENT);
+				return true;
+			    case 2:
+				if(player.getInventory().playerHasItem(PORCELAIN_CUP_NETTLE)) {
+				    player.getDialogue().sendPlayerChat("Here's that tea you wanted, in your special cup...", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I'm afraid I didn't fill your cup with tea yet.", "I'll go do that.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendStatement("You go to hand the cup of tea to the Old Crone...");
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Oh no! It hasn't got any milk in it!", "I only drink tea with milk in it, I'm afraid.", DISTRESSED);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Oh.", ANGRY_1);
+				return true;
+			    case 6:
+				player.getDialogue().sendPlayerChat("...", ANGRY_1);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("Alright. I'll go put some milk in your tea.", ANNOYED);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(24, 6);
+				return true;
+			}
+		    return false;
+		    case CRONE_NEEDS_MILKY_TEA:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Did you get me some milky tea in my", "special cup there dear?", CONTENT);
+				return true;
+			    case 2:
+				if(player.getInventory().playerHasItem(PORCELAIN_CUP_NETTLE_MILKY)) {
+				    player.getDialogue().sendPlayerChat("Here's that milky, delicious, hand-crafted, ill-gotten...", ANNOYED);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I'm sorry. I didn't get your precious milk yet.", ANNOYED);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("You hand the Old Crone her very specific tea.", new Item(PORCELAIN_CUP_NETTLE_MILKY));
+				player.getDialogue().setNextChatId(1);
+				player.getInventory().removeItem(new Item(PORCELAIN_CUP_NETTLE_MILKY));
+				player.setQuestStage(24, 7);
+				return true;
+			}
+		    return false;
+		    case CRONES_STORY:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Ahhhhh... That's much better. Now, let me see... Yes,", "I was once a disciple of Necrovarus.", HAPPY);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("I have come from Velorina, she needs your help.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Velorina? That name sounds familiar...", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Yes. Velorina was once a very good friend!", "It has been many years since we spoke last.", "How is she?", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("She's a ghost, I'm afraid.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("They are all dead then. Even Velorina. I should have", "done something to stop what was happening, instead", "of running away.", SAD);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("She and many others want to pass on into the", "next world, but Necrovarus will not let them. Do you", "know of any way to help them?", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("There might be one way...", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendNpcChat("Do you have such a thing as a ghostspeak amulet?", CONTENT);
+				return true;
+			    case 10:
+				if(player.getEquipment().getId(Constants.AMULET) == GHOSTSPEAK_AMULET || player.getInventory().playerHasItem(GHOSTSPEAK_AMULET)) {
+				    player.getDialogue().sendPlayerChat("I've got one right on me actually.", CONTENT);
+				    player.getDialogue().setNextChatId(12);
+				    return true;
+				}
+				else if(player.getQuestStage(2) > 2) {
+				    player.getDialogue().sendPlayerChat("Not on me, but I know where to get one.", CONTENT);
+				    player.getDialogue().setNextChatId(12);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I'm afraid I don't know what that is.", SAD);
+				    return true;
+				}
+			    case 11:
+				player.getDialogue().sendNpcChat("I'm sure you'll figure out where to get one.", "Anyways...", CONTENT);
+				player.getDialogue().setNextChatId(13);
+				return true;
+			    case 12:
+				player.getDialogue().sendNpcChat("Well, that's a stroke of luck!", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendNpcChat("There is an enchantment that I can perform on such", "an amulet that will give it the power of command over", "ghosts. It will only work once, but it will enable you", "to command Necrovarus to let the ghosts pass on.", CONTENT);
+				return true;
+			    case 14:
+				player.getDialogue().sendPlayerChat("What do you need to perform the enchantment?", CONTENT);
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("Necrovarus had a magical robe for which he must", "have no more use. Only these robes hold the power needed", "to perform the enchantment.", CONTENT);
+				return true;
+			    case 16:
+				player.getDialogue().sendNpcChat("All his rituals came from a book written by an ancient", "sorcerer from the East called Haricanto. You will need to", "bring me this strange book as well.", CONTENT);
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("However, I cannot read the strange letters of the eastern", "lands. I will need something to help me translate the book.", CONTENT);
+				return true;
+			    case 18:
+				player.getDialogue().sendPlayerChat("While I'm out collecting these materials, is there", "anything else you might need?", CONTENT);
+				return true;
+			    case 19:
+				player.getDialogue().sendNpcChat("I have lived here on my own for years, but not always.", "When I left Port Phasmatys, I took my son with me.", "He grew up to be a fine boy, always in love", "with the sea.", CONTENT);
+				return true;
+			    case 20:
+				player.getDialogue().sendNpcChat("He was about twelve years old when he ran away", "with some pirates to be a cabin boy. I never", "saw him again.", CONTENT);
+				return true;
+			    case 21:
+				player.getDialogue().sendPlayerChat("Was his name Jenkins per chance?", CONTENT);
+				return true;
+			    case 22:
+				player.getDialogue().sendNpcChat("Err, no. It wasn't... If you see him, please give him this", "model ship. Tell him that his mother still loves him.", CONTENT);
+				return true;
+			    case 23:
+				player.getDialogue().sendPlayerChat("Was this his boat?", CONTENT);
+				return true;
+			    case 24:
+				player.getDialogue().sendNpcChat("Yes, he made it himself. It is a model of the very", "ship in which he sailed away. The paint has peeled", "off and it has lost it's flag, but I could never", "throw it away.", CONTENT);
+				return true;
+			    case 25:
+				player.getDialogue().sendPlayerChat("If I find him, I'll be sure to pass it on.", CONTENT);
+				return true;
+			    case 26:
+				if(player.getInventory().canAddItem(new Item(MODEL_SHIP))) {
+				    player.getDialogue().sendGiveItemNpc("The Old Crone hands you a model ship.", new Item(MODEL_SHIP));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().addItem(new Item(MODEL_SHIP));
+				    player.setQuestStage(24, 8);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have room for this ship...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			}
+		    return false;
+		    case ITEMS_FOR_ENCHANTMENT:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(!player.getInventory().ownsItem(MODEL_SHIP)) {
+				    player.getDialogue().sendPlayerChat("I seem to have, erm, misplaced your son's model ship.", DISTRESSED);
+				    return true;
+				}
+				else if(playerHasItemsInInventory(player)) {
+				    player.getDialogue().sendPlayerChat("I found all the items for the enchantment.", CONTENT);
+				    player.getDialogue().setNextChatId(5);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Go get all the items, hurry!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("You're lucky I have a keen eye. I found it", "while out on a stroll.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("The Old Crone hands you a model ship.", new Item(MODEL_SHIP));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItem(new Item(MODEL_SHIP));
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Good! Ah, the robes of Necrovarus...", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("The Book of Haricanto! I have no idea", "how you found this!", HAPPY);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("And the the translation manual - yes, this should", "do the job.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("Wonderful, that's everything I need.", "I can perform the enchantment now.", CONTENT);
+				return true;
+			    case 9:
+				if(player.getInventory().playerHasItem(GHOSTSPEAK_AMULET)) {
+				    player.getDialogue().sendGiveItemNpc("The Old Crone takes the 3 items and begins to chant...", "The ghostspeak amulet begins to glow green.", new Item(NECROVARUS_ROBES), new Item(ENCHANTED_GHOSTSPEAK));
+				    player.getDialogue().setNextChatId(1);
+				    player.getInventory().replaceItemWithItem(new Item(GHOSTSPEAK_AMULET), new Item(ENCHANTED_GHOSTSPEAK));
+				    player.getInventory().removeItem(new Item(NECROVARUS_ROBES));
+				    player.getInventory().removeItem(new Item(BOOK_OF_HARICANTO));
+				    player.getInventory().removeItem(new Item(TRANSLATION_MANUAL));
+				    player.setQuestStage(24, 9);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have a ghostspeak amulet for me", "to enchant. Come back with one as soon as possible!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			}
+		    return false;
+		    case CAST_SPELL:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("So this enchanted amulet can be used once to command", "any ghost to do my bidding?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("That's right, only once.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("Hmm. Alright, I'll go take care of Necrovarus.", "Thank you for all the help.", HAPPY);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
 		}
 	    return false;
 	    case ROBIN:
-		switch(player.getQuestStage(23)) {
+		switch(player.getQuestStage(24)) {
 		    case 0: //start
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
