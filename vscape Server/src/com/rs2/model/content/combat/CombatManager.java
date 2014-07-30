@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
@@ -398,6 +399,11 @@ public class CombatManager extends Tick {
 			if(!((Player)killer).getInventory().ownsItem(11279)) {
 			    ((Player)killer).getInventory().addItem(new Item(11279));
 			}
+		    }
+		}
+		else if(npc.getNpcId() == GhostsAhoy.GIANT_LOBSTER) {
+		    if(killer != null && killer.isPlayer()) {
+			((Player)killer).setLobsterSpawnedAndDead(true);
 		    }
 		}
 		else if ( npc.getNpcId() == 879 && firstTime ) { // delrith

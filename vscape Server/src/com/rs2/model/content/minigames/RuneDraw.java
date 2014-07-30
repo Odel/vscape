@@ -16,6 +16,7 @@ public class RuneDraw {
     private int opponentScore = 0;
     private boolean gameOver;
     private boolean held;
+    private boolean questFlag;
     
     public RuneDraw(Player player) {
 	this.player = player;
@@ -145,8 +146,20 @@ public class RuneDraw {
 	    sendRune(-1, i);
 	}
     }
+    public void openGame(int amount, boolean bool) {
+	questFlag = bool;
+	bet = amount;
+	if(bet != 0) {
+	    player.getInventory().removeItem(new Item(995, bet));
+	}
+	gameOver = false;
+	reset();
+	refresh();
+	player.getActionSender().sendInterface(12231);
+    }
     
     public void openGame(int amount) {
+	questFlag = false;
 	bet = amount;
 	if(bet != 0) {
 	    player.getInventory().removeItem(new Item(995, bet));
@@ -158,6 +171,7 @@ public class RuneDraw {
     }
     
     public void openGame() {
+	questFlag = false;
 	gameOver = false;
 	reset();
 	refresh();
@@ -190,25 +204,30 @@ public class RuneDraw {
     }
     
     public void winGame() {
+	player.getActionSender().sendMessage("You have won the game of RuneDraw!");
 	player.getActionSender().sendString("You win!", YOUR_TEXT);
-	if(bet != 0) {
+	player.getActionSender().sendString("", DRAW_TEXT);
+	player.getActionSender().sendString("", HOLD_TEXT);
+	if(bet != 0 && !questFlag) {
 	    player.getInventory().addItem(new Item(995, (bet * 2)));
 	}
-	if (!player.getRuneDrawWins()[0]) {
-	    player.setRuneDrawWins(0, true);
-	} else if (player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1]) {
-	    player.setRuneDrawWins(1, true);
-	} else if (player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-	    player.setRuneDrawWins(2, true);
+	if (questFlag) {
+	    if (!player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
+		player.setRuneDrawWins(0, true);
+	    } else if (player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
+		player.setRuneDrawWins(1, true);
+	    } else if (player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
+		player.setRuneDrawWins(2, true);
+	    }
 	}
 	gameOver = true;
     }
     
     public void loseGame() {
+	player.getActionSender().sendMessage("You have lost the game of RuneDraw.");
 	player.getActionSender().sendString("You lose.", YOUR_TEXT);
-	player.setRuneDrawWins(0, false);
-	player.setRuneDrawWins(1, false);
-	player.setRuneDrawWins(2, false);
+	player.getActionSender().sendString("", DRAW_TEXT);
+	player.getActionSender().sendString("", HOLD_TEXT);
 	gameOver = true;
     }
 }

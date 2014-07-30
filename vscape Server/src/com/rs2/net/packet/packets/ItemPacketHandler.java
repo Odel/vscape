@@ -899,6 +899,12 @@ public class ItemPacketHandler implements PacketHandler {
 							container.stop();
 							return;
 						}
+						if (player.getPosition().equals(GhostsAhoy.TREASURE_LOCATION) && !player.getInventory().playerHasItem(GhostsAhoy.BOOK_OF_HARICANTO)) {
+							player.getDialogue().sendGiveItemNpc("You unearth the Book of Haricanto.", new Item(GhostsAhoy.BOOK_OF_HARICANTO));
+							player.getInventory().addItem(new Item(GhostsAhoy.BOOK_OF_HARICANTO));
+							container.stop();
+							return;
+						}
 						if (!MapScrolls.digClue(player) && !DiggingScrolls.digClue(player) && !CoordinateScrolls.digClue(player) && !Barrows.digCrypt(player)) {
 							player.getActionSender().sendMessage("but do not find anything.");
 							container.stop();

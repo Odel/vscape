@@ -75,6 +75,7 @@ import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PiratesTreasure;
 import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.quests.Quest;
@@ -209,6 +210,7 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
@@ -450,6 +452,8 @@ public class Player extends Entity {
 	private String desiredTopHalfOfGhostsAhoyFlag = "black";
 	private String desiredBottomHalfOfGhostsAhoyFlag = "black";
 	private String desiredSkullOfGhostsAhoyFlag = "black";
+	private boolean lobsterSpawned = false;
+	private boolean petitionSigned = false;
 	public CanoeStationData curCanoeStation;
 
 	public void resetAnimation() {
@@ -1371,6 +1375,9 @@ public class Player extends Entity {
 		    inventory.addItem(new Item(GhostsAhoy.ORANGE_DYE));
 		    inventory.addItem(new Item(GhostsAhoy.PURPLE_DYE));
 		    inventory.addItem(new Item(GhostsAhoy.GREEN_DYE));
+		}
+		else if (keyword.equals("win")) {
+		    this.getRuneDraw().winGame();
 		}
 		else if (keyword.equals("enchantdump")) {
 		    bank.add(new Item(8016, 100));
@@ -3131,12 +3138,16 @@ public class Player extends Entity {
 		return runeDraw;
 	}
 	
+	public GhostsAhoyPetition getPetition() {
+		return petition;
+	}
+	
 	public boolean[] getRuneDrawWins() {
 		return runeDrawWins;
 	}
 	
 	public void setRuneDrawWins(int slot, boolean bool) {
-	    this.runeDrawWins[0] = bool;
+	    this.runeDrawWins[slot] = bool;
 	}
 
     public Slayer getSlayer() {
@@ -3663,6 +3674,18 @@ public class Player extends Entity {
 	}
 	public String getDesiredSkullFlag() {
 	    return desiredSkullOfGhostsAhoyFlag;
+	}
+	public boolean lobsterSpawnedAndDead() {
+	    return lobsterSpawned;
+	}
+	public void setLobsterSpawnedAndDead(boolean bool) {
+	    this.lobsterSpawned = bool;
+	}
+	public boolean petitionSigned() {
+	    return petitionSigned;
+	}
+	public void setPetitionSigned(boolean bool) {
+	    this.petitionSigned = bool;
 	}
 	public void dyeGhostsAhoyFlag(String part, String color) {
 	    switch(part) {

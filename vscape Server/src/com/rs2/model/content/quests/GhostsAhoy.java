@@ -27,6 +27,7 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
@@ -49,9 +50,9 @@ public class GhostsAhoy implements Quest {
     public static final int CRONES_STORY = 7;
     public static final int ITEMS_FOR_ENCHANTMENT = 8;
     public static final int ITEMS_FOR_ENCHANTMENT_2 = 9;
-    public static final int CAST_SPELL = 10;
-    public static final int TELL_VELORINA = 11;
-    public static final int QUEST_COMPLETE = 12;
+    public static final int CAST_SPELL = 11;
+    public static final int TELL_VELORINA = 12;
+    public static final int QUEST_COMPLETE = 13;
     
     public static final int BUCKET = 1925;
     public static final int GHOSTSPEAK_AMULET = 552;
@@ -115,24 +116,39 @@ public class GhostsAhoy implements Quest {
     public static final int NETTLES_6 = 5258;
     public static final int NETTLES_7 = 1181;
     public static final int PIRATE_CAPTAIN = 5287;
+    public static final int JUMPING_ROCKS = 5269;
     public static final int TREASURE_CHEST_1 = 5270;
+    public static final int TREASURE_CHEST_2 = 5272;
     public static final int[] TREASURE_CHEST_1_OBJ = {3619, 3545};
+    public static final int GANGPLANK_TO_ROCKS = 5285;
+    public static final int[] GANGPLANK_TO_ROCKS_OBJ = {3605, 3546};
+    public static final int GANGPLANK_TO_SHIP = 5286;
+    public static final int[] GANGPLANK_TO_SHIP_OBJ = {3605, 3547};
     
     public static boolean lowWind = false;
     
-    
     public static final Position ECTOFUNTUS_POS = new Position(3659, 3517, 0);
+    public static final Position OVER_GANGPLANK = new Position(3605, 3548, 0);
+    public static final Position ON_SHIP = new Position(3605, 3545, 1);
+    public static final Position BACK_FROM_DRAGONTOOTH = new Position(3702, 3487, 0);
+    public static final Position ON_DRAGONTOOTH = new Position(3793, 3560, 0);
+    public static final Position TREASURE_LOCATION = new Position(3803, 3530, 0);
     
     public static final int MAP_INTERFACE = 12266;
     public static final int BLACK_INTERFACE_TEXT = 12283, STRING_ON_BLACK = 12285;
     
-    
+    public static final int GIANT_LOBSTER = 1693;
     public static final int VELORINA = 1683;
     public static final int NECROVARUS = 1684;
+    public static final int GRAVINGAS = 1685;
     public static final int ROBIN = 1694;
     public static final int OLD_CRONE = 1695;
     public static final int OLD_MAN = 1696;
     public static final int GHOST_GUARD = 1706;
+    public static final int GHOST_CAPTAIN = 1704;
+    public static final int GHOST_CAPTAIN_2 = 1705;
+    public static final int AK_HARANU = 1688;
+    public static final int INNKEEPER = 1700;
     
     public int dialogueStage = 0;
     
@@ -201,57 +217,57 @@ public class GhostsAhoy implements Quest {
 	else if (questStage == BACK_TO_VELORINA) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
 	    
-	    player.getActionSender().sendString("Necrovarus was not interested in negotiating. I should", 8150);
-	    player.getActionSender().sendString("probably return to Velorina and see what else can be done.", 8151);
+	    player.getActionSender().sendString("Necrovarus was not interested in negotiating. I should", 8151);
+	    player.getActionSender().sendString("probably return to Velorina and see what else can be done.", 8152);
 	}
 	else if (questStage == TO_CRONE) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
 	    
-	    player.getActionSender().sendString("Velorina told me of an old disciple who escaped the fate of", 8150);
-	    player.getActionSender().sendString("Phasmatys. She said she can be found west of here, near", 8151);
-	    player.getActionSender().sendString("the sea and in between two large castles.", 8152);
+	    player.getActionSender().sendString("Velorina told me of an old disciple who escaped the fate of", 8151);
+	    player.getActionSender().sendString("Phasmatys. She said she can be found west of here, near", 8152);
+	    player.getActionSender().sendString("the sea and in between two large castles.", 8153);
 	}
 	else if (questStage == CRONE_NEEDS_TEA) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
-	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
 	    
-	    player.getActionSender().sendString("The Old Crone seems to not remember anything without some", 8151);
-	    player.getActionSender().sendString("nettle tea. I should fetch that if I want any answers.", 8152);
+	    player.getActionSender().sendString("The Old Crone seems to not remember anything without some", 8153);
+	    player.getActionSender().sendString("nettle tea. I should fetch that if I want any answers.", 8154);
 	}
 	else if (questStage == CRONE_NEEDS_TEA_IN_CUP) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
-	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
 	    
-	    player.getActionSender().sendString("Apparently any old container wasn't good enough for the", 8151);
-	    player.getActionSender().sendString("Crone, I should put some tea in her 'special' porcelain cup.", 8152);
+	    player.getActionSender().sendString("Apparently any old container wasn't good enough for the", 8153);
+	    player.getActionSender().sendString("Crone, I should put some tea in her 'special' porcelain cup.", 8154);
 	}
 	else if (questStage == CRONE_NEEDS_MILKY_TEA) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
-	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
 	    
-	    player.getActionSender().sendString("Even the special cup tea wasn't good enough. The Old Crone", 8151);
-	    player.getActionSender().sendString("only drinks her nettle tea with milk...", 8152);
+	    player.getActionSender().sendString("Even the special cup tea wasn't good enough. The Old Crone", 8153);
+	    player.getActionSender().sendString("only drinks her nettle tea with milk...", 8154);
 	}
 	else if (questStage == CRONES_STORY) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
-	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
-	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
 	    
-	    player.getActionSender().sendString("The Old Crone warmed up after some milky nettle tea.", 8151);
-	    player.getActionSender().sendString("I then proceeded to walk away while she was talking.", 8152);
+	    player.getActionSender().sendString("The Old Crone warmed up after some milky nettle tea.", 8153);
+	    player.getActionSender().sendString("I then proceeded to walk away while she was talking.", 8154);
 	}
-	else if (questStage == ITEMS_FOR_ENCHANTMENT || questStage == ITEMS_FOR_ENCHANTMENT) {
+	else if (questStage == ITEMS_FOR_ENCHANTMENT || questStage == ITEMS_FOR_ENCHANTMENT_2) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
 	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8148);
@@ -419,6 +435,12 @@ public class GhostsAhoy implements Quest {
     
     public static boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
+	    case PETITION:
+		player.getPetition().count();
+		return true;
+	    case TREASURE_MAP:
+		player.getActionSender().sendInterface(MAP_INTERFACE);
+		return true;
 	    case MODEL_SHIP_SILK:
 		player.getDialogue().sendStatement("The top half of the flag is " + player.getTopHalfFlag() + ".", "The bottom half of the flag is " + player.getBottomHalfFlag() + ".", "The skull emblem of the flag is " + player.getSkullFlag() + ".");
 		return true;
@@ -495,6 +517,45 @@ public class GhostsAhoy implements Quest {
 		    player.setTempInteger(firstItem);
 		    return true;
 		}
+	    case MAP_SCRAP:
+		switch(secondItem) {
+		    case MAP_SCRAP_2:
+		    case MAP_SCRAP_3:
+			if(player.getInventory().playerHasItem(MAP_SCRAP_2) && player.getInventory().playerHasItem(MAP_SCRAP_3)) {
+			    player.getActionSender().sendMessage("You fit all the map pieces together.");
+			    player.getInventory().replaceItemWithItem(new Item(MAP_SCRAP), new Item(TREASURE_MAP));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_2));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_3));
+			    return true;
+			}
+		}
+	    return false;
+	    case MAP_SCRAP_2:
+		switch(secondItem) {
+		    case MAP_SCRAP:
+		    case MAP_SCRAP_3:
+			if(player.getInventory().playerHasItem(MAP_SCRAP) && player.getInventory().playerHasItem(MAP_SCRAP_3)) {
+			    player.getActionSender().sendMessage("You fit all the map pieces together.");
+			    player.getInventory().replaceItemWithItem(new Item(MAP_SCRAP), new Item(TREASURE_MAP));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_2));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_3));
+			    return true;
+			}
+		}
+	    return false;
+	    case MAP_SCRAP_3:
+		switch(secondItem) {
+		    case MAP_SCRAP:
+		    case MAP_SCRAP_2:
+			if(player.getInventory().playerHasItem(MAP_SCRAP) && player.getInventory().playerHasItem(MAP_SCRAP_2)) {
+			    player.getActionSender().sendMessage("You fit all the map pieces together.");
+			    player.getInventory().replaceItemWithItem(new Item(MAP_SCRAP), new Item(TREASURE_MAP));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_2));
+			    player.getInventory().removeItem(new Item(MAP_SCRAP_3));
+			    return true;
+			}
+		}
+	    return false;
 	}
 	if(firstItem == SILK && secondItem == MODEL_SHIP) {
 	    if(player.getInventory().playerHasItem(THREAD) && player.getInventory().playerHasItem(NEEDLE) && player.getInventory().playerHasItem(KNIFE) ) {
@@ -560,9 +621,195 @@ public class GhostsAhoy implements Quest {
 	}
 	return false;
     }
-    
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+	switch (object) {
+	    case JUMPING_ROCKS: //first rock
+		if(player.transformNpc == 1707 || player.transformNpc == 1708) {
+		    player.getDialogue().sendPlayerChat("I should probably take this off in order", "to jump these rocks carefully.", CONTENT);
+		    return true;
+		}
+		int playerX = player.getPosition().getX();
+		int playerY = player.getPosition().getY();
+		    /*-------------Pairs-------------*/
+		if (x == 3602 && y == 3550) {
+		    if (playerX == 3604 && playerY == 3550) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3604 && y == 3550) {
+		    if (playerX == 3602 && playerY == 3550) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		    /*-------------------------------*/
+		} else if (x == 3597 && y == 3552) {
+		    if (playerX == 3599 && playerY == 3552) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3599 && y == 3552) {
+		    if (playerX == 3597 && playerY == 3552) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		    /*-------------------------------*/
+		} else if (x == 3595 && y == 3556) {
+		    if (playerX == 3595 && playerY == 3554) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3595 && y == 3554) {
+		    if (playerX == 3595 && playerY == 3556) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		    /*-------------------------------*/
+		} else if (x == 3597 && y == 3561) {
+		    if (playerX == 3597 && playerY == 3559) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3597 && y == 3559) {
+		    if (playerX == 3597 && playerY == 3561) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		    /*-------------------------------*/
+		} else if (x == 3601 && y == 3564) {
+		    if (playerX == 3599 && playerY == 3564) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3599 && y == 3564) {
+		    if (playerX == 3601 && playerY == 3564) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		}
+		    /*-------------------------------*/
+	    return true;
+	    case TREASURE_CHEST_2:
+		if (x == 3606 && y == 3564) {
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
+			if (!player.getInventory().ownsItem(MAP_SCRAP_3) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+			    player.getUpdateFlags().sendAnimation(832);
+			    player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_3));
+			    player.getInventory().addItem(new Item(MAP_SCRAP_3));
+			    return true;
+			} else if(player.getInventory().ownsItem(TREASURE_MAP)) {
+			    player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
+			    return true;
+			} else {
+			    player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
+			    return true;
+			}
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3618 && y == 3542) {
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
+			if (!player.lobsterSpawnedAndDead()) {
+			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
+			    NpcLoader.spawnNpc(player, new Npc(GIANT_LOBSTER), true, true);
+			    return true;
+			} else {
+			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+				player.getUpdateFlags().sendAnimation(832);
+				player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_2));
+				player.getInventory().addItem(new Item(MAP_SCRAP_2));
+				return true;
+			    } else if(player.getInventory().ownsItem(TREASURE_MAP)) {
+				player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
+				return true;
+			    } else {
+				player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
+				return true;
+			    }
+			}
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else {
+		    player.getActionSender().sendMessage("This chest is locked firmly.");
+		    return true;
+		}
+	    case GANGPLANK_TO_SHIP:
+		if (x == GANGPLANK_TO_SHIP_OBJ[0] && y == GANGPLANK_TO_SHIP_OBJ[1]) {
+		    if (player.getPosition().getX() == x && player.getPosition().getY() == y + 1) {
+			player.teleport(ON_SHIP);
+			return true;
+		    } else {
+			do {
+			    player.walkTo(x, y, false);
+			} while (player.getPosition().getX() != x && player.getPosition().getY() != y + 1);
+			return true;
+		    }
+		}
+	    return false;
+	}
+	return false;
+    }
     public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case GANGPLANK_TO_ROCKS:
+		if(x == GANGPLANK_TO_ROCKS_OBJ[0] && y == GANGPLANK_TO_ROCKS_OBJ[1]) {
+		    player.teleport(OVER_GANGPLANK);
+		    return true;
+		}
+	    return false;
+	    case TREASURE_CHEST_1:
+		if (x == TREASURE_CHEST_1_OBJ[0] && y == TREASURE_CHEST_1_OBJ[1]) {
+		    if (player.getInventory().playerHasItem(CHEST_KEY) && !player.getInventory().ownsItem(MAP_SCRAP) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+			player.getUpdateFlags().sendAnimation(832);
+			player.getDialogue().sendGiveItemNpc("You unlock the chest and find a scrap piece of a map.", new Item(MAP_SCRAP));
+			player.getInventory().addItem(new Item(MAP_SCRAP));
+			return true;
+		    } else if (player.getInventory().playerHasItem(CHEST_KEY) && player.getInventory().ownsItem(MAP_SCRAP) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+			player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
+			return true;
+		    } else if (player.getInventory().ownsItem(TREASURE_MAP)) {
+			player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
+			return true;
+		    } else {
+			player.getActionSender().sendMessage("This chest is locked tightly.");
+			return true;
+		    }
+		} else {
+		    player.getActionSender().sendMessage("This chest is locked tightly.");
+		    return true;
+		}
 	    case PIRATE_CAPTAIN:
 		player.getDialogue().sendStatement("The pirate captain ignore you and continues to stare lifelessly", "at nothing, as he has clearly been dead for some time.");
 		return true;
@@ -697,6 +944,66 @@ public class GhostsAhoy implements Quest {
     }
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+	    case AK_HARANU: //the ship's flag
+		switch (player.getQuestStage(24)) {
+		    case ITEMS_FOR_ENCHANTMENT:
+		    case ITEMS_FOR_ENCHANTMENT_2:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.getInventory().playerHasItem(SIGNED_OAK_BOW) && !player.getInventory().playerHasItem(TRANSLATION_MANUAL)) {
+				    player.getDialogue().sendPlayerChat("I have your signed longbow for you.", CONTENT);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(TRANSLATION_MANUAL)) {
+				    player.getDialogue().sendNpcChat("Thank you again adventurer, my family will", "be quite proud of this bow.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("It's nice to see a human face around here.", CONTENT);
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("My name is Ak-Haranu. I am a trader.", "I come from far across the sea in the East!", ANGRY_1);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("You come from the lands of the East? Do you", "have anything that can help me translate a book", "that is scribed in your native language?", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Ak-Haranu may help you, a translation manual I", "do have. Very good for reading the Eastern language.", ANGRY_1);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("How much do you want for it?", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Ak-Haranu does not want money for this book,", "as money is such a small thing. But, there may be some-", "thing you can do for Ak-Haranu. Robin, master bowman", "refuses to sign anything for Ak-Haranu!", ANGRY_1);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("If you could get Robin to sign an oak long-bow", "for Ak-Haranu, then Ak-Haranu will trade you book.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendPlayerChat("Alright, I'll go get a bow signed for you.", "Don't have an aneurysm while I'm away.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("Ah, can it be true? Robin finally", "signed a signature?", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendPlayerChat("He was, erm, (cough) happy, to oblige.", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendNpcChat("May honor be bestowed upon you and your", "family!", HAPPY);
+				return true;
+			    case 13:
+				player.getDialogue().sendGiveItemNpc("You hand Ak-Haranu the signed longbow...", "He hands you a worn translation manual in return.", new Item(SIGNED_OAK_BOW), new Item(TRANSLATION_MANUAL));
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(SIGNED_OAK_BOW), new Item(TRANSLATION_MANUAL));
+				return true;
+			}
+		    return false;
+		}
+	    return false;
 	    case 11575: //the ship's flag
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
@@ -899,9 +1206,66 @@ public class GhostsAhoy implements Quest {
 			return true;
 		}
 	    return false;
+	    case GRAVINGAS:
+		switch(player.getQuestStage(24)) {
+		    case ITEMS_FOR_ENCHANTMENT:
+		    case ITEMS_FOR_ENCHANTMENT_2:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.transformNpc == 1708) {
+				    if(player.getInventory().playerHasItem(PETITION)) {
+					player.getDialogue().sendNpcChat("Go get the 10 signatures and show it to Necrovarus!", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				    }
+				    else {
+					player.getDialogue().sendNpcChat("Fellow ghost! Will you join with me and protest", "against the evil desires of Necrovarus and his disciples?", CONTENT);
+					player.getDialogue().setNextChatId(4);
+					return true;
+				    }
+				}
+				else if(player.transformNpc == 1707) {
+				    player.getDialogue().sendNpcChat("What kind of ghost are you? A potato ghost? Hah!", "You surely can't help me.", CONTENT);
+				    player.getDialogue().setNextChatId(3);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Shoo, mortal. I need the coalition of ghosts,", "not the aid of the smelly living." , ANNOYED);
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendStatement("You'll need to convince Gravingas you are a ghost to help him.", "Perhaps disguising as a ghost will do the trick.");
+				player.getDialogue().endDialogue();
+				return true;
+			    case 3:
+				player.getDialogue().sendStatement("Gravingas seemed to believe you were a ghost, but not", "one from Port Phastmatys.");
+				player.getDialogue().endDialogue();
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("OOooOOoh, Yessss, after hearing Velorina's story", "I willlll be hAaAaaAAppy to help out!", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("I'm not sure why you're speaking like that...", "But any voice helps. Take this petition form, try and", "get 10 signatures from the townsfolk. Then you can present", "the petition to Necrovarus!", CONTENT);
+				return true;
+			    case 6:
+				if(player.getInventory().canAddItem(new Item(PETITION))) {
+				    player.getDialogue().sendGiveItemNpc("Gravingas hands you a petition form.", new Item(PETITION));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().addItem(new Item(PETITION));
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have room in your inventory.", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			}
+		    return false;
+		}
+	    return false;
 	    case NECROVARUS:
 		switch(player.getQuestStage(24)) {
-		    case 1: //talk to meeeee
+		    case QUEST_STARTED: //talk to meeeee
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendPlayerChat("I must speak with you on behalf of Velorina.", CONTENT);
@@ -922,6 +1286,18 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendNpcChat("Get out of my sight!! Or I promise you that", "you will regret your insolence for the rest of eternity!!", ANGRY_2);
 				player.getDialogue().endDialogue();
 				player.setQuestStage(24, BACK_TO_VELORINA);
+				return true;
+			}
+		    return false;
+		    case ITEMS_FOR_ENCHANTMENT:
+		    case ITEMS_FOR_ENCHANTMENT_2:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("FOOL! How dare you speak to me again?!", ANGRY_2);
+				return true;
+			    case 2:
+				player.getDialogue().sendStatement("In his rage you see a key float from Necrovarus' robes.", "Perhaps if you made him really angry he'll lose control", "of the key.");
+				player.getDialogue().endDialogue();
 				return true;
 			}
 		    return false;
@@ -995,7 +1371,7 @@ public class GhostsAhoy implements Quest {
 	    return false;
 	    case OLD_MAN:
 		switch(player.getQuestStage(24)) {
-		    case ITEMS_FOR_ENCHANTMENT: //start
+		    case ITEMS_FOR_ENCHANTMENT:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendPlayerChat("What is your name old man?", CONTENT);
@@ -1062,22 +1438,16 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendGiveItemNpc("You hand the Old Man his model ship.", "He gives you an old key in return.", new Item(MODEL_SHIP_SILK), new Item(CHEST_KEY));
 				player.getDialogue().endDialogue();
 				player.getInventory().replaceItemWithItem(new Item(MODEL_SHIP_SILK), new Item(CHEST_KEY));
-				player.setQuestStage(24, ITEMS_FOR_ENCHANTMENT_2);
+				if(player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT) {
+				    player.setQuestStage(24, ITEMS_FOR_ENCHANTMENT_2);
+				}
 				return true;
 			}
 		    return false;
-		case ITEMS_FOR_ENCHANTMENT_2: //start
+		case ITEMS_FOR_ENCHANTMENT_2:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getInventory().ownsItem(CHEST_KEY)) {
-				    player.getDialogue().sendPlayerChat("I seem to have misplaced that key you gave me.", CONTENT);
-				    return true;
-				}
-				else {
-				    player.getDialogue().sendNpcChat("Thank you again adventurer, for bringing", "an old man some joy.", HAPPY);
-				    player.getDialogue().endDialogue();
-				    return true;
-				}
+				
 			    case 2:
 				player.getDialogue().sendNpcChat("Luckily I have a copy, and this key is worth", "nothing to me compared to this model ship.", CONTENT);
 				return true;
@@ -1238,6 +1608,108 @@ public class GhostsAhoy implements Quest {
 				return true;
 			}
 		    return false;
+		}
+	    return false;
+	    case GHOST_CAPTAIN_2:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendPlayerChat("I'd like to return to Port Phasmatys now.", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendNpcChat("Sure thing.", CONTENT);
+			return true;
+		    case 3:
+			final Player toTele = player;
+			player.setStopPacket(true);
+			player.getActionSender().sendInterface(BLACK_INTERFACE_TEXT);
+			player.getActionSender().sendString("After a long boat trip...", STRING_ON_BLACK);
+			player.getDialogue().dontCloseInterface();
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				toTele.teleport(BACK_FROM_DRAGONTOOTH);
+				toTele.getActionSender().sendInterface(BLACK_INTERFACE_TEXT);
+				toTele.getActionSender().sendString("...you arrive back at Port Phasmatys.", STRING_ON_BLACK);
+				toTele.setStopPacket(false);
+			    }
+			}, 10);
+			return true;
+		}
+	    return false;
+	    case GHOST_CAPTAIN:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendPlayerChat("Where do you sail to, in such a small boat?", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendNpcChat("I can take you to Dragontooth island, which", "is a most pleasant island in the sea between", "Morytania and the lands of the east.", CONTENT);
+			return true;
+		    case 3:
+			if(player.getInventory().playerHasItem(TREASURE_MAP)) {
+			    player.getDialogue().sendPlayerChat("Does the island look anything like this,", "by chance?", CONTENT);
+			    return true;
+			}
+			else {
+			    player.getDialogue().sendPlayerChat("Hmm. Sounds lovely, but I don't have the", "time to vacation right now.", CONTENT);
+			    player.getDialogue().endDialogue();
+			    return true;
+			}
+		    case 4:
+			player.getDialogue().sendGiveItemNpc("You show the captain the treasure map.", new Item(TREASURE_MAP));
+			return true;
+		    case 5:
+			player.getDialogue().sendNpcChat("The island looks exactly like that... strange.", "Where did you find that?", CONTENT);
+			return true;
+		    case 6:
+			player.getDialogue().sendPlayerChat("Nevermind about that, how much does the", "roundtrip cost?", CONTENT);
+			return true;
+		    case 7:
+			player.getDialogue().sendNpcChat("It'll cost you 25 Ecto-tokens.", CONTENT);
+			return true;
+		    case 8:
+			player.getDialogue().sendOption("Okay, here you go. (25 Ecto-tokens)", "Nevermind.");
+			return true;
+		    case 9:
+			switch(optionId) {
+			    case 1:
+				if(player.getInventory().playerHasItem(ECTOTOKEN, 25)) {
+				    final Player toTele = player;
+				    player.setStopPacket(true);
+				    player.getInventory().removeItem(new Item(ECTOTOKEN, 25));
+				    player.getActionSender().sendInterface(BLACK_INTERFACE_TEXT);
+				    player.getActionSender().sendString("After a long boat trip...", STRING_ON_BLACK);
+				    player.getDialogue().dontCloseInterface();
+				    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+					    b.stop();
+					}
+
+					@Override
+					public void stop() {
+					    toTele.teleport(ON_DRAGONTOOTH);
+					    toTele.getActionSender().sendInterface(BLACK_INTERFACE_TEXT);
+					    toTele.getActionSender().sendString("...you arrive on Dragontooth Island.", STRING_ON_BLACK);
+					    toTele.setStopPacket(false);
+					}
+				    }, 10);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("Oh, I got too eager. I don't have that", "many Ecto-tokens.", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("Nevermind, I don't want to go yet.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
 		}
 	    return false;
 	    case OLD_CRONE:
@@ -1564,25 +2036,228 @@ public class GhostsAhoy implements Quest {
 		    return false;
 		}
 	    return false;
+	    case INNKEEPER:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			if(player.getQuestStage(24) >= ITEMS_FOR_ENCHANTMENT && !player.getInventory().ownsItem(BEDSHEET)) {
+			    player.getDialogue().sendPlayerChat("Do you have any sort of job for me?", CONTENT);
+			    return true;
+			}
+			else {
+			    return false;
+			}
+		    case 2:
+			player.getDialogue().sendNpcChat("Yes, actually, I do. We have a very famous Master", "Bowman named Robin staying with us at the moment.", "Could you take him some clean bed linen for me?", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendGiveItemNpc("The Innkeeper hands you a bedsheet.", new Item(BEDSHEET));
+			player.getDialogue().endDialogue();
+			player.getInventory().addItemOrDrop(new Item(BEDSHEET));
+			return true;
+		}
+	    return true;
 	    case ROBIN:
-		switch(player.getQuestStage(24)) {
-		    case 0: //start
-			switch (player.getDialogue().getChatId()) {
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			if(!player.getInventory().ownsItem(SIGNED_OAK_BOW) && !player.getRuneDrawWins()[0]) {
+			    player.getDialogue().sendPlayerChat("Would you sign an oak longbow for me?", CONTENT);
+			    return true;
+			}
+			else if(player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1]) {
+			    player.getDialogue().sendPlayerChat("So are you going to pay up then?", "You still owe me 25 gold coins.", CONTENT);
+			    player.getDialogue().setNextChatId(15);
+			    return true;
+			}
+			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
+			    player.getDialogue().sendPlayerChat("So are you going to pay up this time?", "You still owe me 75 gold coins!", ANNOYED);
+			    player.getDialogue().setNextChatId(20);
+			    return true;
+			}
+			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && player.getRuneDrawWins()[2]) {
+			    player.getDialogue().sendPlayerChat("I've had enough of you not paying up - you owe me", "100 gold now. I'm going to tell the ghosts what you're", "doing.", ANGRY_1);
+			    player.getDialogue().setNextChatId(25);
+			    return true;
+			}
+			else if (player.getQuestStage(24) < ITEMS_FOR_ENCHANTMENT && player.getQuestStage(24) >= QUEST_COMPLETE) {
+			    player.getDialogue().sendNpcChat("Care for a game of RuneDraw? No bets involved!", "However...If you're here for some sort of signature,", "you can just turn around and leave.", CONTENT);
+			    player.getDialogue().setNextChatId(30);
+			    return true;
+			}
+			else {
+			    return false;
+			}
+		    case 2:
+			player.getDialogue().sendNpcChat("I'm sorry. I don't sign autographs.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendNpcChat("While you're here, though, why don't you", "have a game of RuneDraw with me? If you've got", "25 gold pieces, I've got a bag of runes we can use.", CONTENT);
+			return true;
+		    case 4:
+			player.getDialogue().sendOption("Yes, I'll give you a game. (25 gold)", "How do you play RuneDraw?", "No, gambling is wrong.");
+			return true;
+		    case 5:
+			switch(optionId) {
 			    case 1:
-				if(player.getInventory().playerHasItem(995, 50)) {
-				    player.getRuneDraw().openGame(50);
-				}
-				else {
+				if (player.getInventory().playerHasItem(995, 25)) {
+				    player.getRuneDraw().openGame(25, true);
+				    player.getDialogue().dontCloseInterface();
+				    return true;
+				} else {
 				    player.getDialogue().sendPlayerChat("I don't have that much money to bet.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
 				}
-				player.getDialogue().dontCloseInterface();
+			    case 2:
+				player.getDialogue().sendPlayerChat("How do you play RuneDraw?", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("No, gambling is wrong.", ANNOYED);
+				player.getDialogue().endDialogue();
 				return true;
 			}
-		    return false;
+		    case 6:
+			player.getDialogue().sendNpcChat("Two players take turns to draw a rune from a bag,", "which contains various runes. Each rune has a", "different value: an air rune is worth one point, up to", "a Nature rune which is worth nine points.", CONTENT);
+			return true;
+		    case 7:
+			player.getDialogue().sendNpcChat("If a player draws the Death rune then the game", "is over, and they have lost.", CONTENT);
+			return true;
+		    case 8:
+			player.getDialogue().sendNpcChat("A player can choose to hold once per game if they wish.", "The goal is to get as close to 21 points without going over.", "If you go over, or see that Death rune, you'll lose.", CONTENT);
+			return true;
+		    case 9:
+			player.getDialogue().sendPlayerChat("Sounds easy enough.", CONTENT);
+			return true;
+		    case 10:
+			player.getDialogue().sendNpcChat("So, what do you say, care to wager 25 gold?", CONTENT);
+			return true;
+		    case 11:
+			player.getDialogue().sendOption("Yes, I'll play. (25 gold)", "No, thank you.");
+			return true;
+		    case 12:
+			switch(optionId) {
+			    case 1:
+				if (player.getInventory().playerHasItem(995, 25)) {
+				    player.getRuneDraw().openGame(25, true);
+				    player.getDialogue().dontCloseInterface();
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("I don't have that much money to bet.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 15:
+			player.getDialogue().sendNpcChat("Err, how about another game? Double or nothing?", "I'll pay you back with the winnings.", CONTENT);
+			return true;
+		    case 16:
+			player.getDialogue().sendOption("Double or nothing! (50 gold)", "How do you play RuneDraw again?", "No, you won't make a gambler of me.");
+			return true;
+		    case 17:
+			switch(optionId) {
+			    case 1:
+				if (player.getInventory().playerHasItem(995, 50)) {
+				    player.getRuneDraw().openGame(50, true);
+				    player.getDialogue().dontCloseInterface();
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("I don't have that much money to bet.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("How do you play RuneDraw again?", CONTENT);
+				player.getDialogue().setNextChatId(35);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("No, you won't make a gambler of me.", ANNOYED);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 20:
+			player.getDialogue().sendNpcChat("Err, how about one last game? 25 more gold?", "I'll pay you back with all the winnings I'll get!", LAUGHING);
+			return true;
+		    case 21:
+			player.getDialogue().sendOption("Fine, one last game. (25 coins)", "How do you play RuneDraw again?", "No.");
+			return true;
+		    case 22:
+			switch(optionId) {
+			    case 1:
+				if (player.getInventory().playerHasItem(995, 25)) {
+				    player.getRuneDraw().openGame(25, true);
+				    player.getDialogue().dontCloseInterface();
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("I don't have that much money to bet.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("How do you play RuneDraw again?", CONTENT);
+				player.getDialogue().setNextChatId(35);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("No, enough is enough, Robin.", ANGRY_2);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 25:
+			player.getDialogue().sendNpcChat("Please don't do that!!! They will suck the life from", "my bones!!!", DISTRESSED);
+			return true;
+		    case 26:
+			player.getDialogue().sendPlayerChat("How about you signing my longbow then?", CONTENT);
+			return true;
+		    case 27:
+			player.getDialogue().sendNpcChat("Yes! Anything!!", CONTENT);
+			return true;
+		    case 28:
+			if(player.getInventory().playerHasItem(OAK_LONGBOW)) {
+			    player.getDialogue().sendGiveItemNpc("Robin signs the oak longbow for you.", new Item(OAK_LONGBOW));
+			    player.getDialogue().endDialogue();
+			    player.getInventory().replaceItemWithItem(new Item(OAK_LONGBOW), new Item(SIGNED_OAK_BOW));
+			    return true;
+			}
+			else {
+			    player.getDialogue().sendPlayerChat("Let me go get the bow then.", CONTENT);
+			    player.getDialogue().endDialogue();
+			    return true;
+			}
+		    case 30:
+			player.getDialogue().sendOption("Yes, I'll give you a game.", "How do you play RuneDraw?", "No, gambling is wrong.");
+			return true;
+		    case 31:
+			switch (optionId) {
+			    case 1:
+				player.getRuneDraw().openGame();
+				player.getDialogue().dontCloseInterface();
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("How do you play RuneDraw?", CONTENT);
+				player.getDialogue().setNextChatId(35);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("No, gambling is wrong.", ANNOYED);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 35:
+			player.getDialogue().sendNpcChat("Two players take turns to draw a rune from a bag,", "which contains various runes. Each rune has a", "different value: an air rune is worth one point, up to", "a Nature rune which is worth nine points.", CONTENT);
+			return true;
+		    case 36:
+			player.getDialogue().sendNpcChat("If a player draws the Death rune then the game", "is over, and they have lost.", CONTENT);
+			return true;
+		    case 37:
+			player.getDialogue().sendNpcChat("A player can choose to hold once per game if they wish.", "The goal is to get as close to 21 points without going over.", "If you go over, or see that Death rune, you'll lose.", CONTENT);
+			return true;
+		    case 38:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
 		}
-	    return false;
+		return false;
 	}
 	return false;
     }

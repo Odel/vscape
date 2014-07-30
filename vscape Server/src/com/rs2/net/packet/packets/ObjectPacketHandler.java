@@ -5,6 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
@@ -155,6 +156,9 @@ public class ObjectPacketHandler implements PacketHandler {
 		//	return;
 		//}
 		if(VampireSlayer.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+		    return;
+		}
+		if(GhostsAhoy.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}
 		if(player.getClickId() == 2404) { //phoneix gang open chest

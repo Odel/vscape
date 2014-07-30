@@ -4,6 +4,8 @@ import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
@@ -79,6 +81,9 @@ public class NpcPacketHandler implements PacketHandler {
 		}
 		if (DemonSlayer.handleNpcClick(player, npc.getNpcId())) {
 		    return;
+		}
+		if (npc.getNpcId() == GhostsAhoyPetition.GHOST_VILLAGER && player.getInventory().playerHasItem(GhostsAhoy.PETITION)) {
+		    player.getPetition().setLastNpcTalked(npc);
 		}
 		WalkToActionHandler.setActions(Actions.NPC_FIRST_CLICK);
 		WalkToActionHandler.doActions(player);

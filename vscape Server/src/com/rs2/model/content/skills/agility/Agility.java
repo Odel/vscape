@@ -111,6 +111,55 @@ public class Agility {
 		}, time+1);
 	}
 	
+	public static void jumpRock(final Player player,final int x,final int y,final int startAnim, final int time, final int level, final double xp){
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to use this shortcut.");
+			return;
+		}
+		player.isCrossingObstacle = true;
+		player.setStopPacket(true);
+		player.getMovementHandler().setRunToggled(true);
+		player.getMovementHandler().reset();
+		player.resetAnimation();
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (startAnim > 0) {
+					player.setRunAnim(startAnim);
+					player.setAppearanceUpdateRequired(true);
+				}
+				player.getActionSender().walkTo2(x,y,time,true);
+				player.getUpdateFlags().sendFaceToDirection(new Position(player.getPosition().getX(),player.getPosition().getY()+1));
+				container.stop();
+			}
+			@Override
+			public void stop() {
+			}
+		}, 1);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.setStopPacket(false);
+				player.setRunAnim(-1);
+				player.setWalkAnim(-1);
+				player.setAppearanceUpdateRequired(true);
+				if(xp > 0){
+					player.getSkill().addExp(Skill.AGILITY, xp);
+				}
+				player.resetAnimation();
+				player.isCrossingObstacle = false;
+				container.stop();
+			}
+			@Override
+			public void stop() {
+			}
+		}, time+1);
+	}
+	
 	public static void climbObstacle(final Player player,final int x,final int y,final int z,final int anim,final int time, final double xp){
 		player.setStopPacket(true);
 		player.getMovementHandler().reset();

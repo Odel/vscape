@@ -150,8 +150,8 @@ public class PlayerSave {
 				write.writeInt(player.getPendingItemsAmount()[i]);
 			}
 			write.writeInt(player.getRunecraftNpc());
-            write.writeLong(player.getMuteExpire());
-            write.writeLong(player.getBanExpire());
+			write.writeLong(player.getMuteExpire());
+			write.writeLong(player.getBanExpire());
 			write.writeBoolean(player.hasKilledTreeSpirit());
 			write.writeBoolean(player.hasReset());
 			write.writeBoolean(player.hasKilledJungleDemon());
@@ -375,6 +375,13 @@ public class PlayerSave {
 			write.writeBoolean(player.getBananaCrate());
 			write.writeInt(player.getBananaCrateCount());
 			write.writeInt(player.getEctoWorshipCount());
+			write.writeUTF(player.getTopHalfFlag());
+			write.writeUTF(player.getBottomHalfFlag());
+			write.writeUTF(player.getSkullFlag());
+			write.writeUTF(player.getDesiredTopHalfFlag());
+			write.writeUTF(player.getDesiredBottomHalfFlag());
+			write.writeUTF(player.getDesiredSkullFlag());
+			write.writeBoolean(player.petitionSigned());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -995,6 +1002,42 @@ public class PlayerSave {
             } catch (IOException e) {
 		player.setEctoWorshipCount(0);
             }
+	    try {
+            	player.dyeGhostsAhoyFlag("top", load.readUTF());
+            } catch (IOException e) {
+		player.dyeGhostsAhoyFlag("top", "undyed");
+            }
+	    try {
+            	player.dyeGhostsAhoyFlag("bottom", load.readUTF());
+            } catch (IOException e) {
+		player.dyeGhostsAhoyFlag("bottom", "undyed");
+            }
+	    try {
+            	player.dyeGhostsAhoyFlag("skull", load.readUTF());
+            } catch (IOException e) {
+		player.dyeGhostsAhoyFlag("skull", "undyed");
+            }
+	    try {
+            	player.setDesiredGhostsAhoyFlag("top", load.readUTF());
+            } catch (IOException e) {
+		player.setDesiredGhostsAhoyFlag("top", "black");
+            }
+	    try {
+            	player.setDesiredGhostsAhoyFlag("bottom", load.readUTF());
+            } catch (IOException e) {
+		player.setDesiredGhostsAhoyFlag("bottom", "black");
+            }
+	    try {
+            	player.setDesiredGhostsAhoyFlag("skull", load.readUTF());
+            } catch (IOException e) {
+		player.setDesiredGhostsAhoyFlag("skull", "black");
+            }
+	    try {
+            	player.setPetitionSigned(load.readBoolean());
+            } catch (IOException e) {
+		player.setPetitionSigned(false);
+            }
+	    
             load.close();
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);
