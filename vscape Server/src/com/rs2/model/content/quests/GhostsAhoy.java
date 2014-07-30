@@ -1,13 +1,7 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
-import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
@@ -18,26 +12,20 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class GhostsAhoy implements Quest {
 
@@ -50,9 +38,9 @@ public class GhostsAhoy implements Quest {
     public static final int CRONES_STORY = 7;
     public static final int ITEMS_FOR_ENCHANTMENT = 8;
     public static final int ITEMS_FOR_ENCHANTMENT_2 = 9;
-    public static final int CAST_SPELL = 11;
-    public static final int TELL_VELORINA = 12;
-    public static final int QUEST_COMPLETE = 13;
+    public static final int CAST_SPELL = 10;
+    public static final int TELL_VELORINA = 11;
+    public static final int QUEST_COMPLETE = 12;
     
     public static final int BUCKET = 1925;
     public static final int GHOSTSPEAK_AMULET = 552;
@@ -85,6 +73,7 @@ public class GhostsAhoy implements Quest {
     public static final int ECTOTOKEN = 4278;
     public static final int PETITION = 4283;
     public static final int BEDSHEET = 4284;
+    public static final int BONE_KEY = 4272;
     public static final int ECTOPLASM_BEDSHEET = 4285;
     public static final int BONES = 526;
     public static final int POT = 1951;
@@ -108,6 +97,8 @@ public class GhostsAhoy implements Quest {
     public static final int SHIPS_LADDER_UP = 5265;
     public static final int SHIPS_LADDER_DOWN = 5266;
     public static final int MAST = 5274;
+    public static final int NECROVARUS_DOOR = 5244;
+    public static final int NECROVARUS_COFFIN = 5278;
     public static final int NETTLES_1 = 5253;
     public static final int NETTLES_2 = 5254;
     public static final int NETTLES_3 = 5255;
@@ -133,6 +124,7 @@ public class GhostsAhoy implements Quest {
     public static final Position BACK_FROM_DRAGONTOOTH = new Position(3702, 3487, 0);
     public static final Position ON_DRAGONTOOTH = new Position(3793, 3560, 0);
     public static final Position TREASURE_LOCATION = new Position(3803, 3530, 0);
+    public static final Position LOBSTER_SPAWN = new Position(3616, 3543, 0);
     
     public static final int MAP_INTERFACE = 12266;
     public static final int BLACK_INTERFACE_TEXT = 12283, STRING_ON_BLACK = 12285;
@@ -149,6 +141,7 @@ public class GhostsAhoy implements Quest {
     public static final int GHOST_CAPTAIN_2 = 1705;
     public static final int AK_HARANU = 1688;
     public static final int INNKEEPER = 1700;
+    public static final int DISCIPLE = 1686;
     
     public int dialogueStage = 0;
     
@@ -299,11 +292,43 @@ public class GhostsAhoy implements Quest {
 		player.getActionSender().sendString("Crone to get my Ghostspeak Amulet enchanted.", 8158);
 	    }
 	}
+	else if (questStage == CAST_SPELL) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
+	    player.getActionSender().sendString("@str@" + "The Old Crone warmed up after some milky nettle tea.", 8153);
+	    
+	    player.getActionSender().sendString("The Old Crone enchanted my Ghostspeak Amulet with", 8155);
+	    player.getActionSender().sendString("the items I painstakingly gathered. All I need to", 8156);
+	    player.getActionSender().sendString("do now is command Necrovarus to do my bidding.", 8157);
+	}
+	else if (questStage == TELL_VELORINA) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
+	    player.getActionSender().sendString("@str@" + "The Old Crone warmed up after some milky nettle tea.", 8153);
+	    player.getActionSender().sendString("@str@" + "She then enchanted my Ghostspeak Amulet after I", 8155);
+	    player.getActionSender().sendString("@str@" + "painstakingly gathered the items for the enchantment", 8156);
+	    
+	    player.getActionSender().sendString("The spell worked! Necrovarus was forced to agree to", 8158);
+	    player.getActionSender().sendString("let the denizens of Port Phastmatys to pass on!", 8159);
+	    player.getActionSender().sendString("I should go tell Velorina the good news.", 8160);
+	}
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Velorina in Port Phasmatys to begin this quest.", 8147);
+	    player.getActionSender().sendString("@str@" + "Velorina told me to try and plead with Necrovarus.", 8149);
+	    player.getActionSender().sendString("@str@" + "Velorina told me of an old disciple who escaped Phasmatys.", 8151);
+	    player.getActionSender().sendString("@str@" + "The Old Crone warmed up after some milky nettle tea.", 8153);
+	    player.getActionSender().sendString("@str@" + "She then enchanted my Ghostspeak Amulet after I.", 8155);
+	    player.getActionSender().sendString("@str@" + "painstakingly gathered the items for the enchantment", 8156);
 	    
-	    player.getActionSender().sendString("@red@" + "You have completed this quest!", 8167);
+	    player.getActionSender().sendString("@str@" + "The spell worked! Necrovarus was forced to agree to", 8158);
+	    player.getActionSender().sendString("@str@" + "let the denizens of Port Phastmatys to pass on!", 8159);
+	    
+	    player.getActionSender().sendString("@red@" + "You have completed this quest!", 8161);
 	}
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -741,7 +766,7 @@ public class GhostsAhoy implements Quest {
 		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
 			if (!player.lobsterSpawnedAndDead()) {
 			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
-			    NpcLoader.spawnNpc(player, new Npc(GIANT_LOBSTER), true, true);
+			    NpcLoader.spawnNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
 			    return true;
 			} else {
 			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
@@ -783,6 +808,34 @@ public class GhostsAhoy implements Quest {
     }
     public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case NECROVARUS_COFFIN:
+		if(x == 3659 && y == 3513) {
+		    if(!player.getInventory().ownsItem(NECROVARUS_ROBES)) {
+			player.getDialogue().sendGiveItemNpc("You take the Robes of Necrovarus from his remains.", new Item(NECROVARUS_ROBES));
+			player.getInventory().addItemOrDrop(new Item(NECROVARUS_ROBES));
+			return true;
+		    }
+		    else {
+			player.getActionSender().sendMessage("The remains of Necrovarus are bare without his robes.");
+			return true;
+		    }
+		}
+	    return false;
+	    case NECROVARUS_DOOR:
+		if(x == 3656 && y == 3514) {
+		    if(player.getInventory().playerHasItem(BONE_KEY)) {
+			player.getActionSender().sendMessage("The door creaks open when the key is turned.");
+			player.getActionSender().walkTo(player.getPosition().getX() < 3656 ? 1 : -1, 0, true);
+			player.getActionSender().walkThroughDoor(object, x, y, 1);
+			return true;
+		    }
+		    else {
+			player.getDialogue().setLastNpcTalk(DISCIPLE);
+			player.getDialogue().sendNpcChat("Inside that room is a coffin, inside which lie the mortal", "remains of our most glorious master, Necrovarus.", "None may enter!", ANNOYED);
+			return true;
+		    }
+		}
+	    return false;
 	    case GANGPLANK_TO_ROCKS:
 		if(x == GANGPLANK_TO_ROCKS_OBJ[0] && y == GANGPLANK_TO_ROCKS_OBJ[1]) {
 		    player.teleport(OVER_GANGPLANK);
@@ -912,8 +965,20 @@ public class GhostsAhoy implements Quest {
 		}
 	    case BARRIER:
 		if((player.getPosition().getX() > 3657 && player.getPosition().getY() > 3507) || (player.getPosition().getX() < 3653 && player.getPosition().getY() < 3490)) {
-		    Dialogues.startDialogue(player, 11111);
-		    return true;
+		    if(player.getQuestStage(24) < TELL_VELORINA) {
+			Dialogues.startDialogue(player, 11111);
+			return true;
+		    }
+		    else {
+			player.getActionSender().sendMessage("The guards give you a wink and a nod as you pass through the barrier.");
+			if (player.getPosition().getY() > 3500) {
+			    player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -2, true);
+			    return true;
+			} else {
+			    player.getActionSender().walkTo(player.getPosition().getX() < 3653 ? 2 : -1, 0, true);
+			    return true;
+			}
+		    }
 		}
 		else if(player.getPosition().getX() > 3657 && player.getPosition().getY() < 3508) {
 		    player.getActionSender().walkTo(0, 2, true);
@@ -1293,11 +1358,46 @@ public class GhostsAhoy implements Quest {
 		    case ITEMS_FOR_ENCHANTMENT_2:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("FOOL! How dare you speak to me again?!", ANGRY_2);
-				return true;
+				if(player.getPetition().signatures() == 10) {
+				    player.getDialogue().sendPlayerChat("Necrovarus, I am presenting you with a petition", "that has been signed by 10 citizens of Port Phasmatys.", CONTENT);
+				    player.getDialogue().setNextChatId(4);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("FOOL! How dare you speak to me again?!", ANGRY_2);
+				    return true;
+				}
 			    case 2:
 				player.getDialogue().sendStatement("In his rage you see a key float from Necrovarus' robes.", "Perhaps if you made him really angry he'll lose control", "of the key.");
 				player.getDialogue().endDialogue();
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("A petition you say? Continue, mortal.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("It says that the citizens of Port Phasmatys should have", "the right to choose whether they pass over into the", "next world or not, and not have this decided", " by the powers that be on their behalf.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("I see.", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("So you will let them pass over if they wish?", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("Oh yes.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("Really?", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("NO!!!! Get out of my sight before I burn", "every ounce of FLESH from your BONES!!!!!", ANGRY_2);
+				return true;
+			    case 11:
+				player.getDialogue().sendStatement("The petition turns to ash in your hands.", "You see a key drop out from Necrovarus' robes in his rage.");
+				player.getDialogue().endDialogue();
+				player.getPetition().clearSignatures();
+				player.getInventory().removeItem(new Item(PETITION));
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(BONE_KEY), player, new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ())));
 				return true;
 			}
 		    return false;
@@ -1354,6 +1454,7 @@ public class GhostsAhoy implements Quest {
 				if(player.getEquipment().getItemContainer().get(Constants.AMULET) != null && player.getEquipment().getItemContainer().get(Constants.AMULET).getId() == ENCHANTED_GHOSTSPEAK) {
 				    player.getEquipment().getItemContainer().set(Constants.AMULET, new Item(GHOSTSPEAK_AMULET));
 				    player.getEquipment().refresh();
+				    player.setAppearanceUpdateRequired(true);
 				    player.setQuestStage(24, TELL_VELORINA);
 				}
 			    return true;
@@ -1972,11 +2073,6 @@ public class GhostsAhoy implements Quest {
 				    player.getDialogue().sendPlayerChat("I seem to have, erm, misplaced your son's model ship.", DISTRESSED);
 				    return true;
 				}
-				else if(playerHasItemsInInventory(player)) {
-				    player.getDialogue().sendPlayerChat("I found all the items for the enchantment.", CONTENT);
-				    player.getDialogue().setNextChatId(5);
-				    return true;
-				}
 				else {
 				    player.getDialogue().sendNpcChat("Go get all the items, hurry!", CONTENT);
 				    player.getDialogue().endDialogue();
@@ -2003,6 +2099,48 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendNpcChat("Wonderful, that's everything I need.", "I can perform the enchantment now.", CONTENT);
 				return true;
 			    case 9:
+				if(player.getInventory().playerHasItem(GHOSTSPEAK_AMULET)) {
+				    player.getDialogue().sendGiveItemNpc("The Old Crone takes the 3 items and begins to chant...", "The ghostspeak amulet begins to glow green.", new Item(NECROVARUS_ROBES), new Item(ENCHANTED_GHOSTSPEAK));
+				    player.getDialogue().setNextChatId(1);
+				    player.getInventory().replaceItemWithItem(new Item(GHOSTSPEAK_AMULET), new Item(ENCHANTED_GHOSTSPEAK));
+				    player.getInventory().removeItem(new Item(NECROVARUS_ROBES));
+				    player.getInventory().removeItem(new Item(BOOK_OF_HARICANTO));
+				    player.getInventory().removeItem(new Item(TRANSLATION_MANUAL));
+				    player.setQuestStage(24, CAST_SPELL);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have a ghostspeak amulet for me", "to enchant. Come back with one as soon as possible!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			}
+		    return false;
+		    case ITEMS_FOR_ENCHANTMENT_2:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(playerHasItemsInInventory(player)) {
+				    player.getDialogue().sendPlayerChat("I found all the items for the enchantment.", CONTENT);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Go get all the items, hurry!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("Good! Ah, the robes of Necrovarus...", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("The Book of Haricanto! I have no idea", "how you found this!", HAPPY);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("And the the translation manual - yes, this should", "do the job.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Wonderful, that's everything I need.", "I can perform the enchantment now.", CONTENT);
+				return true;
+			    case 6:
 				if(player.getInventory().playerHasItem(GHOSTSPEAK_AMULET)) {
 				    player.getDialogue().sendGiveItemNpc("The Old Crone takes the 3 items and begins to chant...", "The ghostspeak amulet begins to glow green.", new Item(NECROVARUS_ROBES), new Item(ENCHANTED_GHOSTSPEAK));
 				    player.getDialogue().setNextChatId(1);

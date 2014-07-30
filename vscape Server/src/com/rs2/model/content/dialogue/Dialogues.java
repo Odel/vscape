@@ -174,9 +174,6 @@ public class Dialogues {
 		if(GhostsAhoy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		if(GhostsAhoyPetition.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
 		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
