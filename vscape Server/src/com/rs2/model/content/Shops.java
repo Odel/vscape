@@ -487,6 +487,8 @@ public class Shops {
 				return 196;
 			case 4293:  //Warrior's Guild Food Shop
 				return 197;
+			case 4359: //patchy
+				return 198;
 			case 4294:  //Warrior's Guild Potion Shop
 				return 195;
 			case 555:

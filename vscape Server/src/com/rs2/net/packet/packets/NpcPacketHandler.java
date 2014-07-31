@@ -85,6 +85,7 @@ public class NpcPacketHandler implements PacketHandler {
 		if (npc.getNpcId() == GhostsAhoyPetition.GHOST_VILLAGER && player.getInventory().playerHasItem(GhostsAhoy.PETITION)) {
 		    player.getPetition().setLastNpcTalked(npc);
 		    if(player.getPetition().sendDialogue(player, npc.getNpcId(), 1, 0)) {
+			player.getPetition().setChatId(1);
 			return;
 		    }
 		}

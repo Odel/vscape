@@ -628,6 +628,7 @@ public class Dialogues {
 			case 2619 :
 			case 4296 : //jade warriors guild banker
 			case 4446 : //fairy bankers
+			case 1702: //ghost banker
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("What can I do for you?", CONTENT);
@@ -4743,6 +4744,25 @@ public class Dialogues {
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("Hello "+player.getUsername()+",", "would you like to see my shop?", CONTENT);
+						return true;
+					case 2 :
+						player.getDialogue().sendOption("Yes please.", "No thanks.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								if (player.getInteractingEntity() != null && player.getInteractingEntity().isNpc())
+									Shops.openShop(player, ((Npc) player.getInteractingEntity()).getNpcId());
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
+			case 10777 : //patchy
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("'Ello "+player.getUsername()+"!", "Would you like to see my recent sewin' work?", HAPPY);
 						return true;
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");

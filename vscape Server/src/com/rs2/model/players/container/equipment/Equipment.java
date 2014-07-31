@@ -67,6 +67,9 @@ public class Equipment {
 		if (id == 426 || id == 544 || id == 6107) {
 			return true;
 		}
+		if (id == 7110 || id == 7134 || id == 7128 || id == 7122) {
+		    return false;
+		}
 		for (String element : hideArms) {
 			if (item.contains(element)) {
 				return true;
@@ -114,17 +117,18 @@ public class Equipment {
 		player.setEquippedWeapon(Weapon.getWeapon(items[Constants.WEAPON]));
 		sendBonus(player);
 		sendWeaponInterface();
-		if(player.getEquipment().getId(Constants.HAT) == GhostsAhoy.BEDSHEET) {
-		    player.transformNpc = 1707;
+		if(player.getEquipment().getId(Constants.HAT) == GhostsAhoy.BEDSHEET || player.getEquipment().getId(Constants.HAT) == GhostsAhoy.ECTOPLASM_BEDSHEET) {
+		    int id = player.getEquipment().getId(Constants.HAT);
+		    player.transformNpc = id == GhostsAhoy.BEDSHEET ? 1707 : 1708;
 		    player.setWalkAnim(1640);
 		    player.setRunAnim(1640);
 		    player.setStandAnim(1639);
 		}
-		if(player.getEquipment().getId(Constants.HAT) == GhostsAhoy.ECTOPLASM_BEDSHEET) {
-		    player.transformNpc = 1708;
-		    player.setWalkAnim(1640);
-		    player.setRunAnim(1640);
-		    player.setStandAnim(1639);
+		if(player.getEquipment().getId(Constants.HAT) != GhostsAhoy.BEDSHEET && player.getEquipment().getId(Constants.HAT) != GhostsAhoy.ECTOPLASM_BEDSHEET) {
+		    player.transformNpc = 0;
+		    player.setWalkAnim(-1);
+		    player.setRunAnim(-1);
+		    player.setStandAnim(-1);
 		}
 	}
 
@@ -235,12 +239,12 @@ public class Equipment {
 			player.getInventory().removeItemSlot(item, slot);
 			removedItem = true;
 			if (itemContainer.get(slotType) != null) {
-				if (item.getId() == equipItem.getId()) {
-					itemContainer.set(slotType, new Item(item.getId(), item.getCount() + equipItem.getCount()));
-				} else {
-					player.getInventory().addItemToSlot(equipItem, slot);
-					itemContainer.set(slotType, item);
-				}
+			    if (item.getId() == equipItem.getId()) {
+				itemContainer.set(slotType, new Item(item.getId(), item.getCount() + equipItem.getCount()));
+			    } else {
+				player.getInventory().addItemToSlot(equipItem, slot);
+				itemContainer.set(slotType, item);
+			    }
 			} else {
 				itemContainer.set(slotType, item);
 			}
@@ -271,13 +275,13 @@ public class Equipment {
 				}
 			}
 			if (itemContainer.get(slotType) != null) {
-				Item equipItem = itemContainer.get(slotType);
-				if (!removedItem) {
-					player.getInventory().removeItemSlot(item, slot);
-					player.getInventory().addItemToSlot(equipItem, slot);
-				} else {
-					player.getInventory().addItem(equipItem);
-				}
+			    Item equipItem = itemContainer.get(slotType);
+			    if (!removedItem) {
+				player.getInventory().removeItemSlot(item, slot);
+				player.getInventory().addItemToSlot(equipItem, slot);
+			    } else {
+				player.getInventory().addItem(equipItem);
+			    }
 			} else {
 				player.getInventory().removeItemSlot(item, slot);
 			}
@@ -354,13 +358,6 @@ public class Equipment {
 			player.getActionSender().sendSideBarInterfaces();
 			player.setAppearanceUpdateRequired(true);
 		}
-		if(item.getId() == GhostsAhoy.BEDSHEET || item.getId() == GhostsAhoy.ECTOPLASM_BEDSHEET) {
-		    player.transformNpc = -1;
-		    player.setWalkAnim(-1);
-		    player.setRunAnim(-1);
-		    player.setStandAnim(-1);
-		    player.setAppearanceUpdateRequired(true);
-		}
 		if (slot == Constants.HAT) {
 			Tiaras.handleTiara(player, -1);
 		}
@@ -371,8 +368,15 @@ public class Equipment {
 		player.getInventory().addItem(new Item(item.getId(), item.getCount()));
 		if (slot == Constants.WEAPON) {
 			player.setEquippedWeapon(null);
-           player.setSpecialType(null);
+			player.setSpecialType(null);
 			player.setAutoSpell(null);
+		}
+		if(slot == Constants.HAT && (item.getId() == GhostsAhoy.BEDSHEET || item.getId() == GhostsAhoy.ECTOPLASM_BEDSHEET)) {
+		    player.transformNpc = -1;
+		    player.setWalkAnim(-1);
+		    player.setRunAnim(-1);
+		    player.setStandAnim(-1);
+		    player.setAppearanceUpdateRequired(true);
 		}
 		refresh(slot, new Item(-1, 0));
 		updateWeight();

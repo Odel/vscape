@@ -1569,6 +1569,7 @@ public class WalkToActionHandler {
 				case 2213: //bank booth
 				case 11758:
 				case 14367: //pc bank booth
+				case 5276: //port phasmatys bank booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -1891,6 +1892,7 @@ public class WalkToActionHandler {
 				case 2213:
 				case 11758:
 				case 14367: //pc bank booth
+				case 5276: //port phasmatys bank booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -2133,8 +2135,11 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (Shops.findShop(player, player.getClickId()) > 0) {
-					if(player.getClickId() != 553)
-					Dialogues.sendDialogue(player, 10008, 1, 0, player.getClickId());
+					if(player.getClickId() != 553 || player.getClickId() != 4359)
+					    Dialogues.sendDialogue(player, 10008, 1, 0, player.getClickId());
+					else if(player.getClickId() == 4359) {
+					    Dialogues.sendDialogue(player, 10777, 1, 0, player.getClickId());
+					}
 					this.stop();
 					return;
 				}
@@ -2146,6 +2151,7 @@ public class WalkToActionHandler {
 					case 499 :
 					case 2619:
 					case 4446 : //fairy bankers
+					case 1702: //ghost banker
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
@@ -2233,6 +2239,7 @@ public class WalkToActionHandler {
 				case 902 : //magebank banker
 				case 4296 : //warriors guild banker jade
 				case 2619:
+				case 1702: //ghost banker
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());

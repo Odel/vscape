@@ -219,6 +219,7 @@ public class RuneDraw {
 	    } else if (player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
 		player.setRuneDrawWins(2, true);
 	    }
+	    player.setJustWonRuneDraw(true);
 	}
 	gameOver = true;
     }
@@ -228,6 +229,9 @@ public class RuneDraw {
 	player.getActionSender().sendString("You lose.", YOUR_TEXT);
 	player.getActionSender().sendString("", DRAW_TEXT);
 	player.getActionSender().sendString("", HOLD_TEXT);
+	if(questFlag) {
+	    player.setJustWonRuneDraw(false);
+	}
 	gameOver = true;
     }
 }

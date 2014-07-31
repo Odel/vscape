@@ -189,12 +189,12 @@
     "items": [
       {
         "id": 4740,
-        "count": 100
+        "count": 500
       }
     ],
     "isGeneralStore": false,
     "currencyType": "ITEM",
-    "currency": 995
+    "currency": 4278
   },
   {
     "shopId": 5,
@@ -8452,5 +8452,70 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+    },
+    {
+    "shopId": 198,
+    "name": "Patchy's Home-made Clothing",
+    "items": [
+      {
+        "id": 7112,
+        "count": 10
+      },
+      {
+        "id": 7110,
+        "count": 10
+      },
+	  {
+        "id": 7116,
+        "count": 10
+      },
+      {
+        "id": 7124,
+        "count": 10
+      },
+      {
+        "id": 7122,
+        "count": 10
+      },
+	  {
+        "id": 7126,
+        "count": 10
+      },
+      {
+        "id": 7130,
+        "count": 10
+      },
+	  {
+        "id": 7128,
+        "count": 10
+      },
+	  {
+        "id": 7132,
+        "count": 10
+      },
+      {
+        "id": 7136,
+        "count": 10
+      },
+	  {
+        "id": 7134,
+        "count": 10
+      },
+	  {
+        "id": 7138,
+        "count": 10
+      },
+	  {
+        "id": 7114,
+        "count": 10
+      },
+	  {
+        "id": 1025,
+        "count": 10
+      }
+      ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 4278
     }
 ]

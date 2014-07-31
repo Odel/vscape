@@ -212,6 +212,7 @@ public class Player extends Entity {
 	private RuneDraw runeDraw = new RuneDraw(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
+	private boolean justWonRuneDraw = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -3148,6 +3149,14 @@ public class Player extends Entity {
 	
 	public void setRuneDrawWins(int slot, boolean bool) {
 	    this.runeDrawWins[slot] = bool;
+	}
+	
+	public boolean justWonRuneDraw() {
+		return justWonRuneDraw;
+	}
+	
+	public void setJustWonRuneDraw(boolean bool) {
+	    this.justWonRuneDraw = bool;
 	}
 
     public Slayer getSlayer() {

@@ -51,7 +51,7 @@ public class GhostsAhoy implements Quest {
     public static final int NETTLE_WATER = 4237;
     public static final int PUDDLE_OF_SLIME = 4238;
     public static final int NETTLE_TEA_BOWL = 4239;
-    public static final int EMPTY_CUP = 1918;
+    public static final int EMPTY_CUP = 1980;
     public static final int NETTLE_TEA_BOWL_MILKY = 4240;
     public static final int NETTLES = 4241;
     public static final int EMPTY_BOWL = 1923;
@@ -142,6 +142,7 @@ public class GhostsAhoy implements Quest {
     public static final int AK_HARANU = 1688;
     public static final int INNKEEPER = 1700;
     public static final int DISCIPLE = 1686;
+    public static final int PATCHY = 4359;
     
     public int dialogueStage = 0;
     
@@ -764,11 +765,11 @@ public class GhostsAhoy implements Quest {
 		    }
 		} else if (x == 3618 && y == 3542) {
 		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
-			if (!player.lobsterSpawnedAndDead()) {
+			if (!player.lobsterSpawnedAndDead() && player.getSpawnedNpc() == null) {
 			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
-			    NpcLoader.spawnNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
+			    NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
 			    return true;
-			} else {
+			} else if(player.lobsterSpawnedAndDead()) {
 			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
 				player.getUpdateFlags().sendAnimation(832);
 				player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_2));
@@ -781,6 +782,9 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
 				return true;
 			    }
+			} else {
+			    player.getActionSender().sendMessage("You are under attack by a giant lobster! Now is not the time to click this!");
+			    return true;
 			}
 		    } else {
 			player.walkTo(x, y, false);
@@ -1310,7 +1314,7 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendPlayerChat("OOooOOoh, Yessss, after hearing Velorina's story", "I willlll be hAaAaaAAppy to help out!", CONTENT);
 				return true;
 			    case 5:
-				player.getDialogue().sendNpcChat("I'm not sure why you're speaking like that...", "But any voice helps. Take this petition form, try and", "get 10 signatures from the townsfolk. Then you can present", "the petition to Necrovarus!", CONTENT);
+				player.getDialogue().sendNpcChat("I'm not sure why you're speaking like that...", "But any voice helps. Take this petition form, try to get", "10 signatures from the townsfolk. Then you can present", "the petition to Necrovarus!", CONTENT);
 				return true;
 			    case 6:
 				if(player.getInventory().canAddItem(new Item(PETITION))) {
@@ -1813,6 +1817,200 @@ public class GhostsAhoy implements Quest {
 			}
 		}
 	    return false;
+	    case PATCHY:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendNpcChat("'Ello there adventurer!", HAPPY);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("Hello.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendNpcChat("What are ye looking for today?", CONTENT);
+			return true;
+		    case 4:
+			player.getDialogue().sendPlayerChat("Nothing, I was just admiring your outfit.", "Where did you get it?", CONTENT);
+			return true;
+		    case 5:
+			player.getDialogue().sendNpcChat("Why, I made it me-self!", HAPPY);
+			return true;
+		    case 6:
+			player.getDialogue().sendPlayerChat("You're awfully talented with a needle then...", "What else can you do?", CONTENT);
+			return true;
+		    case 7:
+			player.getDialogue().sendNpcChat("Well, I can sew you some pirate garb together!", CONTENT);
+			return true;
+		    case 8:
+			player.getDialogue().sendPlayerChat("Eh. The pirate outfit can be found anywhere.", "What else can you offer me?", "I've got gold I'm willing to spend.", CONTENT);
+			return true;
+		    case 9:
+			player.getDialogue().sendStatement("Patchy's eyes light up at the sound of the word gold.");
+			return true;
+		    case 10:
+			player.getDialogue().sendNpcChat("Gold ye say? Lean in close laddy, for I do", "have something to offer...", CONTENT);
+			return true;
+		    case 11:
+			player.getDialogue().sendNpcChat("Eyepatches! Ha! It's my finest work!", LAUGHING);
+			return true;
+		    case 12:
+			player.getDialogue().sendPlayerChat("Erm, eyepatches aren't special.", CONTENT);
+			return true;
+		    case 13:
+			player.getDialogue().sendNpcChat("Ah yes, by themselves laddy, that they aren't!", "I can sew an eyepatch onto ye pirate garb!", HAPPY);
+			return true;
+		    case 14:
+			player.getDialogue().sendPlayerChat("Really? What can you attach an eyepatch to?", CONTENT);
+			return true;
+		    case 15:
+			player.getDialogue().sendNpcChat("Bandanas and pirate hats are me specialty.", "Would you like me to sew on for ye?", CONTENT);
+			return true;
+		    case 16:
+			player.getDialogue().sendOption("Yes!", "No.");
+			return true;
+		    case 17:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().sendNpcChat("What piece would ye like sown?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 18:
+			player.getDialogue().sendOption("White Bandana (650 gold)", "Red Bandana (750 gold)", "Blue Bandana (500 gold)" , "Brown Bandana (1000 gold)", "Pirate Hat(5000 gold)");
+			return true;
+		    case 19:
+			switch(optionId) {
+			    case 1:
+				if(!player.getInventory().playerHasItem(995, 650)) {
+				    player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(1025)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(7112)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have that bandana for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(7112) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 650)) {
+				    player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8924));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().replaceItemWithItem(new Item(7112), new Item(8924));
+				    player.getInventory().removeItem(new Item(1025));
+				    player.getInventory().removeItem(new Item(995, 650));
+				    return true;
+				}
+			    return false;
+			    case 2:
+				if(!player.getInventory().playerHasItem(995, 750)) {
+				    player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(1025)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(7124)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have that bandana for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(7124) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 750)) {
+				    player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8925));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().replaceItemWithItem(new Item(7124), new Item(8925));
+				    player.getInventory().removeItem(new Item(1025));
+				    player.getInventory().removeItem(new Item(995, 750));
+				    return true;
+				}
+			    return false;
+			    case 3:
+				if(!player.getInventory().playerHasItem(995, 500)) {
+				    player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(1025)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(!player.getInventory().playerHasItem(7130)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have that bandana for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(7130) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 500)) {
+				    player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8926));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().replaceItemWithItem(new Item(7130), new Item(8926));
+				    player.getInventory().removeItem(new Item(1025));
+				    player.getInventory().removeItem(new Item(995, 500));
+				    return true;
+				}
+			    return false;
+			    case 4:
+				if(!player.getInventory().playerHasItem(995, 1000)) {
+				    player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				if(!player.getInventory().playerHasItem(1025)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				if(!player.getInventory().playerHasItem(7136)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have that bandana for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(7136) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 1000)) {
+				    player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8927));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().replaceItemWithItem(new Item(7136), new Item(8927));
+				    player.getInventory().removeItem(new Item(1025));
+				    player.getInventory().removeItem(new Item(995, 1000));
+				    return true;
+				}
+			    return false;
+			    case 5:
+				if(!player.getInventory().playerHasItem(995, 5000)) {
+				    player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				if(!player.getInventory().playerHasItem(1025)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				if(!player.getInventory().playerHasItem(2651)) {
+				    player.getDialogue().sendNpcChat("I'm afraid you don't have a pirate hat for me, matey!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else if(player.getInventory().playerHasItem(2651) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 5000)) {
+				    player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8928));
+				    player.getDialogue().endDialogue();
+				    player.getInventory().replaceItemWithItem(new Item(2651), new Item(8928));
+				    player.getInventory().removeItem(new Item(1025));
+				    player.getInventory().removeItem(new Item(995, 5000));
+				    return true;
+				}
+			    return false;
+			}
+		    return false;
+		}
+	    return false;
 	    case OLD_CRONE:
 		switch(player.getQuestStage(24)) {
 		    case TO_CRONE:
@@ -1892,7 +2090,7 @@ public class GhostsAhoy implements Quest {
 		    case CRONE_NEEDS_TEA_IN_CUP:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getInventory().ownsItem(PORCELAIN_CUP)) {
+				if(!player.getInventory().ownsItem(PORCELAIN_CUP) && !player.getInventory().ownsItem(PORCELAIN_CUP_NETTLE) && !player.getInventory().ownsItem(PORCELAIN_CUP_NETTLE_MILKY)) {
 				    player.getDialogue().sendPlayerChat("I'm afraid I lost your cup.", CONTENT);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
@@ -1941,8 +2139,15 @@ public class GhostsAhoy implements Quest {
 		    case CRONE_NEEDS_MILKY_TEA:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("Did you get me some milky tea in my", "special cup there dear?", CONTENT);
-				return true;
+				if(!player.getInventory().ownsItem(PORCELAIN_CUP) && !player.getInventory().ownsItem(PORCELAIN_CUP_NETTLE) && !player.getInventory().ownsItem(PORCELAIN_CUP_NETTLE_MILKY)) {
+				    player.getDialogue().sendPlayerChat("I'm afraid I lost your cup.", CONTENT);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Did you get me some milky tea in my", "special cup there dear?", CONTENT);
+				    return true;
+				}
 			    case 2:
 				if(player.getInventory().playerHasItem(PORCELAIN_CUP_NETTLE_MILKY)) {
 				    player.getDialogue().sendPlayerChat("Here's that milky, delicious, hand-crafted, ill-gotten...", ANNOYED);
@@ -1958,6 +2163,14 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().setNextChatId(1);
 				player.getInventory().removeItem(new Item(PORCELAIN_CUP_NETTLE_MILKY));
 				player.setQuestStage(24, CRONES_STORY);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("How foolish of you! I used to only have one", "special cup. But years ago another adventurer just like", "you lost that one, just as you have. So I have a few", "special cups made.", ANGRY_1);
+				return true;
+			    case 11:
+				player.getDialogue().sendGiveItemNpc("The Old Crone hands you another 'special cup'.", new Item(PORCELAIN_CUP));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(PORCELAIN_CUP));
 				return true;
 			}
 		    return false;
@@ -2086,34 +2299,6 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().endDialogue();
 				player.getInventory().addItem(new Item(MODEL_SHIP));
 				return true;
-			    case 5:
-				player.getDialogue().sendNpcChat("Good! Ah, the robes of Necrovarus...", CONTENT);
-				return true;
-			    case 6:
-				player.getDialogue().sendNpcChat("The Book of Haricanto! I have no idea", "how you found this!", HAPPY);
-				return true;
-			    case 7:
-				player.getDialogue().sendNpcChat("And the the translation manual - yes, this should", "do the job.", CONTENT);
-				return true;
-			    case 8:
-				player.getDialogue().sendNpcChat("Wonderful, that's everything I need.", "I can perform the enchantment now.", CONTENT);
-				return true;
-			    case 9:
-				if(player.getInventory().playerHasItem(GHOSTSPEAK_AMULET)) {
-				    player.getDialogue().sendGiveItemNpc("The Old Crone takes the 3 items and begins to chant...", "The ghostspeak amulet begins to glow green.", new Item(NECROVARUS_ROBES), new Item(ENCHANTED_GHOSTSPEAK));
-				    player.getDialogue().setNextChatId(1);
-				    player.getInventory().replaceItemWithItem(new Item(GHOSTSPEAK_AMULET), new Item(ENCHANTED_GHOSTSPEAK));
-				    player.getInventory().removeItem(new Item(NECROVARUS_ROBES));
-				    player.getInventory().removeItem(new Item(BOOK_OF_HARICANTO));
-				    player.getInventory().removeItem(new Item(TRANSLATION_MANUAL));
-				    player.setQuestStage(24, CAST_SPELL);
-				    return true;
-				}
-				else {
-				    player.getDialogue().sendNpcChat("Oh, you don't have a ghostspeak amulet for me", "to enchant. Come back with one as soon as possible!", CONTENT);
-				    player.getDialogue().endDialogue();
-				    return true;
-				}
 			}
 		    return false;
 		    case ITEMS_FOR_ENCHANTMENT_2:
@@ -2197,19 +2382,33 @@ public class GhostsAhoy implements Quest {
 	    case ROBIN:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
-			if(!player.getInventory().ownsItem(SIGNED_OAK_BOW) && !player.getRuneDrawWins()[0]) {
+			if(!player.getInventory().ownsItem(SIGNED_OAK_BOW) && !player.getRuneDrawWins()[0] && (player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT || player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT_2) ) {
 			    player.getDialogue().sendPlayerChat("Would you sign an oak longbow for me?", CONTENT);
 			    return true;
 			}
 			else if(player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1]) {
-			    player.getDialogue().sendPlayerChat("So are you going to pay up then?", "You still owe me 25 gold coins.", CONTENT);
-			    player.getDialogue().setNextChatId(15);
-			    return true;
+			    if(player.justWonRuneDraw()) {
+				player.getDialogue().sendPlayerChat("So are you going to pay up then?", "You still owe me 25 gold coins.", CONTENT);
+				player.getDialogue().setNextChatId(15);
+				return true;
+			    }
+			    else {
+				player.getDialogue().sendPlayerChat("I may have lost, but...", "You still owe me 25 gold coins.", CONTENT);
+				player.getDialogue().setNextChatId(15);
+				return true;
+			    }
 			}
 			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-			    player.getDialogue().sendPlayerChat("So are you going to pay up this time?", "You still owe me 75 gold coins!", ANNOYED);
-			    player.getDialogue().setNextChatId(20);
-			    return true;
+			    if(player.justWonRuneDraw()) {
+				player.getDialogue().sendPlayerChat("So are you going to pay up this time?", "You still owe me 75 gold coins!", ANNOYED);
+				player.getDialogue().setNextChatId(20);
+				return true;
+			    }
+			    else {
+				player.getDialogue().sendPlayerChat("I may have lost this last time, but, ", "you owe me 75 gold coins!", ANNOYED);
+				player.getDialogue().setNextChatId(20);
+				return true;
+			    }
 			}
 			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && player.getRuneDrawWins()[2]) {
 			    player.getDialogue().sendPlayerChat("I've had enough of you not paying up - you owe me", "100 gold now. I'm going to tell the ghosts what you're", "doing.", ANGRY_1);
@@ -2356,6 +2555,9 @@ public class GhostsAhoy implements Quest {
 			    player.getDialogue().sendGiveItemNpc("Robin signs the oak longbow for you.", new Item(OAK_LONGBOW));
 			    player.getDialogue().endDialogue();
 			    player.getInventory().replaceItemWithItem(new Item(OAK_LONGBOW), new Item(SIGNED_OAK_BOW));
+			    player.setRuneDrawWins(0, false);
+			    player.setRuneDrawWins(1, false);
+			    player.setRuneDrawWins(2, false);
 			    return true;
 			}
 			else {
