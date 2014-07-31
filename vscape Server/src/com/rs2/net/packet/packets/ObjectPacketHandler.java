@@ -155,6 +155,9 @@ public class ObjectPacketHandler implements PacketHandler {
 		//if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 		//	return;
 		//}
+		if(WalkToActionHandler.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+		    return;
+		}
 		if(VampireSlayer.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}

@@ -72,7 +72,7 @@ public class SpellAttack extends BasicAttack {
 			}
 			if(!((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
 			    Player player = (Player)getAttacker();
-			    player.getActionSender().sendMessage("You need to charge this staff in the Mage Arena with " +(100-player.getMageArenaCasts(spell))+" more casts.");
+			    player.getActionSender().sendMessage("You need to unlock use of this staff in the Mage Arena with " +(100-player.getMageArenaCasts(spell))+" more casts.");
 			    player.setCastedSpell(null);
 			    player.setAutoSpell(null);
 			    CombatManager.resetCombat(player);
@@ -242,35 +242,18 @@ public class SpellAttack extends BasicAttack {
                 World.getTickManager().submit(t);
             }
         }
-
-	if (spell == Spell.FLAMES_OF_ZAMORAK) {
-	    for(Player player : World.getPlayers()) {
-		if(player == null)
-		    continue;
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
-		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
-		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
+	if (spell == Spell.TELEBLOCK) {
+	    if(getAttacker().isPlayer() && getVictim().isPlayer()) {
+		((Player)getVictim()).getActionSender().sendMessage("You have been teleblocked!");
 	    }
 	}
-	if (spell == Spell.SARADOMIN_STRIKE) {
-	    for(Player player : World.getPlayers()) {
-		if(player == null)
-		    continue;
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
+	if (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.SARADOMIN_STRIKE ||spell == Spell.CLAWS_OF_GUTHIX) {
+	    if(getAttacker().isPlayer()) {
+		Player player = (Player)getAttacker();
+		if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
 		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
 		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
-		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
-	    }
-	}
-	if (spell == Spell.CLAWS_OF_GUTHIX) {
-	    for(Player player : World.getPlayers()) {
-		if(player == null)
-		    continue;
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
-		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
-		    player.getActionSender().sendMessage("You have charged your God Staff with 100 casts!");
+		    player.getActionSender().sendMessage("You have unlocked your God Staff for use outside the Mage Arena!");
 	    }
 	}
         if (getAttacker().isPlayer()) {

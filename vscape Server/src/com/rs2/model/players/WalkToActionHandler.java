@@ -682,14 +682,6 @@ public class WalkToActionHandler {
 				    else if(player.getPosition().getX() == 3154)
 					Agility.crossObstacle(player, 3153, 3363, 769, 5, 29, 9);
 				break;
-				case 9328: //ardy log cross
-				    if(player.getPosition().getX() == 2602) //x == 2601)
-					Agility.crossLog(player, 2602, 3336, 6, 32, 10);
-				break;
-				case 9330: //ardy log cross
-				    if(player.getPosition().getX() == 2598) //x == 2599)
-					Agility.crossLog(player, 2598, 3336, 6, 32, 10);
-				break;
 				case 9316:
 				case 9317: //grand tree nw rocks
 				    if(x == 2487)
@@ -1169,12 +1161,6 @@ public class WalkToActionHandler {
 					break;
 				case 5110:
 					player.teleport(new Position(2647, 9557));
-					break;
-				case 5088:
-					if (x > player.getPosition().getX() && y == player.getPosition().getY())
-						player.getActionSender().walkTo(-5, 0, true);
-					else if (x < player.getPosition().getX() && y == player.getPosition().getY())
-						player.getActionSender().walkTo(5, 0, true);
 					break;
 				case 6552:
 					player.getUpdateFlags().sendAnimation(645);
@@ -2802,7 +2788,37 @@ public class WalkToActionHandler {
 			}
 		});
 	}
-
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+	switch (object) {
+	    case 5088: //brimhaven dungeon log
+	    case 5090:
+		if (!Misc.goodDistance(player.getPosition().clone(), new Position(x, y, player.getPosition().getZ()), 2)) {
+		    player.walkTo(x, y, false);
+		    return true;
+		} else {
+		    if (x == 2683) {
+			Agility.crossLog(player, 2687, 9506, 6, 0, 0);
+		    } else if (x == 2686) {
+			Agility.crossLog(player, 2682, 9506, 6, 0, 0);
+		    }
+		    return true;
+		}
+	    case 9328: //ardy log cross
+	    case 9330:
+		if (!Misc.goodDistance(player.getPosition().clone(), new Position(x, y, player.getPosition().getZ()), 2)) {
+		    player.walkTo(x, y, false);
+		    return true;
+		} else {
+		    if (x == 2599) {
+			Agility.crossLog(player, 2602, 3336, 6, 32, 10);
+		    } else if (x == 2601) {
+			Agility.crossLog(player, 2598, 3336, 6, 32, 10);
+		    }
+		    return true;
+		}
+	}
+	return false;
+    }
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
 		if (def.getId() == 2638) {
 			return true;
