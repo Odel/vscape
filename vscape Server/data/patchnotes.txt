@@ -1,3 +1,13 @@
+@dre@=July 31st=
+@blu@Ghosts Ahoy
+@blu@Ectofuntus
+-All tiaras work when used on ruins.
+-Fixed the red dragon log in Brimhaven Dungeon.
+-Fixed the Ardougne agility log.
+-Baby dragons drop baby dragon bones.
+-Added a message when you get teleblocked.
+-Patchy the pirate is visiting Port Phasmatys.
+
 @dre@=July 26th=
 @blu@Fight Caves
 -Ancient Cavern npcs added to upstairs Brimhaven
