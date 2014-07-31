@@ -1172,11 +1172,13 @@ public class Player extends Entity {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(!fullString.contains("-")) {
 			this.setQuestStage(quest, stage);
+			QuestHandler.getQuests()[quest].sendQuestTabStatus(this);
 			getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
 		    }
-		    else if (fullString.contains("-")) {
+		    else {
 			try {
 			    player.setQuestStage(quest, stage);
+			    QuestHandler.getQuests()[quest].sendQuestTabStatus(player);
 			    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
 			}
 			catch(Exception e) {
