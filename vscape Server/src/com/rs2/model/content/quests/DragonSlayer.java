@@ -326,8 +326,15 @@ public class DragonSlayer implements Quest {
 	}
         else {
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("Speak with the Guildmaster in the Champion's Guild.", 8147);
-	    player.getActionSender().sendString("You must be able to defeat a level 83 dragon.", 8149);
+            player.getActionSender().sendString("Speak with the @dre@Guildmaster in the @dre@Champion's Guild.", 8147);
+	    player.getActionSender().sendString("@dre@Requirements:", 8148);
+	    if(player.getQuestPoints() >= 32) {
+		player.getActionSender().sendString("@str@" + "-32 Quest Points.", 8149);
+	    }
+	    else {
+		player.getActionSender().sendString("@dbl@" + "-32 Quest Points.", 8149);
+	    }
+	    player.getActionSender().sendString("@dbl@" + "-Ability to defeat a level 83 dragon.", 8150);
         }
     }
     
@@ -372,8 +379,15 @@ public class DragonSlayer implements Quest {
     	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
-            player.getActionSender().sendString("Speak with the Guildmaster in the Champion's Guild.", 8147);
-	    player.getActionSender().sendString("You must be able to defeat a level 83 dragon.", 8149);
+            player.getActionSender().sendString("Speak with the @dre@Guildmaster in the @dre@Champion's Guild.", 8147);
+	    player.getActionSender().sendString("@dre@Requirements:", 8148);
+	    if(player.getQuestPoints() >= 32) {
+		player.getActionSender().sendString("@str@" + "-32 Quest Points.", 8149);
+	    }
+	    else {
+		player.getActionSender().sendString("@dbl@" + "-32 Quest Points.", 8149);
+	    }
+	    player.getActionSender().sendString("@dbl@" + "-Ability to defeat a level 83 dragon.", 8150);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
     

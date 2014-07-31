@@ -104,7 +104,7 @@ public class ActionSender {
 			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendMessage("Welcome to /v/scape.");
-		sendMessage("Check out ::info and ::patchnotes");
+		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 		//QPEdit(player.getQuestPoints());
 		return this;
 	}
@@ -520,7 +520,7 @@ public class ActionSender {
 
 	public ActionSender sendMapRegion() {
 		player.getCurrentRegion().setAs(player.getPosition());
-        player.calculateLoadedLandscape();
+		player.calculateLoadedLandscape();
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
 		out.writeHeader(player.getEncryptor(), 73);
 		out.writeShort(player.getPosition().getRegionX() + 6,

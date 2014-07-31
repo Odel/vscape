@@ -912,21 +912,7 @@ public class Player extends Entity {
 			}
 		}
 		else if (keyword.equals("info")) {
-			getActionSender().sendInterface(8134);
-			ClearNotes();	
-			this.getActionSender().sendString("@dre@-=vscape information=-", 8144);
-			int line = 8147;
-			for(String q: GlobalVariables.info)
-			{
-				if(q!=null)
-				{	
-					if(line > 8195 && line < 12174) {
-					    line = 12174;
-					}
-					this.getActionSender().sendString(q, line);
-					line++;
-				}
-			}	
+			info();
 		}
 		else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
@@ -2010,6 +1996,21 @@ public class Player extends Entity {
 		return playerHosts;
 	}
 	*/
+	private void info() {
+	    getActionSender().sendInterface(8134);
+	    ClearNotes();
+	    this.getActionSender().sendString("@dre@-=vscape information=-", 8144);
+	    int line = 8147;
+	    for (String q : GlobalVariables.info) {
+		if (q != null) {
+		    if (line > 8195 && line < 12174) {
+			line = 12174;
+		    }
+		    this.getActionSender().sendString(q, line);
+		    line++;
+		}
+	    }
+	}
 	/**
 	 * Yell Message
 	 * 
@@ -2495,10 +2496,13 @@ public class Player extends Entity {
 		wildyWarned = inWild();
 		if (getNewComersSide().getTutorialIslandStage() == 99) {
 			getNewComersSide().setTutorialIslandStage(100, true);
-			getActionSender().sendInterface(3559);
+			info();
+			//getActionSender().sendInterface(3559);
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
 			getNewComersSide().addStarterItems();
+			QuestHandler.initPlayer(this);
+			PlayerSave.save(this);
 			return;
 		}
 		if (getNewComersSide().isInTutorialIslandStage()) {

@@ -1,17 +1,18 @@
 @dre@ =Commands=
-::outfit
-::yell/::y
-::hideyell/::hy
+::info (This interface.)
+::outfit (Changes your appearance.)
+::yell/::y (Sends a global message.)
+::hideyell/::hy (Hides all yell messages / Re-enables yell.)
 ::hidecolor/::hc (Hides color text in yell.)
 ::home
 ::players
 ::changepass
 ::patchnotes
 ::highscores / ::hs / ::hiscores
-::maxqp
+::maxqp (Tells you the rough maximum quest points available.)
 ::report
 ::bugreport
-::helpme/::panic(Send a request for assistance to Staff.)
+::helpme/::panic (Sends a request for assistance to the staff.)
 ::pcpoints (Tells you your commendation points.)
 ::pc (General chat for Pest Control games.)
 ::pcactive (Tells you if a PC game is running.)
@@ -50,10 +51,7 @@ God Dammit
 -The Abyss.
 
 @dre@ =/v/scape wiki=
-vscape.wikidot.com
-
-@dbl@If you are brand new, re-log to save your character.
-@dbl@This will allow you to interact with the world.
+vscape.wikidot.com (A work in progress.)
 
 @blu@If you need any help, pm one of the staff.
 @blu@Enjoy the grind.
