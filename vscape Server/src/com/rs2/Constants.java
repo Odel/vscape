@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Constants {
 
-	public static final String SERVER_NAME = "vscape";
+	public static final String SERVER_NAME = "vidyascape";
 
 	/*
 	public static final String[] Admins = {
@@ -35,7 +35,7 @@ public class Constants {
 	public static final String FORUM_DB_USER = "admin06_b00mah3";
 	public static final String FORUM_DB_PASS = "O1xS?rx%qEGS";
 
-	public static boolean SQL_ENABLED = true;
+	public static boolean SQL_ENABLED = false;
 	public static int SQL_TYPE = 2;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
 	public static boolean SERVER_DEBUG = true;
 	public static boolean DEVELOPER_MODE = true;

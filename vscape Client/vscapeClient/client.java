@@ -23,7 +23,7 @@ import vscapeClient.sign.signlink;
 
 public class client extends RSApplet {
 	
-	private static boolean DevMode = true;
+	private static boolean DevMode = false;
 
 	public static String getHost() {
 		return "127.0.0.1";
@@ -353,9 +353,7 @@ public class client extends RSApplet {
 
 	public String getMac()
 	{
-		//this command is undergoing constant change and fixes
-		//on *nix based systems it uses ifconfig to get a mac address
-		//on windows systems it gets a list of interfaces, and returns the first non-null mac
+
 		
 		String command = "";
 
@@ -392,7 +390,6 @@ public class client extends RSApplet {
 	            break;
 
 	        }
-	        System.out.println(line);
 	        return line;
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -6593,7 +6590,12 @@ public class client extends RSApplet {
 				aStream_847.writeWord(317);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
 				
-				aStream_847.writeString(getMac());
+				String macaddress = getMac();
+		        if(macaddress.equals("00-00-00-00-00-00-00-E0") || macaddress.equals("00:00:00:00:00:00"))
+		        {
+		        	macaddress = System.getenv("USERNAME")+"@"+System.getenv("COMPUTERNAME");
+		        }
+				aStream_847.writeString(macaddress);
 				
 				for(int l1 = 0; l1 < 9; l1++)
 					aStream_847.writeDWord(expectedCRCs[l1]);
@@ -12268,7 +12270,7 @@ public class client extends RSApplet {
 		}
 		else
 		{
-			server = "mrsmeg.no-ip.biz";
+			server = "vidyascape.no-ip.org";
 		}
 		anIntArrayArray825 = new int[104][104];
 		friendsNodeIDs = new int[200];
