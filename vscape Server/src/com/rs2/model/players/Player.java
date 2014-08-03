@@ -1353,6 +1353,44 @@ public class Player extends Entity {
 			}
 			skill.refresh();
 		}
+		else if (keyword.equals("changeuser")) {
+		    String name = args[0];
+		    String newName = args[1];
+		    Player player = World.getPlayerByName(name);
+		    if(player == null ) {
+			this.getActionSender().sendMessage("Could not find player.");
+			return;
+		    }
+		    player.setUsername(newName);
+		    this.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .");
+		}
+		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
+		    String name = fullString;
+		    Player player = World.getPlayerByName(name);
+			if (player == null) {
+			    this.actionSender.sendMessage("Cannot find player: "+name);
+			    return;
+			}
+			BufferedWriter file = null;
+			try {
+			    file = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+"dump.txt"));
+			    for(int i = 0; i < 21; i++) {
+				file.write(Skill.SKILL_NAME[i] + " lvl = ", 0, Skill.SKILL_NAME[i].length() + 7);
+				file.write(Integer.toString(player.getSkill().getLevel()[i]), 0, Integer.toString(player.getSkill().getLevel()[i]).length());
+				file.newLine();
+				file.write("Exp = ", 0, 6);
+				file.write(Integer.toString((int)player.getSkill().getExp()[i]), 0, Integer.toString((int)player.getSkill().getExp()[i]).length());
+				file.newLine();
+				file.newLine();
+			    }
+			    file.newLine();
+			    file.close();
+			    this.getActionSender().sendMessage("Dumping complete.");
+			}
+			catch (IOException e) {
+			    this.getActionSender().sendMessage("Error dumping player information.");
+			}
+		}
 		else if (keyword.equals("poisondump")) {
 		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 		    PiratesTreasure.dumpAllPoisonedItems(this);
@@ -1364,9 +1402,6 @@ public class Player extends Entity {
 		    inventory.addItem(new Item(GhostsAhoy.ORANGE_DYE));
 		    inventory.addItem(new Item(GhostsAhoy.PURPLE_DYE));
 		    inventory.addItem(new Item(GhostsAhoy.GREEN_DYE));
-		}
-		else if (keyword.equals("win")) {
-		    this.getRuneDraw().winGame();
 		}
 		else if (keyword.equals("enchantdump")) {
 		    bank.add(new Item(8016, 100));
