@@ -292,6 +292,7 @@ public class Ectofungus {
 		    return true;
 		    */
 		}
+	    return false;
 	    case LOADER:
 		    final int BONES = getBones(player);
 		    if(BONES == 0) {
@@ -321,22 +322,37 @@ public class Ectofungus {
     public static boolean handleButtons(Player player, int buttonId) {
 		switch (buttonId) {
 			case 10239:
+			    if(player.getStatedInterface().equals("Ectoplasm")) {
 				handleFillTick(player, 1);
 				return true;
+			    }
+			    else {
+				return false;
+			    }
 			case 10238:
+				if(player.getStatedInterface().equals("Ectoplasm")) {
 				handleFillTick(player, 5);
 				return true;
+			    }
+			    else {
+				return false;
+			    }
 			case 6212:
-			    System.out.println(player.getEnterXInterfaceId());
-			    return true;
+			    return player.getStatedInterface().equals("Ectoplasm");
 			case 6211:
+			    if(player.getStatedInterface().equals("Ectoplasm")) {
 				handleFillTick(player, 28);
 				return true;
+			    }
+			    else {
+				return false;
+			    }
 		}
 		return false;
 	}
     
     public static void handleFillTick(final Player player, final int amount) {
+	    
 		final int task = player.getTask();
 		player.getMovementHandler().reset();
 		player.setNewSkillTask();
