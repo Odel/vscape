@@ -2,6 +2,7 @@ package com.rs2.model.content.combat.attacks;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Graphic;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackUsableResponse;
 import com.rs2.model.content.combat.CombatCycleEvent;
@@ -10,6 +11,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
@@ -137,36 +139,7 @@ public class SpellAttack extends BasicAttack {
 	setAttackDelay(5);
 	Item[] runesRequired = spell.getRunesRequired();
 	int staffRequired = -1;
-	/* multi target ancients needs more time
-	if(getAttacker().isPlayer() && getMultiAncients(spell) && ((Player)getAttacker()).inMulti()) {
-	    for (Npc npcs : World.getNpcs()) {
-		if(npcs == null || npcs.getNpcId() == 3782) continue;
-		if(npcs != getVictim() ) {
-		    CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), npcs);
-		    HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
-		    if (getVictim().goodDistanceEntity(npcs, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
-			Hit hit = new Hit(getAttacker(), npcs, hitDefMulti);
-			List<Hit> hitList = new LinkedList<Hit>();
-			hitList.add(hit);
-			hit.setDamage(Misc.random(spell.getHitDef().getDamage()));
-			hit.execute(hitList);
-			hitList.clear();
-		    }
-		}
-	    }
-	    if( ((Player)getAttacker()).inWild() && CombatCycleEvent.canAttack(getAttacker(), getVictim()) != CanAttackResponse.WILD_LEVEL) {
-		for (Player players : World.getPlayers()) {
-		    if (players == null) continue;
-		    if (players != getVictim() && players != getAttacker().getCombatingEntity()) {
-    			CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), players);
-			HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
-			if (getVictim().goodDistanceEntity(players, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
-			    new Hit(getAttacker(), players, hitDefMulti).initialize();
-    			}
-		    }
-		}
-	    }	
-	} */
+	
 		if(getAttacker().isPlayer()) {
 		    Player player = (Player) getAttacker();
 		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
@@ -228,7 +201,7 @@ public class SpellAttack extends BasicAttack {
                 container.stop();
             }
         }
-        if (spell == Spell.ICE_BARRAGE) {
+        /*if (spell == Spell.ICE_BARRAGE) {
             if (getVictim().getMovementHandler().getWaypoints().size() > 0) {
                 Tick t = new Tick(1) {
                     @Override
@@ -241,7 +214,7 @@ public class SpellAttack extends BasicAttack {
                 };
                 World.getTickManager().submit(t);
             }
-        }
+        }*/
 	if (spell == Spell.TELEBLOCK) {
 	    if(getAttacker().isPlayer() && getVictim().isPlayer()) {
 		((Player)getVictim()).getActionSender().sendMessage("You have been teleblocked!");
@@ -281,15 +254,25 @@ public class SpellAttack extends BasicAttack {
 		return spell;
 	}
 	
-	public static boolean getMultiAncients(Spell spell) {
-	    if(spell == Spell.ICE_BARRAGE || spell == Spell.ICE_BURST)
+	public static boolean getMultiAncients(Graphic gfx) {
+	    if(gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.ICE_BURST.getHitDef().getHitGraphic())
 		return true;
-	    else if(spell == Spell.BLOOD_BARRAGE || spell == Spell.BLOOD_BURST)
+	    else if(gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic())
 		return true;
-	    else if(spell == Spell.SHADOW_BARRAGE || spell == Spell.SHADOW_BURST)
+	    else if(gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic())
 		return true;
-	    else if(spell == Spell.SMOKE_BARRAGE || spell == Spell.SMOKE_BURST)
-		return true;
-	    else return false;
+	    return (gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic());
+	}
+	
+	public static Spell getMultiAncientSpellForGfx(Graphic gfx) {
+	   if(gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic()) return Spell.ICE_BARRAGE;
+	   else if(gfx == Spell.ICE_BURST.getHitDef().getHitGraphic()) return Spell.ICE_BURST;
+	   else if(gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic()) return Spell.BLOOD_BARRAGE;
+	   else if(gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic()) return Spell.BLOOD_BURST;
+	   else if(gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic()) return Spell.SHADOW_BARRAGE;
+	   else if(gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic()) return Spell.SHADOW_BURST;
+	   else if(gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic()) return Spell.SMOKE_BARRAGE;
+	   else if(gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic()) return Spell.SMOKE_BURST;
+	   else return null;
 	}
 }

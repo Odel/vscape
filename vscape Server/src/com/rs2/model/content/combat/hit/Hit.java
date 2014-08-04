@@ -6,9 +6,15 @@ import java.util.List;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
 import com.rs2.model.UpdateFlags;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackType;
+import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.attacks.SpellAttack;
+import static com.rs2.model.content.combat.attacks.SpellAttack.getMultiAncients;
 import com.rs2.model.content.combat.effect.Effect;
+import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
 import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
@@ -20,15 +26,21 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import java.util.LinkedList;
 
 /**
  *
@@ -102,6 +114,102 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() != 2745) {
 		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);
+		}
+		if (attacker != null && victim != null && attacker.isPlayer() && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && getMultiAncients(hitDef.getHitGraphic() == null ? new Graphic(0, 0) : hitDef.getHitGraphic())  && attacker.inMulti() && victim.inMulti()) {
+		    final Spell spell = SpellAttack.getMultiAncientSpellForGfx(hitDef.getHitGraphic());
+		    for (final Npc npcs : World.getNpcs()) {
+			if (npcs == null || npcs.getNpcId() == 3782) {
+			    continue;
+			}
+			if (getVictim().isNpc() && ((Npc) getVictim()) != npcs) {
+			    CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), npcs);
+			    final HitDef hitDefMulti = hitDef.clone().randomizeDamage();
+			    if (getVictim().goodDistanceEntity(npcs, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
+				CycleEventHandler.getInstance().addEvent((Player) attacker, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					Hit hit = new Hit(getAttacker(), npcs, hitDefMulti);
+					List hitList = new LinkedList();
+					hitList.add(hit);
+					if (spell.getRequiredEffect() != null) {
+					    EffectTick t = spell.getRequiredEffect().generateTick(attacker, npcs);
+					    if (t != null) {
+						npcs.addEffect(t);
+						World.getTickManager().submit(t);
+					    }
+					    spell.getRequiredEffect().onInit(hit, t);
+					}
+
+					if (spell.getAdditionalEffect() != null) {
+					    EffectTick t2 = spell.getAdditionalEffect().generateTick(attacker, npcs);
+					    if (t2 != null) {
+						npcs.addEffect(t2);
+						World.getTickManager().submit(t2);
+					    }
+					    spell.getAdditionalEffect().onInit(hit, t2);
+					}
+					hit.execute(hitList);
+					npcs.hit(Misc.random(hitDefMulti.getDamage()), HitType.NORMAL);
+					hitList.clear();
+					b.stop();
+				    }
+
+				    @Override
+				    public void stop() {
+				    }
+				}, spell.getHitDef().calculateHitDelay(attacker.getPosition(), victim.getPosition()));
+			    }
+			}
+		    }
+		    if (attacker.inWild() && attacker.isPlayer() && CombatCycleEvent.canAttack(attacker, victim) != CanAttackResponse.WILD_LEVEL) {
+			for (final Player players : World.getPlayers()) {
+			    if (players == null) {
+				continue;
+			    }
+			    if (players == (Player)attacker) {
+				continue;
+			    }
+			    if (players != getVictim() && players != getAttacker().getCombatingEntity()) {
+				CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(getAttacker(), players);
+				final HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
+				if (getVictim().goodDistanceEntity(players, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
+				    CycleEventHandler.getInstance().addEvent((Player) attacker, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+					    Hit hit = new Hit(getAttacker(), players, hitDefMulti);
+					    List hitList = new LinkedList();
+					    hitList.add(hit);
+					    if (spell.getRequiredEffect() != null) {
+						EffectTick t = spell.getRequiredEffect().generateTick(attacker, players);
+						if (t != null) {
+						    players.addEffect(t);
+						    World.getTickManager().submit(t);
+						}
+						spell.getRequiredEffect().onInit(hit, t);
+					    }
+
+					    if (spell.getAdditionalEffect() != null) {
+						EffectTick t2 = spell.getAdditionalEffect().generateTick(attacker, players);
+						if (t2 != null) {
+						    players.addEffect(t2);
+						    World.getTickManager().submit(t2);
+						}
+						spell.getAdditionalEffect().onInit(hit, t2);
+					    }
+					    hit.execute(hitList);
+					    players.hit(Misc.random(hitDefMulti.getDamage()), HitType.NORMAL);
+					    hitList.clear();
+					    b.stop();
+					}
+
+					@Override
+					public void stop() {
+					}
+				    }, spell.getHitDef().calculateHitDelay(attacker.getPosition(), victim.getPosition()));
+				}
+			    }
+			}
+		    }
 		}
 		/*if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {
 		    WeaponDegrading.handlePlayerHit((Player)attacker);
@@ -201,7 +309,7 @@ public class Hit {
             	CombatManager.attack(victim, attacker);
             } else if (victim.isPlayer() && !victim.isMoving()) {
                 Player player = (Player) victim;
-                if (player.shouldAutoRetaliate()) {
+                if (player.shouldAutoRetaliate() && player.getCombatingEntity() == null) {
                     CombatManager.attack(victim, attacker);
                 }
             }

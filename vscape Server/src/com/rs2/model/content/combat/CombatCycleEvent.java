@@ -100,9 +100,13 @@ public class CombatCycleEvent extends CycleEvent {
 				Collections.shuffle(attacksInDistance);
 			for (AttackUsableResponse attackUsableResponse : attacksInDistance) {
 				AttackUsableResponse.Type response = attackUsableResponse.getType();
-                if (attacker.isStunned())
-                    response = AttackUsableResponse.Type.WAIT;
-                attacker.getUpdateFlags().faceEntity(victim.getFaceIndex());
+				if (victim.isPlayer() && attacker.isNpc() && ((Npc) attacker).getCombatDef().attackScripts(attacker, victim).length == 1 && ((Npc) attacker).getCombatDef().attackScripts(attacker, victim)[0].distanceRequired() == 1 && !Misc.goodDistance(attacker.getPosition(), victim.getPosition(), attacker.getSize()) && !attacker.canMove(victim.getPosition().getX(), victim.getPosition().getY())) {
+				    response = AttackUsableResponse.Type.WAIT;
+				}
+				if (attacker.isStunned()) {
+				    response = AttackUsableResponse.Type.WAIT;
+				}
+				 attacker.getUpdateFlags().faceEntity(victim.getFaceIndex());
 				if (response == AttackUsableResponse.Type.WAIT) {
 					possibleAttackScript = attackUsableResponse.getScript();
 				} else if (response == AttackUsableResponse.Type.SUCCESS) {
@@ -133,7 +137,7 @@ public class CombatCycleEvent extends CycleEvent {
 				// else if there are more possible attacks, wait to move closer
 			} else {
 				if (!attacker.isPlayer()) {
-	                attacker.setFollowDistance(possibleAttackScript.distanceRequired());
+				    attacker.setFollowDistance(possibleAttackScript.distanceRequired());
 				}
 				// TODO:keep following until closer
 				return;

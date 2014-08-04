@@ -849,7 +849,7 @@ public abstract class Entity {
 		return tradingEntity;
 	}
 	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
-	    if (leader != null && leader.isNpc() && ( ((Npc)leader).inFightCaves() || ((Npc)leader).inFightCaves() ) ) {
+	    if (leader != null && leader.isNpc() ) {
 		for (Npc npc : World.getNpcs()) {
 		    if (npc == null) {
 			continue;

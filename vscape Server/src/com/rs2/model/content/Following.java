@@ -2,6 +2,8 @@ package com.rs2.model.content;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Entity.AttackTypes;
+import com.rs2.model.MovementHandler;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -131,7 +133,17 @@ public class Following {
            }
         }*/
     }
-
+    public static boolean getStackedNpc(Position position) {
+	for (Npc npc : World.getNpcs()) {
+	    if (npc == null) {
+		continue;
+	    }
+	    if (npc.getPosition().getX() == position.getX() && npc.getPosition().getY() == position.getY()) {
+		return true;
+	    }
+	}
+	return false;
+    }
     public void meleeFollow(Player player, Entity leader) {
     	int x = player.getPosition().getX(), y = player.getPosition().getY();
     	int x2 = leader.getPosition().getX(), y2 = leader.getPosition().getY();

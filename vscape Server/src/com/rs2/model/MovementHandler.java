@@ -382,8 +382,8 @@ public class MovementHandler {
 		{2545, 10145},
 		{3225, 3238},
 		};
-	public boolean walkIntoNpcCheck(Entity entity, int x, int y) {
-	    if (entity.isNpc() && entity.getFollowingEntity() != null && (entity.inFightCaves() || entity.inPestControlGameArea())) {
+	public static boolean walkIntoNpcCheck(Entity entity, int x, int y) {
+	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
 			Npc n = (Npc) entity;
 			if (n.walkIntoNpc(x, y)) {
 			    return true;
