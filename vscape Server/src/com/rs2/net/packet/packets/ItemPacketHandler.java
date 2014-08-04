@@ -713,6 +713,11 @@ public class ItemPacketHandler implements PacketHandler {
 		 * if (player.getRunecrafting().fillEssencePouch(item)) { return; } if
 		 * (player.getHerblore().cleanHerb(item)) { return; }
 		 */
+	    if (itemId == 2329) {
+		player.getInventory().replaceItemWithItem(new Item(2329), new Item(2313));
+		player.getActionSender().sendMessage("You empty your burnt pie onto the ground.");
+		return;
+	    }
         if(Nests.handleNest(player, itemId)){
             return;
         }

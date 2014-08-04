@@ -29,14 +29,15 @@ public class Food {
 		 */
 		// Normal
 		ONEHP(1, -1, new int[]{1971, 319, 1965, 1967, 2128, 1957, 1942, 2130}), 
-		TWOHP(2, -1, new int[]{1963, 1985, 2126, 247, 2120, 2120, 2108, 7072, 1969, 1982}), 
+		TWOHP(2, -1, new int[]{1963, 1985, 2126, 247, 2120, 2120, 2108, 7072, 1969, 1982, 10962}), 
 		THREEHP(3, -1, new int[]{2142, 4293, 2140, 4291, 1973, 3151, 315, 1861}), 
 		FOURHP(4, -1, new int[]{6701, 325, 403, 1977}), 
 		FIVEHP(5, -1, new int[]{2309, 7062, 3228, 347, 7082, 7084, 7078}), 
 		SIXHP(6, -1, new int[]{355, 6961, 6962, 6965}), 
 		SEVENHP(7, -1, new int[]{2213, 2209, 2239, 339, 7223, 333}), 
 		EIGHTHP(8, -1, new int[]{7064, 5972, 6883, 351, 2217, 2244, 2205, 2237}),
-		NINEHP(9, -1, new int[]{329}), TENHP(10, -1, new int[]{2878, 7228, 361}), 
+		NINEHP(9, -1, new int[]{329}), 
+		TENHP(10, -1, new int[]{2878, 7228, 361}), 
 		ELEVENHP(11, -1, new int[]{2259, 2149, 2277, 7066, 2255, 2281, 2253}), 
 		TWELVENHP(12, -1, new int[]{379, 739, 2195, 2191}), 
 		THIRTEEN(13, -1, new int[]{365}), 
@@ -247,8 +248,25 @@ public class Food {
 		switch (itemId) {
 			case 7180: // garden pie
 			case 7178:
-					player.getActionSender().statEdit(Skill.FARMING, 3, false);
-                break;
+			    player.getActionSender().statEdit(Skill.FARMING, 3, true);
+			    break;
+			case 7188: //fish pie
+			case 7190:
+			    player.getActionSender().statEdit(Skill.FISHING, 3, true);
+			    break;
+			case 7198: //admiral pie
+			case 7200:
+			    player.getActionSender().statEdit(Skill.FISHING, 5, true);
+			    break;
+			case 7208: //wild pie
+			case 7210:
+			    player.getActionSender().statEdit(Skill.RANGED, 4, true);
+			    player.getActionSender().statEdit(Skill.SLAYER, 5, true);
+			    break;
+			case 7218: //summer pie
+			case 7220:
+			    player.getActionSender().statEdit(Skill.AGILITY, 5, true);
+			    break;
 			default :
 				break;
 		}

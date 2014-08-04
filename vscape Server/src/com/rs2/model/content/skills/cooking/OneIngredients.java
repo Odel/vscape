@@ -17,6 +17,7 @@ public class OneIngredients {
 		REDBERRY_PIE(1951, 0, 2315, 2321, 10, 78, true, 0), 
 		APPLE_PIE(1955, 0, 2315, 2317, 30, 130, true, 0),
 		MEAT_PIE(2142, 0, 2315, 2319, 20, 110, true, 0),
+		MEAT_PIE_CHICKEN(2140, 0, 2315, 2319, 20, 110, true, 0),
 		CURRY(2007, 0, 1921, 2009, 60, 280, true, 7496), 
 		CURRY_LEAF(5970, 3, 1921, 2009, 60, 280, true, 0),
 
