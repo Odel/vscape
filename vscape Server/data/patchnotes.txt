@@ -1,3 +1,12 @@
+@dre@=August 4th=
+-Multi-targetting with Ancients is working.
+-Npcs no longer stack on the same tile.
+-Pies that give stat boosts now give the boosts.
+-Various other pie fixes. (Emptying burnt pies,
+Can use chicken to make meat pies, fixed others.)
+-Auto-retaliate fixed. (Won't respond to attacks if
+you are already under attack.)
+
 @dre@=July 31st=
 @blu@Ghosts Ahoy
 @blu@Ectofuntus
