@@ -1,5 +1,6 @@
 data/characters/
 data/commands.txt
+./data/logs/shops
 vscape.sublime-project
 vscape.sublime-workspace
 commands.txt
