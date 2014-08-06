@@ -49,12 +49,15 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("dialogue: "+player.getDialogue().getDialogueId()+" chat: "+player.getDialogue().getChatId());
 		}
+		if(player.getPetition().sendDialogue(player, player.getDialogue().getLastNpcTalk(), player.getPetition().getChatId() + 1, 0)) {
+		    return;
+		}
 		if (player.getDialogue().checkEndDialogue()) {
 			player.getActionSender().removeInterfaces();
 			player.getDialogue().resetDialogue();
 			return;
 		}
-		Dialogues.sendDialogue(player, player.getDialogue().getDialogueId(), player.getDialogue().getChatId() + 1, 0);
+		    Dialogues.sendDialogue(player, player.getDialogue().getDialogueId(), player.getDialogue().getChatId() + 1, 0);
 	}
 
 	private void showEnterX(Player player, Packet packet) {
