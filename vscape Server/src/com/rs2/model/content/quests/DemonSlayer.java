@@ -19,6 +19,9 @@ import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class DemonSlayer implements Quest {
@@ -576,6 +579,7 @@ public class DemonSlayer implements Quest {
 		    case 2:
 		    case 3:
 		    case 4:
+		    case 5:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendPlayerChat("What is the magical incantation again?", CONTENT);
@@ -780,23 +784,24 @@ public class DemonSlayer implements Quest {
 				player.getDialogue().endDialogue();
 				return true;
 			}
+		    case 5:
 		    case 6: //re-buying silverlight
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				    player.getDialogue().sendPlayerChat("I lost Silverlight...", SAD);
 				    return true;
 			    case 2:
-				player.getDialogue().sendNpcChat("Lucky for you, I had another forged.", "It will cost 8000 gp for this one.", CONTENT);
+				player.getDialogue().sendNpcChat("Lucky for you, I had another forged.", "It will cost 800 gp for this one.", CONTENT);
 				return true;
 			    case 3:
-				player.getDialogue().sendOption("Yes, that is fine. (8000 gold)", "No, thank you.");
+				player.getDialogue().sendOption("Yes, that is fine. (800 gold)", "No, thank you.");
 				return true;
 			    case 4:
 				switch(optionId) {
 				    case 1:
-					if(player.getInventory().playerHasItem(995, 8000)) {
+					if(player.getInventory().playerHasItem(995, 800)) {
 					    player.getDialogue().sendPlayerChat("Here you are.", CONTENT);
-					    player.getInventory().removeItem(new Item(995, 8000));
+					    player.getInventory().removeItem(new Item(995, 800));
 					    return true;
 					}
 					else {
@@ -1056,10 +1061,24 @@ public class DemonSlayer implements Quest {
 				    }
 				}
 			    player.getDialogue().sendPlayerChat("Carlem Aber Camerinthum Purchai Gabindo!", CONTENT);
+			    final Player attacker = player;
+			    attacker.setStopPacket(true);
+			    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					QuestHandler.completeQuest(attacker, 17);
+					b.stop();
+				    }
+
+				    @Override
+				    public void stop() {
+					attacker.setStopPacket(false);
+				    }
+				}, 6);
 			    return true;
 			}
 		    case 3:
-			QuestHandler.completeQuest(player, 17);
+			
 			player.getDialogue().dontCloseInterface();
 			return true;
 		}
