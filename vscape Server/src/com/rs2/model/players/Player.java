@@ -456,7 +456,8 @@ public class Player extends Entity {
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
 	public CanoeStationData curCanoeStation;
-
+        private String currentChannel = null;
+       
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
 	}
@@ -845,7 +846,7 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("hideyell") || keyword.equals("hy")) {
 			setHideYell(!hideYell,true);
-		}
+		}    
 		else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
 		}
@@ -951,7 +952,17 @@ public class Player extends Entity {
             if (player == null)
                 return;
             player.getActionSender().removeInterfaces();
-        }  else if (keyword.equals("modban")) {
+        }
+		else if (keyword.equals("clan") || keyword.equals("c")) {
+			Clan(fullString);
+		}
+		else if (keyword.equals("joinclan") || keyword.equals("jc")) {
+			setClanChannel(fullString);
+		}
+        else if (keyword.equals("leaveclan") || keyword.equals("lc")){
+                        leaveClanChannel();
+        }        
+		else if (keyword.equals("modban")) {
         	ModBan(args);
         }  else if (keyword.equals("kick")) {
             Player player = World.getPlayerByName(fullString);
@@ -2123,6 +2134,45 @@ public class Player extends Entity {
 			}
 		}
 	}
+        
+        //oh fuck it's clan chat dude idshabbeding
+        	private void Clan(String Msg) {
+                if(currentChannel == null){ 
+			getActionSender().sendMessage("You're not in a clan.");
+			return;
+		}
+
+		String ClanMsg = Msg;
+		String chatter = NameUtil.formatName(getUsername());
+                
+                String clan = currentChannel;
+                
+                for(int i = 0; i < Constants.bad.length; i++)
+		{
+			if(ClanMsg.toLowerCase().contains(Constants.bad[i]))
+			{
+				getActionSender().sendMessage("You are trying to say something that should not be said!");
+				return;
+			}
+		}
+                
+		for (Player player : World.getPlayers()) {
+			if (player == null)
+				continue;
+                        
+                        if(player.currentChannel.equals(clan)){
+				if(player.hideColors){
+					for(int k = 0; k < Constants.colorStrings.length;k++){
+						ClanMsg = ClanMsg.replace(Constants.colorStrings[k], "");
+					}
+				}
+				player.getActionSender().sendMessage("@gre@[" + NameUtil.uppercaseFirstLetter(clan) + "]@blu@["+ chatter +"]@bla@: " + NameUtil.uppercaseFirstLetter(ClanMsg));
+                            
+			}
+		}
+	}
+             //glanzchat ends here
+                
 
 	/**
 	 * Modify Stats
@@ -5802,9 +5852,11 @@ public class Player extends Entity {
 		getActionSender().sendString("", 12129); //creature of fenkenstrain
 	}
 
-    public boolean getHideYell()
-    {
+    public boolean getHideYell(){
     	return hideYell;
+    }
+    public String getCurrentchannel(){
+    	return currentChannel;
     }
     public boolean getHideColors()
     {
@@ -5823,7 +5875,32 @@ public class Player extends Entity {
 			}
 		}
 	}
+        public void setClanChannel(String channel) {
+		String inChannel = channel;
+                
+                    for(int i = 0; i < Constants.bad.length; i++){
+			if(channel.toLowerCase().contains(Constants.bad[i])){
+				getActionSender().sendMessage("You are trying to make a channel you shouldn't make!");
+				return;
+			}
+		}
+                                
+                                if(currentChannel == null){
+				getActionSender().sendMessage(
+						"You have joined " + channel +".");
+                                currentChannel = channel;
+                                }else{
+                                getActionSender().sendMessage(
+						"You are already in " + currentChannel + "!");
+                                }
+			}
+	
+        public void leaveClanChannel(){
+           getActionSender().sendMessage("You have left " + currentChannel + ".");
+           currentChannel = null;
+        }
 
+        
 	public void setHideColors(boolean hide, boolean msg) {
 		hideColors = hide;
 		if (msg) {
