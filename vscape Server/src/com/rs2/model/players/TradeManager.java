@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.players.Player.TradeStage;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
+import com.rs2.util.LogHandler;
 import com.rs2.util.NameUtil;
 
 public class TradeManager {
@@ -209,6 +210,7 @@ public class TradeManager {
 				}
 				player.getTrade().remove(newItems);
 				otherPlayer.getInventory().addItem(newItems);
+				LogHandler.logTrade(player, otherPlayer, newItems);
 			}
 			for (int i = 0; i < Inventory.SIZE; i++) {
 				Item newItems = otherPlayer.getTrade().get(i);
@@ -217,6 +219,7 @@ public class TradeManager {
 				}
 				otherPlayer.getTrade().remove(newItems);
 				player.getInventory().addItem(newItems);
+				LogHandler.logTrade(otherPlayer, player, newItems);
 				if(newItems.getId() == 769 && player.getQuestStage(13) == 10)
 				    player.setQuestStage(13, 11);
 			}
