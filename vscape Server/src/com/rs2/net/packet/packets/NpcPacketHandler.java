@@ -77,7 +77,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			player.getActionSender().sendMessage("First click npc: "+player.getClickId());
+			System.out.println("First click npc: "+player.getClickId());
 		}
 		if (DemonSlayer.handleNpcClick(player, npc.getNpcId())) {
 		    return;
@@ -111,7 +111,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			player.getActionSender().sendMessage("Second click npc: "+player.getClickId());
+			System.out.println("Second click npc: "+player.getClickId());
 		}
 		WalkToActionHandler.setActions(Actions.NPC_SECOND_CLICK);
 		WalkToActionHandler.doActions(player);
@@ -135,7 +135,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			player.getActionSender().sendMessage("Third click npc: "+player.getClickId());
+			System.out.println("Third click npc: "+player.getClickId());
 		}
 		WalkToActionHandler.setActions(Actions.NPC_THIRD_CLICK);
 		WalkToActionHandler.doActions(player);

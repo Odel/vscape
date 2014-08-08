@@ -47,7 +47,7 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 
 	private void handleDialogue(Player player, Packet packet) {
 		if (Constants.SERVER_DEBUG) {
-			player.getActionSender().sendMessage("dialogue: "+player.getDialogue().getDialogueId()+" chat: "+player.getDialogue().getChatId());
+			System.out.println("dialogue: "+player.getDialogue().getDialogueId()+" chat: "+player.getDialogue().getChatId());
 		}
 		if(player.getPetition().sendDialogue(player, player.getDialogue().getLastNpcTalk(), player.getPetition().getChatId() + 1, 0)) {
 		    return;
