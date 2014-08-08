@@ -184,22 +184,28 @@ public class GhostsAhoy implements Quest {
     }
 
     public void completeQuest(Player player) {
+    	player.getActionSender().sendMessage("Content disabled.");
+    	/*
         getReward(player);
         player.getActionSender().sendInterface(12140);
-	player.getActionSender().sendItemOnInterface(995, 200, 12142);
+        player.getActionSender().sendItemOnInterface(995, 200, 12142);
         player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
-	player.getActionSender().sendString("You are rewarded: ", 12146);
+        player.getActionSender().sendString("You are rewarded: ", 12146);
         player.getActionSender().sendString("2 Quest Points", 12150);
         player.getActionSender().sendString("5400 Prayer XP", 12151);
-	player.getActionSender().sendString("The Ectophial", 12152);
+        player.getActionSender().sendString("The Ectophial", 12152);
         player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
         player.getActionSender().sendString(" ", 12147);
         player.setQuestStage(getQuestID(), QUEST_COMPLETE);
         player.getActionSender().sendString("@gre@"+ getQuestName(), 12282);
+        */
     }
     
     public void sendQuestRequirements(Player player) {
         String prefix = "";
+        player.getActionSender().sendString(getQuestName(), 8144);
+        player.getActionSender().sendString("Content disabled.", 8147);
+        /*
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -354,7 +360,7 @@ public class GhostsAhoy implements Quest {
 		player.getActionSender().sendString("@str@ -Access to Canifis.", 8152);
 	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
-        }
+        }*/
     }
     
     public void sendQuestInterface(Player player){
@@ -397,6 +403,11 @@ public class GhostsAhoy implements Quest {
     public void showInterface(Player player){
     	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
+        player.getActionSender().sendString(getQuestName(), 8144);
+        player.getActionSender().sendString("Content disabled.", 8147);
+        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	/*
+    	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@Velorina @bla@in @dre@Port Phasmatys @bla@to begin this quest.", 8147);
 	    player.getActionSender().sendString("@dre@Requirements:", 8148);
@@ -420,10 +431,12 @@ public class GhostsAhoy implements Quest {
 	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+	    */
     }
     
     public void dialogue(Player player, Npc npc){
-    	Dialogues.startDialogue(player, VELORINA);
+    	//Dialogues.startDialogue(player, VELORINA);
+    	player.getActionSender().sendMessage("Content disabled.");
     }
     
     public int getDialogueStage(Player player){
@@ -460,6 +473,9 @@ public class GhostsAhoy implements Quest {
     }
     
     public static boolean itemHandling(final Player player, int itemId) {
+    player.getActionSender().sendMessage("Content disabled.");
+    return false;
+    /*
 	switch(itemId) {
 	    case PETITION:
 		player.getPetition().count();
@@ -511,7 +527,7 @@ public class GhostsAhoy implements Quest {
 		    return false;
 		}
 	}
-	return false;
+	return false;*/
     }
     
     public static void handleDeath(final Player player, Npc npc) {
@@ -648,6 +664,9 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+    	player.getActionSender().sendMessage("Content disabled.");
+    	return false;
+    /*
 	switch (object) {
 	    case JUMPING_ROCKS: //first rock
 		if(player.transformNpc == 1707 || player.transformNpc == 1708) {
@@ -656,7 +675,6 @@ public class GhostsAhoy implements Quest {
 		}
 		int playerX = player.getPosition().getX();
 		int playerY = player.getPosition().getY();
-		    /*-------------Pairs-------------*/
 		if (x == 3602 && y == 3550) {
 		    if (playerX == 3604 && playerY == 3550) {
 			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
@@ -673,7 +691,6 @@ public class GhostsAhoy implements Quest {
 			player.walkTo(x, y, false);
 			return true;
 		    }
-		    /*-------------------------------*/
 		} else if (x == 3597 && y == 3552) {
 		    if (playerX == 3599 && playerY == 3552) {
 			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
@@ -690,7 +707,6 @@ public class GhostsAhoy implements Quest {
 			player.walkTo(x, y, false);
 			return true;
 		    }
-		    /*-------------------------------*/
 		} else if (x == 3595 && y == 3556) {
 		    if (playerX == 3595 && playerY == 3554) {
 			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
@@ -707,7 +723,6 @@ public class GhostsAhoy implements Quest {
 			player.walkTo(x, y, false);
 			return true;
 		    }
-		    /*-------------------------------*/
 		} else if (x == 3597 && y == 3561) {
 		    if (playerX == 3597 && playerY == 3559) {
 			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
@@ -724,7 +739,6 @@ public class GhostsAhoy implements Quest {
 			player.walkTo(x, y, false);
 			return true;
 		    }
-		    /*-------------------------------*/
 		} else if (x == 3601 && y == 3564) {
 		    if (playerX == 3599 && playerY == 3564) {
 			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
@@ -742,7 +756,6 @@ public class GhostsAhoy implements Quest {
 			return true;
 		    }
 		}
-		    /*-------------------------------*/
 	    return true;
 	    case TREASURE_CHEST_2:
 		if (x == 3606 && y == 3564) {
@@ -808,9 +821,13 @@ public class GhostsAhoy implements Quest {
 		}
 	    return false;
 	}
-	return false;
+	return false;*/
     }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public static boolean doObjectClicking(final Player player, int object, int x, int y) 
+    {
+    	player.getActionSender().sendMessage("Content disabled.");
+    	return false;
+    /*
 	switch(object) {
 	    case NECROVARUS_COFFIN:
 		if(x == 3659 && y == 3513) {
@@ -996,7 +1013,7 @@ public class GhostsAhoy implements Quest {
 		    return false;
 		}
 	}
-	return false;
+	return false;*/
     }
     
      public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
@@ -1012,6 +1029,9 @@ public class GhostsAhoy implements Quest {
 	return;
     }
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    	player.getActionSender().sendMessage("Content disabled.");
+    	return false;
+    /*
 	switch(id) {
 	    case AK_HARANU: //the ship's flag
 		switch (player.getQuestStage(24)) {
@@ -2599,7 +2619,7 @@ public class GhostsAhoy implements Quest {
 		}
 		return false;
 	}
-	return false;
+	return false;*/
     }
 
 }

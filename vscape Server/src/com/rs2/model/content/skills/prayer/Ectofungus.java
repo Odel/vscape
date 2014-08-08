@@ -109,6 +109,9 @@ public class Ectofungus {
     }
     
     public static boolean doObjectFirstClick(final Player player, int object, int x, int y) {
+    	player.getActionSender().sendMessage("Content disabled.");
+    	return false;
+    /*
 	switch(object) {
 	    case STAIRS_UP:
 		if(x == STAIRS_UP_OBJ[X] && y == STAIRS_UP_OBJ[Y]) {
@@ -209,7 +212,7 @@ public class Ectofungus {
 		    return true;
 		}
 	}
-	return false;
+	return false;*/
     }
     
     public static String getBonesAdded(final Player player) {

@@ -176,7 +176,8 @@ public class ObjectPacketHandler implements PacketHandler {
 		    return;
 		}
 		if (player.getClickId() == 1754 && player.getClickX() == 3653 && player.getClickY() == 3519) {
-		    Ladders.climbLadder(player, Ectofungus.DOWN_FROM_TRAPDOOR);
+			player.getActionSender().sendMessage("Content disabled.");
+		    //Ladders.climbLadder(player, Ectofungus.DOWN_FROM_TRAPDOOR);
 		    return;
 		}
 		if(player.getClickId() == 2401) { //black arm open cupboard
