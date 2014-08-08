@@ -2,6 +2,7 @@ package com.rs2.model.content.skills.agility;
 
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
+import com.rs2.model.content.skills.Skill;
 
 public class ShortcutHandler {
 	
@@ -42,6 +43,18 @@ public class ShortcutHandler {
 				if(y == 3253) //third rocks up
 				Agility.crossObstacle(player, 2332, 3252, 844, 7, 85, 0);
 				return true;
+			case 9307:
+                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 58) //from top
+                                player.teleport(new Position(3670, 9888, 3));
+                                else
+                                player.getActionSender().sendMessage("This shortcut requires level 58 Agility.");     
+                                return true;
+                        case 9308:
+                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 58) //from bottom
+                                player.teleport(new Position(3671, 9888, 2));
+                                else
+                                player.getActionSender().sendMessage("This shortcut requires level 58 Agility.");  
+                                return true;
 			//Tirannwn
 			case 3921: //tripwire
 				if(x == 2294 && y == 3243){
