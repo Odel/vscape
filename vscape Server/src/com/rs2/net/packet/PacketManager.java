@@ -133,7 +133,7 @@ public class PacketManager {
 		PacketHandler packetHandler = packets[packet.getOpcode()];
 		if (packetHandler == null) {
 			if (Constants.SERVER_DEBUG) {
-				//	System.out.println("player?: " +player.getUsername() + " Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
+				System.out.println("player?: " +player.getUsername() + " Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
 			}
 			return;
 		}

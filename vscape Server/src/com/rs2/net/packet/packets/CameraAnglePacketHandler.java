@@ -14,8 +14,8 @@ public class CameraAnglePacketHandler implements PacketHandler {
 	public void handlePacket(Player player, Packet packet) {
 		int a = packet.getIn().readShort();
 		int b = packet.getIn().readShort(StreamBuffer.ValueType.A);
-        if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
-        	System.out.println("a = " + a + "---- b = " + b);
+        /*if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+        	System.out.println("a = " + a + "---- b = " + b);*/
 	}
 
 }

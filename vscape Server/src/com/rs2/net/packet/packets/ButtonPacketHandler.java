@@ -60,7 +60,7 @@ public class ButtonPacketHandler implements PacketHandler {
 
 	private void handleButton(Player player, int buttonId) {
 		if (Constants.SERVER_DEBUG) {
-			System.out.println("button id: "+buttonId);
+			System.out.println(player.getUsername() + "button id: "+buttonId);
 		}
 		if (player.getDuelMainData().handleButton(buttonId))
 			return;

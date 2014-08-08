@@ -136,8 +136,10 @@ public class ObjectPacketHandler implements PacketHandler {
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
 		}*/
-		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (Constants.SERVER_DEBUG)
+		{
 			System.out.println("item: "+player.getClickItem()+" object: "+player.getClickId());
+		}
 		Following.resetFollow(player);
 		//ObjectHandler.getObjectDetails(player, player.getClickId(), objectX, objectY);
 		WalkToActionHandler.setActions(Actions.ITEM_ON_OBJECT);
@@ -150,7 +152,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickId(packet.getIn().readShort());
 		player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickZ(player.getPosition().getZ());
-		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (Constants.SERVER_DEBUG)
 			System.out.println("first click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY() + " type " + SkillHandler.getType(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ()));
 		//if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 		//	return;
@@ -207,7 +209,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickY(packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE));
 		player.setClickX(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickZ(player.getPosition().getZ());
-		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (Constants.SERVER_DEBUG)
 			System.out.println("second click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY());
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
@@ -235,7 +237,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickY(packet.getIn().readShort());
 		player.setClickId(packet.getIn().readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE));
 		player.setClickZ(player.getPosition().getZ());
-		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (Constants.SERVER_DEBUG)
 			System.out.println("third click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY());
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
@@ -251,7 +253,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickId(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE));
 		player.setClickZ(player.getPosition().getZ());
-		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		if (Constants.SERVER_DEBUG)
 			System.out.println("fourth click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY());
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;
@@ -274,7 +276,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		Spell spell = player.getMagicBookType().getSpells().get(magicId);
 		if (spell != null) {
 			MagicSkill.spellOnObject(player, spell, objectId, x, y, player.getPosition().getZ());
-		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		} else if (Constants.SERVER_DEBUG)
 			System.out.println("Magic Id: " + magicId + " Object id: " + objectId + " X: " + x + " Y: " + y);
 
 	}

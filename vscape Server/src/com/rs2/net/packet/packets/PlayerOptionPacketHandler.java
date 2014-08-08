@@ -309,7 +309,7 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 			} else {
 				CombatManager.attack(player, otherPlayer);
 			}
-		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		} else if (Constants.SERVER_DEBUG)
 			System.out.println("Magic ID: " + magicId);
 	}
 }

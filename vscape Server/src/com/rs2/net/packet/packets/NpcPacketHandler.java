@@ -196,7 +196,7 @@ public class NpcPacketHandler implements PacketHandler {
 		if (spell != null) {
 			player.setCastedSpell(spell);
 			CombatManager.attack(player, npc);
-		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+		} else if (Constants.SERVER_DEBUG)
 			System.out.println("Magic id: " + magicId);
 	}
 
@@ -204,7 +204,7 @@ public class NpcPacketHandler implements PacketHandler {
 		final int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
 		final int npcSlot = packet.getIn().readShort(StreamBuffer.ValueType.A);
 		final int itemSlot = packet.getIn().readShort(StreamBuffer.ByteOrder.LITTLE);
-        if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
+        if (Constants.SERVER_DEBUG)
         	System.out.println(itemId + " " + npcSlot + " " + itemSlot);
         if (npcSlot < 0 || npcSlot > World.getNpcs().length) {
 			return;
