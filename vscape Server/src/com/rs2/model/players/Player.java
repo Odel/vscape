@@ -891,33 +891,18 @@ public class Player extends Entity {
 			}
 		}
 		else if (keyword.equals("changepass")) {
-			String pass = fullString;
-                        String caseRes = "correctPass";
+					String pass = fullString;
+                    String caseRes = "correctPass";
                         if(pass.length() > 20){ 
-                            caseRes = "tooLong"; 
-                        }
-                        if(pass.equals("changepass")){ 
-                            caseRes = "noChars"; 
-                        }
-                        if(pass.length() < 4){ 
-                            caseRes = "tooShort"; 
-                        }
-                        switch(caseRes){
-                            case "tooLong":
-                                getActionSender().sendMessage("Your password is too long! 20 characters maximum.");
-                                break;
-                            case "tooShort":
-                                getActionSender().sendMessage("Your password is too short! 4 characters required."); 
-                                break;
-                            case "noChars":
-                                getActionSender().sendMessage("Please input a password.");
-                                break;
-                            case "correctPass":
-                                setPassword(pass);// setPassword
-                                getActionSender().sendMessage("Your new password is " + pass + ".");
-                                break;
-                        }
-                       
+                            getActionSender().sendMessage("Your password is too long! 20 characters maximum."); 
+                        } else if(pass.equals("changepass")){ 
+                            getActionSender().sendMessage("Please input a password.");
+                        } else if(pass.length() < 4){ 
+                            getActionSender().sendMessage("Your password is too short! 4 characters required.");  
+                        } else {
+                            setPassword(pass);// setPassword
+                            getActionSender().sendMessage("Your new password is " + pass + ".");
+			}
 		}
 		else if (keyword.equals("patchnotes")) {
 			getActionSender().sendInterface(8134);
