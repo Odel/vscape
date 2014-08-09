@@ -892,8 +892,32 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("changepass")) {
 			String pass = fullString;
-			setPassword(pass);// setPassword
-			getActionSender().sendMessage("Your new password is " + pass + ".");
+                        String caseRes = "correctPass";
+                        if(pass.length() > 20){ 
+                            caseRes = "tooLong"; 
+                        }
+                        if(pass.equals("changepass")){ 
+                            caseRes = "noChars"; 
+                        }
+                        if(pass.length() < 4){ 
+                            caseRes = "tooShort"; 
+                        }
+                        switch(caseRes){
+                            case "tooLong":
+                                getActionSender().sendMessage("Your password is too long! 20 characters maximum.");
+                                break;
+                            case "tooShort":
+                                getActionSender().sendMessage("Your password is too short! 4 characters required."); 
+                                break;
+                            case "noChars":
+                                getActionSender().sendMessage("Please input a password.");
+                                break;
+                            case "correctPass":
+                                setPassword(pass);// setPassword
+                                getActionSender().sendMessage("Your new password is " + pass + ".");
+                                break;
+                        }
+                       
 		}
 		else if (keyword.equals("patchnotes")) {
 			getActionSender().sendInterface(8134);
