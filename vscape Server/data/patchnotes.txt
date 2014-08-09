@@ -1,6 +1,7 @@
 @dre@=August 9th=
 -fixed Content disabled spam
--An agility shortcut has been fixed
+-Tirannwn Weathered Wall agility shortcut has been fixed
+-::changepass no longer breaks accounts
 
 @dre@=August 8th=
 -Disabled Ghosts Ahoy to see if it stops
