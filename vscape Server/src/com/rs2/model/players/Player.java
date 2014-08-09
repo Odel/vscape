@@ -892,7 +892,6 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("changepass")) {
 					String pass = fullString;
-                    String caseRes = "correctPass";
                         if(pass.length() > 20){ 
                             getActionSender().sendMessage("Your password is too long! 20 characters maximum."); 
                         } else if(pass.equals("changepass")){ 
