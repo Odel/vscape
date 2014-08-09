@@ -1,3 +1,7 @@
+@dre@=August 9th=
+-fixed Content disabled spam
+-An agility shortcut has been fixed
+
 @dre@=August 8th=
 -Disabled Ghosts Ahoy to see if it stops
 the server crashing :^)
