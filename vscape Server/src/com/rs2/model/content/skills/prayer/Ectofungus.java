@@ -109,8 +109,20 @@ public class Ectofungus {
     }
     
     public static boolean doObjectFirstClick(final Player player, int object, int x, int y) {
-    	player.getActionSender().sendMessage("Content disabled.");
+     	switch(object) {
+	    case STAIRS_UP:
+	    case STAIRS_DOWN:
+ 	    case ECTOFUNGUS:
+	    case STAIRS_UP_SLIME:
+	    case STAIRS_DOWN_SLIME:
+	    case LADDER_UP:
+	    case TRAPDOOR:
+	    case BONEGRINDER:
+	    case BONEGRINDER_BIN:
+	       	player.getActionSender().sendMessage("Content disabled.");
+    	}
     	return false;
+
     /*
 	switch(object) {
 	    case STAIRS_UP:

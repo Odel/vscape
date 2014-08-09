@@ -473,8 +473,16 @@ public class GhostsAhoy implements Quest {
     }
     
     public static boolean itemHandling(final Player player, int itemId) {
-    player.getActionSender().sendMessage("Content disabled.");
-    return false;
+		switch(itemId) {
+	    case PETITION:
+	    case TREASURE_MAP:
+	    case MODEL_SHIP_SILK:
+	    case MODEL_SHIP:
+	    case ECTOPHIAL:
+	        player.getActionSender().sendMessage("Content disabled.");
+		}
+		return false;
+
     /*
 	switch(itemId) {
 	    case PETITION:
@@ -664,8 +672,14 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-    	player.getActionSender().sendMessage("Content disabled.");
+    	switch (object) {
+	    case JUMPING_ROCKS:
+	    case TREASURE_CHEST_2:
+	    case GANGPLANK_TO_SHIP:
+	    	player.getActionSender().sendMessage("Content disabled.");
+    	}
     	return false;
+
     /*
 	switch (object) {
 	    case JUMPING_ROCKS: //first rock
@@ -825,8 +839,27 @@ public class GhostsAhoy implements Quest {
     }
     public static boolean doObjectClicking(final Player player, int object, int x, int y) 
     {
-    	player.getActionSender().sendMessage("Content disabled.");
-    	return false;
+    	switch(object) {
+	    case NECROVARUS_COFFIN:
+	    case NECROVARUS_DOOR:
+	    case GANGPLANK_TO_ROCKS:
+	    case TREASURE_CHEST_1:
+	    case PIRATE_CAPTAIN:
+	    case MAST:
+	    case NETTLES_1:
+	    case NETTLES_2:
+	    case NETTLES_3:
+	    case NETTLES_4:
+	    case NETTLES_5:
+	    case NETTLES_6:
+	    case NETTLES_7:
+	    case SHIPS_LADDER_UP:
+	    case SHIPS_LADDER_DOWN:
+	    case BARRIER:
+	    	player.getActionSender().sendMessage("Content disabled.");
+		}
+		return false;
+
     /*
 	switch(object) {
 	    case NECROVARUS_COFFIN:
@@ -1029,8 +1062,24 @@ public class GhostsAhoy implements Quest {
 	return;
     }
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
-    	player.getActionSender().sendMessage("Content disabled.");
+    	switch(id) {
+	    case AK_HARANU: //the ship's flag
+	    case 11575: //the ship's flag
+	    case 11111: //energy barrier
+	    case GRAVINGAS:
+		case NECROVARUS:
+	    case OLD_MAN:
+	    case VELORINA:
+	    case GHOST_CAPTAIN_2:
+	    case GHOST_CAPTAIN:
+	    case PATCHY:
+	    case OLD_CRONE:
+	    case INNKEEPER:
+	    case ROBIN:
+	    	player.getActionSender().sendMessage("Content disabled.");
+    	}
     	return false;
+    	
     /*
 	switch(id) {
 	    case AK_HARANU: //the ship's flag
