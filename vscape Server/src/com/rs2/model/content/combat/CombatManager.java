@@ -95,6 +95,10 @@ public class CombatManager extends Tick {
             CombatManager.resetCombat(attacker);
             return;
 	}
+	if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
+	    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
+	    return;
+	}
 	if(attacker.isPlayer() && ( ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON) == null || ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON).getId() != 2402)
 	   && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
             ((Player) attacker).getActionSender().sendMessage("You need to equip Silverlight to fight Delrith!");
