@@ -1,11 +1,12 @@
 @dre@=August 9th=
--fixed Content disabled spam
--Tirannwn Weathered Wall agility shortcut has been fixed
--::changepass no longer breaks accounts
-
-@dre@=August 8th=
--Disabled Ghosts Ahoy to see if it stops
-the server crashing :^)
+-Ghosts Ahoy & Ectofuntus re-enabled and safe.
+-Freaky Forester random added.
+-Sandwich lady bug fix.
+-Betty's magic shop in Sarim has increased stock.
+-Proper stats on wizard hats.
+-Ectofuntus slime's wall agility shortcut is fixed.
+-::changepass can no longer brick accounts.
+-"Content disabled" spam is kill.
 
 @dre@=August 4th=
 -Multi-targetting with Ancients is working.
