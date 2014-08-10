@@ -91,6 +91,7 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
+import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
@@ -515,6 +516,23 @@ public class WalkToActionHandler {
 				    else if(player.getPosition().getY() < 9520) {
 					player.teleport(new Position(2636, 9517, 0));
 					break;
+				    }
+				case 8972: //freaky forester portal
+				    if(x == 2611 && y == 4776) {
+					FreakyForester forester = player.getFreakyForester();
+					if(forester.isActive()) {
+					    player.getDialogue().sendNpcChat("Hey! D-don't leave yet! I still need", "your help with this pheasant...", Dialogues.SAD);
+					    break;
+					}
+					else {
+					    for(Item item : player.getInventory().getItemContainer().getItems()) {
+						if(item == null) continue;
+						if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
+						if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
+					    }
+					    player.teleport(forester.getOldPos());
+					    break;
+					}
 				    }
 				case 5097:
 				case 5094: //north brimhaven dungeon stairs

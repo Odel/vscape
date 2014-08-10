@@ -32,7 +32,7 @@ public class SandwichLady implements InterfaceClickEvent {
 
 	@Override
 	public String[] stringSent() {
-		switch (randomNumber) {
+		switch (this.randomNumber) {
 			case 0 :
 				return new String[]{"redberry pie"};
 			case 1 :
@@ -90,12 +90,12 @@ public class SandwichLady implements InterfaceClickEvent {
 	}
 
 	public int getRandomNumber() {
-		return randomNumber;
+		return this.randomNumber;
 	}
 
 	@Override
 	public void handleFailure(Player player) {
-	    player.hit(5, HitType.NORMAL);
+	    player.hit(1, HitType.NORMAL);
 	}
 
 	@Override

@@ -185,7 +185,6 @@ public class GhostsAhoy implements Quest {
 
     public void completeQuest(Player player) {
     	player.getActionSender().sendMessage("Content disabled.");
-    	/*
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendItemOnInterface(995, 200, 12142);
@@ -198,14 +197,12 @@ public class GhostsAhoy implements Quest {
         player.getActionSender().sendString(" ", 12147);
         player.setQuestStage(getQuestID(), QUEST_COMPLETE);
         player.getActionSender().sendString("@gre@"+ getQuestName(), 12282);
-        */
     }
     
     public void sendQuestRequirements(Player player) {
         String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("Content disabled.", 8147);
-        /*
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -360,7 +357,7 @@ public class GhostsAhoy implements Quest {
 		player.getActionSender().sendString("@str@ -Access to Canifis.", 8152);
 	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
-        }*/
+        }
     }
     
     public void sendQuestInterface(Player player){
@@ -406,7 +403,6 @@ public class GhostsAhoy implements Quest {
         player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("Content disabled.", 8147);
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
-    	/*
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@Velorina @bla@in @dre@Port Phasmatys @bla@to begin this quest.", 8147);
@@ -431,7 +427,6 @@ public class GhostsAhoy implements Quest {
 	    }
 	    player.getActionSender().sendString("-Ability to defeat a level 32 lobster.", 8153);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
-	    */
     }
     
     public void dialogue(Player player, Npc npc){
@@ -473,17 +468,6 @@ public class GhostsAhoy implements Quest {
     }
     
     public static boolean itemHandling(final Player player, int itemId) {
-		switch(itemId) {
-	    case PETITION:
-	    case TREASURE_MAP:
-	    case MODEL_SHIP_SILK:
-	    case MODEL_SHIP:
-	    case ECTOPHIAL:
-	        player.getActionSender().sendMessage("Content disabled.");
-		}
-		return false;
-
-    /*
 	switch(itemId) {
 	    case PETITION:
 		player.getPetition().count();
@@ -535,7 +519,7 @@ public class GhostsAhoy implements Quest {
 		    return false;
 		}
 	}
-	return false;*/
+	return false;
     }
     
     public static void handleDeath(final Player player, Npc npc) {
@@ -672,19 +656,14 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-    	switch (object) {
-	    case JUMPING_ROCKS:
-	    case TREASURE_CHEST_2:
-	    case GANGPLANK_TO_SHIP:
-	    	player.getActionSender().sendMessage("Content disabled.");
-    	}
-    	return false;
-
-    /*
 	switch (object) {
 	    case JUMPING_ROCKS: //first rock
 		if(player.transformNpc == 1707 || player.transformNpc == 1708) {
 		    player.getDialogue().sendPlayerChat("I should probably take this off in order", "to jump these rocks carefully.", CONTENT);
+		    return true;
+		}
+		if(player.getSkill().getLevel()[Skill.AGILITY] < 25) {
+		    player.getDialogue().sendStatement("You need 25 agility to cross this obstacle.");
 		    return true;
 		}
 		int playerX = player.getPosition().getX();
@@ -827,40 +806,15 @@ public class GhostsAhoy implements Quest {
 			player.teleport(ON_SHIP);
 			return true;
 		    } else {
-			do {
 			    player.walkTo(x, y, false);
-			} while (player.getPosition().getX() != x && player.getPosition().getY() != y + 1);
 			return true;
 		    }
 		}
 	    return false;
 	}
-	return false;*/
+	return false;
     }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) 
-    {
-    	switch(object) {
-	    case NECROVARUS_COFFIN:
-	    case NECROVARUS_DOOR:
-	    case GANGPLANK_TO_ROCKS:
-	    case TREASURE_CHEST_1:
-	    case PIRATE_CAPTAIN:
-	    case MAST:
-	    case NETTLES_1:
-	    case NETTLES_2:
-	    case NETTLES_3:
-	    case NETTLES_4:
-	    case NETTLES_5:
-	    case NETTLES_6:
-	    case NETTLES_7:
-	    case SHIPS_LADDER_UP:
-	    case SHIPS_LADDER_DOWN:
-	    case BARRIER:
-	    	player.getActionSender().sendMessage("Content disabled.");
-		}
-		return false;
-
-    /*
+    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case NECROVARUS_COFFIN:
 		if(x == 3659 && y == 3513) {
@@ -1046,7 +1000,7 @@ public class GhostsAhoy implements Quest {
 		    return false;
 		}
 	}
-	return false;*/
+	return false;
     }
     
      public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
@@ -1062,27 +1016,8 @@ public class GhostsAhoy implements Quest {
 	return;
     }
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
-    	switch(id) {
-	    case AK_HARANU: //the ship's flag
-	    case 11575: //the ship's flag
-	    case 11111: //energy barrier
-	    case GRAVINGAS:
-		case NECROVARUS:
-	    case OLD_MAN:
-	    case VELORINA:
-	    case GHOST_CAPTAIN_2:
-	    case GHOST_CAPTAIN:
-	    case PATCHY:
-	    case OLD_CRONE:
-	    case INNKEEPER:
-	    case ROBIN:
-	    	player.getActionSender().sendMessage("Content disabled.");
-    	}
-    	return false;
-    	
-    /*
 	switch(id) {
-	    case AK_HARANU: //the ship's flag
+	    case AK_HARANU:
 		switch (player.getQuestStage(24)) {
 		    case ITEMS_FOR_ENCHANTMENT:
 		    case ITEMS_FOR_ENCHANTMENT_2:
@@ -2668,7 +2603,7 @@ public class GhostsAhoy implements Quest {
 		}
 		return false;
 	}
-	return false;*/
+	return false;
     }
 
 }

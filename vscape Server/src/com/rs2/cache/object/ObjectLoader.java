@@ -14,6 +14,7 @@ import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.objects.GameObjectDef;
+import com.rs2.model.players.GlobalObjectHandler;
 import com.rs2.model.players.ObjectHandler;
 
 /**
@@ -63,6 +64,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 			logger.info("Loaded " + objectCount + " objects.");
 			removeUnnecessaryClipping();
 			addNecessaryClipping();
+			//GlobalObjectHandler.createGlobalObject();
 		} catch(Exception e) { 
             e.printStackTrace();
         } finally {
@@ -96,6 +98,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3428, 9891, 0, 10, 0);
 		
 		ObjectHandler.getInstance().removeClip(2910, 9802, 0, 10, 0); //blue dragon eggs
+		ObjectHandler.getInstance().removeClip(3021,3251, 0, 10, 0); //port sarim fence
 		
 		
 	}
@@ -103,6 +106,10 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 	public static void addNecessaryClipping() {
 		ObjectHandler.getInstance().addDoorClip(3408, 3488, 0, 2); //paterdomus doors
 		ObjectHandler.getInstance().addDoorClip(3408, 3489, 0, 2);
+	}
+	
+	public static void addObjects() {
+	    
 	}
 
 	@Override

@@ -56,6 +56,7 @@ import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
+import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
@@ -4686,20 +4687,55 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case FreakyForester.FREAKY_FORESTER : //lel
+			    FreakyForester forester = player.getFreakyForester();
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    if(!forester.isActive()) {
+					player.getDialogue().sendNpcChat("You can leave using that portal over there.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				    }
+				    else if (player.getInventory().playerHasItem(6178) && forester.isActive()) {
+					player.getDialogue().sendNpcChat("That's it! That's the right pheasant! Thank", "you so much " + player.getUsername() + "! Here's a little", "something in exchange for helping me.", CONTENT);
+					return true;
+				    } else {
+					if (forester.getTails() == 1) {
+					    player.getDialogue().sendNpcChat("Shhhh! Quiet! I need you to help me kill", "the pheasant with 1 tail! Bring me the", "raw pheasant it drops and I'll reward you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					} else {
+					    player.getDialogue().sendNpcChat("Shhhh! Quiet! I need you to help me kill", "the pheasant with " + forester.getTails() + " tails! Bring me the", "raw pheasant it drops and I'll reward you.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					}
+				    }
+				case 2:
+				    Item reward = forester.getRandomPieceLeft();
+				    player.getDialogue().sendGiveItemNpc("The Forester hands you your reward.", reward);
+				    player.getInventory().replaceItemWithItem(new Item(6178), reward);
+				    forester.setInactive();
+				    return true;
+				case 3:
+				    player.getDialogue().sendNpcChat("You can leave using that portal over there.", "Thank you again.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
 			case 3117 : //sandwich lady
-				SandwichLady lady = new SandwichLady(true);
-				switch(player.getDialogue().getChatId()) {
-					case 1 :
-						player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + lady.stringSent()[0] + " on me.", HAPPY);
-						player.getRandomInterfaceClick().randomNumber = lady.getRandomNumber();
-						return true;
-					case 2 :
-						player.getRandomInterfaceClick().openInterface(3117);
-						//player.getRandomInterfaceClick().sendModelsRotation(3117);
-						player.getDialogue().dontCloseInterface();
-						break;
-				}
-				break;
+			    SandwichLady lady = new SandwichLady(true);
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + lady.stringSent()[0] + " on me.", HAPPY);
+				    player.getRandomInterfaceClick().randomNumber = lady.getRandomNumber();
+				    return true;
+				case 2:
+				    player.getRandomInterfaceClick().openInterface(3117);
+				    //player.getRandomInterfaceClick().sendModelsRotation(3117);
+				    player.getDialogue().dontCloseInterface();
+				    break;
+			    }
+			break;
 			case 1595 : //saniboch
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

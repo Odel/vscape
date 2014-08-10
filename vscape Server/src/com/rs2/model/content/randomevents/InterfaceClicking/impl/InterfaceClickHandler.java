@@ -1,10 +1,13 @@
 package com.rs2.model.content.randomevents.InterfaceClicking.impl;
 
+import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.dialogue.Dialogues;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.rs2.model.content.randomevents.EventsConstants;
+import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
@@ -37,7 +40,7 @@ public class InterfaceClickHandler {
 	}
 
 	static {
-		events.put(new SandwichLady(false).npcId(), new SandwichLady(false));
+		events.put(new SandwichLady(false).npcId(), new SandwichLady(true));
 	}
 
 	public void sendEventRandomly() {
@@ -96,9 +99,10 @@ public class InterfaceClickHandler {
 			npc.getUpdateFlags().sendAnimation(EventsConstants.GOOD_BYE_EMOTE);
 			player.getRandomInterfaceClick().completed = true;
 			player.getInventory().addItem(interfaceClickEvent.rewards()[randomNumber]);
+			player.setSpawnedNpc(null);
+			RandomEvent.resetEvents(player);
 		} else {
-			//npc.sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), interfaceClickEvent.goodByeMessage()[1], false);
-			player.hit(1, HitType.NORMAL);
+			npc.sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), interfaceClickEvent.goodByeMessage()[1], false);
 		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override

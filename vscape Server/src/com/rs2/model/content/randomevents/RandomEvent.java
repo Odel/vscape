@@ -17,11 +17,12 @@ public class RandomEvent {
 		npc.getUpdateFlags().sendForceMessage(player.getRandomInterfaceClick().getEvents(npcId).cycleMessages()[0].replaceAll("%", Misc.formatPlayerName(player.getUsername())));
 		player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 100 << 16);
 		player.getRandomInterfaceClick().sendCycleAdvertisement(npc);
-
+		player.setSpawnedNpc(npc);
 	}
 
 	public static void resetEvents(Player player) {
 		player.getRandomInterfaceClick().completed = false;
+		player.getRandomInterfaceClick().stage = 0;
 	}
 
 	public static void destroyEventNpc(Player player) {
@@ -29,6 +30,7 @@ public class RandomEvent {
 			player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, player.getRandomEventNpc().getPosition(), 100 << 16);
 			NpcLoader.destroyNpc(player.getRandomEventNpc());
 			player.setRandomEventNpc(null);
+			player.setSpawnedNpc(null);
 		}
 	}
 
@@ -55,7 +57,10 @@ public class RandomEvent {
 					case 3 :
 						TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 						break;
-					//case 4 :
+					case 4:
+						player.getFreakyForester().spawnForester();
+						break;
+					//case 5 :
 						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
 						//break;
 				}

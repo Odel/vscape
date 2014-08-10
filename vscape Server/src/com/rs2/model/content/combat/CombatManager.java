@@ -2,6 +2,7 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
+import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
@@ -76,7 +77,7 @@ public class CombatManager extends Tick {
 	public static void attack(Entity attacker, Entity victim) {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
-        }
+	}
         if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || PestControl.isShieldedPortal((Npc)victim)) ) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
@@ -369,6 +370,7 @@ public class CombatManager extends Tick {
 			DragonSlayer.handleDrops((Player) killer, npc);
 			PriestInPeril.handleDeath((Player) killer, npc);
 			PriestInPeril.handleDrops((Player) killer, npc);
+			((Player) killer).getFreakyForester().handleDrops(npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
 		}

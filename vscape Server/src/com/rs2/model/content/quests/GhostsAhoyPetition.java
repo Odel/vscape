@@ -114,9 +114,15 @@ public class GhostsAhoyPetition {
 			if (player.getInventory().playerHasItem(PETITION)) {
 			    switch (chatId) {
 				case 1:
+				    if(signers.size() == 10) {
+					player.getDialogue().sendStatement("You have 10 signatures on your petition form. Go tell Necrovarus.");
+					endDialogue();
+					return true;
+				    } else {
 				    player.getDialogue().setLastNpcTalk(GHOST_VILLAGER);
 				    player.getDialogue().sendPlayerChat("Would you sign my petition against Necrovarus'", "unholy control of your free will?", CONTENT);
 				    return true;
+				    }
 				case 2:
 				    if (signers.contains(lastNpcTalked)) {
 					player.getDialogue().setLastNpcTalk(GHOST_VILLAGER);

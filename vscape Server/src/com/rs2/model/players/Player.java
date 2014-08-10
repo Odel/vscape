@@ -162,6 +162,7 @@ import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.randomevents.FreakyForester;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -210,6 +211,7 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private FreakyForester freakyForester = new FreakyForester(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
 	private boolean justWonRuneDraw = false;
@@ -3236,6 +3238,10 @@ public class Player extends Entity {
 	
 	public RuneDraw getRuneDraw() {
 		return runeDraw;
+	}
+	
+	public FreakyForester getFreakyForester() {
+		return freakyForester;
 	}
 	
 	public GhostsAhoyPetition getPetition() {
