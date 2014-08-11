@@ -49,9 +49,14 @@ public class GlassMaking {
 			player.getDialogue().sendStatement("You need a bucket of sand to do that.");
 			return;
 		}
+		if (!player.getInventory().getItemContainer().contains(SODA_ASH)) {
+		    player.getDialogue().sendStatement("You need soda ash to do this.");
+		    return;
+		}
 		player.getUpdateFlags().sendAnimation(FURNACE);
-		player.getActionSender().sendMessage("You place your bucket into the furnace, and get some molten glasses from it.");
+		player.getActionSender().sendMessage("You place your bucket into the furnace, and get some molten glass.");
 		player.getInventory().removeItem(new Item(BUCKET_OF_SAND));
+		player.getInventory().removeItem(new Item(SODA_ASH));
 		player.getInventory().addItem(new Item(BUCKET));
 		player.getInventory().addItem(new Item(MOLTEN_GLASS));
 	}
@@ -135,10 +140,6 @@ public class GlassMaking {
 				player.getDialogue().sendStatement("You need a molten glass to do this.");
 				return true;
 			}
-			if (!player.getInventory().getItemContainer().contains(SODA_ASH)) {
-				player.getDialogue().sendStatement("You need a soda ash to do this.");
-				return true;
-			}
 			if (player.getSkill().getLevel()[Skill.CRAFTING] < glassMake.getLevel()) {
 				player.getDialogue().sendStatement("You need a crafting level of " + glassMake.getLevel() + " to make this.");
 				return true;
@@ -154,6 +155,7 @@ public class GlassMaking {
 				public void execute(CycleEventContainer container) {
 
 					if (!player.checkTask(task) || amnt == 0 || !player.getInventory().getItemContainer().contains(MOLTEN_GLASS)) {
+						player.getActionSender().sendMessage("You have run out of molten glass!");
 						container.stop();
 						return;
 					}
@@ -161,7 +163,6 @@ public class GlassMaking {
 					player.getUpdateFlags().sendAnimation(GLASS_MAKING);
 					player.getActionSender().sendMessage("You make the molten glass into a " + new Item(glassMake.getResult()).getDefinition().getName() + ".");
 					player.getInventory().removeItem(new Item(MOLTEN_GLASS));
-					player.getInventory().removeItem(new Item(SODA_ASH));
 					player.getInventory().addItem(new Item(glassMake.getResult()));
 					player.getSkill().addExp(Skill.CRAFTING, glassMake.getExperience());
 					amnt--;
