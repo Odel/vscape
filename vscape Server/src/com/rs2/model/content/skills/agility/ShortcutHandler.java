@@ -43,17 +43,17 @@ public class ShortcutHandler {
 				if(y == 3253) //third rocks up
 				Agility.crossObstacle(player, 2332, 3252, 844, 7, 85, 0);
 				return true;
-			case 9307:
-                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 58) //from top
+			case 9307: //ectopool shortcut
+                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 53) //from top
                                 player.teleport(new Position(3670, 9888, 3));
                                 else
-                                player.getActionSender().sendMessage("This shortcut requires level 58 Agility.");     
+                                player.getActionSender().sendMessage("This shortcut requires level 53 Agility.");     
                                 return true;
-                        case 9308:
-                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 58) //from bottom
+                        case 9308: //ectopool shortcut
+                                if(x == 3670 && y == 9888 && player.getSkill().getLevel()[Skill.AGILITY] >= 53) //from bottom
                                 player.teleport(new Position(3671, 9888, 2));
                                 else
-                                player.getActionSender().sendMessage("This shortcut requires level 58 Agility.");  
+                                player.getActionSender().sendMessage("This shortcut requires level 53 Agility.");  
                                 return true;
 			//Tirannwn
 			case 3921: //tripwire
