@@ -4,12 +4,10 @@ import com.rs2.model.Position;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import com.rs2.model.content.quests.GhostsAhoy;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -109,21 +107,6 @@ public class Ectofungus {
     }
     
     public static boolean doObjectFirstClick(final Player player, int object, int x, int y) {
-     	switch(object) {
-	    case STAIRS_UP:
-	    case STAIRS_DOWN:
- 	    case ECTOFUNGUS:
-	    case STAIRS_UP_SLIME:
-	    case STAIRS_DOWN_SLIME:
-	    case LADDER_UP:
-	    case TRAPDOOR:
-	    case BONEGRINDER:
-	    case BONEGRINDER_BIN:
-	       	player.getActionSender().sendMessage("Content disabled.");
-    	}
-    	return false;
-
-    /*
 	switch(object) {
 	    case STAIRS_UP:
 		if(x == STAIRS_UP_OBJ[X] && y == STAIRS_UP_OBJ[Y]) {
@@ -224,7 +207,7 @@ public class Ectofungus {
 		    return true;
 		}
 	}
-	return false;*/
+	return false;
     }
     
     public static String getBonesAdded(final Player player) {
