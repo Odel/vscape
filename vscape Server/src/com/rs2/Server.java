@@ -98,7 +98,7 @@ public class Server implements Runnable {
 		int port = 43594;
 		int cycleRate = 600;
 		Constants.DEVELOPER_MODE = false;
-		Constants.SERVER_DEBUG = true;
+		Constants.SERVER_DEBUG = false;
 		Constants.UNLIMITED_RUN = true;
 
         //PlayerCleaner.start();
