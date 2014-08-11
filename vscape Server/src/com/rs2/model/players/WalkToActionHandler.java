@@ -2631,6 +2631,7 @@ public class WalkToActionHandler {
 						{
 							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
 							player.getUpdateFlags().sendAnimation(827, 0);
+							player.getInventory().removeItem(new Item(item)); //fixed "full inventory" error when you have 28 glories
 							player.getInventory().addItemToSlot(new Item(1712, 1), player.getSlot());
 						}
 					}
