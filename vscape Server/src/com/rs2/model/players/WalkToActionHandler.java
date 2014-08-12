@@ -2697,6 +2697,7 @@ public class WalkToActionHandler {
 					}
 					break;
 				case 2645:// pile of sand
+				case 10814: //yanille sand
 					if (item == GlassMaking.BUCKET) {
 						GlassMaking.fillWithSand(player);
 					}

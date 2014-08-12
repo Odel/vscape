@@ -184,7 +184,6 @@ public class GhostsAhoy implements Quest {
     }
 
     public void completeQuest(Player player) {
-    	player.getActionSender().sendMessage("Content disabled.");
         getReward(player);
         player.getActionSender().sendInterface(12140);
         player.getActionSender().sendItemOnInterface(995, 200, 12142);
@@ -202,7 +201,6 @@ public class GhostsAhoy implements Quest {
     public void sendQuestRequirements(Player player) {
         String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
-        player.getActionSender().sendString("Content disabled.", 8147);
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -401,7 +399,6 @@ public class GhostsAhoy implements Quest {
     	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString(getQuestName(), 8144);
-        player.getActionSender().sendString("Content disabled.", 8147);
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -430,8 +427,7 @@ public class GhostsAhoy implements Quest {
     }
     
     public void dialogue(Player player, Npc npc){
-    	//Dialogues.startDialogue(player, VELORINA);
-    	player.getActionSender().sendMessage("Content disabled.");
+    	Dialogues.startDialogue(player, VELORINA);
     }
     
     public int getDialogueStage(Player player){
