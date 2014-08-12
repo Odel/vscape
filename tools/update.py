@@ -33,12 +33,30 @@ if buildconfirm == "y":
 	shutdownconfirm = raw_input('Is the server down now? y/n:')
 
 	if shutdownconfirm == "y":
+		print "-copying data files to server dir"
+		os.chdir('/home/travis/vidyascape/vscape Server/data')
+
+		shutil.rmtree("/var/vidyascape/data/content")
+		shutil.copytree("content","/var/vidyascape/data")
+
+		shutil.rmtree("/var/vidyascape/data/npcs")
+		shutil.copytree("npcs","/var/vidyascape/npcs")
+
+		shutil.rmtree("/var/vidyascape/data/world")
+		shutil.copytree("world","/var/vidyascape/world")
+
+		shutil.copyfile("info.txt","/var/vidyascape/data/info.txt")
+		shutil.copyfile("/home/travis/vidyascape/vscape Server/data/patchnotes.txt","/var/vidyascape/data/patchnotes.txt");
+
+		os.chdir('/home/travis/vidyascape/vscape Server')
+
+		shutil.rmtree("/var/vidyascape/datajson")
+		shutil.copytree("datajson","/var/vidyascape/datajson")
+
 		print "-copying bin to server dir"
 
 		shutil.rmtree("/var/vidyascape/bin")
 		shutil.copytree("/home/travis/vidyascape/vscape Server/bin","/var/vidyascape/bin")
-		shutil.copyfile("/home/travis/vidyascape/vscape Server/data/patchnotes.txt","/var/vidyascape/data/patchnotes.txt");
-		
 		print "-starting server"
 		os.chdir('/var/vidyascape')
 		subprocess.call(["screen", "-d","-m","./run.sh"])
