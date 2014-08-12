@@ -139,7 +139,7 @@ public class TabHandler {
 	    } else if (checkStaffs(getRunes(sp)[0][0], id) && i.playerHasItem(getRunes(sp)[1][0], getRunes(sp)[1][1]) && i.playerHasItem(getRunes(sp)[2][0], getRunes(sp)[2][1])) {
 		return true;
 	    }
-	    return i.playerHasItem(getRunes(sp)[1][0], getRunes(sp)[1][1]) && checkStaffs(getRunes(sp)[0][0], id) && i.playerHasItem(getRunes(sp)[2][0], getRunes(sp)[2][1]);
+	    return i.playerHasItem(getRunes(sp)[0][0], getRunes(sp)[0][1]) && checkStaffs(getRunes(sp)[1][0], id) && i.playerHasItem(getRunes(sp)[2][0], getRunes(sp)[2][1]);
 	}
 	else if(getRunes(sp).length == 2) {
 	    if (i.playerHasItem(getRunes(sp)[0][0], getRunes(sp)[0][1]) && i.playerHasItem(getRunes(sp)[1][0], getRunes(sp)[1][1])) {
@@ -172,7 +172,8 @@ public class TabHandler {
 	    player.getInventory().removeItem(new Item(item));
 	    player.getActionSender().sendMessage("You break the tab.");
 	    for (Item items : player.getInventory().getItemContainer().getItems()) {
-		if (items != null && items.getId() == 526) {
+		if (items == null) continue;
+		if (items.getId() == 526) {
 		    player.getInventory().replaceItemWithItem(items, new Item(fruit));
 		}
 	    }
