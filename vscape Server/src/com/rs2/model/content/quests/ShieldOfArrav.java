@@ -20,7 +20,7 @@ import com.rs2.model.players.item.Item;
 public class ShieldOfArrav implements Quest {
 
     public static final int QUEST_STARTED = 1;
-    public static final int BARAEK = 2;
+    public static final int FIND_HIDEOUT = 2;
     public static final int KILL_JOHNNY = 3;
     public static final int PHOENIX_GANG = 4;
     public static final int CHARLIE = 5;
@@ -30,6 +30,18 @@ public class ShieldOfArrav implements Quest {
     public static final int CERTS_TO_ROALD = 11;
     public static final int QUEST_COMPLETE = 12;
     
+    public static final int SHIELD_LEFT_HALF = 763;
+    public static final int LEFT_HALF_CERTIFICATE = 11173;
+    public static final int SHIELD_RIGHT_HALF = 765;
+    public static final int RIGHT_HALF_CERTIFICATE = 11174;
+    public static final int CERTIFICATE = 769;
+    public static final int KATRINE = 642;
+    public static final int CHARLIE_THE_TRAMP = 641;
+    public static final int KING_ROALD = 648;
+    public static final int CURATOR = 646;
+    public static final int RELDO = 2660;
+    public static final int BARAEK = 547;
+    public static final int STRAVEN = 644;
     public int dialogueStage = 0;
     private int reward[][] = {
 	{995, 6000}
@@ -92,7 +104,7 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("Talk to Charlie the Tramp for the Black Arm Gang...", 8151);
 	    player.getActionSender().sendString("Or Baraek for the Phoenix Gang.", 8152);
         }
-	else if (questStage == BARAEK) {
+	else if (questStage == FIND_HIDEOUT) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -184,9 +196,8 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("@str@" + "You are now a member of the Phoenix Gang.", 8160);
 	    player.getActionSender().sendString("@str@" + "The Phoenix half of the shield should be nearby.", 8161);
 	    
-	    player.getActionSender().sendString("Work with your friend in the Black Arm Gang,", 8163);
-	    player.getActionSender().sendString("to get the other half of the Shielf of Arrav.", 8164);
-	    player.getActionSender().sendString("Have one turn in both halves to the Museum Curator.", 8165);
+	    player.getActionSender().sendString("Take your half of the shield to the musuem curator.", 8163);
+	    player.getActionSender().sendString("Your partner will have the other half-certificate.", 8164);
         }
 	else if (questStage == SHIELD_TO_CURATOR && player.isBlackArmGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -202,9 +213,8 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("@str@" + "You are now a member of the Black Arm Gang.", 8160);
 	    player.getActionSender().sendString("@str@" + "The Black Arm half of the shield should be nearby.", 8161);
 	    
-	    player.getActionSender().sendString("Work with your friend in the Phoenix Gang,", 8163);
-	    player.getActionSender().sendString("to get the other half of the Shielf of Arrav.", 8164);
-	    player.getActionSender().sendString("Have one turn in both halves to the Museum Curator.", 8165);
+	    player.getActionSender().sendString("Take your half of the shield to the musuem curator.", 8163);
+	    player.getActionSender().sendString("Your partner will have the other half-certificate.", 8164);
         }
 	else if (questStage == CERTS_TO_ROALD && player.isPhoenixGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -356,7 +366,7 @@ public class ShieldOfArrav implements Quest {
     }
     
     public void dialogue(Player player, Npc npc){
-    	Dialogues.startDialogue(player, 2660);
+    	Dialogues.startDialogue(player, RELDO);
     }
     
     public int getDialogueStage(Player player){
@@ -377,13 +387,31 @@ public class ShieldOfArrav implements Quest {
 	    return true;
 	}
 	else if(itemId == 769) { //certificate
-	    player.getDialogue().sendPlayerChat("\"This certificate proves that you helped", "recover the Shield of Arrav\" ", CONTENT);
+	    player.getDialogue().sendPlayerChat("\"This certificate proves that you helped", "recover the Shield of Arrav.\" ", CONTENT);
 	    return true;
 	}
 	return false;
     }
     
     public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+	if(firstItem == RIGHT_HALF_CERTIFICATE && secondItem == LEFT_HALF_CERTIFICATE) {
+	    if(player.getQuestStage(13) == 10) {
+		player.setQuestStage(13, 11);
+	    }
+	    player.getActionSender().sendMessage("You put the certificate together.");
+	    player.getInventory().replaceItemWithItem(new Item(RIGHT_HALF_CERTIFICATE), new Item(CERTIFICATE));
+	    player.getInventory().removeItem(new Item(LEFT_HALF_CERTIFICATE));
+	    return true;
+	}
+	else if(firstItem == LEFT_HALF_CERTIFICATE && secondItem == RIGHT_HALF_CERTIFICATE) {
+	    if(player.getQuestStage(13) == 10) {
+		player.setQuestStage(13, 11);
+	    }
+	    player.getActionSender().sendMessage("You put the certificate together.");
+	    player.getInventory().replaceItemWithItem(new Item(RIGHT_HALF_CERTIFICATE), new Item(CERTIFICATE));
+	    player.getInventory().removeItem(new Item(LEFT_HALF_CERTIFICATE));
+	    return true;
+	}
 	return false;
     }
     
@@ -423,7 +451,7 @@ public class ShieldOfArrav implements Quest {
 		    return true; 
 		}
 	    return false;
-	    case 2399: //phoenix gang door
+	    case 2399: //black arm gang door
 		if(player.isBlackArmGang() && x == 3185 && y == 3388) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3388 ? 1 : -1, true);
 		    player.getActionSender().walkThroughDoor(2399, 3185, 3388, 0);
@@ -441,10 +469,10 @@ public class ShieldOfArrav implements Quest {
 		}
 	    return true;
 	    case 2404: //phoneix gang open chest
-		if(!player.getInventory().ownsItem(763)) {
+		if(!player.getInventory().ownsItem(SHIELD_LEFT_HALF)) {
 		    player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
-		    player.getInventory().addItem(new Item(763));
-		    if(player.getQuestStage(13) == 9) {
+		    player.getInventory().addItem(new Item(SHIELD_LEFT_HALF));
+		    if(player.getQuestStage(13) == 4) {
 			player.setQuestStage(13, 10);
 		    }
 		    return true;
@@ -457,12 +485,10 @@ public class ShieldOfArrav implements Quest {
 		}
 	    return true;
 	    case 2401: //black arm open cupboard
-		if(!player.getInventory().ownsItem(765)) {
+		if(!player.getInventory().ownsItem(SHIELD_RIGHT_HALF) && player.getQuestStage(13) == 7) {
 		    player.getDialogue().sendStatement("You find the right half of the Shield of Arrav.");
-		    player.getInventory().addItem(new Item(765));
-		    if(player.getQuestStage(13) == 9) {
-			player.setQuestStage(13, 10);
-		    }
+		    player.getInventory().addItem(new Item(SHIELD_RIGHT_HALF));
+		    player.setQuestStage(13, 10);
 		    return true;
 		}
 	    return true;
@@ -475,7 +501,7 @@ public class ShieldOfArrav implements Quest {
 	    if(item == null) continue;
 	    if(item.getId() == 769) x++;
 	}
-	return x >= 2 ? true : false;
+	return x >= 2;
     }
     public static void handleDrops(Player player, Npc npc) {
 	if (npc.getNpcId() == 645 && player.getQuestStage(13) == 3) {
@@ -492,33 +518,34 @@ public class ShieldOfArrav implements Quest {
     
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
-	    case 642: //katrine
+	    case KATRINE:
 		switch(player.getDialogue().getChatId()) {
 		    case 1 :
-			if(player.getQuestStage(13) == 5) {
+			if (player.getQuestStage(13) == 5) {
 			    player.getDialogue().sendPlayerChat("I know about your gang.", CONTENT);
 			    return true;
-			}
-			else if(player.getQuestStage(13) == 6) {
-			    if(player.getInventory().playerHasItem(767, 2)) {
+			} else if (player.getQuestStage(13) == 6) {
+			    if (player.getInventory().playerHasItem(767, 2)) {
 				player.getDialogue().sendPlayerChat("I got you your crossbows.", CONTENT);
 				player.getInventory().removeItem(new Item(767, 2));
 				player.getDialogue().setNextChatId(15);
 				return true;
-			    }
-			    else {
+			    } else {
 				player.getDialogue().sendStatement("Katrine doesn't seem to want to be bothered.");
 				player.getDialogue().endDialogue();
 				return true;
 			    }
-			}
-			else {
+			} else if (player.getQuestStage(13) == 12 && !player.isBlackArmGang() && !player.isPhoenixGang()) {
+			    player.getDialogue().sendPlayerChat("Hello, Katrine.", CONTENT);
+			    player.getDialogue().setNextChatId(25);
+			    return true;
+			} else {
 			    player.getDialogue().sendStatement("Katrine doesn't seem to want to be bothered.");
 			    player.getDialogue().endDialogue();
 			    return true;
 			}
 		    case 2:
-			player.getDialogue().sendNpcChat("Who told you ?!", ANGRY_2);
+			player.getDialogue().sendNpcChat("Who told you?!", ANGRY_2);
 			return true;
 		    case 3:
 			player.getDialogue().sendPlayerChat("I won't reveal my source...", "...and I won't tell anyone about you...", "...if you allow me to join.", CONTENT);
@@ -558,9 +585,33 @@ public class ShieldOfArrav implements Quest {
 			player.getDialogue().sendNpcChat("Welcome to the jungle.", LAUGHING);
 			player.getDialogue().endDialogue();
 			return true;
+		    case 25:
+			player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
+			return true;
+		    case 26:
+			player.getDialogue().sendOption("I'm a loyal member of your Black Arm Gang.", "A nobody, I'm just poking around.");
+			return true;
+		    case 27:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I'm a loyal member of your Black Arm Gang.", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 28:
+			player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", HAPPY);
+			player.joinBlackArmGang(true);
+			return true;
+		    case 29:
+			player.getDialogue().sendStatement("You have been recognized as a member of the Black Arm Gang.");
+			player.getDialogue().endDialogue();
+			return true;
 		}
 		return false;
-	    case 641: //charlie the tramp
+	    case CHARLIE_THE_TRAMP:
 		switch(player.getDialogue().getChatId()) {
 		    case 1 :
 			if(player.getQuestStage(13) == 1) {
@@ -584,7 +635,7 @@ public class ShieldOfArrav implements Quest {
 			return true;
 		}
 	    return false;
-	    case 648: //king roald
+	    case KING_ROALD:
 		switch (player.getQuestStage(13)) {
 		    case 11:
 			switch (player.getDialogue().getChatId()) {
@@ -600,7 +651,7 @@ public class ShieldOfArrav implements Quest {
 				    player.getInventory().removeItem(new Item(769));
 				    return true;
 				} else if (moreThanTwoCertificates(player)) {
-				    player.getDialogue().sendStatement("You have too many certificates.", "Give your partner his due certificate, or bank any extras.");
+				    player.getDialogue().sendStatement("You have too many certificates.");
 				    player.getDialogue().endDialogue();
 				    return true;
 				} else {
@@ -620,14 +671,19 @@ public class ShieldOfArrav implements Quest {
 			return false;
 		    }
 	    return false;
-	    case 646: //curator
+	    case CURATOR:
 		switch(player.getDialogue().getChatId()) {
 		    case 1 :
 			player.getDialogue().sendNpcChat("Hello, and welcome to the museum!", "Feel free to look around!", HAPPY);
 			return true;
 		    case 2:
-			if(player.getQuestStage(13) == 10 && player.getInventory().playerHasItem(763) && player.getInventory().playerHasItem(765)) {
-			    player.getDialogue().sendPlayerChat("I've recovered the lost Shield of Arrav!", HAPPY);
+			if(player.getQuestStage(13) == 10 && player.getInventory().playerHasItem(SHIELD_LEFT_HALF)) {
+			    player.getDialogue().sendPlayerChat("I've recovered the left half of the Shield of Arrav!", HAPPY);
+			    return true;
+			}
+			else if(player.getQuestStage(13) == 10 && player.getInventory().playerHasItem(SHIELD_RIGHT_HALF)) {
+			    player.getDialogue().sendPlayerChat("I've recovered the right half of the Shield of Arrav!", HAPPY);
+			    player.getDialogue().setNextChatId(9);
 			    return true;
 			}
 			else {
@@ -639,21 +695,30 @@ public class ShieldOfArrav implements Quest {
 			player.getDialogue().sendNpcChat("Oh! You have!", "This is quite the day, heavens be blessed!", HAPPY);
 			return true;
 		    case 4:
-			player.getDialogue().sendStatement("You hand the curator the two halves, and get two certificates.");
-			player.getInventory().removeItem(new Item(763));
-			player.getInventory().removeItem(new Item(765));
-			player.getInventory().addItem(new Item(769, 2));
-			player.setQuestStage(13, 11);
+			player.getDialogue().sendGiveItemNpc("You hand the curator your half...", "He hands you two half-certificates in exchange.", new Item(SHIELD_LEFT_HALF), new Item(LEFT_HALF_CERTIFICATE));
+			player.getInventory().replaceItemWithItem(new Item(SHIELD_LEFT_HALF), new Item(LEFT_HALF_CERTIFICATE, 2));
 			return true;
 		    case 5:
-			player.getDialogue().sendNpcChat("Here, take these certificates!", "They've been drawn up for a long time...", "...waiting for someone to find the Shield!", HAPPY);
+			player.getDialogue().sendNpcChat("Here, take these halves of the certificate.", "They've been drawn up for a long time...", "...waiting for someone to find the Shield!", HAPPY);
 			return true;
 		    case 6:
-			player.getDialogue().sendNpcChat("Take them to King Roald for your reward!", HAPPY);
+			player.getDialogue().sendNpcChat("Give one half to your partner in exchange for his half.", "Then put them together and return to King Roald,", "I'm sure he has a reward for you.", HAPPY);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 9:
+			player.getDialogue().sendGiveItemNpc("You hand the curator your half...", "He hands you two half-certificates in exchange.", new Item(SHIELD_RIGHT_HALF), new Item(RIGHT_HALF_CERTIFICATE));
+			player.getInventory().replaceItemWithItem(new Item(SHIELD_RIGHT_HALF), new Item(RIGHT_HALF_CERTIFICATE, 2));
+			return true;
+		    case 10:
+			player.getDialogue().sendNpcChat("Here, take these halves of the certificate.", "They've been drawn up for a long time...", "...waiting for someone to find the Shield!", HAPPY);
+			return true;
+		    case 11:
+			player.getDialogue().sendNpcChat("Give one half to your partner in exchange for his half.", "Then put them together and return to King Roald,", "I'm sure he has a reward for you.", HAPPY);
+			player.getDialogue().endDialogue();
 			return true;
 		}
 	    return false;
-	    case 2660:  //reldo
+	    case RELDO:
 		switch(player.getDialogue().getChatId()) {
 		    case 1 :
 			player.getDialogue().sendNpcChat("Hello there!", HAPPY);
@@ -723,7 +788,7 @@ public class ShieldOfArrav implements Quest {
 			return true;
 		}
 		return false;
-	    case 547: //baraek
+	    case BARAEK:
 		switch(player.getDialogue().getChatId()) {
 		    case 1:
 			if(player.getQuestStage(13) == 1) {
@@ -746,7 +811,7 @@ public class ShieldOfArrav implements Quest {
 			return true;
 		    case 5:
 			if(player.getInventory().playerHasItem(995, 20)) {
-			    player.getDialogue().sendStatement("You hand Baraek 20 gold.");
+			    player.getDialogue().sendGiveItemNpc("You hand Baraek 20 gold.", new Item(995, 20));
 			    player.getInventory().removeItem(new Item(995, 20));
 			    return true;
 			}
@@ -762,7 +827,7 @@ public class ShieldOfArrav implements Quest {
 			return true;
 		}
 	    return false;
-	    case 644: //straven
+	    case STRAVEN:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
 			if (player.getQuestStage(13) == 2) {
@@ -779,6 +844,15 @@ public class ShieldOfArrav implements Quest {
 				player.getDialogue().setNextChatId(20);
 				return true;
 			    }
+			} else if(player.getQuestStage(13) >= 4 && player.getQuestStage(13) < 12 && !player.getInventory().ownsItem(759)) {
+			    player.getDialogue().sendNpcChat("Don't lose the key this time.", ANGRY_1);
+			    player.getDialogue().endDialogue();
+			    player.getInventory().addItemOrDrop(new Item(759));
+			    return true;
+			} else if(player.getQuestStage(13) == 12 && !player.isBlackArmGang() && !player.isPhoenixGang()) {
+			    player.getDialogue().sendPlayerChat("Hello, Straven.", CONTENT);
+			    player.getDialogue().setNextChatId(25);
+			    return true;
 			} else {
 			    player.getDialogue().sendStatement("Straven doesn't look interested in talking.");
 			    player.getDialogue().endDialogue();
@@ -833,6 +907,30 @@ public class ShieldOfArrav implements Quest {
 			return true;
 		    case 19:
 			player.getDialogue().sendPlayerChat("Thank you.", "I'll be your best member some day!", HAPPY);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 25:
+			player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
+			return true;
+		    case 26:
+			player.getDialogue().sendOption("I'm a loyal member of your Phoenix Gang.", "A nobody, I'm just poking around.");
+			return true;
+		    case 27:
+			switch(optionId) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I'm a loyal member of your Phoenix Gang.", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 28:
+			player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", CONTENT);
+			player.joinPhoenixGang(true);
+			return true;
+		    case 29:
+			player.getDialogue().sendStatement("You have been recognized as a member of the Phoenix Gang.");
 			player.getDialogue().endDialogue();
 			return true;
 		}

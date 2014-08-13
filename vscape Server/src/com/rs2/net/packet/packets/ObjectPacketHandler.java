@@ -165,7 +165,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(player.getClickId() == 2404) { //phoneix gang open chest
-		    if(!player.getInventory().ownsItem(763)) {
+		    if(!player.getInventory().ownsItem(763) && player.getQuestStage(13) == 4) {
 			player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
 			player.getInventory().addItem(new Item(763));
 			player.setQuestStage(13, 10);
@@ -213,7 +213,7 @@ public class ObjectPacketHandler implements PacketHandler {
 			return;
 		}*/
 		if(player.getClickId() == 2401) { //black arm open cupboard
-		    if(!player.getInventory().ownsItem(765)) {
+		    if(!player.getInventory().ownsItem(765) && player.getQuestStage(13) == 7) {
 			player.getDialogue().sendStatement("You find the right half of the Shield of Arrav.");
 			player.getInventory().addItem(new Item(765));
 			player.setQuestStage(13, 10);

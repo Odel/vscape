@@ -298,6 +298,9 @@ public class ItemPacketHandler implements PacketHandler {
 		if(ElementalWorkshop.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
+		if(ShieldOfArrav.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
 		if(DragonSlayer.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
@@ -455,7 +458,7 @@ public class ItemPacketHandler implements PacketHandler {
 		player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE));
 		player.setClickId(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickZ(player.getPosition().getZ());
-        if (Constants.SERVER_DEBUG)
+        if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
         	System.out.println(player.getClickX() + " " + player.getClickY());
 		if (!player.getInventory().canAddItem(new Item(player.getClickId()))) {
 			return;
@@ -1108,7 +1111,7 @@ public class ItemPacketHandler implements PacketHandler {
 		if (player.getAlchemistPlayground().isInAlchemistPlayGround()) {
 			player.getAlchemistPlayground().alchemyItem(itemId);
 			return;
-		} else if (Constants.SERVER_DEBUG)
+		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("Slot: " + player.getSlot() + " Item id: " + itemId + " Interface ID: " + player.getInterfaceId() + " magic id: " + magicId);
 	}
 
@@ -1121,7 +1124,7 @@ public class ItemPacketHandler implements PacketHandler {
 		Spell spell = player.getMagicBookType().getSpells().get(magicId);
 		if (spell != null) {
 			MagicSkill.spellOnGroundItem(player, spell, itemId, new Position(x, y, player.getPosition().getZ()));
-		} else if (Constants.SERVER_DEBUG)
+		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("Magic ID: " + magicId + " Item ID: " + itemId + " X: " + x + " Y: " + y);
 	}
 
