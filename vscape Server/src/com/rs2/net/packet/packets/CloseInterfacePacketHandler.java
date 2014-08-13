@@ -21,12 +21,16 @@ public class CloseInterfacePacketHandler implements PacketHandler {
 		}
 		player.getAttributes().put("isBanking", Boolean.FALSE);
 		player.getAttributes().put("isShopping", Boolean.FALSE);
+		if(player.getStatedInterface().equals("PcExpInterface")) {
+		    player.setSkillAnswer(0);
+		    player.setPcSkillPoints(0);
+		}
 		player.setStatedInterface("");
 		if (player.getNewComersSide().isInTutorialIslandStage())
 			player.getActionSender().removeInterfaces();
 		if (!player.getNewComersSide().isInTutorialIslandStage())
 			player.getActionSender().sendSidebarInterface(3, 3213);
-        player.setInterface(0);
+		player.setInterface(0);
 	}
 
 }

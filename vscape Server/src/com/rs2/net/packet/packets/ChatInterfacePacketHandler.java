@@ -11,6 +11,7 @@ import com.rs2.model.content.skills.Crafting.Spinning;
 import com.rs2.model.content.skills.Crafting.Tanning;
 import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.Smelting;
@@ -103,9 +104,26 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			ChallengeScrolls.handleAnswer(player, amount, player.challengeScroll);
 			return;
 		} else if (player.getEnterXInterfaceId() == 208) {
+			if(amount <= 0) {
+			    player.getActionSender().sendMessage("You can't exchange 0 points!");
+			    return;
+			}
+			if(amount > 1000000) {
+			    player.getActionSender().sendMessage("Too large of an amount.");
+			    return;
+			}
+			if(amount > player.getPcPoints()) {
+			    player.getActionSender().sendMessage("You don't have that many points!");
+			    return;
+			}
 			player.setPcSkillPoints(amount);
-			Dialogues.setNextDialogue(player, 3789, 9);
-			player.getDialogue().sendPlayerChat(amount + " please.", Dialogues.HAPPY);
+			if(player.getStatedInterface().equals("PcExpInterface")) {
+			    player.getActionSender().sendString("" + Skill.SKILL_NAME[player.getSkillAnswer()], 18782);
+			}
+			else {
+			    Dialogues.setNextDialogue(player, 3789, 9);
+			    player.getDialogue().sendPlayerChat(amount + " please.", Dialogues.HAPPY);
+			}
 			return;
 		} else if (player.getEnterXInterfaceId() == 53150) {
 			Cooking.handleCookingTick(player, amount);

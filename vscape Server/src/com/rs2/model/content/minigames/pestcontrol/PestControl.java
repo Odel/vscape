@@ -829,28 +829,6 @@ public class PestControl {
 		return false;
 	}
 	
-	public static double handlePoints(Player player, int amount) {
-	    double finalRewardAmount = 0;
-	    int l = 0;
-	    double N = 0;
-	    int skillIndex = player.getSkillAnswer();
-	    if(skillIndex == 5) N = 24; //Prayer
-	    else if(skillIndex == 4 || skillIndex == 6) N = 35.8888888; //Range & Mage
-	    else if(skillIndex == 0 || skillIndex == 1 || skillIndex == 2 || skillIndex == 3)
-		N = 38.8888888; //Others
-	    
-	    l = player.getSkill().getPlayerLevel(skillIndex);
-	    finalRewardAmount = (int)( (Math.ceil( ((l+25)*(l-24))/(606d) )) * N );
-	    
-	    if(amount >= 100) return finalRewardAmount * amount * 1.1;
-	    else return finalRewardAmount * amount * 1.1;
-	}
-	
-	public static void handleReward(Player player, double expReward) {
-	    int skillIndex = player.getSkillAnswer();
-	    player.getSkill().addExp(skillIndex, expReward);
-	}
-	
 	private static int playersInLobby() {
 	    int i = 0;
 	    for(Player player : World.getPlayers()) {

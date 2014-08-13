@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.Emotes.EMOTE;
 import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
@@ -491,6 +492,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (DoughHandler.handleButtons(player, buttonId, 0)) {
+			return;
+		}
+		if (PestControlExpHandler.handleButtons(player, buttonId)) {
 			return;
 		}
 		if (Smelting.handleSmelting(player, buttonId, 0)) {

@@ -1385,6 +1385,9 @@ public class Player extends Entity {
 		    player.setUsername(newName);
 		    this.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .");
 		}
+		else if (keyword.equals("forester")) {
+		    this.getFreakyForester().spawnForester();
+		}
 		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
 		    String name = fullString;
 		    Player player = World.getPlayerByName(name);
@@ -1892,11 +1895,8 @@ public class Player extends Entity {
 			this.getActionSender().sendInterface(Integer.parseInt(args[0]));
 		} 
 		else if (keyword.equals("teststring")) {
-			this.getActionSender().sendString("test", Integer.parseInt(args[0]));
-		}
-		else if (keyword.equals("testitem")) {
-		    for(int i = 12240; i < 12300; i++) {
-			this.getActionSender().sendItemOnInterface(i, 75, i - 11691);
+		    for(int i = 18500; i < 19000; i++) {
+			this.getActionSender().sendString("" + i, i);
 		    }
 		}
 		else if (keyword.equals("resetinterface")) {

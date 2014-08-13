@@ -2256,6 +2256,9 @@ public class WalkToActionHandler {
 					}
 					Following.resetFollow(player);
 					break;
+				case PestControlExpHandler.EXP_LADY:
+					PestControlExpHandler.openInterface(player);
+					break;
 				case 2437:
 					Dialogues.sendDialogue(player, 2437, 4, 0);
 					break;
