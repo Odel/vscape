@@ -164,6 +164,9 @@ public class Ectofungus {
 		if(player.getBonesGround().size() > 0 && !player.bonesGrinded()) {
 		    player.getUpdateFlags().sendAnimation(1648);
 		    player.getActionSender().sendMessage("You grind the bones.");
+		    for(BoneBurying.Bone bone : player.getBonesGround()) {
+			player.addBonesInBin(bone);
+		    }
 		    player.setBonesGrinded(true);
 		    return true;
 		}
@@ -183,27 +186,39 @@ public class Ectofungus {
 		    player.getActionSender().sendMessage("The bin is empty.");
 		    return true;
 		}
-		else {
+		else if(!player.secondTryAtBin()) {
 		    for(BoneBurying.Bone bone : player.getBonesGround()) {
 			if(player.getBonesGround().isEmpty()) {
-				    break;
+			    break;
 			}
 			for(int i : bone.getBoneIds()) {
 			    if(getGroundBoneForNormal(i) != 0) {
 				if(player.getInventory().playerHasItem(POT)) {
 				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(getGroundBoneForNormal(i)));
+				    player.getBonesInBin().remove(bone);
 				}
 				else if(!player.getInventory().playerHasItem(POT)) {
 				    player.getActionSender().sendMessage("You don't have an empty pot with which to collect this bonemeal!");
+				    player.setSecondTryAtBin(true);
 				    return true;
 				}
 			    }
 			}
 		    }
 		    player.setBonesGrinded(false);
-		    player.clearBonesGround();
+		    player.setSecondTryAtBin(false);
+		    player.getBonesGround().clear();
 		    player.getUpdateFlags().sendAnimation(827);
 		    player.getActionSender().sendMessage("You magically sort the bonemeal into pots.");
+		    return true;
+		}
+		else {
+		    player.getBonesGround().clear();
+		    for(BoneBurying.Bone bone : player.getBonesInBin()) {
+			player.getBonesGround().add(bone);
+		    }
+		    player.getActionSender().sendMessage("You examine the bin and find there is more bonemeal to be collected.");
+		    player.setSecondTryAtBin(false);
 		    return true;
 		}
 	}

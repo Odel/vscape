@@ -447,7 +447,9 @@ public class Player extends Entity {
 	private int bananaCrateCount;
 	private int[] barrowsHits = new int[24];
 	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
+	private ArrayList<BoneBurying.Bone> bonesInBin = new ArrayList<BoneBurying.Bone>();
 	private boolean bonesGrinded = false;
+	private boolean secondTryAtBin = false;
 	private int ectoWorshipCount = 0;
 	private String topHalfOfGhostsAhoyFlag = "undyed";
 	private String bottomHalfOfGhostsAhoyFlag = "undyed";
@@ -1569,6 +1571,7 @@ public class Player extends Entity {
 		    inventory.addItem(new Item(3853)); //games necklace
 		    inventory.addItem(new Item(11105)); //skills necklace
 		    inventory.addItem(new Item(2552)); //duel ring
+		    inventory.addItem(new Item(GhostsAhoy.ECTOPHIAL));
 		}
 		else if (keyword.equals("tele")) {
 			try {
@@ -3749,15 +3752,23 @@ public class Player extends Entity {
 	public void setBarrowsHits(int i, int value) {
 	    this.barrowsHits[i] = value;
 	}
-	
+	public ArrayList<BoneBurying.Bone> getBonesInBin() {
+	    return bonesInBin;
+	}
+	public void addBonesInBin(BoneBurying.Bone bone) {
+	    this.bonesInBin.add(bone);
+	}
 	public ArrayList<BoneBurying.Bone> getBonesGround() {
 	    return bonesGround;
 	}
 	public void addBonesGround(BoneBurying.Bone bone) {
 	    this.bonesGround.add(bone);
 	}
-	public void clearBonesGround() {
-	    this.bonesGround.clear();
+	public boolean secondTryAtBin() {
+	    return secondTryAtBin;
+	}
+	public void setSecondTryAtBin(boolean bool) {
+	    this.secondTryAtBin = bool;
 	}
 	public boolean bonesGrinded() {
 	    return bonesGrinded;
