@@ -370,7 +370,7 @@ public class DragonSlayer implements Quest {
     }
     
     public int getQuestPoints() {
-        return 2;
+        return questPointReward;
     }
     public void clickObject(Player player, int object) {
     }

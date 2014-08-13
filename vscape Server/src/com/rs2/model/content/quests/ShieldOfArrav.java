@@ -351,7 +351,7 @@ public class ShieldOfArrav implements Quest {
     }
     
     public int getQuestPoints() {
-        return 1;
+        return questPointReward;
     }
 
     public void clickObject(Player player, int object) {

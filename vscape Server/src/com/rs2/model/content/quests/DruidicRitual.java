@@ -172,7 +172,7 @@ public class DruidicRitual implements Quest {
     }
     
     public int getQuestPoints() {
-        return 4;
+        return questPointReward;
     }
 
     public void clickObject(Player player, int object) {

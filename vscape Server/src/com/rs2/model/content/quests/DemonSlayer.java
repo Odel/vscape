@@ -225,7 +225,7 @@ public class DemonSlayer implements Quest {
     }
     
     public int getQuestPoints() {
-        return 3;
+        return questPointReward;
     }
     public void clickObject(Player player, int object) {
     }
