@@ -8,6 +8,7 @@ import com.rs2.model.content.combat.util.BarrowsItems;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -314,6 +315,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(GhostsAhoy.itemOnItemHandling(player, firstItem, secondItem)) {
+		    return;
+		}
+		if(AnimalMagnetism.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
@@ -812,6 +816,9 @@ public class ItemPacketHandler implements PacketHandler {
 		if(PiratesTreasure.itemHandling(player, itemId)) {
 		    return;
 		}
+		if(AnimalMagnetism.itemHandling(player, itemId)) {
+		    return;
+		}
 		switch (itemId) {
 			case 2528 : // genie lamp
 				player.setGenieSelect(-1);
@@ -1067,6 +1074,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(GoblinDiplomacy.itemHandling(player, itemId)) {
+		    return;
+		}
+		if(AnimalMagnetism.itemHandling(player, itemId)) {
 		    return;
 		}
 		if(itemId == 11664 )

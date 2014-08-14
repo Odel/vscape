@@ -98,7 +98,8 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3428, 9891, 0, 10, 0);
 		
 		ObjectHandler.getInstance().removeClip(2910, 9802, 0, 10, 0); //blue dragon eggs
-		ObjectHandler.getInstance().removeClip(3021,3251, 0, 10, 0); //port sarim fence
+		ObjectHandler.getInstance().removeClip(3021, 3251, 0, 10, 0); //port sarim fence
+		ObjectHandler.getInstance().removeClip(2984, 3227, 0, 10, 0); //Rimmington mine fence
 		
 		
 	}

@@ -4,7 +4,11 @@ import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
+import com.rs2.model.content.quests.AnimalMagnetism;
+import static com.rs2.model.content.quests.AnimalMagnetism.ALICES_HUSBAND;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
@@ -14,6 +18,10 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.TickStopWatch;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
@@ -90,6 +98,15 @@ public final class PlayerUpdating {
 		if(BlackKnightsFortress.attackPlayer(player)) {
 		    BlackKnightsFortress.attackPlayer(player, true);
 		}
+		if(player.getPosition().getY() > 3312 && player.getPosition().getY() < 3400 && player.getPosition().getX() > 3068 && player.getPosition().getX() < 3145) {
+		    for(Npc npc : World.getNpcs()) {
+			if(npc == null || npc.getNpcId() != AnimalMagnetism.UNDEAD_TREE) continue;
+			if(Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 1)) {
+			    CombatManager.attack(npc, player);
+			    break;
+			}
+		    }
+		}
 		if(player.inGoblinVillage() && player.getQuestStage(19) < 4) {
 		    ArrayList<Npc> goblins = GoblinDiplomacy.getGreenGoblin();
 		    Npc green = goblins.get(Misc.randomMinusOne(goblins.size()));
@@ -102,6 +119,15 @@ public final class PlayerUpdating {
 			}
 		    }
 		}
+		/*if(player.getPosition().getX() > 3600) {
+		    for(Npc npc : World.getNpcs()) {
+			if(npc == null) continue;
+			if(npc.getNpcId() == 1688 && npc.getPosition().isViewableFrom(player.getPosition())) {
+			    npc.getUpdateFlags().sendAnimation(2061);
+			    npc.getUpdateFlags().setAnimationDelay(0);
+			}
+		    }
+		}*/
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());
 		for (Iterator<Player> i = player.getPlayers().iterator(); i.hasNext();) {

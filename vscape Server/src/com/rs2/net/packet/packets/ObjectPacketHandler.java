@@ -29,6 +29,7 @@ import com.rs2.model.players.item.ItemManager;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
+import com.rs2.util.Misc;
 
 public class ObjectPacketHandler implements PacketHandler {
 
@@ -185,14 +186,18 @@ public class ObjectPacketHandler implements PacketHandler {
 		    player.fadeTeleport(new Position(2834, 9657, 0));
 		    return;
 		}
-		if(player.getClickId() == 9299) { //lumby fence fix FINALLY
-		    if (player.getPosition().getY() < 3191) {
-			Agility.crossObstacle(player, 3240, 3191, 756, 4, 0, 0);
-			player.getActionSender().sendMessage("You squeeze through the fence.");
-			return;
+		if(player.getClickId() == 9299) { //lumby fence
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(3240, 3190, 0), 3)) {
+			if (player.getPosition().getY() < 3191) {
+			    Agility.crossObstacle(player, 3240, 3191, 756, 4, 0, 0);
+			    player.getActionSender().sendMessage("You squeeze through the fence.");
+			    return;
+			} else {
+			    Agility.crossObstacle(player, 3240, 3190, 756, 4, 0, 0);
+			    player.getActionSender().sendMessage("You squeeze through the fence.");
+			    return;
+			}
 		    } else {
-			Agility.crossObstacle(player, 3240, 3190, 756, 4, 0, 0);
-			player.getActionSender().sendMessage("You squeeze through the fence.");
 			return;
 		    }
 		}

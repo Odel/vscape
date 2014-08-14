@@ -50,7 +50,8 @@ public class QuestHandler {
 	new VampireSlayer(),
 	new ErnestTheChicken(),
 	new PriestInPeril(),
-	new GhostsAhoy()
+	new GhostsAhoy(),
+	new AnimalMagnetism()
     };
     
     public static void init() {
@@ -115,10 +116,10 @@ public class QuestHandler {
 
     public static boolean handleQuestButtons(Player player, int button) {
         switch (button) {
-            case 28165: //Cooks Assistant Button
-                showInterface(player,quests[0]);
-                return true;
-        	case 28178: //The Knights Sword Button
+		case 28165: //Cooks Assistant
+			showInterface(player,quests[0]);
+			return true;
+        	case 28178: //The Knights Sword
         		showInterface(player,quests[1]);
         		return true;
         	case 28169: //The Restless Ghost
@@ -186,6 +187,9 @@ public class QuestHandler {
         		return true;
 		case 47250: //Ghosts Ahoy
 			showInterface(player,quests[24]);
+        		return true;
+		case 49228: //Ghosts Ahoy
+			showInterface(player,quests[25]);
         		return true;
 
         }

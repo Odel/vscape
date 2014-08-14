@@ -43,6 +43,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -166,6 +167,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(GhostsAhoy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(AnimalMagnetism.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {

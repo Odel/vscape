@@ -341,44 +341,48 @@ public class LostCity implements Quest {
 		}
 	    return false;
 	    case 650: //warrior
-		switch(player.getDialogue().getChatId()) {
-		    case 1:
-			player.getDialogue().sendPlayerChat("What are you doing out here?", CONTENT);
-			return true;
-		    case 2:
-			player.getDialogue().sendNpcChat("Nothing! None of your business!", ANNOYED);
-			return true;
-		    case 3:
-			player.getDialogue().sendPlayerChat("Sure doesn't look like nothing...", "...what do you plan to do with that tiny axe?", LAUGHING);
-			return true;
-		    case 4:
-			player.getDialogue().sendNpcChat("BOY, THE LIKES OF YOU WOULD NEVER,", "NEVER FIND ZANARIS!", ANGRY_2);
-			return true;
-		    case 5:
-			player.getDialogue().sendPlayerChat("Oh? Who is Zanaris exactly?", CONTENT);
-			return true;
-		    case 6:
-			player.getDialogue().sendStatement("The warrior mutters angrily to himself.");
-			return true;
-		    case 7:
-			player.getDialogue().sendPlayerChat("Looks like you don't know where it is either.", CONTENT);
-			return true;
-		    case 8:
-			player.getDialogue().sendNpcChat("You had better watch your step, boy!", "You've really angered me now!", "A young'un like you could never handle", "that cheeky leprechaun!", ANGRY_2);
-			return true;
-		    case 9:
-			player.getDialogue().sendPlayerChat("What leprechaun?", CONTENT);
-			return true;
-		    case 10:
-			player.getDialogue().sendNpcChat("NOTHING!", ANGRY_1);
-			return true;
-		    case 11:
-			player.getDialogue().sendStatement("The Warrior mutters about your woodcutting level.", "All the while glancing towards a tree to the west.");
-			player.getDialogue().endDialogue();
-			player.setQuestStage(14, 1);
-			QuestHandler.getQuests()[14].startQuest(player);	
-			return true;
+		switch(player.getQuestStage(14)) {
+		    case 0: //start
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("What are you doing out here?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("Nothing! None of your business!", ANNOYED);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("Sure doesn't look like nothing...", "...what do you plan to do with that tiny axe?", LAUGHING);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("BOY, THE LIKES OF YOU WOULD NEVER,", "NEVER FIND ZANARIS!", ANGRY_2);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Oh? Who is Zanaris exactly?", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendStatement("The warrior mutters angrily to himself.");
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("Looks like you don't know where it is either.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("You had better watch your step, boy!", "You've really angered me now!", "A young'un like you could never handle", "that cheeky leprechaun!", ANGRY_2);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("What leprechaun?", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("NOTHING!", ANGRY_1);
+				return true;
+			    case 11:
+				player.getDialogue().sendStatement("The Warrior mutters about your woodcutting level.", "All the while glancing towards a tree to the west.");
+				player.getDialogue().endDialogue();
+				player.setQuestStage(14, 1);
+				QuestHandler.getQuests()[14].startQuest(player);
+				return true;
+			}
 		}
+		return false;
 	}
 	return false;
     }

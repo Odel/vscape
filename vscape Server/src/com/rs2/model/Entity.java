@@ -341,6 +341,10 @@ public abstract class Entity {
 	public boolean inFightCaves() {
 		return FightCaves.inFightCaves(this);
 	}
+	
+	public boolean inRimmingtonMine() {
+		return Area(2970, 2986, 3233, 3246);
+	}
 
 	public void setIndex(int index) {
 		this.index = index;

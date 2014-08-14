@@ -951,7 +951,7 @@ public class Player extends Entity {
 		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
 			x += QuestHandler.getQuests()[i].getQuestPoints();
 		    }
-		    this.getActionSender().sendMessage("The total possible quest points is: " + x + ".");
+		    this.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + "."); //Minus one for the easter event's class
 		}
 		
 	
@@ -5869,7 +5869,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 15841); //devious minds
 		getActionSender().sendString("", 7353); //clock tower
 		getActionSender().sendString("", 682); //members quests lel
-		getActionSender().sendString("", 12772); //between a rock...
+		getActionSender().sendString("Animal Magnetism", 12772); //the quest formerly known as Between a rock...
 		getActionSender().sendString("", 673); //big chompy bird hunting
 		getActionSender().sendString("", 17510); //cabin fever
 		// unknown id

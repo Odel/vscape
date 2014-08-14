@@ -20,6 +20,7 @@ import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -1280,9 +1281,6 @@ public class WalkToActionHandler {
 				case 6434: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 6435, def);
 					break;
-				/*case Ectofungus.TRAPDOOR:
-					TrapDoor.handleTrapdoor(player, id, 1754, def);
-					break;*/
 				case 1568: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1570, def);
 					break;

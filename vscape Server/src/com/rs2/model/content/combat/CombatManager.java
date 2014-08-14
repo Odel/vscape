@@ -17,6 +17,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
@@ -78,7 +79,7 @@ public class CombatManager extends Tick {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
 	}
-        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || PestControl.isShieldedPortal((Npc)victim)) ) ) {
+        if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || ((Npc) victim).getNpcId() == AnimalMagnetism.UNDEAD_TREE || PestControl.isShieldedPortal((Npc)victim)) ) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
         	}

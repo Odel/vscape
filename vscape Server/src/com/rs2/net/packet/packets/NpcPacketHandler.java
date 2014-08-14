@@ -3,6 +3,7 @@ package com.rs2.net.packet.packets;
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
@@ -77,9 +78,12 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			System.out.println("First click npc: "+player.getClickId());
+			player.getActionSender().sendMessage("First click npc: "+player.getClickId());
 		}
-		if (DemonSlayer.handleNpcClick(player, npc.getNpcId())) {
+		if(DemonSlayer.handleNpcClick(player, npc.getNpcId())) {
+		    return;
+		}
+		if(AnimalMagnetism.handleNpcClick(player, npc.getNpcId())) {
 		    return;
 		}
 		if (npc.getNpcId() == GhostsAhoyPetition.GHOST_VILLAGER && player.getInventory().playerHasItem(GhostsAhoy.PETITION)) {
@@ -111,7 +115,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			System.out.println("Second click npc: "+player.getClickId());
+			player.getActionSender().sendMessage("Second click npc: "+player.getClickId());
 		}
 		WalkToActionHandler.setActions(Actions.NPC_SECOND_CLICK);
 		WalkToActionHandler.doActions(player);
@@ -135,7 +139,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setFollowDistance(1);
 		player.setFollowingEntity(npc);
 		if (Constants.SERVER_DEBUG) {
-			System.out.println("Third click npc: "+player.getClickId());
+			player.getActionSender().sendMessage("Third click npc: "+player.getClickId());
 		}
 		WalkToActionHandler.setActions(Actions.NPC_THIRD_CLICK);
 		WalkToActionHandler.doActions(player);
@@ -196,7 +200,7 @@ public class NpcPacketHandler implements PacketHandler {
 		if (spell != null) {
 			player.setCastedSpell(spell);
 			CombatManager.attack(player, npc);
-		} else if (Constants.SERVER_DEBUG)
+		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("Magic id: " + magicId);
 	}
 
@@ -204,7 +208,7 @@ public class NpcPacketHandler implements PacketHandler {
 		final int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
 		final int npcSlot = packet.getIn().readShort(StreamBuffer.ValueType.A);
 		final int itemSlot = packet.getIn().readShort(StreamBuffer.ByteOrder.LITTLE);
-        if (Constants.SERVER_DEBUG)
+        if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
         	System.out.println(itemId + " " + npcSlot + " " + itemSlot);
         if (npcSlot < 0 || npcSlot > World.getNpcs().length) {
 			return;
