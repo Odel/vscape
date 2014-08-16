@@ -2632,8 +2632,7 @@ public class WalkToActionHandler {
 						{
 							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
 							player.getUpdateFlags().sendAnimation(827, 0);
-							player.getInventory().removeItem(new Item(item)); //fixed "full inventory" error when you have 28 glories
-							player.getInventory().addItemToSlot(new Item(1712, 1), player.getSlot());
+							player.getInventory().replaceItemWithItem(new Item(item), new Item(1712, 1)); //old code ate glories, oops.
 						}
 					}
 					if (item == 11113 || item == 11111 || item == 11109 || item == 11107 ) {
