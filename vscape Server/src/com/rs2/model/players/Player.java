@@ -384,6 +384,7 @@ public class Player extends Entity {
     private int genieSelect;
     private boolean hideYell = false;
     private boolean hideColors = false;
+    public boolean showHp = false;
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
@@ -1812,6 +1813,9 @@ public class Player extends Entity {
 		    getActionSender().sendMessage("Your hp is at " + (getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".");
 		    skill.refresh();
 		}
+		else if (keyword.equals("showhp")) {
+			setShowHp(!showHp,true);
+                }
 		else if (keyword.equals("mypos")) {
 			getActionSender().sendMessage("You are at: " + getPosition());
 		}
@@ -5899,6 +5903,20 @@ public class Player extends Entity {
 						"You have toggled your yell channel on");
 			}
 		}
+	}
+    public boolean getShowHp(){
+        return showHp;
+    }
+        public void setShowHp(boolean show, boolean msg) {
+		showHp = show;
+			if (showHp) {
+				getActionSender().sendMessage(
+						"You have turned on your HP and Prayer display.");
+			} else {
+				getActionSender().sendMessage(
+						"You have turned off your HP and Prayer display.");
+			}
+		
 	}
         public void setClanChannel(String channel) {
 		String inChannel = channel;
