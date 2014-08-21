@@ -927,7 +927,7 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("info")) {
 			info();
-		}
+		}/**
         else if (keyword.equals("fox")) {
         transformNpc = 1319;
         setStandAnim(6561);
@@ -936,6 +936,7 @@ public class Player extends Entity {
         setAppearanceUpdateRequired(true);
 		getUpdateFlags().setForceChatMessage("Yiff!");
 		}
+		*/
 		else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
 		}
