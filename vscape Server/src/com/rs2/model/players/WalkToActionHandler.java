@@ -774,6 +774,12 @@ public class WalkToActionHandler {
 				    else if(player.getPosition().getX() == 2891)
 					Agility.crawlPipe(player, 2886, 9799, 6, 70, 47);
 				    break;
+				case 9294: //taverly spike hop
+                                    if(player.getPosition().getX() == 2880)
+                                        Agility.climbOver(player, 2878, 9813, 80, 0);
+                                    else if(player.getPosition().getX() == 2878)
+                                        Agility.climbOver(player, 2880, 9813, 80, 0);
+                                    break;
 				case 2333:
 				case 2334:
 				case 2335: //shilo rock jump 74
