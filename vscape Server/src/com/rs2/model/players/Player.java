@@ -1158,6 +1158,25 @@ public class Player extends Entity {
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
 			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
 		}
+		else if (keyword.equals("forcefox")) {
+			String name = fullString;
+			getActionSender().sendMessage("You have foxed " +
+			args[0].toLowerCase() + ". Yiff!"); 
+			for (Player player : World.getPlayers()) { 
+					if (player == null) continue; 
+					if(player.getUsername().equalsIgnoreCase(name)) {
+						player.transformNpc = 1319;
+						player.setStandAnim(6561);
+						player.setWalkAnim(6560);
+						player.setRunAnim(6560);
+						player.setAppearanceUpdateRequired(true);
+						player.getUpdateFlags().setForceChatMessage("Yiff!");
+						player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!"); 
+					return;
+                  } 
+               }
+			getActionSender().sendMessage("Player offline or not found."); 
+			}
 		else if (keyword.equals("teletoclue")) {
 			try {
 				final int id = Integer.parseInt(args[0]);
