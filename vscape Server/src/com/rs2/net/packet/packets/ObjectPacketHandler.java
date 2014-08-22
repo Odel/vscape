@@ -165,6 +165,15 @@ public class ObjectPacketHandler implements PacketHandler {
 		if(GhostsAhoy.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}
+		if (player.getClickId() == 9293) {
+                if (player.getPosition().getX() == 2892) {
+                    Agility.crawlPipe(player, 2886, 9799, 6, 70, 47);
+                } else {
+                    if(player.getPosition().getX() != 2886) {
+                    player.getActionSender().sendMessage("You must be standing in front of the pipe to traverse it.");
+                }
+                }
+            }
 		if(player.getClickId() == 2404) { //phoneix gang open chest
 		    if(!player.getInventory().ownsItem(763) && player.getQuestStage(13) == 4) {
 			player.getDialogue().sendStatement("You find the left half of the Shield of Arrav.");
