@@ -24,6 +24,7 @@ import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
@@ -284,12 +285,18 @@ public class Hit {
         if (hitDef.getDropItem() != null && attacker != null && attacker.isPlayer()) {
             Player player = (Player) attacker;
             if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {
+		if(player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ATTRACTOR || player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ACCUMULATOR) {
+		    Item arrow = new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount());
+		    player.getEquipment().getItemContainer().add(arrow, Constants.ARROWS);
+		}
             	/*if (player.inDuelArena()) {
             		player.getActionSender().sendMessage(""+hitDef.getDropItem().getId());
             		player.getDuelMainData().getAmmoUsed().add(new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount()));
             	} else {*/
+		else {
                     GroundItem dropItem = new GroundItem(new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount()), player, victim.getPosition().clone());
                     GroundItemManager.getManager().dropItem(dropItem);
+		}
             	//}
             }
         }

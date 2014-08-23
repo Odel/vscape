@@ -1398,6 +1398,124 @@ public class AnimalMagnetism implements Quest {
 		}
 	    case AVA:
 		switch (player.getQuestStage(25)) {
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("You weren't too bad of an assistant there", "partner. Thank you again for the help.", CONTENT);
+				return true;
+			    case 2:
+				if(!player.getInventory().ownsItem(AVAS_ATTRACTOR) && player.getSkill().getLevel()[Skill.RANGED] < 50) {
+				    player.getDialogue().sendPlayerChat("I seem to have lost my backpack.", SAD);
+				    return true;
+				}
+				else if(!player.getInventory().ownsItem(AVAS_ATTRACTOR) && !player.getInventory().ownsItem(AVAS_ACCUMULATOR) && player.getSkill().getLevel()[Skill.RANGED] >= 50) {
+				    player.getDialogue().sendPlayerChat("I seem to have lost my backpack.", SAD);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				}
+				else if(!player.getInventory().ownsItem(AVAS_ACCUMULATOR) && player.getSkill().getLevel()[Skill.RANGED] >= 50 && player.getInventory().ownsItem(AVAS_ATTRACTOR)) {
+				    player.getDialogue().sendPlayerChat("I've grown levels in range, I need a better", "backpack.", CONTENT);
+				    player.getDialogue().setNextChatId(20);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("Just happy to help", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("That's fine, I can make you another.", "It'll cost you 75 steel arrows and 999 gold.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendOption("Sounds reasonable.", "No, thank you.");
+				return true;
+			    case 5:
+				switch(optionId) {
+				    case 1:
+					if(player.getInventory().playerHasItem(886, 75) && player.getInventory().playerHasItem(995, 999)) {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I've got the items here.", CONTENT);
+					    return true;
+					}
+					else {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I'll have to fetch", "the items.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					}
+				    case 2:
+					player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 6:
+				player.getDialogue().sendGiveItemNpc("You hand Ava the payment.", "And she hands you a new backpack.", new Item(995), new Item(AVAS_ATTRACTOR));
+				player.getDialogue().endDialogue();
+				player.getInventory().removeItem(new Item(995, 999));
+				player.getInventory().removeItem(new Item(886, 75));
+				player.getInventory().addItem(new Item(AVAS_ATTRACTOR));
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("That's fine, I can make you another.", "It'll cost you 75 steel arrows and 999 gold.", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendOption("Sounds reasonable.", "No, thank you.");
+				return true;
+			    case 12:
+				switch(optionId) {
+				    case 1:
+					if(player.getInventory().playerHasItem(886, 75) && player.getInventory().playerHasItem(995, 999)) {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I've got the items here.", CONTENT);
+					    return true;
+					}
+					else {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I'll have to fetch", "the items.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					}
+				    case 2:
+					player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 13:
+				player.getDialogue().sendGiveItemNpc("You hand Ava the payment.", "And she hands you a new backpack.", new Item(995), new Item(AVAS_ACCUMULATOR));
+				player.getDialogue().endDialogue();
+				player.getInventory().removeItem(new Item(995, 999));
+				player.getInventory().removeItem(new Item(886, 75));
+				player.getInventory().addItem(new Item(AVAS_ACCUMULATOR));
+				return true;
+			    case 20:
+				player.getDialogue().sendNpcChat("Hmm, I can probably upgrade your old backpack.", "It'll cost you 75 steel arrows and 999 gold.", "And the old backpack of course.", CONTENT);
+				return true;
+			    case 21:
+				player.getDialogue().sendOption("Sounds reasonable.", "No, thank you.");
+				return true;
+			    case 22:
+				switch(optionId) {
+				    case 1:
+					if(player.getInventory().playerHasItem(886, 75) && player.getInventory().playerHasItem(995, 999) && player.getInventory().playerHasItem(AVAS_ATTRACTOR)) {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I've got the items here.", CONTENT);
+					    return true;
+					}
+					else {
+					    player.getDialogue().sendPlayerChat("Sounds reasonable, I'll have to fetch", "the items.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+					}
+				    case 2:
+					player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			    case 23:
+				player.getDialogue().sendGiveItemNpc("Ava's swaps your backpack and payment for a new pack.", new Item(AVAS_ACCUMULATOR));
+				player.getDialogue().endDialogue();
+				player.getInventory().removeItem(new Item(995, 999));
+				player.getInventory().removeItem(new Item(886, 75));
+				player.getInventory().removeItem(new Item(AVAS_ATTRACTOR));
+				player.getInventory().addItem(new Item(AVAS_ACCUMULATOR));
+				return true;
+			}
+		    return false;
 		    case CRAFT_CONTAINER:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
