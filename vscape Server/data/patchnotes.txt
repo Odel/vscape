@@ -1,5 +1,6 @@
 @dre@=August 23rd=
 @blu@Animal Magnetism
+@blu@New client on the Steam page.
 -The PC exp reward vendor has an interface upon
 clicking "exchange".
 -Fixed glories getting eaten.
