@@ -75,7 +75,7 @@ public class WalkInterfaces {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}
 		}
-		/*else if (player.getShowHp()) {
+		else if (player.getShowHp()) {
                     if(player.getShowHp() == true){
                         changeWalkableInterface(player, 18835);
 			player.getActionSender().sendString("PP: " + player.getSkill().getLevel()[Skill.PRAYER] + "/" + player.getSkill().getPlayerLevel(Skill.PRAYER), 18836);
@@ -84,7 +84,7 @@ public class WalkInterfaces {
                     else{
                         player.getActionSender().removeInterfaces();
                     }
-                }*/
+                }
 		
 	}
 
