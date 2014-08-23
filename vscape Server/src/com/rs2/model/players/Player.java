@@ -876,6 +876,9 @@ public class Player extends Entity {
                 getActionSender().sendMessage("You teleported home.");
             } 
 		}
+		else if (keyword.equals("showhp")) {
+			setShowHp(!showHp,true);
+                }
 		else if (keyword.equals("players")) {
 			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
 			getActionSender().sendInterface(8134);
@@ -1840,9 +1843,7 @@ public class Player extends Entity {
 		    getActionSender().sendMessage("Your hp is at " + (getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".");
 		    skill.refresh();
 		}
-		else if (keyword.equals("showhp")) {
-			setShowHp(!showHp,true);
-                }
+		
 		else if (keyword.equals("mypos")) {
 			getActionSender().sendMessage("You are at: " + getPosition());
 		}
