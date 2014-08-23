@@ -35,7 +35,8 @@ public class CacheDownloader {
         //private String cacheLink = "https://dl.dropboxusercontent.com/u/162363240/2006-Memorys.zip"; // Link to cache
        // private String cacheLink = "https://dl.dropboxusercontent.com/u/118465198/2006-Memorys.zip";
         private String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/cacheVersion.dat";
-        private String cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/vscape.zip";
+        //private String cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/vscape.zip";
+        private String cacheLink = "http://a.pomf.se/dmbipu.zip";
         private int localCacheVersion = 0;
         
         private String fileToExtract = getCacheDir() + getArchivedName();
@@ -156,6 +157,7 @@ public class CacheDownloader {
         private void downloadFile(String adress, String localFileName) {
                 OutputStream out = null;
                 URLConnection conn;
+                conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
                 InputStream in = null;
                 int lastpercent = 0;
                 
