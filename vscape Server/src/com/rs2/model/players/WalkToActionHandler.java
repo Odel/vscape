@@ -460,7 +460,7 @@ public class WalkToActionHandler {
 						@Override
 						public void execute(CycleEventContainer b) {
 							if (Misc.random(99) == 0) {
-								Item[] rewards = {new Item(995, 10), new Item(686), new Item(687), new Item(689), new Item(690), new Item(697), new Item(1059), new Item(1061)};
+								Item[] rewards = {new Item(995, 10), new Item(686), new Item(687), new Item(688), new Item(689), new Item(690), new Item(697), new Item(1059), new Item(1061)};
 								Item reward = rewards[Misc.randomMinusOne(rewards.length)];
 								player.getInventory().addItem(reward);
 								player.getActionSender().sendMessage("You find some "+reward.getDefinition().getName().toLowerCase()+"!");
