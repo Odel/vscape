@@ -1,3 +1,13 @@
+@dre@=August 23rd=
+@blu@Animal Magnetism
+-The PC exp reward vendor has an interface upon
+clicking "exchange".
+-Fixed glories getting eaten.
+-Something about foxes.
+-Some Taverly dungeon obstacle fixes.
+-::showhp by God Dammit.
+-Shield of Arrav refactored and working smoothly.
+
 @dre@=August 9th=
 -Ghosts Ahoy & Ectofuntus re-enabled and safe.
 -Freaky Forester random added.

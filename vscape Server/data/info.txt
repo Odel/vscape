@@ -17,6 +17,7 @@
 ::pc (General chat for Pest Control games.)
 ::pcactive (Tells you if a PC game is running.)
 ::resetpet (Picks up custom pets from PC.)
+::showhp (Displays current hp and prayer.)
 
 @dre@ =General Info=
 -2.25x higher experience rate.
