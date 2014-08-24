@@ -8,6 +8,7 @@ clicking "exchange".
 -Some Taverly dungeon obstacle fixes.
 -::showhp by God Dammit.
 -Shield of Arrav refactored and working smoothly.
+-It's Foxter week! Use ::fox to yiff around.
 
 @dre@=August 9th=
 -Ghosts Ahoy & Ectofuntus re-enabled and safe.
