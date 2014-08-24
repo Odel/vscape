@@ -1180,6 +1180,19 @@ public class Player extends Entity {
                }
 			getActionSender().sendMessage("Player offline or not found."); 
 			}
+		else if (keyword.equals("sayit")) {
+		    String whattosay = fullString.substring(0, fullString.indexOf("-")-1);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+			player.getUpdateFlags().setForceChatMessage(whattosay);
+		    if(player != null) {
+			this.getActionSender().sendMessage("Made " + player.getUsername() +" say something.");
+		    }
+		    else {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
 		else if (keyword.equals("teletoclue")) {
 			try {
 				final int id = Integer.parseInt(args[0]);
@@ -1286,6 +1299,7 @@ public class Player extends Entity {
 			this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
+		
 		if(keyword.equals("subtractexp")) {
 		    final int skill = Integer.parseInt(args[0]);
 		    final int exp = Integer.parseInt(args[1]);
