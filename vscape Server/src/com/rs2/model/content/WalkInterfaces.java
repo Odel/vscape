@@ -2,9 +2,9 @@ package com.rs2.model.content;
 
 import com.rs2.Constants;
 import com.rs2.model.players.Player;
-
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -70,21 +70,22 @@ public class WalkInterfaces {
 			if (changeWalkableInterface(player, 11877)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}
-		} else {
+		} 
+		else if (player.getShowHp()) {
+            if(player.getShowHp() == true){
+                changeWalkableInterface(player, 18835);
+                player.getActionSender().sendString("PP: " + player.getSkill().getLevel()[Skill.PRAYER] + "/" + player.getSkill().getPlayerLevel(Skill.PRAYER), 18836);
+                player.getActionSender().sendString("HP: " + player.getSkill().getLevel()[Skill.HITPOINTS] + "/" + player.getSkill().getPlayerLevel(Skill.HITPOINTS), 18837);
+        }
+            else{
+                player.getActionSender().removeInterfaces();
+            }
+        }
+		else {
 			if (changeWalkableInterface(player, -1)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}
 		}
-		else if (player.getShowHp()) {
-                    if(player.getShowHp() == true){
-                        changeWalkableInterface(player, 18835);
-			player.getActionSender().sendString("PP: " + player.getSkill().getLevel()[Skill.PRAYER] + "/" + player.getSkill().getPlayerLevel(Skill.PRAYER), 18836);
-                        player.getActionSender().sendString("HP: " + player.getSkill().getLevel()[Skill.HITPOINTS] + "/" + player.getSkill().getPlayerLevel(Skill.HITPOINTS), 18837);
-                }
-                    else{
-                        player.getActionSender().removeInterfaces();
-                    }
-                }
 		
 	}
 

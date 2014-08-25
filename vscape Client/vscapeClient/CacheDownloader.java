@@ -156,7 +156,7 @@ public class CacheDownloader {
         
         private void downloadFile(String adress, String localFileName) {
                 OutputStream out = null;
-                URLConnection conn;
+                URLConnection conn = null;
                 conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
                 InputStream in = null;
                 int lastpercent = 0;
