@@ -609,7 +609,7 @@ public class AnimalMagnetism implements Quest {
 			    player.getDialogue().sendStatement("You need 18 Slayer to use the blessed axe correctly.");
 			    return true;
 			}
-			if(!player.getInventory().playerHasItem(BLESSED_AXE)) {
+			if(!player.getInventory().playerHasItem(BLESSED_AXE) && player.getEquipment().getId(Constants.WEAPON) != BLESSED_AXE) {
 			    player.getActionSender().sendMessage("You need the blessed axe to chop a branch!");
 			    return true;
 			}
@@ -740,11 +740,15 @@ public class AnimalMagnetism implements Quest {
 		    case MATERIALS_FOR_TURAEL:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(player.getInventory().playerHasItem(MITHRIL_AXE) && player.getInventory().playerHasItem(HOLY_SYMBOL)) {
+				if((player.getInventory().playerHasItem(MITHRIL_AXE) && player.getInventory().playerHasItem(HOLY_SYMBOL)) || (player.getEquipment().getId(Constants.WEAPON) == MITHRIL_AXE && player.getInventory().playerHasItem(HOLY_SYMBOL)) ) {
 				    player.getDialogue().sendPlayerChat("I have the materials for that blessed axe.", CONTENT);
 				    return true;
 				}
-			    return false;
+				else {
+				    player.getDialogue().sendNpcChat("Have those materials yet?", CONTENT);
+				    player.getDialogue().setNextChatId(20);
+				    return true;
+				}
 			    case 2:
 				player.getDialogue().sendNpcChat("I can make an axe for you now, if you wish.", "Remember, it will be no use for normal woodcutting", "after I have added the silver edge.", CONTENT);
 				return true;
@@ -757,9 +761,16 @@ public class AnimalMagnetism implements Quest {
 			    case 5:
 				player.getDialogue().sendGiveItemNpc("Turael hands you a blessed axe for your materials.", new Item(BLESSED_AXE));
 				player.getDialogue().endDialogue();
+				if(player.getEquipment().getId(Constants.WEAPON) == MITHRIL_AXE) {
+				    player.getEquipment().unequip(Constants.WEAPON);
+				}
 				player.getInventory().replaceItemWithItem(new Item(MITHRIL_AXE), new Item(BLESSED_AXE));
 				player.getInventory().removeItem(new Item(HOLY_SYMBOL));
 				player.setQuestStage(25, CHOP_TREE_PART_DUEX);
+				return true;
+			    case 20:
+				player.getDialogue().sendPlayerChat("I'm afraid not...", SAD);
+				player.getDialogue().endDialogue();
 				return true;
 			}
 		    return false;
@@ -1686,6 +1697,7 @@ public class AnimalMagnetism implements Quest {
 				return true;
 			    case 9:
 				player.getDialogue().sendNpcChat("Now you know how those poor guards feel when you", "hide behind mushrooms and fences and attack them", "from afar! Anyway, you'll need to try a mithril or", "better axe on the trees. At least the trees are pretty close.", CONTENT);
+				player.getInventory().removeItem(new Item(BAR_MAGNET));
 				player.getDialogue().endDialogue();
 				player.setQuestStage(25, 16);
 				return true;
@@ -1735,11 +1747,12 @@ public class AnimalMagnetism implements Quest {
 				player.getDialogue().sendPlayerChat("Beats chicken slaying or hanging around in fishing", "shops, I suppose. So, what next?", CONTENT);
 				return true;
 			    case 11:
-				player.getDialogue().sendNpcChat("We'll need a magnet next, one with purely natural", "fiels and make from a carefully selected iron bar. A", "firm impact when the iron is parallel to Vscape's", "field will stabilize this field in the rod.", CONTENT);
+				player.getDialogue().sendNpcChat("We'll need a magnet next, one with purely natural", "fields and made from a carefully selected iron bar. A", "firm impact when the iron is parallel to Vscape's", "field will stabilize this field in the rod.", CONTENT);
 				return true;
 			    case 12:
 				player.getDialogue().sendNpcChat("Go and talk to the Witch next door for help", "with such a magnet.", "I'll also take my chicken now, thank you.", CONTENT);
 				player.getDialogue().endDialogue();
+				player.getInventory().removeItem(new Item(UNDEAD_CHICKEN));
 				player.getInventory().removeItem(new Item(UNDEAD_CHICKEN));
 				player.setQuestStage(25, 13);
 				return true;

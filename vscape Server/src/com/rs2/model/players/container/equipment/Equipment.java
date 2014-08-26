@@ -761,6 +761,10 @@ public class Equipment {
 				}
 			}
 		} else if (targetSlot == Constants.CAPE) {
+			if((itemId == 10498 || itemId == 10499) && player.getQuestStage(25) < 23) {
+			    player.getDialogue().sendStatement("You must complete Animal Magnetism to equip this.");
+			    return false;
+			} 
 			if (defenceLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.DEFENCE) < defenceLevelReq) {
 					player.getActionSender().sendMessage("You need a Defence level of " + defenceLevelReq + " to wear this item.");

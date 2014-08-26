@@ -207,7 +207,7 @@ public class ItemPacketHandler implements PacketHandler {
 				return;
 			}
 		}
-		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288) {
+		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288 || item.getId() == 10498 || item.getId() == 10499) {
 		    if(BarrowsItems.notDroppable(BarrowsItems.getBarrowsItem(item), item)) {
 			String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
 			for (String[] element : info) {
