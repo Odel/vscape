@@ -34,9 +34,11 @@ public class CacheDownloader {
     //    private final int VERSION = 1; // Version of cache
         //private String cacheLink = "https://dl.dropboxusercontent.com/u/162363240/2006-Memorys.zip"; // Link to cache
        // private String cacheLink = "https://dl.dropboxusercontent.com/u/118465198/2006-Memorys.zip";
-        private String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/cacheVersion.dat";
+        //private String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/cacheVersion.dat";
         //private String cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/vscape.zip";
-        private String cacheLink = "http://a.pomf.se/dmbipu.zip";
+	//private String versionURL = "https://www.dropbox.com/s/14s5ien7hy1lkvu/cacheVersion.txt?dl=1";
+	private String versionURL = "https://dl.dropboxusercontent.com/u/99082002/cacheVersion.txt";
+        private String cacheLink = "https://dl.dropboxusercontent.com/u/99082002/vscape.zip";
         private int localCacheVersion = 0;
         
         private String fileToExtract = getCacheDir() + getArchivedName();
@@ -65,12 +67,12 @@ public class CacheDownloader {
         }
 
         private int getCacheRemoteVersion() throws IOException {
-            BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));
+		BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));
             
     		String line;
     		try {
     			while((line = cacheVerReader.readLine()) != null) {
-                	return Integer.parseInt(line);
+			    return Integer.parseInt(line);
     			}
     		} catch(IOException e) {
     			System.out.println("problem reading remote cache");
@@ -89,9 +91,12 @@ public class CacheDownloader {
         }
         
         private int getCacheLocalVersion() throws IOException {
-        	File versionFile = new File(getCacheDir() + "/cacheVersion.dat");
-            BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
+        	File versionFile = new File(getCacheDir() + "/cacheVersion.txt");
+		BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
     		String line;
+		if(!versionFile.exists()) {
+		    return 0;
+		}
     		try {
     			while((line = cacheVerReader.readLine()) != null) {
                 	return Integer.parseInt(line);
@@ -114,7 +119,7 @@ public class CacheDownloader {
         public CacheDownloader downloadCache() {
             try {
 	            File location = new File(getCacheDir());
-	            File versionFile = new File(getCacheDir() + "/cacheVersion.dat");
+	            File versionFile = new File(getCacheDir() + "/cacheVersion.txt");
 
 	            int remoteVer = getCacheRemoteVersion();
 	            if(!versionFile.exists())
@@ -149,7 +154,7 @@ public class CacheDownloader {
 	            	}
 	            }
             } catch(Exception e) {
-
+		e.printStackTrace();
             }
             return null;
         }
@@ -157,7 +162,7 @@ public class CacheDownloader {
         private void downloadFile(String adress, String localFileName) {
                 OutputStream out = null;
                 URLConnection conn = null;
-                conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+                //conn.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
                 InputStream in = null;
                 int lastpercent = 0;
                 
