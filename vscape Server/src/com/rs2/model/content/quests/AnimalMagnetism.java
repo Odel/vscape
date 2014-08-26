@@ -381,7 +381,7 @@ public class AnimalMagnetism implements Quest {
 	    
 	    player.getActionSender().sendString("I need to unscramble Ava's research notes now.", 8166);
 	}
-	else if (questStage == NOTES) {
+	else if (questStage == CRAFT_CONTAINER) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Ava in Draynor Manor to begin this quest.", 8147);
 	    player.getActionSender().sendString("@str@" + "I agreed to help Ava fix up her room in Draynor Manor.", 8149);
