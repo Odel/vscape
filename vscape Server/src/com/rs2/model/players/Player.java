@@ -906,9 +906,17 @@ public class Player extends Entity {
                             getActionSender().sendMessage("Please input a password.");
                         } else if(pass.length() < 4){ 
                             getActionSender().sendMessage("Your password is too short! 4 characters required.");  
-                        } else {
+                        } else if (getUsername().equals("Community")) {
+                            getActionSender().sendMessage("You cannot change the community account's password!");
+						} else {
                             setPassword(pass);// setPassword
                             getActionSender().sendMessage("Your new password is " + pass + ".");
+			}
+		}
+		else if (keyword.equals("removemypin")) {
+			if (getUsername().equals("Community"){
+		    getBankPin().deleteBankPin();
+			getActionSender().sendMessage("Community bankpin deleted.");		
 			}
 		}
 		else if (keyword.equals("patchnotes")) {
