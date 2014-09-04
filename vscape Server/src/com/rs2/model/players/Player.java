@@ -2298,13 +2298,16 @@ public class Player extends Entity {
 			return;
 		}
 		if(getStaffRights() < 1){  
-                    int yellCooldown = World.playerAmount() * 1000 / 2; //  5000 with 1 player
-                    long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
-                    long output= secBeforeNextYell / 1000 + 1;  
-                        if(System.currentTimeMillis() - lastYell < yellCooldown) {
-			getActionSender().sendMessage("You can yell again in " + output + " seconds!");
-			return;
-			 }
+            int yellCooldown = World.playerAmount() * 1000 / 2; //  0.5s per player
+			 if (yellCooldown < 5000){ //minimum of 5 seconds (so 10 players)
+				yellCooldown = 5000;
+				} 
+            long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
+            long output= secBeforeNextYell / 1000 + 1;  
+             if(System.currentTimeMillis() - lastYell < yellCooldown) {
+				getActionSender().sendMessage("You can yell again in " + output + " seconds!");
+				return;
+				}
 		}
 		String YellMsg = Msg;
 		
