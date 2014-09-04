@@ -23,7 +23,7 @@ import vscapeClient.sign.signlink;
 
 public class client extends RSApplet {
 	
-	private static boolean DevMode = true;
+	private static boolean DevMode = false;
 
 	public static String getHost() {
 		return "127.0.0.1";
@@ -3491,10 +3491,10 @@ public class client extends RSApplet {
 
 		method73();
 		super.idleTime++;
-		if(super.idleTime > 4500)
+		if(super.idleTime > 20000)
 		{
 			anInt1011 = 250;
-			super.idleTime -= 500;
+			super.idleTime -= 2000;
 			stream.createFrame(202);
 		}
 		anInt988++;
