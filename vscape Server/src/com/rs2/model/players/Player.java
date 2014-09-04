@@ -2357,7 +2357,7 @@ public class Player extends Entity {
         
         //oh fuck it's clan chat dude idshabbeding
         	private void Clan(String Msg) {
-                if(getCurrentChannel() == null){ 
+                if(currentChannel == null){ 
 			getActionSender().sendMessage("You're not in a clan.");
 			return;
 		}
@@ -2365,7 +2365,7 @@ public class Player extends Entity {
 		String ClanMsg = Msg;
 		String chatter = NameUtil.formatName(getUsername());
                 
-                String clan = getCurrentChannel();
+                String clan = currentChannel;
                 
                 for(int i = 0; i < Constants.bad.length; i++)
 		{
@@ -2380,7 +2380,7 @@ public class Player extends Entity {
 			if (player == null)
 				continue;
                         
-                        if(player.getCurrentChannel().equals(clan)){
+                        if(player.currentChannel.equals(clan)){
 				if(player.hideColors){
 					for(int k = 0; k < Constants.colorStrings.length;k++){
 						ClanMsg = ClanMsg.replace(Constants.colorStrings[k], "");
@@ -6121,9 +6121,6 @@ public class Player extends Entity {
 			}
 		
 	}
-		public String getClanChannel(){
-			return currentChannel;
-		}
         public void setClanChannel(String channel) {
 		String inChannel = channel;
                 
