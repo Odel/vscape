@@ -2298,9 +2298,12 @@ public class Player extends Entity {
 			return;
 		}
 		if(getStaffRights() < 1){
-			 if(System.currentTimeMillis() - lastYell < 25000) {
-				 long secBeforeNextYell = ((((System.currentTimeMillis() - lastYell)  / 1000 ) - 30) * -1);
-				 getActionSender().sendMessage("You can yell again in " + secBeforeNextYell + " seconds!");
+                    
+                    int yellCooldown = World.playerAmount() * 1000 / 2; //  5000 with 1 player
+                    long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
+                    long output= secBeforeNextYell / 1000;
+                        if(System.currentTimeMillis() - lastYell < yellCooldown) {
+				 getActionSender().sendMessage("You can yell again in " + output + " seconds!");
 				 return;
 			 }
 		}
@@ -2357,7 +2360,7 @@ public class Player extends Entity {
         
         //oh fuck it's clan chat dude idshabbeding
         	private void Clan(String Msg) {
-                if(currentChannel == null){ 
+                if( currentChannel == null){ 
 			getActionSender().sendMessage("You're not in a clan.");
 			return;
 		}
@@ -6121,6 +6124,9 @@ public class Player extends Entity {
 			}
 		
 	}
+		public String getClanChannel(){
+			return currentChannel;
+		}
         public void setClanChannel(String channel) {
 		String inChannel = channel;
                 
