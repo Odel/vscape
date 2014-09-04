@@ -942,14 +942,6 @@ public class Player extends Entity {
 		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
         roll();
         }
-        else if (keyword.equals("fox")) {
-        transformNpc = 1319;
-        setStandAnim(6561);
-        setWalkAnim(6560);
-        setRunAnim(6560);
-        setAppearanceUpdateRequired(true);
-		getUpdateFlags().setForceChatMessage("Yiff!");
-		}
 		else if(keyword.equals("resetpet")) {
 			this.getPets().unregisterPet();
 		}
