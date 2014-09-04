@@ -939,6 +939,9 @@ public class Player extends Entity {
 		else if (keyword.equals("info")) {
 			info();
 		}
+		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
+        roll();
+        }
         else if (keyword.equals("fox")) {
         transformNpc = 1319;
         setStandAnim(6561);
@@ -2126,6 +2129,156 @@ public class Player extends Entity {
 		}
 	    }
 	}
+	            private void roll() {
+                       switch(Misc.random(42)) {
+                                    case 0 :
+                                            getActionSender().sendMessage("You should grind Attack!");
+                                            break;
+                                    case 1 :
+                                            getActionSender().sendMessage("You should grind Strength!");
+                                            break;
+                                    case 2 :
+                                            getActionSender().sendMessage("You should grind Defense!");
+                                            break;
+                                    case 3 :
+                                            getActionSender().sendMessage("You should grind Ranged!");
+                                            break;
+                                    case 4 :
+                                            getActionSender().sendMessage("You should grind magic!");
+                                            break;
+                                    case 5 :
+                                            getActionSender().sendMessage("You should grind Runecrafting!");
+                                            break;
+                                    case 6 :
+                                            getActionSender().sendMessage("You should grind Agility!");
+                                            break;
+                                    case 7 :
+                                            getActionSender().sendMessage("You should grind Herblore!");
+                                            break;
+                                    case 8 :
+                                            getActionSender().sendMessage("You should grind Thieving!");
+                                            break;
+                                    case 9 :
+                                            getActionSender().sendMessage("You should grind Crafting!");
+                                            break;
+                                    case 10 :
+                                            getActionSender().sendMessage("You should grind Fletching!");
+                                            break;
+                                    case 11 :
+                                            getActionSender().sendMessage("You should grind Slayer!");
+                                            break;
+                                    case 12 :
+                                            getActionSender().sendMessage("You should grind Mining!");
+                                            break;
+                                    case 13 :
+                                            getActionSender().sendMessage("You should grind Smithing!");
+                                            break;
+                                    case 14 :
+                                            getActionSender().sendMessage("You should grind Fishing!");
+                                            break;
+                                    case 15 :
+                                            getActionSender().sendMessage("You should grind Cooking!");
+                                            break;
+                                    case 16 :
+                                            getActionSender().sendMessage("You should grind Firemaking!");
+                                            break;
+                                    case 17 :
+                                            getActionSender().sendMessage("You should grind Woodcutting!");
+                                            break;
+                                    case 18 :
+                                            getActionSender().sendMessage("You should grind Farming!");
+                                            break;
+                                    case 19 :
+                                            getActionSender().sendMessage("You should shitpost in yell!");
+                                            break;
+                                    case 20 :
+                                            getActionSender().sendMessage("You should bother Pickles about unimportant stuff!");
+                                            break;
+                                    case 21 :
+                                            getActionSender().sendMessage("You should bother Noiryx about unimportant stuff!");
+                                            break;
+                                    case 22 :
+                                            getActionSender().sendMessage("You should bother Odel about unimportant stuff!");
+                                            break;
+                                    case 23 :
+                                            getActionSender().sendMessage("You should alch some stuff. If your Magic is <50, go train Magic!");
+                                            break;
+                                    case 24 :
+                                            getActionSender().sendMessage("You should go do some Controlled grinding!");
+                                            break;
+                                    case 25 :
+                                            getActionSender().sendMessage("Post stats in thread!");
+                                            break;
+                                    case 26 :
+                                            getActionSender().sendMessage("Go do some quests!");
+                                            break;
+                                    case 27 :
+                                            getActionSender().sendMessage("Go do some level 1 clue scrolls!!");
+                                            break;
+                                    case 28 :
+                                            getActionSender().sendMessage("Go do some level 2 clue scrolls!!");
+                                            break;
+                                    case 29 :
+                                            getActionSender().sendMessage("Go do some level 3 clue scrolls!!");
+                                            break;
+                                    case 30 :
+                                            getActionSender().sendMessage("Post tfw no gf in thread ;_;");
+                                            break;
+                                     case 31 :
+                                            getActionSender().sendMessage("A dark fate descends upon your character.");
+                                            darkFate();
+                                            break;
+                                     case 32 :
+                                            getActionSender().sendMessage("You should pick flax!");
+                                            break;
+                                     case 33 :
+                                            getActionSender().sendMessage("you should spin flax into bowstrings!");
+                                            break;
+                                     case 34 :
+                                            getActionSender().sendMessage("You should sort your bank, it's messy!");
+                                            break;
+                                     case 35 :
+                                            getActionSender().sendMessage("You should sell some stuff in yell!");
+                                            break;
+                                     case 36 :
+                                            getActionSender().sendMessage("You should do some pest control!");
+                                            break;
+                                     case 37 :
+                                            getActionSender().sendMessage("You should go try for a fire cape (fight caves)!");
+                                            break;
+                                     case 38 :
+                                            getActionSender().sendMessage("You should go do some barrows!");
+                                            break;
+                                     case 39 :
+                                            getActionSender().sendMessage("Go try for that piece of equipment you want! Or try to buy it in ::yell.");
+                                            break;
+                                      case 40 :
+                                            getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: vscape");
+                                            break;
+                                      case 41 :
+                                            getActionSender().sendMessage("You should go mine some pess.");
+                                            break;
+                                      default :
+                                            getActionSender().sendMessage("Your dice broke! The generous /v/scape admins give you a new one.");
+                                            roll();
+                                            break;   
+                            }	
+            }
+
+            private void darkFate(){
+                                            this.getActionSender().sendInterface(18681);
+                                            transformNpc = 1973;
+                                            setStandAnim(5493);
+                                            setWalkAnim(5497);
+                                            setRunAnim(5497);
+                                            setAppearanceUpdateRequired(true);
+                                            try {   
+                                                Thread.sleep(1500);                 //1000 milliseconds is one second.
+                                            } catch(InterruptedException ex) {
+                                                Thread.currentThread().interrupt();
+                                            }
+                                            getActionSender().removeInterfaces();
+            }
 	/**
 	 * Yell Message
 	 * 
