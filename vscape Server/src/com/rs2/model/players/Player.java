@@ -914,7 +914,7 @@ public class Player extends Entity {
 			}
 		}
 		else if (keyword.equals("removemypin")) {
-			if (getUsername().equals("Community"){
+			if (getUsername().equals("Community")){
 		    getBankPin().deleteBankPin();
 			getActionSender().sendMessage("Community bankpin deleted.");		
 			}
