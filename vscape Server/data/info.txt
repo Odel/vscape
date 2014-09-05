@@ -6,6 +6,7 @@
 ::hidecolor/::hc (Hides color text in yell.)
 ::home
 ::players
+::roll / ::8ball (suggests what to do in-game)
 ::changepass
 ::patchnotes
 ::highscores / ::hs / ::hiscores
@@ -18,6 +19,7 @@
 ::pcactive (Tells you if a PC game is running.)
 ::resetpet (Picks up custom pets from PC.)
 ::showhp (Displays current hp and prayer.)
+
 
 @dre@ =General Info=
 -2.25x higher experience rate.
