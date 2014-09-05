@@ -1987,7 +1987,9 @@ public class Player extends Entity {
         } 
 		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
+			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles")){
 			SystemUpdate(seconds);
+			}
         }
         else if (keyword.equals("stat")) {
 		int skillId = Integer.parseInt(args[0]);
@@ -2009,7 +2011,9 @@ public class Player extends Entity {
                 player.getSkill().refresh(skillId);
         }
         else if (keyword.equals("rights")) {
-        	GiveRights(args);
+			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles")){
+						GiveRights(args);
+			}
         }
         else if(keyword.equals("staffyell")) {
         	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
