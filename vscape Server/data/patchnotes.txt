@@ -1,3 +1,14 @@
+@dre@=September 5th=
+-Yell timer now changes based on how many
+people are online
+-Foxter week is ogre
+-Fixed an alch value
+-Added the 8ball, try ::roll or ::8ball
+-Community account now secure
+-Small fix to Animal Magnetism
+-Logout timer is now 6 minutes
+-Can no longer charge dfs
+
 @dre@=August 26rd=
 @blu@Animal Magnetism
 @blu@New client on the Steam page/thread.
