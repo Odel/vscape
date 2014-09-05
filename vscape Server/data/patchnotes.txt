@@ -1,4 +1,5 @@
 @dre@=September 5th=
+@blu@New client on the Steam page/thread.
 -Yell timer now changes based on how many
 people are online
 -Foxter week is ogre
