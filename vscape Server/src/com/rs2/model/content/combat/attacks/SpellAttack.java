@@ -124,6 +124,9 @@ public class SpellAttack extends BasicAttack {
 		HitDef hitDef = spell.getHitDef().clone();
 		if (getAttacker().hasGodChargeEffect() && (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.CLAWS_OF_GUTHIX || spell == Spell.SARADOMIN_STRIKE))
 			hitDef.setDamage(hitDef.getDamage() + 10);
+		if (spell == Spell.MAGIC_DART && getAttacker().isPlayer()) {
+			hitDef.setDamage(hitDef.getDamage() + (((Player)getAttacker()).getSkill().getLevel()[Skill.MAGIC] / 10) );
+		}
         //if(getAttacker().isNpc() && ((Npc)getAttacker()).getDefinition().getId() == 2025 && Misc.random(30) == 0){
         //     setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{new StatEffect(Skill.STRENGTH, .1)})});
         //     getVictim().getUpdateFlags().sendGraphic(400, 100 << 16);
