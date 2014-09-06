@@ -1987,7 +1987,7 @@ public class Player extends Entity {
         } 
 		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
-			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles")){
+			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles") || getUsername().equals("Mod dammit")){
 			SystemUpdate(seconds);
 			}
         }
