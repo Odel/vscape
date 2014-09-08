@@ -2249,7 +2249,7 @@ public class Player extends Entity {
                                             getActionSender().sendMessage("Go try for that piece of equipment you want! Or try to buy it in ::yell.");
                                             break;
                                       case 40 :
-                                            getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: vscape");
+                                            getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: ayylmao");
                                             break;
                                       case 41 :
                                             getActionSender().sendMessage("You should go mine some pess.");
