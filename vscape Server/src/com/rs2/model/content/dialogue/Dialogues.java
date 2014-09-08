@@ -51,6 +51,7 @@ import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
@@ -170,6 +171,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(AnimalMagnetism.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(HorrorFromTheDeep.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {

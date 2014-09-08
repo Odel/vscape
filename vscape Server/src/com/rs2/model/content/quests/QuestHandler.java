@@ -51,7 +51,8 @@ public class QuestHandler {
 	new ErnestTheChicken(),
 	new PriestInPeril(),
 	new GhostsAhoy(),
-	new AnimalMagnetism()
+	new AnimalMagnetism(),
+	new HorrorFromTheDeep()
     };
     
     public static void init() {
@@ -188,8 +189,11 @@ public class QuestHandler {
 		case 47250: //Ghosts Ahoy
 			showInterface(player,quests[24]);
         		return true;
-		case 49228: //Ghosts Ahoy
+		case 49228: //Animal Magnetism
 			showInterface(player,quests[25]);
+        		return true;
+		case 39151: //Horror From The Deep
+			showInterface(player,quests[26]);
         		return true;
 
         }
