@@ -18,7 +18,7 @@ clicking "exchange".
 -Fixed glories getting eaten.
 -Something about foxes.
 -Some Taverly dungeon obstacle fixes.
--::showhp by God Dammit.
+-::showhp added
 -Shield of Arrav refactored and working smoothly.
 -It's Foxter week! Use ::fox to yiff around.
 
