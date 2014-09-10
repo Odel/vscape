@@ -85122,6 +85122,26 @@
     ]
   },
   {
+    "npcId": 1404,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 3226,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
     "npcId": 1455,
     "rareTableAccess": false,
     "drops": []

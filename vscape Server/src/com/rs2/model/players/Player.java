@@ -329,6 +329,12 @@ public class Player extends Entity {
 	private int questPoints = 0;
 	private boolean canHaveGodCape = true; //cadillac
 	private boolean specialAttackActive = false;
+	private boolean placedFireRune = false;
+	private boolean placedAirRune = false;
+	private boolean placedEarthRune = false;
+	private boolean placedWaterRune = false;
+	private boolean placedSword = false;
+	private boolean placedArrow = false;
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
 	private int ringOfRecoilLife = 40;
@@ -4049,6 +4055,42 @@ public class Player extends Entity {
 		    this.desiredSkullOfGhostsAhoyFlag = color;
 		    return;	
 	    }
+	}
+	public boolean hasPlacedFireRune() {
+	    return placedFireRune;
+	}
+	public void setPlacedFireRune(boolean bool) {
+	    placedFireRune = bool;
+	}
+	public boolean hasPlacedWaterRune() {
+	    return placedWaterRune;
+	}
+	public void setPlacedWaterRune(boolean bool) {
+	    placedWaterRune = bool;
+	}
+	public boolean hasPlacedEarthRune() {
+	    return placedEarthRune;
+	}
+	public void setPlacedEarthRune(boolean bool) {
+	    placedEarthRune = bool;
+	}
+	public boolean hasPlacedAirRune() {
+	    return placedAirRune;
+	}
+	public void setPlacedAirRune(boolean bool) {
+	    placedAirRune = bool;
+	}
+	public boolean hasPlacedSword() {
+	    return placedSword;
+	}
+	public void setPlacedSword(boolean bool) {
+	    placedSword = bool;
+	}
+	public boolean hasPlacedArrow() {
+	    return placedArrow;
+	}
+	public void setPlacedArrow(boolean bool) {
+	    placedArrow= bool;
 	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;

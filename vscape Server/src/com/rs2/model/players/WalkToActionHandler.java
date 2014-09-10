@@ -28,6 +28,7 @@ import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -240,6 +241,10 @@ public class WalkToActionHandler {
 				    return;
 				}
 				if(GhostsAhoy.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
+				    this.stop();
+				    return;
+				}
+				if(HorrorFromTheDeep.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
 				    return;
 				}
@@ -1877,6 +1882,9 @@ public class WalkToActionHandler {
 				case 12537:
 					Ladders.checkClimbTallStaircase(player, "up");
 					break;
+				case 4569: //lighthouse level 1 ladder:
+					Ladders.climbLadder(player, new Position(2505, 3641, 2));
+					break;
 				case 1748: // stairs mid
 				case 8745:
 				case 12965:// flour mill
@@ -1988,6 +1996,9 @@ public class WalkToActionHandler {
 				case 10177: // Dagganoth ladder 1st level
 					Ladders.climbLadder(player, new Position(1798, 4407, 3));
 					break;
+				case 4569: //lighthouse level 1 ladder:
+				    Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 0));
+				    break;
 				case 1739: //staircase
 				case 12537:
 					Ladders.checkClimbTallStaircase(player, "down");
@@ -2109,7 +2120,9 @@ public class WalkToActionHandler {
 					return;
 				}
 				Following.resetFollow(player);
-				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK) {
+				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				}
 				player.setInteractingEntity(npc);
 				player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				if (npc.getPlayerOwner() != null && npc.getPlayerOwner() != player) {
@@ -2542,6 +2555,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(Ectofungus.doItemOnObject(player, id, item)) {
+					this.stop();
+					return;
+				}
+				if(HorrorFromTheDeep.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}
