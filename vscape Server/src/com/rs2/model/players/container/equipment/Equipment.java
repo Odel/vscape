@@ -1015,6 +1015,11 @@ public class Equipment {
 				rangeLevelReq = 70;
 				defenceLevelReq = 40;
 				return;
+			case 6128:
+			case 6129:
+			case 6130: //rockshell
+				defenceLevelReq = 40;
+				return;
 			case 2501 : //red dhide body
 				rangeLevelReq = 60;
 				defenceLevelReq = 40;
