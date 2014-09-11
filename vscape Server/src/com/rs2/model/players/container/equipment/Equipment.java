@@ -182,6 +182,15 @@ public class Equipment {
 			player.getDialogue().sendStatement("You need to kill the tree spirit in Entrana to weild this.");
 			return;
 		}
+		if(item.getId() >= 3839 && item.getId() < 3845) {
+		    if(player.getQuestStage(26) < 9) {
+			player.getDialogue().sendStatement("You need to complete Horror From The Deep to equip this.");
+			return;
+		    }
+		    else {
+			player.setGodBook(item.getId());
+		    }
+		}
 		if (item.getId() == 1205 && player.getNewComersSide().getTutorialIslandStage() == 40)
 			player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
 		if (player.inDuelArena()) {

@@ -382,6 +382,7 @@ public class PlayerSave {
 			write.writeUTF(player.getDesiredBottomHalfFlag());
 			write.writeUTF(player.getDesiredSkullFlag());
 			write.writeBoolean(player.petitionSigned());
+			write.writeInt(player.getGodBook());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -1036,6 +1037,11 @@ public class PlayerSave {
             	player.setPetitionSigned(load.readBoolean());
             } catch (IOException e) {
 		player.setPetitionSigned(false);
+            }
+	    try {
+            	player.setGodBook(load.readInt());
+            } catch (IOException e) {
+		player.setGodBook(0);
             }
 	    
             load.close();

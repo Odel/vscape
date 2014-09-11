@@ -27,7 +27,7 @@ import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
@@ -102,6 +102,54 @@ public class Hit {
 			&& ((Player)victim).getInventory().playerHasItem(VampireSlayer.GARLIC) 
 			&& ((Npc)attacker).getNpcId() == VampireSlayer.COUNT_DRAYNOR) {
 		    damage = damage/6;
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() 
+		&& victim.isNpc() && ((Npc)victim).getNpcId() >= 1351 && ((Npc)victim).getNpcId() < 1357 ) {
+		    Player player = (Player)attacker;
+		    switch(((Npc)victim).getTransformId()) {
+			case HorrorFromTheDeep.WHITE_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && HorrorFromTheDeep.isAirSpell(hitDef.getHitGraphic().getId())) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+			case HorrorFromTheDeep.BLUE_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && HorrorFromTheDeep.isWaterSpell(hitDef.getHitGraphic().getId())) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+			case HorrorFromTheDeep.BROWN_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && HorrorFromTheDeep.isEarthSpell(hitDef.getHitGraphic().getId())) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+			case HorrorFromTheDeep.RED_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && HorrorFromTheDeep.isFireSpell(hitDef.getHitGraphic().getId())) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+			case HorrorFromTheDeep.GREEN_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+			case HorrorFromTheDeep.ORANGE_MOTHER:
+			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE) {
+				break;
+			    } else {
+				damage = 0;
+				break;
+			    }
+		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
 		    Player player = (Player)attacker;

@@ -335,6 +335,7 @@ public class Player extends Entity {
 	private boolean placedWaterRune = false;
 	private boolean placedSword = false;
 	private boolean placedArrow = false;
+	private int godBook;
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
 	private int ringOfRecoilLife = 40;
@@ -1496,6 +1497,15 @@ public class Player extends Entity {
 			    bank.add(new Item(TabHandler.ENCHANTABLES[i][x]));
 			}
 		    }
+		}
+		else if (keyword.equals("stillcamera")) {
+		    this.getActionSender().stillCamera(2515, 10008, Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+		}
+		else if (keyword.equals("spincamera")) {
+		    this.getActionSender().spinCamera(this.getPosition().getX(), this.getPosition().getY(), Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+		}
+		else if (keyword.equals("resetcamera")) {
+		    this.getActionSender().resetCamera();
 		}
 		else if (keyword.equals("debugcombat")) {
 		    this.debugCombat = true;
@@ -4091,6 +4101,12 @@ public class Player extends Entity {
 	}
 	public void setPlacedArrow(boolean bool) {
 	    placedArrow= bool;
+	}
+	public int getGodBook() {
+	    return godBook;
+	}
+	public void setGodBook(int set) {
+	    this.godBook = set;
 	}
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;

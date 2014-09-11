@@ -16,6 +16,7 @@ import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.QuestHandler;
@@ -729,6 +730,9 @@ public class ItemPacketHandler implements PacketHandler {
             return;
         }
 	if(GhostsAhoy.itemHandling(player, itemId)) {
+	    return;
+	}
+	if(HorrorFromTheDeep.itemHandling(player, itemId)) {
 	    return;
 	}
         if (itemId == Slayer.ENCHANTED_GEM) {

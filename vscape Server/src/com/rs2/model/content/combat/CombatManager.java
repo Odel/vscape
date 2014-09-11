@@ -22,6 +22,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
@@ -31,6 +32,8 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
@@ -282,6 +285,21 @@ public class CombatManager extends Tick {
 					}
 					else if(died.isNpc() && ((Npc)died).getNpcId() == 643) { //weaponsmaster phoenix gang
 					    died.getUpdateFlags().sendForceMessage("Damn crossbows...");
+					    died.getUpdateFlags().sendAnimation(death);
+					    stop();
+					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() == HorrorFromTheDeep.CHILD_DAGANNOTH && killer != null && killer.isPlayer()) {
+					    ((Player)killer).setQuestStage(26, 5);
+					    Dialogues.startDialogue((Player)killer, HorrorFromTheDeep.SITTING_JOSSIK);
+					    died.getUpdateFlags().sendAnimation(death);
+					    stop();
+					}
+					else if(died.isNpc() && ((Npc)died).getNpcId() >= 1351 && ((Npc)died).getNpcId() < 1357 && killer != null && killer.isPlayer()) {
+					    ((Player)killer).setQuestStage(26, 6);
+					    GroundItem drop = new GroundItem(new Item(6729), ((Player)killer), died.getPosition().clone());
+					    GroundItemManager.getManager().dropItem(drop);
+					    ((Player)killer).getInventory().addItemOrDrop(new Item(HorrorFromTheDeep.RUSTY_CASKET));
+					    Dialogues.startDialogue((Player)killer, HorrorFromTheDeep.SITTING_JOSSIK);
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
 					}

@@ -2,6 +2,8 @@ package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
@@ -19,7 +21,9 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ShopManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -31,7 +35,11 @@ public class HorrorFromTheDeep implements Quest {
     public static final int KEY_TO_LARRISSA = 2;
     public static final int DOOR_UNLOCKED = 3;
     public static final int DAGANNOTH_DOOR_UNLOCKED = 4;
-    public static final int QUEST_COMPLETE = 23;
+    public static final int CHILD_DAG_DEAD = 5;
+    public static final int MOTHER_DEAD = 6;
+    public static final int TALK_TO_JOSSIK = 7;
+    public static final int FINISH_UP_QUEST = 8;
+    public static final int QUEST_COMPLETE = 9;
     
     public static final int HAMMER = 2347;
     public static final int FIRE_RUNE = 554;
@@ -47,6 +55,13 @@ public class HorrorFromTheDeep implements Quest {
     public static final int JOURNAL = 3845;
     public static final int DIARY = 3846;
     public static final int MANUAL = 3847;
+    public static final int RUSTY_CASKET = 3849;
+    public static final int DAMAGED_SARA_BOOK = 3839;
+    public static final int SARA_BOOK = 3840;
+    public static final int DAMAGED_ZAM_BOOK = 3841;
+    public static final int ZAMORAK_BOOK = 3842;
+    public static final int DAMAGED_GUTH_BOOK = 3843;
+    public static final int GUTHIX_BOOK = 3844;
     
     public static final Position UP_AT_LIGHTHOUSE = new Position(2510, 3644, 0);
     public static final Position UP_FROM_BOSS_CAVE = new Position(2515, 4629, 1);
@@ -69,6 +84,8 @@ public class HorrorFromTheDeep implements Quest {
     public static final int BROWN_MOTHER = 1354;
     public static final int GREEN_MOTHER = 1355;
     public static final int ORANGE_MOTHER = 1356;
+    public static final int[] MOTHER_COLORS = {WHITE_MOTHER, BLUE_MOTHER, RED_MOTHER, BROWN_MOTHER, GREEN_MOTHER, ORANGE_MOTHER};
+    public static final String[] CRIES = {"Krrrrrrk", "Ksssrsrkrsk", "Srrkkrkrkrk", "Sssssssrrrk", "Chkhkhkhkhk"};
     
     public static final int BOOKSHELF = 4617;
     public static final int LIGHTHOUSE_DOOR = 4577;
@@ -177,6 +194,45 @@ public class HorrorFromTheDeep implements Quest {
 	    player.getActionSender().sendString("I need to search the lighthouse for clues as to where", 8154);
 	    player.getActionSender().sendString("Jossik could be.", 8155);
 	}
+	else if (questStage == CHILD_DAG_DEAD) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Larrissa, outside the Lighthouse to begin.", 8147);
+	    player.getActionSender().sendString("@str@" + "Larrissa expressed her concerns about her boyfriend.", 8149);
+	    player.getActionSender().sendString("@str@" + "I need to find Larrissa's cousin who has a lighthouse key.", 8150);
+	    player.getActionSender().sendString("@str@" + "I found Gunnjorn at the Barbarian Outpost.", 8152);
+	    player.getActionSender().sendString("@str@" + "I need to search the lighthouse for clues as to where", 8154);
+	    player.getActionSender().sendString("@str@" + "Jossik could be.", 8155);
+	    
+	    player.getActionSender().sendString("I found Jossik injured beneath the lighthouse.", 8157);
+	    player.getActionSender().sendString("I need to defend him from the dagannoths to rescue him!", 8158);
+	}
+	else if (questStage == MOTHER_DEAD) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Larrissa, outside the Lighthouse to begin.", 8147);
+	    player.getActionSender().sendString("@str@" + "Larrissa expressed her concerns about her boyfriend.", 8149);
+	    player.getActionSender().sendString("@str@" + "I need to find Larrissa's cousin who has a lighthouse key.", 8150);
+	    player.getActionSender().sendString("@str@" + "I found Gunnjorn at the Barbarian Outpost.", 8152);
+	    player.getActionSender().sendString("@str@" + "I need to search the lighthouse for clues as to where", 8154);
+	    player.getActionSender().sendString("@str@" + "Jossik could be.", 8155);
+	    player.getActionSender().sendString("@str@" + "I found Jossik injured beneath the lighthouse.", 8157);
+	    
+	    player.getActionSender().sendString("I defeated the dagannoth mother. I should get", 8159);
+	    player.getActionSender().sendString("Jossik out of here.", 8160);
+	}
+	else if (questStage == TALK_TO_JOSSIK) {
+            player.getActionSender().sendString(getQuestName(), 8144);
+            player.getActionSender().sendString("@str@" + "Talk to Larrissa, outside the Lighthouse to begin.", 8147);
+	    player.getActionSender().sendString("@str@" + "Larrissa expressed her concerns about her boyfriend.", 8149);
+	    player.getActionSender().sendString("@str@" + "I need to find Larrissa's cousin who has a lighthouse key.", 8150);
+	    player.getActionSender().sendString("@str@" + "I found Gunnjorn at the Barbarian Outpost.", 8152);
+	    player.getActionSender().sendString("@str@" + "I need to search the lighthouse for clues as to where", 8154);
+	    player.getActionSender().sendString("@str@" + "Jossik could be.", 8155);
+	    player.getActionSender().sendString("@str@" + "I found Jossik injured beneath the lighthouse.", 8157);
+	    player.getActionSender().sendString("@str@" + "I defeated the dagannoth mother.", 8159);
+	    
+	    player.getActionSender().sendString("Jossik managed to get to a safe area of the cave.", 8161);
+	    player.getActionSender().sendString("I should talk to him about this casket.", 8162);
+	}
 	else if (questStage == QUEST_COMPLETE) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "Talk to Larrissa, outside the Lighthouse to begin.", 8147);
@@ -260,11 +316,162 @@ public class HorrorFromTheDeep implements Quest {
     public void setDialogueStage(int in){
     	dialogueStage = in;
     }
+    public static boolean isAirSpell(int graphic) {
+	switch(graphic) {
+	    case 92:
+	    case 119:
+	    case 134:
+	    case 160:
+		return true;
+	}
+	return false;
+    }
+    public static boolean isWaterSpell(int graphic) {
+	switch(graphic) {
+	    case 95:
+	    case 122:
+	    case 137:
+	    case 163:
+		return true;
+	}
+	return false;
+    }
+    public static boolean isEarthSpell(int graphic) {
+	switch(graphic) {
+	    case 98:
+	    case 125:
+	    case 140:
+	    case 166:
+		return true;
+	}
+	return false;
+    }
+    public static boolean isFireSpell(int graphic) {
+	switch(graphic) {
+	    case 101:
+	    case 128:
+	    case 131:
+	    case 157:
+		return true;
+	}
+	return false;
+    }
+    public static void spawnEncounter(final Player player, final int npcId) {
+	final Npc npc = new Npc(npcId);
+	NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, npc, new Position(2504, 10021, 0), true, null);
+	npc.sendTransform(npcId - 3, 20);
+	npc.setFollowingEntity(player);
+	player.setFollowingEntity(npc);
+	player.walkTo(new Position(2511, 10021, 0), true);
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		npc.getMovementHandler().setCanWalk(true);
+		npc.walkTo(new Position(2506, 10021, 0), false);
+		b.stop();
+	    }
+	    @Override
+	    public void stop() {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			npc.getMovementHandler().setCanWalk(true);
+			npc.walkTo(new Position(2508, 10021, 0), false);
+			b.stop();
+		    }
+		    @Override
+		    public void stop() {
+			npc.sendTransform(npcId - 1, 20);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				npc.getMovementHandler().setCanWalk(true);
+				npc.walkTo(new Position(2512, 10021, 0), false);
+				b.stop();
+			    }
+			    @Override
+			    public void stop() {
+				npc.sendTransform(npcId, 20000);
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					npc.getMovementHandler().setCanWalk(true);
+					npc.walkTo(new Position(2512, 10021, 0), false);
+					b.stop();
+				    }
+
+				    @Override
+				    public void stop() {
+					CombatManager.attack(npc, player);
+					if(npc.getNpcId() == WHITE_MOTHER) {
+					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+						    if(npc.isDead() || npc.getCurrentHp() == 0 || player.getQuestStage(26) >= 6) {
+							b.stop();
+						    }
+						    int color = MOTHER_COLORS[Misc.randomMinusOne(MOTHER_COLORS.length)];
+						    int hp = npc.getCurrentHp();
+						    do {
+							color = MOTHER_COLORS[Misc.randomMinusOne(MOTHER_COLORS.length)];
+						    } while(color == npc.getTransformId());
+						    if(color == npc.getTransformId()) {
+							do {
+							    color = MOTHER_COLORS[Misc.randomMinusOne(MOTHER_COLORS.length)];
+							} while (color == npc.getTransformId());
+						    }
+						    npc.getUpdateFlags().sendForceMessage(CRIES[Misc.randomMinusOne(CRIES.length)]);
+						    switch(color) {
+							case WHITE_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to white...");
+							    break;
+							case BLUE_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to blue...");
+							    break;
+							case RED_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to red...");
+							    break;
+							case ORANGE_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to orange...");
+							    break;
+							case BROWN_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to brown...");
+							    break;
+							case GREEN_MOTHER:
+							    player.getActionSender().sendMessage("The Dagannoth changes to green...");
+							    break;
+						    }
+						    npc.sendTransform(color, 20);
+						    npc.setCurrentHp(hp);
+						}
+						@Override
+						public void stop() {
+						}
+					    }, 15);
+					}
+				    }
+				}, 3);
+			    }
+			}, 3);
+		    }
+		}, 3);
+	    }
+	}, 6);
+    }
     public static boolean allItemsInDoor(final Player player) {
 	return player.hasPlacedAirRune() && player.hasPlacedFireRune() && player.hasPlacedEarthRune() && player.hasPlacedWaterRune() && player.hasPlacedSword() && player.hasPlacedArrow();
     }
     public static boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
+	    case DIARY:
+		Dialogues.startDialogue(player, 13789);
+		return true;
+	    case MANUAL:
+		Dialogues.startDialogue(player, 13787);
+		return true;
+	    case JOURNAL:
+		Dialogues.startDialogue(player, 13788);
+		return true;
 	}
 	return false;
     }
@@ -409,16 +616,28 @@ public class HorrorFromTheDeep implements Quest {
 		Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 1));
 		return true;
 	    case LADDER_UP_TO_WALL:
-		Ladders.climbLadder(player, UP_FROM_BOSS_CAVE);
-		return true;
+		if(player.getQuestStage(26) < 7) {
+		    player.getActionSender().sendMessage("Jossik needs my help!");
+		    return true;
+		}
+		else {
+		    Ladders.climbLadder(player, UP_FROM_BOSS_CAVE);
+		    return true;
+		}
 	    case LADDER_UP_TO_LIGHTHOUSE:
 		Ladders.climbLadder(player, UP_AT_LIGHTHOUSE);
 		return true;
 	    case LADDER_DOWN_TO_CAVE:
-		Ladders.climbLadder(player, DOWN_IN_CAVE);
-		return true;
+		if(player.getQuestStage(26) >= 7) {
+		    Ladders.climbLadder(player, DOWN_IN_CAVE_POST_QUEST);
+		    return true;
+		}
+		else {
+		    Ladders.climbLadder(player, DOWN_IN_CAVE);
+		    return true;
+		}
 	    case LADDER_DOWN_TO_BOSS_CAVE:
-		if(QuestHandler.questCompleted(player, 26)) {
+		if(player.getQuestStage(26) >= 7) {
 		    Ladders.climbLadder(player, DOWN_IN_BOSS_CAVE_POST_QUEST);
 		    return true;
 		}
@@ -472,8 +691,340 @@ public class HorrorFromTheDeep implements Quest {
     
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+	    case 13787: //manual dialogue
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendPlayerChat("'The Light-o-Matic 2000 lighthouse model.'", "Oh boy, this seems boring.", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("'Swamp tar... Planks.... Oil.....'", "Blah blah, what a bunch of nonsense. I definitely", "don't need anything out of this book.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendStatement("You throw the useless manual away.");
+			player.getInventory().removeItem(new Item(MANUAL));
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case 13788: //journal dialogue
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendPlayerChat("'The daily journal of Jossik'.", "Well, fantastic, this might tell me where he's gone.", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendPlayerChat("'The light seemed to turn a bit faster today.", "I oiled the gears yesterday, perhaps it was too much.", "If only Silas were here, he might know.'", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendPlayerChat("Hm. That's the last entry, it's completely normal.", "This doesn't tell me anything about Jossik's whereabouts.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case 13789: //diary dialogue
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().sendPlayerChat("This diary is rather old, hmm... I wonder", "what it contains...", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendStatement("Dust and crumbled pages fall out of the book.");
+			return true;
+		    case 3:
+			player.getDialogue().sendPlayerChat("There's not much here that is legible...", CONTENT);
+			return true;
+		    case 4:
+			player.getDialogue().sendPlayerChat("'Ancient dwellers... sharp ... cunning...'", "There's some sort of drawing with slots on it, hmm...", "'cavern door... willing to risk ... may never...'", CONTENT);
+			return true;
+		    case 5:
+			player.getDialogue().sendPlayerChat("Not sure what that is all about.", "It seems related to the lighthouse though.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+	    return false;
+	    case JOSSIK:
+		switch (player.getQuestStage(26)) {
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("You know, it isn't too bad down here.", "It's quiet and right under the lighthouse!", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendOption("That's nice.", "I have a question about my god book.");
+				return true;
+			    case 3:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("That's nice.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("I have a question about my god book.", CONTENT);
+					return true;
+				}
+			    case 4:
+				player.getDialogue().sendNpcChat("Alright! Go ahead, ask away!", CONTENT);
+				return true;
+			    case 5:
+				if(!player.getInventory().ownsItem(player.getGodBook()) && player.getEquipment().getId(Constants.SHIELD) != player.getGodBook()) {
+				    player.getDialogue().sendOption("Would it be possible to exchange my book?", "Found any more information on the books?", "I lost my book...");
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendOption("Would it be possible to exchange my book?", "Found any more information on the books?");
+				    return true;
+				}
+			    case 6:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("Would it be possible to exchange my book?", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("Found any more information on the books?", CONTENT);
+					player.getDialogue().setNextChatId(22);
+					return true;
+				    case 3:
+					player.getDialogue().sendPlayerChat("I lost my book...", SAD);
+					player.getDialogue().setNextChatId(20);
+					return true;
+				}
+			    case 7:
+				player.getDialogue().sendNpcChat("I wouldn't see why not... But I would have to", "have another book to exchange with you!", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendPlayerChat("And do you have another book...?", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendNpcChat("Fortune is with you adventurer!", "I do, I do, I do... Yes.", LAUGHING);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("I found a stash of damaged books deep in this cave.", "I risked my life again, but it was worth it!", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendNpcChat("I can either exchange your book with one of mine,", "or sell you another for 100,000 gold.", "But remember, the books I have are damaged and empty.", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendOption("I'd like to exchange my book.", "I'll buy a book.");
+				return true;
+			    case 13:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("I'd like to exchange my book.", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("I'll buy a book.", CONTENT);
+					player.getDialogue().setNextChatId(30);
+					return true;
+				}
+			    case 14:
+				if(!player.getInventory().playerHasItem(new Item(player.getGodBook()))) {
+				    player.getDialogue().sendNpcChat("Oh, I'm afraid you don't have your book.", "Come back when you have it.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendNpcChat("Alright, which book do you want in exchange?", CONTENT);
+				    return true;
+				}
+			    case 15:
+				player.getDialogue().sendOption("Saradomin.", "Zamorak.", "Guthix.");
+				return true;
+			    case 16:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("Saradomin.", CONTENT);
+					player.setTempInteger(DAMAGED_SARA_BOOK);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("Zamorak.", CONTENT);
+					player.setTempInteger(DAMAGED_ZAM_BOOK);
+					return true;
+				    case 3:
+					player.getDialogue().sendPlayerChat("Guthix.", CONTENT);
+					player.setTempInteger(DAMAGED_GUTH_BOOK);
+					return true;
+				}
+			    case 17:
+				player.getDialogue().sendNpcChat("Alright, here you are!", CONTENT);
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(player.getGodBook()), new Item(player.getTempInteger()));
+				player.setGodBook(player.getTempInteger());
+				player.setTempInteger(0);
+				return true;
+			    case 20:
+				player.getDialogue().sendNpcChat("Well, luckily for you my wife has quite the travels!", "She told me she came across a book on the ground.", "I believe this one is yours.", CONTENT);
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(player.getGodBook()));
+				return true;
+			    case 22:
+				player.getDialogue().sendNpcChat("Eh, not so much. What I told you before about them", "is still all I know. I'm on the hunt for more", "answers though.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 30:
+				player.getDialogue().dontCloseInterface();
+				ShopManager.openShop(player, 167);
+				return true;
+			}
+		    return false;
+		    case FINISH_UP_QUEST:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("So what do I do with this...'book'?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("Well, it looks to be incomplete. If you can find the", "missing pages it should have it's full power again!", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("And what power is that?", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Well, it's a holy book of a god!", "It'll grant you a nice bonus to Prayer.", "You should also be able to preach from the book to others.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Hmm, interesting. Thank you Jossik.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("No, thank you for saving my life in that cave!", "I owe you big time!", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().dontCloseInterface();
+				QuestHandler.completeQuest(player, 26);
+				return true;
+			}
+		    return false;
+		    case TALK_TO_JOSSIK:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("Oh, good, you made it to safety!", HAPPY);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("It seems I was not as injured as I thought...", "paralyzed by fear I suppose. I must thank you for", "all your help!", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Now, about that casket you found on that monster's", "corpse...", CONTENT);
+				return true;
+			    case 4:
+				if(!player.getInventory().ownsItem(RUSTY_CASKET)) {
+				    player.getDialogue().sendPlayerChat("Oh, it seems I didn't grab the casket...", SAD);
+				    player.getDialogue().setNextChatId(17);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("I have it here. You said you might be able to tell me", "something about it...?", CONTENT);
+				    return true;
+				}
+			    case 5:
+				player.getDialogue().sendNpcChat("I can indeed! Here, let me have a closer look...", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Yes! There is something written on it!", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("It is very faint however...", "Can you read it?", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendPlayerChat("It says...", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendOption("Saradomin", "Zamorak", "Guthix");
+				return true;
+			    case 10:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("'Saradomin'.", CONTENT);
+					player.setTempInteger(DAMAGED_SARA_BOOK);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("'Zamorak'.", CONTENT);
+					player.setTempInteger(DAMAGED_ZAM_BOOK);
+					return true;
+				    case 3:
+					player.getDialogue().sendPlayerChat("'Guthix'.", CONTENT);
+					player.setTempInteger(DAMAGED_GUTH_BOOK);
+					return true;
+				}
+			    case 11:
+				player.getDialogue().sendNpcChat("Are you sure?", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().sendOption("Yes.", "Perhaps I need to take another look.");
+				return true;
+			    case 13:
+				switch(optionId) {
+				    case 1:
+					player.getDialogue().sendPlayerChat("I'm sure.", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendPlayerChat("Perhaps I need to take another look.", CONTENT);
+					player.getDialogue().setNextChatId(10);
+					return true;
+				}
+			    case 14:
+				player.getDialogue().sendNpcChat("I think you're right!", "Let's see what's inside...", CONTENT);
+				return true;
+			    case 15:
+				player.setGodBook(player.getTempInteger());
+				player.setTempInteger(0);
+				Item item = new Item(player.getGodBook());
+				player.getInventory().replaceItemWithItem(new Item(RUSTY_CASKET), item);
+				player.getDialogue().sendNpcChat(item.getDefinition().getDescription() + ".. Wow!", "I thought these had all vanished!", HAPPY);
+				player.getDialogue().setNextChatId(1);
+				player.setQuestStage(26, 8);
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("Lucky for you, I grabbed it before I left.", "You're bold to leave something so curious behind!", "Let me take a look at it...", CONTENT);
+				player.getDialogue().setNextChatId(6);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
 	    case SITTING_JOSSIK:
 		switch (player.getQuestStage(26)) {
+		    case TALK_TO_JOSSIK:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Meet me up in this cave.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		    case MOTHER_DEAD:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("Okay, it's dead, let's get out of here!", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("Yes, quickly, the mother might be dead, but it's", "children are not!", DISTRESSED);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Follow me to the upper level, I may be able to", "help you with that casket that dropped.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("It looks... familiar somehow...", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(26, 7);
+				return true;	
+			}
+		    return false;
+		    case CHILD_DAG_DEAD:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("Okay, now that the creature's dead we can get you", "out of here.", HAPPY);
+				return true;
+			    case 2:
+				player.getDialogue().sendNpcChat("No... you do not understand...", SAD);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("That was not the creature that attacked me...", DISTRESSED);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("That was one of it's babies...", DISTRESSED);
+				return true;
+			    case 5:
+				player.getDialogue().endDialogue();
+				spawnEncounter(player, WHITE_MOTHER);
+				break;
+			}
+		    return false;
 		    case DAGANNOTH_DOOR_UNLOCKED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
@@ -507,7 +1058,12 @@ public class HorrorFromTheDeep implements Quest {
 				player.getDialogue().sendNpcChat("NO! No, you can't leave me now!", "Look! They're coming again! Do something!!", DISTRESSED);
 				return true;
 			    case 11:
-				//encounter
+				player.getDialogue().sendPlayerChat("Okay, I'll keep them at bay, hold on...", CONTENT);
+				return true;
+			    case 12:
+				player.getDialogue().endDialogue();
+				spawnEncounter(player, CHILD_DAGANNOTH);
+				break;
 			}
 		    return false;
 		}
@@ -718,10 +1274,24 @@ public class HorrorFromTheDeep implements Quest {
 		}
 	    case LARRISSA:
 		switch (player.getQuestStage(26)) {
+		    case 3:
+		    case 4:
+		    case 5:
+		    case 6:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Oh, I'm so worried about Jossik... Find him", "quickly please!!", DISTRESSED);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		    case 7:
+		    case 8:
 		    case QUEST_COMPLETE:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("x", CONTENT);
+				player.getDialogue().sendNpcChat("Oh, thank you so much! Jossik is safe!", "Now if only I could get him to leave that cave...", CONTENT);
+				player.getDialogue().endDialogue();
 				return true;
 			}
 		    return false;

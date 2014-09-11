@@ -54,6 +54,7 @@ public class GodBook {
 						player.getInventory().removeItem(new Item(dmgB));
 						player.getInventory().addItem(new Item(comB));
 						player.getActionSender().sendMessage("The book is now complete!");
+						player.setGodBook(comB);
 						return true;
 					}
 					else

@@ -2080,7 +2080,9 @@ public class WalkToActionHandler {
 			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;
 		}
-		npc.setInteractingEntity(player);
+		if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK) {
+		    npc.setInteractingEntity(player);
+		}
 		World.submit(new Tick(1, true) {
 			@Override
 			public void execute() {
