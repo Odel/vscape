@@ -132,6 +132,9 @@ public class PacketManager {
 	{
 		PacketHandler packetHandler = packets[packet.getOpcode()];
 		if (packetHandler == null) {
+			if(packet.getOpcode() == 18) {
+			    player.getActionSender().sendMessage("You must cast spells on Chompy birds to attack them!");
+			}
 			if (Constants.SERVER_DEBUG) {
 				System.out.println("player?: " +player.getUsername() + " Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
 			}
