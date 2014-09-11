@@ -513,6 +513,20 @@ public class WalkToActionHandler {
 					BankManager.openBank(player);
 					break;
 				    }
+				case 2324: //ogre rope swing
+				    player.getActionSender().sendMessage("You attempt to swing on the rope swing...");
+				    player.fadeTeleport(new Position(2511, player.getPosition().getY() < 3095 ? 3096 : 3091, 0));
+				    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+					    b.stop();
+					}
+					@Override
+					public void stop() {
+					    player.getActionSender().sendMessage("...you make it safely across.");
+					}
+				    }, 4);
+				    break;
 				case 5098: //brimhaven stairs back down
 				case 5096:
 				    if(player.getPosition().getY() > 9585) {
