@@ -321,7 +321,7 @@ public class DemonSlayer implements Quest {
 		case 879: //delrith
 		    return true;
 	    }
-	    if(npc.getDefinition().getName().contains("demon")) {
+	    if(npc.getDefinition().getName().toLowerCase().contains("demon")) {
 		return true;
 	    }
 	    else {
