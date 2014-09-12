@@ -527,6 +527,24 @@ public class WalkToActionHandler {
 					}
 				    }, 4);
 				    break;
+				case 1600:
+				case 1601:
+				    if(player.getSkill().getLevel()[Skill.MAGIC] < 66) {
+					player.getDialogue().sendStatement("You need a Magic level of 66 to enter the Magic Guild.");
+					break;
+				    }
+				    else {
+					if(x < 2587) {
+					    player.getActionSender().walkTo(player.getPosition().getX() < 2585 ? 1 : -1, 0, true);
+					    player.getActionSender().walkThroughDoubleDoor(1600, 1601, 2584, 3088, 2584, 3087, 0);
+					    break;
+					}
+					else {
+					    player.getActionSender().walkTo(player.getPosition().getX() > 2596 ? -1 : 1, 0, true);
+					    player.getActionSender().walkThroughDoubleDoor(1600, 1601, 2597, 3087, 2597, 3088, 0);
+					    break;
+					}
+				    }
 				case 5098: //brimhaven stairs back down
 				case 5096:
 				    if(player.getPosition().getY() > 9585) {
