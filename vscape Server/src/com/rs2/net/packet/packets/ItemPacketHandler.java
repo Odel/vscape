@@ -975,7 +975,11 @@ public class ItemPacketHandler implements PacketHandler {
 			case 4566 : // rubber chicken
 				player.getUpdateFlags().sendAnimation(1835);
 			return;
-			
+			case 3840:
+			case 3842:
+			case 3844: //god books
+			    HorrorFromTheDeep.preachGodBook(player, itemId);
+			    return;
 			case 2568 : // RING OF FORGING CHARGE CHECK
 				player.getActionSender().sendMessage("You have "+player.getRingOfForgingLife()+" Ring of Forging charge(s) remaining.");
 			return;

@@ -1,3 +1,13 @@
+@dre@=September 12th=
+@blu@Horror From The Deep
+-Lighthouse dagannoth cave open post-quest.
+-Slayer Dart damage corrected.
+-Jangerberries on "Ogre Isle" west of Yanille.
+-Chompy bird meat and rabbit meat obtainable.
+-3rd age returns to clues with increased rarity.
+-Magic guild now has the proper requisite.
+-Slight reduction in high level ore respawn times.
+
 @dre@=September 5th=
 @blu@New client on the Steam page/thread.
 -Yell timer now changes based on how many

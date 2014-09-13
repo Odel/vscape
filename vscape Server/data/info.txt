@@ -30,6 +30,8 @@
 -Coordinate clues only require a spade.
 -Dig in the garden of the quest marker house near
 West Ardougne to tunnel into West Ardouge.
+-If you die with your god book, do not equip another!
+Go straight to Jossik to recover the lost book.
 
 @dre@=Admins=
 Mr Telescope
