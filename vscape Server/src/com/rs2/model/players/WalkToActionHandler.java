@@ -98,6 +98,7 @@ import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.transport.Sailing;
+import com.rs2.model.transport.Travel;
 
 public class WalkToActionHandler {
 
@@ -2336,6 +2337,9 @@ public class WalkToActionHandler {
 				case 171:
 					Runecrafting.teleportRunecraft(player, npc);
 					break;
+				case 510: //hajedy
+				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
+				    break;
 				case 960:
 				case 961:
 				case 962:
@@ -2392,6 +2396,9 @@ public class WalkToActionHandler {
 				case 553:
 					Runecrafting.teleportRunecraft(player, npc);
 					break;
+				case 510: //hajedy
+				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
+				    break;
 				case 70:
 				case 1596:
 				case 1597:
@@ -2461,6 +2468,9 @@ public class WalkToActionHandler {
 				player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				switch (player.getClickId()) {
+				case 510: //hajedy
+				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
+				    break;
 				case 494:
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
