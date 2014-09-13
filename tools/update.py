@@ -46,6 +46,7 @@ if buildconfirm == "y":
 		shutil.copytree("world","/var/vidyascape/world")
 
 		shutil.copyfile("info.txt","/var/vidyascape/data/info.txt")
+		shutil.copyfile("/home/travis/vidyascape/vscape Server/data/ruby/npc-combat.rb","/var/vidyascape/data/ruby/npc-combat.rb");
 		shutil.copyfile("/home/travis/vidyascape/vscape Server/data/patchnotes.txt","/var/vidyascape/data/patchnotes.txt");
 
 		os.chdir('/home/travis/vidyascape/vscape Server')
