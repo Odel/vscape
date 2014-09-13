@@ -233,6 +233,31 @@ class DagannothRange < NpcCombatDef
     end
 end
 
+class WeakDagannothRange < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 6, 8, 1343, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)		
+		];
+    end
+end
+
+class WeakDagannothMelee < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 8, 5, 1341),		
+		];
+    end
+end
+
+class DagannothMother < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 18, 5, 1341),
+		    BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 12, 8, 1343, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)
+		];
+    end
+end
+
 class Defiler < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -385,3 +410,6 @@ NpcCombatDef.add([908], KolodionSecondForm.new())
 NpcCombatDef.add([910], KolodionFourthForm.new())
 NpcCombatDef.add([1046], MonkOfZamorak.new())
 NpcCombatDef.add([1618], BloodVeld.new())
+NpcCombatDef.add([1351, 1352, 1353, 1354, 1355, 1356], DagannothMother.new())
+NpcCombatDef.add([1341, 1342, 1343], WeakDagannothMelee.new())
+NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())

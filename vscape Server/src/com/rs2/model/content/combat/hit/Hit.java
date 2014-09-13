@@ -42,6 +42,7 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -158,6 +159,14 @@ public class Hit {
 			int id = player.getEquipment().getId(Constants.WEAPON);
 			if(id >= 6522 && id < 6529) {
 			    damage += damage/4;
+			}
+		    }
+		}
+		if(attacker != null && attacker.isNpc()) {
+		    Npc npc = (Npc)attacker;
+		    if(npc.getNpcId() >= 1338 && npc.getNpcId() < 1344) { //weak dagannoths under lighthouse
+			if(80 >= (new Random().nextDouble() * 100.0)) {
+			    damage = 0;
 			}
 		    }
 		}

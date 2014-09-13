@@ -362,7 +362,7 @@ public class HorrorFromTheDeep implements Quest {
 	npc.sendTransform(npcId - 3, 20);
 	npc.setFollowingEntity(player);
 	player.setFollowingEntity(npc);
-	player.walkTo(new Position(2511, 10021, 0), true);
+	player.walkTo(new Position(2512, 10020, 0), true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -386,7 +386,7 @@ public class HorrorFromTheDeep implements Quest {
 			    @Override
 			    public void execute(CycleEventContainer b) {
 				npc.getMovementHandler().setCanWalk(true);
-				npc.walkTo(new Position(2512, 10021, 0), false);
+				npc.walkTo(new Position(2512, 10019, 0), false);
 				b.stop();
 			    }
 			    @Override
@@ -396,7 +396,7 @@ public class HorrorFromTheDeep implements Quest {
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					npc.getMovementHandler().setCanWalk(true);
-					npc.walkTo(new Position(2512, 10021, 0), false);
+					npc.walkTo(new Position(2512, 10019, 0), false);
 					b.stop();
 				    }
 
@@ -982,7 +982,7 @@ public class HorrorFromTheDeep implements Quest {
 		    case TALK_TO_JOSSIK:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("Meet me up in this cave.", CONTENT);
+				player.getDialogue().sendNpcChat("Meet me up past that strange door.", CONTENT);
 				player.getDialogue().endDialogue();
 				return true;
 			}
@@ -1346,13 +1346,13 @@ public class HorrorFromTheDeep implements Quest {
 			    case 9:
 				player.getDialogue().sendPlayerChat("But how can I help?", CONTENT);
 				return true;
-			    case 11:
+			    case 10:
 				player.getDialogue().sendNpcChat("Well, we have to get inside to see where he has gone!", "If you could go and visit my cousin and get the", "spare key I left him, I will be eternally grateful!", CONTENT);
 				return true;
-			    case 12:
+			    case 11:
 				player.getDialogue().sendOption("Okay, I'll help!", "Sorry, I'm just passing through, I can't help you.");
 				return true;
-			    case 13:
+			    case 12:
 				switch(optionId) {
 				    case 1:
 					player.getDialogue().sendPlayerChat("Okay, I'll help!", CONTENT);
@@ -1362,22 +1362,22 @@ public class HorrorFromTheDeep implements Quest {
 					player.getDialogue().endDialogue();
 					return true;
 				}
-			    case 14:
+			    case 13:
 				player.getDialogue().sendNpcChat("OH! THANK YOU SO MUCH! I know my darling", "would never have left without telling me where he's gone!", HAPPY);
 				return true;
-			    case 15:
+			    case 14:
 				player.getDialogue().sendPlayerChat("Where is your cousin at?", CONTENT);
 				return true;
-			    case 16:
+			    case 15:
 				player.getDialogue().sendNpcChat("My cousin was always interested in agility. He left our", "home in Rellekka many moons ago, so that he could", "pursue his interest.", CONTENT);
 				return true;
-			    case 17:
+			    case 16:
 				player.getDialogue().sendNpcChat("I don't know exactly where he has gone, but I am sure", "he went somewhere to practice his agility. If you see", "him, his name is Gunnjorn. Mention my name, he will", "recognize it.", CONTENT);
 				return true;
-			    case 18:
+			    case 17:
 				player.getDialogue().sendPlayerChat("I'll see what I can do to find him.", CONTENT);
 				return true;
-			    case 19:
+			    case 18:
 				player.getDialogue().sendNpcChat("Thank you so much!", HAPPY);
 				player.getDialogue().endDialogue();
 				QuestHandler.startQuest(player, 26);

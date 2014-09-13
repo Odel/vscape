@@ -216,6 +216,7 @@ public abstract class BasicAttack extends AttackScript {
 
 		@SuppressWarnings("rawtypes")
 	public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory, final int addedHitDelay, final Effect effects) {
+		final Entity attackerFinal = attacker;
 		return new BasicAttack(attacker, victim) {
 			@Override
 			public int distanceRequired() {
@@ -231,7 +232,13 @@ public abstract class BasicAttack extends AttackScript {
 			@Override
 			public void initialize() {
 				ProjectileDef projectileDef = trajectory != null && projectileId != -1 ? new ProjectileDef(projectileId, trajectory) : null;
-				setHits(new HitDef[]{new HitDef(new AttackStyle(attackType, mode, attackType == AttackType.RANGED ? AttackStyle.Bonus.RANGED : AttackStyle.Bonus.MAGIC), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()});
+				if(attackerFinal != null && attackerFinal.isNpc() && ((Npc)attackerFinal).getNpcId() >= 1351 && ((Npc)attackerFinal).getNpcId() < 1357) {
+				    setHits(new HitDef[]{new HitDef(new AttackStyle(attackType, mode, attackType == AttackType.RANGED ? AttackStyle.Bonus.RANGED : AttackStyle.Bonus.MAGIC), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()
+				    , new HitDef(new AttackStyle(attackType, mode, attackType == AttackType.RANGED ? AttackStyle.Bonus.RANGED : AttackStyle.Bonus.MAGIC), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()});
+				}
+				else {
+				    setHits(new HitDef[]{new HitDef(new AttackStyle(attackType, mode, attackType == AttackType.RANGED ? AttackStyle.Bonus.RANGED : AttackStyle.Bonus.MAGIC), HitType.NORMAL, damage).setProjectile(projectileDef).setStartingHitDelay(addedHitDelay).setHitGraphic(endGfx).applyAccuracy().randomizeDamage()});
+				}
 				if (effects != null)
 				    addEffect(effects);
 				setAnimation(animation);
@@ -257,6 +264,7 @@ public abstract class BasicAttack extends AttackScript {
 			}
 		};
 	}
+	
    public static BasicAttack projectileAttack(Entity attacker, Entity victim, final AttackType attackType, final AttackStyle.Mode mode, final int damage, final int delay, final int animation, final Graphic startGfx, final Graphic endGfx, final int projectileId, final ProjectileTrajectory trajectory) {
         return projectileAttack(attacker, victim, attackType, mode, damage,  delay, animation, startGfx, endGfx, projectileId, trajectory, 0, null);
     }

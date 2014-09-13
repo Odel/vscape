@@ -29519,7 +29519,7 @@
     "defenceRange": 46,
     "defenceMage": 92,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false
   },
@@ -29541,7 +29541,7 @@
     "defenceRange": 46,
     "defenceMage": 92,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false
   },
@@ -29563,7 +29563,7 @@
     "defenceRange": 46,
     "defenceMage": 92,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false
   },
@@ -29640,7 +29640,7 @@
     "respawn": 10,
     "combat": 100,
     "hitpoints": 90,
-    "maxHit": 10,
+    "maxHit": 15,
     "size": 2,
     "attackSpeed": 4000,
     "attackAnim": 1341,
@@ -29651,7 +29651,7 @@
     "defenceRange": 50,
     "defenceMage": 100,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false
   },

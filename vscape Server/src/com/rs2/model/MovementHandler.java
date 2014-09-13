@@ -398,7 +398,8 @@ public class MovementHandler {
 		{2507, 10020},
 		{2506, 10020},
 		{2505, 10020},
-		{2505, 10020}
+		{2510, 10023},
+		{2509, 10023}
 		};
 	public static boolean walkIntoNpcCheck(Entity entity, int x, int y) {
 	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
