@@ -428,6 +428,7 @@ public class HorrorFromTheDeep implements Quest {
 	npc.setFollowingEntity(player);
 	player.setFollowingEntity(npc);
 	player.walkTo(new Position(2512, 10020, 0), true);
+	player.setStopPacket(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -467,7 +468,9 @@ public class HorrorFromTheDeep implements Quest {
 
 				    @Override
 				    public void stop() {
+					npc.walkTo(new Position(2512, 10019, 0), false);
 					CombatManager.attack(npc, player);
+					player.setStopPacket(false);
 					if(npc.getNpcId() == WHITE_MOTHER) {
 					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
@@ -649,7 +652,7 @@ public class HorrorFromTheDeep implements Quest {
 	    case THIRD_ROCK_FROM_FOURTH:
 	    case FOURTH_ROCK_TO_SHORE:
 	    case SHORE_TO_FOURTH_ROCK:
-		if (Misc.random(69) == 5) {
+		if (Misc.random(69) == 5 && Misc.goodDistance(player.getPosition().clone(), new Position(x, y, 0), 2)) {
 		    player.getActionSender().sendMessage("You slip while jumping across the rock...");
 		    player.fadeTeleport(new Position(2518, 3594, 0));
 		    player.getActionSender().sendMessage("...You find yourself washed up on shore.");
@@ -733,6 +736,12 @@ public class HorrorFromTheDeep implements Quest {
 			player.getActionSender().sendMessage("This door is locked firmly.");
 			return true;
 		    case 3:
+		    case 4:
+		    case 5:
+		    case 6:
+		    case 7:
+		    case 8:
+		    case 9:
 			player.getActionSender().walkTo(0, player.getPosition().getY() < 3636 ? 1 : -1, true);
 			//player.getActionSender().walkThroughDoor(object, x, y, 0);
 			return true;

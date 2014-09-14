@@ -616,9 +616,6 @@ public class Hit {
 		if(chance * 1.3 >= 1.0) { chance = 1.0; }
 		else { chance *= 1.3; }
 	    }
-	    if(getAttacker().isPlayer() && ((Player)attacker).getBonus(3) < 0 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
-		chance = .0001;
-	    }
             if (getAttacker().isPlayer() && ((Player) getAttacker()).isDebugCombat()) {
             	((Player) getAttacker()).getActionSender().sendMessage("Chance to hit: "+(int) (chance * 100)+"% (Rounded)");
             }
@@ -628,7 +625,11 @@ public class Hit {
 	    if (getVictim().isPlayer() && ((Player) getVictim()).isDebugCombat() && getAttacker().isPlayer()) {
             	((Player) getVictim()).getActionSender().sendMessage("Chance of player hitting you: "+(int) (chance * 100)+"% (Rounded)");
             }
-            hit = accurate;
+	    if (getAttacker().isPlayer() && ((Player) attacker).getBonus(3) <= -20 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+		hit = false;
+	    } else {
+		hit = accurate;
+	    }
         }
         if (!hit && !hitDef.isUnblockable()) {
             if (hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
