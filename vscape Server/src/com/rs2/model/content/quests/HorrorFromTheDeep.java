@@ -356,6 +356,14 @@ public class HorrorFromTheDeep implements Quest {
 	}
 	return false;
     }
+    public static boolean motherSpawned(final Player player) {
+	for(int i = 1348; i < 1357; i++) {
+	    if(NpcLoader.checkSpawn(player, i)) {
+		return true;
+	    }
+	}
+	return false;
+    }
     public static void preachGodBook(final Player player, final int book) {
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
@@ -462,6 +470,7 @@ public class HorrorFromTheDeep implements Quest {
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					npc.getMovementHandler().setCanWalk(true);
+					npc.setPlayerOwner(player.getIndex());
 					npc.walkTo(new Position(2512, 10019, 0), false);
 					b.stop();
 				    }
@@ -475,8 +484,9 @@ public class HorrorFromTheDeep implements Quest {
 					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer b) {
-						    if(npc.isDead() || npc.getCurrentHp() == 0 || player.getQuestStage(26) >= 6) {
+						    if(npc.isDead() || npc.getCurrentHp() == 0 || player.getQuestStage(26) >= 6 || !Misc.goodDistance(player.getPosition(), npc.getPosition(), 30) || !npc.isAttacking()) {
 							b.stop();
+							return;
 						    }
 						    int color = MOTHER_COLORS[Misc.randomMinusOne(MOTHER_COLORS.length)];
 						    int hp = npc.getCurrentHp();
@@ -514,6 +524,7 @@ public class HorrorFromTheDeep implements Quest {
 						}
 						@Override
 						public void stop() {
+							NpcLoader.destroyNpc(npc);
 						}
 					    }, 15);
 					}
@@ -1082,8 +1093,15 @@ public class HorrorFromTheDeep implements Quest {
 		    case CHILD_DAG_DEAD:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("Okay, now that the creature's dead we can get you", "out of here.", HAPPY);
-				return true;
+				if(motherSpawned(player)) {
+				    player.getDialogue().sendNpcChat("What are you doing talking to me?!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("Okay, now that the creature's dead we can get you", "out of here.", HAPPY);
+				    return true;
+				}
 			    case 2:
 				player.getDialogue().sendNpcChat("No... you do not understand...", SAD);
 				return true;

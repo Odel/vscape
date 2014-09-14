@@ -220,6 +220,9 @@ public abstract class BasicAttack extends AttackScript {
 		return new BasicAttack(attacker, victim) {
 			@Override
 			public int distanceRequired() {
+				if(attackerFinal.isNpc() && ((Npc)attackerFinal).getNpcId() >= 1351 && ((Npc)attackerFinal).getNpcId() < 1357) {
+				    return 5;
+				}
 				if (mode == AttackStyle.Mode.DRAGONFIRE)
 					return 1;
 				if (mode == AttackStyle.Mode.DRAGONFIRE_FAR)

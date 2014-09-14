@@ -15,6 +15,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
+import com.rs2.util.Misc;
 
 /**
  * Having anything to do with any type of npc data loading.
@@ -184,10 +185,8 @@ public class NpcLoader {
 		npc.setNeedsRespawn(false);
 		World.register(npc);
 		player.setSpawnedNpc(npc);
-		if (player != null) {
-		    npc.setFollowingEntity(player);
-		    CombatManager.attack(npc, player);
-		    npc.getUpdateFlags().sendFaceToDirection(player.getPosition());
+		if(Misc.goodDistance(player.getPosition(), spawningPosition, 10)) {
+		    npc.setPlayerOwner(player.getIndex());
 		}
 		if(hintIcon)
 		    player.getActionSender().createPlayerHints(1, (npc).getIndex());
@@ -236,6 +235,9 @@ public class NpcLoader {
 	}
 
 	public static void destroyNpc(Npc npc) {
+		if(npc == null) {
+		    return;
+		}
 		if (npc.getPlayerOwner() != null) {
 			npc.getPlayerOwner().setSpawnedNpc(null);
 		}
