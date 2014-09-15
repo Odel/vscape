@@ -1032,16 +1032,20 @@ public class Equipment {
 			case 7370: //green (t) and (g) body
 			    rangeLevelReq = 40;
 			    defenceLevelReq = 40;
+			    return;
 			case 7380:
 			case 7378: //green (t) and (g) chap
-			    rangeLevelReq = 40;  
+			    rangeLevelReq = 40;
+			    return;
 			case 7376:
 			case 7374: //blue (t) and (g) body
 			    rangeLevelReq = 50;
 			    defenceLevelReq = 40;
+			    return;
 			case 7384:
 			case 7382: //blue (t) and (g) chap
 			    rangeLevelReq = 50;
+			    return;
 			case 1135: //green dhide body
 				rangeLevelReq = 40;
 				defenceLevelReq = 40;
@@ -1467,7 +1471,7 @@ public class Equipment {
 			return;
 		}
 		//dhide
-		if (itemName.contains("d'hide")) {
+		if (itemName.toLowerCase().contains("d'hide")) {
 			if(itemName.contains("chaps"))
 			{
 				defenceLevelReq = 1;

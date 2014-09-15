@@ -1713,6 +1713,31 @@ public class GhostsAhoy implements Quest {
 				return true;
 			}
 		    return false;
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Thank you so much again adventurer. We are,", "in your debt.", HAPPY);
+				return true;
+			    case 2:
+				if(!player.getInventory().ownsItem(ECTOPHIAL)) {
+				    player.getDialogue().sendPlayerChat("I seem to have lost my Ectophial...", SAD);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("Only happy to help.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("And I've found another one, your lucky day.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendGiveItemNpc("Velorina hands you a vial of bright green ectoplasm.", new Item(ECTOPHIAL));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItem(new Item(ECTOPHIAL));
+				return true;
+			}
+		    return false;
 		}
 	    return false;
 	    case GHOST_CAPTAIN_2:

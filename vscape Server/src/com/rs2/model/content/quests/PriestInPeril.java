@@ -1246,7 +1246,24 @@ public class PriestInPeril implements Quest {
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendNpcChat("Thank you ever so much again, adventurer!", HAPPY);
+				return true;
+			    case 2:
+				if(!player.getInventory().ownsItem(WOLFBANE)) {
+				    player.getDialogue().sendPlayerChat("I seem to have misplaced my Wolfbane...", SAD);
+				    return true;
+				}
+				else {
+				    player.getDialogue().sendPlayerChat("Only happy to help.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("And I happen to have another one, your lucky day.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendGiveItemNpc("Drezel hands you another Wolfbane.", new Item(WOLFBANE));
 				player.getDialogue().endDialogue();
+				player.getInventory().addItem(new Item(WOLFBANE));
 				return true;
 			}
 		    return false;
