@@ -8513,5 +8513,110 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 4278
+    },
+    {
+    "shopId": 199,
+    "name": "The Lighthouse Store",
+    "items": [
+      {
+        "id": 954,
+        "count": 10
+      },
+      {
+        "id": 2347,
+        "count": 10
+      },
+      {
+        "id": 1755,
+        "count": 10
+      },
+      {
+        "id": 946,
+        "count": 10
+      },
+      {
+        "id": 952,
+        "count": 10
+      },
+      {
+        "id": 590,
+        "count": 10
+      },
+      {
+        "id": 36,
+        "count": 10
+      },
+      {
+        "id": 273,
+        "count": 10
+      },
+      {
+        "id": 233,
+        "count": 10
+      },
+      {
+        "id": 1931,
+        "count": 30
+      }, 
+      {
+        "id": 1925,
+        "count": 30
+      },
+      {
+        "id": 1929,
+        "count": 10
+      },
+      {
+        "id": 1935,
+        "count": 10
+      },
+      {
+        "id": 1937,
+        "count": 300
+      },
+      {
+        "id": 229,
+        "count": 10
+      },
+      {
+        "id": 227,
+        "count": 10
+      },
+      {
+        "id": 2019,
+        "count": 10
+      },
+      {
+        "id": 2021,
+        "count": 10
+      },
+      {
+        "id": 2015,
+        "count": 10
+      },
+      {
+        "id": 1915,
+        "count": 10
+      },
+      {
+        "id": 2017,
+        "count": 10
+      },
+      {
+        "id": 1909,
+        "count": 10
+      },
+      {
+        "id": 1913,
+        "count": 10
+      },
+      {
+        "id": 1907,
+        "count": 10
+      }
+      ],
+    "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
     }
 ]

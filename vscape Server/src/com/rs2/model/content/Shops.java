@@ -465,8 +465,8 @@ public class Shops {
 			break;
 			/*case 797: //
 				return 166;*/
-			case 1334:
-				return 167;
+			case 1334: //jossik
+				return 199;
 			case 797: //hero shop
 				return 168;
 			case 1208://halberd
