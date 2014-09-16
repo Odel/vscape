@@ -117,6 +117,8 @@ public class Constants {
 	public static boolean SMITHING_ENABLED = true;
 	public static boolean THIEVING_ENABLED = true;
 	public static boolean WOODCUTTING_ENABLED = true;
+	
+	public static boolean DEGRADING_ENABLED = false;
 
     public static boolean DUELING_DISABLED = false;
     

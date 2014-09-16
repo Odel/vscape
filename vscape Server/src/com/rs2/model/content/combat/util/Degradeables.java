@@ -4,7 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
 
-public enum BarrowsItems {
+public enum Degradeables {
     
     AHRIMS_HOOD(4708, 4856, 4857, 4858, 4859, 4860, Constants.HAT, 0),
     AHRIMS_TOP(4712, 4868, 4869, 4870, 4871, 4872, Constants.CHEST, 1),
@@ -34,16 +34,43 @@ public enum BarrowsItems {
     VERACS_HELM(4753, 4976, 4977, 4978, 4980, 4981, Constants.HAT, 20),
     VERACS_TOP(4757, 4988, 4989, 4990, 4991, 4992, Constants.CHEST, 21),
     VERACS_SKIRT(4759, 4994, 4995, 4996, 4997, 4998, Constants.LEGS, 22),
-    VERACS_FLAIL(4755, 4982, 4983, 4984, 4985, 4986, Constants.WEAPON, 23);
+    VERACS_FLAIL(4755, 4982, 4983, 4984, 4985, 4986, Constants.WEAPON, 23),
 
-    private final int originalId, firstDegradeId, secondDegradeId, thirdDegradeId, fourthDegradeId, brokenId, equipSlot, playerArraySlot;
-
-    BarrowsItems(int originalId, int firstDegradeId, int secondDegradeId, int thirdDegradeId, int fourthDegradeId, int brokenId, int equipSlot, int playerArraySlot) {
+    CRYSTAL_BOW(4212, 4214, 4215, 4216, 4217, 4218, 4219, 4220, 4221, 4222, 4223, 4211, Constants.WEAPON, 24),
+    CRYSTAL_SHIELD(4224, 4225, 4226, 4227, 4228, 4229, 4230, 4231, 4232, 4233, 4234, 4211, Constants.WEAPON, 25);
+    
+    private final int originalId, firstDegradeId, secondDegradeId, thirdDegradeId, fourthDegradeId, fifthDegradeId, sixthDegradeId, seventhDegradeId, eigthDegradeId, ninthDegradeId, tenthDegradeId, brokenId, equipSlot, playerArraySlot;
+    public static final int DEGRADE_HITS = 2500;
+    
+    Degradeables(int originalId, int firstDegradeId, int secondDegradeId, int thirdDegradeId, int fourthDegradeId, int brokenId, int equipSlot, int playerArraySlot) {
 	this.originalId = originalId;
 	this.firstDegradeId = firstDegradeId;
 	this.secondDegradeId = secondDegradeId;
 	this.thirdDegradeId = thirdDegradeId;
 	this.fourthDegradeId = fourthDegradeId;
+	this.fifthDegradeId = -1;
+	this.sixthDegradeId = -1;
+	this.seventhDegradeId = -1;
+	this.eigthDegradeId = -1;
+	this.ninthDegradeId = -1;
+	this.tenthDegradeId = -1;
+	this.brokenId = brokenId;
+	this.equipSlot = equipSlot;
+	this.playerArraySlot = playerArraySlot;
+    }
+    
+    Degradeables(int originalId, int firstDegradeId, int secondDegradeId, int thirdDegradeId, int fourthDegradeId, int fifthDegradeId, int sixthDegradeId, int seventhDegradeId, int eigthDegradeId, int ninthDegradeId, int tenthDegradeId, int brokenId, int equipSlot, int playerArraySlot) {
+	this.originalId = originalId;
+	this.firstDegradeId = firstDegradeId;
+	this.secondDegradeId = secondDegradeId;
+	this.thirdDegradeId = thirdDegradeId;
+	this.fourthDegradeId = fourthDegradeId;
+	this.fifthDegradeId = fifthDegradeId;
+	this.sixthDegradeId = sixthDegradeId ;
+	this.seventhDegradeId = seventhDegradeId ;
+	this.eigthDegradeId = eigthDegradeId;
+	this.ninthDegradeId = ninthDegradeId;
+	this.tenthDegradeId = tenthDegradeId;
 	this.brokenId = brokenId;
 	this.equipSlot = equipSlot;
 	this.playerArraySlot = playerArraySlot;
@@ -64,6 +91,24 @@ public enum BarrowsItems {
     public int getFourthDegradeId() {
 	return fourthDegradeId;
     }
+    public int getFifthDegradeId() {
+	return fifthDegradeId;
+    }
+    public int getSixthDegradeId() {
+	return sixthDegradeId;
+    }
+    public int getSeventhDegradeId() {
+	return seventhDegradeId;
+    }
+    public int getEigthDegradeId() {
+	return eigthDegradeId;
+    }
+    public int getNinthDegradeId() {
+	return ninthDegradeId;
+    }
+    public int getTenthDegradeId() {
+	return tenthDegradeId;
+    }
     public int getBrokenId() {
 	return brokenId;
     }
@@ -74,7 +119,7 @@ public enum BarrowsItems {
 	return playerArraySlot;
     }
 
-    public static BarrowsItems getBarrowsItem(Item item) {
+    public static Degradeables getDegradeableItem(Item item) {
 	if(item == null) {
 	    return null;
 	}
@@ -115,9 +160,13 @@ public enum BarrowsItems {
 		if (itemName.contains("top"))	return KARILS_TOP;
 		if (itemName.contains("coif"))	return KARILS_COIF;
 	    }
+	    if (itemName.toLowerCase().contains("crystal")) {
+		if (itemName.toLowerCase().contains("bow")) return CRYSTAL_BOW;
+		if (itemName.toLowerCase().contains("shield")) return CRYSTAL_SHIELD;
+	    }
 	    return null;
     }
-    public static boolean isDroppable(BarrowsItems compare, Item item) {
+    public static boolean isDroppable(Degradeables compare, Item item) {
 	if(item.getId() == compare.getOriginalId() || item.getId() == compare.getBrokenId()) {
 	    return true;
 	}
@@ -125,7 +174,7 @@ public enum BarrowsItems {
 	    return false;
 	}
     }
-    public static boolean notDroppable(BarrowsItems compare, Item item) {
+    public static boolean notDroppable(Degradeables compare, Item item) {
 	if(compare == null) {
 	    return false;
 	}
@@ -139,7 +188,7 @@ public enum BarrowsItems {
 	    return false;
 	}
     }
-    public static boolean droppableForDeath(BarrowsItems compare, Item item) {
+    public static boolean droppableForDeath(Degradeables compare, Item item) {
 	if(compare == null) {
 	    return false;
 	}
@@ -155,4 +204,3 @@ public enum BarrowsItems {
 	}
     }
 }
-

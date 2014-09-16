@@ -3,7 +3,8 @@ package com.rs2.net.packet.packets;
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.Emotes.EMOTE;
-import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -366,9 +367,9 @@ public class ButtonPacketHandler implements PacketHandler {
 					player.getActionSender().sendMessage("You can now obtain another God Cape.");
 					player.setCanHaveGodCape(true);
 				    }
-				    if (BarrowsItems.notDroppable(BarrowsItems.getBarrowsItem(item), item)) {
-					GroundItemManager.getManager().dropItem(new GroundItem(new Item(BarrowsItems.getBarrowsItem(item).getBrokenId()), player));
-					player.setBarrowsHits(BarrowsItems.getBarrowsItem(item).getPlayerArraySlot(), 0);
+				    if (Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(item).getBrokenId()), player));
+					player.setDegradeableHits(Degradeables.getDegradeableItem(item).getPlayerArraySlot(), 0);
 				    }
 					player.getInventory().removeItem(player.getDestroyItem());
 				}

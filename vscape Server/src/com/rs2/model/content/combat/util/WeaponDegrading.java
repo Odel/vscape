@@ -32,151 +32,109 @@ public class WeaponDegrading {
 		if (player.getEquipment().getItemContainer().get(slot).getTimer() >= 0) {
 		}	 //if time to degrade
 	}
-	public static int getBarrowsPlayerArraySlot(Item item) {
-	    String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
-	    if (itemName.contains("ahrim")) {
-		if (itemName.contains("staff")) return 3;
-		if (itemName.contains("skirt")) return 2;
-		if (itemName.contains("top")) return 1;
-		if (itemName.contains("hood")) return 0;
-
-	    }
-	    if (itemName.contains("guthan")) {
-		if (itemName.contains("spear")) return 15;
-		if (itemName.contains("skirt")) return 14;
-		if (itemName.contains("body")) return 13;
-		if (itemName.contains("helm")) return 12;
-	    }
-	    if (itemName.contains("torag")) {
-		if (itemName.contains("hammers")) return 11;
-		if (itemName.contains("legs")) return 10;
-		if (itemName.contains("body")) return 9;
-		if (itemName.contains("helm")) return 8;
-	    }
-	    if (itemName.contains("dharok")) {
-		if (itemName.contains("axe")) return 7;
-		if (itemName.contains("legs")) return 6;
-		if (itemName.contains("body")) return 5;
-		if (itemName.contains("helm")) return 4;
-	    }
-	    if (itemName.contains("verac")) {
-		if (itemName.contains("flail")) return 23;
-		if (itemName.contains("skirt")) return 22;
-		if (itemName.contains("top") || itemName.contains("brassard")) return 21;
-		if (itemName.contains("helm")) return 20;
-	    }
-	    if (itemName.contains("karil")) {
-		if (itemName.contains("bow")) return 19;
-		if (itemName.contains("skirt")) return 18;
-		if (itemName.contains("top")) return 17;
-		if (itemName.contains("coif")) return 16;
-	    }
-	    return -1;
-	}
-	public static int getBarrowsEquipSlot(Item item) {
-	    String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
-	    if (itemName.contains("ahrim")) {
-		if (itemName.contains("staff")) return Constants.WEAPON;
-		if (itemName.contains("skirt")) return Constants.LEGS;
-		if (itemName.contains("top")) return Constants.CHEST;
-		if (itemName.contains("hood")) return Constants.HAT;
-
-	    }
-	    if (itemName.contains("guthan")) {
-		if (itemName.contains("spear")) return Constants.WEAPON;
-		if (itemName.contains("skirt")) return Constants.LEGS;
-		if (itemName.contains("body")) return Constants.CHEST;
-		if (itemName.contains("helm")) return Constants.HAT;
-	    }
-	    if (itemName.contains("torag")) {
-		if (itemName.contains("hammers")) return Constants.WEAPON;
-		if (itemName.contains("legs")) return Constants.LEGS;
-		if (itemName.contains("body")) return Constants.CHEST;
-		if (itemName.contains("helm")) return Constants.HAT;
-	    }
-	    if (itemName.contains("dharok")) {
-		if (itemName.contains("axe")) return Constants.WEAPON;
-		if (itemName.contains("legs")) return Constants.LEGS;
-		if (itemName.contains("body")) return Constants.CHEST;
-		if (itemName.contains("helm")) return Constants.HAT;
-	    }
-	    if (itemName.contains("verac")) {
-		if (itemName.contains("flail")) return Constants.WEAPON;
-		if (itemName.contains("skirt")) return Constants.LEGS;
-		if (itemName.contains("top") || itemName.contains("brassard")) return Constants.CHEST;
-		if (itemName.contains("helm")) return Constants.HAT;
-	    }
-	    if (itemName.contains("karil")) {
-		if (itemName.contains("bow")) return Constants.WEAPON;
-		if (itemName.contains("skirt")) return Constants.LEGS;
-		if (itemName.contains("top")) return Constants.CHEST;
-		if (itemName.contains("coif")) return Constants.HAT;
-	    }
-	    return -1;
-	}
 	
 	public static void handlePlayerHit(final Player player) {
 	    Item equipped = player.getEquipment().getItemContainer().get(Constants.WEAPON);
-	    BarrowsItems item = BarrowsItems.getBarrowsItem(equipped);
-	    if (item == null) {
+	    Degradeables item = Degradeables.getDegradeableItem(equipped);
+	    if (item == null || !Constants.DEGRADING_ENABLED) {
 		return;
 	    }
 	    if (item.getEquipSlot() == Constants.WEAPON) {
-		if (equipped.getId() == item.getOriginalId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 0) {
-		    player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+		if (equipped.getId() == item.getOriginalId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == 0) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFirstDegradeId()));
 		    player.getEquipment().refresh();
-		} else if (equipped.getId() == item.getFirstDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 250) {
-		    player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+		} else if (equipped.getId() == item.getFirstDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getSecondDegradeId()));
 		    player.getEquipment().refresh();
-		} else if (equipped.getId() == item.getSecondDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 500) {
-		    player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+		} else if (equipped.getId() == item.getSecondDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 2) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getThirdDegradeId()));
 		    player.getEquipment().refresh();
-		} else if (equipped.getId() == item.getThirdDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 750) {
-		    player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+		} else if (equipped.getId() == item.getThirdDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 3) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFourthDegradeId()));
 		    player.getEquipment().refresh();
-		} else if (equipped.getId() == item.getFourthDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 1000) {
-		    player.getActionSender().sendMessage("Your barrows equipment has broken.");
+		} else if (equipped.getId() == item.getFourthDegradeId() && item.getFifthDegradeId() == -1 && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 4) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has broken.");
+		    player.setDegradeableHits(item.getPlayerArraySlot(), 0);
 		    if (player.getInventory().canAddItem(new Item(item.getBrokenId()))) {
 			player.getInventory().addItem(new Item(item.getBrokenId()));
 		    } else {
 			GroundItem dropItem = new GroundItem(new Item(item.getBrokenId()), player, player.getPosition().clone());
 			GroundItemManager.getManager().dropItem(dropItem);
 		    }
-		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), null);
+		    player.getEquipment().unequip(item.getEquipSlot());
+		    player.getInventory().removeItem(equipped);
 		    player.getEquipment().refresh();
+		    player.setAppearanceUpdateRequired(true);
+		} else if (equipped.getId() == item.getFourthDegradeId() && item.getFifthDegradeId() != -1 && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 4) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFifthDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getFifthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 5) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getSixthDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getSixthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 6) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getSeventhDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getSeventhDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 7) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getEigthDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getEigthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 8) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getNinthDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getNinthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 9) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
+		    player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getTenthDegradeId()));
+		    player.getEquipment().refresh();
+		} else if (equipped.getId() == item.getTenthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 10) {
+		    player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has broken.");
+		    player.setDegradeableHits(item.getPlayerArraySlot(), 0);
+		    if (player.getInventory().canAddItem(new Item(item.getBrokenId()))) {
+			player.getInventory().addItem(new Item(item.getBrokenId()));
+		    } else {
+			GroundItem dropItem = new GroundItem(new Item(item.getBrokenId()), player, player.getPosition().clone());
+			GroundItemManager.getManager().dropItem(dropItem);
+		    }
+		    player.getEquipment().unequip(item.getEquipSlot());
+		    player.getInventory().removeItem(equipped);
+		    player.getEquipment().refresh();
+		    player.setAppearanceUpdateRequired(true);
 		} else {
-		    player.setBarrowsHits(item.getPlayerArraySlot(), player.getBarrowsHits()[item.getPlayerArraySlot()] + 1);
+		    player.setDegradeableHits(item.getPlayerArraySlot(), player.getDegradeableHits()[item.getPlayerArraySlot()] + 1);
 		}
 	    } 
 	}
 	public static void handleNpcHit(final Player player) {
-	    BarrowsItems item = getRandomEquipped(player);
-	    if (item == null) {
+	    Degradeables item = getRandomEquipped(player);
+	    if (item == null || !Constants.DEGRADING_ENABLED) {
 		return;
 	    }
 	    Item equipped = player.getEquipment().getItemContainer().get(item.getEquipSlot());
-	    if (equipped.getId() == item.getOriginalId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 0) {
-		player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+	    if (equipped.getId() == item.getOriginalId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == 0) {
+		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFirstDegradeId()));
 		player.getEquipment().refresh();
-	    } else if (equipped.getId() == item.getFirstDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 250) {
-		player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+	    } else if (equipped.getId() == item.getFirstDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS) {
+		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getSecondDegradeId()));
 		player.getEquipment().refresh();
-	    } else if (equipped.getId() == item.getSecondDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 500) {
-		player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+	    } else if (equipped.getId() == item.getSecondDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 2) {
+		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getThirdDegradeId()));
 		player.getEquipment().refresh();
-	    } else if (equipped.getId() == item.getThirdDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 750) {
-		player.getActionSender().sendMessage("Your barrows equipment has degraded.");
+	    } else if (equipped.getId() == item.getThirdDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 3) {
+		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFourthDegradeId()));
 		player.getEquipment().refresh();
-	    } else if (equipped.getId() == item.getFourthDegradeId() && player.getBarrowsHits()[item.getPlayerArraySlot()] == 1000) {
-		player.getActionSender().sendMessage("Your barrows equipment has broken.");
+	    } else if (equipped.getId() == item.getFourthDegradeId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == Degradeables.DEGRADE_HITS * 4) {
+		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has broken.");
 		if (player.getInventory().canAddItem(new Item(item.getBrokenId()))) {
 		    player.getInventory().addItem(new Item(item.getBrokenId()));
 		} else {
@@ -186,28 +144,28 @@ public class WeaponDegrading {
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), null);
 		player.getEquipment().refresh();
 	    } else {
-		player.setBarrowsHits(item.getPlayerArraySlot(), player.getBarrowsHits()[item.getPlayerArraySlot()] + 1);
+		player.setDegradeableHits(item.getPlayerArraySlot(), player.getDegradeableHits()[item.getPlayerArraySlot()] + 1);
 	    }
 	}
-	private static BarrowsItems getRandomEquipped(final Player player) {
-	    ArrayList<BarrowsItems> equippedBarrows = new ArrayList<BarrowsItems>();
+	private static Degradeables getRandomEquipped(final Player player) {
+	    ArrayList<Degradeables> equippedDegradeables = new ArrayList<Degradeables>();
 	    for(int x = 0; x < 14; x++) {
 		Item equipped = player.getEquipment().getItemContainer().get(x);
-		BarrowsItems item = BarrowsItems.getBarrowsItem(equipped);
+		Degradeables item = Degradeables.getDegradeableItem(equipped);
 		if(item == null) continue;
 		if(item.getEquipSlot() == Constants.WEAPON) continue;
 		else {
-		    equippedBarrows.add(item);
+		    equippedDegradeables.add(item);
 		}
 	    }
-	    if(equippedBarrows.isEmpty()) {
+	    if(equippedDegradeables.isEmpty()) {
 		return null;
 	    }
-	    else if(equippedBarrows.size() == 1) {
-		return equippedBarrows.get(0);
+	    else if(equippedDegradeables.size() == 1) {
+		return equippedDegradeables.get(0);
 	    }
 	    else {
-		return equippedBarrows.get(Misc.random(equippedBarrows.size()));
+		return equippedDegradeables.get(Misc.randomMinusOne(equippedDegradeables.size()));
 	    }
 	}
 	private static void updateDegradingEquipment(Player player, int slot, Item equipment) {
@@ -228,6 +186,7 @@ public class WeaponDegrading {
 					player.getActionSender().sendMessage("Your barrows equipment has broken.");
 			}
 		} */
+	    /*
 		if (equipment.getDefinition().getName().toLowerCase().contains("crystal")) {
 			if (equipment.getDefinition().getId() == 4212 || equipment.getDefinition().getId() == 4224) {
 				player.getEquipment().getItemContainer().set(slot, new Item(equipment.getDefinition().getId() == 4212 ? 4214 : 4225));
@@ -244,5 +203,6 @@ public class WeaponDegrading {
 				}
 			}
 		}
+		    */
 	}
 }

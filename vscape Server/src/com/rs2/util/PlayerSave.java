@@ -338,9 +338,9 @@ public class PlayerSave {
 			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
 				write.writeInt(player.getFarmingTools().getTools()[i]);
 			}
-			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+			for (int i = 0; i < player.getDegradeableHits().length; i++) {
 			    try {
-				write.writeInt(player.getBarrowsHits()[i]);
+				write.writeInt(player.getDegradeableHits()[i]);
 			    }
 			    catch(IOException e) {
 				write.writeInt(0);
@@ -905,12 +905,12 @@ public class PlayerSave {
     			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
     				player.getFarmingTools().setTools(i, load.readInt());
     			}
-			for (int i = 0; i < player.getBarrowsHits().length; i++) {
+			for (int i = 0; i < player.getDegradeableHits().length; i++) {
 			    try {
-    				player.setBarrowsHits(i, load.readInt());
+    				player.setDegradeableHits(i, load.readInt());
 			    }
 			    catch (IOException e) {
-				player.setBarrowsHits(i, 0);
+				player.setDegradeableHits(i, 0);
 			    }
     			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {

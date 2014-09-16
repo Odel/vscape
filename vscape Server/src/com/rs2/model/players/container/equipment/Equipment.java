@@ -6,7 +6,7 @@ import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
-import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
@@ -260,7 +260,7 @@ public class Equipment {
 		} else {
 			int slotType = equipSlot;
 			if (slotType == Constants.WEAPON) {
-				if (item.getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().contains("godsword")) {
+				if (item.getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().toLowerCase().contains("godsword")) {
 					if (itemContainer.get(Constants.WEAPON) != null && itemContainer.get(Constants.SHIELD) != null && player.getInventory().getItemContainer().freeSlot() == -1) {
 						player.getActionSender().sendMessage("Not enough space in your inventory.");
 						return;
@@ -274,7 +274,7 @@ public class Equipment {
 				}
 			}
 			if (slotType == Constants.SHIELD && itemContainer.get(Constants.WEAPON) != null) {
-				if (itemContainer.get(Constants.WEAPON).getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().contains("godsword")) {
+				if (itemContainer.get(Constants.WEAPON).getDefinition().isTwoHanded() || item.getDefinition().getName().toLowerCase().toLowerCase().contains("godsword")) {
 					player.getInventory().removeItemSlot(item, slot);
 					removedItem = true;
 					unequip(Constants.WEAPON);
@@ -305,27 +305,29 @@ public class Equipment {
 			player.setSpecialType(SpecialType.getSpecial(item));
 			player.setAutoSpell(null);
 		}
-		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getOriginalId() == item.getId()) {
-		    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()] <= 0) {
-			player.setBarrowsHits(BarrowsItems.getBarrowsItem(item).getPlayerArraySlot(), 0);
-			//player.getActionSender().sendMessage("You have 250 hits on this piece until the next degrade.");
+		if(Constants.DEGRADING_ENABLED) {
+		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getOriginalId() == item.getId()) {
+			if (player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()] <= 0) {
+			    player.setDegradeableHits(Degradeables.getDegradeableItem(item).getPlayerArraySlot(), 0);
+			    player.getActionSender().sendMessage("Your " + item.getDefinition().getName().toLowerCase() + " will degrade and become untradeable upon combat.");
+			}
 		    }
-		}
-		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getFirstDegradeId() == item.getId()) {
-		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
-		    player.getActionSender().sendMessage("You have " + (250 - hitCount) + " hits left on this piece until the next degrade.");
-		}
-		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getSecondDegradeId() == item.getId()) {
-		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
-		    player.getActionSender().sendMessage("You have " + (500 - hitCount) + " hits left on this piece until the next degrade.");
-		}
-		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getThirdDegradeId() == item.getId()) {
-		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
-		    player.getActionSender().sendMessage("You have " + (750 - hitCount) + " hits left on this piece until the next degrade.");
-		}
-		if(BarrowsItems.getBarrowsItem(item) != null && BarrowsItems.getBarrowsItem(item).getFourthDegradeId() == item.getId()) {
-		    int hitCount = player.getBarrowsHits()[BarrowsItems.getBarrowsItem(item).getPlayerArraySlot()];
-		    player.getActionSender().sendMessage("You have " + (1000 - hitCount) + " hits left on this piece until the next degrade.");
+		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getFirstDegradeId() == item.getId()) {
+			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+			player.getActionSender().sendMessage("You have " + (Degradeables.DEGRADE_HITS - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+		    }
+		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getSecondDegradeId() == item.getId()) {
+			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 2) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+		    }
+		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getThirdDegradeId() == item.getId()) {
+			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 3) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+		    }
+		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getFourthDegradeId() == item.getId()) {
+			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 4) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+		    }
 		}
 		if(item.getId() == GhostsAhoy.BEDSHEET) {
 		    player.transformNpc = 1707;
@@ -582,15 +584,18 @@ public class Equipment {
 				return false;
 			    }
 			}
-			/*if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
-			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
-				player.getActionSender().sendMessage("You already have this piece bound to you!");
-				return false;
+			if(Constants.DEGRADING_ENABLED) {
+			    if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).getOriginalId() == itemId) {
+				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
+				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
+				    return false;
+				}
+				else {
+				    return true;
+				}
 			    }
-			    else {
-				return true;
-			    }
-			}*/
+			}
 			if (attackLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
 					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wield this weapon.");
@@ -634,15 +639,18 @@ public class Equipment {
 				return false;
 			    }
 			}
-			/*if(BarrowsItems.getBarrowsItem(new Item(itemId)) != null && BarrowsItems.getBarrowsItem(new Item(itemId)).getOriginalId() == itemId) {
-			    if(player.getBarrowsHits()[BarrowsItems.getBarrowsItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
-				player.getActionSender().sendMessage("You already have this piece bound to you!");
-				return false;
+			if(Constants.DEGRADING_ENABLED) {
+			    if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).getOriginalId() == itemId) {
+				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
+				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
+				    return false;
+				}
+				else {
+				    return true;
+				}
 			    }
-			    else {
-				return true;
-			    }
-			}*/
+			}
 			if (defenceLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.DEFENCE) < defenceLevelReq) {
 					player.getActionSender().sendMessage("You need a Defence level of " + defenceLevelReq + " to wear this item.");

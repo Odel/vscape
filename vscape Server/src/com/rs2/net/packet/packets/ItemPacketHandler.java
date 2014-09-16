@@ -4,7 +4,7 @@ import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
-import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
@@ -209,7 +209,7 @@ public class ItemPacketHandler implements PacketHandler {
 			}
 		}
 		if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288 || item.getId() == 10498 || item.getId() == 10499) {
-		    if(BarrowsItems.notDroppable(BarrowsItems.getBarrowsItem(item), item)) {
+		    if(Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
 			String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
 			for (String[] element : info) {
 				player.getActionSender().sendString(element[0], Integer.parseInt(element[1]));

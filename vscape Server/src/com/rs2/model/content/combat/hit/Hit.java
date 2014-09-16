@@ -269,12 +269,14 @@ public class Hit {
 			}
 		    }
 		}
-		/*if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {
-		    WeaponDegrading.handlePlayerHit((Player)attacker);
+		if(Constants.DEGRADING_ENABLED) {
+		    if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {
+			WeaponDegrading.handlePlayerHit((Player)attacker);
+		    }
+		    if(attacker != null && attacker.isNpc() && victim != null && victim.isPlayer()) {
+			WeaponDegrading.handleNpcHit((Player)victim);
+		    }
 		}
-		if(attacker != null && attacker.isNpc() && victim != null && victim.isPlayer()) {
-		    WeaponDegrading.handleNpcHit((Player)victim);
-		}*/
 		if (hitDef.getProjectileDef() != null)
 			new Projectile(attacker, victim, hitDef.getProjectileDef()).show();
 		hitDelay = hitDef.calculateHitDelay(attacker != null ? attacker.getPosition() : null, victim.getPosition());

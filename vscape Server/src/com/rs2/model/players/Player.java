@@ -50,8 +50,8 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
-import com.rs2.model.content.combat.util.BarrowsItems;
-import com.rs2.model.content.combat.util.BarrowsItems;
+import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.combat.weapon.CombatSounds;
@@ -453,7 +453,7 @@ public class Player extends Entity {
 	private boolean melzarsDoor;
 	private boolean bananaCrate;
 	private int bananaCrateCount;
-	private int[] barrowsHits = new int[24];
+	private int[] degradeableHits = new int[26];
 	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
 	private ArrayList<BoneBurying.Bone> bonesInBin = new ArrayList<BoneBurying.Bone>();
 	private boolean bonesGrinded = false;
@@ -1540,7 +1540,7 @@ public class Player extends Entity {
                             this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
 		}
 		else if (keyword.equals("talkpet") || keyword.equals("tp")) {
-		    this.getPets().getPet().getUpdateFlags().sendForceMessage(fullString);
+		    this.getPets().getPet().getUpdateFlags().setForceChatMessage(args[0]);
 		}
 		else if (keyword.equals("invisible") || keyword.equals("invis")) {
 			visible = !visible;
@@ -3970,11 +3970,11 @@ public class Player extends Entity {
 	    this.fightCavesKillCount = killCount;
 	}
 	
-	public int[] getBarrowsHits() {
-	    return barrowsHits;
+	public int[] getDegradeableHits() {
+	    return degradeableHits;
 	}
-	public void setBarrowsHits(int i, int value) {
-	    this.barrowsHits[i] = value;
+	public void setDegradeableHits(int i, int value) {
+	    this.degradeableHits[i] = value;
 	}
 	public ArrayList<BoneBurying.Bone> getBonesInBin() {
 	    return bonesInBin;
@@ -5035,10 +5035,10 @@ public class Player extends Entity {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
-			/*if(BarrowsItems.droppableForDeath(BarrowsItems.getBarrowsItem(dropped), dropped)) {
-				GroundItemManager.getManager().dropItem(new GroundItem(new Item(BarrowsItems.getBarrowsItem(dropped).getBrokenId()), killer));
-				setBarrowsHits(BarrowsItems.getBarrowsItem(dropped).getPlayerArraySlot(), 0);
-			}*/
+			if(Degradeables.droppableForDeath(Degradeables.getDegradeableItem(dropped), dropped)) {
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
+				setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
+			}
 			if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
