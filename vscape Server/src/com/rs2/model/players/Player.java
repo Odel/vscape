@@ -5035,7 +5035,7 @@ public class Player extends Entity {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
-			if(Degradeables.droppableForDeath(Degradeables.getDegradeableItem(dropped), dropped)) {
+			if(Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped)) {
 				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
 				setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
 			}

@@ -120,9 +120,7 @@ public enum Degradeables {
     }
 
     public static Degradeables getDegradeableItem(Item item) {
-	if(item == null) {
-	    return null;
-	}
+	if(item != null) {
 	    String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
 	    if (itemName.contains("ahrim")) {
 		if (itemName.contains("staff")) return AHRIMS_STAFF;
@@ -164,7 +162,8 @@ public enum Degradeables {
 		if (itemName.toLowerCase().contains("bow")) return CRYSTAL_BOW;
 		if (itemName.toLowerCase().contains("shield")) return CRYSTAL_SHIELD;
 	    }
-	    return null;
+	}
+	return null;
     }
     public static boolean isDroppable(Degradeables compare, Item item) {
 	if(item.getId() == compare.getOriginalId() || item.getId() == compare.getBrokenId()) {
@@ -174,21 +173,8 @@ public enum Degradeables {
 	    return false;
 	}
     }
+
     public static boolean notDroppable(Degradeables compare, Item item) {
-	if(compare == null) {
-	    return false;
-	}
-	if(item.getId() == compare.getFirstDegradeId() ||
-		item.getId() == compare.getSecondDegradeId() ||
-		item.getId() == compare.getThirdDegradeId() ||
-		item.getId() == compare.getFourthDegradeId() ) {
-	    return true;
-	}
-	else {
-	    return false;
-	}
-    }
-    public static boolean droppableForDeath(Degradeables compare, Item item) {
 	if(compare == null) {
 	    return false;
 	}
@@ -196,7 +182,13 @@ public enum Degradeables {
 		item.getId() == compare.getFirstDegradeId() ||
 		item.getId() == compare.getSecondDegradeId() ||
 		item.getId() == compare.getThirdDegradeId() ||
-		item.getId() == compare.getFourthDegradeId() ) {
+		item.getId() == compare.getFourthDegradeId() ||
+		item.getId() == compare.getFifthDegradeId() ||
+		item.getId() == compare.getSixthDegradeId() ||
+		item.getId() == compare.getSeventhDegradeId() ||
+		item.getId() == compare.getEigthDegradeId() ||
+		item.getId() == compare.getNinthDegradeId() ||
+		item.getId() == compare.getTenthDegradeId() ) {
 	    return true;
 	}
 	else {
