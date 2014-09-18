@@ -287,8 +287,6 @@ public class HorrorFromTheDeep implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -537,10 +535,12 @@ public class HorrorFromTheDeep implements Quest {
 	    }
 	}, 6);
     }
+    
     public static boolean allItemsInDoor(final Player player) {
 	return player.hasPlacedAirRune() && player.hasPlacedFireRune() && player.hasPlacedEarthRune() && player.hasPlacedWaterRune() && player.hasPlacedSword() && player.hasPlacedArrow();
     }
-    public static boolean itemHandling(final Player player, int itemId) {
+    
+    public boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
 	    case DIARY:
 		Dialogues.startDialogue(player, 13789);
@@ -555,28 +555,9 @@ public class HorrorFromTheDeep implements Quest {
 	return false;
     }
     
-    public static void handleDeath(final Player player, Npc npc) {
-	
-    }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean handleNpcClick(Player player, int npcId) {
-	switch(npcId) {
-
-	}
-	return false;
-    }
-    
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-
-	 return false;
-    }
-    
-    public static boolean doItemOnObject(final Player player, int object, int item) {
+    public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
 	    case OPEN_WALL:
 	    case OPEN_WALL_2:
@@ -651,36 +632,8 @@ public class HorrorFromTheDeep implements Quest {
 	}
 	return false;
     }
-    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-	switch (object) {
-	    case FIRST_ROCK_TO_SHORE:
-	    case SHORE_TO_FIRST_ROCK:
-	    case SECOND_ROCK_FROM_FIRST:
-	    case FIRST_ROCK_FROM_SECOND:
-	    case THIRD_ROCK_FROM_SECOND:
-	    case SECOND_ROCK_FROM_THIRD:
-	    case FOURTH_ROCK_FROM_THIRD:
-	    case THIRD_ROCK_FROM_FOURTH:
-	    case FOURTH_ROCK_TO_SHORE:
-	    case SHORE_TO_FOURTH_ROCK:
-		if (Misc.random(69) == 5 && Misc.goodDistance(player.getPosition().clone(), new Position(x, y, 0), 2)) {
-		    player.getActionSender().sendMessage("You slip while jumping across the rock...");
-		    player.fadeTeleport(new Position(2518, 3594, 0));
-		    player.getActionSender().sendMessage("...You find yourself washed up on shore.");
-		    return true;
-		} else {
-		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y, 0), 2)) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		}
-	}
-	return false;
-    }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case BOOKSHELF:
 		Dialogues.startDialogue(player, 97979);
@@ -761,20 +714,37 @@ public class HorrorFromTheDeep implements Quest {
 	return false;
     }
     
-     public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
-	switch(object) {
-	    
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+	switch (object) {
+	    case FIRST_ROCK_TO_SHORE:
+	    case SHORE_TO_FIRST_ROCK:
+	    case SECOND_ROCK_FROM_FIRST:
+	    case FIRST_ROCK_FROM_SECOND:
+	    case THIRD_ROCK_FROM_SECOND:
+	    case SECOND_ROCK_FROM_THIRD:
+	    case FOURTH_ROCK_FROM_THIRD:
+	    case THIRD_ROCK_FROM_FOURTH:
+	    case FOURTH_ROCK_TO_SHORE:
+	    case SHORE_TO_FOURTH_ROCK:
+		if (Misc.random(69) == 5 && Misc.goodDistance(player.getPosition().clone(), new Position(x, y, 0), 2)) {
+		    player.getActionSender().sendMessage("You slip while jumping across the rock...");
+		    player.fadeTeleport(new Position(2518, 3594, 0));
+		    player.getActionSender().sendMessage("...You find yourself washed up on shore.");
+		    return true;
+		} else {
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y, 0), 2)) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		}
 	}
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, npc.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
-	return;
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 13787: //manual dialogue
 		switch (player.getDialogue().getChatId()) {

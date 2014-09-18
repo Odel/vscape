@@ -3,36 +3,22 @@ package com.rs2.model.content.quests;
 import com.rs2.Constants;
 import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
-import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.content.skills.Skill;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.transport.Sailing;
-import com.rs2.model.transport.Sailing;
-import com.rs2.util.Misc;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PiratesTreasure implements Quest {
@@ -254,8 +240,6 @@ public class PiratesTreasure implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -277,7 +261,7 @@ public class PiratesTreasure implements Quest {
     	dialogueStage = in;
     }
     
-    public static boolean itemHandling(Player player, int itemId) {
+    public boolean itemHandling(Player player, int itemId) {
 	switch(itemId) {
 	    case PIRATE_MESSAGE:
 		player.getDialogue().sendStatement("Visit the city of the White Knights. In the park,", "Saradomin points to the X which marks the spot.");
@@ -321,7 +305,7 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if(firstItem == CHEST_KEY && secondItem == CHEST) {
 	    player.getActionSender().sendMessage("You unlock One-Eyed Hector's chest... and find it full of loot!");
 	    player.getInventory().replaceItemWithItem(new Item(CHEST), new Item(DIAMOND_RING));
@@ -472,7 +456,8 @@ public class PiratesTreasure implements Quest {
 	}
 	return poisoned;
     }
-    public static boolean doItemOnObject(Player player, int object, int item) {
+    
+    public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case BANANA_CRATE:
 		if(item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() < 9) {
@@ -516,7 +501,7 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case BANANA_TREE:
 		player.getActionSender().sendMessage("You search the banana tree...");
@@ -607,12 +592,7 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
-	GroundItemManager.getManager().dropItem(drop);
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case REDBEARD_FRANK:
 		switch(player.getQuestStage(20)) {

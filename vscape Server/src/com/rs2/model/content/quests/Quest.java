@@ -67,22 +67,25 @@ public interface Quest {
      */
     public int getQuestPoints();
 
-    /**
-     * Handles all the object clicking in a quest!
-     * @param player
-     * @param object
-     */
-    public void clickObject(Player player, int object);
-    
     public void showInterface(Player player);
 
-	public void dialogue(Player player, Npc npc);
+    public void dialogue(Player player, Npc npc);
 
-	public int getDialogueStage(Player player);
-
-	public void setDialogueStage(int i);
+    public int getDialogueStage(Player player);
+    
+    public void setDialogueStage(int i);
 	
     public void sendQuestTabStatus(Player player);
     
     public void sendQuestInterface(Player player);
+    
+    public boolean itemHandling(final Player player, int itemId);
+    
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem);
+    
+    public boolean doItemOnObject(final Player player, int object, int item);
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y);
+    
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId);
 }

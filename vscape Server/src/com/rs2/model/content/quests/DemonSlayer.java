@@ -227,8 +227,6 @@ public class DemonSlayer implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -338,7 +336,7 @@ public class DemonSlayer implements Quest {
 	}
 	return false;
     }
-    
+    public boolean itemHandling(final Player player, int itemId) { return false; }
     public static boolean itemPickupHandling(Player player, int itemId) {
 	if (player.getQuestStage(17) != 2 && itemId == KEY_1) {
 	    if (player.getQuestStage(17) < 2) {
@@ -352,11 +350,9 @@ public class DemonSlayer implements Quest {
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	return false;
-    }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
+    public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case 2843:
 		if(player.getQuestStage(17) == 2 && item == BUCKET_OF_WATER) {
@@ -371,7 +367,7 @@ public class DemonSlayer implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 2843:
 		if(player.getQuestStage(17) == 2) {
@@ -390,16 +386,7 @@ public class DemonSlayer implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
-	GroundItemManager.getManager().dropItem(drop);
-    }
-    
-    public static boolean isArmor(int id) {
-	return false;
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 882: //gypsy aris
 		switch(player.getQuestStage(17)) {

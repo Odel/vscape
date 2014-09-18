@@ -20,7 +20,6 @@ import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -33,6 +32,7 @@ import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -197,57 +197,11 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(ElementalWorkshop.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(ShieldOfArrav.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(LostCity.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(DragonSlayer.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(DemonSlayer.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(BlackKnightsFortress.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(GoblinDiplomacy.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(PiratesTreasure.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(VampireSlayer.doObjectClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
-				}
-				if(ErnestTheChicken.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
-				    this.stop();
-				    return;
-				}
-				if(PriestInPeril.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
-				    this.stop();
-				    return;
-				}
-				if(GhostsAhoy.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
-				    this.stop();
-				    return;
-				}
-				if(HorrorFromTheDeep.doObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
-				    this.stop();
-				    return;
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doObjectClicking(player, id, x, y)) {
+					this.stop();
+					return;
+				    }
 				}
 				if(Ectofungus.doObjectFirstClick(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 				    this.stop();
@@ -2569,40 +2523,13 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				// smithing
-				if(ElementalWorkshop.doItemOnObject(player, id, item)) {
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
-				}
-				if(DemonSlayer.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(BlackKnightsFortress.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(PiratesTreasure.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(ErnestTheChicken.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(PriestInPeril.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(GhostsAhoy.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
+				    }
 				}
 				if(Ectofungus.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
-				}
-				if(HorrorFromTheDeep.doItemOnObject(player, id, item)) {
 					this.stop();
 					return;
 				}

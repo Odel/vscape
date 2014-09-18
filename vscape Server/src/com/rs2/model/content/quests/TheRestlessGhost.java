@@ -164,9 +164,6 @@ public class TheRestlessGhost implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-
-    public void clickObject(Player player, int object) {
-    }
     
     public void showInterface(Player player){
     	String prefix = "";
@@ -186,4 +183,15 @@ public class TheRestlessGhost implements Quest {
     public void setDialogueStage(int in){
     	dialogueStage = in;
     }
+    
+    public boolean itemHandling(final Player player, int itemId) { return false; }
+    
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) { return false; }
+    
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { return false; }
+    
 }

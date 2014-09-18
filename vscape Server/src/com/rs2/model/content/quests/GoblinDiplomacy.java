@@ -1,9 +1,7 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
@@ -13,7 +11,6 @@ import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
@@ -22,7 +19,6 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.util.Misc;
@@ -196,8 +192,6 @@ public class GoblinDiplomacy implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -237,7 +231,7 @@ public class GoblinDiplomacy implements Quest {
 	    goblin.getUpdateFlags().sendForceMessage(GREEN_MESSAGES[Misc.randomMinusOne(GREEN_MESSAGES.length)]);
 	}
     }
-    public static boolean itemHandling(Player player, int itemId) {
+    public boolean itemHandling(Player player, int itemId) {
 	switch(itemId) {
 	    case GOBLIN_MAIL:
 	    case BLUE_GOBLIN_MAIL:
@@ -247,17 +241,8 @@ public class GoblinDiplomacy implements Quest {
 	}
 	return false;
     }
-    public static boolean handleNpcClick(Player player, int npcId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if((firstItem == YELLOW_DYE && secondItem == RED_DYE) || (firstItem == RED_DYE && secondItem == YELLOW_DYE)) {
 	    player.getActionSender().sendMessage("You mix the two dyes together.");
 	    player.getInventory().removeItem(new Item(RED_DYE));
@@ -293,13 +278,9 @@ public class GoblinDiplomacy implements Quest {
 	}
     }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-	}
-	return false;
-    }
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 23:
 		if(x == 2962 && y == 3506 && player.getQuestStage(19) == 1) {
@@ -331,12 +312,7 @@ public class GoblinDiplomacy implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
-	GroundItemManager.getManager().dropItem(drop);
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case GENERAL_WARTFACE:
 	    case GENERAL_BENTNOZE:

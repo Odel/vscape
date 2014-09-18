@@ -5,7 +5,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
@@ -372,8 +371,6 @@ public class DragonSlayer implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -434,7 +431,7 @@ public class DragonSlayer implements Quest {
 	}
     }
     
-    public static boolean itemHandling(Player player, int itemId) {
+    public boolean itemHandling(Player player, int itemId) {
 	if(itemId == 1535 || itemId == 1536 || itemId == 1537) {
 	    player.getDialogue().sendPlayerChat("Part of a map to Crandor...", "It doesn't make much sense ripped like this.", CONTENT);
 	    return true;
@@ -446,7 +443,7 @@ public class DragonSlayer implements Quest {
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if(firstItem == 1535 && (secondItem == 1536 || secondItem == 1537)) {
 	    if(mapPieces(player)) {
 		player.getDialogue().sendStatement("You re-attach the Crandor map.");
@@ -489,14 +486,9 @@ public class DragonSlayer implements Quest {
 	return false;
     }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-
-	}
-	return false;
-    }
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 2605: // down ladders
 		Ladders.climbLadder(player, new Position(2932, 9640, 0));
@@ -847,7 +839,7 @@ public class DragonSlayer implements Quest {
 	return false;
     }
     
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 918: // fuck you ned
 		switch (player.getQuestStage(15)) {

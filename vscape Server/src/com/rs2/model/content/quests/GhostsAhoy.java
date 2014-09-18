@@ -392,8 +392,6 @@ public class GhostsAhoy implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -463,7 +461,7 @@ public class GhostsAhoy implements Quest {
 	}
     }
     
-    public static boolean itemHandling(final Player player, int itemId) {
+    public boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
 	    case PETITION:
 		player.getPetition().count();
@@ -517,24 +515,8 @@ public class GhostsAhoy implements Quest {
 	}
 	return false;
     }
-    
-    public static void handleDeath(final Player player, Npc npc) {
-	
-    }
-    
-    public static boolean handleNpcClick(Player player, int npcId) {
-	switch(npcId) {
-	    
-	}
-	return false;
-    }
-    
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+     
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	switch(firstItem) {
 	    case RED_DYE:
 	    case BLUE_DYE:
@@ -639,7 +621,7 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     
-    public static boolean doItemOnObject(final Player player, int object, int item) {
+    public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
 	    case Ectofungus.ECTOFUNGUS:
 		if(item == ECTOPHIAL_EMPTY) {
@@ -651,166 +633,8 @@ public class GhostsAhoy implements Quest {
 	}
 	return false;
     }
-    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-	switch (object) {
-	    case JUMPING_ROCKS: //first rock
-		if(player.transformNpc == 1707 || player.transformNpc == 1708) {
-		    player.getDialogue().sendPlayerChat("I should probably take this off in order", "to jump these rocks carefully.", CONTENT);
-		    return true;
-		}
-		if(player.getSkill().getLevel()[Skill.AGILITY] < 25) {
-		    player.getDialogue().sendStatement("You need 25 agility to cross this obstacle.");
-		    return true;
-		}
-		int playerX = player.getPosition().getX();
-		int playerY = player.getPosition().getY();
-		if (x == 3602 && y == 3550) {
-		    if (playerX == 3604 && playerY == 3550) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3604 && y == 3550) {
-		    if (playerX == 3602 && playerY == 3550) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3597 && y == 3552) {
-		    if (playerX == 3599 && playerY == 3552) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3599 && y == 3552) {
-		    if (playerX == 3597 && playerY == 3552) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3595 && y == 3556) {
-		    if (playerX == 3595 && playerY == 3554) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3595 && y == 3554) {
-		    if (playerX == 3595 && playerY == 3556) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3597 && y == 3561) {
-		    if (playerX == 3597 && playerY == 3559) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3597 && y == 3559) {
-		    if (playerX == 3597 && playerY == 3561) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3601 && y == 3564) {
-		    if (playerX == 3599 && playerY == 3564) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3599 && y == 3564) {
-		    if (playerX == 3601 && playerY == 3564) {
-			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
-			return true;
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		}
-	    return true;
-	    case TREASURE_CHEST_2:
-		if (x == 3606 && y == 3564) {
-		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
-			if (!player.getInventory().ownsItem(MAP_SCRAP_3) && !player.getInventory().ownsItem(TREASURE_MAP)) {
-			    player.getUpdateFlags().sendAnimation(832);
-			    player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_3));
-			    player.getInventory().addItem(new Item(MAP_SCRAP_3));
-			    return true;
-			} else if(player.getInventory().ownsItem(TREASURE_MAP)) {
-			    player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
-			    return true;
-			} else {
-			    player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
-			    return true;
-			}
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else if (x == 3618 && y == 3542) {
-		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
-			if (!player.lobsterSpawnedAndDead() && player.getSpawnedNpc() == null) {
-			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
-			    NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
-			    return true;
-			} else if(player.lobsterSpawnedAndDead()) {
-			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
-				player.getUpdateFlags().sendAnimation(832);
-				player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_2));
-				player.getInventory().addItem(new Item(MAP_SCRAP_2));
-				return true;
-			    } else if(player.getInventory().ownsItem(TREASURE_MAP)) {
-				player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
-				return true;
-			    } else {
-				player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
-				return true;
-			    }
-			} else {
-			    player.getActionSender().sendMessage("You are under attack by a giant lobster! Now is not the time to click this!");
-			    return true;
-			}
-		    } else {
-			player.walkTo(x, y, false);
-			return true;
-		    }
-		} else {
-		    player.getActionSender().sendMessage("This chest is locked firmly.");
-		    return true;
-		}
-	    case GANGPLANK_TO_SHIP:
-		if (x == GANGPLANK_TO_SHIP_OBJ[0] && y == GANGPLANK_TO_SHIP_OBJ[1]) {
-		    if (player.getPosition().getX() == x && player.getPosition().getY() == y + 1) {
-			player.teleport(ON_SHIP);
-			return true;
-		    } else {
-			    player.walkTo(x, y, false);
-			return true;
-		    }
-		}
-	    return false;
-	}
-	return false;
-    }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case NECROVARUS_COFFIN:
 		if(x == 3659 && y == 3513) {
@@ -999,19 +823,167 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     
-     public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
-	switch(object) {
-	    
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+	switch (object) {
+	    case JUMPING_ROCKS: //first rock
+		if(player.transformNpc == 1707 || player.transformNpc == 1708) {
+		    player.getDialogue().sendPlayerChat("I should probably take this off in order", "to jump these rocks carefully.", CONTENT);
+		    return true;
+		}
+		if(player.getSkill().getLevel()[Skill.AGILITY] < 25) {
+		    player.getDialogue().sendStatement("You need 25 agility to cross this obstacle.");
+		    return true;
+		}
+		int playerX = player.getPosition().getX();
+		int playerY = player.getPosition().getY();
+		if (x == 3602 && y == 3550) {
+		    if (playerX == 3604 && playerY == 3550) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3604 && y == 3550) {
+		    if (playerX == 3602 && playerY == 3550) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3597 && y == 3552) {
+		    if (playerX == 3599 && playerY == 3552) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3599 && y == 3552) {
+		    if (playerX == 3597 && playerY == 3552) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3595 && y == 3556) {
+		    if (playerX == 3595 && playerY == 3554) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3595 && y == 3554) {
+		    if (playerX == 3595 && playerY == 3556) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3597 && y == 3561) {
+		    if (playerX == 3597 && playerY == 3559) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3597 && y == 3559) {
+		    if (playerX == 3597 && playerY == 3561) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3601 && y == 3564) {
+		    if (playerX == 3599 && playerY == 3564) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3599 && y == 3564) {
+		    if (playerX == 3601 && playerY == 3564) {
+			Agility.jumpRock(player, x, y, 769, 2, 0, 0);
+			return true;
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		}
+	    return true;
+	    case TREASURE_CHEST_2:
+		if (x == 3606 && y == 3564) {
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
+			if (!player.getInventory().ownsItem(MAP_SCRAP_3) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+			    player.getUpdateFlags().sendAnimation(832);
+			    player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_3));
+			    player.getInventory().addItem(new Item(MAP_SCRAP_3));
+			    return true;
+			} else if(player.getInventory().ownsItem(TREASURE_MAP)) {
+			    player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
+			    return true;
+			} else {
+			    player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
+			    return true;
+			}
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else if (x == 3618 && y == 3542) {
+		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
+			if (!player.lobsterSpawnedAndDead() && player.getSpawnedNpc() == null) {
+			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
+			    NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
+			    return true;
+			} else if(player.lobsterSpawnedAndDead()) {
+			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
+				player.getUpdateFlags().sendAnimation(832);
+				player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_2));
+				player.getInventory().addItem(new Item(MAP_SCRAP_2));
+				return true;
+			    } else if(player.getInventory().ownsItem(TREASURE_MAP)) {
+				player.getDialogue().sendPlayerChat("I already completed the map. I need to figure", "out where it goes instead of wasting time.", CONTENT);
+				return true;
+			    } else {
+				player.getDialogue().sendPlayerChat("I already got this piece of the map.", "Perhaps there are other pieces around nearby.", CONTENT);
+				return true;
+			    }
+			} else {
+			    player.getActionSender().sendMessage("You are under attack by a giant lobster! Now is not the time to click this!");
+			    return true;
+			}
+		    } else {
+			player.walkTo(x, y, false);
+			return true;
+		    }
+		} else {
+		    player.getActionSender().sendMessage("This chest is locked firmly.");
+		    return true;
+		}
+	    case GANGPLANK_TO_SHIP:
+		if (x == GANGPLANK_TO_SHIP_OBJ[0] && y == GANGPLANK_TO_SHIP_OBJ[1]) {
+		    if (player.getPosition().getX() == x && player.getPosition().getY() == y + 1) {
+			player.teleport(ON_SHIP);
+			return true;
+		    } else {
+			    player.walkTo(x, y, false);
+			return true;
+		    }
+		}
+	    return false;
 	}
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, npc.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
-	return;
-    }
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case AK_HARANU:
 		switch (player.getQuestStage(24)) {

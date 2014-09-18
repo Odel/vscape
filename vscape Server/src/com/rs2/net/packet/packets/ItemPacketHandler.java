@@ -19,6 +19,7 @@ import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.Menus;
@@ -297,29 +298,10 @@ public class ItemPacketHandler implements PacketHandler {
 				return;
 			}
 		}
-		if(ElementalWorkshop.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(ShieldOfArrav.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(DragonSlayer.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(GoblinDiplomacy.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(PiratesTreasure.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(ErnestTheChicken.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(GhostsAhoy.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
-		}
-		if(AnimalMagnetism.itemOnItemHandling(player, firstItem, secondItem)) {
-		    return;
+		for(Quest q : QuestHandler.getQuests()) {
+		    if(q.itemOnItemHandling(player, firstItem, secondItem)) {
+			return;
+		    }
 		}
 		if(TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
 		    return;
@@ -729,10 +711,10 @@ public class ItemPacketHandler implements PacketHandler {
         if(Nests.handleNest(player, itemId)){
             return;
         }
-	if(GhostsAhoy.itemHandling(player, itemId)) {
+	if(QuestHandler.getQuests()[24].itemHandling(player, itemId)) { //Ghosts Ahoy
 	    return;
 	}
-	if(HorrorFromTheDeep.itemHandling(player, itemId)) {
+	if(QuestHandler.getQuests()[26].itemHandling(player, itemId)) { //Horror from the deep
 	    return;
 	}
         if (itemId == Slayer.ENCHANTED_GEM) {
@@ -805,23 +787,10 @@ public class ItemPacketHandler implements PacketHandler {
 		{
 			return;
 		}
-		if(ElementalWorkshop.itemHandling(player, itemId)) {
-		    return;
-		}
-		if(ShieldOfArrav.itemHandling(player, itemId)) {
-		    return;
-		}
-		if(DragonSlayer.itemHandling(player, itemId)) {
-		    return;
-		}
-		if(BlackKnightsFortress.itemHandling(player, itemId)) {
-		    return;
-		}
-		if(PiratesTreasure.itemHandling(player, itemId)) {
-		    return;
-		}
-		if(AnimalMagnetism.itemHandling(player, itemId)) {
-		    return;
+		for(Quest q : QuestHandler.getQuests()) {
+		    if(q.itemHandling(player, itemId)) {
+			return;
+		    }
 		}
 		switch (itemId) {
 			case 2528 : // genie lamp
@@ -1081,10 +1050,10 @@ public class ItemPacketHandler implements PacketHandler {
 		    player.getEquipment().equip(player.getSlot());
 		    return;
 		}
-		if(GoblinDiplomacy.itemHandling(player, itemId)) {
+		if(QuestHandler.getQuests()[19].itemHandling(player, itemId)) { //Goblin Diplomacy
 		    return;
 		}
-		if(AnimalMagnetism.itemHandling(player, itemId)) {
+		if(QuestHandler.getQuests()[25].itemHandling(player, itemId)) { //Animal Magnetism
 		    return;
 		}
 		if(itemId == 11664 )

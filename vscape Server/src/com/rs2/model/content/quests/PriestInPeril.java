@@ -341,8 +341,6 @@ public class PriestInPeril implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -366,13 +364,6 @@ public class PriestInPeril implements Quest {
     	dialogueStage = in;
     }
 
-    public static boolean itemHandling(Player player, int itemId) {
-	switch(itemId) {
-
-	}
-	return false;
-    }
-    
     public static void handleDeath(final Player player, Npc npc) {
 	if(npc.getNpcId() == TEMPLE_GUARDIAN && player.getQuestStage(23) == 2) {
 	    player.setQuestStage(23, 3);
@@ -380,23 +371,11 @@ public class PriestInPeril implements Quest {
 	}
     }
     
-    public static boolean handleNpcClick(Player player, int npcId) {
-	switch(npcId) {
-	    
-	}
-	return false;
-    }
+    public boolean itemHandling(final Player player, int itemId) { return false; }
+
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	return false;
-    }
-    
-    public static boolean doItemOnObject(final Player player, int object, int item) {
+    public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
 	    case COFFIN:
 		if(player.getQuestStage(23) == 8 && item == BUCKET_OF_BLESSED_WATER) {
@@ -468,7 +447,7 @@ public class PriestInPeril implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case BARRIER:
 		if(player.getQuestStage(23) == 12) {
@@ -593,7 +572,7 @@ public class PriestInPeril implements Quest {
 	}
     }
     
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 10678: //doors to temple 1
 		switch (player.getDialogue().getChatId()) {

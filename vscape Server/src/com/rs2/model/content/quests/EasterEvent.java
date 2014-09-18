@@ -1,8 +1,6 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 
@@ -70,9 +68,6 @@ public class EasterEvent implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-
-    public void clickObject(Player player, int object) {
-    }
     
     public void showInterface(Player player){
 
@@ -89,4 +84,15 @@ public class EasterEvent implements Quest {
     public void setDialogueStage(int in){
     	dialogueStage = in;
     }
+    
+    public boolean itemHandling(final Player player, int itemId) { return false; }
+    
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) { return false; }
+    
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { return false; }
+    
 }

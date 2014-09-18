@@ -5,19 +5,15 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
 
@@ -205,8 +201,6 @@ public class BlackKnightsFortress implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -265,28 +259,17 @@ public class BlackKnightsFortress implements Quest {
 	    }
 	}
     }
-    public static boolean itemHandling(Player player, int itemId) {
+    public boolean itemHandling(Player player, int itemId) {
 	if(itemId == DOSSIER) {
 	    Dialogues.startDialogue(player, 10701);
 	    return true;
 	}
 	return false;
     }
-    public static boolean handleNpcClick(Player player, int npcId) {
-	//
-	return false;
-    }
     
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	return false;
-    }
-    
-    public static boolean doItemOnObject(Player player, int object, int item) {
+    public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case 2336: //cabbage hole
 		if(item == CABBAGE && player.getQuestStage(18) == 3) {
@@ -307,7 +290,7 @@ public class BlackKnightsFortress implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 2337:
 		if (player.getPosition().getY() < 3515) {
@@ -397,12 +380,7 @@ public class BlackKnightsFortress implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
-	GroundItemManager.getManager().dropItem(drop);
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 612: //greldo
 		switch(player.getDialogue().getChatId()) {

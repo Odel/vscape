@@ -1,16 +1,9 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
-import com.rs2.model.content.quests.Quest;
-import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -252,9 +245,6 @@ public class ElementalWorkshop implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-
-    public void clickObject(Player player, int object) {
-    }
     
     public void showInterface(Player player){
     	String prefix = "";
@@ -275,7 +265,17 @@ public class ElementalWorkshop implements Quest {
     	dialogueStage = in;
     }
     
-    public static boolean itemHandling(Player player, int itemId) {
+    public static void summon(Player player) {
+	player.getActionSender().walkTo(-1, 0, true);
+	Npc npc = new Npc(238);
+	npc.setPosition(new Position(2780, 3515, 0));
+	npc.setSpawnPosition(new Position(2780, 3515, 0));
+	World.register(npc);      
+	npc.setPlayerOwner(player.getIndex());
+	Dialogues.startDialogue(player, 238);
+    }
+    
+    public boolean itemHandling(Player player, int itemId) {
 	if(itemId == 2886) {
 	    player.getDialogue().sendPlayerChat("Hey, the spine of this book is all lumpy.", Dialogues.CONTENT);
 	    player.getActionSender().sendMessage("Perhaps you should use a knife on the spine of the book.");
@@ -284,7 +284,7 @@ public class ElementalWorkshop implements Quest {
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if(firstItem == 946 && secondItem == 2886) {
 	    player.getInventory().removeItem(new Item(2886));
 	    player.getDialogue().sendStatement("You cut apart the book to find a key.");
@@ -297,7 +297,7 @@ public class ElementalWorkshop implements Quest {
 	return false;
     }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
+    public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case 3402: //elemental workshop workbench
 		if(item == 2893 && player.getQuestStage(12) >= 10 && player.getSkill().getLevel()[Skill.SMITHING] >= 20) {
@@ -372,7 +372,7 @@ public class ElementalWorkshop implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 3389: //elemental workshop bookshelf
 		if(x == 2716 && y == 3481 && !player.getInventory().ownsItem(2886)) {
@@ -462,14 +462,7 @@ public class ElementalWorkshop implements Quest {
 	}
 	return false;
     }
-    public static void summon(Player player) {
-	player.getActionSender().walkTo(-1, 0, true);
-	Npc npc = new Npc(238);
-	npc.setPosition(new Position(2780, 3515, 0));
-	npc.setSpawnPosition(new Position(2780, 3515, 0));
-	World.register(npc);      
-	npc.setPlayerOwner(player.getIndex());
-	Dialogues.startDialogue(player, 238);
-    }
+    
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { return false; }
     
 }

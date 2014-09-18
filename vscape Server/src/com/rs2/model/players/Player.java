@@ -77,7 +77,6 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PiratesTreasure;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
@@ -1261,6 +1260,11 @@ public class Player extends Entity {
 			catch(Exception e) {
 			    this.getActionSender().sendMessage("Could not find player.");
 			}
+		    }
+		}
+		if(keyword.equals("resetquests")) {
+		    for(Quest q : QuestHandler.getQuests()) {
+			this.setQuestStage(q.getQuestID(), 0);
 		    }
 		}
 		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp") || keyword.equals("getqp")) {

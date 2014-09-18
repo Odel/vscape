@@ -353,9 +353,6 @@ public class ShieldOfArrav implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-
-    public void clickObject(Player player, int object) {
-    }
     
     public void showInterface(Player player){
     	String prefix = "";
@@ -377,7 +374,7 @@ public class ShieldOfArrav implements Quest {
     	dialogueStage = in;
     }
     
-    public static boolean itemHandling(Player player, int itemId) {
+    public boolean itemHandling(Player player, int itemId) {
 	if(itemId == 761) { //intel report
 	    player.getDialogue().sendPlayerChat("I probably shouldn't read this.", CONTENT);
 	    return true;
@@ -393,7 +390,7 @@ public class ShieldOfArrav implements Quest {
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if(firstItem == RIGHT_HALF_CERTIFICATE && secondItem == LEFT_HALF_CERTIFICATE) {
 	    if(player.getQuestStage(13) == 10) {
 		player.setQuestStage(13, 11);
@@ -415,14 +412,9 @@ public class ShieldOfArrav implements Quest {
 	return false;
     }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-
-	}
-	return false;
-    }
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 2405:
 		if(x == 3244 && y == 9783) {
@@ -516,7 +508,7 @@ public class ShieldOfArrav implements Quest {
 	}
     }
     
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case KATRINE:
 		switch(player.getDialogue().getChatId()) {

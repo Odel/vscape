@@ -1,20 +1,12 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
-import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.quests.Quest;
-import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.*;
 
-/**
- * @date 1-jun-2011
- * @author Satan666
- */
 public class CooksAssistant implements Quest {
 
     public static final int QUEST_STARTED = 1;
@@ -158,9 +150,6 @@ public class CooksAssistant implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-
-    public void clickObject(Player player, int object) {
-    }
     
     public void showInterface(Player player){
     	String prefix = "";
@@ -180,4 +169,14 @@ public class CooksAssistant implements Quest {
     public void setDialogueStage(int in){
     	dialogueStage = in;
     }
+    
+    public boolean itemHandling(final Player player, int itemId) { return false; }
+    
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) { return false; }
+    
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { return false; }
 }

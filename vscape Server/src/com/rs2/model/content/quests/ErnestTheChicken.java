@@ -1,24 +1,16 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
-import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
@@ -26,16 +18,10 @@ import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.content.skills.Skill;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.util.Misc;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ErnestTheChicken implements Quest {
 
@@ -313,25 +299,9 @@ public class ErnestTheChicken implements Quest {
 		NpcLoader.destroyNpc(npc);
 	}
     }
-    public static boolean itemHandling(Player player, int itemId) {
-	switch(itemId) {
-
-	}
-	return false;
-    }
-    public static boolean handleNpcClick(Player player, int npcId) {
-	switch(npcId) {
-	    
-	}
-	return false;
-    }
+    public boolean itemHandling(Player player, int itemId) { return false; }
     
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
-    
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	if((firstItem == POISON && secondItem == FISH_FOOD) || (firstItem == FISH_FOOD && secondItem == POISON)) {
 	    player.getInventory().removeItem(new Item(POISON));
 	    player.getInventory().replaceItemWithItem(new Item(FISH_FOOD), new Item(POISON_FISH_FOOD));
@@ -341,7 +311,7 @@ public class ErnestTheChicken implements Quest {
 	return false;
     }
     
-    public static boolean doItemOnObject(final Player player, int object, int item) {
+    public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
 	    case COMPOST_HEAP:
 		if(item == SPADE && player.getQuestStage(22) == HUNT_FOR_ITEMS && !player.getInventory().playerHasItem(KEY)) {
@@ -376,7 +346,7 @@ public class ErnestTheChicken implements Quest {
 	return false;
     }
     
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case 146: //0 A
 		if (x == LEVER_A[X] && y == LEVER_A[Y]) {
@@ -587,12 +557,7 @@ public class ErnestTheChicken implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, player.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case VERONICA:
 		switch(player.getQuestStage(22)) {

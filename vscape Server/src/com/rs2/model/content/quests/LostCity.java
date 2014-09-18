@@ -158,8 +158,6 @@ public class LostCity implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -183,22 +181,13 @@ public class LostCity implements Quest {
     	dialogueStage = in;
     }
     
-    public static boolean itemHandling(Player player, int itemId) {
-	return false;
-    }
+    public boolean itemHandling(final Player player, int itemId) { return false; }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	return false;
-    }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-
-	}
-	return false;
-    }
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
-    public static boolean doObjectClicking(Player player, int object, int x, int y) {
+    public boolean doObjectClicking(Player player, int object, int x, int y) {
 	switch(object) {
 	    case 2409:
 		if(player.getQuestStage(14) == 1 && x == 3138 && y == 3212) {
@@ -259,10 +248,6 @@ public class LostCity implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-
-    }
-    
     public static boolean isWeapon(int id) {
 	switch(id) {
 	    case 1305: //d long
@@ -275,7 +260,7 @@ public class LostCity implements Quest {
 	return false;
     }
     
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 654: //shamus leprechaun
 		switch(player.getDialogue().getChatId()) {

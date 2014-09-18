@@ -185,8 +185,6 @@ public class VampireSlayer implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -243,64 +241,14 @@ public class VampireSlayer implements Quest {
 	}
 	return false;
     }
-    public static boolean itemHandling(Player player, int itemId) {
-	switch(itemId) {
-
-	}
-	return false;
-    }
-    public static boolean handleNpcClick(Player player, int npcId) {
-	switch(npcId) {
-	    
-	}
-	return false;
-    }
     
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
-	return false;
-    }
+    public boolean itemHandling(final Player player, int itemId) { return false; }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
-	return false;
-    }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
     
-    public static boolean doItemOnObject(Player player, int object, int item) {
-	switch(object) {
-	    
-	}
-	return false;
-    }
-    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-	switch(object) {
-	    case 2612: //cupboard
-		if(x == 3096) {
-		    new GameObject(2612, 3096, 3269, 1, 0, 10, 2613, 0);
-		    return true;
-		}
-	    return true;
-	    case 2613: //open cupboard
-		player.getActionSender().sendMessage("You search the cupboard...");
-		player.getUpdateFlags().sendAnimation(832);
-		player.setStopPacket(true);
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-		    @Override
-		    public void execute(CycleEventContainer b) {
-			player.getActionSender().sendMessage("You find a clove of garlic.");
-			player.getInventory().addItem(new Item(GARLIC));
-			b.stop();
-		    }
-
-		    @Override
-		    public void stop() {
-			player.setStopPacket(false);
-		    }
-		}, 2);
-		return true;
-	}
-	return false;
-    }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
+    
+    public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case STAIRS_DOWN:
 		if(player.getQuestStage(21) == 2) {
@@ -345,12 +293,37 @@ public class VampireSlayer implements Quest {
 	return false;
     }
     
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, player.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
+    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
+	switch(object) {
+	    case 2612: //cupboard
+		if(x == 3096) {
+		    new GameObject(2612, 3096, 3269, 1, 0, 10, 2613, 0);
+		    return true;
+		}
+	    return true;
+	    case 2613: //open cupboard
+		player.getActionSender().sendMessage("You search the cupboard...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find a clove of garlic.");
+			player.getInventory().addItem(new Item(GARLIC));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 2);
+		return true;
+	}
+	return false;
     }
     
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case MORGAN:
 		switch(player.getQuestStage(21)) {

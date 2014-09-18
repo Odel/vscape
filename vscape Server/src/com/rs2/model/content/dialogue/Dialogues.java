@@ -56,6 +56,7 @@ import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.PrinceAli;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
@@ -131,50 +132,11 @@ public class Dialogues {
 		player.getDialogue().setChatId(chatId);
 		player.getDialogue().setDialogueId(id);
 		player.getDialogue().setLastNpcTalk(npcChatId);
-		if(PrinceAli.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(ShieldOfArrav.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(LostCity.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(DragonSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(RomeoAndJuliet.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(DemonSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(BlackKnightsFortress.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(GoblinDiplomacy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(PiratesTreasure.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(VampireSlayer.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(ErnestTheChicken.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(PriestInPeril.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(GhostsAhoy.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(AnimalMagnetism.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(HorrorFromTheDeep.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
+		
+		for(Quest q : QuestHandler.getQuests()) {
+		    if(q.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+			return true;
+		    }
 		}
 		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
@@ -188,6 +150,7 @@ public class Dialogues {
 		if(wetClayHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
+		
 		switch(id) {
 			case 1 : //Man
 			case 2 : //Man

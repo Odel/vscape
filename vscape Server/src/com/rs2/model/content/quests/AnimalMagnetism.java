@@ -1,13 +1,10 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
@@ -496,8 +493,6 @@ public class AnimalMagnetism implements Quest {
     public int getQuestPoints() {
         return questPointReward;
     }
-    public void clickObject(Player player, int object) {
-    }
 
     public void showInterface(Player player){
     	String prefix = "";
@@ -556,23 +551,6 @@ public class AnimalMagnetism implements Quest {
     
     public void setDialogueStage(int in){
     	dialogueStage = in;
-    }
-    
-    public static boolean itemHandling(final Player player, int itemId) {
-	switch(itemId) {
-	    case RESEARCH_NOTES:
-		Dialogues.startDialogue(player, 10478);
-		return true;
-	    case BUTTONS:
-		player.getInventory().replaceItemWithItem(new Item(BUTTONS), new Item(POLISHED_BUTTONS));
-		player.getActionSender().sendMessage("You polish the buttons.");
-		return true;
-	}
-	return false;
-    }
-    
-    public static void handleDeath(final Player player, Npc npc) {
-	
     }
     
     public static boolean handleNpcClick(Player player, int npcId) {
@@ -636,12 +614,20 @@ public class AnimalMagnetism implements Quest {
 	return false;
     }
     
-    public static boolean itemPickupHandling(Player player, int itemId) {
-	//
+    public boolean itemHandling(final Player player, int itemId) {
+	switch(itemId) {
+	    case RESEARCH_NOTES:
+		Dialogues.startDialogue(player, 10478);
+		return true;
+	    case BUTTONS:
+		player.getInventory().replaceItemWithItem(new Item(BUTTONS), new Item(POLISHED_BUTTONS));
+		player.getActionSender().sendMessage("You polish the buttons.");
+		return true;
+	}
 	return false;
     }
     
-    public static boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
 	 if((firstItem == HAMMER && secondItem == SELECTED_IRON) || (firstItem == SELECTED_IRON && secondItem == HAMMER)) {
 	     if(player.inRimmingtonMine()) {
 		if(player.getSkill().getLevel()[Skill.CRAFTING] < 19) {
@@ -676,38 +662,11 @@ public class AnimalMagnetism implements Quest {
 	 return false;
     }
     
-    public static boolean doItemOnObject(final Player player, int object, int item) {
-	switch(object) {
+    public boolean doItemOnObject(final Player player, int object, int item) { return false; }
 
-	}
-	return false;
-    }
-    public static boolean doMiscObjectClicking(final Player player, int object, int x, int y) {
-	switch (object) {
-	    
-	}
-	return false;
-    }
-    public static boolean doObjectClicking(final Player player, int object, int x, int y) {
-	switch(object) {
-	    
-	}
-	return false;
-    }
-    
-     public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
-	switch(object) {
-	    
-	}
-	return false;
-    }
-    
-    public static void handleDrops(Player player, Npc npc) {
-	GroundItem drop = new GroundItem(new Item(0), player, npc.getPosition().clone());
-	GroundItemManager.getManager().dropItem(drop);
-	return;
-    }
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+    public boolean doObjectClicking(final Player player, int object, int x, int y) { return false; }
+
+    public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case 10478:
 		switch(player.getDialogue().getChatId()) {
