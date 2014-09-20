@@ -47,7 +47,7 @@ public class Cooking {
 		SWEETCORN(5986, 5988, 5990, 28, 45, 35, 35, true), 
 		ROASTED_RABBIT(3226, 7223, 7222, 16, 72, 25, 25, true), 
 		FAT_SNAIL(3367, 3373, 3375, 22, 95, 28, 28, true), 
-		CHOMPY(2876, 2878, 2880, 30, 140, 38, 38, true), 
+		CHOMPY(2876, 2878, 2880, 30, 14, 38, 38, true), 
 		RED_BERRY_PIE(2321, 2325, 2329, 10, 78, 15, 15, false), 
 		MEAT_PIE(2319, 2327, 2329, 20, 110, 25, 25, false), 
 		MUD_PIE(7168, 7170, 2329, 29, 128, 35, 35, false), 
