@@ -151,6 +151,7 @@ public class PacketManager {
     				
     			}
                 packetHandler.handlePacket(player, packet);
+		player.getTimeoutStopwatch().reset();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -219,7 +220,6 @@ public class PacketManager {
 				return;
 			}
 			// Handle the received data.
-			player.getTimeoutStopwatch().reset();
 			player.getInData().flip();
 			int loops = 0;
 			while (player.getInData().hasRemaining()) {

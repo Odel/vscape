@@ -614,10 +614,9 @@ public class Player extends Entity {
 	}
 
 	public boolean timeOutCheck() {
-		// If no packet for more than 5 seconds, disconnect.
-		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 5000 && this.getStaffRights() < 2) {
-			disconnect();
-			return true; // true;
+		// If no packet for more than x * 1000 seconds, disconnect.
+		if (isLoggedIn() && getTimeoutStopwatch().elapsed() > 300000 && this.getStaffRights() < 2) { //5 minutes
+			return true;
 		}
 		return false;
 	}
@@ -739,9 +738,6 @@ public class Player extends Entity {
 
 	@Override
 	public void process() {
-		/*if (timeOutCheck()) {
-			return;
-		}*/
 		expireHitRecords();
 		expireSkullRecords();
 		prayer.prayerTick();
@@ -751,10 +747,16 @@ public class Player extends Entity {
 		}
 		checkNpcAggressiveness();
 		getFollowing().followTick();
-	    if (energy < 100 && !isRunning()) {
-	        energy += (100 / (222 - (double) getSkill().getLevel()[Skill.AGILITY])) * 0.6;
-	        actionSender.sendEnergy();
-	    }
+		if (energy < 100 && !isRunning()) {
+		    energy += (100 / (222 - (double) getSkill().getLevel()[Skill.AGILITY])) * 0.6;
+		    actionSender.sendEnergy();
+		}
+		if(timeOutCheck()) {
+		    disconnect();
+		}
+		if(!this.getSocketChannel().isConnected()) {
+		    disconnect();
+		}
 		// Npc.checkAggressiveness(this);
 	}
 

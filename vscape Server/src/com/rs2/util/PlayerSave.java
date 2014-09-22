@@ -338,14 +338,6 @@ public class PlayerSave {
 			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
 				write.writeInt(player.getFarmingTools().getTools()[i]);
 			}
-			for (int i = 0; i < player.getDegradeableHits().length; i++) {
-			    try {
-				write.writeInt(player.getDegradeableHits()[i]);
-			    }
-			    catch(IOException e) {
-				write.writeInt(0);
-			    }
-			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {
 			    try {
 				write.writeInt(player.getBonesGround()[i]);
@@ -383,6 +375,14 @@ public class PlayerSave {
 			write.writeUTF(player.getDesiredSkullFlag());
 			write.writeBoolean(player.petitionSigned());
 			write.writeInt(player.getGodBook());
+			for (int i = 0; i < player.getDegradeableHits().length; i++) {
+			    try {
+				write.writeInt(player.getDegradeableHits()[i]);
+			    }
+			    catch(IOException e) {
+				write.writeInt(0);
+			    }
+			}
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -905,14 +905,6 @@ public class PlayerSave {
     			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
     				player.getFarmingTools().setTools(i, load.readInt());
     			}
-			for (int i = 0; i < player.getDegradeableHits().length; i++) {
-			    try {
-    				player.setDegradeableHits(i, load.readInt());
-			    }
-			    catch (IOException e) {
-				player.setDegradeableHits(i, 0);
-			    }
-    			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {
 			    try {
     				player.setBonesGround(i, load.readInt());
@@ -1043,7 +1035,13 @@ public class PlayerSave {
             } catch (IOException e) {
 		player.setGodBook(0);
             }
-	    
+	    for (int i = 0; i < player.getDegradeableHits().length; i++) {
+		try {
+		    player.setDegradeableHits(i, load.readInt());
+		} catch (IOException e) {
+		    player.setDegradeableHits(i, 0);
+		}
+	    }
             load.close();
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);

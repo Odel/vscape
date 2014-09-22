@@ -346,7 +346,7 @@ public class Hit {
             if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {
 		if(player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ATTRACTOR || player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ACCUMULATOR) {
 		    Item arrow = new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount());
-		    player.getEquipment().getItemContainer().add(arrow, Constants.ARROWS);
+		    player.getEquipment().getItemContainer().add(arrow, hitDef.getDropItem().getDefinition().getSlot());
 		}
             	/*if (player.inDuelArena()) {
             		player.getActionSender().sendMessage(""+hitDef.getDropItem().getId());

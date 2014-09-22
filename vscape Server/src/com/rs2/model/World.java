@@ -297,14 +297,14 @@ public class World {
 	 *            the player
 	 */
 	public static synchronized void unregister(Player player) {
-        player.setLoggedIn(false);
-        player.setLoginStage(Player.LoginStages.LOGGED_OUT);
-        if (player.getIndex() == -1) 
-            return;
-        player.removeAllEffects();
-        //CycleEventHandler.getInstance().stopEvents(player);
-        players[player.getIndex()] = null;
-        player.setIndex(-1);
+	    player.setLoggedIn(false);
+	    player.setLoginStage(Player.LoginStages.LOGGED_OUT);
+	    if (player.getIndex() == -1) 
+		return;
+	    player.removeAllEffects();
+	    //CycleEventHandler.getInstance().stopEvents(player);
+	    players[player.getIndex()] = null;
+	    player.setIndex(-1);
 	}
 
 	/**
