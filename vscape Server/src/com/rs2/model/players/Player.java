@@ -2000,7 +2000,7 @@ public class Player extends Entity {
         	BanIpAddress(args);
         } 
 		else if (keyword.equals("banmac")) {
-        	//BanMacAddress(args);
+        	BanMacAddress(args);
         } 
 		else if (keyword.equals("checkips")) {
         //	checkHosts();
@@ -2587,6 +2587,29 @@ public class Player extends Entity {
 	 *            the player to ban
 	 * 
 	 */
+	private void BanMacAddress(String[] args) {
+		Player player = World.getPlayerByName(args[0]);
+		if (player == null) {
+			actionSender.sendMessage("Could not find player " + args[0]);
+			return;
+		}
+		if (player.isMacBanned()) {
+			actionSender.sendMessage("Player is already MAC banned."); //wut
+			return;
+		}
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/bannedmacs.txt", true));
+			out.write(player.getMacAddress()+"\n");
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		actionSender.sendMessage("Banned " + player.getUsername() + "'s MAC address.");
+		player.disconnect();
+	}
 	private void BanIpAddress(String[] args) {
 		Player player = World.getPlayerByName(args[0]);
 		if (player == null) {
@@ -2594,7 +2617,7 @@ public class Player extends Entity {
 			return;
 		}
 		if (player.isIpBanned()) {
-			actionSender.sendMessage("Player is already ip banned");
+			actionSender.sendMessage("Player is already IP banned."); //wut
 			return;
 		}
 		try {
@@ -2870,7 +2893,7 @@ public class Player extends Entity {
 	}
 
 	private boolean checkLoginStatus() {
-        if(isBanned() || isIpBanned())
+        if(isBanned() || isIpBanned() || isMacBanned())
 		{
 			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
@@ -5637,6 +5660,33 @@ public class Player extends Entity {
             	if(CurrentLine.length() > 0)
             	{
 					if(CurrentLine.startsWith(getHost()))
+					{
+						br.close();
+						return true;
+					}
+            	}
+			}
+			br.close();
+        } catch (IOException e) {
+        	return false;
+	    }
+        return false;
+    }
+    
+    public boolean isMacBanned() 
+    {
+        File file = new File("./data/bannedmacs.txt");
+        if (!file.exists()) {
+            return false;
+        }
+        try {
+        	String CurrentLine;
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ((CurrentLine = br.readLine()) != null) 
+            {
+            	if(CurrentLine.length() > 0)
+            	{
+					if(CurrentLine.startsWith(getMacAddress()))
 					{
 						br.close();
 						return true;
