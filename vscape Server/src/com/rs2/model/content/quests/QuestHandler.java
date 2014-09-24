@@ -52,7 +52,8 @@ public class QuestHandler {
 	new PriestInPeril(),
 	new GhostsAhoy(),
 	new AnimalMagnetism(),
-	new HorrorFromTheDeep()
+	new HorrorFromTheDeep(),
+	new HeroesQuest()
     };
     
     public static void init() {
@@ -194,6 +195,9 @@ public class QuestHandler {
         		return true;
 		case 39151: //Horror From The Deep
 			showInterface(player,quests[26]);
+        		return true;
+		case 28195: //Heroes Quest
+			showInterface(player,quests[27]);
         		return true;
 
         }

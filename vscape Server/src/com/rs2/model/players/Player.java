@@ -6127,7 +6127,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7361); //the grand tree
 		getActionSender().sendString("", 11857); //haunted mine
 		getActionSender().sendString("", 7362); //hazeel cult
-		getActionSender().sendString("", 7363); //heroes quest
+		getActionSender().sendString("@red@Heroes Quest", 7363); //heroes quest
 		getActionSender().sendString("", 7364); //holy grail
 		getActionSender().sendString("@red@Horror From The Deep", 10135); //horror from the deep
 		getActionSender().sendString("", 4508); //Icthlarin's Little Helper 
