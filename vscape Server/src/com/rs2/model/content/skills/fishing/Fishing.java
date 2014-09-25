@@ -160,7 +160,7 @@ public class Fishing {
 				 * We check if the fisher receives this fish, based on his
 				 * fishing level etc.
 				 */
-				if (SkillHandler.skillCheck(player.getSkill().getLevel()[Skill.FISHING], spot.getLevels()[index], 0)) {
+				if (SkillHandler.fishSkillCheck(player.getSkill().getLevel()[Skill.FISHING], spot.getLevels()[index], 0)) {
 					player.getInventory().addItem(fish);
 					player.getActionSender().sendMessage("You catch " + (fish.getId() == 321 || fish.getId() == 317 ? "some " : "a ") + fish.getDefinition().getName().toLowerCase().replace("raw ", "") + ".");
 					player.getSkill().addExp(Skill.FISHING, spot.getExperience()[index]);
