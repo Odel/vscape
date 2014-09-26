@@ -48861,6 +48861,19 @@
     "drops": []
   },
   {
+    "npcId": 795,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 1580,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
     "npcId": 803,
     "rareTableAccess": false,
     "drops": [
@@ -82571,7 +82584,7 @@
         "chance": 1
       },
       {
-        "id": 3345,
+        "id": 3355,
         "count": [
           1
         ],
@@ -82584,7 +82597,7 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 3347,
+        "id": 3357,
         "count": [
           1
         ],
@@ -82611,7 +82624,7 @@
         "chance": 1
       },
       {
-        "id": 3349,
+        "id": 3359,
         "count": [
           1
         ],
@@ -82624,7 +82637,7 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 3351,
+        "id": 3361,
         "count": [
           1
         ],
@@ -240642,6 +240655,26 @@
     "drops": [
       {
         "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 6108,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 1583,
         "count": [
           1
         ],

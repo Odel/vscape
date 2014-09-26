@@ -2019,7 +2019,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
-								Sailing.sailShip(player, ShipRoute.PORT_SARIM_TO_ENTRANA);
+								Sailing.sailShip(player, ShipRoute.PORT_SARIM_TO_ENTRANA, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 							case 2:
@@ -2028,6 +2028,10 @@ public class Dialogues {
 								return true;
 						}
 						break;
+					case 4 :
+						player.getDialogue().sendNpcChat("How dare you try to take dangerous equipment?", "Come back when you have left it all behind.", ANGRY_1);
+						player.getDialogue().endDialogue();
+						return true;
 				}
 				break;
 			case 657 : // entrana monk
@@ -2041,7 +2045,7 @@ public class Dialogues {
 				case 3 :
 					switch(optionId) {
 						case 1:
-							Sailing.sailShip(player, ShipRoute.ENTRANA_TO_PORT_SARIM);
+							Sailing.sailShip(player, ShipRoute.ENTRANA_TO_PORT_SARIM, id);
 							player.getDialogue().dontCloseInterface();
 							break;
 						case 2:
@@ -2407,7 +2411,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
-								Sailing.sailShip(player, ShipRoute.RELLEKKA_TO_WATERBIRTH);
+								Sailing.sailShip(player, ShipRoute.RELLEKKA_TO_WATERBIRTH, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 						}
@@ -2429,7 +2433,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
-								Sailing.sailShip(player, ShipRoute.WATERBIRTH_TO_RELLEKKA);
+								Sailing.sailShip(player, ShipRoute.WATERBIRTH_TO_RELLEKKA, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 						}
@@ -2447,7 +2451,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
-								Sailing.sailShip(player, ShipRoute.PEST_CONTROL_TO_PORT_SARIM);
+								Sailing.sailShip(player, ShipRoute.PEST_CONTROL_TO_PORT_SARIM, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 						}
@@ -4489,7 +4493,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
-								Sailing.sailShip(player, ShipRoute.PORT_SARIM_TO_KARAMJA);
+								Sailing.sailShip(player, ShipRoute.PORT_SARIM_TO_KARAMJA, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 						}
@@ -4513,7 +4517,7 @@ public class Dialogues {
 								return true;
 							    }
 							    else {
-								Sailing.sailShip(player, ShipRoute.KARAMJA_TO_PORT_SARIM);
+								Sailing.sailShip(player, ShipRoute.KARAMJA_TO_PORT_SARIM, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 							    }

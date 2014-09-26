@@ -1264,9 +1264,97 @@ public class Player extends Entity {
 			}
 		    }
 		}
+		if(keyword.equals("setzamorakcasts")) {
+		    final int casts = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.saveZamorakCasts(casts);
+			getActionSender().sendMessage("Set " + player.getUsername() + "'s zamorak casts to " + casts + ".");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
+		if(keyword.equals("setsaradomincasts")) {
+		    final int casts = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.saveSaradominCasts(casts);
+			getActionSender().sendMessage("Set " + player.getUsername() + "'s saradomin casts to " + casts + ".");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
+		if(keyword.equals("setguthixcasts")) {
+		    final int casts = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.saveGuthixCasts(casts);
+			getActionSender().sendMessage("Set " + player.getUsername() + "'s guthix casts to " + casts + ".");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
+		if(keyword.equals("setbananacrate")) {
+		    final int count = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.setBananaCrateCount(count);
+			getActionSender().sendMessage("Set " + player.getUsername() + "'s banana crate count to " + count + ".");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
+		if(keyword.equals("resetghostsahoyflag")) {
+		    String name = fullString;
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.dyeGhostsAhoyFlag("top", "undyed");
+			player.dyeGhostsAhoyFlag("bottom", "undyed");
+			player.dyeGhostsAhoyFlag("skull", "undyed");
+			player.setDesiredGhostsAhoyFlag("top", "undyed");
+			player.setDesiredGhostsAhoyFlag("bottom", "undyed");
+			player.setDesiredGhostsAhoyFlag("skull", "undyed");
+			getActionSender().sendMessage("Reset " + player.getUsername() + "'s bGhosts Ahoy flag.");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
+		if(keyword.equals("setmagearenastage") || keyword.equals("magearenastage")) {
+		    final int stage = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    if(!fullString.contains("-")) {
+			this.setMageArenaStage(stage);
+			getActionSender().sendMessage("Set Mage Arena to stage " + stage + ".");
+		    }
+		    else {
+			try {
+			    player.setMageArenaStage(stage);
+			    getActionSender().sendMessage("Set " + player.getUsername() + "'s Mage Arena to stage " + stage + ".");
+			}
+			catch(Exception e) {
+			    this.getActionSender().sendMessage("Could not find player.");
+			}
+		    }
+		}
 		if(keyword.equals("resetquests")) {
 		    for(Quest q : QuestHandler.getQuests()) {
 			this.setQuestStage(q.getQuestID(), 0);
+		    }
+		}
+		if(keyword.equals("completequests")) {
+		    for(Quest q : QuestHandler.getQuests()) {
+			QuestHandler.completeQuest(this, q.getQuestID());
 		    }
 		}
 		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp") || keyword.equals("getqp")) {
@@ -1887,7 +1975,7 @@ public class Player extends Entity {
 			getActionSender().sendMessage("You are at: " + getPosition());
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
-			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])]);
+			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
 		}
 		else if (keyword.equalsIgnoreCase("carpet")) {
 			int xDiff = Integer.parseInt(args[0]);

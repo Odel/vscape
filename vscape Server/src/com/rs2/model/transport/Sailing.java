@@ -9,7 +9,7 @@ import com.rs2.model.tick.Tick;
 
 public class Sailing {
     
-    public static boolean sailShip(final Player player, final ShipRoute route) {
+    public static boolean sailShip(final Player player, final ShipRoute route, final int npcTalkedTo) {
         if (route.cost > 0) {
             final Item gold = new Item(995, route.cost);
             if (!player.getInventory().playerHasItem(gold)) {
@@ -22,7 +22,7 @@ public class Sailing {
         if (route == ShipRoute.PORT_SARIM_TO_ENTRANA) {
         	//combat item scan
         	if (player.hasCombatEquipment()) {
-        		Dialogues.sendDialogue(player, 657, 4, 0);
+        		Dialogues.sendDialogue(player, npcTalkedTo, 4, 0);
                 return false;
         	}
         }

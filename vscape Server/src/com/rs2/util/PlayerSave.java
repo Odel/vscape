@@ -19,6 +19,7 @@ import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
@@ -939,32 +940,46 @@ public class PlayerSave {
             } catch (IOException e) {
             }
             try {
-            	player.setClayBraceletLife(load.readInt());
+		if(load.readInt() < 1000) {
+		    player.setClayBraceletLife(load.readInt());
+		}
+		else {
+		    player.setClayBraceletLife(0);
+		}
             } catch (IOException e) {
+		player.setClayBraceletLife(0);
             }
             try {
-            	player.setPcPoints(load.readInt(), player);
+		if(load.readInt() < 10000) {
+		    player.setPcPoints(load.readInt(), player);
+		}
             } catch (IOException e) {
+		player.setPcPoints(0, player);
 	    }
 	    try {
             	player.saveZamorakCasts(load.readInt());
             } catch (IOException e) {
+		player.saveZamorakCasts(0);
             }
 	    try {
             	player.saveSaradominCasts(load.readInt());
             } catch (IOException e) {
+		player.saveSaradominCasts(0);
             }
 	    try {
             	player.saveGuthixCasts(load.readInt());
             } catch (IOException e) {
+		player.saveGuthixCasts(0);
             }
 	    try {
             	player.setMageArenaStage(load.readInt());
             } catch (IOException e) {
+		player.setMageArenaStage(0);
             }
 	    try {
             	player.setDefender(load.readInt());
             } catch (IOException e) {
+		WarriorsGuild.findDefender(player);
             }
 	    try {
             	player.joinPhoenixGang(load.readBoolean());
@@ -981,17 +996,29 @@ public class PlayerSave {
 	    try {
             	player.setFightCavesWave(load.readInt());
             } catch (IOException e) {
+		player.setFightCavesWave(0);
             }
 	    try {
             	player.setBananaCrate(load.readBoolean());
             } catch (IOException e) {
             }
 	    try {
-            	player.setBananaCrateCount(load.readInt());
+		if(load.readInt() <= 10) {
+		    player.setBananaCrateCount(load.readInt());
+		}
+		else {
+		    player.setBananaCrateCount(0);
+		}
             } catch (IOException e) {
+		player.setBananaCrateCount(0);
             }
 	    try {
-            	player.setEctoWorshipCount(load.readInt());
+		if(load.readInt() < 1000) {
+		    player.setEctoWorshipCount(load.readInt());
+		}
+		else {
+		   player.setEctoWorshipCount(0); 
+		}
             } catch (IOException e) {
 		player.setEctoWorshipCount(0);
             }

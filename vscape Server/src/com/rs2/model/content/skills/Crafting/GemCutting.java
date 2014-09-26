@@ -74,7 +74,16 @@ public class GemCutting {
 		ONYX(6571, 6573, 67, 885, 168, false), 
 		OPAL(1625, 1609, 1, 891, 15, true), 
 		JADE(1627, 1611, 13, 890, 20, true), 
-		RED_TOPAZ(1629, 1613, 16, 887, 25, true);
+		RED_TOPAZ(1629, 1613, 16, 887, 25, true),
+		MYRE_SNELM_SMALL(3345, 3327, 15, 6702, 32.5, false),
+		MYRE_SNELM_LARGE(3355, 3337, 15, 6702, 32.5, false),
+		BLOOD_SNELM_SMALL(3347, 3329, 15, 6702, 32.5, false),
+		BLOOD_SNELM_LARGE(3357, 3339, 15, 6702, 32.5, false),
+		OCHRE_SNELM_SMALL(3349, 3331, 15, 6702, 32.5, false),
+		OCHRE_SNELM_LARGE(3359, 3341, 15, 6702, 32.5, false),
+		BLUE_SNELM_SMALL(3351, 3333, 15, 6702, 32.5, false),
+		BLUE_SNELM_LARGE(3361, 3343, 15, 6702, 32.5, false),
+		BARK_SNELM(3353, 3335, 15, 6702, 32.5, false);
 
 		private short uncutId;
 		private short gemId;

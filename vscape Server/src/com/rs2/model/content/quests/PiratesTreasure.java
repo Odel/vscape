@@ -282,7 +282,7 @@ public class PiratesTreasure implements Quest {
 		    return true;
 		}
 		else {
-		    Sailing.sailShip(player, Sailing.ShipRoute.KARAMJA_TO_PORT_SARIM);
+		    Sailing.sailShip(player, Sailing.ShipRoute.KARAMJA_TO_PORT_SARIM, npcId);
 		    return true;
 		}
 	    case 376: //port sarim sailors
@@ -293,7 +293,7 @@ public class PiratesTreasure implements Quest {
 		    return true;
 		}
 		else {
-		    Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_KARAMJA);
+		    Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_KARAMJA, npcId);
 		    return true;
 		}
 	}

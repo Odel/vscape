@@ -27,6 +27,7 @@ import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -1840,6 +1841,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(HeroesQuest.doObjectSecondClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 2114 : // coal truck
 					CoalTruck.checkCoal(player);
@@ -2294,6 +2299,13 @@ public class WalkToActionHandler {
 				case 510: //hajedy
 				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
 				    break;
+				case 657: //entrana monk
+				    Sailing.sailShip(player, Sailing.ShipRoute.ENTRANA_TO_PORT_SARIM, player.getClickId());
+				    break;
+				case 2728:
+				case 2729:
+				    Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_ENTRANA, player.getClickId());
+				    break;
 				case 960:
 				case 961:
 				case 962:
@@ -2312,7 +2324,7 @@ public class WalkToActionHandler {
 					    break;
 					}
 				case 3781: //pc squire
-					Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_PEST_CONTROL);
+					Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_PEST_CONTROL, player.getClickId());
 					player.getDialogue().dontCloseInterface();	
 					break;
 
@@ -2780,21 +2792,27 @@ public class WalkToActionHandler {
 					break;
 				}
 				switch (item) { // item ids
-				case 954:
-				    if(player.getQuestStage(9) == 10 && player.getClickId() == 919) {
-					player.getInventory().removeItem(new Item(954));
-					player.getActionSender().sendMessage("You tie up Lady Keli.");
-					npc.setDead(true);
-					CombatManager.startDeath(npc);
-					player.setQuestStage(9, 11);
-					this.stop();
-					return;
-				    }
-				case 1735:
+				    case 3377:
+					if (npc.getDefinition().getName().toLowerCase().contains("blamish snail")) {
+					    player.getInventory().replaceItemWithItem(new Item(item), new Item(HeroesQuest.BLAMISH_SNAIL_SLIME));
+					    player.getActionSender().sendMessage("You carefully collect some blamish snail slime...");
+					    break;
+					}
+				    case 954:
+					if (player.getQuestStage(9) == 10 && player.getClickId() == 919) {
+					    player.getInventory().removeItem(new Item(954));
+					    player.getActionSender().sendMessage("You tie up Lady Keli.");
+					    npc.setDead(true);
+					    CombatManager.startDeath(npc);
+					    player.setQuestStage(9, 11);
+					    this.stop();
+					    return;
+					}
+				    case 1735:
 					if (player.getClickId() == 43 || player.getClickId() == 1765) {
-						NpcActions.shearSheep(player);
-						this.stop();
-						return;
+					    NpcActions.shearSheep(player);
+					    this.stop();
+					    return;
 					}
 					break;
 				}

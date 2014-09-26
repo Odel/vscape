@@ -16,6 +16,7 @@ import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
@@ -433,6 +434,9 @@ public class ItemPacketHandler implements PacketHandler {
 			return;
 		}
 		if (DemonSlayer.itemPickupHandling(player, player.getClickId())) {
+		    return;
+		}
+		if (HeroesQuest.itemPickupHandling(player, player.getClickId())) {
 		    return;
 		}
 		if ((Boolean) player.getAttributes().get("canPickup")) {
@@ -1054,6 +1058,10 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(QuestHandler.getQuests()[25].itemHandling(player, itemId)) { //Animal Magnetism
+		    return;
+		}
+		if(itemId >= 3327 && itemId < 3344) {
+		    player.getEquipment().equip(player.getSlot());
 		    return;
 		}
 		if(itemId == 11664 )

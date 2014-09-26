@@ -959,7 +959,7 @@ public class DragonSlayer implements Quest {
 					return true;
 				}
 			    case 4:
-				Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_CRANDOR);
+				Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_CRANDOR, id);
 				player.getDialogue().dontCloseInterface();
 				if (player.getQuestStage(15) == 6) {
 				    player.setQuestStage(15, 7);
