@@ -292,7 +292,6 @@ public class Shops {
 			case 2156:
 				return 96;
 	
-			case 526:
 			case 527:
 				return 56;
 	
@@ -465,8 +464,6 @@ public class Shops {
 			break;
 			/*case 797: //
 				return 166;*/
-			case 1334: //jossik
-				return 199;
 			case 797: //hero shop
 				return 168;
 			case 1208://halberd
@@ -489,6 +486,10 @@ public class Shops {
 				return 197;
 			case 4359: //patchy
 				return 198;
+			case 1334: //jossik
+				return 199;
+			case 536: //valaine
+				return 200;
 			case 4294:  //Warrior's Guild Potion Shop
 				return 195;
 			case 555:

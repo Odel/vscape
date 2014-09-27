@@ -3735,13 +3735,14 @@
         "count": 10
       },
       {
-        "id": 1153,
+        "id": 1154,
         "count": 10
       },
       {
         "id": 1157,
         "count": 10
-      }, {
+      },
+      {
         "id": 1159,
         "count": 10
       },
@@ -8615,6 +8616,31 @@
       }
       ],
     "isGeneralStore": true,
+    "currencyType": "ITEM",
+    "currency": 995
+    },
+    {
+    "shopId": 200,
+    "name": "Valaine's Shop of Champions",
+    "items": [
+      {
+        "id": 1021,
+        "count": 2
+      },
+      {
+        "id": 1165,
+        "count": 2
+      },
+      {
+        "id": 1077,
+        "count": 2
+      },
+      {
+        "id": 1123,
+        "count": 1
+      }
+    ],
+    "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
     }
