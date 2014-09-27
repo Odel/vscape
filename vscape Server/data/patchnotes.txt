@@ -1,3 +1,12 @@
+@dre@=September 27th=
+@blu@Heroes Quest
+-Vestments / Croziers / Stoles added to clues.
+-Disconnect + stuck logged in fix.
+-Increase to the Monk and Shark rate.
+-Right click, "sail" to Entrana working.
+-Snelms can be crafted from snails in Mort Myre.
+-Re-vamped yell, toggleable as a channel.
+
 @dre@=September 12th=
 @blu@Horror From The Deep
 -Lighthouse dagannoth cave open post-quest.
