@@ -51,8 +51,6 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
-import com.rs2.model.content.combat.util.Degradeables;
-import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.combat.weapon.CombatSounds;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
@@ -68,7 +66,6 @@ import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
 import com.rs2.model.content.minigames.duelarena.DuelMainData;
 import com.rs2.model.content.minigames.duelarena.PlayerInteraction;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
-import com.rs2.model.content.minigames.fightcaves.WavesHandling;
 import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
@@ -167,9 +164,6 @@ import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
-import com.rs2.model.content.treasuretrails.SearchScrolls.SearchData;
-import com.rs2.model.tick.TickStopWatch;
-import com.rs2.model.tick.TickTimer;
 
 /**
  * Represents a logged-in player.
@@ -334,7 +328,7 @@ public class Player extends Entity {
 	private boolean placedWaterRune = false;
 	private boolean placedSword = false;
 	private boolean placedArrow = false;
-	private int godBook;
+	private int godBook = 0;
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
 	private int ringOfRecoilLife = 40;
@@ -366,6 +360,10 @@ public class Player extends Entity {
 	private boolean autoCasting = false;
 	private boolean warriorsGuildGameActive;
 	private boolean warriorsGuildFirstTime;
+	private boolean spokeToGarv;
+	private boolean spokeToGrubor;
+	private boolean spokeToAlfonse;
+	private boolean spokeToCharlie;
 	private int tokenTime;
 	private int fightCavesWave;
 	private int fightCavesKillCount;
@@ -441,17 +439,19 @@ public class Player extends Entity {
 	private int drunkTimer;
 	private boolean isDrunk;
 	
-	private int pcDamage;
-	private int pcPoints;
-	private int zamorakCasts;
-	private int saradominCasts;
-	private int guthixCasts;
-	private int mageArenaStage;
-	private boolean phoenixGang;
-	private boolean blackArmGang;
-	private boolean melzarsDoor;
-	private boolean bananaCrate;
-	private int bananaCrateCount;
+	private int pcDamage = 0;
+	private int pcPoints = 0;
+	private int zamorakCasts = 0;
+	private int saradominCasts = 0;
+	private int guthixCasts = 0;
+	private int mageArenaStage = 0;
+	private boolean phoenixGang = false;
+	private boolean blackArmGang = false;
+	private boolean melzarsDoor = false;
+	private boolean bananaCrate = false;
+	private boolean snailSlime = false;
+	private boolean idPapers = false;
+	private int bananaCrateCount = 0;
 	private int[] degradeableHits = new int[26];
 	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
 	private ArrayList<BoneBurying.Bone> bonesInBin = new ArrayList<BoneBurying.Bone>();
@@ -755,6 +755,7 @@ public class Player extends Entity {
 		    disconnect();
 		}
 		if(!this.getSocketChannel().isConnected()) {
+		    System.out.println("here");
 		    disconnect();
 		}
 		// Npc.checkAggressiveness(this);
@@ -1312,6 +1313,18 @@ public class Player extends Entity {
 			this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
+		if(keyword.equals("resetgangs")) {
+		    String name = fullString;
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    try {
+			player.joinBlackArmGang(false);
+			player.joinPhoenixGang(false);
+			getActionSender().sendMessage("Reset " + player.getUsername() + "'s gangs.");
+		    } catch (Exception e) {
+			this.getActionSender().sendMessage("Could not find player.");
+		    }
+		}
 		if(keyword.equals("resetghostsahoyflag")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -1323,7 +1336,7 @@ public class Player extends Entity {
 			player.setDesiredGhostsAhoyFlag("top", "undyed");
 			player.setDesiredGhostsAhoyFlag("bottom", "undyed");
 			player.setDesiredGhostsAhoyFlag("skull", "undyed");
-			getActionSender().sendMessage("Reset " + player.getUsername() + "'s bGhosts Ahoy flag.");
+			getActionSender().sendMessage("Reset " + player.getUsername() + "'s Ghosts Ahoy flag.");
 		    } catch (Exception e) {
 			this.getActionSender().sendMessage("Could not find player.");
 		    }
@@ -3866,7 +3879,30 @@ public class Player extends Entity {
 	public boolean usingShop() {
 		return usingShop;
 	}
-	
+	public boolean spokeToGarv() {
+	    return spokeToGarv;
+	}
+	public void setSpokeToGarv(boolean bool) {
+	    this.spokeToGarv = bool;
+	}
+	public boolean spokeToGrubor() {
+	    return spokeToGrubor;
+	}
+	public void setSpokeToGrubor(boolean bool) {
+	    this.spokeToGrubor = bool;
+	}
+	public boolean spokeToAlfonse() {
+	    return spokeToAlfonse;
+	}
+	public void setSpokeToAlfonse(boolean bool) {
+	    this.spokeToAlfonse = bool;
+	}
+	public boolean spokeToCharlie() {
+	    return spokeToCharlie;
+	}
+	public void setSpokeToCharlie(boolean bool) {
+	    this.spokeToCharlie = bool;
+	}
 	public void morphRabbit()
 	{
 		if(transformNpc == 1192)
@@ -4054,7 +4090,20 @@ public class Player extends Entity {
 	public void setMelzarsDoorUnlock(boolean bool) {
 	    this.melzarsDoor = bool;
 	}
+	public boolean givenIdPapers() {
+	    return idPapers;
+	}
 	
+	public void setGivenIdPapers(boolean bool) {
+	    this.idPapers = bool;
+	}
+	public boolean givenSnailSlime() {
+	    return snailSlime;
+	}
+	
+	public void setGivenSnailSlime(boolean bool) {
+	    this.snailSlime = bool;
+	}
 	public boolean getBananaCrate() {
 	    return bananaCrate;
 	}
@@ -4154,6 +4203,7 @@ public class Player extends Entity {
 	    this.petitionSigned = bool;
 	}
 	public void dyeGhostsAhoyFlag(String part, String color) {
+	    if(color == null || color.length() > 30) return;
 	    switch(part) {
 		case "topHalf":
 		case "top":
@@ -4169,6 +4219,7 @@ public class Player extends Entity {
 	    }
 	}
 	public void setDesiredGhostsAhoyFlag(String part, String color) {
+	    if(color == null || color.length() > 30) return;
 	    switch(part) {
 		case "topHalf":
 		case "top":

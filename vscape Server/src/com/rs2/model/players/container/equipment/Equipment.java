@@ -578,6 +578,12 @@ public class Equipment {
 				return false;
 			    }
 			}
+			if(itemId == 1434 || itemId == 1377) {
+			    if(!QuestHandler.questCompleted(player, 27)) {
+				player.getDialogue().sendStatement("You must complete Heroes Quest to equip this.");
+				return false;
+			    }
+			}
 			if(itemId == 4212 || itemId == 4224) {
 			    if(player.getSkill().getLevel()[Skill.AGILITY] < 50) {
 				player.getDialogue().sendStatement("You need 50 Agility to equip this.");

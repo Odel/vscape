@@ -22,6 +22,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
@@ -393,6 +394,7 @@ public class CombatManager extends Tick {
 			DragonSlayer.handleDrops((Player) killer, npc);
 			PriestInPeril.handleDeath((Player) killer, npc);
 			PriestInPeril.handleDrops((Player) killer, npc);
+			HeroesQuest.handleGripDeath((Player)killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }

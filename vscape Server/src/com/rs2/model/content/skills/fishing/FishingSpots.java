@@ -66,6 +66,8 @@ public class FishingSpots {
 			{new Position(3350, 3817, 0), new Position(3347, 3814, 0), new Position(3363, 3816, 0), new Position(3368, 3811, 0)}, // Wildy
 																																	// north
 			{new Position(2342, 3702, 0), new Position(2345, 3702, 0), new Position(2348, 3702, 0), new Position(2326, 3700, 0), new Position(2321, 3702, 0), new Position(2311, 3704, 0), new Position(2307, 3700, 0)}, // Piscatoris
+			
+			{new Position(2891, 9766, 0), new Position(2884, 9765, 0), new Position(2894, 9764, 0)}, //Taverly lava eel
 																																																							// Fishing
 																																																							// Colony
 	};
@@ -103,6 +105,7 @@ public class FishingSpots {
 			{316, 316, 316}, // AlKharid
 			{312, 312, 312, 312}, // Wildy
 			{1174, 1174, 1174, 1174, 1174, 1174, 1174}, // Piscatoris
+			{800, 800, 800}, //Taverly lava eel
 	
 	};
 	/**

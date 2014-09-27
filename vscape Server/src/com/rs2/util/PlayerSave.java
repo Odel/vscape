@@ -339,6 +339,14 @@ public class PlayerSave {
 			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
 				write.writeInt(player.getFarmingTools().getTools()[i]);
 			}
+			for (int i = 0; i < player.getDegradeableHits().length; i++) {
+			    try {
+				write.writeInt(player.getDegradeableHits()[i]);
+			    }
+			    catch(IOException e) { System.out.println("err");
+				write.writeInt(0);
+			    }
+			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {
 			    try {
 				write.writeInt(player.getBonesGround()[i]);
@@ -347,8 +355,11 @@ public class PlayerSave {
 				write.writeInt(0);
 			    }
 			}*/
-			
-			write.writeInt(player.getSlayer().slayerMaster);
+			try {
+			    write.writeInt(player.getSlayer().slayerMaster);
+			} catch (IOException e) {
+			    player.getSlayer().resetSlayerTask();
+			}
 			write.writeUTF(player.getSlayer().slayerTask);
 			write.writeInt(player.getSlayer().taskAmount);
 			write.writeBoolean(player.getMagicBookType() == SpellBook.ANCIENT);
@@ -361,29 +372,47 @@ public class PlayerSave {
 			write.writeInt(player.getMageArenaCasts(Spell.CLAWS_OF_GUTHIX));
 			write.writeInt(player.getMageArenaStage());
 			write.writeInt(player.getDefender());
-			write.writeBoolean(player.isPhoenixGang());
-			write.writeBoolean(player.isBlackArmGang());
-			write.writeBoolean(player.getMelzarsDoorUnlock());
-			write.writeInt(player.getFightCavesWave());
-			write.writeBoolean(player.getBananaCrate());
-			write.writeInt(player.getBananaCrateCount());
-			write.writeInt(player.getEctoWorshipCount());
-			write.writeUTF(player.getTopHalfFlag());
-			write.writeUTF(player.getBottomHalfFlag());
-			write.writeUTF(player.getSkullFlag());
-			write.writeUTF(player.getDesiredTopHalfFlag());
-			write.writeUTF(player.getDesiredBottomHalfFlag());
-			write.writeUTF(player.getDesiredSkullFlag());
-			write.writeBoolean(player.petitionSigned());
-			write.writeInt(player.getGodBook());
-			for (int i = 0; i < player.getDegradeableHits().length; i++) {
+			    write.writeBoolean(player.isPhoenixGang());
+			    write.writeBoolean(player.isBlackArmGang());
+			    write.writeBoolean(player.getMelzarsDoorUnlock());
+			    write.writeInt(player.getFightCavesWave());
+			    write.writeBoolean(player.getBananaCrate());
+			    write.writeInt(player.getBananaCrateCount());
+			    write.writeInt(player.getEctoWorshipCount());
 			    try {
-				write.writeInt(player.getDegradeableHits()[i]);
+				write.writeUTF(player.getTopHalfFlag());
+			    } catch (IOException e) {
+				write.writeUTF("undyed");
 			    }
-			    catch(IOException e) {
-				write.writeInt(0);
+			    try {
+				write.writeUTF(player.getBottomHalfFlag());
+			    } catch (IOException e) {
+				write.writeUTF("undyed");
 			    }
-			}
+			    try {
+				write.writeUTF(player.getSkullFlag());
+			    } catch (IOException e) {
+				write.writeUTF("undyed");
+			    }
+			    try {
+				write.writeUTF(player.getDesiredTopHalfFlag());
+			    } catch (IOException e) {
+				write.writeUTF("black");
+			    }
+			    try {
+				write.writeUTF(player.getDesiredBottomHalfFlag());
+			    } catch (IOException e) {
+				write.writeUTF("black");
+			    }
+			    try {
+				write.writeUTF(player.getDesiredSkullFlag());
+			    } catch (IOException e) {
+				write.writeUTF("black");
+			    }
+			    write.writeBoolean(player.petitionSigned());
+			    write.writeInt(player.getGodBook());
+			    write.writeBoolean(player.givenSnailSlime());
+			    write.writeBoolean(player.givenIdPapers());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -906,6 +935,14 @@ public class PlayerSave {
     			for (int i = 0; i < player.getFarmingTools().getTools().length; i++) {
     				player.getFarmingTools().setTools(i, load.readInt());
     			}
+			for (int i = 0; i < player.getDegradeableHits().length; i++) {
+			    try {
+				player.setDegradeableHits(i, load.readInt());
+			    } catch (IOException e) {
+				System.out.println("degrade");
+				player.setDegradeableHits(i, 0);
+			    }
+			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {
 			    try {
     				player.setBonesGround(i, load.readInt());
@@ -918,157 +955,144 @@ public class PlayerSave {
             }
             try {
             	player.getSlayer().slayerMaster = load.readInt();
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here1");
             	player.getSlayer().resetSlayerTask();
             }
             try {
             	player.getSlayer().slayerTask = load.readUTF();
             	player.getSlayer().taskAmount = load.readInt();
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here2");
             }
             try {
             	boolean ancient = load.readBoolean();
             	player.setMagicBookType(ancient ? SpellBook.ANCIENT : SpellBook.MODERN);
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here3");
             }
             try {
             	player.setBrimhavenDungeonOpen(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here4");
             }
             try {
             	player.setKilledClueAttacker(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here5");
             }
             try {
-		if(load.readInt() < 1000) {
 		    player.setClayBraceletLife(load.readInt());
-		}
-		else {
-		    player.setClayBraceletLife(0);
-		}
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here6");
 		player.setClayBraceletLife(0);
             }
             try {
-		if(load.readInt() < 10000) {
 		    player.setPcPoints(load.readInt(), player);
-		}
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here7");
 		player.setPcPoints(0, player);
 	    }
 	    try {
             	player.saveZamorakCasts(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here8");
 		player.saveZamorakCasts(0);
             }
 	    try {
             	player.saveSaradominCasts(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here9");
 		player.saveSaradominCasts(0);
             }
 	    try {
             	player.saveGuthixCasts(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here10");
 		player.saveGuthixCasts(0);
             }
 	    try {
             	player.setMageArenaStage(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here11");
 		player.setMageArenaStage(0);
             }
 	    try {
             	player.setDefender(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here12");
 		WarriorsGuild.findDefender(player);
             }
 	    try {
             	player.joinPhoenixGang(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here13");
             }
 	    try {
             	player.joinBlackArmGang(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here14");
             }
 	    try {
             	player.setMelzarsDoorUnlock(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here15");
             }
 	    try {
             	player.setFightCavesWave(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here16");
 		player.setFightCavesWave(0);
             }
 	    try {
             	player.setBananaCrate(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here17");
             }
 	    try {
-		if(load.readInt() <= 10) {
 		    player.setBananaCrateCount(load.readInt());
-		}
-		else {
-		    player.setBananaCrateCount(0);
-		}
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("here18");
 		player.setBananaCrateCount(0);
             }
 	    try {
-		if(load.readInt() < 1000) {
-		    player.setEctoWorshipCount(load.readInt());
-		}
-		else {
-		   player.setEctoWorshipCount(0); 
-		}
-            } catch (IOException e) {
+		player.setEctoWorshipCount(load.readInt());
+            } catch (IOException e) { System.out.println("here19");
 		player.setEctoWorshipCount(0);
             }
 	    try {
-            	player.dyeGhostsAhoyFlag("top", load.readUTF());
-            } catch (IOException e) {
+		player.dyeGhostsAhoyFlag("top", load.readUTF());
+            } catch (IOException e) { System.out.println("20");
+		
 		player.dyeGhostsAhoyFlag("top", "undyed");
             }
 	    try {
-            	player.dyeGhostsAhoyFlag("bottom", load.readUTF());
-            } catch (IOException e) {
+		    player.dyeGhostsAhoyFlag("bottom", load.readUTF());
+            } catch (IOException e) { System.out.println("21"); 
 		player.dyeGhostsAhoyFlag("bottom", "undyed");
             }
 	    try {
-            	player.dyeGhostsAhoyFlag("skull", load.readUTF());
-            } catch (IOException e) {
+		    player.dyeGhostsAhoyFlag("skull", load.readUTF());
+            } catch (IOException e) { System.out.println("22"); 
 		player.dyeGhostsAhoyFlag("skull", "undyed");
             }
 	    try {
-            	player.setDesiredGhostsAhoyFlag("top", load.readUTF());
-            } catch (IOException e) {
+		    player.setDesiredGhostsAhoyFlag("top", load.readUTF());
+            } catch (IOException e) { System.out.println("23");
 		player.setDesiredGhostsAhoyFlag("top", "black");
             }
 	    try {
-            	player.setDesiredGhostsAhoyFlag("bottom", load.readUTF());
-            } catch (IOException e) {
+		    player.setDesiredGhostsAhoyFlag("bottom", load.readUTF());
+            } catch (IOException e) { System.out.println("24");
 		player.setDesiredGhostsAhoyFlag("bottom", "black");
             }
 	    try {
-            	player.setDesiredGhostsAhoyFlag("skull", load.readUTF());
-            } catch (IOException e) {
+		    player.setDesiredGhostsAhoyFlag("top", load.readUTF());
+            } catch (IOException e) { System.out.println("25");
 		player.setDesiredGhostsAhoyFlag("skull", "black");
             }
 	    try {
             	player.setPetitionSigned(load.readBoolean());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("26");
 		player.setPetitionSigned(false);
             }
 	    try {
             	player.setGodBook(load.readInt());
-            } catch (IOException e) {
+            } catch (IOException e) { System.out.println("27");
 		player.setGodBook(0);
             }
-	    for (int i = 0; i < player.getDegradeableHits().length; i++) {
-		try {
-		    player.setDegradeableHits(i, load.readInt());
-		} catch (IOException e) {
-		    player.setDegradeableHits(i, 0);
-		}
-	    }
+	    try {
+            	player.setGivenSnailSlime(load.readBoolean());
+            } catch (IOException e) { System.out.println("28");
+		player.setGivenSnailSlime(false);
+            }
+	    try {
+            	player.setGivenIdPapers(load.readBoolean());
+            } catch (IOException e) { System.out.println("29");
+		player.setGivenIdPapers(false);
+            }
             load.close();
             if (Server.getSingleton() != null)
                 Server.getSingleton().queueLogin(player);

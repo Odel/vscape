@@ -1,12 +1,15 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
+import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
+import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
@@ -14,9 +17,13 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
+import com.rs2.util.Misc;
 
 public class NpcPacketHandler implements PacketHandler {
 
@@ -25,6 +32,7 @@ public class NpcPacketHandler implements PacketHandler {
 	public static final int THIRD_CLICK = 21;
 	public static final int FOURTH_CLICK = 230;
 	public static final int ATTACK = 72;
+	public static final int ATTACK_CHOMPY = 18;
 	public static final int MAGIC_ON_NPC = 131;
 	public static final int ITEM_ON_NPC = 57;
 
@@ -48,6 +56,7 @@ public class NpcPacketHandler implements PacketHandler {
 			case FOURTH_CLICK :
 				handleFourthClick(player, packet);
 				break;
+			case ATTACK_CHOMPY:
 			case ATTACK :
 				handleAttack(player, packet);
 				break;
@@ -154,6 +163,9 @@ public class NpcPacketHandler implements PacketHandler {
 			return;
 		}
 		final Npc npc = World.getNpcs()[npcSlot];
+		if(npc.getNpcId() == 1550) {
+		    CombatManager.attack(player, npc);
+		}
 		if (npc == null || !npc.isRealNpc()) {
 			return;
 		}
@@ -165,6 +177,10 @@ public class NpcPacketHandler implements PacketHandler {
 		if (npc.getDefinition().isAttackable()) {
 		    if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046 && player.getEquipment().getId(Constants.WEAPON) != PriestInPeril.WOLFBANE) {
 			npc.sendTransform(npc.getNpcId() - 20, 100000);
+		    }
+		    if(npc.getNpcId() == HeroesQuest.GRIP) {
+			HeroesQuest.handleShootGrip(player, npc);
+			return;
 		    }
 			CombatManager.attack(player, npc);
 		}

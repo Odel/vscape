@@ -511,96 +511,74 @@ public class ShieldOfArrav implements Quest {
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
 	    case KATRINE:
-		switch(player.getDialogue().getChatId()) {
-		    case 1 :
-			if (player.getQuestStage(13) == 5) {
-			    player.getDialogue().sendPlayerChat("I know about your gang.", CONTENT);
-			    return true;
-			} else if (player.getQuestStage(13) == 6) {
-			    if (player.getInventory().playerHasItem(767, 2)) {
-				player.getDialogue().sendPlayerChat("I got you your crossbows.", CONTENT);
-				player.getInventory().removeItem(new Item(767, 2));
-				player.getDialogue().setNextChatId(15);
-				return true;
-			    } else {
-				player.getDialogue().sendStatement("Katrine doesn't seem to want to be bothered.");
-				player.getDialogue().endDialogue();
-				return true;
-			    }
-			} else if (player.getQuestStage(13) == 12 && !player.isBlackArmGang() && !player.isPhoenixGang()) {
-			    player.getDialogue().sendPlayerChat("Hello, Katrine.", CONTENT);
-			    player.getDialogue().setNextChatId(25);
-			    return true;
-			} else {
-			    player.getDialogue().sendStatement("Katrine doesn't seem to want to be bothered.");
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
+		switch (player.getQuestStage(13)) {
+		    case 1:
 		    case 2:
-			player.getDialogue().sendNpcChat("Who told you?!", ANGRY_2);
-			return true;
-		    case 3:
-			player.getDialogue().sendPlayerChat("I won't reveal my source...", "...and I won't tell anyone about you...", "...if you allow me to join.", CONTENT);
-			return true;
-		    case 4:
-			player.getDialogue().sendNpcChat("You're in luck, we're still gutting our last victim.", "And I'm in need of something.", ANNOYED);
-			return true;
 		    case 5:
-			player.getDialogue().sendStatement("You hear a scream from upstairs.");
-			return true;
 		    case 6:
-			player.getDialogue().sendPlayerChat("Good, I'm not afraid of you.", "What do I need to do?", CONTENT);
-			return true;
 		    case 7:
-			player.getDialogue().sendNpcChat("Our weapon stores have become low as of late.", "I need you to steal 2 Phoenix crossbows for me.", CONTENT);
-			player.setQuestStage(13, 6);
-			return true;
-		    case 8:
-			player.getDialogue().sendNpcChat("The Phoenix Gang weapon storeroom is", "up the ladder of a locked house near the chaos altar.", CONTENT);
-			return true;
-		    case 9:
-			player.getDialogue().sendPlayerChat("If it's locked, how do I get in?", CONTENT);
-			return true;
 		    case 10:
-			player.getDialogue().sendNpcChat("Im sure you'll figure it out.", CONTENT);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 15:
-			player.getDialogue().sendNpcChat("Good, you were up to the task.", "I suppose you are worthy of the gang.", CONTENT);
-			player.joinBlackArmGang(true);
-			player.setQuestStage(13, 7);
-			return true;
-		    case 16:
-			player.getDialogue().sendStatement("You are now a member of the Black Arm Gang.");
-			return true;
-		    case 17:
-			player.getDialogue().sendNpcChat("Welcome to the jungle.", LAUGHING);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 25:
-			player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
-			return true;
-		    case 26:
-			player.getDialogue().sendOption("I'm a loyal member of your Black Arm Gang.", "A nobody, I'm just poking around.");
-			return true;
-		    case 27:
-			switch(optionId) {
+		    case 11:
+			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("I'm a loyal member of your Black Arm Gang.", CONTENT);
-				return true;
+				if (player.getQuestStage(13) == 5) {
+				    player.getDialogue().sendPlayerChat("I know about your gang.", CONTENT);
+				    return true;
+				} else if (player.getQuestStage(13) == 6) {
+				    if (player.getInventory().playerHasItem(767, 2)) {
+					player.getDialogue().sendPlayerChat("I got you your crossbows.", CONTENT);
+					player.getInventory().removeItem(new Item(767, 2));
+					player.getDialogue().setNextChatId(15);
+					return true;
+				    } else {
+					return false;
+				    }
+				} else {
+				    return false;
+				}
 			    case 2:
-				player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+				player.getDialogue().sendNpcChat("Who told you?!", ANGRY_2);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("I won't reveal my source...", "...and I won't tell anyone about you...", "...if you allow me to join.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("You're in luck, we're still gutting our last victim.", "And I'm in need of something.", ANNOYED);
+				return true;
+			    case 5:
+				player.getDialogue().sendStatement("You hear a scream from upstairs.");
+				return true;
+			    case 6:
+				player.getDialogue().sendPlayerChat("Good, I'm not afraid of you.", "What do I need to do?", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("Our weapon stores have become low as of late.", "I need you to steal 2 Phoenix crossbows for me.", CONTENT);
+				player.setQuestStage(13, 6);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("The Phoenix Gang weapon storeroom is", "up the ladder of a locked house near the chaos altar.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("If it's locked, how do I get in?", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("Im sure you'll figure it out.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("Good, you were up to the task.", "I suppose you are worthy of the gang.", CONTENT);
+				player.joinBlackArmGang(true);
+				player.setQuestStage(13, 7);
+				return true;
+			    case 16:
+				player.getDialogue().sendStatement("You are now a member of the Black Arm Gang.");
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("Welcome to the jungle.", LAUGHING);
 				player.getDialogue().endDialogue();
 				return true;
 			}
-		    case 28:
-			player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", HAPPY);
-			player.joinBlackArmGang(true);
-			return true;
-		    case 29:
-			player.getDialogue().sendStatement("You have been recognized as a member of the Black Arm Gang.");
-			player.getDialogue().endDialogue();
-			return true;
+			return false;
 		}
 		return false;
 	    case CHARLIE_THE_TRAMP:
@@ -820,111 +798,90 @@ public class ShieldOfArrav implements Quest {
 		}
 	    return false;
 	    case STRAVEN:
-		switch (player.getDialogue().getChatId()) {
+		switch (player.getQuestStage(13)) {
 		    case 1:
-			if (player.getQuestStage(13) == 2) {
-			    player.getDialogue().sendPlayerChat("I know who you are.", CONTENT);
-			    return true;
-			} else if (player.getQuestStage(13) == 3) {
-			    if (player.getInventory().playerHasItem(761)) {
-				player.getDialogue().sendPlayerChat("Here's what Johnny was carrying.", CONTENT);
-				player.getInventory().removeItem(new Item(761));
-				player.getDialogue().setNextChatId(15);
-				return true;
-			    } else {
-				player.getDialogue().sendNpcChat("Well? Do you have anything for me?", CONTENT);
-				player.getDialogue().setNextChatId(20);
-				return true;
-			    }
-			} else if(player.getQuestStage(13) >= 4 && player.getQuestStage(13) < 12 && !player.getInventory().ownsItem(759)) {
-			    player.getDialogue().sendNpcChat("Don't lose the key this time.", ANGRY_1);
-			    player.getDialogue().endDialogue();
-			    player.getInventory().addItemOrDrop(new Item(759));
-			    return true;
-			} else if(player.getQuestStage(13) == 12 && !player.isBlackArmGang() && !player.isPhoenixGang()) {
-			    player.getDialogue().sendPlayerChat("Hello, Straven.", CONTENT);
-			    player.getDialogue().setNextChatId(25);
-			    return true;
-			} else {
-			    player.getDialogue().sendStatement("Straven doesn't look interested in talking.");
-			    player.getDialogue().endDialogue();
-			    return true;
-			}
 		    case 2:
-			player.getDialogue().sendNpcChat("Oh, and who might that be?", CONTENT);
-			return true;
 		    case 3:
-			player.getDialogue().sendPlayerChat("You must be the leader of the Phoenix Gang.", "You're standing in front of the entrance to their hideout.", CONTENT);
-			return true;
 		    case 4:
-			player.getDialogue().sendNpcChat("Alright, you got me. What do you want?", CONTENT);
-			return true;
-		    case 5:
-			player.getDialogue().sendPlayerChat("I want to join the Phoenix Gang.", CONTENT);
-			return true;
-		    case 6:
-			player.getDialogue().sendNpcChat("HA HA HA! A COMEDIAN!", LAUGHING);
-			return true;
-		    case 7:
-			player.getDialogue().sendPlayerChat("I'm serious.", ANGRY_1);
-			return true;
-		    case 8:
-			player.getDialogue().sendNpcChat("If you're serious, I have a task for you.", "Kill Johnny the Beard in the Blue Moon Inn.", ANNOYED);
-			return true;
-		    case 9:
-			player.getDialogue().sendPlayerChat("Why?", CONTENT);
-			return true;
 		    case 10:
-			player.getDialogue().sendNpcChat("He has something I need.", "I thought you were serious?", CONTENT);
-			return true;
 		    case 11:
-			player.getDialogue().sendPlayerChat("I am, I'll be right back.", CONTENT);
-			player.getDialogue().endDialogue();
-			player.setQuestStage(13, 3);
-			return true;
-		    case 15:
-			player.getDialogue().sendNpcChat("Excellent. You were serious.", "I suppose you are worthy of the gang.", CONTENT);
-			player.joinPhoenixGang(true);
-			player.setQuestStage(13, 4);
-			return true;
-		    case 16:
-			player.getDialogue().sendStatement("You are now a member of the Phoenix Gang.");
-			return true;
-		    case 17:
-			player.getDialogue().sendNpcChat("Here's a spare key to our weapons store room.", "It's in the room east of our hideout entrance.", "Just go up the ladder.", CONTENT);
-			return true;
-		    case 18:
-			player.getDialogue().sendStatement("Straven hands you a small key.");
-			player.getInventory().addItem(new Item(759));
-			return true;
-		    case 19:
-			player.getDialogue().sendPlayerChat("Thank you.", "I'll be your best member some day!", HAPPY);
-			player.getDialogue().endDialogue();
-			return true;
-		    case 25:
-			player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
-			return true;
-		    case 26:
-			player.getDialogue().sendOption("I'm a loyal member of your Phoenix Gang.", "A nobody, I'm just poking around.");
-			return true;
-		    case 27:
-			switch(optionId) {
+			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("I'm a loyal member of your Phoenix Gang.", CONTENT);
-				return true;
+				if (player.getQuestStage(13) == 2) {
+				    player.getDialogue().sendPlayerChat("I know who you are.", CONTENT);
+				    return true;
+				} else if (player.getQuestStage(13) == 3) {
+				    if (player.getInventory().playerHasItem(761)) {
+					player.getDialogue().sendPlayerChat("Here's what Johnny was carrying.", CONTENT);
+					player.getInventory().removeItem(new Item(761));
+					player.getDialogue().setNextChatId(15);
+					return true;
+				    } else {
+					player.getDialogue().sendNpcChat("Well? Do you have anything for me?", CONTENT);
+					player.getDialogue().setNextChatId(20);
+					return true;
+				    }
+				} else if (player.getQuestStage(13) >= 4 && player.getQuestStage(13) < 12 && !player.getInventory().ownsItem(759)) {
+				    player.getDialogue().sendNpcChat("Don't lose the key this time.", ANGRY_1);
+				    player.getDialogue().endDialogue();
+				    player.getInventory().addItemOrDrop(new Item(759));
+				    return true;
+				} else {
+				    return false;
+				}
 			    case 2:
-				player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+				player.getDialogue().sendNpcChat("Oh, and who might that be?", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("You must be the leader of the Phoenix Gang.", "You're standing in front of the entrance to their hideout.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Alright, you got me. What do you want?", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("I want to join the Phoenix Gang.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("HA HA HA! A COMEDIAN!", LAUGHING);
+				return true;
+			    case 7:
+				player.getDialogue().sendPlayerChat("I'm serious.", ANGRY_1);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("If you're serious, I have a task for you.", "Kill Johnny the Beard in the Blue Moon Inn.", ANNOYED);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("Why?", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("He has something I need.", "I thought you were serious?", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendPlayerChat("I am, I'll be right back.", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setQuestStage(13, 3);
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("Excellent. You were serious.", "I suppose you are worthy of the gang.", CONTENT);
+				player.joinPhoenixGang(true);
+				player.setQuestStage(13, 4);
+				return true;
+			    case 16:
+				player.getDialogue().sendStatement("You are now a member of the Phoenix Gang.");
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("Here's a spare key to our weapons store room.", "It's in the room east of our hideout entrance.", "Just go up the ladder.", CONTENT);
+				return true;
+			    case 18:
+				player.getDialogue().sendStatement("Straven hands you a small key.");
+				player.getInventory().addItem(new Item(759));
+				return true;
+			    case 19:
+				player.getDialogue().sendPlayerChat("Thank you.", "I'll be your best member some day!", HAPPY);
 				player.getDialogue().endDialogue();
 				return true;
 			}
-		    case 28:
-			player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", CONTENT);
-			player.joinPhoenixGang(true);
-			return true;
-		    case 29:
-			player.getDialogue().sendStatement("You have been recognized as a member of the Phoenix Gang.");
-			player.getDialogue().endDialogue();
-			return true;
+			return false;
 		}
 		return false;
 	}

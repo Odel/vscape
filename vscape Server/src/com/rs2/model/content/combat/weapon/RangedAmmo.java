@@ -79,6 +79,37 @@ public enum RangedAmmo {
 	public int getGraphicId() {
 		return graphicId;
 	}
+	
+	public static RangedAmmo getArrowForEquipped(int equipped) {
+		switch(equipped) {
+		    case 882:
+			return BRONZE_ARROW;
+		    case 884:
+			return IRON_ARROW;
+		    case 886:
+			return STEEL_ARROW;
+		    case 888:
+			return MITHRIL_ARROW;
+		    case 890:
+			return ADAMANT_ARROW;
+		    case 892:
+			return RUNE_ARROW;
+		    case 877:
+			return BRONZE_BOLTS;
+		    case 9140:
+			return IRON_BOLTS;
+		    case 9141:
+			return STEEL_BOLTS;
+		    case 9142:
+			return MITHRIL_BOLTS;
+		    case 9143:
+			return ADAMANT_BOLTS;
+		    case 9144:
+			return RUNITE_BOLTS;
+		    default:
+			return null;
+		}
+	}
 
 	public static RangedAmmo getRangedAmmo(Player player, Weapon weapon, boolean sendMessage) {
 		RangedAmmoType ammoType = weapon.getAmmoType();

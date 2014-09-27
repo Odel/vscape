@@ -4,8 +4,12 @@ import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
@@ -17,6 +21,8 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
@@ -29,11 +35,12 @@ import com.rs2.util.Misc;
 public class HeroesQuest implements Quest {
     //Quest stages
     public static final int QUEST_STARTED = 1;
-    public static final int SLIME_GOTTEN = 2;
+    public static final int CANDLESTICKS_GOTTEN = 2;
+    public static final int ARMBAND_GOTTEN = 3;
     public static final int QUEST_COMPLETE = 9;
     //Items
     public static final int HAMMER = 2347;
-    public static final int CANDLESTICKS = 1577;
+    public static final int CANDLESTICK = 1577;
     public static final int ARMBAND = 1579;
     public static final int ICE_GLOVES = 1580;
     public static final int BLAMISH_SNAIL_SLIME = 1581;
@@ -42,15 +49,15 @@ public class HeroesQuest implements Quest {
     public static final int ID_PAPERS = 1584;
     public static final int OILY_FISHING_ROD = 1585;
     public static final int MISC_KEY = 1586;
+    public static final int CANDLESTICKS_KEY = 9722;
     public static final int DUSTY_KEY = 1590;
     public static final int JAIL_KEY = 1591;
     public static final int RAW_LAVA_EEL = 2148;
     public static final int LAVA_EEL = 2149;
     public static final int SAMPLE_BOTTLE = 3377;
     public static final int TINDERBOX = 590;
-    public static final int SWAMP_TAR = 1939;
-    public static final int STEEL_NAILS = 1539;
-    public static final int PLANK = 960;
+    public static final int HARRALANDER_POTION = 97;
+    public static final int FISHING_ROD = 307;
     //Positions
     public static final Position UP_AT_LIGHTHOUSE = new Position(2510, 3644, 0);
     //Interfaces
@@ -64,6 +71,8 @@ public class HeroesQuest implements Quest {
     public static final int SETH = 791;
     public static final int TROBERT = 790;
     public static final int GARV = 788;
+    public static final int GRUBOR = 789;
+    public static final int GRUBOR_DOOR = 78999;
     public static final int ENTRANA_FIREBIRD = 6108;
     public static final int GERRANT = 2720;
     public static final int MASTER_FISHER = 308;
@@ -146,7 +155,8 @@ public class HeroesQuest implements Quest {
         int questStage = player.getQuestStage(getQuestID());
 	switch(questStage) {
 	    case QUEST_STARTED:
-	    case SLIME_GOTTEN:
+	    case CANDLESTICKS_GOTTEN:
+	    case ARMBAND_GOTTEN:
 		player.getActionSender().sendString(getQuestName(), 8144);
 		player.getActionSender().sendString("@str@" + "Talk to Achietties, outside the Heroes Guild to begin.", 8147);
 	    
@@ -155,19 +165,19 @@ public class HeroesQuest implements Quest {
 		    player.getActionSender().sendString("@str@-An Entranan Firebird feather.", 8150);
 		}
 		else {
-		    player.getActionSender().sendString("-An Entranan Firebird feather (I should check on Entrana.)", 8150);
+		    player.getActionSender().sendString("-An Entranan Firebird feather(I should check on Entrana.)", 8150);
 		}
 		if(player.getInventory().ownsItem(LAVA_EEL)) {
 		    player.getActionSender().sendString("@str@-A cooked lava eel.", 8151);
 		}
 		else {
-		    player.getActionSender().sendString("-A cooked lava eel (I should talk to a fishing expert.)", 8151);
+		    player.getActionSender().sendString("-A cooked lava eel(I should talk to a fishing expert.)", 8151);
 		}
 		if(player.getInventory().ownsItem(ARMBAND)) {
 		    player.getActionSender().sendString("@str@-A Master Thieves Armband.", 8152);
 		}
 		else {
-		    player.getActionSender().sendString("-A Master Thieves Armband (I should talk to my gang's leader.)", 8152);
+		    player.getActionSender().sendString("-Master Thieves band(I should talk to my gang's leader.)", 8152);
 		}
 		break;
 	    case QUEST_COMPLETE:
@@ -339,10 +349,68 @@ public class HeroesQuest implements Quest {
 	}
 	return false;
     }
-    
+    public static boolean hasAllItems(final Player player) {
+	return player.getInventory().playerHasItem(ARMBAND) && player.getInventory().playerHasItem(FIREBIRD_FEATHER) && player.getInventory().playerHasItem(LAVA_EEL);
+    }
+    public static boolean blackKnightsGear(final Player player) {
+	return player.getEquipment().getId(Constants.HAT) == 1165 && player.getEquipment().getId(Constants.CHEST) == 1125 && player.getEquipment().getId(Constants.LEGS) == 1077;
+    }
+    public static void handleShootGrip(final Player player, final Npc npc) {
+	if (player.isPhoenixGang()) {
+	    if (player.getPosition().equals(new Position(2780, 3198, 0)) && Misc.goodDistance(player.getPosition(), npc.getPosition(), 5) && npc.getPosition().getY() > 3195) {
+		int attackerX = player.getPosition().getX(), attackerY = player.getPosition().getY();
+		int victimX = npc.getPosition().getX(), victimY = npc.getPosition().getY();
+		final int offsetX = (attackerY - victimY) * -1;
+		final int offsetY = (attackerX - victimX) * -1;
+		RangedAmmo ammo = RangedAmmo.getArrowForEquipped(player.getEquipment().getId(Constants.ARROWS));
+		if (ammo == null) {
+		    player.getActionSender().sendMessage("You must use one of the standard arrows / bolts to hit Grip!");
+		    return;
+		} else {
+		    player.getUpdateFlags().faceEntity(npc.getFaceIndex());
+		    player.getUpdateFlags().sendAnimation(426);
+		    World.sendProjectile(player.getPosition(), offsetX, offsetY, ammo.getProjectileId(), 43, 40, 70, npc.getIndex(), false);
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    npc.getUpdateFlags().setForceChatMessage("Urgggh...");
+			    CombatManager.startDeath(npc);
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			}
+		    }, 3);
+		    return;
+		}
+	    } else {
+		player.walkTo(new Position(2780, 3198, 0), true);
+		return;
+	    }
+	} else {
+	    player.getDialogue().setLastNpcTalk(npc.getNpcId());
+	    player.getDialogue().sendNpcChat("What are you doing so close to me?", Dialogues.CONTENT);
+	    player.getDialogue().endDialogue();
+	    return;
+	}
+    }
+    public static void handleGripDeath(final Player player, final Npc died) {
+	if(died.getNpcId() == GRIP) {
+	    for(Player players : World.getPlayers()) {
+		if(players == null) continue;
+		if(Misc.goodDistance(players.getPosition(), died.getPosition(), 10) && player.isBlackArmGang() && (player.getQuestStage(27) == 1 || player.getQuestStage(27) == 2)) {
+		    GroundItem dropItem = new GroundItem(new Item(CANDLESTICKS_KEY), died, players, died.getPosition());
+		    GroundItemManager.getManager().dropItem(dropItem);
+		}
+	    }
+	}
+    }
     public static boolean itemPickupHandling(Player player, int itemId) {
 	if (itemId == FIREBIRD_FEATHER) {
-	    if ((player.getQuestStage(27) == QUEST_STARTED || player.getQuestStage(27) == SLIME_GOTTEN) && !player.getInventory().ownsItem(FIREBIRD_FEATHER)) {
+	    if ((player.getQuestStage(27) == QUEST_STARTED || player.getQuestStage(27) == CANDLESTICKS_GOTTEN || player.getQuestStage(27) == ARMBAND_GOTTEN) && !player.getInventory().ownsItem(FIREBIRD_FEATHER)) {
 		if (player.getEquipment().getId(Constants.HANDS) != ICE_GLOVES) {
 		    player.getDialogue().sendPlayerChat("I'd better not touch this, it appears extremely hot.", "Perhaps there is a way to grab it...", CONTENT);
 		    return true;
@@ -359,7 +427,27 @@ public class HeroesQuest implements Quest {
 	}
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { 
+	if((firstItem == HARRALANDER_POTION && secondItem == BLAMISH_SNAIL_SLIME) || (firstItem == BLAMISH_SNAIL_SLIME && secondItem == HARRALANDER_POTION)) {
+	    if(player.getSkill().getLevel()[Skill.HERBLORE] < 25) {
+		player.getDialogue().sendStatement("You need a Herblore level of 25 to make this potion.");
+		return true;
+	    }
+	    else {
+		player.getInventory().replaceItemWithItem(new Item(BLAMISH_SNAIL_SLIME), new Item(SAMPLE_BOTTLE));
+		player.getInventory().replaceItemWithItem(new Item(HARRALANDER_POTION), new Item(BLAMISH_OIL));
+		player.getActionSender().sendMessage("You carefully mix the blamish slime and harralander solution.");
+		return true;
+	    }
+	}
+	else if((firstItem == BLAMISH_OIL && secondItem == FISHING_ROD) || (firstItem == FISHING_ROD && secondItem == BLAMISH_OIL)) {
+	    player.getInventory().replaceItemWithItem(new Item(BLAMISH_OIL), new Item(229)); //vial
+	    player.getInventory().replaceItemWithItem(new Item(FISHING_ROD), new Item(OILY_FISHING_ROD));
+	    player.getActionSender().sendMessage("You lubricate the rod with oil.");
+	    return true;
+	}
+	return false; 
+    }
     
     public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
@@ -370,6 +458,78 @@ public class HeroesQuest implements Quest {
     
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case 2635: //I SAID DONT TOUCH THE FUCKING CUPBOARDS
+		for(Npc npc : World.getNpcs()) {
+		    if(npc == null) continue;
+		    if(npc.getNpcId() == GRIP) {
+			npc.getUpdateFlags().setForceChatMessage("Hey! Get away from there!");
+			npc.walkTo(new Position(2777, 3197, 0), true);
+			return true;
+		    }
+		}
+	    case 2627: //mansion door
+		if(!player.spokeToGarv() && player.getPosition().getY() < 3188) {
+		    Dialogues.startDialogue(player, GARV);
+		    return true;
+		} else {
+		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3188 ? 1 : -1, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		}
+	    case 2632: //candlesticks chest
+		if(player.getQuestStage(27) == QUEST_STARTED && player.getInventory().canAddItem(new Item(CANDLESTICK, 2))) {
+		    player.getDialogue().sendStatement("You find two candlesticks in the chest. So that will be one for you,", "and one for the person who killed Grip for you.");
+		    player.getInventory().addItem(new Item(CANDLESTICK, 2));
+		    player.setQuestStage(27, CANDLESTICKS_GOTTEN);
+		    return true;
+		} else if(player.getQuestStage(27) == QUEST_STARTED && !player.getInventory().canAddItem(new Item(CANDLESTICK, 2))) {
+		    player.getDialogue().sendStatement("You find two candlesticks, but you don't have room for them.");
+		    return true;
+		} else {
+		    return false;
+		}
+	    case 2626: //locked grubor door
+		if(!player.spokeToGrubor()) {
+		    Dialogues.startDialogue(player, GRUBOR_DOOR);
+		    return true;
+		} else {
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2811 ? 1 : -1, 0, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		}
+	    case 2621: //locked door to candlesticks
+		if(!player.getInventory().playerHasItem(CANDLESTICKS_KEY)) {
+		    player.getActionSender().sendMessage("This door is locked.");
+		    return true;
+		} else {
+		    player.getActionSender().sendMessage("You open the door with Grip's key.");
+		    player.getActionSender().walkTo(0, player.getPosition().getX() < 2764 ? 1 : -1, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		}
+	    case 2622: //locked door to range room
+		if(!player.getInventory().playerHasItem(MISC_KEY)) {
+		    player.getActionSender().sendMessage("This door is locked.");
+		    return true;
+		} else {
+		    player.getActionSender().sendMessage("You open the door with your key.");
+		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3197 ? 1 : -1, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		}
+	    case 2628: //chef's door
+		player.getActionSender().walkTo(0, player.getPosition().getY() < 3190 ? 1 : -1, true);
+		player.getActionSender().walkThroughDoor(object, x, y, 0);
+		return true;
+	    case 2629: //chef's "wall"
+		if(player.spokeToCharlie()) {
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2787 ? 1 : -1, 0, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		} else {
+		    player.getDialogue().sendNpcChat("Get away from that wall!!", ANGRY_2);
+		    return true;
+		}
 	    case ROCKSLIDE:
 		player.getActionSender().sendMessage("You examine the rock for ores...");
 		player.setStopPacket(true);
@@ -452,27 +612,21 @@ public class HeroesQuest implements Quest {
 	    case MASTER_FISHER:
 	    case HARRY:
 		switch (player.getQuestStage(27)) {
-		    case SLIME_GOTTEN:
+		    case QUEST_STARTED:
+		    case CANDLESTICKS_GOTTEN:
+		    case ARMBAND_GOTTEN:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getInventory().ownsItem(BLAMISH_SNAIL_SLIME)) {
+				if(!player.getInventory().ownsItem(BLAMISH_SNAIL_SLIME) && !player.getInventory().ownsItem(OILY_FISHING_ROD) && !player.getInventory().ownsItem(BLAMISH_OIL) && player.givenSnailSlime()) {
 				    player.getDialogue().sendPlayerChat("I lost my snail slime...", CONTENT);
+				    player.getDialogue().setNextChatId(10);
 				    return true;
-				}
-				else {
+				} else if(!player.givenSnailSlime()) {
+				    player.getDialogue().sendPlayerChat("I want to find out how to catch a lava eel.", CONTENT);
+				    return true;
+				} else {
 				    return false;
 				}
-			    case 2:
-				player.getDialogue().sendNpcChat("I'm afraid that's all I had... You can", "try getting a bottle from Canifis and using it directly", "on a blamish snail in Mort Myre.", CONTENT);
-				player.getDialogue().endDialogue();
-				return true;
-			}
-		    return false;
-		    case QUEST_STARTED:
-			switch (player.getDialogue().getChatId()) {
-			    case 1:
-				player.getDialogue().sendPlayerChat("I want to find out how to catch a lava eel.", CONTENT);
-				return true;
 			    case 2:
 				player.getDialogue().sendNpcChat("Lava eels eh? That's a ticky one that is, you'll need a", "lava-proof fishing line. The method for making this would", "be to take an ordinary fishing rod, and then cover it", "with the fire-proof Blamish Oil.", CONTENT);
 				return true;
@@ -489,7 +643,558 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendGiveItemNpc("You get handed a strange slimy bottle.", new Item(BLAMISH_SNAIL_SLIME));
 				player.getDialogue().endDialogue();
 				player.getInventory().addItemOrDrop(new Item(BLAMISH_SNAIL_SLIME));
-				player.setQuestStage(27, SLIME_GOTTEN);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("I'm afraid that's all I had... You can", "try getting a bottle from Canifis and using it directly", "on a blamish snail in Mort Myre.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case CHARLIE_THE_COOK:
+		switch (player.getQuestStage(27)) {
+		    default:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Hey! What the hell are you doing back here?!", ANGRY_1);
+				return true;
+			    case 2:
+				    player.getDialogue().sendPlayerChat("Just exploring...", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+			}
+		    return false;
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Hey! What the hell are you doing back here?!", ANGRY_1);
+				return true;
+			    case 2:
+				if(player.spokeToAlfonse() && player.isPhoenixGang() && !player.isBlackArmGang()) {
+				    player.getDialogue().sendPlayerChat("I'm looking for a gherkin...", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("Just exploring...", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("Aaaaah... a fellow Phoenix! So, tell me compadre... what", "brings you to sunny Brimhaven?", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("I want to steal Scarface Pete's candlesticks.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Ah yes, of course. The candlesticks. Well, I have to be", "honest with you compadre, we haven't made much", "progress in that task ourselves so far. We can however", "offer", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("a little assistance. The setting up of this restaurant was", "the start of things; we have a secret door out the back", "out here that leads through the back of Mr Olbors'", "garden.", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("Now, at the other side of Mr Olbors' garden, is an old", "side entrance to Scarface Pete's manion. It seems to", "have been blocked off from the rest of the mansion", "some years ago.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("and we can't seem to find a way through.", "We're positive this is the key to entering the house undetected", "however, and I promise to let you know if we find", "anything there.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("Mind if I check it out for myself?", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("Not at all! The more minds we have working on the", "problem, the quicker we get that loot!", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setSpokeToCharlie(true);
+				return true;
+			}
+		    return false;
+		}
+	    case GRUBOR_DOOR:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			player.getDialogue().setLastNpcTalk(GRUBOR);
+			player.getDialogue().sendNpcChat("Yes? What do you want?", CONTENT);
+			return true;
+		    case 2:
+			player.getDialogue().sendOption("Rabbit's foot.", "Four leaved clover.", "Lucky horseshoe.", "Black cat.");
+			return true;
+		    case 3:
+			switch (optionId) {
+			    case 1:
+			    case 3:
+			    case 4:
+				player.getDialogue().setLastNpcTalk(GRUBOR);
+				player.getDialogue().sendNpcChat("Please go away.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("Four leaved clover.", CONTENT);
+				return true;
+			}
+		    case 4:
+			player.getDialogue().setLastNpcTalk(GRUBOR);
+			player.getDialogue().sendNpcChat("Oh, you're one of the gang are you? Ok, hold up a", "second, I'll just let you in through here.", CONTENT);
+			return true;
+		    case 5:
+			player.getDialogue().sendStatement("You hear the door being unbarred from the inside.");
+			player.getDialogue().endDialogue();
+			player.setSpokeToGrubor(true);
+			return true;
+		}
+		return false;
+	    case GRIP:
+		switch (player.getQuestStage(27)) {
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.isBlackArmGang()) {
+				    player.getDialogue().sendPlayerChat("Hi there. I am Hartigen. Reporting for duty as your", "new deputy sir.", CONTENT);
+				    return true;
+				} else {
+				    return false;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("Ah good, at last. You took your time getting here! Now", "let me see...", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("I'll get your hours and duty roster sorted out in a", "while. Oh, and do you have your ID papers with you?", "Internal security is almost as important as external", "security for a guard.", CONTENT);
+				return true;
+			    case 4:
+				if(player.getInventory().playerHasItem(ID_PAPERS)) {
+				    player.getDialogue().sendPlayerChat("Right here sir!", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("I, err... hold on...", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 5:
+				player.getDialogue().sendGiveItemNpc("You show Grip your ID papers.", new Item(ID_PAPERS));
+				return true;
+			    case 6:
+				player.getDialogue().sendPlayerChat("So, what do my duties invlove?", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("You'll be assigned specific duties as they are required", "and when they become necessary. Just so you know, if", "anything happens to me...", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("...you'll need to take over as head guard here. You'll find", "an important key to the treasure room inside my jacket.", "Although, I doubt anything bad will happen to me.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendPlayerChat("Well, anything I can do now?", CONTENT);
+				return true;
+			    case 10:
+				if(!player.getInventory().ownsItem(MISC_KEY)) {
+				    player.getDialogue().sendNpcChat("You can try and figure out where this key goes.", "I can't figure it out for the life of me.", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Nothing I can think of right away.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 11:
+				player.getDialogue().sendGiveItemNpc("Grip hands you a key.", new Item(MISC_KEY));
+				player.getInventory().addItemOrDrop(new Item(MISC_KEY));
+				return true;
+			    case 12:
+				player.getDialogue().sendPlayerChat("Anything else I should know about?", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendNpcChat("Yes, stay away from the cupboards please. They contain", "important documents on Scarface Pete's business and need not", "be disorganized.", CONTENT);
+				return true;
+			    case 14:
+				player.getDialogue().sendPlayerChat("Alright, thanks Grip. I'll go patrol the grounds or something.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case GARV:
+		switch (player.getQuestStage(27)) {
+		    default:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("What do you want?", CONTENT);
+				return true;
+			    case 2:
+				if(player.givenIdPapers() && player.getInventory().playerHasItem(ID_PAPERS)) {
+				    player.getDialogue().sendPlayerChat("Hi. I'm Hartigen. I've come to work here.", CONTENT);
+				    player.getDialogue().setNextChatId(5);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("Can I go in there?", CONTENT);
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("No, 'in there' is private.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 5:
+				if(blackKnightsGear(player)) {
+				    player.getDialogue().sendNpcChat("I assume you have your ID papers then?", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Hartigen the Black Knight? I don't think so. He doesn't", "dress like that.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 6:
+				player.getDialogue().sendGiveItemNpc("You show Garv your ID papers.", new Item(ID_PAPERS));
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("You'd better come in then. Grip will want to talk to", "you.", CONTENT);
+				player.getDialogue().endDialogue();
+				player.setSpokeToGarv(true);
+				return true;
+			}
+		    return false;
+		}
+	    case TROBERT:
+		switch (player.getQuestStage(27)) {
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.spokeToGrubor() && player.isBlackArmGang() && !player.givenIdPapers()) {
+				    player.getDialogue().sendNpcChat("Hi. Welcome to our Brimhaven headquarters. I'm", "Trobert and I'm in charge here.", CONTENT);
+				    return true;
+				} else if(player.givenIdPapers() && player.spokeToGrubor() && player.isBlackArmGang()) {
+				    player.getDialogue().sendNpcChat("Godspeed on those candlesticks.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				} else if(player.givenIdPapers() && !player.getInventory().playerHasItem(ID_PAPERS) && player.spokeToGrubor() && player.isBlackArmGang()) {
+				    player.getDialogue().sendPlayerChat("I seem to have, erm, lost the ID papers.", SAD);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("WHAT THE FUCK?! HOW DID YOU GET IN HERE??", ANGRY_2);
+				    player.getDialogue().setNextChatId(15);
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendPlayerChat("So, you can help me get Scarface Pete's candlesticks?", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Well, we have made some progress there. We know that", "one of the only keys to Pete's treasure room is carried", "by Grip, the head guard, so we thought it might be good", "to get close to him somehow.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("Grip was taking on a new deputy called Hartigen, an", "Asgarnian Black Knight, who was deserting the Black", "Knight Fortress and seeking new employment here on", "Brimhaven.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("We managed to waylay him on the journey here, and", "steal his ID papers. Now all we need is to find", "somebody willing to impersonate him and take the", "deputy role to get that key for us.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendPlayerChat("I volunteer to undertake that mission.", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("Good good. Well, Here's the ID papers, take them and", "introduce yourself to the guards at Scarface Pete's", "mansion, we'll have that treasure in no time.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendGiveItemNpc("Trobert hands you some ID papers.", new Item(ID_PAPERS));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(ID_PAPERS));
+				player.setGivenIdPapers(true);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("Luckily for you, we made copies.", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendGiveItemNpc("Trobert hands you some ID papers.", new Item(ID_PAPERS));
+				player.getDialogue().endDialogue();
+				player.getInventory().addItemOrDrop(new Item(ID_PAPERS));
+				return true;
+			    case 15:
+				player.fadeTeleport(new Position(2810, 3170, 0));
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case GRUBOR:
+		switch (player.getQuestStage(27)) {
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.spokeToGrubor()) {
+				    player.getDialogue().sendNpcChat("Talk to Trobert, he's the boss man.", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("WHAT THE FUCK?! HOW DID YOU GET IN HERE??", ANGRY_2);
+				    player.getDialogue().setNextChatId(15);
+				    return true;
+				}
+			    case 15:
+				player.fadeTeleport(new Position(2810, 3170, 0));
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case ALFONSE_THE_WAITER:
+		switch (player.getQuestStage(27)) {
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("Welcome to the Shrimp and Parrot.", "Would you like to order, sir?", CONTENT);
+				return true;
+			    case 2:
+				if(player.isPhoenixGang() && !player.isBlackArmGang()) {
+				    player.getDialogue().sendPlayerChat("Do you sell Gherkins?", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 3:
+				player.getDialogue().sendNpcChat("Hmmmm, Gherkins eh? Ask Charlie the cook, round the", "back. He may have some 'gherkins' for you!", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendStatement("Alfonse winks at you.");
+				player.getDialogue().endDialogue();
+				player.setSpokeToAlfonse(true);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case KATRINE:
+		switch (player.getQuestStage(13)) {
+		    case 12:
+			if (!player.isPhoenixGang() && !player.isBlackArmGang()) {
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendPlayerChat("Hello, Katrine.", CONTENT);
+				    player.getDialogue().setNextChatId(25);
+				    return true;
+				case 25:
+				    player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
+				    return true;
+				case 26:
+				    player.getDialogue().sendOption("I'm a loyal member of your Black Arm Gang.", "A nobody, I'm just poking around.");
+				    return true;
+				case 27:
+				    switch (optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("I'm a loyal member of your Black Arm Gang.", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+				case 28:
+				    player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", CONTENT);
+				    return true;
+				case 29:
+				    player.getDialogue().sendStatement("You have been recognized as a member of the Black Arm Gang.");
+				    player.getDialogue().endDialogue();
+				    player.joinBlackArmGang(true);
+				    return true;
+			    }
+			}
+		}
+		switch (player.getQuestStage(27)) {
+		    case ARMBAND_GOTTEN:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(!player.getInventory().ownsItem(ARMBAND)) {
+				    player.getDialogue().sendPlayerChat("I seem to have lost my armband.", SAD);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Hello again, 'Master Thief', heh. Feels good,", "doesn't it?", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("You adventurers, always losing things.", "Here's another.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("Katrine hands you a Master Thief armband", new Item(ARMBAND));
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		    case QUEST_STARTED:
+		    case CANDLESTICKS_GOTTEN:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.isBlackArmGang() && !player.getInventory().ownsItem(CANDLESTICK)) {
+				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
+				    return true;
+				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK)) {
+				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
+				    player.getDialogue().setNextChatId(12);
+				    return true;
+				} else {
+				    return false;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("Master thief? Ain't we the ambitious one!", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Well, you're gonna have to do something pretty", "amazing.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("Anything you can suggest?", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Well, some of the MOST coveted prizes right", "now are in the pirate town of Brimhaven,", "on Karamja.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("The pirate leader Scarface Pete has a pair of extremely", "valuable candlesticks.", CONTENT);
+				return true;
+			    case 7:
+				player.getDialogue().sendNpcChat("His security is VERY good.", CONTENT);
+				return true;
+			    case 8:
+				player.getDialogue().sendNpcChat("We, of course, have gang members in a town like", "Brimhaven who may be able to help you.", CONTENT);
+				return true;
+			    case 9:
+				player.getDialogue().sendNpcChat("Visit our hideout in the alleyway on palm street.", CONTENT);
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("To get in you will need to tell them the secret password", "'four leafed clover'", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 12:
+				player.getDialogue().sendNpcChat("Hmmm. Not bad, not bad. Let's see it, make sure it's", "genuine.", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendGiveItemNpc("You show Katrine the candlestick.", new Item(CANDLESTICK));
+				return true;
+			    case 14:
+				player.getDialogue().sendPlayerChat("So is this enough to get me a Master Thief", "armband?", CONTENT);
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("Hmm...", CONTENT);
+				return true;
+			    case 16:
+				player.getDialogue().sendNpcChat("I dunno...", CONTENT);
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("Ah, what the heck. I suppose I'm in a generous mood", "today.", CONTENT);
+				return true;
+			    case 18:
+				player.getDialogue().sendGiveItemNpc("Katrine hands you a Master Thief armband.", new Item(ARMBAND));
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(CANDLESTICK), new Item(ARMBAND));
+				player.setQuestStage(27, ARMBAND_GOTTEN);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
+	    case STRAVEN:
+		switch (player.getQuestStage(13)) {
+		    case 12:
+			if (!player.isPhoenixGang() && !player.isBlackArmGang()) {
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendPlayerChat("Hello, Straven.", CONTENT);
+				    player.getDialogue().setNextChatId(25);
+				    return true;
+				case 25:
+				    player.getDialogue().sendNpcChat("Hmm, your face looks familiar. Who are you again?", CONTENT);
+				    return true;
+				case 26:
+				    player.getDialogue().sendOption("I'm a loyal member of your Phoenix Gang.", "A nobody, I'm just poking around.");
+				    return true;
+				case 27:
+				    switch (optionId) {
+					case 1:
+					    player.getDialogue().sendPlayerChat("I'm a loyal member of your Phoenix Gang.", CONTENT);
+					    return true;
+					case 2:
+					    player.getDialogue().sendPlayerChat("A nobody, I'm just poking around. See you later.", CONTENT);
+					    player.getDialogue().endDialogue();
+					    return true;
+				    }
+				case 28:
+				    player.getDialogue().sendNpcChat("Ah, yes, that's right. Welcome back.", CONTENT);
+				    return true;
+				case 29:
+				    player.getDialogue().sendStatement("You have been recognized as a member of the Phoenix Gang.");
+				    player.joinPhoenixGang(true);
+				    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			}
+		}
+		switch (player.getQuestStage(27)) {
+		    case ARMBAND_GOTTEN:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(!player.getInventory().ownsItem(ARMBAND)) {
+				    player.getDialogue().sendPlayerChat("I seem to have lost my armband.", SAD);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Hello again, 'Master Thief', heh. Feels good,", "doesn't it?", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("You adventurers, always losing things.", "Here's another.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendGiveItemNpc("Straven hands you a Master Thief armband.", new Item(ARMBAND));
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		    case QUEST_STARTED:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				if(player.isPhoenixGang() && !player.getInventory().ownsItem(1577)) {
+				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
+				    return true;
+				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(1577)) {
+				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
+				} else {
+				    return false;
+				}
+			    case 2:
+				player.getDialogue().sendNpcChat("Ooh... tricky stuff. Took me YEARS to get that rank.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Well, what some of the more aspiring thieves in our", "gang are working on right now is to steal some very", "valuable candlesticks from Scarface Pete - the pirate", "leader on Karamja.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendNpcChat("His security is excellent, and the target very valuable so", "that might be enough to get you the rank.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Go talk to our man Alfonse, the waiter in the Shrimp", "and Parrot.", CONTENT);
+				return true;
+			    case 6:
+				player.getDialogue().sendNpcChat("Use the secret word 'gherkin' to show you're one of us.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			    case 10:
+				player.getDialogue().sendNpcChat("Hmmm. Not bad, not bad. Let's see it, make sure it's", "genuine.", CONTENT);
+				return true;
+			    case 11:
+				player.getDialogue().sendGiveItemNpc("You show Straven the candlestick.", new Item(CANDLESTICK));
+				return true;
+			    case 12:
+				player.getDialogue().sendPlayerChat("So is this enough to get me a Master Thief", "armband?", CONTENT);
+				return true;
+			    case 13:
+				player.getDialogue().sendNpcChat("Hmm...", CONTENT);
+				return true;
+			    case 14:
+				player.getDialogue().sendNpcChat("I dunno...", CONTENT);
+				return true;
+			    case 15:
+				player.getDialogue().sendNpcChat("Ah, what the heck. I suppose I'm in a generous mood", "today.", CONTENT);
+				return true;
+			    case 16:
+				player.getDialogue().sendGiveItemNpc("Straven hands you a Master Thief armband.", new Item(ARMBAND));
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(CANDLESTICK), new Item(ARMBAND));
+				player.setQuestStage(27, ARMBAND_GOTTEN);
 				return true;
 			}
 		    return false;
@@ -596,13 +1301,21 @@ public class HeroesQuest implements Quest {
 			}
 		    return false;
 		    case QUEST_STARTED:
+		    case CANDLESTICKS_GOTTEN:
+		    case ARMBAND_GOTTEN:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendNpcChat("How goes thy quest adventurer?", CONTENT);
 				return true;
 			    case 2:
-				player.getDialogue().sendOption("I'm a little confused, could you help?", "It's going just fine, thanks.");
-				return true;
+				if(hasAllItems(player)) {
+				    player.getDialogue().sendPlayerChat("I have all the required items.", CONTENT);
+				    player.getDialogue().setNextChatId(17);
+				    return true;
+				} else {
+				    player.getDialogue().sendOption("I'm a little confused, could you help?", "It's going just fine, thanks.");
+				    return true;
+				}
 			    case 3:
 				switch(optionId) {
 				    case 1:
@@ -671,6 +1384,22 @@ public class HeroesQuest implements Quest {
 			    case 14:
 				player.getDialogue().sendNpcChat("Maybe go and find someone who makes his living", "off of fishing?", CONTENT);
 				player.getDialogue().endDialogue();
+				return true;
+			    case 17:
+				player.getDialogue().sendNpcChat("I see that you have. Well done; Now, to complete the", "quest, and gain entry to the Heroes' Guild in your final", "task all that you have to do is...", CONTENT);
+				return true;
+			    case 18:
+				player.getDialogue().sendPlayerChat("W-what? What do you mean? There's MORE???", DISTRESSED);
+				return true;
+			    case 19:
+				player.getDialogue().sendNpcChat("I'm sorry. I was just having a little fun with you. Just", "some Heroes' Guild humor there. What I really meant was", CONTENT);
+				return true;
+			    case 20:
+				player.getDialogue().sendNpcChat("Congratulations! You have completed the Heroes' Guild", "entry requirements! You will find the door now open", "for you! Enter, Hero! And take this reward!", CONTENT);
+				return true;
+			    case 21:
+				QuestHandler.completeQuest(player, 27);
+				player.getDialogue().dontCloseInterface();
 				return true;
 			}
 		    return false;

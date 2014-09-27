@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
@@ -179,7 +180,7 @@ public class Fishing {
 				 * Checks if fisher still has any bait left
 				 */
 				if (spot.getBait() != null && !player.getInventory().playerHasItem(spot.getBait())) {
-					player.getDialogue().sendStatement("you have run out of " + spot.getBait().getDefinition().getName().toLowerCase().toLowerCase() + ".");
+					player.getDialogue().sendStatement("You have run out of " + spot.getBait().getDefinition().getName().toLowerCase().toLowerCase() + ".");
 					container.stop();
 					return;
 				}
@@ -252,7 +253,9 @@ public class Fishing {
 		 * Contains Tuna and Swordfishes.
 		 */
 		HARPOONING(new int[] { 312 }, 311 /* Harpoon */, -1/* No bait */, 618, new int[] { 35, 50 }, new int[] { 359 /* Tuna */, 371 /* Swordfish */}, new double[] { 80, 100 }),
-
+		
+		
+		LAVA_EEL(new int[] {800}, HeroesQuest.OILY_FISHING_ROD, 313, 622, new int[] {53}, new int[] {2148}, new double[90] ),
 		// TODO: Casket, Oyster Seaweed, Leather boots/Gloves, (Maybe more?)
 		// support.
 		/*
@@ -423,6 +426,8 @@ public class Fishing {
 
 				case 1174:
 					return MONKFISH_NETTING;
+				case 800:
+					return LAVA_EEL;
 				}
 				/*
 				 * NPC option 2.
