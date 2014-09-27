@@ -95,11 +95,14 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
+import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Travel;
+import java.util.Random;
 
 public class WalkToActionHandler {
 
@@ -2599,6 +2602,43 @@ public class WalkToActionHandler {
 				case 1781: //grain bin zanaris
 				    if(item == 1931)
 					FlourMill.takeFromBin(player);
+				break;
+				case 12093: //evil chicken shrine
+				    if((item >= 5076 && item <= 5078) || item == 1944) {
+					    player.getActionSender().sendMessage("You offer the egg to the Evil Chicken...");
+					    player.getUpdateFlags().sendAnimation(645);
+					    player.setStopPacket(true);
+					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+						    if(20 >= (new Random().nextDouble() * 100.0) || item == 1944) {
+							if(player.getSpawnedNpc() == null) {
+							    player.getInventory().removeItem(new Item(item));
+							    Npc chicken = new Npc(SpawnEvent.addValue(player.getCombatLevel()) + 2463);
+							    NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, chicken, new Position(2452, 4476, 0), false, "Bwukkkk!");
+							    player.setSpawnedNpc(chicken);
+							    CombatManager.attack(chicken, player);
+							    player.getActionSender().sendMessage("...The Evil Chicken refuses your offering!");
+							    b.stop();
+							} else {
+							    player.getActionSender().sendMessage("...The Evil Chicken isn't available at the moment...");
+							    b.stop();
+							}
+						    } else {
+							player.getInventory().removeItem(new Item(item));
+							double reward = new Random().nextDouble() * 2000.0;
+							player.getInventory().addItem(new Item(314, ((int)reward > 500 ? (int)reward : 525)));
+							player.getActionSender().sendMessage("...The Evil Chicken blesses your offering.");
+							b.stop();
+						    }
+						}
+
+						@Override
+						public void stop() {
+						    player.setStopPacket(false);
+						}
+					    }, 3);
+					}
 				break;
 				case 2782:
 				case 2783: // anvil

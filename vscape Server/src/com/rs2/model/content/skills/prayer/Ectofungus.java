@@ -450,7 +450,11 @@ public class Ectofungus {
 		player.getActionSender().sendMessage("You place your slime and ground bones into the Ectofuntus.");
 		player.getInventory().replaceItemWithItem(new Item(BONES), new Item(POT));
 		player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_SLIME), new Item(BUCKET));
-		player.setEctoWorshipCount(player.getEctoWorshipCount() + 1);
+		if(player.getEctoWorshipCount() > 20) {
+		    player.setEctoWorshipCount(12);
+		} else {
+		    player.setEctoWorshipCount(player.getEctoWorshipCount() + 1);
+		}
 	    }
 	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
@@ -489,7 +493,7 @@ public class Ectofungus {
 		    case 3:
 			player.getDialogue().sendGiveItemNpc("The disciple hands you some Ectotokens.", new Item(4278));
 			player.getDialogue().endDialogue();
-			player.getInventory().addItemOrDrop(new Item(ECTOTOKEN, player.getEctoWorshipCount() * 5));
+			player.getInventory().addItemOrDrop(new Item(ECTOTOKEN, player.getEctoWorshipCount() > 12 ? 60 : player.getEctoWorshipCount() * 5));
 			player.setEctoWorshipCount(0);
 			return true;
 		    case 5:

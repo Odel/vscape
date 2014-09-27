@@ -304,6 +304,14 @@ public class CombatManager extends Tick {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
 					}
+					else if(died.isNpc() && ((Npc)died).getDefinition().getName().toLowerCase().equals("evil chicken") && killer != null && killer.isPlayer()) {
+					    Player player = (Player)killer;
+					    double reward = new Random().nextDouble() * 750;
+					    player.getActionSender().sendMessage("You pluck feathers from the Evil Chicken's corpse.");
+					    player.getInventory().addItemOrDrop(new Item(314, (int)reward > 250 ? (int)reward : 250));
+					    died.getUpdateFlags().sendAnimation(death);
+					    stop();
+					}
 					else {
 					    died.getUpdateFlags().sendAnimation(death);
 					    stop();
