@@ -281,8 +281,11 @@ public class PiratesTreasure implements Quest {
 		    player.getDialogue().sendNpcChat("I'm afraid the export of Karamjan Rum", "is prohibited at this date and time.", "Please do not try to violate our import laws.", ANNOYED);
 		    return true;
 		}
-		else {
+		else if(player.getPosition().getX() > 2780){
 		    Sailing.sailShip(player, Sailing.ShipRoute.KARAMJA_TO_PORT_SARIM, npcId);
+		    return true;
+		} else {
+		    Sailing.sailShip(player, Sailing.ShipRoute.BRIMHAVEN_TO_ARDOUGNE, npcId);
 		    return true;
 		}
 	    case 376: //port sarim sailors
@@ -292,8 +295,11 @@ public class PiratesTreasure implements Quest {
 		    player.getActionSender().sendMessage("You may only use the pay-fare option after completing Pirate's Treasure.");
 		    return true;
 		}
-		else {
+		else if(player.getPosition().getX() > 2800) {
 		    Sailing.sailShip(player, Sailing.ShipRoute.PORT_SARIM_TO_KARAMJA, npcId);
+		    return true;
+		} else {
+		    Sailing.sailShip(player, Sailing.ShipRoute.ARDOUGNE_TO_BRIMHAVEN, npcId);
 		    return true;
 		}
 	}

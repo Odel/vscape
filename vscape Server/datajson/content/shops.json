@@ -86,50 +86,50 @@
     "currency": 995
   },
   {
-    "shopId": 2,
-    "name": "Aemad's Adventuring Supplies",
-    "items": [
-      {
-        "id": 1759,
-        "count": 100
-      },
-      {
-        "id": 882,
-        "count": 1000
-      },
-      {
-        "id": 1265,
-        "count": 10
-      },
-      {
-        "id": 4293,
-        "count": 10
-      },
-      {
-        "id": 1349,
-        "count": 10
-      },
-      {
-        "id": 946,
-        "count": 10
-      },
-      {
-        "id": 970,
-        "count": 10
-      },
-      {
-        "id": 954,
-        "count": 10
-      },
-      {
-        "id": 590,
-        "count": 10
-      },
-      {
-        "id": 227,
-        "count": 10
-      }
-    ],
+"shopId": 2,
+"name": "Aemad's Adventuring Supplies",
+"items": [
+  {
+    "id": 227,
+    "count": 500
+  },
+  {
+    "id": 1265,
+    "count": 2
+  },
+  {
+    "id": 1349,
+    "count": 2
+  },
+  {
+    "id": 2142,
+    "count": 2
+  },
+  {
+    "id": 590,
+    "count": 2
+  },
+  {
+    "id": 1759,
+    "count": 30
+  },
+  {
+    "id": 882,
+    "count": 500
+  },
+  {
+    "id": 954,
+    "count": 20
+  },
+  {
+    "id": 972,
+    "count": 50
+  },
+  {
+    "id": 946,
+    "count": 2
+  }
+],
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995

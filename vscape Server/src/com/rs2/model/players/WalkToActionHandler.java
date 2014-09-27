@@ -2302,6 +2302,9 @@ public class WalkToActionHandler {
 				case 510: //hajedy
 				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
 				    break;
+				case 511: //vigroy
+				    Travel.startTravel(player, Travel.Route.SHILO_TO_BRIMHAVEN);
+				    break;
 				case 657: //entrana monk
 				    Sailing.sailShip(player, Sailing.ShipRoute.ENTRANA_TO_PORT_SARIM, player.getClickId());
 				    break;

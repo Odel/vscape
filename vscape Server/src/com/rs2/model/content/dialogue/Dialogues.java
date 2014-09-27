@@ -4485,17 +4485,28 @@ public class Dialogues {
 			case 378 :
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.getPosition().getX() > 2800) {
 						player.getDialogue().sendNpcChat("Would you like to sail to Karamja?", "It will only cost you 30gp.", CONTENT);
 						return true;
+					    } else {
+						player.getDialogue().sendNpcChat("Would you like to sail to Brimhaven?", "It will only cost you 30gp.", CONTENT);
+						return true;
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
 						return true;
 					case 3 :
 						switch(optionId) {
 							case 1:
+							    if(player.getPosition().getX() > 2800) {
 								Sailing.sailShip(player, ShipRoute.PORT_SARIM_TO_KARAMJA, id);
 								player.getDialogue().dontCloseInterface();
 								break;
+							    } else {
+								Sailing.sailShip(player, ShipRoute.ARDOUGNE_TO_BRIMHAVEN, id);
+								player.getDialogue().dontCloseInterface();
+								break;
+							    }
 						}
 						break;
 				}
@@ -4503,8 +4514,13 @@ public class Dialogues {
 			case 380 : //customs officer
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.getPosition().getX() > 2780) {
 						player.getDialogue().sendNpcChat("Would you like to sail back to Port Sarim?", "It will cost 30gp.", "We'll also have to search you for illegal exports.", CONTENT);
 						return true;
+					    } else {
+						player.getDialogue().sendNpcChat("Would you like to sail back to Ardougne?", "It will cost 30gp.", "We'll also have to search you for illegal exports.", CONTENT);
+						return true;
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");
 						return true;
@@ -4516,8 +4532,12 @@ public class Dialogues {
 								player.getDialogue().endDialogue();
 								return true;
 							    }
-							    else {
+							    else if (player.getPosition().getX() > 2780) {
 								Sailing.sailShip(player, ShipRoute.KARAMJA_TO_PORT_SARIM, id);
+								player.getDialogue().dontCloseInterface();
+								break;
+							    } else {
+								Sailing.sailShip(player, ShipRoute.BRIMHAVEN_TO_ARDOUGNE, id);
 								player.getDialogue().dontCloseInterface();
 								break;
 							    }

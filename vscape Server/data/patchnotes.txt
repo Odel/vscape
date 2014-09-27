@@ -1,5 +1,7 @@
 @dre@=September 27th=
 @blu@Heroes Quest
+-Bird's Eggs can be offered to the Evil Chicken
+at his shrine in Zanaris in exchange for feathers.
 -Vestments / Croziers / Stoles added to clues.
 -Disconnect + stuck logged in fix.
 -Increase to the Monk and Shark rate.
