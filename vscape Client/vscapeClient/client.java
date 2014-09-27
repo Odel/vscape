@@ -66,6 +66,8 @@ public class client extends RSApplet {
 	public void drawChannelButtons() { 
 		String gameText[] = { "On", "Off" };
 		int gameTextColor[] = { 65280, 0xff0000 };
+		String globalText[] = { "On", "Hidden", "Off" };
+		int globalTextColor[] = { 65280, 65535, 0xff0000 };
 		String text[] = { "On", "Friends", "Off", "Hide" };
 		int textColor[] = { 65280, 0xffff00, 0xff0000, 65535 };
 		/* Draws main buttons sprite */
@@ -86,6 +88,8 @@ public class client extends RSApplet {
 				chatButtonC.drawSprite(233, 143);
 			else if(cButtonCPos == 5)
 				chatButtonC.drawSprite(290, 143);
+			else if(cButtonCPos == 6)
+				chatButtonC.drawSprite(347, 143);
 		if(cButtonHPos == cButtonCPos) {
 			if(cButtonHPos == 0)
 				chatButtonHC.drawSprite(5, 143);
@@ -99,6 +103,8 @@ public class client extends RSApplet {
 				chatButtonHC.drawSprite(233, 143);
 			else if(cButtonHPos == 5)
 				chatButtonHC.drawSprite(290, 143);
+			else if(cButtonHPos == 6)
+				chatButtonHC.drawSprite(347, 143);
 		} else {
 			if(cButtonHPos == 0)
 				chatButtonH.drawSprite(5, 143);
@@ -112,6 +118,8 @@ public class client extends RSApplet {
 				chatButtonH.drawSprite(233, 143);
 			else if(cButtonHPos == 5)
 				chatButtonH.drawSprite(290, 143);
+			else if(cButtonHPos == 6)
+				chatButtonH.drawSprite(347, 143);
 		}
 		smallText.method389(true, 26, 0xffffff, "All", 158);
 		smallText.method389(true, 77, 0xffffff, "Game", 153);
@@ -119,12 +127,14 @@ public class client extends RSApplet {
 		smallText.method389(true, 185, 0xffffff, "Private", 153);
 		smallText.method389(true, 247, 0xffffff, "Trade", 153);
 		smallText.method389(true, 304, 0xffffff, "Duel", 153);
-		smallText.method389(true, 427, 0xffffff, "Report Abuse", 158);
+		smallText.method389(true, 360, 0xffffff, "Global", 153); // GLOBAL CHAT
+	//	smallText.method389(true, 427, 0xffffff, "Report Abuse", 158);
 		smallText.method382(gameTextColor[gameMode], 90, gameText[gameMode], 164, true);
 		smallText.method382(textColor[publicChatMode], 146, text[publicChatMode], 164, true);
 		smallText.method382(textColor[privateChatMode], 203, text[privateChatMode], 164, true);
 		smallText.method382(textColor[tradeMode], 260, text[tradeMode], 164, true);
 		smallText.method382(textColor[duelMode], 315, text[duelMode], 164, true);
+		smallText.method382(globalTextColor[globalMode], 374, globalText[globalMode], 164, true);
 	}
 	
 	private void drawChatArea() /* This draws/displays the chat area */
@@ -288,6 +298,35 @@ public class client extends RSApplet {
 							textDrawingArea.method385(0x7e3200, chatMessages[k] + " @blu@" + s1, i1, 8);
 							j++;
 						}
+					}
+				}
+				if(l == 9 && ((globalMode == 0 || globalMode == 1) && isFriendOrSelf(s1))) // GLOBAL CHAT
+				{
+					if (chatTypeView == 9 || (chatTypeView == 0 && globalMode == 0)) {
+						if(i1 > 0 && i1 < 210) {
+							int j1 = 8;
+							textDrawingArea.method385(0x7e3200, "[GLOBAL]", i1, j1);
+							j1 += textDrawingArea.getTextWidth("[GLOBAL] ");
+							if(byte0 == 1) {
+								modIcons[0].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							if(byte0 == 2) {
+								modIcons[1].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							if(byte0 == 3) {
+								modIcons[2].method361(j1, i1 - 12);
+								j1 += 12;
+							}
+							/* draws playername in chatbox[history] */
+							textDrawingArea.method385(0, s1 + ":", i1 - 1, j1 + 1);
+							j1 += textDrawingArea.getTextWidth(s1) + 8;
+							/* draws chat in chatbox[history] */
+							textDrawingArea.method389(false, j1 + 1, 255, chatMessages[k], i1 - 1);//chat color enabled;
+						}
+						j++;
+						j77++;
 					}
 				}
 			}
@@ -1422,10 +1461,14 @@ public class client extends RSApplet {
 			aBoolean1233 = true;
 			inputTaken = true;
 		}
-		else if(super.mouseX >= 404 && super.mouseX <= 515 && super.mouseY >= 482 && super.mouseY <= 505) {
-			cButtonHPos = 7;
+		else if(super.mouseX >= 346 && super.mouseX <= 400 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 6;
 			aBoolean1233 = true;
 			inputTaken = true;
+	/*	else if(super.mouseX >= 404 && super.mouseX <= 515 && super.mouseY >= 482 && super.mouseY <= 505) {
+			cButtonHPos = 7;
+			aBoolean1233 = true;
+			inputTaken = true;*/
 		} else {
 			cButtonHPos = -1;
 			aBoolean1233 = true;
@@ -1469,7 +1512,14 @@ public class client extends RSApplet {
 				aBoolean1233 = true;
 				inputTaken = true;
 			}
-			if(super.saveClickX >= 404 && super.saveClickX <= 515 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+			// GLOBAL CHAT
+			if(super.saveClickX >= 347 && super.saveClickX <= 400 && super.saveClickY >= 482 && super.saveClickY <= 505) {
+				cButtonCPos = 6;
+				chatTypeView = 9;
+				aBoolean1233 = true;
+				inputTaken = true;
+			}
+		/*	if(super.saveClickX >= 404 && super.saveClickX <= 515 && super.saveClickY >= 482 && super.saveClickY <= 505) {
 				if(openInterfaceID == -1) {
 					clearTopInterfaces();
 					reportAbuseInput = "";
@@ -1484,7 +1534,7 @@ public class client extends RSApplet {
 				} else {
 					pushMessage("Please close the interface you have open before using 'report abuse'", 0, "");
 				}
-			}
+			}*/
 		}
 	}
 		
@@ -4295,6 +4345,27 @@ public class client extends RSApplet {
 			if(RSInterface.interfaceCache[k].parentID == backDialogID)
 				atInventoryInterfaceType = 3;
 		}
+		if(l == 1005) {
+			globalMode = 2;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 1004) {
+			globalMode = 1;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 1003) {
+			globalMode = 0;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}
+		if(l == 1002) {
+			cButtonCPos = 0;
+			chatTypeView = 9;
+			aBoolean1233 = true;
+			inputTaken = true;
+		}		
 		if(l == 1001) {
 			gameMode = 1;
 			aBoolean1233 = true;
@@ -6448,6 +6519,17 @@ public class client extends RSApplet {
 			menuActionID[3] = 981;
 			menuActionName[4] = "View duel";
 			menuActionID[4] = 980;
+			menuActionRow = 5;
+		}		
+		else if(super.mouseX >= 347 && super.mouseX <= 400 && super.mouseY >= 482 && super.mouseY <= 503) {
+			menuActionName[1] = "Off Global";
+			menuActionID[1] = 1005;
+			menuActionName[2] = "Hide In Public";
+			menuActionID[2] = 1004;
+			menuActionName[3] = "On Global";
+			menuActionID[3] = 1003;
+			menuActionName[4] = "View Global";
+			menuActionID[4] = 1002;
 			menuActionRow = 5;
 		}
 	}
@@ -11504,7 +11586,25 @@ public class client extends RSApplet {
 		try {
            // SoundProvider.playerPool.stop();
 } catch (Exception ex) { }
-				} else if(s.endsWith(":tradereq:"))
+				}
+				else if(s.endsWith(":yell:")) // GLOBAL CHAT
+				{
+					String yellName = s.substring(0, s.indexOf(":"));
+					long yellNameLong = TextClass.longForName(yellName);
+					boolean yellflag = false;
+					for(int j27 = 0; j27 < ignoreCount; j27++)
+					{
+						if(ignoreListAsLongs[j27] != yellNameLong)
+							continue;
+						yellflag = true;
+						break;
+					}
+					if(!yellflag && anInt1251 == 0){
+						String yellMessage = s.substring(s.indexOf(":") + 1, s.length() - 6);
+						pushMessage(yellMessage, 9, yellName);
+					}
+				}
+				else if(s.endsWith(":tradereq:"))
 				{
 					String s3 = s.substring(0, s.indexOf(":"));
 					long l17 = TextClass.longForName(s3);
@@ -12262,6 +12362,7 @@ public class client extends RSApplet {
 		chatTypeView = 0;
 		duelMode = 0;
 		gameMode = 0;
+		globalMode = 0;
 		clanChatMode = 0;
 		cButtonCPos = 0;
 		if(DevMode)
@@ -12432,6 +12533,7 @@ public class client extends RSApplet {
 	public int clanChatMode;
 	public int duelMode;
 	public int gameMode;
+	public int globalMode;
 	/* Declare custom sprites */
 	private Sprite chatArea;
 	private Sprite chatButtons;

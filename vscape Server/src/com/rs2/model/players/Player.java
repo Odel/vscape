@@ -2417,13 +2417,13 @@ public class Player extends Entity {
 			return;
 		}
 		if(getStaffRights() < 1){  
-            int yellCooldown = World.playerAmount() * 1000 / 2; //  0.5s per player
+	        int yellCooldown = World.playerAmount() * 1000 / 2; //  0.5s per player
 			 if (yellCooldown < 5000){ //minimum of 5 seconds (so 10 players)
 				yellCooldown = 5000;
 				} 
-            long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
-            long output= secBeforeNextYell / 1000 + 1;  
-             if(System.currentTimeMillis() - lastYell < yellCooldown) {
+	        long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
+	        long output= secBeforeNextYell / 1000 + 1;  
+	         if(System.currentTimeMillis() - lastYell < yellCooldown) {
 				getActionSender().sendMessage("You can yell again in " + output + " seconds!");
 				return;
 				}
@@ -2445,17 +2445,17 @@ public class Player extends Entity {
 			return;
 		}
 		
-		String NameColor = "@blu@";
-        switch (getStaffRights()) {
-            case 1:
-            	NameColor = "@whi@";
-                break;
-            case 2:
-            	NameColor = "@mag@";
-                break;
-            default:
-            	NameColor = "@blu@";
-        }
+		String UserCrown = "";
+	    switch (getStaffRights()) {
+	        case 1:
+	        	UserCrown = "@cr1@";
+	            break;
+	        case 2:
+	        	UserCrown = "@cr2@";
+	            break;
+	        default:
+	        	UserCrown = "";
+	    }
 		String yeller = NameUtil.formatName(getUsername());
 		
 		lastYell = System.currentTimeMillis();
@@ -2465,17 +2465,14 @@ public class Player extends Entity {
 			if (player == null)
 				continue;
 			
-			if(!player.hideYell)
+			if(player.hideColors)
 			{
-				if(player.hideColors)
+				for(int k = 0; k < Constants.colorStrings.length;k++)
 				{
-					for(int k = 0; k < Constants.colorStrings.length;k++)
-					{
-						YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
-					}
+					YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
 				}
-				player.getActionSender().sendMessage(NameColor+"["+yeller+"]@dre@ " + NameUtil.uppercaseFirstLetter(YellMsg));
 			}
+			player.getActionSender().sendMessage(UserCrown+yeller + ":" + NameUtil.uppercaseFirstLetter(YellMsg) + ":yell:");
 		}
 	}
         
