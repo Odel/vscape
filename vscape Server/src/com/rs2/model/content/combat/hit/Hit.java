@@ -95,6 +95,24 @@ public class Hit {
 			&& ((Npc)victim).getNpcId() == 4479 && ((Npc)attacker).getNpcId() == 4486) {
 		    GoblinDiplomacy.sendGreenMessages((Npc)attacker);
 		}
+		if(victim != null && attacker != null && victim.isPlayer() && attacker.isNpc() && ((Npc)attacker).getNpcId() == 3200) {
+		    int chance = Misc.random(2);
+		    Player player = (Player)victim;
+		    switch(chance) {
+			case 0: //magic
+			    if(player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+				damage = 0;
+			    }
+			case 1:
+			    if(player.isProtectingFromCombat(AttackType.RANGED, attacker)) {
+				damage = 0;
+			    }
+			case 2:
+			    if(player.isProtectingFromCombat(AttackType.MELEE, attacker)) {
+				damage = 0;
+			}
+		    }
+		}
 		if(attacker != null && victim != null && victim.isNpc() && attacker.isNpc()
 			&& ((Npc)attacker).getNpcId() == 4479 && ((Npc)victim).getNpcId() == 4486) {
 		    GoblinDiplomacy.sendRedMessages((Npc)attacker);
@@ -442,7 +460,11 @@ public class Hit {
                     if (attacker != null && attacker.isPlayer())
                         damage = (int) Math.ceil(damage * .6);
                     else
-                        damage = 0;
+			if(attacker.isNpc() && ((Npc)attacker).getNpcId() == 3200) {
+			    
+			} else {
+			    damage = 0;
+			}
                 }
 		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1158 ) {
 		    if( hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
