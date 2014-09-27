@@ -300,7 +300,7 @@ public class client extends RSApplet {
 						}
 					}
 				}
-				if(l == 9 && ((globalMode == 0 || globalMode == 1) && isFriendOrSelf(s1))) // GLOBAL CHAT
+				if(l == 9 && (globalMode == 0 || globalMode == 1)) // GLOBAL CHAT
 				{
 					if (chatTypeView == 9 || (chatTypeView == 0 && globalMode == 0)) {
 						if(i1 > 0 && i1 < 210) {
@@ -11590,7 +11590,12 @@ public class client extends RSApplet {
 				else if(s.endsWith(":yell:")) // GLOBAL CHAT
 				{
 					String yellName = s.substring(0, s.indexOf(":"));
-					long yellNameLong = TextClass.longForName(yellName);
+					String yellNameString = yellName;
+					if(yellNameString != null && (yellNameString.startsWith("@cr1@") || yellNameString.startsWith("@cr2@")
+							|| yellNameString.startsWith("@cr3@"))) {
+						yellNameString = yellNameString.substring(5);
+					}
+					long yellNameLong = TextClass.longForName(yellNameString);
 					boolean yellflag = false;
 					for(int j27 = 0; j27 < ignoreCount; j27++)
 					{
