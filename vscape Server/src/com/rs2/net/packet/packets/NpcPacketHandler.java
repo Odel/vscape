@@ -212,6 +212,10 @@ public class NpcPacketHandler implements PacketHandler {
 			player.getActionSender().sendMessage(npc.getDefinition().getName() + " is not interested in interacting with you right now.");
 			return;
 		}
+		if(npc.getNpcId() == HeroesQuest.GRIP) {
+		    player.getActionSender().sendMessage("You cannot attack this npc this way.");
+		    return;
+		}
 		Spell spell = SpellBook.getSpell(player, magicId);
 		if (spell != null) {
 			player.setCastedSpell(spell);

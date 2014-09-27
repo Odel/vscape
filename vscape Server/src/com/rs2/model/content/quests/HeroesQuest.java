@@ -6,6 +6,7 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
@@ -375,13 +376,24 @@ public class HeroesQuest implements Quest {
 			@Override
 			public void execute(CycleEventContainer b) {
 			    npc.getUpdateFlags().setForceChatMessage("Urgggh...");
-			    CombatManager.startDeath(npc);
+			    npc.hit(npc.getCurrentHp(), HitType.NORMAL);
 			    b.stop();
 			}
 
 			@Override
 			public void stop() {
 			    player.setStopPacket(false);
+			    for (Player players : World.getPlayers()) {
+				if (players == null) {
+				    continue;
+				}
+				if (Misc.goodDistance(players.getPosition(), npc.getPosition(), 10) && players.isBlackArmGang() && (players.getQuestStage(27) == 1 || players.getQuestStage(27) == 2)) {
+				    players.getUpdateFlags().faceEntity(npc.getFaceIndex());
+				    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
+				    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
+				    break;
+				}
+			    }
 			}
 		    }, 3);
 		    return;
@@ -398,15 +410,17 @@ public class HeroesQuest implements Quest {
 	}
     }
     public static void handleGripDeath(final Player player, final Npc died) {
+	/*
 	if(died.getNpcId() == GRIP) {
 	    for(Player players : World.getPlayers()) {
 		if(players == null) continue;
-		if(Misc.goodDistance(players.getPosition(), died.getPosition(), 10) && player.isBlackArmGang() && (player.getQuestStage(27) == 1 || player.getQuestStage(27) == 2)) {
-		    GroundItem dropItem = new GroundItem(new Item(CANDLESTICKS_KEY), died, players, died.getPosition());
-		    GroundItemManager.getManager().dropItem(dropItem);
+		if(Misc.goodDistance(players.getPosition(), died.getPosition(), 10) && players.isBlackArmGang() && (players.getQuestStage(27) == 1 || players.getQuestStage(27) == 2)) {
+		    players.walkTo(died.getPosition().clone(), true);
+		    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
+		    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
 		}
 	    }
-	}
+	}*/
     }
     public static boolean itemPickupHandling(Player player, int itemId) {
 	if (itemId == FIREBIRD_FEATHER) {
@@ -503,7 +517,8 @@ public class HeroesQuest implements Quest {
 		    return true;
 		} else {
 		    player.getActionSender().sendMessage("You open the door with Grip's key.");
-		    player.getActionSender().walkTo(0, player.getPosition().getX() < 2764 ? 1 : -1, true);
+		    player.getInventory().removeItem(new Item(CANDLESTICKS_KEY));
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2764 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		}
@@ -695,7 +710,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Now, at the other side of Mr Olbors' garden, is an old", "side entrance to Scarface Pete's manion. It seems to", "have been blocked off from the rest of the mansion", "some years ago.", CONTENT);
 				return true;
 			    case 8:
-				player.getDialogue().sendNpcChat("and we can't seem to find a way through.", "We're positive this is the key to entering the house undetected", "however, and I promise to let you know if we find", "anything there.", CONTENT);
+				player.getDialogue().sendNpcChat("and we can't seem to find a way through. We're positive", "this is the key to entering the house undetected", "however, and I promise to let you know if we find", "anything there.", CONTENT);
 				return true;
 			    case 9:
 				player.getDialogue().sendPlayerChat("Mind if I check it out for myself?", CONTENT);
@@ -1398,6 +1413,9 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Congratulations! You have completed the Heroes' Guild", "entry requirements! You will find the door now open", "for you! Enter, Hero! And take this reward!", CONTENT);
 				return true;
 			    case 21:
+				player.getInventory().removeItem(new Item(FIREBIRD_FEATHER));
+				player.getInventory().removeItem(new Item(ARMBAND));
+				player.getInventory().removeItem(new Item(LAVA_EEL));
 				QuestHandler.completeQuest(player, 27);
 				player.getDialogue().dontCloseInterface();
 				return true;
