@@ -6,9 +6,11 @@ at his shrine in Zanaris in exchange for feathers.
 -Disconnect + stuck logged in fix.
 -Increase to the Monk and Shark rate.
 -Right click, "sail" to Entrana working.
+-Sailing from Ardougne -> Brimhaven working.
 -Snelms can be crafted from snails in Mort Myre.
 -Re-vamped yell, toggleable as a channel.
--Arrow price changes/fixes
+(New client on the steam page 2_6)
+-Arrow price changes/fixes.
 
 @dre@=September 12th=
 @blu@Horror From The Deep
