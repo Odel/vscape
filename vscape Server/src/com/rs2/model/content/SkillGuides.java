@@ -1357,7 +1357,7 @@ public class SkillGuides {
 			menuLine("73", "Weapon poison+ (coconut milk + Cactus spine + Red Spiders' eggs)", 5937, 19);
 			menuLine("76", "Magic potion (Lantadyme + Potato cactus)", 3042, 20);
 			menuLine("78", "Zamorak brew (Torstol + Jangerberries)", 189, 21);
-			menuLine("79", "Antidote++ (Coconut Milk, Irit leaf + Magic roots)", 5954, 22);
+			menuLine("79", "Antidote++ (coconut Milk, Irit leaf + Magic roots)", 5954, 22);
 			menuLine("81", "Saradomin brew (Toadflax + Crushed bird's nest)", 6687, 23);
 			menuLine("82", "Weapon poison++ (coconut milk + Nightshade, Poison ivy berries)", 5940, 24);
 			menuLine("", "To fill your vials with water, you will have ", -1, 26);
