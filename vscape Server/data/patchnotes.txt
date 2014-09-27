@@ -6,6 +6,7 @@
 -Right click, "sail" to Entrana working.
 -Snelms can be crafted from snails in Mort Myre.
 -Re-vamped yell, toggleable as a channel.
+-Arrow price changes/fixes
 
 @dre@=September 12th=
 @blu@Horror From The Deep
