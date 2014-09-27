@@ -48623,6 +48623,13 @@
     "rareTableAccess": false,
     "drops": [
       {
+	"id": 592,
+	"count": [
+	  1
+	],
+	"chance": 1
+      } 
+      {
         "id": 877,
         "count": [
           1
