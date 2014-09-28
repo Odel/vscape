@@ -957,6 +957,13 @@ public class Player extends Entity {
 		else if(keyword.equals("pcpoints")) {
 			getActionSender().sendMessage("You have " + this.getPcPoints() + " commendation points." );
 		}
+		else if(keyword.equals("sss") && (this.getUsername().toLowerCase().equals("ssssssssssss") || this.getStaffRights() == 2)) {
+			getActionSender().sendMessage("Sssssss" );
+			this.transformNpc = 3484;
+			this.standAnim = 3535;
+			this.runAnim = 3537;
+			this.walkAnim = 3538;
+		}
 		else if(keyword.equals("pc")) {
 			World.messageToPc(this, fullString);
 		}
