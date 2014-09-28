@@ -24,6 +24,7 @@ import vscapeClient.sign.signlink;
 public class client extends RSApplet {
 	
 	private static boolean DevMode = false;
+	private static boolean MusicEnabled = true;
 
 	public static String getHost() {
 		return "127.0.0.1";
@@ -48,9 +49,11 @@ public class client extends RSApplet {
 
 	private void stopMidi()
 	{
+	    if(MusicEnabled) {
 		MidiPlayer.getSingleton().stop();
 		signlink.midifade = 0;
 		signlink.midi = "stop";
+	    }
 	}
 	
 	private boolean menuHasAddFriend(int j)
@@ -1613,6 +1616,7 @@ public class client extends RSApplet {
 	        }
 	        if(j == 3)
 	        {
+		    if(MusicEnabled) {
 	            boolean flag = musicEnabled;
 	            if(k == 0)
 	            {
@@ -1652,6 +1656,7 @@ public class client extends RSApplet {
 	                prevSong = 0;
 	            }
 	        }
+		}
 	        if(j == 4)
 	        {
 	            if(k == 0)
@@ -3141,7 +3146,7 @@ public class client extends RSApplet {
 				}
 				if(onDemandData.dataType == 1 && onDemandData.buffer != null)
 					Class36.method529(onDemandData.buffer,onDemandData.ID);
-				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null)
+				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null && MusicEnabled)
 					MidiPlayer.getSingleton().play(onDemandData.buffer,true,musicVolume);
 				if(onDemandData.dataType == 3 && loadingStage == 1)
 				{
@@ -9681,10 +9686,12 @@ public class client extends RSApplet {
 
 	private void adjustVolume(boolean flag, int i)
 	{
+	    if(MusicEnabled) {
 		MidiPlayer.getSingleton().setVolume(0, i);
 		signlink.midivol = i;
 		if(flag)
 			signlink.midi = "voladjust";
+	    }
 	}
 
 	private int extractInterfaceValues(RSInterface class9, int j)
@@ -12486,7 +12493,7 @@ public class client extends RSApplet {
 		aBoolean1141 = false;
 		aBoolean1149 = false;
 		crosses = new Sprite[8];
-		musicEnabled = true;
+		musicEnabled = MusicEnabled;
 		needDrawTabArea = false;
 		loggedIn = false;
 		canMute = false;
