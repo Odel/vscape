@@ -67,6 +67,7 @@ public class MagicCarpet {
         player.getMovementPaused().setWaitDuration(waitDuration);
         player.getMovementPaused().reset();
         player.getUpdateFlags().sendAnimation(768);
+	player.setStopPacket(true);
         Tick t = new Tick(waitDuration) {
             @Override
             public void execute() {
@@ -89,6 +90,7 @@ public class MagicCarpet {
                         player.setRunAnim(-1);
                         player.setWalkAnim(-1);
                         player.getUpdateFlags().sendAnimation(770);
+			player.setStopPacket(false);
                         player.setAppearanceUpdateRequired(true);
                         player.getMovementPaused().setWaitDuration(waitDuration);
                         player.getMovementPaused().reset();

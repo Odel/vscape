@@ -2071,6 +2071,16 @@ public class WalkToActionHandler {
 				return;
 			}
 		}
+		if (npc.getNpcId() == 43 || npc.getNpcId() == 1765) {
+		    if(Misc.goodDistance(player.getPosition(), npc.getPosition(), 2)) {
+			player.setInteractingEntity(npc);
+			NpcActions.shearSheep(player);
+			return;
+		    } else {
+			player.walkTo(npc.getPosition(), true);
+			return;
+		    }
+		}
 		if (npc.getPlayerOwner() != null && (npc.getPlayerOwner() != player || npc.getCombatingEntity() != null)) {
 			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;

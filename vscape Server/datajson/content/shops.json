@@ -736,31 +736,35 @@
     "items": [
       {
         "id": 554,
-        "count": 1500
+        "count": 5000
       },
       {
         "id": 555,
-        "count": 1500
+        "count": 5000
       },
       {
         "id": 556,
-        "count": 1500
+        "count": 5000
       },
       {
         "id": 557,
-        "count": 1500
+        "count": 5000
       },
       {
         "id": 558,
-        "count": 500
+        "count": 5000
+      },
+      {
+        "id": 559,
+        "count": 5000
       },
       {
         "id": 562,
-        "count": 500
+        "count": 250
       },
       {
         "id": 560,
-        "count": 500
+        "count": 250
       }
     ],
     "isGeneralStore": false,
@@ -3948,63 +3952,51 @@
     "items": [
       {
         "id": 1103,
-        "count": 10
+        "count": 5
       },
       {
         "id": 1101,
-        "count": 10
+        "count": 3
       },
       {
-        "id": 1139,
-        "count": 10
+        "id": 1105,
+        "count": 3
       },
       {
-        "id": 1137,
-        "count": 10
-      },
-      {
-        "id": 1173,
-        "count": 10
-      },
-      {
-        "id": 1175,
-        "count": 10
-      },
-      {
-        "id": 1075,
-        "count": 10
-      },
-      {
-        "id": 1067,
-        "count": 10
-      },
-      {
-        "id": 1087,
-        "count": 10
-      },
-      {
-        "id": 1081,
-        "count": 10
+        "id": 1109,
+        "count": 1
       },
       {
         "id": 1117,
-        "count": 10
+        "count": 2
       },
       {
         "id": 1115,
-        "count": 10
+        "count": 1
       },
       {
         "id": 1119,
-        "count": 10
+        "count": 1
       },
       {
         "id": 1125,
-        "count": 10
+        "count": 1
       },
       {
         "id": 1121,
-        "count": 10
+        "count": 1
+      },
+      {
+        "id": 1067,
+        "count": 1
+      },
+      {
+        "id": 1133,
+        "count": 1
+      },
+      {
+        "id": 1097,
+        "count": 1
       }
     ],
     "isGeneralStore": false,

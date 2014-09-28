@@ -1520,10 +1520,10 @@ public class Equipment {
 		//magic
 		if (itemName.contains("mystic") || itemName.contains("nchanted")) {
 			if (itemName.contains("staff")) {
-				magicLevelReq = 20;
+				magicLevelReq = 40;
 				attackLevelReq = 40;
 			} else {
-				magicLevelReq = 20;
+				magicLevelReq = 40;
 				defenceLevelReq = 20;
 			}
 			return;
