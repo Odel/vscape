@@ -305,8 +305,8 @@ public class client extends RSApplet {
 					if (chatTypeView == 9 || (chatTypeView == 0 && globalMode == 0)) {
 						if(i1 > 0 && i1 < 210) {
 							int j1 = 8;
-							textDrawingArea.method385(255, "[G]", i1, j1);
-							j1 += textDrawingArea.getTextWidth("[G] ");
+							textDrawingArea.method385(0x7e3200, "[GLOBAL]", i1, j1);
+							j1 += textDrawingArea.getTextWidth("[GLOBAL] ");
 							if(byte0 == 1) {
 								modIcons[0].method361(j1, i1 - 12);
 								j1 += 12;
@@ -319,9 +319,11 @@ public class client extends RSApplet {
 								modIcons[2].method361(j1, i1 - 12);
 								j1 += 12;
 							}
+							/* draws playername in chatbox[history] */
 							textDrawingArea.method385(0, s1 + ":", i1 - 1, j1 + 1);
 							j1 += textDrawingArea.getTextWidth(s1) + 8;
-							textDrawingArea.method389(false, j1 + 1, 0x7e3200, chatMessages[k], i1 - 1);//chat color enabled;
+							/* draws chat in chatbox[history] */
+							textDrawingArea.method389(false, j1 + 1, 255, chatMessages[k], i1 - 1);//chat color enabled;
 						}
 						j++;
 						j77++;
