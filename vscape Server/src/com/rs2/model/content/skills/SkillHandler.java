@@ -67,7 +67,7 @@ public class SkillHandler {
 	
 	public static boolean fishSkillCheck(int level, int levelRequired, int itemBonus) {
 		double chance = 0.0;
-		double baseChance = Math.pow(10d-levelRequired == 62 ? 40 : levelRequired == 76 ? 62 : levelRequired /10d, 2d)/2d;
+		double baseChance = Math.pow(10d-((levelRequired == 62 ? 40 : levelRequired == 76 ? 62 : levelRequired) /10d), 2d)/2d;
 		chance = baseChance + ((level - levelRequired) / 2d) + (itemBonus / 10d);
 		return chance >= (new Random().nextDouble() * 100.0);
 	}

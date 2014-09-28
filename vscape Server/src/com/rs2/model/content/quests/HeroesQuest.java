@@ -364,13 +364,18 @@ public class HeroesQuest implements Quest {
 		final int offsetX = (attackerY - victimY) * -1;
 		final int offsetY = (attackerX - victimX) * -1;
 		RangedAmmo ammo = RangedAmmo.getArrowForEquipped(player.getEquipment().getId(Constants.ARROWS));
-		if (ammo == null) {
+		Item equipped = new Item(player.getEquipment().getId(Constants.WEAPON));
+		if (ammo == null && !equipped.getDefinition().getName().toLowerCase().contains("crystal bow"))  {
 		    player.getActionSender().sendMessage("You must use one of the standard arrows / bolts to hit Grip!");
 		    return;
 		} else {
 		    player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 		    player.getUpdateFlags().sendAnimation(426);
-		    World.sendProjectile(player.getPosition(), offsetX, offsetY, ammo.getProjectileId(), 43, 40, 70, npc.getIndex(), false);
+		    if(equipped.getDefinition().getName().toLowerCase().contains("crystal bow")) {
+			World.sendProjectile(player.getPosition(), offsetX, offsetY, RangedAmmo.CRYSTAL_ARROW.getProjectileId(), 43, 40, 70, npc.getIndex(), false);
+		    } else {
+			World.sendProjectile(player.getPosition(), offsetX, offsetY, ammo.getProjectileId(), 43, 40, 70, npc.getIndex(), false);
+		    }
 		    player.setStopPacket(true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
@@ -391,7 +396,6 @@ public class HeroesQuest implements Quest {
 				    players.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
 				    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
-				    break;
 				}
 			    }
 			}
@@ -512,12 +516,16 @@ public class HeroesQuest implements Quest {
 		    return true;
 		}
 	    case 2621: //locked door to candlesticks
-		if(!player.getInventory().playerHasItem(CANDLESTICKS_KEY)) {
+		if(!player.getInventory().playerHasItem(CANDLESTICKS_KEY) && player.getPosition().getX() < 2764) {
 		    player.getActionSender().sendMessage("This door is locked.");
 		    return true;
-		} else {
+		} else if(player.getInventory().playerHasItem(CANDLESTICKS_KEY) && player.getPosition().getX() < 2764) {
 		    player.getActionSender().sendMessage("You open the door with Grip's key.");
 		    player.getInventory().removeItem(new Item(CANDLESTICKS_KEY));
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2764 ? 1 : -1, 0, true);
+		    player.getActionSender().walkThroughDoor(object, x, y, 0);
+		    return true;
+		} else {
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2764 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;

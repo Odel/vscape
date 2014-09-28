@@ -2617,14 +2617,14 @@ public class WalkToActionHandler {
 					FlourMill.takeFromBin(player);
 				break;
 				case 12093: //evil chicken shrine
-				    if((item >= 5076 && item <= 5078) || item == 1944) {
+				    if((item >= 5076 && item <= 5078)) {
 					    player.getActionSender().sendMessage("You offer the egg to the Evil Chicken...");
 					    player.getUpdateFlags().sendAnimation(645);
 					    player.setStopPacket(true);
 					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer b) {
-						    if(20 >= (new Random().nextDouble() * 100.0) || item == 1944) {
+						    if(20 >= (new Random().nextDouble() * 100.0)) {
 							if(player.getSpawnedNpc() == null) {
 							    player.getInventory().removeItem(new Item(item));
 							    Npc chicken = new Npc(SpawnEvent.addValue(player.getCombatLevel()) + 2463);
