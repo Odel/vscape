@@ -2479,7 +2479,7 @@ public class Player extends Entity {
 					YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
 				}
 			}
-			player.getActionSender().sendMessage(UserCrown+yeller + ":" + NameUtil.uppercaseFirstLetter(YellMsg) + ":yell:");
+			player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
 		}
 	}
         

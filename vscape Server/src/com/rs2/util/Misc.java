@@ -32,7 +32,7 @@ import com.rs2.util.clip.Region;
  */
 public class Misc {
 
-	private static char xlateTable[] = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"', '[', ']' };
+	private static char xlateTable[] = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"', '[', ']', '/', '<', '>', '_', '^' };
 	
 	private static char decodeBuf[] = new char[4096];
 
@@ -262,6 +262,35 @@ public class Misc {
 		return value;
 	}
 
+	public static void textPack(byte packedData[], java.lang.String text) {
+		if (text.length() > 80)
+			text = text.substring(0, 80);
+			text = text.toLowerCase();
+	
+			int carryOverNibble = -1;
+			int ofs = 0;
+			for (int idx = 0; idx < text.length(); idx++) {
+				char c = text.charAt(idx);
+				int tableIdx = 0;
+				for (int i = 0; i < xlateTable.length; i++) {
+					if (c == xlateTable[i]) {
+					tableIdx = i;
+					break;
+					}
+				}
+				packedData[ofs++] = (byte) (carryOverNibble);
+			}
+	} 
+	
+	public static String textUnpack(byte packedData[], int size) {
+		int idx = 0; //highNibble = -1;
+		for (int i = 0; i < size; i++) {
+			int val = packedData[i];
+			decodeBuf[idx++] = xlateTable[val];
+		}
+		return new String(decodeBuf, 0, idx);
+	}
+/*
 	public static String textUnpack(byte packedData[], int size) {
 		int idx = 0, highNibble = -1;
 		for (int i = 0; i < size * 2; i++) {
@@ -279,7 +308,7 @@ public class Misc {
 		}
 
 		return new String(decodeBuf, 0, idx);
-	}
+	}*/
 
 	/**
 	 * Returns the delta coordinates. Note that the returned Position is not an
