@@ -37,7 +37,7 @@ public class CacheDownloader {
         //private String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/cacheVersion.dat";
         //private String cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/vscape.zip";
 	//private String versionURL = "https://www.dropbox.com/s/14s5ien7hy1lkvu/cacheVersion.txt?dl=1";
-	private String versionURL = "https://dl.dropboxusercontent.com/u/99082002/cacheVersion.txt";
+	private String versionURL = "https://dl.dropboxusercontent.com/u/99082002/cacheVersion.dat";
         private String cacheLink = "https://dl.dropboxusercontent.com/u/99082002/vscape.zip";
         private int localCacheVersion = 0;
         
@@ -91,7 +91,7 @@ public class CacheDownloader {
         }
         
         private int getCacheLocalVersion() throws IOException {
-        	File versionFile = new File(getCacheDir() + "/cacheVersion.txt");
+        	File versionFile = new File(getCacheDir() + "cacheVersion.dat");
 		BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
     		String line;
 		if(!versionFile.exists()) {
@@ -119,7 +119,7 @@ public class CacheDownloader {
         public CacheDownloader downloadCache() {
             try {
 	            File location = new File(getCacheDir());
-	            File versionFile = new File(getCacheDir() + "/cacheVersion.txt");
+	            File versionFile = new File(getCacheDir() + "cacheVersion.dat");
 
 	            int remoteVer = getCacheRemoteVersion();
 	            if(!versionFile.exists())
@@ -170,7 +170,7 @@ public class CacheDownloader {
 
                         URL url = new URL(adress);
                         out = new BufferedOutputStream(
-                                new FileOutputStream(getCacheDir() + "/" +localFileName)); 
+                                new FileOutputStream(getCacheDir() + localFileName)); 
 
                         conn = url.openConnection();
                         in = conn.getInputStream(); 
