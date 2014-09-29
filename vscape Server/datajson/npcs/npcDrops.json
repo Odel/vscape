@@ -47760,11 +47760,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 779,
+        "id": 592,
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 1
       }
     ]
   },
@@ -48591,6 +48591,13 @@
     "rareTableAccess": false,
     "drops": [
       {
+        "id": 592,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
         "id": 877,
         "count": [
           1
@@ -48827,6 +48834,13 @@
     "npcId": 709,
     "rareTableAccess": false,
     "drops": [
+      {
+        "id": 592,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
       {
         "id": 877,
         "count": [
@@ -87940,6 +87954,13 @@
     "npcId": 1531,
     "rareTableAccess": false,
     "drops": [
+      {
+        "id": 592,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
       {
         "id": 877,
         "count": [
