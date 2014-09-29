@@ -1,0 +1,10 @@
+The item bonuses are stored in an array of 12 numbers
+the first five are offensive bonuses in the following order
+Stab
+Slash
+Crush
+Magic
+Range
+
+Defensive is the next five. in the same order as above.
+The last two are Strenght bonus and Prayer bonus.
