@@ -75,7 +75,7 @@ public class HeroesQuest implements Quest {
     public static final int GRUBOR = 789;
     public static final int GRUBOR_DOOR = 78999;
     public static final int ENTRANA_FIREBIRD = 6108;
-    public static final int GERRANT = 2720;
+    public static final int GERRANT = 558;
     public static final int MASTER_FISHER = 308;
     public static final int ROACHEY = 592;
     public static final int HARRY = 576;
@@ -184,8 +184,11 @@ public class HeroesQuest implements Quest {
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString(getQuestName(), 8144);
 		player.getActionSender().sendString("@str@" + "Talk to Achietties, outside the Heroes Guild to begin.", 8147);
-	    
-		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8170);
+		player.getActionSender().sendString("Achietties will let me into the Heroes' Guild if I can get:", 8149);
+		player.getActionSender().sendString("@str@-An Entranan Firebird feather.", 8150);
+		player.getActionSender().sendString("@str@-A cooked lava eel.", 8151);
+		player.getActionSender().sendString("@str@-A Master Thieves Armband.", 8152);
+		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8154);
 		break;
 	    default:
 		player.getActionSender().sendString(getQuestName(), 8144);
@@ -1318,7 +1321,7 @@ public class HeroesQuest implements Quest {
 		    case QUEST_COMPLETE:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("x", CONTENT);
+				player.getDialogue().sendNpcChat("Welcome back to the Heroes Guild!", CONTENT);
 				player.getDialogue().endDialogue();
 				return true;
 			}
