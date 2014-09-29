@@ -99,7 +99,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		    }
 		}
 		if(player.getClickId() == 2142) {
-		    if(player.getQuestStage(10) > 2) {
+		    if(player.getQuestStage(10) >= 2) {
 			if(player.getClickItem() == 2132) {
 			    player.getActionSender().sendMessage("You slowly dip the beef into the cauldron.");
 			    player.getInventory().removeItem(new Item(2132));
