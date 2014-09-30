@@ -128,6 +128,12 @@ public class Inventory {
 			if (item.getId() == id)
 				return true;
 		}
+		for (Item item : player.getEquipment().getItemContainer().getItems()) {
+			if (item == null)
+				continue;
+			if (item.getId() == id)
+				return true;
+		}
 		return false;
 	}
 

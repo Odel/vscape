@@ -2,11 +2,9 @@ package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
 import com.rs2.model.Entity;
-import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
-import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
@@ -21,6 +19,7 @@ import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
@@ -207,6 +206,10 @@ public class CombatManager extends Tick {
 			player.setStopPacket(true);
 		}
 		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == 757 && VampireSlayer.handleDeath((Player) killer, (Npc)died)) {
+		    died.setDead(false);
+		    return;
+		}
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == FamilyCrest.CHRONOZON && FamilyCrest.handleDeath((Player) killer, (Npc)died)) {
 		    died.setDead(false);
 		    return;
 		}
@@ -403,6 +406,7 @@ public class CombatManager extends Tick {
 			PriestInPeril.handleDeath((Player) killer, npc);
 			PriestInPeril.handleDrops((Player) killer, npc);
 			HeroesQuest.handleGripDeath((Player)killer, npc);
+			FamilyCrest.handleDrops((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }

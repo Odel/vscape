@@ -322,6 +322,14 @@ public class Player extends Entity {
 	private int questPoints = 0;
 	private boolean canHaveGodCape = true; //cadillac
 	private boolean specialAttackActive = false;
+	private boolean usedFreeGauntletsCharge = false;
+	private boolean chronozonWind = false;
+	private boolean chronozonWater = false;
+	private boolean chronozonEarth = false;
+	private boolean chronozonFire = false;
+	private boolean northLever = false;
+	private boolean northRoomLever = false;
+	private boolean southLever = false;
 	private boolean placedFireRune = false;
 	private boolean placedAirRune = false;
 	private boolean placedEarthRune = false;
@@ -4238,6 +4246,54 @@ public class Player extends Entity {
 		    return;	
 	    }
 	}
+	public boolean usedFreeGauntletsCharge() {
+	    return usedFreeGauntletsCharge;
+	}
+	public void setHasUsedFreeGauntletsCharge(boolean bool) {
+	    this.usedFreeGauntletsCharge = bool;
+	}
+	public boolean hasHitChronozonWind() {
+	    return chronozonWind;
+	}
+	public void setHitChronozonWind(boolean bool) {
+	    this.chronozonWind = bool;
+	}
+	public boolean hasHitChronozonWater() {
+	    return chronozonWater;
+	}
+	public void setHitChronozonWater(boolean bool) {
+	    this.chronozonWater = bool;
+	}
+	public boolean hasHitChronozonEarth() {
+	    return chronozonEarth;
+	}
+	public void setHitChronozonEarth(boolean bool) {
+	    this.chronozonEarth = bool;
+	}
+	public boolean hasHitChronozonFire() {
+	    return chronozonFire;
+	}
+	public void setHitChronozonFire(boolean bool) {
+	    this.chronozonFire = bool;
+	}
+	public boolean northPerfectGoldMineLever() {
+	    return northLever;
+	}
+	public void setNorthPerfectGoldMineLever(boolean bool) {
+	    this.northLever = bool;
+	}
+	public boolean southPerfectGoldMineLever() {
+	    return southLever;
+	}
+	public void setSouthPerfectGoldMineLever(boolean bool) {
+	    this.southLever = bool;
+	}
+	public boolean northRoomPerfectGoldMineLever() {
+	    return northRoomLever;
+	}
+	public void setNorthRoomPerfectGoldMineLever(boolean bool) {
+	    this.northRoomLever = bool;
+	}
 	public boolean hasPlacedFireRune() {
 	    return placedFireRune;
 	}
@@ -6260,7 +6316,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7356); //dwarf cannon
 		getActionSender().sendString("", 8679);//Eadgar's ruse
 		getActionSender().sendString("@red@Elemental Workshop", 7459); //elemental workshop
-		getActionSender().sendString("", 7357); //Family crest
+		getActionSender().sendString("@red@Family Crest", 7357); //Family crest
 		getActionSender().sendString("", 12836); //the feud
 		getActionSender().sendString("", 7358); //fight arena
 		getActionSender().sendString("", 7359); //Fishing Content

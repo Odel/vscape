@@ -2,10 +2,9 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
-import com.rs2.model.content.Emotes.EMOTE;
-import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
@@ -494,6 +493,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (Ectofungus.handleButtons(player, buttonId)) {
+			return;
+		}
+		if(FamilyCrest.buttonHandling(player, buttonId)) {
 			return;
 		}
 		if (Spinning.spin(player, buttonId, 0)) {

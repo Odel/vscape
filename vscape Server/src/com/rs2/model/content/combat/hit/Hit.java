@@ -26,6 +26,7 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.VampireSlayer;
@@ -121,6 +122,25 @@ public class Hit {
 			&& ((Player)victim).getInventory().playerHasItem(VampireSlayer.GARLIC) 
 			&& ((Npc)attacker).getNpcId() == VampireSlayer.COUNT_DRAYNOR) {
 		    damage = damage/6;
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() 
+		&& victim.isNpc() && ((Npc)victim).getNpcId() == FamilyCrest.CHRONOZON ) {
+		    Player player = (Player)attacker;
+		    if(hitDef.getHitGraphic() != null) {
+			if(hitDef.getHitGraphic().getId() == 134) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonWind(true);
+			} else if(hitDef.getHitGraphic().getId() == 137) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonWater(true);
+			} else if(hitDef.getHitGraphic().getId() == 140) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonEarth(true);
+			} else if(hitDef.getHitGraphic().getId() == 131) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonFire(true);
+			}
+		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() 
 		&& victim.isNpc() && ((Npc)victim).getNpcId() >= 1351 && ((Npc)victim).getNpcId() < 1357 ) {
