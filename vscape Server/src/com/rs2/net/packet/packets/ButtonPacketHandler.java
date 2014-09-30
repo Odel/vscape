@@ -377,7 +377,7 @@ public class ButtonPacketHandler implements PacketHandler {
 				BankManager.bankAll(player);
 			return;
 			case 83093: //equipment interface 474
-				player.getActionSender().sendInterface(21172);
+				player.getActionSender().sendInterface(21172, 3213);
 			return;
 			case 83051: //close equipment interface 474
 				player.getActionSender().removeInterfaces();
