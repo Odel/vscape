@@ -89,7 +89,7 @@ public class SkillcapeEmotes {
 	}
 	
 	public boolean doEmote(int buttonId) {
-		if(buttonId == 73123)
+		if(buttonId == 73123 || buttonId == 74108)
 		{
 			int capeId = player.getEquipment().getId(Constants.CAPE);
 			CapeEmote emote = CapeEmote.forId(capeId);

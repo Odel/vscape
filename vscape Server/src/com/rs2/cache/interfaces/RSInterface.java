@@ -10,7 +10,7 @@ import com.rs2.net.StreamBuffer;
  */
 public class RSInterface {
 
-    private static final int SIZE = 18788;
+    private static final int SIZE = 30000;
     private static final RSInterface[] INTERFACES = new RSInterface[SIZE];
 
     private int id, parentId;

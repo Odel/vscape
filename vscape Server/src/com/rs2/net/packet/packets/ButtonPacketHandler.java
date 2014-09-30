@@ -224,6 +224,22 @@ public class ButtonPacketHandler implements PacketHandler {
 
 				player.getMovementHandler().setRunToggled(true);
 				return;
+			case 74214 :	
+				if(player.getMovementHandler().isRunToggled())
+				{
+					player.getMovementHandler().setRunToggled(false);
+				}else{
+					player.getMovementHandler().setRunToggled(true);
+				}
+				return;
+			case 89061 :	
+				if(player.shouldAutoRetaliate())
+				{
+					player.setAutoRetaliate(false);
+				}else{
+					player.setAutoRetaliate(true);
+				}
+				return;
 			case 150 :
 				player.setAutoRetaliate(true);
 				return;
@@ -248,22 +264,30 @@ public class ButtonPacketHandler implements PacketHandler {
 				player.setMouseButtons(0);
 				return;
 			case 3146 :
-				player.setMouseButtons(1);
+				//player.setMouseButtons(1);
+				if(player.getMouseButtons() == 0) { player.setMouseButtons(1); }
+				else if(player.getMouseButtons() == 1) { player.setMouseButtons(0); }
 				return;
 			case 3147 :
-				player.setChatEffects(0);
+				if(player.getChatEffects() == 0) { player.setChatEffects(1); }
+				else if(player.getChatEffects() == 1) { player.setChatEffects(0); }
+				//player.setChatEffects(0);
 				return;
 			case 3148 :
 				player.setChatEffects(1);
 				return;
 			case 3189 :
-				player.setSplitPrivateChat(1);
+				if(player.getSplitPrivateChat() == 0) { player.setSplitPrivateChat(1); }
+				else if(player.getSplitPrivateChat() == 1) { player.setSplitPrivateChat(0); }
+			//	player.setSplitPrivateChat(1);
 				return;
 			case 3190 :
 				player.setSplitPrivateChat(0);
 				return;
 			case 48176 :
-				player.setAcceptAid(0);
+				if(player.getAcceptAid() == 0) { player.setAcceptAid(1); }
+				else if(player.getAcceptAid() == 1) { player.setAcceptAid(0); }
+			//	player.setAcceptAid(0);
 				return;
 			case 48177 :
 				player.setAcceptAid(1);
@@ -348,8 +372,15 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		switch (buttonId) {
-			case 73099: //Deposit all Inventory Items
+			case 73099: //Deposit all Inventory Items (old client)
+			case 94061: //Deposit all Inventory Items (new client)
 				BankManager.bankAll(player);
+			return;
+			case 83093: //equipment interface 474
+				player.getActionSender().sendInterface(21172);
+			return;
+			case 83051: //close equipment interface 474
+				player.getActionSender().removeInterfaces();
 			return;
 			/** Destroy item **/
 			case 55095 :

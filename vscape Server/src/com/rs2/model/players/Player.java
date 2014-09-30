@@ -5030,6 +5030,7 @@ public class Player extends Entity {
 	public boolean clickSpecialBar(int buttonId) {
 		switch (buttonId) { // Instant specs
 		case 29063:
+		case 29074: // new client
 			if (getEquipment().getId(Constants.WEAPON) == 1377) {
 				SpecialType.dbaxeSpec(this);
 				return true;
@@ -5042,6 +5043,7 @@ public class Player extends Entity {
 			}
 			break;
 		case 29038:
+		case 29049: // new client
 			if (getEquipment().getId(Constants.WEAPON) == 4153) {
 				if (getCombatingEntity() == null) {
 					getActionSender().sendMessage("You can only use this special when attacking something.");
@@ -5053,8 +5055,10 @@ public class Player extends Entity {
 			break;
 		}
 		boolean before = specialAttackActive;
-		if (equippedWeapon.getWeaponInterface().getSpecialBarButtonId() != buttonId)
-			return false;
+		if (equippedWeapon.getWeaponInterface().getSpecialBarButtonId() != buttonId){
+			if(buttonId != 48034 && buttonId != 29049 && buttonId !=  29074 && buttonId !=  29199) //new client temporary
+				return false;
+		}
 		setSpecialAttackActive(!specialAttackActive);
 		if (specialAttackActive && specialType == null)
 			setSpecialAttackActive(false);
