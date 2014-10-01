@@ -29,6 +29,7 @@ import com.rs2.model.content.skills.Crafting.BasicCraft;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
 import com.rs2.model.content.skills.Crafting.GemCutting;
 import com.rs2.model.content.skills.Crafting.GemData;
+import com.rs2.model.content.skills.Crafting.MacheteCrafting;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
 import com.rs2.model.content.skills.Fletching.ArrowMaking;
@@ -283,6 +284,8 @@ public class ItemPacketHandler implements PacketHandler {
             return;
 		/* Crafting */
 		if(GemCutting.handleCutting(player, firstItem, secondItem, firstItem != GemCutting.CHISEL ? itemFirstClickSlot : itemSecondClickSlot))
+            return;
+		if(MacheteCrafting.handleMacheteCraft(player, firstItem, secondItem, firstItem != MacheteCrafting.MACHETE ? itemFirstClickSlot : itemSecondClickSlot))
             return;
 		if(LeatherMakingHandler.handleItemOnItem(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot))
             return;
