@@ -9270,9 +9270,9 @@ public class client extends RSApplet {
 			int l = j / 60;
 			j %= 60;
 			if(j < 10)
-				aTextDrawingArea_1271.method385(0xffff00, "Please log out to save your character - system update in: " + l + ":0" + j, 329, 4);
+				aTextDrawingArea_1271.method385(0xffff00, "The mods have smiled upon you - system update in: " + l + ":0" + j, 329, 4);
 			else
-				aTextDrawingArea_1271.method385(0xffff00, "Please log out to save your character - system update in: " + l + ":" + j, 329, 4);
+				aTextDrawingArea_1271.method385(0xffff00, "The mods have smiled upon you - system update in: " + l + ":" + j, 329, 4);
 			anInt849++;
 			if(anInt849 > 75)
 			{

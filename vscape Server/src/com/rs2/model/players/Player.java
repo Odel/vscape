@@ -813,8 +813,8 @@ public class Player extends Entity {
 				this.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
 				int line = 8147;
 				while ( rs.next() ) {
-					String  name = rs.getString("playerName");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
+					String  name = rs.getString("username");
+					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Mod dammit") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
 					{
 						int lv  = rs.getInt("totallevel");
 						this.getActionSender().sendString(name + " - level " + lv, line);
@@ -2165,6 +2165,14 @@ public class Player extends Entity {
     				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(getUsername()));
     			}
     		}
+        }
+        else if(keyword.equals("highscoresupdate"))
+        {
+        	if (getUsername().equals("Odel")){
+        		getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
+        		SQL.cleanHighScores();
+        		SQL.initHighScores();
+        	}
         }
 	}
 
