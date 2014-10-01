@@ -142,6 +142,20 @@ public class Hit {
 			}
 		    }
 		}
+		if(attacker != null && victim != null && attacker.isPlayer()) {
+		    Player player = (Player)attacker;
+		    if(hitDef.getHitGraphic() != null && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.CHAOS_GAUNTLETS) {
+			if(hitDef.getHitGraphic().getId() == 119) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 122) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 125) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 128) {
+			    damage += 4;
+			}
+		    }
+		}
 		if(attacker != null && victim != null && attacker.isPlayer() 
 		&& victim.isNpc() && ((Npc)victim).getNpcId() >= 1351 && ((Npc)victim).getNpcId() < 1357 ) {
 		    Player player = (Player)attacker;

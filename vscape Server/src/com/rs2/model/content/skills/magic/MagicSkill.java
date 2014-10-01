@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.attacks.SpellAttack;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -483,7 +484,11 @@ public abstract class MagicSkill extends CycleEvent {
 					player.getInventory().removeItem(new Item(smelt[2], smelt[3]));
 				}
 				player.getInventory().addItem(new Item(smelt[4], 1));
-				player.getSkill().addExp(Skill.SMITHING, smelt[5]);
+				if(smelt[4] == 2357 && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.GOLDSMITH_GAUNTLETS) {
+				    player.getSkill().addExp(Skill.SMITHING, 56.2);
+				} else {
+				    player.getSkill().addExp(Skill.SMITHING, smelt[5]);
+				}
 				player.getActionSender().sendFrame106(6);
 				return true;
 			}
