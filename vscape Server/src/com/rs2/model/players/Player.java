@@ -3014,10 +3014,30 @@ public class Player extends Entity {
 		}*/
 		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
-	    setAppearanceUpdateRequired(true);
-	    QuestHandler.initPlayer(this);
-	    getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
-	    getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		setAppearanceUpdateRequired(true);
+		QuestHandler.initPlayer(this);
+		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
+		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
+		    this.setPcPoints(0, this);
+		}
+		if((this.getBananaCrate() == true && this.getBananaCrateCount() > 10) || this.getBananaCrateCount() > 10 || this.getBananaCrateCount() < 0) {
+		    this.setBananaCrate(false);
+		    this.setBananaCrateCount(0);
+		}
+		int master = this.getSlayer().slayerMaster;
+		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
+		    this.getSlayer().resetSlayerTask();
+		}
+		if(this.getClayBraceletLife() > 1000 || this.getClayBraceletLife() < 0) {
+		    this.setClayBraceletLife(28);
+		}
+		if(this.getFightCavesWave() > 55 || this.getFightCavesWave() < 0) {
+		    this.setFightCavesWave(0);
+		}
+		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
+		    this.setEctoWorshipCount(0);
+		}
 	}
 
 	public boolean beginLogin() throws Exception {
