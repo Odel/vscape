@@ -475,7 +475,9 @@ public class Player extends Entity {
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
 	public CanoeStationData curCanoeStation;
-        private String currentChannel = null;
+    private String currentChannel = null;
+    
+    private boolean homeTeleporting = false;
        
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -683,18 +685,18 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-	else if(inPestControlGameArea())
+        else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	else if(inWarriorGuildArena()) {
-	    WarriorsGuild.exitArena(this, true);
-	}
-	else if(inFightCaves()) {
+        else if(inWarriorGuildArena()) {
+        	WarriorsGuild.exitArena(this, true);
+        }
+        else if(inFightCaves()) {
 	    //FightCaves.exitCave(this);
-	    FightCaves.destroyNpcs(this);
-	}
-	else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
+        	FightCaves.destroyNpcs(this);
+        }
+        else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {
 		Npc npc = (Npc)attacker;
@@ -708,8 +710,8 @@ public class Player extends Entity {
 		attacker.getMovementHandler().reset();
 	    }
 	}
-	RandomEvent.resetEvents(this);
-	setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
+        RandomEvent.resetEvents(this);
+		setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
@@ -2803,7 +2805,27 @@ public class Player extends Entity {
             }
         }, 4);
 	}
-
+	
+	public void setHomeTeleporting(boolean state)
+	{
+		if (state == false){
+			getUpdateFlags().sendAnimation(-1);
+			getUpdateFlags().sendGraphic(-1);
+			setAppearanceUpdateRequired(true);
+			setStopPacket(false);
+			getAttributes().put("canTakeDamage", Boolean.TRUE);
+		}else{
+			getMovementHandler().reset();
+			getActionSender().removeInterfaces();
+		}
+		homeTeleporting = state;
+	}
+	
+	public boolean isHomeTeleporting()
+	{
+		return homeTeleporting;
+	}
+	
 	/**
 	 * Teleports the player to the desired position.
 	 * 
@@ -2823,6 +2845,7 @@ public class Player extends Entity {
 		getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
+		getUpdateFlags().sendGraphic(-1);
 		setAppearanceUpdateRequired(true);
 		final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
@@ -3165,16 +3188,16 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-	else if(inPestControlGameArea())
+        else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	else if(inWarriorGuildArena()) {
-	    WarriorsGuild.exitArena(this, true);
-	}
-	else if(inFightCaves()) {
-	    FightCaves.destroyNpcs(this);
-	}
+        else if(inWarriorGuildArena()) {
+        	WarriorsGuild.exitArena(this, true);
+        }
+        else if(inFightCaves()) {
+        	FightCaves.destroyNpcs(this);
+        }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();

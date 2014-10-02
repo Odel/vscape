@@ -393,6 +393,13 @@ public class Hit {
 
     @SuppressWarnings("rawtypes")
     public void execute(List<Hit> recoilList) {
+    	if (victim.isPlayer()){
+    		Player player = (Player) victim;
+			if(player.isHomeTeleporting())
+			{
+				player.setHomeTeleporting(false);
+			}
+    	}
         if (hitDef.getDropItem() != null && attacker != null && attacker.isPlayer()) {
             Player player = (Player) attacker;
             if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {

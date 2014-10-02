@@ -2,6 +2,7 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.model.Position;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.FamilyCrest;
@@ -380,6 +381,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 			case 83051: //close equipment interface 474
 				player.getActionSender().removeInterfaces();
+			return;
+			case 75010: // HOME TELEPORT
+				player.getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
 			return;
 			/** Destroy item **/
 			case 55095 :

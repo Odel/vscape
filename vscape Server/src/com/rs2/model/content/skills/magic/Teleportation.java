@@ -65,6 +65,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return false;
+		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), player.getMagicBookType() == SpellBook.MODERN);
 		return true;
 	}
@@ -85,6 +89,10 @@ public class Teleportation {
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return true;
+		}
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return false;
 		}
 		player.getUpdateFlags().sendAnimation(714);
 		player.getUpdateFlags().sendHighGraphic(301);
@@ -109,6 +117,10 @@ public class Teleportation {
 		    player.getActionSender().sendMessage("You can't teleport here.");
 		    return false;
 	    }
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return false;
+		}
 	    if (player.getInventory().playerHasItem(new Item(431))) {
 		player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 		return false;
@@ -129,6 +141,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport from here.");
 			return false;
 		}
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return false;
+		}
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
@@ -137,11 +153,77 @@ public class Teleportation {
 		return true;
 	}
 	
+	public boolean attemptHomeTeleport(Position pos) {
+        if(player.isHomeTeleporting()){
+        	return false;
+		}
+		if (player.inWild() && player.getWildernessLevel() > 20) {
+			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
+			return false;
+		}
+		if(player.inFightCaves()) {
+		    player.getActionSender().sendMessage("You can't teleport here.");
+		    return false;
+		}
+        if (player.isTeleblocked() || player.cantTeleport()) {
+            player.getActionSender().sendMessage("You can't teleport out of here!");
+            return false;
+        }
+        teleportHome(pos.getX(), pos.getY(), pos.getZ());
+		return true;
+	}
+	
+	public void teleportHome(final int x, final int y, final int height) {
+        player.setHomeTeleporting(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int teleTimer = 0;
+			@Override
+			public void execute(CycleEventContainer container) {
+                if (!player.isHomeTeleporting()) {
+                	container.stop();
+	            }
+                if (!player.isDead()) {
+		            if (teleTimer == 0) {
+	                    player.getUpdateFlags().sendAnimation(4850);
+		            } else if (teleTimer == 3) {
+	                    player.getUpdateFlags().sendAnimation(4853);
+	                    player.getUpdateFlags().sendGraphic(802);
+		            } else if (teleTimer == 6) {
+	                    player.getUpdateFlags().sendAnimation(4855);
+	                    player.getUpdateFlags().sendGraphic(803);
+		            } else if (teleTimer == 9) {
+						player.setStopPacket(true);
+						player.getAttributes().put("canTakeDamage", Boolean.FALSE);
+	                    player.getUpdateFlags().sendAnimation(4857);
+	                    player.getUpdateFlags().sendGraphic(804);
+		            } else if (teleTimer == 11) {
+	                    player.teleport(new Position(x, y, height));
+	                    player.setHomeTeleporting(false);
+	                    container.stop();
+		            }
+                } else {
+					teleTimer = 0;
+					container.stop();
+				}
+	            teleTimer++;
+			}
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+				player.getAttributes().put("canTakeDamage", Boolean.TRUE);
+			}
+		}, 1);
+	}
+	
 	public void teleport(final int x, final int y, final int height, final boolean modern) {
         if (player.isTeleblocked() || player.cantTeleport()) {
             player.getActionSender().sendMessage("You can't teleport out of here!");
             return;
         }
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return;
+		}
 		player.setStopPacket(true);
 		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -188,6 +270,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport from here.");
 			return;
 		}
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return;
+		}
         if (graphic)
             player.getUpdateFlags().sendHighGraphic(342);
 		player.getUpdateFlags().sendAnimation(1816);
@@ -225,6 +311,10 @@ public class Teleportation {
             player.getActionSender().sendMessage("You can't teleport out of here!");
             return;
         }
+		if (player.isHomeTeleporting()) {
+			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+			return;
+		}
 		player.getUpdateFlags().sendHighGraphic(110);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int teleTimer = 6;
