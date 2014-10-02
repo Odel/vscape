@@ -174,6 +174,9 @@ public class Teleportation {
 	}
 	
 	public void teleportHome(final int x, final int y, final int height) {
+        if(player.isHomeTeleporting()){
+        	return;
+		}
         player.setHomeTeleporting(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int teleTimer = 0;

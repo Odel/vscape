@@ -2810,6 +2810,7 @@ public class Player extends Entity {
 	
 	public void setHomeTeleporting(boolean state)
 	{
+		homeTeleporting = state;
 		if (state == false){
 			setStopPacket(false);
 			getAttributes().put("canTakeDamage", Boolean.TRUE);
@@ -2820,7 +2821,6 @@ public class Player extends Entity {
 			getMovementHandler().reset();
 			getActionSender().removeInterfaces();
 		}
-		homeTeleporting = state;
 	}
 	
 	public boolean isHomeTeleporting()
