@@ -918,7 +918,7 @@ public abstract class Entity {
 	}
 
 	public boolean cantTeleport() {
-		return inRandomEvent() || inPits() || inPitsWait() || inCaves() || inDuelArena();
+		return inRandomEvent() || inPits() || inPitsWait() || inCaves() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea();
 	}
 
 	public boolean isFrozen() {
