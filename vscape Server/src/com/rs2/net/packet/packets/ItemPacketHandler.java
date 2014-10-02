@@ -178,7 +178,7 @@ public class ItemPacketHandler implements PacketHandler {
 		ItemDefinition itemDef = new Item(itemId).getDefinition();
 		if(itemDef != null){
 			if(itemDef.getDescription() == null || itemDef.getDescription() == "null"){
-				player.getActionSender().sendMessage("It's an Item.");
+				player.getActionSender().sendMessage("It's a " + itemDef.getName() + ".");
 			}else{
 				player.getActionSender().sendMessage(itemDef.getDescription());
 			}
