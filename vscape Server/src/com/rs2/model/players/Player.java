@@ -2811,11 +2811,11 @@ public class Player extends Entity {
 	public void setHomeTeleporting(boolean state)
 	{
 		if (state == false){
+			setStopPacket(false);
+			getAttributes().put("canTakeDamage", Boolean.TRUE);
 			getUpdateFlags().sendAnimation(-1);
 			getUpdateFlags().sendGraphic(-1);
 			setAppearanceUpdateRequired(true);
-			setStopPacket(false);
-			getAttributes().put("canTakeDamage", Boolean.TRUE);
 		}else{
 			getMovementHandler().reset();
 			getActionSender().removeInterfaces();
