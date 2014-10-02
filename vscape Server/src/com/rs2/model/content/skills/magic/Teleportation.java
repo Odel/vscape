@@ -153,24 +153,27 @@ public class Teleportation {
 		return true;
 	}
 	
-	public boolean attemptHomeTeleport(Position pos) {
+	public void attemptHomeTeleport(Position pos) {
         if(player.isHomeTeleporting()){
-        	return false;
+        	return;
 		}
+        if(player.isAttacking() || !player.getInCombatTick().completed()){
+        	player.getActionSender().sendMessage("You can't teleport while in combat!");
+        	return;
+        }
 		if (player.inWild() && player.getWildernessLevel() > 20) {
 			player.getActionSender().sendMessage("You can't teleport above level 20 in the wilderness.");
-			return false;
+			return;
 		}
 		if(player.inFightCaves()) {
 		    player.getActionSender().sendMessage("You can't teleport here.");
-		    return false;
+		    return;
 		}
         if (player.isTeleblocked() || player.cantTeleport()) {
             player.getActionSender().sendMessage("You can't teleport out of here!");
-            return false;
+            return;
         }
         teleportHome(pos.getX(), pos.getY(), pos.getZ());
-		return true;
 	}
 	
 	public void teleportHome(final int x, final int y, final int height) {
@@ -178,6 +181,8 @@ public class Teleportation {
         	return;
 		}
         player.setHomeTeleporting(true);
+		player.setStopPacket(true);
+		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int teleTimer = 0;
 			@Override
@@ -195,13 +200,10 @@ public class Teleportation {
 	                    player.getUpdateFlags().sendAnimation(4855);
 	                    player.getUpdateFlags().sendGraphic(803);
 		            } else if (teleTimer == 9) {
-						player.setStopPacket(true);
-						player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 	                    player.getUpdateFlags().sendAnimation(4857);
 	                    player.getUpdateFlags().sendGraphic(804);
 		            } else if (teleTimer == 11) {
 	                    player.teleport(new Position(x, y, height));
-	                    player.setHomeTeleporting(false);
 	                    container.stop();
 		            }
                 } else {

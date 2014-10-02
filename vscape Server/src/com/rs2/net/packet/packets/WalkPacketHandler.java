@@ -32,10 +32,6 @@ public class WalkPacketHandler implements PacketHandler {
 			player.getActionSender().sendMessage("You are stunned.");
 			return;
 		}
-		if(player.isHomeTeleporting())
-		{
-			player.setHomeTeleporting(false);
-		}
 	    if (RulesData.NO_MOVEMENT.activated(player)) {
 		    player.getActionSender().sendMessage("Movements have been disabled during this fight!");
 			return;
