@@ -3,6 +3,7 @@ package com.rs2.model.content.skills.mining;
 import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
+import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.RingEffect;
@@ -174,7 +175,12 @@ public class MineOre {
 							player.setClayBraceletLife(28);
 						}
 					}
-					player.getInventory().addItem(new Item(getItemRecieved(object, itemReceived), 1));
+					if(getItemRecieved(object, itemReceived) == 446 && !Entity.inArea(player, 2726, 2746, 9680, 9700)) {
+					    itemReceived = 444;
+					    player.getInventory().addItem(new Item(itemReceived, 1));
+					} else {
+					    player.getInventory().addItem(new Item(getItemRecieved(object, itemReceived), 1));
+					}
 					player.getActionSender().sendMessage("You manage to mine some " + (object == 2111 ? "gem" : object == 10946 ? "sandstone" : object == 10947 ? "granite" : ItemManager.getInstance().getItemName(itemReceived).toLowerCase() + "."));
 					if (player.getNewComersSide().isInTutorialIslandStage()) {
 						player.getDialogue().sendStatement("You manage to mine some " + (object == 2111 ? "gem" : object == 10946 ? "sandstone" : object == 10947 ? "granite" : ItemManager.getInstance().getItemName(itemReceived).toLowerCase() + "."));
