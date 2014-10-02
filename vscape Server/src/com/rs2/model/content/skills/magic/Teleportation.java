@@ -209,8 +209,7 @@ public class Teleportation {
 			}
 			@Override
 			public void stop() {
-				player.setStopPacket(false);
-				player.getAttributes().put("canTakeDamage", Boolean.TRUE);
+				player.setHomeTeleporting(false);
 			}
 		}, 1);
 	}
