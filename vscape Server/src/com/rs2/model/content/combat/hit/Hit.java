@@ -564,7 +564,9 @@ public class Hit {
                     if (player.getIsUsingPrayer()[Prayer.REDEMPTION]) {
                         Prayer.applyRedemption(player, victim, currentHp);
                     }
-                    RingEffect.ringOfLife(player);
+                    if(!player.inMiniGameArea()){
+                    	RingEffect.ringOfLife(player);
+                    }
                 }
             }
         }
