@@ -75,6 +75,7 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.TradeManager;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.players.item.functions.Casket;
 import com.rs2.model.players.item.functions.Nests;
@@ -84,6 +85,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
+import com.rs2.util.NameUtil;
 
 
 public class ItemPacketHandler implements PacketHandler {
@@ -105,7 +107,9 @@ public class ItemPacketHandler implements PacketHandler {
 	public static final int FIRST_CLICK_ITEM = 122;
 	public static final int SECOND_CLICK_ITEM = 16;
 	public static final int THIRD_CLICK_ITEM = 75;
-
+	
+	public static final int EXAMINE_ITEM = 220;
+	
 	@Override
 	public void handlePacket(Player player, Packet packet) {
 		if (player.stopPlayerPacket()) {
@@ -163,6 +167,25 @@ public class ItemPacketHandler implements PacketHandler {
 			case CASTED_SPELL_ON_GROUND_ITEM :
 				handleCastedSpellOnGroundItem(player, packet);
 				break;
+			case EXAMINE_ITEM :
+				handleExamineItem(player, packet);
+				break;
+		}
+	}
+	
+	private void handleExamineItem(Player player, Packet packet) {
+		int itemId = packet.getIn().readShort(); // Item ID.
+		ItemDefinition itemDef = new Item(itemId).getDefinition();
+		if(itemDef != null){
+			if(itemDef.getDescription() == null || itemDef.getDescription() == "null"){
+				player.getActionSender().sendMessage("It's an Item.");
+			}else{
+				player.getActionSender().sendMessage(itemDef.getDescription());
+			}
+		}
+		else
+		{
+			player.getActionSender().sendMessage("It's an Item.");
 		}
 	}
 

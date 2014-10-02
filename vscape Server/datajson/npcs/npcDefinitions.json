@@ -39008,7 +39008,7 @@
   {
     "id": 1773,
     "name": "Goblin",
-    "examine": "It\u0027s an NPC.",
+    "examine": "An ugly green creature.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 5,
