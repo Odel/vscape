@@ -891,8 +891,10 @@ public class Player extends Entity {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
                 getActionSender().sendMessage("You cannot do that here!");
             } else {
-                teleport(new Position(Constants.START_X, Constants.START_Y, 0));
+				getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
+             /*   teleport(new Position(Constants.START_X, Constants.START_Y, 0));
                 getActionSender().sendMessage("You teleported home.");
+                */
             } 
 		}
 		else if (keyword.equals("showhp")) {
