@@ -308,8 +308,8 @@ public class client extends RSApplet {
 					if (chatTypeView == 9 || (chatTypeView == 0 && globalMode == 0)) {
 						if(i1 > 0 && i1 < 210) {
 							int j1 = 8;
-							textDrawingArea.method385(255, "[G]", i1, j1);
-							j1 += textDrawingArea.getTextWidth("[G] ");
+							textDrawingArea.method385(255, globalPrefix, i1, j1);
+							j1 += textDrawingArea.getTextWidth(globalPrefix);
 							if(byte0 == 1) {
 								modIcons[0].method361(j1, i1 - 12);
 								j1 += 12;
@@ -11588,9 +11588,9 @@ public class client extends RSApplet {
 			{
 				String s = inStream.readString();
 				if(s.endsWith(":STOP:")) {
-		try {
-           // SoundProvider.playerPool.stop();
-} catch (Exception ex) { }
+					try {
+						// SoundProvider.playerPool.stop();
+					} catch (Exception ex) { }
 				}
 				else if(s.endsWith(":yell:")) // GLOBAL CHAT
 				{
@@ -11669,7 +11669,7 @@ public class client extends RSApplet {
 					pushMessage(s, 0, "");
 				}
 				pktType = -1;
-	//serverMessage(s);
+				//serverMessage(s);
 	
 				return true;
 			}
@@ -11840,6 +11840,35 @@ public class client extends RSApplet {
 						needDrawTabArea = true;
 					}
 
+				pktType = -1;
+				return true;
+			}
+			if(pktType == 217)
+			{
+				try {
+					globalPrefix = inStream.readString();
+					String name = inStream.readString();
+					String message = inStream.readString();
+					int rights = inStream.readUnsignedByte();
+					boolean ignore = false;
+					long nameeLong = TextClass.longForName(name);
+					for (int l29 = 0; l29 < ignoreCount; l29++) {
+						if (ignoreListAsLongs[l29] != nameeLong)
+							continue;
+						ignore = true;
+
+					}
+					if(!ignore){
+						if (rights == 2 || rights == 3)
+							pushMessage(message, 9, "@cr2@" + TextClass.fixName(name));
+						else if (rights == 1)
+							pushMessage(message, 9, "@cr1@" + TextClass.fixName(name));
+						else
+							pushMessage(message, 9, TextClass.fixName(name));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				pktType = -1;
 				return true;
 			}
@@ -12539,6 +12568,7 @@ public class client extends RSApplet {
 		anInt1289 = -1;
 	}
 
+	public String globalPrefix = "";
 	public int chatTypeView;
 	public int clanChatMode;
 	public int duelMode;

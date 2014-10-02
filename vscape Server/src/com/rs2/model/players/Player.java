@@ -2468,17 +2468,6 @@ public class Player extends Entity {
 			return;
 		}
 		
-		String UserCrown = "";
-	    switch (getStaffRights()) {
-	        case 1:
-	        	UserCrown = "@cr1@";
-	            break;
-	        case 2:
-	        	UserCrown = "@cr2@";
-	            break;
-	        default:
-	        	UserCrown = "";
-	    }
 		String yeller = NameUtil.formatName(getUsername());
 		
 		lastYell = System.currentTimeMillis();
@@ -2488,14 +2477,18 @@ public class Player extends Entity {
 			if (player == null)
 				continue;
 			
+			String message = YellMsg;
+			
 			if(player.hideColors)
 			{
 				for(int k = 0; k < Constants.colorStrings.length;k++)
 				{
-					YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
+					message = message.replace(Constants.colorStrings[k], "");
 				}
 			}
-			player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
+			
+			player.getActionSender().sendGlobalChat("[G] ", yeller, message, getStaffRights());
+			//player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
 		}
 	}
         
