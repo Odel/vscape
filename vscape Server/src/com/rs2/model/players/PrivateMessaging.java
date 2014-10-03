@@ -24,6 +24,14 @@ public class PrivateMessaging {
 			}
 			player.getActionSender().sendFriendList(player.getFriends()[i], checkOnlineStatus(player.getFriends()[i]));
 		}
+		
+		for (int i = 0; i < player.getIgnores().length; i ++) {
+			if (player.getIgnores()[i] == 0) {
+				continue;
+			}
+			player.getActionSender().sendIgnoreList(player.getIgnores()[i]);
+		}
+		
         long name = player.getUsernameAsLong();
 		int world = logout ? 0 : checkOnlineStatus(name);
 		for (Player players : World.getPlayers()) {
@@ -60,6 +68,7 @@ public class PrivateMessaging {
 		}
 		int slot = getFreeSlot(player.getIgnores());
 		player.getIgnores()[slot] = name;
+		player.getActionSender().sendIgnoreList(name);
 	}
 	
 	public boolean isIgnoringPlayer(long name) {

@@ -673,6 +673,14 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
+	
+	public ActionSender sendIgnoreList(long name) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(9);
+		out.writeHeader(player.getEncryptor(), 214);
+		out.writeLong(name);
+		player.send(out.getBuffer());
+		return this;
+	}
 
 	public ActionSender sendPMServer(int state) { // IMPROVED && CONVERTED
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(2);

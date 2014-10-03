@@ -6804,6 +6804,7 @@ public class client extends RSApplet {
 				aClass19_1179 = new NodeList();
 				anInt900 = 0;
 				friendsCount = 0;
+				ignoreCount = 0;
 				dialogID = -1;
 				backDialogID = -1;
 				openInterfaceID = -1;
@@ -11190,10 +11191,23 @@ public class client extends RSApplet {
 			}
 			if(pktType == 214)
 			{
-				ignoreCount = pktSize / 8;
+			/*	ignoreCount = pktSize / 8;
 				for(int j1 = 0; j1 < ignoreCount; j1++)
 					ignoreListAsLongs[j1] = inStream.readQWord();
+*/
+				long ignoreLong = inStream.readQWord();
+				String ignoreName = TextClass.fixName(TextClass.nameForLong(ignoreLong));
+				for (int k24 = 0; k24 < ignoreCount; k24++) {
+					if (ignoreLong != ignoreListAsLongs[k24])
+						continue;
+					ignoreName = null;
 
+				}
+				if (ignoreName != null && ignoreCount < 100) {
+					ignoreListAsLongs[ignoreCount] = ignoreLong;
+					ignoreCount++;
+					needDrawTabArea = true;
+				}
 				pktType = -1;
 				return true;
 			}
