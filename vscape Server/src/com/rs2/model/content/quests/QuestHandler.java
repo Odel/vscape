@@ -53,7 +53,8 @@ public class QuestHandler {
 	new GhostsAhoy(),
 	new AnimalMagnetism(),
 	new HorrorFromTheDeep(),
-	new HeroesQuest()
+	new HeroesQuest(),
+	new FamilyCrest()
     };
     
     public static void init() {
@@ -198,6 +199,9 @@ public class QuestHandler {
         		return true;
 		case 28195: //Heroes Quest
 			showInterface(player,quests[27]);
+        		return true;
+		case 28189: //Family Crest
+			showInterface(player,quests[28]);
         		return true;
 
         }

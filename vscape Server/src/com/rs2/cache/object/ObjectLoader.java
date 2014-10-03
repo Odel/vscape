@@ -1,5 +1,6 @@
 package com.rs2.cache.object;
 
+import com.rs2.Constants;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import com.rs2.cache.obj.ObjectDefinitionListener;
 import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.GlobalObjectHandler;
 import com.rs2.model.players.ObjectHandler;
@@ -107,6 +109,18 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 	public static void addNecessaryClipping() {
 		ObjectHandler.getInstance().addDoorClip(3408, 3488, 0, 2); //paterdomus doors
 		ObjectHandler.getInstance().addDoorClip(3408, 3489, 0, 2);
+		ObjectHandler.getInstance().addDoorClip(3086, 9934, 0, 1); //obelisk of earth
+		ObjectHandler.getInstance().addDoorClip(3087, 9934, 0, 1); //obelisk of earth
+		ObjectHandler.getInstance().addDoorClip(3088, 9934, 0, 1); //obelisk of earth
+		ObjectHandler.getInstance().addClip(2150, 3088, 9932, 0, 2, 10); //still obelisk of earth
+		ObjectHandler.getInstance().addClip(2150, 3088, 9933, 0, 2, 10);
+		ObjectHandler.getInstance().addClip(2150, 3088, 9934, 0, 2, 10);
+		ObjectHandler.getInstance().addClip(2150, 3088, 9932, 0, 3, 10);
+		ObjectHandler.getInstance().addClip(2150, 3087, 9932, 0, 3, 10);
+		ObjectHandler.getInstance().addClip(2150, 3086, 9932, 0, 3, 10);
+		ObjectHandler.getInstance().addClip(2150, 3086, 9932, 0, 0, 10); //still obelisk of earth
+		ObjectHandler.getInstance().addClip(2150, 3086, 9933, 0, 0, 10);
+		ObjectHandler.getInstance().addClip(2150, 3086, 9934, 0, 0, 10);
 	}
 	
 	public static void addObjects() {

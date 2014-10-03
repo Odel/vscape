@@ -413,6 +413,7 @@ public class PlayerSave {
 			    write.writeInt(player.getGodBook());
 			    write.writeBoolean(player.givenSnailSlime());
 			    write.writeBoolean(player.givenIdPapers());
+			    write.writeBoolean(player.usedFreeGauntletsCharge());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -1092,6 +1093,11 @@ public class PlayerSave {
             	player.setGivenIdPapers(load.readBoolean());
             } catch (IOException e) { System.out.println("29");
 		player.setGivenIdPapers(false);
+            }
+	    try {
+            	player.setHasUsedFreeGauntletsCharge(load.readBoolean());
+            } catch (IOException e) { System.out.println("30");
+		player.setHasUsedFreeGauntletsCharge(false);
             }
             load.close();
             if (Server.getSingleton() != null)

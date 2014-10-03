@@ -20,6 +20,7 @@ public final class EntityDef
 		anInt56 = (anInt56 + 1) % 20;
 		EntityDef entityDef = cache[anInt56] = new EntityDef();
 		stream.currentOffset = streamIndices[i];
+		entityDef.npcID = i;
 		entityDef.interfaceType = i;
 		entityDef.readValues(stream);
 		
@@ -338,6 +339,7 @@ public final class EntityDef
 		aBoolean93 = false;
 	}
 
+	public int npcID;
 	public int anInt55;
 	public static int anInt56;
 	public int anInt57;

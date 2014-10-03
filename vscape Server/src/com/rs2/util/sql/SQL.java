@@ -24,7 +24,7 @@ public class SQL {
 		{
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				con = DriverManager.getConnection("jdbc:mysql://2006remade.com:3306/remade_highscores","remade_xero","winnie12");
+				con = DriverManager.getConnection(Constants.GAME_DB_URL,Constants.GAME_DB_USER,Constants.GAME_DB_PASS);
 				stmt = con.createStatement();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -89,9 +89,9 @@ public class SQL {
 	public static boolean saveHighScore(Player player) {
 		try {
 			//query("DELETE FROM `skills` WHERE playerName = '"+player.getUsername()+"';");
-			query("DELETE FROM `skillsoverall` WHERE playerName = '"+player.getUsername()+"';");
+			query("DELETE FROM `skillsoverall` WHERE username = '"+player.getUsername()+"';");
 			//query("INSERT INTO `skills` (`playerName`,`Attacklvl`,`Attackxp`,`Defencelvl`,`Defencexp`,`Strengthlvl`,`Strengthxp`,`Hitpointslvl`,`Hitpointsxp`,`Rangelvl`,`Rangexp`,`Prayerlvl`,`Prayerxp`,`Magiclvl`,`Magicxp`,`Cookinglvl`,`Cookingxp`,`Woodcuttinglvl`,`Woodcuttingxp`,`Fletchinglvl`,`Fletchingxp`,`Fishinglvl`,`Fishingxp`,`Firemakinglvl`,`Firemakingxp`,`Craftinglvl`,`Craftingxp`,`Smithinglvl`,`Smithingxp`,`Mininglvl`,`Miningxp`,`Herblorelvl`,`Herblorexp`,`Agilitylvl`,`Agilityxp`,`Thievinglvl`,`Thievingxp`,`Slayerlvl`,`Slayerxp`,`Farminglvl`,`Farmingxp`,`Runecraftlvl`,`Runecraftxp`) VALUES ('"+player.getUsername()+"',"+player.getSkill().getLevel()[Skill.ATTACK]+","+player.getSkill().getExp()[Skill.ATTACK]+","+player.getSkill().getLevel()[Skill.DEFENCE]+","+player.getSkill().getExp()[Skill.DEFENCE]+","+player.getSkill().getLevel()[Skill.STRENGTH]+","+player.getSkill().getExp()[Skill.STRENGTH]+","+player.getSkill().getLevel()[Skill.HITPOINTS]+","+player.getSkill().getExp()[Skill.HITPOINTS]+","+player.getSkill().getLevel()[Skill.RANGED]+","+player.getSkill().getExp()[Skill.RANGED]+","+player.getSkill().getLevel()[Skill.PRAYER]+","+player.getSkill().getExp()[Skill.PRAYER]+","+player.getSkill().getLevel()[Skill.MAGIC]+","+player.getSkill().getExp()[Skill.MAGIC]+","+player.getSkill().getLevel()[Skill.COOKING]+","+player.getSkill().getExp()[Skill.COOKING]+","+player.getSkill().getLevel()[Skill.WOODCUTTING]+","+player.getSkill().getExp()[Skill.WOODCUTTING]+","+player.getSkill().getLevel()[Skill.FLETCHING]+","+player.getSkill().getExp()[Skill.FLETCHING]+","+player.getSkill().getLevel()[Skill.FISHING]+","+player.getSkill().getExp()[Skill.FISHING]+","+player.getSkill().getLevel()[Skill.FIREMAKING]+","+player.getSkill().getExp()[Skill.FIREMAKING]+","+player.getSkill().getLevel()[Skill.CRAFTING]+","+player.getSkill().getExp()[Skill.CRAFTING]+","+player.getSkill().getLevel()[Skill.SMITHING]+","+player.getSkill().getExp()[Skill.SMITHING]+","+player.getSkill().getLevel()[Skill.MINING]+","+player.getSkill().getExp()[Skill.MINING]+","+player.getSkill().getLevel()[Skill.HERBLORE]+","+player.getSkill().getExp()[Skill.HERBLORE]+","+player.getSkill().getLevel()[Skill.AGILITY]+","+player.getSkill().getExp()[Skill.AGILITY]+","+player.getSkill().getLevel()[Skill.THIEVING]+","+player.getSkill().getExp()[Skill.THIEVING]+","+player.getSkill().getLevel()[Skill.SLAYER]+","+player.getSkill().getExp()[Skill.SLAYER]+","+player.getSkill().getLevel()[Skill.FARMING]+","+player.getSkill().getExp()[Skill.FARMING]+","+player.getSkill().getLevel()[Skill.RUNECRAFTING]+","+player.getSkill().getExp()[Skill.RUNECRAFTING]+");");
-			query("INSERT INTO `skillsoverall` (`playerName`,`totalxp`,`totallevel`) VALUES ('"+player.getUsername()+"',"+(player.getSkill().getTotalXp())+","+(player.getSkill().getTotalLevel())+");");
+			query("INSERT INTO `skillsoverall` (`username`,`totalxp`,`totallevel`) VALUES ('"+player.getUsername()+"',"+(player.getSkill().getTotalXp())+","+(player.getSkill().getTotalLevel())+");");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -99,14 +99,25 @@ public class SQL {
 		return true;
 	}
 	
+	public static void cleanHighScores(){
+		System.out.println("Erasing highscore entries");
+		try {
+			query("TRUNCATE TABLE `skillsoverall`");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void initHighScores(){
 		createConnection();
 		System.out.println("Updating all highscore entries from save files, this may take a while...");
+		int count = 0;
 		try {
 			File folder = new File("./data/characters");
 			File[] listOfFiles = folder.listFiles();
 			for (File file : listOfFiles) {
 				if (file.getName().endsWith(".dat")) {
+					count++;
 					//System.out.println(file.getName());
 					File openplayerfile = new File(folder + "/" + file.getName());
 		            FileInputStream inFile = new FileInputStream(openplayerfile);
@@ -163,19 +174,25 @@ public class SQL {
 		            }
 		            
 		            load.close();
-		            
+		            if(count%100 == 0)
+		            {
+		            	System.out.println(count + " entries made");
+		            }
 		    		try {
 		    			String sname = file.getName();
 		    			sname = sname.substring(0, sname.lastIndexOf('.'));
 		    			//System.out.println(sname);
 		    			//query("DELETE FROM `skillsoverall` WHERE playerName = '"+sname+"';");
 		    			//query("INSERT INTO `skillsoverall` (`playerName`,`xp`,`lvl`) VALUES ('"+sname+"',"+(xptotal)+","+(leveltotal)+");");
-		    			PreparedStatement del;
-		    			del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE playerName = ?;");
-		    			del.setString(1, sname);
-		    			del.executeUpdate();
+		    			if(Constants.SQL_TYPE == 2)
+		    			{
+		    				PreparedStatement del;
+		    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
+		    				del.setString(1, sname);
+		    				del.executeUpdate();
+		    			}
 		    			
-		    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`playerName`,`totallevel`,`totalxp`) VALUES (?,?,?);");
+		    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`username`,`totallevel`,`totalxp`) VALUES (?,?,?);");
 		    			upd.setString(1, sname);
 		    			upd.setInt(2, leveltotal);
 		    			upd.setInt(3, xptotal);

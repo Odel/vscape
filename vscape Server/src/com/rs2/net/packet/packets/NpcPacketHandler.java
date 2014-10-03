@@ -14,9 +14,12 @@ import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
+import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -24,6 +27,7 @@ import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
+import com.rs2.util.NameUtil;
 
 public class NpcPacketHandler implements PacketHandler {
 
@@ -35,6 +39,8 @@ public class NpcPacketHandler implements PacketHandler {
 	public static final int ATTACK_CHOMPY = 18;
 	public static final int MAGIC_ON_NPC = 131;
 	public static final int ITEM_ON_NPC = 57;
+	
+	public static final int EXAMINE_NPC = 222;
 
 	@Override
 	public void handlePacket(Player player, Packet packet) {
@@ -66,6 +72,23 @@ public class NpcPacketHandler implements PacketHandler {
 			case ITEM_ON_NPC :
 				handleItemOnNpc(player, packet);
 				break;
+			case EXAMINE_NPC :
+				handleNpcExamine(player, packet);
+				break;
+		}
+	}
+	
+	private void handleNpcExamine(Player player, Packet packet) {
+		int npcId = packet.getIn().readShort(); // Npc ID.
+		NpcDefinition npcDef = new Npc(npcId).getDefinition();
+		if(npcDef != null){
+			if(npcDef.getExamine() == null || npcDef.getExamine() == "null"){
+				player.getActionSender().sendMessage("It's an NPC.");
+			}else{
+				player.getActionSender().sendMessage(npcDef.getExamine());
+			}
+		}else{
+			player.getActionSender().sendMessage("It's an NPC.");
 		}
 	}
 

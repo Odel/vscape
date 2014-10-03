@@ -1,3 +1,7 @@
+@dre@=October 1st=
+-Highscores are back up and running (and more
+features will get added to them over time)
+
 @dre@=September 27th=
 @blu@Heroes Quest
 -Bird's Eggs can be offered to the Evil Chicken

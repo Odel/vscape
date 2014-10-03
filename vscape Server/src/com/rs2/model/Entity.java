@@ -181,6 +181,10 @@ public abstract class Entity {
 	public boolean Area(int x, int x1, int y, int y1) {
 		return getPosition().getX() >= x && getPosition().getX() <= x1 && getPosition().getY() >= y && getPosition().getY() <= y1;
 	}
+	
+	public static boolean inArea(Entity ent, int x, int x1, int y, int y1) {
+		return ent.getPosition().getX() >= x && ent.getPosition().getX() <= x1 && ent.getPosition().getY() >= y && ent.getPosition().getY() <= y1;
+	}
 
 	public boolean Area(int x, int x1, int y, int y1, int x2, int y2) {
 		return x2 >= x && x2 <= x1 && y2 >= y && y2 <= y1;
@@ -344,6 +348,10 @@ public abstract class Entity {
 	
 	public boolean inRimmingtonMine() {
 		return Area(2970, 2986, 3233, 3246);
+	}
+	
+	public boolean inMiniGameArea() {
+		return inDuelArena() || inFightCaves() || inPestControlGameArea();
 	}
 
 	public void setIndex(int index) {
@@ -914,7 +922,7 @@ public abstract class Entity {
 	}
 
 	public boolean cantTeleport() {
-		return inRandomEvent() || inPits() || inPitsWait() || inCaves() || inDuelArena();
+		return inRandomEvent() || inPits() || inPitsWait() || inCaves() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea();
 	}
 
 	public boolean isFrozen() {

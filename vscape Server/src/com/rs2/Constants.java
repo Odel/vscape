@@ -27,16 +27,16 @@ public class Constants {
 	};*/
 
 	//public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	public static final String GAME_DB_URL = "jdbc:mysql://2006remade.com:3306/remade_highscores";
-	public static final String GAME_DB_USER = "remade_xero";
-	public static final String GAME_DB_PASS = "winnie12";
+	public static final String GAME_DB_URL = "jdbc:mysql://127.0.0.1:3306/vidyascape";
+	public static final String GAME_DB_USER = "vidyascape";
+	public static final String GAME_DB_PASS = "videogamesarethebest579";
 
 	public static final String FORUM_DB_URL = "";
 	public static final String FORUM_DB_USER = "admin06_b00mah3";
 	public static final String FORUM_DB_PASS = "O1xS?rx%qEGS";
 
-	public static boolean SQL_ENABLED = false;
-	public static int SQL_TYPE = 2;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
+	public static boolean SQL_ENABLED = true;
+	public static int SQL_TYPE = 1;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
 	public static boolean SERVER_DEBUG = true;
 	public static boolean DEVELOPER_MODE = true;
 	public static boolean HIGHSCORES_ENABLED = false;
@@ -156,7 +156,8 @@ public class Constants {
 
 	public static final int EMPTY_OBJECT = 6951;
 
-	public static final int PACKET_LENGTHS[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
+	public static final int PACKET_LENGTHS[] = {
+			0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
 			0, 0, 0, 0, 4, 0, 6, 2, 2, 0, // 10
 			0, 2, 0, 6, 0, 12, 0, 0, 0, 0, // 20
 			0, 0, 0, 0, 0, 8, 4, 0, 0, 2, // 30
@@ -178,7 +179,7 @@ public class Constants {
 			0, 0, 12, 0, 0, 0, 0, 0, 0, 0, // 190
 			2, 0, 0, 0, 0, 0, 0, 0, 4, 0, // 200
 			4, 0, 0, 0, 7, 8, 0, 0, 10, 0, // 210
-			0, 0, 0, 0, 0, 0, -1, 0, 6, 0, // 220
+			2, 0, 2, 0, 0, 0, -1, 0, 6, 0, // 220
 			1, 0, 0, 0, 6, 0, 6, 8, 1, 0, // 230
 			0, 4, 0, 0, 0, 0, -1, 0, -1, 4,// 240
 			0, 0, 6, 6, 0, 0, 0 // 250

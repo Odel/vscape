@@ -322,6 +322,14 @@ public class Player extends Entity {
 	private int questPoints = 0;
 	private boolean canHaveGodCape = true; //cadillac
 	private boolean specialAttackActive = false;
+	private boolean usedFreeGauntletsCharge = false;
+	private boolean chronozonWind = false;
+	private boolean chronozonWater = false;
+	private boolean chronozonEarth = false;
+	private boolean chronozonFire = false;
+	private boolean northLever = false;
+	private boolean northRoomLever = false;
+	private boolean southLever = false;
 	private boolean placedFireRune = false;
 	private boolean placedAirRune = false;
 	private boolean placedEarthRune = false;
@@ -467,7 +475,9 @@ public class Player extends Entity {
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
 	public CanoeStationData curCanoeStation;
-        private String currentChannel = null;
+    private String currentChannel = null;
+    
+    private boolean homeTeleporting = false;
        
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -675,18 +685,18 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-	else if(inPestControlGameArea())
+        else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	else if(inWarriorGuildArena()) {
-	    WarriorsGuild.exitArena(this, true);
-	}
-	else if(inFightCaves()) {
+        else if(inWarriorGuildArena()) {
+        	WarriorsGuild.exitArena(this, true);
+        }
+        else if(inFightCaves()) {
 	    //FightCaves.exitCave(this);
-	    FightCaves.destroyNpcs(this);
-	}
-	else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
+        	FightCaves.destroyNpcs(this);
+        }
+        else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {
 		Npc npc = (Npc)attacker;
@@ -700,8 +710,8 @@ public class Player extends Entity {
 		attacker.getMovementHandler().reset();
 	    }
 	}
-	RandomEvent.resetEvents(this);
-	setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
+        RandomEvent.resetEvents(this);
+		setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
@@ -805,8 +815,8 @@ public class Player extends Entity {
 				this.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
 				int line = 8147;
 				while ( rs.next() ) {
-					String  name = rs.getString("playerName");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
+					String  name = rs.getString("username");
+					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Mod dammit") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
 					{
 						int lv  = rs.getInt("totallevel");
 						this.getActionSender().sendString(name + " - level " + lv, line);
@@ -881,8 +891,10 @@ public class Player extends Entity {
             if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
                 getActionSender().sendMessage("You cannot do that here!");
             } else {
-                teleport(new Position(Constants.START_X, Constants.START_Y, 0));
+				getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
+             /*   teleport(new Position(Constants.START_X, Constants.START_Y, 0));
                 getActionSender().sendMessage("You teleported home.");
+                */
             } 
 		}
 		else if (keyword.equals("showhp")) {
@@ -2158,6 +2170,14 @@ public class Player extends Entity {
     			}
     		}
         }
+        else if(keyword.equals("highscoresupdate"))
+        {
+        	if (getUsername().equals("Odel")){
+        		getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
+        		SQL.cleanHighScores();
+        		SQL.initHighScores();
+        	}
+        }
 	}
 
 	//clear note interface
@@ -2452,17 +2472,6 @@ public class Player extends Entity {
 			return;
 		}
 		
-		String UserCrown = "";
-	    switch (getStaffRights()) {
-	        case 1:
-	        	UserCrown = "@cr1@";
-	            break;
-	        case 2:
-	        	UserCrown = "@cr2@";
-	            break;
-	        default:
-	        	UserCrown = "";
-	    }
 		String yeller = NameUtil.formatName(getUsername());
 		
 		lastYell = System.currentTimeMillis();
@@ -2472,14 +2481,18 @@ public class Player extends Entity {
 			if (player == null)
 				continue;
 			
+			String message = YellMsg;
+			
 			if(player.hideColors)
 			{
 				for(int k = 0; k < Constants.colorStrings.length;k++)
 				{
-					YellMsg = YellMsg.replace(Constants.colorStrings[k], "");
+					message = message.replace(Constants.colorStrings[k], "");
 				}
 			}
-			player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
+			
+			player.getActionSender().sendGlobalChat("[G] ", yeller, message, getStaffRights());
+			//player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
 		}
 	}
         
@@ -2794,7 +2807,27 @@ public class Player extends Entity {
             }
         }, 4);
 	}
-
+	
+	public void setHomeTeleporting(boolean state)
+	{
+		homeTeleporting = state;
+		if (state == false){
+			setStopPacket(false);
+			getAttributes().put("canTakeDamage", Boolean.TRUE);
+			getUpdateFlags().sendAnimation(-1);
+			getUpdateFlags().sendGraphic(-1);
+			setAppearanceUpdateRequired(true);
+		}else{
+			getMovementHandler().reset();
+			getActionSender().removeInterfaces();
+		}
+	}
+	
+	public boolean isHomeTeleporting()
+	{
+		return homeTeleporting;
+	}
+	
 	/**
 	 * Teleports the player to the desired position.
 	 * 
@@ -2814,6 +2847,7 @@ public class Player extends Entity {
 		getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
+		getUpdateFlags().sendGraphic(-1);
 		setAppearanceUpdateRequired(true);
 		final boolean heightChange = position.getZ() != oldHeight;
 		final Player player = this;
@@ -2980,10 +3014,30 @@ public class Player extends Entity {
 		}*/
 		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
-	    setAppearanceUpdateRequired(true);
-	    QuestHandler.initPlayer(this);
-	    getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
-	    getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		setAppearanceUpdateRequired(true);
+		QuestHandler.initPlayer(this);
+		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
+		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
+		    this.setPcPoints(0, this);
+		}
+		if((this.getBananaCrate() == true && this.getBananaCrateCount() > 10) || this.getBananaCrateCount() > 10 || this.getBananaCrateCount() < 0) {
+		    this.setBananaCrate(false);
+		    this.setBananaCrateCount(0);
+		}
+		int master = this.getSlayer().slayerMaster;
+		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
+		    this.getSlayer().resetSlayerTask();
+		}
+		if(this.getClayBraceletLife() > 1000 || this.getClayBraceletLife() < 0) {
+		    this.setClayBraceletLife(28);
+		}
+		if(this.getFightCavesWave() > 55 || this.getFightCavesWave() < 0) {
+		    this.setFightCavesWave(0);
+		}
+		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
+		    this.setEctoWorshipCount(0);
+		}
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -3156,16 +3210,16 @@ public class Player extends Entity {
         {
         	PestControl.leaveLobby(this);
         }
-	else if(inPestControlGameArea())
+        else if(inPestControlGameArea())
         {
         	PestControl.leaveGame(this);
         }
-	else if(inWarriorGuildArena()) {
-	    WarriorsGuild.exitArena(this, true);
-	}
-	else if(inFightCaves()) {
-	    FightCaves.destroyNpcs(this);
-	}
+        else if(inWarriorGuildArena()) {
+        	WarriorsGuild.exitArena(this, true);
+        }
+        else if(inFightCaves()) {
+        	FightCaves.destroyNpcs(this);
+        }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -4237,6 +4291,54 @@ public class Player extends Entity {
 		    this.desiredSkullOfGhostsAhoyFlag = color;
 		    return;	
 	    }
+	}
+	public boolean usedFreeGauntletsCharge() {
+	    return usedFreeGauntletsCharge;
+	}
+	public void setHasUsedFreeGauntletsCharge(boolean bool) {
+	    this.usedFreeGauntletsCharge = bool;
+	}
+	public boolean hasHitChronozonWind() {
+	    return chronozonWind;
+	}
+	public void setHitChronozonWind(boolean bool) {
+	    this.chronozonWind = bool;
+	}
+	public boolean hasHitChronozonWater() {
+	    return chronozonWater;
+	}
+	public void setHitChronozonWater(boolean bool) {
+	    this.chronozonWater = bool;
+	}
+	public boolean hasHitChronozonEarth() {
+	    return chronozonEarth;
+	}
+	public void setHitChronozonEarth(boolean bool) {
+	    this.chronozonEarth = bool;
+	}
+	public boolean hasHitChronozonFire() {
+	    return chronozonFire;
+	}
+	public void setHitChronozonFire(boolean bool) {
+	    this.chronozonFire = bool;
+	}
+	public boolean northPerfectGoldMineLever() {
+	    return northLever;
+	}
+	public void setNorthPerfectGoldMineLever(boolean bool) {
+	    this.northLever = bool;
+	}
+	public boolean southPerfectGoldMineLever() {
+	    return southLever;
+	}
+	public void setSouthPerfectGoldMineLever(boolean bool) {
+	    this.southLever = bool;
+	}
+	public boolean northRoomPerfectGoldMineLever() {
+	    return northRoomLever;
+	}
+	public void setNorthRoomPerfectGoldMineLever(boolean bool) {
+	    this.northRoomLever = bool;
 	}
 	public boolean hasPlacedFireRune() {
 	    return placedFireRune;
@@ -6260,7 +6362,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7356); //dwarf cannon
 		getActionSender().sendString("", 8679);//Eadgar's ruse
 		getActionSender().sendString("@red@Elemental Workshop", 7459); //elemental workshop
-		getActionSender().sendString("", 7357); //Family crest
+		getActionSender().sendString("@red@Family Crest", 7357); //Family crest
 		getActionSender().sendString("", 12836); //the feud
 		getActionSender().sendString("", 7358); //fight arena
 		getActionSender().sendString("", 7359); //Fishing Content

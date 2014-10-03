@@ -69,6 +69,7 @@ public class PacketManager {
 		packets[ItemPacketHandler.CLICK_10] = item;
 		packets[ItemPacketHandler.CLICK_ALL] = item;
 		packets[ItemPacketHandler.EQUIP_ITEM] = item;
+		packets[ItemPacketHandler.EXAMINE_ITEM] = item;
 		packets[ItemPacketHandler.USE_ITEM_ON_ITEM] = item;
 		packets[ItemPacketHandler.USE_ITEM_ON_GROUND_ITEM] = item;
 		packets[ItemPacketHandler.FIRST_CLICK_ITEM] = item;
@@ -106,6 +107,7 @@ public class PacketManager {
 		packets[NpcPacketHandler.ATTACK] = npc;
 		packets[NpcPacketHandler.MAGIC_ON_NPC] = npc;
 		packets[NpcPacketHandler.ITEM_ON_NPC] = npc;
+		packets[NpcPacketHandler.EXAMINE_NPC] = npc;
 		packets[FlashingSideIcon.FLASH_ICON] = new FlashingSideIcon();
 		packets[0] = silent;
 		packets[241] = silent;
@@ -151,7 +153,7 @@ public class PacketManager {
     				
     			}
                 packetHandler.handlePacket(player, packet);
-		player.getTimeoutStopwatch().reset();
+                player.getTimeoutStopwatch().reset();
             } catch(Exception e) {
                 e.printStackTrace();
             }

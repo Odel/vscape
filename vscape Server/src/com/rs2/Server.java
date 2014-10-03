@@ -118,11 +118,13 @@ public class Server implements Runnable {
         if(Constants.SQL_ENABLED)
         {
         
-        	File f = new File("./test.db"); 
-        	if(!f.exists())
+        	if(Constants.SQL_TYPE == 2)
         	{
-        		
-        		SQL.initHighScores();
+        		File f = new File("./test.db"); 
+        		if(!f.exists())
+        		{
+        			SQL.initHighScores();
+        		}
         	}
         	else
         	{

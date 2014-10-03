@@ -673,6 +673,14 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
+	
+	public ActionSender sendIgnoreList(long name) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(9);
+		out.writeHeader(player.getEncryptor(), 214);
+		out.writeLong(name);
+		player.send(out.getBuffer());
+		return this;
+	}
 
 	public ActionSender sendPMServer(int state) { // IMPROVED && CONVERTED
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(2);
@@ -730,6 +738,22 @@ public class ActionSender {
         player.setInterface(id);
 		return this;
 	}
+	
+	public ActionSender sendGlobalChat(String prefix, String name, String message, int rights) {
+		int packetLength = prefix.length() + name.length() + message.length();
+		StreamBuffer.OutBuffer out = StreamBuffer
+				.newOutBuffer(packetLength + 6);
+		out.writeVariablePacketHeader(player.getEncryptor(), 217);
+		out.writeString(prefix);
+		out.writeString(name);
+		out.writeString(message);
+		out.writeByte(rights);
+		out.finishVariablePacketHeader();
+		player.send(out.getBuffer());
+		return this;
+	}
+	
+	
 
 	public ActionSender sendDialogueAnimation(int modelId, int animId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);

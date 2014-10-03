@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.smithing;
 
 import com.rs2.Constants;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.players.Player;
@@ -12,7 +13,7 @@ import com.rs2.util.Misc;
 
 public class Smelting {
 
-	private static final int[][][] smeltBars = {{{2349, 1, 6}, {436, 1}, {438, 1}}, {{2351, 15, 13}, {440, 1}}, {{2355, 20, 14}, {442, 1}}, {{9467, 1, 10}, {668, 1}}, {{2353, 30, 18}, {440, 1}, {453, 2}}, {{2357, 40, 23}, {444, 1}}, {{2359, 50, 30}, {447, 1}, {453, 4}}, {{2361, 70, 38}, {449, 1}, {453, 6}}, {{2363, 85, 50}, {451, 1}, {453, 8}}};
+	private static final int[][][] smeltBars = {{{2349, 1, 6}, {436, 1}, {438, 1}}, {{2351, 15, 13}, {440, 1}}, {{2355, 20, 14}, {442, 1}}, {{9467, 1, 10}, {668, 1}}, {{2353, 30, 18}, {440, 1}, {453, 2}}, {{2357, 40, 23}, {444, 1}}, {{2365, 40, 23}, {446, 1}}, {{2359, 50, 30}, {447, 1}, {453, 4}}, {{2361, 70, 38}, {449, 1}, {453, 6}}, {{2363, 85, 50}, {451, 1}, {453, 8}}};
 
 	public static final int[][] smeltButtons = {{15147, 2349, 1}, {15146, 2349, 5}, {10247, 2349, 10}, {9110, 2349, 28}, {15151, 2351, 1}, {15150, 2351, 5}, {15149, 2351, 10}, {15148, 2351, 28}, {15155, 2355, 1}, {15154, 2355, 5}, {15153, 2355, 10}, {15152, 2355, 28}, {15159, 2353, 1}, {15158, 2353, 5}, {15157, 2353, 10}, {15156, 2353, 28}, {15163, 2357, 1}, {15162, 2357, 5}, {15161, 2357, 10}, {15160, 2357, 28}, {29017, 2359, 1}, {29016, 2359, 5}, {24253, 2359, 10}, {16062, 2359, 28}, {29022, 2361, 1}, {29020, 2361, 5}, {29019, 2361, 10}, {29018, 2361, 28}, {29026, 2363, 1}, {29025, 2363, 5}, {29024, 2363, 10}, {29023, 2363, 28}};
 
@@ -127,7 +128,11 @@ public class Smelting {
 								}
 							}
 							player.getInventory().addItem(finalBar);
-							player.getSkill().addExp(Skill.SMITHING, xp);
+							if(finalBar.getId() == 2357 && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.GOLDSMITH_GAUNTLETS) {
+							    player.getSkill().addExp(Skill.SMITHING, 56.2);
+							} else {
+							    player.getSkill().addExp(Skill.SMITHING, xp);
+							}
 							if (player.getNewComersSide().isInTutorialIslandStage()) {
 								if (player.getNewComersSide().getTutorialIslandStage() == 34)
 									player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);

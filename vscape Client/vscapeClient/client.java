@@ -308,8 +308,8 @@ public class client extends RSApplet {
 					if (chatTypeView == 9 || (chatTypeView == 0 && globalMode == 0)) {
 						if(i1 > 0 && i1 < 210) {
 							int j1 = 8;
-							textDrawingArea.method385(255, "[G]", i1, j1);
-							j1 += textDrawingArea.getTextWidth("[G] ");
+							textDrawingArea.method385(255, globalPrefix, i1, j1);
+							j1 += textDrawingArea.getTextWidth(globalPrefix);
 							if(byte0 == 1) {
 								modIcons[0].method361(j1, i1 - 12);
 								j1 += 12;
@@ -4601,7 +4601,7 @@ public class client extends RSApplet {
 			clearTopInterfaces();
 		if(l == 1025)
 		{
-			NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
+			/*NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
 			if(class30_sub2_sub4_sub1_sub1_5 != null)
 			{
 				EntityDef entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
@@ -4615,6 +4615,17 @@ public class client extends RSApplet {
 					else
 						s9 = "It's a " + entityDef.name + ".";
 					pushMessage(s9, 0, "");
+				}
+			}*/
+			//EXAMINE NPC
+			NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_5 != null) {
+				EntityDef entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
+				if (entityDef.childrenIDs != null)
+					entityDef = entityDef.method161();
+				if (entityDef != null) {
+					stream.createFrame(222);
+					stream.writeWord(entityDef.npcID);
 				}
 			}
 		}
@@ -4875,7 +4886,7 @@ public class client extends RSApplet {
 		}
 		if(l == 1125)
 		{
-			ItemDef itemDef = ItemDef.forID(i1);
+		/*	ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0)
@@ -4885,7 +4896,20 @@ public class client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5, 0, "");
+			pushMessage(s5, 0, "");*/
+			//examine item
+			ItemDef itemDef = ItemDef.forID(i1);
+			RSInterface class9_4 = RSInterface.interfaceCache[k];
+			String s5;
+			if(itemDef != null){
+				if (class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0){
+					s5 = class9_4.invStackSizes[j] + " x " + itemDef.name;
+					pushMessage(s5, 0, "");
+				}else{
+					stream.createFrame(220);
+					stream.writeWord(i1); // ID
+				}
+			}
 		}
 		if(l == 169)
 		{
@@ -4938,13 +4962,20 @@ public class client extends RSApplet {
 		}
 		if(l == 1448)
 		{
-			ItemDef itemDef_1 = ItemDef.forID(i1);
+		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if(itemDef_1.description != null)
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6, 0, "");
+			pushMessage(s6, 0, "");*/
+			//EXAMINE ITEM
+			ItemDef itemDef_1 = ItemDef.forID(i1);
+			if(itemDef_1 != null)
+			{
+				stream.createFrame(220);
+				stream.writeWord(i1); // ID
+			}
 		}
 		itemSelected = 0;
 			spellSelected = 0;
@@ -6773,6 +6804,7 @@ public class client extends RSApplet {
 				aClass19_1179 = new NodeList();
 				anInt900 = 0;
 				friendsCount = 0;
+				ignoreCount = 0;
 				dialogID = -1;
 				backDialogID = -1;
 				openInterfaceID = -1;
@@ -9270,9 +9302,9 @@ public class client extends RSApplet {
 			int l = j / 60;
 			j %= 60;
 			if(j < 10)
-				aTextDrawingArea_1271.method385(0xffff00, "Please log out to save your character - system update in: " + l + ":0" + j, 329, 4);
+				aTextDrawingArea_1271.method385(0xffff00, "The mods have smiled upon you - system update in: " + l + ":0" + j, 329, 4);
 			else
-				aTextDrawingArea_1271.method385(0xffff00, "Please log out to save your character - system update in: " + l + ":" + j, 329, 4);
+				aTextDrawingArea_1271.method385(0xffff00, "The mods have smiled upon you - system update in: " + l + ":" + j, 329, 4);
 			anInt849++;
 			if(anInt849 > 75)
 			{
@@ -11159,10 +11191,23 @@ public class client extends RSApplet {
 			}
 			if(pktType == 214)
 			{
-				ignoreCount = pktSize / 8;
+			/*	ignoreCount = pktSize / 8;
 				for(int j1 = 0; j1 < ignoreCount; j1++)
 					ignoreListAsLongs[j1] = inStream.readQWord();
+*/
+				long ignoreLong = inStream.readQWord();
+				String ignoreName = TextClass.fixName(TextClass.nameForLong(ignoreLong));
+				for (int k24 = 0; k24 < ignoreCount; k24++) {
+					if (ignoreLong != ignoreListAsLongs[k24])
+						continue;
+					ignoreName = null;
 
+				}
+				if (ignoreName != null && ignoreCount < 100) {
+					ignoreListAsLongs[ignoreCount] = ignoreLong;
+					ignoreCount++;
+					needDrawTabArea = true;
+				}
 				pktType = -1;
 				return true;
 			}
@@ -11588,9 +11633,9 @@ public class client extends RSApplet {
 			{
 				String s = inStream.readString();
 				if(s.endsWith(":STOP:")) {
-		try {
-           // SoundProvider.playerPool.stop();
-} catch (Exception ex) { }
+					try {
+						// SoundProvider.playerPool.stop();
+					} catch (Exception ex) { }
 				}
 				else if(s.endsWith(":yell:")) // GLOBAL CHAT
 				{
@@ -11669,7 +11714,7 @@ public class client extends RSApplet {
 					pushMessage(s, 0, "");
 				}
 				pktType = -1;
-	//serverMessage(s);
+				//serverMessage(s);
 	
 				return true;
 			}
@@ -11840,6 +11885,35 @@ public class client extends RSApplet {
 						needDrawTabArea = true;
 					}
 
+				pktType = -1;
+				return true;
+			}
+			if(pktType == 217)
+			{
+				try {
+					globalPrefix = inStream.readString();
+					String name = inStream.readString();
+					String message = inStream.readString();
+					int rights = inStream.readUnsignedByte();
+					boolean ignore = false;
+					long nameeLong = TextClass.longForName(name);
+					for (int l29 = 0; l29 < ignoreCount; l29++) {
+						if (ignoreListAsLongs[l29] != nameeLong)
+							continue;
+						ignore = true;
+
+					}
+					if(!ignore){
+						if (rights == 2 || rights == 3)
+							pushMessage(message, 9, "@cr2@" + TextClass.fixName(name));
+						else if (rights == 1)
+							pushMessage(message, 9, "@cr1@" + TextClass.fixName(name));
+						else
+							pushMessage(message, 9, TextClass.fixName(name));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				pktType = -1;
 				return true;
 			}
@@ -12539,6 +12613,7 @@ public class client extends RSApplet {
 		anInt1289 = -1;
 	}
 
+	public String globalPrefix = "";
 	public int chatTypeView;
 	public int clanChatMode;
 	public int duelMode;

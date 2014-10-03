@@ -25,6 +25,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.ErnestTheChicken;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HeroesQuest;
@@ -2833,6 +2834,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+					return;
+				}
+				if (FamilyCrest.doItemOnNpc(player, item, npc)) {
+					this.stop();
 					return;
 				}
 				player.getSlayer().finishOffMonster(npc, item);

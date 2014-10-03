@@ -186,16 +186,18 @@ public class Ectofungus {
 		    player.getActionSender().sendMessage("The bin is empty.");
 		    return true;
 		}
-		else if(!player.secondTryAtBin()) {
+		else if(!player.secondTryAtBin() && !player.getBonesGround().isEmpty()) {
 		    for(BoneBurying.Bone bone : player.getBonesGround()) {
-			if(player.getBonesGround().isEmpty()) {
-			    break;
-			}
 			for(int i : bone.getBoneIds()) {
+			    int count = player.getBonesInBin().size();
 			    if(getGroundBoneForNormal(i) != 0) {
+				if(count == 0) {
+				    break;
+				}
 				if(player.getInventory().playerHasItem(POT)) {
 				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(getGroundBoneForNormal(i)));
 				    player.getBonesInBin().remove(bone);
+				    count --;
 				}
 				else if(!player.getInventory().playerHasItem(POT)) {
 				    player.getActionSender().sendMessage("You don't have an empty pot with which to collect this bonemeal!");

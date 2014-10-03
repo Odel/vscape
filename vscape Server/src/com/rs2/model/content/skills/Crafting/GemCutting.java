@@ -25,6 +25,11 @@ public class GemCutting {
 		final int itemId = selectedItemId != CHISEL ? selectedItemId : usedItemId;
 		final gemData gem = gemData.forId(itemId);
 		if (gem != null) {
+			if((selectedItemId == gem.getId() && usedItemId != CHISEL) || 
+					(selectedItemId == CHISEL && usedItemId != gem.getId()))
+			{
+				return false;
+			}
 			if (!Constants.CRAFTING_ENABLED) {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;

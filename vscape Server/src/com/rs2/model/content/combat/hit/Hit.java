@@ -26,6 +26,7 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.VampireSlayer;
@@ -121,6 +122,39 @@ public class Hit {
 			&& ((Player)victim).getInventory().playerHasItem(VampireSlayer.GARLIC) 
 			&& ((Npc)attacker).getNpcId() == VampireSlayer.COUNT_DRAYNOR) {
 		    damage = damage/6;
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() 
+		&& victim.isNpc() && ((Npc)victim).getNpcId() == FamilyCrest.CHRONOZON ) {
+		    Player player = (Player)attacker;
+		    if(hitDef.getHitGraphic() != null) {
+			if(hitDef.getHitGraphic().getId() == 134) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonWind(true);
+			} else if(hitDef.getHitGraphic().getId() == 137) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonWater(true);
+			} else if(hitDef.getHitGraphic().getId() == 140) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonEarth(true);
+			} else if(hitDef.getHitGraphic().getId() == 131) {
+			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			    player.setHitChronozonFire(true);
+			}
+		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer()) {
+		    Player player = (Player)attacker;
+		    if(hitDef.getHitGraphic() != null && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.CHAOS_GAUNTLETS) {
+			if(hitDef.getHitGraphic().getId() == 119) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 122) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 125) {
+			    damage += 4;
+			} else if(hitDef.getHitGraphic().getId() == 128) {
+			    damage += 4;
+			}
+		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() 
 		&& victim.isNpc() && ((Npc)victim).getNpcId() >= 1351 && ((Npc)victim).getNpcId() < 1357 ) {
@@ -359,6 +393,13 @@ public class Hit {
 
     @SuppressWarnings("rawtypes")
     public void execute(List<Hit> recoilList) {
+    	if (victim.isPlayer()){
+    		Player player = (Player) victim;
+			if(player.isHomeTeleporting())
+			{
+				player.setHomeTeleporting(false);
+			}
+    	}
         if (hitDef.getDropItem() != null && attacker != null && attacker.isPlayer()) {
             Player player = (Player) attacker;
             if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {
@@ -523,7 +564,9 @@ public class Hit {
                     if (player.getIsUsingPrayer()[Prayer.REDEMPTION]) {
                         Prayer.applyRedemption(player, victim, currentHp);
                     }
-                    RingEffect.ringOfLife(player);
+                    if(!player.inMiniGameArea()){
+                    	RingEffect.ringOfLife(player);
+                    }
                 }
             }
         }
