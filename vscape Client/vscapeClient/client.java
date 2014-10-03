@@ -4601,7 +4601,7 @@ public class client extends RSApplet {
 			clearTopInterfaces();
 		if(l == 1025)
 		{
-			NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
+			/*NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
 			if(class30_sub2_sub4_sub1_sub1_5 != null)
 			{
 				EntityDef entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
@@ -4615,6 +4615,17 @@ public class client extends RSApplet {
 					else
 						s9 = "It's a " + entityDef.name + ".";
 					pushMessage(s9, 0, "");
+				}
+			}*/
+			//EXAMINE NPC
+			NPC class30_sub2_sub4_sub1_sub1_5 = npcArray[i1];
+			if (class30_sub2_sub4_sub1_sub1_5 != null) {
+				EntityDef entityDef = class30_sub2_sub4_sub1_sub1_5.desc;
+				if (entityDef.childrenIDs != null)
+					entityDef = entityDef.method161();
+				if (entityDef != null) {
+					stream.createFrame(222);
+					stream.writeWord(entityDef.npcID);
 				}
 			}
 		}
@@ -4875,7 +4886,7 @@ public class client extends RSApplet {
 		}
 		if(l == 1125)
 		{
-			ItemDef itemDef = ItemDef.forID(i1);
+		/*	ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0)
@@ -4885,7 +4896,20 @@ public class client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5, 0, "");
+			pushMessage(s5, 0, "");*/
+			//examine item
+			ItemDef itemDef = ItemDef.forID(i1);
+			RSInterface class9_4 = RSInterface.interfaceCache[k];
+			String s5;
+			if(itemDef != null){
+				if (class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0){
+					s5 = class9_4.invStackSizes[j] + " x " + itemDef.name;
+					pushMessage(s5, 0, "");
+				}else{
+					stream.createFrame(220);
+					stream.writeWord(i1); // ID
+				}
+			}
 		}
 		if(l == 169)
 		{
@@ -4938,13 +4962,20 @@ public class client extends RSApplet {
 		}
 		if(l == 1448)
 		{
-			ItemDef itemDef_1 = ItemDef.forID(i1);
+		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if(itemDef_1.description != null)
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6, 0, "");
+			pushMessage(s6, 0, "");*/
+			//EXAMINE ITEM
+			ItemDef itemDef_1 = ItemDef.forID(i1);
+			if(itemDef_1 != null)
+			{
+				stream.createFrame(220);
+				stream.writeWord(i1); // ID
+			}
 		}
 		itemSelected = 0;
 			spellSelected = 0;
