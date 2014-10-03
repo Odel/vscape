@@ -134440,5 +134440,27 @@
     "aggressive": false,
     "retreats": false,
     "poisonous": false
+  },
+  {
+    "id": 6390,
+    "name": "Grim Reaper",
+    "examine": "I wish I could tell where he was looking.",
+    "respawn": 10,
+    "combat": 0,
+    "hitpoints": 10,
+    "maxHit": 0,
+    "size": 3,
+    "attackSpeed": 0,
+    "attackAnim": -1,
+    "defenceAnim": -1,
+    "deathAnim": -1,
+    "attackBonus": 0,
+    "defenceMelee": 0,
+    "defenceRange": 0,
+    "defenceMage": 0,
+    "attackable": false,
+    "aggressive": false,
+    "retreats": false,
+    "poisonous": false
   }
 ]
