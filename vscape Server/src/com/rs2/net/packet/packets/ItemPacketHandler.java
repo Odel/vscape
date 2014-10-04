@@ -167,9 +167,9 @@ public class ItemPacketHandler implements PacketHandler {
 			case CASTED_SPELL_ON_GROUND_ITEM :
 				handleCastedSpellOnGroundItem(player, packet);
 				break;
-			case EXAMINE_ITEM :
+			/*case EXAMINE_ITEM :
 				handleExamineItem(player, packet);
-				break;
+				break;*/
 		}
 	}
 	

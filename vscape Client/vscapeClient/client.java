@@ -4886,7 +4886,7 @@ public class client extends RSApplet {
 		}
 		if(l == 1125)
 		{
-		/*	ItemDef itemDef = ItemDef.forID(i1);
+			ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0)
@@ -4896,9 +4896,9 @@ public class client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5, 0, "");*/
-			//examine item
-			ItemDef itemDef = ItemDef.forID(i1);
+			pushMessage(s5, 0, "");
+			//examine item packet
+		/*	ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(itemDef != null){
@@ -4909,7 +4909,7 @@ public class client extends RSApplet {
 					stream.createFrame(220);
 					stream.writeWord(i1); // ID
 				}
-			}
+			}*/
 		}
 		if(l == 169)
 		{
@@ -4962,20 +4962,20 @@ public class client extends RSApplet {
 		}
 		if(l == 1448)
 		{
-		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
+			ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if(itemDef_1.description != null)
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6, 0, "");*/
-			//EXAMINE ITEM
-			ItemDef itemDef_1 = ItemDef.forID(i1);
+			pushMessage(s6, 0, "");
+			//EXAMINE ITEM PACKET
+		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
 			if(itemDef_1 != null)
 			{
 				stream.createFrame(220);
 				stream.writeWord(i1); // ID
-			}
+			}*/
 		}
 		itemSelected = 0;
 			spellSelected = 0;
