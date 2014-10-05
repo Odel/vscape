@@ -414,6 +414,7 @@ public class PlayerSave {
 			    write.writeBoolean(player.givenSnailSlime());
 			    write.writeBoolean(player.givenIdPapers());
 			    write.writeBoolean(player.usedFreeGauntletsCharge());
+			    write.writeInt(player.getCoalTruckAmount());
 			write.flush();
 			write.close();
 			PlayerSave.saveQuests(player);
@@ -1098,6 +1099,11 @@ public class PlayerSave {
             	player.setHasUsedFreeGauntletsCharge(load.readBoolean());
             } catch (IOException e) { System.out.println("30");
 		player.setHasUsedFreeGauntletsCharge(false);
+            }
+	    try {
+            	player.setCoalTruckAmount(load.readInt());
+            } catch (IOException e) { System.out.println("31");
+		player.setCoalTruckAmount(0);
             }
             load.close();
             if (Server.getSingleton() != null)
