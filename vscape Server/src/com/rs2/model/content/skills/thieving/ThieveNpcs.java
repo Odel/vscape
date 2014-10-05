@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
+import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -141,9 +142,9 @@ public class ThieveNpcs {
 			public void execute(CycleEventContainer container) {
 				if (successful) {
 					player.getActionSender().sendMessage("You manage to pick the " + npc.getDefinition().getName().toLowerCase() + "'s pocket.");
-					if(specialLoot.getId() == 995 && !player.getInventory().ownsItem(2677) && thieveNpc.getNpcName()[0] == "h.a.m. member") {
-					    player.getInventory().addItem(new Item(2677, 1)); //ham clue
-					    player.getActionSender().sendMessage("You steal a " + ItemDefinition.forId(2677).getName().toLowerCase() + "!");
+					if(specialLoot.getId() == 995 && !ClueScroll.hasClue(player) && thieveNpc.getNpcName()[0].equals("h.a.m. member") && Misc.random(50) == 19) {
+					    player.getInventory().addItemOrDrop(new Item(ClueScroll.getRandomClue(1)));
+					    player.getActionSender().sendMessage("You steal a clue scroll!");
 					}
 					else if(specialLoot.getId() == 995) {
                                             player.getInventory().addItem(new Item(995, specialLoot.getCount()));
