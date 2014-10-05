@@ -604,6 +604,9 @@ public class ItemPacketHandler implements PacketHandler {
             //player.getActionSender().removeInterfaces();
             return;
         }
+		if (interfaceID == 1688) {
+			operateItem(player, itemId);
+		}
 		if (interfaceID == 5064 || interfaceID == 7423) {
 			BankManager.bankItem(player, player.getSlot(), itemId, 5);
 		} else if (interfaceID == 5382) {
@@ -977,7 +980,7 @@ public class ItemPacketHandler implements PacketHandler {
 			case 3840:
 			case 3842:
 			case 3844: //god books
-			    HorrorFromTheDeep.preachGodBook(player, itemId);
+			    GodBook.preachGodBook(player, itemId);
 			    return;
 			case 2568 : // RING OF FORGING CHARGE CHECK
 				player.getActionSender().sendMessage("You have "+player.getRingOfForgingLife()+" Ring of Forging charge(s) remaining.");
@@ -1148,5 +1151,62 @@ public class ItemPacketHandler implements PacketHandler {
 		} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("Magic ID: " + magicId + " Item ID: " + itemId + " X: " + x + " Y: " + y);
 	}
-
+	
+	
+	private void operateItem(Player player, int itemId){
+		switch(itemId) {
+			case 4566 : // rubber chicken
+				player.getUpdateFlags().sendAnimation(1835);
+			return;
+			case 3840:
+			case 3842:
+			case 3844: //god books
+			    GodBook.preachGodBook(player, itemId);
+			    return;
+			case 2568 : // RING OF FORGING CHARGE CHECK
+				player.getActionSender().sendMessage("You have "+player.getRingOfForgingLife()+" Ring of Forging charge(s) remaining.");
+			return;
+			case 11074 : // BRACELET OF CLAY CHARGE CHECK
+				player.getActionSender().sendMessage("You have "+player.getClayBraceletLife()+" Bracelet of Clay charge(s) remaining.");
+			return;
+	        case 2552 : // ring of duelling
+	        case 2554 :
+	        case 2556 :
+	        case 2558 :
+	        case 2560 :
+	        case 2562 :
+	        case 2564 :
+	        case 2566 :
+	    		Dialogues.startDialogue(player, 10004);
+	    		return;
+	        case 1712 : // glory
+	        case 1710 :
+	        case 1708 :
+	        case 1706 :
+	    		Dialogues.startDialogue(player, 10003);
+	    		return;
+	        case 11105 : // glory
+	        case 11107 :
+	        case 11109 :
+	        case 11111 :
+	    		Dialogues.startDialogue(player, 10015);
+	    		return;
+	        case 3853 :
+	    	case 3855 :
+	    	case 3857 :
+	    	case 3859 :
+	    	case 3861 :
+	    	case 3863 :
+	    	case 3865 :
+	    	case 3867 :
+	    		Dialogues.startDialogue(player, 10002);
+	    		return;
+			case 11118 : // glory
+	        case 11120 :
+	        case 11122 :
+	        case 11124 :
+	    		Dialogues.startDialogue(player, 10014);
+	    		return;
+		}
+	}
 }

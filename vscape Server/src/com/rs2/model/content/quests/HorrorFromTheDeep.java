@@ -355,71 +355,7 @@ public class HorrorFromTheDeep implements Quest {
 	}
 	return false;
     }
-    public static void preachGodBook(final Player player, final int book) {
-	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-	    @Override
-	    public void execute(CycleEventContainer b) {
-		player.getUpdateFlags().sendAnimation(1670);
-		switch (book) {
-		    case ZAMORAK_BOOK:
-			player.getUpdateFlags().setForceChatMessage("The weak deserve to die,");
-			break;
-		    case SARA_BOOK:
-			player.getUpdateFlags().setForceChatMessage("The currency of goodness is honour;");
-			break;
-		    case GUTHIX_BOOK:
-			player.getUpdateFlags().setForceChatMessage("The trees, the earth, the sky, the waters:");
-			break;
-		}
-		b.stop();
-	    }
-	    @Override
-	    public void stop() {
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-		    @Override
-		    public void execute(CycleEventContainer b) {
-			player.getUpdateFlags().sendAnimation(1670);
-			switch (book) {
-			    case ZAMORAK_BOOK:
-				player.getUpdateFlags().setForceChatMessage("So that the strong may flourish.");
-				break;
-			    case SARA_BOOK:
-				player.getUpdateFlags().setForceChatMessage("It retains its value through scarcity.");
-				break;
-			    case GUTHIX_BOOK:
-				player.getUpdateFlags().setForceChatMessage("All play their part upon this land.");
-				break;
-			}
-			b.stop();
-		    }
-		    @Override
-		    public void stop() {
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			    @Override
-			    public void execute(CycleEventContainer b) {
-				player.getUpdateFlags().sendAnimation(1670);
-				switch (book) {
-				    case ZAMORAK_BOOK:
-					player.getUpdateFlags().setForceChatMessage("This is the creed of Zamorak.");
-					break;
-				    case SARA_BOOK:
-					player.getUpdateFlags().setForceChatMessage("This is Saradomin's wisdom.");
-					break;
-				    case GUTHIX_BOOK:
-					player.getUpdateFlags().setForceChatMessage("May Guthix bring thee balance.");
-					break;
-				}
-				b.stop();
-			    }
-			    @Override
-			    public void stop() {
-			    }
-			}, 2);
-		    }
-		}, 2);
-	    }
-	}, 2);
-    }
+ 
     public static void spawnEncounter(final Player player, final int npcId) {
 	final Npc npc = new Npc(npcId);
 	NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, npc, new Position(2504, 10021, 0), true, null);
