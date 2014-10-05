@@ -1370,9 +1370,9 @@
     "respawn": 10,
     "combat": 44,
     "hitpoints": 50,
-    "maxHit": 4,
+    "maxHit": 6,
     "size": 1,
-    "attackSpeed": 4000,
+    "attackSpeed": 2400,
     "attackAnim": 5327,
     "defenceAnim": 5328,
     "deathAnim": 5329,
@@ -134462,5 +134462,4 @@
     "aggressive": false,
     "retreats": false,
     "poisonous": false
-  }
 ]
