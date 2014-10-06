@@ -142,7 +142,7 @@ public class ThieveNpcs {
 			public void execute(CycleEventContainer container) {
 				if (successful) {
 					player.getActionSender().sendMessage("You manage to pick the " + npc.getDefinition().getName().toLowerCase() + "'s pocket.");
-					if(specialLoot.getId() == 995 && !ClueScroll.hasClue(player) && thieveNpc.getNpcName()[0].equals("h.a.m. member") && Misc.random(50) == 19) {
+					if(specialLoot.getId() == 995 && !ClueScroll.hasClue(player) && thieveNpc.getNpcName()[0].equals("h.a.m. member") && Misc.random(3) == 0) {
 					    player.getInventory().addItemOrDrop(new Item(ClueScroll.getRandomClue(1)));
 					    player.getActionSender().sendMessage("You steal a clue scroll!");
 					}

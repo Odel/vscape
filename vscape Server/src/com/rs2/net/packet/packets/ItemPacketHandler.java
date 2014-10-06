@@ -8,21 +8,13 @@ import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
-import com.rs2.model.content.quests.AnimalMagnetism;
-import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.DragonSlayer;
-import com.rs2.model.content.quests.ElementalWorkshop;
-import com.rs2.model.content.quests.ErnestTheChicken;
 import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HeroesQuest;
-import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Crafting.BasicCraft;
@@ -85,7 +77,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-import com.rs2.util.NameUtil;
 
 
 public class ItemPacketHandler implements PacketHandler {
@@ -770,42 +761,44 @@ public class ItemPacketHandler implements PacketHandler {
 			return;
 		}
 		if (player.getFood().eatFood(itemId, player.getSlot())){
-            return;
-        }
-		ClueScroll.handleCasket(player, itemId);
+			return;
+		}
+		if(ClueScroll.handleCasket(player, itemId)) {
+			return;
+		}
 		if (new Item(itemId).getDefinition().getName().toLowerCase().contains("clue scroll") || new Item(itemId).getDefinition().getName().toLowerCase().contains("challenge scroll")) {
 			ClueScroll.cleanClueInterface(player);
 		}
 		if (Puzzle.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (CoordinateScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (DiggingScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (ChallengeScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (SpeakToScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (AnagramsScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (MapScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if (SearchScrolls.loadClueInterface(player, itemId)) {
-			player.getActionSender().sendMessage("clue id: "+itemId);
+			player.getActionSender().sendMessage("Clue ID: "+itemId);
 			return;
 		}
 		if(TeleTabs.breakTab(player, itemId, player.getSlot()))
