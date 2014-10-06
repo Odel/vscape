@@ -482,32 +482,31 @@ public class Npc extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
-			NpcDropController drops = NpcDropController.forId(getNpcId());
-			if (killer != null && drops != null) {
-			    if(killer.isPlayer()) {
-				boolean bool = RingEffect.ringOfWealth((Player)killer);
-				drops.setRareTableChance(bool);
-			    }
-				for (Item item : drops.getDrops()) {
-					if (item != null) {
-						String itemName = item.getDefinition().getName().toLowerCase();
-						if(killer.isPlayer() && itemName.contains("clue") || ((Player)killer).hasPouchDrop(item.getId()))
-						{
-							return;
-						}
-                        GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
-                        GroundItemManager.getManager().dropItem(drop);
-					}
-				}
-                if (killer.isPlayer()){
-				    ((Player)killer).getActionSender().sendSound(376, 0, 0);
-                    Abyss.dropPouches((Player)killer, this);
-                    KeyToClue.dropKey((Player)killer, this);
-                    ClueScroll.dropClue((Player)killer, this);
-		    //WarriorsGuild.dropDefender((Player) killer, this);
-                }
-			}
+	    NpcDropController drops = NpcDropController.forId(getNpcId());
+	    if (killer != null && drops != null && !killer.inPestControlGameArea()) {
+		if (killer.isPlayer()) {
+		    boolean bool = RingEffect.ringOfWealth((Player) killer);
+		    drops.setRareTableChance(bool);
 		}
+		for (Item item : drops.getDrops()) {
+		    if (item != null) {
+			String itemName = item.getDefinition().getName().toLowerCase();
+			if (killer.isPlayer() && itemName.contains("clue") || ((Player) killer).hasPouchDrop(item.getId())) {
+			    return;
+			}
+			GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
+			GroundItemManager.getManager().dropItem(drop);
+		    }
+		}
+		if (killer.isPlayer()) {
+		    ((Player) killer).getActionSender().sendSound(376, 0, 0);
+		    Abyss.dropPouches((Player) killer, this);
+		    KeyToClue.dropKey((Player) killer, this);
+		    ClueScroll.dropClue((Player) killer, this);
+		    //WarriorsGuild.dropDefender((Player) killer, this);
+		}
+	    }
+	}
 
 	public NpcCombatDef getCombatDef() {
 		return npcCombatDef;
