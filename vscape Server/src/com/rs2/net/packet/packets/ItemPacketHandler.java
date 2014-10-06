@@ -621,6 +621,7 @@ public class ItemPacketHandler implements PacketHandler {
 			player.getDuelMainData().removeStakedItem(new Item(itemId, 5));
 		}
 		if (interfaceID == 1688) {
+			player.setClickItem(itemId);
 			operateItem(player, itemId);
 		}
 	}
@@ -1162,6 +1163,44 @@ public class ItemPacketHandler implements PacketHandler {
 			case 11074 : // BRACELET OF CLAY CHARGE CHECK
 				player.getActionSender().sendMessage("You have "+player.getClayBraceletLife()+" Bracelet of Clay charge(s) remaining.");
 				return;
+	        case 2552 : // ring of duelling
+	        case 2554 :
+	        case 2556 :
+	        case 2558 :
+	        case 2560 :
+	        case 2562 :
+	        case 2564 :
+	        case 2566 :
+        		Dialogues.startDialogue(player, 10004);
+	        	break;
+            case 1712 : // glory
+            case 1710 :
+            case 1708 :
+            case 1706 :
+        		Dialogues.startDialogue(player, 10003);
+            	break;
+            case 11105 : // glory
+            case 11107 :
+            case 11109 :
+            case 11111 :
+        		Dialogues.startDialogue(player, 10015);
+            	break;
+            case 3853 :
+        	case 3855 :
+        	case 3857 :
+        	case 3859 :
+        	case 3861 :
+        	case 3863 :
+        	case 3865 :
+        	case 3867 :
+        		Dialogues.startDialogue(player, 10002);
+            	break;
+			case 11118 : // glory
+            case 11120 :
+            case 11122 :
+            case 11124 :
+        		Dialogues.startDialogue(player, 10014);
+            	break;
 		}
 	}
 }
