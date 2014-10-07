@@ -15,6 +15,7 @@ import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Crafting.BasicCraft;
@@ -454,6 +455,9 @@ public class ItemPacketHandler implements PacketHandler {
 		    return;
 		}
 		if (HeroesQuest.itemPickupHandling(player, player.getClickId())) {
+		    return;
+		}
+		if (TheGrandTree.itemPickupHandling(player, player.getClickId())) {
 		    return;
 		}
 		if ((Boolean) player.getAttributes().get("canPickup")) {

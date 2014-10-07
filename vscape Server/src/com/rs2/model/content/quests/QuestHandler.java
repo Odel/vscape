@@ -1,12 +1,6 @@
 package com.rs2.model.content.quests;
 
-//import com.rs2.model.content.DialogueManager;
-//import com.rs2.model.content.DialogueManager.Dialogue;
-import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.quests.CooksAssistant;
-import com.rs2.model.players.item.*;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
 import com.rs2.util.PlayerSave;
 
 /**
@@ -54,7 +48,8 @@ public class QuestHandler {
 	new AnimalMagnetism(),
 	new HorrorFromTheDeep(),
 	new HeroesQuest(),
-	new FamilyCrest()
+	new FamilyCrest(),
+	new TheGrandTree()
     };
     
     public static void init() {
@@ -202,6 +197,9 @@ public class QuestHandler {
         		return true;
 		case 28189: //Family Crest
 			showInterface(player,quests[28]);
+        		return true;
+		case 28193: //The Grand Tree
+			showInterface(player,quests[29]);
         		return true;
 
         }
