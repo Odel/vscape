@@ -188,10 +188,13 @@
 			<int>1919</int>
 		</potionIds>
 		<affectedStats>
+		        <int>6</int>
 		</affectedStats>
 		<statAddons>
+		        <int>2</int>
 		</statAddons>
 		<statModifiers>
+		           <double>0.0</double>
 		</statModifiers>
 	</potiondef>
         <potiondef>
