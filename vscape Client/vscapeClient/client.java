@@ -4264,6 +4264,7 @@ public class client extends RSApplet {
 		{
 			RSInterface class9_1 = RSInterface.interfaceCache[k];
 			spellSelected = 1;
+			spellID = class9_1.id;
 			anInt1137 = k;
 			spellUsableOn = class9_1.spellUsableOn;
 			itemSelected = 0;
@@ -8795,7 +8796,7 @@ public class client extends RSApplet {
 							textDrawingArea.method389(class9_1.textShadow, k2, i4, s1, l6);
 					}
 				} else if(class9_1.type == 5) {
-					Sprite sprite;
+					/*Sprite sprite;
 					if(interfaceIsSelected(class9_1))
 						sprite = class9_1.sprite2;
 					else
@@ -8804,7 +8805,19 @@ public class client extends RSApplet {
 						if(class9_1.drawsTransparent == true)
 							sprite.drawSprite2(k2, l2);
 					else
+						sprite.drawSprite(k2, l2);*/
+                    Sprite sprite;
+                    if(interfaceIsSelected(class9_1))
+                        sprite = class9_1.sprite2;
+                    else
+                        sprite = class9_1.sprite1;
+					    if(spellSelected == 1 && class9_1.id == spellID && spellID != 0) { 
+						sprite.drawSprite(k2, l2, 0xffffff);
+					    } else {
 						sprite.drawSprite(k2, l2);
+					    }
+                    if(sprite != null)
+                        sprite.drawSprite(k2, l2);
 				} else if(class9_1.type == 6) {
 					int k3 = Texture.textureInt1;
 					int j4 = Texture.textureInt2;
@@ -12613,6 +12626,7 @@ public class client extends RSApplet {
 		anInt1289 = -1;
 	}
 
+	public static int spellID = 0;
 	public String globalPrefix = "";
 	public int chatTypeView;
 	public int clanChatMode;
