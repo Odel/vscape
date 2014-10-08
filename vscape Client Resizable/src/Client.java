@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	public static boolean DevMode = true;
-
+	public static boolean DevMode = false;
+	public static boolean MusicEnabled = false;
 	public static int REGULAR_WIDTH = 765, REGULAR_HEIGHT = 503;
 	
 	public void checkSize() {
@@ -1837,48 +1837,44 @@ public class Client extends RSApplet {
 				welcomeScreenRaised = true;
 			}
 			if (j == 3) {
+			    if (MusicEnabled) {
 				boolean flag = musicEnabled;
-				 	if(k == 0)
-		            {
-		            	musicVolume = 200;
-		                musicEnabled = true;
-		            }
-		            if(k == 1)
-		            {
-		            	musicVolume = 150;
-		                musicEnabled = true;
-		            }
-		            if(k == 2)
-		            {
-		                musicVolume = 100;
-		                musicEnabled = true;
-		            }
-		            if(k == 3)
-		            {
-		                musicVolume = 50;
-		                musicEnabled = true;
-		            }
-		            if(k == 4){
-		            	musicVolume = 0;
-		                musicEnabled = false;
-		            }
-		            adjustVolume(musicEnabled, musicVolume);
-		            if(musicEnabled != flag && !lowMem)
-		            {
-		                if(musicEnabled)
-		                {
-		                    nextSong = currentSong;
-		                    songChanging = true;
-		                    onDemandFetcher.method558(2, nextSong);
-		                } else
-		                {
-		                    stopMidi();
-		                }
-		                previousSong = 0;
-		            }
+				if (k == 0) {
+				    musicVolume = 200;
+				    musicEnabled = true;
+				}
+				if (k == 1) {
+				    musicVolume = 150;
+				    musicEnabled = true;
+				}
+				if (k == 2) {
+				    musicVolume = 100;
+				    musicEnabled = true;
+				}
+				if (k == 3) {
+				    musicVolume = 50;
+				    musicEnabled = true;
+				}
+				if (k == 4) {
+				    musicVolume = 0;
+				    musicEnabled = false;
+				}
+				adjustVolume(musicEnabled, musicVolume);
+				if (musicEnabled != flag && !lowMem) {
+				    if (musicEnabled) {
+					nextSong = currentSong;
+					songChanging = true;
+					onDemandFetcher.method558(2, nextSong);
+				    } else {
+					stopMidi();
+				    }
+				    previousSong = 0;
+				}
+			    }
 			}
 
 			if (j == 4) {
+			    if(MusicEnabled) {
 				SoundPlayer.setVolume(k);
 				if (k == 0) {
 					aBoolean848 = true;
@@ -1917,6 +1913,7 @@ public class Client extends RSApplet {
 				}
 				if (k == 4)
 					aBoolean848 = false;*/
+				}
 			}
 			if (j == 5)
 				anInt1253 = k;
@@ -2788,7 +2785,7 @@ public class Client extends RSApplet {
 		currentSong = -1;
 		nextSong = 0;
 		previousSong = 0;
-		if(loginMusicEnabled){
+		if(loginMusicEnabled && MusicEnabled){
 			musicVolume = 200;
 			onDemandFetcher.method558(2, nextSong);
 		}
@@ -3278,7 +3275,7 @@ public class Client extends RSApplet {
 				readSettings();
 			} catch(Exception e) {}
 			instance = new Client();
-			instance.createClientFrame(REGULAR_WIDTH, REGULAR_HEIGHT);
+			instance.createClientFrame(clientWidth, clientHeight);
 		} catch (Exception exception) { }
 	}
 
@@ -3445,7 +3442,7 @@ public class Client extends RSApplet {
 				}
 				if(onDemandData.dataType == 1 && onDemandData.buffer != null)
 					Class36.load(onDemandData.buffer, onDemandData.ID);
-				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null){
+				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null && MusicEnabled){
 					MidiPlayer.getSingleton().play(onDemandData.buffer,true,musicVolume);
 					//saveMidi(songChanging, onDemandData.buffer);
 				}
@@ -7858,16 +7855,18 @@ public class Client extends RSApplet {
 				soundDelay[index]--;
 			}*/
 		}
-
-		if (previousSong > 0) {
+		if(MusicEnabled) {
+		    if (previousSong > 0) {
 			previousSong -= 20;
-			if (previousSong < 0)
-				previousSong = 0;
-			if (previousSong == 0 && musicEnabled) {
-				nextSong = currentSong;
-				songChanging = true;
-				onDemandFetcher.method558(2, nextSong);
+			if (previousSong < 0) {
+			    previousSong = 0;
 			}
+			if (previousSong == 0 && musicEnabled) {
+			    nextSong = currentSong;
+			    songChanging = true;
+			    onDemandFetcher.method558(2, nextSong);
+			}
+		    }
 		}
 	}
 	
@@ -7975,7 +7974,7 @@ public class Client extends RSApplet {
 			onDemandFetcher = new OnDemandFetcher();
 			onDemandFetcher.start(streamLoader_6, this);
 			Model.method459(onDemandFetcher.getModelCount(), onDemandFetcher);
-			if(!lowMem && loginMusicEnabled)
+			if(!lowMem && loginMusicEnabled && MusicEnabled)
 			{
 				nextSong = 0;
 				try
@@ -10133,12 +10132,14 @@ public class Client extends RSApplet {
 	}*/
 	
 	public void playSong(int id) {
+	    if(MusicEnabled) {
 		if (currentSong != id) {
 			nextSong = id;
 			songChanging = true;
 			onDemandFetcher.method558(2, nextSong);
 			currentSong = id;
 		}
+	    }
 	}
 /*
 	public void stopMidi() {
@@ -10149,9 +10150,11 @@ public class Client extends RSApplet {
 	*/
 	private void stopMidi()
 	{
+	    if(MusicEnabled) {
 		MidiPlayer.getSingleton().stop();
 		Signlink.midifade = 0;
 		Signlink.midi = "stop";
+	    }
 	}
 
 /*	private void adjustVolume(boolean updateMidi, int volume) {
@@ -10163,10 +10166,12 @@ public class Client extends RSApplet {
 	
 	private void adjustVolume(boolean flag, int i)
 	{
+	    if(MusicEnabled) {
 		MidiPlayer.getSingleton().setVolume(0, i);
 		Signlink.midiVolume = i;
 		if(flag){
 			Signlink.midi = "voladjust";
+		}
 	    }
 	}
 
@@ -10822,38 +10827,42 @@ public class Client extends RSApplet {
 	}
 	
 	private void drawLoginScreen(boolean flag) {
-		
-		refreshClientScreen(); 
-        if(loginScreenState == 2)
-		{
-            if (loginMusicEnabled) {
-            	cacheSprite[47].drawSprite(clientWidth - 52, 12);
-            }else{
-            	cacheSprite[48].drawSprite(clientWidth - 52, 12);
-            }
-			cacheSprite[35].drawARGBSprite(centerX - 135, centerY - 135);
-			if (mouseInRegion(centerX - 100, centerY - 64, centerX + 115, centerY - 38))
-                cacheSprite[36].drawSprite(centerX - 100, centerY - 64);
-            if (mouseInRegion(centerX - 100, centerY - 19, centerX + 115, centerY + 8))
-                cacheSprite[36].drawSprite(centerX - 100, centerY - 17);
-            if (mouseInRegion(centerX - 80, centerY + 38, centerX + 99, centerY + 64))
-                cacheSprite[37].drawSprite(centerX - 80, centerY + 39);
-            TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
-			chatTextDrawingArea.method389(true, centerX-96, 0xf3b13f, myUsername + ((loginScreenCursorPos == 0) & (loopCycle % 40 < 20) ? "|" : ""), centerY-43);
-			chatTextDrawingArea.method389(true, centerX-96, 0xf3b13f, TextClass.passwordAsterisks(myPassword) + ((loginScreenCursorPos == 1) & (loopCycle % 40 < 20 ) ? "|" : ""), centerY+5);
-			chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage1)/2, 0xf3b13f, loginMessage1, centerY+80);
-			chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage2)/2, 0xf3b13f, loginMessage2, centerY+100);
-			
-			if (rememberMe) {
-	        	cacheSprite[39].drawSprite(centerX - 93, centerY + 12);
-	        }else{
-	        	cacheSprite[38].drawSprite(centerX - 93, centerY + 12);
-	            if (mouseInRegion(centerX - 93, centerY + 12, centerX + 80, centerY + 24))
-	            	cacheSprite[40].drawSprite(centerX - 93, centerY + 12);
-	        }
-            chatTextDrawingArea.method389(true, centerX-76, 0xf3b13f, "Remember Me", centerY+24);
+	    refreshClientScreen();
+	    if (loginScreenState == 2) {
+		if (MusicEnabled) {
+		    if (loginMusicEnabled) {
+			cacheSprite[47].drawSprite(clientWidth - 52, 12);
+		    } else {
+			cacheSprite[48].drawSprite(clientWidth - 52, 12);
+		    }
 		}
-		aRSImageProducer_1109.drawGraphics(0, super.graphics, 0);
+		cacheSprite[35].drawARGBSprite(centerX - 135, centerY - 135);
+		if (mouseInRegion(centerX - 100, centerY - 64, centerX + 115, centerY - 38)) {
+		    cacheSprite[36].drawSprite(centerX - 100, centerY - 64);
+		}
+		if (mouseInRegion(centerX - 100, centerY - 19, centerX + 115, centerY + 8)) {
+		    cacheSprite[36].drawSprite(centerX - 100, centerY - 17);
+		}
+		if (mouseInRegion(centerX - 80, centerY + 38, centerX + 99, centerY + 64)) {
+		    cacheSprite[37].drawSprite(centerX - 80, centerY + 39);
+		}
+		TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
+		chatTextDrawingArea.method389(true, centerX - 96, 0xf3b13f, myUsername + ((loginScreenCursorPos == 0) & (loopCycle % 40 < 20) ? "|" : ""), centerY - 43);
+		chatTextDrawingArea.method389(true, centerX - 96, 0xf3b13f, TextClass.passwordAsterisks(myPassword) + ((loginScreenCursorPos == 1) & (loopCycle % 40 < 20) ? "|" : ""), centerY + 5);
+		chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage1) / 2, 0xf3b13f, loginMessage1, centerY + 80);
+		chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage2) / 2, 0xf3b13f, loginMessage2, centerY + 100);
+
+		if (rememberMe) {
+		    cacheSprite[39].drawSprite(centerX - 93, centerY + 12);
+		} else {
+		    cacheSprite[38].drawSprite(centerX - 93, centerY + 12);
+		    if (mouseInRegion(centerX - 93, centerY + 12, centerX + 80, centerY + 24)) {
+			cacheSprite[40].drawSprite(centerX - 93, centerY + 12);
+		    }
+		}
+		chatTextDrawingArea.method389(true, centerX - 76, 0xf3b13f, "Remember Me", centerY + 24);
+	    }
+	    aRSImageProducer_1109.drawGraphics(0, super.graphics, 0);
 	}
 
 	private void drawFlames() {
@@ -11228,6 +11237,7 @@ public class Client extends RSApplet {
         int x1 = centerX - (messageWidth / 2);
         int y1 = centerY - (messageHeight / 2);
         if (super.clickMode3 == 1 && clickInRegion(clientWidth - 52, 12, clientWidth - 12, 52)) {
+	    if(MusicEnabled) {
 		   if (loginMusicEnabled) {
 			   loginMusicEnabled = false;
 		       stopMidi();
@@ -11243,6 +11253,7 @@ public class Client extends RSApplet {
 			try {
 				writeSettings();
 			} catch(Exception e) {	}
+	    }
         }
         if (loginMessage1.length() > 0 || loginMessage2.length() > 0) {
             if (loginMessage1.length() > 0) {
@@ -11840,10 +11851,12 @@ public class Client extends RSApplet {
 				if (songID == 65535) {
 					songID = -1;
 				}
-				if (songID != currentSong && musicEnabled && !lowMem && previousSong == 0) {
+				if(MusicEnabled) {
+				    if (songID != currentSong && musicEnabled && !lowMem && previousSong == 0) {
 					nextSong = songID;
 					songChanging = true;
 					onDemandFetcher.method558(2, nextSong);
+				    }
 				}
 				currentSong = songID;
 				pktType = -1;
@@ -11852,11 +11865,13 @@ public class Client extends RSApplet {
 			case 121:
 				int songId = inStream.method436();
 				int songDelay = inStream.method435();
-				if (musicEnabled && !lowMem) {
+				if(MusicEnabled) {
+				    if (musicEnabled && !lowMem) {
 					nextSong = songId;
 					songChanging = false;
 					onDemandFetcher.method558(2, nextSong);
 					previousSong = songDelay;
+				    }
 				}
 				pktType = -1;
 				return true;
@@ -12844,6 +12859,7 @@ public class Client extends RSApplet {
 
 	public Client() {
 		fullscreenInterfaceID = -1;
+		this.toggleSize(0);
 		chatRights = new int[500];
 		chatTypeView = 0;
 		clanChatMode = 0;
@@ -13021,7 +13037,6 @@ public class Client extends RSApplet {
 	public boolean isWebclient() {
 		return gameFrame == null && isApplet == true;
 	}  
-	
 	public boolean autocast;
 	public int rights;
 	public String clanname;

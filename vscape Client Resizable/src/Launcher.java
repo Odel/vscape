@@ -41,7 +41,7 @@ public class Launcher extends JFrame {
 		}
 	}
 	
-	public Launcher(String[] args) throws IOException{
+	public Launcher(final String[] args) throws IOException{
 		super("/v/scape Client Launcher");
 		
 		this.setSize(new Dimension(300, 229));
@@ -84,7 +84,7 @@ public class Launcher extends JFrame {
 					setVisible(false);
 					dispose();
 					Client client = new Client();
-				//	client.main(args);
+					client.main(args);
 				} catch (Exception e) {
 				}
 			}
