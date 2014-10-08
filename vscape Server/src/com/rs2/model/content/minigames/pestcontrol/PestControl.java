@@ -159,13 +159,13 @@ public class PestControl {
 				seconds = lobbyTime % 60;
 			}
 			if(seconds > 9)
-				player.getActionSender().sendString("Next Departure: "+minutes+":"+seconds, 24127);
+				player.getActionSender().sendString("Next Departure: "+minutes+":"+seconds, 18789);
 			else
-				player.getActionSender().sendString("Next Departure: "+minutes+":0"+seconds, 24127);
+				player.getActionSender().sendString("Next Departure: "+minutes+":0"+seconds, 18789);
 			
-			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 24128);
-			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 24129);
-			player.getActionSender().sendString("Commendation Points: " + player.getPcPoints(), 24130);
+			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 18790);
+			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 18791);
+			player.getActionSender().sendString("Commendation Points: " + player.getPcPoints(), 18792);
 		} catch (Exception e) {
 		}
 	}
@@ -178,13 +178,13 @@ public class PestControl {
 			seconds = gameTime % 60;
 			String timeLeft;
 			
-			player.getActionSender().sendString(""+KNIGHT_HEALTH, 24138);
-			player.getActionSender().sendString(""+player.getPcDamage(), 24139);
+			player.getActionSender().sendString(""+KNIGHT_HEALTH, 18800);
+			player.getActionSender().sendString(""+player.getPcDamage(), 18801);
 			for (int i = 0; i < PORTAL_HEALTH.length; i++) {
 				if (PORTAL_HEALTH[i] > 0) {
-					player.getActionSender().sendString(""+PORTAL_HEALTH[i], 24140+i);
+					player.getActionSender().sendString(""+PORTAL_HEALTH[i], 18802+i);
 				} else {
-					player.getActionSender().sendString("Dead", 24140+i);
+					player.getActionSender().sendString("Dead", 18802+i);
 				}
 			}
 			if(seconds > 9)
@@ -192,11 +192,11 @@ public class PestControl {
 			else
 				timeLeft = "Time Remaining: "+minutes+":0"+seconds;
 			if(gameTime <= 20)
-				player.getActionSender().sendString("@red@"+timeLeft, 24144);
+				player.getActionSender().sendString("@red@"+timeLeft, 18810);
 			else if(gameTime > 20 && gameTime < 100)
-				player.getActionSender().sendString("@or1@"+timeLeft, 24144);
+				player.getActionSender().sendString("@or1@"+timeLeft, 18810);
 			else
-				player.getActionSender().sendString("@gre@"+timeLeft, 24144);
+				player.getActionSender().sendString("@gre@"+timeLeft, 18810);
 		} catch (Exception e) {
 		}
 	}

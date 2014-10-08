@@ -561,7 +561,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 4245: // make 1 amulet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 2);
 		break;
-	    case 24159: // make 1 bracelet crafting
+	    case 18821: // make 1 bracelet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 3);
 		break;
 	}
@@ -619,7 +619,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 4245: // make 5 amulet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 2);
 		break;
-	    case 24159: // make 5 bracelet crafting
+	    case 18821: // make 5 bracelet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 3);
 		break;
 	}
@@ -674,7 +674,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 4245: // make 10 amulet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 2);
 		break;
-	    case 24159: // make 10 bracelet crafting
+	    case 18821: // make 10 bracelet crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 10, 3);
 		break;
 	}

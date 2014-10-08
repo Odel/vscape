@@ -50,12 +50,12 @@ public class WalkInterfaces {
 			}
 		}else if(player.inPestControlLobbyArea())
 		{
-			changeWalkableInterface(player, 24126);
+			changeWalkableInterface(player, 18788);
 			PestControl.lobbyInterface(player);
 		} 
 		else if(player.inPestControlGameArea())
 		{
-			changeWalkableInterface(player, 24131);
+			changeWalkableInterface(player, 18793);
 			PestControl.gameInterface(player);
 		} 
 		else if(player.getPosition().getX() > 3615 && player.getPosition().getX() < 3630
