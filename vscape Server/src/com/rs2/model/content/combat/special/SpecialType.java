@@ -1,5 +1,6 @@
 package com.rs2.model.content.combat.special;
 
+import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
@@ -8,6 +9,7 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.attacks.SpellAttack;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
@@ -19,12 +21,15 @@ import com.rs2.model.content.combat.weapon.RangedAmmoType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
+import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.requirement.EquipmentRequirement;
@@ -512,7 +517,68 @@ public enum SpecialType {
 		player.getActionSender().updateSpecialAmount(7611);
 		player.getActionSender().updateSpecialBarText(7611);
 	}
+    public static void dfsUncharge(Player player) {
+	    if (player.getCombatingEntity() == null) {
+		return;
+	    }
+	    if (player.getCombatingEntity().isDead() || !Following.withinRange(player, player.getCombatingEntity())) {
+		return;
+	    }
+	    if (player.getCombatingEntity().isDoorSupport()) {
+		return;
+	    }
+	    CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(player, player.getCombatingEntity());
+	    if (canAttackResponse != CanAttackResponse.SUCCESS) {
+		return;
+	    }
+	    if (RulesData.NO_SPEC.activated(player)) {
+		player.getActionSender().sendMessage("Special attacks have been disabled during this fight!");
+		return;
+	    }
+	    if (player.getDfsCharges() <= 0) {
+		player.getActionSender().sendMessage("You don't have enough dragonbreath charges to do this.");
+		return;
+	    }
+	    player.setSpecialAttackActive(true);
+	    final boolean wasRetaliating = player.shouldAutoRetaliate();
+	    player.setAutoRetaliate(false);
+	    final Entity victim = player.getCombatingEntity();
+	    player.getUpdateFlags().sendAnimation(6696);
+	    player.getUpdateFlags().sendGraphic(new Graphic(1165, 100));
+	    //SpellAttack spellAttack = new SpellAttack(player, player.getCombatingEntity(), player.getEquippedWeapon());
+	    HitDef hitDef = new HitDef(Constants.MAGIC_STYLE, HitType.NORMAL, 25).setProjectile(new ProjectileDef(1166, ProjectileTrajectory.SPELL)).setStartingHitDelay(0);
+	    new Hit(player, victim, hitDef).initialize();
+	    final Player finalPlayer = player;
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		@Override
+		public void execute(CycleEventContainer b) {
+		    b.stop();
+		}
 
+		@Override
+		public void stop() {
+		    finalPlayer.setStopPacket(false);
+		    victim.hit(Misc.random(15) + 10, HitType.NORMAL);
+		    victim.getUpdateFlags().sendHighGraphic(1167);
+		    finalPlayer.setSpecialAttackActive(false);
+		    CycleEventHandler.getInstance().addEvent(finalPlayer, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+				CombatManager.attack(finalPlayer, victim);
+				finalPlayer.setAutoRetaliate(wasRetaliating);
+			}
+		    }, 2);
+		}
+	    }, 3);
+	    player.setDfsCharges(player.getDfsCharges() - 1);
+	    player.getEquipment().sendBonus(player);
+	}
+    
 	public static void gmaulSpec(Player player) {
 		if (player.getCombatingEntity().isDead() || !Following.withinRange(player, player.getCombatingEntity())) {
 			return;

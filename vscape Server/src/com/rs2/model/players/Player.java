@@ -438,6 +438,7 @@ public class Player extends Entity {
     private int[] pinAttempt = new int[4];
     private long logoutTimer;
     private int coalTruckAmount;
+    private int dfsCharges = 0;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -5197,10 +5198,20 @@ public class Player extends Entity {
 				return true;
 			}
 			break;
+		case 1010101: //dfs
+		    if (getEquipment().getId(Constants.SHIELD) == 11284 || getEquipment().getId(Constants.SHIELD) == 11283) {
+				if (getCombatingEntity() == null) {
+					getActionSender().sendMessage("You can only use this when attacking something.");
+					return true;
+				}
+				SpecialType.dfsUncharge(this);
+				return true;
+			}
+			break;
 		}
 		boolean before = specialAttackActive;
 		if (equippedWeapon.getWeaponInterface().getSpecialBarButtonId() != buttonId){
-			if(buttonId != 48034 && buttonId != 29049 && buttonId !=  29074 && buttonId !=  29199) //new client temporary
+			if(buttonId != 48034 && buttonId != 29049 && buttonId !=  29074 && buttonId !=  29199 && buttonId != 1010101) //new client temporary
 				return false;
 		}
 		setSpecialAttackActive(!specialAttackActive);
@@ -6358,7 +6369,12 @@ public class Player extends Entity {
 	public int getCoalTruckAmount() {
 		return coalTruckAmount;
 	}
-
+	public void setDfsCharges(int set) {
+	    this.dfsCharges = set;
+	}
+	public int getDfsCharges() {
+	    return this.dfsCharges;
+	}
 	/**
 	 * @param lastPersonChallenged the lastPersonChallenged to set
 	 */

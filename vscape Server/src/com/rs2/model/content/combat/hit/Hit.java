@@ -486,6 +486,18 @@ public class Hit {
 							break;
 						case 1 :
 							player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
+							if(player.getEquipment().getId(Constants.SHIELD) == 11284) {
+							    player.getUpdateFlags().sendAnimation(6695); //6700 removing charges, 6696 special
+							    player.getUpdateFlags().sendGraphic(new Graphic(1164, 0));
+							    if(player.getDfsCharges() < 49) {
+								player.setDfsCharges(player.getDfsCharges() + 1);
+							    } else if (player.getDfsCharges() == 49) {
+								player.setDfsCharges(50);
+								player.getActionSender().sendMessage("Your Dragonfire shield is fully charged.");
+								player.getEquipment().replaceEquipment(11283, Constants.SHIELD);
+							    }
+							    player.getEquipment().sendBonus(player);
+							}
 							damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
 							break;
 						default :
