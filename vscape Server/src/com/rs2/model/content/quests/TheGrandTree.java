@@ -483,6 +483,29 @@ public class TheGrandTree implements Quest {
     }
     public boolean itemHandling(final Player player, int itemId) { //Inherited, will work without a call to it
 	switch(itemId) {
+	    case TRANSLATION_BOOK:
+		player.getActionSender().sendInterface(12624);
+		player.getActionSender().sendString("Gnome-English Translation, by Anita", 12666);
+		player.getActionSender().sendString("@dre@Arpos: @bla@rocks @dre@Ando: @bla@gate", 12715);
+		player.getActionSender().sendString("@dre@Cinqo: @bla@King", 12716);
+		player.getActionSender().sendString("@dre@Eis: @bla@me @dre@Et: @bla@and @dre@Eto: @bla@will", 12717);
+		player.getActionSender().sendString("@dre@Gandius: @bla@jungle", 12718);
+		player.getActionSender().sendString("@dre@Hewo: @bla@grass", 12719);
+		player.getActionSender().sendString("@dre@Ip: @bla@you", 12720);
+		player.getActionSender().sendString("@dre@Kar: @bla@no @dre@Kai: @bla@boat", 12721);
+		player.getActionSender().sendString("@dre@Lemanto: @bla@man @dre@Lovos: @bla@gave", 12722);
+		player.getActionSender().sendString("@dre@Meso: @bla@came @dre@Mond: @bla@seal", 12723);
+		player.getActionSender().sendString("@dre@O: @bla@for", 12724);
+		player.getActionSender().sendString("@dre@Prit: @bla@with @dre@Priw: @bla@tree @dre@Pro: @bla@to", 12725);
+		player.getActionSender().sendString("@dre@Qui: @bla@guard", 12726);
+		player.getActionSender().sendString("@dre@Rento: @bla@agility", 12727);
+		player.getActionSender().sendString("@dre@Sarkos: @bla@begone @dre@Sind: @bla@big", 12728);
+		player.getActionSender().sendString("@dre@Ta: @bla@the @dre@Tuzo: @bla@open", 12729);
+		player.getActionSender().sendString("@dre@Undri: @bla@lands @dre@Umesco: @bla@soul", 12730);
+		for(int i = 12731; i < 12740; i++) {
+		    player.getActionSender().sendString("", i);
+		}
+		return true;
 	    case INVASION_PLANS:
 		player.getActionSender().sendInterface(SCROLL_INTERFACE);
 		player.setStatedInterface("hazelmere");

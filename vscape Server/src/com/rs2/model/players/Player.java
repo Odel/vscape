@@ -2019,7 +2019,7 @@ public class Player extends Entity {
 			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
 		}
 		else if (keyword.equalsIgnoreCase("scrolltest")) {
-		    for(int i = 6500; i < 7500; i++) {
+		    for(int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
 			this.getActionSender().sendString("" + i, i);
 		    }
 		}

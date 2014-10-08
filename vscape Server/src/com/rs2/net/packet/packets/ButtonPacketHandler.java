@@ -195,7 +195,7 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 34155 : // tab 8
 				player.getSkillGuide().menuCompilation(8);
 				return;
-
+			    
 			case 34158 : // tab 9
 				player.getSkillGuide().menuCompilation(9);
 				return;
@@ -275,6 +275,15 @@ public class ButtonPacketHandler implements PacketHandler {
 				return;
 			case 3148 :
 				player.setChatEffects(1);
+				return;
+			case 49169:
+			case 49167:
+				player.getActionSender().sendMessage("There are no more pages in this book!");
+				return;
+			case 39178: //book interface close
+				player.getActionSender().removeInterfaces();
+				player.setStatedInterface("");
+				player.setInterface(0);
 				return;
 			case 3189 :
 				if(player.getSplitPrivateChat() == 0) { player.setSplitPrivateChat(1); }
