@@ -309,6 +309,7 @@ public class Ectofungus {
 		}
 	    return false;
 	    case LOADER:
+		if(BoneBurying.getBone(item) != null) {
 		    final int BONES = getBones(player);
 		    if(BONES == 0) {
 			player.getActionSender().sendMessage("Those aren't bones!");
@@ -330,6 +331,9 @@ public class Ectofungus {
 			}
 		    }, 1);
 		return true;
+		} else {
+		    return false;
+		}
 	}
 	return false;
     }
