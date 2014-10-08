@@ -122,7 +122,7 @@ public class ActionSender {
 		sendConfig(169, player.getEffectVolume());// effectVolume
 		sendConfig(170, player.getMouseButtons());// mouseButtons
 		sendConfig(171, player.getChatEffects());// chatEffects
-		sendConfig(172, player.shouldAutoRetaliate() ? 0 : 1); // auto retaliate
+		sendConfig(172, player.shouldAutoRetaliate() ? 1 : 0); // auto retaliate
 		sendConfig(173, player.getMovementHandler().isRunToggled() ? 1 : 0); // runOption
 		sendConfig(287, player.getSplitPrivateChat());// splitPrivateChat
 		sendConfig(427, player.isAcceptingAid() ? 1 : 0);// acceptAid
