@@ -11,7 +11,7 @@ public final class Sprite extends DrawingArea {
 		drawOffsetX = drawOffsetY = 0;
 	}
 
-	public String location = Signlink.findcachedir() + "Sprites/";
+	public String location = Signlink.findcachedir() + "sprites/";
 
 	public Sprite(byte abyte0[], Component component) {
 		try {
