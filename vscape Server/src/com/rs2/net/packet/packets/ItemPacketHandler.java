@@ -88,6 +88,8 @@ import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 
+import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
+
 public class ItemPacketHandler implements PacketHandler {
 
     public static final int DROP_ITEM = 87;
@@ -846,6 +848,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (TabHandler.breakBonesTab(player, itemId, player.getSlot())) {
+	    return;
+	}
+	if (player.getMultiCannon().itemFirstClick(itemId, player.getSlot())) {
 	    return;
 	}
 	for (Quest q : QuestHandler.getQuests()) {

@@ -58,6 +58,12 @@ public class Inventory {
             GroundItemManager.getManager().dropItem(new GroundItem(item, player));
 		}
 	}
+	
+	public void addItemOrBank(Item item) {
+		if (!addItem(item)) {
+			player.getBank().add(item);
+		}
+	}
 
 	public boolean addItem(Item item) {
 		if (item == null || !item.validItem()) {

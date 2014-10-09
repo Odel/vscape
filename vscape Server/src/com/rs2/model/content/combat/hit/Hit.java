@@ -1,10 +1,12 @@
 package com.rs2.model.content.combat.hit;
 
 import com.rs2.Constants;
+
 import java.util.List;
 
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
+import com.rs2.model.Position;
 import com.rs2.model.UpdateFlags;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackType;
@@ -12,7 +14,9 @@ import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.attacks.SpellAttack;
+
 import static com.rs2.model.content.combat.attacks.SpellAttack.getMultiAncients;
+
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
@@ -42,6 +46,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -366,12 +371,15 @@ public class Hit {
 		
         if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
        	 Player player = (Player) getAttacker();
-       	 if(hitType == HitType.MISS){
-       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
-       	 }else{
-       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
+       	 Npc npc = (Npc) getVictim();
+       	 if (npc.getPosition().isViewableFrom(player.getPosition())) {
+	       	 if(hitType == HitType.MISS){
+	       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
+	       	 }else{
+	       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
+	       	 }
        	 }
-	}
+       }
        if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
       	 Player att = (Player) getAttacker();
       	 Player vic = (Player) getVictim();

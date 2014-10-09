@@ -3,6 +3,7 @@ package com.rs2.model;
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcUpdating;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.PlayerUpdating;
@@ -40,6 +42,8 @@ public class World {
 
 	/** All registered NPCs. */
 	private static Npc[] npcs = new Npc[Constants.MAX_NPCS];
+	
+	public static ArrayList<GameObject> cannons = new ArrayList<GameObject>();
 
 	private static TickManager tickManager = new TickManager();
 
@@ -290,6 +294,18 @@ public class World {
 		throw new IllegalStateException("Server is full!");
 	}
 
+	public static synchronized void registerCannon(GameObject cannon) {
+		if(!cannons.contains(cannon)){
+			cannons.add(cannon);
+		}
+	}
+	
+	public static synchronized void unregisterCannon(GameObject cannon) {
+		if(cannons.contains(cannon)){
+			cannons.remove(cannon);
+		}
+	}
+	
 	/**
 	 * Unregisters a player from processing.
 	 * 
@@ -458,6 +474,19 @@ public class World {
 			}
 		}
 	}
+	
+	public static void sendProjectile(Position start, int size, int lockOn,
+			byte offsetX, byte offsetY, int projectileId, int delay,
+			int duration, int startHeight, int endHeight, int curve) {
+		for (Player player : players) {
+			if (player == null) {
+				continue;
+			}
+			if (start.isViewableFrom(player.getPosition())) {
+				player.getActionSender().sendProjectile(start, size, lockOn, offsetX, offsetY, projectileId, delay, duration, startHeight, endHeight, curve);
+			}
+		}
+	}
 
 	/**
 	 * Gets all registered players.
@@ -468,6 +497,15 @@ public class World {
 		return players;
 	}
 
+	/**
+	 * Gets all registered cannons.
+	 * 
+	 * @return the gameobjects
+	 */
+	public static GameObject[] getCannons() {
+		return cannons.toArray(new GameObject[cannons.size()]);
+	}
+	
 	/**
 	 * Gets all registered NPCs.
 	 * 

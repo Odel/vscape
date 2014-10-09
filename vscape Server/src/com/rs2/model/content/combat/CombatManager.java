@@ -255,7 +255,10 @@ public class CombatManager extends Tick {
 					}
 					if(killer != null && killer.isPlayer() && died.isNpc()){
 			            Player player = (Player) killer;
-			            player.getCombatSounds().npcDeathSound(((Npc) died));
+			           	Npc npc = (Npc) died;
+			           	if (npc.getPosition().isViewableFrom(player.getPosition())) {
+			           		player.getCombatSounds().npcDeathSound(((Npc) died));
+			           	}
 			       }
 					if( died.isNpc() && PestControl.isSplatter((Npc) died)) {
 					    died.getUpdateFlags().sendAnimation(3888, 75);
@@ -622,6 +625,9 @@ public class CombatManager extends Tick {
 		    Player player = (Player) died;
 		    player.teleport(Teleportation.HOME);
 		    player.getActionSender().sendMessage("Oh dear, you are dead!");
+			if (player.getMultiCannon() != null && player.getMultiCannon().hasCannon()) {
+				player.getMultiCannon().pickupCannon();
+			}
 		    PlayerSave.save(player);
 		    player.getActionSender().sendQuickSong(75, 16);
 		}

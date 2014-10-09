@@ -10,6 +10,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.item.Item;
@@ -409,15 +410,27 @@ public class ActionSender {
 		return this;
 	}
 
+	public ActionSender sendObjectType(int face, int type) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
+		out.writeHeader(player.getEncryptor(), 101);
+		out.writeByte(((type << 2) + (face & 3)), StreamBuffer.ValueType.C);
+		out.writeByte(0);
+		player.send(out.getBuffer());
+		return this;
+	}
+
 	public ActionSender sendObject(int id, int x, int y, int h, int face,
 			int type) {
 		sendCoords(new Position(x, y, h));
-		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
-		out.writeHeader(player.getEncryptor(), 151);
-		out.writeByte(0, StreamBuffer.ValueType.S);
-		out.writeShort(id, StreamBuffer.ByteOrder.LITTLE);
-		out.writeByte(((type << 2) + (face & 3)), StreamBuffer.ValueType.S);
-		player.send(out.getBuffer());
+		sendObjectType(face, type);
+		if (id != -1) {
+			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
+			out.writeHeader(player.getEncryptor(), 151);
+			out.writeByte(0, StreamBuffer.ValueType.S);
+			out.writeShort(id, StreamBuffer.ByteOrder.LITTLE);
+			out.writeByte(((type << 2) + (face & 3)), StreamBuffer.ValueType.S);
+			player.send(out.getBuffer());
+		}
 		return this;
 	}
 
@@ -780,7 +793,45 @@ public class ActionSender {
 		return this;
 
 	}
-
+	
+    public void animateObjectRadius(int X, int Y, int Z, int animationID) {
+        for (Player p : World.getPlayers()) {
+            if (p == null)
+            	continue;
+            
+            if (p.getPosition().isViewableFrom(new Position(X,Y,Z)) && Z == p.getPosition().getZ()) {
+            	p.getActionSender().animateObject(X,Y,Z,animationID);
+            }
+        }
+    }
+    
+	public ActionSender animateObject2(int objx, int objy, int objz,
+			int animationID) {
+		GameObject object = ObjectHandler.getInstance().getObject(objx, objy, objz);
+		if (object == null)
+			return this;
+		sendCoords(new Position(objx, objy, objz));
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
+		out.writeHeader(player.getEncryptor(), 160);
+		out.writeByte(0, StreamBuffer.ValueType.S);
+		out.writeByte((object.getDef().getType() << 2) + (object.getDef().getFace() & 3),
+				StreamBuffer.ValueType.S);
+		out.writeShort(animationID, StreamBuffer.ValueType.A);
+		player.send(out.getBuffer());
+		return this;
+	}
+	
+    public void animateObjectRadius2(int X, int Y, int Z, int animationID) {
+        for (Player p : World.getPlayers()) {
+            if (p == null)
+            	continue;
+            
+            if (p.getPosition().isViewableFrom(new Position(X,Y,Z)) && Z == p.getPosition().getZ()) {
+            	p.getActionSender().animateObject2(X,Y,Z,animationID);
+            }
+        }
+    }
+    
 	public ActionSender sendPlayerDialogueHead(int interfaceId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(3);
 		out.writeHeader(player.getEncryptor(), 185);

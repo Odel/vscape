@@ -160,6 +160,8 @@ import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.FreakyForester;
 
+import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
+
 
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
@@ -484,6 +486,8 @@ public class Player extends Entity {
     private String currentChannel = null;
     
     private boolean homeTeleporting = false;
+    
+    private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
        
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -3258,6 +3262,12 @@ public class Player extends Entity {
 				getPets().unregisterPet();
 			}
             b.stop();
+            b = Benchmarks.getBenchmark("cannonUnregister");
+            b.start();
+			if (getMultiCannon() != null && getMultiCannon().hasCannon()) {
+				getMultiCannon().pickupCannon();
+			}
+            b.stop();
             b = Benchmarks.getBenchmark("unlockMovement");
             b.start();
 			getMovementHandler().unlock();
@@ -4425,6 +4435,11 @@ public class Player extends Entity {
 	public void setGodBook(int set) {
 	    this.godBook = set;
 	}
+	
+	public DwarfMultiCannon getMultiCannon(){
+		return dwarfMultiCannon;
+	}
+	
 	public void setEnergy(double energy) {
 		this.energy = energy < 0 ? 0 : energy > 100 ? 100 : energy;
 	}
