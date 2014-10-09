@@ -10835,9 +10835,9 @@ public class Client extends RSApplet {
 			
 	    	if (MusicEnabled) {
 			    if (loginMusicEnabled) {
-				cacheSprite[47].drawSprite(clientWidth - 52, 12);
+				cacheSprite[47].drawSprite(clientWidth - 52, 10);
 			    } else {
-				cacheSprite[48].drawSprite(clientWidth - 52, 12);
+				cacheSprite[48].drawSprite(clientWidth - 52, 10);
 			    }
 			}
 			cacheSprite[35].drawARGBSprite(centerX - 135, centerY - 135);
@@ -11240,7 +11240,7 @@ public class Client extends RSApplet {
         int messageHeight = 100;
         int x1 = centerX - (messageWidth / 2);
         int y1 = centerY - (messageHeight / 2);
-        if (super.clickMode3 == 1 && clickInRegion(clientWidth - 52, 12, clientWidth - 12, 52)) {
+        if (super.clickMode3 == 1 && clickInRegion(clientWidth - 52, 10, clientWidth - 10, 52)) { //login music box sprite
 	    if(MusicEnabled) {
 		   if (loginMusicEnabled) {
 			   loginMusicEnabled = false;
