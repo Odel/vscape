@@ -7025,8 +7025,8 @@ public class Client extends RSApplet {
 		{
 			if(!flag)
 			{
-				loginMessage1 = "";
-				loginMessage2 = "Connecting to server...";
+				loginMessage2 = "";
+				loginMessage1 = "Connecting to server...";
 				drawLoginScreen(true);
 			}
 			socketStream = new RSSocket(this, openSocket(43594 + portOff));
@@ -7209,20 +7209,20 @@ public class Client extends RSApplet {
 			}
 			if(k == 3)
 			{
-				loginMessage1 = "";
-				loginMessage2 = "Invalid username or password.";
+				loginMessage2 = "";
+				loginMessage1 = "Invalid username or password.";
 				return;
 			}
 			if(k == 4)
 			{
 				loginMessage1 = "Your account has been disabled.";
-				loginMessage2 = "Please check your message-center for details.";
+				loginMessage2 = "Thank you, come again.";
 				return;
 			}
 			if(k == 5)
 			{
 				loginMessage1 = "Your account is already logged in.";
-				loginMessage2 = "Try again in 60 secs...";
+				loginMessage2 = "Try again in 60 seconds...";
 				return;
 			}
 			if(k == 6)
@@ -7246,7 +7246,7 @@ public class Client extends RSApplet {
 			if(k == 9)
 			{
 				loginMessage1 = "Login limit exceeded.";
-				loginMessage2 = "Too many connections from your address.";
+				loginMessage2 = "Too many connections.";
 				return;
 			}
 			if(k == 10)
@@ -7270,13 +7270,13 @@ public class Client extends RSApplet {
 			if(k == 13)
 			{
 				loginMessage1 = "Could not complete login.";
-				loginMessage2 = "Please try using a different world.";
+				loginMessage2 = "Please try again.";
 				return;
 			}
 			if(k == 14)
 			{
 				loginMessage1 = "The server is being updated.";
-				loginMessage2 = "Please wait 1 minute and try again.";
+				loginMessage2 = "Please wait and try again.";
 				return;
 			}
 			if(k == 15)
@@ -7311,7 +7311,7 @@ public class Client extends RSApplet {
 			if(k == 20)
 			{
 				loginMessage1 = "Invalid loginserver requested";
-				loginMessage2 = "Please try using a different world.";
+				loginMessage2 = "Please try again.";
 				return;
 			}
 			if(k == 21)
@@ -7347,21 +7347,21 @@ public class Client extends RSApplet {
 						return;
 					} else
 					{
-						loginMessage1 = "No response from loginserver";
-						loginMessage2 = "Please wait 1 minute and try again.";
+						loginMessage1 = "No response from loginserver.";
+						loginMessage2 = "Please wait and try again.";
 						return;
 					}
 				} else
 				{
-					loginMessage1 = "No response from server";
-					loginMessage2 = "Please try using a different world.";
+					loginMessage1 = "No response from server.";
+					loginMessage2 = "Please try again.";
 					return;
 				}
 			} else
 			{
 				System.out.println("response:" + k);
-				loginMessage1 = "Unexpected server response";
-				loginMessage2 = "Please try using a different world.";
+				loginMessage1 = "Unexpected server response.";
+				loginMessage2 = "Please try again.";
 				return;
 			}
 		}
@@ -7369,7 +7369,7 @@ public class Client extends RSApplet {
 		{
 			loginMessage1 = "";
 		}
-		loginMessage2 = "Invalid Login or Server Offline.";
+		loginMessage1 = "Invalid login or server offline.";
 	}
 
 	private boolean doWalkTo(int i, int j, int k, int i1, int j1, int k1, int l1, int i2, int j2, boolean flag, int k2) {
@@ -10840,31 +10840,31 @@ public class Client extends RSApplet {
 				cacheSprite[48].drawSprite(clientWidth - 52, 10);
 			    }
 			}
-			cacheSprite[35].drawARGBSprite(centerX - 135, centerY - 135);
-			if (mouseInRegion(centerX - 100, centerY - 64, centerX + 115, centerY - 38)) {
-			    cacheSprite[36].drawSprite(centerX - 100, centerY - 64);
+			cacheSprite[35].drawARGBSprite(centerX - 145, centerY - 135);
+			if (mouseInRegion(centerX - 110, centerY - 64, centerX + 115, centerY - 38)) {
+			    cacheSprite[36].drawSprite(centerX - 110, centerY - 64);
 			}
-			if (mouseInRegion(centerX - 100, centerY - 19, centerX + 115, centerY + 8)) {
-			    cacheSprite[36].drawSprite(centerX - 100, centerY - 17);
+			if (mouseInRegion(centerX - 110, centerY - 19, centerX + 115, centerY + 8)) {
+			    cacheSprite[36].drawSprite(centerX - 110, centerY - 17);
 			}
-			if (mouseInRegion(centerX - 80, centerY + 38, centerX + 99, centerY + 64)) {
-			    cacheSprite[37].drawSprite(centerX - 80, centerY + 39);
+			if (mouseInRegion(centerX - 90, centerY + 38, centerX + 99, centerY + 64)) {
+			    cacheSprite[37].drawSprite(centerX - 90, centerY + 39);
 			}
 			TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
-			chatTextDrawingArea.method389(true, centerX - 96, 0xf3b13f, myUsername + ((loginScreenCursorPos == 0) & (loopCycle % 40 < 20) ? "|" : ""), centerY - 43);
-			chatTextDrawingArea.method389(true, centerX - 96, 0xf3b13f, TextClass.passwordAsterisks(myPassword) + ((loginScreenCursorPos == 1) & (loopCycle % 40 < 20) ? "|" : ""), centerY + 5);
-			chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage1) / 2, 0xf3b13f, loginMessage1, centerY + 90);
-			chatTextDrawingArea.method389(true, centerX - textDrawingArea.getTextWidth(loginMessage2) / 2, 0xf3b13f, loginMessage2, centerY + 110);
+			chatTextDrawingArea.method389(true, centerX - 105, 0xf3b13f, myUsername + ((loginScreenCursorPos == 0) & (loopCycle % 40 < 20) ? "|" : ""), centerY - 43);
+			chatTextDrawingArea.method389(true, centerX - 105, 0xf3b13f, TextClass.passwordAsterisks(myPassword) + ((loginScreenCursorPos == 1) & (loopCycle % 40 < 20) ? "|" : ""), centerY + 5);
+			chatTextDrawingArea.method389(true, centerX - (textDrawingArea.getTextWidth(loginMessage1) / 2) - (loginMessage1.length() > 25 ? 16 : loginMessage1.length() > 20 ? 14 : loginMessage1.length() > 15 ? 12 : 10), 0xf3b13f, loginMessage1, centerY + 90);
+			chatTextDrawingArea.method389(true, centerX - (textDrawingArea.getTextWidth(loginMessage2) / 2) - (loginMessage2.length() > 25 ? 16 : loginMessage2.length() > 20 ? 14 : loginMessage2.length() > 15 ? 12 : 10), 0xf3b13f, loginMessage2, centerY + 113);
 	
 			if (rememberMe) {
-			    cacheSprite[39].drawSprite(centerX - 98, centerY + 12);
+			    cacheSprite[39].drawSprite(centerX - 108, centerY + 12);
 			} else {
-			    cacheSprite[38].drawSprite(centerX - 98, centerY + 12);
-			    if (mouseInRegion(centerX - 98, centerY + 12, centerX - 80, centerY + 24)) {
-			    	cacheSprite[40].drawSprite(centerX - 98, centerY + 12);
+			    cacheSprite[38].drawSprite(centerX - 108, centerY + 12);
+			    if (mouseInRegion(centerX - 108, centerY + 12, centerX - 80, centerY + 24)) {
+			    	cacheSprite[40].drawSprite(centerX - 108, centerY + 12);
 			    }
 			}
-			chatTextDrawingArea.method389(true, centerX - 82, 0xf3b13f, "Remember Me", centerY + 24);
+			chatTextDrawingArea.method389(true, centerX - 92, 0xf3b13f, "Remember Me", centerY + 24);
 	    }
 	    aRSImageProducer_1109.drawGraphics(0, super.graphics, 0);
 	}
@@ -11268,7 +11268,7 @@ public class Client extends RSApplet {
         }
         if (loginScreenState == 2) {
         	//remember me
-        	if (super.clickMode3 == 1 && clickInRegion(centerX - 98, centerY + 12, centerX - 80, centerY + 24))
+        	if (super.clickMode3 == 1 && clickInRegion(centerX - 108, centerY + 12, centerX - 90, centerY + 24))
         	{
         		if(rememberMe)
         		{
@@ -11303,7 +11303,7 @@ public class Client extends RSApplet {
                         return;
                     }
                 } else {
-                    loginMessage2 = "Please enter a username and password.";
+                    loginMessage1 = "Please enter a valid login.";
                 }
             }
             do {
