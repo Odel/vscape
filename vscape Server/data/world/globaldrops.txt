@@ -1,5 +1,6 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+1607:1:3170:3885:0:60 //wilderness sapphire
 247:1:2507:3088:0:5 //jangerberries
 247:1:2513:3087:0:5 //jangerberries
 247:1:2518:3086:0:5 //jangerberries
