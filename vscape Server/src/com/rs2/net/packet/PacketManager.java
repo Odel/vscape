@@ -69,7 +69,7 @@ public class PacketManager {
 		packets[ItemPacketHandler.CLICK_10] = item;
 		packets[ItemPacketHandler.CLICK_ALL] = item;
 		packets[ItemPacketHandler.EQUIP_ITEM] = item;
-		packets[ItemPacketHandler.EXAMINE_ITEM] = item;
+//		packets[ItemPacketHandler.EXAMINE_ITEM] = item;
 		packets[ItemPacketHandler.USE_ITEM_ON_ITEM] = item;
 		packets[ItemPacketHandler.USE_ITEM_ON_GROUND_ITEM] = item;
 		packets[ItemPacketHandler.FIRST_CLICK_ITEM] = item;

@@ -98,9 +98,9 @@ public class Food {
 		CHOCOLATE(5, 1899, new int[]{1897}),
 		CHOCOLATETWOTHIRD(5, 1901, new int[]{1899}), 
 		CHOCOLATESLICE(5, -1, new int[]{1901}), 
-		CAKE(5, 1893, new int[]{1891}), 
-		CAKETWOTHIRD(5, 1895, new int[]{1893}), 
-		CAKESLICE(5, -1, new int[]{1895}),
+		CAKE(4, 1893, new int[]{1891}), 
+		CAKETWOTHIRD(4, 1895, new int[]{1893}), 
+		CAKESLICE(4, -1, new int[]{1895}),
 		
 		// Stews
 		STEW(11, 1923, new int[]{2003}), 

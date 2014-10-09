@@ -1,16 +1,23 @@
 package com.rs2.model.content.skills.prayer;
 
 import com.rs2.Constants;
+import com.rs2.model.Position;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.List;
 
 public class GodBook {
+	
+    public static final int SARA_BOOK = 3840;
+    public static final int ZAMORAK_BOOK = 3842;
+    public static final int GUTHIX_BOOK = 3844;
 	
 	public static final double[][] Book = {
 		{3839, 3827, 3828, 3829, 3830, 3840},//Saradomin
@@ -71,5 +78,68 @@ public class GodBook {
 			}
 		}
 		return false;
+	}
+	
+	public static void preachGodBook(final Player player, final int book) {
+		player.setStopPacket(true);
+		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int preachStage = 0;
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.getUpdateFlags().sendAnimation(1670);
+				switch (book) {
+				    case ZAMORAK_BOOK:
+				    	switch (preachStage) {
+				    		case 0:
+				    			player.getUpdateFlags().setForceChatMessage("The weak deserve to die,");
+				    		break;
+				    		case 1:
+				    			player.getUpdateFlags().setForceChatMessage("So that the strong may flourish.");
+				    		break;
+				    		case 2:
+				    			player.getUpdateFlags().setForceChatMessage("This is the creed of Zamorak.");
+				    			container.stop();
+				    		break;
+				    	}
+					break;
+				    case SARA_BOOK:
+				    	switch (preachStage) {
+				    		case 0:
+				    			player.getUpdateFlags().setForceChatMessage("The currency of goodness is honour,");
+				    		break;
+				    		case 1:
+				    			player.getUpdateFlags().setForceChatMessage("It retains its value through scarcity.");
+				    		break;
+				    		case 2:
+				    			player.getUpdateFlags().setForceChatMessage("This is Saradomin's wisdom.");
+				    			container.stop();
+				    		break;
+				    	}
+					break;
+				    case GUTHIX_BOOK:
+				    	switch (preachStage) {
+				    		case 0:
+				    			player.getUpdateFlags().setForceChatMessage("The trees, the earth, the sky, the waters,");
+				    		break;
+				    		case 1:
+				    			player.getUpdateFlags().setForceChatMessage("All play their part upon this land.");
+				    		break;
+				    		case 2:
+				    			player.getUpdateFlags().setForceChatMessage("May Guthix bring thee balance.");
+				    			container.stop();
+				    		break;
+				    	}
+					break;
+				}
+				preachStage++;
+			}
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+				player.getAttributes().put("canTakeDamage", Boolean.TRUE);
+				preachStage = 0;
+			}
+		}, 2);
 	}
 }

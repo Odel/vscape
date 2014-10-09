@@ -66,7 +66,7 @@ public class ClueScroll {
 
 	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon", "Black Demon", "Aberrant Spectre"};
 
-	// todo torn page make into mage books + firelighters + junk items to reward
+	// todo torn page make into mage books + firelighters + reward items to reward
 
 	public static int[] mainJunk = {554, 555, 556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 374, 380, 362, 1379, 1381, 1383, 1385, 1387, 1065, 1099, 1135, 1097, 1169, 841, 843, 845, 847, 849};
 	public static int[] junkItem1 = {1367, 1217, 1179, 1151, 1107, 1077, 1269, 1089, 1125, 1165, 1195, 1283, 1297, 1313, 1327, 1341, 1367, 1426, 334, 330, 851, 853, 855, 857, 859, 4821, 1765};
@@ -142,24 +142,53 @@ public class ClueScroll {
 				break;
 		}
 	}
-
+	public static boolean duplicate(int i, int[] array) {
+	    for(int k : array) {
+		if(k == i) return true;
+	    }
+	    return false;
+	}
 	private static void addNewClue(Player player, int clueLevel) {
 		player.getInventory().addItemOrDrop(new Item(getRandomClue(clueLevel), 1));
 	}
 
 	public static void itemReward(Player player, int clueLevel) {
 		ArrayList<Integer> array = new ArrayList<Integer>();
-		int random = Misc.random(4) + 2;
+		int random = Misc.random(5) + 3;
 		switch (clueLevel) {
 			case 1 :
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(100);
 					if (percent <= 7) {
-						array.add(levelOneRewards[Misc.random(levelOneRewards.length - 1)]);
+					    int reward = levelOneRewards[Misc.random(levelOneRewards.length - 1)];
+					    int reward2 = reward;
+					    if (!array.contains(reward)) {
+						array.add(reward);
+					    } else {
+						while(reward2 == reward) {
+						    reward2 = levelOneRewards[Misc.random(levelOneRewards.length - 1)];
+						    if (!array.contains(reward2)) {
+							array.add(reward2);
+							break;
+						    }
+						}
+					    }
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
-						array.add(Misc.random(2) == 1 ? junkItem1[Misc.random(junkItem1.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)]);
+						int reward = Misc.random(2) == 1 ? junkItem1[Misc.random(junkItem1.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+						int reward2 = reward;
+						if(!array.contains(reward)) {
+						    array.add(reward);
+						} else {
+						    while(reward2 == reward) {
+							reward2 = Misc.random(2) == 1 ? junkItem1[Misc.random(junkItem1.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+							if (!array.contains(reward2)) {
+							    array.add(reward2);
+							    break;
+							}
+						    }
+						}
 					}
 				}
 				break;
@@ -167,11 +196,35 @@ public class ClueScroll {
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(110);
 					if (percent <= 7) {
-						array.add(levelTwoRewards[Misc.random(levelTwoRewards.length - 1)]);
+					    int reward = levelTwoRewards[Misc.random(levelTwoRewards.length - 1)];
+					    int reward2 = reward;
+					    if (!array.contains(reward)) {
+						array.add(reward);
+					    } else {
+						while(reward2 == reward) {
+						    reward2 = levelTwoRewards[Misc.random(levelTwoRewards.length - 1)];
+						    if (!array.contains(reward2)) {
+							array.add(reward2);
+							break;
+						    }
+						}
+					    }
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
-						array.add(Misc.random(2) == 1 ? junkItem2[Misc.random(junkItem2.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)]);
+						int reward = Misc.random(2) == 1 ? junkItem2[Misc.random(junkItem2.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+						int reward2 = reward;
+						if(!array.contains(reward)) {
+						    array.add(reward);
+						} else {
+						    while(reward2 == reward) {
+							reward2 = Misc.random(2) == 1 ? junkItem2[Misc.random(junkItem2.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+							if(!array.contains(reward2)) {
+							    array.add(reward2);
+							    break;
+							}
+						    }
+						}
 					}
 
 				}
@@ -180,34 +233,64 @@ public class ClueScroll {
 				for (int i = 0; i < random; i++) {
 					int percent = Misc.random(120);
 					if (percent <= 7) {
-						array.add(levelThreeRewards[Misc.random(levelThreeRewards.length - 1)]);
+						int reward = levelThreeRewards[Misc.random(levelThreeRewards.length - 1)];
+						int reward2 = reward;
+						Item junkItem = new Item(reward);
+						if(junkItem.getDefinition().getName().toLowerCase().contains("3rd age")) {
+						    if(Misc.random(3) == 0) {
+							array.add(reward);
+						    }
+						} else {
+						    if(!array.contains(reward)) {
+							array.add(reward);
+						    } else {
+							while (reward2 == reward) {
+							    reward2 = levelThreeRewards[Misc.random(levelThreeRewards.length - 1)];
+							    if(!array.contains(reward2)) {
+								array.add(reward2);
+								break;
+							    }
+							}
+						    }
+						}
 					} else if (percent > 7 && percent <= 30 && !array.contains(995)) {
 						array.add(995);
 					} else {
-						array.add(Misc.random(2) == 1 ? junkItem3[Misc.random(junkItem3.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)]);
+						int reward = Misc.random(2) == 1 ? junkItem3[Misc.random(junkItem3.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+						int reward2 = reward;
+						if(!array.contains(reward)) {
+						    array.add(Misc.random(2) == 1 ? junkItem3[Misc.random(junkItem3.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)]);
+						} else {
+						    while(reward2 == reward) {
+							reward2 = Misc.random(2) == 1 ? junkItem3[Misc.random(junkItem3.length - 1)] : mainJunk[Misc.random(mainJunk.length - 1)];
+							if(!array.contains(reward2)) {
+							    array.add(reward2);
+							    break;
+							}
+						    }
+						}
 					}
 				}
 				break;
 		}
-
+		for(int i = 0; i < array.size() - 1; i++) {
+		    for(int k = 0; k < array.size() - 1; k++) {
+			if(array.get(i).equals(array.get(k)) && i != k && (k+1) != array.size()) {
+			    array.remove(i);
+			}
+		    }
+		}
 		int[] items = new int[random];
 		int[] amounts = new int[random];
 		Item[] item = new Item[random];
-		for (int i = 0; i < random; i++) {
-			items[i] = array.get(i);
-			amounts[i] = new Item(items[i]).getDefinition().isStackable() ? items[i] == 995 ? Misc.random(10000) : Misc.random(4) + 9 : 1;
-			if (new Item(items[i]).getDefinition().getName().toLowerCase().contains("page")) {
-				amounts[i] = 1;
-			}
-			item[i] = new Item(items[i], amounts[i]);
-			if(item[i].getDefinition().getName().toLowerCase().contains("3rd age")) {
-			    if(Misc.random(150) == 139) {
-				player.getInventory().addItemOrDrop(new Item(items[i], amounts[i]));
-			    }
-			}
-			else {
-			    player.getInventory().addItemOrDrop(new Item(items[i], amounts[i]));
-			}
+		for (int i = 0; i < (array.size() - 1); i++) {
+		    items[i] = array.get(i);
+		    amounts[i] = new Item(items[i]).getDefinition().isStackable() ? items[i] == 995 ? Misc.random(10000) : Misc.random(4) + 9 : 1;
+		    if (new Item(items[i]).getDefinition().getName().toLowerCase().contains("page")) {
+			amounts[i] = 1;
+		    }
+		    item[i] = new Item(items[i], amounts[i]);
+		    player.getInventory().addItemOrDrop(new Item(items[i], amounts[i]));
 		}
 		player.getActionSender().sendUpdateItems(6963, item);
 		player.getActionSender().sendInterface(6960);
@@ -284,34 +367,34 @@ public class ClueScroll {
 		return -1;
 	}
 
-	public static void handleCasket(Player player, int itemId) {
+	public static boolean handleCasket(Player player, int itemId) {
 		switch (itemId) {
 			case REWARD_CASKET_LV1 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				itemReward(player, 1);
-				break;
+				return true;
 			case REWARD_CASKET_LV2 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				itemReward(player, 2);
-				break;
+				return true;
 			case REWARD_CASKET_LV3 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				itemReward(player, 3);
-				break;
+				return true;
 			case CASKET_LV1 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				clueReward(player, 1, "You've found another clue!", false, "Here is your reward!");
-				break;
+				return true;
 			case CASKET_LV2 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				clueReward(player, 2, "You've found another clue!", false, "Here is your reward!");
-				break;
+				return true;
 			case CASKET_LV3 :
 				player.getInventory().removeItem(new Item(itemId, 1));
 				clueReward(player, 3, "You've found another clue!", false, "Here is your reward!");
-				break;
+				return true;
 		}
-
+		return false;
 	}
 	public static boolean hasClue(Player player) {
 		return player.getInventory().ownsItem("clue scroll");

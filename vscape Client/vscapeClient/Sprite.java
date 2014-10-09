@@ -304,6 +304,74 @@ public final class Sprite extends DrawingArea {
 		}
 	}
 
+	public void drawSprite(int i, int k, int color) {
+		int tempWidth = myWidth + 2;
+		int tempHeight = myHeight + 2;
+		int[] tempArray = new int[tempWidth * tempHeight];
+		for(int x = 0; x < myWidth; x++) {
+			for(int y = 0; y < myHeight; y++) {
+				if(myPixels[x + y * myWidth] != 0)
+					tempArray[(x + 1) + (y + 1) * tempWidth] = myPixels[x + y * myWidth];
+			}
+		}
+		for(int x = 0; x < tempWidth; x++) {
+			for(int y = 0; y < tempHeight; y++) {
+				if(tempArray[(x) + (y) * tempWidth] == 0) {
+					if(x < tempWidth - 1 && tempArray[(x + 1) + ((y) * tempWidth)] > 0 && tempArray[(x + 1) + ((y) * tempWidth)] != 0xffffff) {
+						tempArray[(x) + (y) * tempWidth] = color;
+					}
+					if(x > 0 && tempArray[(x - 1) + ((y) * tempWidth)] > 0 && tempArray[(x - 1) + ((y) * tempWidth)] != 0xffffff) {
+						tempArray[(x) + (y) * tempWidth] = color;
+					}
+					if(y < tempHeight - 1 && tempArray[(x) + ((y + 1) * tempWidth)] > 0 && tempArray[(x) + ((y + 1) * tempWidth)] != 0xffffff) {
+						tempArray[(x) + (y) * tempWidth] = color;
+					}
+					if(y > 0 && tempArray[(x) + ((y - 1) * tempWidth)] > 0 && tempArray[(x) + ((y - 1) * tempWidth)] != 0xffffff) {
+						tempArray[(x) + (y) * tempWidth] = color;
+					}
+				}
+			}
+		}
+		i--;
+		k--;
+		i += anInt1442;
+		k += anInt1443;
+		int l = i + k * DrawingArea.width;
+		int i1 = 0;
+		int j1 = tempHeight;
+		int k1 = tempWidth;
+		int l1 = DrawingArea.width - k1;
+		int i2 = 0;
+		if (k < DrawingArea.topY) {
+			int j2 = DrawingArea.topY - k;
+			j1 -= j2;
+			k = DrawingArea.topY;
+			i1 += j2 * k1;
+			l += j2 * DrawingArea.width;
+		}
+		if (k + j1 > DrawingArea.bottomY) {
+			j1 -= (k + j1) - DrawingArea.bottomY;
+		}
+		if (i < DrawingArea.topX) {
+			int k2 = DrawingArea.topX - i;
+			k1 -= k2;
+			i = DrawingArea.topX;
+			i1 += k2;
+			l += k2;
+			i2 += k2;
+			l1 += k2;
+		}
+		if (i + k1 > DrawingArea.bottomX) {
+			int l2 = (i + k1) - DrawingArea.bottomX;
+			k1 -= l2;
+			i2 += l2;
+			l1 += l2;
+		}
+		if (!(k1 <= 0 || j1 <= 0)) {
+			method349(DrawingArea.pixels, tempArray, i1, l, k1, j1, l1, i2);
+		}
+	}
+	
 	public void drawSprite1(int i, int j)
 	{
 		int k = 128;//was parameter

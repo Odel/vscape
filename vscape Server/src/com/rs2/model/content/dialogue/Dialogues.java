@@ -1,6 +1,7 @@
 package com.rs2.model.content.dialogue;
 
 import com.rs2.Constants;
+import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
@@ -59,6 +60,7 @@ import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.RomeoAndJuliet;
 import com.rs2.model.content.quests.ShieldOfArrav;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
@@ -2248,8 +2250,22 @@ public class Dialogues {
 			case 4593 : //gnome pilot
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(!Entity.inArea(player, 2914, 2929, 3050, 3065) && QuestHandler.questCompleted(player, 29)) {
 						player.getDialogue().sendNpcChat("Would you like to fly somewhere on the glider?", CONTENT);
 						return true;
+					    } else if(Entity.inArea(player, 2914, 2929, 3050, 3065)) {
+						player.getDialogue().sendNpcChat("I'm sorry Traveller, I can't fly anywhere with this.", SAD);
+						player.getDialogue().endDialogue();
+						return true;
+					    } else {
+						if(player.getQuestStage(29) == TheGrandTree.ESCAPE_FROM_ALCATRAZ) {
+						    
+						} else {
+						    player.getDialogue().sendStatement("You must complete The Grand Tree to use the gnome gliders.");
+						    player.getDialogue().endDialogue();
+						    return true;
+						}
+					    }
 					case 2 :
 						player.getDialogue().sendOption("Sure.", "No thanks.");
 						return true;
@@ -4819,14 +4835,116 @@ public class Dialogues {
 						return true;
 				}
 				break;
-			case 10011 : //spirit tree
+			case 10022: //Spirit tree south ardy && northwest varrock
+			    player.getDialogue().setLastNpcTalk(3636);
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(QuestHandler.questCompleted(player, 29)) {
+						player.getDialogue().sendNpcChat("Hello " + player.getUsername(), "Would you like a trip somewhere?", -1);
+						return true;
+					    } else {
+						player.getDialogue().sendStatement("You must complete The Grand Tree to use this spirit tree.");
+						return true;
+					    }
+					case 2 :
+						player.getDialogue().sendOption("The Tree Gnome Village.", "The Gnome Stronghold.", "Khazard Battlefield.", "Northwest Varrock.", "Nowhere.");
+						return true;
+					case 3 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								return true;
+							case 2:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(5);
+								return true;
+							case 3:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(6);
+								return true;
+							case 4:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(7);
+								return true;
+							case 5:
+								player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+						}
+						break;
+					case 4 :
+						Ladders.climbLadder(player, new Position(2542, 3169, 0));
+						break;
+					case 5 :
+						Ladders.climbLadder(player, new Position(2462, 3444, 0));
+						break;
+					case 6 :
+						Ladders.climbLadder(player, new Position(2554, 3259, 0));
+						break;
+					case 7 :
+						Ladders.climbLadder(player, new Position(3179, 3506, 0));
+						break;
+				}
+				break;
+			case 10011 : //spirit tree the grand tree
+				player.getDialogue().setLastNpcTalk(3637);
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("Hello " + player.getUsername(), "Would you like a trip somewhere?", -1);
+						return true;
+					case 2 :
+					    if(QuestHandler.questCompleted(player, 29)) {
+						player.getDialogue().sendOption("The Tree Gnome Village.", "The Gnome Stronghold.", "Khazard Battlefield.", "Northwest Varrock.", "Nowhere.");
+						return true;
+					    } else {
+						player.getDialogue().sendOption("The Tree Gnome Village.", "The Gnome Stronghold.");
+						return true;
+					    }
+					case 3 :
+						switch(optionId) {
+							case 1:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								return true;
+							case 2:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(5);
+								return true;
+							case 3:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(6);
+								return true;
+							case 4:
+								player.getDialogue().sendStatement("You place your hands on the dry tough bark of the spirit tree, and", "feel a surge of energy run through your veins.");
+								player.getDialogue().setNextChatId(7);
+								return true;
+							case 5:
+								player.getDialogue().sendPlayerChat("Nevermind.", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+						}
+						break;
+					case 4 :
+						Ladders.climbLadder(player, new Position(2542, 3169, 0));
+						break;
+					case 5 :
+						Ladders.climbLadder(player, new Position(2462, 3444, 0));
+						break;
+					case 6 :
+						Ladders.climbLadder(player, new Position(2554, 3259, 0));
+						break;
+					case 7 :
+						Ladders.climbLadder(player, new Position(3179, 3506, 0));
+						break;
+				}
+				break;
+			case 10023 : //spirit tree tree gnome village
 				player.getDialogue().setLastNpcTalk(3637);
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("Hello " + player.getUsername(), "Would you like a free trip somewhere?", -1);
 						return true;
 					case 2 :
-						player.getDialogue().sendOption("The Tree Gnome Village", "The Gnome Stronghold", "Nowhere");
+						player.getDialogue().sendOption("The Tree Gnome Village.", "The Gnome Stronghold.", "Nowhere.");
 						return true;
 					case 3 :
 						switch(optionId) {

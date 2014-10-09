@@ -27,7 +27,7 @@ public class PestControl {
 	
 	private static int lobbyTime = LOBBY_TIME;
 	private static int gameTime = 0;
-	private static int foxterTime = 0;
+	private static int picklesTime = 0;
 	
 	private static boolean gameActive = false;
 	
@@ -159,13 +159,13 @@ public class PestControl {
 				seconds = lobbyTime % 60;
 			}
 			if(seconds > 9)
-				player.getActionSender().sendString("Next Departure: "+minutes+":"+seconds, 18789);
+				player.getActionSender().sendString("Next Departure: "+minutes+":"+seconds, 24127);
 			else
-				player.getActionSender().sendString("Next Departure: "+minutes+":0"+seconds, 18789);
+				player.getActionSender().sendString("Next Departure: "+minutes+":0"+seconds, 24127);
 			
-			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 18790);
-			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 18791);
-			player.getActionSender().sendString("Commendation Points: " + player.getPcPoints(), 18792);
+			player.getActionSender().sendString("Players Ready: "+playersInLobby()+"", 24128);
+			player.getActionSender().sendString("Players Required: "+ PLAYERS_REQUIRED +" minimum", 24129);
+			player.getActionSender().sendString("Commendation Points: " + player.getPcPoints(), 24130);
 		} catch (Exception e) {
 		}
 	}
@@ -178,13 +178,13 @@ public class PestControl {
 			seconds = gameTime % 60;
 			String timeLeft;
 			
-			player.getActionSender().sendString(""+KNIGHT_HEALTH, 18800);
-			player.getActionSender().sendString(""+player.getPcDamage(), 18801);
+			player.getActionSender().sendString(""+KNIGHT_HEALTH, 24138);
+			player.getActionSender().sendString(""+player.getPcDamage(), 24139);
 			for (int i = 0; i < PORTAL_HEALTH.length; i++) {
 				if (PORTAL_HEALTH[i] > 0) {
-					player.getActionSender().sendString(""+PORTAL_HEALTH[i], 18802+i);
+					player.getActionSender().sendString(""+PORTAL_HEALTH[i], 24140+i);
 				} else {
-					player.getActionSender().sendString("Dead", 18802+i);
+					player.getActionSender().sendString("Dead", 24140+i);
 				}
 			}
 			if(seconds > 9)
@@ -192,11 +192,11 @@ public class PestControl {
 			else
 				timeLeft = "Time Remaining: "+minutes+":0"+seconds;
 			if(gameTime <= 20)
-				player.getActionSender().sendString("@red@"+timeLeft, 18810);
+				player.getActionSender().sendString("@red@"+timeLeft, 24144);
 			else if(gameTime > 20 && gameTime < 100)
-				player.getActionSender().sendString("@or1@"+timeLeft, 18810);
+				player.getActionSender().sendString("@or1@"+timeLeft, 24144);
 			else
-				player.getActionSender().sendString("@gre@"+timeLeft, 18810);
+				player.getActionSender().sendString("@gre@"+timeLeft, 24144);
 		} catch (Exception e) {
 		}
 	}
@@ -263,7 +263,7 @@ public class PestControl {
 								    spawnGrunts();
 								else if(playersInGame() >= 10)
 								    spawnGrunts();
-								else if(foxterTime == 1) {
+								else if(picklesTime == 1) {
 								    spawnGrunts();
 								    spawnGrunts();
 								    spawnGrunts();
@@ -316,7 +316,7 @@ public class PestControl {
 			gameTime = GAME_TIME;
 			lobbyTime = LOBBY_TIME;
 			gameActive = true;
-			foxterTime = Misc.random(40);
+			picklesTime = Misc.random(40);
 			for(Player player : new ArrayList<Player>(lobbyPlayers))
 			{
 				if (player != null)
@@ -327,10 +327,10 @@ public class PestControl {
 					}
 					player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
 					gamePlayers.add(player);
-					if(foxterTime != 1)
+					if(picklesTime != 1)
 					    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
 					else
-					    player.getActionSender().sendMessage("@blu@BUCKLE THE FUCK UP IT'S FOXTER TIME");
+					    player.getActionSender().sendMessage("@blu@BUCKLE THE FUCK UP IT'S PICKLES TIME.");
 				}
 			}
 		} catch (Exception e) {
@@ -448,7 +448,7 @@ public class PestControl {
 	}
 	
 	private static void spawnGrunts() {
-	    if(foxterTime != 1) {
+	    if(picklesTime != 1) {
 	    for(int i = 0; i < PortalData.values().length; i++) {
 		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
 		    PortalData portalData = PortalData.values()[i];
@@ -478,14 +478,13 @@ public class PestControl {
 		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
 		    PortalData portalData = PortalData.values()[i];
 		    Npc grunt = new Npc(1319);
-			    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
-			    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y+ Misc.randomMinusOne(3), 0) );
-			    grunt.setMinWalk(new Position(portalData.x - 6, portalData.y - 6));
-			    grunt.setMaxWalk(new Position(portalData.x + 6, portalData.y + 6));
-			    grunt.setWalkType(Npc.WalkType.WALK);
-			    World.register(grunt);
-			    grunt.getUpdateFlags().setForceChatMessage("Yiff!");
-			    grunt.setDontAttack(true);
+		    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
+		    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
+		    grunt.setMinWalk(new Position(portalData.x - 6, portalData.y - 6));
+		    grunt.setMaxWalk(new Position(portalData.x + 6, portalData.y + 6));
+		    grunt.setWalkType(Npc.WalkType.WALK);
+		    World.register(grunt);
+		    grunt.getUpdateFlags().setForceChatMessage("Ribbit");
 		    }
 		}
 	    }

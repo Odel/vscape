@@ -4264,6 +4264,7 @@ public class client extends RSApplet {
 		{
 			RSInterface class9_1 = RSInterface.interfaceCache[k];
 			spellSelected = 1;
+			spellID = class9_1.id;
 			anInt1137 = k;
 			spellUsableOn = class9_1.spellUsableOn;
 			itemSelected = 0;
@@ -4886,7 +4887,7 @@ public class client extends RSApplet {
 		}
 		if(l == 1125)
 		{
-		/*	ItemDef itemDef = ItemDef.forID(i1);
+			ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0)
@@ -4896,9 +4897,9 @@ public class client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5, 0, "");*/
-			//examine item
-			ItemDef itemDef = ItemDef.forID(i1);
+			pushMessage(s5, 0, "");
+			//examine item packet
+		/*	ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
 			String s5;
 			if(itemDef != null){
@@ -4909,7 +4910,7 @@ public class client extends RSApplet {
 					stream.createFrame(220);
 					stream.writeWord(i1); // ID
 				}
-			}
+			}*/
 		}
 		if(l == 169)
 		{
@@ -4962,20 +4963,20 @@ public class client extends RSApplet {
 		}
 		if(l == 1448)
 		{
-		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
+			ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if(itemDef_1.description != null)
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6, 0, "");*/
-			//EXAMINE ITEM
-			ItemDef itemDef_1 = ItemDef.forID(i1);
+			pushMessage(s6, 0, "");
+			//EXAMINE ITEM PACKET
+		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
 			if(itemDef_1 != null)
 			{
 				stream.createFrame(220);
 				stream.writeWord(i1); // ID
-			}
+			}*/
 		}
 		itemSelected = 0;
 			spellSelected = 0;
@@ -8795,7 +8796,7 @@ public class client extends RSApplet {
 							textDrawingArea.method389(class9_1.textShadow, k2, i4, s1, l6);
 					}
 				} else if(class9_1.type == 5) {
-					Sprite sprite;
+					/*Sprite sprite;
 					if(interfaceIsSelected(class9_1))
 						sprite = class9_1.sprite2;
 					else
@@ -8804,7 +8805,19 @@ public class client extends RSApplet {
 						if(class9_1.drawsTransparent == true)
 							sprite.drawSprite2(k2, l2);
 					else
+						sprite.drawSprite(k2, l2);*/
+                    Sprite sprite;
+                    if(interfaceIsSelected(class9_1))
+                        sprite = class9_1.sprite2;
+                    else
+                        sprite = class9_1.sprite1;
+					    if(spellSelected == 1 && class9_1.id == spellID && spellID != 0) { 
+						sprite.drawSprite(k2, l2, 0xffffff);
+					    } else {
 						sprite.drawSprite(k2, l2);
+					    }
+                    if(sprite != null)
+                        sprite.drawSprite(k2, l2);
 				} else if(class9_1.type == 6) {
 					int k3 = Texture.textureInt1;
 					int j4 = Texture.textureInt2;
@@ -12613,6 +12626,7 @@ public class client extends RSApplet {
 		anInt1289 = -1;
 	}
 
+	public static int spellID = 0;
 	public String globalPrefix = "";
 	public int chatTypeView;
 	public int clanChatMode;

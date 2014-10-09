@@ -25,17 +25,37 @@ public class JewelleryTeleport {
 	}
 
 	public static void replaceItem(Player player) {
-		if (player.getInventory().removeItem(new Item(player.getClickItem()))) {
+	/*	if (player.getInventory().removeItem(new Item(player.getClickItem()))) {
 			int item = findNextJewellery(player.getClickItem());
 			if (item > 0) {
 				player.getInventory().addItem(new Item(item));
+			}
+		}*/
+		if (player.getEquipment().getId(player.getSlot()) == player.getClickItem()){
+			int item = findNextJewellery(player.getClickItem());
+			if (item > 0) {
+				player.getEquipment().replaceEquipment(item, player.getSlot());
+			}else{
+				player.getEquipment().removeAmount(player.getSlot(), 1);
+			}
+		}else{
+			if (player.getInventory().removeItem(new Item(player.getClickItem()))) {
+				int item = findNextJewellery(player.getClickItem());
+				if (item > 0) {
+					player.getInventory().addItem(new Item(item));
+				}
 			}
 		}
 	}
 
 	public static void teleport(Player player, Position position) {
 		player.getActionSender().removeInterfaces();
-		if (!player.getInventory().playerHasItem(player.getClickItem())) {
+		/*if(!player.getEquipment().getItemContainer().contains(player.getClickItem()) &&
+		!player.getInventory().playerHasItem(player.getClickItem()))
+		{
+			return;
+		}*/
+		if (player.getEquipment().getId(player.getSlot()) != player.getClickItem() && !player.getInventory().playerHasItem(player.getClickItem())) {
 			return;
 		}
 		if (!player.getTeleportation().attemptTeleportJewellery(position)) {

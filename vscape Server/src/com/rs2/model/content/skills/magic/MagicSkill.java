@@ -427,16 +427,6 @@ public abstract class MagicSkill extends CycleEvent {
 		}
 		switch (buttonId) {
 			case 1093 :
-				if (player.isAutoCasting()) {
-					return true;
-				}
-				if (player.getAutoSpell() != null) {
-					player.setAutoCasting(!player.isAutoCasting());
-				} else {
-					player.getActionSender().sendMessage("You haven't selected a spell to autocast!");
-				}
-				return true;
-			case 1097 :
 				Item weapon = player.getEquipment().getItemContainer().get(Constants.WEAPON);
 				if (player.getMagicBookType() == SpellBook.ANCIENT) {
 					if (weapon.getId() == 4675) {
@@ -451,6 +441,30 @@ public abstract class MagicSkill extends CycleEvent {
 						player.getActionSender().sendSidebarInterface(0, 1829);
 					}
 				}
+				/*if (player.isAutoCasting()) {
+					return true;
+				}
+				if (player.getAutoSpell() != null) {
+					player.setAutoCasting(!player.isAutoCasting());
+				} else {
+					player.getActionSender().sendMessage("You haven't selected a spell to autocast!");
+				}*/
+				return true;
+			case 1097 :
+			/*	Item weapon = player.getEquipment().getItemContainer().get(Constants.WEAPON);
+				if (player.getMagicBookType() == SpellBook.ANCIENT) {
+					if (weapon.getId() == 4675) {
+						player.getActionSender().sendSidebarInterface(0, 1689);
+					} else {
+						player.getActionSender().sendMessage("You can't autocast ancient magic without an ancient staff!");
+					}
+				} else {
+					if (weapon.getId() == 4170) {
+						player.getActionSender().sendSidebarInterface(0, 12050);
+					} else {
+						player.getActionSender().sendSidebarInterface(0, 1829);
+					}
+				}*/
 				return true;
 			case 7212 :
 			case 24017 :

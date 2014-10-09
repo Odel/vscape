@@ -5,12 +5,14 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.PriestInPeril;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
@@ -116,6 +118,11 @@ public class NpcPacketHandler implements PacketHandler {
 		    return;
 		}
 		if(AnimalMagnetism.handleNpcClick(player, npc.getNpcId())) {
+		    return;
+		}
+		if(npc.getNpcId() == TheGrandTree.CHARLIE) {
+		    player.walkTo(npc.getPosition(), true);
+		    Dialogues.startDialogue(player, TheGrandTree.CHARLIE);
 		    return;
 		}
 		if (npc.getNpcId() == GhostsAhoyPetition.GHOST_VILLAGER && player.getInventory().playerHasItem(GhostsAhoy.PETITION)) {

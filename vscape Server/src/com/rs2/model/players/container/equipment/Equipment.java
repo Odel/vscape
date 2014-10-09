@@ -444,8 +444,11 @@ public class Equipment {
 			}
 			Item item = player.getEquipment().getItemContainer().get(i);
 			for (int bonus = 0; bonus < 12; bonus++) {
+			    if((bonus == 5 || bonus == 6 || bonus == 7 || bonus == 9) && i == Constants.SHIELD && item.getId() == 11284) {
+				player.setBonuses(bonus, (int) (item.getDefinition().getBonuses()[bonus] + player.getBonuses().get(bonus) + player.getDfsCharges()));
+			    } else {
 				player.setBonuses(bonus, (int) (item.getDefinition().getBonuses()[bonus] + player.getBonuses().get(bonus)));
-
+			    }
 			}
 		}
 	}

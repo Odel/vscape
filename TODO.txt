@@ -1,12 +1,7 @@
 https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
 ---------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
--Thieving chests (ask pickles)
 -Wizards from level 3 clues, proper attacks (poison / spells);
--Fruit tree patch in Catherby doesn't work
--Dragon Fire Shield functionality (charging / uncharging)
--Coal trucks delete a player's stored coal on logout
--Lighthouse south rocks need to work (use Agility.crossObstacle(blah) under stepping stones?)
 -Dead herb inspection (stage 3) gives a null exception?
 -Gnome gianna store / all the gnome cooking battas
 -Zogre coffin picklocks south of castlewars

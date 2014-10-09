@@ -540,10 +540,15 @@ public class WalkToActionHandler {
 					player.getUpdateFlags().sendAnimation(832);
 					new GameObject(3194, x, y, z, def.getFace(), def.getType(), id, 500);
 					break;
-				case 1293 : // spirit tree
-				case 1294 :
-					Dialogues.startDialogue(player, 10011);
-					break;
+				case 1317: //spirit tree south ardougne && northwest varrock
+				    Dialogues.startDialogue(player, 10022);
+				    break;
+				case 1293 : // spirit tree the grand tree
+				    Dialogues.startDialogue(player, 10011);
+				    break;
+				case 1294 : //spirit tree tree gnome village
+				    Dialogues.startDialogue(player, 10023);
+				    break;
 				case 9356: //fight caves entrance
 				    if(x == 2437) {
 					FightCaves.enterCave(player);
@@ -943,8 +948,22 @@ public class WalkToActionHandler {
 					break;
 				case 1968 :
 				case 1967 :
-					player.getActionSender().walkTo(0, player.getPosition().getY() < 3492 ? 2 : -2, true);
-					break;
+				    player.setStopPacket(true);
+				    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+					    player.getActionSender().walkTo(0, player.getPosition().getY() < 3492 ? 2 : -2, true);
+					    GameObject o = new GameObject(1970, 2466, 3492, 0, 2, 10, 1968, 1);
+					    GameObject ob = new GameObject(1969, 2464, 3492, 0, 0, 10, 1967, 1);
+					    b.stop();
+					}
+
+					@Override
+					public void stop() {
+					    player.setStopPacket(false);
+					}
+				    }, 2);
+				    break;
 				case 4616 : //lighthouse bridge
 				case 4615 :
 					//player.movePlayer(player.getPosition());

@@ -400,89 +400,97 @@ public class FamilyCrest implements Quest {
 	    case MAKE_1_RING:
 	    case MAKE_5_RING:
 	    case MAKE_10_RING:
-		if (player.getSkill().getLevel()[Skill.CRAFTING] >= 34) {
-		    if (player.getInventory().playerHasItem(PERFECT_GOLD_BAR) && player.getInventory().playerHasItem(1592) && player.getInventory().playerHasItem(1603) && player.getStatedInterface().equals("perfect gold")) {
-			player.setStopPacket(true);
-			player.getActionSender().removeInterfaces();
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			    @Override
-			    public void execute(CycleEventContainer b) {
-				int count = amountRing;
-				if (!player.getInventory().playerHasItem(PERFECT_GOLD_BAR) || !player.getInventory().playerHasItem(1603) || count == 0) {
-				    b.stop();
-				    return;
-				} else {
-				    player.getInventory().replaceItemWithItem(new Item(PERFECT_GOLD_BAR), new Item(PERFECT_RING));
-				    player.getInventory().removeItem(new Item(1603));
-				    player.getUpdateFlags().sendAnimation(899);
-				    player.getActionSender().sendMessage("You craft a 'perfect' ruby ring.");
-				    player.getSkill().addExp(Skill.CRAFTING, 70);
-				    player.getActionSender().sendSound(469, 0, 0);
-				    if(count - 1 == 0) {
+		if (player.getStatedInterface().equals("perfect gold")) {
+		    if (player.getSkill().getLevel()[Skill.CRAFTING] >= 34) {
+			if (player.getInventory().playerHasItem(PERFECT_GOLD_BAR) && player.getInventory().playerHasItem(1592) && player.getInventory().playerHasItem(1603)) {
+			    player.setStopPacket(true);
+			    player.getActionSender().removeInterfaces();
+			    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+				    int count = amountRing;
+				    if (!player.getInventory().playerHasItem(PERFECT_GOLD_BAR) || !player.getInventory().playerHasItem(1603) || count == 0) {
 					b.stop();
+					return;
+				    } else {
+					player.getInventory().replaceItemWithItem(new Item(PERFECT_GOLD_BAR), new Item(PERFECT_RING));
+					player.getInventory().removeItem(new Item(1603));
+					player.getUpdateFlags().sendAnimation(899);
+					player.getActionSender().sendMessage("You craft a 'perfect' ruby ring.");
+					player.getSkill().addExp(Skill.CRAFTING, 70);
+					player.getActionSender().sendSound(469, 0, 0);
+					if (count - 1 == 0) {
+					    b.stop();
+					}
+					count--;
 				    }
-				    count--;
 				}
-			    }
 
-			    @Override
-			    public void stop() {
-				player.setStopPacket(false);
-				return;
-			    }
-			}, 4);
-			return true;
+				@Override
+				public void stop() {
+				    player.setStopPacket(false);
+				    return;
+				}
+			    }, 4);
+			    return true;
+			} else {
+			    player.getActionSender().removeInterfaces();
+			    player.getActionSender().sendMessage("You do not have the materials required.");
+			    return true;
+			}
 		    } else {
-			player.getActionSender().removeInterfaces();
-			player.getActionSender().sendMessage("You do not have the materials required.");
+			player.getDialogue().sendStatement("You need a Crafting level of 34 to make this.");
 			return true;
 		    }
 		} else {
-		    player.getDialogue().sendStatement("You need a Crafting level of 34 to make this.");
-		    return true;
+		    return false;
 		}
 	    case MAKE_1_NECKLACE:
 	    case MAKE_5_NECKLACE:
 	    case MAKE_10_NECKLACE:
-		if (player.getSkill().getLevel()[Skill.CRAFTING] >= 40) {
-		    if (player.getInventory().playerHasItem(PERFECT_GOLD_BAR) && player.getInventory().playerHasItem(1597) && player.getInventory().playerHasItem(1603) && player.getStatedInterface().equals("perfect gold")) {
-			player.setStopPacket(true);
-			player.getActionSender().removeInterfaces();
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			    @Override
-			    public void execute(CycleEventContainer b) {
-				int count = amountNecklace;
-				if (!player.getInventory().playerHasItem(PERFECT_GOLD_BAR) || !player.getInventory().playerHasItem(1603) || count == 0) {
-				    b.stop();
-				    return;
-				} else {
-				    player.getInventory().replaceItemWithItem(new Item(PERFECT_GOLD_BAR), new Item(PERFECT_NECKLACE));
-				    player.getInventory().removeItem(new Item(1603));
-				    player.getActionSender().sendMessage("You craft a 'perfect' ruby necklace.");
-				    player.getSkill().addExp(Skill.CRAFTING, 75);
-				    player.getUpdateFlags().sendAnimation(899);
-				    player.getActionSender().sendSound(469, 0, 0);
-				    if(count - 1 == 0) {
+		if (player.getStatedInterface().equals("perfect gold")) {
+		    if (player.getSkill().getLevel()[Skill.CRAFTING] >= 40) {
+			if (player.getInventory().playerHasItem(PERFECT_GOLD_BAR) && player.getInventory().playerHasItem(1597) && player.getInventory().playerHasItem(1603) && player.getStatedInterface().equals("perfect gold")) {
+			    player.setStopPacket(true);
+			    player.getActionSender().removeInterfaces();
+			    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+				    int count = amountNecklace;
+				    if (!player.getInventory().playerHasItem(PERFECT_GOLD_BAR) || !player.getInventory().playerHasItem(1603) || count == 0) {
 					b.stop();
+					return;
+				    } else {
+					player.getInventory().replaceItemWithItem(new Item(PERFECT_GOLD_BAR), new Item(PERFECT_NECKLACE));
+					player.getInventory().removeItem(new Item(1603));
+					player.getActionSender().sendMessage("You craft a 'perfect' ruby necklace.");
+					player.getSkill().addExp(Skill.CRAFTING, 75);
+					player.getUpdateFlags().sendAnimation(899);
+					player.getActionSender().sendSound(469, 0, 0);
+					if (count - 1 == 0) {
+					    b.stop();
+					}
+					count--;
 				    }
-				    count--;
 				}
-			    }
 
-			    @Override
-			    public void stop() {
-				player.setStopPacket(false);
-			    }
-			}, 4);
-			return true;
+				@Override
+				public void stop() {
+				    player.setStopPacket(false);
+				}
+			    }, 4);
+			    return true;
+			} else {
+			    player.getActionSender().removeInterfaces();
+			    player.getActionSender().sendMessage("You do not have the materials required.");
+			    return true;
+			}
 		    } else {
-			player.getActionSender().removeInterfaces();
-			player.getActionSender().sendMessage("You do not have the materials required.");
+			player.getDialogue().sendStatement("You need a Crafting level of 40 to make this.");
 			return true;
 		    }
 		} else {
-		    player.getDialogue().sendStatement("You need a Crafting level of 40 to make this.");
-		    return true;
+		    return false;
 		}
 	}
 	return false;

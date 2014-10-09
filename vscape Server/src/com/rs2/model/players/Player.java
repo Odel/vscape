@@ -438,6 +438,7 @@ public class Player extends Entity {
     private int[] pinAttempt = new int[4];
     private long logoutTimer;
     private int coalTruckAmount;
+    private int dfsCharges = 0;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -456,6 +457,11 @@ public class Player extends Entity {
 	private boolean phoenixGang = false;
 	private boolean blackArmGang = false;
 	private boolean melzarsDoor = false;
+	private boolean shipyardGate = false;
+	private boolean tTwig = false;
+	private boolean uTwig = false;
+	private boolean zTwig = false;
+	private boolean oTwig = false;
 	private boolean bananaCrate = false;
 	private boolean snailSlime = false;
 	private boolean idPapers = false;
@@ -656,6 +662,7 @@ public class Player extends Entity {
 				}
 			}
 		} catch (Exception ex) {
+		    System.out.println("here1");
 			disconnect();
 		}
 	}
@@ -764,8 +771,10 @@ public class Player extends Entity {
 		if(timeOutCheck()) {
 		    disconnect();
 		}
-		if(!this.getSocketChannel().isConnected()) {
-		    System.out.println("here");
+		try {
+		    socketChannel.getRemoteAddress();
+		} catch(IOException e) {
+		    System.out.println("not connected");
 		    disconnect();
 		}
 		// Npc.checkAggressiveness(this);
@@ -2008,6 +2017,11 @@ public class Player extends Entity {
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
+		}
+		else if (keyword.equalsIgnoreCase("scrolltest")) {
+		    for(int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
+			this.getActionSender().sendString("" + i, i);
+		    }
 		}
 		else if (keyword.equalsIgnoreCase("carpet")) {
 			int xDiff = Integer.parseInt(args[0]);
@@ -4140,7 +4154,36 @@ public class Player extends Entity {
 	    if(this.isPhoenixGang()) this.blackArmGang = false;
 	    else this.blackArmGang = bool;
 	}
-	
+	public boolean hasPlacedOTwig() {
+	    return oTwig;
+	}
+	public void setPlacedOTwig(boolean bool) {
+	    this.oTwig = bool;
+	}
+	public boolean hasPlacedZTwig() {
+	    return zTwig;
+	}
+	public void setPlacedZTwig(boolean bool) {
+	    this.zTwig = bool;
+	}
+	public boolean hasPlacedUTwig() {
+	    return uTwig;
+	}
+	public void setPlacedUTwig(boolean bool) {
+	    this.uTwig = bool;
+	}
+	public boolean hasPlacedTTwig() {
+	    return tTwig;
+	}
+	public void setPlacedTTwig(boolean bool) {
+	    this.tTwig = bool;
+	}
+	public boolean getShipyardGateOpen() {
+	    return shipyardGate;
+	}
+	public void setShipyardGateOpen(boolean bool) {
+	    this.shipyardGate = bool;
+	}
 	public boolean getMelzarsDoorUnlock() {
 	    return melzarsDoor;
 	}
@@ -5155,10 +5198,20 @@ public class Player extends Entity {
 				return true;
 			}
 			break;
+		case 1010101: //dfs
+		    if (getEquipment().getId(Constants.SHIELD) == 11284 || getEquipment().getId(Constants.SHIELD) == 11283) {
+				if (getCombatingEntity() == null) {
+					getActionSender().sendMessage("You can only use this when attacking something.");
+					return true;
+				}
+				SpecialType.dfsUncharge(this);
+				return true;
+			}
+			break;
 		}
 		boolean before = specialAttackActive;
 		if (equippedWeapon.getWeaponInterface().getSpecialBarButtonId() != buttonId){
-			if(buttonId != 48034 && buttonId != 29049 && buttonId !=  29074 && buttonId !=  29199) //new client temporary
+			if(buttonId != 48034 && buttonId != 29049 && buttonId !=  29074 && buttonId !=  29199 && buttonId != 1010101) //new client temporary
 				return false;
 		}
 		setSpecialAttackActive(!specialAttackActive);
@@ -6316,7 +6369,12 @@ public class Player extends Entity {
 	public int getCoalTruckAmount() {
 		return coalTruckAmount;
 	}
-
+	public void setDfsCharges(int set) {
+	    this.dfsCharges = set;
+	}
+	public int getDfsCharges() {
+	    return this.dfsCharges;
+	}
 	/**
 	 * @param lastPersonChallenged the lastPersonChallenged to set
 	 */
@@ -6373,7 +6431,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Ghosts Ahoy", 12282); //ghosts ahoy
 		getActionSender().sendString("", 13577); //the giant dwarf
 		getActionSender().sendString("", 12839); //the golem
-		getActionSender().sendString("", 7361); //the grand tree
+		getActionSender().sendString("@red@The Grand Tree", 7361); //the grand tree
 		getActionSender().sendString("", 11857); //haunted mine
 		getActionSender().sendString("", 7362); //hazeel cult
 		getActionSender().sendString("@red@Heroes Quest", 7363); //heroes quest
