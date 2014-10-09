@@ -36,7 +36,7 @@ public class SQL {
 				Class.forName("org.sqlite.JDBC").newInstance();
 			    con = DriverManager.getConnection("jdbc:sqlite:test.db");
 			    stmt = con.createStatement();
-			    query("create table if not exists skillsoverall (playerName CHAR(50), totalxp INT, totallevel INT )");
+			    query("create table if not exists skillsoverall (username CHAR(50), totalxp INT, totallevel INT )");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
