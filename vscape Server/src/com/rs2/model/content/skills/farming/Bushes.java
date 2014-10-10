@@ -54,7 +54,7 @@ public class Bushes {
 	/* This is the enum holding the seeds info */
 
 	public enum BushesData {
-		REDBERRY(5101, 1951, 1, 10, new int[]{5478, 4}, 5, 0.20, 11.5, 4.5, 0x05, 0x0e, 0x09, 0x3a, 64), 
+		REDBERRY(5101, 1951, 1, 10, new int[]{5478, 4}, 100, 0.20, 11.5, 4.5, 0x05, 0x0e, 0x09, 0x3a, 64), 
 		CADAVABERRY(5102, 753, 1, 22, new int[]{5968, 3}, 140, 0.20, 18, 7, 0x0f, 0x19, 0x14, 0x3b, 102.5), 
 		DWELLBERRY(5103, 2126, 1, 36, new int[]{5406, 3}, 140, 0.20, 31.5, 12, 0x1a, 0x25, 0x20, 0x3c, 177.5), 
 		JANGERBERRY(5104, 247, 1, 48, new int[]{5982, 6}, 160, 0.20, 50.5, 19, 0x26, 0x32, 0x2d, 0x3d, 284.5), 
