@@ -60,7 +60,8 @@ public class DwarfMultiCannon {
 		
 		Position pos = player.getPosition();
 		GameObject p = ObjectHandler.getInstance().getObject(pos.getX(), pos.getY(), pos.getZ());
-		if (p != null || player.inBank() || player.isInDuelArea() || player.inDuelArena() || player.isWarriorsGuild() || player.inSlayerTower()) {
+		if (p != null || player.inBank() || player.isInDuelArea() || player.inDuelArena() 
+				|| player.isWarriorsGuild() || player.inSlayerTower() || player.inFightCaves() || player.inCaves()) {
 			player.getActionSender().sendMessage("You can't place a Dwarf Cannon here.");
 			return;
 		}
