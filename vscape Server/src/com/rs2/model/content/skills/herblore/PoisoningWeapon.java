@@ -66,7 +66,7 @@ public class PoisoningWeapon {
         MITHRIL_SPEAR(1243, 1257, 5710, 5624),
         ADAMANT_SPEAR(1245, 1259, 5712, 5626),
         RUNE_SPEAR(1247, 1261, 5714, 5628),
-        DRAGON_SPEAR(1249, 1263, 5716, 5630);
+        DRAGON_SPEAR(1249, 1263, 5716, 5730);
 
 		private int itemId;
 		private int firstStageId;
