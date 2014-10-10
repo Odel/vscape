@@ -338,6 +338,10 @@ public abstract class Entity {
 		return Area(2586, 2601, 3142, 3144);
 	}
 	
+	public boolean isWarriorsGuild(){
+		return inWarriorGuild() || inWarriorGuildArena() || inWarriorGuildCagesNorth() || inWarriorGuildCagesWest();
+	}
+	
 	public boolean inDarkWizardCircle() {
 		return Area(3224, 3231, 3367, 3372);
 	}
@@ -351,7 +355,11 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inDuelArena() || inFightCaves() || inPestControlGameArea();
+		return inDuelArena() || isInDuelArea() || inFightCaves() || inPestControlGameArea();
+	}
+	
+	public boolean inSlayerTower() {
+		return Area(3403, 3453, 3530, 3580);
 	}
 
 	public void setIndex(int index) {
