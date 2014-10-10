@@ -115,6 +115,7 @@ public class DwarfMultiCannon {
 				    		inv.removeItem(new Item(12,1));
 				    		SetCannonObject(new GameObject(6, cannonPos.getX(), cannonPos.getY(), cannonPos.getZ(), -1, 10, -1, 99999));
 							World.registerCannon(getCannonObject());
+							processCannonLife();
 				    	}
 				    	container.stop();
 					break;
@@ -165,6 +166,8 @@ public class DwarfMultiCannon {
 		setFiring(false);
 		setAmmo(0);
 		setCannonDirection(0);
+		setBroken(false);
+		currentLife = 0;
 	}
 	
 	public void pickupCannon()
@@ -182,8 +185,49 @@ public class DwarfMultiCannon {
 		}
 	}
 	
+	private void breakCannon(){
+		setBroken(true);
+		setFiring(false);
+		currentLife = 0;
+		player.getActionSender().sendMessage("Your Dwarf Cannon has broken down!");
+	}
+	
+	private void processCannonLife() {
+		if(isBroken())
+		{
+			return;
+		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+                if (player == null || isBroken() || !hasCannon()) {
+                    container.stop();
+                    return;
+                }
+                if(currentLife < getMaxLife())
+                {
+                	currentLife += 60;
+                }
+                if(currentLife >= getMaxLife())
+                {
+                	breakCannon();
+                    container.stop();
+                    return;
+                }
+			}
+			@Override
+			public void stop() {
+			}
+		}, 60);
+	}
+	
 	private void processCannon(int x, int y, int z) {
 		if(!checkCannonOwner(x, y, z)){
+			return;
+		}
+		if(isBroken())
+		{
+			player.getActionSender().sendMessage("This Dwarf Cannon is broken and cannot fire!");
 			return;
 		}
 		if(isFiring())
@@ -203,9 +247,7 @@ public class DwarfMultiCannon {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-                if (player == null || !isFiring() || (getAmmo() <= 0) || !hasCannon()) {
-        			setFiring(false);
-        			setAmmo(0);
+                if (player == null || isBroken() || !isFiring() || (getAmmo() <= 0) || !hasCannon()) {
                     container.stop();
                     return;
                 }
@@ -299,6 +341,8 @@ public class DwarfMultiCannon {
 		if(getAmmo() <= 0)
 		{
 			player.getActionSender().sendMessage("Your Dwarf Cannon has ran out of ammo!");
+			setFiring(false);
+			setAmmo(0);
 		}
 	}
 	// oh dear lord (from hit def)
@@ -395,6 +439,11 @@ public class DwarfMultiCannon {
 	private void loadCannon(int item, int slot, int x, int y, int z)
 	{
 		if(!checkCannonOwner(x, y, z)){
+			return;
+		}
+		if(isBroken())
+		{
+			player.getActionSender().sendMessage("This Dwarf Cannon is broken and cannot be loaded!");
 			return;
 		}
 		if(getAmmo() >= maxAmmo)
@@ -594,6 +643,21 @@ public class DwarfMultiCannon {
 		return curAmmo;
 	}
 	
+	public void setBroken(boolean state)
+	{
+		broken = state;
+	}
+	
+	public boolean isBroken()
+	{
+		return broken;
+	}
+	
+	public int getMaxLife()
+	{
+		return maxLife;
+	}
+	
 	private int cannonStage = 0;
 	private boolean hasCannon = false;
 	private Position cannonPosition = null;
@@ -603,4 +667,7 @@ public class DwarfMultiCannon {
 	private boolean firing = false;
 	private int curAmmo = 0;
 	private final int maxAmmo = 30;
+	private boolean broken = false;
+	private int currentLife = 0;
+	private final int maxLife = 900; // (900) 15 minutes
 }
