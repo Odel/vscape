@@ -58,26 +58,13 @@ public class DwarfMultiCannon {
 			return;
 		}
 		
-		Position pos = player.getPosition();
-		GameObject p = ObjectHandler.getInstance().getObject(pos.getX(), pos.getY(), pos.getZ());
-		GameObject p2 = ObjectHandler.getInstance().getObject(pos.getX()+1, pos.getY()+1, pos.getZ());
-		if (p != null || p2 != null || player.inBank() || player.isInDuelArea() || player.inDuelArena() 
-				|| player.isWarriorsGuild() || player.inSlayerTower() || player.inFightCaves() || player.inCaves()) {
-			player.getActionSender().sendMessage("You can't place a Dwarf Cannon here.");
-			return;
-		}
-		if(!Misc.checkClip(pos, new Position(pos.getX(),pos.getY()+1,pos.getZ()), false) ||
-		   !Misc.checkClip(pos, new Position(pos.getX()+1,pos.getY()+1,pos.getZ()), false) ||
-		   !Misc.checkClip(pos, new Position(pos.getX()+1,pos.getY()+2,pos.getZ()), false))
-		{
-			player.getActionSender().sendMessage("You can't place a Dwarf Cannon here.");
-			return;
-		}
+		final Position pos = player.getPosition();
 		if(!canBuild(pos))
 		{
-			player.getActionSender().sendMessage("You can't place a Dwarf Cannon this close to another Dwarf Cannon.");
 			return;
 		}
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
 		setHasCannon(true);
 		setCannonPos(new Position(pos.getX(),pos.getY(),pos.getZ()));
 		setInMulti(player.inMulti());
@@ -87,7 +74,6 @@ public class DwarfMultiCannon {
 			Position cannonPos = getCannonPos();
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.setStopPacket(true);
 				player.getUpdateFlags().sendAnimation(827);
 				stage++;
 				setCannonStage(stage);
@@ -502,7 +488,16 @@ public class DwarfMultiCannon {
 	}
 	
 	private boolean canBuild(Position pos){
-		
+		GameObject p = ObjectHandler.getInstance().getObject(pos.getX(), pos.getY(), pos.getZ());
+		if (p != null || player.inBank() || player.isInDuelArea() || player.inDuelArena() 
+				|| player.isWarriorsGuild() || player.inSlayerTower() || player.inFightCaves() || player.inCaves()) {
+			player.getActionSender().sendMessage("You can't place a Dwarf Cannon here.");
+			return false;
+		}
+		if(!Misc.checkClip(pos, new Position(pos.getX()+1,pos.getY()+1,pos.getZ()), 2, 2)) {
+			player.getActionSender().sendMessage("You can't place a Dwarf Cannon here.");
+			return false;
+		}
 		for (GameObject c : World.getCannons()) {
 			if(c == null)
 				continue;
@@ -510,12 +505,13 @@ public class DwarfMultiCannon {
 			Position objPos = c.getDef().getPosition();
 			if(pos.withinDistance(new Position(objPos.getX(),objPos.getY(),objPos.getZ()), MIN_BUILD_DISTANCE))
 			{
+				player.getActionSender().sendMessage("You can't place a Dwarf Cannon this close to another Dwarf Cannon.");
 				return false;
 			}
 		}
 		return true;
 	}
-	
+		
 	public boolean itemFirstClick(final int item, int slot)  
 	{
 		switch(item)
