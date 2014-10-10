@@ -73,12 +73,7 @@ public class DwarfMultiCannon {
 		setHasCannon(true);
 		setCannonPos(new Position(pos.getX(),pos.getY(),pos.getZ()));
 		setInMulti(player.inMulti());
-		if (player.canMove(-1, 0)) {
-			player.getActionSender().walkTo(-1, 0, false);
-		} else {
-			player.getActionSender().walkTo(1, 0, false);
-        }
-		player.getUpdateFlags().sendFaceToDirection(new Position(getCannonPos().getX(), getCannonPos().getY()));
+		player.getUpdateFlags().sendFaceToDirection(getCannonPosOffset());
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int stage = 0;
 			Position cannonPos = getCannonPos();
@@ -135,6 +130,7 @@ public class DwarfMultiCannon {
 		if(!checkCannonOwner(x, y, z)){
 			return;
 		}
+		player.getUpdateFlags().sendAnimation(827);
 		removeCannonObj(getCannonObject());
 		switch (getCannonStage()) {
 			case 1:
@@ -305,7 +301,7 @@ public class DwarfMultiCannon {
 			setAmmo(0);
 			return;
 		}
-		Npc target = getTarget(getCannonPos());
+		Npc target = getTarget(getCannonPosOffset());
 		if(target != null && !target.isDead())
 		{
 			if(getInMulti())
@@ -326,15 +322,15 @@ public class DwarfMultiCannon {
 	// oh dear lord
 	public void hit(int damage, HitType hitType, Entity attacker, Entity victim) {
 		ProjectileTrajectory projectileTrajectory = CANNON_PROJECTILE.getProjectileTrajectory();
-		final byte offsetX = (byte)(getCannonPos().getY() - victim.getPosition().getY());
-		final byte offsetY = (byte)(getCannonPos().getX() - victim.getPosition().getX());
-		int distance = Misc.getDistance(getCannonPos(), victim.getPosition());
+		final byte offsetX = (byte)(getCannonPosOffset().getY() - victim.getPosition().getY());
+		final byte offsetY = (byte)(getCannonPosOffset().getX() - victim.getPosition().getX());
+		int distance = Misc.getDistance(getCannonPosOffset(), victim.getPosition());
 		int slowness = projectileTrajectory.getSlowness();
 		final int duration = projectileTrajectory.getDelay() + slowness + distance * 5;
-		World.sendProjectile(getCannonPos(), 1, victim.getIndex() + 1, offsetX, offsetY, CANNON_PROJECTILE.getProjectileId(), projectileTrajectory.getDelay(), duration, projectileTrajectory.getStartHeight(), projectileTrajectory.getEndHeight(), projectileTrajectory.getCurve());
+		World.sendProjectile(getCannonPosOffset(), 1, victim.getIndex() + 1, offsetX, offsetY, CANNON_PROJECTILE.getProjectileId(), projectileTrajectory.getDelay(), duration, projectileTrajectory.getStartHeight(), projectileTrajectory.getEndHeight(), projectileTrajectory.getCurve());
 		HitDef hitDef = new HitDef(null, hitType, damage).setUnblockable(true).setDoBlock(false);
 		hitDef.randomizeDamage();
-		hitDef.setDamageDelay(calculateHitDelay(getCannonPos(), victim.getPosition(), CANNON_PROJECTILE));
+		hitDef.setDamageDelay(calculateHitDelay(getCannonPosOffset(), victim.getPosition(), CANNON_PROJECTILE));
 		Hit hit = new Hit(attacker, victim, hitDef);
 		hit.initialize();
 		setAmmo(getAmmo() - 1);
@@ -459,7 +455,10 @@ public class DwarfMultiCannon {
 		}
 		if(ammoToAdd > 0){
 			if(player.getInventory().playerHasItem(item, ammoToAdd)){
-				player.getInventory().removeItemSlot(new Item(item, ammoToAdd), slot);
+				if(!player.getInventory().removeItemSlot(new Item(item, ammoToAdd), slot))
+				{
+					player.getInventory().removeItem(new Item(item, ammoToAdd));
+				}
 				player.getActionSender().sendMessage("You load the Dwarf Cannon with " + ammoToAdd + " cannonball"
 					    + (ammoToAdd == 1 ? "" : "s") + ".");
 				setAmmo(getAmmo() + ammoToAdd);
@@ -591,6 +590,11 @@ public class DwarfMultiCannon {
 	public Position getCannonPos()
 	{
 		return cannonPosition;
+	}
+	
+	public Position getCannonPosOffset()
+	{
+		return new Position((getCannonPos().getX()+1),(getCannonPos().getY()+1),getCannonPos().getZ());
 	}
 	
 	public void SetCannonObject(GameObject obj)

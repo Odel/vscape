@@ -216,6 +216,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(player.getMultiCannon().objectFirstClick(id, x, y, z)) {
+					this.stop();
+				    return;
+				}
 				if(x == 2763 && y == 3402 && player.getClickId() == 71) {
 				    if(player.getQuestStage(11) < 6) {
 					player.getDialogue().sendStatement("These doors are locked.");
@@ -1868,6 +1872,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(player.getMultiCannon().objectSecondClick(id, x, y, z)) {
+					this.stop();
+				    return;
+				}
 				switch (player.getClickId()) {
 				case 2114 : // coal truck
 					CoalTruck.checkCoal(player);
@@ -2608,6 +2616,10 @@ public class WalkToActionHandler {
 				if (MixingRunes.combineRunes(player, item, id)) {
 					this.stop();
 					return;
+				}
+				if(player.getMultiCannon().itemOnObject(item, player.getSlot(), id, x, y, z)) {
+					this.stop();
+				    return;
 				}
 				if (item >= 3422 && item <= 3428 && id == 4090) {
 					player.getInventory().removeItem(new Item(item));

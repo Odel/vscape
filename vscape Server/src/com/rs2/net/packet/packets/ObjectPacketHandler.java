@@ -89,9 +89,6 @@ public class ObjectPacketHandler implements PacketHandler {
 		    //player.getActionSender().removeInterfaces();
 		return;
 		}
-		if(player.getMultiCannon().itemOnObject(player.getClickItem(), player.getSlot(), player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) {
-		    return;
-		}
 		if(player.getClickId() == PriestInPeril.COFFIN) {
 		    if(player.getQuestStage(23) == 8 && player.getClickItem() == PriestInPeril.BUCKET_OF_BLESSED_WATER) {
 			player.getDialogue().sendStatement("You pour the blessed water on the vampire's coffin.", "You hear muted screams of rage from inside the coffin.", "It seems safe to say the vampire is trapped now.");
@@ -172,9 +169,6 @@ public class ObjectPacketHandler implements PacketHandler {
 		if(HorrorFromTheDeep.doMiscObjectClicking(player, player.getClickId(), player.getClickX(), player.getClickY())) {
 		    return;
 		}
-		if(player.getMultiCannon().objectFirstClick(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) {
-		    return;
-		}
 		if (player.getClickId() == 9293) {
                 if (player.getPosition().getX() == 2892) {
                     Agility.crawlPipe(player, 2886, 9799, 6, 70, 47);
@@ -246,9 +240,6 @@ public class ObjectPacketHandler implements PacketHandler {
 		}
 		if(player.getClickId() == 12100) {	
 		    Smelting.smeltInterface(player);
-		    return;
-		}
-		if(player.getMultiCannon().objectSecondClick(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) {
 		    return;
 		}
 		Following.resetFollow(player);
