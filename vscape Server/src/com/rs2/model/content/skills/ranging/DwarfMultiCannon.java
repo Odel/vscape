@@ -272,6 +272,9 @@ public class DwarfMultiCannon {
 			}else{
 				if(target.isAttacking() && target.getCombatingEntity() != getOwner())
 					return;
+				if(player.getCombatingEntity() != null && player.getCombatingEntity() != target)
+					return;
+				
 				CombatManager.attack(target, getOwner());
 				hit(MAX_DAMAGE, HitType.NORMAL, getOwner(), target);
 			}
@@ -332,6 +335,13 @@ public class DwarfMultiCannon {
 			
 			if(!Misc.checkClip(pos, npc.getPosition(), false))
 				continue;
+			
+			if(!getInMulti()){
+				if(npc.isAttacking() && npc.getCombatingEntity() != getOwner())
+					continue;
+				if(player.getCombatingEntity() != null && player.getCombatingEntity() != npc)
+					continue;
+			}
 			
             int cannonX = pos.getX();
             int cannonY = pos.getY();
