@@ -54,7 +54,12 @@ public class Bushes {
 	/* This is the enum holding the seeds info */
 
 	public enum BushesData {
-		REDBERRY(5101, 1951, 1, 10, new int[]{5478, 4}, 100, 0.20, 11.5, 4.5, 0x05, 0x0e, 0x09, 0x3a, 64), CADAVABERRY(5102, 753, 1, 22, new int[]{5968, 3}, 140, 0.20, 18, 7, 0x0f, 0x19, 0x14, 0x3b, 102.5), DWELLBERRY(5103, 2126, 1, 36, new int[]{5406, 3}, 140, 0.20, 31.5, 12, 0x1a, 0x25, 0x20, 0x3c, 177.5), JANGERBERRY(5104, 247, 1, 48, new int[]{5982, 6}, 160, 0.20, 50.5, 19, 0x26, 0x32, 0x2d, 0x3d, 284.5), WHITEBERRY(5105, 239, 1, 59, new int[]{6004, 8}, 160, 0.20, 78, 29, 0x33, 0x3f, 0x3a, 0x3e, 437.5), POISONIVYBERRY(5106, 6018, 1, 70, null, 160, 0.20, 120, 45, 0xc5, 0xd1, 0xcc, 0x3f, 674);
+		REDBERRY(5101, 1951, 1, 10, new int[]{5478, 4}, 5, 0.20, 11.5, 4.5, 0x05, 0x0e, 0x09, 0x3a, 64), 
+		CADAVABERRY(5102, 753, 1, 22, new int[]{5968, 3}, 140, 0.20, 18, 7, 0x0f, 0x19, 0x14, 0x3b, 102.5), 
+		DWELLBERRY(5103, 2126, 1, 36, new int[]{5406, 3}, 140, 0.20, 31.5, 12, 0x1a, 0x25, 0x20, 0x3c, 177.5), 
+		JANGERBERRY(5104, 247, 1, 48, new int[]{5982, 6}, 160, 0.20, 50.5, 19, 0x26, 0x32, 0x2d, 0x3d, 284.5), 
+		WHITEBERRY(5105, 239, 1, 59, new int[]{6004, 8}, 160, 0.20, 78, 29, 0x33, 0x3f, 0x3a, 0x3e, 437.5),
+		POISONIVYBERRY(5106, 6018, 1, 70, null, 160, 0.20, 120, 45, 0xc5, 0xd1, 0xcc, 0x3f, 674);
 
 		private int seedId;
 		private int harvestId;
@@ -160,7 +165,10 @@ public class Bushes {
 	/* This is the enum data about the different patches */
 
 	public enum BushesFieldsData {
-		ETCETERIA(0, new Position[]{new Position(2591, 3863), new Position(2592, 3864)}, 2337), SOUTH_ARDOUGNE(1, new Position[]{new Position(2617, 3225), new Position(2618, 3226)}, 2338), CHAMPION_GUILD(2, new Position[]{new Position(3181, 3357), new Position(3182, 3358)}, 2335), RIMMINGTON(3, new Position[]{new Position(2940, 3221), new Position(2941, 3222)}, 2336);
+		ETCETERIA(0, new Position[]{new Position(2591, 3863), new Position(2592, 3864)}, 2337), 
+		SOUTH_ARDOUGNE(1, new Position[]{new Position(2617, 3225), new Position(2618, 3226)}, 2338), 
+		CHAMPION_GUILD(2, new Position[]{new Position(3181, 3357), new Position(3182, 3358)}, 2335),
+		RIMMINGTON(3, new Position[]{new Position(2940, 3221), new Position(2941, 3222)}, 2336);
 
 		private int bushesIndex;
 		private Position[] bushesPosition;
@@ -411,7 +419,7 @@ public class Bushes {
 		if (farmingStages[bushesFieldsData.getBushesIndex()] == 3) {
 			return true;
 		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
@@ -476,7 +484,7 @@ public class Bushes {
 		if (bushesFieldsData == null || bushesData == null) {
 			return false;
 		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
@@ -545,7 +553,7 @@ public class Bushes {
 		if (bushesData == null) {
 			return false;
 		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
@@ -650,7 +658,7 @@ public class Bushes {
 		if (bushesFieldsData == null) {
 			return false;
 		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
@@ -707,7 +715,7 @@ public class Bushes {
 		if (bushesFieldsData == null) {
 			return false;
 		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
@@ -727,11 +735,7 @@ public class Bushes {
 		if (bushesData == null) {
 			return false;
 		}
-		if (!Constants.FARMING_ENABLED) {
-			player.getActionSender().sendMessage("This skill is currently disabled.");
-			return true;
-		}
-		if (!Constants.FARMING_ENABLED) {
+		if (!Constants.FARMING_ENABLED || !Constants.FARMING_BUSHES_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
