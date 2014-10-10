@@ -5789,7 +5789,7 @@
   },
   {
     "npcId": 53,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 536,
@@ -19409,7 +19409,7 @@
   },
   {
     "npcId": 116,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 995,
@@ -20279,7 +20279,7 @@
   },
   {
     "npcId": 117,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 532,
@@ -22577,7 +22577,7 @@
   },
   {
     "npcId": 122,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -26815,7 +26815,7 @@
   },
   {
     "npcId": 158,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 1233,
@@ -28426,7 +28426,7 @@
   },
   {
     "npcId": 178,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -29058,7 +29058,7 @@
   },
   {
     "npcId": 179,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -29717,7 +29717,7 @@
   },
   {
     "npcId": 181,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -47141,7 +47141,7 @@
   },
   {
     "npcId": 677,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 592,
@@ -73435,7 +73435,7 @@
   },
   {
     "npcId": 1153,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 555,
@@ -74005,7 +74005,7 @@
   },
   {
     "npcId": 1154,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 1157,
@@ -84048,7 +84048,7 @@
   },
   {
     "npcId": 1338,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -84285,7 +84285,7 @@
   },
   {
     "npcId": 1339,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -84522,7 +84522,7 @@
   },
   {
     "npcId": 1340,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -84759,7 +84759,7 @@
   },
   {
     "npcId": 1341,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -84996,7 +84996,7 @@
   },
   {
     "npcId": 1342,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -85233,7 +85233,7 @@
   },
   {
     "npcId": 1343,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -94057,7 +94057,7 @@
   },
   {
     "npcId": 1590,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 536,
@@ -100475,7 +100475,7 @@
   },
   {
     "npcId": 1604,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 5281,
@@ -103489,7 +103489,7 @@
   },
   {
     "npcId": 1609,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -104941,7 +104941,7 @@
   },
   {
     "npcId": 1613,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 592,
@@ -108353,7 +108353,7 @@
   },
   {
     "npcId": 1624,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -109505,7 +109505,7 @@
   },
   {
     "npcId": 1627,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -145084,7 +145084,7 @@
   },
   {
     "npcId": 2274,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -160786,7 +160786,7 @@
   },
   {
     "npcId": 2604,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 6568,
@@ -163130,7 +163130,7 @@
   },
   {
     "npcId": 2610,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 6568,
@@ -183029,7 +183029,7 @@
   },
   {
     "npcId": 2881,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 6729,
@@ -183147,7 +183147,7 @@
   },
   {
     "npcId": 2882,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 6729,
@@ -183265,7 +183265,7 @@
   },
   {
     "npcId": 2883,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 6729,
@@ -195900,7 +195900,7 @@
   },
   {
     "npcId": 3200,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 1289,
@@ -224659,7 +224659,7 @@
   },
   {
     "npcId": 3406,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 882,
@@ -230053,7 +230053,7 @@
   },
   {
     "npcId": 3590,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 536,
