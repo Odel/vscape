@@ -339,6 +339,8 @@ public class Player extends Entity {
 	private boolean placedSword = false;
 	private boolean placedArrow = false;
 	private int godBook = 0;
+	private int railingsFixed = 0;
+	private ArrayList<Integer> railings = new ArrayList<>();
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
 	private int ringOfRecoilLife = 40;
@@ -4435,7 +4437,18 @@ public class Player extends Entity {
 	public void setGodBook(int set) {
 	    this.godBook = set;
 	}
-	
+	public int getRailingsFixed() {
+	    return this.railingsFixed;
+	}
+	public void setRailingsFixed(int set) {
+	    this.railingsFixed = set;
+	}
+	public void addRailingsFixed(int fixed) {
+	    railings.add(fixed);
+	}
+	public ArrayList<Integer> getRailingsArray() {
+	    return this.railings;
+	}
 	public DwarfMultiCannon getMultiCannon(){
 		return dwarfMultiCannon;
 	}
@@ -6432,7 +6445,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 12852); //desert treasure
 		getActionSender().sendString("", 7354); //dig site
 		getActionSender().sendString("@red@Druidic Ritual", 7355);
-		getActionSender().sendString("", 7356); //dwarf cannon
+		getActionSender().sendString("@red@Dwarf Cannon", 7356); //dwarf cannon
 		getActionSender().sendString("", 8679);//Eadgar's ruse
 		getActionSender().sendString("@red@Elemental Workshop", 7459); //elemental workshop
 		getActionSender().sendString("@red@Family Crest", 7357); //Family crest

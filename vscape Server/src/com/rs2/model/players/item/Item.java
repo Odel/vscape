@@ -128,7 +128,7 @@ public class Item {
 	}
 
 	public boolean validItem() {
-		return this.getId() > 0 && this.getId() <= Constants.MAX_ITEMS && this.getCount() > 0;
+		return this.getId() >= 0 && this.getId() <= Constants.MAX_ITEMS && this.getCount() > 0;
 	}
 
 	public boolean validEquipment() {

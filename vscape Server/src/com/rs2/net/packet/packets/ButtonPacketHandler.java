@@ -5,6 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
+import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
@@ -508,7 +509,10 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (Ectofungus.handleButtons(player, buttonId)) {
 			return;
 		}
-		if(FamilyCrest.buttonHandling(player, buttonId)) {
+		if (FamilyCrest.buttonHandling(player, buttonId)) {
+			return;
+		}
+		if (DwarfCannon.buttonHandling(player, buttonId)) {
 			return;
 		}
 		if (Spinning.spin(player, buttonId, 0)) {

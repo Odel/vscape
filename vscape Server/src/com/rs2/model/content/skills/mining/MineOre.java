@@ -44,7 +44,7 @@ public class MineOre {
 	// THINGS THAT STILL NEED ADDING HERE (LIMESTONE AND ELEMENTAL) THATS IT I THINK
 	public enum MiningData {
 		COPPER(new int[]{2090, 2091, 3042, 9708, 9709, 9710, 11936, 11937, 11938, 11960, 11961, 11962,14906,14907}, 436, 1, 18, 7), TIN(new int[]{2094, 2095, 3043, 9714, 9715, 9716, 11933, 11934, 11935, 11957, 11958, 11959,14902,14903}, 438, 1, 18, 7), BLURITE(new int[]{2110, 10583, 10584}, 668, 10, 17, 25), IRON(new int[]{2092, 2093, 9717, 9718, 9719, 11954, 11955, 11956,14856,14857,14858,14913,14914}, 440, 15, 35, 16), COAL(new int[]{2096, 2097, 10948, 11930, 11931, 11932, 11963, 11964, 11965,14850,14851,14852}, 453, 30, 50, 83), GEM(new int[]{2111}, -1, 40, 65, 50), SANDSTONE(new int[]{10946}, -1, 35, 0, 15), GRANITE(new int[]{10947}, 444, 45, 65, 200), GOLD(new int[]{2098, 9720, 9721, 9722, 11183, 11184, 11185, 11951, 11952, 11953}, 444, 40, 65, 150), PERFECT_GOLD(new int[]{2099}, 446, 40, 65, 150), SILVER(new int[]{2100, 2101, 11186, 11187, 11188, 11948, 11949, 11950}, 442, 20, 40, 100), MITHRIL(new int[]{2102, 2103, 11942, 11943, 11944, 11945, 11946, 11947,14853,14854,14855}, 447, 55, 80, 300), ADAMANTITE(new int[]{2104, 2105, 11939, 11940, 11941,14862,14863,14864}, 449, 70, 95, 600), RUNITE(new int[]{2106, 2107, 14859, 14860, 14861}, 451, 85, 125, 2000), CLAY(new int[]{2108, 2109, 9711, 9712, 9713, 10949, 11189, 11190, 11191,14904,14905}, 434, 1, 5, 3), EMPTY(new int[]{10944,
-				9723, 9724, 9725, 11555, 11552, 11553, 11554, 11557, 11556, 450, 451}, 0, 0, 0, 0), ELEMENTAL(new int[]{3403}, 2892, 20, 45, 20);
+				9723, 9724, 9725, 11555, 11552, 11553, 11554, 11557, 11556, 450, 451}, -1, 0, 0, 0), ELEMENTAL(new int[]{3403}, 2892, 20, 45, 20);
 		private int[] objectIDs;
 		private int oreReceived;
 		private int levelRequired;
@@ -127,7 +127,7 @@ public class MineOre {
 		}
 		final int task = player.getTask();
 		final MiningData miningData = MiningData.forId(object);
-		if (miningData == null)
+		if (miningData == null || miningData == MiningData.EMPTY)
 			return;
 		final Tool pickaxe = Tools.getTool(player, Skill.MINING);
 		if (pickaxe == null) {

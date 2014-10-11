@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
@@ -42,6 +43,10 @@ public class DwarfMultiCannon {
 	
 	private void setupCannon()
 	{
+		if(!QuestHandler.questCompleted(player, 30)) {
+		    player.getDialogue().sendStatement("You must complete Dwarf Cannon to use this.");
+		    return;
+		}
 		if(player.isDead())
 		{
 			return;

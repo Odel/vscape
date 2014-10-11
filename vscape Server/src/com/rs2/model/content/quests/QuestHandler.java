@@ -49,7 +49,8 @@ public class QuestHandler {
 	new HorrorFromTheDeep(),
 	new HeroesQuest(),
 	new FamilyCrest(),
-	new TheGrandTree()
+	new TheGrandTree(),
+	new DwarfCannon()
     };
     
     public static void init() {
@@ -200,6 +201,9 @@ public class QuestHandler {
         		return true;
 		case 28193: //The Grand Tree
 			showInterface(player,quests[29]);
+        		return true;
+		case 28188: //Dwarf Cannon
+			showInterface(player,quests[30]);
         		return true;
 
         }

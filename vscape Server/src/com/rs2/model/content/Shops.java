@@ -1,5 +1,6 @@
 package com.rs2.model.content;
 
+import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
@@ -528,8 +529,18 @@ public class Shops {
 	public static boolean openShop(Player player, int npcId) {
 		int shop = findShop(player, npcId);
 		if (shop > -1) {
+		    if(npcId != DwarfCannon.NULODION) {
 			ShopManager.openShop(player, shop);
 			return true;
+		    } else {
+			if(QuestHandler.questCompleted(player, 30)) {
+			    ShopManager.openShop(player, shop);
+			    return true;
+			} else {
+			    player.getActionSender().sendMessage("You must complete Dwarf Cannon to shop here.");
+			    return true;
+			}
+		    }
 		}
 		return false;
 	}

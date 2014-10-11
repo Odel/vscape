@@ -18,6 +18,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -205,6 +206,11 @@ public class ItemPacketHandler implements PacketHandler {
 	} else {
 	    item.setCount(1);
 	}
+	if (player.getInterface() == 3900) {
+	    ShopManager.buyItem(player, player.getSlot(), itemId, 1);
+	} else if (player.getInterface() == 3823) {
+	    ShopManager.sellItem(player, player.getSlot(), itemId, 1);
+	}
 	if (!player.getInventory().getItemContainer().contains(item.getId())) {
 	    return;
 	}
@@ -235,6 +241,7 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
+	
 	if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288 || item.getId() == 10498 || item.getId() == 10499) {
 	    if (Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
 		String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
@@ -483,6 +490,9 @@ public class ItemPacketHandler implements PacketHandler {
 	if (TheGrandTree.itemPickupHandling(player, player.getClickId())) {
 	    return;
 	}
+	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
+	    return;
+	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
 	    ItemManager.getInstance().pickupItem(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()));
 	}
@@ -633,10 +643,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    BankManager.bankItem(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 5382) {
 	    BankManager.withdrawItem(player, player.getSlot(), itemId, 5);
-	} else if (interfaceID == 3900) {
-	    ShopManager.buyItem(player, player.getSlot(), itemId, 1);
-	} else if (interfaceID == 3823) {
-	    ShopManager.sellItem(player, player.getSlot(), itemId, 1);
 	} else if (interfaceID == 3322) {
 	    if (player.getStatedInterface() == "duel") {
 		player.getDuelMainData().stakeItem(new Item(itemId, 5), player.getSlot());
