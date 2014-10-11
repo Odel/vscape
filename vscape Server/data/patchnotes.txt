@@ -1,3 +1,21 @@
+@dre@=October 11th=
+@blu@The Grand Tree
+@blu@Dwarf Cannon
+-New client brought to you by Bobster.
+-DFS can be charged and uncharged.
+-Skeletal Wyverns added.
+-Coal Trucks save coal stored on log out.
+-Freaky Forester is a less common event.
+-Visage added to Black Dragons drop table.
+-Disabled characters can now be used. ("< _ > /")
+-Ring of life can no longer take you from PC.
+-Various Npcs access the rare drop table.
+-Various bug fixes.
+@red@-Adjustments to Clue Scrolls:
+	@dbl@a.) Prevented repeat rewards
+	@dbl@b.) Increased max item reward
+	@dbl@c.) HAM clue scroll fixed.
+
 @dre@=October 1st=
 -Highscores are back up and running (and more
 features will get added to them over time)
