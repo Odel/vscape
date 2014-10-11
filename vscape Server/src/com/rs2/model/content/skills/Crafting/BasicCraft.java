@@ -98,7 +98,7 @@ public class BasicCraft {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;
 			}
-			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 54) {
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 62) {
 				player.getActionSender().sendMessage("You need a crafting level of 54 to do this.");
 				return true;
 			}
@@ -115,7 +115,7 @@ public class BasicCraft {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;
 			}
-			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 58) {
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 54) {
 				player.getDialogue().sendStatement("You need a crafting level of 58 to do this.");
 				return true;
 			}
@@ -149,8 +149,8 @@ public class BasicCraft {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;
 			}
-			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 66) {
-				player.getDialogue().sendStatement("You need a crafting level of 66 to do this.");
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 58) {
+				player.getDialogue().sendStatement("You need a crafting level of 58 to do this.");
 				return true;
 			}
 			player.getActionSender().sendMessage("You attach the orb with the battlestaff.");
