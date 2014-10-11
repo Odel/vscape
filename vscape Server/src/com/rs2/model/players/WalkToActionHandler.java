@@ -491,6 +491,18 @@ public class WalkToActionHandler {
 					}
 				    }, 4);
 				    break;
+				case 10595: //skeletal wyvern exit
+				    player.teleport(new Position(3056, 9562, 0));
+				    break;
+				case 10596: //skeletal wyvern cavern entrance
+				    if(!player.wyvernWarned()) {
+					player.getDialogue().sendStatement("STOP! The creatures in this cave are VERY dangerous. Make sure", "you are ready before entering!");
+					player.setWyvernWarned(true);
+					break;
+				    } else {
+					player.teleport(new Position(3056, 9555, 0));
+					break;
+				    }
 				case 1600:
 				case 1601:
 				    if(player.getSkill().getLevel()[Skill.MAGIC] < 66) {
@@ -1145,12 +1157,6 @@ public class WalkToActionHandler {
 					break;
 				case 9398: // deposit box
 					BankManager.openDepositBox(player);
-					break;
-				case 10596: // enter icy cavern
-					player.teleport(new Position(3056, 9555));
-					break;
-				case 10595: // exit icy cavern
-					player.teleport(new Position(3056, 9562));
 					break;
 				case 5949: // lumby jump
 					if (player.getPosition().getY() > y) {

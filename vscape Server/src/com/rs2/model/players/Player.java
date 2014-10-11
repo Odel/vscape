@@ -210,6 +210,7 @@ public class Player extends Entity {
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
 	private boolean justWonRuneDraw = false;
+	private boolean wyvernWarned = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -883,9 +884,9 @@ public class Player extends Entity {
 		else if (keyword.equals("yell") || keyword.equals("y")) {
 			Yell(fullString);
 		}
-		else if (keyword.equals("hideyell") || keyword.equals("hy")) {
+		/*else if (keyword.equals("hideyell") || keyword.equals("hy")) {
 			setHideYell(!hideYell,true);
-		}    
+		}*/
 		else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
 			setHideColors(!hideColors,true);
 		}
@@ -903,18 +904,22 @@ public class Player extends Entity {
 			appendToBugList(fullString);
 		}
 		else if (keyword.equals("home")) {
-            if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
-                getActionSender().sendMessage("You cannot do that here!");
-            } else {
-				getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
+		    if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
+			getActionSender().sendMessage("You cannot do that here!");
+		    } else {
+			if(this.getStaffRights() < 2) {
+			    getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
+			} else {
+			    teleport(new Position(Constants.START_X, Constants.START_Y, 0));
+			}
              /*   teleport(new Position(Constants.START_X, Constants.START_Y, 0));
                 getActionSender().sendMessage("You teleported home.");
                 */
             } 
 		}
-		else if (keyword.equals("showhp")) {
-			setShowHp(!showHp,true);
-                }
+		/*else if (keyword.equals("showhp")) {
+			setShowHp(!showHp, true);
+                }*/
 		else if (keyword.equals("players")) {
 			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
 			getActionSender().sendInterface(8134);
@@ -3696,7 +3701,12 @@ public class Player extends Entity {
 	public void setRuneDrawWins(int slot, boolean bool) {
 	    this.runeDrawWins[slot] = bool;
 	}
-	
+	public boolean wyvernWarned() {
+	    return this.wyvernWarned;
+	}
+	public void setWyvernWarned(boolean bool) {
+	    this.wyvernWarned = bool;
+	}
 	public boolean justWonRuneDraw() {
 		return justWonRuneDraw;
 	}

@@ -30,12 +30,14 @@ public class BoneBurying {
 		SHAIKAHAN_BONES(new int[]{3123}, 25),
 		BABYDRAGON_BONES(new int[]{534}, 30),
 		DRAGON_BONES(new int[]{536}, 72),
+		WYVERN_BONES(new int[]{6812}, 72),
 		JOGRE_BONES(new int[]{3125, 3127}, 22.5),
 		ZOGRE_BONES(new int[]{4812}, 22.5),
+		OURG_BONES(new int[]{4834}, 50),
 		FAYRG_BONES(new int[]{4830}, 84),
 		RAURG_BONES(new int[]{4832}, 96),
-		DAGANNOTH_BONES(new int[]{6729}, 125),
-		WYVERN_BONES(new int[]{4834}, 50);
+		DAGANNOTH_BONES(new int[]{6729}, 125);
+		
 		
 		int[] boneIds;
 		double xp;

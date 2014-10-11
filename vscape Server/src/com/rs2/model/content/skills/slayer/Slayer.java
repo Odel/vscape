@@ -179,7 +179,7 @@ public class Slayer { // todo fungicide
 		ABERRANT_SPECTRE("aberrant spectre", 60, new int[] { NOSE_PEG }, "equipment"),
 		DUST_DEVIL("dust devil", 65, new int[] { FACE_MASK }, "equipment"),
 		KURASK("kurask", 70, new int[] { LEAF_BLADED_SPEAR }, "equipment"),
-		SKELETAL_WYVERNS("skeletal wyvern", 72, new int[] { ELEMENTAL_SHIELD }, "equipment"),
+		SKELETAL_WYVERNS("skeletal wyvern", 72, new int[] { ELEMENTAL_SHIELD, 11283, 11284 }, "equipment"),
 		GARGOYLE("gargoyle", 75, new int[] { ROCK_HAMMER }, "use"),
 		NECHRYAL("nechryael", 80, null, "none"),
 		ABYSSAL_DEMON("abyssal demon", 85, null, "none"),
@@ -254,7 +254,7 @@ public class Slayer { // todo fungicide
 		public static final String CANIFIS_ASSIGNMENTS[] = {"basilisk", "kalphite", "cave crawler", "crawling hand", "skeleton", "earth warrior","bat", "bear","bloodveld","cockatrice","ghost", "hobgoblin","ice giant", "ice warrior", "infernal mage", "jelly","lesser demon", "ogre", "pyrefiend", "shadow warrior", "zombie", "moss giant", "rockslug", "banshee"};
 	public static final String EDGEVILLE_DUNGEON_ASSIGNMENTS[] = {"aberrant spectre", "kalphite", "ice warrior", "iron dragon", "jelly", "pyrefiend", "shadow warrior", "dagannoth", "goblin", "hill giant", "banshee", "basilisk", "bloodveld", "blue dragon", "bronze dragon", "cockatrice", "dust devil", "crawling hand", "earth warrior", "fire giant", "green dragon", "hellhound", "ice giant", "lesser demon", "moss giant", "rockslug", "turoth"};
 	public static final String ZANARIS_ASSIGNMENTS[] = {"basilisk", "abyssal demon", "kalphite", "black demon", "dust devil", "gargoyle", "greater demon", "nechryael", "skeletal wyvern", "kurask", "dagannoth", "turoth", "aberrant spectre", "gargoyle", "bronze dragon", "cockatrice", "infernal mage", "fire giant", "hellhound", "iron dragon", "jelly", "lesser demon", "pyrefiend", "steel dragon"};
-	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "abyssal demon", "kalphite", "black demon", "black dragon", "dust devil", "gargoyle", "kurask", "hellhound", "dagannoth", "nechryael", "iron dragon", "aberrant spectre", "turoth", "fire giant", "greater demon", "dark beast", "steel dragon"};
+	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "abyssal demon", "kalphite", "black demon", "black dragon", "dust devil", "gargoyle", "kurask", "hellhound", "dagannoth", "skeletal wyvern", "nechryael", "iron dragon", "aberrant spectre", "turoth", "fire giant", "greater demon", "dark beast", "steel dragon"};
 
 	public void assignNewTask(int id) {
 		SlayerMasterData master = SlayerMasterData.forId(id);

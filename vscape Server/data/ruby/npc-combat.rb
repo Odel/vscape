@@ -131,6 +131,17 @@ class BrutalGreenDragon < NpcCombatDef
     end
 end
 
+class SkeletalWyvern < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 14, 5, 2986),
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 14, 5, 2985),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 2, 10, 2988, Graphic.new(2, 0), Graphic.new(-1, 0), -1, ProjectileTrajectory.SPELL),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 14, 4, 2989, Graphic.new(499, 0), Graphic.new(502, 0), 500, ProjectileTrajectory.SPELL)
+        ];
+    end
+end
+
 class BlueDragon < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -413,3 +424,4 @@ NpcCombatDef.add([1618], BloodVeld.new())
 NpcCombatDef.add([1351, 1352, 1353, 1354, 1355, 1356], DagannothMother.new())
 NpcCombatDef.add([1341, 1342, 1343], WeakDagannothMelee.new())
 NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())
+NpcCombatDef.add([3068, 3069, 3070, 3071], SkeletalWyvern.new())

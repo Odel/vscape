@@ -66,6 +66,7 @@ public class Ectofungus {
     //public static final int[] BONEMEAL_BURNT_JOGRE = {4259, 3127};
     public static final int[] BONEMEAL_BABY_DRAGON = {4260, 534};
     public static final int[] BONEMEAL_DRAGON_BONES = {4261, 536};
+    public static final int[] BONEMEAL_WYVERN_BONES = {6810, 6812};
     public static final int[] BONEMEAL_WOLF_BONES = {4262, 2859};
     //public static final int[] BONEMEAL_SMALL_NINJA= {4263, 3179};
     //public static final int[] BONEMEAL_MEDIUM_NINJA = {4264, 3180};
@@ -77,7 +78,7 @@ public class Ectofungus {
     //public static final int[] BONEMEAL_SKELETON_BONES = {4270, 3187}; //may not be right.
     public static final int[] BONEMEAL_JOGRE_BONES = {4271, 3125};
     public static final int[] BONEMEAL_DAG_BONES = {6728, 6729};
-    public static final int[][] BONE_ITERATOR = {BONEMEAL_BONES, BONEMEAL_BAT_BONES, BONEMEAL_BIG_BONES, BONEMEAL_BURNT_BONES, BONEMEAL_BABY_DRAGON, BONEMEAL_DRAGON_BONES, BONEMEAL_WOLF_BONES, BONEMEAL_JOGRE_BONES, BONEMEAL_DAG_BONES };
+    public static final int[][] BONE_ITERATOR = {BONEMEAL_BONES, BONEMEAL_BAT_BONES, BONEMEAL_BIG_BONES, BONEMEAL_BURNT_BONES, BONEMEAL_BABY_DRAGON, BONEMEAL_DRAGON_BONES, BONEMEAL_WYVERN_BONES, BONEMEAL_WOLF_BONES, BONEMEAL_JOGRE_BONES, BONEMEAL_DAG_BONES };
     
     public static final int BUCKET = 1925;
     public static final int BUCKET_OF_SLIME = 4286;

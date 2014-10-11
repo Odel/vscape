@@ -19,6 +19,7 @@ import static com.rs2.model.content.combat.attacks.SpellAttack.getMultiAncients;
 
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
+import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
 import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
@@ -30,6 +31,7 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
+import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
@@ -493,6 +495,7 @@ public class Hit {
 							damage = 0;
 							break;
 						case 1 :
+						    if(attacker != null && attacker.isNpc() && !((Npc)attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
 							player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
 							if(player.getEquipment().getId(Constants.SHIELD) == 11284) {
 							    player.getUpdateFlags().sendAnimation(6695); //6700 removing charges, 6696 special
@@ -508,10 +511,35 @@ public class Hit {
 							}
 							damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
 							break;
+						    } else {
+							HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
+							Hit freeze = new Hit(player, player, hitDefFreeze);
+							BindingEffect bind = new BindingEffect(12);
+							bind.initialize(freeze);
+							player.getActionSender().sendMessage("You manage to resist most of the icy breath, but are frozen in place.");
+							damage = Misc.random(10);
+							break;
+						    }
 						default :
+						    if(attacker != null && attacker.isNpc() && !((Npc)attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
 							player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
 							damage = 30 + Misc.random(20);
 							break;
+						    } else {
+							if(player.getEquipment().getId(Constants.SHIELD) != 2890) {
+							    player.getActionSender().sendMessage("You are horribly burned by the ice breath!");
+							    damage = 30 + Misc.random(20);
+							    break;
+							} else {
+							    HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
+							    Hit freeze = new Hit(player, player, hitDefFreeze);
+							    BindingEffect bind = new BindingEffect(12);
+							    bind.initialize(freeze);
+							    player.getActionSender().sendMessage("You magically resist most of the icy breath, but are frozen in place.");
+							    damage = Misc.random(10);
+							    break;
+							}
+						    }
 					}
 					if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
             			player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
