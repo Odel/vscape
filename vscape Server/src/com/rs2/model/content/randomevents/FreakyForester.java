@@ -21,6 +21,9 @@ public class FreakyForester {
     public Position oldPos = new Position(3222, 3218, 0);
     
     public static final int FREAKY_FORESTER = 2458;
+    public static final int HAT = 6182;
+    public static final int TOP = 6180;
+    public static final int LEGS = 6181;
     public static final int[] CLOTHES = {6182, 6180, 6181};
     public static final int[] CLOTHES_SANS_HAT = {6180, 6181};
     public static final int[] CLOTHES_SANS_TOP = {6182, 6181};
@@ -47,36 +50,29 @@ public class FreakyForester {
     }
     
     public Item getRandomPieceLeft() {
-	if(!player.getInventory().ownsItem(CLOTHES[0]) && !player.getInventory().ownsItem(CLOTHES[1]) && !player.getInventory().ownsItem(CLOTHES[2])
-		&& player.getEquipment().getId(Constants.HAT) != CLOTHES[0] && player.getEquipment().getId(Constants.CHEST) != CLOTHES[1] && player.getEquipment().getId(Constants.LEGS) != CLOTHES[2]) {
+	if(!player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
 	    return new Item(CLOTHES[Misc.random(2)]);
 	}
-	else if( (player.getInventory().ownsItem(CLOTHES[0]) || player.getEquipment().getId(Constants.HAT) == CLOTHES[0] ) && !player.getInventory().ownsItem(CLOTHES[1]) && !player.getInventory().ownsItem(CLOTHES[2])
-		 && player.getEquipment().getId(Constants.CHEST) != CLOTHES[1] && player.getEquipment().getId(Constants.LEGS) != CLOTHES[2]) {
+	else if(player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
 	    return new Item(CLOTHES_SANS_HAT[Misc.random(1)]);
 	}
-	else if(!player.getInventory().ownsItem(CLOTHES[0]) && (player.getInventory().ownsItem(CLOTHES[0]) || player.getEquipment().getId(Constants.HAT) == CLOTHES[0] ) && !player.getInventory().ownsItem(CLOTHES[2])
-		&& player.getEquipment().getId(Constants.HAT) != CLOTHES[0] && player.getEquipment().getId(Constants.LEGS) != CLOTHES[2]) {
+	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(LEGS)) {
 	    return new Item(CLOTHES_SANS_TOP[Misc.random(1)]);
 	}
-	else if(!player.getInventory().ownsItem(CLOTHES[0]) && !player.getInventory().ownsItem(CLOTHES[1]) && (player.getInventory().ownsItem(CLOTHES[2]) || player.getEquipment().getId(Constants.LEGS) == CLOTHES[2])
-		&& player.getEquipment().getId(Constants.HAT) != CLOTHES[0] && player.getEquipment().getId(Constants.CHEST) != CLOTHES[1]) {
+	else if(!player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
 	    return new Item(CLOTHES_SANS_LEGS[Misc.random(1)]);
 	}
-	else if((player.getInventory().ownsItem(CLOTHES[0]) || player.getEquipment().getId(Constants.HAT) == CLOTHES[0] ) && (player.getInventory().ownsItem(CLOTHES[1]) || player.getEquipment().getId(Constants.CHEST) == CLOTHES[1] ) 
-		&& !player.getInventory().ownsItem(CLOTHES[2]) && player.getEquipment().getId(Constants.LEGS) != CLOTHES[2]) {
-	    return new Item(CLOTHES[2]);
+	else if(player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
+	    return new Item(LEGS);
 	}
-	else if((player.getInventory().ownsItem(CLOTHES[0]) || player.getEquipment().getId(Constants.HAT) == CLOTHES[0] ) && (player.getInventory().ownsItem(CLOTHES[2]) || player.getEquipment().getId(Constants.LEGS) == CLOTHES[2] ) 
-		&& !player.getInventory().ownsItem(CLOTHES[1]) && player.getEquipment().getId(Constants.CHEST) != CLOTHES[1]) {
-	    return new Item(CLOTHES[1]);
+	else if(player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(LEGS) && !player.getInventory().ownsItem(TOP)) {
+	    return new Item(TOP);
 	}
-	else if((player.getInventory().ownsItem(CLOTHES[1]) || player.getEquipment().getId(Constants.CHEST) == CLOTHES[1] ) && (player.getInventory().ownsItem(CLOTHES[2]) || player.getEquipment().getId(Constants.LEGS) == CLOTHES[2] ) 
-		&& !player.getInventory().ownsItem(CLOTHES[0]) && player.getEquipment().getId(Constants.HAT) != CLOTHES[0]) {
-	    return new Item(CLOTHES[0]);
+	else if(player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS) && !player.getInventory().ownsItem(HAT)) {
+	    return new Item(HAT);
 	}
 	else {
-	    return new Item(995, 1000);
+	    return new Item(995, 1250);
 	}
     }
     private int getNpcIdForTails() {

@@ -10,7 +10,6 @@ import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.task.TaskScheduler;
@@ -308,35 +307,25 @@ public class WarriorsGuild {
 	}
 	
 	public static int getTokenAmount(Npc died) {
-	    if(died.getNpcId() == 4278) return 5;
-	    else if(died.getNpcId() == 4279) return 10;
-	    else if(died.getNpcId() == 4280) return 15;
-	    else if(died.getNpcId() == 4281) return 20;
-	    else if(died.getNpcId() == 4282) return 25;
-	    else if(died.getNpcId() == 4283) return 30;
-	    else if(died.getNpcId() == 4284) return 40;
-	    else return 0;
+	    return (died.getNpcId() == 4284 ? 40 : ((died.getNpcId() + 1) - 4278) * 5);
 	}
 	
 	public static boolean isAnimatedArmor(Npc died) {
-	    if(died.getNpcId() == 4278) return true;
-	    else if(died.getNpcId() == 4279) return true;
-	    else if(died.getNpcId() == 4280) return true;
-	    else if(died.getNpcId() == 4281) return true;
-	    else if(died.getNpcId() == 4282) return true;
-	    else if(died.getNpcId() == 4283) return true;
-	    else if(died.getNpcId() == 4284) return true;
-	    else return false;
+	    return died.getNpcId() >= 4278 && died.getNpcId() <= 4284;
 	}
+	
 	public static int defenderChance(int defender) {
-	    if(defender == 8850 || defender == 8851) return 150;
-	    else if(defender == 8849) return 125;
-	    else if(defender == 8848) return 100;
-	    else if(defender == 8847) return 75;
-	    else if(defender == 8846) return 50;
-	    else if(defender == 8845) return 25;
-	    else if(defender == 8844) return 15;
-	    else return 25;
+	    switch(defender) {
+		case 8850:
+		case 8851: return 150;
+		case 8849: return 125;
+		case 8848: return 100;
+		case 8847: return 75;
+		case 8846: return 50;
+		case 8845: return 25;
+		case 8844: return 15;
+		default: return 25;
+	    }
 	}
 	public static int findBankDefender(Player player) {
 	    for(Item item : player.getBank().getItems()) {
