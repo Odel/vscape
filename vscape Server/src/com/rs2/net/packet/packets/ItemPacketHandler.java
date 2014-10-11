@@ -206,11 +206,11 @@ public class ItemPacketHandler implements PacketHandler {
 	} else {
 	    item.setCount(1);
 	}
-	if (player.getInterface() == 3900) {
+	/*if (player.getInterface() == 3900) {
 	    ShopManager.buyItem(player, player.getSlot(), itemId, 1);
 	} else if (player.getInterface() == 3823) {
 	    ShopManager.sellItem(player, player.getSlot(), itemId, 1);
-	}
+	}*/
 	if (!player.getInventory().getItemContainer().contains(item.getId())) {
 	    return;
 	}
@@ -618,14 +618,16 @@ public class ItemPacketHandler implements PacketHandler {
 	int itemId = packet.getIn().readShort(true, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
 	player.setSlot(packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE));
 	RSInterface inter = RSInterface.forId(interfaceID);
-	if(itemId != 11284 && itemId != 11283) {
+	
+	//PROBLEM IS THIS ( Dragonfire shield )
+	/*if(itemId != 11284 && itemId != 11283) {
 	    player.resetAllActions();
-	}
+	}*/
 	switch (interfaceID) {
 	    case 4233: // make 5 ring crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 0);
 		break;
-	    case 4239: // make 5 neckalce crafting
+	    case 4239: // make 5 necklace crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 1);
 		break;
 	    case 4245: // make 5 amulet crafting
@@ -643,6 +645,10 @@ public class ItemPacketHandler implements PacketHandler {
 	    BankManager.bankItem(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 5382) {
 	    BankManager.withdrawItem(player, player.getSlot(), itemId, 5);
+	} else if (interfaceID == 3900) {
+		ShopManager.buyItem(player, player.getSlot(), itemId, 1);
+	} else if (interfaceID == 3823) {
+		ShopManager.sellItem(player, player.getSlot(), itemId, 1);
 	} else if (interfaceID == 3322) {
 	    if (player.getStatedInterface() == "duel") {
 		player.getDuelMainData().stakeItem(new Item(itemId, 5), player.getSlot());
