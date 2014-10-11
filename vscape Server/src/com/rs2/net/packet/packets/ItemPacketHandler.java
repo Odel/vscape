@@ -123,7 +123,8 @@ public class ItemPacketHandler implements PacketHandler {
 		handleOptions(player, packet);
 		return;
 	    case CLICK_5:
-		handleClick5(player, packet);
+	    	player.resetAllActions(false);
+			handleClick5(player, packet);
 		break;
 	}
 	    player.resetAllActions();
@@ -618,11 +619,9 @@ public class ItemPacketHandler implements PacketHandler {
 	int itemId = packet.getIn().readShort(true, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
 	player.setSlot(packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE));
 	RSInterface inter = RSInterface.forId(interfaceID);
-	
-	//PROBLEM IS THIS ( Dragonfire shield )
-	/*if(itemId != 11284 && itemId != 11283) {
-	    player.resetAllActions();
-	}*/
+	if(itemId != 11284 && itemId != 11283) {
+	    player.resetCombat();
+	}
 	switch (interfaceID) {
 	    case 4233: // make 5 ring crafting
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 5, 0);

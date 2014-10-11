@@ -5695,6 +5695,26 @@ public class Player extends Entity {
 			getUpdateFlags().faceEntity(65535);
 		}
 	}
+	
+	public void resetAllActions(boolean resetCombat) {
+		setCurrentSkillTask();
+		getTask();
+		resetPacketVariables();
+		Following.resetFollow(this);
+		setInteractingEntity(null);
+		if(resetCombat) {
+			resetCombat();
+		}
+		getDialogue().endDialogue();
+		if (getUpdateFlags().getEntityFaceIndex() != 65535) {
+			getUpdateFlags().faceEntity(65535);
+		}
+	}
+	
+	public void resetCombat()
+	{
+		CombatManager.resetCombat(this);
+	}
 
 	public void resetSkillActions() {
 		getTask();
