@@ -9596,7 +9596,7 @@ public class Client extends RSApplet {
 		{
 			method119(anInt945, anInt1018);
 
-			if (anInt1018 == 11146 && clientSize != 0)
+			if ((anInt1018 == 11146 || anInt1018 == 24126 || anInt1018 == 24131) && clientSize != 0)
 			{
 				drawInterface(0, 0, RSInterface.interfaceCache[anInt1018], -5);
 			}
