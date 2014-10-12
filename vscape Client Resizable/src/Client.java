@@ -3735,10 +3735,10 @@ public class Client extends RSApplet {
 
 		method73();
 		super.idleTime++;
-		if(super.idleTime > 4500)
+		if(super.idleTime > 20000)
 		{
 			anInt1011 = 250;
-			super.idleTime -= 500;
+			super.idleTime -= 2000;
 			stream.createFrame(202);
 		}
 		anInt1010++;
