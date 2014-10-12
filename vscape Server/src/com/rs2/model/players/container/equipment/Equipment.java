@@ -1032,6 +1032,10 @@ public class Equipment {
 				rangeLevelReq = 70;
 				defenceLevelReq = 40;
 				return;
+			case 6809: //granite legs
+			    defenceLevelReq = 50;
+			    strengthLevelReq = 50;
+			    return;
 			case 6128:
 			case 6129:
 			case 6130: //rockshell
@@ -1555,15 +1559,12 @@ public class Equipment {
 			return;
 		}
 		//specials
-		if (itemName.contains("granite shield")) {
-			if (!itemName.contains("maul")) {
+		if (itemName.toLowerCase().contains("granite")) {
+			if (!itemName.toLowerCase().contains("maul")) {
+			    if(itemName.toLowerCase().contains("legs")) {
+				strengthLevelReq = 50;
+			    }
 				defenceLevelReq = 50;
-			}
-			return;
-		}
-		if (itemName.contains("granite maul")) {
-			if (!itemName.contains("shield")) {
-				attackLevelReq = 50;
 			}
 			return;
 		}

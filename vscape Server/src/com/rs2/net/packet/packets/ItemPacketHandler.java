@@ -124,8 +124,8 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    case CLICK_5:
 	    	player.resetAllActions(false);
-			handleClick5(player, packet);
-		break;
+		handleClick5(player, packet);
+		return;
 	}
 	    player.resetAllActions();
 	switch (packet.getOpcode()) {

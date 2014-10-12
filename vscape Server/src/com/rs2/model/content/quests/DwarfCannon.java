@@ -2,6 +2,7 @@ package com.rs2.model.content.quests;
 
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.Shops;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
@@ -304,7 +305,7 @@ public class DwarfCannon implements Quest {
     }
     public static boolean itemPickupHandling(final Player player, final int id) {
 	if(id == 0) {
-	    if(player.getQuestStage(30) == FIND_GILUB && !player.getInventory().ownsItem(0)) {
+	    if(player.getQuestStage(30) == FIND_GILUB || player.getQuestStage(30) == FOUND_GILUB && !player.getInventory().ownsItem(0)) {
 		ItemManager.getInstance().pickupItem(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()));
 		player.getDialogue().sendPlayerChat("Hmmmm, this must be what remains of Gilub.", "I should bring these back to the Captain.", SAD);
 		player.getDialogue().endDialogue();
@@ -319,19 +320,18 @@ public class DwarfCannon implements Quest {
     }
     public static void repairRailing(final Player player, final int railing) {
 	player.getActionSender().removeInterfaces();
+	if(!player.getInventory().playerHasItem(new Item(RAILING)) || !player.getInventory().playerHasItem(2347)) {
+	    player.getActionSender().sendMessage("You need a new railing and a hammer to fix this!");
+	    return;
+	}
 	player.setStopPacket(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
-		if(player.getInventory().playerHasItem(new Item(RAILING)) && player.getInventory().playerHasItem(2347)) {
 		player.getActionSender().sendMessage("You begin to mend the fence...");
 		player.getUpdateFlags().sendAnimation(898);
 		player.getActionSender().sendSound(468, 0, 0);
 		b.stop();
-		} else {
-		    player.getActionSender().sendMessage("You need a new railing and a hammer to fix this!");
-		    return;
-		}
 	    }
 
 	    @Override
@@ -487,23 +487,26 @@ public class DwarfCannon implements Quest {
 		player.fadeTeleport(new Position(2624, 3391, 0));
 		return true;
 	    case CRATE:
+		if(player.getQuestStage(30) == FIND_HIDEOUT) {
 		player.getActionSender().sendMessage("You search the crate...");
 		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
-			
 			b.stop();
 		    }
 
 		    @Override
 		    public void stop() {
-			NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, lollk, new Position(2571, 9851, 0), false, "Hooray!");
+			NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, new Npc(LOLLK), new Position(2571, 9851, 0), false, "Hooray!");
 			player.getActionSender().sendMessage("Inside you see a dwarf child, you untie the child.");
 			player.setStopPacket(false);
 		    }
 		}, 2);
 		return true;
+		} else {
+		    return false;
+		}
 	    case GOBLIN_CAVE:
 		player.getActionSender().sendMessage("You crawl into the cave...");
 		player.fadeTeleport(new Position(2619, 9797, 0));
@@ -693,13 +696,16 @@ public class DwarfCannon implements Quest {
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					player.getActionSender().sendMessage("The dwarf child runs off into the caverns.");
-					lollk.walkTo(new Position(2567, 9849, 0), true);
 					b.stop();
 				    }
 
 				    @Override
 				    public void stop() {
-					NpcLoader.destroyNpc(lollk);
+					for(Npc npc : World.getNpcs()) {
+					    if(npc.getNpcId() == LOLLK) {
+						NpcLoader.destroyNpc(npc);
+					    }
+					}
 				    }
 				}, 5);
 				return true;
@@ -762,7 +768,7 @@ public class DwarfCannon implements Quest {
 				d.sendPlayerChat("Well, I think I've done it... Take a look.", CONTENT);
 				return true;
 			    case 4:
-				d.sendNpcChat("Well I don't beleive it, it seems to be working perfectly!", "I seem to hve underestimated you, trooper!", HAPPY);
+				d.sendNpcChat("Well I don't beleive it, it seems to be working perfectly!", "I seem to have underestimated you, trooper!", HAPPY);
 				return true;
 			    case 5:
 				d.sendPlayerChat("Not bad for an adventurer, eh?", CONTENT);

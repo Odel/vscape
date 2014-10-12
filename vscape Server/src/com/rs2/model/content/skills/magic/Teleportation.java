@@ -76,19 +76,19 @@ public class Teleportation {
 	public boolean attemptTeleportJewellery(Position pos) {
 		if (player.inWild() && player.getWildernessLevel() > 30) {
 			player.getActionSender().sendMessage("You can't teleport above level 30 in the wilderness.");
-			return true;
+			return false;
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
-			return true;
+			return false;
 		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
-			return true;
+			return false;
 		}
 		if (player.getInventory().playerHasItem(new Item(431))) {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
-			return true;
+			return false;
 		}
 		if (player.isHomeTeleporting()) {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");

@@ -739,14 +739,14 @@ public class TheGrandTree implements Quest {
 		    return true;
 		}
 	    case ANITA_STAIRS_UP:
-		if(Misc.goodDistance(player.getPosition(), new Position(2388, 3513, 1), 3)) {
+		if(Misc.goodDistance(player.getPosition(), new Position(2389, 3512, 0), 3)) {
 		    Ladders.climbLadder(player, new Position(2388, 3513, 1));
 		    return true;
 		} else {
 		    return false;
 		}
 	    case ANITA_STAIRS_DOWN:
-		if(Misc.goodDistance(player.getPosition(), new Position(2388, 3512, 0), 3)) {
+		if(Misc.goodDistance(player.getPosition(), new Position(2388, 3513, 1), 3)) {
 		    player.teleport(new Position(2388, 3512, 0));
 		    return true;
 		} else {
