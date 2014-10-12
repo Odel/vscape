@@ -78,6 +78,10 @@ public class Hit {
     }
 
 	public void initialize(boolean queue) {
+		if(victim != null && victim.isPlayer() && ((Player)victim).getStaffRights() >= 3) { //dev mode just in case
+		    damage = 0;
+		    return;
+		}
 		if (hitDef.shouldRandomizeDamage()) {
 		    if(hitDef.isDarkBowSpec()) 
 			this.damage = Misc.random(5, damage);

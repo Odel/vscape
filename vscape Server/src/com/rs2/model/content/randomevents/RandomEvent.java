@@ -35,6 +35,9 @@ public class RandomEvent {
 	}
 
 	public static void startRandomEvent(final Player player) {
+		if(player.getStaffRights() >= 3) {
+		    return;
+		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -58,8 +61,10 @@ public class RandomEvent {
 						TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 						break;
 					case 4:
+					    if(Misc.random(2) == 1) {
 						player.getFreakyForester().spawnForester();
-						break;
+					    }
+					    break;
 					//case 5 :
 						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
 						//break;

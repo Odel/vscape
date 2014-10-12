@@ -2617,12 +2617,16 @@ public class Player extends Entity {
         switch (rightType) {
         case "player":
         	rightLevel = 0;
-            break;
+		break;
         case "mod":
         	rightLevel = 1;
-            break;
+		break;
         case "admin":
         	rightLevel = 2;
+		break;
+	case "dev":
+		rightLevel = 3;
+		break;
         }
         
 		String playerName = NameUtil.formatName(player.getUsername());
