@@ -150,6 +150,7 @@ import com.rs2.net.packet.PacketManager;
 import com.rs2.util.Area;
 import com.rs2.util.Benchmark;
 import com.rs2.util.Benchmarks;
+import com.rs2.util.LogHandler;
 import com.rs2.util.Misc;
 import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
@@ -159,7 +160,6 @@ import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.FreakyForester;
-
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
@@ -2500,7 +2500,7 @@ public class Player extends Entity {
 		String yeller = NameUtil.formatName(getUsername());
 		
 		lastYell = System.currentTimeMillis();
-		
+		LogHandler.logYell(getUsername(), YellMsg);
 		for (Player player : World.getPlayers()) 
 		{
 			if (player == null)

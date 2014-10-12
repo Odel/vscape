@@ -26,7 +26,11 @@ public class LogHandler {
 	private static String ShopDirectory = "shops/";
 	private static String TradeDirectory = "trades/";
 	
+	static SimpleDateFormat Format = new SimpleDateFormat("MM-dd-yy hh:mm:ss a");
+	
 	private static DateFormat df = new SimpleDateFormat();
+	
+	static BufferedWriter yellLogWriter = null;
 
 	public static void logShop(Player player, String shopName, String transactionType, Item item, int cost, String currency)
 	{
@@ -76,6 +80,27 @@ public class LogHandler {
 			}
 		} catch(IOException ioexception) {
 			System.out.println("error writing trade log file.");
+		}
+	}
+	
+	public static void logYell(String name, String msg)
+	{
+		try {
+			yellLogWriter = new BufferedWriter(new FileWriter(LogDirectory + "yell.txt", true));
+			System.out.println("file opened");
+
+
+			try {
+				String time = Format.format(new Date());
+				yellLogWriter.write("["+time+"] "+name + ": " + msg);	
+				yellLogWriter.newLine();
+			} catch(IOException ioexception) {
+				yellLogWriter.close();
+			} finally {
+				yellLogWriter.close();
+			}
+		} catch(IOException ioexception) {
+			System.out.println("error writing yell log file.");
 		}
 	}
 }
