@@ -2154,7 +2154,7 @@ public class Player extends Entity {
         } 
 		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
-			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles") || getUsername().equals("Mod dammit")){
+			if (getUsername().equals("Odel") || getUsername().equals("Bobster") || getUsername().equals("Mr Foxter") || getUsername().equals("Noiryx") || getUsername().equals("Pickles") || getUsername().equals("Mod dammit")){
 			SystemUpdate(seconds);
 			}
         }
@@ -2178,7 +2178,7 @@ public class Player extends Entity {
                 player.getSkill().refresh(skillId);
         }
         else if (keyword.equals("rights")) {
-			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Pickles")){
+			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Mr Foxter") || getUsername().equals("Bobster") || getUsername().equals("Pickles")){
 						GiveRights(args);
 			}
         }
