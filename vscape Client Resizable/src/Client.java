@@ -12476,7 +12476,7 @@ public class Client extends RSApplet {
 					if (text.startsWith("www.")) {
 						launchURL(text);
 					}
-					updateStrings(text, frame);
+					//updateStrings(text, frame);
 					sendFrame126(text, frame);
 					if (frame >= 18144 && frame <= 18244) {
 						clanList[frame - 18144] = text;
