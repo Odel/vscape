@@ -24,7 +24,7 @@
   {
     "id": 1,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -46,7 +46,7 @@
   {
     "id": 2,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -68,7 +68,7 @@
   {
     "id": 3,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -90,7 +90,7 @@
   {
     "id": 4,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -112,7 +112,7 @@
   {
     "id": 5,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -134,7 +134,7 @@
   {
     "id": 6,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -530,7 +530,7 @@
   {
     "id": 24,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -552,7 +552,7 @@
   {
     "id": 25,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -3742,7 +3742,7 @@
   {
     "id": 170,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens, apparently trying to be an explorer.",
+    "examine": "One of /v/scape\u0027s many citizens, apparently trying to be an explorer.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -7724,7 +7724,7 @@
   {
     "id": 351,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 4,
     "hitpoints": 10,
@@ -7746,7 +7746,7 @@
   {
     "id": 352,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 3,
     "hitpoints": 13,
@@ -7768,7 +7768,7 @@
   {
     "id": 353,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 4,
     "hitpoints": 13,
@@ -7790,7 +7790,7 @@
   {
     "id": 354,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 3,
     "hitpoints": 13,
@@ -7900,7 +7900,7 @@
   {
     "id": 359,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -7922,7 +7922,7 @@
   {
     "id": 360,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 4,
     "hitpoints": 13,
@@ -7944,7 +7944,7 @@
   {
     "id": 361,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 12,
     "hitpoints": 13,
@@ -7966,7 +7966,7 @@
   {
     "id": 362,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 3,
     "hitpoints": 13,
@@ -7988,7 +7988,7 @@
   {
     "id": 363,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 14,
     "hitpoints": 23,
@@ -15974,7 +15974,7 @@
   {
     "id": 726,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -15996,7 +15996,7 @@
   {
     "id": 727,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -16018,7 +16018,7 @@
   {
     "id": 728,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -16040,7 +16040,7 @@
   {
     "id": 729,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -16062,7 +16062,7 @@
   {
     "id": 730,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -20791,8 +20791,8 @@
   },
   {
     "id": 945,
-    "name": "2006Scape Guide",
-    "examine": "Your introduction to the world of 2006Scape.",
+    "name": "/v/scape Guide",
+    "examine": "Your introduction to the world of /v/scape.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -20836,7 +20836,7 @@
   {
     "id": 947,
     "name": "Financial Advisor",
-    "examine": "An official representative from the First National Bank of 2006Scape.",
+    "examine": "An official representative from the First National Bank of /v/scape.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -20880,7 +20880,7 @@
   {
     "id": 949,
     "name": "Quest Guide",
-    "examine": "Your introduction to the world of 2006Scape.",
+    "examine": "Your introduction to the world of /v/scape.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -23894,7 +23894,7 @@
   {
     "id": 1086,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -28316,7 +28316,7 @@
   {
     "id": 1287,
     "name": "Council workman",
-    "examine": "Supposedly fixes things around 2006Scape.",
+    "examine": "Supposedly fixes things around /v/scape.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -58852,7 +58852,7 @@
   {
     "id": 2675,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -61052,7 +61052,7 @@
   {
     "id": 2775,
     "name": "Null",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 1,
     "hitpoints": 10,
@@ -61074,7 +61074,7 @@
   {
     "id": 2776,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63186,7 +63186,7 @@
   {
     "id": 2872,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63208,7 +63208,7 @@
   {
     "id": 2873,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63230,7 +63230,7 @@
   {
     "id": 2874,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63252,7 +63252,7 @@
   {
     "id": 2875,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63274,7 +63274,7 @@
   {
     "id": 2876,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -63296,7 +63296,7 @@
   {
     "id": 2877,
     "name": "Child",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -67652,7 +67652,7 @@
   {
     "id": 3075,
     "name": "Illegal Monk",
-    "examine": "One of the illegal bretheren of 2006Scape.",
+    "examine": "One of the illegal bretheren of /v/scape.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -70886,7 +70886,7 @@
   {
     "id": 3222,
     "name": "Drunken man",
-    "examine": "One of 2006Scape\u0027s many citizens, currently incapacitated by alcohol.",
+    "examine": "One of /v/scape\u0027s many citizens, currently incapacitated by alcohol.",
     "respawn": 10,
     "combat": 3,
     "hitpoints": 7,
@@ -70908,7 +70908,7 @@
   {
     "id": 3223,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -70930,7 +70930,7 @@
   {
     "id": 3224,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -70952,7 +70952,7 @@
   {
     "id": 3225,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens. He looks worried about something.",
+    "examine": "One of /v/scape\u0027s many citizens. He looks worried about something.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -70974,7 +70974,7 @@
   {
     "id": 3226,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -70996,7 +70996,7 @@
   {
     "id": 3227,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens. She looks rich.",
+    "examine": "One of /v/scape\u0027s many citizens. She looks rich.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -80302,7 +80302,7 @@
   {
     "id": 3650,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 43,
     "hitpoints": 10,
@@ -80324,7 +80324,7 @@
   {
     "id": 3651,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 43,
     "hitpoints": 10,
@@ -80346,7 +80346,7 @@
   {
     "id": 3652,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 43,
     "hitpoints": 10,
@@ -80368,7 +80368,7 @@
   {
     "id": 3653,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 43,
     "hitpoints": 10,
@@ -80390,7 +80390,7 @@
   {
     "id": 3654,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 43,
     "hitpoints": 10,
@@ -80654,7 +80654,7 @@
   {
     "id": 3666,
     "name": "Confusion beast",
-    "examine": "What on 2006Scape is that?!?",
+    "examine": "What on /v/scape is that?!?",
     "respawn": 10,
     "combat": 63,
     "hitpoints": 64,
@@ -86132,7 +86132,7 @@
   {
     "id": 3915,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -96252,7 +96252,7 @@
   {
     "id": 4375,
     "name": "Security Guard",
-    "examine": "A retired 2006Scape security guard.",
+    "examine": "A retired /v/scape security guard.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -110882,7 +110882,7 @@
   {
     "id": 5040,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
@@ -110970,7 +110970,7 @@
   {
     "id": 5044,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 30,
     "hitpoints": 10,
@@ -110992,7 +110992,7 @@
   {
     "id": 5045,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 32,
     "hitpoints": 10,
@@ -114688,7 +114688,7 @@
   {
     "id": 5213,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 37,
     "hitpoints": 10,
@@ -114710,7 +114710,7 @@
   {
     "id": 5214,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 42,
     "hitpoints": 10,
@@ -114732,7 +114732,7 @@
   {
     "id": 5215,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 47,
     "hitpoints": 10,
@@ -114754,7 +114754,7 @@
   {
     "id": 5216,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 56,
     "hitpoints": 10,
@@ -114776,7 +114776,7 @@
   {
     "id": 5217,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 61,
     "hitpoints": 10,
@@ -114798,7 +114798,7 @@
   {
     "id": 5218,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 68,
     "hitpoints": 10,
@@ -114820,7 +114820,7 @@
   {
     "id": 5219,
     "name": "Penance Fighter",
-    "examine": "What on 2006Scape is that?",
+    "examine": "What on /v/scape is that?",
     "respawn": 10,
     "combat": 77,
     "hitpoints": 10,
@@ -130308,7 +130308,7 @@
   {
     "id": 5923,
     "name": "Man",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -130330,7 +130330,7 @@
   {
     "id": 5924,
     "name": "Woman",
-    "examine": "One of 2006Scape\u0027s many citizens.",
+    "examine": "One of /v/scape\u0027s many citizens.",
     "respawn": 10,
     "combat": 2,
     "hitpoints": 7,
@@ -130484,7 +130484,7 @@
   {
     "id": 5931,
     "name": "Historian Minas",
-    "examine": "Seth Minas - an aged expert in 2006Scape history.",
+    "examine": "Seth Minas - an aged expert in /v/scape history.",
     "respawn": 10,
     "combat": 0,
     "hitpoints": 0,
