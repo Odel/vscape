@@ -8,7 +8,7 @@ import javax.sound.sampled.*;
 
 public final class Signlink implements Runnable {
 
-	private static String cacheName = "/.vscape2/";
+	private final static String cacheName = "/.vscape2/";
 
 	public static String findcachedir()
     {

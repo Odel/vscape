@@ -7821,8 +7821,7 @@ public class Client extends RSApplet {
 	
 	private boolean saveWave(byte abyte0[], int i)
 	{
-		SoundProvider.getSingleton().playWAV(abyte0);
-		return abyte0 == null;
+		return false;
 	}
 	
 	public final void method90() {
