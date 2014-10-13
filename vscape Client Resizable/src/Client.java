@@ -3274,9 +3274,6 @@ public class Client extends RSApplet {
 			Signlink.storeid = 32;
 			Signlink.startpriv(InetAddress.getLocalHost());
 			clientSize = 0;
-			try {
-				readSettings();
-			} catch(Exception e) {}
 			instance = new Client();
 			instance.createClientFrame(clientWidth, clientHeight);
 		} catch (Exception exception) { }
@@ -7940,6 +7937,9 @@ public class Client extends RSApplet {
 		try {
 			checkClientVersion();
 		} catch(Exception _ex) { }
+		try {
+			readSettings();
+		} catch(Exception e) {}
 		if(Signlink.sunjava)
 			super.minDelay = 5;
 		if (Signlink.cache_dat != null) {
@@ -10806,7 +10806,7 @@ public class Client extends RSApplet {
 	public static String savedUsername = "";
 	public static String savedPassword = "";
 
-	public static void writeSettings() throws IOException {
+	public void writeSettings() throws IOException {
 		try {
 		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(Signlink.findcachedir() + "settings.dat")));
 		out.writeUTF(savedUsername);
@@ -10818,7 +10818,7 @@ public class Client extends RSApplet {
 		} catch(Exception e) {	}
 	}  
 	
-	public static void readSettings() throws IOException {
+	public void readSettings() throws IOException {
 		try {
 		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(Signlink.findcachedir() + "settings.dat")));
 		savedUsername = in.readUTF();
@@ -10831,8 +10831,9 @@ public class Client extends RSApplet {
 		} catch(Exception e) {}
 	}
 	
-	private Sprite background = new Sprite("background");
+	private Sprite background;
 	private void drawLoginScreen(boolean flag) {
+		background = new Sprite("background");
 	    refreshClientScreen();
 	    if (loginScreenState == 2) {
 	    	if(background != null)
