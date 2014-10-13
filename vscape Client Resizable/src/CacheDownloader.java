@@ -57,56 +57,43 @@ public class CacheDownloader {
         }
 
         private int getCacheRemoteVersion() throws IOException {
-		BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));
-            
+        	BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));    
     		String line;
     		try {
-    			while((line = cacheVerReader.readLine()) != null) {
-			    return Integer.parseInt(line);
+    			if((line = cacheVerReader.readLine()) != null) {
+        			cacheVerReader.close();
+    				return Integer.parseInt(line);
+    			}else{
+        			cacheVerReader.close();
+                	return 0;
     			}
     		} catch(IOException e) {
-    			System.out.println("problem reading remote cache");
+    			System.out.println("problem reading remote cache version");
+    			cacheVerReader.close();
     			return 0;
-    		} finally {
-    			if(cacheVerReader != null) {
-    				try {
-    					cacheVerReader.close();
-    				} catch (IOException e) {
-    					e.printStackTrace();
-    					return 0;
-    				}
-    			}
     		}
-    		return 0;
         }
         
         private int getCacheLocalVersion() throws IOException {
         	File versionFile = new File(getCacheDir() + "cacheVersion.dat");
-		BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
+			BufferedReader cacheVerReader = new BufferedReader(new FileReader(versionFile));
     		String line;
-		if(!versionFile.exists()) {
-			cacheVerReader.close();
-		    return 0;
-		}
+			if(!versionFile.exists()) {
+				cacheVerReader.close();
+			    return 0;
+			}
     		try {
-    			while((line = cacheVerReader.readLine()) != null) {
+    			if((line = cacheVerReader.readLine()) != null) {
+        			cacheVerReader.close();
                 	return Integer.parseInt(line);
+    			}else{
+        			cacheVerReader.close();
+                	return 0;
     			}
     		} catch(IOException e) {
     			cacheVerReader.close();
     			return 0;
-    		} finally {
-    			if(cacheVerReader != null) {
-    				try {
-    					cacheVerReader.close();
-    				} catch (IOException e) {
-    					e.printStackTrace();
-    					cacheVerReader.close();
-    					return 0;
-    				}
-    			}
     		}
-    		return 0;
         }
 
         public CacheDownloader downloadCache() {
@@ -128,7 +115,6 @@ public class CacheDownloader {
 	            else
 	            {
 	            	localCacheVersion = getCacheLocalVersion();
-	            	
 	            	if(remoteVer != localCacheVersion)
 	            	{
 		                downloadFile(getCacheLink(), getArchivedName());

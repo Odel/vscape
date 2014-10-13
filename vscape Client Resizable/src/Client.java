@@ -14,8 +14,11 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	public static boolean DevMode = true;
-	public static boolean MusicEnabled = true;
+	private final static String CLIENT_VERSION = "3c";
+	
+	public final static boolean DevMode = true;
+	public final static boolean MusicEnabled = true;
+	
 	public static int REGULAR_WIDTH = 765, REGULAR_HEIGHT = 503;
 	
 	public void checkSize() {
@@ -7934,6 +7937,9 @@ public class Client extends RSApplet {
 	void startUp() {
 		drawLoadingText(20, "Starting up");
 		new CacheDownloader(this).downloadCache();
+		try {
+			checkClientVersion();
+		} catch(Exception _ex) { }
 		if(Signlink.sunjava)
 			super.minDelay = 5;
 		if (Signlink.cache_dat != null) {
@@ -10864,10 +10870,31 @@ public class Client extends RSApplet {
 			    }
 			}
 			chatTextDrawingArea.method389(true, centerX - 92, 0xf3b13f, "Remember Me", centerY + 24);
+			
+			if(outDated)
+			{
+				chatTextDrawingArea.method389(true, centerX-90, 0xff0000, "New Client Version available",  centerY - 90);
+			}
 	    }
 	    aRSImageProducer_1109.drawGraphics(0, super.graphics, 0);
 	}
-
+	
+	private void checkClientVersion() throws IOException {
+		String versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/clientVersion.dat";
+    	BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));
+		String line;
+		try {
+			if((line = cacheVerReader.readLine()) != null)
+			{
+				outDated = !line.equalsIgnoreCase(CLIENT_VERSION);
+			}
+			cacheVerReader.close();
+		} catch(IOException e) {
+			System.out.println("problem reading remote client version");
+			cacheVerReader.close();
+		}
+	}
+	
 	private void drawFlames() {
 	/*	drawingFlames = true;
 		try {
@@ -13040,6 +13067,9 @@ public class Client extends RSApplet {
 	public boolean isWebclient() {
 		return gameFrame == null && isApplet == true;
 	}  
+	
+	public boolean outDated = true;
+	
 	public boolean autocast;
 	public int rights;
 	public String clanname;
