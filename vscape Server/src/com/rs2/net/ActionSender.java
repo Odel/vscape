@@ -692,7 +692,8 @@ public class ActionSender {
 			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(ignores.length);
 			out.writeVariableShortPacketHeader(player.getEncryptor(), 214);
 			for (long ignore : ignores) {
-				out.writeLong(ignore);
+				if(ignore > 0)
+					out.writeLong(ignore);
 			}
 			out.finishVariableShortPacketHeader();
 			player.send(out.getBuffer());
