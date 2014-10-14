@@ -687,11 +687,17 @@ public class ActionSender {
 		return this;
 	}
 	
-	public ActionSender sendIgnoreList(long name) {
-		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(9);
-		out.writeHeader(player.getEncryptor(), 214);
-		out.writeLong(name);
-		player.send(out.getBuffer());
+	public ActionSender sendIgnoreList(long[] ignores) {
+		if(ignores.length > 0){
+			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(ignores.length);
+			out.writeVariableShortPacketHeader(player.getEncryptor(), 214);
+			for (long ignore : ignores) {
+				if(ignore > 0)
+					out.writeLong(ignore);
+			}
+			out.finishVariableShortPacketHeader();
+			player.send(out.getBuffer());
+		}
 		return this;
 	}
 

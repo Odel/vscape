@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3d";
+	private final static String CLIENT_VERSION = "3e";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -11793,21 +11793,9 @@ public class Client extends RSApplet {
 				return true;
 
 			case 214:
-			/*	ignoreCount = pktSize / 8;
-				for (int j1 = 0; j1 < ignoreCount; j1++)
-					ignoreListAsLongs[j1] = inStream.readQWord();*/
-				long ignoreLong = inStream.readQWord();
-				String ignoreName = TextClass.fixName(TextClass.nameForLong(ignoreLong));
-				for (int k24 = 0; k24 < ignoreCount; k24++) {
-					if (ignoreLong != ignoreListAsLongs[k24])
-						continue;
-					ignoreName = null;
-
-				}
-				if (ignoreName != null && ignoreCount < 100) {
-					ignoreListAsLongs[ignoreCount] = ignoreLong;
-					ignoreCount++;
-					needDrawTabArea = true;
+				ignoreCount = pktSize / 8;
+				for (int j1 = 0; j1 < ignoreCount; j1++) {
+					ignoreListAsLongs[j1] = inStream.readQWord();
 				}
 				pktType = -1;
 				return true;
