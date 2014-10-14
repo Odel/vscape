@@ -1604,6 +1604,7 @@ public class WalkToActionHandler {
 				case 11758:
 				case 14367: //pc bank booth
 				case 5276: //port phasmatys bank booth
+				case 10517: //Nardah bank booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -1938,6 +1939,7 @@ public class WalkToActionHandler {
 				case 11758:
 				case 14367: //pc bank booth
 				case 5276: //port phasmatys bank booth
+				case 10517: //Nardah bank booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -2214,6 +2216,7 @@ public class WalkToActionHandler {
 					case 2619:
 					case 4446 : //fairy bankers
 					case 1702: //ghost banker
+					case 3046: //Nardah banker
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
@@ -2302,6 +2305,7 @@ public class WalkToActionHandler {
 				case 4296 : //warriors guild banker jade
 				case 2619:
 				case 1702: //ghost banker
+				case 3046: //Nardah banker
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
@@ -2488,6 +2492,7 @@ public class WalkToActionHandler {
 				    Travel.startTravel(player, Travel.Route.BRIMHAVEN_TO_SHILO);
 				    break;
 				case 494:
+				case 3046: //Nardah banker
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;

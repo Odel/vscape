@@ -599,6 +599,7 @@ public class Dialogues {
 			case 4296 : //jade warriors guild banker
 			case 4446 : //fairy bankers
 			case 1702: //ghost banker
+			case 3046: //Nardah banker
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
 						player.getDialogue().sendNpcChat("What can I do for you?", CONTENT);

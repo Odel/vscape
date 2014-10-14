@@ -658,7 +658,7 @@ public class Npc extends Entity {
 		if (face == 1) {
 			return false;
 		}
-		return getNpcId() == 166 || getNpcId() == 494 || getNpcId() == 495 || getNpcId() == 496 || getNpcId() == 499 || getNpcId() == 2619;
+		return getNpcId() == 166 || getNpcId() == 494 || getNpcId() == 495 || getNpcId() == 496 || getNpcId() == 499 || getNpcId() == 2619 || getNpcId() == 3046;
 	}
 
 	public static boolean isUndeadNpc(Entity victim) {
