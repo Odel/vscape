@@ -68,7 +68,7 @@
  <npcDefinition>
    <id>3</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -90,7 +90,7 @@
  <npcDefinition>
    <id>4</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -112,7 +112,7 @@
  <npcDefinition>
    <id>5</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -134,7 +134,7 @@
  <npcDefinition>
    <id>6</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -200,7 +200,7 @@
  <npcDefinition>
    <id>9</id>
    <name>Guard</name>
-   <examine>It's an NPC.</examine>
+   <examine>A protector of the people.</examine>
    <combat>21</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -530,7 +530,7 @@
  <npcDefinition>
    <id>24</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -552,7 +552,7 @@
  <npcDefinition>
    <id>25</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -1036,7 +1036,7 @@
  <npcDefinition>
    <id>47</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>1</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -1256,7 +1256,7 @@
  <npcDefinition>
    <id>57</id>
    <name>Fairy</name>
-   <examine>It's an NPC.</examine>
+   <examine>A delicate creature from this strange realm.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -1432,7 +1432,7 @@
  <npcDefinition>
    <id>65</id>
    <name>Leprechaun</name>
-   <examine>It's an NPC.</examine>
+   <examine>A small, green little man.</examine>
    <combat>12</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -1542,7 +1542,7 @@
  <npcDefinition>
    <id>70</id>
    <name>Turael</name>
-   <examine>It's an NPC.</examine>
+   <examine>He looks dangerous!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -3192,7 +3192,7 @@
  <npcDefinition>
    <id>145</id>
    <name>NPC #145</name>
-   <examine>It's an NPC.</examine>
+   <examine>A frozen warrior</examine>
    <combat>57</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -3742,7 +3742,7 @@
  <npcDefinition>
    <id>170</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens, apparently trying to be an explorer.</examine>
+   <examine>One of /v/Scape's many citizens, apparently trying to be an explorer.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -4380,7 +4380,7 @@
  <npcDefinition>
    <id>199</id>
    <name>Gunthor the brave</name>
-   <examine>It's an NPC.</examine>
+   <examine>A mighty warrior!</examine>
    <combat>29</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -5436,7 +5436,7 @@
  <npcDefinition>
    <id>247</id>
    <name>Sir Mordred</name>
-   <examine>It's an NPC.</examine>
+   <examine>Leader of the Renegade Knights.</examine>
    <combat>39</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -5810,7 +5810,7 @@
  <npcDefinition>
    <id>264</id>
    <name>Lady Servil</name>
-   <examine>It's an NPC.</examine>
+   <examine>It's tragic to see a lady cry</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -5832,7 +5832,7 @@
  <npcDefinition>
    <id>265</id>
    <name>Jeremy Servil</name>
-   <examine>It's an NPC.</examine>
+   <examine>A young squire. He looks worse for wear.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -5854,7 +5854,7 @@
  <npcDefinition>
    <id>266</id>
    <name>Jeremy Servil</name>
-   <examine>It's an NPC.</examine>
+   <examine>A young squire. He looks worse for wear.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -5876,7 +5876,7 @@
  <npcDefinition>
    <id>267</id>
    <name>Justin Servil</name>
-   <examine>It's an NPC.</examine>
+   <examine>Jeremy's father, Sir Servil.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -7262,7 +7262,7 @@
  <npcDefinition>
    <id>330</id>
    <name>Fishing spot</name>
-   <examine>It's an NPC.</examine>
+   <examine>I can see fish swimming around.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -7394,7 +7394,7 @@
  <npcDefinition>
    <id>336</id>
    <name>Da Vinci</name>
-   <examine>It's an NPC.</examine>
+   <examine>He has a colourful personality.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -7724,7 +7724,7 @@
  <npcDefinition>
    <id>351</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>4</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7746,7 +7746,7 @@
  <npcDefinition>
    <id>352</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>3</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7768,7 +7768,7 @@
  <npcDefinition>
    <id>353</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>4</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7790,7 +7790,7 @@
  <npcDefinition>
    <id>354</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>3</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7900,7 +7900,7 @@
  <npcDefinition>
    <id>359</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -7922,7 +7922,7 @@
  <npcDefinition>
    <id>360</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>4</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7944,7 +7944,7 @@
  <npcDefinition>
    <id>361</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>12</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7966,7 +7966,7 @@
  <npcDefinition>
    <id>362</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>3</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -7988,7 +7988,7 @@
  <npcDefinition>
    <id>363</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>14</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -8164,7 +8164,7 @@
  <npcDefinition>
    <id>371</id>
    <name>Mourner</name>
-   <examine>It's an NPC.</examine>
+   <examine>A mourner, or a plague healer.</examine>
    <combat>12</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -15974,7 +15974,7 @@
  <npcDefinition>
    <id>726</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -15996,7 +15996,7 @@
  <npcDefinition>
    <id>727</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -16018,7 +16018,7 @@
  <npcDefinition>
    <id>728</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -16040,7 +16040,7 @@
  <npcDefinition>
    <id>729</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -16062,7 +16062,7 @@
  <npcDefinition>
    <id>730</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -20791,8 +20791,8 @@
   </npcDefinition>
  <npcDefinition>
    <id>945</id>
-   <name>2006Scape Guide</name>
-   <examine>Your introduction to the world of 2006Scape.</examine>
+   <name>/v/Scape Guide</name>
+   <examine>Your introduction to the world of /v/Scape.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -20836,7 +20836,7 @@
  <npcDefinition>
    <id>947</id>
    <name>Financial Advisor</name>
-   <examine>An official representative from the First National Bank of 2006Scape.</examine>
+   <examine>An official representative from the First National Bank of /v/Scape.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -20880,7 +20880,7 @@
  <npcDefinition>
    <id>949</id>
    <name>Quest Guide</name>
-   <examine>Your introduction to the world of 2006Scape.</examine>
+   <examine>Your introduction to the world of /v/Scape.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -23893,7 +23893,7 @@
  <npcDefinition>
    <id>1086</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -28315,7 +28315,7 @@
  <npcDefinition>
    <id>1287</id>
    <name>Council workman</name>
-   <examine>Supposedly fixes things around 2006Scape.</examine>
+   <examine>Supposedly fixes things around /v/Scape.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -58846,7 +58846,7 @@
  <npcDefinition>
    <id>2675</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -59000,7 +59000,7 @@
  <npcDefinition>
    <id>2682</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>1</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -61046,7 +61046,7 @@
  <npcDefinition>
    <id>2775</id>
    <name>Null</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>1</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -61068,7 +61068,7 @@
  <npcDefinition>
    <id>2776</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63180,7 +63180,7 @@
  <npcDefinition>
    <id>2872</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63202,7 +63202,7 @@
  <npcDefinition>
    <id>2873</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63224,7 +63224,7 @@
  <npcDefinition>
    <id>2874</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63246,7 +63246,7 @@
  <npcDefinition>
    <id>2875</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63268,7 +63268,7 @@
  <npcDefinition>
    <id>2876</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -63290,7 +63290,7 @@
  <npcDefinition>
    <id>2877</id>
    <name>Child</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -65556,7 +65556,7 @@
  <npcDefinition>
    <id>2980</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -65578,7 +65578,7 @@
  <npcDefinition>
    <id>2981</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -66150,7 +66150,7 @@
  <npcDefinition>
    <id>3007</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66172,7 +66172,7 @@
  <npcDefinition>
    <id>3008</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66194,7 +66194,7 @@
  <npcDefinition>
    <id>3009</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66216,7 +66216,7 @@
  <npcDefinition>
    <id>3010</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66238,7 +66238,7 @@
  <npcDefinition>
    <id>3011</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66260,7 +66260,7 @@
  <npcDefinition>
    <id>3012</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66282,7 +66282,7 @@
  <npcDefinition>
    <id>3013</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66304,7 +66304,7 @@
  <npcDefinition>
    <id>3014</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66326,7 +66326,7 @@
  <npcDefinition>
    <id>3015</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66348,7 +66348,7 @@
  <npcDefinition>
    <id>3016</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66370,7 +66370,7 @@
  <npcDefinition>
    <id>3017</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -66392,7 +66392,7 @@
  <npcDefinition>
    <id>3018</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -67646,7 +67646,7 @@
  <npcDefinition>
    <id>3075</id>
    <name>Illegal Monk</name>
-   <examine>One of the illegal bretheren of 2006Scape.</examine>
+   <examine>One of the illegal bretheren of /v/Scape.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -70880,7 +70880,7 @@
  <npcDefinition>
    <id>3222</id>
    <name>Drunken man</name>
-   <examine>One of 2006Scape's many citizens, currently incapacitated by alcohol.</examine>
+   <examine>One of /v/Scape's many citizens, currently incapacitated by alcohol.</examine>
    <combat>3</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -70902,7 +70902,7 @@
  <npcDefinition>
    <id>3223</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -70924,7 +70924,7 @@
  <npcDefinition>
    <id>3224</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -70946,7 +70946,7 @@
  <npcDefinition>
    <id>3225</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens. He looks worried about something.</examine>
+   <examine>One of /v/Scape's many citizens. He looks worried about something.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -70968,7 +70968,7 @@
  <npcDefinition>
    <id>3226</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -70990,7 +70990,7 @@
  <npcDefinition>
    <id>3227</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens. She looks rich.</examine>
+   <examine>One of /v/Scape's many citizens. She looks rich.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -80296,7 +80296,7 @@
  <npcDefinition>
    <id>3650</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>43</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -80318,7 +80318,7 @@
  <npcDefinition>
    <id>3651</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>43</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -80340,7 +80340,7 @@
  <npcDefinition>
    <id>3652</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>43</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -80362,7 +80362,7 @@
  <npcDefinition>
    <id>3653</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>43</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -80384,7 +80384,7 @@
  <npcDefinition>
    <id>3654</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>43</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -80648,7 +80648,7 @@
  <npcDefinition>
    <id>3666</id>
    <name>Confusion beast</name>
-   <examine>What on 2006Scape is that?!?</examine>
+   <examine>What on /v/Scape is that?!?</examine>
    <combat>63</combat>
    <size>2</size>
    <attackable>true</attackable>
@@ -86126,7 +86126,7 @@
  <npcDefinition>
    <id>3915</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -94684,7 +94684,7 @@
  <npcDefinition>
    <id>4304</id>
    <name>Guard</name>
-   <examine>It's an NPC.</examine>
+   <examine>A guard for the humans against monster group.</examine>
    <combat>22</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -96246,7 +96246,7 @@
  <npcDefinition>
    <id>4375</id>
    <name>Security Guard</name>
-   <examine>A retired 2006Scape security guard.</examine>
+   <examine>A retired /v/scape security guard.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -96708,7 +96708,7 @@
  <npcDefinition>
    <id>4396</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>1</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -97126,7 +97126,7 @@
  <npcDefinition>
    <id>4415</id>
    <name>Rat</name>
-   <examine>A popular dwarven delicacy.</examine>
+   <examine>Eek! a rat!</examine>
    <combat>1</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -110875,7 +110875,7 @@
  <npcDefinition>
    <id>5040</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
@@ -110963,7 +110963,7 @@
  <npcDefinition>
    <id>5044</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>30</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -110985,7 +110985,7 @@
  <npcDefinition>
    <id>5045</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>32</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114681,7 +114681,7 @@
  <npcDefinition>
    <id>5213</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>37</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114703,7 +114703,7 @@
  <npcDefinition>
    <id>5214</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>42</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114725,7 +114725,7 @@
  <npcDefinition>
    <id>5215</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>47</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114747,7 +114747,7 @@
  <npcDefinition>
    <id>5216</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>56</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114769,7 +114769,7 @@
  <npcDefinition>
    <id>5217</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>61</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114791,7 +114791,7 @@
  <npcDefinition>
    <id>5218</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>68</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -114813,7 +114813,7 @@
  <npcDefinition>
    <id>5219</id>
    <name>Penance Fighter</name>
-   <examine>What on 2006Scape is that?</examine>
+   <examine>What on /v/Scape is that?</examine>
    <combat>77</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -130301,7 +130301,7 @@
  <npcDefinition>
    <id>5923</id>
    <name>Man</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -130323,7 +130323,7 @@
  <npcDefinition>
    <id>5924</id>
    <name>Woman</name>
-   <examine>One of 2006Scape's many citizens.</examine>
+   <examine>One of /v/Scape's many citizens.</examine>
    <combat>2</combat>
    <size>1</size>
    <attackable>true</attackable>
@@ -130477,7 +130477,7 @@
  <npcDefinition>
    <id>5931</id>
    <name>Historian Minas</name>
-   <examine>Seth Minas - an aged expert in 2006Scape history.</examine>
+   <examine>Seth Minas - an aged expert in /v/Scape history.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>
