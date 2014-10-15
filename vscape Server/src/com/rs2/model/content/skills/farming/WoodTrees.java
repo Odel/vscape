@@ -320,6 +320,12 @@ public class WoodTrees {
 			long growth = treeData.getGrowthTime();
 			int nbStates = treeData.getEndingState() - treeData.getStartingState();
 			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingTimer[i] == 0 || farmingState[i] == 2 || state > nbStates) {
 				continue;
 			}

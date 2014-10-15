@@ -1,14 +1,22 @@
 package com.rs2.util.sql;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
+import java.util.zip.GZIPInputStream;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.rs2.Constants;
 //import java.security.MessageDigest;
 import com.rs2.model.players.Player;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.util.PlayerSave;
 
 
 public class SQL {
@@ -116,98 +124,143 @@ public class SQL {
 			File folder = new File("./data/characters");
 			File[] listOfFiles = folder.listFiles();
 			for (File file : listOfFiles) {
-				if (file.getName().endsWith(".dat")) {
-					count++;
-					//System.out.println(file.getName());
-					File openplayerfile = new File(folder + "/" + file.getName());
-		            FileInputStream inFile = new FileInputStream(openplayerfile);
-		            DataInputStream load = new DataInputStream(inFile);
-		            
-		            String name = load.readUTF();
-		            String s = load.readUTF();
-		            int i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            boolean b = load.readBoolean();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = (int) load.readDouble();
-		            b = load.readBoolean();
-		            b = load.readBoolean();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = load.readInt();
-		            i = (int) load.readDouble();
-		            b = load.readBoolean();
-		            String stuff = "";
-		            for (int k = 0; k < 25; k++) {
+				if(PlayerSave.useNewFormat){
+					if (file.getName().endsWith(".gz")) {
+				        try(GZIPInputStream gzip = new GZIPInputStream(new FileInputStream(file))){
+					        JsonElement mainElement = new JsonParser().parse(new BufferedReader(new InputStreamReader(gzip)));
+					        gzip.close();
+					        JsonObject mainObj = mainElement.getAsJsonObject();
+					        JsonObject characterObj = mainObj.getAsJsonObject("character");
+				            if(mainElement == null || mainObj == null || characterObj == null){
+				            	continue;
+				            }
+				            JsonArray skills = mainObj.getAsJsonArray("skills");
+				            if(skills == null || skills.size() == 0)
+				            {
+				            	continue;
+				            }
+				            int leveltotal = 0;
+				            int xptotal = 0;
+				            if(skills != null && skills.size() > 0){
+					    		for (int i = 0; i < 22; i++) {
+					    			JsonObject levelObj = skills.get(i).getAsJsonObject();
+					    			leveltotal += levelObj.get("lvl").getAsInt();
+					    			xptotal += levelObj.get("xp").getAsInt();
+					    		}
+				            }
+				    		try {
+				    			String sname = file.getName();
+				    			sname = sname.substring(0, sname.lastIndexOf('.'));
+				    			
+				    			if(Constants.SQL_TYPE == 2)
+				    			{
+				    				PreparedStatement del;
+				    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
+				    				del.setString(1, sname);
+				    				del.executeUpdate();
+				    			}
+				    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`username`,`totallevel`,`totalxp`) VALUES (?,?,?);");
+				    			upd.setString(1, sname);
+				    			upd.setInt(2, leveltotal);
+				    			upd.setInt(3, xptotal);
+				    			upd.executeUpdate();				    			
+				    		} catch (Exception e) {
+				    			e.printStackTrace();
+				    		}
+				        }
+					}
+				}else{
+					if (file.getName().endsWith(".dat")) {
+						count++;
+						//System.out.println(file.getName());
+						File openplayerfile = new File(folder + "/" + file.getName());
+			            FileInputStream inFile = new FileInputStream(openplayerfile);
+			            DataInputStream load = new DataInputStream(inFile);
+			            
+			            String name = load.readUTF();
+			            String s = load.readUTF();
+			            int i = load.readInt();
 			            i = load.readInt();
-			            stuff += "," + i;
-		            }
-		            int[] levels = new int[22];
-		            int leveltotal = 0;
-		            for (int k = 0; k <  22; k++) {
-		                levels[k] = load.readInt();
-		                leveltotal += levels[k];
-		            }
-		            
-		            //System.out.println(name + ":" + stuff + ":" + levelstring + ":" + b);
-		            int[] xp = new int[22];
-		            int xptotal = 0;
-		            for (int k = 0; k < 22; k++) {
-		                xp[k] = load.readInt();
-		                xptotal += xp[k];
-		            }
-		            
-		            load.close();
-		            if(count%100 == 0)
-		            {
-		            	System.out.println(count + " entries made");
-		            }
-		    		try {
-		    			String sname = file.getName();
-		    			sname = sname.substring(0, sname.lastIndexOf('.'));
-		    			//System.out.println(sname);
-		    			//query("DELETE FROM `skillsoverall` WHERE playerName = '"+sname+"';");
-		    			//query("INSERT INTO `skillsoverall` (`playerName`,`xp`,`lvl`) VALUES ('"+sname+"',"+(xptotal)+","+(leveltotal)+");");
-		    			if(Constants.SQL_TYPE == 2)
-		    			{
-		    				PreparedStatement del;
-		    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
-		    				del.setString(1, sname);
-		    				del.executeUpdate();
-		    			}
-		    			
-		    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`username`,`totallevel`,`totalxp`) VALUES (?,?,?);");
-		    			upd.setString(1, sname);
-		    			upd.setInt(2, leveltotal);
-		    			upd.setInt(3, xptotal);
-		    			upd.executeUpdate();
-		    			
-		    			
-		    		} catch (Exception e) {
-		    			e.printStackTrace();
-		    		}
-                } 
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            boolean b = load.readBoolean();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = (int) load.readDouble();
+			            b = load.readBoolean();
+			            b = load.readBoolean();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = load.readInt();
+			            i = (int) load.readDouble();
+			            b = load.readBoolean();
+			            String stuff = "";
+			            for (int k = 0; k < 25; k++) {
+				            i = load.readInt();
+				            stuff += "," + i;
+			            }
+			            int[] levels = new int[22];
+			            int leveltotal = 0;
+			            for (int k = 0; k <  22; k++) {
+			                levels[k] = load.readInt();
+			                leveltotal += levels[k];
+			            }
+			            
+			            //System.out.println(name + ":" + stuff + ":" + levelstring + ":" + b);
+			            int[] xp = new int[22];
+			            int xptotal = 0;
+			            for (int k = 0; k < 22; k++) {
+			                xp[k] = load.readInt();
+			                xptotal += xp[k];
+			            }
+			            
+			            load.close();
+			            if(count%100 == 0)
+			            {
+			            	System.out.println(count + " entries made");
+			            }
+			    		try {
+			    			String sname = file.getName();
+			    			sname = sname.substring(0, sname.lastIndexOf('.'));
+			    			//System.out.println(sname);
+			    			//query("DELETE FROM `skillsoverall` WHERE playerName = '"+sname+"';");
+			    			//query("INSERT INTO `skillsoverall` (`playerName`,`xp`,`lvl`) VALUES ('"+sname+"',"+(xptotal)+","+(leveltotal)+");");
+			    			if(Constants.SQL_TYPE == 2)
+			    			{
+			    				PreparedStatement del;
+			    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
+			    				del.setString(1, sname);
+			    				del.executeUpdate();
+			    			}
+			    			
+			    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`username`,`totallevel`,`totalxp`) VALUES (?,?,?);");
+			    			upd.setString(1, sname);
+			    			upd.setInt(2, leveltotal);
+			    			upd.setInt(3, xptotal);
+			    			upd.executeUpdate();
+			    			
+			    			
+			    		} catch (Exception e) {
+			    			e.printStackTrace();
+			    		}
+	                } 
+				}
 			}
-			
+		}catch(Exception e) {
 		}
-
-			catch(Exception e) {
-			}
+			
 	}
 }

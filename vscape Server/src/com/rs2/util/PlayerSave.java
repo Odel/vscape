@@ -11,7 +11,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.zip.GZIPOutputStream;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.model.World;
@@ -25,7 +28,6 @@ import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
-
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
@@ -38,7 +40,42 @@ public class PlayerSave {
 
 	/** The directory where players are saved. */
 	public static final String directory = "./data/characters/";
-
+	public static final boolean useNewFormat = true;
+	
+	public static boolean hasOldFormat (final Player player){
+		return new File(directory + player.getUsername() + ".dat").exists();
+	}
+	
+	public static boolean hasNewFormat (final Player player){
+		return new File(directory + player.getUsername() + ".gz").exists();
+	}
+	
+	public static void saveJson(final Player player) {
+		try {
+			File file = new File(directory + player.getUsername() + ".gz");
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+		    final GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+		    gsonBuilder.registerTypeAdapter(Player.class, new PlayerSaveSerialize());
+		    final Gson gson = gsonBuilder.create();
+			try(GZIPOutputStream compress = new GZIPOutputStream(new FileOutputStream(file))){
+				compress.write(gson.toJson(player).getBytes());
+				compress.flush();
+				compress.close();
+			} catch(IOException e) {
+				System.out.println("Failed to compress "+ player.getUsername());
+			}
+		} catch(IOException e) {
+			System.out.println("Failed to save "+ player.getUsername());
+	    }
+	}
+	
+	public static int loadJson(final Player player) {
+		File file = new File(directory + player.getUsername() + ".gz");
+		return new PlayerSaveParser().parse(player, file);
+	}
+	
 	/**
 	 * Saves the player.
 	 * 
@@ -47,6 +84,12 @@ public class PlayerSave {
 	 * @return
 	 */
 	public static void save(final Player player) {
+		if(useNewFormat)
+		{
+            saveJson(player);
+		}
+		else
+		{
 		try {
             @SuppressWarnings("unused")
 			Misc.Stopwatch stopwatch = new Misc.Stopwatch();
@@ -198,8 +241,8 @@ public class PlayerSave {
 			for (int i = 0; i < player.getBushes().getFarmingTimer().length; i++) {
 				write.writeLong(player.getBushes().getFarmingTimer()[i]);
 			}
-			for (int i = 0; i < player.getBushes().getFarmingChance().length; i++) {
-				write.writeDouble(player.getBushes().getFarmingChance()[i]);
+			for (int i = 0; i < player.getBushes().getDiseaseChance().length; i++) {
+				write.writeDouble(player.getBushes().getDiseaseChance()[i]);
 			}
 			for (int i = 0; i < player.getBushes().getFarmingWatched().length; i++) {
 				write.writeBoolean(player.getBushes().getFarmingWatched()[i]);
@@ -423,6 +466,7 @@ public class PlayerSave {
 			ex.printStackTrace();
 			System.out.println("here");
 		}
+		}
 	}
 	
 	public static void saveQuests(Player player) {
@@ -490,7 +534,8 @@ public class PlayerSave {
 	}
 	
 	public static int loadQuests(Player player) {
-	
+    	if(!useNewFormat || (useNewFormat && !hasNewFormat(player)))
+    	{
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -563,7 +608,7 @@ public class PlayerSave {
 					    else {
 						if(token2 != null) {
 						    player.setQuestStage(q.getQuestID(), Integer.parseInt(token2));
-						    q.sendQuestTabStatus(player);
+						  //  q.sendQuestTabStatus(player);
 						}
 					    }
 					}
@@ -579,10 +624,23 @@ public class PlayerSave {
 		}
 		try { characterfile.close(); } catch(IOException ioexception) { }
 		return 13;
+    	}
+    	return 0;
 	}
 
     public static void load(Player player) {
-            readFile(player);
+    	
+    	if(useNewFormat)
+    	{
+        	if(hasNewFormat(player))
+        	{
+        		loadJson(player);
+        	}else{
+        		readFile(player);
+        	}
+    	}else{
+    		readFile(player);
+    	}
 	}//try now kk
 
 	public static void saveAllPlayers() {
@@ -602,7 +660,7 @@ public class PlayerSave {
 	}
     
     static int readFile(Player player) {
-        File file = new File(directory + player.getUsername()
+       File file = new File(directory + player.getUsername()
                 + ".dat");
         if (!file.exists()) {
             if (Server.getSingleton() != null)
@@ -797,8 +855,8 @@ public class PlayerSave {
     			for (int i = 0; i < player.getBushes().getFarmingTimer().length; i++) {
     				player.getBushes().setFarmingTimer(i, load.readLong());
     			}
-    			for (int i = 0; i < player.getBushes().getFarmingChance().length; i++) {
-    				player.getBushes().setFarmingChance(i, load.readDouble());
+    			for (int i = 0; i < player.getBushes().getDiseaseChance().length; i++) {
+    				player.getBushes().setDiseaseChance(i, load.readDouble());
     			}
     			for (int i = 0; i < player.getBushes().getFarmingWatched().length; i++) {
     				player.getBushes().setFarmingWatched(i, load.readBoolean());

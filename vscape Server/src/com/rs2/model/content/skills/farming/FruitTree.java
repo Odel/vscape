@@ -335,6 +335,12 @@ public class FruitTree {
 			long growth = fruitTreeData.getGrowthTime();
 			int nbStates = fruitTreeData.getEndingState() - fruitTreeData.getStartingState();
 			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (state > nbStates)) {
 				continue;
 			}

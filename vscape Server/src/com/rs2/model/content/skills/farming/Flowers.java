@@ -277,6 +277,12 @@ public class Flowers { // todo scarecrow 6059
 			long growth = flowerData.getGrowthTime();
 			int nbStates = flowerData.getEndingState() - flowerData.getStartingState();
 			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingState[i] == 3 || farmingSeeds[i] == 0x21 || farmingTimer[i] == 0 || state > nbStates) {
 				continue;
 			}
