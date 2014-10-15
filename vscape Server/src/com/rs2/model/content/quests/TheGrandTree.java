@@ -101,6 +101,7 @@ public class TheGrandTree implements Quest {
     private int expReward[][] = { //Exp in the form of {Skill.AGILITY, x},
 	{Skill.AGILITY, 7900},
 	{Skill.ATTACK, 18400},
+	{Skill.MAGIC, 2150},
     }; //The 2.25 multiplier is added later, use vanilla values
     
     private static final int questPointReward = 5;
