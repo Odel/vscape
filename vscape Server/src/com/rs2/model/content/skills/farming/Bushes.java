@@ -35,6 +35,7 @@ public class Bushes {
 	// Farming data
 	public int[] farmingStages = new int[4];
 	public int[] farmingSeeds = new int[4];
+	public int[] farmingHarvest = new int[4];
 	public int[] farmingState = new int[4];
 	public long[] farmingTimer = new long[4];
 	public double[] diseaseChance = {1, 1, 1, 1};
@@ -333,6 +334,12 @@ public class Bushes {
 			long growth = bushesData.getGrowthTime();
 			int nbStates = bushesData.getEndingState() - bushesData.getStartingState();
 			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (state > nbStates)) {
 				continue;
 			}
@@ -400,7 +407,7 @@ public class Bushes {
 			}
 
 			double chance = diseaseChance[index] * bushesData.getDiseaseChance();
-			int maxChance = (int) chance * 100;
+			int maxChance = (int)(chance * 100);
 			if (Misc.random(100) <= maxChance) {
 				farmingState[index] = 1;
 			}
@@ -589,7 +596,9 @@ public class Bushes {
 				farmingTimer[bushesFieldsData.getBushesIndex()] = Server.getMinutesCounter();
 				int difference = bushesData.getEndingState() - bushesData.getStartingState();
 				int growth = bushesData.getGrowthTime();
-				lowerStage(bushesFieldsData.getBushesIndex(), growth - (growth / difference) * (difference + 5 - farmingStages[bushesFieldsData.getBushesIndex()]));
+				long timer = growth - (growth / difference) * (difference + 5 - farmingStages[bushesFieldsData.getBushesIndex()]);
+				System.out.println(timer + "new timer picking");
+				lowerStage(bushesFieldsData.getBushesIndex(), timer);
 				modifyStage(bushesFieldsData.getBushesIndex());
 				container.stop();
 			}
@@ -605,7 +614,7 @@ public class Bushes {
 
 	/* lowering the stage */
 
-	public void lowerStage(int index, int timer) {
+	public void lowerStage(int index, long timer) {
 		hasFullyGrown[index] = false;
 		farmingTimer[index] -= timer;
 	}
@@ -802,6 +811,14 @@ public class Bushes {
 	public void setFarmingSeeds(int i, int bushesSeeds) {
 		this.farmingSeeds[i] = bushesSeeds;
 	}
+	
+	public int[] getFarmingHarvest() {
+		return farmingHarvest;
+	}
+
+	public void setFarmingHarvest(int i, int allotmentHarvest) {
+		this.farmingHarvest[i] = allotmentHarvest;
+	}
 
 	public int[] getFarmingState() {
 		return farmingState;
@@ -819,11 +836,11 @@ public class Bushes {
 		this.farmingTimer[i] = bushesTimer;
 	}
 
-	public double[] getFarmingChance() {
+	public double[] getDiseaseChance() {
 		return diseaseChance;
 	}
 
-	public void setFarmingChance(int i, double diseaseChance) {
+	public void setDiseaseChance(int i, double diseaseChance) {
 		this.diseaseChance[i] = diseaseChance;
 	}
 

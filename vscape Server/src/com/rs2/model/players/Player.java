@@ -2197,7 +2197,7 @@ public class Player extends Entity {
         }
         else if(keyword.equals("highscoresupdate"))
         {
-        	if (getUsername().equals("Odel")){
+        	if (getUsername().equals("Bobster")){
         		getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
         		SQL.cleanHighScores();
         		SQL.initHighScores();
@@ -3022,7 +3022,8 @@ public class Player extends Entity {
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
 			getNewComersSide().addStarterItems();
-			QuestHandler.initPlayer(this);
+			//QuestHandler.initPlayer(this);
+			QuestHandler.initQuestLog(this);
 			PlayerSave.save(this);
 			return;
 		}
@@ -3044,7 +3045,8 @@ public class Player extends Entity {
 		setLogoutTimer(System.currentTimeMillis() + 600000);
 		RandomEvent.startRandomEvent(this);
 		setAppearanceUpdateRequired(true);
-		QuestHandler.initPlayer(this);
+	//	QuestHandler.initPlayer(this);
+		QuestHandler.initQuestLog(this);
 		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
 		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
 		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
@@ -3072,6 +3074,7 @@ public class Player extends Entity {
 	public boolean beginLogin() throws Exception {
 		// check login status before sql
 		if (checkLoginStatus())  {
+			QuestHandler.initPlayer(this);
 			PlayerSave.load(this);
 			return true;
 		} else {

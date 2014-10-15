@@ -268,6 +268,12 @@ public class Herbs {
 			long growth = herbData.getGrowthTime();
 			int nbStates = herbData.getEndingState() - herbData.getStartingState();
 			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingTimer[i] == 0 || farmingState[i] == 2 || state > nbStates) {
 				continue;
 			}

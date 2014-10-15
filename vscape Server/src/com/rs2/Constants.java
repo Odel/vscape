@@ -118,7 +118,7 @@ public class Constants {
 	public static boolean THIEVING_ENABLED = true;
 	public static boolean WOODCUTTING_ENABLED = true;
 	
-	public static boolean FARMING_BUSHES_ENABLED = false;
+	public static boolean FARMING_BUSHES_ENABLED = true;
 	
 	public static boolean DEGRADING_ENABLED = false;
 

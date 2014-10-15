@@ -58,7 +58,7 @@ public class QuestHandler {
         System.out.println("Loaded " + quests.length + " quests.");
     }
     
-    public static void initPlayer(Player player){
+   /* public static void initPlayer(Player player, boolean ){
     	player.setQuestsLength(quests.length);
     	for(Quest q : quests)
     	{
@@ -66,6 +66,23 @@ public class QuestHandler {
     	}
         player.sendQuestTab(); //Makes the quest log empty except implemented quests
         PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
+    }
+    */
+    public static void initPlayer(Player player){
+        player.setQuestsLength(quests.length);
+        for(Quest q : quests)
+        {
+                player.setQuestStage(q.getQuestID(), 0);
+        }
+        PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
+    }
+    
+    public static void initQuestLog(Player player){
+        player.sendQuestTab();
+        for(Quest q : quests)
+        {
+            q.sendQuestTabStatus(player);
+        }
     }
     
     public static Quest[] getQuests(){

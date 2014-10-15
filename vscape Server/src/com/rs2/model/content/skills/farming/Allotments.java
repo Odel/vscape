@@ -330,7 +330,13 @@ public class Allotments {
 			long difference = Server.getMinutesCounter() - farmingTimer[i];
 			long growth = allotmentData.getGrowthTime();
 			int nbStates = allotmentData.getEndingState() - allotmentData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
+			int state = (int) ((difference * nbStates) / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
 			if (farmingTimer[i] == 0 || farmingState[i] == 3 || state > nbStates) {
 				continue;
 			}
@@ -752,10 +758,9 @@ public class Allotments {
 			return;
 		}
 		double chance = diseaseChance[index] * allotmentData.getDiseaseChance();
-		@SuppressWarnings("unused")
-		int maxChance = (int) chance * 100;
+		int maxChance = (int)(chance * 100);
 		int indexGiven = 0;
-		if (!farmingWatched[index]) {// Misc.random(100) <= maxChance) {
+		if (!farmingWatched[index] && Misc.random(100) <= maxChance) {
 			switch (index) {
 				case 0 :
 				case 1 :
