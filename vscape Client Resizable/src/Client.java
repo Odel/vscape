@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3e";
+	private final static String CLIENT_VERSION = "3.1";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -5455,19 +5455,27 @@ public class Client extends RSApplet {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
+				if ((!amountOrNameInput.toLowerCase().contains("k") && !amountOrNameInput.toLowerCase().contains("m") && !amountOrNameInput.toLowerCase().contains("b")) && (j == 107 || j == 109) || j == 98) {
+					amountOrNameInput += (char) j;
+					inputTaken = true;
+				}
 				if (j == 8 && amountOrNameInput.length() > 0) {
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
 				if (j == 13 || j == 10) {
 					if (amountOrNameInput.length() > 0) {
-						int i1 = 0;
-						try {
-							i1 = Integer.parseInt(amountOrNameInput);
-						} catch (Exception _ex) {
+						if (amountOrNameInput.toLowerCase().contains("k")) {
+							amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
+						} else if (amountOrNameInput.toLowerCase().contains("m")) {
+							amountOrNameInput = amountOrNameInput.replaceAll("m", "000000");
+						} else if (amountOrNameInput.toLowerCase().contains("b")) {
+							amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
 						}
+						int amount = 0;
+						amount = Integer.parseInt(amountOrNameInput);
 						stream.createFrame(208);
-						stream.writeDWord(i1);
+						stream.writeDWord(amount);
 					}
 					inputDialogState = 0;
 					inputTaken = true;
@@ -6229,6 +6237,7 @@ public class Client extends RSApplet {
 	}
 
 	public static void setTab(int id) {
+		needDrawTabArea = true;
 		tabID = id;
 		tabAreaAltered = true;
 	}
@@ -6279,12 +6288,6 @@ public class Client extends RSApplet {
 				{
 					needDrawTabArea = true;
 					tabID = 6;
-					tabAreaAltered = true;
-				}
-				if(super.saveClickX >= 524 && super.saveClickX <= 561 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[7] != -1)
-				{
-					needDrawTabArea = true;
-					tabID = 7;
 					tabAreaAltered = true;
 				}
 				if(super.saveClickX >= 562 && super.saveClickX <= 594 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[8] != -1)
@@ -6428,21 +6431,6 @@ public class Client extends RSApplet {
 							showTab = true;
 						}
 						tabID = tab[6];
-						needDrawTabArea = true;
-						tabAreaAltered = true;
-
-					}
-					if (super.saveClickX >= clientWidth - 241
-							&& super.saveClickX <= clientWidth - 204
-							&& super.saveClickY >= clientHeight - 37
-							&& super.saveClickY < clientHeight - 0
-							&& tabInterfaceIDs[7] != -1) {
-						if (tabID == tab[7]) {
-							showTab = !showTab;
-						} else {
-							showTab = true;
-						}
-						tabID = tab[7];
 						needDrawTabArea = true;
 						tabAreaAltered = true;
 
