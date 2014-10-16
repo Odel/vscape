@@ -165,6 +165,7 @@ import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
+import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 
 /**
@@ -2056,6 +2057,11 @@ public class Player extends Entity {
 			Graphic graphic = new Graphic(gfxId, 100);
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
 			getActionSender().sendMessage("GFX #" + gfxId);
+		}
+		else if (keyword.equals("solvepuzzle")) {
+		    for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+			this.puzzleStoredItems[i] = new Item(Puzzle.getPuzzleIndex(Puzzle.index)[i]);
+		    }
 		}
 		else if (keyword.equals("barrowsreward")) {
 		    int amount = Integer.parseInt(args[0]);

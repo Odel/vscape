@@ -821,7 +821,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    ClueScroll.cleanClueInterface(player);
 	}
 	if (Puzzle.loadClueInterface(player, itemId)) {
-	    player.getActionSender().sendMessage("Clue ID: " + itemId);
 	    return;
 	}
 	if (CoordinateScrolls.loadClueInterface(player, itemId)) {

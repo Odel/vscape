@@ -4787,7 +4787,7 @@ public class Dialogues {
 						player.getDialogue().dontCloseInterface();
 						break;
 					case 2 :
-						ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward");
+						ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward.");
 						player.resetEffects();
 						return true;
 					case 3 :

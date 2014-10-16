@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
 
@@ -25,11 +26,24 @@ public class Puzzle {// todo maybe hovering button message
 
 	public static boolean loadClueInterface(Player player, int itemId) {
 		if (getIndexByItem(itemId) == 0)
-			return false;
+		    return false;
+		/*loadPuzzleArray(getIndexByItem(itemId));
+		index = getIndexByItem(itemId);
+		loadPuzzleItems(player);*/
+		loadPuzzle(player);
+		if(finishedPuzzle(player)) {
+		    player.getActionSender().sendMessage("You have completed this puzzle!");
+		    return true;
+		}
+		return true;
+	}
+	
+	public static boolean initPuzzle(Player player, int itemId) {
+		if (getIndexByItem(itemId) == 0)
+		    return false;
 		loadPuzzleArray(getIndexByItem(itemId));
 		index = getIndexByItem(itemId);
 		loadPuzzleItems(player);
-		loadPuzzle(player);
 		return true;
 	}
 
@@ -63,7 +77,7 @@ public class Puzzle {// todo maybe hovering button message
 				return 1;
 			case ClueScroll.TREE_PUZZLE :
 				return 2;
-			case ClueScroll.OGRE_PUZZLE :
+			case ClueScroll.TROLL_PUZZLE :
 				return 3;
 		}
 		return 0;
@@ -82,9 +96,13 @@ public class Puzzle {// todo maybe hovering button message
 		}
 		return null;
 	}
-
+	
+	public static void resetPuzzleItems(Player player) {
+	    for(int i = 0; i < player.puzzleStoredItems.length; i++) {
+		player.puzzleStoredItems[i] = new Item(-1);
+	    }
+	}
 	/* loading the puzzle items */
-
 	public static void loadPuzzleItems(Player player) {
 		ArrayList<Integer> array = randomPuzzle();
 		boolean samePuzzle = false;
@@ -255,6 +273,9 @@ public class Puzzle {// todo maybe hovering button message
 
 			}
 		}
+		if(finishedPuzzle(player)) {
+		    player.getActionSender().sendMessage("You have completed the puzzle!");
+		}
         return true;
 
 	}
@@ -262,15 +283,21 @@ public class Puzzle {// todo maybe hovering button message
 	/* checks if the puzzle is solved */
 
 	public static boolean finishedPuzzle(Player player) {
-		if (player.puzzleStoredItems == null) {
+		if (player.puzzleStoredItems == null || player.puzzleStoredItems.length == 0) {
 			return false;
 		}
+		
 		int counter = 0;
-		for (int i = 0; i < player.puzzleStoredItems.length; i++)
-			if (player.puzzleStoredItems[i] != null && player.puzzleStoredItems[i].getId() == getPuzzleIndex(index)[i])
+		for (int i = 0; i < player.puzzleStoredItems.length; i++) {
+			if (player.puzzleStoredItems[i] != null && player.puzzleStoredItems[i].getId() == getPuzzleIndex(index)[i]) {
 				counter++;
-		if (counter == player.puzzleStoredItems.length)
-			return true;
+			}
+		}
+		
+		if (counter == player.puzzleStoredItems.length) {
+		    return true;
+		}
+		
 		return false;
 	}
 
@@ -308,6 +335,13 @@ public class Puzzle {// todo maybe hovering button message
 
 	public static void addRandomPuzzle(Player player) {
 		int[] items = {2800, 3565, 3571};
-		player.getInventory().addItem(new Item(items[Misc.randomMinusOne(items.length)]));
+		int item = items[Misc.randomMinusOne(items.length)];
+		player.getInventory().addItem(new Item(item));
+		initPuzzle(player, item);
+	}
+	
+	public static boolean playerHasPuzzle(Player player) {
+	    Inventory i = player.getInventory();
+	    return i.playerHasItem(new Item(ClueScroll.CASTLE_PUZZLE)) || i.playerHasItem(new Item(ClueScroll.TREE_PUZZLE)) || i.playerHasItem(new Item(ClueScroll.TROLL_PUZZLE));
 	}
 }

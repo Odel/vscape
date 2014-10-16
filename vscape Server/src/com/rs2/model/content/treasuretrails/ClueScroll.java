@@ -49,7 +49,7 @@ public class ClueScroll {
 
 	public static final int CASTLE_PUZZLE = 2800;
 	public static final int TREE_PUZZLE = 3565;
-	public static final int OGRE_PUZZLE = 3571;
+	public static final int TROLL_PUZZLE = 3571;
 
 	public static final int PUZZLE_LENGTH = 25;
 
@@ -359,7 +359,6 @@ public class ClueScroll {
 				array.add(SpeakToScrolls.getRandomScroll(3));
 				array.add(DiggingScrolls.getRandomScroll(3));
 				array.add(CoordinateScrolls.getRandomScroll(3));
-
 				return array.get(Misc.random(array.size() - 1));
 
 		}
