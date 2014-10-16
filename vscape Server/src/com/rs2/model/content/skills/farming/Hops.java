@@ -59,13 +59,7 @@ public class Hops {
 	/* This is the enum holding the seeds info */
 
 	public enum HopsData {
-		BARLEY(5305, 6006, 4, 3, new int[]{6032, 3}, 40, 0.35, 8.5, 9.5, 0x31, 0x35), 
-		HAMMERSTONE(5307, 5994, 4, 4, new int[]{6010, 1}, 40, 0.35, 9, 10, 0x04, 0x08), 
-		ASGARNIAN(5308, 5996, 4, 8, new int[]{5458, 1}, 50, 0.30, 10.5, 12, 0x0b, 0x10), 
-		JUTE(5306, 5931, 3, 13, new int[]{6008, 6}, 50, 0.30, 13, 14.5, 0x38, 0x3d),
-		YANILLIAN(5309, 5998, 4, 16, new int[]{5968, 1}, 60, 0.25, 14.5, 16, 0x13, 0x19),
-		KRANDORIAN(5310, 6000, 4, 21, new int[]{5478}, 70, 0.25, 17.5, 19.5, 0x1c, 0x23), 
-		WILDBLOOD(5311, 6002, 4, 28, new int[]{6012, 1}, 80, 0.20, 23, 26, 0x26, 0x2e);
+		BARLEY(5305, 6006, 4, 3, new int[]{6032, 3}, 40, 0.35, 8.5, 9.5, 0x31, 0x35), HAMMERSTONE(5307, 5994, 4, 4, new int[]{6010, 1}, 40, 0.35, 9, 10, 0x04, 0x08), ASGARNIAN(5308, 5996, 4, 8, new int[]{5458, 1}, 40, 0.30, 10.5, 12, 0x0b, 0x10), JUTE(5306, 5931, 3, 13, new int[]{6008, 6}, 40, 0.30, 13, 14.5, 0x38, 0x3d), YANILLIAN(5309, 5998, 4, 16, new int[]{5968, 1}, 40, 0.25, 14.5, 16, 0x13, 0x19), KRANDORIAN(5310, 6000, 4, 21, new int[]{5478}, 40, 0.25, 17.5, 19.5, 0x1c, 0x23), WILDBLOOD(5311, 6002, 4, 28, new int[]{6012, 1}, 40, 0.20, 23, 26, 0x26, 0x2e), ;
 
 		private int seedId;
 		private int harvestId;
@@ -237,105 +231,8 @@ public class Hops {
 		}
 	}
 
-	public void processGrowth()
-	{
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
-			if(difference >= 5) //5 "minute" period 
-			{
-				// if weeds or clear patch, the patch needs to lower a stage
-				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
-				{
-					farmingStages[i]--;
-					farmingTimer[i] = Server.getMinutesCounter();
-					updateHopsStates();
-					continue;
-				}
-			}
-			HopsData hopsData = HopsData.forId(farmingSeeds[i]);
-			if (hopsData == null) {
-				continue;
-			}
-			long growthTimeTotal = hopsData.getGrowthTime();
-			int totalStages = (hopsData.getEndingState() - hopsData.getStartingState());
-			long growthTimePerStage = (growthTimeTotal / totalStages);
-			int nextStage = farmingStages[i] + 1;
-			//if timer is 0 or if the plant is dead or fully grown go to next Hops index insted
-			if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages + 4)) {
-				continue;
-			}
-			if(difference >= growthTimePerStage) //in growth stage time (10 minutes for hops)
-			{
-				if (nextStage != farmingStages[i]) {
-					farmingStages[i] = nextStage;
-					if (farmingStages[i] <= nextStage){
-						for (int j = farmingStages[i]; j <= nextStage; j++){
-							processState(i);
-						}
-					}
-					farmingTimer[i] = Server.getMinutesCounter();
-					updateHopsStates();
-				}
-			}
-		}
-	}
-	
-	public void processState(int index)
-	{
-		if (farmingState[index] == 3) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 2) {
-			if (farmingWatched[index]) {
-				farmingState[index] = 0;
-				HopsData hopsData = HopsData.forId(farmingSeeds[index]);
-				if (hopsData == null)
-					return;
-				farmingTimer[index] = Server.getMinutesCounter();
-				modifyStage(index);
-			} else {
-				farmingState[index] = 3;
-			}
-		}
-
-		if (farmingState[index] == 1) {
-			diseaseChance[index] *= 2;
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 5 && farmingStages[index] != 3) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			HopsData hopsData = HopsData.forId(farmingSeeds[index]);
-			if (hopsData == null) {
-				return;
-			}
-
-			double chance = diseaseChance[index] * hopsData.getDiseaseChance();
-			int maxChance = (int)(chance * 100);
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 2;
-			}
-		}
-	}
-	
-	public void modifyStage(int i) {
-		HopsData hopsData = HopsData.forId(farmingSeeds[i]);
-		if (hopsData == null)
-			return;
-		int totalStages = (hopsData.getEndingState() - hopsData.getStartingState());
-		int nextStage = farmingStages[i] + 1;
-		if(nextStage > totalStages)
-			return;
-		farmingStages[i] = nextStage;
-		updateHopsStates();
-	}
-	
 	/* update all the patch states */
+
 	public void updateHopsStates() {
 		// lumbridge - mc grubor - yanille - entrana
 		int[] configValues = new int[farmingStages.length];
@@ -390,7 +287,105 @@ public class Hops {
 		return -1;
 	}
 
+	/* calculating the disease chance and making the plant grow */
+
+	public void doCalculations() {
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
+				farmingStages[i]--;
+				farmingTimer[i] = Server.getMinutesCounter();
+				updateHopsStates();
+				continue;
+			}
+			HopsData hopsData = HopsData.forId(farmingSeeds[i]);
+			if (hopsData == null) {
+				continue;
+			}
+
+			long difference = Server.getMinutesCounter() - farmingTimer[i];
+			long growth = hopsData.getGrowthTime();
+			int nbStates = hopsData.getEndingState() - hopsData.getStartingState();
+			int state = (int) (difference * nbStates / growth);
+			if(state > nbStates) {
+				state = nbStates;
+			}
+			if(state < 0) {
+				state = 0;
+			}
+			if (farmingTimer[i] == 0 || farmingState[i] == 3 || state > nbStates) {
+				continue;
+			}
+			if (4 + state != farmingStages[i]) {
+				farmingStages[i] = 4 + state;
+				if (farmingStages[i] <= 4 + state)
+					for (int j = farmingStages[i]; j <= 4 + state; j++)
+						doStateCalculation(i);
+				updateHopsStates();
+			}
+		}
+	}
+
+	public void modifyStage(int i) {
+		HopsData hopsData = HopsData.forId(farmingSeeds[i]);
+		if (hopsData == null)
+			return;
+		long difference = Server.getMinutesCounter() - farmingTimer[i];
+		long growth = hopsData.getGrowthTime();
+		int nbStates = hopsData.getEndingState() - hopsData.getStartingState();
+		int state = (int) (difference * nbStates / growth);
+		farmingStages[i] = 4 + state;
+		updateHopsStates();
+
+	}
+
+	/* calculations about the diseasing chance */
+
+	public void doStateCalculation(int index) {
+		if (farmingState[index] == 3) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it
+		// goes back to normal
+		if (farmingState[index] == 2) {
+			if (farmingWatched[index]) {
+				farmingState[index] = 0;
+				HopsData hopsData = HopsData.forId(farmingSeeds[index]);
+				if (hopsData == null)
+					return;
+				int difference = hopsData.getEndingState() - hopsData.getStartingState();
+				int growth = hopsData.getGrowthTime();
+				farmingTimer[index] += (growth / difference);
+				modifyStage(index);
+			} else {
+				farmingState[index] = 3;
+			}
+		}
+
+		if (farmingState[index] == 1) {
+			diseaseChance[index] *= 2;
+			farmingState[index] = 0;
+		}
+
+		if (farmingState[index] == 5 && farmingStages[index] != 3) {
+			farmingState[index] = 0;
+		}
+
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			HopsData hopsData = HopsData.forId(farmingSeeds[index]);
+			if (hopsData == null) {
+				return;
+			}
+
+			double chance = diseaseChance[index] * hopsData.getDiseaseChance();
+			int maxChance = (int) chance * 100;
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 2;
+			}
+		}
+	}
+
 	/* watering the patch */
+
 	public boolean waterPatch(int objectX, int objectY, int itemId) {
 		final HopsFieldsData hopsFieldsData = HopsFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (hopsFieldsData == null) {
