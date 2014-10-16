@@ -215,6 +215,7 @@ public class Flowers { // todo scarecrow 6059
 				}
 				if (farmingSeeds[i] > 0x21 && farmingSeeds[i] <= 0x24) {
 					farmingSeeds[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
 					updateFlowerStates();
 					return;
 				}
