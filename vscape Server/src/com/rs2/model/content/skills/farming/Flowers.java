@@ -226,13 +226,13 @@ public class Flowers { // todo scarecrow 6059
 			long growthTimeTotal = flowerData.getGrowthTime();
 			int totalStages = (flowerData.getEndingState() - flowerData.getStartingState());
 			long growthTimePerStage = (growthTimeTotal / totalStages);
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
+			if (farmingState[i] == 3 || farmingSeeds[i] == 0x21 || farmingTimer[i] == 0 || (nextStage > totalStages + 4)) {
+				continue;
+			}
 			if(difference >= growthTimePerStage) //in growth stage time (5 minutes for flowers)
 			{
-				int nextStage = farmingStages[i] + 1;
-				//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
-				if (farmingState[i] == 3 || farmingSeeds[i] == 0x21 || farmingTimer[i] == 0 || (nextStage > totalStages + 4)) {
-					continue;
-				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
 					farmingTimer[i] = Server.getMinutesCounter();

@@ -281,13 +281,13 @@ public class Allotments {
 			long growthTimeTotal = allotmentData.getGrowthTime();
 			int totalStages = (allotmentData.getEndingState() - allotmentData.getStartingState()) + 2;
 			long growthTimePerStage = (growthTimeTotal / (totalStages - 4));
-			if(difference >= growthTimePerStage) //in growth stage time (10 minutes for allotments)
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Allotment index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages)) {
+				continue;
+			}
+			if(difference >= 1) //in growth stage time (10 minutes for allotments)
 			{
-				int nextStage = farmingStages[i] + 1;
-				//if timer is 0 or if the plant is dead or fully grown go to next Allotment index insted
-				if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages)) {
-					continue;
-				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
 					if (farmingStages[i] <= nextStage){

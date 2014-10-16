@@ -231,13 +231,13 @@ public class Herbs {
 			long growthTimeTotal = herbData.getGrowthTime();
 			int totalStages = (herbData.getEndingState() - herbData.getStartingState());
 			long growthTimePerStage = (growthTimeTotal / totalStages);
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages + 4)) {
+				continue;
+			}
 			if(difference >= growthTimePerStage) //in growth stage time (20 minutes for herbs)
 			{
-				int nextStage = farmingStages[i] + 1;
-				//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
-				if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages + 4)) {
-					continue;
-				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
 					farmingTimer[i] = Server.getMinutesCounter();

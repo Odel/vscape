@@ -259,13 +259,13 @@ public class Hops {
 			long growthTimeTotal = hopsData.getGrowthTime();
 			int totalStages = (hopsData.getEndingState() - hopsData.getStartingState());
 			long growthTimePerStage = (growthTimeTotal / totalStages);
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Hops index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages + 4)) {
+				continue;
+			}
 			if(difference >= growthTimePerStage) //in growth stage time (10 minutes for hops)
 			{
-				int nextStage = farmingStages[i] + 1;
-				//if timer is 0 or if the plant is dead or fully grown go to next Hops index insted
-				if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages + 4)) {
-					continue;
-				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
 					if (farmingStages[i] <= nextStage){
