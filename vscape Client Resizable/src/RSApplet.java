@@ -473,17 +473,6 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		}
 		if(i ==  KeyEvent.VK_ESCAPE){
 			Client.getClient().toggleSize(0);
-		}
-		if(i == KeyEvent.VK_F1) {
-			Client.setTab(4);
-		} else if(i == KeyEvent.VK_F2) {
-			Client.setTab(5);
-		} else if(i == KeyEvent.VK_F3) {
-			Client.setTab(6);
-		} else if(i == KeyEvent.VK_F4) {
-			Client.setTab(7);
-		} else if(i == KeyEvent.VK_F5) {
-			Client.setTab(0);
 		}*/
 		if(j < 30)
 			j = 0;
@@ -515,6 +504,31 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			j = 1002;
 		if(i == 34)
 			j = 1003;
+		if(i == KeyEvent.VK_F1) {
+			Client.setTab(0);
+		} else if(i == KeyEvent.VK_F2) {
+			Client.setTab(1);
+		} else if(i == KeyEvent.VK_F3) {
+			Client.setTab(2);
+		} else if(i == KeyEvent.VK_F4) {
+			Client.setTab(3);
+		} else if(i == KeyEvent.VK_F5) {
+			Client.setTab(4);
+		} else if(i == KeyEvent.VK_F6) {
+			Client.setTab(5);
+		} else if(i == KeyEvent.VK_F7) {
+			Client.setTab(6);
+		} else if(i == KeyEvent.VK_F8) {
+			Client.setTab(8);
+		} else if(i == KeyEvent.VK_F9) {
+			Client.setTab(9);
+		} else if(i == KeyEvent.VK_F10) {
+			Client.setTab(10);
+		} else if(i == KeyEvent.VK_F11) {
+			Client.setTab(11);
+		}else if(i == KeyEvent.VK_F12) {
+			Client.setTab(12);
+		}
 		if(j > 0 && j < 128)
 			keyArray[j] = 1;
 		if(j > 4)
