@@ -268,13 +268,13 @@ public class WoodTrees {
 			long growthTimeTotal = treeData.getGrowthTime();
 			int totalStages = (treeData.getEndingState() - treeData.getStartingState()) + 4;
 			long growthTimePerStage = (growthTimeTotal / (totalStages-4));
-			int nextStage = farmingStages[i] + 1;
-			//if timer is 0 or if the plant is dead or fully grown go to next trees index insted
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages)) {
-				continue;
-			}
 			if(difference >= growthTimePerStage) //in growth stage time (40 minutes for trees)
 			{
+				int nextStage = farmingStages[i] + 1;
+				//if timer is 0 or if the plant is dead or fully grown go to next trees index insted
+				if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages)) {
+					continue;
+				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
 					if (farmingStages[i] <= nextStage){

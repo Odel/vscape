@@ -274,13 +274,13 @@ public class Bushes {
 			long growthTimeTotal = bushesData.getGrowthTime();
 			int totalStages = (bushesData.getEndingState() - bushesData.getStartingState());
 			long growthTimePerStage = (growthTimeTotal / (totalStages - 4));
-			int nextStage = farmingStages[i] + 1;
-			//if timer is 0 or if the plant is dead or fully grown go to next Bush index insted
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (nextStage > totalStages)) {
-				continue;
-			}
 			if(difference >= growthTimePerStage) //in growth stage time (20 minutes for bushes)
 			{
+				int nextStage = farmingStages[i] + 1;
+				//if timer is 0 or if the plant is dead or fully grown go to next Bush index insted
+				if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (nextStage > totalStages)) {
+					continue;
+				}
 				if (nextStage != farmingStages[i]) {
 					if (farmingStages[i] == (totalStages - 1)) {
 						farmingStages[i] = totalStages + 4;
