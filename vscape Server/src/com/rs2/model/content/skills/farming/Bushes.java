@@ -56,11 +56,11 @@ public class Bushes {
 
 	public enum BushesData {
 		REDBERRY(5101, 1951, 1, 10, new int[]{5478, 4}, 100, 0.20, 11.5, 4.5, 0x05, 0x0e, 0x09, 0x3a, 64), 
-		CADAVABERRY(5102, 753, 1, 22, new int[]{5968, 3}, 140, 0.20, 18, 7, 0x0f, 0x19, 0x14, 0x3b, 102.5), 
+		CADAVABERRY(5102, 753, 1, 22, new int[]{5968, 3}, 120, 0.20, 18, 7, 0x0f, 0x19, 0x14, 0x3b, 102.5), 
 		DWELLBERRY(5103, 2126, 1, 36, new int[]{5406, 3}, 140, 0.20, 31.5, 12, 0x1a, 0x25, 0x20, 0x3c, 177.5), 
 		JANGERBERRY(5104, 247, 1, 48, new int[]{5982, 6}, 160, 0.20, 50.5, 19, 0x26, 0x32, 0x2d, 0x3d, 284.5), 
 		WHITEBERRY(5105, 239, 1, 59, new int[]{6004, 8}, 160, 0.20, 78, 29, 0x33, 0x3f, 0x3a, 0x3e, 437.5),
-		POISONIVYBERRY(5106, 6018, 1, 70, null, 160, 0.20, 120, 45, 0xc5, 0xd1, 0xcc, 0x3f, 674);
+		POISONIVYBERRY(5106, 6018, 1, 70, null, 160, 0.20, 160, 45, 0xc5, 0xd1, 0xcc, 0x3f, 674);
 
 		private int seedId;
 		private int harvestId;
@@ -251,9 +251,125 @@ public class Bushes {
 			return messages;
 		}
 	}
+	
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateBushesStates();
+					continue;
+				}
+			}
+			BushesData bushesData = BushesData.forId(farmingSeeds[i]);
+			if (bushesData == null) {
+				continue;
+			}
+			long growthTimeTotal = bushesData.getGrowthTime();
+			int totalStages = (bushesData.getEndingState() - bushesData.getStartingState());
+			long growthTimePerStage = (growthTimeTotal / (totalStages - 4));
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Bush index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (nextStage > totalStages)) {
+				continue;
+			}
+			if(difference >= growthTimePerStage) //in growth stage time (20 minutes for bushes)
+			{
+				if (nextStage != farmingStages[i]) {
+					if (farmingStages[i] == (totalStages - 1)) {
+						farmingStages[i] = totalStages + 4;
+						farmingState[i] = 3;
+						farmingTimer[i] = Server.getMinutesCounter();
+						updateBushesStates();
+						return;
+					}
+					farmingStages[i] = nextStage;
+					if (farmingStages[i] <= nextStage)
+					{
+						for (int j = farmingStages[i]; j <=nextStage; j++){
+							processState(i);
+						}
+					}
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateBushesStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		if (farmingState[index] == 2) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it
+		// goes back to normal
+		if (farmingState[index] == 1) {
+			if (bushesWatched[index]) {
+				farmingState[index] = 0;
+				BushesData bushesData = BushesData.forId(farmingSeeds[index]);
+				if (bushesData == null)
+					return;
+				farmingTimer[index] = Server.getMinutesCounter();
+				modifyStage(index);
+			} else {
+				farmingState[index] = 2;
+			}
+		}
 
+		if (farmingState[index] == 5 && farmingStages[index] != 2) {
+			farmingState[index] = 0;
+		}
+
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			BushesData bushesData = BushesData.forId(farmingSeeds[index]);
+			if (bushesData == null) {
+				return;
+			}
+
+			double chance = diseaseChance[index] * bushesData.getDiseaseChance();
+			int maxChance = (int)(chance * 100);
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 1;
+			}
+		}
+	}
+	
+	public void modifyStage(int i) {
+		BushesData bushesData = BushesData.forId(farmingSeeds[i]);
+		if (bushesData == null)
+			return;
+		int totalStages = (bushesData.getEndingState() - bushesData.getStartingState());
+		int nextStage = farmingStages[i] + 1;
+		if(nextStage > totalStages)
+			return;
+		farmingStages[i] = nextStage;
+		updateBushesStates();
+	}
+
+	public void lowerStage(int index) {
+		BushesData bushesData = BushesData.forId(farmingSeeds[index]);
+		if (bushesData == null)
+			return;
+		int totalStages = (bushesData.getEndingState() - bushesData.getStartingState());
+		hasFullyGrown[index] = false;
+		farmingTimer[index] = Server.getMinutesCounter();
+		int lowerBy = 1;
+		if(farmingStages[index] == totalStages + 1)
+		{
+			lowerBy = 4;
+		}
+		farmingStages[index] -= lowerBy;
+		updateBushesStates();
+	}
+	
 	/* update all the patch states */
-
 	public void updateBushesStates() {
 		// etceteria - south ardougne - champion guild - rimmington
 		int[] configValues = new int[farmingStages.length];
@@ -315,107 +431,7 @@ public class Bushes {
 		return -1;
 	}
 
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateBushesStates();
-				continue;
-			}
-			BushesData bushesData = BushesData.forId(farmingSeeds[i]);
-			if (bushesData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = bushesData.getGrowthTime();
-			int nbStates = bushesData.getEndingState() - bushesData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (state > nbStates)) {
-				continue;
-			}
-			if (4 + state != farmingStages[i]) {
-				if (farmingStages[i] == bushesData.getEndingState() - bushesData.getStartingState() - 1) {
-					farmingStages[i] = bushesData.getEndingState() - bushesData.getStartingState() + 4;
-					farmingState[i] = 3;
-					updateBushesStates();
-					return;
-				}
-				farmingStages[i] = 4 + state;
-				if (farmingStages[i] <= 4 + state)
-					for (int j = farmingStages[i]; j <= 4 + state; j++)
-						doStateCalculation(i);
-				updateBushesStates();
-			}
-		}
-	}
-
-	public void modifyStage(int i) {
-		BushesData bushesData = BushesData.forId(farmingSeeds[i]);
-		if (bushesData == null)
-			return;
-		long difference = Server.getMinutesCounter() - farmingTimer[i];
-		long growth = bushesData.getGrowthTime();
-		int nbStates = bushesData.getEndingState() - bushesData.getStartingState();
-		int state = (int) (difference * nbStates / growth);
-		farmingStages[i] = 4 + state;
-		updateBushesStates();
-
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 2) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 1) {
-			if (bushesWatched[index]) {
-				farmingState[index] = 0;
-				BushesData bushesData = BushesData.forId(farmingSeeds[index]);
-				if (bushesData == null)
-					return;
-				System.out.println(farmingSeeds[index]);
-				int difference = bushesData.getEndingState() - bushesData.getStartingState();
-				int growth = bushesData.getGrowthTime();
-				farmingTimer[index] += (growth / difference);
-				modifyStage(index);
-			} else {
-				farmingState[index] = 2;
-			}
-		}
-
-		if (farmingState[index] == 5 && farmingStages[index] != 2) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			BushesData bushesData = BushesData.forId(farmingSeeds[index]);
-			if (bushesData == null) {
-				return;
-			}
-
-			double chance = diseaseChance[index] * bushesData.getDiseaseChance();
-			int maxChance = (int)(chance * 100);
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 1;
-			}
-		}
-	}
-
 	/* clearing the patch with a rake of a spade */
-
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
 		final BushesFieldsData bushesFieldsData = BushesFieldsData.forIdPosition(new Position(objectX, objectY));
 		int finalAnimation;
@@ -536,21 +552,7 @@ public class Bushes {
 		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private void displayAll() {
-		for (int i = 0; i < farmingStages.length; i++) {
-			System.out.println("index : " + i);
-			System.out.println("state : " + farmingState[i]);
-			System.out.println("seeds : " + farmingSeeds[i]);
-			System.out.println("level : " + farmingStages[i]);
-			System.out.println("timer : " + farmingTimer[i]);
-			System.out.println("disease chance : " + diseaseChance[i]);
-			System.out.println("-----------------------------------------------------------------");
-		}
-	}
-
 	/* harvesting the plant resulted */
-
 	public boolean harvestOrCheckHealth(int objectX, int objectY) {
 		final BushesFieldsData bushesFieldsData = BushesFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (bushesFieldsData == null) {
@@ -584,8 +586,7 @@ public class Bushes {
 					player.getSkill().addExp(Skill.FARMING, bushesData.getCheckHealthXp());
 					farmingState[bushesFieldsData.getBushesIndex()] = 0;
 					hasFullyGrown[bushesFieldsData.getBushesIndex()] = false;
-					farmingTimer[bushesFieldsData.getBushesIndex()] = Server.getMinutesCounter() - bushesData.getGrowthTime();
-					// bushesStages[bushesFieldsData.getBushesIndex()] -= 2;
+					farmingTimer[bushesFieldsData.getBushesIndex()] = Server.getMinutesCounter();
 					modifyStage(bushesFieldsData.getBushesIndex());
 					container.stop();
 					return;
@@ -593,13 +594,7 @@ public class Bushes {
 				player.getActionSender().sendMessage("You harvest the crop, and pick some berries.");
 				player.getInventory().addItem(new Item(bushesData.getHarvestId()));
 				player.getSkill().addExp(Skill.FARMING, bushesData.getHarvestXp());
-				farmingTimer[bushesFieldsData.getBushesIndex()] = Server.getMinutesCounter();
-				int difference = bushesData.getEndingState() - bushesData.getStartingState();
-				int growth = bushesData.getGrowthTime();
-				long timer = growth - (growth / difference) * (difference + 5 - farmingStages[bushesFieldsData.getBushesIndex()]);
-				System.out.println(timer + "new timer picking");
-				lowerStage(bushesFieldsData.getBushesIndex(), timer);
-				modifyStage(bushesFieldsData.getBushesIndex());
+		    	lowerStage(bushesFieldsData.getBushesIndex());
 				container.stop();
 			}
 
@@ -612,15 +607,7 @@ public class Bushes {
 		return true;
 	}
 
-	/* lowering the stage */
-
-	public void lowerStage(int index, long timer) {
-		hasFullyGrown[index] = false;
-		farmingTimer[index] -= timer;
-	}
-
 	/* putting compost onto the plant */
-
 	public boolean putCompost(int objectX, int objectY, final int itemId) {
 		if (itemId != 6032 && itemId != 6034) {
 			return false;

@@ -59,7 +59,11 @@ public class WoodTrees {
 	/* This is the enum holding the saplings info */
 
 	public enum TreeData {
-		OAK(5370, 6043, 15, new int[]{5968, 1}, 160, 0.20, 14, 467.3, 0x08, 0x0c, 0x0d, 0x0e, 1281), WILLOW(5371, 6045, 30, new int[]{5386, 1}, 240, 0.20, 25, 1456.3, 0x0f, 0x15, 0x16, 0x17, 1308), MAPLE(5372, 6047, 45, new int[]{5396, 1}, 320, 0.25, 45, 3403.4, 0x18, 0x20, 0x21, 0x22, 1307), YEW(5373, 6049, 60, new int[]{6016, 10}, 400, 0.25, 81, 7069.9, 0x23, 0x2d, 0x2e, 0x2f, 1309), MAGIC(5374, 6051, 75, new int[]{5976, 25}, 480, 0.25, 145.5, 13768.3, 0x30, 0x3c, 0x3d, 0x3e, 1292);
+		OAK(5370, 6043, 15, new int[]{5968, 1}, 160, 0.20, 14, 467.3, 0x08, 0x0c, 0x0d, 0x0e, 1281), 
+		WILLOW(5371, 6045, 30, new int[]{5386, 1}, 240, 0.20, 25, 1456.3, 0x0f, 0x15, 0x16, 0x17, 1308),
+		MAPLE(5372, 6047, 45, new int[]{5396, 1}, 320, 0.25, 45, 3403.4, 0x18, 0x20, 0x21, 0x22, 1307),
+		YEW(5373, 6049, 60, new int[]{6016, 10}, 400, 0.25, 81, 7069.9, 0x23, 0x2d, 0x2e, 0x2f, 1309),
+		MAGIC(5374, 6051, 75, new int[]{5976, 25}, 480, 0.25, 145.5, 13768.3, 0x30, 0x3c, 0x3d, 0x3e, 1292);
 
 		private int saplingId;
 		private int rootsId;
@@ -241,9 +245,101 @@ public class WoodTrees {
 			return messages;
 		}
 	}
+	
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateTreeStates();
+					continue;
+				}
+			}
+			TreeData treeData = TreeData.forId(farmingSeeds[i]);
+			if (treeData == null) {
+				continue;
+			}
+			long growthTimeTotal = treeData.getGrowthTime();
+			int totalStages = (treeData.getEndingState() - treeData.getStartingState()) + 4;
+			long growthTimePerStage = (growthTimeTotal / (totalStages-4));
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next trees index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages)) {
+				continue;
+			}
+			if(difference >= growthTimePerStage) //in growth stage time (40 minutes for trees)
+			{
+				if (nextStage != farmingStages[i]) {
+					farmingStages[i] = nextStage;
+					if (farmingStages[i] <= nextStage){
+						for (int j = farmingStages[i]; j <= nextStage; j++){
+							processState(i);
+						}
+					}
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateTreeStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		if (farmingState[index] == 2) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it
+		// goes back to normal
+		if (farmingState[index] == 1) {
+			if (farmingWatched[index]) {
+				farmingState[index] = 0;
+				TreeData treeData = TreeData.forId(farmingSeeds[index]);
+				if (treeData == null)
+					return;
+				farmingTimer[index] = Server.getMinutesCounter();
+				modifyStage(index);
+			} else {
+				farmingState[index] = 2;
+			}
+		}
 
+		if (farmingState[index] == 5 && farmingStages[index] != 3) {
+			farmingState[index] = 0;
+		}
+
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			TreeData treeData = TreeData.forId(farmingSeeds[index]);
+			if (treeData == null) {
+				return;
+			}
+
+			double chance = diseaseChance[index] * treeData.getDiseaseChance();
+			int maxChance = (int) (chance * 100);
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 1;
+			}
+		}
+	}
+	
+	public void modifyStage(int i) {
+		TreeData treeData = TreeData.forId(farmingSeeds[i]);
+		if (treeData == null)
+			return;
+		int totalStages = (treeData.getEndingState() - treeData.getStartingState());
+		int nextStage = farmingStages[i] + 1;
+		if(nextStage > totalStages)
+			return;
+		farmingStages[i] = nextStage;
+		updateTreeStates();
+	}
+	
 	/* update all the patch states */
-
 	public void updateTreeStates() {
 		// varrock - lumbridge - taverley - falador
 		int[] configValues = new int[farmingStages.length];
@@ -255,11 +351,9 @@ public class WoodTrees {
 
 		configValue = (configValues[0] << 16) + (configValues[1] << 8 << 16) + configValues[2] + (configValues[3] << 8);
 		player.getActionSender().sendConfig(MAIN_TREE_CONFIG, configValue);
-
 	}
-
+	
 	/* getting the different config values */
-
 	public int getConfigValue(int treeStage, int saplingId, int plantState, int index) {
 		TreeData treeData = TreeData.forId(saplingId);
 		switch (treeStage) {
@@ -288,7 +382,6 @@ public class WoodTrees {
 	}
 
 	/* getting the plant states */
-
 	public int getPlantState(int plantState) {
 		switch (plantState) {
 			case 0 :
@@ -301,115 +394,22 @@ public class WoodTrees {
 		return -1;
 	}
 
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateTreeStates();
-				continue;
-			}
-			TreeData treeData = TreeData.forId(farmingSeeds[i]);
-			if (treeData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = treeData.getGrowthTime();
-			int nbStates = treeData.getEndingState() - treeData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || state > nbStates) {
-				continue;
-			}
-			if (4 + state != farmingStages[i]) {
-				farmingStages[i] = 4 + state;
-				if (farmingStages[i] <= 4 + state)
-					for (int j = farmingStages[i]; j <= 4 + state; j++)
-						doStateCalculation(i);
-				updateTreeStates();
-			}
-		}
-	}
-
-	public void modifyStage(int i) {
-		TreeData bushesData = TreeData.forId(farmingSeeds[i]);
-		if (bushesData == null)
-			return;
-		long difference = Server.getMinutesCounter() - farmingTimer[i];
-		long growth = bushesData.getGrowthTime();
-		int nbStates = bushesData.getEndingState() - bushesData.getStartingState();
-		int state = (int) (difference * nbStates / growth);
-		farmingStages[i] = 4 + state;
-		updateTreeStates();
-
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 2) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 1) {
-			if (farmingWatched[index]) {
-				farmingState[index] = 0;
-				TreeData treeData = TreeData.forId(farmingSeeds[index]);
-				if (treeData == null)
-					return;
-				int difference = treeData.getEndingState() - treeData.getStartingState();
-				int growth = treeData.getGrowthTime();
-				farmingTimer[index] += (growth / difference);
-				modifyStage(index);
-			} else {
-				farmingState[index] = 2;
-			}
-		}
-
-		if (farmingState[index] == 5 && farmingStages[index] != 3) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			TreeData treeData = TreeData.forId(farmingSeeds[index]);
-			if (treeData == null) {
-				return;
-			}
-
-			double chance = diseaseChance[index] * treeData.getDiseaseChance();
-			int maxChance = (int) chance * 100;
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 1;
-			}
-		}
-	}
-
 	/* clearing the patch with a rake of a spade */
-
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
-		final TreeFieldsData hopsFieldsData = TreeFieldsData.forIdPosition(new Position(objectX, objectY));
+		final TreeFieldsData treeFieldsData = TreeFieldsData.forIdPosition(new Position(objectX, objectY));
 		int finalAnimation;
 		int finalDelay;
-		if (hopsFieldsData == null || (itemId != FarmingConstants.RAKE && itemId != FarmingConstants.SPADE)) {
+		if (treeFieldsData == null || (itemId != FarmingConstants.RAKE && itemId != FarmingConstants.SPADE)) {
 			return false;
 		}
 		if (!Constants.FARMING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
-		if (farmingStages[hopsFieldsData.getTreeIndex()] == 3) {
+		if (farmingStages[treeFieldsData.getTreeIndex()] == 3) {
 			return true;
 		}
-		if (farmingStages[hopsFieldsData.getTreeIndex()] <= 3) {
+		if (farmingStages[treeFieldsData.getTreeIndex()] <= 3) {
 			if (!player.getInventory().getItemContainer().contains(FarmingConstants.RAKE)) {
 				player.getDialogue().sendStatement("You need a rake to clear this path.");
 				return true;
@@ -434,17 +434,17 @@ public class WoodTrees {
 			@Override
 			public void execute(CycleEventContainer container) {
 				player.getUpdateFlags().sendAnimation(animation);
-				if (farmingStages[hopsFieldsData.getTreeIndex()] <= 2) {
-					farmingStages[hopsFieldsData.getTreeIndex()]++;
+				if (farmingStages[treeFieldsData.getTreeIndex()] <= 2) {
+					farmingStages[treeFieldsData.getTreeIndex()]++;
 					player.getInventory().addItemOrDrop(new Item(6055));
 				} else {
-					farmingStages[hopsFieldsData.getTreeIndex()] = 3;
+					farmingStages[treeFieldsData.getTreeIndex()] = 3;
 					container.stop();
 				}
 				player.getSkill().addExp(Skill.FARMING, CLEARING_EXPERIENCE);
-				farmingTimer[hopsFieldsData.getTreeIndex()] = Server.getMinutesCounter();
+				farmingTimer[treeFieldsData.getTreeIndex()] = Server.getMinutesCounter();
 				updateTreeStates();
-				if (farmingStages[hopsFieldsData.getTreeIndex()] == 3) {
+				if (farmingStages[treeFieldsData.getTreeIndex()] == 3) {
 					container.stop();
 					return;
 				}
@@ -452,7 +452,7 @@ public class WoodTrees {
 
 			@Override
 			public void stop() {
-				resetTrees(hopsFieldsData.getTreeIndex());
+				resetTrees(treeFieldsData.getTreeIndex());
 				player.getActionSender().sendMessage("You clear the patch.");
 				player.setStopPacket(false);
 				player.resetAnimation();
@@ -512,22 +512,7 @@ public class WoodTrees {
 		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private void displayAll() {
-		for (int i = 0; i < farmingStages.length; i++) {
-			System.out.println("index : " + i);
-			System.out.println("state : " + farmingState[i]);
-			System.out.println("harvest : " + farmingHarvest[i]);
-			System.out.println("saplings : " + farmingSeeds[i]);
-			System.out.println("level : " + farmingStages[i]);
-			System.out.println("timer : " + farmingTimer[i]);
-			System.out.println("disease chance : " + diseaseChance[i]);
-			System.out.println("-----------------------------------------------------------------");
-		}
-	}
-
 	/* harvesting the plant resulted */
-
 	public boolean checkHealth(int objectX, int objectY) {
 		final TreeFieldsData treeFieldsData = TreeFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (treeFieldsData == null) {
@@ -570,19 +555,35 @@ public class WoodTrees {
 	}
 
 	public void respawnStumpTimer(final int index) {
+		final TreeData treeData = TreeData.forId(farmingSeeds[index]);
+		if (treeData == null){
+			return;
+		}
+		final Tree tree = Tree.getTree(treeData.getTreeObjectAssociated());
+		if (tree == null) {
+			return;
+		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-
+			final int seed = farmingSeeds[index];
 			@Override
 			public void execute(CycleEventContainer container) {
+				if(seed != farmingSeeds[index])
+				{
+					container.stop();
+					return;
+				}
 				if (farmingState[index] == 7)
+				{
 					farmingState[index] = 6;
+					updateTreeStates();
+				}
 				container.stop();
 			}
 
 			@Override
 			public void stop() {
 			}
-		}, 500);
+		}, tree.getRespawnTime());
 	}
 
 	/* putting compost onto the plant */
@@ -812,7 +813,6 @@ public class WoodTrees {
 					player.getActionSender().sendMessage("You get some " + ItemManager.getInstance().getItemName(Tree.getTree(object).getLog()).toLowerCase() + ".");
 					player.getSkill().addExp(Skill.WOODCUTTING, tree.getXP());
 					if(Misc.random(100) <= tree.getDecayChance()) {
-						player.getTrees().respawnStumpTimer(treeFieldsData.getTreeIndex());
 						farmingState[treeFieldsData.getTreeIndex()] = 7;
 						updateTreeStates();
 						container.stop();
@@ -826,7 +826,6 @@ public class WoodTrees {
 			}
 			@Override
 			public void stop() {
-				// c.getPA().resetPlayerSkillVariables();
 			}
 		});
 		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 4);
@@ -844,16 +843,14 @@ public class WoodTrees {
 	 */
 	public boolean canCut(final int x, final int y) {
 		final TreeFieldsData treeFieldsData = TreeFieldsData.forIdPosition(new Position(x, y));
-		if (treeFieldsData == null)
-			return false;
-		final TreeData treeData = TreeData.forId(farmingSeeds[treeFieldsData.getTreeIndex()]);
-		if (treeData == null)
-			return false;
-		final int object = treeData.getTreeObjectAssociated();
-
-		if (!hasFullyGrown[treeFieldsData.getTreeIndex()]) {
+		if (treeFieldsData == null){
 			return false;
 		}
+		final TreeData treeData = TreeData.forId(farmingSeeds[treeFieldsData.getTreeIndex()]);
+		if (treeData == null){
+			return false;
+		}
+		final int object = treeData.getTreeObjectAssociated();
 		if (Tools.getTool(player, Skill.WOODCUTTING) == null) {
 			player.getActionSender().sendMessage("You do not have an axe which you have the woodcutting level to use.");
 			return false;

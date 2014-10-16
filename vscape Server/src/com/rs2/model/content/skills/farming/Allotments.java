@@ -10,6 +10,7 @@ import com.rs2.model.Position;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -62,7 +63,13 @@ public class Allotments {
 
 	public enum AllotmentData {
 
-		POTATO(5318, 1942, 5096, 3, 1, new int[]{6032, 2}, 40, 0.30, 8, 9.5, 0x06, 0x0c), ONION(5319, 1957, 5096, 3, 5, new int[]{5438, 1}, 40, 0.30, 9.5, 10.5, 0x0d, 0x13), CABBAGE(5324, 1965, 5097, 3, 7, new int[]{5458, 1}, 40, 0.25, 10, 11.5, 0x14, 0x1a), TOMATO(5322, 1982, 5096, 3, 12, new int[]{5478, 2}, 40, 0.25, 12.5, 14, 0x1b, 0x21), SWEETCORN(5320, 5986, 6059, 3, 20, new int[]{5931, 10}, 40, 0.20, 17, 19, 0x22, 0x2a), STRAWBERRY(5323, 5504, -1, 3, 31, new int[]{5386, 1}, 40, 0.20, 26, 29, 0x2b, 0x33), WATERMELON(5321, 5982, 5098, 3, 47, new int[]{5970, 10}, 40, 0.20, 48.5, 54.5, 0x34, 0x3e);
+		POTATO(5318, 1942, 5096, 3, 1, new int[]{6032, 2}, 40, 0.30, 8, 9.5, 0x06, 0x0c),
+		ONION(5319, 1957, 5096, 3, 5, new int[]{5438, 1}, 40, 0.30, 9.5, 10.5, 0x0d, 0x13),
+		CABBAGE(5324, 1965, 5097, 3, 7, new int[]{5458, 1}, 40, 0.25, 10, 11.5, 0x14, 0x1a), 
+		TOMATO(5322, 1982, 5096, 3, 12, new int[]{5478, 2}, 40, 0.25, 12.5, 14, 0x1b, 0x21),
+		SWEETCORN(5320, 5986, 6059, 3, 20, new int[]{5931, 10}, 60, 0.20, 17, 19, 0x22, 0x2a), 
+		STRAWBERRY(5323, 5504, -1, 3, 31, new int[]{5386, 1}, 60, 0.20, 26, 29, 0x2b, 0x33),
+		WATERMELON(5321, 5982, 5098, 3, 47, new int[]{5970, 10}, 80, 0.20, 48.5, 54.5, 0x34, 0x3e);
 
 		private int seedId;
 		private int harvestId;
@@ -251,9 +258,144 @@ public class Allotments {
 			return messages;
 		}
 	}
+	
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateAllotmentsStates();
+					continue;
+				}
+			}
+			AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[i]);
+			if (allotmentData == null) {
+				continue;
+			}
+			long growthTimeTotal = allotmentData.getGrowthTime();
+			int totalStages = (allotmentData.getEndingState() - allotmentData.getStartingState()) + 2;
+			long growthTimePerStage = (growthTimeTotal / (totalStages - 4));
+			int nextStage = farmingStages[i] + 1;
+			//if timer is 0 or if the plant is dead or fully grown go to next Allotment index insted
+			if (farmingTimer[i] == 0 || farmingState[i] == 3 || (nextStage > totalStages)) {
+				continue;
+			}
+			if(difference >= 1) //in growth stage time (10 minutes for allotments)
+			{
+				if (nextStage != farmingStages[i]) {
+					farmingStages[i] = nextStage;
+					if (farmingStages[i] <= nextStage){
+						for (int j = farmingStages[i]; j <= nextStage; j++){
+							processState(i);
+						}
+					}
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateAllotmentsStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		//plant is dead, So we return to stop processing
+		if (farmingState[index] == 3) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it goes back to normal
+		if (farmingState[index] == 2) {
+			//if watched grow
+			if (farmingWatched[index]) {
+				farmingState[index] = 0;
+				AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[index]);
+				if (allotmentData == null)
+					return;
+				farmingTimer[index] = Server.getMinutesCounter();
+				modifyStage(index);
+			} else { // if not watched set state to dead
+				farmingState[index] = 3;
+			}
+		}
+		
+		//if watered disease * 2
+		if (farmingState[index] == 1) {
+			diseaseChance[index] *= 2;
+			farmingState[index] = 0;
+		}
+
+		//if state is compost and stage does not equal empty set state to growing
+		if (farmingState[index] == 5 && farmingStages[index] != 3) {
+			farmingState[index] = 0;
+		}
+
+		//if state growing, and stage is not a seed but a growing plant do disease
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			processDisease(index);
+		}
+	}
+	
+	public void processDisease(int index)
+	{
+		AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[index]);
+		if (allotmentData == null) {
+			return;
+		}
+		double chance = diseaseChance[index] * allotmentData.getDiseaseChance();
+		int maxChance = (int)(chance * 100);
+		int indexGiven = 0;
+		if (!farmingWatched[index] && Misc.random(100) <= maxChance) {
+			switch (index) {
+				case 0 :
+				case 1 :
+					indexGiven = 3;
+					break;
+				case 2 :
+				case 3 :
+					indexGiven = 2;
+					break;
+				case 4 :
+				case 5 :
+					indexGiven = 1;
+					break;
+				case 6 :
+				case 7 :
+					indexGiven = 0;
+					break;
+
+			}
+			if (player.getFlowers().farmingSeeds[indexGiven] >= 0x21 && player.getFlowers().farmingSeeds[indexGiven] <= 0x24) {
+				if (allotmentData.getFlowerProtect() == Flowers.SCARECROW) {
+					return;
+				}
+			}
+			if (player.getFlowers().farmingState[indexGiven] != 3 && player.getFlowers().hasFullyGrown[indexGiven] && player.getFlowers().farmingSeeds[indexGiven] == allotmentData.getFlowerProtect()) {
+				player.getFlowers().farmingState[indexGiven] = 3;
+				player.getFlowers().updateFlowerStates();
+			} else {
+				farmingState[index] = 2;
+			}
+		}
+	}
+	
+	public void modifyStage(int i) {
+		AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[i]);
+		if (allotmentData == null)
+			return;
+		int totalStages = (allotmentData.getEndingState() - allotmentData.getStartingState()) + 2;
+		int nextStage = farmingStages[i] + 1;
+		if(nextStage > totalStages)
+			return;
+		farmingStages[i] = nextStage;
+		updateAllotmentsStates();
+	}
 
 	/* update all the patch states */
-
 	public void updateAllotmentsStates() {
 		// catherby north - catherby south - falador north west - falador south
 		// east - phasmatys north west - phasmatys south east - ardougne north -
@@ -312,96 +454,8 @@ public class Allotments {
 		}
 		return -1;
 	}
-
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateAllotmentsStates();
-			}
-			AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[i]);
-			if (allotmentData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = allotmentData.getGrowthTime();
-			int nbStates = allotmentData.getEndingState() - allotmentData.getStartingState();
-			int state = (int) ((difference * nbStates) / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingTimer[i] == 0 || farmingState[i] == 3 || state > nbStates) {
-				continue;
-			}
-			if (4 + state != farmingStages[i]) {
-				farmingStages[i] = 4 + state;
-				if (farmingStages[i] <= 4 + state)
-					for (int j = farmingStages[i]; j <= 4 + state; j++)
-						doStateCalculation(i);
-				updateAllotmentsStates();
-			}
-		}
-	}
-
-	public void modifyStage(int i) {
-		AllotmentData bushesData = AllotmentData.forId(farmingSeeds[i]);
-		if (bushesData == null)
-			return;
-		long difference = Server.getMinutesCounter() - farmingTimer[i];
-		long growth = bushesData.getGrowthTime();
-		int nbStates = bushesData.getEndingState() - bushesData.getStartingState();
-		int state = (int) (difference * nbStates / growth);
-		farmingStages[i] = 4 + state;
-		updateAllotmentsStates();
-
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 3) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 2) {
-			if (farmingWatched[index]) {
-				farmingState[index] = 0;
-				AllotmentData allotmentData = AllotmentData.forId(farmingSeeds[index]);
-				if (allotmentData == null)
-					return;
-				int difference = allotmentData.getEndingState() - allotmentData.getStartingState();
-				int growth = allotmentData.getGrowthTime();
-				farmingTimer[index] += (growth / difference);
-				modifyStage(index);
-			} else {
-				farmingState[index] = 3;
-			}
-		}
-
-		if (farmingState[index] == 1) {
-			diseaseChance[index] *= 2;
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 5 && farmingStages[index] != 3) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			handleFlowerProtection(index);
-		}
-	}
-
+	
 	/* watering the patch */
-
 	public boolean waterPatch(int objectX, int objectY, int itemId) {
 		final AllotmentFieldsData allotmentFieldsData = AllotmentFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (allotmentFieldsData == null) {
@@ -449,7 +503,6 @@ public class Allotments {
 	}
 
 	/* clearing the patch with a rake of a spade */
-
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
 		final AllotmentFieldsData allotmentFieldsData = AllotmentFieldsData.forIdPosition(new Position(objectX, objectY));
 		int finalAnimation;
@@ -518,7 +571,6 @@ public class Allotments {
 	}
 
 	/* planting the seeds */
-
 	public boolean plantSeed(int objectX, int objectY, final int seedId) {
 		final AllotmentFieldsData allotmentFieldsData = AllotmentFieldsData.forIdPosition(new Position(objectX, objectY));
 		final AllotmentData allotmentData = AllotmentData.forId(seedId);
@@ -569,22 +621,7 @@ public class Allotments {
 		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private void displayAll() {
-		for (int i = 0; i < farmingStages.length; i++) {
-			System.out.println("index : " + i);
-			System.out.println("state : " + farmingState[i]);
-			System.out.println("harvest : " + farmingHarvest[i]);
-			System.out.println("seeds : " + farmingSeeds[i]);
-			System.out.println("level : " + farmingStages[i]);
-			System.out.println("timer : " + farmingTimer[i]);
-			System.out.println("disease chance : " + diseaseChance[i]);
-			System.out.println("-----------------------------------------------------------------");
-		}
-	}
-
 	/* harvesting the plant resulted */
-
 	public boolean harvest(int objectX, int objectY) {
 		final AllotmentFieldsData allotmentFieldsData = AllotmentFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (allotmentFieldsData == null) {
@@ -639,7 +676,6 @@ public class Allotments {
 	}
 
 	/* putting compost onto the plant */
-
 	public boolean putCompost(int objectX, int objectY, final int itemId) {
 		if (itemId != 6032 && itemId != 6034) {
 			return false;
@@ -682,7 +718,6 @@ public class Allotments {
 	}
 
 	/* inspecting a plant */
-
 	public boolean inspect(int objectX, int objectY) {
 		final AllotmentFieldsData allotmentFieldsData = AllotmentFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (allotmentFieldsData == null) {

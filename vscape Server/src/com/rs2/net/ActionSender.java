@@ -93,16 +93,18 @@ public class ActionSender {
 		player.getHerbs().updateHerbsStates();
 		player.getHops().updateHopsStates();
 		player.getBushes().updateBushesStates();
-		player.getAllotment().updateAllotmentsStates();
 		player.getTrees().updateTreeStates();
-		player.getFruitTrees().updateFruitTreeStates();
+		for (int i = 0; i < player.getTrees().getFarmingState().length; i++) {
+			if(player.getTrees().getFarmingState()[i] == 7) {
+				player.getTrees().respawnStumpTimer(i);
+			}
+		}
+	/* player.getFruitTrees().updateFruitTreeStates();
 		player.getSpecialPlantOne().updateSpecialPlants();
-		player.getSpecialPlantTwo().updateSpecialPlants();
+		player.getSpecialPlantTwo().updateSpecialPlants();*/
         for(int i = 0; i < player.getPendingItems().length; i++){
             player.getInventory().addItem(new Item(player.getPendingItems()[i], player.getPendingItemsAmount()[i]));
         }
-		for (int i = 0; i < 4; i++)
-			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendMessage("Welcome to /v/scape.");
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
