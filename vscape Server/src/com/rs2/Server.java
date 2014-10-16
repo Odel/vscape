@@ -445,15 +445,16 @@ public class Server implements Runnable {
                   if (player == null) {
                       continue;
                   }
-                  player.getAllotment().doCalculations();
-                  player.getFlowers().doCalculations();
-                  player.getHerbs().doCalculations();
-                  player.getHops().doCalculations();
-                  player.getBushes().doCalculations();
-                  player.getTrees().doCalculations();
-                  player.getFruitTrees().doCalculations();
+                  player.getAllotment().processGrowth();
+                  player.getFlowers().processGrowth();
+                  player.getHerbs().processGrowth();
+                  player.getHops().processGrowth();
+                  player.getBushes().processGrowth();
+                  player.getTrees().processGrowth();
+               /*   player.getFruitTrees().doCalculations();
                   player.getSpecialPlantOne().doCalculations();
-                  player.getSpecialPlantTwo().doCalculations(); //lowering all player items timer
+                  player.getSpecialPlantTwo().doCalculations(); */
+                  //lowering all player items timer
 	              ItemManager.getInstance().lowerAllItemsTimers(player);
                 }
 		    }
