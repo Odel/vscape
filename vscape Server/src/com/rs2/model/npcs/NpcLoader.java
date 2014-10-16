@@ -192,7 +192,26 @@ public class NpcLoader {
 		    player.getActionSender().createPlayerHints(1, (npc).getIndex());
 		if(message != null)
 		    npc.getUpdateFlags().sendForceMessage(message);
-    }
+	}
+	
+	public static void spawnPlayerOwnedAttackNpc(Player player, Npc npc, Position spawningPosition, boolean hintIcon, String message) {
+		npc.setPosition(spawningPosition);
+		npc.setSpawnPosition(spawningPosition);
+		npc.setWalkType(Npc.WalkType.STAND);
+		npc.setCurrentX(spawningPosition.getX());
+		npc.setCurrentY(spawningPosition.getY());
+		npc.setNeedsRespawn(false);
+		World.register(npc);
+		player.setSpawnedNpc(npc);
+		if(Misc.goodDistance(player.getPosition(), spawningPosition, 10)) {
+		    npc.setPlayerOwner(player.getIndex());
+		}
+		if(hintIcon)
+		    player.getActionSender().createPlayerHints(1, (npc).getIndex());
+		CombatManager.attack(npc, player);
+		if(message != null)
+		    npc.getUpdateFlags().sendForceMessage(message);
+	}
 	
 	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean DontFollow, boolean DontWalk) {
 		Npc npc = new Npc(id);

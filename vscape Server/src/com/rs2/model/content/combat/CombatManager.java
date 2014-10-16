@@ -403,7 +403,7 @@ public class CombatManager extends Tick {
 	    		final Npc npc = (Npc) died;
 			ClueScroll.handleAttackerDeath((Player)killer, npc);
 			((Player) killer).getSlayer().handleNpcDeath(npc);
-			Barrows.handleDeath(((Player)killer), npc);
+			((Player) killer).getBarrows().handleDeath(((Player)killer), npc);
 			WarriorsGuild.dropDefender((Player) killer, npc);
 			ShieldOfArrav.handleDrops((Player) killer, npc);
 			DragonSlayer.handleDrops((Player) killer, npc);

@@ -789,9 +789,9 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1 :
-						        int i = Misc.randomMinusOne(Barrows.AREAS.length);
-						        Position position = MinigameAreas.randomPosition(Barrows.AREAS[i]);
-						        player.teleport(position);
+								int i = Misc.randomMinusOne(Barrows.AREAS.length);
+								Position position = MinigameAreas.randomPosition(Barrows.AREAS[i]);
+								player.teleport(position);
 								break;
 							case 2 :
 								player.getDialogue().sendPlayerChat("No way, that looks scary!", DISTRESSED);
