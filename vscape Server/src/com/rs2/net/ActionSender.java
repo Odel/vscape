@@ -651,7 +651,7 @@ public class ActionSender {
     }
 
 	public ActionSender sendConfig(int id, int value) {
-		if (value < 128) {
+		if (value >= -128 && value < 128) {
 			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(4);
 			out.writeHeader(player.getEncryptor(), 36);
 			out.writeShort(id, StreamBuffer.ByteOrder.LITTLE);
