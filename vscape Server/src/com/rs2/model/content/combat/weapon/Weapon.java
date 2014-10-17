@@ -28,6 +28,7 @@ public enum Weapon {
     HALBERD(WeaponInterface.HALBERD, 7, new int[]{2080, 2078, 2082}, new int[]{809, 1146, 1210}, 435),
     MACE(WeaponInterface.MACE, 5, new int[]{401, 401, 400, 401}, Constants.MOVEMENT_ANIMS, 424),
     SPEAR(WeaponInterface.SPEAR, 5, new int[]{2080, 2081, 2082, 2080}, new int[]{809, 1146, 1210}, 435),
+    HASTA(WeaponInterface.SPEAR, 7, new int[]{400, 2081, 2082, 400}, new int[]{809, 1146, 1210}, 387),
     DRAGON_DAGGER(WeaponInterface.DAGGER, null, 4, new int[]{402, 402, 451, 400}, Constants.MOVEMENT_ANIMS, 403),
     DAGGER(WeaponInterface.DAGGER, 4, new int[]{386, 386, 390, 386}, Constants.MOVEMENT_ANIMS, 404),
     TWO_HANDED(WeaponInterface.TWO_HANDED, 6, new int[]{7048, 7041, 7042, 7049}, new int[]{7047, 7046, 7039}, 7050),
@@ -129,6 +130,8 @@ public enum Weapon {
 			return Weapon.AXE;
 		} else if (name.endsWith("warhammer") || name.equalsIgnoreCase("flowers") || name.equalsIgnoreCase("chicken")) {
 			return Weapon.WARHAMMER;
+		} else if (name.contains("hasta")) {
+			return Weapon.HASTA;
 		} else if (name.contains("spear") || name.contains("mjolnir")) {
 			return Weapon.SPEAR;
 		} else if (name.contains("claw")) {
