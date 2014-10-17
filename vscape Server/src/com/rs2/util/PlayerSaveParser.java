@@ -20,6 +20,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.SpellBook;
+import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -144,7 +145,13 @@ public class PlayerSaveParser {
 		                    player.setPouchData(i, pouchData.get(i).getAsInt());
 		                }
 	                }
-    			}
+			JsonArray puzzleStoredItems = itemData.getAsJsonArray("puzzleStoredItems");
+			if(puzzleStoredItems != null && puzzleStoredItems.size() > 0) {
+			    for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
+				player.puzzleStoredItems[i] = new Item(puzzleStoredItems.get(i).getAsInt());
+			    }
+			}
+    		}
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){
 	                player.setCoalTruckAmount(worldData.get("coaltrucks").getAsInt());

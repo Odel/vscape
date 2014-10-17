@@ -91,6 +91,15 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 			pouchArray.add(new JsonPrimitive(player.getPouchData(i)));
 		}
 		itemDataObj.add("pouchData", pouchArray);
+		JsonArray puzzleArray = new JsonArray();
+                for(Item item : player.puzzleStoredItems) {
+                        int itemId = -1;
+                        if(item != null){
+                                itemId = item.getId();
+                        }
+                        puzzleArray.add(new JsonPrimitive(itemId));
+                }
+                itemDataObj.add("puzzleStoredItems", puzzleArray);
 		characterObj.add("itemData", itemDataObj);
 		
 		JsonObject worldDataObj = new JsonObject();

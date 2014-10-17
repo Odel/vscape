@@ -8,7 +8,14 @@ public class GlobalObject {
 	private Position position;
 	private int face;
 	private int type;
-
+	
+	public GlobalObject() {
+	    this.id = 0;
+	    this.position = null;
+	    this.face = 0;
+	    this.type = 0;
+	}
+	
 	public GlobalObject(int id, Position position, int face, int type) {
 		this.id = id;
 		this.position = position;
