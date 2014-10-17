@@ -53,9 +53,21 @@ public class Herbs {
 	/* This is the enum holding the seeds info */
 
 	public enum HerbData {
-		GUAM(5291, 199, 9, 80, 0.25, 11, 12.5, 0x04, 0x08), MARRENTILL(5292, 201, 14, 80, 0.25, 13.5, 15, 0x0b, 0x0f), TARROMIN(5293, 203, 19, 80, 0.25, 16, 18, 0x12, 0x16), HARRALANDER(5294, 205, 26, 80, 0.25, 21.5, 24, 0x19, 0x1d), GOUT_TUBER(6311, 3261, 29, 80, 0.25, 105, 45, 0xc0, 0xc4), RANARR(5295, 207, 32, 80, 0.20, 27, 30.5, 0x20, 0x24), TOADFLAX(5296, 3049, 38, 80, 0.20, 34, 38.5, 0x27, 0x2b), IRIT(5297, 209, 44, 80, 0.20, 43, 48.5, 0x2e, 0x32), AVANTOE(5298, 211, 50, 80, 0.20, 54.5, 61.5, 0x35, 0x39), KUARM(5299, 213, 56, 80, 0.20, 69, 78, 0x44, 0x48), SNAPDRAGON(5300, 3051, 62, 80, 0.15, 87.5, 98.5, 0x4b, 0x4f), CADANTINE(5301, 215, 67, 80, 0.15, 106.5, 120, 0x52, 0x56), LANTADYME(5302, 2485, 73, 80, 0.15, 134.5, 151.5, 0x59, 0x5d), DWARF(5303, 217, 79, 80, 0.15, 170.5, 192, 0x60, 0x64), TORSOL(5304, 219, 85, 80, 0.15, 199.5, 224.5, 0x67, 0x6b)
-
-		;
+		GUAM(5291, 199, 9, 80, 0.25, 11, 12.5, 0x04, 0x08),
+		MARRENTILL(5292, 201, 14, 80, 0.25, 13.5, 15, 0x0b, 0x0f),
+		TARROMIN(5293, 203, 19, 80, 0.25, 16, 18, 0x12, 0x16), 
+		HARRALANDER(5294, 205, 26, 80, 0.25, 21.5, 24, 0x19, 0x1d), 
+		GOUT_TUBER(6311, 3261, 29, 80, 0.25, 105, 45, 0xc0, 0xc4), 
+		RANARR(5295, 207, 32, 80, 0.20, 27, 30.5, 0x20, 0x24),
+		TOADFLAX(5296, 3049, 38, 80, 0.20, 34, 38.5, 0x27, 0x2b), 
+		IRIT(5297, 209, 44, 80, 0.20, 43, 48.5, 0x2e, 0x32),
+		AVANTOE(5298, 211, 50, 80, 0.20, 54.5, 61.5, 0x35, 0x39),
+		KUARM(5299, 213, 56, 80, 0.20, 69, 78, 0x44, 0x48), 
+		SNAPDRAGON(5300, 3051, 62, 80, 0.15, 87.5, 98.5, 0x4b, 0x4f), 
+		CADANTINE(5301, 215, 67, 80, 0.15, 106.5, 120, 0x52, 0x56), 
+		LANTADYME(5302, 2485, 73, 80, 0.15, 134.5, 151.5, 0x59, 0x5d), 
+		DWARF(5303, 217, 79, 80, 0.15, 170.5, 192, 0x60, 0x64), 
+		TORSOL(5304, 219, 85, 80, 0.15, 199.5, 224.5, 0x67, 0x6b);
 
 		private int seedId;
 		private int harvestId;
@@ -197,8 +209,70 @@ public class Herbs {
 		}
 	}
 
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateHerbsStates();
+					continue;
+				}
+			}
+			HerbData herbData = HerbData.forId(farmingSeeds[i]);
+			if (herbData == null) {
+				continue;
+			}
+			long growthTimeTotal = herbData.getGrowthTime();
+			int totalStages = (herbData.getEndingState() - herbData.getStartingState());
+			long growthTimePerStage = (growthTimeTotal / totalStages);
+			if(difference >= growthTimePerStage) //in growth stage time (20 minutes for herbs)
+			{
+				int nextStage = farmingStages[i] + 1;
+				//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
+				if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages + 4)) {
+					continue;
+				}
+				if (nextStage != farmingStages[i]) {
+					farmingStages[i] = nextStage;
+					farmingTimer[i] = Server.getMinutesCounter();
+					processState(i);
+					updateHerbsStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		if (farmingState[index] == 2) {
+			return;
+		}
+		if (farmingState[index] == 1) {
+			farmingState[index] = 2;
+		}
+		if (farmingState[index] == 4 && farmingStages[index] != 3) {
+			farmingState[index] = 0;
+		}
+		if (farmingState[index] == 0 && farmingStages[index] >= 4 && farmingStages[index] <= 7) {
+			HerbData herbData = HerbData.forId(farmingSeeds[index]);
+			if (herbData == null) {
+				return;
+			}
+			double chance = diseaseChance[index] * herbData.getDiseaseChance();
+			int maxChance = (int)(chance * 100);
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 1;
+			}
+		}
+	}
+	
 	/* update all the patch states */
-
 	public void updateHerbsStates() {
 		// falador catherby ardougne phasmatys
 		int[] configValues = new int[farmingStages.length];
@@ -250,72 +324,7 @@ public class Herbs {
 		return -1;
 	}
 
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateHerbsStates();
-			}
-			HerbData herbData = HerbData.forId(farmingSeeds[i]);
-			if (herbData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = herbData.getGrowthTime();
-			int nbStates = herbData.getEndingState() - herbData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || state > nbStates) {
-				continue;
-			}
-			if (4 + state != farmingStages[i]) {
-				farmingStages[i] = 4 + state;
-				doStateCalculation(i);
-				updateHerbsStates();
-			}
-		}
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 2) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 1) {
-			farmingState[index] = 2;
-		}
-
-		if (farmingState[index] == 4 && farmingStages[index] != 3) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 4 && farmingStages[index] <= 7) {
-			HerbData herbData = HerbData.forId(farmingSeeds[index]);
-			if (herbData == null) {
-				return;
-			}
-			double chance = diseaseChance[index] * herbData.getDiseaseChance();
-			int maxChance = (int) chance * 100;
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 1;
-			}
-		}
-	}
-
 	/* clearing the patch with a rake of a spade */
-
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
 		final HerbFieldsData herbFieldsData = HerbFieldsData.forIdPosition(new Position(objectX, objectY));
 		int finalAnimation;

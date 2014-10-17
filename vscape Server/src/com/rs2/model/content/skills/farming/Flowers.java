@@ -56,7 +56,11 @@ public class Flowers { // todo scarecrow 6059
 
 	public enum FlowerData {
 
-		MARIGOLD(5096, 6010, 2, 20, 0.35, 8.5, 47, 0x08, 0x0c), ROSEMARY(5097, 6014, 11, 20, 0.32, 12, 66.5, 0x0d, 0x11), NASTURTIUM(5098, 6012, 24, 20, 0.30, 19.5, 111, 0x12, 0x16), WOAD(5099, 1793, 25, 20, 0.27, 20.5, 115.5, 0x17, 0x1b), LIMPWURT(5100, 225, 26, 25, 21.5, 8.5, 120, 0x1c, 0x20), ;
+		MARIGOLD(5096, 6010, 2, 20, 0.35, 8.5, 47, 0x08, 0x0c), 
+		ROSEMARY(5097, 6014, 11, 20, 0.32, 12, 66.5, 0x0d, 0x11),
+		NASTURTIUM(5098, 6012, 24, 20, 0.30, 19.5, 111, 0x12, 0x16),
+		WOAD(5099, 1793, 25, 20, 0.27, 20.5, 115.5, 0x17, 0x1b), 
+		LIMPWURT(5100, 225, 26, 20, 21.5, 8.5, 120, 0x1c, 0x20);
 
 		private int seedId;
 		private int harvestId;
@@ -196,8 +200,79 @@ public class Flowers { // todo scarecrow 6059
 		}
 	}
 
-	/* update all the patch states */
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateFlowerStates();
+				}
+				if (farmingSeeds[i] > 0x21 && farmingSeeds[i] <= 0x24) {
+					farmingSeeds[i]--;
+					updateFlowerStates();
+					return;
+				}
+			}
+			FlowerData flowerData = FlowerData.forId(farmingSeeds[i]);
+			if (flowerData == null) {
+				continue;
+			}
+			long growthTimeTotal = flowerData.getGrowthTime();
+			int totalStages = (flowerData.getEndingState() - flowerData.getStartingState());
+			long growthTimePerStage = (growthTimeTotal / totalStages);
+			if(difference >= growthTimePerStage) //in growth stage time (5 minutes for flowers)
+			{
+				int nextStage = farmingStages[i] + 1;
+				//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
+				if (farmingState[i] == 3 || farmingSeeds[i] == 0x21 || farmingTimer[i] == 0 || (nextStage > totalStages + 4)) {
+					continue;
+				}
+				if (nextStage != farmingStages[i]) {
+					farmingStages[i] = nextStage;
+					farmingTimer[i] = Server.getMinutesCounter();
+					processState(i);
+					updateFlowerStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		if (farmingState[index] == 3) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it
+		// goes back to normal
+		if (farmingState[index] == 2) {
+			farmingState[index] = 3;
+		}
 
+		if (farmingState[index] == 1 || farmingState[index] == 5 && farmingStages[index] != 3) {
+			diseaseChance[index] *= 2;
+			farmingState[index] = 0;
+		}
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			FlowerData flowerData = FlowerData.forId(farmingSeeds[index]);
+			if (flowerData == null) {
+				return;
+			}
+			double chance = diseaseChance[index] * flowerData.getDiseaseChance();
+			int maxChance = (int) (chance * 100);
+
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 2;
+			}
+		}
+	}
+	
+	/* update all the patch states */
 	public void updateFlowerStates() {
 		// ardougne - phasmatys - falador - catherby
 		int[] configValues = new int[farmingStages.length];
@@ -254,79 +329,7 @@ public class Flowers { // todo scarecrow 6059
 		return -1;
 	}
 
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateFlowerStates();
-			}
-			if (Server.getMinutesCounter() - farmingTimer[i] >= 5 && farmingSeeds[i] > 0x21 && farmingSeeds[i] <= 0x24) {
-				farmingSeeds[i]--;
-				updateFlowerStates();
-				return;
-			}
-			FlowerData flowerData = FlowerData.forId(farmingSeeds[i]);
-			if (flowerData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = flowerData.getGrowthTime();
-			int nbStates = flowerData.getEndingState() - flowerData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingState[i] == 3 || farmingSeeds[i] == 0x21 || farmingTimer[i] == 0 || state > nbStates) {
-				continue;
-			}
-
-			if (4 + state != farmingStages[i]) {
-				farmingStages[i] = 4 + state;
-				doStateCalculation(i);
-				updateFlowerStates();
-			}
-		}
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 3) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 2) {
-			farmingState[index] = 3;
-		}
-
-		if (farmingState[index] == 1 || farmingState[index] == 5 && farmingStages[index] != 3) {
-			diseaseChance[index] *= 2;
-			farmingState[index] = 0;
-		}
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			FlowerData flowerData = FlowerData.forId(farmingSeeds[index]);
-			if (flowerData == null) {
-				return;
-			}
-			double chance = diseaseChance[index] * flowerData.getDiseaseChance();
-			int maxChance = (int) (chance * 100);
-
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 2;
-			}
-		}
-	}
-
 	/* watering the patch */
-
 	public boolean waterPatch(int objectX, int objectY, int itemId) {
 		final FlowerFieldsData flowerFieldsData = FlowerFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (flowerFieldsData == null) {

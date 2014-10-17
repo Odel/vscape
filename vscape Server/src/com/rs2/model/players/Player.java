@@ -165,6 +165,7 @@ import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
+import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 
 /**
@@ -206,6 +207,7 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private Barrows barrows = new Barrows(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
@@ -2056,6 +2058,11 @@ public class Player extends Entity {
 			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
 			getActionSender().sendMessage("GFX #" + gfxId);
 		}
+		else if (keyword.equals("solvepuzzle")) {
+		    for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+			this.puzzleStoredItems[i] = new Item(Puzzle.getPuzzleIndex(Puzzle.index)[i]);
+		    }
+		}
 		else if (keyword.equals("barrowsreward")) {
 		    int amount = Integer.parseInt(args[0]);
 		    for(int i = 0; i < amount; i++) {
@@ -2063,7 +2070,7 @@ public class Player extends Entity {
 			for(int i2 = 0; i < this.getBarrowsNpcDead().length; i++) {
 			    this.setBarrowsNpcDead(i, true);
 			}
-			Barrows.getReward(this);
+			barrows.getReward(this);
 		    }
 		    this.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.");
 		}
@@ -3691,6 +3698,10 @@ public class Player extends Entity {
 	
 	public RuneDraw getRuneDraw() {
 		return runeDraw;
+	}
+	
+	public Barrows getBarrows() {
+		return barrows;
 	}
 	
 	public FreakyForester getFreakyForester() {

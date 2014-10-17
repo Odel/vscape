@@ -135,7 +135,7 @@ public class AnagramsScrolls {
 		 */
 		player.getDialogue().setLastNpcTalk(npcId);
 		
-		if (anagramsData.getToGet() == "Challenge") {
+		if (anagramsData.getToGet().equals("Challenge")) {
 			if (ChallengeScrolls.gotScroll(player, anagramsData.getClueId())) {
 				player.clueLevel = anagramsData.getLevel();
 				player.challengeScroll = anagramsData.getClueId();
@@ -150,12 +150,13 @@ public class AnagramsScrolls {
 				player.getDialogue().sendNpcChat("Here's a challenge for you.", Dialogues.HAPPY);
 				ChallengeScrolls.addNewChallenge(player, anagramsData.getClueId());
 			}
-		} else if (anagramsData.getToGet() == "Puzzle") {
+		} else if (anagramsData.getToGet().equals("Puzzle")) {
+		    if(Puzzle.playerHasPuzzle(player)) {
 			if (Puzzle.finishedPuzzle(player)) {
 				Dialogues.setNextDialogue(player, 10009, 2);
 				player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
 				player.getInventory().removeItem(new Item(ClueScroll.CASTLE_PUZZLE, 1));
-				player.getInventory().removeItem(new Item(ClueScroll.OGRE_PUZZLE, 1));
+				player.getInventory().removeItem(new Item(ClueScroll.TROLL_PUZZLE, 1));
 				player.getInventory().removeItem(new Item(ClueScroll.TREE_PUZZLE, 1));
 				player.getInventory().removeItem(new Item(anagramsData.getClueId(), 1));
 				HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
@@ -163,25 +164,18 @@ public class AnagramsScrolls {
 				BindingEffect bind = new BindingEffect(1000000);
 				bind.initialize(hit); //try and step away during dialogue now :-)
 				player.clueLevel = anagramsData.getLevel();
-			} else if (player.hasPuzzle()) {
-				player.getDialogue().sendNpcChat("The puzzle doesn't seem to be complete yet.", Dialogues.HAPPY);
 			} else {
-				player.getDialogue().sendNpcChat("Hello, Solve this puzzle for me please.", Dialogues.HAPPY);
-				Puzzle.addRandomPuzzle(player);
+				player.getDialogue().sendNpcChat("The puzzle doesn't seem to be complete yet.", Dialogues.SAD);
+				return true;
 			}
-		} else {
-			Dialogues.setNextDialogue(player, 10009, 2);
-			player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
-			player.getInventory().getItemContainer().remove(new Item(anagramsData.getClueId(), 1));
-			HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
-			Hit hit = new Hit(player, player, hitDef);
-			BindingEffect bind = new BindingEffect(1000000);
-			bind.initialize(hit); //try and step away during dialogue now :-)
-			player.clueLevel = anagramsData.getLevel();
-			
-		}
-
+		    } else {
+			player.getDialogue().sendNpcChat("Hello, solve this puzzle for me please.", Dialogues.HAPPY);
+			Puzzle.resetPuzzleItems(player);
+			Puzzle.addRandomPuzzle(player);
+		    }
 		return true;
+		}
+	    return false;
 	}
 
 	/* getting a random anagram clue */

@@ -95,14 +95,17 @@ public class ActionSender {
 		player.getBushes().updateBushesStates();
 		player.getAllotment().updateAllotmentsStates();
 		player.getTrees().updateTreeStates();
+		for (int i = 0; i < player.getTrees().getFarmingState().length; i++)
+		{
+			if(player.getTrees().getFarmingState()[i] == 7)
+				player.getTrees().respawnStumpTimer(i);
+		}
 		player.getFruitTrees().updateFruitTreeStates();
 		player.getSpecialPlantOne().updateSpecialPlants();
 		player.getSpecialPlantTwo().updateSpecialPlants();
         for(int i = 0; i < player.getPendingItems().length; i++){
             player.getInventory().addItem(new Item(player.getPendingItems()[i], player.getPendingItemsAmount()[i]));
         }
-		for (int i = 0; i < 4; i++)
-			player.getTrees().respawnStumpTimer(i);
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendMessage("Welcome to /v/scape.");
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
@@ -648,7 +651,7 @@ public class ActionSender {
     }
 
 	public ActionSender sendConfig(int id, int value) {
-		if (value < 128) {
+		if (value >= -128 && value < 128) {
 			StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(4);
 			out.writeHeader(player.getEncryptor(), 36);
 			out.writeShort(id, StreamBuffer.ByteOrder.LITTLE);

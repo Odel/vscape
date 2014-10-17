@@ -186,11 +186,11 @@ public class WalkToActionHandler {
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
 
-				if (Barrows.barrowsObject(player, id)) {
+				if (player.getBarrows().handleBarrowsObject(player, id)) {
 					this.stop();
 					return;
 				}
-				if (Barrows.handleObjectClicking(player, id, x, y)) {
+				if (player.getBarrows().handleBarrowsDoors(player, id, x, y)) {
 					this.stop();
 					return;
 				}
