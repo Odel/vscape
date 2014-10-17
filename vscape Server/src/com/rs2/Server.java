@@ -438,7 +438,8 @@ public class Server implements Runnable {
 			e.printStackTrace();
 		}
 
-		World.submit(new Tick(25) {
+		//originaly 25 1/4 15 secs - changed to 50 1/2 30 secs - (100 ticks =  1 minute)
+		World.submit(new Tick(50) {
 		    @Override public void execute() {
 		        setMinutesCounter(getMinutesCounter() + 1);
                 for (Player player : World.getPlayers()) {
@@ -451,7 +452,8 @@ public class Server implements Runnable {
                   player.getHops().processGrowth();
                   player.getBushes().processGrowth();
                   player.getTrees().processGrowth();
-               /*   player.getFruitTrees().doCalculations();
+             //     player.getFruitTrees().processGrowth();
+               /*
                   player.getSpecialPlantOne().doCalculations();
                   player.getSpecialPlantTwo().doCalculations(); */
                   //lowering all player items timer

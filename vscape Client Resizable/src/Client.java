@@ -3443,7 +3443,7 @@ public class Client extends RSApplet {
 				if(onDemandData.dataType == 1 && onDemandData.buffer != null)
 					Class36.load(onDemandData.buffer, onDemandData.ID);
 				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null && MusicEnabled){
-					MidiPlayer.getSingleton().play(onDemandData.buffer,true,musicVolume);
+					MidiPlayer.getSingleton().play(onDemandData.buffer,songChanging,musicVolume);
 					//saveMidi(songChanging, onDemandData.buffer);
 				}
 				if(onDemandData.dataType == 3 && loadingStage == 1)
@@ -11860,9 +11860,9 @@ public class Client extends RSApplet {
 				}
 				if(MusicEnabled) {
 				    if (songID != currentSong && musicEnabled && !lowMem && previousSong == 0) {
-					nextSong = songID;
-					songChanging = true;
-					onDemandFetcher.method558(2, nextSong);
+						nextSong = songID;
+						songChanging = true;
+						onDemandFetcher.method558(2, nextSong);
 				    }
 				}
 				currentSong = songID;
@@ -11874,10 +11874,10 @@ public class Client extends RSApplet {
 				int songDelay = inStream.method435();
 				if(MusicEnabled) {
 				    if (musicEnabled && !lowMem) {
-					nextSong = songId;
-					songChanging = false;
-					onDemandFetcher.method558(2, nextSong);
-					previousSong = songDelay;
+						nextSong = songId;
+						songChanging = false;
+						onDemandFetcher.method558(2, nextSong);
+						previousSong = songDelay;
 				    }
 				}
 				pktType = -1;

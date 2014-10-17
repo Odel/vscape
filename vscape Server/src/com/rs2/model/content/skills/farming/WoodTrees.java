@@ -855,9 +855,6 @@ public class WoodTrees {
 			player.getActionSender().sendMessage("You do not have an axe which you have the woodcutting level to use.");
 			return false;
 		}
-		if (!player.getInventory().canAddItem(new Item(1511))) {
-			return false;
-		}
 		if (!SkillHandler.hasRequiredLevel(player, Skill.WOODCUTTING, Tree.getTree(object).getLevel(), "chop this tree")) {
 			return false;
 		}
