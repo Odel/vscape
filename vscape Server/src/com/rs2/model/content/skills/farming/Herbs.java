@@ -143,7 +143,11 @@ public class Herbs {
 	/* This is the enum data about the different patches */
 
 	public enum HerbFieldsData {
-		ARDOUGNE(0, new Position[]{new Position(2670, 3374), new Position(2671, 3375)}), PHASMATYS(1, new Position[]{new Position(3605, 3529), new Position(3606, 3530)}), FALADOR(2, new Position[]{new Position(3058, 3311), new Position(3059, 3312)}), CATHERBY(3, new Position[]{new Position(2813, 3463), new Position(2814, 3464)});
+		ARDOUGNE(0, new Position[]{new Position(2670, 3374), new Position(2671, 3375)}),
+		PHASMATYS(1, new Position[]{new Position(3605, 3529), new Position(3606, 3530)}),
+		FALADOR(2, new Position[]{new Position(3058, 3311), new Position(3059, 3312)}), 
+		CATHERBY(3, new Position[]{new Position(2813, 3463), new Position(2814, 3464)});
+		
 		private int herbIndex;
 		private Position[] herbPosition;
 
@@ -229,19 +233,23 @@ public class Herbs {
 				continue;
 			}
 			long growthTimeTotal = herbData.getGrowthTime();
-			int totalStages = (herbData.getEndingState() - herbData.getStartingState());
-			long growthTimePerStage = (growthTimeTotal / totalStages);
+			int totalStages = (herbData.getEndingState() - herbData.getStartingState()) + 4;
+			long growthTimePerStage = (growthTimeTotal / (totalStages-4));
 			if(difference >= growthTimePerStage) //in growth stage time (20 minutes for herbs)
 			{
 				int nextStage = farmingStages[i] + 1;
 				//if timer is 0 or if the plant is dead or fully grown go to next Herb patch index insted
-				if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages + 4)) {
+				if (farmingTimer[i] == 0 || farmingState[i] == 2 || (nextStage > totalStages)) {
 					continue;
 				}
 				if (nextStage != farmingStages[i]) {
 					farmingStages[i] = nextStage;
+					if (farmingStages[i] <= nextStage){
+						for (int j = farmingStages[i]; j <= nextStage; j++){
+							processState(i);
+						}
+					}
 					farmingTimer[i] = Server.getMinutesCounter();
-					processState(i);
 					updateHerbsStates();
 				}
 			}

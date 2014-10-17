@@ -42,6 +42,7 @@ import com.rs2.model.content.skills.Fletching.LogCuttingInterfaces;
 import com.rs2.model.content.skills.Fletching.CbowFletching;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.OneIngredients;
+import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
@@ -88,7 +89,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 public class ItemPacketHandler implements PacketHandler {
@@ -305,6 +305,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DoughHandler.handleInterface(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot)) {
+	    return;
+	}
+	if (SliceDiceHandler.handleInterface(player, firstItem, secondItem, itemFirstClickSlot)) {
 	    return;
 	}
 	/* Fletching */

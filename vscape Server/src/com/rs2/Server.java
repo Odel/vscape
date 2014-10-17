@@ -452,10 +452,9 @@ public class Server implements Runnable {
                   player.getHops().processGrowth();
                   player.getBushes().processGrowth();
                   player.getTrees().processGrowth();
-             //     player.getFruitTrees().processGrowth();
-               /*
+                  player.getFruitTrees().processGrowth();
                   player.getSpecialPlantOne().doCalculations();
-                  player.getSpecialPlantTwo().doCalculations(); */
+                  player.getSpecialPlantTwo().doCalculations();
                   //lowering all player items timer
 	              ItemManager.getInstance().lowerAllItemsTimers(player);
                 }

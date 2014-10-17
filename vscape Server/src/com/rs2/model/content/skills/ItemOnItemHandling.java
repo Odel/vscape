@@ -43,10 +43,11 @@ public class ItemOnItemHandling {
 		
 		CRYSTAL_KEY(985, 987, new Item[]{new Item(985), new Item(987)}, new Item[]{new Item(989)}, -1, null, 0, "You join the two halves of the key together."),
 		
+		WATERMELON_SLICES(5982, 946, new Item[]{new Item(5982)}, new Item[]{new Item(5984), new Item(5984), new Item(5984)}, -1, null, 0, "You cut the watermelon into 3 slices.");
+		/*
 		PINEAPPLE_CHUNKS(946, 2114, new Item[]{new Item(2114)}, new Item[]{new Item(2116)}, -1, null, 0, "You cut the pineapple into chunks."),
 		
-		PINEAPPLE_RING(2114, 946, new Item[]{new Item(2114)}, new Item[]{new Item(2118), new Item(2118), new Item(2118), new Item(2118)}, -1, null, 0, "You cut the pineapple into rings.")
-		;
+		PINEAPPLE_RING(2114, 946, new Item[]{new Item(2114)}, new Item[]{new Item(2118), new Item(2118), new Item(2118), new Item(2118)}, -1, null, 0, "You cut the pineapple into rings.");*/
 
 		private int itemFirstClick;
 		private int itemSecondClick;

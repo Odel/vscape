@@ -46,13 +46,22 @@ public class FruitTree {
 
 	/* This is the enum holding the seeds info */
 	public enum FruitTreeData {
-		APPLE(5496, 1955, 1, 27, new int[]{5986, 9}, 120, 0.20, 22, 8.5, 0x08, 0x14, 0x0e, 0x21, 0x22, 1199.5, 12, 18),
-		BANANA(5497, 1963, 1, 33, new int[]{5386, 4}, 120, 0.20, 28, 10.5, 0x23, 0x2f, 0x29, 0x3c, 0x3d, 1750.5, 12, 18),
-		ORANGE(5498, 2108, 1, 39, new int[]{5406, 3}, 120, 0.20, 35.5, 13.5, 0x48, 0x54, 0x4e, 0x61, 0x62, 2470.2, 12, 18), 
-		CURRY(5499, 5970, 1, 42, new int[]{5416, 5}, 120, 0.25, 40, 15, 0x63, 0x6f, 0x69, 0x7c, 0x7d, 2906.9, 12, 18), 
-		PINEAPPLE(5500, 2114, 1, 51, new int[]{5982, 10}, 120, 0.25, 57, 21.5, 0x88, 0x94, 0x8e, 0xa1, 0xa2, 4605.7, 12, 18), 
-		PAPAYA(5501, 5972, 1, 57, new int[]{2114, 10}, 120, 0.25, 72, 27, 0xa3, 0xaf, 0xa9, 0xbc, 0xbd, 6146.4, 12, 18), 
-		PALM(5502, 5974, 1, 68, new int[]{5972, 15}, 120, 0.25, 170.5, 41.5, 0xc8, 0xd4, 0xce, 0xe1, 0xe2, 10150.1, 12, 18);
+		/**
+		 * originally growth time of 120 minutes changed to 960 for the sake of some consistency with normal trees
+		 *  at 960 minutes realtime it's too long
+		 * 960 minutes is 16 hours in realtime but, the server tick minute is 1/2 of a real minute
+		 * so if it was 1/4 a real minute 960 / 2 = 480 minutes (8 hours)
+		 * 960 / 6 = 160 - so a growth time of 160 "minutes" per stage all fruit trees should have 6 stages
+		 * 480 / 6 = 80  (8 hours) (1/2)
+		 * 240 / 6 = 40 (4 hours) (1/4)
+		 */
+		APPLE(5496, 1955, 1, 27, new int[]{5986, 9}, 960, 0.20, 22, 8.5, 0x08, 0x14, 0x0e, 0x21, 0x22, 1199.5, 12, 18),
+		BANANA(5497, 1963, 1, 33, new int[]{5386, 4}, 960, 0.20, 28, 10.5, 0x23, 0x2f, 0x29, 0x3c, 0x3d, 1750.5, 12, 18),
+		ORANGE(5498, 2108, 1, 39, new int[]{5406, 3}, 960, 0.20, 35.5, 13.5, 0x48, 0x54, 0x4e, 0x61, 0x62, 2470.2, 12, 18), 
+		CURRY(5499, 5970, 1, 42, new int[]{5416, 5}, 960, 0.25, 40, 15, 0x63, 0x6f, 0x69, 0x7c, 0x7d, 2906.9, 12, 18), 
+		PINEAPPLE(5500, 2114, 1, 51, new int[]{5982, 10}, 960, 0.25, 57, 21.5, 0x88, 0x94, 0x8e, 0xa1, 0xa2, 4605.7, 12, 18), 
+		PAPAYA(5501, 5972, 1, 57, new int[]{2114, 10}, 960, 0.25, 72, 27, 0xa3, 0xaf, 0xa9, 0xbc, 0xbd, 6146.4, 12, 18), 
+		PALM(5502, 5974, 1, 68, new int[]{5972, 15}, 960, 0.25, 170.5, 41.5, 0xc8, 0xd4, 0xce, 0xe1, 0xe2, 10150.1, 12, 18);
 
 		private int saplingId;
 		private int harvestId;
@@ -176,7 +185,11 @@ public class FruitTree {
 	/* This is the enum data about the different patches */
 
 	public enum FruitTreeFieldsData {
-		BRIMHAVEN(0, new Position[]{new Position(2764, 3212), new Position(2765, 3213)}, 2330), CATHERBY(1, new Position[]{new Position(2860, 3433), new Position(2861, 3434)}, 2331), TREE_STRONGHOLD(2, new Position[]{new Position(2475, 3445), new Position(2476, 3446)}, 2343), TREE_VILLAGE(3, new Position[]{new Position(2489, 3179), new Position(2890, 3180)}, 2344);
+		BRIMHAVEN(0, new Position[]{new Position(2764, 3212), new Position(2765, 3213)}, 2330), 
+		CATHERBY(1, new Position[]{new Position(2860, 3433), new Position(2861, 3434)}, 2331),
+		TREE_STRONGHOLD(2, new Position[]{new Position(2475, 3445), new Position(2476, 3446)}, 2343), 
+		TREE_VILLAGE(3, new Position[]{new Position(2489, 3179), new Position(2890, 3180)}, 2344);
+		
 		private int fruitTreeIndex;
 		private Position[] fruitTreePosition;
 		private int npcId;
@@ -258,8 +271,127 @@ public class FruitTree {
 		}
 	}
 
-	/* update all the patch states */
+	public void processGrowth()
+	{
+		for (int i = 0; i < farmingSeeds.length; i++) {
+			long difference = (Server.getMinutesCounter() - farmingTimer[i]);
+			if(difference >= 5) //5 "minute" period 
+			{
+				// if weeds or clear patch, the patch needs to lower a stage
+				if (farmingStages[i] > 0 && farmingStages[i] <= 3) 
+				{
+					farmingStages[i]--;
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateFruitTreeStates();
+					continue;
+				}
+			}
+			FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[i]);
+			if (fruitTreeData == null) {
+				continue;
+			}
+			long growthTimeTotal = fruitTreeData.getGrowthTime();
+			int totalStages = (fruitTreeData.getEndingState() - fruitTreeData.getStartingState())-2;
+			long growthTimePerStage = (growthTimeTotal / (totalStages-4));
+			if(difference >= growthTimePerStage) //in growth stage time (160 minutes for fruit trees)
+			{
+				int nextStage = farmingStages[i] + 1;
+				//if timer is 0 or if the plant is dead or fully grown go to next trees index insted
+				if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (nextStage > totalStages)) {
+					continue;
+				}
+				if (nextStage != farmingStages[i]) {
+					if (farmingStages[i] + fruitTreeData.getStartingState() == fruitTreeData.getLimitState() + 3) {
+						farmingStages[i] = fruitTreeData.getEndingState() - fruitTreeData.getStartingState() + 7;
+						farmingState[i] = 3;
+						farmingTimer[i] = Server.getMinutesCounter();
+						updateFruitTreeStates();
+						continue;
+					}
+					farmingStages[i] = nextStage;
+					if (farmingStages[i] <= nextStage){
+						for (int j = farmingStages[i]; j <= nextStage; j++){
+							processState(i);
+						}
+					}
+					farmingTimer[i] = Server.getMinutesCounter();
+					updateFruitTreeStates();
+				}
+			}
+		}
+	}
+	
+	public void processState(int index)
+	{
+		if (farmingState[index] == 2) {
+			return;
+		}
+		// if the patch is diseased, it dies, if its watched by a farmer, it
+		// goes back to normal
+		if (farmingState[index] == 1) {
+			if (farmingWatched[index]) {
+				farmingState[index] = 0;
+				FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[index]);
+				if (fruitTreeData == null)
+					return;
+				farmingTimer[index] = Server.getMinutesCounter();
+				modifyStage(index);
+			} else {
+				farmingState[index] = 2;
+			}
+		}
 
+		if (farmingState[index] == 5 && farmingStages[index] != 2) {
+			farmingState[index] = 0;
+		}
+
+		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
+			FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[index]);
+			if (fruitTreeData == null) {
+				return;
+			}
+
+			double chance = diseaseChance[index] * fruitTreeData.getDiseaseChance();
+			int maxChance = (int)(chance * 100);
+			if (Misc.random(100) <= maxChance) {
+				farmingState[index] = 1;
+			}
+		}
+	}
+	
+	public void modifyStage(int i) {
+		FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[i]);
+		if (fruitTreeData == null)
+			return;
+		int totalStages = (fruitTreeData.getEndingState() - fruitTreeData.getStartingState())-2;
+		int nextStage = farmingStages[i] + 1;
+		if(nextStage > totalStages)
+			return;
+		farmingStages[i] = nextStage;
+		updateFruitTreeStates();
+	}
+	
+	public void lowerStage(int index) {
+		FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[index]);
+		if (fruitTreeData == null)
+			return;
+		int totalStages = (fruitTreeData.getEndingState() - fruitTreeData.getStartingState())-2;
+		hasFullyGrown[index] = false;
+		farmingTimer[index] = Server.getMinutesCounter();
+		int lowerBy = 1;
+		if(farmingStages[index] == fruitTreeData.getEndingState() - fruitTreeData.getStartingState() + 7)
+		{
+			lowerBy = 4;
+		}
+		if(farmingStages[index] == totalStages + 1)
+		{
+			lowerBy = 2;
+		}
+		farmingStages[index] -= lowerBy;
+		updateFruitTreeStates();
+	}
+	
+	/* update all the patch states */
 	public void updateFruitTreeStates() {
 		// brimhaven - catherby - tree stronghold - tree village
 		int[] configValues = new int[farmingStages.length];
@@ -321,49 +453,6 @@ public class FruitTree {
 		return -1;
 	}
 
-	/* calculating the disease chance and making the plant grow */
-
-	public void doCalculations() {
-		for (int i = 0; i < farmingSeeds.length; i++) {
-			if (farmingStages[i] > 0 && farmingStages[i] <= 3 && Server.getMinutesCounter() - farmingTimer[i] >= 5) {
-				farmingStages[i]--;
-				farmingTimer[i] = Server.getMinutesCounter();
-				updateFruitTreeStates();
-				continue;
-			}
-			FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[i]);
-			if (fruitTreeData == null) {
-				continue;
-			}
-
-			long difference = Server.getMinutesCounter() - farmingTimer[i];
-			long growth = fruitTreeData.getGrowthTime();
-			int nbStates = fruitTreeData.getEndingState() - fruitTreeData.getStartingState();
-			int state = (int) (difference * nbStates / growth);
-			if(state > nbStates) {
-				state = nbStates;
-			}
-			if(state < 0) {
-				state = 0;
-			}
-			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (state > nbStates)) {
-				continue;
-			}
-			if (4 + state != farmingStages[i]) {
-				if (farmingStages[i] + fruitTreeData.getStartingState() == fruitTreeData.getLimitState() + 3) {
-					farmingStages[i] = fruitTreeData.getEndingState() - fruitTreeData.getStartingState() + 7;
-					farmingState[i] = 3;
-					updateFruitTreeStates();
-					continue;
-				}
-				farmingStages[i] = 4 + state;
-				if (farmingStages[i] <= 4 + state)
-					for (int j = farmingStages[i]; j <= 4 + state; j++)
-						doStateCalculation(i);
-				updateFruitTreeStates();
-			}
-		}
-	}
 	/**
 	 * Woodcutting action
 	 * 
@@ -374,7 +463,6 @@ public class FruitTree {
 	 *            = tree y location
 	 * @return
 	 */
-
 	public boolean cut(final int x, final int y) {
 
 		final FruitTreeFieldsData fruitTreeFieldsData = FruitTreeFieldsData.forIdPosition(new Position(x, y));
@@ -421,63 +509,7 @@ public class FruitTree {
 		return true;
 	}
 
-	public void modifyStage(int i) {
-		FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[i]);
-		if (fruitTreeData == null)
-			return;
-		long difference = Server.getMinutesCounter() - farmingTimer[i];
-		long growth = fruitTreeData.getGrowthTime();
-		int nbStates = fruitTreeData.getEndingState() - fruitTreeData.getStartingState();
-		int state = (int) (difference * nbStates / growth);
-		farmingStages[i] = 4 + state;
-		updateFruitTreeStates();
-
-	}
-
-	/* calculations about the diseasing chance */
-
-	public void doStateCalculation(int index) {
-		if (farmingState[index] == 2) {
-			return;
-		}
-		// if the patch is diseased, it dies, if its watched by a farmer, it
-		// goes back to normal
-		if (farmingState[index] == 1) {
-			if (farmingWatched[index]) {
-				farmingState[index] = 0;
-				FruitTreeData bushesData = FruitTreeData.forId(farmingSeeds[index]);
-				if (bushesData == null)
-					return;
-				System.out.println(farmingSeeds[index]);
-				int difference = bushesData.getEndingState() - bushesData.getStartingState();
-				int growth = bushesData.getGrowthTime();
-				farmingTimer[index] += (growth / difference);
-				modifyStage(index);
-			} else {
-				farmingState[index] = 2;
-			}
-		}
-
-		if (farmingState[index] == 5 && farmingStages[index] != 2) {
-			farmingState[index] = 0;
-		}
-
-		if (farmingState[index] == 0 && farmingStages[index] >= 5 && !hasFullyGrown[index]) {
-			FruitTreeData fruitTreeData = FruitTreeData.forId(farmingSeeds[index]);
-			if (fruitTreeData == null) {
-				return;
-			}
-
-			double chance = diseaseChance[index] * fruitTreeData.getDiseaseChance();
-			int maxChance = (int) chance * 100;
-			if (Misc.random(100) <= maxChance) {
-				farmingState[index] = 1;
-			}
-		}
-	}
-
 	/* clearing the patch with a rake of a spade */
-
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
 		final FruitTreeFieldsData fruitTreeFieldsData = FruitTreeFieldsData.forIdPosition(new Position(objectX, objectY));
 		int finalAnimation;
@@ -546,7 +578,6 @@ public class FruitTree {
 	}
 
 	/* planting the saplings */
-
 	public boolean plantSapling(int objectX, int objectY, final int saplingId) {
 		final FruitTreeFieldsData fruitTreeFieldsData = FruitTreeFieldsData.forIdPosition(new Position(objectX, objectY));
 		final FruitTreeData fruitTreeData = FruitTreeData.forId(saplingId);
@@ -595,21 +626,7 @@ public class FruitTree {
 		return true;
 	}
 
-	@SuppressWarnings("unused")
-	private void displayAll() {
-		for (int i = 0; i < farmingStages.length; i++) {
-			System.out.println("index : " + i);
-			System.out.println("state : " + farmingState[i]);
-			System.out.println("sapling : " + farmingSeeds[i]);
-			System.out.println("level : " + farmingStages[i]);
-			System.out.println("timer : " + farmingTimer[i]);
-			System.out.println("disease chance : " + diseaseChance[i]);
-			System.out.println("-----------------------------------------------------------------");
-		}
-	}
-
 	/* harvesting the plant resulted */
-
 	public boolean harvestOrCheckHealth(int objectX, int objectY) {
 		final FruitTreeFieldsData fruitTreeFieldsData = FruitTreeFieldsData.forIdPosition(new Position(objectX, objectY));
 		if (fruitTreeFieldsData == null) {
@@ -623,7 +640,6 @@ public class FruitTree {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return true;
 		}
-		System.out.println(farmingStages[fruitTreeFieldsData.getFruitTreeIndex()] + fruitTreeData.getStartingState() + "  " + (fruitTreeData.getLimitState() - 4));
 		if (farmingStages[fruitTreeFieldsData.getFruitTreeIndex()] + fruitTreeData.getStartingState() == fruitTreeData.getLimitState() + 4) {
 			cut(objectX, objectY);
 			return true;
@@ -648,7 +664,7 @@ public class FruitTree {
 					player.getSkill().addExp(Skill.FARMING, fruitTreeData.getCheckHealthXp());
 					farmingState[fruitTreeFieldsData.getFruitTreeIndex()] = 0;
 					hasFullyGrown[fruitTreeFieldsData.getFruitTreeIndex()] = false;
-					farmingTimer[fruitTreeFieldsData.getFruitTreeIndex()] = Server.getMinutesCounter() - fruitTreeData.getGrowthTime();
+					farmingTimer[fruitTreeFieldsData.getFruitTreeIndex()] = Server.getMinutesCounter();
 					modifyStage(fruitTreeFieldsData.getFruitTreeIndex());
 					container.stop();
 					return;
@@ -656,11 +672,7 @@ public class FruitTree {
 				player.getActionSender().sendMessage("You harvest the crop, and pick a fruit.");
 				player.getInventory().addItem(new Item(fruitTreeData.getHarvestId()));
 				player.getSkill().addExp(Skill.FARMING, fruitTreeData.getHarvestXp());
-				farmingTimer[fruitTreeFieldsData.getFruitTreeIndex()] = Server.getMinutesCounter();
-				int difference = fruitTreeData.getEndingState() - fruitTreeData.getStartingState();
-				int growth = fruitTreeData.getGrowthTime();
-				lowerStage(fruitTreeFieldsData.getFruitTreeIndex(), growth - (growth / difference) * (difference + 5 - farmingStages[fruitTreeFieldsData.getFruitTreeIndex()]));
-				modifyStage(fruitTreeFieldsData.getFruitTreeIndex());
+				lowerStage(fruitTreeFieldsData.getFruitTreeIndex());
 				container.stop();
 			}
 
@@ -670,13 +682,6 @@ public class FruitTree {
 		});
 		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 2);
 		return true;
-	}
-
-	/* lowering the stage */
-
-	public void lowerStage(int index, int timer) {
-		hasFullyGrown[index] = false;
-		farmingTimer[index] -= timer;
 	}
 
 	/* putting compost onto the plant */

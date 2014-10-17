@@ -24,6 +24,7 @@ import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.FillHandler;
+import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Ectofungus;
@@ -543,6 +544,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (DoughHandler.handleButtons(player, buttonId, 0)) {
+			return;
+		}
+		if (SliceDiceHandler.handleButtons(player, buttonId, 0)) {
 			return;
 		}
 		if (PestControlExpHandler.handleButtons(player, buttonId)) {
