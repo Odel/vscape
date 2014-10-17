@@ -381,6 +381,7 @@ public class Player extends Entity {
 	private boolean spokeToGrubor;
 	private boolean spokeToAlfonse;
 	private boolean spokeToCharlie;
+	public boolean dfsTimer = false;
 	private int tokenTime;
 	private int fightCavesWave;
 	private int fightCavesKillCount;
@@ -5267,6 +5268,18 @@ public class Player extends Entity {
 					return true;
 				}
 				SpecialType.dfsUncharge(this);
+				this.dfsTimer = true;
+				final Player player = this;
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					b.stop();
+				    }
+				    @Override
+				    public void stop() {
+					player.dfsTimer = false;
+				    }
+				}, 120);
 				return true;
 			}
 			break;

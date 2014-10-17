@@ -1217,6 +1217,10 @@ public class ItemPacketHandler implements PacketHandler {
     private void operateItem(Player player, int itemId) {
 	switch (itemId) {
 	    case 11283:
+		if(player.dfsTimer) {
+		    player.getActionSender().sendMessage("You must wait 2 minutes in between operation for this item.");
+		    return;
+		}
 		if(!player.getInCombatTick().completed()) {
 		    player.getActionSender().sendMessage("Your Dragonfire shield has become partially depleted.");
 		    player.getEquipment().replaceEquipment(11284, Constants.SHIELD);
@@ -1224,6 +1228,10 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		return;
 	    case 11284:
+		if(player.dfsTimer) {
+		    player.getActionSender().sendMessage("You must wait 2 minutes in between operation for this item.");
+		    return;
+		}
 		if (player.getDfsCharges() > 0) {
 		    player.clickSpecialBar(1010101);
 		} else {
