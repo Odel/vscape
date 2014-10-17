@@ -164,6 +164,7 @@ import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
@@ -208,6 +209,7 @@ public class Player extends Entity {
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
 	private Barrows barrows = new Barrows(this);
+	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
@@ -3702,6 +3704,10 @@ public class Player extends Entity {
 	
 	public Barrows getBarrows() {
 		return barrows;
+	}
+	
+	public BarbarianSpirits getBarbarianSpirits() {
+		return barbarianSpirits;
 	}
 	
 	public FreakyForester getFreakyForester() {
