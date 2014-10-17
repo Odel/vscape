@@ -404,6 +404,9 @@ public class MovementHandler {
 	public static boolean walkIntoNpcCheck(Entity entity, int x, int y) {
 	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
 			Npc n = (Npc) entity;
+			if(n.isPet()) {
+			    return false;
+			}
 			if (n.walkIntoNpc(x, y)) {
 			    return true;
 			}

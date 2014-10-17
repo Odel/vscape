@@ -46,8 +46,9 @@ public class Npc extends Entity {
 	private boolean transformUpdate;
 	private boolean needsRespawn;
 	private boolean realNpc;
+	private boolean pet = false;
 	private int ownerIndex;
-    private int hpRenewalTimer;
+	private int hpRenewalTimer;
 
 	private NpcCombatDef npcCombatDef;
 
@@ -411,7 +412,15 @@ public class Npc extends Entity {
 	public int getCurrentY() {
 		return currentY;
 	}
-
+	
+	public boolean isPet() {
+		return pet;
+	}
+	
+	public void setAsPet(boolean set) {
+		this.pet = set;
+	}
+	
 	@Override
 	public int getCurrentHp() {
 		return hp;
@@ -585,7 +594,7 @@ public class Npc extends Entity {
 
 	public boolean walkIntoNpc(int dirX, int dirY) {
 		for (Npc npc2 : World.getNpcs()) {
-			if (npc2 != null && npc2 != this && !isDead() && npc2.getPosition().getZ() == getPosition().getZ()) {
+			if (npc2 != null && npc2 != this && !isDead() && npc2.getPosition().getZ() == getPosition().getZ() && !npc2.isPet()) {
 				if (Misc.goodDistance(getPosition().getX(), getPosition().getY(), npc2.getPosition().getX(), npc2.getPosition().getY(), npc2.getSize() + getSize())) {
 					if (npcInNpc(this, npc2, dirX, dirY)) {
 						return true;
