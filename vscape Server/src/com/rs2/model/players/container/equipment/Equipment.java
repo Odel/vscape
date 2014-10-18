@@ -635,6 +635,12 @@ public class Equipment {
 					return false;
 				}
 			}
+			 if (prayerLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.PRAYER) < prayerLevelReq) {
+					player.getActionSender().sendMessage("You need a Prayer level of " + prayerLevelReq + " to wield this weapon.");
+					return false;
+
+				}
 		} else if (targetSlot == Constants.FEET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
@@ -786,6 +792,16 @@ public class Equipment {
 					return false;
 				}
 			}
+		
+		} else if (targetSlot == Constants.AMULET) {
+			if (prayerLevelReq > 0) {
+				if(player.getSkill().getPlayerLevel(Skill.PRAYER) < prayerLevelReq) {
+					player.getActionSender().sendMessage("You need a prayer level of " + prayerLevelReq + " to wear this item.");
+					return false;
+				}
+			}
+		
+
 		} else if (targetSlot == Constants.CAPE) {
 			if((itemId == 10498 || itemId == 10499) && player.getQuestStage(25) < 23) {
 			    player.getDialogue().sendStatement("You must complete Animal Magnetism to equip this.");
@@ -932,8 +948,6 @@ public class Equipment {
 			}
 		}
 		return true;
-	}
-
 	public void getRequirements(int itemId) {
 		String itemName = ItemManager.getInstance().getItemName(itemId).toLowerCase();
 		attackLevelReq = strengthLevelReq = defenceLevelReq = rangeLevelReq = prayerLevelReq = magicLevelReq =runecraftLevelReq = hitpointsLevelReq = agilityLevelReq = herbloreLevelReq = thievingLevelReq = craftingLevelReq =fletchingLevelReq = slayerLevelReq = miningLevelReq = smithLevelReq = fishLevelReq = cookLevelReq = fireLevelReq = woodLevelReq = farmLevelReq = 0;
@@ -1107,6 +1121,22 @@ public class Equipment {
 				magicLevelReq = 42;
 				rangeLevelReq = 42;
 				prayerLevelReq = 22;
+				return;
+			case 10440:
+			case 10442:
+			case 10444:
+			case 10470:
+			case 10472:
+			case 10474: //stoles and croziers
+				prayerLevelReq = 60;
+				return;
+			case 10458:
+			case 10460:
+			case 10462:
+			case 10464:
+			case 10466:
+			case 10468://god robe top and bottoms
+				prayerLevelReq = 40;
 				return;
 
 		}
