@@ -47,6 +47,7 @@ public class Pets {
                 pet.setPlayerOwner(player.getIndex());
                 pet.setDontAttack(true);
                 pet.setCombatDelay(100000000);
+		pet.setAsPet(true);
 	}
 	/**
 	 * Unregisters a pet for the player, and picks it up it.

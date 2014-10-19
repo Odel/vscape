@@ -50,7 +50,8 @@ public class QuestHandler {
 	new HeroesQuest(),
 	new FamilyCrest(),
 	new TheGrandTree(),
-	new DwarfCannon()
+	new DwarfCannon(),
+	new WaterfallQuest()
     };
     
     public static void init() {
@@ -221,6 +222,9 @@ public class QuestHandler {
         		return true;
 		case 28188: //Dwarf Cannon
 			showInterface(player,quests[30]);
+        		return true;
+		case 28182: //Waterfall Quest
+			showInterface(player,quests[31]);
         		return true;
 
         }

@@ -214,6 +214,9 @@ public class CombatManager extends Tick {
 		    died.setDead(false);
 		    return;
 		}
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died) == ((Player)killer).getBarbarianSpirits().getSpiritSummoned()) {
+		    ((Player)killer).getBarbarianSpirits().setSpiritSummoned(null);
+		}
 		if(died != null && died.isPlayer() && ((Player)died).inMageArena() && ((Player) died).getMageArenaStage() == 1 ) {
 		    Player player = (Player)died;
 		    Position pos = player.getPosition().clone();

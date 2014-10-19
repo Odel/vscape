@@ -414,6 +414,10 @@ public class DragonSlayer implements Quest {
 	Inventory inventory = player.getInventory();
 	if(inventory.playerHasItem(UNFIRED_BOWL) && inventory.playerHasItem(WIZARD_MIND_BOMB) 
 		&& inventory.playerHasItem(SILK) && inventory.playerHasItem(LOBSTER_POT)) {
+	    player.getInventory().removeItem(new Item(UNFIRED_BOWL));
+	    player.getInventory().removeItem(new Item(SILK));
+	    player.getInventory().removeItem(new Item(LOBSTER_POT));
+	    player.getInventory().removeItem(new Item(WIZARD_MIND_BOMB));
 	    return true;
 	}
 	else {
@@ -648,20 +652,20 @@ public class DragonSlayer implements Quest {
 		    return true;
 		}
 	    case 2586: //thalzar's door
-		if(thalzarDoorItems(player)) {
-		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(player.getPosition().getX() < 3051 ? 1 : -1, 0, true);
-		    player.getActionSender().sendMessage("You feel a magical force remove the items from your pack.");
-		    player.getInventory().removeItem(new Item(UNFIRED_BOWL));
-		    player.getInventory().removeItem(new Item(SILK));
-		    player.getInventory().removeItem(new Item(LOBSTER_POT));
-		    player.getInventory().removeItem(new Item(WIZARD_MIND_BOMB));
-		    return true;
-		}
-		else {
-		    player.getDialogue().sendStatement("You feel something rustle your backpack.", "The door refuses to budge.");
-		    return true;
-		}
+			if(player.getPosition().getX() < x)
+			{
+				if(thalzarDoorItems(player)) {
+				    player.getActionSender().walkThroughDoor(object, x, y, 0);
+				    player.getActionSender().walkTo(player.getPosition().getX() < 3051 ? 1 : -1, 0, true);
+				    player.getActionSender().sendMessage("You feel a magical force remove the items from your pack.");
+				    return true;
+				}
+			}else{
+			    player.getActionSender().walkThroughDoor(object, x, y, 0);
+			    player.getActionSender().walkTo(player.getPosition().getX() < 3051 ? 1 : -1, 0, true);
+			    return true;
+			}
+		return false;
 	    case 2603: //melzar's chest
 		if(player.getQuestStage(15) >= 3 && player.getQuestStage(15) < 6) {
 		    if(player.getInventory().ownsItem(1535)) {

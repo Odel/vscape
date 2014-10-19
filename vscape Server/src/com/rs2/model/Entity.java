@@ -117,6 +117,12 @@ public abstract class Entity {
 		Hit hit = new Hit(null, this, hitDef);
 		hit.initialize();
 	}
+	
+	public void delayHit(int damage, HitType hitType, int delay) {
+		HitDef hitDef = new HitDef(null, hitType, damage).setStartingHitDelay(delay).setUnblockable(true).setDoBlock(false);
+		Hit hit = new Hit(null, this, hitDef);
+		hit.initialize();
+	}
 
 	public void expireHitRecords() {
 		for (Iterator<HitRecord> hitRecordIterator = hitRecordQueue.iterator(); hitRecordIterator.hasNext();) {
@@ -869,9 +875,9 @@ public abstract class Entity {
 		return tradingEntity;
 	}
 	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
-	    if (leader != null && leader.isNpc() ) {
+	    if (leader != null && leader.isNpc() && !((Npc)leader).isPet()) {
 		for (Npc npc : World.getNpcs()) {
-		    if (npc == null) {
+		    if (npc == null || npc.isPet()) {
 			continue;
 		    }
 		    if ((npc.getPosition().getX() == endX && npc.getPosition().getY() == endY)) {

@@ -15,6 +15,9 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 /**
@@ -194,7 +197,7 @@ public class NpcLoader {
 		    npc.getUpdateFlags().sendForceMessage(message);
 	}
 	
-	public static void spawnPlayerOwnedAttackNpc(Player player, Npc npc, Position spawningPosition, boolean hintIcon, String message) {
+	public static void spawnPlayerOwnedAttackNpc(final Player player, final Npc npc, Position spawningPosition, boolean hintIcon, String message) {
 		npc.setPosition(spawningPosition);
 		npc.setSpawnPosition(spawningPosition);
 		npc.setWalkType(Npc.WalkType.STAND);
@@ -202,15 +205,28 @@ public class NpcLoader {
 		npc.setCurrentY(spawningPosition.getY());
 		npc.setNeedsRespawn(false);
 		World.register(npc);
+		npc.setFollowingEntity(player);
+		npc.getUpdateFlags().sendFaceToDirection(player.getPosition());
 		player.setSpawnedNpc(npc);
 		if(Misc.goodDistance(player.getPosition(), spawningPosition, 10)) {
 		    npc.setPlayerOwner(player.getIndex());
 		}
 		if(hintIcon)
 		    player.getActionSender().createPlayerHints(1, (npc).getIndex());
-		CombatManager.attack(npc, player);
 		if(message != null)
 		    npc.getUpdateFlags().sendForceMessage(message);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			CombatManager.attack(npc, player);
+		    }
+		}, 2);
+		
 	}
 	
 	public static void spawnNpc(int id, int x, int y, int heightLevel, boolean DontFollow, boolean DontWalk) {

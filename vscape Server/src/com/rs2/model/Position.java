@@ -15,6 +15,13 @@ public class Position {
 	private int lastX;
 	private int lastY;
 
+	public Position() {
+	    this.x = 0;
+	    this.y = 0;
+	    this.z = 0;
+	    this.lastX = 0;
+	    this.lastY = 0;
+	}
 	/**
 	 * Creates a new Position with the specified coordinates. The Z coordinate
 	 * is set to 0.

@@ -114,8 +114,9 @@ public class Smelting {
 						if (needSecondOre) {
 							player.getInventory().removeItem(secondOre);
 						}
-						int ironChance = 50 + (player.getSkill().getLevel()[Skill.SMITHING] < 15 ? 0 : player.getSkill().getLevel()[Skill.SMITHING] - 15);
-						ironChance = ironChance > 80 ? 80 : ironChance;
+					/*	int ironChance = 50 + (player.getSkill().getLevel()[Skill.SMITHING] < 15 ? 0 : player.getSkill().getLevel()[Skill.SMITHING] - 15);
+						ironChance = ironChance > 80 ? 80 : ironChance;*/
+						int ironChance = 50;
 						if (bar == 2351 && Misc.random(100) > ironChance && player.getEquipment().getId(Constants.RING) != 2568) {
 							player.getActionSender().sendMessage("You unsuccessfuly smelt the iron ore.");
 						} else {

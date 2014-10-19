@@ -164,6 +164,7 @@ import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
@@ -208,6 +209,7 @@ public class Player extends Entity {
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
 	private Barrows barrows = new Barrows(this);
+	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
@@ -379,6 +381,7 @@ public class Player extends Entity {
 	private boolean spokeToGrubor;
 	private boolean spokeToAlfonse;
 	private boolean spokeToCharlie;
+	public boolean dfsTimer = false;
 	private int tokenTime;
 	private int fightCavesWave;
 	private int fightCavesKillCount;
@@ -436,6 +439,10 @@ public class Player extends Entity {
 	public int skillAnswer;
 	public int pcSkillPoints;
 	public Item[] puzzleStoredItems = new Item[ClueScroll.PUZZLE_LENGTH];
+	public boolean waterfallOption1 = false;
+        public boolean waterfallOption2 = false;
+        public boolean waterfallOption3 = false;
+        public boolean waterfallPillars[][] = {{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false}};
 	private int tempInteger;
 	public boolean isCrossingObstacle = false;
 	public int currentSong;
@@ -631,7 +638,7 @@ public class Player extends Entity {
 				dispatch = false;
 			}
 		}
-		if (dispatch) {
+		if (dispatch && !this.stopPlayerPacket) {
 			PacketManager.handlePacket(this, p);
 		}
         PacketManager.packetBenchmarks[p.getOpcode()].stop();
@@ -780,12 +787,12 @@ public class Player extends Entity {
 		if(timeOutCheck()) {
 		    disconnect();
 		}
-		try {
+		/*try {
 		    socketChannel.getRemoteAddress();
 		} catch(IOException e) {
 		    System.out.println("not connected");
 		    disconnect();
-		}
+		}*/
 		// Npc.checkAggressiveness(this);
 	}
 
@@ -2844,6 +2851,22 @@ public class Player extends Entity {
         }, 4);
 	}
 	
+	public void fadeTeleport2(final Position position) {
+		getActionSender().sendInterface(8677);
+		setStopPacket(true);
+        CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                movePlayer(position);
+                container.stop();
+            }
+            @Override
+            public void stop(){
+            	setStopPacket(false);
+            }
+        }, 4);
+	}
+	
 	public void setHomeTeleporting(boolean state)
 	{
 		homeTeleporting = state;
@@ -3702,6 +3725,10 @@ public class Player extends Entity {
 	
 	public Barrows getBarrows() {
 		return barrows;
+	}
+	
+	public BarbarianSpirits getBarbarianSpirits() {
+		return barbarianSpirits;
 	}
 	
 	public FreakyForester getFreakyForester() {
@@ -4979,7 +5006,7 @@ public class Player extends Entity {
 		if (transformNpc == 2626 || (transformNpc >= 3689 && transformNpc <= 3694)) {
 			return true;
 		}
-		return stopPlayerPacket;
+		return this.stopPlayerPacket;
 	}
 
 	public void setUsingArrows(boolean usingArrows) {
@@ -5261,6 +5288,18 @@ public class Player extends Entity {
 					return true;
 				}
 				SpecialType.dfsUncharge(this);
+				this.dfsTimer = true;
+				final Player player = this;
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					b.stop();
+				    }
+				    @Override
+				    public void stop() {
+					player.dfsTimer = false;
+				    }
+				}, 120);
 				return true;
 			}
 			break;
@@ -5922,7 +5961,19 @@ public class Player extends Entity {
                 }
         }
         return false;
+    }
+    public boolean hasRunes() {
+	for (Item item : getInventory().getItemContainer().getItems()) {
+	    if (item == null) {
+		continue;
+	    }
+	    if (item.getDefinition().getName().toLowerCase().contains("rune") 
+		&& ((item.getId() > 550 && item.getId() < 570) || (item.getId() > 4693 && item.getId() < 4700))) {
+		return true;
+	    }
 	}
+	return false;
+    }
     private Position getLoadedLandscapeCorner() {
         int x = getPosition().getLocalX(getCurrentRegion());
         int y = getPosition().getLocalY(getCurrentRegion());
@@ -6549,7 +6600,7 @@ public class Player extends Entity {
 		// unknown id
 		getActionSender().sendString("", 9927); //underground pass
 		getActionSender().sendString("", 7349); //watchtower
-		getActionSender().sendString("", 7350); //waterfall quest
+		getActionSender().sendString("@red@Waterfall Quest", 7350); //waterfall quest
 		getActionSender().sendString("", 7351); //witch's house
 		getActionSender().sendString("", 13356); //zogre flesh eaters
 		// more

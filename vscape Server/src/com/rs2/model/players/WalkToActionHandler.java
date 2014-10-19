@@ -98,6 +98,7 @@ import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.npcs.NpcLoader;
@@ -164,7 +165,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2142 || id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2142 || id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -2630,7 +2631,11 @@ public class WalkToActionHandler {
 				}
 				if(player.getMultiCannon().itemOnObject(item, player.getSlot(), id, x, y, z)) {
 					this.stop();
-				    return;
+					return;
+				}
+				if(BarbarianSpirits.handleItemOnObject(player, id, item, x, y)) {
+					this.stop();
+					return;
 				}
 				if (item >= 3422 && item <= 3428 && id == 4090) {
 					player.getInventory().removeItem(new Item(item));

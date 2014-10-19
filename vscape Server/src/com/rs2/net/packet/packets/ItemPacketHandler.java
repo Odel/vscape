@@ -42,6 +42,7 @@ import com.rs2.model.content.skills.Fletching.LogCuttingInterfaces;
 import com.rs2.model.content.skills.Fletching.CbowFletching;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.OneIngredients;
+import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
@@ -88,7 +89,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 public class ItemPacketHandler implements PacketHandler {
@@ -305,6 +305,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DoughHandler.handleInterface(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot)) {
+	    return;
+	}
+	if (SliceDiceHandler.handleInterface(player, firstItem, secondItem, itemFirstClickSlot)) {
 	    return;
 	}
 	/* Fletching */
@@ -1214,6 +1217,10 @@ public class ItemPacketHandler implements PacketHandler {
     private void operateItem(Player player, int itemId) {
 	switch (itemId) {
 	    case 11283:
+		if(player.dfsTimer) {
+		    player.getActionSender().sendMessage("You must wait 2 minutes in between operation for this item.");
+		    return;
+		}
 		if(!player.getInCombatTick().completed()) {
 		    player.getActionSender().sendMessage("Your Dragonfire shield has become partially depleted.");
 		    player.getEquipment().replaceEquipment(11284, Constants.SHIELD);
@@ -1221,6 +1228,10 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 		return;
 	    case 11284:
+		if(player.dfsTimer) {
+		    player.getActionSender().sendMessage("You must wait 2 minutes in between operation for this item.");
+		    return;
+		}
 		if (player.getDfsCharges() > 0) {
 		    player.clickSpecialBar(1010101);
 		} else {

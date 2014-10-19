@@ -152,7 +152,9 @@ public class Dialogues {
 		if(wetClayHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		
+		if(player.getBarbarianSpirits().sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
 		switch(id) {
 			case 1 : //Man
 			case 2 : //Man

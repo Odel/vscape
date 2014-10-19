@@ -331,7 +331,7 @@ public class WoodTrees {
 		TreeData treeData = TreeData.forId(farmingSeeds[i]);
 		if (treeData == null)
 			return;
-		int totalStages = (treeData.getEndingState() - treeData.getStartingState());
+		int totalStages = (treeData.getEndingState() - treeData.getStartingState()) + 4;
 		int nextStage = farmingStages[i] + 1;
 		if(nextStage > totalStages)
 			return;
