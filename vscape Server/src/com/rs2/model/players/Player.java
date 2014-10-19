@@ -439,6 +439,10 @@ public class Player extends Entity {
 	public int skillAnswer;
 	public int pcSkillPoints;
 	public Item[] puzzleStoredItems = new Item[ClueScroll.PUZZLE_LENGTH];
+	public boolean waterfallOption1 = false;
+        public boolean waterfallOption2 = false;
+        public boolean waterfallOption3 = false;
+        public boolean waterfallPillars[][] = {{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false}};
 	private int tempInteger;
 	public boolean isCrossingObstacle = false;
 	public int currentSong;
@@ -634,7 +638,7 @@ public class Player extends Entity {
 				dispatch = false;
 			}
 		}
-		if (dispatch) {
+		if (dispatch && !this.stopPlayerPacket) {
 			PacketManager.handlePacket(this, p);
 		}
         PacketManager.packetBenchmarks[p.getOpcode()].stop();
@@ -783,12 +787,12 @@ public class Player extends Entity {
 		if(timeOutCheck()) {
 		    disconnect();
 		}
-		try {
+		/*try {
 		    socketChannel.getRemoteAddress();
 		} catch(IOException e) {
 		    System.out.println("not connected");
 		    disconnect();
-		}
+		}*/
 		// Npc.checkAggressiveness(this);
 	}
 
@@ -2838,6 +2842,22 @@ public class Player extends Entity {
             @Override
             public void execute(CycleEventContainer container) {
                 teleport(position);
+                container.stop();
+            }
+            @Override
+            public void stop(){
+            	setStopPacket(false);
+            }
+        }, 4);
+	}
+	
+	public void fadeTeleport2(final Position position) {
+		getActionSender().sendInterface(8677);
+		setStopPacket(true);
+        CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                movePlayer(position);
                 container.stop();
             }
             @Override
@@ -4986,7 +5006,7 @@ public class Player extends Entity {
 		if (transformNpc == 2626 || (transformNpc >= 3689 && transformNpc <= 3694)) {
 			return true;
 		}
-		return stopPlayerPacket;
+		return this.stopPlayerPacket;
 	}
 
 	public void setUsingArrows(boolean usingArrows) {
@@ -5941,7 +5961,19 @@ public class Player extends Entity {
                 }
         }
         return false;
+    }
+    public boolean hasRunes() {
+	for (Item item : getInventory().getItemContainer().getItems()) {
+	    if (item == null) {
+		continue;
+	    }
+	    if (item.getDefinition().getName().toLowerCase().contains("rune") 
+		&& ((item.getId() > 550 && item.getId() < 570) || (item.getId() > 4693 && item.getId() < 4700))) {
+		return true;
+	    }
 	}
+	return false;
+    }
     private Position getLoadedLandscapeCorner() {
         int x = getPosition().getLocalX(getCurrentRegion());
         int y = getPosition().getLocalY(getCurrentRegion());
@@ -6568,7 +6600,7 @@ public class Player extends Entity {
 		// unknown id
 		getActionSender().sendString("", 9927); //underground pass
 		getActionSender().sendString("", 7349); //watchtower
-		getActionSender().sendString("", 7350); //waterfall quest
+		getActionSender().sendString("@red@Waterfall Quest", 7350); //waterfall quest
 		getActionSender().sendString("", 7351); //witch's house
 		getActionSender().sendString("", 13356); //zogre flesh eaters
 		// more

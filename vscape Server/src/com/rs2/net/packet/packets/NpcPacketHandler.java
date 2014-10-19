@@ -13,6 +13,7 @@ import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.TheGrandTree;
+import com.rs2.model.content.quests.WaterfallQuest;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
@@ -120,9 +121,9 @@ public class NpcPacketHandler implements PacketHandler {
 		if(AnimalMagnetism.handleNpcClick(player, npc.getNpcId())) {
 		    return;
 		}
-		if(npc.getNpcId() == TheGrandTree.CHARLIE) {
+		if(npc.getNpcId() == TheGrandTree.CHARLIE || npc.getNpcId() == WaterfallQuest.HUDON) {
 		    player.walkTo(npc.getPosition(), true);
-		    Dialogues.startDialogue(player, TheGrandTree.CHARLIE);
+		    Dialogues.startDialogue(player, npc.getNpcId());
 		    return;
 		}
 		if (npc.getNpcId() == GhostsAhoyPetition.GHOST_VILLAGER && player.getInventory().playerHasItem(GhostsAhoy.PETITION)) {

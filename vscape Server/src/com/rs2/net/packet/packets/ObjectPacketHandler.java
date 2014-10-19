@@ -9,6 +9,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.VampireSlayer;
+import com.rs2.model.content.quests.WaterfallQuest;
 import com.rs2.model.content.skills.Crafting.GemCrafting;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
@@ -44,6 +45,7 @@ public class ObjectPacketHandler implements PacketHandler {
 	@Override
 	public void handlePacket(Player player, Packet packet) {
 		if (player.stopPlayerPacket()) {
+			System.out.println("working2");
 			return;
 		}
 		player.getActionSender().removeInterfaces();
@@ -134,6 +136,9 @@ public class ObjectPacketHandler implements PacketHandler {
 			else if(item.getId() == 668)
 			    Dialogues.startDialogue(player, 10200);
 			return;
+		}
+		if(WaterfallQuest.doMiscItemOnObject(player, player.getClickId(), item.getId())) {
+		    return;
 		}
 		/*if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 			return;

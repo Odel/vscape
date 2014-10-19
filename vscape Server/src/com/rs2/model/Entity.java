@@ -117,6 +117,12 @@ public abstract class Entity {
 		Hit hit = new Hit(null, this, hitDef);
 		hit.initialize();
 	}
+	
+	public void delayHit(int damage, HitType hitType, int delay) {
+		HitDef hitDef = new HitDef(null, hitType, damage).setStartingHitDelay(delay).setUnblockable(true).setDoBlock(false);
+		Hit hit = new Hit(null, this, hitDef);
+		hit.initialize();
+	}
 
 	public void expireHitRecords() {
 		for (Iterator<HitRecord> hitRecordIterator = hitRecordQueue.iterator(); hitRecordIterator.hasNext();) {
