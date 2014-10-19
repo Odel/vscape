@@ -177,7 +177,36 @@ public class ActionSender {
 		player.getSkill().refresh(stat);
 		return this;
 	}
+	public ActionSender walkToNoPacket(int x, int y, final boolean crossing) {
+		if (player.isStunned() || player.isFrozen()) {
+			return this;
+		}
+		if (crossing)
+			player.isCrossingObstacle = true;
+		player.getMovementHandler().reset();
+		player.getMovementHandler().addToPath(
+				new Position(player.getPosition().getX() + x, player
+						.getPosition().getY() + y));
+		player.getMovementHandler().finish();
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			boolean walked = false;
 
+			@Override
+			public void execute(CycleEventContainer b) {
+				if (walked) { // && !player.isMoving
+					b.stop();
+				}
+				walked = true;
+			}
+
+			@Override
+			public void stop() {
+				if (crossing)
+					player.isCrossingObstacle = false;
+			}
+		}, 1);
+		return this;
+	}
 	public ActionSender walkTo(int x, int y, final boolean crossing) {
 		if (player.isStunned() || player.isFrozen()) {
 			return this;
