@@ -665,6 +665,7 @@ public class DragonSlayer implements Quest {
 			    player.getActionSender().walkTo(player.getPosition().getX() < 3051 ? 1 : -1, 0, true);
 			    return true;
 			}
+		return false;
 	    case 2603: //melzar's chest
 		if(player.getQuestStage(15) >= 3 && player.getQuestStage(15) < 6) {
 		    if(player.getInventory().ownsItem(1535)) {
