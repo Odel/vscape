@@ -56,7 +56,7 @@ public class FightCaves {
 	player.setHurkotsSpawned(false);
 	if (!player.getInventory().canAddItem(new Item(TOKKUL))) {
 	    player.getActionSender().sendMessage("Your tokkul has been sent to your bank.");
-	    player.getBank().add(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));
+	    player.getBankManager().add(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));
 
 	} else {
 	    player.getInventory().addItem(new Item(TOKKUL, getTokkulMultiplier(player) * (player.getFightCavesWave() + 1)));
@@ -270,7 +270,7 @@ public class FightCaves {
 		    player.getDialogue().sendGiveItemNpc("Congratulations! You survived the Tzhaar Fight Caves!", new Item(FIRE_CAPE));
 		    if(!player.getInventory().canAddItem(new Item(FIRE_CAPE))) {
 			player.getActionSender().sendMessage("Your fire cape has been sent to your bank.");
-			player.getBank().add(new Item(FIRE_CAPE));
+			player.getBankManager().add(new Item(FIRE_CAPE));
 			
 		    }
 		    else {

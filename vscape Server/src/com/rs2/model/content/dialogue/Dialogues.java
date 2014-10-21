@@ -625,7 +625,7 @@ public class Dialogues {
 						}
 						break;
 					case 4 :
-						BankManager.openBank(player);
+						player.getBankManager().openBank();
 						player.getDialogue().dontCloseInterface();
 						break;
 					case 5 :
@@ -5418,7 +5418,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 						case 1 :
-							BankManager.openBank(player);
+							player.getBankManager().openBank();
 							break;
 						}
 						break;

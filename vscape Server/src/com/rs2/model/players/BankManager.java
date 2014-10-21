@@ -9,7 +9,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.cache.interfaces.RSInterface;
 
 public class BankManager {
-
+/*
 	public static final int SIZE = 352;
 	private Container itemContainer = new Container(Type.STANDARD, SIZE);
 	public static final int DEFAULT_BANK_INTERFACE = 5292;
@@ -195,5 +195,5 @@ public class BankManager {
 		Item[] bankItems = player.getBank().toArray();
 		player.getActionSender().sendUpdateItems(5382, bankItems);
 	}
-
+*/
 }

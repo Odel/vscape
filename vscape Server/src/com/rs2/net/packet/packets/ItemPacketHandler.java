@@ -542,12 +542,41 @@ public class ItemPacketHandler implements PacketHandler {
 	int toSlot = packet.getIn().readShort(StreamBuffer.ByteOrder.LITTLE);
 	RSInterface inter = RSInterface.forId(player.getInterfaceId());
 	if (!player.hasInterfaceOpen(inter)) {
+		switch (player.getInterfaceId()) {
+			case 50025:
+		    	player.getBankManager().toTab(0, fromSlot);
+			break;
+			case 50026:
+				player.getBankManager().toTab(1, fromSlot);
+			break;
+			case 50027:
+				player.getBankManager().toTab(2, fromSlot);
+				break;
+			case 50028:
+				player.getBankManager().toTab(3, fromSlot);
+				break;
+			case 50029:
+				player.getBankManager().toTab(4, fromSlot);
+				break;
+			case 50030:
+				player.getBankManager().toTab(5, fromSlot);
+				break;
+			case 50031:
+				player.getBankManager().toTab(6, fromSlot);
+				break;
+			case 50032:
+				player.getBankManager().toTab(7, fromSlot);
+				break;
+			case 50033:
+				player.getBankManager().toTab(8, fromSlot);
+				break;
+		}
 	    //player.getActionSender().removeInterfaces();
 	    return;
 	}
 	switch (player.getInterfaceId()) {
 	    case 5382:
-		BankManager.handleBankOptions(player, fromSlot, toSlot);
+		player.getBankManager().handleBankOptions(fromSlot, toSlot);
 		break;
 	    case 3214:
 		Item item = player.getInventory().getItemContainer().get(fromSlot);
@@ -593,9 +622,9 @@ public class ItemPacketHandler implements PacketHandler {
 	if (interfaceID == 1688) {
 	    player.getEquipment().unequip(player.getSlot());
 	} else if (interfaceID == 5064 || interfaceID == 7423) {
-	    BankManager.bankItem(player, player.getSlot(), itemId, 1);
+		player.getBankManager().bankItem(player.getSlot(), itemId, 1);
 	} else if (interfaceID == 5382) {
-	    BankManager.withdrawItem(player, player.getSlot(), itemId, 1);
+		player.getBankManager().withdrawItem(player.getSlot(), itemId, 1);
 	} else if (interfaceID == 3900) {
 	    ShopManager.getBuyValue(player, itemId);
 	} else if (interfaceID == 3823) {
@@ -644,9 +673,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (interfaceID == 5064 || interfaceID == 7423) {
-	    BankManager.bankItem(player, player.getSlot(), itemId, 5);
+		player.getBankManager().bankItem(player.getSlot(), itemId, 5);
 	} else if (interfaceID == 5382) {
-	    BankManager.withdrawItem(player, player.getSlot(), itemId, 5);
+		player.getBankManager().withdrawItem(player.getSlot(), itemId, 5);
 	} else if (interfaceID == 3900) {
 		ShopManager.buyItem(player, player.getSlot(), itemId, 1);
 	} else if (interfaceID == 3823) {
@@ -699,9 +728,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (interfaceID == 5064 || interfaceID == 7423) {
-	    BankManager.bankItem(player, player.getSlot(), itemId, 10);
+		player.getBankManager().bankItem(player.getSlot(), itemId, 10);
 	} else if (interfaceID == 5382) {
-	    BankManager.withdrawItem(player, player.getSlot(), itemId, 10);
+		player.getBankManager().withdrawItem(player.getSlot(), itemId, 10);
 	} else if (interfaceID == 3900) {
 	    ShopManager.buyItem(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 3823) {
@@ -736,9 +765,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (interfaceID == 5064 || interfaceID == 7423) {
-	    BankManager.bankItem(player, player.getSlot(), itemId, player.getInventory().getItemContainer().getCount(itemId));
+		player.getBankManager().bankItem(player.getSlot(), itemId, player.getInventory().getItemContainer().getCount(itemId));
 	} else if (interfaceID == 5382) {
-	    BankManager.withdrawItem(player, player.getSlot(), itemId, player.getBank().getCount(itemId));
+		player.getBankManager().withdrawItemAll(player.getSlot(), itemId);
 	} else if (interfaceID == 3900) {
 	    ShopManager.buyItem(player, player.getSlot(), itemId, 10);
 	} else if (interfaceID == 3823) {

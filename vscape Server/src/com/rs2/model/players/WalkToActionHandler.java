@@ -475,7 +475,7 @@ public class WalkToActionHandler {
 					break;
 				    }
 				    else {
-					BankManager.openBank(player);
+				    	player.getBankManager().openBank();
 					break;
 				    }
 				case 2324: //ogre rope swing
@@ -1157,7 +1157,7 @@ public class WalkToActionHandler {
 					Ladders.climbLadder(player, new Position(2899, 4449, 0));
 					break;
 				case 9398: // deposit box
-					BankManager.openDepositBox(player);
+					player.getBankManager().openDepositBox();
 					break;
 				case 5949: // lumby jump
 					if (player.getPosition().getY() > y) {
@@ -1894,7 +1894,7 @@ public class WalkToActionHandler {
 					break;
 				    }
 				    else {
-					BankManager.openBank(player);
+				    	player.getBankManager().openBank();
 					break;
 				    }
 				case 8930: //waterbirth snow cave to daggnoth
@@ -1946,7 +1946,7 @@ public class WalkToActionHandler {
 					break;
 				    }
 				    else {
-					BankManager.openBank(player);
+				    	player.getBankManager().openBank();
 					break;
 				    }
 				case 8717:
@@ -2260,7 +2260,7 @@ public class WalkToActionHandler {
 						    this.stop();
 						}
 						else {
-						    BankManager.openBank(player);
+							player.getBankManager().openBank();
 						}
 						Following.resetFollow(player);
 						this.stop();
@@ -2315,7 +2315,7 @@ public class WalkToActionHandler {
 					    break;
 					}
 					else {
-					    BankManager.openBank(player);
+						player.getBankManager().openBank();
 					}
 					Following.resetFollow(player);
 					break;
@@ -2375,7 +2375,7 @@ public class WalkToActionHandler {
 					    break;
 					}
 					else {
-					    BankManager.openBank(player);
+						player.getBankManager().openBank();
 					    break;
 					}
 				case 3781: //pc squire
@@ -2456,7 +2456,7 @@ public class WalkToActionHandler {
 					    break;
 					}
 					else {
-					    BankManager.openBank(player);
+						player.getBankManager().openBank();
 					}
 					Following.resetFollow(player);
 					break;
@@ -2499,7 +2499,7 @@ public class WalkToActionHandler {
 					break;
 				    }
 				    else {
-					BankManager.openBank(player);
+				    	player.getBankManager().openBank();
 					break;
 				    }
 				}

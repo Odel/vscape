@@ -78,10 +78,10 @@ public class ChatInterfacePacketHandler implements PacketHandler {
             return;
 
 		if (player.getEnterXInterfaceId() == 5064) {
-			BankManager.bankItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
+			player.getBankManager().bankItem(player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
 		} else if (player.getEnterXInterfaceId() == 5382) {
-			BankManager.withdrawItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
+			player.getBankManager().withdrawItem(player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
 		} else if (player.getEnterXInterfaceId() == 3322) {
 			if (player.getStatedInterface() == "duel")

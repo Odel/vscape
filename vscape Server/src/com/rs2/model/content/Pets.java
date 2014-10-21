@@ -68,7 +68,7 @@ public class Pets {
 		}
 		else if(!player.getInventory().canAddItem(new Item(itemId))) {
 		    player.getActionSender().sendMessage("Your inventory is full! Your pet has been sent to your bank.");
-                    player.getBank().add(new Item(itemId));
+                    player.getBankManager().add(new Item(itemId));
                     this.itemId = -1;
                     pet.teleport(new Position(pet.getPosition().getX(), 10000, pet.getPosition().getZ()-1));
                     pet.setVisible(false);

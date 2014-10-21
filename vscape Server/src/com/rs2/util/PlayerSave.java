@@ -24,7 +24,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.skills.magic.SpellBook;
-import com.rs2.model.players.BankManager;
+import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
@@ -174,7 +174,7 @@ public class PlayerSave {
 				}
 			}
 			for (int i = 0; i < BankManager.SIZE; i++) {
-				Item item = player.getBank().get(i);
+				Item item = player.getBankManager().tabContainer(0).get(i);
 				if (item == null) {
 					write.writeInt(65535);
 				} else {
@@ -784,7 +784,8 @@ public class PlayerSave {
                             if (item.getId() == 2696 || item.getId() == 2699 || item.getId() == 3510) {
                             	item = new Item(id - 1, amount, timer);
                             }
-                            player.getBank().set(i, item);
+                           // player.getBank().set(i, item);
+                            player.getBankManager().tabContainer(0).set(i, item);
                         }
                     }
                 }

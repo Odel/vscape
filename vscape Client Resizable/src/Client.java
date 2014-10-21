@@ -3637,6 +3637,7 @@ public class Client extends RSApplet {
 				{
 					lastActiveInvInterface = -1;
 					processRightClick();
+					processBankClick();
 					if(lastActiveInvInterface == anInt1084 && mouseInvInterfaceIndex != anInt1085)
 					{
 						RSInterface class9 = RSInterface.interfaceCache[anInt1084];
@@ -5473,24 +5474,32 @@ public class Client extends RSApplet {
 							amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
 						}
 						int amount = 0;
-						amount = Integer.parseInt(amountOrNameInput);
+						try {
+							amount = Integer.parseInt(amountOrNameInput);
+						} catch (NumberFormatException ex){
+							amount = Integer.MAX_VALUE;
+						}
 						stream.createFrame(208);
 						stream.writeDWord(amount);
 					}
 					inputDialogState = 0;
 					inputTaken = true;
 				}
-			} else if (inputDialogState == 2) {
-				if (j >= 32 && j <= 122 && amountOrNameInput.length() < 12) {
-					amountOrNameInput += (char) j;
+			} else if(inputDialogState == 2) {
+				if(j >= 32 && j <= 122 && amountOrNameInput.length() < 12)
+				{
+					amountOrNameInput += (char)j;
 					inputTaken = true;
 				}
-				if (j == 8 && amountOrNameInput.length() > 0) {
+				if(j == 8 && amountOrNameInput.length() > 0)
+				{
 					amountOrNameInput = amountOrNameInput.substring(0, amountOrNameInput.length() - 1);
 					inputTaken = true;
 				}
-				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
+				if(j == 13 || j == 10)
+				{
+					if(amountOrNameInput.length() > 0)
+					{
 						stream.createFrame(60);
 						stream.writeQWord(TextClass.longForName(amountOrNameInput));
 					}
@@ -8832,6 +8841,113 @@ public class Client extends RSApplet {
 		DrawingArea.method335(0, yPos, 174, 68, 220, xPos);
 	}
 
+	public void drawOnBankInterface(){
+		try {
+			if(openInterfaceID == 5292 && RSInterface.interfaceCache[50021].message.equals("1")){//Sent on bank opening etc, refresh tabs
+				int tabs = Integer.parseInt(RSInterface.interfaceCache[50022].message);//# of tabs used
+				int tab = Integer.parseInt(RSInterface.interfaceCache[50023].message);//current tab selected
+				for (int i = 0; i <= tabs; i++) {
+					RSInterface.interfaceCache[50003+i].sprite1 = cacheSprite[71];
+					RSInterface.interfaceCache[50003+i].tooltip = "Click here to select tab " + (int)(i+1);
+				}
+				for (int i = tabs+1; i <= 8; i++) {
+					RSInterface.interfaceCache[50002+i].sprite1 = new Sprite("");
+					RSInterface.interfaceCache[50002+i].tooltip = "";
+				}
+				if(tabs != 8) {
+					RSInterface.interfaceCache[50003+tabs].sprite1 = cacheSprite[72];
+					RSInterface.interfaceCache[50003+tabs].tooltip = "Drag an item here to create a new tab";
+				}
+				if(tab > 0) {
+					RSInterface.interfaceCache[50002+tab].sprite1 = cacheSprite[70];
+					RSInterface.interfaceCache[50002].sprite1 = cacheSprite[69];
+				} else {
+					RSInterface.interfaceCache[50002].sprite1 = cacheSprite[68];
+					//TODO: Highlight first item
+				}
+				RSInterface.interfaceCache[50021].message = "0";
+			}
+		} catch (Exception e) {
+		}
+	}
+	
+	private void processBankClick(){
+		int x = clientSize == 0 ? 0 : (clientWidth / 2) - 356;
+		int y = clientSize == 0 ? 0 : (clientHeight / 2) - 230;
+		if(anInt1084 == 5382 && super.mouseY >= 40+y && super.mouseY <= 77+y){//check if bank interface
+			if (super.mouseX >= 28+x && super.mouseX <= 74+x){// tab 1
+				stream.createFrame(214);
+				stream.method433(50025);//5 = maintab
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+			}
+			if (super.mouseX >= 75+x && super.mouseX <= 121+x){// tab 1
+				stream.createFrame(214);
+				stream.method433(50026);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+			}
+			if (super.mouseX >= 122+x && super.mouseX <= 168+x){// tab 2
+				stream.createFrame(214);
+				stream.method433(50027);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 169+x && super.mouseX <= 215+x){// tab 3
+				stream.createFrame(214);
+				stream.method433(50028);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 216+x && super.mouseX <= 262+x){// tab 4
+				stream.createFrame(214);
+				stream.method433(50029);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 263+x && super.mouseX <= 309+x){// tab 5
+				stream.createFrame(214);
+				stream.method433(50030);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 310+x && super.mouseX <= 356+x){// tab 6
+				stream.createFrame(214);
+				stream.method433(50031);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 357+x && super.mouseX <= 403+x){// tab 7
+				stream.createFrame(214);
+				stream.method433(50032);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+			if (super.mouseX >= 404+x && super.mouseX <= 450+x){// tab 8
+				stream.createFrame(214);
+				stream.method433(50033);//tab # x 13 (originally movewindow)
+				stream.method424(0);
+				stream.method433(anInt1085);//Selected item slot
+				stream.method431(mouseInvInterfaceIndex);//unused
+
+			}
+		}
+	}
+	
 	private void drawInterface(int j, int k, RSInterface class9, int l) {
 		if (class9.parentID == 197 && clientSize != 0) {
 			k = clientWidth - 120;
@@ -8856,6 +8972,7 @@ public class Client extends RSApplet {
 			if(class9_1.contentType > 0)
 				drawFriendsListOrWelcomeScreen(class9_1);
 			if(class9_1.type == 0) {
+				drawOnBankInterface();
 				if(class9_1.scrollPosition > class9_1.scrollMax - class9_1.height)
 					class9_1.scrollPosition = class9_1.scrollMax - class9_1.height;
 				if(class9_1.scrollPosition < 0)

@@ -29,8 +29,8 @@ public class Wine {
 
 	}
 
-	public void fermentWineInBank(int index) {
-		player.getBank().remove(new Item(1995), index);
+	public void fermentWineInBank(int tab, int slot) {
+		player.getBankManager().remove(new Item(1995), tab, slot);
 		if (Cooking.cookedSuccessfully(player, 35, 112, 112)) {
 			player.getSkill().addExp(Skill.COOKING, 110);
 			player.getInventory().addItem(new Item(1993));

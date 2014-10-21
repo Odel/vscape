@@ -176,7 +176,7 @@ public class BankPin {
 	private void doActionAfterVerification() {
 		switch (actionsAfterVerification) {
 			case BANK :
-				BankManager.openBank(player);
+				player.getBankManager().openBank();
 				break;
 		}
 	}
