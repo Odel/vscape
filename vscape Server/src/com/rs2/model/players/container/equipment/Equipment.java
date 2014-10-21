@@ -1410,6 +1410,9 @@ public class Equipment {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
 				defenceLevelReq = 40;
 			}
+			if (itemName.contains("robe")) {
+				prayerLevelReq = 40;
+			}
 			if (itemName.contains("crozier")) {
 				prayerLevelReq = 60;
 			}
