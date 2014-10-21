@@ -153,7 +153,7 @@ public class BankManager {
 			if(tabContains >= 0)
 			{
 				tabContainer = tabContainer(tabContains);
-				selectTab(tabContains);
+				selectTab(tabContains, false);
 			}else{
 				int freeSlot = tabFreeSlot(currentTab);
 				if (freeSlot == -1 || !roomForItems()) {
@@ -290,7 +290,7 @@ public class BankManager {
 			if(tabContainer.size() <= 0)
 			{
 				removeTab(currentTab);
-				selectTab(0);
+				selectTab(0, false);
 			}
 		}
 		if(slot == 0)
@@ -344,7 +344,7 @@ public class BankManager {
 		{
 			tab = tab-1;
 		}
-		selectTab(tab);
+		selectTab(tab, false);
 	}
 	
 	public void handleBankOptions(int fromSlot, int toSlot) {
@@ -369,31 +369,31 @@ public class BankManager {
 		switch(buttonId)
 		{
 			case 195082 :
-				selectTab(0);
+				selectTab(0, true);
 			return true;
 			case 195083 :
-				selectTab(1);
+				selectTab(1, true);
 			return true;
 			case 195084 :
-				selectTab(2);
+				selectTab(2, true);
 			return true;
 			case 195085 :
-				selectTab(3);
+				selectTab(3, true);
 			return true;
 			case 195086 :
-				selectTab(4);
+				selectTab(4, true);
 			return true;
 			case 195087 :
-				selectTab(5);
+				selectTab(5, true);
 			return true;
 			case 195088 :
-				selectTab(6);
+				selectTab(6, true);
 			return true;
 			case 195089 :
-				selectTab(7);
+				selectTab(7, true);
 			return true;
 			case 195090 :
-				selectTab(8);
+				selectTab(8, true);
 			return true;
 		}
 		return false;
@@ -423,8 +423,10 @@ public class BankManager {
 		}
 	}
 	
-	private void selectTab(int tab)
+	private void selectTab(int tab, boolean buttonClick)
 	{
+		if(buttonClick && tab == currentTab)
+			return;
 		if(tab < getUsedTabs()){
 			if(itemContainers.get(tab) != null)
 			{
