@@ -6,11 +6,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
@@ -21,6 +21,7 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.content.treasuretrails.ClueScroll;
+import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -270,6 +271,12 @@ public class PlayerSaveParser {
 			            }
 		            }
 		            player.setResetBank(bank.get("hasReset").getAsBoolean());
+		            if(bank.get("swapMode") != null) {
+		            	player.setBankOptions(bank.get("swapMode").getAsBoolean() ? BankOptions.SWAP_ITEM : BankOptions.INSERT_ITEM);
+		            }
+		            if(bank.get("withdrawAsNote") != null) {
+		            	player.setWithdrawAsNote(bank.get("withdrawAsNote").getAsBoolean());
+		            }
 		            if(bank.get("usedTabs") != null) {
 		            	player.getBankManager().addTabs(bank.get("usedTabs").getAsInt());
 		            }

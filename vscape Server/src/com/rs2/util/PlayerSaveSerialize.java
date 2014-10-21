@@ -14,6 +14,7 @@ import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.item.Item;
 
 public class PlayerSaveSerialize implements JsonSerializer<Player> {
@@ -180,7 +181,8 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		}
 		bankObj.add("pinPending", bankPinPendingArray);
 		bankObj.addProperty("hasReset", player.hasReset());
-		
+		bankObj.addProperty("swapMode", player.getBankOptions().equals(BankOptions.SWAP_ITEM));
+		bankObj.addProperty("withdrawAsNote", player.isWithdrawAsNote());
 		bankObj.addProperty("usedTabs", player.getBankManager().getUsedTabs());
 		for (int i = 0; i < player.getBankManager().getUsedTabs(); i++) {
 			JsonArray bankArray = new JsonArray();
