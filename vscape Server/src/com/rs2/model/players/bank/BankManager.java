@@ -464,25 +464,25 @@ public class BankManager {
 	
 	//Container Item Methods
 	public void add(Item item){
-		if(!roomForItems())
-			return;
 		int containerId = tabsContain(item.getId());
 		if(containerId >= 0)
 		{
 			tabContainer(containerId).add(item);
 		}else{
+			if(!roomForItems())
+				return;
 			tabContainer(0).add(item);
 		}
 	}
 	
 	public void add(Item item, int tab){
-		if(!roomForItems())
-			return;
 		int containerId = tabsContain(item.getId());
 		if(containerId >= 0)
 		{
 			tabContainer(containerId).add(item);
 		}else{
+			if(!roomForItems())
+				return;
 			tabContainer(tab).add(item);
 		}
 	}
