@@ -235,6 +235,7 @@ public class QuestHandler {
     {
         if (quest != null) 
         {
+	    player.ClearNotes();
 	    quest.showInterface(player);
 	    quest.sendQuestTabStatus(player);
             resetInterface(player);

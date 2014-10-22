@@ -33,7 +33,6 @@ import java.util.Random;
 public class WaterfallQuest implements Quest {
 
     //Quest stages
-
     public static final int QUEST_STARTED = 1;
     public static final int SPOKE_TO_HUDON = 2;
     public static final int RESEARCH = 3;
@@ -98,6 +97,7 @@ public class WaterfallQuest implements Quest {
     public static final int WATERFALL_SIXTH_PILLAR[] = {2569, 9910};
     public static final int PILLAR_ARRAY[][] = {WATERFALL_FIRST_PILLAR, WATERFALL_SECOND_PILLAR, WATERFALL_THIRD_PILLAR, WATERFALL_FOURTH_PILLAR, WATERFALL_FIFTH_PILLAR, WATERFALL_SIXTH_PILLAR};
     public static final int STATUE_OF_GLARIAL = 2006;
+    public static final int STATUE_OF_BAXTORIAN = 2005;
     public static final int CHALICE_OF_ETERNITY = 2014;
     
     public static final int PLACE_ANIM = 832;
@@ -210,7 +210,8 @@ public class WaterfallQuest implements Quest {
 		player.getActionSender().sendString("@str@" + "Golrie gave me Glarial's Pebble.", 8156);
 		player.getActionSender().sendString("@str@" + "Glarial's tomb, where I found her amulet and urn.", 8157);
 		
-		player.getActionSender().sendString("It's time I head to the Waterfall.", 8159);
+		player.getActionSender().sendString("It's time I head to the Waterfall and find", 8159);
+		player.getActionSender().sendString("the fabled treasure.", 8160);
 		break;
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to Almera near the Baxtorian Falls.", 8147);
@@ -220,7 +221,7 @@ public class WaterfallQuest implements Quest {
 		player.getActionSender().sendString("@str@" + "There are two places I should investigate:", 8155);
 		player.getActionSender().sendString("@str@" + "Golrie gave me Glarial's Pebble.", 8156);
 		player.getActionSender().sendString("@str@" + "Glarial's tomb, where I found her amulet and urn.", 8157);
-		player.getActionSender().sendString("@str@" + "I solved the mystery and got the Chalice of Eternity.", 8159);
+		player.getActionSender().sendString("@str@" + "I solved the mystery and got the treasure!", 8159);
 		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8161);
 		break;
 	    default:
@@ -422,6 +423,14 @@ public class WaterfallQuest implements Quest {
 		    return true;
 		}
 		return false;
+	    case STATUE_OF_BAXTORIAN:
+		if((player.getQuestStage(31) == RUNES_ON_STAND || player.getQuestStage(31) == AMULET_AND_URN) && item == GLARIAL_AMULET) {
+		    player.fadeTeleport(WASHED_UP);
+		    player.setQuestStage(31, AMULET_AND_URN);
+		    player.getActionSender().sendMessage("You've been washed out of the dungeon!");
+		    return true;
+		}
+	    return false;
 	    case STATUE_OF_GLARIAL:
 		if (player.getQuestStage(31) == RUNES_ON_STAND) {
 		    if (item == GLARIAL_AMULET) {
@@ -450,7 +459,7 @@ public class WaterfallQuest implements Quest {
 	    case WATERFALL_DUNGEON_PILLAR:
 		int pillarIndex = getPillarNumberForCoords(player.getClickX(), player.getClickY());
 		if(player.getQuestStage(31) == AMULET_AND_URN && pillarIndex != -1) {
-		    if (item == AIR_RUNE) {
+		    if (item == AIR_RUNE  && !player.waterfallPillars[pillarIndex][0]) {
 			player.waterfallPillars[pillarIndex][0] = true;
 			player.getActionSender().sendMessage("The Air Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
@@ -464,7 +473,7 @@ public class WaterfallQuest implements Quest {
 			} else {
 			    return true;
 			}
-		    } else if (item == WATER_RUNE) {
+		    } else if (item == WATER_RUNE && !player.waterfallPillars[pillarIndex][1]) {
 			player.waterfallPillars[pillarIndex][1] = true;
 			player.getActionSender().sendMessage("The Water Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
@@ -478,7 +487,7 @@ public class WaterfallQuest implements Quest {
 			} else {
 			    return true;
 			}
-		    } else if (item == EARTH_RUNE) {
+		    } else if (item == EARTH_RUNE  && !player.waterfallPillars[pillarIndex][2]) {
 			player.waterfallPillars[pillarIndex][2] = true;
 			player.getActionSender().sendMessage("The Earth Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
@@ -643,7 +652,7 @@ public class WaterfallQuest implements Quest {
 		if (!player.getInventory().ownsItem(GLARIAL_URN)) {
 		    player.getActionSender().sendMessage("You find an urn filled with Queen Glarial's Ashes.");
 		    player.getInventory().addItemOrDrop(new Item(GLARIAL_URN));
-		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN)) {
+		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN) && player.getQuestStage(31) == PEBBLE) {
 			player.setQuestStage(31, AMULET_AND_URN);
 		    }
 		    return true;
@@ -659,7 +668,7 @@ public class WaterfallQuest implements Quest {
 		if (!player.getInventory().ownsItem(GLARIAL_AMULET)) {
 		    player.getActionSender().sendMessage("You find an amulet that belonged to the late Queen.");
 		    player.getInventory().addItemOrDrop(new Item(GLARIAL_AMULET));
-		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN)) {
+		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN) && player.getQuestStage(31) == PEBBLE) {
 			player.setQuestStage(31, AMULET_AND_URN);
 		    }
 		    return true;
@@ -745,6 +754,33 @@ public class WaterfallQuest implements Quest {
 	switch (id) { //Npc ID
 	    case ALMERA:
 		switch (player.getQuestStage(31)) { //Dialogue per stage
+		    case 1:
+		    case 2:
+		    case 3:
+		    case 4:
+		    case 5:
+		    case 6:
+		    case 7:
+		    case 8:
+		    case 9:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("I happened to find your stubborn son. He says", "he is just fine where he is and doesn't", "need any help.", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("If you ask me, he does need help, that little rat.", "He's stuck halfway down the river searching for", "some 'treasure'. No such thing exists. I promise you.", "Do not encourage him or look for the treasure.", CONTENT);
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Erm, alright. Thank you for finding him", "and letting me know he's okay. I'll", "have to go reprimand him, and get him to return home.", CONTENT);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("Remember, this 'treasure' by the Waterfall is a hoax.", "Don't listen to what he says.", CONTENT);
+				return true;
+			    case 5:
+				player.getDialogue().sendNpcChat("Okay, I got that the first time, thank you.", Dialogues.ANNOYED);
+				player.getDialogue().endDialogue();
+			}
+		    return false;
 		    case 0: //Starting the quest
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
@@ -784,7 +820,22 @@ public class WaterfallQuest implements Quest {
 	    return false;
 	    case HUDON:
 		switch (player.getQuestStage(31)) {
-		    case 1:
+		    case SPOKE_TO_HUDON:
+		    case 3:
+		    case 4:
+		    case 5:
+		    case 6:
+		    case 7:
+		    case 8:
+		    case 9:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendNpcChat("I told you I'm fine alone!!", ANGRY_1);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
+		    case QUEST_STARTED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendPlayerChat("Hello son, are you okay? You need help?", CONTENT);
@@ -818,7 +869,14 @@ public class WaterfallQuest implements Quest {
 	    return false;
 	    case HADLEY:
 		switch (player.getQuestStage(31)) {
-		    case 2:
+		    case SPOKE_TO_HUDON:
+		    case 3:
+		    case 4:
+		    case 5:
+		    case 6:
+		    case 7:
+		    case 8:
+		    case 9:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				player.getDialogue().sendPlayerChat("Hello there.", HAPPY);
@@ -836,8 +894,14 @@ public class WaterfallQuest implements Quest {
 				player.getDialogue().sendNpcChat("Surely pretty is an understatement kind sir. Beautiful,", "amazing, or possibly life-changing would be more suitable", "wording. Have you seen the Baxtorian waterfall?", "Named after the Elf king who was buried beneath.", HAPPY);
 				return true;
 			    case 6:
-				player.getDialogue().sendOption("Can you tell me what happened to the elf king?", "Where else is worth visiting around here?", "Is there treasure under the waterfall?");
-				return true;
+				if(player.getQuestStage(31) >= 6) {
+				    player.getDialogue().sendPlayerChat("I have seen the Waterfall, it is a", "marvel.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				} else {
+				    player.getDialogue().sendOption("Can you tell me what happened to the elf king?", "Where else is worth visiting around here?", "Is there treasure under the waterfall?");
+				    return true;
+				}
 			    case 7:
 				switch (optionId) {
 				    case 1:
@@ -897,7 +961,9 @@ public class WaterfallQuest implements Quest {
 			    case 20:
 				player.getDialogue().sendNpcChat("Enjoy your visit.", CONTENT);
 				player.getDialogue().endDialogue();
-				player.setQuestStage(31, RESEARCH);
+				if(player.getQuestStage(31) == SPOKE_TO_HUDON) {
+				    player.setQuestStage(31, RESEARCH);
+				}
 				return true;
 			    case 25:
 				if (playerAskedAllThree(player)) {
@@ -914,11 +980,17 @@ public class WaterfallQuest implements Quest {
 	    return false;
 	    case GOLRIE:
 		switch (player.getQuestStage(31)) {
-		    case 3:
+		    default:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendPlayerChat("Hello, is your name Golrie?", CONTENT);
-				return true;
+				if(player.getQuestStage(31) >= 3) {
+				    player.getDialogue().sendPlayerChat("Hello, is your name Golrie?", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("I'm quite busy, please go away.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
 			    case 2:
 				player.getDialogue().sendNpcChat("That's me. I've been stuck in here for weeks, those", "goblins are trying to steal my family's heirlooms. My", "grand-dad gave me all sorts of old junk.", HAPPY);
 				return true;
@@ -959,23 +1031,28 @@ public class WaterfallQuest implements Quest {
 				player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
 				return true;
 			    case 15:
-				player.getDialogue().sendPlayerChat("Hmmm...", " ", "AHA!", HAPPY);
+				player.getDialogue().sendPlayerChat("Hmmm...", HAPPY);
 				return true;
 			    case 16:
-				player.getDialogue().sendPlayerChat("Could I take this old pebble?", CONTENT);
-				return true;
+				if (!player.getInventory().ownsItem(GLARIAL_PEBBLE)) {
+				    player.getDialogue().sendPlayerChat("AHA!", "...", "Could I take this old pebble?", CONTENT);
+				    return true;
+				} else {
+				    player.getDialogue().sendPlayerChat("Eh, there's nothing here I need.", "Thanks anyways.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
 			    case 17:
 				player.getDialogue().sendNpcChat("Oh that, yes have it, it's just some old elven junk I", "believe.", CONTENT);
 				player.getDialogue().endDialogue();
-				if (!player.getInventory().ownsItem(GLARIAL_PEBBLE)) {
-				    player.getInventory().addItemOrDrop(new Item(GLARIAL_PEBBLE));
+				player.getInventory().addItemOrDrop(new Item(GLARIAL_PEBBLE));
+				if(player.getQuestStage(31) == RESEARCH) {
+				    player.setQuestStage(31, PEBBLE);
 				}
-				player.setQuestStage(31, PEBBLE);
 				return true;
 			}
 		    return false;
 		}
-		return false;
 	}
 	return false;
     }
