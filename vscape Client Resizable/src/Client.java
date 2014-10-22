@@ -2772,6 +2772,7 @@ public class Client extends RSApplet {
 		} catch (Exception _ex) {
 		}
 		toggleSize(0);
+		resetFade();
 		socketStream = null;
 		loggedIn = false;
 		loginScreenState = 2;
@@ -5276,6 +5277,7 @@ public class Client extends RSApplet {
 		}
 		socketStream = null;
 		stopMidi();
+		resetFade();
 		if (mouseDetection != null)
 			mouseDetection.running = false;
 		mouseDetection = null;
@@ -9689,6 +9691,32 @@ public class Client extends RSApplet {
 	{
 		return (int) (clientWidth <= 1000 ? (clientWidth / 2) - 256 - (clientWidth * 0.1) : (clientWidth / 2) - 256);
 	}
+	
+	private boolean fullyFaded = false;
+	private int curFadeAlpha = 0;
+	private int maxFadeAlpha = 255;
+	private void fadeToBlack()
+	{
+		if(!fullyFaded)
+		{
+			curFadeAlpha += 5;
+			if(curFadeAlpha >= maxFadeAlpha)
+			{
+				curFadeAlpha = maxFadeAlpha;
+				fullyFaded = true;
+			}
+		}
+		if(curFadeAlpha <= 0){
+			return;
+		}
+		DrawingArea.method335(0, 0, clientWidth, clientHeight, curFadeAlpha, 0);
+	}
+	
+	private void resetFade()
+	{
+		fullyFaded = false;
+		curFadeAlpha = 0;
+	}
 
 	private void draw3dScreen() {
 		if (showChat)
@@ -9705,7 +9733,6 @@ public class Client extends RSApplet {
 		if (anInt1018 != -1)
 		{
 			method119(anInt945, anInt1018);
-
 			if ((anInt1018 == 11146 || anInt1018 == 24126 || anInt1018 == 24131) && clientSize != 0)
 			{
 				drawInterface(0, 0, RSInterface.interfaceCache[anInt1018], -5);
@@ -9728,7 +9755,12 @@ public class Client extends RSApplet {
 		if (openInterfaceID != -1)
 		{
 			method119(anInt945, openInterfaceID);
-			drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 356, RSInterface.interfaceCache[openInterfaceID], clientSize == 0 ? 0 : (clientHeight / 2) - 230);
+			if (openInterfaceID == 8677)
+			{
+				fadeToBlack();
+			}else{
+				drawInterface(0, clientSize == 0 ? 0 : (clientWidth / 2) - 356, RSInterface.interfaceCache[openInterfaceID], clientSize == 0 ? 0 : (clientHeight / 2) - 230);
+			}
 		}
 		method70();
 		if (!menuOpen)
@@ -12753,6 +12785,7 @@ public class Client extends RSApplet {
 					}
 					openInterfaceID = l7;
 					aBoolean1149 = false;
+					resetFade();
 					pktType = -1;
 					return true;
 
@@ -12823,6 +12856,7 @@ public class Client extends RSApplet {
 					}
 					openInterfaceID = -1;
 					aBoolean1149 = false;
+					resetFade();
 					pktType = -1;
 					return true;
 
