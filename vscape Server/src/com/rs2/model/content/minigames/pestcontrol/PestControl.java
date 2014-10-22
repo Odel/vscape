@@ -477,7 +477,7 @@ public class PestControl {
 		for(int i = 0; i < PortalData.values().length; i++) {
 		if(!isPortalDead(i) && !PORTAL_SHIELD[i]){
 		    PortalData portalData = PortalData.values()[i];
-		    Npc grunt = new Npc(1319);
+		    Npc grunt = new Npc(1828);
 		    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
 		    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
 		    grunt.setMinWalk(new Position(portalData.x - 6, portalData.y - 6));
