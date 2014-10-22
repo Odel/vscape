@@ -10442,13 +10442,20 @@ public class Client extends RSApplet {
 		}
 		
 		if(anInt1021 == 2) {
-			byte abyte0[] = mapBack.aByteArray1450;
+		/*	byte abyte0[] = mapBack.aByteArray1450;
 			int ai[] = DrawingArea.pixels;
 			int k2 = abyte0.length;
 			for(int i5 = 0; i5 < k2; i5++)
 				if(abyte0[i5] == 0)
-					ai[i5] = 0;
+					ai[i5] = 0;*/
+			if(clientSize == 0) {
+				cacheSprite[32].drawSprite(0, 0);
+			}
+			if(clientSize != 0) {
+				cacheSprite[34].drawSprite(clientWidth - 238, 3);
+			}
 			compass.method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 4 : 4 + 3), (clientSize == 0 ? 34 - 5 : clientWidth + 34 - 5 - 238), 33, 25);
+			drawOrbs();
 			aRSImageProducer_1165.initDrawingArea();
 			return;
 		}
@@ -10562,12 +10569,12 @@ public class Client extends RSApplet {
 			cacheSprite[26].method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, 4, 29, 33, 25);
 		}
 		
-		drawOrbs();
-		
 		if(menuOpen && clientSize == 0) 
 			drawMenu(516, 0);
 	     else if (menuOpen && menuScreenArea == 3 && clientSize != 0) 
 			drawMenu(516, 0);
+		
+		drawOrbs();
 		
 		aRSImageProducer_1165.initDrawingArea();
 	}
