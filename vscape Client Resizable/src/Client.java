@@ -10569,12 +10569,12 @@ public class Client extends RSApplet {
 			cacheSprite[26].method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, 4, 29, 33, 25);
 		}
 		
+		drawOrbs();
+		
 		if(menuOpen && clientSize == 0) 
 			drawMenu(516, 0);
 	     else if (menuOpen && menuScreenArea == 3 && clientSize != 0) 
 			drawMenu(516, 0);
-		
-		drawOrbs();
 		
 		aRSImageProducer_1165.initDrawingArea();
 	}
