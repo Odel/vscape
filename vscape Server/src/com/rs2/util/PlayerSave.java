@@ -999,10 +999,9 @@ public class PlayerSave {
     			}
 			for (int i = 0; i < player.getDegradeableHits().length; i++) {
 			    try {
-				player.setDegradeableHits(i, load.readInt());
-			    } catch (IOException e) {
-				System.out.println("degrade");
+				load.readInt();
 				player.setDegradeableHits(i, 0);
+			    } catch (Exception e) {
 			    }
 			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {
