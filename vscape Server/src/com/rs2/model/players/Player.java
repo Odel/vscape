@@ -3127,6 +3127,7 @@ public class Player extends Entity {
 		QuestHandler.initQuestLog(this);
 		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
 		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		getActionSender().sendString("Quest Points: "+questPoints, 640);
 		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
 		    this.setPcPoints(0, this);
 		}
@@ -4893,6 +4894,7 @@ public class Player extends Entity {
 	public void addQuestPoints(int points) {
         this.questPoints += points;
         getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+        getActionSender().sendString("Quest Points: "+questPoints, 640);
     }
 	
     public void setQuestsLength(int length) {

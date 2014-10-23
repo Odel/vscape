@@ -115,6 +115,7 @@ public class ActionSender {
 	
 	public ActionSender QPEdit(int qp){
 		sendString("QP: @gre@"+qp+" ", 3985);
+		sendString("Quest Points: "+qp, 640);
 		return this;
 	}
 
