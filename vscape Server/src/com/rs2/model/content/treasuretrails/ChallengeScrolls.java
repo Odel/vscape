@@ -26,7 +26,7 @@ public class ChallengeScrolls {
 		QUESTION_2(new String[]{"What is 57x89+23?"}, 3498, 2844, 5096),
 		QUESTION_3(new String[]{"If x is 15 and y is 3,", " what is 3x + y?"}, 2680, 2846, 48),
 		QUESTION_4(new String[]{"How many cannons does Lumbridge", "castle have?"}, 2698, 2852, 9),
-		QUESTION_5(new String[]{"How many animals in the Zoo?"}, 2686, 2854, 40),
+		QUESTION_5(new String[]{"How many animals are in the Zoo?"}, 2686, 2854, 40),
 		QUESTION_6(new String[]{"What is 5 times 5 add 3?"}, 2678, 7269, 28),
 		QUESTION_7(new String[]{"How many flowers are there in", "the clearing below this platform?"}, 2683, 7271, 13),
 		QUESTION_8(new String[]{"How many banana trees are there", "in the plantation?"}, 2691, 7273, 33),
