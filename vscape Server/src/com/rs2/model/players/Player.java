@@ -31,6 +31,8 @@ import com.rs2.GlobalVariables;
 import com.rs2.HostGateway;
 import com.rs2.Server;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
@@ -57,6 +59,7 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
@@ -1270,6 +1273,36 @@ public class Player extends Entity {
 				}
 			}
 		}
+		
+		//hween debug
+		if (keyword.equals("forcemaskspawn")) {
+			MaskDropController.removeMask();
+			MaskDropController.spawnMask();
+		}
+		if (keyword.equals("forcemaskremove")) {
+			MaskDropController.removeMask();
+		}
+		if (keyword.equals("teletomask")) {
+			teleport(MaskDropController.currentPosition);
+		}
+		if (keyword.equals("maskspawndelay")) {
+			final int delay = Integer.parseInt(args[0]);
+			if(MaskDropController.spawnTime >= 1)
+			{
+				MaskDropController.spawnTime = delay;
+			}else{
+			    getActionSender().sendMessage("delay should be 1 minute or more");
+			}
+		}
+		if (keyword.equals("masklifetime")) {
+			final int delay = Integer.parseInt(args[0]);
+			if(MaskDropController.lifeTime >= 1)
+			{
+				MaskDropController.lifeTime = delay;
+			}else{
+			    getActionSender().sendMessage("lifeTime should be 1 minute or more");
+			}
+		}
 	
 		//sound debug
 		if (keyword.equals("sound")) {
@@ -1748,11 +1781,26 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("object")) {
 			int objectId = Integer.parseInt(args[0]);
+			if(objectId < 0)
+			{
+				getActionSender().sendMessage("Object id must be 0 or more");
+				return;
+			}
 			int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
 			int type = args.length > 2 ? Integer.parseInt(args[2]) : 10;
 			new GameObject(objectId, getPosition().getX(), getPosition().getY(), getPosition().getZ(), face, type, 0, 999999, false);
 		}
-		else if (keyword.equals("item")) {
+		else if(keyword.equals("removeobject"))
+		{
+			GameObject obj = ObjectHandler.getInstance().getObject(getPosition().getX(), getPosition().getY(), getPosition().getZ());
+			if(obj != null)
+			{
+				ObjectHandler.getInstance().removeObject(obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getType());
+				getActionSender().sendObject(-1, obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getFace(), obj.getDef().getType());
+				getActionSender().sendMessage("GameObject removed");
+				return;
+			}
+		}else if (keyword.equals("item")) {
 			int id = Integer.parseInt(args[0]);
 			int amount = 1;
 			if (args.length > 1) {
