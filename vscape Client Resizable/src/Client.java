@@ -12985,7 +12985,7 @@ public class Client extends RSApplet {
 		DrawingArea.setAllPixelsToZero();
 		int x = baseX + (myPlayer.x - 6 >> 7);
 		int y = baseY + (myPlayer.y - 6 >> 7);
-		DrawingArea.method336(clientHeight, 0, 0, 0xC8C0A8, clientWidth);
+	//	DrawingArea.method336(clientHeight, 0, 0, 0xC8C0A8, clientWidth);
 		worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
 		worldController.clearObj5Cache();
 		updateEntities();
