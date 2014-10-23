@@ -29,7 +29,7 @@ public enum WeaponInterface {
 
 	DAGGER(2276, new int[]{2279, 2277}, 7574, 7586, 29138, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 8234, MELEE_ACCURATE, STAB), new AttackStyle(AttackType.MELEE, 8237, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 8236, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 8235, DEFENSIVE, STAB)}),
 
-	STAFF(328, new int[]{331, 329}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 1080, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 1079, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 1078, DEFENSIVE, CRUSH)}),
+	STAFF(328, new int[]{355, 329}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 1080, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 1079, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 1078, DEFENSIVE, CRUSH)}),
 
 	PICKAXE(5570, new int[]{5573, 5571}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 21200, MELEE_ACCURATE, STAB), new AttackStyle(AttackType.MELEE, 21203, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21202, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21201, DEFENSIVE, STAB)}),
 
@@ -45,7 +45,7 @@ public enum WeaponInterface {
 
 	SCYTHE(776, new int[]{779, 777}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 3014, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 3017, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 3016, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 3015, DEFENSIVE, SLASH)}),
 
-	SHORT_BOW(1749, new int[]{1752, 1750}, 7524, 7536, 29088, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6221, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6220, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6219, LONGRANGE, RANGED)}),
+	SHORT_BOW(1764, new int[]{1767, 1765}, 7549, 7561, 29124, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6236, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6235, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6234, LONGRANGE, RANGED)}),
 
 	LONG_BOW(1764, new int[]{1767, 1765}, 7549, 7561, 29124, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6236, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6235, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6234, LONGRANGE, RANGED)}),
 
