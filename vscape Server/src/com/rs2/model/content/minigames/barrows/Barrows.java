@@ -1,6 +1,8 @@
 package com.rs2.model.content.minigames.barrows;
 
+import com.rs2.model.Entity;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.MinigameAreas;
@@ -9,9 +11,11 @@ import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
+import java.util.ArrayList;
 
 public class Barrows {
     public Player player;
+    public ArrayList<Npc> npcsSpawned = new ArrayList<>();
     private boolean northSpawn = true;
     private boolean westSpawn = true;
     private boolean eastSpawn = true;
@@ -305,20 +309,28 @@ public class Barrows {
 	switch (index) {
 	    case 0:
 		northSpawn = false;
+		return;
 	    case 1:
 		westSpawn = false;
+		return;
 	    case 2:
 		eastSpawn = false;
+		return;
 	    case 3:
 		southSpawn = false;
+		return;
 	    case 4:
 		northWestSpawn = false;
+		return;
 	    case 5:
 		northEastSpawn = false;
+		return;
 	    case 6:
 		southWestSpawn = false;
+		return;
 	    case 7:
 		southEastSpawn = false;
+		return;
 	}
     }
 
@@ -367,15 +379,18 @@ public class Barrows {
 	}
 	return false;
     }
-
+    public static boolean inBarrowsCrypts(Entity entity) {
+	return entity.Area(3523, 3581, 9666, 9724);
+    }
+    
     public boolean handleBarrowsDoors(Player player, int objectId, int x, int y) {
 	final int spawn1 = Monsters[Misc.randomMinusOne(Monsters.length)];
 	final int spawn2 = Monsters[Misc.randomMinusOne(Monsters.length)];
 	final int spawn3 = Monsters[Misc.randomMinusOne(Monsters.length)];
 
 	if (player.Area(3523, 3581, 9666, 9724) && (isEWDoor(objectId) || isNSDoor(objectId))) {
-	    int i = 0;
-	    for (MinigameAreas.Area area : AREAS) {
+	    for (int i = 0; i < 9; ++i) {
+		MinigameAreas.Area area = AREAS[i];
 		int playerCoord = isEWDoor(objectId) ? player.getPosition().getX() : player.getPosition().getY();
 		int areaCoord = isEWDoor(objectId) ? area.getNorthEastCorner().getX() : area.getNorthEastCorner().getY();
 		if (MinigameAreas.isInArea(player.getPosition(), area)) {
@@ -387,22 +402,23 @@ public class Barrows {
 		    int walk = playerCoord > areaCoord ? -1 : 1;
 		    player.getActionSender().walkTo(isEWDoor(objectId) ? walk : 0, isNSDoor(objectId) ? walk : 0, true);
 		    player.getActionSender().walkThroughDoor(objectId, x, y, 0);
-		    if (getSpawnBoolForAreaIndex(i) && area != CENTER) {
-			setSpawnBoolFalseForAreaIndex(i);
-			if (getBrotherForArea(area) != null && !player.getBarrowsNpcDead()[getBrotherForArea(area).index]) {
-			    spawn(player, spawn1, area, false);
-			    spawn(player, spawn2, area, false);
-			    NpcLoader.spawnPlayerOwnedAttackNpc(player, new Npc(getBrotherForArea(area).npcId), area.center(), false, null);
-			    break;
+		    if (area != CENTER && getSpawnBoolForAreaIndex(i)) {
+			BarrowsBrother brother = getBrotherForArea(area);
+			if (brother != null && !player.getBarrowsNpcDead()[brother.index]) {
+			    spawn(player, spawn1, area, i, false);
+			    spawn(player, spawn2, area, i, false);
+			    NpcLoader.spawnPlayerOwnedAttackNpc(player, new Npc(brother.npcId), area.center(), false, null);
+			    setSpawnBoolFalseForAreaIndex(i);
+			    return true;
 			} else {
-			    spawn(player, spawn1, area, true);
-			    spawn(player, spawn2, area, true);
-			    spawn(player, spawn3, area, true);
-			    break;
+			    spawn(player, spawn1, area, i, true);
+			    spawn(player, spawn2, area, i, true);
+			    spawn(player, spawn3, area, i, true);
+			    setSpawnBoolFalseForAreaIndex(i);
+			    return true;
 			}
 		    }
 		}
-		i++;
 	    }
 	    return true;
 	} else {
@@ -410,13 +426,10 @@ public class Barrows {
 	}
     }
 
-    public static void spawn(Player player, int npcId, MinigameAreas.Area area, boolean attack) {
-	Npc npc = new Npc(npcId);
+    public void spawn(Player player, int npcId, MinigameAreas.Area area, int areaIndex, boolean attack) {
 	Position position = MinigameAreas.randomPosition(area);
-	NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, npc, position, false, null);
-	if (attack) {
-	    CombatManager.attack(player, npc);
-	}
+	Npc npc = NpcLoader.spawnBasicNpc(player, npcId, position, attack);
+	npcsSpawned.add(npc);
     }
 
     private static int brotherKillCount(Player player) {
@@ -444,6 +457,9 @@ public class Barrows {
 	northEastSpawn = true;
 	southWestSpawn = true;
 	southEastSpawn = true;
+	for(Npc npc : npcsSpawned) {
+	    NpcLoader.destroyNpc(npc);
+	}
     }
 
     public static void handleDeath(Player player, Npc npc) {

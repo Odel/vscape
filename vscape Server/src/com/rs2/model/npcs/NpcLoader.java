@@ -268,7 +268,18 @@ public class NpcLoader {
 	    npc.setNeedsRespawn(false);
 	    World.register(npc);
 	}
-
+	public static Npc spawnBasicNpc(Player player, int npcId, Position position, boolean attack) {
+	    Npc npc = new Npc(npcId);
+	    npc.setPosition(position);
+	    npc.setSpawnPosition(position);
+	    npc.setCurrentX(position.getX());
+	    npc.setCurrentY(position.getY());
+	    World.register(npc);
+	    if(attack) {
+		CombatManager.attack(npc, player);
+	    } 
+	    return npc;
+	}
 	public static void destroyNpc(Npc npc) {
 		if(npc == null) {
 		    return;
