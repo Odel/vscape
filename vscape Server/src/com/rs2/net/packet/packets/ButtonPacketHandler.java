@@ -234,8 +234,10 @@ public class ButtonPacketHandler implements PacketHandler {
 					player.getMovementHandler().setRunToggled(true);
 				}
 				return;
-			case 93202 :
 			case 89061 :	
+			case 93225 :
+			case 93202 :
+			case 94051 :
 				if(player.shouldAutoRetaliate())
 				{
 					player.setAutoRetaliate(false);
