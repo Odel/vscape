@@ -276,6 +276,18 @@ public class WaterfallQuest implements Quest {
     public void setDialogueStage(int in) { //Don't change
 	dialogueStage = in;
     }
+    
+    public void washOut(final Player player) {
+	player.fadeTeleport(WASHED_UP);
+	player.setQuestStage(31, AMULET_AND_URN);
+	player.getActionSender().sendMessage("You've been washed out of the dungeon!");
+	for(int i = 0; i < 6; i++) {
+	    player.waterfallPillars[i][0] = false;
+	    player.waterfallPillars[i][1] = false;
+	    player.waterfallPillars[i][2] = false;
+	}
+    }
+    
     public static void handleRopePull(final Player player) {
 	if (player.getPosition().getX() == 2512 && player.getPosition().getY() == 3476) {
 	    player.getUpdateFlags().sendAnimation(774);
@@ -328,6 +340,7 @@ public class WaterfallQuest implements Quest {
 	}
 	return -1;
     }
+    
     public boolean hasPlacedRunes(Player player, int index) {
 	return player.waterfallPillars[index][0] && player.waterfallPillars[index][1] && player.waterfallPillars[index][2];
     }
@@ -420,9 +433,7 @@ public class WaterfallQuest implements Quest {
 		return false;
 	    case STATUE_OF_BAXTORIAN:
 		if((player.getQuestStage(31) == RUNES_ON_STAND || player.getQuestStage(31) == AMULET_AND_URN) && item == GLARIAL_AMULET) {
-		    player.fadeTeleport(WASHED_UP);
-		    player.setQuestStage(31, AMULET_AND_URN);
-		    player.getActionSender().sendMessage("You've been washed out of the dungeon!");
+		    washOut(player);
 		    return true;
 		}
 	    return false;
@@ -725,9 +736,7 @@ public class WaterfallQuest implements Quest {
 		    }, 4);
 		    return true;
 		} else {
-		    player.fadeTeleport(WASHED_UP);
-		    player.setQuestStage(31, AMULET_AND_URN);
-		    player.getActionSender().sendMessage("You've been washed out of the dungeon!");
+		    washOut(player);
 		    return true;
 		}
 	}
