@@ -21,9 +21,9 @@ public enum WeaponInterface {
 
 	FISTS(5855, new int[]{5857, -1}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 22228, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 22230, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 22229, DEFENSIVE, CRUSH)}),
 
-	WHIP(12290, new int[]{12293, 12291}, 12323, 12335, 48023, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 48010, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 48009, CONTROLLED, SLASH), new AttackStyle(AttackType.MELEE, 48008, DEFENSIVE, SLASH)}),
+	WHIP(12290, new int[]{12293, 12291}, 12323, 12335, 48034, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 48010, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 48009, CONTROLLED, SLASH), new AttackStyle(AttackType.MELEE, 48008, DEFENSIVE, SLASH)}),
 
-	MAUL(425, new int[]{428, 426}, 7474, 7486, 29038, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 1177, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 1176, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 1175, DEFENSIVE, CRUSH)}),
+	MAUL(425, new int[]{428, 426}, 7474, 7486, 29049, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 1177, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 1176, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 1175, DEFENSIVE, CRUSH)}),
 
 	TWO_HANDED(4705, new int[]{4708, 4706}, 7699, 7711, 30007, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 18103, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 18106, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 18105, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 18104, DEFENSIVE, SLASH)}),
 
@@ -33,7 +33,7 @@ public enum WeaponInterface {
 
 	PICKAXE(5570, new int[]{5573, 5571}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 21200, MELEE_ACCURATE, STAB), new AttackStyle(AttackType.MELEE, 21203, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21202, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21201, DEFENSIVE, STAB)}),
 
-	AXE(1698, new int[]{1701, 1699}, 7499, 7511, 29063, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 6168, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 6171, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 6170, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 6169, DEFENSIVE, SLASH)}),
+	AXE(1698, new int[]{1701, 1699}, 7499, 7511, 29074, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 6168, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 6171, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 6170, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 6169, DEFENSIVE, SLASH)}),
 
 	HALBERD(8460, new int[]{8463, 8461}, 8493, 8505, 33033, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 33018, CONTROLLED, STAB), new AttackStyle(AttackType.MELEE, 33020, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 33019, DEFENSIVE, STAB)}),
 
@@ -41,13 +41,13 @@ public enum WeaponInterface {
 
 	SPEAR(4679, new int[]{4682, 4680}, 7674, 7686, 29238, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 18077, CONTROLLED, STAB), new AttackStyle(AttackType.MELEE, 18080, CONTROLLED, SLASH), new AttackStyle(AttackType.MELEE, 18079, CONTROLLED, CRUSH), new AttackStyle(AttackType.MELEE, 18078, DEFENSIVE, STAB)}),
 
-	MACE(3796, new int[]{3799, 3797}, 7624, 7636, 29188, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 14218, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 14221, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 14220, CONTROLLED, STAB), new AttackStyle(AttackType.MELEE, 14219, DEFENSIVE, CRUSH)}),
+	MACE(3796, new int[]{3799, 3797}, 7624, 7636, 29199, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 14218, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 14221, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 14220, CONTROLLED, STAB), new AttackStyle(AttackType.MELEE, 14219, DEFENSIVE, CRUSH)}),
 
 	SCYTHE(776, new int[]{779, 777}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 3014, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 3017, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 3016, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 3015, DEFENSIVE, SLASH)}),
 
 	SHORT_BOW(1749, new int[]{1752, 1750}, 7524, 7536, 29088, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6221, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6220, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6219, LONGRANGE, RANGED)}),
 
-	LONG_BOW(1764, new int[]{1767, 1765}, 7549, 7561, 29113, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6236, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6235, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6234, LONGRANGE, RANGED)}),
+	LONG_BOW(1764, new int[]{1767, 1765}, 7549, 7561, 29124, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 6236, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 6235, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 6234, LONGRANGE, RANGED)}),
 
 	THROWING(4446, new int[]{4449, 4447}, 7649, 7661, new AttackStyle[]{new AttackStyle(AttackType.RANGED, 17102, RANGED_ACCURATE, RANGED), new AttackStyle(AttackType.RANGED, 17101, RAPID, RANGED), new AttackStyle(AttackType.RANGED, 17100, LONGRANGE, RANGED)}),
 
