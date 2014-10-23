@@ -4889,10 +4889,10 @@ public class Client extends RSApplet {
 				crossType = 2;
 				crossIndex = 0;
 				stream.createFrame(14);
-				stream.method432(anInt1284);
-				stream.writeWord(i1);
-				stream.writeWord(anInt1285);
-				stream.method431(anInt1283);
+			//	stream.method432(anInt1284);
+				stream.writeWord(i1); //Player id
+			//	stream.writeWord(anInt1285);
+				stream.method431(anInt1283); //Item slot
 			}
 		}
 		if (l == 639) {
