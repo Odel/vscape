@@ -6,11 +6,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
@@ -21,7 +21,8 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.content.treasuretrails.ClueScroll;
-import com.rs2.model.players.BankManager;
+import com.rs2.model.players.Player.BankOptions;
+import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
@@ -91,7 +92,7 @@ public class PlayerSaveParser {
 	            JsonObject options = characterObj.getAsJsonObject("options");
 	            if(options != null) {
 		            boolean yellColor = options.get("yellColor").getAsBoolean();
-		            player.setHideColors(yellColor, yellColor);
+		            player.setHideColors(yellColor, false);
 		            player.setEnergy(options.get("runenergy").getAsDouble());
 		            player.getMovementHandler().setRunToggled(options.get("runtoggled").getAsBoolean());
 		            player.setScreenBrightness(options.get("brightness").getAsInt());
@@ -270,25 +271,41 @@ public class PlayerSaveParser {
 			            }
 		            }
 		            player.setResetBank(bank.get("hasReset").getAsBoolean());
-		            JsonArray bankItems = bank.getAsJsonArray("items");
-		            if(bankItems != null && bankItems.size() > 0){
-		                for (int i = 0; i < BankManager.SIZE; i++) {
-							if(i >= bankItems.size())
-								break;
-			            	JsonObject itemObj = bankItems.get(i).getAsJsonObject();
-			            	int id = itemObj.get("id").getAsInt();
-		                    if (id != 65535) {
-				            	int amount = itemObj.get("count").getAsInt();
-				            	int timer = itemObj.get("timer").getAsInt();
-		                        if (id < Constants.MAX_ITEMS && amount > 0)  {
-		                            Item item = new Item(id, amount, timer);
-		                            if (item.getId() == 2696 || item.getId() == 2699 || item.getId() == 3510) {
-		                            	item = new Item(id - 1, amount, timer);
-		                            }
-		                            player.getBank().set(i, item);
-		                        }
-		                    }
-		                }
+		            if(bank.get("swapMode") != null) {
+		            	player.setBankOptions(bank.get("swapMode").getAsBoolean() ? BankOptions.SWAP_ITEM : BankOptions.INSERT_ITEM);
+		            }
+		            if(bank.get("withdrawAsNote") != null) {
+		            	player.setWithdrawAsNote(bank.get("withdrawAsNote").getAsBoolean());
+		            }
+		            if(bank.get("usedTabs") != null) {
+		            	player.getBankManager().addTabs(bank.get("usedTabs").getAsInt());
+		            }
+		            for (int i = 0; i < player.getBankManager().getUsedTabs(); i++) {
+		            	JsonArray bankItems;
+		            	if(i == 0)
+		            		bankItems = bank.getAsJsonArray("items");
+		            	else
+		            		bankItems = bank.getAsJsonArray("items"+i);
+		            	
+		            	if(bankItems != null && bankItems.size() > 0){
+		            		for (int j = 0; j < bankItems.size(); j++) {
+			                	if(j >= bankItems.size() || j > BankManager.SIZE)
+									break;
+				            	JsonObject itemObj = bankItems.get(j).getAsJsonObject();
+				            	int id = itemObj.get("id").getAsInt();
+				            	if (id != 65535) {
+					            	int amount = itemObj.get("count").getAsInt();
+					            	int timer = itemObj.get("timer").getAsInt();
+			                        if (id < Constants.MAX_ITEMS && amount > 0)  {
+			                            Item item = new Item(id, amount, timer);
+			                            if (item.getId() == 2696 || item.getId() == 2699 || item.getId() == 3510) {
+			                            	item = new Item(id - 1, amount, timer);
+			                            }
+			                            player.getBankManager().tabContainer(i).set(j, item);
+			                        }
+				            	}
+		            		}
+		            	}
 		            }
 	            }
 	            JsonArray pendingItems = mainObj.getAsJsonArray("pendingItems");

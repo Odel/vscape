@@ -27,7 +27,7 @@ public class NewComersSide {
 			player.getActionSender().hideAllSideBars();
 			player.getActionSender().sendInterface(3559);
 			setTutorialIslandStage(1, true);
-			player.getBank().add(new Item(995, 25));
+			player.getBankManager().add(new Item(995, 25));
 		} else {
 			updateInterface(true);
 		}

@@ -85,8 +85,8 @@ public class Seedling {
 		SeedlingData seedlingData = SeedlingData.getWatered(itemId);
 		if (seedlingData == null)
 			return;
-		player.getBank().remove(new Item(itemId));
-		player.getBank().add(new Item(seedlingData.getSaplingId()));
+		player.getBankManager().remove(new Item(itemId));
+		player.getBankManager().add(new Item(seedlingData.getSaplingId()));
 	}
 
 	public boolean waterSeedling(int itemUsed, int usedWith, int itemUsedSlot, int usedWithSlot) {

@@ -348,16 +348,26 @@ public class ButtonPacketHandler implements PacketHandler {
 				player.setEffectVolume(0);
 				return;
 			case 21010 :
-				player.setWithdrawAsNote(true);
+				if(player.isWithdrawAsNote())
+				{
+					player.setWithdrawAsNote(false);
+				}else{
+					player.setWithdrawAsNote(true);
+				}
 				return;
-			case 21011 :
+			/*case 21011 :
 				player.setWithdrawAsNote(false);
-				return;
-			case 31194 :
+				return;*/
+			/*case 31194 :
 				player.setBankOptions(BankOptions.SWAP_ITEM);
-				return;
+				return;*/
 			case 31195 :
-				player.setBankOptions(BankOptions.INSERT_ITEM);
+				if (player.getBankOptions().equals(BankOptions.SWAP_ITEM)) {
+					player.setBankOptions(BankOptions.INSERT_ITEM);
+				} else if (player.getBankOptions().equals(BankOptions.INSERT_ITEM)) {
+					player.setBankOptions(BankOptions.SWAP_ITEM);
+				}
+				//player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
 		}
 		if (QuestHandler.handleQuestButtons(player, buttonId))
@@ -382,10 +392,13 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.stopPlayerPacket()) {
 			return;
 		}
+		if(player.getBankManager().tabButtons(buttonId))
+		{
+			return;
+		}
 		switch (buttonId) {
-			case 73099: //Deposit all Inventory Items (old client)
-			case 94061: //Deposit all Inventory Items (new client)
-				BankManager.bankAll(player);
+			case 195080: //Deposit all Inventory Items (new client)
+				player.getBankManager().bankAll();
 			return;
 			case 83093: //equipment interface 474
 				player.getActionSender().sendInterface(21172, 3213);

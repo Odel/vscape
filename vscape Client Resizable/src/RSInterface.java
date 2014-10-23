@@ -14,7 +14,7 @@ public final class RSInterface {
 		Stream stream = new Stream(streamLoader.getDataForName("data"));
 		int i = -1;
 		int j = stream.readUnsignedWord();
-		interfaceCache = new RSInterface[31000 + j];
+		interfaceCache = new RSInterface[61000 + j];
 		while (stream.currentOffset < stream.buffer.length) {
 			int k = stream.readUnsignedWord();
 			if (k == 65535) {
@@ -214,6 +214,7 @@ public final class RSInterface {
 		}
 		aClass44 = streamLoader;
 		optionsTab(textDrawingAreas);
+		bank(textDrawingAreas);
 		aMRUNodes_238 = null;
 	}
 
@@ -228,6 +229,22 @@ public final class RSInterface {
 		tab.hoverType = 52;
 		tab.sprite1 = imageLoader(sid, spriteName);
 		tab.sprite2 = imageLoader(sid, spriteName);
+		tab.width = tab.sprite1.myWidth;
+		tab.height = tab.sprite2.myHeight;
+		tab.tooltip = tooltip;
+	}
+	
+	public static void addButton(int id, int sprite, String tooltip) {
+		RSInterface tab = interfaceCache[id] = new RSInterface();
+		tab.id = id;
+		tab.parentID = id;
+		tab.type = 5;
+		tab.atActionType = 1;
+		tab.contentType = 0;
+		tab.aByte254 = (byte) 0;
+		tab.hoverType = 52;
+		tab.sprite1 = SpriteLoader.sprites[sprite];
+		tab.sprite2 = SpriteLoader.sprites[sprite];
 		tab.width = tab.sprite1.myWidth;
 		tab.height = tab.sprite2.myHeight;
 		tab.tooltip = tooltip;
@@ -459,6 +476,30 @@ public final class RSInterface {
 		Tab.sprite2 = imageLoader(bID2, bName);
 		Tab.tooltip = tT;
 	}
+	
+	public static void addConfigButton(int ID, int pID, int bID, int bID2, int width, int height, String tT, int configID, int aT, int configFrame) {
+		RSInterface Tab = addTabInterface(ID);
+		Tab.parentID = pID;
+		Tab.id = ID;
+		Tab.type = 5;
+		Tab.atActionType = aT;
+		Tab.contentType = 0;
+		Tab.width = width;
+		Tab.height = height;
+		Tab.aByte254 = 0;
+		Tab.hoverType = -1;
+		Tab.anIntArray245 = new int[1];
+		Tab.anIntArray212 = new int[1];
+		Tab.anIntArray245[0] = 1;
+		Tab.anIntArray212[0] = configID;
+		Tab.valueIndexArray = new int[1][3];
+		Tab.valueIndexArray[0][0] = 5;
+		Tab.valueIndexArray[0][1] = configFrame;
+		Tab.valueIndexArray[0][2] = 0;
+		Tab.sprite1 = SpriteLoader.sprites[bID];
+		Tab.sprite2 = SpriteLoader.sprites[bID2];
+		Tab.tooltip = tT;
+	}
 
 	public static void addSprite(int id, int spriteId, String spriteName) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
@@ -475,6 +516,21 @@ public final class RSInterface {
 		tab.height = 334;
 	}
 
+	public static void addSprite(int id, int spriteId) {
+		RSInterface tab = interfaceCache[id] = new RSInterface();
+		tab.id = id;
+		tab.parentID = id;
+		tab.type = 5;
+		tab.atActionType = 0;
+		tab.contentType = 0;
+		tab.aByte254 = (byte) 0;
+		tab.hoverType = 52;
+		tab.sprite1 = SpriteLoader.sprites[spriteId];
+		tab.sprite2 = SpriteLoader.sprites[spriteId];
+		tab.width = 512;
+		tab.height = 334;
+	}
+	
 	public static void addHoverButton(int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
 		// button
 		RSInterface tab = addTabInterface(i);
@@ -525,6 +581,56 @@ public final class RSInterface {
 		tab.sprite2 = imageLoader(k, name);
 	}
 
+	public static void addHoverButton(int i, int sprite, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
+		// button
+		RSInterface tab = addTabInterface(i);
+		tab.id = i;
+		tab.parentID = i;
+		tab.type = 5;
+		tab.atActionType = aT;
+		tab.contentType = contentType;
+		tab.aByte254 = 0;
+		tab.hoverType = hoverOver;
+		tab.sprite1 = SpriteLoader.sprites[sprite];
+		tab.sprite2 = SpriteLoader.sprites[sprite];
+		tab.width = width;
+		tab.height = height;
+		tab.tooltip = text;
+	}
+
+	public static void addHoveredButton(int i, int sprite, int w, int h, int IMAGEID) {// hoverable
+		// button
+		RSInterface tab = addTabInterface(i);
+		tab.parentID = i;
+		tab.id = i;
+		tab.type = 0;
+		tab.atActionType = 0;
+		tab.width = w;
+		tab.height = h;
+		tab.isMouseoverTriggered = true;
+		tab.aByte254 = 0;
+		tab.hoverType = -1;
+		tab.scrollMax = 0;
+		addHoverImage(IMAGEID, sprite, sprite);
+		tab.totalChildren(1);
+		tab.child(0, IMAGEID, 0, 0);
+	}
+
+	public static void addHoverImage(int i, int j, int k) {
+		RSInterface tab = addTabInterface(i);
+		tab.id = i;
+		tab.parentID = i;
+		tab.type = 5;
+		tab.atActionType = 0;
+		tab.contentType = 0;
+		tab.width = 512;
+		tab.height = 334;
+		tab.aByte254 = 0;
+		tab.hoverType = 52;
+		tab.sprite1 = SpriteLoader.sprites[j];
+		tab.sprite2 = SpriteLoader.sprites[k];
+	}
+	
 	public static void addTransparentSprite(int id, int spriteId, String spriteName) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
 		tab.id = id;
@@ -804,18 +910,6 @@ public final class RSInterface {
 		setBounds(30002, 0, 0, 0, Int);
 	}
 
-	public static void setChildren(int total, RSInterface i) {
-		i.children = new int[total];
-		i.childX = new int[total];
-		i.childY = new int[total];
-	}
-
-	public static void setBounds(int ID, int X, int Y, int frame, RSInterface RSinterface) {
-		RSinterface.children[frame] = ID;
-		RSinterface.childX[frame] = X;
-		RSinterface.childY[frame] = Y;
-	}
-
 	public static void addButton(int i, int j, String name, int W, int H, String S, int AT) {
 		RSInterface RSInterface = addInterface(i);
 		RSInterface.id = i;
@@ -832,14 +926,16 @@ public final class RSInterface {
 		RSInterface.tooltip = S;
 	}
 	
-	public static void optionsTab(TextDrawingArea[] tda) {
-		   RSInterface tab = interfaceCache[904];
-		   addButton(36004, 1, "Options/SPRITE", "Fixed");
-		   addButton(36005, 2, "Options/SPRITE", "Resizable");
-		   addButton(36006, 3, "Options/SPRITE", "Fullscreen");
-		   tab.setChild(39, 36004, 10, 8);
-		   tab.setChild(40, 36005, 70, 8);
-		   tab.setChild(41, 36006, 130, 8);
+	public static void setChildren(int total, RSInterface i) {
+		i.children = new int[total];
+		i.childX = new int[total];
+		i.childY = new int[total];
+	}
+
+	public static void setBounds(int ID, int X, int Y, int frame, RSInterface RSinterface) {
+		RSinterface.children[frame] = ID;
+		RSinterface.childX[frame] = X;
+		RSinterface.childY[frame] = Y;
 	}
 	
 	public static void setChild(RSInterface i, int id, int interID, int x, int y) {
@@ -852,5 +948,123 @@ public final class RSInterface {
 		children[id] = interID;
 		childX[id] = x;
 		childY[id] = y;
+	}
+	
+	public static void optionsTab(TextDrawingArea[] tda) {
+		   RSInterface tab = interfaceCache[904];
+		   addButton(36004, 1, "Options/SPRITE", "Fixed");
+		   addButton(36005, 2, "Options/SPRITE", "Resizable");
+		   addButton(36006, 3, "Options/SPRITE", "Fullscreen");
+		   tab.setChild(39, 36004, 10, 8);
+		   tab.setChild(40, 36005, 70, 8);
+		   tab.setChild(41, 36006, 130, 8);
+	}
+	
+	public static void addBankItem(int index)
+	{
+		RSInterface rsi = interfaceCache[index] = new RSInterface();
+		rsi.id = index;
+		rsi.parentID = index;
+		rsi.type = 2;
+		rsi.invSpritePadX = 24;
+		rsi.invSpritePadY = 24;
+		rsi.height = 1;
+		rsi.width = 1;
+		rsi.actions = new String[5];
+		rsi.spritesX = new int[20];
+		rsi.spritesY = new int[20];
+		rsi.inv = new int[1];
+		rsi.invStackSizes = new int[1];
+
+		rsi.children = new int[0];
+		rsi.childX = new int[0];
+		rsi.childY = new int[0];
+
+		rsi.usableItemInterface = false;
+		rsi.isInventoryInterface = false;
+	}
+	
+	public static void drawModel(int id, boolean aBoolean)
+	{
+		RSInterface rsi = interfaceCache[id] = new RSInterface();
+		rsi.id = id;
+		rsi.parentID = id;
+		rsi.type = 6;
+		rsi.atActionType = 0;
+		rsi.contentType = 0;
+		rsi.height = 32;
+		rsi.width = 32;
+		rsi.hoverType = 0;
+		rsi.modelZoom = 100;
+	}
+	
+	public static void bank(TextDrawingArea[] tda) {
+		RSInterface bankInter = addTabInterface(5292);
+	    setChildren(28, bankInter);
+		addSprite(5293, 57); // window
+		bankInter.setChild(0, 5293, 13, 13);
+		addHoverButton(5384, 58, 17, 17, "Close Window", 0, 5380, 3);
+		addHoveredButton(5380, 59, 17, 17, 5379);
+		bankInter.setChild(1, 5384, 476, 16);
+		bankInter.setChild(2, 5380, 476, 16);
+		addConfigButton(8131, 5292, 62, 63, 35, 25, "Swap/Insert", 1, 4, 304);// SWAP/INSERT
+		bankInter.setChild(3, 8131, 25, 285);
+		addConfigButton(5386, 5292, 64, 65, 35, 25, "Withdraw Mode", 1, 4, 115);// Withdraw mode
+		bankInter.setChild(4, 5386, 65, 285);
+		addHoverButton(50000, 66, 35, 25, "Deposit All", 0, 50001, 1);
+		addHoveredButton(50001, 67, 35, 25, 49999);
+		bankInter.setChild(5, 50000, 455, 285);
+		bankInter.setChild(6, 50001, 455, 285);
+		bankInter.setChild(7, 5383, 170, 15);
+		bankInter.setChild(8, 5385, -4, 74);
+		addButton(50002, 68, "Click here to view the full contents of your bank");
+		bankInter.setChild(9, 50002, 22, 36);
+		addButton(50003, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(10, 50003, 70, 36);
+		addButton(50004, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(11, 50004, 118, 36);
+		addButton(50005, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(12, 50005, 166, 36);
+		addButton(50006, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(13, 50006, 214, 36);
+		addButton(50007, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(14, 50007, 262, 36);
+		addButton(50008, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(15, 50008, 310, 36);
+		addButton(50009, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(16, 50009, 358, 36);
+		addButton(50010, 72, "Drag an item here to create a new tab");
+		bankInter.setChild(17, 50010, 406, 36);
+		addText(50011, "0", tda, 0, 0xB4965A, true, false);
+		bankInter.setChild(18, 50011, 473, 42);
+		addText(50012, "352", tda, 0, 0xB4965A, true, false);
+		bankInter.setChild(19, 50012, 473, 57);
+		addBankItem(50013);
+		bankInter.setChild(20, 50013, 77, 39);
+		addBankItem(50014);
+		bankInter.setChild(21, 50014, 125, 39);
+		addBankItem(50015);
+		bankInter.setChild(22, 50015, 173, 39);
+		addBankItem(50016);
+		bankInter.setChild(23, 50016, 221, 39);
+		addBankItem(50017);
+		bankInter.setChild(24, 50017, 269, 39);
+		addBankItem(50018);
+		bankInter.setChild(25, 50018, 317, 39);
+		addBankItem(50019);
+		bankInter.setChild(26, 50019, 365, 39);
+		addBankItem(50020);
+		bankInter.setChild(27, 50020, 413, 39);
+		addText(50021, "0", 0xFF981F, false, true, 52, tda, 1);
+		addText(50022, "0", 0xFF981F, false, true, 52, tda, 1);
+		addText(50023, "0", 0xFF981F, false, true, 52, tda, 1);
+		
+		bankInter = interfaceCache[5385];
+		bankInter.height = 206;
+		bankInter.width = 480;
+		bankInter = interfaceCache[5382];
+		bankInter.width = 10;
+		bankInter.invSpritePadX = 12;
+		bankInter.height = 35;
 	}
 }

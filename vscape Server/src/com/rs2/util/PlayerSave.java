@@ -24,7 +24,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.skills.magic.SpellBook;
-import com.rs2.model.players.BankManager;
+import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
@@ -39,20 +39,21 @@ import com.rs2.model.content.skills.magic.Spell;
 public class PlayerSave {
 
 	/** The directory where players are saved. */
-	public static final String directory = "./data/characters/";
+	public static final String directoryOld = "./data/characters/";
+	public static final String directoryNew = "./data/characters/json/";
 	public static final boolean useNewFormat = true;
 	
 	public static boolean hasOldFormat (final Player player){
-		return new File(directory + player.getUsername() + ".dat").exists();
+		return new File(directoryOld + player.getUsername() + ".dat").exists();
 	}
 	
 	public static boolean hasNewFormat (final Player player){
-		return new File(directory + player.getUsername() + ".gz").exists();
+		return new File(directoryNew + player.getUsername() + ".gz").exists();
 	}
 	
 	public static void saveJson(final Player player) {
 		try {
-			File file = new File(directory + player.getUsername() + ".gz");
+			File file = new File(directoryNew + player.getUsername() + ".gz");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -72,7 +73,7 @@ public class PlayerSave {
 	}
 	
 	public static int loadJson(final Player player) {
-		File file = new File(directory + player.getUsername() + ".gz");
+		File file = new File(directoryNew + player.getUsername() + ".gz");
 		return new PlayerSaveParser().parse(player, file);
 	}
 	
@@ -93,7 +94,7 @@ public class PlayerSave {
 		try {
             @SuppressWarnings("unused")
 			Misc.Stopwatch stopwatch = new Misc.Stopwatch();
-			File file = new File(directory + player.getUsername() + ".dat");
+			File file = new File(directoryOld + player.getUsername() + ".dat");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -174,7 +175,7 @@ public class PlayerSave {
 				}
 			}
 			for (int i = 0; i < BankManager.SIZE; i++) {
-				Item item = player.getBank().get(i);
+				Item item = player.getBankManager().tabContainer(0).get(i);
 				if (item == null) {
 					write.writeInt(65535);
 				} else {
@@ -472,7 +473,7 @@ public class PlayerSave {
 	public static void saveQuests(Player player) {
 		BufferedWriter characterfile = null;
 		try {
-			characterfile = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+".txt"));
+			characterfile = new BufferedWriter(new FileWriter(directoryOld+player.getUsername()+".txt"));
 			
 			characterfile.write("quest-points = ", 0, 15);
 			characterfile.write(Integer.toString(player.getQuestPoints()), 0, Integer.toString(player.getQuestPoints()).length());
@@ -546,7 +547,7 @@ public class PlayerSave {
 		boolean File1 = false;
 		
 		try {
-			characterfile = new BufferedReader(new FileReader("./data/characters/"+player.getUsername()+".txt"));
+			characterfile = new BufferedReader(new FileReader(directoryOld+player.getUsername()+".txt"));
 			File1 = true;
 		} catch(FileNotFoundException fileex1) {
 		    return 1;
@@ -583,7 +584,7 @@ public class PlayerSave {
 					boolean yellhide = Boolean.parseBoolean(token2);
 					if(yellhide)
 					{
-						player.setHideYell(true,true);
+						player.setHideYell(true,false);
 					}else{
 						player.setHideYell(false,false);
 					}
@@ -591,7 +592,7 @@ public class PlayerSave {
 					boolean colorhide = Boolean.parseBoolean(token2);
 					if(colorhide)
 					{
-						player.setHideColors(true,true);
+						player.setHideColors(colorhide,false);
 					}else{
 						player.setHideColors(false,false);
 					}
@@ -660,7 +661,7 @@ public class PlayerSave {
 	}
     
     static int readFile(Player player) {
-       File file = new File(directory + player.getUsername()
+       File file = new File(directoryOld + player.getUsername()
                 + ".dat");
         if (!file.exists()) {
             if (Server.getSingleton() != null)
@@ -784,7 +785,8 @@ public class PlayerSave {
                             if (item.getId() == 2696 || item.getId() == 2699 || item.getId() == 3510) {
                             	item = new Item(id - 1, amount, timer);
                             }
-                            player.getBank().set(i, item);
+                           // player.getBank().set(i, item);
+                            player.getBankManager().tabContainer(0).set(i, item);
                         }
                     }
                 }
@@ -998,10 +1000,9 @@ public class PlayerSave {
     			}
 			for (int i = 0; i < player.getDegradeableHits().length; i++) {
 			    try {
-				player.setDegradeableHits(i, load.readInt());
-			    } catch (IOException e) {
-				System.out.println("degrade");
+				load.readInt();
 				player.setDegradeableHits(i, 0);
+			    } catch (Exception e) {
 			    }
 			}
 			/*for (int i = 0; i < player.getBonesGround().length; i++) {

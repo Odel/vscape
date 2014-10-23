@@ -220,3 +220,4 @@ vscape Server/datajson/VEditorSuite.exe
 vscape Server/datajson/Newtonsoft.Json.dll
 
 *.db
+vscape Server/data/commands.txt

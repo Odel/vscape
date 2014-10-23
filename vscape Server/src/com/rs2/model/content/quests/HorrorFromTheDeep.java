@@ -748,7 +748,7 @@ public class HorrorFromTheDeep implements Quest {
 				player.getDialogue().sendNpcChat("Alright! Go ahead, ask away!", CONTENT);
 				return true;
 			    case 5:
-				if(!player.getInventory().ownsItem(player.getGodBook()) && player.getEquipment().getId(Constants.SHIELD) != player.getGodBook()) {
+				if(!player.getInventory().ownsItem(player.getGodBook())) {
 				    player.getDialogue().sendOption("Would it be possible to exchange my book?", "Found any more information on the books?", "I lost my book...");
 				    return true;
 				}

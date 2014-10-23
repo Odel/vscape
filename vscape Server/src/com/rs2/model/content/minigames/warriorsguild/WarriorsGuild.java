@@ -328,7 +328,14 @@ public class WarriorsGuild {
 	    }
 	}
 	public static int findBankDefender(Player player) {
-	    for(Item item : player.getBank().getItems()) {
+		final int[] defenders = { 8850, 8849, 8848, 8847, 8846, 8845, 8844};
+		for(int defender : defenders){
+			if(player.getBankManager().ownsItem(defender))
+			{
+				return defender;
+			}
+		}
+	   /* for(Item item : player.getBank().getItems()) {
 		if(item == null) continue;
 		else if(item.getId() == 8850){ return 8850; }
 	    }
@@ -355,7 +362,7 @@ public class WarriorsGuild {
 	    for(Item item : player.getBank().getItems()) {
 		if(item == null) continue;
 		else if(item.getId() == 8844){ return 8844; }
-	    }
+	    }*/
 	    return 8843;
 	}
 	public static int findInventoryDefender(Player player) {

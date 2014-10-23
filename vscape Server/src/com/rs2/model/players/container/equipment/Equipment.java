@@ -1038,6 +1038,22 @@ public class Equipment {
 				rangeLevelReq = 70;
 				defenceLevelReq = 40;
 				return;
+			case 10440:
+			case 10442:
+			case 10446:
+			case 10470:
+			case 10472:
+			case 10474: //stoles and croziers
+			    prayerLevelReq = 60;
+			    return;
+			case 10458:
+			case 10460:
+			case 10462:
+			case 10464:
+			case 10466:
+			case 10468://god robe top and bottoms
+			    prayerLevelReq = 40;
+			    return;
 			case 6809: //granite legs
 			    defenceLevelReq = 50;
 			    strengthLevelReq = 50;

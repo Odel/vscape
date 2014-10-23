@@ -8,7 +8,7 @@ import com.rs2.model.World;
 import com.rs2.model.content.skills.farming.FarmingConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.players.BankManager;
+import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
@@ -32,7 +32,23 @@ public class ItemManager {
 
 			}
 		}
-		for (int i = 0; i < BankManager.SIZE; i++) {
+		for (int i = 0; i < p.getBankManager().getUsedTabs(); i++) {
+			for(int j = 0; j < p.getBankManager().tabContainer(i).size(); j++){
+				Item item = p.getBankManager().tabContainer(i).get(i);
+				if (item == null || item.getTimer() < 0 || item.getDefinition().getSlot() != -1)
+					continue;
+				item.setTimer(item.getTimer() - 1);
+				if (item.getTimer() == 0) {
+					for (int items : FarmingConstants.WATERED_SAPPLING)
+						if (items == item.getId())
+							p.getSeedling().makeSaplingInBank(item.getId());
+					if (item.getId() == 1995)
+						p.getWine().fermentWineInBank(i, j);
+				}
+			}
+		}
+		//FIX THIS TO TAB BANK
+	/*	for (int i = 0; i < BankManager.SIZE; i++) {
 			Item item = p.getBank().get(i);
 			if (item == null || item.getTimer() < 0 || item.getDefinition().getSlot() != -1)
 				continue;
@@ -44,7 +60,7 @@ public class ItemManager {
 				if (item.getId() == 1995)
 					p.getWine().fermentWineInBank(i);
 			}
-		}
+		}*/
 	}
 
 	public void pickupItem(final Player player, final int itemId, final Position pos) {

@@ -58,7 +58,7 @@ public class PlayerCleaner {
                 	d2h += item.getCount();
                 }
             }
-            for (Item item : player.getBank().getItems()) {
+         /*   for (Item item : player.getBank().getItems()) {
                 if (item == null)
                     continue;
                 if (item.getId() == 995)
@@ -66,7 +66,7 @@ public class PlayerCleaner {
                 if (item.getId() == 7158 || item.getId() == 7407) {
                 	d2h += item.getCount();
                 }
-            }
+            }*/
             if (gold > GOLD_LIMIT) {
             	System.out.println(player.getUsername()+" gold: "+gold);
                 gold = 500000;
@@ -87,7 +87,7 @@ public class PlayerCleaner {
                     if (item.getId() == ban)
                         items[i] = null;
             }
-            items = player.getBank().getItems();
+          /*  items = player.getBank().getItems();
             for (int i = 0; i < items.length; i++) {
                 if (items[i] == null)
                     continue;
@@ -97,7 +97,7 @@ public class PlayerCleaner {
                 for (int ban : itemsToRemove)
                     if (item.getId() == ban)
                         items[i] = null;
-            }
+            }*/
            /* items = player.getEquipment().getItemContainer().getItems();
             for (int i = 0; i < items.length; i++) {
                 if (items[i] == null)
@@ -108,10 +108,10 @@ public class PlayerCleaner {
                         items[i] = null;
             }*/
 
-            player.getBank().add(new Item(995, (int)gold));
+           /* player.getBank().add(new Item(995, (int)gold));
             if (d2h > 0) {
                 player.getBank().add(new Item(7158, (int)d2h));
-            }
+            }*/
             PlayerSave.save(player);
         }
         System.out.println("DONE!");

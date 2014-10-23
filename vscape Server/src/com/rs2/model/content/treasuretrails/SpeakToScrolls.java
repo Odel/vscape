@@ -183,10 +183,12 @@ public class SpeakToScrolls {
 				} else {
 					player.getDialogue().sendNpcChat(ChallengeScrolls.getString(speakData.getClueId())[0], ChallengeScrolls.getString(speakData.getClueId())[1], Dialogues.HAPPY);
 				}
+				return true;
 			} else {
 				player.getInventory().removeItem(new Item(speakData.getClueId(), 1));
 				player.getDialogue().sendNpcChat("Here's a challenge for you.", Dialogues.HAPPY);
 				ChallengeScrolls.addNewChallenge(player, speakData.getClueId());
+				return true;
 			}
 		} else if (speakData.getToGet().equals("Puzzle")) {
 		    if(Puzzle.playerHasPuzzle(player)) {
@@ -211,7 +213,17 @@ public class SpeakToScrolls {
 			Puzzle.resetPuzzleItems(player);
 			Puzzle.addRandomPuzzle(player);
 			return true;
-		}
+		    }
+		} else {
+		    Dialogues.setNextDialogue(player, 10009, 2);
+		    player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
+		    player.getInventory().removeItem(new Item(speakData.getClueId(), 1));
+		    HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
+		    Hit hit = new Hit(player, player, hitDef);
+		    BindingEffect bind = new BindingEffect(1000000);
+		    bind.initialize(hit); //try and step away during dialogue now :-)
+		    player.clueLevel = speakData.getLevel();
+		    //ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward.");
 		return true;
 	    }
 	    return false;

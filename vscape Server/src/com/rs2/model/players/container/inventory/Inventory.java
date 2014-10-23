@@ -61,7 +61,7 @@ public class Inventory {
 	
 	public void addItemOrBank(Item item) {
 		if (!addItem(item)) {
-			player.getBank().add(item);
+			player.getBankManager().add(item);
 		}
 	}
 
@@ -108,11 +108,9 @@ public class Inventory {
 			if (item.getDefinition().getName().toLowerCase().contains(string))
 				return true;
 		}
-		for (Item item : player.getBank().getItems()) {
-			if (item == null)
-				continue;
-			if (item.getDefinition().getName().toLowerCase().contains(string))
-				return true;
+		if(player.getBankManager().ownsItem(string))
+		{
+			return true;
 		}
 		return false;
 	}
@@ -128,11 +126,9 @@ public class Inventory {
 			if (item.getId() == id)
 				return true;
 		}
-		for (Item item : player.getBank().getItems()) {
-			if (item == null)
-				continue;
-			if (item.getId() == id)
-				return true;
+		if(player.getBankManager().ownsItem(id))
+		{
+			return true;
 		}
 		for (Item item : player.getEquipment().getItemContainer().getItems()) {
 			if (item == null)

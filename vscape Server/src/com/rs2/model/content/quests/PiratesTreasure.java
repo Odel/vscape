@@ -393,12 +393,10 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     public static void getAndDestroyRum(final Player player) {
-	for(Item item : player.getBank().getItems()) {
-	    if(item == null) continue;
-	    if(item.getId() == KARAMJAN_RUM) {
-		player.getBank().remove(item);
+	if(player.getBankManager().ownsItem(KARAMJAN_RUM))
+	{
+		player.getBankManager().remove(new Item(KARAMJAN_RUM, Constants.MAX_ITEM_COUNT));
 		player.getActionSender().sendMessage("Your karamjan rum breaks because you haven't started Pirate's Treasure!");
-	    }
 	}
 	for(Item item : player.getInventory().getItemContainer().getItems()) {
 	    if(item == null) continue;
@@ -433,19 +431,22 @@ public class PiratesTreasure implements Quest {
 	}
 	return 0;
     }
-    public static void dumpAllPoisonedItems(final Player player) {
+    
+/*    public static void dumpAllPoisonedItems(final Player player) {
 	for (int i = 0; i < PiratesTreasure.getPoisonedWeapons().size(); i++) {
 	    Item item = PiratesTreasure.getPoisonedWeapons().get(i);
 	    if (item == null) {
 		continue;
 	    }
 	    if (player.getBank().hasRoomFor(item)) {
-		player.getBank().add(item);
+	    	player.getBank().add(item);
 	    } else {
-		player.getActionSender().sendMessage("Did not have room in bank for " + item.getDefinition().getName() + ".");
+	    	player.getActionSender().sendMessage("Did not have room in bank for " + item.getDefinition().getName() + ".");
 	    }
+	    if(player.getBankManager().)
 	}
-    }
+    }*/
+    
     public static ArrayList<Item> getPoisonedWeapons() {
 	ArrayList<Item> poisoned = new ArrayList<Item>();
 	int count = 0;

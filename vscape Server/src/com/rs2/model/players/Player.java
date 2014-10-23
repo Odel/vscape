@@ -125,6 +125,7 @@ import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.container.equipment.Equipment;
@@ -198,7 +199,7 @@ public class Player extends Entity {
 	private final List<Npc> npcs = new LinkedList<Npc>();
 	public Inventory inventory = new Inventory(this);
 	private Equipment equipment = new Equipment(this);
-	private BankManager bankmanager = new BankManager();
+	private BankManager bankmanager = new BankManager(this);
 	private PrivateMessaging privateMessaging = new PrivateMessaging(this);
 	private Prayer prayer = new Prayer(this);
 	private Teleportation teleportation = new Teleportation(this);
@@ -269,7 +270,6 @@ public class Player extends Entity {
 	private int gender = Constants.GENDER_MALE;
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
-	private Container bank = new Container(Type.ALWAYS_STACK, BankManager.SIZE);
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
 	private int clickX = -1;
@@ -1094,7 +1094,7 @@ public class Player extends Entity {
             player.actionSender.sendMessage("You have been muted for "+hours+" hours");
             player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
         }
-		if(keyword.equals("bankof")) {
+/*		if(keyword.equals("bankof")) {
 			for (Player player : World.getPlayers()) {
 				if (player == null)
 					continue;
@@ -1144,9 +1144,8 @@ public class Player extends Entity {
 				    break;
 				}
 			}
-		}
+		}*/
 	}
-
 	public void adminCommands(String keyword, String[] args, String fullString) {
 		saveCommand(getUsername(), keyword+" "+fullString);
 		if (keyword.equals("getrandom")) {
@@ -1628,8 +1627,9 @@ public class Player extends Entity {
 			}
 		}
 		else if (keyword.equals("poisondump")) {
-		    bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
-		    PiratesTreasure.dumpAllPoisonedItems(this);
+			//bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
+		    getBankManager().add(new Item(PiratesTreasure.CLEANING_CLOTH));
+		 //   PiratesTreasure.dumpAllPoisonedItems(this);
 		}
 		else if (keyword.equals("dyedump")) {
 		    inventory.addItem(new Item(GhostsAhoy.RED_DYE));
@@ -1640,17 +1640,17 @@ public class Player extends Entity {
 		    inventory.addItem(new Item(GhostsAhoy.GREEN_DYE));
 		}
 		else if (keyword.equals("enchantdump")) {
-		    bank.add(new Item(8016, 100));
-		    bank.add(new Item(8017, 100));
-		    bank.add(new Item(8018, 100));
-		    bank.add(new Item(8019, 100));
-		    bank.add(new Item(8020, 100));
-		    bank.add(new Item(8021, 100));
+			getBankManager().add(new Item(8016, 100));
+		    getBankManager().add(new Item(8017, 100));
+		    getBankManager().add(new Item(8018, 100));
+		    getBankManager().add(new Item(8019, 100));
+		    getBankManager().add(new Item(8020, 100));
+		    getBankManager().add(new Item(8021, 100));
 		    for(int i = 0; i < 6; i++) {
-			for(int x = 0; x < 4; x++) {
-			    if(TabHandler.ENCHANTABLES[i][x] == -1) continue;
-			    bank.add(new Item(TabHandler.ENCHANTABLES[i][x]));
-			}
+				for(int x = 0; x < 4; x++) {
+				    if(TabHandler.ENCHANTABLES[i][x] == -1) continue;
+				    getBankManager().add(new Item(TabHandler.ENCHANTABLES[i][x]));
+				}
 		    }
 		}
 		else if (keyword.equals("stillcamera")) {
@@ -1713,7 +1713,7 @@ public class Player extends Entity {
 			}
 		}
 		else if (keyword.equals("bank")) {
-			BankManager.openBank(this);
+			bankmanager.openBank();
 		}
 		else if (keyword.equals("npc")) {
 			int npcId = Integer.parseInt(args[0]);
@@ -3650,7 +3650,7 @@ public class Player extends Entity {
 	public int getShopId() {
 		return shopId;
 	}
-
+/*
 	public void setBank(Container bank) {
 		this.bank = bank;
 	}
@@ -3658,7 +3658,7 @@ public class Player extends Entity {
 	public Container getBank() {
 		return bank;
 	}
-
+*/
 	public void setBonuses(int id, int bonuses) {
 		this.bonuses.put(id, bonuses);
 	}
@@ -6001,12 +6001,7 @@ public class Player extends Entity {
 	}
 	
 	public boolean itemInBank(int id) {
-		for (Item item : getBank().getItems()) {
-			if (item != null && item.getId() == id) {
-				return true;
-			}
-		}
-		return false;
+		return getBankManager().ownsItem(id);
 	}
 	
 	public boolean hasItem(int id) {
@@ -6015,10 +6010,8 @@ public class Player extends Entity {
 				return true;
 			}
 		}
-		for (Item item : getBank().getItems()) {
-			if (item != null && item.getId() == id) {
-				return true;
-			}
+		if(getBankManager().ownsItem(id)){
+			return true;
 		}
 		return false;
 	}
@@ -6029,10 +6022,9 @@ public class Player extends Entity {
 				return true;
 			}
 		}
-		for (Item item : getBank().getItems()) {
-			if (item != null && item.getDefinition().getName().toLowerCase().contains("clue")) {
-				return true;
-			}
+		if(getBankManager().ownsItem("clue"))
+		{
+			return true;
 		}
 		return false;
 	}
@@ -6043,10 +6035,9 @@ public class Player extends Entity {
 				return true;
 			}
 		}
-		for (Item item : getBank().getItems()) {
-			if (item != null && (item.getId() == 2800 || item.getId() == 3565 || item.getId() == 3571)) {
-				return true;
-			}
+		if(getBankManager().ownsItem(2800) || getBankManager().ownsItem(3565) || getBankManager().ownsItem(3571))
+		{
+			return true;
 		}
 		return false;
 	}

@@ -14,6 +14,7 @@ import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.item.Item;
 
 public class PlayerSaveSerialize implements JsonSerializer<Player> {
@@ -180,20 +181,29 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		}
 		bankObj.add("pinPending", bankPinPendingArray);
 		bankObj.addProperty("hasReset", player.hasReset());
-		JsonArray bankArray = new JsonArray();
-		for (int i = 0; i < BankManager.SIZE; i++) {
-        	JsonObject bankItemObj = new JsonObject();
-        	Item item = player.getBank().get(i);
-        	if (item == null) {
-        		bankItemObj.addProperty("id", 65535);
-			} else {
-				bankItemObj.addProperty("id", item.getId());
-				bankItemObj.addProperty("count", item.getCount());
-	        	bankItemObj.addProperty("timer", item.getTimer());
+		bankObj.addProperty("swapMode", player.getBankOptions().equals(BankOptions.SWAP_ITEM));
+		bankObj.addProperty("withdrawAsNote", player.isWithdrawAsNote());
+		bankObj.addProperty("usedTabs", player.getBankManager().getUsedTabs());
+		for (int i = 0; i < player.getBankManager().getUsedTabs(); i++) {
+			JsonArray bankArray = new JsonArray();
+			for (int j = 0; j < player.getBankManager().tabContainer(i).size(); j++) {
+				JsonObject bankItemObj = new JsonObject();
+	        	Item item = player.getBankManager().tabContainer(i).get(j);
+	        	if (item == null) {
+	        		bankItemObj.addProperty("id", 65535);
+				} else {
+					bankItemObj.addProperty("id", item.getId());
+					bankItemObj.addProperty("count", item.getCount());
+		        	bankItemObj.addProperty("timer", item.getTimer());
+				}
+	        	bankArray.add(bankItemObj);
 			}
-        	bankArray.add(bankItemObj);
+			if(i == 0) { 
+				bankObj.add("items", bankArray);
+			}else{
+				bankObj.add("items"+i, bankArray);
+			}
 		}
-		bankObj.add("items", bankArray);
 		
 		JsonArray pendingItemsArray = new JsonArray();
 		for (int i = 0; i < player.getPendingItems().length; i++) {

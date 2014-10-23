@@ -438,8 +438,8 @@ public class ShopManager {
 							int minimum = shop.getStock().getById(item.getId()).getCount();
 							if (item.getCount() < minimum) {
 								shop.getCurrentStock().add(new Item(item.getId()));
-							} else if (item.getCount() > minimum) {
-								shop.getCurrentStock().remove(new Item(item.getId()));
+							} else if (item.getCount() > minimum && item.getCount() > 0) {
+								shop.getCurrentStock().removeOrZero(new Item(item.getId()));
 							}
 						} else {
 							count = item.getCount();

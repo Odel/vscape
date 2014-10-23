@@ -145,10 +145,12 @@ public class AnagramsScrolls {
 				} else {
 					player.getDialogue().sendNpcChat(ChallengeScrolls.getString(anagramsData.getClueId())[0], ChallengeScrolls.getString(anagramsData.getClueId())[1], Dialogues.HAPPY);
 				}
+				return true;
 			} else {
 				player.getInventory().removeItem(new Item(anagramsData.getClueId(), 1));
 				player.getDialogue().sendNpcChat("Here's a challenge for you.", Dialogues.HAPPY);
 				ChallengeScrolls.addNewChallenge(player, anagramsData.getClueId());
+				return true;
 			}
 		} else if (anagramsData.getToGet().equals("Puzzle")) {
 		    if(Puzzle.playerHasPuzzle(player)) {
@@ -173,7 +175,16 @@ public class AnagramsScrolls {
 			Puzzle.resetPuzzleItems(player);
 			Puzzle.addRandomPuzzle(player);
 		    }
-		return true;
+		    return true;
+		} else {
+		    Dialogues.setNextDialogue(player, 10009, 2);
+		    player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
+		    player.getInventory().getItemContainer().remove(new Item(anagramsData.getClueId(), 1));
+		    HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
+		    Hit hit = new Hit(player, player, hitDef);
+		    BindingEffect bind = new BindingEffect(1000000);
+		    bind.initialize(hit); //try and step away during dialogue now :-)
+		    player.clueLevel = anagramsData.getLevel();
 		}
 	    return false;
 	}
