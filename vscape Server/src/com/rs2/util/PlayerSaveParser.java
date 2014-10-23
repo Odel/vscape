@@ -92,7 +92,7 @@ public class PlayerSaveParser {
 	            JsonObject options = characterObj.getAsJsonObject("options");
 	            if(options != null) {
 		            boolean yellColor = options.get("yellColor").getAsBoolean();
-		            player.setHideColors(yellColor, yellColor);
+		            player.setHideColors(yellColor, false);
 		            player.setEnergy(options.get("runenergy").getAsDouble());
 		            player.getMovementHandler().setRunToggled(options.get("runtoggled").getAsBoolean());
 		            player.setScreenBrightness(options.get("brightness").getAsInt());

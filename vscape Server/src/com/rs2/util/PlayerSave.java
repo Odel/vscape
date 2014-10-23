@@ -580,6 +580,23 @@ public class PlayerSave {
 				switch(token) {
 				    case "quest-points":
 					player.setQuestPoints(Integer.parseInt(token2));
+				    case "hide-yell":
+					boolean yellhide = Boolean.parseBoolean(token2);
+					if(yellhide)
+					{
+						player.setHideYell(true,false);
+					}else{
+						player.setHideYell(false,false);
+					}
+				    case "hide-colors":
+					boolean colorhide = Boolean.parseBoolean(token2);
+					if(colorhide)
+					{
+						player.setHideColors(colorhide,false);
+					}else{
+						player.setHideColors(false,false);
+					}
+					
 				}
 				for(Quest q : QuestHandler.getQuests())
 				{
