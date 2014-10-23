@@ -24,16 +24,16 @@ public class MaskDropController {
 	
 	private static ArrayList<Position> possiblePositions = new ArrayList<Position>();
 	private static Area[] areas = {
-		new Area(2713, 2759, 3149, 3170, 0), //brimhaven
-		new Area(2816, 2897, 3011, 3075, 0), //karamje
-		new Area(3395, 3452, 2883, 2941, 0), //nardah
-		new Area(3521, 3641, 3459, 3509, 0), //canifis haunted woods
-		new Area(3298, 3328, 3386, 3446, 0), //near digsite glider
-		new Area(2372, 2452, 3360, 3370, 0), //southeast grand tree
-		new Area(2575, 2625, 3115, 3135, 0), //north of yanille
-		new Area(3122, 3162, 3763, 3838, 0), //grassy wildy
-		new Area(3199, 3319, 3692, 3755, 0), //bone yard wildy
-		new Area(3169, 3319, 3545, 3580, 0) //babby level wildy
+		new Area(2713, 2759, 3149, 3170, 0),
+		new Area(2816, 2897, 3011, 3075, 0),
+		new Area(3395, 3452, 2883, 2941, 0),
+		new Area(3521, 3641, 3459, 3509, 0),
+		new Area(3298, 3328, 3386, 3446, 0),
+		new Area(2372, 2452, 3360, 3370, 0),
+		new Area(2575, 2625, 3115, 3135, 0),
+		new Area(3122, 3162, 3763, 3838, 0),
+		new Area(3199, 3319, 3692, 3755, 0),
+		new Area(3169, 3319, 3545, 3580, 0)
 	};
 	
 	public static Position currentPosition = new Position(0,0,0);
