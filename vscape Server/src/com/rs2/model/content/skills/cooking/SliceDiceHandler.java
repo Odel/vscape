@@ -74,8 +74,9 @@ public class SliceDiceHandler {
 			String sliceName = new Item(sliceDiceData.getSlice()).getDefinition().getName();
 			player.setTempInteger(sliceDiceData.getSrc());
 			Menus.display2Item(player, sliceDiceData.getDice(), sliceDiceData.getSlice(), diceName, sliceName);
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	private static void handleDice(final Player player, final int amount, final int itemId)
