@@ -121,7 +121,7 @@ public class SQL {
 		System.out.println("Updating all highscore entries from save files, this may take a while...");
 		int count = 0;
 		try {
-			File folder = new File("./data/characters");
+			File folder = new File("./data/characters/json");
 			File[] listOfFiles = folder.listFiles();
 			for (File file : listOfFiles) {
 				if(PlayerSave.useNewFormat){

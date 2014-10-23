@@ -39,20 +39,21 @@ import com.rs2.model.content.skills.magic.Spell;
 public class PlayerSave {
 
 	/** The directory where players are saved. */
-	public static final String directory = "./data/characters/";
+	public static final String directoryOld = "./data/characters/";
+	public static final String directoryNew = "./data/characters/json/";
 	public static final boolean useNewFormat = true;
 	
 	public static boolean hasOldFormat (final Player player){
-		return new File(directory + player.getUsername() + ".dat").exists();
+		return new File(directoryOld + player.getUsername() + ".dat").exists();
 	}
 	
 	public static boolean hasNewFormat (final Player player){
-		return new File(directory + player.getUsername() + ".gz").exists();
+		return new File(directoryNew + player.getUsername() + ".gz").exists();
 	}
 	
 	public static void saveJson(final Player player) {
 		try {
-			File file = new File(directory + player.getUsername() + ".gz");
+			File file = new File(directoryNew + player.getUsername() + ".gz");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -72,7 +73,7 @@ public class PlayerSave {
 	}
 	
 	public static int loadJson(final Player player) {
-		File file = new File(directory + player.getUsername() + ".gz");
+		File file = new File(directoryNew + player.getUsername() + ".gz");
 		return new PlayerSaveParser().parse(player, file);
 	}
 	
@@ -93,7 +94,7 @@ public class PlayerSave {
 		try {
             @SuppressWarnings("unused")
 			Misc.Stopwatch stopwatch = new Misc.Stopwatch();
-			File file = new File(directory + player.getUsername() + ".dat");
+			File file = new File(directoryOld + player.getUsername() + ".dat");
 			if (!file.exists()) {
 				file.createNewFile();
 			}
@@ -472,7 +473,7 @@ public class PlayerSave {
 	public static void saveQuests(Player player) {
 		BufferedWriter characterfile = null;
 		try {
-			characterfile = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+".txt"));
+			characterfile = new BufferedWriter(new FileWriter(directoryOld+player.getUsername()+".txt"));
 			
 			characterfile.write("quest-points = ", 0, 15);
 			characterfile.write(Integer.toString(player.getQuestPoints()), 0, Integer.toString(player.getQuestPoints()).length());
@@ -546,7 +547,7 @@ public class PlayerSave {
 		boolean File1 = false;
 		
 		try {
-			characterfile = new BufferedReader(new FileReader("./data/characters/"+player.getUsername()+".txt"));
+			characterfile = new BufferedReader(new FileReader(directoryOld+player.getUsername()+".txt"));
 			File1 = true;
 		} catch(FileNotFoundException fileex1) {
 		    return 1;
@@ -660,7 +661,7 @@ public class PlayerSave {
 	}
     
     static int readFile(Player player) {
-       File file = new File(directory + player.getUsername()
+       File file = new File(directoryOld + player.getUsername()
                 + ".dat");
         if (!file.exists()) {
             if (Server.getSingleton() != null)
