@@ -3,11 +3,7 @@ package com.rs2.model.content.quests;
 import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
-import com.rs2.model.Entity;
 import com.rs2.model.Position;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
@@ -16,7 +12,6 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
@@ -652,7 +647,7 @@ public class WaterfallQuest implements Quest {
 		if (!player.getInventory().ownsItem(GLARIAL_URN)) {
 		    player.getActionSender().sendMessage("You find an urn filled with Queen Glarial's Ashes.");
 		    player.getInventory().addItemOrDrop(new Item(GLARIAL_URN));
-		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN) && player.getQuestStage(31) == PEBBLE) {
+		    if(player.getInventory().ownsItem(GLARIAL_AMULET) && player.getQuestStage(31) == PEBBLE) {
 			player.setQuestStage(31, AMULET_AND_URN);
 		    }
 		    return true;
@@ -668,7 +663,7 @@ public class WaterfallQuest implements Quest {
 		if (!player.getInventory().ownsItem(GLARIAL_AMULET)) {
 		    player.getActionSender().sendMessage("You find an amulet that belonged to the late Queen.");
 		    player.getInventory().addItemOrDrop(new Item(GLARIAL_AMULET));
-		    if(player.getInventory().playerHasItem(GLARIAL_AMULET) && player.getInventory().playerHasItem(GLARIAL_URN) && player.getQuestStage(31) == PEBBLE) {
+		    if(player.getInventory().playerHasItem(GLARIAL_URN) && player.getQuestStage(31) == PEBBLE) {
 			player.setQuestStage(31, AMULET_AND_URN);
 		    }
 		    return true;
