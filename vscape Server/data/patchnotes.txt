@@ -4,10 +4,12 @@
 @red@-Big fixes to farming. Now more functional.
 -Nardah is now populated.
 -Moonclan hat added to clue rewards.
--Barrows cleaned & tweaked (No change to reward.)
 -Puzzle clues re-introduced to level 3 clues.
 -Mangled / Chewed bones can be burned on a fire
 to initiate an encounter with a Barbarian Spirit.
+-Barrows cleaned & tweaked (No change to reward.)
+-Barrows Minimap fixed.
+-Level-up music no longer loops.
 
 @dre@=October 11th=
 @blu@The Grand Tree

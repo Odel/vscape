@@ -2,7 +2,6 @@
 ::info (This interface.)
 ::outfit (Changes your appearance.)
 ::yell/::y (Sends a global message.)
-::hideyell/::hy (Hides all yell messages / Re-enables yell.)
 ::hidecolor/::hc (Hides color text in yell.)
 ::home
 ::players
@@ -18,8 +17,6 @@
 ::pc (General chat for Pest Control games.)
 ::pcactive (Tells you if a PC game is running.)
 ::resetpet (Picks up custom pets from PC.)
-::showhp (Displays current hp and prayer.)
-
 
 @dre@ =General Info=
 -2.25x higher experience rate.
@@ -34,17 +31,18 @@ West Ardougne to tunnel into West Ardouge.
 Go straight to Jossik to recover the lost book.
 
 @dre@=Admins=
-Mr Telescope
 Pickles
 Bobster
 Odel
 Mr Foxter
 Noiryx
+Mod Dammit
 
 @dre@=Player Mods=
 Shiggydiggy
 Dr Grind
 Benny
+Diowithit
 God Dammit
 
 @dre@ =Minigames=
