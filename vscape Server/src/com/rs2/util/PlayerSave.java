@@ -535,7 +535,8 @@ public class PlayerSave {
 	}
 	
 	public static int loadQuests(Player player) {
-
+    	if(!useNewFormat || (useNewFormat && !hasNewFormat(player)))
+    	{
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -579,6 +580,23 @@ public class PlayerSave {
 				switch(token) {
 				    case "quest-points":
 					player.setQuestPoints(Integer.parseInt(token2));
+				    case "hide-yell":
+					boolean yellhide = Boolean.parseBoolean(token2);
+					if(yellhide)
+					{
+						player.setHideYell(true,true);
+					}else{
+						player.setHideYell(false,false);
+					}
+				    case "hide-colors":
+					boolean colorhide = Boolean.parseBoolean(token2);
+					if(colorhide)
+					{
+						player.setHideColors(true,true);
+					}else{
+						player.setHideColors(false,false);
+					}
+					
 				}
 				for(Quest q : QuestHandler.getQuests())
 				{
@@ -607,7 +625,8 @@ public class PlayerSave {
 		}
 		try { characterfile.close(); } catch(IOException ioexception) { }
 		return 13;
-  
+    	}
+    	return 0;
 	}
 
     public static void load(Player player) {
