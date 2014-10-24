@@ -166,6 +166,7 @@ public class AnagramsScrolls {
 				BindingEffect bind = new BindingEffect(1000000);
 				bind.initialize(hit); //try and step away during dialogue now :-)
 				player.clueLevel = anagramsData.getLevel();
+				return true;
 			} else {
 				player.getDialogue().sendNpcChat("The puzzle doesn't seem to be complete yet.", Dialogues.SAD);
 				return true;
@@ -174,8 +175,8 @@ public class AnagramsScrolls {
 			player.getDialogue().sendNpcChat("Hello, solve this puzzle for me please.", Dialogues.HAPPY);
 			Puzzle.resetPuzzleItems(player);
 			Puzzle.addRandomPuzzle(player);
+			return true;
 		    }
-		    return true;
 		} else {
 		    Dialogues.setNextDialogue(player, 10009, 2);
 		    player.getDialogue().sendNpcChat("Thank you very much.", Dialogues.HAPPY);
@@ -185,8 +186,8 @@ public class AnagramsScrolls {
 		    BindingEffect bind = new BindingEffect(1000000);
 		    bind.initialize(hit); //try and step away during dialogue now :-)
 		    player.clueLevel = anagramsData.getLevel();
+		    return true;
 		}
-	    return false;
 	}
 
 	/* getting a random anagram clue */

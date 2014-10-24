@@ -204,6 +204,7 @@ public class SpeakToScrolls {
 				BindingEffect bind = new BindingEffect(1000000);
 				bind.initialize(hit); //try and step away during dialogue now :-)
 				player.clueLevel = speakData.getLevel();
+				return true;
 			} else {
 				player.getDialogue().sendNpcChat("The puzzle doesn't seem to be complete yet.", Dialogues.SAD);
 				return true;
@@ -224,9 +225,8 @@ public class SpeakToScrolls {
 		    bind.initialize(hit); //try and step away during dialogue now :-)
 		    player.clueLevel = speakData.getLevel();
 		    //ClueScroll.clueReward(player, player.clueLevel, "You recieve another clue!", true, "Here is your reward.");
-		return true;
+		    return true;
 	    }
-	    return false;
 	}
 
 }
