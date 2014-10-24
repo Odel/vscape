@@ -86,7 +86,7 @@ public class MaskDropController {
 			}
 		}
 		if(currentPosition != null)
-			currentMask = new GroundItem(getRandomMask(), currentPosition, false);  
+			currentMask = new GroundItem(getRandomMask(), currentPosition, 500, false);  
 		if(currentMask != null){
 			GroundItemManager.getManager().dropItem(currentMask);
 			lastPosition = currentPosition;
