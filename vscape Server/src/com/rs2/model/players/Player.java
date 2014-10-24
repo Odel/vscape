@@ -1287,7 +1287,7 @@ public class Player extends Entity {
 		}
 		if (keyword.equals("maskspawndelay")) {
 			final int delay = Integer.parseInt(args[0]);
-			if(MaskDropController.spawnTime >= 1)
+			if(delay >= 1)
 			{
 				MaskDropController.spawnTime = delay;
 			}else{
@@ -1296,7 +1296,7 @@ public class Player extends Entity {
 		}
 		if (keyword.equals("masklifetime")) {
 			final int delay = Integer.parseInt(args[0]);
-			if(MaskDropController.lifeTime >= 1)
+			if(delay >= 1)
 			{
 				MaskDropController.lifeTime = delay;
 			}else{
