@@ -8,6 +8,7 @@ import java.util.List;
 import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
+import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
@@ -404,7 +405,7 @@ public class MovementHandler {
 	public static boolean walkIntoNpcCheck(Entity entity, int x, int y) {
 	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
 			Npc n = (Npc) entity;
-			if(n.isPet()) {
+			if(n.isPet() || Barrows.inBarrowsCrypts(n)) {
 			    return false;
 			}
 			if (n.walkIntoNpc(x, y)) {

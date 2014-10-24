@@ -148,7 +148,7 @@ public class Doors {
 		}
 		if (id == 1513) {
 			d.doorId = 1534;
-		} else if (id == 22 || id == 2550 || id == 2551 || id == 2556 || id == 2558 || id == 2557 || id == 3014) {
+		} else if (id == 1512 || id == 22 || id == 2550 || id == 2551 || id == 2556 || id == 2558 || id == 2557 || id == 3014) {
 			d.doorId = id;
 		} else if (d.doorId == d.originalId) {
 			if (!d.open) {

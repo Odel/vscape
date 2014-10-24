@@ -23,6 +23,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitRecord;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.npcs.Npc;
@@ -875,7 +876,7 @@ public abstract class Entity {
 		return tradingEntity;
 	}
 	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
-	    if (leader != null && leader.isNpc() && !((Npc)leader).isPet()) {
+	    if (leader != null && leader.isNpc() && !((Npc)leader).isPet() && !Barrows.inBarrowsCrypts(leader)) {
 		for (Npc npc : World.getNpcs()) {
 		    if (npc == null || npc.isPet()) {
 			continue;
