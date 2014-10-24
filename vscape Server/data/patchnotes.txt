@@ -1,3 +1,13 @@
+@dre@=October 24th=
+@blu@Halloween Happenings
+H'ween masks will spawn around the world!
+There is a 30 minute cooldown on spawning,
+with a 5 minute lifetime. The world will
+announce when a mask spawns, when a mask
+is obtained, and if said mask is not found.
+
+@red@Happy hunting!
+
 @dre@=October 22nd=
 @blu@Waterfall Quest
 @red@-New bank interface, bank tabs are here.
