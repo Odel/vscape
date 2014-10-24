@@ -24,16 +24,9 @@ public class MaskDropController {
 	
 	private static ArrayList<Position> possiblePositions = new ArrayList<Position>();
 	private static Area[] areas = {
-		new Area(2713, 2759, 3149, 3170, 0),
-		new Area(2816, 2897, 3011, 3075, 0),
-		new Area(3395, 3452, 2883, 2941, 0),
-		new Area(3521, 3641, 3459, 3509, 0),
-		new Area(3298, 3328, 3386, 3446, 0),
-		new Area(2372, 2452, 3360, 3370, 0),
-		new Area(2575, 2625, 3115, 3135, 0),
 		new Area(3122, 3162, 3763, 3838, 0),
-		new Area(3199, 3319, 3692, 3755, 0),
-		new Area(3169, 3319, 3545, 3580, 0)
+		new Area(3169, 3319, 3545, 3580, 0),
+		new Area(3199, 3319, 3692, 3755, 0)
 	};
 	
 	public static Position currentPosition = new Position(0,0,0);
@@ -157,7 +150,7 @@ public class MaskDropController {
 	}
 	
 	private static Position getRandomPosition(){
-		if (50 >= (new Random().nextDouble() * 100))
+		if (75 >= (new Random().nextDouble() * 100))
 		{
 			return possiblePositions.get(Misc.random(possiblePositions.size()-1));
 		}else{
