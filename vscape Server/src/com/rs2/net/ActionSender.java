@@ -107,6 +107,7 @@ public class ActionSender {
             player.getInventory().addItem(new Item(player.getPendingItems()[i], player.getPendingItemsAmount()[i]));
         }
 		player.getPrivateMessaging().sendPMOnLogin();
+		sendIgnoreList(player.getIgnores());
 		sendMessage("Welcome to /v/scape.");
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 		//QPEdit(player.getQuestPoints());

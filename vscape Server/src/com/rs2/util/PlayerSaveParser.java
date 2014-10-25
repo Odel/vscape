@@ -162,6 +162,8 @@ public class PlayerSaveParser {
 					    	player.puzzleStoredItems[i] = new Item(puzzleStoredItems.get(i).getAsInt());
 					    }
 					}
+					if(itemData.get("recieveMasks") != null)
+						player.setReceivedMasks(itemData.get("recieveMasks").getAsBoolean());
     			}
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){

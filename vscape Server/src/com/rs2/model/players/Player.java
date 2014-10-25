@@ -59,7 +59,6 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
@@ -456,6 +455,7 @@ public class Player extends Entity {
     private long logoutTimer;
     private int coalTruckAmount;
     private int dfsCharges = 0;
+    private boolean receivedMasks = false;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -1273,37 +1273,7 @@ public class Player extends Entity {
 				}
 			}
 		}
-		
-		//hween debug
-		if (keyword.equals("forcemaskspawn")) {
-			MaskDropController.removeMask();
-			MaskDropController.spawnMask();
-		}
-		if (keyword.equals("forcemaskremove")) {
-			MaskDropController.removeMask();
-		}
-		if (keyword.equals("teletomask")) {
-			teleport(MaskDropController.currentPosition);
-		}
-		if (keyword.equals("maskspawndelay")) {
-			final int delay = Integer.parseInt(args[0]);
-			if(delay >= 1)
-			{
-				MaskDropController.spawnTime = delay;
-			}else{
-			    getActionSender().sendMessage("delay should be 1 minute or more");
-			}
-		}
-		if (keyword.equals("masklifetime")) {
-			final int delay = Integer.parseInt(args[0]);
-			if(delay >= 1)
-			{
-				MaskDropController.lifeTime = delay;
-			}else{
-			    getActionSender().sendMessage("lifeTime should be 1 minute or more");
-			}
-		}
-	
+
 		//sound debug
 		if (keyword.equals("sound")) {
 			final int id = Integer.parseInt(args[0]);
@@ -6541,6 +6511,17 @@ public class Player extends Entity {
 	public int getDfsCharges() {
 	    return this.dfsCharges;
 	}
+	
+	public void setReceivedMasks(boolean val)
+	{
+		receivedMasks = val;
+	}
+	
+	public boolean getReceivedMasks()
+	{
+		return receivedMasks;
+	}
+	
 	/**
 	 * @param lastPersonChallenged the lastPersonChallenged to set
 	 */

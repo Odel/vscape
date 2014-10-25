@@ -25,8 +25,6 @@ public class PrivateMessaging {
 			player.getActionSender().sendFriendList(player.getFriends()[i], checkOnlineStatus(player.getFriends()[i]));
 		}
 		
-	//	player.getActionSender().sendIgnoreList(player.getIgnores());
-		
         long name = player.getUsernameAsLong();
 		int world = logout ? 0 : checkOnlineStatus(name);
 		for (Player players : World.getPlayers()) {

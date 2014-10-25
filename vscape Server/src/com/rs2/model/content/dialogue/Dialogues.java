@@ -8362,6 +8362,58 @@ public class Dialogues {
 					}
 				}
 			break;
+			case 6390 : //Grim
+				if(player.getReceivedMasks() || player.hasItem(Constants.MASKS[0]) 
+						|| player.hasItem(Constants.MASKS[1]) || player.hasItem(Constants.MASKS[2])){
+					switch(player.getDialogue().getChatId())
+					{
+						case 1:
+							player.getDialogue().sendNpcChat("I have no business with you!", "Leave at once!", CONTENT);
+							player.getDialogue().endDialogue();
+						return true;
+					}
+				}else{
+					switch(player.getDialogue().getChatId())
+					{
+						case 1:
+							player.getDialogue().sendNpcChat("What is it that you seek "+player.getUsername()+"?", CONTENT);
+						return true;
+						case 2:
+							 player.getDialogue().sendPlayerChat("I wan't to have fun!", SAD);
+						return true;
+						case 3:
+							player.getDialogue().sendNpcChat("Fun? I had fun once it was horrible.","Here, I have something for you.", CONTENT);
+						return true;
+						case 4:
+							player.getDialogue().sendPlayerChat("Really? what is it.", CONTENT);
+						return true;
+						case 5:
+							if(player.getInventory().getItemContainer().freeSlots() < 3)
+							{
+								player.getDialogue().sendNpcChat("Come back when you have more inventory space..", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+							}else{
+								player.getDialogue().sendNpcChat("Here.", CONTENT);
+								Item mask = new Item(Constants.MASKS[0], 1);
+								Item mask2 = new Item(Constants.MASKS[1], 1);
+								Item mask3 = new Item(Constants.MASKS[2], 1);
+								player.getInventory().addItemOrBank(mask);
+								player.getInventory().addItemOrBank(mask2);
+								player.getInventory().addItemOrBank(mask3);
+								player.setReceivedMasks(true);
+							}
+						return true;
+						case 6:
+							 player.getDialogue().sendPlayerChat("Wow thanks!", HAPPY);
+						return true;
+						case 7:
+							player.getDialogue().sendNpcChat("'Happy' h'ween "+player.getUsername(), CONTENT);
+							player.getDialogue().endDialogue();
+						return true;
+					}
+				}
+			break;
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();

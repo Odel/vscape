@@ -156,6 +156,8 @@ public class Constants {
 	public static final int[] UNTRADEABLE_ITEMS = {6529, 3690, 3691, 6125, 6126, 6127, 1590, 1591, 772};
 	public static final int[] FUN_WEAPONS = { 4566, 1419, 2460, 2462, 2464, 2466, 2468, 2470, 2472, 2474, 2476, 8936, 8938 };
 
+    public static final int[] MASKS = { 1053, 1055, 1057};
+	
 	public static final int EMPTY_OBJECT = 6951;
 
 	public static final int PACKET_LENGTHS[] = {

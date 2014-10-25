@@ -468,6 +468,9 @@ public class ItemDefinition {
     	if (!stackable && !noteable) {
     		return true;
     	}
+    	if(untradable || Arrays.binarySearch(Constants.UNTRADEABLE_ITEMS, id) > -1){
+    		return true;
+    	}
         return Arrays.binarySearch(Constants.UNTRADEABLE_ITEMS, id) > -1;
     }
 

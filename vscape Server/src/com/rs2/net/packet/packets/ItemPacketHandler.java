@@ -15,7 +15,6 @@ import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -496,9 +495,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
-	    return;
-	}
-	if (MaskDropController.itemPickupHandling(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()))) {
 	    return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
