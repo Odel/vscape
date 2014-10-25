@@ -1021,6 +1021,10 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 299:
 		//MithrilSeeds.plantMithrilSeed(player);
 		return;
+	    case 6722:
+	    	player.getUpdateFlags().sendAnimation(2840);
+			player.getUpdateFlags().setForceChatMessage("Alas!");
+		return;
 	}
 
 	player.getActionSender().sendMessage("Nothing interesting happens.");
@@ -1051,7 +1055,10 @@ public class ItemPacketHandler implements PacketHandler {
 	Pouches.checkEssencePouch(player, item.getId());
 	switch (itemId) {
 	    case 4566: // rubber chicken
-		player.getUpdateFlags().sendAnimation(1835);
+	    	player.getUpdateFlags().sendAnimation(1835);
+		return;
+	    case 6722:
+	    	Dialogues.startDialogue(player, 2868);
 		return;
 	    case 11284: //dfs charge check
 	    case 11283:
@@ -1159,6 +1166,10 @@ public class ItemPacketHandler implements PacketHandler {
 	RSInterface inter = RSInterface.forId(player.getInterfaceId());
 	if (!player.hasInterfaceOpen(inter)) {
 	    return;
+	}
+	if (itemId == 6722){
+		player.getUpdateFlags().sendAnimation(2844);
+		player.getUpdateFlags().setForceChatMessage("Muahahahah!");
 	}
 	if (itemId == 6541) {
 	    player.getPets().registerPet(6541, 901);

@@ -157,6 +157,16 @@ public class Constants {
 	public static final int[] FUN_WEAPONS = { 4566, 1419, 2460, 2462, 2464, 2466, 2468, 2470, 2472, 2474, 2476, 8936, 8938 };
 
     public static final int[] MASKS = { 1053, 1055, 1057};
+    
+    public final static int[] SWEETS = {
+		4558,
+		4559,
+		4560,
+		4561,
+		4562,
+		4563,
+		4564 
+	};
 	
 	public static final int EMPTY_OBJECT = 6951;
 

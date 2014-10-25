@@ -14,6 +14,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.events.TrickOrTreat;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
@@ -104,6 +105,7 @@ import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Travel;
+
 import java.util.Random;
 
 public class WalkToActionHandler {
@@ -2174,6 +2176,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if (TrickOrTreat.handleNpcFirstClick(player, npc)) {
+					this.stop();
+					return;
+				}
 				if (player.getSlayer().doNpcSpecialEffect(npc)) {
 					this.stop();
 					return;
@@ -2295,6 +2301,10 @@ public class WalkToActionHandler {
 				if(PiratesTreasure.handleNpcClick(player, npc.getNpcId())) {
 				    this.stop();
 				    return;
+				}
+				if (TrickOrTreat.handleNpcSecondClick(player, npc)) {
+					this.stop();
+					return;
 				}
 				switch (player.getClickId()) {
 				case 166 :

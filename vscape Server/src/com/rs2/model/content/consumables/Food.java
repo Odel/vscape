@@ -50,6 +50,8 @@ public class Food {
 		TWENTYONE(21, -1, new int[]{397}), 
 		TWENTYTWOHP(22, -1, new int[]{391, 7060}),
 		
+		SWEETS(2, -1, new int[]{4558, 4559, 4560, 4561, 4562, 4563, 4564}),
+		
 		TUNACORN(13, 1923, new int[]{7068}), 
 		TUNABOWL(7, 1923, new int[]{7086}), 
 		CORNBOWL(7, 1923, new int[]{7088}), 

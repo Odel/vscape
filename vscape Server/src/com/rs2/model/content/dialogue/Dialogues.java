@@ -12,6 +12,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.events.TrickOrTreat;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.QuestHandler;
@@ -39,7 +40,6 @@ import com.rs2.model.transport.Travel;
 import com.rs2.model.transport.Travel.Route;
 import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
-
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -70,6 +70,7 @@ import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
 import com.rs2.model.transport.MagicCarpet;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -153,6 +154,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(player.getBarbarianSpirits().sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(TrickOrTreat.handleDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {
@@ -8360,6 +8364,64 @@ public class Dialogues {
 							player.teleport(new Position(2367,3487));
 						return true;
 					}
+				}
+			break;
+			case 2868 : // zombie head talk to
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("How did you die?", "What is your name?");
+						return true;
+					case 2 :
+						player.getDialogue().sendPlayerChat("Hey, Head?", Dialogues.CONTENT);
+						switch(optionId) {
+						case 1 :
+							player.getDialogue().setNextChatId(10);
+							return true;
+						case 2 :
+							player.getDialogue().setNextChatId(15);
+							return true;
+						}
+					break;
+					//question 1
+					case 10:
+						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
+						return true;
+					case 11:
+						player.getDialogue().sendPlayerChat("How did you die?", Dialogues.CONTENT);
+						return true;
+					case 12:
+						player.getDialogue().sendNpcChat("I stuck my head out for an old friend.", Dialogues.CONTENT);
+						return true;
+					case 13:
+						player.getDialogue().sendPlayerChat("You shouldn't get so cut up about it.", Dialogues.CONTENT);
+						return true;
+					case 14:
+						player.getDialogue().sendNpcChat("Well if i keep it all bottled up I'll turn into a head case.", Dialogues.CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					//question 2
+					case 15:
+						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
+						return true;
+					case 16:
+						player.getDialogue().sendPlayerChat("What is your name?", Dialogues.CONTENT);
+						return true;
+					case 17:
+						player.getDialogue().sendNpcChat("Mumblemumblemumble...", Dialogues.CONTENT);
+						return true;
+					case 18:
+						player.getDialogue().sendPlayerChat("What was that?", Dialogues.CONTENT);
+						return true;
+					case 19:
+						player.getDialogue().sendNpcChat("My name is Edward Cranium", Dialogues.CONTENT);
+						return true;
+					case 20:
+						player.getDialogue().sendPlayerChat("Edd Cranium?", "Hahahahahahahahahahaha!", Dialogues.CONTENT);
+						return true;
+					case 21:
+						player.getDialogue().sendNpcChat("Har har...", Dialogues.ANNOYED);
+						player.getDialogue().endDialogue();
+						return true;
 				}
 			break;
 			case 6390 : //Grim

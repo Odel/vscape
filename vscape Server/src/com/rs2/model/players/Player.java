@@ -456,6 +456,7 @@ public class Player extends Entity {
     private int coalTruckAmount;
     private int dfsCharges = 0;
     private boolean receivedMasks = false;
+    private boolean hasZombieHead = false;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -6520,6 +6521,16 @@ public class Player extends Entity {
 	public boolean getReceivedMasks()
 	{
 		return receivedMasks;
+	}
+	
+	public void setHasZombieHead(boolean val)
+	{
+		hasZombieHead = val;
+	}
+	
+	public boolean getHasZombieHead()
+	{
+		return hasZombieHead;
 	}
 	
 	/**
