@@ -289,6 +289,7 @@ public class BankManager {
 		if(currentTab != 0){
 			if(tabContainer.size() <= 0)
 			{
+				tabContainer.clear();
 				removeTab(currentTab);
 				selectTab(0, false);
 			}
@@ -338,7 +339,9 @@ public class BankManager {
 		if(fromTab.size() <= 0)
 		{
 			fromTab.clear();
-			removeTab(currentTab);
+			if(from != 0) {
+				removeTab(currentTab);
+			}
 		}
 		if(tab > (getUsedTabs()-1))
 		{
@@ -494,6 +497,12 @@ public class BankManager {
 		if(containerId >= 0)
 		{
 			tabContainer(containerId).remove(item);
+			if(containerId != 0){
+				if(tabContainer(containerId).size() <= 0)
+				{
+					removeTab(containerId);
+				}
+			}
 		}
 	}
 	
@@ -501,6 +510,12 @@ public class BankManager {
 		if(tabContains(tab, item.getId()))
 		{
 			tabContainer(tab).remove(item, slot);
+			if(tab != 0){
+				if(tabContainer(tab).size() <= 0)
+				{
+					removeTab(tab);
+				}
+			}
 		}
 	}
 	
