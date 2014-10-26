@@ -655,5 +655,14 @@ public class Misc {
     public static long secondsToTicks(long seconds) {
         return (long)Math.ceil(seconds * 1000d / 600d);
     }
+    
+    public static float toPercent(float value, float total)
+    {
+    	return (value / total) * 100;
+    }
 
+	public static float fromPercent(float percent, float total)
+	{
+		return (percent / 100) * total;
+	}
 }
