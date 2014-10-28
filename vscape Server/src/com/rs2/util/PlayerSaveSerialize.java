@@ -115,6 +115,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		npcDataObj.addProperty("killedClueAttacker", player.hasKilledClueAttacker());	
 		npcDataObj.addProperty("killedTreeSpirit", player.hasKilledTreeSpirit());
 		npcDataObj.addProperty("killedJungleDemon", player.hasKilledJungleDemon());
+		JsonObject catObj = new JsonObject();
+		catObj.addProperty("catItemId", player.getCat().getCatItem());
+		catObj.addProperty("growthStage", player.getCat().getGrowthStage());
+		catObj.addProperty("growthTime", player.getCat().getGrowthTime());
+		catObj.addProperty("hungerTime", player.getCat().getHungerTime());
+		catObj.addProperty("attentionTime", player.getCat().getAttentionTime());
+		catObj.addProperty("ratsCaught", player.getCat().getRatsCaught());
+		npcDataObj.add("catData", catObj);
 		characterObj.add("npcData", npcDataObj);
 		
 		JsonObject slayerDataObj = new JsonObject();

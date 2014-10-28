@@ -301,7 +301,7 @@ public class ErnestTheChicken implements Quest {
     }
     public boolean itemHandling(Player player, int itemId) { return false; }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if((firstItem == POISON && secondItem == FISH_FOOD) || (firstItem == FISH_FOOD && secondItem == POISON)) {
 	    player.getInventory().removeItem(new Item(POISON));
 	    player.getInventory().replaceItemWithItem(new Item(FISH_FOOD), new Item(POISON_FISH_FOOD));
@@ -728,6 +728,18 @@ public class ErnestTheChicken implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
     
     

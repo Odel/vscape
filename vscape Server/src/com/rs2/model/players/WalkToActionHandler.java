@@ -2104,6 +2104,10 @@ public class WalkToActionHandler {
 		if (npc == null || !npc.isRealNpc()) {
 			return;
 		}
+		if(player.getCat().unregisterCat(npc))
+		{
+			return;
+		}
 		for (int[] element : Pets.PET_IDS) {
 			if (player.getClickId() == element[1]) {
 				player.getPets().unregisterPet();
@@ -2175,6 +2179,12 @@ public class WalkToActionHandler {
 					player.getActionSender().sendMessage(npc.getDefinition().getName() + " is not interested in interacting with you right now.");
 					this.stop();
 					return;
+				}
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doNpcClicking(player, npc)) {
+				    	this.stop();
+				    	return;
+				    }
 				}
 				if (TrickOrTreat.handleNpcFirstClick(player, npc)) {
 					this.stop();
@@ -2423,6 +2433,11 @@ public class WalkToActionHandler {
 				Npc npc = World.getNpcs()[player.getNpcClickIndex()];
 				player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				if(player.getCat().interact(npc))
+				{
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 553:
 					Runecrafting.teleportRunecraft(player, npc);
@@ -2893,7 +2908,17 @@ public class WalkToActionHandler {
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
 					return;
 				}
-				if (FamilyCrest.doItemOnNpc(player, item, npc)) {
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doItemOnNpc(player, item, npc)) {
+				    	this.stop();
+				    	return;
+				    }
+				}
+			/*	if (FamilyCrest.doItemOnNpc(player, item, npc)) {
+					this.stop();
+					return;
+				}*/
+				if (player.getCat().itemOnNpc(item, npc)) {
 					this.stop();
 					return;
 				}

@@ -236,6 +236,10 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.getActionSender().sendMessage("You don't want to destroy your pet!");
 	    return;
 	}
+	if(player.getCat().registerCat(item.getId()))
+	{
+		return;
+	}
 	for (int[] element : Pets.PET_IDS) {
 	    if (item.getDefinition().getId() == element[0]) {
 		player.getPets().registerPet(element[0], element[1]);
@@ -351,8 +355,8 @@ public class ItemPacketHandler implements PacketHandler {
 	    }
 	}
 	for (Quest q : QuestHandler.getQuests()) {
-	    if (q.itemOnItemHandling(player, firstItem, secondItem)) {
-		return;
+	    if (q.itemOnItemHandling(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot)) {
+	    	return;
 	    }
 	}
 	if (TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {

@@ -110,6 +110,20 @@ public class Following {
 		((Player) leader).getPets().getPet().setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
 		return;
 	    } 
+	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() == npc){
+    		Player player = ((Player)leader);
+	    	if(!Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)){
+	    		int catId = npc.getNpcId();
+	            npc.setVisible(false);
+	            World.unregister(npc);
+	            player.getCat().registerCatNpc(catId);
+	            return;
+	    	}
+	    	if(!Misc.goodDistance(npc.getSpawnPosition(), npc.getPosition(), 8)) {
+	    		player.getCat().catNpc().setSpawnPosition(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()));
+				return;
+	    	}
+	    }
 	    if (Following.withinRange(entity, leader)) {
 		return;
 	    }

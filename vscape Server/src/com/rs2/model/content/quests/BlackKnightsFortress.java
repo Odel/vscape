@@ -267,7 +267,7 @@ public class BlackKnightsFortress implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) { return false; }
     
     public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
@@ -608,7 +608,17 @@ public class BlackKnightsFortress implements Quest {
 	}
 	return false;
     }
-    
-    
-    
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -271,6 +271,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setNpcClickIndex(npcSlot);
 		player.setInteractingEntity(npc);
 		player.setClickItem(itemId);
+		player.setSlot(itemSlot);
 		player.setClickId(npc.getNpcId());
 		player.setClickX(npc.getPosition().getX());
 		player.setClickY(npc.getPosition().getY());

@@ -51,7 +51,8 @@ public class QuestHandler {
 	new FamilyCrest(),
 	new TheGrandTree(),
 	new DwarfCannon(),
-	new WaterfallQuest()
+	new WaterfallQuest(),
+	new GertrudesCat()
     };
     
     public static void init() {
@@ -226,7 +227,9 @@ public class QuestHandler {
 		case 28182: //Waterfall Quest
 			showInterface(player,quests[31]);
         		return true;
-
+		case 28192: //Gertrudes cat
+			showInterface(player,quests[32]);
+        		return true;
         }
         return false;
     }

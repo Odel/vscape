@@ -8476,6 +8476,26 @@ public class Dialogues {
 					}
 				}
 			break;
+			//kittens/cats
+			case 100000 :
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Shoo away", "Nevermind.");
+						return true;
+					case 2 :
+						switch(optionId) {
+						case 1 :
+							player.getCat().RunAway(true);
+							player.getDialogue().endDialogue();
+							return true;
+						case 2 :
+							player.getDialogue().sendPlayerChat("Nevermind.", Dialogues.CONTENT);
+							player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
+				}
+			break;
 		}
 		if (player.getDialogue().getChatId() > 1) {
 			player.getActionSender().removeInterfaces();

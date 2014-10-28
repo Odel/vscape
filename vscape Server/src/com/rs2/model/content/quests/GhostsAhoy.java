@@ -516,7 +516,7 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
      
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	switch(firstItem) {
 	    case RED_DYE:
 	    case BLUE_DYE:
@@ -2598,5 +2598,17 @@ public class GhostsAhoy implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

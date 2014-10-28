@@ -126,6 +126,7 @@ import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
+import com.rs2.model.npcs.functions.Cat;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.container.Container;
@@ -259,6 +260,7 @@ public class Player extends Entity {
 	private SkillResources skillResources = new SkillResources(this);
 	private BrewData brewData = new BrewData(this);
 	private Pets pets = new Pets(this);
+	private Cat cat = new Cat(this);
 	private InterfaceClickHandler randomInterfaceClick = new InterfaceClickHandler(this);
 	private DialogueManager dialogue = new DialogueManager(this);
 	private BankPin bankPin = new BankPin(this);
@@ -2028,7 +2030,8 @@ public class Player extends Entity {
 		getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.");
 		return;
 	    }
-		player.getPets().unregisterPet();
+	    	player.getCat().unregisterCat();
+			player.getPets().unregisterPet();
             player.teleport(getPosition().clone());
 		}
 		else if (keyword.equals("modern")) {
@@ -2230,7 +2233,7 @@ public class Player extends Entity {
         }
         else if(keyword.equals("highscoresupdate"))
         {
-        	if (getUsername().equals("Bobster")){
+        	if (getUsername().equals("Odel")){
         		getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
         		SQL.cleanHighScores();
         		SQL.initHighScores();
@@ -2921,6 +2924,7 @@ public class Player extends Entity {
 		//
 		resetAllActions();
 		this.getPets().unregisterPet();
+		this.getCat().unregisterCat();
 		movePlayer(position);
 		getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
@@ -3119,6 +3123,7 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
+		getCat().initChecks();
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -3324,6 +3329,10 @@ public class Player extends Entity {
             b.start();
 			if (getPets().getPet() != null) {
 				getPets().unregisterPet();
+			}
+			if(getCat().catNpc() != null)
+			{
+				getCat().unregisterCat();
 			}
             b.stop();
             b = Benchmarks.getBenchmark("cannonUnregister");
@@ -3957,6 +3966,10 @@ public class Player extends Entity {
 
 	public Pets getPets() {
 		return pets;
+	}
+	
+	public Cat getCat() {
+		return cat;
 	}
 
 	public void setPrivateMessaging(PrivateMessaging privateMessaging) {
@@ -6585,7 +6598,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 14169); //forgettable tale
 		getActionSender().sendString("", 10115); //the fremennik trials
 		getActionSender().sendString("", 14604); //garden of tranquility
-		getActionSender().sendString("", 7360); //gertrude's cat
+		getActionSender().sendString("@red@Gertrudes Cat", 7360); //gertrude's cat
 		getActionSender().sendString("@red@Ghosts Ahoy", 12282); //ghosts ahoy
 		getActionSender().sendString("", 13577); //the giant dwarf
 		getActionSender().sendString("", 12839); //the golem

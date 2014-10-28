@@ -79,9 +79,13 @@ public interface Quest {
     
     public void sendQuestInterface(Player player);
     
+    public boolean doNpcClicking(final Player player, final Npc npc);
+    
+    public boolean doItemOnNpc(final Player player, int itemId, final Npc npc);
+    
     public boolean itemHandling(final Player player, int itemId);
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem);
+    public boolean itemOnItemHandling(final Player player, int firstItem, int secondItem, int firstSlot, int secondSlot);
     
     public boolean doItemOnObject(final Player player, int object, int item);
     

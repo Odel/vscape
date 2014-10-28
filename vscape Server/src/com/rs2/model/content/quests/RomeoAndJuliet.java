@@ -192,7 +192,7 @@ public class RomeoAndJuliet implements Quest {
    
     public boolean itemHandling(final Player player, int itemId) { return false; }
    
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
    
     public boolean doItemOnObject(final Player player, int object, int item) { return false; }
        
@@ -656,4 +656,16 @@ public class RomeoAndJuliet implements Quest {
         }
         return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

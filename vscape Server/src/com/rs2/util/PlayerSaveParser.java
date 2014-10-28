@@ -178,6 +178,15 @@ public class PlayerSaveParser {
 	                player.setKilledClueAttacker(npcData.get("killedClueAttacker").getAsBoolean());
 	                player.setKilledTreeSpirit(npcData.get("killedTreeSpirit").getAsBoolean());
 	                player.setKilledJungleDemon(npcData.get("killedJungleDemon").getAsBoolean());
+	                JsonObject catData = npcData.getAsJsonObject("catData");
+	                if(catData != null){
+	                	player.getCat().setCatItem(catData.get("catItemId").getAsInt());
+	                	player.getCat().setGrowthStage(catData.get("growthStage").getAsInt());
+	                	player.getCat().setGrowthTime(catData.get("growthTime").getAsInt());
+	                	player.getCat().setHungerTime(catData.get("hungerTime").getAsInt());
+	                	player.getCat().setAttentionTime(catData.get("attentionTime").getAsInt());
+	                	player.getCat().setRatsCaught(catData.get("ratsCaught").getAsInt());
+	                }
                 }
                 JsonObject slayerData = characterObj.getAsJsonObject("slayerData");
                 if(slayerData != null){

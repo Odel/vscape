@@ -242,7 +242,7 @@ public class GoblinDiplomacy implements Quest {
 	return false;
     }
 
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if((firstItem == YELLOW_DYE && secondItem == RED_DYE) || (firstItem == RED_DYE && secondItem == YELLOW_DYE)) {
 	    player.getActionSender().sendMessage("You mix the two dyes together.");
 	    player.getInventory().removeItem(new Item(RED_DYE));
@@ -675,7 +675,17 @@ public class GoblinDiplomacy implements Quest {
 	}
 	return false;
     }
-    
-    
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }

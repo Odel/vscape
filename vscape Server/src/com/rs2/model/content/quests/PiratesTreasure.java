@@ -311,7 +311,7 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if(firstItem == CHEST_KEY && secondItem == CHEST) {
 	    player.getActionSender().sendMessage("You unlock One-Eyed Hector's chest... and find it full of loot!");
 	    player.getInventory().replaceItemWithItem(new Item(CHEST), new Item(DIAMOND_RING));
@@ -814,6 +814,18 @@ public class PiratesTreasure implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
     
     

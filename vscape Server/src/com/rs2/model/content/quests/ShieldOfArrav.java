@@ -390,7 +390,7 @@ public class ShieldOfArrav implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if(firstItem == RIGHT_HALF_CERTIFICATE && secondItem == LEFT_HALF_CERTIFICATE) {
 	    if(player.getQuestStage(13) == 10) {
 		player.setQuestStage(13, 11);
@@ -887,5 +887,17 @@ public class ShieldOfArrav implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }
