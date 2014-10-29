@@ -218,7 +218,10 @@ public class Puzzle {// todo maybe hovering button message
 	if (getPosition(itemId).equals(new Position(0, 0, 0)) || getPosition(itemId) == null) {
 	    return false;
 	}
-
+	if (finishedPuzzle() && reload) {
+	    player.getActionSender().sendMessage("You have completed this puzzle!");
+	    return true;
+	}
 	Position position = getPosition(itemId);
 	Position blankPosition = getBlankPosition();
 	if (surroundedByBlank(getPosition(itemId))) {
@@ -262,9 +265,6 @@ public class Puzzle {// todo maybe hovering button message
 		}
 
 	    }
-	}
-	if (finishedPuzzle()) {
-	    player.getActionSender().sendMessage("You have completed the puzzle!");
 	}
 	return true;
     }
