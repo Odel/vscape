@@ -196,7 +196,7 @@ public class ItemPacketHandler implements PacketHandler {
 	packet.getIn().readShort();
 	player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
 	Item item = player.getInventory().getItemContainer().get(player.getSlot());
-	if (Puzzle.moveSlidingPiece(player, itemId)) {
+	if (player.getPuzzle().moveSlidingPiece(itemId, true)) {
 	    return;
 	}
 	if (item == null || item.getId() != itemId || !item.validItem()) {
@@ -856,7 +856,7 @@ public class ItemPacketHandler implements PacketHandler {
 	if (new Item(itemId).getDefinition().getName().toLowerCase().contains("clue scroll") || new Item(itemId).getDefinition().getName().toLowerCase().contains("challenge scroll")) {
 	    ClueScroll.cleanClueInterface(player);
 	}
-	if (Puzzle.loadClueInterface(player, itemId)) {
+	if (player.getPuzzle().loadClueInterface(itemId)) {
 	    return;
 	}
 	if (CoordinateScrolls.loadClueInterface(player, itemId)) {

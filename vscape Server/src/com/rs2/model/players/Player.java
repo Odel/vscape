@@ -212,6 +212,7 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private Puzzle puzzle = new Puzzle(this);
 	private Barrows barrows = new Barrows(this);
 	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
@@ -2089,7 +2090,7 @@ public class Player extends Entity {
 		}
 		else if (keyword.equals("solvepuzzle")) {
 		    for (int i = 0; i < this.puzzleStoredItems.length; i++) {
-			this.puzzleStoredItems[i] = new Item(Puzzle.getPuzzleIndex(Puzzle.index)[i]);
+			this.puzzleStoredItems[i] = new Item(this.getPuzzle().getPuzzleIndex(this.getPuzzle().index)[i]);
 		    }
 		}
 		else if (keyword.equals("barrowsreward")) {
@@ -3750,6 +3751,10 @@ public class Player extends Entity {
 	
 	public RuneDraw getRuneDraw() {
 		return runeDraw;
+	}
+	
+	public Puzzle getPuzzle() {
+		return puzzle;
 	}
 	
 	public Barrows getBarrows() {

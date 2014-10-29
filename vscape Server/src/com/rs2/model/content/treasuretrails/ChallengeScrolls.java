@@ -133,10 +133,6 @@ public class ChallengeScrolls {
 			player.getDialogue().sendNpcChat("Thank you, this is the right answer.", Dialogues.HAPPY);
 			player.getInventory().getItemContainer().remove(new Item(challengeData.getChallengeId(), 1));
 			player.getInventory().getItemContainer().remove(new Item(challengeData.getClueId(), 1));
-			HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
-			Hit hit = new Hit(player, player, hitDef);
-			BindingEffect bind = new BindingEffect(1000000);
-			bind.initialize(hit); //try and step away during dialogue now :-)
 		} else {
 			Dialogues.setNextDialogue(player, 10009, 3);
 			player.getDialogue().sendNpcChat("Sorry, this is the wrong answer, try again.", Dialogues.HAPPY);
