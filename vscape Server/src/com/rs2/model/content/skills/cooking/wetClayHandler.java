@@ -1,9 +1,7 @@
 package com.rs2.model.content.skills.cooking;
 
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;

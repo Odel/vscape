@@ -14,24 +14,13 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
-import com.rs2.model.content.events.TrickOrTreat;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
-import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.BlackKnightsFortress;
-import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.DragonSlayer;
-import com.rs2.model.content.quests.ElementalWorkshop;
-import com.rs2.model.content.quests.ErnestTheChicken;
-import com.rs2.model.content.quests.FamilyCrest;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
-import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
@@ -94,8 +83,6 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.ShieldOfArrav;
-import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
@@ -2186,10 +2173,6 @@ public class WalkToActionHandler {
 				    	return;
 				    }
 				}
-				if (TrickOrTreat.handleNpcFirstClick(player, npc)) {
-					this.stop();
-					return;
-				}
 				if (player.getSlayer().doNpcSpecialEffect(npc)) {
 					this.stop();
 					return;
@@ -2311,10 +2294,6 @@ public class WalkToActionHandler {
 				if(PiratesTreasure.handleNpcClick(player, npc.getNpcId())) {
 				    this.stop();
 				    return;
-				}
-				if (TrickOrTreat.handleNpcSecondClick(player, npc)) {
-					this.stop();
-					return;
 				}
 				switch (player.getClickId()) {
 				case 166 :

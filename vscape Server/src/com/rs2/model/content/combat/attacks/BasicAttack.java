@@ -16,7 +16,6 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.combat.weapon.AttackStyle;
-import com.rs2.model.content.combat.weapon.AttackStyle.Mode;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
@@ -45,6 +44,7 @@ public abstract class BasicAttack extends AttackScript {
 		this.attackDelay = -1;
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public int execute(CycleEventContainer container) {
 		if (requirements != null) {

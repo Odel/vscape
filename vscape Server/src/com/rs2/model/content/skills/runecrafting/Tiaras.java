@@ -3,7 +3,6 @@ package com.rs2.model.content.skills.runecrafting;
 import com.rs2.Constants;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.runecrafting.RunecraftAltars.Altar;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 

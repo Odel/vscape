@@ -1,13 +1,9 @@
 package com.rs2.model.content.randomevents.InterfaceClicking.impl;
 
-import com.rs2.model.Position;
-import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.dialogue.Dialogues;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.rs2.model.content.randomevents.EventsConstants;
-import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;

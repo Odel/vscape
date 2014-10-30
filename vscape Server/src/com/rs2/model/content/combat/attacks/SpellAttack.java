@@ -3,19 +3,10 @@ package com.rs2.model.content.combat.attacks;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
-import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackUsableResponse;
-import com.rs2.model.content.combat.CombatCycleEvent;
-import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
-import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.projectile.Projectile;
-import com.rs2.model.content.combat.projectile.ProjectileDef;
-import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
-
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
@@ -24,14 +15,10 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.Tick;
-import com.rs2.util.Misc;
 import com.rs2.util.requirement.EquipmentRequirement;
 import com.rs2.util.requirement.Requirement;
 import com.rs2.util.requirement.RuneRequirement;
 import com.rs2.util.requirement.SkillLevelRequirement;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *

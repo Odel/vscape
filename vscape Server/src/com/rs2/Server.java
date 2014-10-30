@@ -30,8 +30,6 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.util.clip.Region;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
-import com.rs2.util.sql.SQLEngine;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;

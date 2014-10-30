@@ -1,7 +1,5 @@
 package com.rs2.model.content.skills.cooking;
 
-import java.util.HashMap;
-
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

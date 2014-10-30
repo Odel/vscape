@@ -1,23 +1,11 @@
 package com.rs2.model.content.skills.Woodcutting;
 
-import com.rs2.Constants;
-import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
-import com.rs2.model.content.skills.Woodcutting.ChopTree.Tree;
-import com.rs2.model.content.skills.mining.MineOre.MiningData;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.ChopVines;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;

@@ -6,7 +6,6 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
 

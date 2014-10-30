@@ -102,8 +102,8 @@ public class NpcDropController {
 	}
 	
 	public void setRareTableChance(boolean bool) {
-	    if(bool) this.rareTableChance = 100;
-	    else if(!bool) this.rareTableChance = 130;
+	    if(bool) rareTableChance = 100;
+	    else if(!bool) rareTableChance = 130;
 	}
 
 	/**

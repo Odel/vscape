@@ -1,6 +1,5 @@
 package com.rs2.model.content.randomevents;
 
-import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.ground.GroundItem;

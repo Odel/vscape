@@ -534,7 +534,7 @@ public class PlayerSave {
 		
 	}
 	
-	public static int loadQuests(Player player) {
+	public static int loadQuests(Player player) throws IOException {
     	if(!useNewFormat || (useNewFormat && !hasNewFormat(player)))
     	{
 		String line = "";
@@ -556,6 +556,7 @@ public class PlayerSave {
 		if (File1) {
 		} else {
 			System.out.println(player.getUsername()+": unexisting user.");
+			characterfile.close();
 			return 0;
 		}
 		
@@ -563,6 +564,7 @@ public class PlayerSave {
 			line = characterfile.readLine();
 		} catch(IOException ioexception) {
 			System.out.println(player.getUsername()+": error loading file.");
+			characterfile.close();
 			return 3;
 		}
 		if(line.contains("EOF")) {

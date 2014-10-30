@@ -1829,13 +1829,15 @@ public class Client extends RSApplet {
 			int k = variousSettings[i];
 			if (j == 1) {
 				if (k == 1)
-					Texture.method372(0.90000000000000002D);
+					chosenBrightness = 0.90000000000000002D;
 				if (k == 2)
-					Texture.method372(0.80000000000000004D);
+					chosenBrightness = 0.80000000000000004D;
 				if (k == 3)
-					Texture.method372(0.69999999999999996D);
+					chosenBrightness = 0.69999999999999996D;
 				if (k == 4)
-					Texture.method372(0.59999999999999998D);
+					chosenBrightness = 0.59999999999999998D;
+				
+				Texture.method372(chosenBrightness);
 				ItemDef.mruNodes1.unlinkAll();
 				welcomeScreenRaised = true;
 			}
@@ -9718,6 +9720,48 @@ public class Client extends RSApplet {
 		curFadeAlpha = 0;
 	}
 
+	private static final int lightingAreas[][] = {
+			{3082, 3132, 3324, 3384, 90, 0}
+		};
+	public static int[] lightingForArea(int x, int y) {
+		int[] setting = new int[2];
+		setting[0] = 0;
+		setting[1] = 0;
+		for(int j = 0; j < lightingAreas.length; j++) {
+			if(x > lightingAreas[j][0] && x < lightingAreas[j][1] && y > lightingAreas[j][2] && y < lightingAreas[j][3]) {
+				setting[0] = lightingAreas[j][4];
+				setting[1] = lightingAreas[j][5];
+				return setting;
+			}
+		}
+		return setting;
+	}
+	private int curAreaAlpha = 0;
+	private int areaAlpha = 0;
+	private int areaColor = 0;
+	private void handleLighting(){
+		int x = baseX + (myPlayer.x - 6 >> 7);
+		int y = baseY + (myPlayer.y - 6 >> 7);
+		int[] lightSettings = lightingForArea(x, y);
+		areaAlpha = lightSettings[0];
+		areaColor = lightSettings[1];
+		if(curAreaAlpha >= 0){
+			if(areaAlpha < curAreaAlpha)
+			{
+				if(curAreaAlpha > areaAlpha)
+					curAreaAlpha -= 2;
+			}else if(areaAlpha > curAreaAlpha)
+			{
+				if(curAreaAlpha < areaAlpha)
+					curAreaAlpha += 2;
+			}
+		}
+		if(curAreaAlpha <= 0){
+			return;
+		}
+		DrawingArea.method335(areaColor, 0, clientWidth, clientHeight, curAreaAlpha, 0);
+	}
+	
 	private void draw3dScreen() {
 		if (showChat)
 			drawSplitPrivateChat();
@@ -12983,11 +13027,10 @@ public class Client extends RSApplet {
 		Model.anInt1685 = super.mouseX - 4;
 		Model.anInt1686 = super.mouseY - 4;
 		DrawingArea.setAllPixelsToZero();
-		int x = baseX + (myPlayer.x - 6 >> 7);
-		int y = baseY + (myPlayer.y - 6 >> 7);
 	//	DrawingArea.method336(clientHeight, 0, 0, 0xC8C0A8, clientWidth);
 		worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
 		worldController.clearObj5Cache();
+	//	handleLighting();
 		updateEntities();
 		drawHeadIcon();
 		method37(k2);
@@ -13204,6 +13247,8 @@ public class Client extends RSApplet {
 	}  
 	
 	public boolean outDated = true;
+	
+	public double chosenBrightness = 0.80000000000000004D;
 	
 	public boolean autocast;
 	public int rights;

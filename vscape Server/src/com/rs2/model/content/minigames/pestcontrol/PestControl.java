@@ -6,7 +6,6 @@ import com.rs2.model.Entity;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.AttackScript;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
@@ -751,6 +750,7 @@ public class PestControl {
 		player.teleport(LOBBY_EXIT);
 	}
 	
+	@SuppressWarnings("unused")
 	private static void sendLobbyMessage(String msg)
 	{
 		for(Player player : new ArrayList<Player>(lobbyPlayers))

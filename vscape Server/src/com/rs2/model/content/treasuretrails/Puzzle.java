@@ -7,7 +7,6 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.Misc;
-import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA. User: vayken Date: 03/01/12 Time: 22:01 To change

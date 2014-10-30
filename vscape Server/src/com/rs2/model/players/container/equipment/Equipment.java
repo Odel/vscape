@@ -7,7 +7,6 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
-import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;

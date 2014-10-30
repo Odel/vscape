@@ -177,6 +177,16 @@ public class Login {
                 }
             }
 			break;
+		case AWAITING_LOGIN_COMPLETE:
+			break;
+		case LOGGED_IN:
+			break;
+		case LOGGED_OUT:
+			break;
+		case LOGGING_OUT:
+			break;
+		default:
+			break;
 		}
 	}
 

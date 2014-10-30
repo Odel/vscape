@@ -4,10 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.rs2.model.World;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

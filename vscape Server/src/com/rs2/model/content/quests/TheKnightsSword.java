@@ -1,8 +1,6 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
-import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;

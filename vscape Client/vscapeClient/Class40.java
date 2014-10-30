@@ -3,8 +3,6 @@ package vscapeClient;
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import vscapeClient.sign.signlink;
-
 final class Class40
 {
 

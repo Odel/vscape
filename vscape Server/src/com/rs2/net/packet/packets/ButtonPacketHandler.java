@@ -39,7 +39,6 @@ import com.rs2.model.transport.GnomeGlider;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.item.Item;
 
 public class ButtonPacketHandler implements PacketHandler {

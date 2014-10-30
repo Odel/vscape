@@ -102,7 +102,8 @@ public class GroundItem {
         return respawns;
     }
 
-    public boolean canMergeWithItem(GroundItem other) {
+    @SuppressWarnings("incomplete-switch")
+	public boolean canMergeWithItem(GroundItem other) {
         if (other == this)
             return false;
         if (other.respawns || respawns)

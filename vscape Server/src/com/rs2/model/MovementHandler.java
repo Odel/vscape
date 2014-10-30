@@ -13,7 +13,6 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
-import com.rs2.model.region.music.RegionMusic;
 import com.rs2.util.Misc;
 
 /**

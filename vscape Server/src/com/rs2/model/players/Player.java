@@ -31,8 +31,6 @@ import com.rs2.GlobalVariables;
 import com.rs2.HostGateway;
 import com.rs2.Server;
 import com.rs2.cache.interfaces.RSInterface;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
@@ -1251,12 +1249,11 @@ public class Player extends Entity {
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-			player.getUpdateFlags().setForceChatMessage(whattosay);
 		    if(player != null) {
-			this.getActionSender().sendMessage("Made " + player.getUsername() +" say something.");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
+		    	player.getUpdateFlags().setForceChatMessage(whattosay);
+		    	this.getActionSender().sendMessage("Made " + player.getUsername() +" say something.");
+		    } else {
+		    	this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
 		else if (keyword.equals("teletoclue")) {
@@ -1462,12 +1459,11 @@ public class Player extends Entity {
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    final double exp = player.getSkill().getExp()[skill];
 		    if(player != null) {
-			this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
+			    final double exp = player.getSkill().getExp()[skill];
+			    this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".");
+		    } else {
+		    	this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
 		
@@ -1477,12 +1473,11 @@ public class Player extends Entity {
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    player.getSkill().subtractExp(skill, exp/2.25);
 		    if(player != null) {
-			this.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
+			    player.getSkill().subtractExp(skill, exp/2.25);
+			    this.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+		    } else {
+		    	this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
 		if(keyword.equals("addexp")) {
@@ -1491,12 +1486,11 @@ public class Player extends Entity {
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    player.getSkill().addExp(skill, exp/2.25);
 		    if(player != null) {
-			this.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
+			    player.getSkill().addExp(skill, exp/2.25);
+			    this.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+		    } else {
+		    	this.getActionSender().sendMessage("Could not find player.");
 		    }
 		}
 		
@@ -2609,6 +2603,7 @@ public class Player extends Entity {
 	 * @param newLvl
 	 *            the new level
 	 */
+	@SuppressWarnings("unused")
 	private void Stat(String player, int skill, int newLvl) {
 
 	}
@@ -2620,6 +2615,7 @@ public class Player extends Entity {
 	 *            the player to mute
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private void Mute(String[] args) {
 
 	}
@@ -2843,6 +2839,7 @@ public class Player extends Entity {
 		new ShutdownWorldProcess(seconds).start();
 	}
 
+	@SuppressWarnings("unused")
 	private void writeNpc(Npc npc) {
 		String filePath = "./data/npcs/spawn-config.cfg";
 		try {

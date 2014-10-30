@@ -1,6 +1,5 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;

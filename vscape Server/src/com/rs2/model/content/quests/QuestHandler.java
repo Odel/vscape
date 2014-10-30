@@ -1,5 +1,7 @@
 package com.rs2.model.content.quests;
 
+import java.io.IOException;
+
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
@@ -76,7 +78,11 @@ public class QuestHandler {
         {
                 player.setQuestStage(q.getQuestID(), 0);
         }
-        PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
+        try {
+			PlayerSave.loadQuests(player);
+		} catch (IOException e) {
+			
+		}
     }
     
     public static void initQuestLog(Player player){

@@ -1,10 +1,8 @@
 package com.rs2.model.content.quests;
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
@@ -23,8 +21,6 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.content.skills.*;
-import com.rs2.model.players.ShopManager;
 
 public class PrinceAli implements Quest {
 

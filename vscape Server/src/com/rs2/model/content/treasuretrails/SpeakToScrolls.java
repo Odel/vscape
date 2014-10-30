@@ -1,9 +1,5 @@
 package com.rs2.model.content.treasuretrails;
 
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

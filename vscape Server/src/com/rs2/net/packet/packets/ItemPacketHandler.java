@@ -2,17 +2,8 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
-import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.attacks.SpellAttack;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.projectile.ProjectileDef;
-import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
-import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
@@ -47,7 +38,6 @@ import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
-import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -68,13 +58,11 @@ import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls;
 import com.rs2.model.content.treasuretrails.DiggingScrolls;
 import com.rs2.model.content.treasuretrails.MapScrolls;
-import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.Sextant;
 import com.rs2.model.content.treasuretrails.SpeakToScrolls;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.TradeManager;
@@ -89,7 +77,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 public class ItemPacketHandler implements PacketHandler {
 
@@ -177,7 +164,8 @@ public class ItemPacketHandler implements PacketHandler {
 	}
     }
 
-    private void handleExamineItem(Player player, Packet packet) {
+    @SuppressWarnings("unused")
+	private void handleExamineItem(Player player, Packet packet) {
 	int itemId = packet.getIn().readShort(); // Item ID.
 	ItemDefinition itemDef = new Item(itemId).getDefinition();
 	if (itemDef != null) {

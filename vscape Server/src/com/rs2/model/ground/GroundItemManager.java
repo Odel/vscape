@@ -30,7 +30,8 @@ public class GroundItemManager implements Runnable {
 	public static final int PUBLIC_HIDE_TICKS = (int)Misc.secondsToTicks(150);
 	public static final int UNTRADABLE_HIDE_TICKS = (int)Misc.secondsToTicks(180);
 
-    @Override
+    @SuppressWarnings("incomplete-switch")
+	@Override
     public void run() {
         try {
             int size = groundItems.size();
@@ -228,7 +229,8 @@ public class GroundItemManager implements Runnable {
     }
 
 
-    public void dropItem(GroundItem item) {
+    @SuppressWarnings("incomplete-switch")
+	public void dropItem(GroundItem item) {
         Player[] updatePlayers = null;
         switch (item.getStage()) {
             case PRIVATE:

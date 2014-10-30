@@ -14,11 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLConnection;
 import java.net.URL;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.Enumeration;
-
 import vscapeClient.sign.signlink;
 
 public class CacheDownloader {

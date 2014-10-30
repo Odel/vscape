@@ -10,7 +10,6 @@ import com.rs2.model.Position;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;

@@ -5,10 +5,6 @@ import com.rs2.model.players.Player;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.util.Misc;
 
 /**
  * By Mikey` of Rune-Server

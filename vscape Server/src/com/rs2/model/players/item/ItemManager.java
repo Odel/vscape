@@ -8,7 +8,6 @@ import com.rs2.model.World;
 import com.rs2.model.content.skills.farming.FarmingConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;

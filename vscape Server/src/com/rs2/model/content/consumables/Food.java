@@ -1,6 +1,5 @@
 package com.rs2.model.content.consumables;
 
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;

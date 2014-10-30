@@ -18,11 +18,9 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.players.MovementLock;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.util.Misc;
 import java.util.Random;
 
 public class WaterfallQuest implements Quest {

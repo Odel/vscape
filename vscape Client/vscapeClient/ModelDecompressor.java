@@ -1,9 +1,6 @@
 package vscapeClient;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
-
 import vscapeClient.sign.signlink;
 
 /**

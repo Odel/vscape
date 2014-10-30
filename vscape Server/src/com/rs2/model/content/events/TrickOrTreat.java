@@ -1,13 +1,9 @@
 package com.rs2.model.content.events;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.ground.GroundItem;
@@ -266,5 +262,4 @@ public class TrickOrTreat {
 		}
 		return false;
 	}
-
 }

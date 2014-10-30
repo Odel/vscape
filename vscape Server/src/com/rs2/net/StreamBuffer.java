@@ -160,6 +160,7 @@ public abstract class StreamBuffer {
 		 *            the value type
 		 * @return the value
 		 */
+		@SuppressWarnings("incomplete-switch")
 		public int readByte(boolean signed, ValueType type) {
 			int value = buffer.get();
 			switch (type) {
@@ -567,6 +568,7 @@ public abstract class StreamBuffer {
 		 *            the value type of each byte
 		 * @return a buffer filled with the data
 		 */
+		@SuppressWarnings("incomplete-switch")
 		public byte[] readBytesReverse(int amount, ValueType type) {
 			byte[] data = new byte[amount];
 			int dataPosition = 0;
@@ -799,6 +801,7 @@ public abstract class StreamBuffer {
 		 * @param type
 		 *            the value type
 		 */
+		@SuppressWarnings("incomplete-switch")
 		public void writeByte(int value, ValueType type) {
 			if (getAccessType() != AccessType.BYTE_ACCESS) {
 				throw new IllegalStateException("Illegal access type.");

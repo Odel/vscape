@@ -15,7 +15,6 @@ import com.google.gson.JsonParser;
 import com.rs2.Constants;
 //import java.security.MessageDigest;
 import com.rs2.model.players.Player;
-import com.rs2.model.content.skills.Skill;
 import com.rs2.util.PlayerSave;
 
 

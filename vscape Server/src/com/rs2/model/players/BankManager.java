@@ -1,12 +1,12 @@
 package com.rs2.model.players;
-
+/*
 import com.rs2.Constants;
 import com.rs2.model.content.BankPin;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.item.Item;
-import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.cache.interfaces.RSInterface;*/
 
 public class BankManager {
 /*

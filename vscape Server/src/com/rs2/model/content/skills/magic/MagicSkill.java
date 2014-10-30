@@ -172,6 +172,7 @@ public abstract class MagicSkill extends CycleEvent {
 
 	public static void spellOnItem(final Player player, final Spell spell, final int itemId, final int slot) {
 		MagicSkill magicSkill = new MagicSkill(player, spell) {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
 				switch (spell) {
@@ -210,6 +211,7 @@ public abstract class MagicSkill extends CycleEvent {
 
 	public static void spellOnObject(final Player player, final Spell spell, final int objectId, final int x, final int y, final int z) {
 		MagicSkill magicSkill = new MagicSkill(player, spell) {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
 				CacheObject object = ObjectLoader.object(objectId, x, y, z);
@@ -258,6 +260,7 @@ public abstract class MagicSkill extends CycleEvent {
 		player.getUpdateFlags().sendFaceToDirection(otherPlayer.getPosition());
 		player.getMovementHandler().reset();
 		final MagicSkill magicSkill = new MagicSkill(player, spell) {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
 				switch (spell) {
@@ -281,6 +284,7 @@ public abstract class MagicSkill extends CycleEvent {
 
 	public static void spellButtonClicked(final Player player, final Spell spell) {
 		MagicSkill magicSkill = new MagicSkill(player, spell) {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
 				switch (spell) {
@@ -342,6 +346,7 @@ public abstract class MagicSkill extends CycleEvent {
 	public static void spellOnGroundItem(final Player player, final Spell spell, final int itemId, final Position itemPos) {
 		final int task = player.getTask();
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (!player.checkTask(task)) {
@@ -379,6 +384,7 @@ public abstract class MagicSkill extends CycleEvent {
 	public static void doSpellOnGroundItem(final Player player, final Spell spell, final int itemId, final Position itemPos) {
 		final GroundItem groundItem = GroundItemManager.getManager().findItem(player,  itemId, itemPos);
 		final MagicSkill magicSkill = new MagicSkill(player, spell) {
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
 				if (groundItem == null)
@@ -394,6 +400,7 @@ public abstract class MagicSkill extends CycleEvent {
 				return true;
 			}
 
+			@SuppressWarnings("incomplete-switch")
 			@Override
 			public void onHit(HitDef hitDef) {
 				switch (spell) {

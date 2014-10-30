@@ -1,9 +1,7 @@
 package com.rs2.model.content.minigames.gnomeball;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.World;
-import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;

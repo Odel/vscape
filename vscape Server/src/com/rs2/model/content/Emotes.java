@@ -1,6 +1,5 @@
 package com.rs2.model.content;
 
-import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeTravelData;
 import com.rs2.model.players.Player;
 
 /**

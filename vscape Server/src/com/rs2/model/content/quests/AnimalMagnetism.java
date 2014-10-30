@@ -12,8 +12,6 @@ import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import static com.rs2.model.content.quests.GhostsAhoy.BLACK_INTERFACE_TEXT;
 import static com.rs2.model.content.quests.GhostsAhoy.STRING_ON_BLACK;
 
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

@@ -12,7 +12,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -29,8 +28,9 @@ public class NpcLoader {
 
 	/**
 	 * Loads auto-spawn file
+	 * @throws IOException 
 	 **/
-	public static boolean loadAutoSpawn(String FileName) {
+	public static boolean loadAutoSpawn(String FileName) throws IOException {
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -48,6 +48,7 @@ public class NpcLoader {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
 			System.out.println(FileName + ": error loading file.");
+			characterfile.close();
 			return false;
 		}
 		while (EndOfFile == false && line != null) {
@@ -72,6 +73,7 @@ public class NpcLoader {
 					characterfile.close();
 				} catch (IOException ioexception) {
 				}
+				characterfile.close();
 				return true;
 			}
 			try {

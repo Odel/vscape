@@ -1,13 +1,10 @@
 package vscapeClient;
-import vscapeClient.sign.signlink;
-
 import java.net.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 
 
 public class Jframe extends client implements ActionListener {

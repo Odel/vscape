@@ -1,13 +1,8 @@
 package com.rs2.model.content.skills.cooking;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
-import com.rs2.model.Position;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.objects.GameObjectDef;

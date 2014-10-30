@@ -12,7 +12,6 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.item.Item;
