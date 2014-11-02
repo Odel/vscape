@@ -354,7 +354,7 @@ public class Cat {
 		hungerMessage2 = false;
 	}
 	
-	public void initChecks(){
+	/*public void initChecks(){
 		if(player.getQuestStage(32) <= 0){
 			for(int item : catItems){
 				if(player.hasItem(item))
@@ -378,7 +378,7 @@ public class Cat {
 				}
 			}
 		}
-	}
+	}*/
 	
 	public Npc catNpc(){
 		return cat;

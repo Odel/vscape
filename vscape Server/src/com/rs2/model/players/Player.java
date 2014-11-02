@@ -1275,6 +1275,12 @@ public class Player extends Entity {
 			}
 		}
 
+		if(keyword.equals("config"))
+		{
+			final int config = Integer.parseInt(args[0]);
+			final int config_value = Integer.parseInt(args[1]);
+			getActionSender().sendConfig(config, config_value);
+		}
 		//sound debug
 		if (keyword.equals("sound")) {
 			final int id = Integer.parseInt(args[0]);
@@ -3121,7 +3127,7 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
-		getCat().initChecks();
+	//	getCat().initChecks();
 	}
 
 	public boolean beginLogin() throws Exception {
