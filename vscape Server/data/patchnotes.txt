@@ -1,3 +1,8 @@
+@dre@=November 2nd=
+@blu@Gertrude's Cat
+-Puzzle box fixes.
+-Removed the Halloween event.
+
 @dre@=October 26th=
 @blu@Halloween Happenings VER2
 
