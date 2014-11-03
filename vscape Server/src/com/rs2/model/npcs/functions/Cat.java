@@ -170,8 +170,8 @@ public class Cat {
             player.getActionSender().sendMessage("You pick up your cat.");
             player.getInventory().addItemOrBank(new Item(catItemId, 1));
             catActive = false;
-		}else if(!player.getInventory().canAddItem(new Item(catItemId)) && !player.getBankManager().roomForItem(new Item(catItemId))) {
-			RunAway(false);
+		}else if(!player.getInventory().canAddItem(new Item(catItemId,1)) && !player.getBankManager().roomForItem(new Item(catItemId,1))) {
+			RunAway(true);
 		}
 		return true;
 	}
@@ -262,6 +262,7 @@ public class Cat {
 			return;
 		if(catData.npcIdForStage(growthStage+1) == -1)
 			return;
+		ResetHunger();
 		growthTime = 0;
 		growthStage++;
 		catItemId = catData.itemIdForStage(growthStage);

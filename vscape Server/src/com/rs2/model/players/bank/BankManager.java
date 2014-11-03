@@ -558,7 +558,17 @@ public class BankManager {
 	//Free Room methods
 	public boolean roomForItem(Item item)
 	{
-		return false;
+		int containerId = tabsContain(item.getId());
+		if(containerId >= 0)
+		{
+			return true;
+		}else{
+			if(!roomForItems()){
+				return false;
+			}else{
+				return true;
+			}
+		}
 	}
 	
 	public boolean roomForItems()
