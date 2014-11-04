@@ -87,32 +87,6 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 
 	public int mapAmount = 0;
 
-/*	public void start(StreamLoader streamLoader, Client client1) {
-		byte[] abyte2 = streamLoader.getDataForName("map_index");
-		Stream stream2 = new Stream(abyte2);
-		int j1 = abyte2.length / 7;
-		mapIndices1 = new int[j1];
-		mapIndices2 = new int[j1];
-		mapIndices3 = new int[j1];
-		for (int i2 = 0; i2 < j1; i2++) {
-			mapIndices1[i2] = stream2.readUnsignedWord();
-			mapIndices2[i2] = stream2.readUnsignedWord();
-			mapIndices3[i2] = stream2.readUnsignedWord();
-			mapAmount++;
-		}
-		System.out.println("Map Amount: " + mapAmount + "");
-		abyte2 = streamLoader.getDataForName("midi_index");
-		stream2 = new Stream(abyte2);
-		j1 = abyte2.length;
-		anIntArray1348 = new int[j1];
-		for (int k2 = 0; k2 < j1; k2++)
-			anIntArray1348[k2] = stream2.readUnsignedByte();
-
-		clientInstance = client1;
-		running = true;
-		clientInstance.startRunnable(this, 2);
-	}*/
-	
 	public void start(StreamLoader streamLoader, Client client1) {
         byte[] abyte2 = streamLoader.getDataForName("map_index");
         Stream stream2 = new Stream(abyte2);

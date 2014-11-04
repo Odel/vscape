@@ -1269,7 +1269,7 @@ public class Client extends RSApplet {
 				continue;
 			anIntArrayArray929[l][i1] = anInt1265;
 		}
-		if (!npc.desc.aBoolean84)
+		if (!npc.desc.hasActions)
 			k += 0x80000000;
 		worldController.method285(plane, npc.anInt1552, method42(plane, npc.y, npc.x), k, npc.y, (npc.anInt1540 - 1) * 64 + 60, npc.x, npc, npc.aBoolean1541);
 		}
@@ -7645,7 +7645,7 @@ public class Client extends RSApplet {
 			entityDef = entityDef.method161();
 		if (entityDef == null)
 			return;
-		if (!entityDef.aBoolean84)
+		if (!entityDef.hasActions)
 			return;
 		String s = entityDef.name;
 		if (entityDef.combatLevel != 0)
@@ -10561,7 +10561,7 @@ public class Client extends RSApplet {
 				EntityDef entityDef = npc.desc;
 				if(entityDef.childrenIDs != null)
 					entityDef = entityDef.method161();
-				if(entityDef != null && entityDef.aBoolean87 && entityDef.aBoolean84) {
+				if(entityDef != null && entityDef.drawMapDot && entityDef.hasActions) {
 					int i1 = npc.x / 32 - myPlayer.x / 32;
 					int k3 = npc.y / 32 - myPlayer.y / 32;
 					markMinimap(mapDotNPC, i1, k3);
