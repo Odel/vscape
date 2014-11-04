@@ -1,3 +1,9 @@
+@dre@=November 4th=
+-Pest Control improvements:
+a.) Ravagers now ravage barriers.
+b.) Grunts are a little "smarter".
+-Cat fixes.
+
 @dre@=November 2nd=
 @blu@Gertrude's Cat
 -Puzzle box fixes.
