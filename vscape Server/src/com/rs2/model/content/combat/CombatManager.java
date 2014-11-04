@@ -1,6 +1,8 @@
 package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -12,6 +14,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
+import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -604,8 +607,23 @@ public class CombatManager extends Tick {
 			    players.hit(15 + Misc.random(15), HitType.NORMAL);
 		    }
 		    for (Npc npcs : World.getNpcs()) {
-			if (npcs != null && npcs.goodDistanceEntity(died, 2) && npcs != died && !PestControl.isPortal(npcs))
+			if (npcs != null && npcs.goodDistanceEntity(died, 3) && npcs != died && !PestControl.isPortal(npcs))
 			    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
+		    }
+		    for (PestControl.BarricadeData b : PestControl.BarricadeData.values()) {
+			if (b.forName(b.name()) != null) {
+			    for (Position p : b.iterablePositions()) {
+				if (PestControl.getBrokenBarricades().contains(p)) {
+				    continue;
+				}
+				final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
+				if (g != null) {
+				    if (Misc.goodDistance(died.getPosition(), p, 3)) {
+					b.ravage(p, false);
+				    }
+				}
+			    }
+			}
 		    }
 		}
 		if(died.isNpc() && PestControl.isPortal((Npc) died) && died.inPestControlGameArea()) {

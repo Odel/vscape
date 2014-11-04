@@ -10,13 +10,16 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.DoubleDoors;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
 import com.rs2.util.Misc;
@@ -308,56 +311,54 @@ public class PestControl {
 	    }
 	}
 
-	public int getAdditive(int side, int rotation) {
+	public int getAdditive(int side, int face) {
 	    int additive = 1;
-	    if (side == 1 && rotation == 3) {
+	    if (side == 1 && (face == 2 || face == 1)) {
+		additive = -1;
+	    } else if (side == 1 && face == 3) {
 		additive = 1;
-	    } else if (side == 4 && rotation == 3) {
+	    } else if ((side == 2 || side == 3) && face == 2) {
 		additive = -1;
-	    } else if (side == 4 && rotation == 2) {
+	    } else if (side == 4 && face == 0) {
+		additive = -1;
+	    } else if (side == 4 && (face == 2 || face == 3)) {
 		additive = 1;
-	    } else if (side == 3 && rotation == 0) {
-		additive = -1;
-	    } else if (side == 1 && rotation == 1) {
-		additive = -1;
-	    } else if (side == 4 && rotation == 0) {
-		additive = -1;
 	    }
 	    return additive;
 	}
 
-	public void ravage(Position p) {
+	public void ravage(Position p, boolean adjacent) {
 	    int x = p.getX();
 	    int y = p.getY();
 	    int side = this.sideForCoords(x, y);
 	    if (side != 0) {
 		CacheObject index = ObjectLoader.object(this.leftCoords[0], this.leftCoords[1], 0);
 		CacheObject g = ObjectLoader.object(x, y, 0);
-		CacheObject g2 = ObjectLoader.object(index.getRotation() == 2 ? x + getAdditive(side, g.getRotation()) : x, index.getRotation() == 1 ? y + getAdditive(side, g.getRotation()) : index.getRotation() == 3 ? y + getAdditive(side, g.getRotation()) : y, 0);
+		CacheObject g2 = ObjectLoader.object(index.getRotation() == 2 ? x + getAdditive(side, g.getDef().getFace()) : x, index.getRotation() == 1 ? y + getAdditive(side, g.getDef().getFace()) : index.getRotation() == 3 ? y + getAdditive(side, g.getDef().getFace()) : y, 0);
 		if (!brokenBarricades.contains(p)) {
 		    ObjectHandler.getInstance().removeObject(x, y, 0, g.getType());
 		    int oldId = side == 1 ? this.leftId : side == 2 ? this.centerId : side == 3 ? this.centerId : this.rightId;
 		    int newId = side == 1 ? BROKEN.leftId : side == 2 ? BROKEN.centerId : side == 3 ? BROKEN.centerId : BROKEN.rightId;
 		    GameObject o = new GameObject(newId, x, y, 0, g.getRotation(), g.getType(), oldId, 999999);
 		    ObjectHandler.getInstance().addObject(o, false);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), 0);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), 1);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), 2);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), 3);
+		    for(int i = 0; i < 5; i++) {
+			ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), i);
+			ObjectHandler.getInstance().removeDoorClip(x, y, 0, i);
+		    }
 		    brokenBarricades.add(p);
 		}
-		if (g2 != null && !brokenBarricades.contains(g2.getLocation())) {
+		if (g2 != null && !brokenBarricades.contains(g2.getLocation()) && adjacent) {
 		    int side2 = this.sideForCoords(g2.getLocation().getX(), g2.getLocation().getY());
 		    ObjectHandler.getInstance().removeObject(g2.getLocation().getX(), g2.getLocation().getY(), 0, g2.getType());
 		    int oldId = side2 == 1 ? this.leftId : side2 == 2 ? this.centerId : side2 == 3 ? this.centerId : this.rightId;
 		    int newId = side2 == 1 ? BROKEN.leftId : side2 == 2 ? BROKEN.centerId : side2 == 3 ? BROKEN.centerId : BROKEN.rightId;
 		    GameObject o = new GameObject(newId, g2.getLocation().getX(), g2.getLocation().getY(), 0, g2.getRotation(), g2.getType(), oldId, 999999);
 		    ObjectHandler.getInstance().addObject(o, false);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g2.getType(), 0);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g2.getType(), 1);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g2.getType(), 2);
-		    ObjectHandler.getInstance().removeClip(x, y, 0, g2.getType(), 3);
-		    brokenBarricades.add(p);
+		    for(int i = 0; i < 5; i++) {
+			ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), i);
+			ObjectHandler.getInstance().removeDoorClip(x, y, 0, i);
+		    }
+		    //We don't add to brokenBarricades so that ravagers can wreck shit
 		}
 	    }
 	}
@@ -416,11 +417,11 @@ public class PestControl {
 	SHIFTER_76(3736, true),
 	SHIFTER_90(3738, true),
 	SHIFTER_104(3740, true),
-	RAVAGER_36(3742, true),
-	RAVAGER_53(3743, true),
-	RAVAGER_71(3744, true),
-	RAVAGER_89(3745, true),
-	RAVAGER_106(3746, true),
+	RAVAGER_36(3742, false),
+	RAVAGER_53(3743, false),
+	RAVAGER_71(3744, false),
+	RAVAGER_89(3745, false),
+	RAVAGER_106(3746, false),
 	SPINNER_36(3747, false),
 	SPINNER_55(3748, false),
 	SPINNER_74(3749, false),
@@ -568,8 +569,6 @@ public class PestControl {
 				    spawnGrunts();
 				} else if (picklesTime) {
 				    spawnGrunts();
-				    spawnGrunts();
-				    spawnGrunts();
 				}
 				handleGeneralNpcBehavior();
 			    } else if (getKnightHealth() != knight.getCurrentHp()) {
@@ -653,24 +652,19 @@ public class PestControl {
 				    player.addPcPoints((int) Math.floor((player.getPcDamage() - 50) / 100d), player);
 				}
 			    }
-
-			    player.resetEffects();
-			    player.removeAllEffects();
-			    player.heal(100);
-			    player.getPrayer().resetAll();
-			    player.getSkill().refresh();
-			    leaveGame(player);
 			    int reward = player.getCombatLevel() * 10;
 			    player.getInventory().addItem(new Item(995, reward));
 			} else {
 			    player.getActionSender().sendMessage("@red@Game lost.");
-			    player.resetEffects();
-			    player.removeAllEffects();
-			    player.heal(100);
-			    player.getPrayer().resetAll();
-			    player.getSkill().refresh();
-			    leaveGame(player);
 			}
+			player.resetEffects();
+			player.removeAllEffects();
+			player.heal(100);
+			player.getPrayer().resetAll();
+			player.getSkill().refresh();
+			player.getInventory().removeAllOfItem(new Item(1511));
+			player.getPestControlBarricades().clear();
+			leaveGame(player);
 		    }
 		}
 	    }
@@ -687,6 +681,8 @@ public class PestControl {
 	gameTime = 0;
 	lobbyTime = LOBBY_TIME;
 	gamePlayers.clear();
+	gameGrunts.clear();
+	ravagers.clear();
 	destroyAllNpcs();
 	resetShields();
 	setKnightHealth(200);
@@ -796,12 +792,12 @@ public class PestControl {
 		PortalData portalData = PortalData.values()[i];
 		GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
 		Npc grunt = new Npc(!picklesTime ? gruntData.npcId : 1828);
-		if(grunt.getDefinition().getName().toLowerCase().contains("ravager")) {
+		if(isRavager(grunt)) {
 		    ravagers.add(grunt);
 		} else {
 		    gameGrunts.add(grunt);
 		}
-		if (gruntData.attackKnight && !picklesTime) {
+		if ((gruntData.attackKnight || isRavager(grunt)) && !picklesTime) {
 		    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(2), portalData.y + Misc.randomMinusOne(2), 0));
 		    grunt.setSpawnPosition(knight.getPosition());
 		    World.register(grunt);
@@ -809,8 +805,8 @@ public class PestControl {
 		} else {
 		    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
 		    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
-		    grunt.setMinWalk(new Position(portalData.x - 8, portalData.y - 8));
-		    grunt.setMaxWalk(new Position(portalData.x + 8, portalData.y + 8));
+		    grunt.setMinWalk(new Position(portalData.x - 5, portalData.y - 5));
+		    grunt.setMaxWalk(new Position(portalData.x + 5, portalData.y + 5));
 		    grunt.setWalkType(Npc.WalkType.WALK);
 		    World.register(grunt);
 		}
@@ -900,8 +896,14 @@ public class PestControl {
     }
 
     public static void attackKnight(Npc grunt) {
-	CombatCycleEvent.startCombat(grunt, knight);
+	if(Misc.goodDistance(grunt.getPosition(), knight.getPosition(), 15)) {
+	    CombatCycleEvent.startCombat(grunt, knight);
+	} else {
+	    grunt.walkTo(knight.getPosition(), true);
+	}
 	grunt.getUpdateFlags().sendFaceToDirection(knight.getPosition());
+	grunt.getUpdateFlags().setFace(knight.getPosition());
+	grunt.getUpdateFlags().setFaceToDirection(true);
     }
 
     public static void healPortal(Npc grunt) {
@@ -936,22 +938,28 @@ public class PestControl {
 	    return;
 	}
 	for (Npc npc : ravagers) {
-	    ravageBarricade(npc);
+	    if(npc.isVisible() && !npc.isAttacking()) {
+		ravageBarricade(npc);
+	    }
 	}
     }
 
     public static void handleGeneralNpcBehavior() {
-	for (Npc npc : gameGrunts) {
-	    if (npc.getCombatingEntity() != null) {
+	for (Npc npc : World.getNpcs()) {
+	    if (npc == null || !npc.inPestControlGameArea()) {
+		continue;
+	    }
+	    npc.setSpawnPosition(npc.getPosition());
+	    if (isShifter(npc) && !Misc.goodDistance(npc.getPosition(), knight.getPosition(), 3)) {
+		teleportShifter(npc);
+		continue;
+	    }
+	    if (isSpinner(npc) && !npc.isAttacking()) {
+		healPortal(npc);
 		continue;
 	    }
 	    if (shouldAttackKnight(npc)) {
 		attackKnight(npc);
-		if (npc.getDefinition().getName().toLowerCase().contains("shifter")) {
-		    teleportShifter(npc);
-		}
-	    } else if (isSpinner(npc)) {
-		healPortal(npc);
 	    }
 	}
     }
@@ -964,9 +972,11 @@ public class PestControl {
 	}
 	return false;
     }
+    
     public static boolean isRavager(Npc npc) {
 	return npc.getNpcId() >= 3742 && npc.getNpcId() <= 3746;
     }
+    
     public static boolean isSplatter(Npc npc) {
 	return npc.getNpcId() >= 3727 && npc.getNpcId() <= 3731;
     }
@@ -982,6 +992,10 @@ public class PestControl {
     public static boolean isSpinner(Npc npc) {
 	return npc.getNpcId() >= 3747 && npc.getNpcId() <= 3751;
     }
+    
+    public static boolean isShifter(Npc npc) {
+	return npc.getNpcId() >= 3732 && npc.getNpcId() <= 3740;
+    }
 
     public static void ravageBarricade(Npc npc) {
 	for (BarricadeData b : BarricadeData.values()) {
@@ -996,21 +1010,33 @@ public class PestControl {
 			if (Misc.goodDistance(npc.getPosition(), p, 2)) {
 			    npc.getUpdateFlags().sendFaceToDirection(p);
 			    npc.getUpdateFlags().sendAnimation(npc.getDefinition().getAttackAnim());
-			    b.ravage(p);
+			    b.ravage(p, true);
 			    break;
+			} else {
+			    for(Position p2 : b.iterablePositions()) {
+				if(brokenBarricades.contains(p2)) {
+				    continue;
+				}
+				if(Misc.goodDistance(npc.getPosition(), p2, 1)) {
+				    npc.walkTo(p2, true);
+				}
+			    }
+			    //Else, roam
+			    npc.setMinWalk(new Position(npc.getPosition().getX() - 5, npc.getPosition().getY() - 5));
+			    npc.setMaxWalk(new Position(npc.getPosition().getX() + 5, npc.getPosition().getY() + 5));
+			    npc.setWalkType(Npc.WalkType.WALK);
 			}
 		    }
 		}
-		//Else, roam
-		npc.setMinWalk(new Position(npc.getPosition().getX() - 20, npc.getPosition().getY() - 20));
-		npc.setMaxWalk(new Position(npc.getPosition().getX() + 20, npc.getPosition().getY() + 20));
-		npc.setWalkType(Npc.WalkType.WALK);
 	    }
 	}
     }
 
     public static void teleportShifter(Npc npc) {
 	int hp = npc.getCurrentHp();
+	if(hp == 0 || !npc.isVisible()) {
+	    return;
+	}
 	npc.setVisible(false);
 	npc.setDead(true);
 	World.unregister(npc);
@@ -1018,13 +1044,8 @@ public class PestControl {
 	newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
 	newNpc.setSpawnPosition(knight.getPosition());
 	World.register(newNpc);
-	if (hp == 0) {
-	    newNpc.setDead(true);
-	    newNpc.setVisible(false);
-	    World.unregister(newNpc);
-	}
-	newNpc.setCurrentHp(hp);
 	newNpc.walkTo(knight.getPosition(), gameActive);
+	newNpc.setCurrentHp(hp);
 	attackKnight(newNpc);
     }
 
@@ -1124,10 +1145,72 @@ public class PestControl {
 	}
     }
     
+    public static boolean handleBarricadeClicking(final Player player, final int objectId, final int x, final int y) {
+	switch (objectId) {
+	    case 14228:
+	    case 14227:
+	    case 14229: //Damaged barricades
+	    case 14232:
+	    case 14230:
+	    case 14231: //Broken barricades
+		if (player.getInventory().playerHasItem(1511)) {
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+			    ArrayList<Position> repairs = player.getPestControlBarricades();
+			    CacheObject g = ObjectLoader.object(x, y, 0);
+			    ObjectHandler.getInstance().removeObject(x, y, 0, 10);
+			    boolean broken = objectId == 14230 ? true : objectId == 14231 ? true : objectId == 14232;
+			    int side = 0;
+			    for (BarricadeData b : BarricadeData.values()) {
+				if (b.forName(b.name()) == null || b.sideForCoords(x, y) == 0) {
+				    continue;
+				}
+				side = b.sideForCoords(x, y);
+			    }
+			    if (broken) {
+				new GameObject(side == 1 ? BarricadeData.DAMAGED.getLeftId() : side == 2 ? BarricadeData.DAMAGED.getCenterId() : side == 3 ? BarricadeData.DAMAGED.getCenterId() : BarricadeData.DAMAGED.getRightId(), x, y, 0, g.getRotation(), g.getType(), objectId, 999999);
+				player.getActionSender().sendMessage("You carefully patch up the broken barricade.");
+			    } else {
+				new GameObject(side == 1 ? BarricadeData.REPAIRED.getLeftId() : side == 2 ? BarricadeData.REPAIRED.getCenterId() : side == 3 ? BarricadeData.REPAIRED.getCenterId() : BarricadeData.REPAIRED.getRightId(), x, y, 0, g.getRotation(), g.getType(), objectId, 999999);
+				player.getActionSender().sendMessage("You fully repair the barricade.");
+			    }
+			    ObjectHandler.getInstance().addClip(objectId, x, y, 0, g.getDef().getFace(), 10);
+			    ObjectHandler.getInstance().addDoorClip(x, y, 0, g.getDef().getFace());
+			    
+			    player.getInventory().removeItem(new Item(1511));
+			    Position p = new Position(x, y, 0);
+			    brokenBarricades.remove(p);
+			    if (!repairs.contains(p) && !broken) {
+				repairs.add(p);
+				player.addPcDamage(5);
+			    }
+			    player.setStopPacket(false);
+			}
+		    }, 2);
+		} else {
+		    player.getActionSender().sendMessage("You need some logs to fix this barricade.");
+		}
+	    return true;
+	}
+	return false;
+    }
+    
     public static boolean handleObjectClicking(Player player, int objectId, int x, int y) {
 	switch (objectId) {
 	    case 14315: //gangplank
 		if (x == 2658 && y == 2639) {
+		    if(player.getInventory().playerHasItem(1511)) {
+			player.getActionSender().sendMessage("You cannot take your own logs into the game area.");
+			return true;
+		    }
 		    if (!player.inPestControlLobbyArea()) {
 			joinLobby(player);
 		    }
@@ -1178,6 +1261,10 @@ public class PestControl {
 
     private static boolean isInGame(Player player) {
 	return gamePlayers.contains(player);
+    }
+    
+    public static ArrayList<Position> getBrokenBarricades() {
+	return brokenBarricades;
     }
 
 }

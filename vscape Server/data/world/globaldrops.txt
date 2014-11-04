@@ -1,5 +1,17 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+1511:1:2655:2608:0:5 //pc logs
+1511:1:2654:2607:0:5 //pc logs
+1511:1:2655:2607:0:5 //pc logs
+1511:1:2653:2607:0:5 //pc logs
+1511:1:2652:2606:0:5 //pc logs
+1511:1:2655:2608:0:5 //pc logs
+1511:1:2653:2607:0:5 //pc logs
+1511:1:2652:2606:0:5 //pc logs
+1511:1:2660:2608:0:5 //pc logs
+1511:1:2661:2607:0:5 //pc logs
+1511:1:2663:2606:0:5 //pc logs
+1511:1:2661:2605:0:5 //pc logs
 0:1:2567:3444:2:15 //dwarven remains
 1607:1:3170:3885:0:60 //wilderness sapphire
 247:1:2507:3088:0:5 //jangerberries
