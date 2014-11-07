@@ -77,9 +77,6 @@ public class LogHandler {
 	{
 		try {
 			yellLogWriter = new BufferedWriter(new FileWriter(LogDirectory + "yell.txt", true));
-			System.out.println("file opened");
-
-
 			try {
 				String time = Format.format(new Date());
 				yellLogWriter.write("["+time+"] "+name + ": " + msg);	

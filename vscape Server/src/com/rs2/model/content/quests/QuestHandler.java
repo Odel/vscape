@@ -2,6 +2,7 @@ package com.rs2.model.content.quests;
 
 import java.io.IOException;
 
+import com.rs2.model.players.CommandHandler;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
@@ -244,7 +245,7 @@ public class QuestHandler {
     {
         if (quest != null) 
         {
-	    player.ClearNotes();
+	    CommandHandler.ClearNotes(player);
 	    quest.showInterface(player);
 	    quest.sendQuestTabStatus(player);
             resetInterface(player);
