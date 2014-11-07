@@ -75,6 +75,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -214,6 +215,7 @@ public class Player extends Entity {
 	private Barrows barrows = new Barrows(this);
 	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
+	private Pillory pillory = new Pillory(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
 	private boolean justWonRuneDraw = false;
@@ -500,12 +502,12 @@ public class Player extends Entity {
 	private String desiredSkullOfGhostsAhoyFlag = "black";
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
-	public CanoeStationData curCanoeStation;
+	private CanoeStationData curCanoeStation;
     private String currentChannel = null;
-    
     private boolean homeTeleporting = false;
-    
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
+    private boolean inJail = false;
+ 
        
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -919,12 +921,15 @@ public class Player extends Entity {
 			appendToBugList(fullString);
 		}
 		else if (keyword.equals("home")) {
-		    if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
+		    if (getInJail() || inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
 			getActionSender().sendMessage("You cannot do that here!");
 		    } else {
 			if(this.getStaffRights() < 2) {
 			    getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
 			} else {
+				if(getInJail()){
+					setInJail(false);
+				}
 			    teleport(new Position(Constants.START_X, Constants.START_Y, 0));
 			}
              /*   teleport(new Position(Constants.START_X, Constants.START_Y, 0));
@@ -1275,12 +1280,49 @@ public class Player extends Entity {
 				}
 			}
 		}
+		
+		if(keyword.equals("jail"))
+		{
+			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+		    long nameLong = NameUtil.nameToLong(name);
+		    Player player = World.getPlayerByName(nameLong);
+		    if(player != null) {
+		    	player.getPillory().JailPlayer();
+		    	getActionSender().sendMessage("Jailed "+ name);
+		    }else{
+		    	getActionSender().sendMessage("Could not find player "+name);
+		    }
+		}
+		if(keyword.equals("unjail"))
+		{
+			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+		    long nameLong = NameUtil.nameToLong(name);
+		    Player player = World.getPlayerByName(nameLong);
+		    if(player != null) {
+		    	player.getPillory().UnJailPlayer();
+		    	getActionSender().sendMessage("UnJailed "+ name);
+		    }else{
+			    getActionSender().sendMessage("Could not find player "+name);
+		    }
+		}
 
 		if(keyword.equals("config"))
 		{
 			final int config = Integer.parseInt(args[0]);
 			final int config_value = Integer.parseInt(args[1]);
 			getActionSender().sendConfig(config, config_value);
+		}
+		if(keyword.equals("interfaceanim"))
+		{
+			final int interfaceId = Integer.parseInt(args[0]);
+			final int anim = Integer.parseInt(args[1]);
+			getActionSender().sendInterfaceAnimation(interfaceId, anim);
+		}
+		if(keyword.equals("interfacemodel"))
+		{
+			final int interfaceId = Integer.parseInt(args[0]);
+			final int modelId = Integer.parseInt(args[1]);
+			getActionSender().sendComponentInterface(interfaceId, modelId);
 		}
 		//sound debug
 		if (keyword.equals("sound")) {
@@ -2990,9 +3032,11 @@ public class Player extends Entity {
         }, delayTime);
 }
 	public void movePlayer(Position position) {
+		Position lastPosition = getPosition().clone();
 		getPosition().setAs(position);
-		getPosition().setLastX(position.getX());
-		getPosition().setLastY(position.getY() + 1);
+		getPosition().setLastX(lastPosition.getX());
+		getPosition().setLastY(lastPosition.getY());
+		getPosition().setLastZ(lastPosition.getZ());
 		getMovementHandler().reset();
 		setResetMovementQueue(true);
 		setNeedsPlacement(true);
@@ -3771,6 +3815,10 @@ public class Player extends Entity {
 	
 	public FreakyForester getFreakyForester() {
 		return freakyForester;
+	}
+	
+	public Pillory getPillory() {
+		return pillory;
 	}
 	
 	public GhostsAhoyPetition getPetition() {
@@ -5986,6 +6034,14 @@ public class Player extends Entity {
 
 	public BrewData getBrewData() {
 		return brewData;
+	}
+	
+	public boolean getInJail() {
+		return inJail;
+	}
+
+	public void setInJail(boolean state) {
+		inJail = state;
 	}
 
 	public boolean hasCombatEquipment() {

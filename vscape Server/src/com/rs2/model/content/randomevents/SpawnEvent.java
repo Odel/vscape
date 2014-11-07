@@ -32,6 +32,8 @@ public class SpawnEvent {
 	public static void spawnNpc(Player player, RandomNpc npc) {
         if (player.getSpawnedNpc() != null)
             return;
+        if (player.getInJail())
+            return;
 		NpcLoader.spawnNpc(player, new Npc(npc.getId() + addValue(player.getCombatLevel())), true, true);
 	}
 	

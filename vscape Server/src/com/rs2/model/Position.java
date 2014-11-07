@@ -14,13 +14,15 @@ public class Position {
 	private int z;
 	private int lastX;
 	private int lastY;
-
+	private int lastZ;
+	
 	public Position() {
 	    this.x = 0;
 	    this.y = 0;
 	    this.z = 0;
 	    this.lastX = 0;
 	    this.lastY = 0;
+	    this.lastZ = 0;
 	}
 	/**
 	 * Creates a new Position with the specified coordinates. The Z coordinate
@@ -79,6 +81,7 @@ public class Position {
 		this.lastX = other.lastX;
 		this.lastY = other.lastY;
 		this.z = other.z;
+		this.lastZ = other.z;
 	}
 
 	/**
@@ -189,6 +192,25 @@ public class Position {
 	 */
 	public int getLastY() {
 		return lastY;
+	}
+	
+	/**
+	 * Sets the Z coordinate.
+	 * 
+	 * @param z
+	 *            the Z coordinate
+	 */
+	public void setLastZ(int z) {
+		lastZ = z;
+	}
+
+	/**
+	 * Gets the Z coordinate.
+	 * 
+	 * @return the Z coordinate
+	 */
+	public int getLastZ() {
+		return lastZ;
 	}
 
 	/**

@@ -59,6 +59,10 @@ public class PlayerSaveParser {
 	            player.setStaffRights(characterObj.get("rights").getAsInt());
                 player.setMuteExpire(characterObj.get("muteExpire").getAsInt());
                 player.setBanExpire(characterObj.get("banExpire").getAsInt());
+                if(characterObj.get("inJail") != null)
+                {
+                	player.setInJail(characterObj.get("inJail").getAsBoolean());
+                }
 	            JsonObject position = characterObj.getAsJsonObject("position");
 	            if(position != null){
 	            player.getPosition().setX(position.get("x") != null ? position.get("x").getAsInt() : Constants.START_X);
@@ -66,6 +70,12 @@ public class PlayerSaveParser {
 	            player.getPosition().setY(position.get("y") != null ? position.get("y").getAsInt() : Constants.START_Y);
 	            player.getPosition().setLastY(player.getPosition().getY() + 1);
 	            player.getPosition().setZ(position.get("z") != null ? position.get("z").getAsInt() : Constants.START_Z);
+	            }
+	            JsonObject positionLast = characterObj.getAsJsonObject("lastPosition");
+	            if(positionLast != null){
+	            player.getPosition().setLastX(positionLast.get("x") != null ? positionLast.get("x").getAsInt() : Constants.START_X);
+	            player.getPosition().setLastY(positionLast.get("y") != null ? positionLast.get("y").getAsInt() : Constants.START_Y);
+	            player.getPosition().setLastZ(positionLast.get("z") != null ? positionLast.get("z").getAsInt() : Constants.START_Z);
 	            }
 	            JsonObject appearance = characterObj.getAsJsonObject("appearance");
 	            if(appearance != null) {

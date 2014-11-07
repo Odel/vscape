@@ -65,6 +65,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return false;
+        }
 		if (player.isHomeTeleporting()) {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return false;
@@ -94,6 +98,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return false;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return false;
+        }
 		player.getUpdateFlags().sendAnimation(714);
 		player.getUpdateFlags().sendHighGraphic(301);
 		teleport(pos.getX(), pos.getY(), pos.getZ(), true);
@@ -125,6 +133,10 @@ public class Teleportation {
 		player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 		return false;
 	    }
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return false;
+        }
 	    return true;
 	}
 
@@ -149,6 +161,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return false;
+        }
 		teleport(pos.getX(), pos.getY(), pos.getZ(), false);
 		return true;
 	}
@@ -172,6 +188,10 @@ public class Teleportation {
         if (player.isTeleblocked() || player.cantTeleport()) {
             player.getActionSender().sendMessage("You can't teleport out of here!");
             return;
+        }
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return;
         }
         teleportHome(pos.getX(), pos.getY(), pos.getZ());
 	}
@@ -228,6 +248,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return;
+        }
 		player.setStopPacket(true);
 		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -278,6 +302,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return;
+        }
         if (graphic)
             player.getUpdateFlags().sendHighGraphic(342);
 		player.getUpdateFlags().sendAnimation(1816);
@@ -319,6 +347,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return;
 		}
+        if (player.getInJail()){
+			player.getActionSender().sendMessage("You cannot teleport while in jail.");
+			return;
+        }
 		player.getUpdateFlags().sendHighGraphic(110);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int teleTimer = 6;

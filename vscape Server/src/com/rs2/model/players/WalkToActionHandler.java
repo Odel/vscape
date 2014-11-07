@@ -84,6 +84,7 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.FreakyForester;
+import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -454,6 +455,9 @@ public class WalkToActionHandler {
 					return;
 				}
 				switch (id) {
+				case 6836 :
+						player.getPillory().openInterface();
+					break;
 				case 2114 : // coal truck
 					CoalTruck.withdrawCoal(player);
 					break;

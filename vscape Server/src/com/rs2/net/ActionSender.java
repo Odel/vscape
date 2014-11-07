@@ -807,10 +807,10 @@ public class ActionSender {
 	
 	
 
-	public ActionSender sendDialogueAnimation(int modelId, int animId) {
+	public ActionSender sendInterfaceAnimation(int intefaceChildId, int animId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
 		out.writeHeader(player.getEncryptor(), 200);
-		out.writeShort(modelId);
+		out.writeShort(intefaceChildId);
 		out.writeShort(animId);
 		player.send(out.getBuffer());
 		return this;

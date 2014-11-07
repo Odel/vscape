@@ -5,6 +5,7 @@ import java.util.Random;
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.npcs.Npc;
@@ -149,6 +150,9 @@ public class ThieveStalls {
 				player.getSkill().addExp(Skill.THIEVING, stall.getXp());
 				int face = SkillHandler.getFace(objectId, objectX, objectY, player.getPosition().getZ());
 				new GameObject(emptyId(objectId), objectX, objectY, player.getPosition().getZ(), face, 10, objectId, stall.getRespawnTime());
+				if (player.getPillory().doJailEvent()) {
+					player.getPillory().JailPlayer();
+				}
 				container.stop();
 			}
 

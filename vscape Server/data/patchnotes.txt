@@ -1,3 +1,6 @@
+@dre@=November 7th=
+-Pillory random event
+
 @dre@=November 4th=
 -Pest Control improvements:
 a.) Ravagers now ravage barriers.

@@ -27,11 +27,17 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("mac", player.getMacAddress());
 		characterObj.addProperty("muteExpire", player.getMuteExpire());
 		characterObj.addProperty("banExpire", player.getBanExpire());
+		characterObj.addProperty("inJail", player.getInJail());
 		JsonObject positionObj = new JsonObject();
 		positionObj.addProperty("x", player.getPosition().getX());
 		positionObj.addProperty("y", player.getPosition().getY());
 		positionObj.addProperty("z", player.getPosition().getZ());
 		characterObj.add("position", positionObj);
+		JsonObject positionLastObj = new JsonObject();
+		positionLastObj.addProperty("x", player.getPosition().getLastX());
+		positionLastObj.addProperty("y", player.getPosition().getLastY());
+		positionLastObj.addProperty("z", player.getPosition().getLastZ());
+		characterObj.add("lastPosition", positionLastObj);
 		JsonObject appearanceObj = new JsonObject();
 		appearanceObj.addProperty("gender", player.getGender());
 		JsonArray appearanceArray = new JsonArray();

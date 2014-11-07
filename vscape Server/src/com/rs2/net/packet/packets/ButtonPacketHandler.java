@@ -387,6 +387,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getPrayer().setPrayers(buttonId)) {
 			return;
 		}
+		if (player.getPillory().handleButton(buttonId)) {
+			return;
+		}
 		/**
 		 * All buttons after this part cannot be used while player's packets are
 		 * disabled
