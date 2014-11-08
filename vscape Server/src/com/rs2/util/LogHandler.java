@@ -90,4 +90,21 @@ public class LogHandler {
 			System.out.println("error writing yell log file.");
 		}
 	}
+	
+	public static void LogCommand(String name, String msg)
+	{
+		try {
+			BufferedWriter logWriter = new BufferedWriter(new FileWriter(LogDirectory + "commands.txt", true));
+			try {
+				logWriter.write("[" + df.format(new Date()) + "] "+ name + " used ::" + msg);
+				logWriter.newLine();
+			} catch(IOException ioexception) {
+				logWriter.close();
+			} finally {
+				logWriter.close();
+			}
+		} catch(IOException ioexception) {
+			System.out.println("error writing command log file.");
+		}
+	}
 }

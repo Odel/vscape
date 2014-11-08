@@ -343,7 +343,7 @@ public class CommandHandler {
 
 
 	public static void adminCommands(Player sender, String keyword, String[] args, String fullString) {
-		saveCommand(sender.getUsername(), keyword+" "+fullString);
+		LogHandler.LogCommand(sender.getUsername(), keyword+" "+fullString);
 		if (keyword.equals("getrandom")) {
 			switch(Misc.random(5)) {
 				case 0 :
@@ -2020,20 +2020,4 @@ public class CommandHandler {
 		}
 		new ShutdownWorldProcess(seconds).start();
 	}
-        
-	private static void saveCommand(String user, String command) {
-		String filePath = "./data/commands.txt";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.write(user+" used "+command);
-				out.newLine();
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

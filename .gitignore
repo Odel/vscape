@@ -218,6 +218,5 @@ vscape Client/java.policy.applet
 vscape Server/data/commands.txt
 vscape Server/datajson/VEditorSuite.exe
 vscape Server/datajson/Newtonsoft.Json.dll
-
+vscape Server/data/logs/
 *.db
-vscape Server/data/commands.txt
