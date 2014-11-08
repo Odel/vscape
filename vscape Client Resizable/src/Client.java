@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.1b";
+	private final static String CLIENT_VERSION = "3.1c";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -2782,6 +2782,8 @@ public class Client extends RSApplet {
 		loginMessage2 = "";
 		// myUsername = "";
 		// myPassword = "";
+		ignoreCount = 0;
+		ignoreListAsLongs = new long[100];
 		unlinkMRUNodes();
 		worldController.initToNull();
 		for (int i = 0; i < 4; i++)
@@ -7171,6 +7173,7 @@ public class Client extends RSApplet {
 				anInt900 = 0;
 				friendsCount = 0;
 				ignoreCount = 0;
+				ignoreListAsLongs = new long[100];
 				dialogID = -1;
 				backDialogID = -1;
 				openInterfaceID = -1;
@@ -12576,36 +12579,37 @@ public class Client extends RSApplet {
 				int j18 = inStream.readDWord();
 				int l21 = inStream.readUnsignedByte();
 				boolean flag5 = false;
-				for (int i28 = 0; i28 < 100; i28++) {
+				/*for (int i28 = 0; i28 < 100; i28++) {
 					if (anIntArray1240[i28] != j18)
 						continue;
 					flag5 = true;
-
-				}
-				if (l21 <= 1) {
-					for (int l29 = 0; l29 < ignoreCount; l29++) {
-						if (ignoreListAsLongs[l29] != l5)
+				}*/
+				if(l21 <= 1) {
+					for(int l29 = 0; l29 < ignoreCount; l29++) {
+						if(ignoreListAsLongs[l29] != l5)
 							continue;
 						flag5 = true;
-
+						
 					}
 				}
-				if (!flag5 && anInt1251 == 0)
+				if(!flag5 && anInt1251 == 0){
 					try {
-						anIntArray1240[anInt1169] = j18;
-						anInt1169 = (anInt1169 + 1) % 100;
-						String s9 = TextInput.method525(pktSize - 13, inStream);
+						// anIntArray1240[anInt1169] = j18;
+						// anInt1169 = (anInt1169 + 1) % 100;
 						// if(l21 != 3)
 						// s9 = Censor.doCensor(s9);
-						if (l21 == 2 || l21 == 3)
+						String s9 = TextInput.method525(pktSize - 13, inStream);
+						if(l21 == 2 || l21 == 3)
 							pushMessage(s9, 7, "@cr2@" + TextClass.fixName(TextClass.nameForLong(l5)));
-						else if (l21 == 1)
+						else
+						if(l21 == 1)
 							pushMessage(s9, 7, "@cr1@" + TextClass.fixName(TextClass.nameForLong(l5)));
 						else
 							pushMessage(s9, 3, TextClass.fixName(TextClass.nameForLong(l5)));
-					} catch (Exception exception1) {
+					} catch(Exception exception1) {
 						Signlink.reporterror("cde1");
 					}
+				}
 				pktType = -1;
 				return true;
 
@@ -13344,7 +13348,7 @@ public class Client extends RSApplet {
 	private int plane;
 	private final int[] currentStats;
 	private static int anInt924;
-	private final long[] ignoreListAsLongs;
+	private long[] ignoreListAsLongs;
 	private boolean loadingError;
 	private final int[] anIntArray928;
 	private int[][] anIntArrayArray929;
