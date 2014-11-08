@@ -579,6 +579,10 @@ public abstract class MagicSkill extends CycleEvent {
 			player.getActionSender().sendMessage("You cannot use this spell here.");
 			return false;
 		}
+		if (otherPlayer.getInJail()) {
+			player.getActionSender().sendMessage("This player is in jail.");
+			return false;
+		}
 		otherPlayer.setTeleotherPosition(location.getPosition());
 		otherPlayer.getActionSender().sendString(player.getUsername(), 12558);
 		otherPlayer.getActionSender().sendString(location.getName(), 12560);
