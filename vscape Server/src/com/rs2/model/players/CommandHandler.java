@@ -994,7 +994,12 @@ public class CommandHandler {
 			if(obj != null)
 			{
 				ObjectHandler.getInstance().removeObject(obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getType());
-				sender.getActionSender().sendObject(-1, obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getFace(), obj.getDef().getType());
+		   	 	for (Player player : World.getPlayers()) { 
+		   	 		if (player == null) continue; 
+		   	 		if (player.getPosition().getZ() == obj.getDef().getPosition().getZ() && Misc.goodDistance(obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), 60)) {
+		   	 			player.getActionSender().sendObject(-1, obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getFace(), obj.getDef().getType());
+		   	 		}
+		   	 	}
 				sender.getActionSender().sendMessage("GameObject removed");
 				return;
 			}
