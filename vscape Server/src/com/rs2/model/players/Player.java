@@ -4259,9 +4259,6 @@ public class Player extends Entity {
 
 	public void setInterface(int inter) {
 		this.inter = inter;
-		if(inter == 0){
-			setStatedInterface("");
-		}
 	}
 
 	public void setBarrowsNpcDead(int index, boolean dead) {
