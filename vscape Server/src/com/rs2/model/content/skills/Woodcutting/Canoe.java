@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.Woodcutting;
 
+import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
@@ -98,6 +99,11 @@ public class Canoe {
 	
 	public static boolean travelCanoe(final Player player, int buttonId)
 	{
+	    RSInterface inter = RSInterface.forId(18178);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("canoe")) {
+        	player.getActionSender().removeInterfaces();
+            return false;
+        }
 		CanoeTravelData canoeTravelData = CanoeTravelData.forId(buttonId);
 		if(canoeTravelData == null)
 		{
@@ -204,6 +210,7 @@ public class Canoe {
 		{
 			player.setCanoeStation(canoeStation);
 			player.getActionSender().sendInterface(18178);
+			player.setStatedInterface("canoe");
 			return true;
 		}
 		return false;

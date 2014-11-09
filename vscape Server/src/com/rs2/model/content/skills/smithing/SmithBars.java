@@ -1,6 +1,7 @@
 package com.rs2.model.content.skills.smithing;
 
 import com.rs2.Constants;
+import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -148,9 +149,15 @@ public class SmithBars {
 		player.getActionSender().sendUpdateItem(getItemType(player, "limbs"), 4, 1123, 1);
 		
 		player.getActionSender().sendInterface(994);
+		player.setStatedInterface("smithing");
 	}
 
 	public static void startSmithing(final Player player, final int item, final int amount) {
+	    RSInterface inter = RSInterface.forId(994);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("smithing")) {
+        	player.getActionSender().removeInterfaces();
+            return;
+        }
 		final int id = getArrayForFullName(player, item);
 		if (id > -1) {
 			final Item finalItem = new Item(item);
