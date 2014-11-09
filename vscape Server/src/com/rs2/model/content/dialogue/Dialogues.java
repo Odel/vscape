@@ -2254,6 +2254,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
+								player.setStatedInterface("glider");
 								player.getActionSender().sendInterface(802);
 								player.getDialogue().dontCloseInterface();
 								break;

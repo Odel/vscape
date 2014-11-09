@@ -65,10 +65,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
-        if (player.getInJail()){
+		if (player.getInJail()){
 			player.getActionSender().sendMessage("You cannot teleport while in jail.");
 			return false;
-        }
+		}
 		if (player.isHomeTeleporting()) {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return false;
@@ -98,10 +98,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return false;
 		}
-        if (player.getInJail()){
+		if (player.getInJail()){
 			player.getActionSender().sendMessage("You cannot teleport while in jail.");
 			return false;
-        }
+		}
 		player.getUpdateFlags().sendAnimation(714);
 		player.getUpdateFlags().sendHighGraphic(301);
 		teleport(pos.getX(), pos.getY(), pos.getZ(), true);
@@ -125,18 +125,18 @@ public class Teleportation {
 		    player.getActionSender().sendMessage("You can't teleport here.");
 		    return false;
 	    }
-		if (player.isHomeTeleporting()) {
-			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
-			return false;
-		}
-	    if (player.getInventory().playerHasItem(new Item(431))) {
-		player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
-		return false;
+	    if (player.isHomeTeleporting()) {
+		    player.getActionSender().sendMessage("You can't teleport while teleporting home.");
+		    return false;
 	    }
-        if (player.getInJail()){
-			player.getActionSender().sendMessage("You cannot teleport while in jail.");
-			return false;
-        }
+	    if (player.getInventory().playerHasItem(new Item(431))) {
+		    player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
+		    return false;
+	    }
+	    if (player.getInJail()){
+		    player.getActionSender().sendMessage("You cannot teleport while in jail.");
+		    return false;
+	    }
 	    return true;
 	}
 
@@ -161,10 +161,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("You cannot teleport with Karamjan Rum, it will break.");
 			return false;
 		}
-        if (player.getInJail()){
+		if (player.getInJail()){
 			player.getActionSender().sendMessage("You cannot teleport while in jail.");
 			return false;
-        }
+		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), false);
 		return true;
 	}
