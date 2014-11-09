@@ -231,6 +231,7 @@ public class SmithBars {
 				public void stop() {
 					player.getTask();
 					player.resetAnimation();
+					player.setStatedInterface("");
 				}
 			});
 			CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 4);
