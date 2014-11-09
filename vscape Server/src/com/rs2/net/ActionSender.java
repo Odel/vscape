@@ -899,6 +899,19 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
+	
+    public void sendSoundRadius(int id, int type, int delay, Position pos, int radius) {
+        for (Player p : World.getPlayers()) {
+            if (p == null)
+            	continue;
+            
+            if (pos.isViewableFrom(p.getPosition()) && pos.getZ() == p.getPosition().getZ()) {
+            	if(Misc.getDistance(pos, p.getPosition()) <= radius){
+            		p.getActionSender().sendSound(id, type, delay);
+            	}
+            }
+        }
+    }
 
 	public ActionSender sendSong(int id) {
 		if (player.currentSong == id)

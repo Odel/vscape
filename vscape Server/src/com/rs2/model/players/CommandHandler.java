@@ -465,6 +465,18 @@ public class CommandHandler {
 				}
 			}
 		}
+		if(keyword.equals("smite")) {
+			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+		    long nameLong = NameUtil.nameToLong(name);
+		    Player player = World.getPlayerByName(nameLong);
+		    if(player != null) {
+		    	player.hit(player.getCurrentHp(), HitType.BURN);
+		    	player.getActionSender().sendSoundRadius(97, 0, 0, player.getPosition(), 5);
+		    	player.getUpdateFlags().sendHighGraphic(346);
+		    }else{
+		    	sender.getActionSender().sendMessage("Could not find player "+name);
+		    }
+		}
 		if(keyword.equals("jail"))
 		{
 			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
@@ -511,6 +523,11 @@ public class CommandHandler {
 		if (keyword.equals("sound")) {
 			final int id = Integer.parseInt(args[0]);
 			sender.getActionSender().sendSound(id, 0, 0);
+		}
+		if (keyword.equals("soundr")) {
+			final int id = Integer.parseInt(args[0]);
+			final int radius = Integer.parseInt(args[1]);
+			sender.getActionSender().sendSoundRadius(id, 0, 0, sender.getPosition(), radius);
 		}
 		if (keyword.equals("quicksong")) {
 			final int id = Integer.parseInt(args[0]);
