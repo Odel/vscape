@@ -99,7 +99,7 @@ public class Canoe {
 	
 	public static boolean travelCanoe(final Player player, int buttonId)
 	{
-	    RSInterface inter = RSInterface.forId(18178);
+	    RSInterface inter = RSInterface.forId(18220);
         if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("canoe")) {
         	player.getActionSender().removeInterfaces();
             return false;
@@ -137,6 +137,7 @@ public class Canoe {
 			case 12149:
 			case 12150:
 				player.getActionSender().sendInterface(18220);
+				player.setStatedInterface("canoe");
 				return true;
 		}
 		return false;
@@ -210,7 +211,6 @@ public class Canoe {
 		{
 			player.setCanoeStation(canoeStation);
 			player.getActionSender().sendInterface(18178);
-			player.setStatedInterface("canoe");
 			return true;
 		}
 		return false;
