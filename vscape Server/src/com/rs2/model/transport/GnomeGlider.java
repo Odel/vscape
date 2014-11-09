@@ -1,5 +1,6 @@
 package com.rs2.model.transport;
 
+import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -13,8 +14,13 @@ import com.rs2.model.tick.CycleEventHandler;
 public class GnomeGlider {
 
 	public static boolean flightButtons(Player player, int button) {
+	    RSInterface inter = RSInterface.forId(802);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("glider")) {
+        	player.getActionSender().removeInterfaces();
+            return false;
+        }
 		for (GliderRoute route : GliderRoute.values()) {
-			if (button == route.buttonId && player.getStatedInterface().equals("glider")) {
+			if (button == route.buttonId) {
 			    handleFlight(player, route);
 			    return true;
 			}
