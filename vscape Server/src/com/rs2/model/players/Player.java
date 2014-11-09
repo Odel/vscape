@@ -111,6 +111,7 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.mining.MineOre;
 import com.rs2.model.content.skills.prayer.BoneBurying;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.content.skills.slayer.Slayer;
@@ -315,7 +316,7 @@ public class Player extends Entity {
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
 	private int serverPoints = 0;
-	private boolean[] isUsingPrayer = new boolean[18];
+	private boolean[] isUsingPrayer = new boolean[21];
 	private boolean[] ernestLevers = new boolean[6];
 	private boolean hurkotsSpawned = false;
 	private int prayerDrainTimer = 6;
@@ -1174,6 +1175,21 @@ public class Player extends Entity {
 			return false;
 		}
 	}
+	
+	public boolean validName(){
+		for(int i = 0; i < Constants.bannedChars.length; i++)
+		{
+			if(username.contains(Constants.bannedChars[i]))
+			{
+				return false;
+			}
+		}
+		if(username.startsWith("_") || username.endsWith("_") || username.startsWith("\\s+") || username.endsWith("\\s+"))
+		{
+			return false;
+		}
+		return true;
+	}
 
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned() || isMacBanned())
@@ -1181,13 +1197,9 @@ public class Player extends Entity {
 			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
 		}
-		for(int i = 0; i < Constants.bannedChars.length; i++)
-		{
-			if(username.contains(Constants.bannedChars[i]))
-			{
-	            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
-	            return false;
-			}
+		if(!validName()){
+            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+            return false;
 		}
         if (username.length() <= 3 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
             setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
@@ -3288,11 +3300,11 @@ public class Player extends Entity {
 	@Override
 	public boolean isProtectingFromCombat(AttackType attackType, Entity attacker) {
 		if (attackType == AttackType.MELEE)
-			return isUsingPrayer[Prayer.PROTECT_FROM_MELEE];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_MELEE.getIndex()];
 		else if (attackType == AttackType.RANGED)
-			return isUsingPrayer[Prayer.PROTECT_FROM_RANGED];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_RANGED.getIndex()];
 		else if (attackType == AttackType.MAGIC)
-			return isUsingPrayer[Prayer.PROTECT_FROM_MAGIC];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_MAGIC.getIndex()];
 		return false;
 	}
 
@@ -3483,7 +3495,7 @@ public class Player extends Entity {
 		}
 		ArrayList<Item> keptItems = new ArrayList<Item>();
 		int itemsKept = isSkulled ? 0 : 3;
-		if (isUsingPrayer[Prayer.PROTECT_ITEM])
+		if (isUsingPrayer[PrayerData.PROTECT_ITEM.getIndex()])
 			itemsKept += 1;
 		while (keptItems.size() < itemsKept && allItems.size() > 0) {
 			keptItems.add(allItems.poll());
@@ -4740,20 +4752,7 @@ public class Player extends Entity {
 			}
 		}
 	}
-    public boolean getShowHp(){
-        return showHp;
-    }
-        public void setShowHp(boolean show, boolean msg) {
-		showHp = show;
-			if (showHp) {
-				getActionSender().sendMessage(
-						"You have turned on your HP and Prayer display.");
-			} else {
-				getActionSender().sendMessage(
-						"You have turned off your HP and Prayer display.");
-			}
-		
-	}
+ 
 		public String getClanChannel(){
 			return currentChannel;
 		}

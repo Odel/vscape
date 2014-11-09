@@ -3,6 +3,7 @@ package com.rs2.model.content.skills;
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.players.Player;
 import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
@@ -74,7 +75,7 @@ public class Skill {
 			}
 		}
 		if (skillRenewalTimer == 50) {
-			if (player.getIsUsingPrayer()[Prayer.RAPID_RESTORE]) {
+			if (player.getIsUsingPrayer()[PrayerData.RAPID_RESTORE.getIndex()]) {
 				for (int i = 0; i < SKILL_COUNT; i++) {
 					if (level[i] != getLevelForXP(getExp()[i])) {
 						if (level[i] > getLevelForXP(getExp()[i])) {
@@ -86,7 +87,7 @@ public class Skill {
 					}
 				}
 			}
-			if (player.getIsUsingPrayer()[Prayer.RAPID_HEAL] || (player.getEquipment().getItemContainer().get(Constants.HANDS) != null && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 11133)) {
+			if (player.getIsUsingPrayer()[PrayerData.RAPID_HEAL.getIndex()] || (player.getEquipment().getItemContainer().get(Constants.HANDS) != null && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 11133)) {
 				if (level[3] != getLevelForXP(getExp()[3])) {
 					if (level[3] < getLevelForXP(getExp()[3])) {
 						level[3] += 1;

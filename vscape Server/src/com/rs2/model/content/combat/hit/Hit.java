@@ -37,6 +37,7 @@ import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
@@ -600,7 +601,7 @@ public class Hit {
             victim.getHitRecordQueue().add(hitRecord);
             if (attacker.isPlayer()) {
                 Player player = (Player) attacker;
-                if (player.getIsUsingPrayer()[Prayer.SMITE] && victim.isPlayer()) {
+                if (player.getIsUsingPrayer()[PrayerData.SMITE.getIndex()] && victim.isPlayer()) {
                     Prayer.applySmite(player, ((Player) victim), damage);
                 }
             }
@@ -611,7 +612,7 @@ public class Hit {
             if (currentHp > 0) {
                 int saveHp = (int) Math.ceil(victim.getMaxHp() * .1);
                 if (currentHp < saveHp) {
-                    if (player.getIsUsingPrayer()[Prayer.REDEMPTION]) {
+                    if (player.getIsUsingPrayer()[PrayerData.REDEMPTION.getIndex()]) {
                         Prayer.applyRedemption(player, victim, currentHp);
                     }
                     if(!player.inMiniGameArea()){

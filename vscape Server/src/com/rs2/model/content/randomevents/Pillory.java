@@ -113,6 +113,8 @@ public class Pillory {
 		if(!player.getInJail())
 			return;
 		locksCorrect = 0;
+		//TODO possible should be fullscreen interface
+		//NEED TO FIX THE ACTION SENDER METHOD FOR FULLSCREEN INTERS
 		player.getActionSender().sendInterface(6152);
 		player.getActionSender().sendConfig(531, 0);
 		player.getActionSender().sendInterfaceAnimation(LOCKMAIN_CHILD, 2765);

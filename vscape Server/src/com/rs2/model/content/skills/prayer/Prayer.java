@@ -22,22 +22,82 @@ public class Prayer {
 		this.player = player;
 	}
 
-	public int[] prayerTimers = new int[18];
+	public final int prayerSize = 21;
+	public int[] prayerTimers = new int[prayerSize];
 
-	public static final int THICK_SKIN = 0, BURST_OF_STRENGTH = 1, CLARITY_OF_THOUGHT = 2, ROCK_SKIN = 3, SUPERHUMAN_STRENGTH = 4, IMPROVED_REFLEXES = 5, RAPID_RESTORE = 6, RAPID_HEAL = 7, PROTECT_ITEM = 8, STEEL_SKIN = 9, ULTIMATE_STRENGTH = 10, INCREDIBLE_REFLEXES = 11, PROTECT_FROM_MAGIC = 12, PROTECT_FROM_RANGED = 13, PROTECT_FROM_MELEE = 14, RETRIBUTION = 15, REDEMPTION = 16, SMITE = 17;
+	//public static final int THICK_SKIN = 0, BURST_OF_STRENGTH = 1, CLARITY_OF_THOUGHT = 2, ROCK_SKIN = 3, SUPERHUMAN_STRENGTH = 4, IMPROVED_REFLEXES = 5, RAPID_RESTORE = 6, RAPID_HEAL = 7, PROTECT_ITEM = 8, STEEL_SKIN = 9, ULTIMATE_STRENGTH = 10, INCREDIBLE_REFLEXES = 11, PROTECT_FROM_MAGIC = 12, PROTECT_FROM_RANGED = 13, PROTECT_FROM_MELEE = 14, RETRIBUTION = 15, REDEMPTION = 16, SMITE = 17;
 
-	private final static Object[][] PRAYER_DATA = {
-			// id, configId, name, levelRequired, drainAmount, drainRate
-			{THICK_SKIN, 83, "Thick Skin", 1, 12}, {BURST_OF_STRENGTH, 84, "Burst of Strength", 4, 12}, {CLARITY_OF_THOUGHT, 85, "Clarity of Thought", 7, 12}, {ROCK_SKIN, 86, "Rock Skin", 10, 12}, {SUPERHUMAN_STRENGTH, 87, "Superhuman Strength", 13, 6}, {IMPROVED_REFLEXES, 88, "Improved Reflexes", 16, 6}, {RAPID_RESTORE, 89, "Rapid Restore", 19, 36}, {RAPID_HEAL, 90, "Rapid Heal", 22, 18}, {PROTECT_ITEM, 91, "Protect Item", 25, 18}, {STEEL_SKIN, 92, "Steel Skin", 28, 3}, {ULTIMATE_STRENGTH, 93, "Ultimate Strength", 31, 3}, {INCREDIBLE_REFLEXES, 94, "Incredible Reflexes", 34, 3}, {PROTECT_FROM_MAGIC, 95, "Protect from Magic", 37, 3}, {PROTECT_FROM_RANGED, 96, "Protect from Range", 40, 3}, {PROTECT_FROM_MELEE, 97, "Protect from Melee", 43, 3}, {RETRIBUTION, 98, "Retribution", 46, 12}, {REDEMPTION, 99, "Redemption", 49, 6}, {SMITE, 100, "Smite", 52, 18}};
-
+	public enum PrayerData {
+		THICK_SKIN(0, 83, "Thick Skin", 1, 12),
+		BURST_OF_STRENGTH(1, 84, "Burst of Strength", 4, 12), 
+		CLARITY_OF_THOUGHT(2, 85, "Clarity of Thought", 7, 12), 
+		SHARP_EYE(3, 700, "Sharp Eye", 8, 12), 
+		ROCK_SKIN(4, 86, "Rock Skin", 10, 12),
+		SUPERHUMAN_STRENGTH(5, 87, "Superhuman Strength", 13, 6),
+		IMPROVED_REFLEXES(6, 88, "Improved Reflexes", 16, 6),
+		RAPID_RESTORE(7, 89, "Rapid Restore", 19, 36), 
+		RAPID_HEAL(8, 90, "Rapid Heal", 22, 18),
+		PROTECT_ITEM(9, 91, "Protect Item", 25, 18),
+		HAWK_EYE(10, 702, "Hawk Eye", 26, 6), 
+		STEEL_SKIN(11, 92, "Steel Skin", 28, 3),
+		ULTIMATE_STRENGTH(12, 93, "Ultimate Strength", 31, 3), 
+		INCREDIBLE_REFLEXES(13, 94, "Incredible Reflexes", 34, 3),
+		PROTECT_FROM_MAGIC(14, 95, "Protect from Magic", 37, 3),
+		PROTECT_FROM_RANGED(15, 96, "Protect from Range", 40, 3), 
+		PROTECT_FROM_MELEE(16, 97, "Protect from Melee", 43, 3), 
+		EAGLE_EYE(17, 704, "Eagle Eye", 44, 3), 
+		RETRIBUTION(18, 98, "Retribution", 46, 12),
+		REDEMPTION(19, 99, "Redemption", 49, 6),
+		SMITE(20, 100, "Smite", 52, 18);
+		
+		private int id;
+		private int configId;
+		private String name;
+		private int levelRequired;
+		private int drainRate;
+		
+		private PrayerData(int id, int configId, String name, int levelRequired, int drainRate)
+		{
+			this.id = id;
+			this.configId = configId;
+			this.name = name;
+			this.levelRequired = levelRequired;
+			this.drainRate = drainRate;
+		}
+		
+		public static PrayerData forId(int index) {
+			for (PrayerData prayerData : PrayerData.values()) {
+				if (prayerData.getIndex() == index)
+					return prayerData;
+			}
+			return null;
+		}
+		
+		public int getIndex(){
+			return id;
+		}
+		public int getConfigId(){
+			return configId;
+		}
+		public String getName(){
+			return name;
+		}
+		public int getLevelRequired(){
+			return levelRequired;
+		}
+		public int getDrainRate(){
+			return drainRate;
+		}
+	}
+	
 	private double amountToDrain = 0.0;
-
+	
 	public void prayerTick() {
 		for (int i = 0; i < player.getIsUsingPrayer().length; i++) {
 			try{
 			prayerTimers[i]--;
 			if (prayerTimers[i] <= 0) {
-				prayerTimers[i] = ((int) (((Integer) PRAYER_DATA[i][4]) * (1 + ((double) player.getBonuses().get(11) / 30))) * 2);
+				prayerTimers[i] = ((int) (PrayerData.forId(i).getDrainRate() * (1 + ((double) player.getBonuses().get(11) / 30))) * 2);
 				if (player.getIsUsingPrayer()[i]) {
 					amountToDrain++;
 				}
@@ -51,31 +111,39 @@ public class Prayer {
 			amountToDrain = 0.0;
 		}
 	}
-
-	public static int getPrayerData(Integer index, int dataSlot) {
-		int data = 0;
-		for (Object[] i : PRAYER_DATA) {
-			if (i[0] == index) {
-				data = (Integer) i[dataSlot];
-			}
+	
+	public void drainPrayer(int drainAmount) {
+		player.getSkill().getLevel()[Skill.PRAYER] -= drainAmount;
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			player.getSkill().getLevel()[Skill.PRAYER] = 0;
+			player.getSkill().refresh(Skill.PRAYER);
+			resetAll();
+			player.getActionSender().sendMessage("You have ran out of prayer points;" + " you must recharge at an altar.");
+			return;
 		}
-		return data;
+		player.getSkill().refresh(Skill.PRAYER);
 	}
-
-	public void activatePrayer(Integer id) {
+	
+	public void resetAll() {
+		for (int i = 0; i < PrayerData.values().length; i++) {
+			player.getIsUsingPrayer()[i] = false;
+			player.getActionSender().sendConfig(PrayerData.forId(i).getConfigId(), 0);
+		}
+		player.setPrayerIcon(-1);
+		player.setAppearanceUpdateRequired(true);
+	}
+	
+	public void activatePrayer(int id) {
 		if (player.isDead()) {
 			return;
 		}
-		int config = 0;
-		String name = null;
-		int level = 0;
-		for (Object[] data : PRAYER_DATA) {
-			if (data[0] == id) {
-				config = (Integer) data[1];
-				name = (String) data[2];
-				level = (Integer) data[3];
-			}
-		}
+		PrayerData data = PrayerData.forId(id);
+		if(data == null)
+			return;
+		int config = data.getConfigId();
+		String name = data.getName();
+		int level = data.getLevelRequired();
+		
 		if (player.getSkill().getPlayerLevel(Skill.PRAYER) < level) {
 			player.getActionSender().sendConfig(config, 0);
 			player.getDialogue().endDialogue();
@@ -95,14 +163,14 @@ public class Prayer {
 		}
 		int headIcon = -1;
 		boolean hasHeadIcon = false;
-		if (id == PROTECT_FROM_MAGIC || id == PROTECT_FROM_RANGED || id == PROTECT_FROM_MELEE) {
+		if (data == PrayerData.PROTECT_FROM_MAGIC || data == PrayerData.PROTECT_FROM_RANGED || data == PrayerData.PROTECT_FROM_MELEE) {
 			if (player.getStopProtectPrayer() > System.currentTimeMillis()) {
 				player.getActionSender().sendMessage("Your protection prayers are temporarily disabled.");
-				player.getActionSender().sendConfig(getPrayerData(id, 1), 0);
+				player.getActionSender().sendConfig(config, 0);
 				return;
 			}
 		}
-		switch (id) {
+		switch (data) {
 			case PROTECT_FROM_MAGIC :
 				headIcon = 2;
 				hasHeadIcon = true;
@@ -133,93 +201,90 @@ public class Prayer {
 		}
 		player.getIsUsingPrayer()[id] = !player.getIsUsingPrayer()[id];
 		player.getActionSender().sendConfig(config, player.getIsUsingPrayer()[id] ? 1 : 0);
-		switchPrayer(id);
+		switchPrayer(data);
 		player.setPrayerDrainTimer(player.getIsUsingPrayer()[id] ? 0 : 1);
 		player.setAppearanceUpdateRequired(true);
 	}
-
-	private void switchPrayer(int id) {
-		int[] turnOff = new int[0];
-		switch (id) {
+	
+	private void switchPrayer(PrayerData data) {
+		PrayerData[] turnOff = new PrayerData[0];
+		switch (data) {
 			case THICK_SKIN :
-				turnOff = new int[]{ROCK_SKIN, STEEL_SKIN};
+				turnOff = new PrayerData[]{PrayerData.ROCK_SKIN, PrayerData.STEEL_SKIN};
 				break;
 			case ROCK_SKIN :
-				turnOff = new int[]{THICK_SKIN, STEEL_SKIN};
+				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN};
 				break;
 			case STEEL_SKIN :
-				turnOff = new int[]{THICK_SKIN, ROCK_SKIN};
+				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.ROCK_SKIN};
 				break;
 			case CLARITY_OF_THOUGHT :
-				turnOff = new int[]{IMPROVED_REFLEXES, INCREDIBLE_REFLEXES};
+				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES};
 				break;
 			case IMPROVED_REFLEXES :
-				turnOff = new int[]{CLARITY_OF_THOUGHT, INCREDIBLE_REFLEXES};
+				turnOff = new PrayerData[]{PrayerData.CLARITY_OF_THOUGHT, PrayerData.INCREDIBLE_REFLEXES};
 				break;
 			case INCREDIBLE_REFLEXES :
-				turnOff = new int[]{IMPROVED_REFLEXES, CLARITY_OF_THOUGHT};
+				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.CLARITY_OF_THOUGHT};
 				break;
 			case BURST_OF_STRENGTH :
-				turnOff = new int[]{SUPERHUMAN_STRENGTH, ULTIMATE_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH};
 				break;
 			case SUPERHUMAN_STRENGTH :
-				turnOff = new int[]{BURST_OF_STRENGTH, ULTIMATE_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.BURST_OF_STRENGTH, PrayerData.ULTIMATE_STRENGTH};
 				break;
 			case ULTIMATE_STRENGTH :
-				turnOff = new int[]{SUPERHUMAN_STRENGTH, BURST_OF_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.BURST_OF_STRENGTH};
+				break;
+			case SHARP_EYE :
+				turnOff = new PrayerData[]{PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE};
+				break;
+			case HAWK_EYE :
+				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.EAGLE_EYE};
+				break;
+			case EAGLE_EYE :
+				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.HAWK_EYE};
 				break;
 			case PROTECT_FROM_MAGIC :
-				turnOff = new int[]{REDEMPTION, SMITE, RETRIBUTION, PROTECT_FROM_RANGED, PROTECT_FROM_MELEE};
+				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.SMITE, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MELEE};
 				break;
 			case PROTECT_FROM_RANGED :
-				turnOff = new int[]{REDEMPTION, SMITE, RETRIBUTION, PROTECT_FROM_MAGIC, PROTECT_FROM_MELEE};
+				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.SMITE, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_MAGIC, PrayerData.PROTECT_FROM_MELEE};
 				break;
 			case PROTECT_FROM_MELEE :
-				turnOff = new int[]{REDEMPTION, SMITE, RETRIBUTION, PROTECT_FROM_RANGED, PROTECT_FROM_MAGIC};
+				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.SMITE, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MAGIC};
 				break;
 			case RETRIBUTION :
-				turnOff = new int[]{REDEMPTION, SMITE, PROTECT_FROM_MELEE, PROTECT_FROM_RANGED, PROTECT_FROM_MAGIC};
+				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.SMITE, PrayerData.PROTECT_FROM_MELEE, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MAGIC};
 				break;
 			case REDEMPTION :
-				turnOff = new int[]{RETRIBUTION, SMITE, PROTECT_FROM_MELEE, PROTECT_FROM_RANGED, PROTECT_FROM_MAGIC};
+				turnOff = new PrayerData[]{PrayerData.RETRIBUTION, PrayerData.SMITE, PrayerData.PROTECT_FROM_MELEE, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MAGIC};
 				break;
 			case SMITE :
-				turnOff = new int[]{REDEMPTION, RETRIBUTION, PROTECT_FROM_MELEE, PROTECT_FROM_RANGED, PROTECT_FROM_MAGIC};
+				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_MELEE, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MAGIC};
 				break;
 		}
-		for (int i : turnOff) {
-			if (i != id) {
-				player.getIsUsingPrayer()[i] = false;
-				player.getActionSender().sendConfig(getPrayerData(i, 1), 0);
+		for (PrayerData i : turnOff) {
+			if (i != data) {
+				player.getIsUsingPrayer()[i.getIndex()] = false;
+				player.getActionSender().sendConfig(i.getConfigId(), 0);
 			}
 		}
 	}
 
-	public void unactivatePrayer(int id) {
-		if (player.getIsUsingPrayer()[id]) {
-			player.getIsUsingPrayer()[id] = false;
-			player.getActionSender().sendConfig(getPrayerData(id, 1), 0);
-			if (id == PROTECT_FROM_MAGIC || id == PROTECT_FROM_RANGED || id == PROTECT_FROM_MELEE || id == RETRIBUTION || id == REDEMPTION || id == SMITE) {
+	public void unactivatePrayer(PrayerData data) {
+		if (player.getIsUsingPrayer()[data.getIndex()]) {
+			player.getIsUsingPrayer()[data.getIndex()] = false;
+			player.getActionSender().sendConfig(data.getConfigId(), 0);
+			if (data == PrayerData.PROTECT_FROM_MAGIC || data == PrayerData.PROTECT_FROM_RANGED || data == PrayerData.PROTECT_FROM_MELEE || data == PrayerData.RETRIBUTION || data == PrayerData.REDEMPTION || data == PrayerData.SMITE) {
 				player.setPrayerIcon(-1);
 				player.setAppearanceUpdateRequired(true);
 			}
 		}
 	}
-
-	public void drainPrayer(int drainAmount) {
-		player.getSkill().getLevel()[Skill.PRAYER] -= drainAmount;
-		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
-			player.getSkill().getLevel()[Skill.PRAYER] = 0;
-			player.getSkill().refresh(Skill.PRAYER);
-			resetAll();
-			player.getActionSender().sendMessage("You have ran out of prayer points;" + " you must recharge at an altar.");
-			return;
-		}
-		player.getSkill().refresh(Skill.PRAYER);
-	}
-
+	
 	public void applySmiteEffect(Player victim, int hit) {
-		if (player.getIsUsingPrayer()[SMITE]) {
+		if (player.getIsUsingPrayer()[PrayerData.SMITE.getIndex()]) {
 			if ((victim.getSkill().getLevel()[Skill.PRAYER] -= hit / 4) < 0) {
 				victim.getSkill().getLevel()[Skill.PRAYER] = 0;
 			} else {
@@ -238,103 +303,102 @@ public class Prayer {
 			player.getSkill().refresh(Skill.HITPOINTS);
 		}
 	}
-
+	
 	public static int prayerHitModifiers(Entity attacker, Entity victim, int hit) {
 		if (victim.isPlayer()) {
 			Player victimPlayer = (Player) victim;
 			if (attacker.isPlayer()) {
 				Player attackingPlayer = (Player) attacker;
-				if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_MELEE] && attackingPlayer.getAttackType() == Entity.AttackTypes.MELEE && !attackingPlayer.hasFullVerac()) {
+				if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_MELEE.getIndex()] && attackingPlayer.getAttackType() == Entity.AttackTypes.MELEE && !attackingPlayer.hasFullVerac()) {
 					hit = hit / 4;
-				} else if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_RANGED] && attackingPlayer.getAttackType() == Entity.AttackTypes.RANGED) {
+				} else if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_RANGED.getIndex()] && attackingPlayer.getAttackType() == Entity.AttackTypes.RANGED) {
 					hit = hit / 4;
-				} else if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_MAGIC] && attackingPlayer.getAttackType() == Entity.AttackTypes.MAGIC) {
+				} else if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_MAGIC.getIndex()] && attackingPlayer.getAttackType() == Entity.AttackTypes.MAGIC) {
 					hit = hit / 4;
 				}
 			} else if (attacker.isNpc()) {
 				Npc attackingNpc = (Npc) attacker;
-				if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_MELEE] && attackingNpc.getAttackType() == Entity.AttackTypes.MELEE) {
+				if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_MELEE.getIndex()] && attackingNpc.getAttackType() == Entity.AttackTypes.MELEE) {
 					hit = 0;
-				} else if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_RANGED] && attackingNpc.getAttackType() == Entity.AttackTypes.RANGED) {
+				} else if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_RANGED.getIndex()] && attackingNpc.getAttackType() == Entity.AttackTypes.RANGED) {
 					hit = 0;
-				} else if (victimPlayer.getIsUsingPrayer()[PROTECT_FROM_MAGIC] && attackingNpc.getAttackType() == Entity.AttackTypes.MAGIC) {
+				} else if (victimPlayer.getIsUsingPrayer()[PrayerData.PROTECT_FROM_MAGIC.getIndex()] && attackingNpc.getAttackType() == Entity.AttackTypes.MAGIC) {
 					hit = 0;
 				}
 			}
 		}
 		return hit;
 	}
-
-	public void resetAll() {
-		for (int i = 0; i < PRAYER_DATA.length; i++) {
-			player.getIsUsingPrayer()[i] = false;
-			player.getActionSender().sendConfig(getPrayerData(i, 1), 0);
-		}
-		player.setPrayerIcon(-1);
-		player.setAppearanceUpdateRequired(true);
-	}
-
 	public boolean setPrayers(int buttonId) {
 		switch (buttonId) {
 			case 21233 :
-				activatePrayer(THICK_SKIN);
+				activatePrayer(PrayerData.THICK_SKIN.getIndex());
 				return true;
 			case 21234 :
-				activatePrayer(BURST_OF_STRENGTH);
+				activatePrayer(PrayerData.BURST_OF_STRENGTH.getIndex());
 				return true;
 			case 21235 :
-				activatePrayer(CLARITY_OF_THOUGHT);
+				activatePrayer(PrayerData.CLARITY_OF_THOUGHT.getIndex());
+				return true;
+			case 77100 :
+				activatePrayer(PrayerData.SHARP_EYE.getIndex());
 				return true;
 			case 21236 :
-				activatePrayer(ROCK_SKIN);
+				activatePrayer(PrayerData.ROCK_SKIN.getIndex());
 				return true;
 			case 21237 :
-				activatePrayer(SUPERHUMAN_STRENGTH);
+				activatePrayer(PrayerData.SUPERHUMAN_STRENGTH.getIndex());
 				return true;
 			case 21238 :
-				activatePrayer(IMPROVED_REFLEXES);
+				activatePrayer(PrayerData.IMPROVED_REFLEXES.getIndex());
 				return true;
 			case 21239 :
-				activatePrayer(RAPID_RESTORE);
+				activatePrayer(PrayerData.RAPID_RESTORE.getIndex());
 				return true;
 			case 21240 :
-				activatePrayer(RAPID_HEAL);
+				activatePrayer(PrayerData.RAPID_HEAL.getIndex());
 				return true;
 			case 21241 :
-				activatePrayer(PROTECT_ITEM);
+				activatePrayer(PrayerData.PROTECT_ITEM.getIndex());
+				return true;
+			case 77104 :
+				activatePrayer(PrayerData.HAWK_EYE.getIndex());
 				return true;
 			case 21242 :
-				activatePrayer(STEEL_SKIN);
+				activatePrayer(PrayerData.STEEL_SKIN.getIndex());
 				return true;
 			case 21243 :
-				activatePrayer(ULTIMATE_STRENGTH);
+				activatePrayer(PrayerData.ULTIMATE_STRENGTH.getIndex());
 				return true;
 			case 21244 :
-				activatePrayer(INCREDIBLE_REFLEXES);
+				activatePrayer(PrayerData.INCREDIBLE_REFLEXES.getIndex());
 				return true;
 			case 21245 :
-				activatePrayer(PROTECT_FROM_MAGIC);
+				activatePrayer(PrayerData.PROTECT_FROM_MAGIC.getIndex());
 				return true;
 			case 21246 :
-				activatePrayer(PROTECT_FROM_RANGED);
+				activatePrayer(PrayerData.PROTECT_FROM_RANGED.getIndex());
 				return true;
 			case 21247 :
-				activatePrayer(PROTECT_FROM_MELEE);
+				activatePrayer(PrayerData.PROTECT_FROM_MELEE.getIndex());
+				return true;
+			case 77109 :
+				activatePrayer(PrayerData.EAGLE_EYE.getIndex());
 				return true;
 			case 2171 :
-				activatePrayer(RETRIBUTION);
+				activatePrayer(PrayerData.RETRIBUTION.getIndex());
 				return true;
 			case 2172 :
-				activatePrayer(REDEMPTION);
+				activatePrayer(PrayerData.REDEMPTION.getIndex());
 				applyRedemptionPrayer(player);
 				return true;
 			case 2173 :
-				activatePrayer(SMITE);
+				activatePrayer(PrayerData.SMITE.getIndex());
 				return true;
 		}
 		return false;
 	}
-
+	
 	public static void rechargePrayer(final Player player) {
 		if (player.getSkill().getLevel()[Skill.PRAYER] < player.getSkill().getPlayerLevel(Skill.PRAYER)) {
 			player.getUpdateFlags().sendAnimation(645);
@@ -345,7 +409,7 @@ public class Prayer {
 			player.getActionSender().sendMessage("You already have full prayer!");
 		}
 	}
-
+	
 	public static void rechargePrayerGuild(final Player player) {
 		if (player.getSkill().getLevel()[Skill.PRAYER] < player.getSkill().getPlayerLevel(Skill.PRAYER) + 2) {
 			player.getUpdateFlags().sendAnimation(645);

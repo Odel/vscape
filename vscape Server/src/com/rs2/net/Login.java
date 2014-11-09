@@ -159,15 +159,12 @@ public class Login {
             player.setUsernameAsLong(NameUtil.nameToLong(player.getUsername().toLowerCase()));
             player.setLoginStage(LoginStages.AWAITING_LOGIN_COMPLETE);
 
-			for(int i = 0; i < Constants.bannedChars.length; i++)
-			{
-				if(player.getUsername().contains(Constants.bannedChars[i]))
-				{
-					player.disconnect();
-		            return;
-				}
-			}
-			
+            if(!player.validName())
+            {
+				player.disconnect();
+	            return;
+            }
+            
             if (player.beginLogin()) {
                 // Switch the player to the cycled reactor.
                 synchronized (DedicatedReactor.getInstance()) {

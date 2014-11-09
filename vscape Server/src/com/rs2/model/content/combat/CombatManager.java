@@ -34,6 +34,7 @@ import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -47,6 +48,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -386,7 +388,7 @@ public class CombatManager extends Tick {
 		died.getPjTimer().setWaitDuration(0);
 		died.getPjTimer().reset(); 
 		}
-		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[Prayer.RETRIBUTION]) {
+		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[PrayerData.RETRIBUTION.getIndex()]) {
 			Prayer.applyRetribution(died, killer);
 		}
 		else if (died.isNpc() && ((Npc)died).getNpcId() == 757 && killer != null && killer.isPlayer()) { //count draynor
@@ -695,11 +697,11 @@ public class CombatManager extends Tick {
 
 	public static double calculateMaxMeleeHit(Player player, WeaponAttack weaponAttack) {
 		double strengthLevel = player.getSkill().getLevel()[Skill.STRENGTH];
-		if (player.getIsUsingPrayer()[Prayer.BURST_OF_STRENGTH])
+		if (player.getIsUsingPrayer()[PrayerData.BURST_OF_STRENGTH.getIndex()])
 			strengthLevel *= 1.05;
-		else if (player.getIsUsingPrayer()[Prayer.SUPERHUMAN_STRENGTH])
+		else if (player.getIsUsingPrayer()[PrayerData.SUPERHUMAN_STRENGTH.getIndex()])
 			strengthLevel *= 1.1;
-		else if (player.getIsUsingPrayer()[Prayer.ULTIMATE_STRENGTH])
+		else if (player.getIsUsingPrayer()[PrayerData.ULTIMATE_STRENGTH.getIndex()])
 			strengthLevel *= 1.15;
 		AttackStyle attackStyle = weaponAttack.getAttackStyle();
 		int styleBonus = 0;
@@ -742,14 +744,24 @@ public class CombatManager extends Tick {
 		double baseAttack = attacker.getBaseAttackLevel(attackStyle.getAttackType());
 		if (attackStyle.getAttackType() == AttackType.MELEE && attacker.isPlayer()) {
 			Player player = (Player) attacker;
-			if (player.getIsUsingPrayer()[Prayer.CLARITY_OF_THOUGHT])
+			if (player.getIsUsingPrayer()[PrayerData.CLARITY_OF_THOUGHT.getIndex()])
 				baseAttack *= 1.05;
-			else if (player.getIsUsingPrayer()[Prayer.IMPROVED_REFLEXES])
+			else if (player.getIsUsingPrayer()[PrayerData.IMPROVED_REFLEXES.getIndex()])
 				baseAttack *= 1.1;
-			else if (player.getIsUsingPrayer()[Prayer.INCREDIBLE_REFLEXES])
+			else if (player.getIsUsingPrayer()[PrayerData.INCREDIBLE_REFLEXES.getIndex()])
 				baseAttack *= 1.15;
 			else if(player.hasFullVoidMelee())
 				baseAttack *= 1.1;
+		}
+		else if(attackStyle.getAttackType() == AttackType.RANGED && attacker.isPlayer())
+		{
+			Player player = (Player) attacker;
+			if (player.getIsUsingPrayer()[PrayerData.SHARP_EYE.getIndex()])
+				baseAttack *= 1.05;
+			else if (player.getIsUsingPrayer()[PrayerData.HAWK_EYE.getIndex()])
+				baseAttack *= 1.1;
+			else if (player.getIsUsingPrayer()[PrayerData.EAGLE_EYE.getIndex()])
+				baseAttack *= 1.15;
 		}
 		return Math.floor(baseAttack + attackBonus) + 8;
 	}
@@ -762,11 +774,11 @@ public class CombatManager extends Tick {
 		}
 		if (attackStyle.getAttackType() == AttackType.MELEE && victim.isPlayer()) {
 			Player player = (Player) victim;
-			if (player.getIsUsingPrayer()[Prayer.THICK_SKIN])
+			if (player.getIsUsingPrayer()[PrayerData.THICK_SKIN.getIndex()])
 				baseDefence *= 1.05;
-			else if (player.getIsUsingPrayer()[Prayer.ROCK_SKIN])
+			else if (player.getIsUsingPrayer()[PrayerData.ROCK_SKIN.getIndex()])
 				baseDefence *= 1.1;
-			else if (player.getIsUsingPrayer()[Prayer.STEEL_SKIN])
+			else if (player.getIsUsingPrayer()[PrayerData.STEEL_SKIN.getIndex()])
 				baseDefence *= 1.15;
 		}
 		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isNpc()) {
