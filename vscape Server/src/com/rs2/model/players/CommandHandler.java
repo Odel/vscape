@@ -1245,21 +1245,18 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("You have " + count + " teammates on your team.");
 		}
 		else if (keyword.equals("teleto")) {
-			String name = fullString;
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(name)) {
-				    if (player.inFightCaves()) {
-				    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
-					break;
-				    }
-				    else {
-				    	sender.teleport(player.getPosition().clone());
-					break;
-				    }
-				}
-			}
+			 String name = fullString;
+			 Player player = World.getPlayerByName(name);
+			 if(player != null)
+			 {
+			    if (player.inFightCaves()) {
+			    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+			    	return;
+			    }
+			    sender.teleport(player.getPosition().clone());
+			 }else{
+				 sender.getActionSender().sendMessage("could not find player "+ name);
+			 }
 		}
 		else if (keyword.equals("teletome") || keyword.equals("bring")) {
 			String name = fullString;
