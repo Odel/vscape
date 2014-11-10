@@ -54,9 +54,6 @@ public class NpcLoader {
 		while (EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
-			if(line.startsWith("//")) {
-			    break;
-			}
 			if (spot > -1) {
 				token = line.substring(0, spot);
 				token = token.trim();
