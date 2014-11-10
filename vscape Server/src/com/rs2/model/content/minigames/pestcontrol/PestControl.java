@@ -612,26 +612,25 @@ public class PestControl {
     private static void startGame() {
 	try {
 	    spawnMainNpcs();
-	    resetBarricades();
-	    //resetDoors();
 	    shieldTime = 0;
 	    gruntTime = 0;
 	    gameTime = GAME_TIME;
 	    lobbyTime = LOBBY_TIME;
 	    gameActive = true;
 	    picklesTime = (2 >= new Random().nextDouble() * 100);
-	    for (Player player : new ArrayList<Player>(lobbyPlayers)) {
-		if (player != null) {
-		    if (player.inPestControlLobbyArea() && isInLobby(player)) {
-			lobbyPlayers.remove(player);
-		    }
-		    player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
-		    gamePlayers.add(player);
-		    if (!picklesTime) {
-			player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
-		    } else {
-			player.getActionSender().sendMessage("@blu@The Pest Control Game has begun?");
-		    }
+	    for (Player player : new ArrayList<>(lobbyPlayers)) {
+		if(player == null) {
+		    continue; 
+		}
+		if (player.inPestControlLobbyArea() && isInLobby(player)) {
+		    lobbyPlayers.remove(player);
+		}
+		player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
+		gamePlayers.add(player);
+		if (!picklesTime) {
+		    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
+		} else {
+		    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun?");
 		}
 	    }
 	} catch (Exception e) {
@@ -657,13 +656,6 @@ public class PestControl {
 			} else {
 			    player.getActionSender().sendMessage("@red@Game lost.");
 			}
-			player.resetEffects();
-			player.removeAllEffects();
-			player.heal(100);
-			player.getPrayer().resetAll();
-			player.getSkill().refresh();
-			player.getInventory().removeAllOfItem(new Item(1511));
-			player.getPestControlBarricades().clear();
 			leaveGame(player);
 		    }
 		}
@@ -686,6 +678,8 @@ public class PestControl {
 	destroyAllNpcs();
 	resetShields();
 	setKnightHealth(200);
+	resetBarricades();
+	//resetDoors();
     }
 
     private static void resetLobby() {
@@ -830,8 +824,6 @@ public class PestControl {
 		npc.sendTransform(portalData.normalId, 999999);
 		PORTAL_SHIELD[unShielded] = false;
 		sendGameMessage("@dbl@The Void Knight has disabled the " + portalData.name + " Shield!");
-	    } else {
-		continue;
 	    }
 	}
     }
@@ -1138,9 +1130,15 @@ public class PestControl {
 
     public static void leaveGame(Player player) {
 	if (isInGame(player) && !player.isDead()) {
-	    player.teleport(LOBBY_EXIT);
 	    player.resetEffects();
+	    player.removeAllEffects();
+	    player.heal(100);
+	    player.getPrayer().resetAll();
+	    player.getSkill().refresh();
+	    player.getInventory().removeAllOfItem(new Item(1511));
+	    player.getPestControlBarricades().clear();
 	    player.setPcDamage(0);
+	    player.teleport(LOBBY_EXIT);
 	    gamePlayers.remove(player);
 	}
     }

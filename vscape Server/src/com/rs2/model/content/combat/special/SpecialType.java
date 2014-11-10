@@ -19,9 +19,9 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.combat.weapon.RangedAmmoType;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.prayer.Prayer;
-import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -547,6 +547,7 @@ public enum SpecialType {
 	    //SpellAttack spellAttack = new SpellAttack(player, player.getCombatingEntity(), player.getEquippedWeapon());
 	    HitDef hitDef = new HitDef(Constants.MAGIC_STYLE, HitType.NORMAL, 25).setProjectile(new ProjectileDef(1166, ProjectileTrajectory.SPELL)).setStartingHitDelay(0);
 	    new Hit(player, victim, hitDef).initialize();
+	    final int damage = Misc.random(15) + 10;
 	    final Player finalPlayer = player;
 	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		@Override
@@ -557,7 +558,7 @@ public enum SpecialType {
 		@Override
 		public void stop() {
 		    finalPlayer.setStopPacket(false);
-		    victim.hit(Misc.random(15) + 10, HitType.NORMAL);
+		    victim.hit(damage, HitType.NORMAL);
 		    victim.getUpdateFlags().sendHighGraphic(1167);
 		    finalPlayer.setSpecialAttackActive(false);
 		    CycleEventHandler.getInstance().addEvent(finalPlayer, new CycleEvent() {
@@ -576,6 +577,9 @@ public enum SpecialType {
 	    }, 3);
 	    player.setDfsCharges(player.getDfsCharges() - 1);
 	    player.getEquipment().sendBonus(player);
+	    if(player.inPestControlGameArea() && victim.inPestControlGameArea()) {
+    		PestControl.handleHit(player, victim, damage);
+	    }
 	}
     
 	public static void gmaulSpec(Player player) {
