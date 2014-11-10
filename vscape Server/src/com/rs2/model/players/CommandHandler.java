@@ -73,6 +73,12 @@ public class CommandHandler {
 	
 
 	public static void playerCommands(Player sender, String keyword, String[] args, String fullString) {
+		if (keyword.equals("clearfriends")) {
+			sender.setFriends(new long[200]);
+			sender.setIgnores(new long[100]);
+			sender.getPrivateMessaging().refresh(false);
+			sender.disconnect();
+		}
 		if (keyword.equals("outfit")) {
 			sender.getActionSender().sendInterface(3559);
 		}

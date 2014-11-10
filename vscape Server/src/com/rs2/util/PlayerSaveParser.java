@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
@@ -207,21 +208,43 @@ public class PlayerSaveParser {
                 	player.getSlayer().resetSlayerTask();
                 }
             	
+                if(mainObj.get("friendsConverted") != null)
+                {
+                	player.setFriendsConverted(mainObj.get("friendsConverted").getAsBoolean());
+                }
             	JsonArray friends = mainObj.getAsJsonArray("friends");
             	if(friends != null && friends.size() > 0){
 		            for (int i = 0; i < player.getFriends().length; i++) {
 						if(i >= friends.size())
 							break;
-		                player.getFriends()[i] = friends.get(i).getAsLong();
+						long friendLong = friends.get(i).getAsLong();
+						if(!player.getFriendsConverted()){
+							friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friends.get(i).getAsLong()));
+						}
+		                player.getFriends()[i] = friendLong;
 		            }
             	}
+            	if(!player.getFriendsConverted()){
+            		player.setFriendsConverted(true);
+            	}
+                if(mainObj.get("ignoresConverted") != null)
+                {
+                	player.setIgnoresConverted(mainObj.get("ignoresConverted").getAsBoolean());
+                }
             	JsonArray ignores = mainObj.getAsJsonArray("ignores");
             	if(ignores != null && ignores.size() > 0){
 		            for (int i = 0; i < player.getIgnores().length; i++) {
 						if(i >= ignores.size())
 							break;
-		                player.getIgnores()[i] = ignores.get(i).getAsLong();
+						long ignoreLong = ignores.get(i).getAsLong();
+						if(!player.getIgnoresConverted()){
+							ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignores.get(i).getAsLong()));
+						}
+		                player.getIgnores()[i] = ignoreLong;
 		            }
+            	}
+            	if(!player.getIgnoresConverted()){
+            		player.setIgnoresConverted(true);
             	}
 	            JsonArray skills = mainObj.getAsJsonArray("skills");
 	            if(skills != null && skills.size() > 0){

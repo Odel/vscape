@@ -7071,7 +7071,7 @@ public class Client extends RSApplet {
 					aStream_847.writeWordBigEndian(16);
 				aStream_847.writeWordBigEndian(stream.currentOffset + 36 + 1 + 1 + 2);
 				aStream_847.writeWordBigEndian(255);
-				aStream_847.writeWord(317);
+				aStream_847.writeWord(318);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
 				
 				String macaddress = getMac();

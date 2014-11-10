@@ -603,7 +603,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonObject mainObj = new JsonObject();
 		mainObj.add("character", characterObj);
+		mainObj.addProperty("friendsConverted", player.getFriendsConverted());
 		mainObj.add("friends", friendsArray);
+		mainObj.addProperty("ignoresConverted", player.getIgnoresConverted());
 		mainObj.add("ignores", ignoresArray);
 		mainObj.add("skills", skillArray);
 		mainObj.add("inventory", invArray);

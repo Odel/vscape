@@ -22,6 +22,7 @@ import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

@@ -295,7 +295,9 @@ public class Player extends Entity {
 	private int shopId;
 	private boolean isLoggedIn;
 	private Map<Integer, Integer> bonuses = new HashMap<Integer, Integer>();
+	private boolean friendsConverted = false;
 	private long[] friends = new long[200];
+	private boolean ignoresConverted = false;
 	private long[] ignores = new long[100];
 	private int currentDialogueId;
 	private int currentOptionId;
@@ -1239,6 +1241,10 @@ public class Player extends Entity {
 					continue;
 				}
 				if (player.getUsernameAsLong() == getUsernameAsLong()) {
+					if(player.getMacAddress().equals(getMacAddress()))
+					{
+						player.disconnect();
+					}
 					setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
 					return false;
                 }
@@ -1765,6 +1771,22 @@ public class Player extends Entity {
 		return bonuses;
 	}
 
+	public void setFriendsConverted(boolean val) {
+		this.friendsConverted = val;
+	}
+	
+	public boolean getFriendsConverted() {
+		return friendsConverted;
+	}
+	
+	public void setIgnoresConverted(boolean val) {
+		this.ignoresConverted = val;
+	}
+	
+	public boolean getIgnoresConverted() {
+		return ignoresConverted;
+	}
+	
 	public void setFriends(long[] friends) {
 		this.friends = friends;
 	}
