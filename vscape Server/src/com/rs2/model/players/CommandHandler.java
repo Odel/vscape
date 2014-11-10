@@ -1253,6 +1253,10 @@ public class CommandHandler {
 			    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
 			    	return;
 			    }
+			    if(sender.getInJail())
+			    {
+			    	return;
+			    }
 			    sender.teleport(player.getPosition().clone());
 			 }else{
 				 sender.getActionSender().sendMessage("could not find player "+ name);
@@ -1278,6 +1282,11 @@ public class CommandHandler {
             }
 		    if(player.inFightCaves()) {
 		    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.");
+		    	return;
+		    }
+		    if(player.getInJail())
+		    {
+		    	sender.getActionSender().sendMessage("Player is in jail");
 		    	return;
 		    }
 	    	player.getCat().unregisterCat();
