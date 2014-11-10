@@ -300,13 +300,18 @@ public class CommandHandler {
         	ModBan(sender, args);
         }  else if (keyword.equals("kick")) {
             Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.disconnect();
-            sender.getActionSender().sendMessage("You have kicked "+player.getUsername());
-        }  	else if (keyword.equals("staff") || keyword.equals("s")) {
-	    World.messageToStaff(sender, fullString);
-		}	else if (keyword.equals("mute")) {
+            if (player != null)
+            {
+	            player.disconnect();
+	            sender.getActionSender().sendMessage("You have kicked "+player.getUsername());
+            }else{
+            	sender.getActionSender().sendMessage("Could not find Player "+ fullString);
+            }
+        } else if (keyword.equals("staff") || keyword.equals("s")) 
+        {
+        	World.messageToStaff(sender, fullString);
+		}
+        else if (keyword.equals("mute")) {
             if (args.length < 2) {
             	sender.getActionSender().sendMessage("::mute hours username");
                 return;
