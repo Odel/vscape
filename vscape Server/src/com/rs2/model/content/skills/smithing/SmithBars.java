@@ -153,13 +153,13 @@ public class SmithBars {
 	}
 
 	public static void startSmithing(final Player player, final int item, final int amount) {
-	    RSInterface inter = RSInterface.forId(994);
-        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("smithing")) {
-        	player.getActionSender().removeInterfaces();
-            return;
-        }
 		final int id = getArrayForFullName(player, item);
 		if (id > -1) {
+		    RSInterface inter = RSInterface.forId(994);
+	        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("smithing")) {
+	        	player.getActionSender().removeInterfaces();
+	            return;
+	        }
 			final Item finalItem = new Item(item);
 			final String itemName = finalItem.getDefinition().getName().toLowerCase();
 			if (!SkillHandler.hasRequiredLevel(player, Skill.SMITHING, smithLevel(id, player.getSmithInterface()), "smith " + itemName) ) {

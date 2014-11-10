@@ -14,13 +14,8 @@ import com.rs2.model.tick.CycleEventHandler;
 public class GnomeGlider {
 
 	public static boolean flightButtons(Player player, int button) {
-	    RSInterface inter = RSInterface.forId(802);
-        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("glider")) {
-        	player.getActionSender().removeInterfaces();
-            return false;
-        }
 		for (GliderRoute route : GliderRoute.values()) {
-			if (button == route.buttonId) {
+			if (button == route.buttonId && player.getStatedInterface().equals("glider")) {
 			    handleFlight(player, route);
 			    return true;
 			}
@@ -55,6 +50,7 @@ public class GnomeGlider {
 				player.setStopPacket(false);
 				player.getActionSender().removeInterfaces();
 				player.getActionSender().sendConfig(153, -1);
+				player.setStatedInterface("");
 				e.stop();
 			}
 			@Override

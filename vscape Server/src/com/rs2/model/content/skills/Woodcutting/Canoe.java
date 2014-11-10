@@ -99,11 +99,6 @@ public class Canoe {
 	
 	public static boolean travelCanoe(final Player player, int buttonId)
 	{
-	    RSInterface inter = RSInterface.forId(18220);
-        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("canoe")) {
-        	player.getActionSender().removeInterfaces();
-            return false;
-        }
 		CanoeTravelData canoeTravelData = CanoeTravelData.forId(buttonId);
 		if(canoeTravelData == null)
 		{
@@ -111,19 +106,26 @@ public class Canoe {
 		}
 		if(canoeTravelData.destButtonId == buttonId)
 		{
+	        if (!player.getStatedInterface().equals("canoe")) {
+	        	player.getActionSender().removeInterfaces();
+	            return false;
+	        }
 			player.getActionSender().sendInterface(18221);
 			player.setStopPacket(true);
 			final Position newPos = new Position(canoeTravelData.destX, canoeTravelData.destY);
-	        final Tick travelFinish = new Tick(5) {
+	        CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	            @Override
-	            public void execute() {
+	            public void execute(CycleEventContainer container) {
 	            	player.teleport(newPos);
-	                player.setStopPacket(false);
+	                player.setStatedInterface("");
 	                player.getActionSender().removeInterfaces();
-	                stop();
+	                container.stop();
 	            }
-	        };
-	        World.getTickManager().submit(travelFinish);
+	            @Override
+	            public void stop(){
+	            	 player.setStopPacket(false);
+	            }
+	        }, 5);
 			return true;
 		}
 		return false;
@@ -136,8 +138,8 @@ public class Canoe {
 			case 12148:
 			case 12149:
 			case 12150:
-				player.getActionSender().sendInterface(18220);
 				player.setStatedInterface("canoe");
+				player.getActionSender().sendInterface(18220);
 				return true;
 		}
 		return false;
