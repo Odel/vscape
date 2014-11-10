@@ -692,6 +692,8 @@ public class CombatManager extends Tick {
 		double maxHit = (rangedLevel + rangedStrength / 8 + rangedLevel * rangedStrength * Math.pow(64, -1) + 14) / 10;
 		if(player.hasFullVoidRange())
 		    maxHit = maxHit * 1.1;
+		if (player.getIsUsingPrayer()[PrayerData.EAGLE_EYE.getIndex()]) //mfw latent wont shut the fuck up
+			maxHit *= 1.15;
 		return (int) Math.floor(maxHit);
 	}
 
