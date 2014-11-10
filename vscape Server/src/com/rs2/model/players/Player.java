@@ -318,7 +318,7 @@ public class Player extends Entity {
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
 	private int serverPoints = 0;
-	private boolean[] isUsingPrayer = new boolean[21];
+	private boolean[] isUsingPrayer = new boolean[24];
 	private boolean[] ernestLevers = new boolean[6];
 	private boolean hurkotsSpawned = false;
 	private int prayerDrainTimer = 6;

@@ -769,6 +769,16 @@ public class CombatManager extends Tick {
 			else if (player.getIsUsingPrayer()[PrayerData.EAGLE_EYE.getIndex()])
 				baseAttack *= 1.15;
 		}
+		else if(attackStyle.getAttackType() == AttackType.MAGIC && attacker.isPlayer())
+		{
+			Player player = (Player) attacker;
+			if (player.getIsUsingPrayer()[PrayerData.MYSTIC_WILL.getIndex()])
+				baseAttack *= 1.05;
+			else if (player.getIsUsingPrayer()[PrayerData.MYSTIC_LORE.getIndex()])
+				baseAttack *= 1.1;
+			else if (player.getIsUsingPrayer()[PrayerData.MYSTIC_MIGHT.getIndex()])
+				baseAttack *= 1.15;
+		}
 		return Math.floor(baseAttack + attackBonus) + 8;
 	}
 

@@ -22,7 +22,7 @@ public class Prayer {
 		this.player = player;
 	}
 
-	public final int prayerSize = 21;
+	public final int prayerSize = 24;
 	public int[] prayerTimers = new int[prayerSize];
 
 	//public static final int THICK_SKIN = 0, BURST_OF_STRENGTH = 1, CLARITY_OF_THOUGHT = 2, ROCK_SKIN = 3, SUPERHUMAN_STRENGTH = 4, IMPROVED_REFLEXES = 5, RAPID_RESTORE = 6, RAPID_HEAL = 7, PROTECT_ITEM = 8, STEEL_SKIN = 9, ULTIMATE_STRENGTH = 10, INCREDIBLE_REFLEXES = 11, PROTECT_FROM_MAGIC = 12, PROTECT_FROM_RANGED = 13, PROTECT_FROM_MELEE = 14, RETRIBUTION = 15, REDEMPTION = 16, SMITE = 17;
@@ -32,23 +32,26 @@ public class Prayer {
 		BURST_OF_STRENGTH(1, 84, "Burst of Strength", 4, 12), 
 		CLARITY_OF_THOUGHT(2, 85, "Clarity of Thought", 7, 12), 
 		SHARP_EYE(3, 700, "Sharp Eye", 8, 12), 
-		ROCK_SKIN(4, 86, "Rock Skin", 10, 12),
-		SUPERHUMAN_STRENGTH(5, 87, "Superhuman Strength", 13, 6),
-		IMPROVED_REFLEXES(6, 88, "Improved Reflexes", 16, 6),
-		RAPID_RESTORE(7, 89, "Rapid Restore", 19, 36), 
-		RAPID_HEAL(8, 90, "Rapid Heal", 22, 18),
-		PROTECT_ITEM(9, 91, "Protect Item", 25, 18),
-		HAWK_EYE(10, 702, "Hawk Eye", 26, 6), 
-		STEEL_SKIN(11, 92, "Steel Skin", 28, 3),
-		ULTIMATE_STRENGTH(12, 93, "Ultimate Strength", 31, 3), 
-		INCREDIBLE_REFLEXES(13, 94, "Incredible Reflexes", 34, 3),
-		PROTECT_FROM_MAGIC(14, 95, "Protect from Magic", 37, 3),
-		PROTECT_FROM_RANGED(15, 96, "Protect from Range", 40, 3), 
-		PROTECT_FROM_MELEE(16, 97, "Protect from Melee", 43, 3), 
-		EAGLE_EYE(17, 704, "Eagle Eye", 44, 3), 
-		RETRIBUTION(18, 98, "Retribution", 46, 12),
-		REDEMPTION(19, 99, "Redemption", 49, 6),
-		SMITE(20, 100, "Smite", 52, 18);
+		MYSTIC_WILL(4, 701, "Mystic Will", 9, 12), 
+		ROCK_SKIN(5, 86, "Rock Skin", 10, 12),
+		SUPERHUMAN_STRENGTH(6, 87, "Superhuman Strength", 13, 6),
+		IMPROVED_REFLEXES(7, 88, "Improved Reflexes", 16, 6),
+		RAPID_RESTORE(8, 89, "Rapid Restore", 19, 36), 
+		RAPID_HEAL(9, 90, "Rapid Heal", 22, 18),
+		PROTECT_ITEM(10, 91, "Protect Item", 25, 18),
+		HAWK_EYE(11, 702, "Hawk Eye", 26, 6), 
+		MYSTIC_LORE(12, 703, "Mystic Lore", 27, 6), 
+		STEEL_SKIN(13, 92, "Steel Skin", 28, 3),
+		ULTIMATE_STRENGTH(14, 93, "Ultimate Strength", 31, 3), 
+		INCREDIBLE_REFLEXES(15, 94, "Incredible Reflexes", 34, 3),
+		PROTECT_FROM_MAGIC(16, 95, "Protect from Magic", 37, 3),
+		PROTECT_FROM_RANGED(17, 96, "Protect from Range", 40, 3), 
+		PROTECT_FROM_MELEE(18, 97, "Protect from Melee", 43, 3), 
+		EAGLE_EYE(19, 704, "Eagle Eye", 44, 3), 
+		MYSTIC_MIGHT(20, 705, "Mystic Might", 45, 3), 
+		RETRIBUTION(21, 98, "Retribution", 46, 12),
+		REDEMPTION(22, 99, "Redemption", 49, 6),
+		SMITE(23, 100, "Smite", 52, 18);
 		
 		private int id;
 		private int configId;
@@ -210,40 +213,40 @@ public class Prayer {
 		PrayerData[] turnOff = new PrayerData[0];
 		switch (data) {
 			case THICK_SKIN :
-				turnOff = new PrayerData[]{PrayerData.ROCK_SKIN, PrayerData.STEEL_SKIN};
+				turnOff = new PrayerData[]{PrayerData.ROCK_SKIN, PrayerData.STEEL_SKIN,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case ROCK_SKIN :
-				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN};
+				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case STEEL_SKIN :
-				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.ROCK_SKIN};
+				turnOff = new PrayerData[]{PrayerData.THICK_SKIN, PrayerData.ROCK_SKIN,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case CLARITY_OF_THOUGHT :
-				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES};
+				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case IMPROVED_REFLEXES :
-				turnOff = new PrayerData[]{PrayerData.CLARITY_OF_THOUGHT, PrayerData.INCREDIBLE_REFLEXES};
+				turnOff = new PrayerData[]{PrayerData.CLARITY_OF_THOUGHT, PrayerData.INCREDIBLE_REFLEXES,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case INCREDIBLE_REFLEXES :
-				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.CLARITY_OF_THOUGHT};
+				turnOff = new PrayerData[]{PrayerData.IMPROVED_REFLEXES, PrayerData.CLARITY_OF_THOUGHT,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case BURST_OF_STRENGTH :
-				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case SUPERHUMAN_STRENGTH :
-				turnOff = new PrayerData[]{PrayerData.BURST_OF_STRENGTH, PrayerData.ULTIMATE_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.BURST_OF_STRENGTH, PrayerData.ULTIMATE_STRENGTH,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case ULTIMATE_STRENGTH :
-				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.BURST_OF_STRENGTH};
+				turnOff = new PrayerData[]{PrayerData.SUPERHUMAN_STRENGTH, PrayerData.BURST_OF_STRENGTH,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case SHARP_EYE :
-				turnOff = new PrayerData[]{PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE};
+				turnOff = new PrayerData[]{PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case HAWK_EYE :
-				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.EAGLE_EYE};
+				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.EAGLE_EYE,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case EAGLE_EYE :
-				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.HAWK_EYE};
+				turnOff = new PrayerData[]{PrayerData.SHARP_EYE, PrayerData.HAWK_EYE,PrayerData.MYSTIC_WILL, PrayerData.MYSTIC_LORE, PrayerData.MYSTIC_MIGHT};
 				break;
 			case PROTECT_FROM_MAGIC :
 				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.SMITE, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MELEE};
@@ -262,6 +265,33 @@ public class Prayer {
 				break;
 			case SMITE :
 				turnOff = new PrayerData[]{PrayerData.REDEMPTION, PrayerData.RETRIBUTION, PrayerData.PROTECT_FROM_MELEE, PrayerData.PROTECT_FROM_RANGED, PrayerData.PROTECT_FROM_MAGIC};
+				break;
+			case MYSTIC_WILL:
+				turnOff = new PrayerData[]{
+						PrayerData.ROCK_SKIN,PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN,
+						PrayerData.CLARITY_OF_THOUGHT,PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES,
+						PrayerData.BURST_OF_STRENGTH,PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH,
+						PrayerData.SHARP_EYE,PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE,
+						PrayerData.MYSTIC_LORE,PrayerData.MYSTIC_MIGHT, 
+					};
+				break;
+			case MYSTIC_LORE:
+				turnOff = new PrayerData[]{
+					PrayerData.ROCK_SKIN,PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN,
+					PrayerData.CLARITY_OF_THOUGHT,PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES,
+					PrayerData.BURST_OF_STRENGTH,PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH,
+					PrayerData.SHARP_EYE,PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE,
+					PrayerData.MYSTIC_WILL,PrayerData.MYSTIC_MIGHT, 
+				};
+				break;
+			case MYSTIC_MIGHT:
+				turnOff = new PrayerData[]{
+						PrayerData.ROCK_SKIN,PrayerData.THICK_SKIN, PrayerData.STEEL_SKIN,
+						PrayerData.CLARITY_OF_THOUGHT,PrayerData.IMPROVED_REFLEXES, PrayerData.INCREDIBLE_REFLEXES,
+						PrayerData.BURST_OF_STRENGTH,PrayerData.SUPERHUMAN_STRENGTH, PrayerData.ULTIMATE_STRENGTH,
+						PrayerData.SHARP_EYE,PrayerData.HAWK_EYE, PrayerData.EAGLE_EYE,
+						PrayerData.MYSTIC_LORE,PrayerData.MYSTIC_WILL, 
+					};
 				break;
 		}
 		for (PrayerData i : turnOff) {
@@ -343,6 +373,9 @@ public class Prayer {
 			case 77100 :
 				activatePrayer(PrayerData.SHARP_EYE.getIndex());
 				return true;
+			case 77102 :
+				activatePrayer(PrayerData.MYSTIC_WILL.getIndex());
+				return true;
 			case 21236 :
 				activatePrayer(PrayerData.ROCK_SKIN.getIndex());
 				return true;
@@ -364,6 +397,9 @@ public class Prayer {
 			case 77104 :
 				activatePrayer(PrayerData.HAWK_EYE.getIndex());
 				return true;
+			case 77106 :
+				activatePrayer(PrayerData.MYSTIC_LORE.getIndex());
+				return true;
 			case 21242 :
 				activatePrayer(PrayerData.STEEL_SKIN.getIndex());
 				return true;
@@ -384,6 +420,9 @@ public class Prayer {
 				return true;
 			case 77109 :
 				activatePrayer(PrayerData.EAGLE_EYE.getIndex());
+				return true;
+			case 77111 :
+				activatePrayer(PrayerData.MYSTIC_MIGHT.getIndex());
 				return true;
 			case 2171 :
 				activatePrayer(PrayerData.RETRIBUTION.getIndex());
