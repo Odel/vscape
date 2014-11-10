@@ -1212,6 +1212,10 @@ public class Player extends Entity {
 		if(validChars <= 3){
 			return false;
 		}
+		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x5b5b57f8a98a5dd1L)
+		{
+			return false;
+		}
 		return true;
 	}
 
