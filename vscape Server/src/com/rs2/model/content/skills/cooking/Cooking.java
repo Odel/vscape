@@ -254,9 +254,9 @@ public class Cooking {
 		}
 		player.getActionSender().removeInterfaces();
 		player.getInventory().removeItem(new Item(player.getTempInteger()));
-		if (player.getStatedInterface() == "cookFire")
+		if (player.getStatedInterface().equals("cookFire"))
 			player.getUpdateFlags().sendAnimation(897);
-		else if (player.getStatedInterface() == "cookRange")
+		else if (player.getStatedInterface().equals("cookRange"))
 			player.getUpdateFlags().sendAnimation(883);
 		player.getActionSender().sendSound(357, 0, 0);
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
@@ -272,7 +272,7 @@ public class Cooking {
 			}
 			return;
 		}
-		if (!toCook.fireCook() && player.getStatedInterface() == "cookFire")
+		if (!toCook.fireCook() && player.getStatedInterface().equals("cookFire"))
 			giveRewards(player, player.getTempInteger(), true);
 		else
 			giveRewards(player, player.getTempInteger(), false);
