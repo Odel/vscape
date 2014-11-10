@@ -409,7 +409,7 @@ public class Player extends Entity {
     private Item destroyItem;
     private boolean hearMessage = true;
     private boolean bankWarning;
-    private boolean debugCombat;
+    public boolean debugCombat;
     private Npc randomEventNpc;
     private Item randomHerb;
     private int genieSelect;

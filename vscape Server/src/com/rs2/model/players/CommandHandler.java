@@ -916,14 +916,14 @@ public class CommandHandler {
 		else if (keyword.equals("resetcamera")) {
 			sender.getActionSender().resetCamera();
 		}
-	/*	else if (keyword.equals("debugcombat")) {
+		else if (keyword.equals("debugcombat")) {
 			sender.debugCombat = true;
 		    sender.getActionSender().sendMessage("Starting accuracy messages for combat debugging.");
 		}
 		else if (keyword.equals("stopdebugcombat")) {
 			sender.debugCombat = false;
 			sender.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.");
-		}*/
+		}
 		else if (keyword.equals("pnpc")) {
 			final int npcId = Integer.parseInt(args[0]);
 			sender.transformNpc = npcId;
