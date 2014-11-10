@@ -1188,6 +1188,28 @@ public class Player extends Entity {
 		{
 			return false;
 		}
+		char lastChar = username.charAt(0);
+		int validChars = 0;
+		for(int i = 0; i < username.length(); i++)
+		{
+			char c = username.charAt(i);
+			if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9') {
+				if (lastChar >= 'A' && lastChar <= 'Z' || lastChar >= 'a' && lastChar <= 'z' || lastChar >= '0' && lastChar <= '9') {
+					validChars++;
+				}
+			} 
+			else if(c == ' ' || c == '_')
+			{
+				if(lastChar == ' ' || lastChar == '_')
+				{
+					return false;
+				}
+			}
+			lastChar = c;
+		}
+		if(validChars <= 3){
+			return false;
+		}
 		return true;
 	}
 
