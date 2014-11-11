@@ -107,7 +107,7 @@ public class ActionSender {
         }
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendIgnoreList(player.getIgnores());
-		sendMessage("Welcome to /v/scape.");
+		sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 		//QPEdit(player.getQuestPoints());
 		return this;
