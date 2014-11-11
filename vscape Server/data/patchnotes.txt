@@ -1,6 +1,7 @@
 @dre@=November 11th=
 -Pillory random event added.
 -Range and Magic prayers added.
+-Combat Potions (Goats are west of Nardah)
 -Cakes can now be made properly.
 -Granite respawn time fixed.
 -Dr Jekyll / Mr Hyde proper combat stats.
