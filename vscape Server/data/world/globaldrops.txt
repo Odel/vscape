@@ -1,5 +1,11 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+9735:1:3361:2863:0:15 //goat horn
+9735:1:3382:2873:0:15 //goat horn
+9735:1:3381:2883:0:15 //goat horn
+9735:1:3388:2892:0:15 //goat horn
+9735:1:3395:2887:0:15 //goat horn
+9735:1:3381:2858:0:15 //goat horn
 1511:1:2655:2608:0:5 //pc logs
 1511:1:2654:2607:0:5 //pc logs
 1511:1:2655:2607:0:5 //pc logs
