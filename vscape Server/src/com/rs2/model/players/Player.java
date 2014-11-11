@@ -353,6 +353,7 @@ public class Player extends Entity {
 	private boolean placedSword = false;
 	private boolean placedArrow = false;
 	private int godBook = 0;
+	private int lostGodBook = 0;
 	private int railingsFixed = 0;
 	private ArrayList<Integer> railings = new ArrayList<>();
 	private double specialDamage = 1, specialAccuracy = 1;
@@ -2632,6 +2633,12 @@ public class Player extends Entity {
 	public void setGodBook(int set) {
 	    this.godBook = set;
 	}
+	public int getLostGodBook() {
+	    return lostGodBook;
+	}
+	public void setLostGodBook(int set) {
+	    this.lostGodBook = set;
+	}
 	public int getRailingsFixed() {
 	    return this.railingsFixed;
 	}
@@ -3599,6 +3606,9 @@ public class Player extends Entity {
 			for(int i = 0; i < getPets().PET_IDS.length; i++) {
 			    if(dropped.getId() == getPets().PET_IDS[i][0])
 				inventory.addItem(dropped);
+			}
+			if(dropped.getId() == this.getGodBook()) {
+			    this.setLostGodBook(this.getGodBook());
 			}
 			if(Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
 				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));

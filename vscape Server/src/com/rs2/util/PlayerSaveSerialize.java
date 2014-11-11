@@ -89,6 +89,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		itemDataObj.addProperty("recoillife", player.getRingOfRecoilLife());
 		itemDataObj.addProperty("claybracelet", player.getClayBraceletLife());
 		itemDataObj.addProperty("godbook", player.getGodBook());
+		itemDataObj.addProperty("lostgodbook", player.getLostGodBook());
 		itemDataObj.addProperty("usedFreeGauntletsCharge", player.usedFreeGauntletsCharge());
 		itemDataObj.addProperty("defender", player.getDefender());
 		itemDataObj.addProperty("dfsCharges", player.getDfsCharges());

@@ -747,7 +747,7 @@ public class HorrorFromTheDeep implements Quest {
 				player.getDialogue().sendNpcChat("Alright! Go ahead, ask away!", CONTENT);
 				return true;
 			    case 5:
-				if(!player.getInventory().ownsItem(player.getGodBook())) {
+				if(player.getLostGodBook() != -1 && !player.getInventory().ownsItem(player.getLostGodBook())) {
 				    player.getDialogue().sendOption("Would it be possible to exchange my book?", "Found any more information on the books?", "I lost my book...");
 				    return true;
 				}
@@ -833,10 +833,17 @@ public class HorrorFromTheDeep implements Quest {
 				player.setTempInteger(0);
 				return true;
 			    case 20:
-				player.getDialogue().sendNpcChat("Well, luckily for you my wife has quite the travels!", "She told me she came across a book on the ground.", "I believe this one is yours.", CONTENT);
-				player.getDialogue().endDialogue();
-				player.getInventory().addItemOrDrop(new Item(player.getGodBook()));
-				return true;
+				if(player.getInventory().canAddItem(new Item(player.getLostGodBook()))) {
+				    player.getDialogue().sendNpcChat("Well, luckily for you my wife has quite the travels!", "She told me she came across a book on the ground.", "I believe this one is yours.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    player.getInventory().addItemOrDrop(new Item(player.getLostGodBook()));
+				    player.setLostGodBook(-1);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have room for a new book!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
 			    case 22:
 				player.getDialogue().sendNpcChat("Eh, not so much. What I told you before about them", "is still all I know. I'm on the hunt for more", "answers though.", CONTENT);
 				player.getDialogue().endDialogue();
