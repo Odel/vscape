@@ -3977,7 +3977,7 @@ public class Player extends Entity {
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
-		if (npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
+		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
 			return true;
 		}
 		if (npc.getNpcId() == 18) {
@@ -4014,6 +4014,9 @@ public class Player extends Entity {
 				CombatCycleEvent.CanAttackResponse response = CombatCycleEvent.canAttack(npc, this);
 				if (response != CombatCycleEvent.CanAttackResponse.SUCCESS)
 					continue;
+				if (npc.getNpcId() == 99) {
+					npc.getUpdateFlags().setForceChatMessage("Grrr!");
+				}
 				if (npc.getNpcId() == 180) {
 					npc.getUpdateFlags().setForceChatMessage("Stand and deliver!");
 				}

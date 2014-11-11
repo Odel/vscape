@@ -184,6 +184,9 @@ public final class ItemDef {
 		itemDef.setDefaults();
 		itemDef.readValues(stream);
 		switch (i) {
+		/*	case 9735:
+				itemDef.modelID = 5666; (originally showed as a bear head dialogue head)
+				break;*/
 			/*case 2568:
 				itemDef.itemActions[2] = "Check";
 				break;

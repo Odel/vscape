@@ -455,6 +455,37 @@ public class WalkToActionHandler {
 					return;
 				}
 				switch (id) {
+				case 52 :
+				case 53 :
+					if(x >= 2649 && x <= 2650 && y == 3470)
+					{
+						player.getActionSender().sendMessage("The gate is locked.");
+					}
+					break;
+				case 2994 :
+				case 2993 :
+				case 2992 :
+				case 2991 :
+				case 2990 :
+				case 2989 :
+				case 2013 :
+				case 58 :
+					player.getUpdateFlags().sendAnimation(830);
+					player.getActionSender().sendMessage("You dig in amongst the vines.");
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							player.getActionSender().sendMessage("You find a red vine worm.");
+							player.getInventory().addItem(new Item(25));
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					break;
 				case 6836 :
 						player.getPillory().openInterface();
 					break;
@@ -984,11 +1015,11 @@ public class WalkToActionHandler {
 					}
 					break;
 				case 51 : // McGrubors
-					//player.movePlayer(player.getPosition());
-					player.getUpdateFlags().sendAnimation(754);
-					player.getActionSender().walkTo(player.getPosition().getX() < 2662 ? 1 : -1, 0, true);
-					//CrossObstacle.setForceMovement(player, player.getPosition().getX() < 2662 ? 1 : -1, 0, 1, 80, 2, true, 0, 0);
-					break;
+					if(player.getPosition().getY() == 3500) {
+						Agility.crossObstacle(player, player.getPosition().getX() < 2662 ? 2662 : 2661, 3500, 754, 2, 0, 0);
+					    player.getActionSender().sendMessage("You squeeze through the fence.");
+					}
+					break;	
 				case 2186 :
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(754);

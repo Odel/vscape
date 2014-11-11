@@ -56,6 +56,10 @@ public class DoubleDoors {
 		{
 			return false;
 		}
+		if((id == 52 || id == 53) && x >= 2649 && x <= 2650 && y == 3470)
+		{
+			return false;
+		}
 		DoubleDoors doorClicked = getDoor(x, y, z);
 		if (doorClicked == null) {
 			return false;
