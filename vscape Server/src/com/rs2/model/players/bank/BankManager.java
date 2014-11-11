@@ -254,6 +254,14 @@ public class BankManager {
 	}
 	
 	public void withdrawItemAll(int slot, int bankItem) {
+		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
+            return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
+        }
 		Container tabContainer = tabContainer(currentTab);
 		int amount = tabContainer.getCount(bankItem);
 		withdrawItem(slot, bankItem, amount);
