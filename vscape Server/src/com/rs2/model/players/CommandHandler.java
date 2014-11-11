@@ -428,23 +428,44 @@ public class CommandHandler {
 			sender.getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
 		}
 		else if (keyword.equals("forcefox")) {
-			String name = fullString;
-			sender.getActionSender().sendMessage("You have foxed " +
-			args[0].toLowerCase() + ". Yiff!"); 
-			for (Player player : World.getPlayers()) { 
-					if (player == null) continue; 
-					if(player.getUsername().equalsIgnoreCase(name)) {
-						player.transformNpc = 1319;
-						player.setStandAnim(6561);
-						player.setWalkAnim(6560);
-						player.setRunAnim(6560);
-						player.setAppearanceUpdateRequired(true);
-						player.getUpdateFlags().setForceChatMessage("Yiff!");
-						player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!"); 
-					return;
-                  } 
-               }
-			sender.getActionSender().sendMessage("Player offline or not found."); 
+		    String name = fullString;
+		    sender.getActionSender().sendMessage("You have foxed " + args[0].toLowerCase() + ". Yiff!");
+		    for (Player player : World.getPlayers()) {
+			if (player == null) {
+			    continue;
+			}
+			if (player.getUsername().equalsIgnoreCase(name)) {
+			    player.transformNpc = 1319;
+			    player.setStandAnim(6561);
+			    player.setWalkAnim(6560);
+			    player.setRunAnim(6560);
+			    player.setAppearanceUpdateRequired(true);
+			    player.getUpdateFlags().setForceChatMessage("Yiff!");
+			    player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!");
+			    return;
+			}
+		    }
+		    sender.getActionSender().sendMessage("Player offline or not found."); 
+		}
+		else if (keyword.equals("forcefrof")) {
+		    String name = fullString;
+		    sender.getActionSender().sendMessage("You have frogged " + args[0].toLowerCase() + ".");
+		    for (Player player : World.getPlayers()) {
+			if (player == null) {
+			    continue;
+			}
+			if (player.getUsername().equalsIgnoreCase(name)) {
+			    player.transformNpc = 1829;
+			    player.setStandAnim(1796);
+			    player.setWalkAnim(1797);
+			    player.setRunAnim(1797);
+			    player.setAppearanceUpdateRequired(true);
+			    player.getUpdateFlags().setForceChatMessage("Ribbit");
+			    player.getActionSender().sendMessage("You have been frogged! Good luck croaking in hell!");
+			    return;
+			}
+		    }
+		    sender.getActionSender().sendMessage("Player offline or not found."); 
 		}
 		else if (keyword.equals("sayit")) {
 		    String whattosay = fullString.substring(0, fullString.indexOf("-")-1);
@@ -791,15 +812,23 @@ public class CommandHandler {
             sender.getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
         }
         else if (keyword.equals("fox")) {
-        	sender.transformNpc = 1319;
-        	sender.setStandAnim(6561);
-        	sender.setWalkAnim(6560);
-        	sender.setRunAnim(6560);
-        	sender.setAppearanceUpdateRequired(true);
-        	sender.getUpdateFlags().setForceChatMessage("Yiff!");
-		}
-		else if (keyword.equals("uptime")) {
-			sender.getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
+		sender.transformNpc = 1319;
+		sender.setStandAnim(6561);
+		sender.setWalkAnim(6560);
+		sender.setRunAnim(6560);
+		sender.setAppearanceUpdateRequired(true);
+		sender.getUpdateFlags().setForceChatMessage("Yiff!");
+	}
+	else if (keyword.equals("frog")) {
+		sender.transformNpc = 1829;
+		sender.setStandAnim(1796);
+		sender.setWalkAnim(1797);
+		sender.setRunAnim(1797);
+		sender.setAppearanceUpdateRequired(true);
+		sender.getUpdateFlags().setForceChatMessage("Ribbit");
+	}
+	else if (keyword.equals("uptime")) {
+		sender.getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
         }
         else if (keyword.equals("save")) {
         	PlayerSave.saveAllPlayers();
@@ -1227,15 +1256,15 @@ public class CommandHandler {
 		else if (keyword.equals("food")) {
 			sender.getInventory().addItem(new Item(391, 28));
 		}
-/*		else if (keyword.equals("spawn")) {
+		else if (keyword.equals("spawn")) {
 			int id = Integer.parseInt(args[0]);
 			if(GlobalVariables.npcDump[id].toLowerCase().contains("null")) {
-			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
+			    sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
 			    return;
 			}
 			NpcDefinition npc = NpcDefinition.forId(id);
-			appendToAutoSpawn(npc);
-		}*/
+			sender.appendToAutoSpawn(npc);
+		}
 		else if (keyword.equals("team")) {
 			int cape = Integer.parseInt(args[0]);
 			int count = 0;

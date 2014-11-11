@@ -3863,6 +3863,7 @@ public class Player extends Entity {
 
 	public void appendToAutoSpawn(NpcDefinition npc) {
 		int randNum = Misc.random(4) + 2;
+		/*
 		String filePath = "./data/spawns.txt";
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
@@ -3876,6 +3877,7 @@ public class Player extends Entity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 		NpcLoader.newNPC(npc.getId(), getPosition().getX(), getPosition().getY(), getPosition().getZ(), randNum);
 	}
 
