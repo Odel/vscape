@@ -364,7 +364,7 @@ public class BankManager {
 		if(fromTab.size() <= 0)
 		{
 			fromTab.clear();
-			if(from != 0) {
+			if(currentTab != 0){
 				removeTab(currentTab);
 			}
 		}
