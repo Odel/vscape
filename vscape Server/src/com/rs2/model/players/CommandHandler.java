@@ -447,7 +447,7 @@ public class CommandHandler {
 		    }
 		    sender.getActionSender().sendMessage("Player offline or not found."); 
 		}
-		else if (keyword.equals("forcefrof")) {
+		else if (keyword.equals("forcefrog")) {
 		    String name = fullString;
 		    sender.getActionSender().sendMessage("You have frogged " + args[0].toLowerCase() + ".");
 		    for (Player player : World.getPlayers()) {
