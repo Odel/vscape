@@ -94,16 +94,29 @@ public class NpcLoader {
 		Npc npc = new Npc(id);
 		npc.setPosition(new Position(x, y, heightLevel));
 		npc.setSpawnPosition(new Position(x, y, heightLevel));
-        npc.setNeedsRespawn(true);
+		npc.setNeedsRespawn(true);
 		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
 		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
-        npc.setWalkType(face == 1 || face > 5 ? WalkType.WALK : WalkType.STAND);
+		npc.setWalkType(face == 1 || face > 5 ? WalkType.WALK : WalkType.STAND);
 		npc.setFace(face);
 		npc.setCurrentX(x);
 		npc.setCurrentY(y);
-        npc.setNeedsRespawn(true);
+		npc.setNeedsRespawn(true);
 		World.register(npc);
-
+	}
+	
+	public static void newWanderNPC(int id, int x, int y, int heightLevel) {
+		Npc npc = new Npc(id);
+		npc.setPosition(new Position(x, y, heightLevel));
+		npc.setSpawnPosition(new Position(x, y, heightLevel));
+		npc.setNeedsRespawn(true);
+		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
+		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
+		npc.setWalkType(WalkType.WALK);
+		npc.setCurrentX(x);
+		npc.setCurrentY(y);
+		npc.setNeedsRespawn(true);
+		World.register(npc);
 	}
 
 	public static void spawnNpc(Player player, Npc npc, boolean attack, boolean hintIcon) {

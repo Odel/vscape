@@ -3879,7 +3879,7 @@ public class Player extends Entity {
 	}
 
 	public void appendToAutoSpawn(NpcDefinition npc) {
-		int randNum = Misc.random(4) + 2;
+		//int randNum = Misc.random(4) + 2;
 		/*
 		String filePath = "./data/spawns.txt";
 		try {
@@ -3895,7 +3895,7 @@ public class Player extends Entity {
 			e.printStackTrace();
 		}
 		*/
-		NpcLoader.newNPC(npc.getId(), getPosition().getX(), getPosition().getY(), getPosition().getZ(), randNum);
+		NpcLoader.newWanderNPC(npc.getId(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
 	}
 
 	public void resetAllActions() {
