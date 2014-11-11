@@ -61,10 +61,8 @@ public class RandomEvent {
 						TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 						break;
 					case 4:
-					    if(Misc.random(2) == 1) {
 						player.getFreakyForester().spawnForester();
-					    }
-					    break;
+						break;
 					//case 5 :
 						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
 						//break;
