@@ -525,7 +525,7 @@ public class ItemDefinition {
 		if (itemName.contains("seercull")) {
 			return true;
 		}
-		if (itemName.contains("tzhaar-ket-om")) {
+		if (itemName.contains("tzhaar-ket-om") || itemName.contains("toktz-mej-tal")) {
 			return true;
 		}
 		if (itemName.contains("mjolnir")) {
