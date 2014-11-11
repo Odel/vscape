@@ -2783,7 +2783,6 @@ public class Client extends RSApplet {
 		// myUsername = "";
 		// myPassword = "";
 		ignoreCount = 0;
-		ignoreListAsLongs = new long[100];
 		unlinkMRUNodes();
 		worldController.initToNull();
 		for (int i = 0; i < 4; i++)
@@ -7173,7 +7172,6 @@ public class Client extends RSApplet {
 				anInt900 = 0;
 				friendsCount = 0;
 				ignoreCount = 0;
-				ignoreListAsLongs = new long[100];
 				dialogID = -1;
 				backDialogID = -1;
 				openInterfaceID = -1;
@@ -13348,7 +13346,7 @@ public class Client extends RSApplet {
 	private int plane;
 	private final int[] currentStats;
 	private static int anInt924;
-	private long[] ignoreListAsLongs;
+	private final long[] ignoreListAsLongs;
 	private boolean loadingError;
 	private final int[] anIntArray928;
 	private int[][] anIntArrayArray929;
