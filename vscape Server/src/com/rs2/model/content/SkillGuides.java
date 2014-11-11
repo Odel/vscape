@@ -684,9 +684,10 @@ public class SkillGuides {
 			String type = "Dragon";
 			menuLine(level, type + " Square Shield", 1187, 0);
 			menuLine(level, type + " Medium Helm", 1149, 1);
-			menuLine(level, type + " Chainbody", 3140, 2);
-			menuLine(level, type + " Plateskirt", 4585, 3);
-			menuLine(level, type + " Platelegs", 4087, 4);
+			menuLine(level, type + " Full Helm", 11335, 2);
+			menuLine(level, type + " Chainbody", 3140, 3);
+			menuLine(level, type + " Plateskirt", 4585, 4);
+			menuLine(level, type + " Platelegs", 4087, 5);
 			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
@@ -728,18 +729,22 @@ public class SkillGuides {
 			menuLine("20", "Mystic Gloves(With 40 Magic)", 4105, 9);
 			menuLine("20", "Mystic Boots(With 40 Magic)", 4107, 10);
 			menuLine("25", "Infinity Hat(With 50 Magic)", 6918, 11);
-			menuLine("25", "Infinity Ttop(With 50 Magic)", 6916, 12);
+			menuLine("25", "Infinity Top(With 50 Magic)", 6916, 12);
 			menuLine("25", "Infinity Bottom(With 50 Magic)", 6924, 13);
 			menuLine("25", "Infinity Gloves(With 50 Magic)", 6922, 14);
 			menuLine("25", "Infinity Boots(With 50 Magic)", 6920, 15);
-			menuLine("40", "Splitbark Helm(With 40 Magic)", 3385, 16);
-			menuLine("40", "Splitbark Body(With 40 Magic)", 3387, 17);
-			menuLine("40", "Splitbark Legs(With 40 Magic)", 3389, 18);
-			menuLine("40", "Splitbark Gauntlets(With 40 Magic)", 3391, 19);
-			menuLine("40", "Splitbark Boots(With 40 Magic)", 3393, 20);
-			menuLine("40", "Skeletal Helm(With 40 Magic)", 6137, 21);
-			menuLine("40", "Skeletal Top(With 40 Magic)", 6139, 22);
-			menuLine("40", "Skeletal Bottoms(With 40 Magic)", 6141, 23);
+			menuLine("30", "3rd Age Mage Hat(With 65 Magic)", 10342, 16);
+			menuLine("30", "3rd Age Robe Top(With 65 Magic)", 10338, 17);
+			menuLine("30", "3rd Age Robe(With 65 Magic)", 10340, 18);
+			menuLine("30", "3rd Age Amulet(With 65 Magic)", 10344, 19);
+			menuLine("40", "Splitbark Helm(With 40 Magic)", 3385, 20);
+			menuLine("40", "Splitbark Body(With 40 Magic)", 3387, 21);
+			menuLine("40", "Splitbark Legs(With 40 Magic)", 3389, 22);
+			menuLine("40", "Splitbark Gauntlets(With 40 Magic)", 3391, 23);
+			menuLine("40", "Splitbark Boots(With 40 Magic)", 3393, 24);
+			menuLine("40", "Skeletal Helm(With 40 Magic)", 6137, 25);
+			menuLine("40", "Skeletal Top(With 40 Magic)", 6139, 26);
+			menuLine("40", "Skeletal Bottoms(With 40 Magic)", 6141, 27);
 			menuLine("44", "Farseer Helm", 3755, 24);
 			optionTab("Defence", "Magic", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
@@ -747,7 +752,7 @@ public class SkillGuides {
 		else if (screen == 12) {
 			clearMenu();
 			menuLine("1", "Khazard Helmet", 74, 0);
-			menuLine("1", "Khazard Armour", 75, 1);
+			menuLine("1", "Khazard Armor", 75, 1);
 			menuLine("1", "Anti-Dragonbreath Shield", 1540, 2);
 			menuLine("1", "Spined Gloves", 6149, 3);
 			menuLine("1", "Spined Boots", 6143, 4);
@@ -755,25 +760,34 @@ public class SkillGuides {
 			menuLine("1", "Rock-Shell Boots", 6145, 6);
 			menuLine("5", "Spiny Helmet", 4551, 7);
 			menuLine("10", "Hard Leather Body", 1131, 8);
-			menuLine("20", "Studded Body(With 20 Ranged)", 1133, 9);
-			menuLine("20", "Initiate Helm(With 10 Prayer)", 5574, 10);
-			menuLine("20", "Initiate Platemail(With 10 Prayer)", 5575, 11);
-			menuLine("20", "Initiate Platelegs(With 10 Prayer)", 5576, 12);
-			menuLine("20", "Mirror Shield(with 20 Slayer)", 4156, 13);
-			menuLine("30", "Snakeskin armour(With 30 Ranged)", 6322, 14);
-			menuLine("40", "Green Dragonhide Body(With 40 Ranged)", 1135, 15);
-			menuLine("40", "Blue Dragonhide Body(With 40 Ranged)", 2499, 16);
-			menuLine("40", "Red Dragonhide Body(With 40 Ranged)", 2501, 17);
-			menuLine("40", "Black Dragonhide Body(With 40 Ranged)", 2503, 18);
-			menuLine("40", "Spined Armour(With 40 Ranged)", 6133, 19);
-			menuLine("40", "Rock-shell Armour", 6129, 20);
+			menuLine("20", "Studded Body (With 20 Ranged)", 1133, 9);
+			menuLine("20", "Initiate Helm (With 10 Prayer)", 5574, 10);
+			menuLine("20", "Initiate Platemail (With 10 Prayer)", 5575, 11);
+			menuLine("20", "Initiate Platelegs (With 10 Prayer)", 5576, 12);
+			menuLine("20", "Mirror Shield (With 20 Slayer)", 4156, 13);
+			menuLine("30", "Snakeskin armour (With 30 Ranged)", 6322, 14);
+			menuLine("40", "Green Dragonhide Body (With 40 Ranged)", 1135, 15);
+			menuLine("40", "Blue Dragonhide Body (With 40 Ranged)", 2499, 16);
+			menuLine("40", "Red Dragonhide Body (With 40 Ranged)", 2501, 17);
+			menuLine("40", "Black Dragonhide Body (With 40 Ranged)", 2503, 18);
+			menuLine("40", "Spined Armor (With 40 Ranged)", 6133, 19);
+			menuLine("40", "Rock-shell Armor", 6129, 20);
 			menuLine("45", "Berserker Helm", 3751, 21);
 			menuLine("45", "Warrior Helm", 3753, 22);
 			menuLine("45", "Archer Helm", 3749, 23);
 			menuLine("45", "Farseer Helm", 3755, 24);
-			menuLine("50", "Granite Shield(With 50 Strength)", 3122, 25);
-			menuLine("60", "TokTz-Ket-Xil(Obsidian Shield)", 6524, 26);
-			menuLine("70", "Crystal Shield(With 50 Agility)", 4224, 27);
+			menuLine("45", "3rd Age Range Coif (With 65 Ranged)", 10334, 25);
+			menuLine("45", "3rd Age Range Top (With 65 Ranged)", 10330, 26);
+			menuLine("45", "3rd Age Range Legs (With 65 Ranged)", 10332, 27);
+			menuLine("45", "3rd Age Vambraces (With 65 Ranged)", 10336, 28);
+			menuLine("50", "Granite Shield (With 50 Strength)", 3122, 29);
+			menuLine("60", "Toktz-Ket-Xil", 6524, 30);
+			menuLine("65", "3rd Age Full Helmet", 10350, 31);
+			menuLine("65", "3rd Age Platebody", 10348, 32);
+			menuLine("65", "3rd Age Platelegs", 10346, 33);
+			menuLine("65", "3rd Age Kiteshield", 10352, 34);
+			menuLine("70", "Crystal Shield (With 50 Agility)", 4224, 35);
+			menuLine("75", "Dragonfire Shield", 11284, 36);
 			optionTab("Defence", "Equipment", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
@@ -807,7 +821,7 @@ public class SkillGuides {
 			menuLine("50", "Seercull", 6724, 8);
 			menuLine("60", "Dark Bow", 11235, 9);
 			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 10);
-			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -839,7 +853,7 @@ public class SkillGuides {
 			menuLine("40", "Rune Throwing Axe", 805, 24);
 			menuLine("40", "Rune Throwing Knife", 868, 25);
 			menuLine("60", "TokTz-Xil-Ul(Obsidian Rings)", 6522, 26);
-			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -871,13 +885,17 @@ public class SkillGuides {
 			menuLine("60", "Red Dragonhide Vambraces", 2489, 24);
 			menuLine("60", "Red Dragonhide Chaps", 2495, 25);
 			menuLine("60", "Red Dragonhide Body(With 40 Defence)", 2501, 26);
-			menuLine("70", "Black Dragonhdie Vambraces", 2491, 27);
-			menuLine("70", "Black Dragonhdie Chaps", 2497, 28);
-			menuLine("70", "Black Dragonhdie Body(With 40 Defence)", 2503, 29);
-			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 30);
-			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 31);
-			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 32);
-			optionTab("Ranged", "Armour", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			menuLine("65", "3rd Age Range Coif(With 45 Defence)", 10334, 27);
+			menuLine("65", "3rd Age Range Top(With 45 Defence)", 10330, 28);
+			menuLine("65", "3rd Age Range Legs(With 45 Defence)", 10332, 29);
+			menuLine("65", "3rd Age Vambraces(With 45 Defence)", 10336, 30);
+			menuLine("70", "Black Dragonhdie Vambraces", 2491, 31);
+			menuLine("70", "Black Dragonhdie Chaps", 2497, 32);
+			menuLine("70", "Black Dragonhdie Body(With 40 Defence)", 2503, 33);
+			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 34);
+			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 35);
+			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 36);
+			optionTab("Ranged", "Armor", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -891,7 +909,7 @@ public class SkillGuides {
 			menuLine("46", "Adamant C'bow", 9183, 6);
 			menuLine("61", "Rune C'bow", 9185, 7);
 			menuLine("70", "Karil's Crossbow", 4734, 8);
-			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -903,7 +921,7 @@ public class SkillGuides {
 			menuLine("40", "Adamant Bolt", 9143, 4);
 			menuLine("50", "Rune Bolt", 9144, 5);
 			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 6);
-			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Other", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 6) {
@@ -912,7 +930,7 @@ public class SkillGuides {
 			menuLine("99", "Ranging Cape", 9756, 1);
 			menuLine("99", "Ranging Cape (t)", 9757, 2);
 			menuLine("99", "Ranging Hood", 9758, 3);
-			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armor", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
 		}
 	}
 
@@ -987,7 +1005,7 @@ public class SkillGuides {
 			menuLine("", "your side interface. Move the mouse", -1, 2);
 			menuLine("", "over the icon of the spell you want and", -1, 3);
 			menuLine("", "a description will be availabe", -1, 4);
-			optionTab("Magic", "Spells", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Spells", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1018,7 +1036,7 @@ public class SkillGuides {
 			menuLine("92", "Blood Barrage", -1, 23);
 			menuLine("94", "Ice Barrage", -1, 24);
 			menuLine("96", "Teleport to Ghorrock", -1, 25);
-			optionTab("Magic", "Ancients", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Ancients", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -1049,10 +1067,14 @@ public class SkillGuides {
 			menuLine("50", "Infinity Bottom(With 25 Defence)", 6924, 23);
 			menuLine("50", "Infinity Boots(With 25 Defence)", 6920, 24);
 			menuLine("50", "Infinity Gloves(with 25 Defence)", 6922, 25);
-			menuLine("70", "Ahrim's Hood(With 70 Defence)", 4708, 26);
-			menuLine("70", "Ahrim's Robe Top(With 70 Defence)", 4712, 27);
-			menuLine("70", "Ahrim's Robeskirt(With 70 Defence)", 4714, 28);
-			optionTab("Magic", "Armour", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			menuLine("65", "3rd Age Mage Hat(With 30 Defence)", 10342, 26);
+			menuLine("65", "3rd Age Robe Top(With 30 Defence)", 10338, 27);
+			menuLine("65", "3rd Age Robe(With 30 Defence)", 10340, 28);
+			menuLine("65", "3rd Age Amulet(With 30 Defence)", 10344, 29);
+			menuLine("70", "Ahrim's Hood(With 70 Defence)", 4708, 30);
+			menuLine("70", "Ahrim's Robe Top(With 70 Defence)", 4712, 31);
+			menuLine("70", "Ahrim's Robeskirt(With 70 Defence)", 4714, 32);
+			optionTab("Magic", "Armor", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -1083,7 +1105,7 @@ public class SkillGuides {
 			menuLine("60", "Zamorak Staff", 2417, 23);
 			menuLine("60", "TokTz-Mej-Tal(Obsidian Staff)", 6526, 24);
 			menuLine("70", "Ahrim's Staff(With 70 Attack)", 4710, 25);
-			optionTab("Magic", "Weapons", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Weapons", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -1093,7 +1115,7 @@ public class SkillGuides {
 			menuLine("55", "Teacher Wand", 6912, 2);
 			menuLine("60", "Master Wand", 6914, 3);
 			menuLine("60", "Mage's Book", 6889, 4);
-			optionTab("Magic", "Special", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Special", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 6) {
@@ -1102,7 +1124,7 @@ public class SkillGuides {
 			menuLine("99", "Magic Cape", 9762, 1);
 			menuLine("99", "Magic Cape (t)", 9763, 2);
 			menuLine("99", "Magic Hood", 9764, 3);
-			optionTab("Magic", "Milestones", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Milestones", "Spells", "Ancients", "Armor", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
 		}
 	}
 
@@ -1338,33 +1360,34 @@ public class SkillGuides {
 			menuLine("3", "Attack potion (Clean Guam + Eye of newt)", 121, 0);
 			menuLine("5", "Anti-poison (Marrentill + Unicorn horn dust)", 175, 1);
 			menuLine("12", "Strength potion (Tarromin + Limpwurt root)", 115, 2);
-			menuLine("22", "Stat restore potion (Harralander + Red Spiders' eggs, Garlic, Silver Dust)", 127, 3);
+			menuLine("22", "Restore potion (Harralander + Red Spiders' eggs)", 127, 3);
 			menuLine("26", "Energy potion (Harralander + Chocolate dust)", 3010, 4);
 			menuLine("30", "Defence potion (Ranarr + White Berries)", 133, 5);
 			menuLine("34", "Agility potion (Toadflax + Toad's legs)", 3034, 6);
-			menuLine("38", "Prayer restore potion (Ranarr + Snape grass)", 139, 7);
-			menuLine("45", "Super Attack potion (Irit leaf + Eye of newt)", 145, 8);
-			menuLine("48", "Super anti-poison (Irit leaf + Unicorn horn dust)", 181, 9);
-			menuLine("50", "Fishing potion (Avantoe + Snape grass)", 151, 10);
-			menuLine("52", "Super energy potion (Avantoe + Mort myre fungi)", 3018, 11);
-			menuLine("55", "Super Strength potion (Kwuarm + Limpwurt root)", 157, 12);
-			menuLine("60", "Weapon poison (Kwuarm + Blue dragon scale)", 187, 13);
-			menuLine("63", "Super restore potion (Snapedragon + Red Spiders' eggs)", 3026, 14);
-			menuLine("66", "Super Defence potion (Cadantine + White berries)", 163, 15);
-			menuLine("68", "Antidote+ (coconut milk + Toadflax + Yew roots)", 5945, 16);
-			menuLine("69", "Ranging potion (Dwarf weed + Wine of Zamorak)", 169, 17);
-			menuLine("72", "Antifire potion (Lantadyme + Blue dragon scale)", 2454, 18);
-			menuLine("73", "Weapon poison+ (coconut milk + Cactus spine + Red Spiders' eggs)", 5937, 19);
-			menuLine("76", "Magic potion (Lantadyme + Potato cactus)", 3042, 20);
-			menuLine("78", "Zamorak brew (Torstol + Jangerberries)", 189, 21);
-			menuLine("79", "Antidote++ (coconut Milk, Irit leaf + Magic roots)", 5954, 22);
-			menuLine("81", "Saradomin brew (Toadflax + Crushed bird's nest)", 6687, 23);
-			menuLine("82", "Weapon poison++ (coconut milk + Nightshade, Poison ivy berries)", 5940, 24);
-			menuLine("", "To fill your vials with water, you will have ", -1, 26);
-			menuLine("", "to reach Taverley and use the fountain.", -1, 27);
-			menuLine("", "The Herblore supplies can be bought in Taverley", -1, 28);
-			menuLine("", "All the brews can be made.", -1, 29);
-			menuLine("", "PS : coconut milk required for some potions.", -1, 30);
+			menuLine("36", "Combat potion (Harralander + Ghost Horn Dust)", 9741, 7);
+			menuLine("38", "Prayer restore potion (Ranarr + Snape grass)", 139, 8);
+			menuLine("45", "Super Attack potion (Irit leaf + Eye of newt)", 145, 9);
+			menuLine("48", "Super anti-poison (Irit leaf + Unicorn horn dust)", 181, 10);
+			menuLine("50", "Fishing potion (Avantoe + Snape grass)", 151, 11);
+			menuLine("52", "Super Energy (Avantoe + Mort myre fungi)", 3018, 12);
+			menuLine("55", "Super Strength (Kwuarm + Limpwurt root)", 157, 13);
+			menuLine("60", "Weapon poison (Kwuarm + Blue dragon scale)", 187, 14);
+			menuLine("63", "Restore(s) (Snapdragon + Red Spiders' eggs)", 3026, 15);
+			menuLine("66", "Super Defence (Cadantine + White berries)", 163, 16);
+			menuLine("68", "Antidote(+) (C. Milk + Toadflax + Yew roots)", 5945, 17);
+			menuLine("69", "Ranging potion (Dwarf weed + Wine of Zamorak)", 169, 18);
+			menuLine("72", "Antifire potion (Lantadyme + Blue dragon scale)", 2454, 19);
+			menuLine("73", "Weapon(+) (C.Milk + Cactus spine + R.Spiders' egg)", 5937, 20);
+			menuLine("76", "Magic potion (Lantadyme + Potato cactus)", 3042, 21);
+			menuLine("78", "Zamorak brew (Torstol + Jangerberries)", 189, 22);
+			menuLine("79", "Antidote (++) (C. Milk + Irit leaf + Magic roots)", 5954, 23);
+			menuLine("81", "Saradomin brew (Toadflax + Crushed bird's nest)", 6687, 24);
+			menuLine("82", "Weapon(++) (C. Milk + Nightshade + P. ivy berry)", 5940, 25);
+			//menuLine("", "To fill your vials with water, you will have ", -1, 27); wut
+			//menuLine("", "to reach Taverley and use the fountain.", -1, 28);
+			//menuLine("", "The Herblore supplies can be bought in Taverley", -1, 29);
+			//menuLine("", "All the brews can be made.", -1, 29);
+			//menuLine("", "PS : coconut milk required for some potions.", -1, 30);
 			optionTab("Herblore", "Potions", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 
@@ -1484,7 +1507,7 @@ public class SkillGuides {
 			menuLine("10", "Cloth", 3224, 0);
 			menuLine("21", "Vegetable Sack", 5418, 1);
 			menuLine("36", "Fruit Basket", 5376, 2);
-			optionTab("Crafting", "Weaving", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Weaving", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1517,14 +1540,14 @@ public class SkillGuides {
 			menuLine("79", "Black Dragonhide Vambraces", 2491, 25);
 			menuLine("82", "Black Dragonhide Chaps", 2497, 26);
 			menuLine("84", "Black Dragonhide Body", 2503, 27);
-			optionTab("Crafting", "Armour", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Armor", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("1", "Wool", 1759, 0);
 			menuLine("10", "Flax into Bow Strings", 1777, 1);
-			optionTab("Crafting", "Spinning", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Spinning", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -1534,7 +1557,7 @@ public class SkillGuides {
 			menuLine("8", "Bowl", 1923, 2);
 			menuLine("19", "Plant Pot", 5350, 3);
 			menuLine("25", "Pot Lid", 4440, 4);
-			optionTab("Crafting", "Pottery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Pottery", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -1547,7 +1570,7 @@ public class SkillGuides {
 			menuLine("42", "Fishbowl", 6667, 5);
 			menuLine("46", "Glass Orb", 567, 6);
 			menuLine("49", "Bullseye Lantern Lens", 4542, 7);
-			optionTab("Crafting", "Glass", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Glass", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 6) {
@@ -1590,7 +1613,7 @@ public class SkillGuides {
 			menuLine("82", "Onyx Necklace", 6577, 35);
 			menuLine("84", "Onyx Bracelet", 11130, 36);
 			menuLine("90", "Onyx Amulet", 6579, 37);
-			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Jewellery", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 7) {
@@ -1606,7 +1629,7 @@ public class SkillGuides {
 			menuLine("58", "Earth battlestaff", 1399, 8);
 			menuLine("62", "Fire battlestaff", 1393, 9);
 			menuLine("66", "Air battlestaff", 1397, 10);
-			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Weaponry", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 8) {
@@ -1615,7 +1638,7 @@ public class SkillGuides {
 			menuLine("99", "Crafting Cape", 9780, 1);
 			menuLine("99", "Crafting Cape (t)", 9781,2);
 			menuLine("99", "Crafting Hood", 9782, 3);
-			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Milestones", "Weaving", "Armor", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
 		}
 	}
 

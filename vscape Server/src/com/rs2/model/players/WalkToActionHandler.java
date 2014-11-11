@@ -986,12 +986,14 @@ public class WalkToActionHandler {
 				case 51 : // McGrubors
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(754);
-					CrossObstacle.setForceMovement(player, player.getPosition().getX() < 2662 ? 1 : -1, 0, 1, 80, 2, true, 0, 0);
+					player.getActionSender().walkTo(player.getPosition().getX() < 2662 ? 1 : -1, 0, true);
+					//CrossObstacle.setForceMovement(player, player.getPosition().getX() < 2662 ? 1 : -1, 0, 1, 80, 2, true, 0, 0);
 					break;
 				case 2186 :
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(754);
-					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3161 ? 1 : -1, 1, 80, 2, true, 0, 0);
+					player.getActionSender().walkTo(0, player.getPosition().getY() < 3161 ? 1 : -1, true);
+					//CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3161 ? 1 : -1, 1, 80, 2, true, 0, 0);
 					break;
 				case 2266 :
 					if (player.getPosition().getY() > 2963) {
