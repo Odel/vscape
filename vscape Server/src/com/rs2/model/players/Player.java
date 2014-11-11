@@ -168,6 +168,7 @@ import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
 import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.Puzzle;
@@ -213,6 +214,7 @@ public class Player extends Entity {
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
 	private Puzzle puzzle = new Puzzle(this);
+	private MithrilSeeds seeds = new MithrilSeeds(this);
 	private Barrows barrows = new Barrows(this);
 	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
@@ -1851,6 +1853,10 @@ public class Player extends Entity {
 	
 	public Puzzle getPuzzle() {
 		return puzzle;
+	}
+	
+	public MithrilSeeds getMithrilSeeds() {
+		return seeds;
 	}
 	
 	public Barrows getBarrows() {

@@ -45,11 +45,13 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
+import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.transport.MagicCarpet;
 
 public class Dialogues {
@@ -572,6 +574,34 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 12980:
+			case 12981:
+			case 12982:
+			case 12983:
+			case 12984:
+			case 12985:
+			case 12986:
+			case 12987:
+			case 12988: //Flowers
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendOption("Pick the flower.", "Keep the flower.");
+				    return true;
+				case 2:
+				    switch (optionId) {
+					case 1:
+					    player.getUpdateFlags().sendAnimation(827);
+					    player.getUpdateFlags().sendFaceToDirection(new Position(player.getMithrilSeeds().getLastFlowerX(), player.getMithrilSeeds().getLastFlowerY(), player.getPosition().getZ()));
+					    player.getInventory().addItemOrDrop(new Item(player.getMithrilSeeds().itemForObject(id - 10000)));
+					    player.getActionSender().sendMessage("You pick the flowers.");
+					    player.getMithrilSeeds().removeFlowerObject(ObjectHandler.getInstance().getObject(id - 10000, player.getMithrilSeeds().getLastFlowerX(), player.getMithrilSeeds().getLastFlowerY(), player.getPosition().getZ()));
+					    break;
+					case 2:
+					    break;
+				    }
+				    break;
+			    }
+			    break;
 			case 166 : //banker
 			case 494 :
 			case 495 :
