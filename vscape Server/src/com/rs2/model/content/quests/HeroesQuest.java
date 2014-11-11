@@ -377,6 +377,9 @@ public class HeroesQuest implements Quest {
 			public void execute(CycleEventContainer b) {
 			    npc.getUpdateFlags().setForceChatMessage("Urgggh...");
 			    npc.hit(npc.getCurrentHp(), HitType.NORMAL);
+			    if(player.getQuestStage(27) < ARMBAND_GOTTEN) {
+				player.setShotGrip(true);
+			    }
 			    b.stop();
 			}
 
@@ -498,6 +501,10 @@ public class HeroesQuest implements Quest {
 		} else if(player.getQuestStage(27) == QUEST_STARTED && !player.getInventory().canAddItem(new Item(CANDLESTICK, 2))) {
 		    player.getDialogue().sendStatement("You find two candlesticks, but you don't have room for them.");
 		    return true;
+		} else if(player.getQuestStage(27) >= QUEST_COMPLETE && !player.getInventory().ownsItem(CANDLESTICK)) {
+		    player.getDialogue().sendStatement("You find a candlestick in the chest. Must be to assist", "the person who killed Grip for you.");
+		    player.getInventory().addItemOrDrop(new Item(CANDLESTICK));
+		    return true;
 		} else {
 		    return false;
 		}
@@ -540,7 +547,7 @@ public class HeroesQuest implements Quest {
 		player.getActionSender().walkThroughDoor(object, x, y, 0);
 		return true;
 	    case 2629: //chef's "wall"
-		if(player.spokeToCharlie()) {
+		if(player.spokeToCharlie() || (player.getQuestStage(27) >= QUEST_COMPLETE && player.isPhoenixGang())) {
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2787 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -1041,7 +1048,7 @@ public class HeroesQuest implements Quest {
 				if(player.isBlackArmGang() && !player.getInventory().ownsItem(CANDLESTICK)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK)) {
+				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.getQuestStage(27) == CANDLESTICKS_GOTTEN) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(12);
 				    return true;
@@ -1167,7 +1174,7 @@ public class HeroesQuest implements Quest {
 				if(player.isPhoenixGang() && !player.getInventory().ownsItem(1577)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(1577)) {
+				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.hasShotGrip()) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
@@ -1213,6 +1220,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().endDialogue();
 				player.getInventory().replaceItemWithItem(new Item(CANDLESTICK), new Item(ARMBAND));
 				player.setQuestStage(27, ARMBAND_GOTTEN);
+				player.setShotGrip(false);
 				return true;
 			}
 		    return false;

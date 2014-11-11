@@ -221,6 +221,7 @@ public class Player extends Entity {
 	private boolean[] runeDrawWins = {false, false, false};
 	private boolean justWonRuneDraw = false;
 	private boolean wyvernWarned = false;
+	private boolean shotGrip = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -1884,6 +1885,12 @@ public class Player extends Entity {
 	}
 	public void setWyvernWarned(boolean bool) {
 	    this.wyvernWarned = bool;
+	}
+	public boolean hasShotGrip() {
+	    return this.shotGrip;
+	}
+	public void setShotGrip(boolean bool) {
+	    this.shotGrip = bool;
 	}
 	public boolean justWonRuneDraw() {
 		return justWonRuneDraw;

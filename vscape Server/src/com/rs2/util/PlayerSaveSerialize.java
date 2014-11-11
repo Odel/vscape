@@ -251,6 +251,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("petitionSigned", player.petitionSigned());
 		questVarsObj.addProperty("snailSlime", player.givenSnailSlime());
 		questVarsObj.addProperty("idPapers", player.givenIdPapers());
+		questVarsObj.addProperty("hasShotGrip", player.hasShotGrip());
 		questObj.add("questVars", questVarsObj);
 		JsonArray questArray = new JsonArray();
 		for(Quest q : QuestHandler.getQuests())
