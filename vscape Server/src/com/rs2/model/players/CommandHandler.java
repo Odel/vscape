@@ -527,6 +527,8 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
+		    	if(!player.getInJail())
+		    		return;
 		    	player.getPillory().UnJailPlayer();
 		    	sender.getActionSender().sendMessage("UnJailed "+ name);
 		    }else{
