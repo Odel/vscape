@@ -154,7 +154,7 @@ public class PlayerSaveParser {
 	                player.setRingOfRecoilLife(itemData.get("recoillife").getAsInt());
 	                player.setClayBraceletLife(itemData.get("claybracelet").getAsInt());
 	                player.setGodBook(itemData.get("godbook").getAsInt());
-			player.setLostGodBook(itemData.get(";lostgodbook").getAsInt());
+			player.setLostGodBook(itemData.get("lostgodbook").getAsInt());
 	                player.setHasUsedFreeGauntletsCharge(itemData.get("usedFreeGauntletsCharge").getAsBoolean());
 	                player.setDefender(itemData.get("defender").getAsInt());
 	                player.setDfsCharges(itemData.get("dfsCharges").getAsInt());
