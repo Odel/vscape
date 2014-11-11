@@ -511,7 +511,7 @@ public class CommandHandler {
 		}
 		if(keyword.equals("jail"))
 		{
-			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+			String name = fullString;
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
@@ -523,7 +523,7 @@ public class CommandHandler {
 		}
 		if(keyword.equals("unjail"))
 		{
-			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+			String name = fullString;
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
