@@ -139,13 +139,13 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonArray friendsArray = new JsonArray();
 		for (int i = 0; i < player.getFriends().length; i++) {
-			if(player.getFriends()[i] < 0L)
+			if(player.getFriends()[i] < 0L || player.getFriends()[i] >= 0x5b5b57f8a98a5dd1L)
 				continue;
 			friendsArray.add(new JsonPrimitive(player.getFriends()[i]));
 		}
 		JsonArray ignoresArray = new JsonArray();
 		for (int i = 0; i < player.getIgnores().length; i++) {
-			if(player.getIgnores()[i] < 0L)
+			if(player.getIgnores()[i] < 0L || player.getIgnores()[i] >= 0x5b5b57f8a98a5dd1L)
 				continue;
 			ignoresArray.add(new JsonPrimitive(player.getIgnores()[i]));
 		}
