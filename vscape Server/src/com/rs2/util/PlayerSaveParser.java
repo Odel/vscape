@@ -154,7 +154,9 @@ public class PlayerSaveParser {
 	                player.setRingOfRecoilLife(itemData.get("recoillife").getAsInt());
 	                player.setClayBraceletLife(itemData.get("claybracelet").getAsInt());
 	                player.setGodBook(itemData.get("godbook").getAsInt());
-			player.setLostGodBook(itemData.get("lostgodbook").getAsInt());
+		        	if(itemData.get("lostgodbook") != null){
+		        		player.setLostGodBook(itemData.get("lostgodbook").getAsInt());
+		        	}
 	                player.setHasUsedFreeGauntletsCharge(itemData.get("usedFreeGauntletsCharge").getAsBoolean());
 	                player.setDefender(itemData.get("defender").getAsInt());
 	                player.setDfsCharges(itemData.get("dfsCharges").getAsInt());
@@ -389,7 +391,9 @@ public class PlayerSaveParser {
 		            	player.setPetitionSigned(questVars.get("petitionSigned").getAsBoolean());
 		            	player.setGivenSnailSlime(questVars.get("snailSlime").getAsBoolean());
 		            	player.setGivenIdPapers(questVars.get("idPapers").getAsBoolean());
-				player.setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
+		            	if(questVars.get("hasShotGrip") != null){
+		            		player.setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
+		            	}
 		            }
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){
