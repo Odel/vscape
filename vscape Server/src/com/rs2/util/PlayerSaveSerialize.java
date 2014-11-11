@@ -138,10 +138,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonArray friendsArray = new JsonArray();
 		for (int i = 0; i < player.getFriends().length; i++) {
+			if(player.getFriends()[i] <= 0L)
+				continue;
 			friendsArray.add(new JsonPrimitive(player.getFriends()[i]));
 		}
 		JsonArray ignoresArray = new JsonArray();
 		for (int i = 0; i < player.getIgnores().length; i++) {
+			if(player.getIgnores()[i] <= 0L)
+				continue;
 			ignoresArray.add(new JsonPrimitive(player.getIgnores()[i]));
 		}
 		
