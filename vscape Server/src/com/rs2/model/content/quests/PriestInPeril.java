@@ -116,7 +116,6 @@ public class PriestInPeril implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -317,7 +316,6 @@ public class PriestInPeril implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@King Roald @bla@in the @dre@Varrock Palace @bla@to begin this quest.", 8147);

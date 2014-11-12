@@ -64,7 +64,6 @@ public class ItemDefinition {
 	 * @throws IllegalStateException
 	 *             if the definitions have been loaded already.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		FileReader reader = new FileReader("./datajson/content/itemDefinitions.json");
 		try {

@@ -262,7 +262,6 @@ public class WaterfallQuest implements Quest {
     }
 
     public void showInterface(Player player) { //Don't change
-	String prefix = "";
 	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 	player.getActionSender().sendString(getQuestName(), 8144);
     }

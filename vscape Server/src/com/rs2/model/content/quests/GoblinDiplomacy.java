@@ -107,7 +107,6 @@ public class GoblinDiplomacy implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -192,7 +191,6 @@ public class GoblinDiplomacy implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to the Generals of Goblin Village.", 8147);

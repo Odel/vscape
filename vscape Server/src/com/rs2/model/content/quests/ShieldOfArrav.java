@@ -93,7 +93,6 @@ public class ShieldOfArrav implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -355,7 +354,6 @@ public class ShieldOfArrav implements Quest {
     }
     
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("He can be found in service to Varrock, as the librarian.", 8148);

@@ -391,7 +391,6 @@ public class ShopManager {
 		return "Coins";
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void loadShops() throws IOException {
 		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
 		FileReader reader = new FileReader("./datajson/content/shops.json");

@@ -92,7 +92,6 @@ public class PlayerSave {
 		else
 		{
 		try {
-            @SuppressWarnings("unused")
 			Misc.Stopwatch stopwatch = new Misc.Stopwatch();
 			File file = new File(directoryOld + player.getUsername() + ".dat");
 			if (!file.exists()) {

@@ -143,7 +143,6 @@ public class HeroesQuest implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         int questStage = player.getQuestStage(getQuestID());
 	switch(questStage) {
@@ -273,8 +272,7 @@ public class HeroesQuest implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
 	player.getActionSender().sendString("Talk to @dre@Achietties @bla@outside the @dre@Heroes Guild @bla@, north", 8147);
 	player.getActionSender().sendString("of Taverly to begin this quest.", 8148);

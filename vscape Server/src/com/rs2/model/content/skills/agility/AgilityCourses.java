@@ -36,8 +36,6 @@ public class AgilityCourses {
 	
 	private boolean gnomeCourse(int id, int x, int y)
 	{
-		int targetX = 0;
-		int targetY = 0;
 		switch(id)
 		{
 			case 2295: // gnome log
@@ -96,8 +94,6 @@ public class AgilityCourses {
 	
 	private boolean barbOutpost(int id, int x, int y)
 	{
-		int targetX = 0;
-		int targetY = 0;
 		switch(id)
 		{
 			case 2282: // barb swing 1
@@ -166,8 +162,6 @@ public class AgilityCourses {
 	
 	private boolean wildyCourse(int id, int x, int y)
 	{
-		int targetX = 0;
-		int targetY = 0;
 		switch(id)
 		{
 			case 2288:

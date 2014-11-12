@@ -83,7 +83,6 @@ public class ElementalWorkshop implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -247,7 +246,6 @@ public class ElementalWorkshop implements Quest {
     }
     
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("Search the bookshelves around Seers' Village.", 8147);
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);

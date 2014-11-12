@@ -281,8 +281,7 @@ public class DwarfCannon implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
     

@@ -68,7 +68,6 @@ public class RomeoAndJuliet implements Quest {
     }
        
         public void sendQuestRequirements(Player player) {
-            String prefix = "";
             int questStage = player.getQuestStage(getQuestID());
             if (questStage == START) {
                     player.getActionSender().sendString(getQuestName(), 8144);
@@ -171,7 +170,6 @@ public class RomeoAndJuliet implements Quest {
     }
  
     public void showInterface(Player player){
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("I can start this quest be speaking to Romeo in Varrock", 8147);
         player.getActionSender().sendString("central square by the fountain", 8148);

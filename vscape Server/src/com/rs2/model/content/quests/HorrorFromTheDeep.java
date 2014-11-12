@@ -156,7 +156,6 @@ public class HorrorFromTheDeep implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
@@ -281,8 +280,7 @@ public class HorrorFromTheDeep implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("Talk to @dre@Larrissa @bla@outside the @dre@Lighthouse @bla@, north", 8147);
 	player.getActionSender().sendString("of the Barbarian Outpost to begin this quest.", 8148);

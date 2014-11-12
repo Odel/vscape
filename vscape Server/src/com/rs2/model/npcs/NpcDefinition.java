@@ -19,7 +19,6 @@ import com.google.gson.reflect.TypeToken;
  */
 public class NpcDefinition {
 
-	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		//List<NpcDefinition> defs = (List<NpcDefinition>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/npcs/npcDefinitions.xml"));
 		FileReader reader = new FileReader("./datajson/npcs/npcDefinitions.json");

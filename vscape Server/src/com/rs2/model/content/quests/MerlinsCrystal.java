@@ -76,7 +76,6 @@ public class MerlinsCrystal implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -410,7 +409,6 @@ public class MerlinsCrystal implements Quest {
     }
     
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("To start the quest, you should talk to King Arthur", 8147);
         player.getActionSender().sendString("found in Camelot's castle.", 8148);

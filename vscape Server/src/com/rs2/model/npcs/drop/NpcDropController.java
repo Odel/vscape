@@ -27,7 +27,6 @@ public class NpcDropController {
 	 */
 	private static Map<Integer, NpcDropController> dropControllers = null;
 	
-	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		FileReader rareReader = new FileReader("./datajson/npcs/rareDrops.json");
 		try

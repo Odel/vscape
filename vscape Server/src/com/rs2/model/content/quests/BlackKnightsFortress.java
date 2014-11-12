@@ -80,7 +80,6 @@ public class BlackKnightsFortress implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -200,7 +199,6 @@ public class BlackKnightsFortress implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to Sir Amik Varze, on the third floor in the", 8147);
