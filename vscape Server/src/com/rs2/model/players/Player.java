@@ -1138,6 +1138,14 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
+        if(inPestControlLobbyArea())
+        {
+        	teleport(PestControl.LOBBY_EXIT);
+        }
+        else if(inPestControlGameArea())
+        {
+        	teleport(PestControl.LOBBY_EXIT);
+        }
 	//	getCat().initChecks();
 	}
 

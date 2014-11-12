@@ -48,7 +48,7 @@ public class PestControl {
     private static boolean gameActive = false;
     private static Npc knight;
 
-    private static final Position LOBBY_EXIT = new Position(2657, 2639, 0);
+    public static final Position LOBBY_EXIT = new Position(2657, 2639, 0);
     private static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
     private static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
     private static final MinigameAreas.Area INSIDE_FORT = new MinigameAreas.Area(new Position(2645, 2587, 0), new Position(2667, 2603, 0));
@@ -1142,10 +1142,11 @@ public class PestControl {
 
     public static void leaveLobby(Player player) {
 		if (isInLobby(player)) {
+			lobbyPlayers.remove(player);
 			try {
-			    lobbyPlayers.remove(player);
 			    player.teleport(LOBBY_EXIT);
 			} catch (Exception e) {
+				System.out.println("Leave PC lobby error");
 			    e.printStackTrace();
 			}
 		}
@@ -1153,8 +1154,8 @@ public class PestControl {
 
     public static void leaveGame(Player player) {
 		if (isInGame(player) && !player.isDead()) {
+		    gamePlayers.remove(player);
 			try {
-			    gamePlayers.remove(player);
 			    player.teleport(LOBBY_EXIT);
 				player.setPcDamage(0);
 			    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
@@ -1165,6 +1166,7 @@ public class PestControl {
 				player.getSkill().refresh();
 				player.getPestControlBarricades().clear();
 			} catch (Exception e) {
+				System.out.println("Leave PC game error");
 			    e.printStackTrace();
 			}
 		}
