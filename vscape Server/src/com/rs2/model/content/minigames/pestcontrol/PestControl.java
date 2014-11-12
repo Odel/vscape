@@ -459,14 +459,14 @@ public class PestControl {
 	    this.attackKnight = attackKnight;
 	}
 
-	public static GruntData forId(int npcId) {
-	    for (GruntData gruntData : GruntData.values()) {
-		if (npcId == gruntData.npcId) {
-		    return gruntData;
+		public static GruntData forId(int npcId) {
+		    for (GruntData gruntData : GruntData.values()) {
+		    	if (npcId == gruntData.npcId) {
+		    		return gruntData;
+				}
+		    }
+		    return null;
 		}
-	    }
-	    return null;
-	}
     }
 
     public static void lobbyInterface(Player player) {
@@ -913,15 +913,15 @@ public class PestControl {
 
     public static void healPortal(Npc grunt) {
 	for (Npc npc : World.getNpcs()) {
-	    if (npc != null && isPortal(npc) && !npc.isDead()) {
+	    if (npc != null && isPortal(npc) && !npc.isDead() && grunt != null && !grunt.isDead()) {
 		PortalData portaldata = PortalData.forNormal(npc.getNpcId());
 		for (int i = 0; i < PortalData.values().length; i++) {
 		    if (npc.getNpcId() == portaldata.getNormalId() && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead()) {
-			npc.getUpdateFlags().sendHighGraphic(606);
-			setPortalHealth(i, npc.getCurrentHp() + 50);
-			npc.heal(50);
-			grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
-			grunt.getUpdateFlags().sendAnimation(3911);
+		    	npc.getUpdateFlags().sendHighGraphic(606);
+		    	setPortalHealth(i, npc.getCurrentHp() + 50);
+		    	npc.heal(50);
+		    	grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
+		    	grunt.getUpdateFlags().sendAnimation(3911);
 		    }
 		}
 	    }
@@ -951,31 +951,36 @@ public class PestControl {
 
     public static void handleGeneralNpcBehavior() {
 	for (Npc npc : World.getNpcs()) {
-	    if (npc == null || !npc.inPestControlGameArea()) {
-		continue;
+	    if (npc == null) {
+	    	continue;
+	    }
+	    if (!npc.inPestControlGameArea() || npc.isDead()) {
+	    	continue;
 	    }
 	    npc.setSpawnPosition(npc.getPosition());
 	    if (isShifter(npc) && !Misc.goodDistance(npc.getPosition(), knight.getPosition(), 3)) {
-		teleportShifter(npc);
-		continue;
+	    	teleportShifter(npc);
+	    	continue;
 	    }
 	    if (isSpinner(npc) && !npc.isAttacking()) {
-		healPortal(npc);
-		continue;
+	    	healPortal(npc);
+	    	continue;
 	    }
 	    if (shouldAttackKnight(npc)) {
-		attackKnight(npc);
+	    	attackKnight(npc);
 	    }
 	}
     }
 
     public static boolean shouldAttackKnight(Npc npc) {
-	for (GruntData gruntData : GruntData.values()) {
-	    if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight && npc.inPestControlGameArea()) {
-		return true;
-	    }
-	}
-	return false;
+    	GruntData gruntData = GruntData.forId(npc.getNpcId());
+    	if(gruntData != null)
+    	{
+    	    if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight && npc.inPestControlGameArea()) {
+    	    	return true;
+    	    }
+    	}
+    	return false;
     }
     
     public static boolean isRavager(Npc npc) {
