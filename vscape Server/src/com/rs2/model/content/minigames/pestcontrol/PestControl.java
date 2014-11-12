@@ -3,6 +3,7 @@ package com.rs2.model.content.minigames.pestcontrol;
 import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
+
 import java.util.ArrayList;
 
 import com.rs2.model.Entity;
@@ -20,9 +21,11 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
 import com.rs2.util.Misc;
+
 import java.util.Random;
 
 public class PestControl {
@@ -519,96 +522,101 @@ public class PestControl {
     }
 
     private static void think() {
-	new TaskScheduler().schedule(new Task(5, false) {
-	    @Override
-	    protected void execute() {
-		if (playersInLobby() <= 0 && playersInGame() <= 0) {
-		    this.stop();
-		    resetGame();
-		    resetLobby();
-		    return;
-		}
-		if (!gameActive) {
-		    if (lobbyTime > 0) {
-			lobbyTime -= 5;
-			if (lobbyTime <= 0) {
-			    if (playersInLobby() < PLAYERS_REQUIRED) {
-				lobbyTime = LOBBY_TIME;
-				this.stop();
-				think();
-				return;
-			    }
-			    startGame();
-			    return;
-			}
-		    }
-		} else {
-		    if (gameTime > 0) {
-			gameTime -= 5;
-			if (!allPortalsUnShielded()) {
-			    shieldTime += 5;
-			    if (shieldTime >= 30 && portalsUnshielded() == 0) {
-				removePortalShield();
-			    } else if (shieldTime >= 60 && portalsUnshielded() == 1) {
-				removePortalShield();
-			    } else if (shieldTime >= 90 && portalsUnshielded() == 2) {
-				removePortalShield();
-			    } else if (shieldTime >= 120 && portalsUnshielded() == 3) {
-				removePortalShield();
-			    }
-			}
-			if (!allPortalsDead()) {
-			    handleRavaging();
-			    gruntTime += 5;
-			    if (gruntTime >= GRUNT_TIME) {
-				gruntTime = 0;
-				spawnGrunts();
-				if (playersInGame() >= 5) {
-				    spawnGrunts();
-				} else if (playersInGame() >= 10) {
-				    spawnGrunts();
-				} else if (picklesTime) {
-				    spawnGrunts();
+	//new TaskScheduler().schedule(new Task(5, false) {
+		World.submit(new Tick(8) {
+	    @Override 
+	    public void execute() {
+			try {
+				if (playersInLobby() <= 0 && playersInGame() <= 0) {
+					this.stop();
+					resetGame();
+					resetLobby();
+					return;
 				}
-				handleGeneralNpcBehavior();
-			    } else if (getKnightHealth() != knight.getCurrentHp()) {
-				setKnightHealth(knight.getCurrentHp());
-			    }
+				if (!gameActive) {
+					if (lobbyTime > 0) {
+					lobbyTime -= 5;
+					if (lobbyTime <= 0) {
+						if (playersInLobby() < PLAYERS_REQUIRED) {
+						lobbyTime = LOBBY_TIME;
+						this.stop();
+						think();
+						return;
+						}
+						startGame();
+						return;
+					}
+					}
+				} else {
+					if (gameTime > 0) {
+					gameTime -= 5;
+					if (!allPortalsUnShielded()) {
+						shieldTime += 5;
+						if (shieldTime >= 30 && portalsUnshielded() == 0) {
+						removePortalShield();
+						} else if (shieldTime >= 60 && portalsUnshielded() == 1) {
+						removePortalShield();
+						} else if (shieldTime >= 90 && portalsUnshielded() == 2) {
+						removePortalShield();
+						} else if (shieldTime >= 120 && portalsUnshielded() == 3) {
+						removePortalShield();
+						}
+					}
+					if (!allPortalsDead()) {
+						handleRavaging();
+						gruntTime += 5;
+						if (gruntTime >= GRUNT_TIME) {
+						gruntTime = 0;
+						spawnGrunts();
+						if (playersInGame() >= 5) {
+							spawnGrunts();
+						} else if (playersInGame() >= 10) {
+							spawnGrunts();
+						} else if (picklesTime) {
+							spawnGrunts();
+						}
+						handleGeneralNpcBehavior();
+						} else if (getKnightHealth() != knight.getCurrentHp()) {
+						setKnightHealth(knight.getCurrentHp());
+						}
+					}
+					if (allPortalsDead()) {
+						if (playersInLobby() <= 0) {
+						this.stop();
+						}
+						endGame(true);
+						return;
+					}
+					if (gameTime <= 0 && allPortalsDead()) {
+						if (playersInLobby() <= 0) {
+						this.stop();
+						}
+						endGame(true);
+						return;
+					}
+					if (getKnightHealth() == 0 || knight.isDead()) {
+						if (playersInLobby() <= 0) {
+						this.stop();
+						}
+						endGame(false);
+						return;
+					}
+					if (gameTime <= 0 && !allPortalsDead()) {
+						if (playersInLobby() <= 0) {
+						this.stop();
+						}
+						endGame(false);
+						return;
+					}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			if (allPortalsDead()) {
-			    if (playersInLobby() <= 0) {
-				this.stop();
-			    }
-			    endGame(true);
-			    return;
-			}
-			if (gameTime <= 0 && allPortalsDead()) {
-			    if (playersInLobby() <= 0) {
-				this.stop();
-			    }
-			    endGame(true);
-			    return;
-			}
-			if (getKnightHealth() == 0 || knight.isDead()) {
-			    if (playersInLobby() <= 0) {
-				this.stop();
-			    }
-			    endGame(false);
-			    return;
-			}
-			if (gameTime <= 0 && !allPortalsDead()) {
-			    if (playersInLobby() <= 0) {
-				this.stop();
-			    }
-			    endGame(false);
-			    return;
-			}
-		    }
-		}
 	    }
 	});
     }
-
+    
     private static void startGame() {
 	try {
 	    spawnMainNpcs();
