@@ -188,9 +188,6 @@ public class NpcPacketHandler implements PacketHandler {
 		if (npc == null || !npc.isRealNpc()) {
 			return;
 		}
-		if(npc.getNpcId() == 1550) {
-		    CombatManager.attack(player, npc);
-		}
 		player.setCastedSpell(null);
 		if (npc.getPlayerOwner() != null && npc.getPlayerOwner() != player) {
 			player.getActionSender().sendMessage(npc.getDefinition().getName() + " is not interested in interacting with you right now.");
