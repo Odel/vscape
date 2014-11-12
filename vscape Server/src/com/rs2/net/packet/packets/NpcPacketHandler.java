@@ -185,11 +185,11 @@ public class NpcPacketHandler implements PacketHandler {
 			return;
 		}
 		final Npc npc = World.getNpcs()[npcSlot];
-		if(npc.getNpcId() == 1550) {
-		    CombatManager.attack(player, npc);
-		}
 		if (npc == null || !npc.isRealNpc()) {
 			return;
+		}
+		if(npc.getNpcId() == 1550) {
+		    CombatManager.attack(player, npc);
 		}
 		player.setCastedSpell(null);
 		if (npc.getPlayerOwner() != null && npc.getPlayerOwner() != player) {
