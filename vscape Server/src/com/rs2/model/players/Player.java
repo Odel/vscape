@@ -1183,6 +1183,10 @@ public class Player extends Entity {
 	}
 	
 	public boolean validName(){
+		if(username.startsWith("_") || username.endsWith("_") || username.startsWith("\\s+") || username.endsWith("\\s+"))
+		{
+			return false;
+		}
 		for(int i = 0; i < Constants.bannedChars.length; i++)
 		{
 			if(username.contains(Constants.bannedChars[i]))
@@ -1190,7 +1194,7 @@ public class Player extends Entity {
 				return false;
 			}
 		}
-		if(username.startsWith("_") || username.endsWith("_") || username.startsWith("\\s+") || username.endsWith("\\s+"))
+		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x5b5b57f8a98a5dd1L)
 		{
 			return false;
 		}
@@ -1214,10 +1218,6 @@ public class Player extends Entity {
 			lastChar = c;
 		}
 		if(validChars <= 3){
-			return false;
-		}
-		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x5b5b57f8a98a5dd1L)
-		{
 			return false;
 		}
 		return true;
