@@ -21,14 +21,18 @@ public class GlobalDuelRecorder {
 	public static void displayScoreBoardInterface(Player player) {
 		cleanUpScoreboard(player);
 		if (duelList.size() == 0) {
-			player.getActionSender().sendString("No duel have been started yet.", 6402);
+			player.getActionSender().sendString("No duels have been started yet.", 6402);
 		} else {
 			for (int i = 6402; i < 6412; i++)
-				if (duelList.size() - 1 - (i - 6402) >= 0)
-					player.getActionSender().sendString(duelList.get(duelList.size() - 1 - i), i);
+			{
+				if (duelList.size() > 0 && duelList.size() - 1 - (i - 6402) >= 0)
+					player.getActionSender().sendString(duelList.get(duelList.size() - 1 - (i - 6402)), i);
+			}
 			for (int i = 8578; i < 8618; i++)
-				if (duelList.size() - 10 - (i - 8578) >= 0)
+			{
+				if (duelList.size() > 0 && duelList.size() - 10 - (i - 8578) >= 0)
 					player.getActionSender().sendString(duelList.get(duelList.size() - 10 - (i - 8578)), i);
+			}
 		}
 		player.getActionSender().sendInterface(DuelMainData.DUEL_ARENA_SCOREBOARD);
 	}
