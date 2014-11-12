@@ -162,7 +162,7 @@ public class Inventory {
 		itemContainer.set(slot, item);
 		refresh();
 	}
-	public boolean removeAllOfItem(Item item) {
+/*	public boolean removeAllOfItem(Item item) {
 		if (item == null || !item.validItem()) {
 			return false;
 		}
@@ -175,7 +175,7 @@ public class Inventory {
 		    player.getEquipment().updateWeight();
 		}
 		return true;
-	}
+	}*/
 	public boolean removeItem(Item item) {
 		if (item == null || !item.validItem()) {
 			return false;

@@ -1141,25 +1141,33 @@ public class PestControl {
     }
 
     public static void leaveLobby(Player player) {
-	if (isInLobby(player)) {
-	    lobbyPlayers.remove(player);
-	    player.teleport(LOBBY_EXIT);
-	}
+		if (isInLobby(player)) {
+			try {
+			    lobbyPlayers.remove(player);
+			    player.teleport(LOBBY_EXIT);
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
     }
 
     public static void leaveGame(Player player) {
-	if (isInGame(player) && !player.isDead()) {
-	    player.resetEffects();
-	    player.removeAllEffects();
-	    player.heal(100);
-	    player.getPrayer().resetAll();
-	    player.getSkill().refresh();
-	    player.getInventory().removeAllOfItem(new Item(1511));
-	    player.getPestControlBarricades().clear();
-	    player.setPcDamage(0);
-	    player.teleport(LOBBY_EXIT);
-	    gamePlayers.remove(player);
-	}
+		if (isInGame(player) && !player.isDead()) {
+			try {
+			    gamePlayers.remove(player);
+			    player.teleport(LOBBY_EXIT);
+				player.setPcDamage(0);
+			    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
+				player.resetEffects();
+				player.removeAllEffects();
+				player.heal(100);
+				player.getPrayer().resetAll();
+				player.getSkill().refresh();
+				player.getPestControlBarricades().clear();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
     }
     
     public static boolean handleBarricadeClicking(final Player player, final int objectId, final int x, final int y) {
