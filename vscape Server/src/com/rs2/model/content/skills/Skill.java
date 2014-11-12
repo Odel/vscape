@@ -2,7 +2,6 @@ package com.rs2.model.content.skills;
 
 import com.rs2.Constants;
 import com.rs2.model.World;
-import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.players.Player;
 import com.rs2.util.NameUtil;

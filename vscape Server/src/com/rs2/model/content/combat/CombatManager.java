@@ -14,7 +14,6 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
-import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -577,10 +576,10 @@ public class CombatManager extends Tick {
 			((Player) died).getCreatureGraveyard().handleDeath();
 			return;
 		}
-                if(died != null && died.isPlayer() && ((Player) died).inPestControlGameArea()) {
-                    ((Player) died).getPestControl().handleDeath((Player) died);
+        if(died != null && died.isPlayer() && ((Player) died).inPestControlGameArea()) {
+            PestControl.handleDeath((Player) died);
 		    return;
-                }
+        }
 		if(died != null && died.isPlayer() && ((Player) died).onPestControlIsland() ) {
 		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
@@ -635,7 +634,7 @@ public class CombatManager extends Tick {
 			    npcs.hit(hp, HitType.NORMAL);
 			    deathByPortal = true;
 			    for (Player players : World.getPlayers()) {
-				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 && !players.getPestControl().allPortalsDead() ) {
+				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 && !PestControl.allPortalsDead() ) {
 				    players.hit(50, HitType.NORMAL);
 				    players.getActionSender().sendMessage("You are hurt by the spinner's lost connection to the portal.");
 				}

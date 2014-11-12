@@ -1,6 +1,5 @@
 package com.rs2.model.content.minigames.pestcontrol;
 
-import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 
@@ -22,8 +21,6 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
-import com.rs2.task.TaskScheduler;
-import com.rs2.task.Task;
 import com.rs2.util.Misc;
 
 import java.util.Random;
@@ -370,42 +367,50 @@ public class PestControl {
     //6142 - 6145 normal portal
     //6146 - 6150 shielded portals
     public enum PortalData {
-	WEST(6146, 6142, 2628, 2591, "W"),
-	EAST(6147, 6143, 2680, 2588, "E"),
-	SOUTHEAST(6148, 6144, 2669, 2570, "SE"),
-	SOUTHWEST(6149, 6145, 2645, 2569, "SW");
-
-	private int shieldId;
-	private int normalId;
-	private int x;
-	private int y;
-	private String name;
-
-	private PortalData(int shieldId, int normalId, int x, int y, String name) {
-	    this.shieldId = shieldId;
-	    this.normalId = normalId;
-	    this.x = x;
-	    this.y = y;
-	    this.name = name;
-	}
-
-	public static PortalData forShield(int shieldId) {
-	    for (PortalData portalData : PortalData.values()) {
-		if (shieldId == portalData.shieldId) {
-		    return portalData;
+		WEST(6146, 6142, 2628, 2591, "W"),
+		EAST(6147, 6143, 2680, 2588, "E"),
+		SOUTHEAST(6148, 6144, 2669, 2570, "SE"),
+		SOUTHWEST(6149, 6145, 2645, 2569, "SW");
+	
+		private int shieldId;
+		private int normalId;
+		private int x;
+		private int y;
+		private String name;
+	
+		private PortalData(int shieldId, int normalId, int x, int y, String name) {
+		    this.shieldId = shieldId;
+		    this.normalId = normalId;
+		    this.x = x;
+		    this.y = y;
+		    this.name = name;
 		}
-	    }
-	    return null;
-	}
-
-	public static PortalData forNormal(int normalId) {
-	    for (PortalData portalData : PortalData.values()) {
-		if (normalId == portalData.normalId) {
-		    return portalData;
+	
+		public static PortalData forShield(int shieldId) {
+		    for (PortalData portalData : PortalData.values()) {
+			if (shieldId == portalData.shieldId) {
+			    return portalData;
+			}
+		    }
+		    return null;
 		}
-	    }
-	    return null;
-	}
+	
+		public static PortalData forNormal(int normalId) {
+		    for (PortalData portalData : PortalData.values()) {
+			if (normalId == portalData.normalId) {
+			    return portalData;
+			}
+		    }
+		    return null;
+		}
+		
+		public int getNormalId(){
+			return normalId;
+		}
+		
+		public int getShieldId(){
+			return shieldId;
+		}
     }
 
     public enum GruntData {
@@ -911,7 +916,7 @@ public class PestControl {
 	    if (npc != null && isPortal(npc) && !npc.isDead()) {
 		PortalData portaldata = PortalData.forNormal(npc.getNpcId());
 		for (int i = 0; i < PortalData.values().length; i++) {
-		    if (npc.getNpcId() == portaldata.values()[i].normalId && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead()) {
+		    if (npc.getNpcId() == portaldata.getNormalId() && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead()) {
 			npc.getUpdateFlags().sendHighGraphic(606);
 			setPortalHealth(i, npc.getCurrentHp() + 50);
 			npc.heal(50);
@@ -1050,13 +1055,13 @@ public class PestControl {
     }
 
     public static boolean allPortalsDead() {
-	int count = 0;
-	for (int i = 0; i < PORTAL_HEALTH.length; i++) {
-	    if (PORTAL_HEALTH[i] <= 0) {
-		count++;
-	    }
-	}
-	return count >= PORTAL_HEALTH.length;
+		int count = 0;
+		for (int i = 0; i < PORTAL_HEALTH.length; i++) {
+		    if (PORTAL_HEALTH[i] <= 0) {
+			count++;
+		    }
+		}
+		return count >= PORTAL_HEALTH.length;
     }
 
     public static void handleHit(final Entity attacker, final Entity victim, final int damage) {
@@ -1098,7 +1103,8 @@ public class PestControl {
 	}
     }
 
-    private static void sendLobbyMessage(String msg) {
+    @SuppressWarnings("unused")
+	private static void sendLobbyMessage(String msg) {
 	for (Player player : new ArrayList<Player>(lobbyPlayers)) {
 	    if (player != null) {
 		player.getActionSender().sendMessage(msg);

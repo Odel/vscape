@@ -45,7 +45,6 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
-import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;

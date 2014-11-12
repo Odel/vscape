@@ -38,7 +38,6 @@ import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
-import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;

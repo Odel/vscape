@@ -11,7 +11,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;

@@ -2,18 +2,13 @@ package com.rs2.model.players;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -32,7 +27,6 @@ import com.rs2.HostGateway;
 import com.rs2.Server;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
@@ -45,10 +39,6 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.SkullRecord;
-import com.rs2.model.content.combat.effect.impl.PoisonEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.weapon.Weapon;
@@ -71,14 +61,10 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.RandomEvent;
-import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
@@ -116,7 +102,6 @@ import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.content.skills.slayer.Slayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
-import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.content.tutorialisland.NewComersSide;
 import com.rs2.model.content.tutorialisland.StagesLoader;
 import com.rs2.model.ground.GroundItem;
@@ -124,10 +109,7 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
-import com.rs2.model.npcs.drop.NpcDropController;
-import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.npcs.functions.Cat;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
@@ -140,8 +122,6 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
-import com.rs2.model.transport.MagicCarpet;
-import com.rs2.model.transport.Sailing;
 import com.rs2.model.region.music.RegionMusic;
 import com.rs2.model.region.music.MusicPlayer;
 import com.rs2.net.ActionSender;
@@ -154,11 +134,8 @@ import com.rs2.net.packet.PacketManager;
 import com.rs2.util.Area;
 import com.rs2.util.Benchmark;
 import com.rs2.util.Benchmarks;
-import com.rs2.util.LogHandler;
 import com.rs2.util.Misc;
-import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
-import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
@@ -167,12 +144,9 @@ import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
-import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
-import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.Puzzle;
-import com.rs2.model.content.treasuretrails.SearchScrolls;
 
 /**
  * Represents a logged-in player.
@@ -236,7 +210,6 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-	private PestControl pestControl = new PestControl();
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -1929,10 +1902,10 @@ public class Player extends Entity {
 	public EnchantingChamber getEnchantingChamber() {
 		return enchantingChamber;
 	}
-	
+	/*
         public PestControl getPestControl() {
                 return pestControl;
-        }
+        }*/
 	
 	public ArrayList<Position> getPestControlBarricades() {
 		return pestControlBarricades;
@@ -3590,9 +3563,9 @@ public class Player extends Entity {
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
 		ArrayList<Item> keptItems = getItemsKeptOnDeath(items);
 		List<Item> allItems = new ArrayList<Item>(Arrays.asList(items));
-		for(int i = 0; i < getPets().PET_IDS.length; i++) {
-		    if(inventory.playerHasItem(new Item(getPets().PET_IDS[i][0])) )
-				keptItems.add(new Item(getPets().PET_IDS[i][0]));
+		for(int i = 0; i < Pets.PET_IDS.length; i++) {
+		    if(inventory.playerHasItem(new Item(Pets.PET_IDS[i][0])) )
+				keptItems.add(new Item(Pets.PET_IDS[i][0]));
 		}
 		for (Item kept : keptItems) {
 			if (kept == null)
@@ -3616,8 +3589,8 @@ public class Player extends Entity {
 		for (Item dropped : allItems) {
 			if (dropped == null)
 				continue;
-			for(int i = 0; i < getPets().PET_IDS.length; i++) {
-			    if(dropped.getId() == getPets().PET_IDS[i][0])
+			for(int i = 0; i < Pets.PET_IDS.length; i++) {
+			    if(dropped.getId() == Pets.PET_IDS[i][0])
 				inventory.addItem(dropped);
 			}
 			if(dropped.getId() == this.getGodBook()) {

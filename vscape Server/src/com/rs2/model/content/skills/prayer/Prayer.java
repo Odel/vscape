@@ -136,6 +136,7 @@ public class Prayer {
 		player.setAppearanceUpdateRequired(true);
 	}
 	
+	@SuppressWarnings("incomplete-switch")
 	public void activatePrayer(int id) {
 		if (player.isDead()) {
 			return;
@@ -209,6 +210,7 @@ public class Prayer {
 		player.setAppearanceUpdateRequired(true);
 	}
 	
+	@SuppressWarnings("incomplete-switch")
 	private void switchPrayer(PrayerData data) {
 		PrayerData[] turnOff = new PrayerData[0];
 		switch (data) {

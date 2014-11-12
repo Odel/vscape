@@ -1,6 +1,5 @@
 package com.rs2.model.content.skills.Woodcutting;
 
-import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
@@ -12,8 +11,6 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 import com.rs2.model.Position;
-import com.rs2.model.tick.Tick;
-import com.rs2.model.World;
 
 /*
  *  this is very basic canoe class and its not very good but it works for now

@@ -1,6 +1,5 @@
 package com.rs2.model.transport;
 
-import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;

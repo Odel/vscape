@@ -4,7 +4,6 @@ import com.rs2.model.Entity;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.players.Player;
 

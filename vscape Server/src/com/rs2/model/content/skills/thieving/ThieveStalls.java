@@ -5,7 +5,6 @@ import java.util.Random;
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.npcs.Npc;

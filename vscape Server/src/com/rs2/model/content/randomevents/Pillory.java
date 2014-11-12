@@ -1,7 +1,6 @@
 package com.rs2.model.content.randomevents;
 
 import com.rs2.model.Position;
-import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;

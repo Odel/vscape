@@ -2,9 +2,6 @@ package com.rs2.model.content.skills.thieving;
 
 import com.rs2.Constants;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.randomevents.Pillory;
-import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.treasuretrails.ClueScroll;
