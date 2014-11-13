@@ -912,20 +912,36 @@ public class PestControl {
     }
 
     public static void healPortal(Npc grunt) {
-	for (Npc npc : World.getNpcs()) {
-	    if (npc != null && isPortal(npc) && !npc.isDead() && grunt != null && !grunt.isDead()) {
-		PortalData portaldata = PortalData.forNormal(npc.getNpcId());
-		for (int i = 0; i < PortalData.values().length; i++) {
-		    if (npc.getNpcId() == portaldata.getNormalId() && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead()) {
-		    	npc.getUpdateFlags().sendHighGraphic(606);
-		    	setPortalHealth(i, npc.getCurrentHp() + 50);
-		    	npc.heal(50);
-		    	grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
-		    	grunt.getUpdateFlags().sendAnimation(3911);
+		for (Npc npc : World.getNpcs()) {
+			if(npc == null)
+				continue;
+		    if (isPortal(npc) && !npc.isDead()) {
+				PortalData portaldata = PortalData.forNormal(npc.getNpcId());
+				if(portaldata != null){
+				    if (npc.getNpcId() == portaldata.getNormalId() && Misc.goodDistance(grunt.getPosition(), npc.getPosition(), 2) && !grunt.isDead()) {
+				    	npc.getUpdateFlags().sendHighGraphic(606);
+				    	npc.heal(50);
+				    	switch (portaldata)
+				    	{
+							case WEST:
+								setPortalHealth(0, npc.getCurrentHp());
+								break;
+							case EAST:
+								setPortalHealth(1, npc.getCurrentHp());
+								break;
+							case SOUTHEAST:
+								setPortalHealth(2, npc.getCurrentHp());
+								break;
+							case SOUTHWEST:
+								setPortalHealth(3, npc.getCurrentHp());
+								break;
+				    	}
+				    	grunt.getUpdateFlags().faceEntity(npc.getUpdateFlags().getEntityFaceIndex());
+				    	grunt.getUpdateFlags().sendAnimation(3911);
+				    }
+				}
 		    }
 		}
-	    }
-	}
     }
 
     public static int portalsUnshielded() {
@@ -939,14 +955,16 @@ public class PestControl {
     }
 
     public static void handleRavaging() {
-	if(ravagers.isEmpty()) {
-	    return;
-	}
-	for (Npc npc : ravagers) {
-	    if(npc.isVisible() && !npc.isAttacking()) {
-		ravageBarricade(npc);
-	    }
-	}
+		if(ravagers.isEmpty()) {
+		    return;
+		}
+		for (Npc npc : ravagers) {
+			if(npc == null)
+				continue;
+		    if(npc.isVisible() && !npc.isAttacking()) {
+		    	ravageBarricade(npc);
+		    }
+		}
     }
 
     public static void handleGeneralNpcBehavior() {
@@ -973,6 +991,8 @@ public class PestControl {
     }
 
     public static boolean shouldAttackKnight(Npc npc) {
+    	if(npc == null)
+    		return false;
     	GruntData gruntData = GruntData.forId(npc.getNpcId());
     	if(gruntData != null)
     	{
@@ -1012,7 +1032,7 @@ public class PestControl {
 	    if (b.forName(b.name()) != null) {
 		for (Position p : b.iterablePositions()) {
 		    if (brokenBarricades.contains(p)) {
-			continue;
+		    	continue;
 		    }
 		    final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
 		    npc.setSpawnPosition(p);
@@ -1043,20 +1063,22 @@ public class PestControl {
     }
 
     public static void teleportShifter(Npc npc) {
-	int hp = npc.getCurrentHp();
-	if(hp == 0 || !npc.isVisible()) {
-	    return;
-	}
-	npc.setVisible(false);
-	npc.setDead(true);
-	World.unregister(npc);
-	Npc newNpc = new Npc(npc.getNpcId());
-	newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
-	newNpc.setSpawnPosition(knight.getPosition());
-	World.register(newNpc);
-	newNpc.walkTo(knight.getPosition(), gameActive);
-	newNpc.setCurrentHp(hp);
-	attackKnight(newNpc);
+    	if(npc == null)
+    		return;
+		int hp = npc.getCurrentHp();
+		if(hp == 0 || !npc.isVisible()) {
+		    return;
+		}
+		npc.setVisible(false);
+		npc.setDead(true);
+		World.unregister(npc);
+		Npc newNpc = new Npc(npc.getNpcId());
+		newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
+		newNpc.setSpawnPosition(knight.getPosition());
+		World.register(newNpc);
+		newNpc.walkTo(knight.getPosition(), gameActive);
+		newNpc.setCurrentHp(hp);
+		attackKnight(newNpc);
     }
 
     public static boolean allPortalsDead() {
