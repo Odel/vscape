@@ -669,7 +669,7 @@ public class PestControl {
 			} else {
 			    player.getActionSender().sendMessage("@red@Game lost.");
 			}
-			leaveGame(player);
+			leaveGame(player, false);
 		    }
 		}
 	    }
@@ -1142,8 +1142,8 @@ public class PestControl {
 
     public static void leaveLobby(Player player) {
 		if (isInLobby(player)) {
-			lobbyPlayers.remove(player);
 			try {
+				lobbyPlayers.remove(player);
 			    player.teleport(LOBBY_EXIT);
 			} catch (Exception e) {
 				System.out.println("Leave PC lobby error");
@@ -1152,22 +1152,31 @@ public class PestControl {
 		}
     }
 
-    public static void leaveGame(Player player) {
+    public static void leaveGame(Player player, boolean DC) {
 		if (isInGame(player) && !player.isDead()) {
-		    gamePlayers.remove(player);
-			try {
-			    player.teleport(LOBBY_EXIT);
-				player.setPcDamage(0);
-			    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
-				player.resetEffects();
-				player.removeAllEffects();
-				player.heal(100);
-				player.getPrayer().resetAll();
-				player.getSkill().refresh();
-				player.getPestControlBarricades().clear();
-			} catch (Exception e) {
-				System.out.println("Leave PC game error");
-			    e.printStackTrace();
+			if(!DC) {
+				try {
+				    gamePlayers.remove(player);
+				    player.teleport(LOBBY_EXIT);
+					player.setPcDamage(0);
+				    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
+					player.resetEffects();
+					player.removeAllEffects();
+					player.heal(100);
+					player.getPrayer().resetAll();
+					player.getSkill().refresh();
+					player.getPestControlBarricades().clear();
+				} catch (Exception e) {
+					System.out.println("Leave PC game error NON DC");
+				    e.printStackTrace();
+				}
+			}else{
+				try {
+				    gamePlayers.remove(player);
+				} catch (Exception e) {
+					System.out.println("Leave PC game error DC");
+				    e.printStackTrace();
+				}
 			}
 		}
     }

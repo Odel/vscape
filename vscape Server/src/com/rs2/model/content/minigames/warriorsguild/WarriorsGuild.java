@@ -12,6 +12,7 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.Tick;
 import com.rs2.task.TaskScheduler;
 import com.rs2.task.Task;
 import com.rs2.util.Misc;
@@ -19,18 +20,23 @@ import com.rs2.util.Misc;
 public class WarriorsGuild {
 	private static final Position ENTRANCE = new Position(2605,3153,0);
 	private static final Position EXIT = new Position(2607,3151,0);
-	private static final Position DC_EXIT = new Position(2610, 3148, 0);
+	public static final Position DC_EXIT = new Position(2610, 3148, 0);
 	private static final MinigameAreas.Area NORTH_CAGES = new MinigameAreas.Area(new Position(2614, 3158, 0), new Position(2616, 3170, 0));
 	private static final MinigameAreas.Area WEST_CAGES = new MinigameAreas.Area(new Position(2586, 3142, 0), new Position(2601, 3144, 0));
 
 	private static void execute(final Player player) {
-		new TaskScheduler().schedule(new Task(8, false) {
-		    @Override
-		    protected void execute() {
+		World.submit(new Tick(13) {
+		    @Override 
+		    public void execute() {
+		    if(player == null)
+		    {
+		    	this.stop();
+		    	return;
+		    }
 			Inventory inventory = player.getInventory();
 			if(!inventory.playerHasItem(8851, 10)) {
 			    this.stop();
-			    exitArena(player, false);
+			    exitArena(player);
 			    player.getActionSender().sendMessage("You have run out of tokens!");
 			}
 			else if(!player.inWarriorGuildArena() || !player.warriorsGuildGameActive()) {
@@ -104,7 +110,7 @@ public class WarriorsGuild {
 				    if(player.warriorsGuildFirstTime())
 					player.getActionSender().sendMessage("You cannot leave until your first minute in the arena has passed!");
 				    else {
-					exitArena(player, false);
+					exitArena(player);
 					player.setWarriorsGuildGameActive(false);
 				    }
 				    return true;
@@ -396,14 +402,13 @@ public class WarriorsGuild {
 		}
 	
 	}
-	public static void exitArena(Player player, boolean DC) {
-	    if(!DC) {
+	public static void exitArena(Player player) {
 		if(findInventoryDefender(player) - 1 == player.getDefender()) {
 		    if(player.getDefender() != 8850) { //not roon
-			player.teleport(EXIT);
-			player.setWarriorsGuildGameActive(false);
-			Dialogues.sendDialogue(player, 4289, 3, 1);
-			findDefender(player);
+				player.teleport(EXIT);
+				player.setWarriorsGuildGameActive(false);
+				Dialogues.sendDialogue(player, 4289, 3, 1);
+				findDefender(player);
 		    }
 		}
 		else if(player.getDefender() == 8850) {
@@ -418,11 +423,6 @@ public class WarriorsGuild {
 		    Dialogues.sendDialogue(player, 4289, 3, 2);
 		    findDefender(player);
 		}
-	    }
-	    else if(DC) {
-		player.teleport(DC_EXIT);
-		player.setWarriorsGuildGameActive(false);
-	    }
 	}
 	
 }

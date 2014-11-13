@@ -699,10 +699,7 @@ public class Player extends Entity {
         }
         else if(inPestControlGameArea())
         {
-        	PestControl.leaveGame(this);
-        }
-        else if(inWarriorGuildArena()) {
-        	WarriorsGuild.exitArena(this, true);
+        	PestControl.leaveGame(this, true);
         }
         else if(inFightCaves()) {
 	    //FightCaves.exitCave(this);
@@ -1145,7 +1142,12 @@ public class Player extends Entity {
         }
         else if(inPestControlGameArea())
         {
+		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
         	teleport(PestControl.LOBBY_EXIT);
+        }       
+        if(inWarriorGuildArena()) {
+        	teleport(WarriorsGuild.DC_EXIT);
+        	setWarriorsGuildGameActive(false);
         }
 	//	getCat().initChecks();
 	}
@@ -1364,10 +1366,7 @@ public class Player extends Entity {
         }
         else if(inPestControlGameArea())
         {
-        	PestControl.leaveGame(this);
-        }
-        else if(inWarriorGuildArena()) {
-        	WarriorsGuild.exitArena(this, true);
+        	PestControl.leaveGame(this, true);
         }
         else if(inFightCaves()) {
         	FightCaves.destroyNpcs(this);
