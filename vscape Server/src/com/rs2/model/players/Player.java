@@ -643,16 +643,17 @@ public class Player extends Entity {
 	}
 
 	public void send(ByteBuffer buffer) {
-        if (!socketChannel.isOpen())
+		if(buffer == null)
+			return;
+        if (socketChannel == null)
             return;
-
+        if (!socketChannel.isOpen())
+        	return;
 		// Prepare the buffer for writing.
 		buffer.flip();
-
 		try {
 			// ...and write it!
 			socketChannel.write(buffer);
-
 			// If not all the data was sent
 			if (buffer.hasRemaining()) {
 				// Queue it
@@ -667,7 +668,7 @@ public class Player extends Entity {
 				}
 			}
 		} catch (Exception ex) {
-		    System.out.println("here1");
+			System.out.println("Failed to write packet to client");
 			disconnect();
 		}
 	}

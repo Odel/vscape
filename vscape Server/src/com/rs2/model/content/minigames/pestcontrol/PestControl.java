@@ -1141,6 +1141,8 @@ public class PestControl {
     }
 
     public static void leaveLobby(Player player) {
+    	if(player == null)
+    		return;
 		if (isInLobby(player)) {
 			try {
 				lobbyPlayers.remove(player);
@@ -1153,6 +1155,8 @@ public class PestControl {
     }
 
     public static void leaveGame(Player player, boolean DC) {
+    	if(player == null)
+    		return;
 		if (isInGame(player) && !player.isDead()) {
 			if(!DC) {
 				try {
