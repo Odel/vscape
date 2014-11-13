@@ -71,6 +71,7 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
 import com.rs2.model.content.skills.SkillcapeEmotes;
 import com.rs2.model.content.skills.SkillCapeHandler;
+import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.cooking.BrewData;
@@ -482,7 +483,7 @@ public class Player extends Entity {
 	private String desiredSkullOfGhostsAhoyFlag = "black";
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
-	private CanoeStationData curCanoeStation;
+	private Canoe canoe = new Canoe(this);
     private String currentChannel = null;
     private boolean homeTeleporting = false;
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
@@ -3719,15 +3720,11 @@ public class Player extends Entity {
 		return smithInterface;
 	}
 	
-	public void setCanoeStation(CanoeStationData newStation)
+	public Canoe getCanoe()
 	{
-		curCanoeStation = newStation;
+		return canoe;
 	}
 	
-	public CanoeStationData getCanoeStation()
-	{
-		return curCanoeStation;
-	}
 	public int getStandAnim() {
 		if (standAnim == -1)
 			return getEquipment().getStandAnim();

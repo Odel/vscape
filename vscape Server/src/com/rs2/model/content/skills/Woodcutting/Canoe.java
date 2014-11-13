@@ -5,6 +5,7 @@ import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -23,16 +24,19 @@ public class Canoe {
 	
 	public enum CanoeTravelData
 	{
-		LUMBRIDGE(71079, 3243, 3235),
-		CHAMPGUILD(71080, 3204, 3343),
-		BARBVILL(71081, 3112, 3409),
-		EDGE(71086, 3132, 3508);
+		LUMBRIDGE(0, 71079, 3243, 3235),
+		CHAMPGUILD(1, 71080, 3204, 3343),
+		BARBVILL(2, 71081, 3112, 3409),
+		EDGE(3, 71086, 3132, 3508),
+		WILDY(4, 71082, 3142, 3797);
 		
+		private int stationIndex;
 		private int destButtonId;
 		private int destX;
 		private int destY;
 		
-		CanoeTravelData(int destButtonId, int x, int y) {
+		CanoeTravelData(int stationIndex, int destButtonId, int x, int y) {
+			this.stationIndex = stationIndex;
 			this.destButtonId = destButtonId;
 			this.destX = x;
 			this.destY = y;
@@ -47,16 +51,18 @@ public class Canoe {
 	}
 
 	public enum CanoeStationData {
-		LUMBRIDGE(12163, 3241, 3235),
-		CHAMPGUILD(12164, 3200, 3341),
-		BARBVILL(12165, 3110, 3409),
-		EDGE(12166, 3130, 3508);
+		LUMBRIDGE(0, 12163, 3241, 3235),
+		CHAMPGUILD(1, 12164, 3200, 3341),
+		BARBVILL(2, 12165, 3110, 3409),
+		EDGE(3, 12166, 3130, 3508);
 		
+		private int stationIndex;
 		private int stationID;
 		private int x;
 		private int y;
 	
-	 	CanoeStationData(int stationID, int x, int y) {
+	 	CanoeStationData(int stationIndex, int stationID, int x, int y) {
+	 		this.stationIndex = stationIndex;
 			this.stationID = stationID;
 			this.x = x;
 			this.y = y;
@@ -71,19 +77,23 @@ public class Canoe {
 	}
 	
 	public enum CanoeData {
-		LOG("Log", 71028, 12147, 12),
-		Dugout("Dugout", 71029, 12148, 27);
+		LOG("Log", 71028, 12147, 12, false),
+		DUGOUT("Dugout", 71029, 12148, 27, false),
+		STABLEDUGOUT("Stable Dugout", 71030, 12149, 42, false),
+		WAKA("Waka", 71031, 12150, 57, true);
 		
 		private String name;
 		private int buttonID;
 		private int objectID;
 		private int level;
+		private boolean canWilderness;
 	
-		CanoeData(String name, int buttonID, int objectID, int level) {
+		CanoeData(String name, int buttonID, int objectID, int level, boolean canWilderness) {
 			this.name = name;
 			this.buttonID = buttonID;
 			this.objectID = objectID;
 			this.level = level;
+			this.canWilderness = canWilderness;
 		}
 		
 		public static CanoeData forButtonId(int buttonID) {
@@ -93,8 +103,15 @@ public class Canoe {
 			return null;
 		}
 	}
+
+	private Player player;
 	
-	public static boolean travelCanoe(final Player player, int buttonId)
+	public Canoe(final Player player)
+	{
+		this.player = player;
+	}
+	
+	public boolean travelCanoe(int buttonId)
 	{
 		CanoeTravelData canoeTravelData = CanoeTravelData.forId(buttonId);
 		if(canoeTravelData == null)
@@ -107,6 +124,39 @@ public class Canoe {
 	        	player.getActionSender().removeInterfaces();
 	            return false;
 	        }
+	        if(canoeTravelData == CanoeTravelData.WILDY)
+	        {
+	        	if(!getCanoeType().canWilderness){
+					player.getActionSender().sendMessage("This canoe cannot travel into the wilderness.");
+					return false;
+	        	}
+	        }
+	        int stationDifference = Math.abs(getCanoeStation().stationIndex - canoeTravelData.stationIndex);
+	        if(stationDifference <= 0)
+	        {
+				player.getActionSender().sendMessage("You're already at this location.");
+				return false;
+	        }
+	       	switch(getCanoeType())
+	       	{
+				case LOG:
+					if(stationDifference > 1)
+					{
+						player.getActionSender().sendMessage("This canoe cannot travel that far.");
+						return false;
+					}
+					break;
+				case DUGOUT:
+					if(stationDifference > 2)
+					{
+						player.getActionSender().sendMessage("This canoe cannot travel that far.");
+						return false;
+					}
+					break;
+	       	}
+	        SetCanoeObject(null);
+	        SetCanoeType(null);
+			setCanoeStation(null);
 			player.getActionSender().sendInterface(18221);
 			player.setStopPacket(true);
 			final Position newPos = new Position(canoeTravelData.destX, canoeTravelData.destY);
@@ -128,24 +178,43 @@ public class Canoe {
 		return false;
 	}
 	
-	public static boolean useCanoe(Player player, int objectID)
+	public boolean useCanoe(int objectID, int x, int y, int z)
 	{
 		switch (objectID) {
 			case 12147:
 			case 12148:
 			case 12149:
 			case 12150:
+				if(getCanoeObject() == null || getCanoeObject() != ObjectHandler.getInstance().getObject(x, y, z))
+				{
+					player.getActionSender().sendMessage("This canoe does not belong to you.");
+					return false;
+				}
 				player.setStatedInterface("canoe");
 				player.getActionSender().sendInterface(18220);
 				return true;
 		}
 		return false;
 	}
+	
+	private boolean canMakeCanoe(CanoeData canoe){
+		return player.getSkill().getPlayerLevel(Skill.WOODCUTTING) >= canoe.level;
+	}
+	
+	private void CanoeCraftInterface(){
+		player.getActionSender().sendInterface(18178);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.DUGOUT) ? 1 : 0, 18212);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.DUGOUT) ? 0 : 1, 18185);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.STABLEDUGOUT) ? 1 : 0, 18215);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.STABLEDUGOUT) ? 0 : 1, 18182);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.WAKA) ? 1 : 0, 18209);
+		player.getActionSender().sendInterfaceHidden(canMakeCanoe(CanoeData.WAKA) ? 0 : 1, 18193);
+	}
 
-	public static boolean craftCanoe(final Player player, int buttonID)
+	public boolean craftCanoe(int buttonID)
 	{
 		final CanoeData canoe = CanoeData.forButtonId(buttonID);
-		if(canoe == null)
+		if(canoe == null || getCanoeStation() == null)
 		{
 			return false;
 		}
@@ -156,7 +225,7 @@ public class Canoe {
 				player.getActionSender().sendMessage("You do not have an axe which you have the woodcutting level to use.");
 				return false;
 			}
-			if (!SkillHandler.hasRequiredLevel(player, Skill.WOODCUTTING, canoe.level, "make this")) {
+			if (!SkillHandler.hasRequiredLevel(player, Skill.WOODCUTTING, canoe.level, "make a " + canoe.name)) {
 				return false;
 			}
 			player.getActionSender().removeInterfaces();
@@ -175,10 +244,10 @@ public class Canoe {
 						if (Misc.random(100) <= 100) 
 						{
 							player.getActionSender().sendMessage("You craft the tree into a " + canoe.name);
-							CanoeStationData curCanoeStation = player.getCanoeStation();
+							CanoeStationData curCanoeStation = getCanoeStation();
 							int face = SkillHandler.getFace(curCanoeStation.stationID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ());
-							new GameObject(canoe.objectID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ(), face, 10, curCanoeStation.stationID, 10);
-							player.setCanoeStation(null);
+							SetCanoeObject(new GameObject(canoe.objectID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ(), face, 10, curCanoeStation.stationID, 10));
+							SetCanoeType(canoe);
 							container.stop();
 							return;
 						}
@@ -199,7 +268,7 @@ public class Canoe {
 		return false;
 	}
 	
-	public static boolean canoeStation(Player player, int objID)
+	public boolean canoeStation(int objID)
 	{
 		CanoeStationData canoeStation = CanoeStationData.forId(objID);
 		if(canoeStation == null)
@@ -208,11 +277,44 @@ public class Canoe {
 		}
 		if(canoeStation.stationID == objID)
 		{
-			player.setCanoeStation(canoeStation);
-			player.getActionSender().sendInterface(18178);
+			setCanoeStation(canoeStation);
+			CanoeCraftInterface();
 			return true;
 		}
 		return false;
 	}
-
+	
+	public void setCanoeStation(CanoeStationData newStation)
+	{
+		curCanoeStation = newStation;
+	}
+	
+	public CanoeStationData getCanoeStation()
+	{
+		return curCanoeStation;
+	}
+	
+	public void SetCanoeObject(GameObject obj)
+	{
+		canoeObject = obj;
+	}
+	
+	public GameObject getCanoeObject()
+	{
+		return canoeObject;
+	}
+	
+	public void SetCanoeType(CanoeData canoe)
+	{
+		canoeType = canoe;
+	}
+	
+	public CanoeData getCanoeType()
+	{
+		return canoeType;
+	}
+	
+	private CanoeStationData curCanoeStation = null;
+	private GameObject canoeObject = null;
+	private CanoeData canoeType = null;
 }

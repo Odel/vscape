@@ -1022,11 +1022,11 @@ public class ActionSender {
 		sendConfig(108, 2);
 	}
 
-	public ActionSender sendFrame171(int mainFrame, int subFrame) {
+	public ActionSender sendInterfaceHidden(int boolstate, int interfaceId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(4);
 		out.writeHeader(player.getEncryptor(), 171);
-		out.writeByte(mainFrame);
-		out.writeShort(subFrame);
+		out.writeByte(boolstate);
+		out.writeShort(interfaceId);
 		player.send(out.getBuffer());
 		return this;
 	}

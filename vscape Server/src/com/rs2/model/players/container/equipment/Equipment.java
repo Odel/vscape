@@ -486,10 +486,10 @@ public class Equipment {
         	player.getActionSender().sendItemOnInterface(weapon.getWeaponInterface().weaponDisplayChild(), 200, getItemContainer().get(Constants.WEAPON).getId());
         if(weapon.getWeaponInterface().getSpecialBarId() != -1)
 	        if(SpecialType.getSpecial(getItemContainer().get(Constants.WEAPON)) == null)
-	            player.getActionSender().sendFrame171(1, weapon.getWeaponInterface().getSpecialBarId());
+	            player.getActionSender().sendInterfaceHidden(1, weapon.getWeaponInterface().getSpecialBarId());
 	        else {
 	            //System.out.println(weapon.getWeaponInterface().getSpecialBarId());
-	            player.getActionSender().sendFrame171(0, weapon.getWeaponInterface().getSpecialBarId());
+	            player.getActionSender().sendInterfaceHidden(0, weapon.getWeaponInterface().getSpecialBarId());
 	            player.updateSpecialBar();
 	        }
 

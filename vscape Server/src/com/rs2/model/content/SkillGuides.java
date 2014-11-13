@@ -226,7 +226,7 @@ public class SkillGuides {
 	private void optionTab(String title, String currentTab, String op1, String op2, String op3, String op4, String op5, String op6, String op7, String op8, String op9, String op10, String op11, String op12, String op13) {
 		int[] interfaceChilds = {8800, 8844, 8813, 8825, 8828, 8838, 8841, 8850, 8860, 8863, 15294, 15304, 15307};
 		for (int i : interfaceChilds)
-			player.getActionSender().sendFrame171(0, i);
+			player.getActionSender().sendInterfaceHidden(0, i);
 		player.getActionSender().sendString(title, 8716);
 		player.getActionSender().sendString(currentTab, 8849);
 		player.getActionSender().sendString(op1, 8846);
@@ -245,29 +245,29 @@ public class SkillGuides {
 		player.getActionSender().sendInterface(8714);
 		player.resetAllActions();
 		if (op2 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[1]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[1]);
 		if (op3 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[2]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[2]);
 		if (op4 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[3]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[3]);
 		if (op5 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[4]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[4]);
 		if (op6 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[5]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[5]);
 		if (op7 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[6]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[6]);
 		if (op8 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[7]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[7]);
 		if (op9 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[8]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[8]);
 		if (op10 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[9]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[9]);
 		if (op11 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[10]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[10]);
 		if (op12 == "")
-			player.getActionSender().sendFrame171(1, interfaceChilds[11]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[11]);
 		if (op13 == ""){
-			player.getActionSender().sendFrame171(1, interfaceChilds[12]);
+			player.getActionSender().sendInterfaceHidden(1, interfaceChilds[12]);
 
         }
 

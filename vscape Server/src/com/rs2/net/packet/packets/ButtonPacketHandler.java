@@ -573,11 +573,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (Smelting.handleSmelting(player, buttonId, 0)) {
 			return;
 		}
-		if(Canoe.craftCanoe(player, buttonId))
-		{
-			return;
-		}
-		if(Canoe.travelCanoe(player, buttonId))
+		if(player.getCanoe().craftCanoe(buttonId) || player.getCanoe().travelCanoe(buttonId))
 		{
 			return;
 		}

@@ -332,12 +332,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(Canoe.canoeStation(player, id))
-				{
-					this.stop();
-					return;
-				}
-				if(Canoe.useCanoe(player, id))
+				if(player.getCanoe().canoeStation(id) || player.getCanoe().useCanoe(id, x,y,z))
 				{
 					this.stop();
 					return;
@@ -485,6 +480,30 @@ public class WalkToActionHandler {
 						}
 					}, 2);
 					break;
+				/*case 54 : //dwarf tunnel shortcut left (under)
+					if(x == 2820 && y == 9883)
+					{
+						player.teleport(new Position(2820, 3486, 0));
+					}
+					break;
+				case 55 : //dwarf tunnel shortcut left (overworld)
+					if(x == 2820 && y == 3484)
+					{
+						player.teleport(new Position(2820, 9882, 0));
+					}
+					break;
+				case 56 : //dwarf tunnel shortcut right (under)
+					if(x == 2876 && y == 9880)
+					{
+						player.teleport(new Position(2876, 3482, 0));
+					}
+					break;
+				case 57 : //dwarf tunnel shortcut right (overworld)
+					if(x == 2876 && y == 3480)
+					{
+						player.teleport(new Position(2876, 9879, 0));
+					}
+					break;*/
 				case 6836 :
 						player.getPillory().openInterface();
 					break;
