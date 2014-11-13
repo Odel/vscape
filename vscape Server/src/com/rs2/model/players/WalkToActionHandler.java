@@ -84,7 +84,6 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.FreakyForester;
-import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -1381,8 +1380,11 @@ public class WalkToActionHandler {
 					case 300:
 						player.teleport(new Position(3101, 9571));
 						break;
-					case 844:
+					case 2328:
 						player.teleport(new Position(2684, 3322));
+						break;
+					case 171:
+						player.teleport(new Position(2409, 3422));
 						break;
 					}
 					break;
@@ -2384,7 +2386,7 @@ public class WalkToActionHandler {
 					Tanning.tanningInterface(player);
 					break;
 				case 300:
-				case 844:
+				case 2328:
 				case 462:
 				case 171:
 					Runecrafting.teleportRunecraft(player, npc);
