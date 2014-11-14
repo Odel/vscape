@@ -548,7 +548,7 @@ public class PestControl {
 		    	continue;
 		    }
 		    if (npc.inPestControlGameArea()) {
-		    	if(npc == knight || isPortal(npc) || isShieldedPortal(npc) || GruntData.forId(npc.getNpcId()) != null){
+		    	if(npc.getNpcId() == 1828 || npc == knight || isPortal(npc) || isShieldedPortal(npc) || GruntData.forId(npc.getNpcId()) != null){
 		    		NpcLoader.destroyNpc(npc);
 		    	}
 		    }
