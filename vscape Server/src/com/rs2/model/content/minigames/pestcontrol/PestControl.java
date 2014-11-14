@@ -17,9 +17,9 @@ import com.rs2.util.Misc;
 
 public class PestControl {
 
-    private final static int LOBBY_TIME = 10;
-    private final static int GAME_TIME = 300;
-    private final static int PLAYERS_REQUIRED = 1;
+    private final static int LOBBY_TIME = 90;
+    private final static int GAME_TIME = 600;
+    private final static int PLAYERS_REQUIRED = 3;
     private final static int GRUNT_TIME = 30;
     private final static int NPC_LOGIC_TIME = 15;
     
