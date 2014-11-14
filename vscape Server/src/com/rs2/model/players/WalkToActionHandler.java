@@ -2064,10 +2064,10 @@ public class WalkToActionHandler {
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
 				
-				if (PestControl.handleBarricadeClicking(player, id, x, y)) {
+				/*if (PestControl.handleBarricadeClicking(player, id, x, y)) {
 					this.stop();
 					return;
-				}
+				}*/
 				
 				switch (player.getClickId()) {
 				case 3194 : // opened bank chest

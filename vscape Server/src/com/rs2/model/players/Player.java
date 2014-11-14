@@ -696,7 +696,7 @@ public class Player extends Entity {
             return;
         if(inPestControlLobbyArea())
         {
-        	PestControl.leaveLobby(this);
+        	PestControl.leaveLobby(this, true);
         }
         else if(inPestControlGameArea())
         {
@@ -1143,6 +1143,7 @@ public class Player extends Entity {
         }
         else if(inPestControlGameArea())
         {
+        	setPcDamage(0);
 		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
         	teleport(PestControl.LOBBY_EXIT);
         }       
@@ -1363,7 +1364,7 @@ public class Player extends Entity {
 		}
         if(inPestControlLobbyArea())
         {
-        	PestControl.leaveLobby(this);
+        	PestControl.leaveLobby(this, true);
         }
         else if(inPestControlGameArea())
         {
