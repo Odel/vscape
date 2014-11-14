@@ -2,20 +2,10 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
-import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.attacks.SpellAttack;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.projectile.ProjectileDef;
-import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
-import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -48,7 +38,6 @@ import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
-import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -69,13 +58,11 @@ import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls;
 import com.rs2.model.content.treasuretrails.DiggingScrolls;
 import com.rs2.model.content.treasuretrails.MapScrolls;
-import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.Sextant;
 import com.rs2.model.content.treasuretrails.SpeakToScrolls;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.TradeManager;
@@ -90,7 +77,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 public class ItemPacketHandler implements PacketHandler {
 
@@ -178,7 +164,8 @@ public class ItemPacketHandler implements PacketHandler {
 	}
     }
 
-    private void handleExamineItem(Player player, Packet packet) {
+    @SuppressWarnings("unused")
+	private void handleExamineItem(Player player, Packet packet) {
 	int itemId = packet.getIn().readShort(); // Item ID.
 	ItemDefinition itemDef = new Item(itemId).getDefinition();
 	if (itemDef != null) {
@@ -197,7 +184,7 @@ public class ItemPacketHandler implements PacketHandler {
 	packet.getIn().readShort();
 	player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
 	Item item = player.getInventory().getItemContainer().get(player.getSlot());
-	if (Puzzle.moveSlidingPiece(player, itemId)) {
+	if (player.getPuzzle().moveSlidingPiece(itemId, true)) {
 	    return;
 	}
 	if (item == null || item.getId() != itemId || !item.validItem()) {
@@ -236,6 +223,10 @@ public class ItemPacketHandler implements PacketHandler {
 	if (item.getId() == 6541) {
 	    player.getActionSender().sendMessage("You don't want to destroy your pet!");
 	    return;
+	}
+	if(player.getCat().registerCat(item.getId()))
+	{
+		return;
 	}
 	for (int[] element : Pets.PET_IDS) {
 	    if (item.getDefinition().getId() == element[0]) {
@@ -352,8 +343,8 @@ public class ItemPacketHandler implements PacketHandler {
 	    }
 	}
 	for (Quest q : QuestHandler.getQuests()) {
-	    if (q.itemOnItemHandling(player, firstItem, secondItem)) {
-		return;
+	    if (q.itemOnItemHandling(player, firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot)) {
+	    	return;
 	    }
 	}
 	if (TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
@@ -426,18 +417,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.getInventory().addItem(new Item(2419));
 	    return;
 	}
-	if (firstClickItem.getId() == 1973 && secondClickItem.getId() == 233) {
-	    player.getActionSender().sendMessage("You use your pestle and mortar to turn the chocolate to dust.");
-	    player.getInventory().removeItem(new Item(1973));
-	    player.getInventory().addItem(new Item(1975));
-	    return;
-	}
-	if (firstClickItem.getId() == 946 && secondClickItem.getId() == 1973) {
-	    player.getActionSender().sendMessage("You use your knife to turn the chocolate to dust.");
-	    player.getInventory().removeItem(new Item(1973));
-	    player.getInventory().addItem(new Item(1975));
-	    return;
-	}
 	player.getActionSender().sendMessage("Nothing interesting happens.");
 
     }
@@ -496,9 +475,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
-	    return;
-	}
-	if (MaskDropController.itemPickupHandling(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()))) {
 	    return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
@@ -856,7 +832,7 @@ public class ItemPacketHandler implements PacketHandler {
 	if (new Item(itemId).getDefinition().getName().toLowerCase().contains("clue scroll") || new Item(itemId).getDefinition().getName().toLowerCase().contains("challenge scroll")) {
 	    ClueScroll.cleanClueInterface(player);
 	}
-	if (Puzzle.loadClueInterface(player, itemId)) {
+	if (player.getPuzzle().loadClueInterface(itemId)) {
 	    return;
 	}
 	if (CoordinateScrolls.loadClueInterface(player, itemId)) {
@@ -1023,7 +999,11 @@ public class ItemPacketHandler implements PacketHandler {
 		Sextant.initializeRandomSextantInterface(player);
 		return;
 	    case 299:
-		//MithrilSeeds.plantMithrilSeed(player);
+		player.getMithrilSeeds().plantMithrilSeed(player);
+		return;
+	    case 6722:
+	    	player.getUpdateFlags().sendAnimation(2840);
+			player.getUpdateFlags().setForceChatMessage("Alas!");
 		return;
 	}
 
@@ -1055,7 +1035,10 @@ public class ItemPacketHandler implements PacketHandler {
 	Pouches.checkEssencePouch(player, item.getId());
 	switch (itemId) {
 	    case 4566: // rubber chicken
-		player.getUpdateFlags().sendAnimation(1835);
+	    	player.getUpdateFlags().sendAnimation(1835);
+		return;
+	    case 6722:
+	    	Dialogues.startDialogue(player, 2868);
 		return;
 	    case 11284: //dfs charge check
 	    case 11283:
@@ -1163,6 +1146,10 @@ public class ItemPacketHandler implements PacketHandler {
 	RSInterface inter = RSInterface.forId(player.getInterfaceId());
 	if (!player.hasInterfaceOpen(inter)) {
 	    return;
+	}
+	if (itemId == 6722){
+		player.getUpdateFlags().sendAnimation(2844);
+		player.getUpdateFlags().setForceChatMessage("Muahahahah!");
 	}
 	if (itemId == 6541) {
 	    player.getPets().registerPet(6541, 901);

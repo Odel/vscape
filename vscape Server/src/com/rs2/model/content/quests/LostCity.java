@@ -72,7 +72,6 @@ public class LostCity implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -160,7 +159,6 @@ public class LostCity implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("To start this quest, find the camp in Lumbridge Swamp.", 8147);
@@ -183,7 +181,7 @@ public class LostCity implements Quest {
     
     public boolean itemHandling(final Player player, int itemId) { return false; }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
     
     public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
@@ -371,5 +369,17 @@ public class LostCity implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }

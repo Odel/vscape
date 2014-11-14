@@ -27,7 +27,6 @@ public class NpcDropController {
 	 */
 	private static Map<Integer, NpcDropController> dropControllers = null;
 	
-	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		FileReader rareReader = new FileReader("./datajson/npcs/rareDrops.json");
 		try
@@ -102,8 +101,8 @@ public class NpcDropController {
 	}
 	
 	public void setRareTableChance(boolean bool) {
-	    if(bool) this.rareTableChance = 100;
-	    else if(!bool) this.rareTableChance = 130;
+	    if(bool) rareTableChance = 100;
+	    else if(!bool) rareTableChance = 130;
 	}
 
 	/**

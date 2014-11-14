@@ -8,10 +8,6 @@ import vscapeClient.sign.signlink;
 import java.awt.*;
 import java.awt.image.*;
 
-import javax.imageio.*;
-
-import java.io.*;
-
 public final class Sprite extends DrawingArea {
 
 	public Sprite(int i, int j)

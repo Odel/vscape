@@ -1,5 +1,8 @@
 package com.rs2.model.content.quests;
 
+import java.io.IOException;
+
+import com.rs2.model.players.CommandHandler;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
@@ -51,7 +54,8 @@ public class QuestHandler {
 	new FamilyCrest(),
 	new TheGrandTree(),
 	new DwarfCannon(),
-	new WaterfallQuest()
+	new WaterfallQuest(),
+	new GertrudesCat()
     };
     
     public static void init() {
@@ -75,7 +79,11 @@ public class QuestHandler {
         {
                 player.setQuestStage(q.getQuestID(), 0);
         }
-        PlayerSave.loadQuests(player); //loads quest progress from Username.txt, sets variables
+        try {
+			PlayerSave.loadQuests(player);
+		} catch (IOException e) {
+			
+		}
     }
     
     public static void initQuestLog(Player player){
@@ -226,7 +234,9 @@ public class QuestHandler {
 		case 28182: //Waterfall Quest
 			showInterface(player,quests[31]);
         		return true;
-
+		case 28192: //Gertrudes cat
+			showInterface(player,quests[32]);
+        		return true;
         }
         return false;
     }
@@ -235,7 +245,7 @@ public class QuestHandler {
     {
         if (quest != null) 
         {
-	    player.ClearNotes();
+	    CommandHandler.ClearNotes(player);
 	    quest.showInterface(player);
 	    quest.sendQuestTabStatus(player);
             resetInterface(player);

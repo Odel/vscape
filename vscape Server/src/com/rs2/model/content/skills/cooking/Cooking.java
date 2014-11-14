@@ -59,8 +59,8 @@ public class Cooking {
 		SUMMER_PIE(7216, 7218, 2329, 95, 260, 100, 98, false), 
 		STEW(2001, 2003, 2005, 25, 117, 30, 30, true), 
 		CURRY(2009, 2011, 2013, 60, 280, 65, 62, true),
-		PIZZA(2287, 2289, 2305, 35, 143, 38, 35, true), 
-		CAKE(1889, 1891, 1903, 40, 180, 38, 35, false), 
+		PIZZA(2287, 2289, 2305, 35, 143, 45, 42, true), 
+		CAKE(1889, 1891, 1903, 40, 180, 48, 45, false), 
 		BREAD(2307, 2309, 2311, 1, 40, 5, 5, false), 
 		PITTA_BREAD(1863, 1865, 1867, 58, 40, 65, 62, true),
 		SPICY_SAUCE(7072, 7072,2880, 9, 25, 38, 36, true), 
@@ -254,9 +254,9 @@ public class Cooking {
 		}
 		player.getActionSender().removeInterfaces();
 		player.getInventory().removeItem(new Item(player.getTempInteger()));
-		if (player.getStatedInterface() == "cookFire")
+		if (player.getStatedInterface().equals("cookFire"))
 			player.getUpdateFlags().sendAnimation(897);
-		else if (player.getStatedInterface() == "cookRange")
+		else if (player.getStatedInterface().equals("cookRange"))
 			player.getUpdateFlags().sendAnimation(883);
 		player.getActionSender().sendSound(357, 0, 0);
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
@@ -272,7 +272,7 @@ public class Cooking {
 			}
 			return;
 		}
-		if (!toCook.fireCook() && player.getStatedInterface() == "cookFire")
+		if (!toCook.fireCook() && player.getStatedInterface().equals("cookFire"))
 			giveRewards(player, player.getTempInteger(), true);
 		else
 			giveRewards(player, player.getTempInteger(), false);

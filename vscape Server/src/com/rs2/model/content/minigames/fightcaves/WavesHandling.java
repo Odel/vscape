@@ -3,7 +3,6 @@ package com.rs2.model.content.minigames.fightcaves;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.HealersCombatScript;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.npcs.Npc;

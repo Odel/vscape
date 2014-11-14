@@ -14,8 +14,6 @@ import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -109,7 +107,6 @@ public class GoblinDiplomacy implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -194,7 +191,6 @@ public class GoblinDiplomacy implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to the Generals of Goblin Village.", 8147);
@@ -242,7 +238,7 @@ public class GoblinDiplomacy implements Quest {
 	return false;
     }
 
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if((firstItem == YELLOW_DYE && secondItem == RED_DYE) || (firstItem == RED_DYE && secondItem == YELLOW_DYE)) {
 	    player.getActionSender().sendMessage("You mix the two dyes together.");
 	    player.getInventory().removeItem(new Item(RED_DYE));
@@ -675,7 +671,17 @@ public class GoblinDiplomacy implements Quest {
 	}
 	return false;
     }
-    
-    
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }

@@ -59,6 +59,10 @@ public class PlayerSaveParser {
 	            player.setStaffRights(characterObj.get("rights").getAsInt());
                 player.setMuteExpire(characterObj.get("muteExpire").getAsInt());
                 player.setBanExpire(characterObj.get("banExpire").getAsInt());
+                if(characterObj.get("inJail") != null)
+                {
+                	player.setInJail(characterObj.get("inJail").getAsBoolean());
+                }
 	            JsonObject position = characterObj.getAsJsonObject("position");
 	            if(position != null){
 	            player.getPosition().setX(position.get("x") != null ? position.get("x").getAsInt() : Constants.START_X);
@@ -66,6 +70,12 @@ public class PlayerSaveParser {
 	            player.getPosition().setY(position.get("y") != null ? position.get("y").getAsInt() : Constants.START_Y);
 	            player.getPosition().setLastY(player.getPosition().getY() + 1);
 	            player.getPosition().setZ(position.get("z") != null ? position.get("z").getAsInt() : Constants.START_Z);
+	            }
+	            JsonObject positionLast = characterObj.getAsJsonObject("lastPosition");
+	            if(positionLast != null){
+	            player.getPosition().setLastX(positionLast.get("x") != null ? positionLast.get("x").getAsInt() : Constants.START_X);
+	            player.getPosition().setLastY(positionLast.get("y") != null ? positionLast.get("y").getAsInt() : Constants.START_Y);
+	            player.getPosition().setLastZ(positionLast.get("z") != null ? positionLast.get("z").getAsInt() : Constants.START_Z);
 	            }
 	            JsonObject appearance = characterObj.getAsJsonObject("appearance");
 	            if(appearance != null) {
@@ -143,6 +153,9 @@ public class PlayerSaveParser {
 	                player.setRingOfRecoilLife(itemData.get("recoillife").getAsInt());
 	                player.setClayBraceletLife(itemData.get("claybracelet").getAsInt());
 	                player.setGodBook(itemData.get("godbook").getAsInt());
+		        	if(itemData.get("lostgodbook") != null){
+		        		player.setLostGodBook(itemData.get("lostgodbook").getAsInt());
+		        	}
 	                player.setHasUsedFreeGauntletsCharge(itemData.get("usedFreeGauntletsCharge").getAsBoolean());
 	                player.setDefender(itemData.get("defender").getAsInt());
 	                player.setDfsCharges(itemData.get("dfsCharges").getAsInt());
@@ -162,6 +175,10 @@ public class PlayerSaveParser {
 					    	player.puzzleStoredItems[i] = new Item(puzzleStoredItems.get(i).getAsInt());
 					    }
 					}
+					if(itemData.get("recieveMasks") != null)
+						player.setReceivedMasks(itemData.get("recieveMasks").getAsBoolean());
+					if(itemData.get("hasZombieHead") != null)
+						player.setHasZombieHead(itemData.get("hasZombieHead").getAsBoolean());
     			}
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){
@@ -174,6 +191,15 @@ public class PlayerSaveParser {
 	                player.setKilledClueAttacker(npcData.get("killedClueAttacker").getAsBoolean());
 	                player.setKilledTreeSpirit(npcData.get("killedTreeSpirit").getAsBoolean());
 	                player.setKilledJungleDemon(npcData.get("killedJungleDemon").getAsBoolean());
+	                JsonObject catData = npcData.getAsJsonObject("catData");
+	                if(catData != null){
+	                	player.getCat().setCatItem(catData.get("catItemId").getAsInt());
+	                	player.getCat().setGrowthStage(catData.get("growthStage").getAsInt());
+	                	player.getCat().setGrowthTime(catData.get("growthTime").getAsInt());
+	                	player.getCat().setHungerTime(catData.get("hungerTime").getAsInt());
+	                	player.getCat().setAttentionTime(catData.get("attentionTime").getAsInt());
+	                	player.getCat().setRatsCaught(catData.get("ratsCaught").getAsInt());
+	                }
                 }
                 JsonObject slayerData = characterObj.getAsJsonObject("slayerData");
                 if(slayerData != null){
@@ -184,21 +210,47 @@ public class PlayerSaveParser {
                 	player.getSlayer().resetSlayerTask();
                 }
             	
+                if(mainObj.get("friendsConverted") != null)
+                {
+                	player.setFriendsConverted(mainObj.get("friendsConverted").getAsBoolean());
+                }
             	JsonArray friends = mainObj.getAsJsonArray("friends");
             	if(friends != null && friends.size() > 0){
 		            for (int i = 0; i < player.getFriends().length; i++) {
 						if(i >= friends.size())
 							break;
-		                player.getFriends()[i] = friends.get(i).getAsLong();
+						long friendLong = friends.get(i).getAsLong();
+						if(friendLong < 0L || friendLong >= 0x5b5b57f8a98a5dd1L)
+							continue;
+						if(!player.getFriendsConverted()){
+							friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friends.get(i).getAsLong()));
+						}
+		                player.getFriends()[i] = friendLong;
 		            }
             	}
+            	if(!player.getFriendsConverted()){
+            		player.setFriendsConverted(true);
+            	}
+                if(mainObj.get("ignoresConverted") != null)
+                {
+                	player.setIgnoresConverted(mainObj.get("ignoresConverted").getAsBoolean());
+                }
             	JsonArray ignores = mainObj.getAsJsonArray("ignores");
             	if(ignores != null && ignores.size() > 0){
 		            for (int i = 0; i < player.getIgnores().length; i++) {
 						if(i >= ignores.size())
 							break;
-		                player.getIgnores()[i] = ignores.get(i).getAsLong();
+						long ignoreLong = ignores.get(i).getAsLong();
+						if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
+							continue;
+						if(!player.getIgnoresConverted()){
+							ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignores.get(i).getAsLong()));
+						}
+		                player.getIgnores()[i] = ignoreLong;
 		            }
+            	}
+            	if(!player.getIgnoresConverted()){
+            		player.setIgnoresConverted(true);
             	}
 	            JsonArray skills = mainObj.getAsJsonArray("skills");
 	            if(skills != null && skills.size() > 0){
@@ -338,6 +390,9 @@ public class PlayerSaveParser {
 		            	player.setPetitionSigned(questVars.get("petitionSigned").getAsBoolean());
 		            	player.setGivenSnailSlime(questVars.get("snailSlime").getAsBoolean());
 		            	player.setGivenIdPapers(questVars.get("idPapers").getAsBoolean());
+		            	if(questVars.get("hasShotGrip") != null){
+		            		player.setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
+		            	}
 		            }
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){

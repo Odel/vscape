@@ -6,7 +6,6 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.objects.GameObject;
@@ -107,7 +106,8 @@ public class ActionSender {
             player.getInventory().addItem(new Item(player.getPendingItems()[i], player.getPendingItemsAmount()[i]));
         }
 		player.getPrivateMessaging().sendPMOnLogin();
-		sendMessage("Welcome to /v/scape.");
+		sendIgnoreList(player.getIgnores());
+		sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 		//QPEdit(player.getQuestPoints());
 		return this;
@@ -807,10 +807,10 @@ public class ActionSender {
 	
 	
 
-	public ActionSender sendDialogueAnimation(int modelId, int animId) {
+	public ActionSender sendInterfaceAnimation(int intefaceChildId, int animId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
 		out.writeHeader(player.getEncryptor(), 200);
-		out.writeShort(modelId);
+		out.writeShort(intefaceChildId);
 		out.writeShort(animId);
 		player.send(out.getBuffer());
 		return this;
@@ -899,6 +899,19 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
+	
+    public void sendSoundRadius(int id, int type, int delay, Position pos, int radius) {
+        for (Player p : World.getPlayers()) {
+            if (p == null)
+            	continue;
+            
+            if (pos.isViewableFrom(p.getPosition()) && pos.getZ() == p.getPosition().getZ()) {
+            	if(Misc.getDistance(pos, p.getPosition()) <= radius){
+            		p.getActionSender().sendSound(id, type, delay);
+            	}
+            }
+        }
+    }
 
 	public ActionSender sendSong(int id) {
 		if (player.currentSong == id)
@@ -1009,11 +1022,11 @@ public class ActionSender {
 		sendConfig(108, 2);
 	}
 
-	public ActionSender sendFrame171(int mainFrame, int subFrame) {
+	public ActionSender sendInterfaceHidden(int boolstate, int interfaceId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(4);
 		out.writeHeader(player.getEncryptor(), 171);
-		out.writeByte(mainFrame);
-		out.writeShort(subFrame);
+		out.writeByte(boolstate);
+		out.writeShort(interfaceId);
 		player.send(out.getBuffer());
 		return this;
 	}

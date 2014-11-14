@@ -22,7 +22,8 @@ public class Grinding {
 	private static final int[][] GRINDABLES = {{237, 235}, // Unicorn Horn.
 			{1973, 1975}, // Chocolate Bar.
 			{5075, 6693}, // Bird's Nest.
-			{243, 241} // Blue dragon scale
+			{243, 241}, // Blue dragon scale
+			{9735, 9736}
 	};
 
 	public static boolean createProduct(Player player, Item useItem, Item withItem, int slot, int usedSlot) {

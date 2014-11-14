@@ -12,7 +12,6 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.item.Item;
@@ -28,11 +27,17 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("mac", player.getMacAddress());
 		characterObj.addProperty("muteExpire", player.getMuteExpire());
 		characterObj.addProperty("banExpire", player.getBanExpire());
+		characterObj.addProperty("inJail", player.getInJail());
 		JsonObject positionObj = new JsonObject();
 		positionObj.addProperty("x", player.getPosition().getX());
 		positionObj.addProperty("y", player.getPosition().getY());
 		positionObj.addProperty("z", player.getPosition().getZ());
 		characterObj.add("position", positionObj);
+		JsonObject positionLastObj = new JsonObject();
+		positionLastObj.addProperty("x", player.getPosition().getLastX());
+		positionLastObj.addProperty("y", player.getPosition().getLastY());
+		positionLastObj.addProperty("z", player.getPosition().getLastZ());
+		characterObj.add("lastPosition", positionLastObj);
 		JsonObject appearanceObj = new JsonObject();
 		appearanceObj.addProperty("gender", player.getGender());
 		JsonArray appearanceArray = new JsonArray();
@@ -84,6 +89,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		itemDataObj.addProperty("recoillife", player.getRingOfRecoilLife());
 		itemDataObj.addProperty("claybracelet", player.getClayBraceletLife());
 		itemDataObj.addProperty("godbook", player.getGodBook());
+		itemDataObj.addProperty("lostgodbook", player.getLostGodBook());
 		itemDataObj.addProperty("usedFreeGauntletsCharge", player.usedFreeGauntletsCharge());
 		itemDataObj.addProperty("defender", player.getDefender());
 		itemDataObj.addProperty("dfsCharges", player.getDfsCharges());
@@ -93,14 +99,16 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		}
 		itemDataObj.add("pouchData", pouchArray);
 		JsonArray puzzleArray = new JsonArray();
-                for(Item item : player.puzzleStoredItems) {
-                        int itemId = -1;
-                        if(item != null){
-                                itemId = item.getId();
-                        }
-                        puzzleArray.add(new JsonPrimitive(itemId));
+        for(Item item : player.puzzleStoredItems) {
+                int itemId = -1;
+                if(item != null){
+                        itemId = item.getId();
                 }
-                itemDataObj.add("puzzleStoredItems", puzzleArray);
+                puzzleArray.add(new JsonPrimitive(itemId));
+        }
+        itemDataObj.add("puzzleStoredItems", puzzleArray);
+        itemDataObj.addProperty("recieveMasks", player.getReceivedMasks());
+        itemDataObj.addProperty("hasZombieHead", player.getHasZombieHead());
 		characterObj.add("itemData", itemDataObj);
 		
 		JsonObject worldDataObj = new JsonObject();
@@ -113,6 +121,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		npcDataObj.addProperty("killedClueAttacker", player.hasKilledClueAttacker());	
 		npcDataObj.addProperty("killedTreeSpirit", player.hasKilledTreeSpirit());
 		npcDataObj.addProperty("killedJungleDemon", player.hasKilledJungleDemon());
+		JsonObject catObj = new JsonObject();
+		catObj.addProperty("catItemId", player.getCat().getCatItem());
+		catObj.addProperty("growthStage", player.getCat().getGrowthStage());
+		catObj.addProperty("growthTime", player.getCat().getGrowthTime());
+		catObj.addProperty("hungerTime", player.getCat().getHungerTime());
+		catObj.addProperty("attentionTime", player.getCat().getAttentionTime());
+		catObj.addProperty("ratsCaught", player.getCat().getRatsCaught());
+		npcDataObj.add("catData", catObj);
 		characterObj.add("npcData", npcDataObj);
 		
 		JsonObject slayerDataObj = new JsonObject();
@@ -123,10 +139,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonArray friendsArray = new JsonArray();
 		for (int i = 0; i < player.getFriends().length; i++) {
+			if(player.getFriends()[i] < 0L || player.getFriends()[i] >= 0x5b5b57f8a98a5dd1L)
+				continue;
 			friendsArray.add(new JsonPrimitive(player.getFriends()[i]));
 		}
 		JsonArray ignoresArray = new JsonArray();
 		for (int i = 0; i < player.getIgnores().length; i++) {
+			if(player.getIgnores()[i] < 0L || player.getIgnores()[i] >= 0x5b5b57f8a98a5dd1L)
+				continue;
 			ignoresArray.add(new JsonPrimitive(player.getIgnores()[i]));
 		}
 		
@@ -231,6 +251,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("petitionSigned", player.petitionSigned());
 		questVarsObj.addProperty("snailSlime", player.givenSnailSlime());
 		questVarsObj.addProperty("idPapers", player.givenIdPapers());
+		questVarsObj.addProperty("hasShotGrip", player.hasShotGrip());
 		questObj.add("questVars", questVarsObj);
 		JsonArray questArray = new JsonArray();
 		for(Quest q : QuestHandler.getQuests())
@@ -588,7 +609,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonObject mainObj = new JsonObject();
 		mainObj.add("character", characterObj);
+		mainObj.addProperty("friendsConverted", player.getFriendsConverted());
 		mainObj.add("friends", friendsArray);
+		mainObj.addProperty("ignoresConverted", player.getIgnoresConverted());
 		mainObj.add("ignores", ignoresArray);
 		mainObj.add("skills", skillArray);
 		mainObj.add("inventory", invArray);

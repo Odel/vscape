@@ -428,8 +428,7 @@ public class TheGrandTree implements Quest {
     }
 
     public void showInterface(Player player){ //Don't change
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
     
@@ -547,7 +546,7 @@ public class TheGrandTree implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { //Inherited, will work without a call to it
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { //Inherited, will work without a call to it
 	return false; 
     }
     
@@ -2039,5 +2038,17 @@ public class TheGrandTree implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

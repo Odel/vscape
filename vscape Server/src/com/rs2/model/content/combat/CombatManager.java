@@ -1,6 +1,8 @@
 package com.rs2.model.content.combat;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -12,7 +14,6 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
-import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -32,6 +33,7 @@ import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -45,6 +47,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -384,7 +387,7 @@ public class CombatManager extends Tick {
 		died.getPjTimer().setWaitDuration(0);
 		died.getPjTimer().reset(); 
 		}
-		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[Prayer.RETRIBUTION]) {
+		if (killer != null && died.isPlayer() && ((Player) died).getIsUsingPrayer()[PrayerData.RETRIBUTION.getIndex()]) {
 			Prayer.applyRetribution(died, killer);
 		}
 		else if (died.isNpc() && ((Npc)died).getNpcId() == 757 && killer != null && killer.isPlayer()) { //count draynor
@@ -573,10 +576,10 @@ public class CombatManager extends Tick {
 			((Player) died).getCreatureGraveyard().handleDeath();
 			return;
 		}
-                if(died != null && died.isPlayer() && ((Player) died).inPestControlGameArea()) {
-                    ((Player) died).getPestControl().handleDeath((Player) died);
+        if(died != null && died.isPlayer() && ((Player) died).inPestControlGameArea()) {
+            PestControl.handleDeath((Player) died);
 		    return;
-                }
+        }
 		if(died != null && died.isPlayer() && ((Player) died).onPestControlIsland() ) {
 		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
@@ -605,9 +608,24 @@ public class CombatManager extends Tick {
 			    players.hit(15 + Misc.random(15), HitType.NORMAL);
 		    }
 		    for (Npc npcs : World.getNpcs()) {
-			if (npcs != null && npcs.goodDistanceEntity(died, 2) && npcs != died && !PestControl.isPortal(npcs))
+			if (npcs != null && npcs.goodDistanceEntity(died, 3) && npcs != died && !PestControl.isPortal(npcs))
 			    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
 		    }
+		    /*for (PestControl.BarricadeData b : PestControl.BarricadeData.values()) {
+				if (b.forName(b.name()) != null) {
+				    for (Position p : b.iterablePositions()) {
+						if (PestControl.getBrokenBarricades().contains(p)) {
+						    continue;
+						}
+						final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
+						if (g != null) {
+						    if (Misc.goodDistance(died.getPosition(), p, 3)) {
+							b.ravage(p, false);
+						    }
+						}
+				    }
+				}
+		    }*/
 		}
 		if(died.isNpc() && PestControl.isPortal((Npc) died) && died.inPestControlGameArea()) {
 		    for (Npc npcs : World.getNpcs()) {
@@ -616,7 +634,7 @@ public class CombatManager extends Tick {
 			    npcs.hit(hp, HitType.NORMAL);
 			    deathByPortal = true;
 			    for (Player players : World.getPlayers()) {
-				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 && !players.getPestControl().allPortalsDead() ) {
+				if (players != null && Misc.getDistance(died.getPosition(), players.getPosition()) <= 5 && !PestControl.allPortalsDead() ) {
 				    players.hit(50, HitType.NORMAL);
 				    players.getActionSender().sendMessage("You are hurt by the spinner's lost connection to the portal.");
 				}
@@ -668,6 +686,12 @@ public class CombatManager extends Tick {
 			styleBonus = 1;
 		else if (player.hasFullVoidRange())
 			rangedLevel = (int) styleBonus + (int)(rangedLevel * 1.1);
+		if (player.getIsUsingPrayer()[PrayerData.SHARP_EYE.getIndex()])
+			rangedLevel *= 1.05;
+		else if (player.getIsUsingPrayer()[PrayerData.HAWK_EYE.getIndex()])
+			rangedLevel *= 1.1;
+		else if (player.getIsUsingPrayer()[PrayerData.EAGLE_EYE.getIndex()])
+			rangedLevel *= 1.15;
 		rangedLevel += styleBonus;
 		double rangedStrength = weaponAttack.getRangedAmmo().getRangeStrength();
 		double maxHit = (rangedLevel + rangedStrength / 8 + rangedLevel * rangedStrength * Math.pow(64, -1) + 14) / 10;
@@ -678,11 +702,11 @@ public class CombatManager extends Tick {
 
 	public static double calculateMaxMeleeHit(Player player, WeaponAttack weaponAttack) {
 		double strengthLevel = player.getSkill().getLevel()[Skill.STRENGTH];
-		if (player.getIsUsingPrayer()[Prayer.BURST_OF_STRENGTH])
+		if (player.getIsUsingPrayer()[PrayerData.BURST_OF_STRENGTH.getIndex()])
 			strengthLevel *= 1.05;
-		else if (player.getIsUsingPrayer()[Prayer.SUPERHUMAN_STRENGTH])
+		else if (player.getIsUsingPrayer()[PrayerData.SUPERHUMAN_STRENGTH.getIndex()])
 			strengthLevel *= 1.1;
-		else if (player.getIsUsingPrayer()[Prayer.ULTIMATE_STRENGTH])
+		else if (player.getIsUsingPrayer()[PrayerData.ULTIMATE_STRENGTH.getIndex()])
 			strengthLevel *= 1.15;
 		AttackStyle attackStyle = weaponAttack.getAttackStyle();
 		int styleBonus = 0;
@@ -725,14 +749,34 @@ public class CombatManager extends Tick {
 		double baseAttack = attacker.getBaseAttackLevel(attackStyle.getAttackType());
 		if (attackStyle.getAttackType() == AttackType.MELEE && attacker.isPlayer()) {
 			Player player = (Player) attacker;
-			if (player.getIsUsingPrayer()[Prayer.CLARITY_OF_THOUGHT])
+			if (player.getIsUsingPrayer()[PrayerData.CLARITY_OF_THOUGHT.getIndex()])
 				baseAttack *= 1.05;
-			else if (player.getIsUsingPrayer()[Prayer.IMPROVED_REFLEXES])
+			else if (player.getIsUsingPrayer()[PrayerData.IMPROVED_REFLEXES.getIndex()])
 				baseAttack *= 1.1;
-			else if (player.getIsUsingPrayer()[Prayer.INCREDIBLE_REFLEXES])
+			else if (player.getIsUsingPrayer()[PrayerData.INCREDIBLE_REFLEXES.getIndex()])
 				baseAttack *= 1.15;
 			else if(player.hasFullVoidMelee())
 				baseAttack *= 1.1;
+		}
+		else if(attackStyle.getAttackType() == AttackType.RANGED && attacker.isPlayer())
+		{
+			Player player = (Player) attacker;
+			if (player.getIsUsingPrayer()[PrayerData.SHARP_EYE.getIndex()])
+				baseAttack *= 1.05;
+			else if (player.getIsUsingPrayer()[PrayerData.HAWK_EYE.getIndex()])
+				baseAttack *= 1.1;
+			else if (player.getIsUsingPrayer()[PrayerData.EAGLE_EYE.getIndex()])
+				baseAttack *= 1.15;
+		}
+		else if(attackStyle.getAttackType() == AttackType.MAGIC && attacker.isPlayer())
+		{
+			Player player = (Player) attacker;
+			if (player.getIsUsingPrayer()[PrayerData.MYSTIC_WILL.getIndex()])
+				baseAttack *= 1.05;
+			else if (player.getIsUsingPrayer()[PrayerData.MYSTIC_LORE.getIndex()])
+				baseAttack *= 1.1;
+			else if (player.getIsUsingPrayer()[PrayerData.MYSTIC_MIGHT.getIndex()])
+				baseAttack *= 1.15;
 		}
 		return Math.floor(baseAttack + attackBonus) + 8;
 	}
@@ -745,11 +789,11 @@ public class CombatManager extends Tick {
 		}
 		if (attackStyle.getAttackType() == AttackType.MELEE && victim.isPlayer()) {
 			Player player = (Player) victim;
-			if (player.getIsUsingPrayer()[Prayer.THICK_SKIN])
+			if (player.getIsUsingPrayer()[PrayerData.THICK_SKIN.getIndex()])
 				baseDefence *= 1.05;
-			else if (player.getIsUsingPrayer()[Prayer.ROCK_SKIN])
+			else if (player.getIsUsingPrayer()[PrayerData.ROCK_SKIN.getIndex()])
 				baseDefence *= 1.1;
-			else if (player.getIsUsingPrayer()[Prayer.STEEL_SKIN])
+			else if (player.getIsUsingPrayer()[PrayerData.STEEL_SKIN.getIndex()])
 				baseDefence *= 1.15;
 		}
 		else if(attackStyle.getAttackType() == AttackType.MAGIC && victim.isNpc()) {

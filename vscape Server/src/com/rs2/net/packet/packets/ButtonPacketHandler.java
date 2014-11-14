@@ -39,7 +39,6 @@ import com.rs2.model.transport.GnomeGlider;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
 import com.rs2.util.Misc;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.item.Item;
 
 public class ButtonPacketHandler implements PacketHandler {
@@ -388,6 +387,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getPrayer().setPrayers(buttonId)) {
 			return;
 		}
+		if (player.getPillory().handleButton(buttonId)) {
+			return;
+		}
 		/**
 		 * All buttons after this part cannot be used while player's packets are
 		 * disabled
@@ -571,11 +573,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (Smelting.handleSmelting(player, buttonId, 0)) {
 			return;
 		}
-		if(Canoe.craftCanoe(player, buttonId))
-		{
-			return;
-		}
-		if(Canoe.travelCanoe(player, buttonId))
+		if(player.getCanoe().craftCanoe(buttonId) || player.getCanoe().travelCanoe(buttonId))
 		{
 			return;
 		}

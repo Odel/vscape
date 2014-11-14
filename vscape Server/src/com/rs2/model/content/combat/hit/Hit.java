@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
-import com.rs2.model.Position;
 import com.rs2.model.UpdateFlags;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackType;
@@ -31,7 +30,6 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.ElementalWorkshop;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
@@ -39,6 +37,7 @@ import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
@@ -250,7 +249,7 @@ public class Hit {
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					Hit hit = new Hit(getAttacker(), npcs, hitDefMulti);
-					List hitList = new LinkedList();
+					List<Hit> hitList = new LinkedList<Hit>();
 					hitList.add(hit);
 					if (spell.getRequiredEffect() != null) {
 					    EffectTick t = spell.getRequiredEffect().generateTick(attacker, npcs);
@@ -298,7 +297,7 @@ public class Hit {
 					@Override
 					public void execute(CycleEventContainer b) {
 					    Hit hit = new Hit(getAttacker(), players, hitDefMulti);
-					    List hitList = new LinkedList();
+					    List<Hit> hitList = new LinkedList<Hit>();
 					    hitList.add(hit);
 					    if (spell.getRequiredEffect() != null) {
 						EffectTick t = spell.getRequiredEffect().generateTick(attacker, players);
@@ -602,7 +601,7 @@ public class Hit {
             victim.getHitRecordQueue().add(hitRecord);
             if (attacker.isPlayer()) {
                 Player player = (Player) attacker;
-                if (player.getIsUsingPrayer()[Prayer.SMITE] && victim.isPlayer()) {
+                if (player.getIsUsingPrayer()[PrayerData.SMITE.getIndex()] && victim.isPlayer()) {
                     Prayer.applySmite(player, ((Player) victim), damage);
                 }
             }
@@ -613,7 +612,7 @@ public class Hit {
             if (currentHp > 0) {
                 int saveHp = (int) Math.ceil(victim.getMaxHp() * .1);
                 if (currentHp < saveHp) {
-                    if (player.getIsUsingPrayer()[Prayer.REDEMPTION]) {
+                    if (player.getIsUsingPrayer()[PrayerData.REDEMPTION.getIndex()]) {
                         Prayer.applyRedemption(player, victim, currentHp);
                     }
                     if(!player.inMiniGameArea()){

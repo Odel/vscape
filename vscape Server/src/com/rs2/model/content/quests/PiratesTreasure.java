@@ -112,7 +112,6 @@ public class PiratesTreasure implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -242,7 +241,6 @@ public class PiratesTreasure implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to Redbeard Frank in Port Sarim.", 8147);
@@ -311,7 +309,7 @@ public class PiratesTreasure implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if(firstItem == CHEST_KEY && secondItem == CHEST) {
 	    player.getActionSender().sendMessage("You unlock One-Eyed Hector's chest... and find it full of loot!");
 	    player.getInventory().replaceItemWithItem(new Item(CHEST), new Item(DIAMOND_RING));
@@ -814,6 +812,18 @@ public class PiratesTreasure implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
     
     

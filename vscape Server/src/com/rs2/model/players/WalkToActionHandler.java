@@ -15,22 +15,12 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
-import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.BlackKnightsFortress;
-import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.DragonSlayer;
-import com.rs2.model.content.quests.ElementalWorkshop;
-import com.rs2.model.content.quests.ErnestTheChicken;
-import com.rs2.model.content.quests.FamilyCrest;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
-import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
@@ -93,8 +83,6 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.ShieldOfArrav;
-import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
@@ -104,6 +92,7 @@ import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Travel;
+
 import java.util.Random;
 
 public class WalkToActionHandler {
@@ -165,7 +154,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2142 || id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank")) { //exceptions
+					if (id == 2142 || id == 2297 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank") || (id >= 14227 && id <= 14231)) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else {
 						return;
@@ -343,12 +332,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(Canoe.canoeStation(player, id))
-				{
-					this.stop();
-					return;
-				}
-				if(Canoe.useCanoe(player, id))
+				if(player.getCanoe().canoeStation(id) || player.getCanoe().useCanoe(id, x,y,z))
 				{
 					this.stop();
 					return;
@@ -465,6 +449,64 @@ public class WalkToActionHandler {
 					return;
 				}
 				switch (id) {
+				case 52 :
+				case 53 :
+					if(x >= 2649 && x <= 2650 && y == 3470)
+					{
+						player.getActionSender().sendMessage("The gate is locked.");
+					}
+					break;
+				case 2994 :
+				case 2993 :
+				case 2992 :
+				case 2991 :
+				case 2990 :
+				case 2989 :
+				case 2013 :
+				case 58 :
+					player.getUpdateFlags().sendAnimation(830);
+					player.getActionSender().sendMessage("You dig in amongst the vines.");
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							player.getActionSender().sendMessage("You find a red vine worm.");
+							player.getInventory().addItem(new Item(25));
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					break;
+				/*case 54 : //dwarf tunnel shortcut left (under)
+					if(x == 2820 && y == 9883)
+					{
+						player.teleport(new Position(2820, 3486, 0));
+					}
+					break;
+				case 55 : //dwarf tunnel shortcut left (overworld)
+					if(x == 2820 && y == 3484)
+					{
+						player.teleport(new Position(2820, 9882, 0));
+					}
+					break;
+				case 56 : //dwarf tunnel shortcut right (under)
+					if(x == 2876 && y == 9880)
+					{
+						player.teleport(new Position(2876, 3482, 0));
+					}
+					break;
+				case 57 : //dwarf tunnel shortcut right (overworld)
+					if(x == 2876 && y == 3480)
+					{
+						player.teleport(new Position(2876, 9879, 0));
+					}
+					break;*/
+				case 6836 :
+						player.getPillory().openInterface();
+					break;
 				case 2114 : // coal truck
 					CoalTruck.withdrawCoal(player);
 					break;
@@ -991,14 +1033,16 @@ public class WalkToActionHandler {
 					}
 					break;
 				case 51 : // McGrubors
-					//player.movePlayer(player.getPosition());
-					player.getUpdateFlags().sendAnimation(754);
-					CrossObstacle.setForceMovement(player, player.getPosition().getX() < 2662 ? 1 : -1, 0, 1, 80, 2, true, 0, 0);
-					break;
+					if(player.getPosition().getY() == 3500) {
+						Agility.crossObstacle(player, player.getPosition().getX() < 2662 ? 2662 : 2661, 3500, 754, 2, 0, 0);
+					    player.getActionSender().sendMessage("You squeeze through the fence.");
+					}
+					break;	
 				case 2186 :
 					//player.movePlayer(player.getPosition());
 					player.getUpdateFlags().sendAnimation(754);
-					CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3161 ? 1 : -1, 1, 80, 2, true, 0, 0);
+					player.getActionSender().walkTo(0, player.getPosition().getY() < 3161 ? 1 : -1, true);
+					//CrossObstacle.setForceMovement(player, 0, player.getPosition().getY() < 3161 ? 1 : -1, 1, 80, 2, true, 0, 0);
 					break;
 				case 2266 :
 					if (player.getPosition().getY() > 2963) {
@@ -1355,8 +1399,11 @@ public class WalkToActionHandler {
 					case 300:
 						player.teleport(new Position(3101, 9571));
 						break;
-					case 844:
+					case 2328:
 						player.teleport(new Position(2684, 3322));
+						break;
+					case 171:
+						player.teleport(new Position(2409, 3422));
 						break;
 					}
 					break;
@@ -2016,7 +2063,12 @@ public class WalkToActionHandler {
 				Position loc = new Position(player.getClickX(), player.getClickY(), z);
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
-
+				
+				/*if (PestControl.handleBarricadeClicking(player, id, x, y)) {
+					this.stop();
+					return;
+				}*/
+				
 				switch (player.getClickId()) {
 				case 3194 : // opened bank chest
 					final GameObject p = ObjectHandler.getInstance().getObject(id, x, y, z);
@@ -2102,6 +2154,10 @@ public class WalkToActionHandler {
 		if (npc == null || !npc.isRealNpc()) {
 			return;
 		}
+		if(player.getCat().unregisterCat(npc))
+		{
+			return;
+		}
 		for (int[] element : Pets.PET_IDS) {
 			if (player.getClickId() == element[1]) {
 				player.getPets().unregisterPet();
@@ -2173,6 +2229,12 @@ public class WalkToActionHandler {
 					player.getActionSender().sendMessage(npc.getDefinition().getName() + " is not interested in interacting with you right now.");
 					this.stop();
 					return;
+				}
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doNpcClicking(player, npc)) {
+				    	this.stop();
+				    	return;
+				    }
 				}
 				if (player.getSlayer().doNpcSpecialEffect(npc)) {
 					this.stop();
@@ -2343,7 +2405,7 @@ public class WalkToActionHandler {
 					Tanning.tanningInterface(player);
 					break;
 				case 300:
-				case 844:
+				case 2328:
 				case 462:
 				case 171:
 					Runecrafting.teleportRunecraft(player, npc);
@@ -2413,6 +2475,11 @@ public class WalkToActionHandler {
 				Npc npc = World.getNpcs()[player.getNpcClickIndex()];
 				player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				if(player.getCat().interact(npc))
+				{
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 553:
 					Runecrafting.teleportRunecraft(player, npc);
@@ -2883,7 +2950,17 @@ public class WalkToActionHandler {
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
 					return;
 				}
-				if (FamilyCrest.doItemOnNpc(player, item, npc)) {
+				for(Quest q : QuestHandler.getQuests()) {
+				    if(q.doItemOnNpc(player, item, npc)) {
+				    	this.stop();
+				    	return;
+				    }
+				}
+			/*	if (FamilyCrest.doItemOnNpc(player, item, npc)) {
+					this.stop();
+					return;
+				}*/
+				if (player.getCat().itemOnNpc(item, npc)) {
 					this.stop();
 					return;
 				}

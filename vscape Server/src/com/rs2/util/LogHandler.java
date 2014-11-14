@@ -1,19 +1,9 @@
 package com.rs2.util;
 
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -87,9 +77,6 @@ public class LogHandler {
 	{
 		try {
 			yellLogWriter = new BufferedWriter(new FileWriter(LogDirectory + "yell.txt", true));
-			System.out.println("file opened");
-
-
 			try {
 				String time = Format.format(new Date());
 				yellLogWriter.write("["+time+"] "+name + ": " + msg);	
@@ -101,6 +88,23 @@ public class LogHandler {
 			}
 		} catch(IOException ioexception) {
 			System.out.println("error writing yell log file.");
+		}
+	}
+	
+	public static void LogCommand(String name, String msg)
+	{
+		try {
+			BufferedWriter logWriter = new BufferedWriter(new FileWriter(LogDirectory + "commands.txt", true));
+			try {
+				logWriter.write("[" + df.format(new Date()) + "] "+ name + " used ::" + msg);
+				logWriter.newLine();
+			} catch(IOException ioexception) {
+				logWriter.close();
+			} finally {
+				logWriter.close();
+			}
+		} catch(IOException ioexception) {
+			System.out.println("error writing command log file.");
 		}
 	}
 }

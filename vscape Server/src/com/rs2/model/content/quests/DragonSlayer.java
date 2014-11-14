@@ -101,7 +101,6 @@ public class DragonSlayer implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -373,7 +372,6 @@ public class DragonSlayer implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Speak with the @dre@Guildmaster in the @dre@Champion's Guild.", 8147);
@@ -447,7 +445,7 @@ public class DragonSlayer implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
 	if(firstItem == 1535 && (secondItem == 1536 || secondItem == 1537)) {
 	    if(mapPieces(player)) {
 		player.getDialogue().sendStatement("You re-attach the Crandor map.");
@@ -1731,5 +1729,16 @@ public class DragonSlayer implements Quest {
 	}
 	return false;
     }
-    
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

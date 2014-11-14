@@ -418,6 +418,10 @@ public abstract class Entity {
 	public Position getPosition() {
 		return position;
 	}
+	
+	public Position getLastPosition() {
+		return new Position(getPosition().getLastX(), getPosition().getLastY(), getPosition().getLastZ());
+	}
 
 	public void setUpdateFlags(UpdateFlags updateFlags) {
 		this.updateFlags = updateFlags;

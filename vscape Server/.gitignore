@@ -1,4 +1,5 @@
 data/characters/
+data/logs/
 data/commands.txt
 ./data/logs/shops
 vscape.sublime-project

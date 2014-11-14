@@ -1,6 +1,5 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -157,7 +156,6 @@ public class HorrorFromTheDeep implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
@@ -282,8 +280,7 @@ public class HorrorFromTheDeep implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString("Talk to @dre@Larrissa @bla@outside the @dre@Lighthouse @bla@, north", 8147);
 	player.getActionSender().sendString("of the Barbarian Outpost to begin this quest.", 8148);
@@ -484,7 +481,7 @@ public class HorrorFromTheDeep implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
     
     public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
@@ -748,7 +745,7 @@ public class HorrorFromTheDeep implements Quest {
 				player.getDialogue().sendNpcChat("Alright! Go ahead, ask away!", CONTENT);
 				return true;
 			    case 5:
-				if(!player.getInventory().ownsItem(player.getGodBook())) {
+				if(player.getLostGodBook() != -1 && !player.getInventory().ownsItem(player.getLostGodBook())) {
 				    player.getDialogue().sendOption("Would it be possible to exchange my book?", "Found any more information on the books?", "I lost my book...");
 				    return true;
 				}
@@ -834,10 +831,17 @@ public class HorrorFromTheDeep implements Quest {
 				player.setTempInteger(0);
 				return true;
 			    case 20:
-				player.getDialogue().sendNpcChat("Well, luckily for you my wife has quite the travels!", "She told me she came across a book on the ground.", "I believe this one is yours.", CONTENT);
-				player.getDialogue().endDialogue();
-				player.getInventory().addItemOrDrop(new Item(player.getGodBook()));
-				return true;
+				if(player.getInventory().canAddItem(new Item(player.getLostGodBook()))) {
+				    player.getDialogue().sendNpcChat("Well, luckily for you my wife has quite the travels!", "She told me she came across a book on the ground.", "I believe this one is yours.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    player.getInventory().addItemOrDrop(new Item(player.getLostGodBook()));
+				    player.setLostGodBook(-1);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Oh, you don't have room for a new book!", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
 			    case 22:
 				player.getDialogue().sendNpcChat("Eh, not so much. What I told you before about them", "is still all I know. I'm on the hunt for more", "answers though.", CONTENT);
 				player.getDialogue().endDialogue();
@@ -1380,5 +1384,17 @@ public class HorrorFromTheDeep implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

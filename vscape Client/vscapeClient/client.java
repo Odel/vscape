@@ -6,19 +6,12 @@ package vscapeClient;
 import java.applet.AppletContext;
 import java.awt.*;
 import java.io.*;
-import java.math.BigInteger;
-
-import javax.sound.midi.*;
-import javax.sound.sampled.*;
-
 import java.net.*;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.CRC32;
-
 import vscapeClient.sign.signlink;
 
 public class client extends RSApplet {

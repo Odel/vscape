@@ -190,8 +190,19 @@ public class WeaponAttack extends BasicAttack {
 	public int distanceRequired() {
 		switch (attackStyle.getAttackType()) {
 			case RANGED :
-				if (weapon == Weapon.LONG_BOW || weapon == Weapon.SPECIAL_BOW)
-					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 11 : 10;
+				if (weapon == Weapon.LONG_BOW || weapon == Weapon.SPECIAL_BOW || weapon == Weapon.DARK_BOW) {
+					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 10 : 9;
+				} else if (weapon == Weapon.SHORT_BOW || weapon == Weapon.CBOW || weapon == Weapon.CROSSBOW) {
+					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 9 : 7;
+				} else if (weapon == Weapon.THROWING_KNIFE || weapon == Weapon.THROWING_AXE) {
+					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 6 : 4;
+				} else if (weapon == Weapon.THROWING_DART) {
+					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 5 : 3;
+				} else if (weapon == Weapon.JAVELIN) {
+					return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 7 : 5;
+				} else if (weapon == Weapon.CRYSTAL_BOW) {
+					return 10;
+				}
 				return attackStyle.getMode() == AttackStyle.Mode.LONGRANGE ? 9 : 7;
 			case MAGIC :
 				if (attackStyle.getMode() == AttackStyle.Mode.DRAGONFIRE) {

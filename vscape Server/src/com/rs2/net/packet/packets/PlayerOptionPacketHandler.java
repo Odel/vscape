@@ -1,7 +1,6 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
@@ -9,7 +8,6 @@ import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.minigames.gnomeball.GnomeBall;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
-import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
 import com.rs2.model.players.item.Item;

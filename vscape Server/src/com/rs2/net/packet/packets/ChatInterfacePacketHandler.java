@@ -17,7 +17,6 @@ import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.TradeManager;

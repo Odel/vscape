@@ -52,8 +52,9 @@ public class NpcXmlConvertor {
     }
 	/**
 	 * Loads auto-spawn file
+	 * @throws IOException 
 	 **/
-	public static boolean makeXmlFile(String FileName) {
+	public static boolean makeXmlFile(String FileName) throws IOException {
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -71,6 +72,7 @@ public class NpcXmlConvertor {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
 			System.out.println(FileName + ": error loading file.");
+			characterfile.close();
 			return false;
 		}
 		while (EndOfFile == false && line != null) {
@@ -140,6 +142,7 @@ public class NpcXmlConvertor {
 					characterfile.close();
 				} catch (IOException ioexception) {
 				}
+				characterfile.close();
 				return true;
 			}
 			try {
@@ -158,8 +161,9 @@ public class NpcXmlConvertor {
 
 	/**
 	 * Loads cfg files
+	 * @throws IOException 
 	 **/
-	public static boolean makeCfgFile(String FileName) {
+	public static boolean makeCfgFile(String FileName) throws IOException {
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -178,6 +182,7 @@ public class NpcXmlConvertor {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
 			System.out.println(FileName + ": error loading file.");
+			characterfile.close();
 			return false;
 		}
 		while (EndOfFile == false && line != null) {
@@ -225,6 +230,7 @@ public class NpcXmlConvertor {
 					characterfile.close();
 				} catch (IOException ioexception) {
 				}
+				characterfile.close();
 				return true;
 			}
 			try {
@@ -297,8 +303,9 @@ public class NpcXmlConvertor {
 
 	/**
 	 * Loads auto-spawn file
+	 * @throws IOException 
 	 **/
-	public static boolean loadAutoSpawn(String FileName) {
+	public static boolean loadAutoSpawn(String FileName) throws IOException {
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -316,6 +323,7 @@ public class NpcXmlConvertor {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
 			System.out.println(FileName + ": error loading file.");
+			characterfile.close();
 			return false;
 		}
 		while (EndOfFile == false && line != null) {
@@ -345,10 +353,7 @@ public class NpcXmlConvertor {
 					writeToXml("	     </npcDrop>");
 				}
 			} else if (line.equals("[ENDOFSPAWNLIST]")) {
-				try {
-					characterfile.close();
-				} catch (IOException ioexception) {
-				}
+				characterfile.close();
 				return true;
 			}
 			try {

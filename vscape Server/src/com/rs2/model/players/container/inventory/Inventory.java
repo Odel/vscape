@@ -162,7 +162,20 @@ public class Inventory {
 		itemContainer.set(slot, item);
 		refresh();
 	}
-
+/*	public boolean removeAllOfItem(Item item) {
+		if (item == null || !item.validItem()) {
+			return false;
+		}
+		if (!playerHasItem(item)) {
+			return false;
+		}
+		for(Item i : itemContainer.getItems()) {
+		    itemContainer.remove(item);
+		    refresh();
+		    player.getEquipment().updateWeight();
+		}
+		return true;
+	}*/
 	public boolean removeItem(Item item) {
 		if (item == null || !item.validItem()) {
 			return false;

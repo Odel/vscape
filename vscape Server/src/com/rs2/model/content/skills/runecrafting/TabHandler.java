@@ -2,7 +2,6 @@ package com.rs2.model.content.skills.runecrafting;
 
 import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.players.Player;

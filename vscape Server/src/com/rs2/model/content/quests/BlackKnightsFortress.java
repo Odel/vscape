@@ -1,7 +1,6 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
-import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -10,8 +9,6 @@ import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -83,7 +80,6 @@ public class BlackKnightsFortress implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -203,7 +199,6 @@ public class BlackKnightsFortress implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to Sir Amik Varze, on the third floor in the", 8147);
@@ -267,7 +262,7 @@ public class BlackKnightsFortress implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) { return false; }
     
     public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
@@ -608,7 +603,17 @@ public class BlackKnightsFortress implements Quest {
 	}
 	return false;
     }
-    
-    
-    
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

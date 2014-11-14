@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.cache.region.RegionManager;

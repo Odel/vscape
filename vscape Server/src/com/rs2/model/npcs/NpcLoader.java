@@ -12,7 +12,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -29,8 +28,9 @@ public class NpcLoader {
 
 	/**
 	 * Loads auto-spawn file
+	 * @throws IOException 
 	 **/
-	public static boolean loadAutoSpawn(String FileName) {
+	public static boolean loadAutoSpawn(String FileName) throws IOException {
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -48,6 +48,7 @@ public class NpcLoader {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
 			System.out.println(FileName + ": error loading file.");
+			characterfile.close();
 			return false;
 		}
 		while (EndOfFile == false && line != null) {
@@ -72,6 +73,7 @@ public class NpcLoader {
 					characterfile.close();
 				} catch (IOException ioexception) {
 				}
+				characterfile.close();
 				return true;
 			}
 			try {
@@ -92,16 +94,29 @@ public class NpcLoader {
 		Npc npc = new Npc(id);
 		npc.setPosition(new Position(x, y, heightLevel));
 		npc.setSpawnPosition(new Position(x, y, heightLevel));
-        npc.setNeedsRespawn(true);
+		npc.setNeedsRespawn(true);
 		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
 		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
-        npc.setWalkType(face == 1 || face > 5 ? WalkType.WALK : WalkType.STAND);
+		npc.setWalkType(face == 1 || face > 5 ? WalkType.WALK : WalkType.STAND);
 		npc.setFace(face);
 		npc.setCurrentX(x);
 		npc.setCurrentY(y);
-        npc.setNeedsRespawn(true);
+		npc.setNeedsRespawn(true);
 		World.register(npc);
-
+	}
+	
+	public static void newWanderNPC(int id, int x, int y, int heightLevel) {
+		Npc npc = new Npc(id);
+		npc.setPosition(new Position(x, y, heightLevel));
+		npc.setSpawnPosition(new Position(x, y, heightLevel));
+		npc.setNeedsRespawn(true);
+		npc.setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
+		npc.setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
+		npc.setWalkType(WalkType.WALK);
+		npc.setCurrentX(x);
+		npc.setCurrentY(y);
+		npc.setNeedsRespawn(true);
+		World.register(npc);
 	}
 
 	public static void spawnNpc(Player player, Npc npc, boolean attack, boolean hintIcon) {

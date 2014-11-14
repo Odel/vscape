@@ -28,7 +28,6 @@ import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.item.Item;
@@ -39,29 +38,11 @@ import com.rs2.model.transport.Travel;
 import com.rs2.model.transport.Travel.Route;
 import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
-
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
-import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
-import com.rs2.model.content.quests.AnimalMagnetism;
-import com.rs2.model.content.quests.BlackKnightsFortress;
-import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.DragonSlayer;
-import com.rs2.model.content.quests.ErnestTheChicken;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.GhostsAhoyPetition;
-import com.rs2.model.content.quests.GoblinDiplomacy;
-import com.rs2.model.content.quests.HorrorFromTheDeep;
-import com.rs2.model.content.quests.LostCity;
-import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.PriestInPeril;
-import com.rs2.model.content.quests.PrinceAli;
 import com.rs2.model.content.quests.Quest;
-import com.rs2.model.content.quests.RomeoAndJuliet;
-import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.prayer.Ectofungus;
@@ -69,9 +50,8 @@ import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.skills.smithing.SmithBars;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.transport.MagicCarpet;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Dialogues {
 
@@ -593,6 +573,34 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 12980:
+			case 12981:
+			case 12982:
+			case 12983:
+			case 12984:
+			case 12985:
+			case 12986:
+			case 12987:
+			case 12988: //Flowers
+			    switch (player.getDialogue().getChatId()) {
+				case 1:
+				    player.getDialogue().sendOption("Pick the flower.", "Keep the flower.");
+				    return true;
+				case 2:
+				    switch (optionId) {
+					case 1:
+					    player.getUpdateFlags().sendAnimation(827);
+					    player.getUpdateFlags().sendFaceToDirection(new Position(player.getMithrilSeeds().getLastFlowerX(), player.getMithrilSeeds().getLastFlowerY(), player.getPosition().getZ()));
+					    player.getInventory().addItemOrDrop(new Item(player.getMithrilSeeds().itemForObject(id - 10000)));
+					    player.getActionSender().sendMessage("You pick the flowers.");
+					    player.getMithrilSeeds().removeFlowerObject(ObjectHandler.getInstance().getObject(id - 10000, player.getMithrilSeeds().getLastFlowerX(), player.getMithrilSeeds().getLastFlowerY(), player.getPosition().getZ()));
+					    break;
+					case 2:
+					    break;
+				    }
+				    break;
+			    }
+			    break;
 			case 166 : //banker
 			case 494 :
 			case 495 :
@@ -2275,6 +2283,7 @@ public class Dialogues {
 					case 3 :
 						switch(optionId) {
 							case 1:
+								player.setStatedInterface("glider");
 								player.getActionSender().sendInterface(802);
 								player.getDialogue().dontCloseInterface();
 								break;
@@ -2783,7 +2792,7 @@ public class Dialogues {
 					    player.getDialogue().sendOption("Mouse (150 Points)", "Imp (175 Points)", "Rabbit (175 Points)", "Back.");
 					return true;
 					case 2:
-					    player.getDialogue().sendOption("Birds (200 Points)", "Cats (200 Points)", "Snake (200 Points)", "Ferret (200 Points)", "Back.");
+					    player.getDialogue().sendOption("Birds (200 Points)", "Snake (200 Points)", "Ferret (200 Points)", "Back.");
 					    player.getDialogue().setNextChatId(18);
 					return true;
 					case 3:
@@ -2898,18 +2907,14 @@ public class Dialogues {
 					    player.getDialogue().sendOption("Crimson Swift (200 Points)", "Copper Longtail (200 Points)", "Cerulean Twitch (200 Points)", "Golden Warbler (200 Points)", "Tropical Wagtail (200 Points)");
 					return true;
 					case 2:
-					    player.getDialogue().sendOption("Black & Grey (200 Points)", "White (200 Points)", "Orange Tabby (200 Points)", "More...");
-					    player.getDialogue().setNextChatId(41);
-					return true;
-					case 3:
 					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
 					    player.getDialogue().setNextChatId(35); //snake
 					    return true;
-					case 4:
+					case 3:
 					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
 					    player.getDialogue().setNextChatId(38); //ferret
 					return true;
-					case 5:
+					case 4:
 					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
 					    player.getDialogue().setNextChatId(6);
 					return true;
@@ -3102,192 +3107,6 @@ public class Dialogues {
 				case 40 :
 				    if(player.getPcPoints() >= 200) {
 					player.getInventory().addItem(new Item(10092));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 41 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					return true;
-					case 2:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					    player.getDialogue().setNextChatId(45);
-					return true;
-					case 3:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					    player.getDialogue().setNextChatId(48);
-					return true;
-					case 4:
-					    player.getDialogue().sendOption("Black (200 Points)", "Orange & Grey Tabby (200 Points)", "Slate Blue & Grey (200 Points)", "Back.");
-					    player.getDialogue().setNextChatId(51);
-					return true;
-				    }
-				case 42 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 43 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 44 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1561));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 45 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 46 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 47 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1562));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 48 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 49 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 50 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1563));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 51 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					return true;
-					case 2:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					    player.getDialogue().setNextChatId(55);
-					return true;
-					case 3:
-					    player.getDialogue().sendNpcChat("This will cost you 200 commendation points, is this okay?", CONTENT);
-					    player.getDialogue().setNextChatId(58);
-					return true;
-					case 4:
-					    player.getDialogue().sendPlayerChat("I want to see the previous options.", CONTENT);
-					    player.getDialogue().setNextChatId(6);
-					return true;
-				    }
-				case 52 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 53 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 54 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1564));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 55 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 56 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 57 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1565));
-					player.setPcPoints(player.getPcPoints() - 200, player);
-					break;
-				    }
-				    else if(player.getPcPoints() < 200){
-					player.getActionSender().sendMessage("You don't have enough commendation points!");
-					break;
-				    }
-				player.getDialogue().endDialogue();
-				return true;
-				case 58 :
-				    player.getDialogue().sendOption("Yes!", "No, thank you.");
-				return true;
-				case 59 :
-				    switch(optionId) {
-					case 1:
-					    player.getDialogue().sendPlayerChat("Yes!", CONTENT);
-					    return true;
-					case 2:
-					    player.getDialogue().sendPlayerChat("No, thank you.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				}
-				case 60 :
-				    if(player.getPcPoints() >= 200) {
-					player.getInventory().addItem(new Item(1566));
 					player.setPcPoints(player.getPcPoints() - 200, player);
 					break;
 				    }
@@ -8360,6 +8179,84 @@ public class Dialogues {
 							player.teleport(new Position(2367,3487));
 						return true;
 					}
+				}
+			break;
+			case 2868 : // zombie head talk to
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("How did you die?", "What is your name?");
+						return true;
+					case 2 :
+						player.getDialogue().sendPlayerChat("Hey, Head?", Dialogues.CONTENT);
+						switch(optionId) {
+						case 1 :
+							player.getDialogue().setNextChatId(10);
+							return true;
+						case 2 :
+							player.getDialogue().setNextChatId(15);
+							return true;
+						}
+					break;
+					//question 1
+					case 10:
+						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
+						return true;
+					case 11:
+						player.getDialogue().sendPlayerChat("How did you die?", Dialogues.CONTENT);
+						return true;
+					case 12:
+						player.getDialogue().sendNpcChat("I stuck my head out for an old friend.", Dialogues.CONTENT);
+						return true;
+					case 13:
+						player.getDialogue().sendPlayerChat("You shouldn't get so cut up about it.", Dialogues.CONTENT);
+						return true;
+					case 14:
+						player.getDialogue().sendNpcChat("Well if i keep it all bottled up I'll turn into a head case.", Dialogues.CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					//question 2
+					case 15:
+						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
+						return true;
+					case 16:
+						player.getDialogue().sendPlayerChat("What is your name?", Dialogues.CONTENT);
+						return true;
+					case 17:
+						player.getDialogue().sendNpcChat("Mumblemumblemumble...", Dialogues.CONTENT);
+						return true;
+					case 18:
+						player.getDialogue().sendPlayerChat("What was that?", Dialogues.CONTENT);
+						return true;
+					case 19:
+						player.getDialogue().sendNpcChat("My name is Edward Cranium", Dialogues.CONTENT);
+						return true;
+					case 20:
+						player.getDialogue().sendPlayerChat("Edd Cranium?", "Hahahahahahahahahahaha!", Dialogues.CONTENT);
+						return true;
+					case 21:
+						player.getDialogue().sendNpcChat("Har har...", Dialogues.ANNOYED);
+						player.getDialogue().endDialogue();
+						return true;
+				}
+			break;
+			//kittens/cats
+			case 100000 :
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Shoo away", "Nevermind.");
+						return true;
+					case 2 :
+						switch(optionId) {
+						case 1 :
+							player.getCat().RunAway(true);
+							player.getDialogue().endDialogue();
+							return true;
+						case 2 :
+							player.getDialogue().sendPlayerChat("Nevermind.", Dialogues.CONTENT);
+							player.getDialogue().endDialogue();
+							return true;
+						}
+					break;
 				}
 			break;
 		}

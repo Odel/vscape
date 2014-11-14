@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.1b";
+	private final static String CLIENT_VERSION = "3.2";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -1269,7 +1269,7 @@ public class Client extends RSApplet {
 				continue;
 			anIntArrayArray929[l][i1] = anInt1265;
 		}
-		if (!npc.desc.aBoolean84)
+		if (!npc.desc.hasActions)
 			k += 0x80000000;
 		worldController.method285(plane, npc.anInt1552, method42(plane, npc.y, npc.x), k, npc.y, (npc.anInt1540 - 1) * 64 + 60, npc.x, npc, npc.aBoolean1541);
 		}
@@ -1829,13 +1829,15 @@ public class Client extends RSApplet {
 			int k = variousSettings[i];
 			if (j == 1) {
 				if (k == 1)
-					Texture.method372(0.90000000000000002D);
+					chosenBrightness = 0.90000000000000002D;
 				if (k == 2)
-					Texture.method372(0.80000000000000004D);
+					chosenBrightness = 0.80000000000000004D;
 				if (k == 3)
-					Texture.method372(0.69999999999999996D);
+					chosenBrightness = 0.69999999999999996D;
 				if (k == 4)
-					Texture.method372(0.59999999999999998D);
+					chosenBrightness = 0.59999999999999998D;
+				
+				Texture.method372(chosenBrightness);
 				ItemDef.mruNodes1.unlinkAll();
 				welcomeScreenRaised = true;
 			}
@@ -2780,6 +2782,7 @@ public class Client extends RSApplet {
 		loginMessage2 = "";
 		// myUsername = "";
 		// myPassword = "";
+		ignoreCount = 0;
 		unlinkMRUNodes();
 		worldController.initToNull();
 		for (int i = 0; i < 4; i++)
@@ -7067,7 +7070,7 @@ public class Client extends RSApplet {
 					aStream_847.writeWordBigEndian(16);
 				aStream_847.writeWordBigEndian(stream.currentOffset + 36 + 1 + 1 + 2);
 				aStream_847.writeWordBigEndian(255);
-				aStream_847.writeWord(317);
+				aStream_847.writeWord(318);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
 				
 				String macaddress = getMac();
@@ -7643,7 +7646,7 @@ public class Client extends RSApplet {
 			entityDef = entityDef.method161();
 		if (entityDef == null)
 			return;
-		if (!entityDef.aBoolean84)
+		if (!entityDef.hasActions)
 			return;
 		String s = entityDef.name;
 		if (entityDef.combatLevel != 0)
@@ -9718,6 +9721,48 @@ public class Client extends RSApplet {
 		curFadeAlpha = 0;
 	}
 
+	private static final int lightingAreas[][] = {
+			{3082, 3132, 3324, 3384, 90, 0}
+		};
+	public static int[] lightingForArea(int x, int y) {
+		int[] setting = new int[2];
+		setting[0] = 0;
+		setting[1] = 0;
+		for(int j = 0; j < lightingAreas.length; j++) {
+			if(x > lightingAreas[j][0] && x < lightingAreas[j][1] && y > lightingAreas[j][2] && y < lightingAreas[j][3]) {
+				setting[0] = lightingAreas[j][4];
+				setting[1] = lightingAreas[j][5];
+				return setting;
+			}
+		}
+		return setting;
+	}
+	private int curAreaAlpha = 0;
+	private int areaAlpha = 0;
+	private int areaColor = 0;
+	private void handleLighting(){
+		int x = baseX + (myPlayer.x - 6 >> 7);
+		int y = baseY + (myPlayer.y - 6 >> 7);
+		int[] lightSettings = lightingForArea(x, y);
+		areaAlpha = lightSettings[0];
+		areaColor = lightSettings[1];
+		if(curAreaAlpha >= 0){
+			if(areaAlpha < curAreaAlpha)
+			{
+				if(curAreaAlpha > areaAlpha)
+					curAreaAlpha -= 2;
+			}else if(areaAlpha > curAreaAlpha)
+			{
+				if(curAreaAlpha < areaAlpha)
+					curAreaAlpha += 2;
+			}
+		}
+		if(curAreaAlpha <= 0){
+			return;
+		}
+		DrawingArea.method335(areaColor, 0, clientWidth, clientHeight, curAreaAlpha, 0);
+	}
+	
 	private void draw3dScreen() {
 		if (showChat)
 			drawSplitPrivateChat();
@@ -10517,7 +10562,7 @@ public class Client extends RSApplet {
 				EntityDef entityDef = npc.desc;
 				if(entityDef.childrenIDs != null)
 					entityDef = entityDef.method161();
-				if(entityDef != null && entityDef.aBoolean87 && entityDef.aBoolean84) {
+				if(entityDef != null && entityDef.drawMapDot && entityDef.hasActions) {
 					int i1 = npc.x / 32 - myPlayer.x / 32;
 					int k3 = npc.y / 32 - myPlayer.y / 32;
 					markMinimap(mapDotNPC, i1, k3);
@@ -12532,36 +12577,37 @@ public class Client extends RSApplet {
 				int j18 = inStream.readDWord();
 				int l21 = inStream.readUnsignedByte();
 				boolean flag5 = false;
-				for (int i28 = 0; i28 < 100; i28++) {
+				/*for (int i28 = 0; i28 < 100; i28++) {
 					if (anIntArray1240[i28] != j18)
 						continue;
 					flag5 = true;
-
-				}
-				if (l21 <= 1) {
-					for (int l29 = 0; l29 < ignoreCount; l29++) {
-						if (ignoreListAsLongs[l29] != l5)
+				}*/
+				if(l21 <= 1) {
+					for(int l29 = 0; l29 < ignoreCount; l29++) {
+						if(ignoreListAsLongs[l29] != l5)
 							continue;
 						flag5 = true;
-
+						
 					}
 				}
-				if (!flag5 && anInt1251 == 0)
+				if(!flag5 && anInt1251 == 0){
 					try {
-						anIntArray1240[anInt1169] = j18;
-						anInt1169 = (anInt1169 + 1) % 100;
-						String s9 = TextInput.method525(pktSize - 13, inStream);
+						// anIntArray1240[anInt1169] = j18;
+						// anInt1169 = (anInt1169 + 1) % 100;
 						// if(l21 != 3)
 						// s9 = Censor.doCensor(s9);
-						if (l21 == 2 || l21 == 3)
+						String s9 = TextInput.method525(pktSize - 13, inStream);
+						if(l21 == 2 || l21 == 3)
 							pushMessage(s9, 7, "@cr2@" + TextClass.fixName(TextClass.nameForLong(l5)));
-						else if (l21 == 1)
+						else
+						if(l21 == 1)
 							pushMessage(s9, 7, "@cr1@" + TextClass.fixName(TextClass.nameForLong(l5)));
 						else
 							pushMessage(s9, 3, TextClass.fixName(TextClass.nameForLong(l5)));
-					} catch (Exception exception1) {
+					} catch(Exception exception1) {
 						Signlink.reporterror("cde1");
 					}
+				}
 				pktType = -1;
 				return true;
 
@@ -12983,11 +13029,10 @@ public class Client extends RSApplet {
 		Model.anInt1685 = super.mouseX - 4;
 		Model.anInt1686 = super.mouseY - 4;
 		DrawingArea.setAllPixelsToZero();
-		int x = baseX + (myPlayer.x - 6 >> 7);
-		int y = baseY + (myPlayer.y - 6 >> 7);
 	//	DrawingArea.method336(clientHeight, 0, 0, 0xC8C0A8, clientWidth);
 		worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
 		worldController.clearObj5Cache();
+	//	handleLighting();
 		updateEntities();
 		drawHeadIcon();
 		method37(k2);
@@ -13204,6 +13249,8 @@ public class Client extends RSApplet {
 	}  
 	
 	public boolean outDated = true;
+	
+	public double chosenBrightness = 0.80000000000000004D;
 	
 	public boolean autocast;
 	public int rights;

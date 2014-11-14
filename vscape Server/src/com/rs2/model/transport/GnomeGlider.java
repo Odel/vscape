@@ -14,9 +14,9 @@ public class GnomeGlider {
 
 	public static boolean flightButtons(Player player, int button) {
 		for (GliderRoute route : GliderRoute.values()) {
-			if (button == route.buttonId) {
-				handleFlight(player, route);
-				return true;
+			if (button == route.buttonId && player.getStatedInterface().equals("glider")) {
+			    handleFlight(player, route);
+			    return true;
 			}
 		}
 		return false;
@@ -36,7 +36,7 @@ public class GnomeGlider {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer e) {
-				player.teleport(route.to);
+				player.getTeleportation().attemptTeleport(route.to);
 				e.stop();
 			}
 			@Override
@@ -49,6 +49,7 @@ public class GnomeGlider {
 				player.setStopPacket(false);
 				player.getActionSender().removeInterfaces();
 				player.getActionSender().sendConfig(153, -1);
+				player.setStatedInterface("");
 				e.stop();
 			}
 			@Override

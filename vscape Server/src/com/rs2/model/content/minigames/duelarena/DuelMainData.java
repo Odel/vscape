@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
-import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.projectile.Projectile;
@@ -17,7 +16,6 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 
 /**

@@ -1,18 +1,10 @@
 package com.rs2.model.players;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.players.container.Container;
@@ -359,6 +351,7 @@ public class ShopManager {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public static int getCurrencyForShopType(Player player, Shop shop) {
 		switch (shop.getCurrencyType()) {
 			case SERVER_POINTS :
@@ -367,6 +360,7 @@ public class ShopManager {
 		return -1;
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public static int getSpecialShopPrice(Player player, Shop shop, int buyId) {
 		switch (shop.getCurrencyType()) {
 			case SERVER_POINTS :
@@ -379,6 +373,7 @@ public class ShopManager {
 		return 0;
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public static void decreaseCurrencyForSpecialShop(Player player, Shop shop, int value) {
 		switch (shop.getCurrencyType()) {
 			case SERVER_POINTS :
@@ -387,6 +382,7 @@ public class ShopManager {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public static String getCurrencyName(Shop shop) {
 		switch (shop.getCurrencyType()) {
 			case SERVER_POINTS :
@@ -395,7 +391,6 @@ public class ShopManager {
 		return "Coins";
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void loadShops() throws IOException {
 		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
 		FileReader reader = new FileReader("./datajson/content/shops.json");

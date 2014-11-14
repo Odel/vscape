@@ -21,7 +21,6 @@ public class GroundItemManager implements Runnable {
     }
 
     private LinkedList<GroundItem> groundItems = new LinkedList<GroundItem>();
-    
     private Queue<GroundItem> publicItemsList = new LinkedList<GroundItem>();
 
     //private static final int UPDATE_TIME = (int)Misc.secondsToTicks(3);
@@ -31,7 +30,8 @@ public class GroundItemManager implements Runnable {
 	public static final int PUBLIC_HIDE_TICKS = (int)Misc.secondsToTicks(150);
 	public static final int UNTRADABLE_HIDE_TICKS = (int)Misc.secondsToTicks(180);
 
-    @Override
+    @SuppressWarnings("incomplete-switch")
+	@Override
     public void run() {
         try {
             int size = groundItems.size();
@@ -40,15 +40,14 @@ public class GroundItemManager implements Runnable {
                 switch (item.getStage()) {
                     case HIDDEN:
                         if(item.getGlobalTimer() == 0) {
-			    if (item.getTimer().elapsed() < HIDDEN_TICKS) {
-				break;
-			    }
-			}
-			else if(item.getGlobalTimer() > 0) {
-			    if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
-				break;
-			    }
-			}
+                        	if (item.getTimer().elapsed() < HIDDEN_TICKS) {
+                        		break;
+                        	}
+                        } else if(item.getGlobalTimer() > 0) {
+                        	if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
+                        		break;
+                        	}
+                        }
                         //going to update
                         item.getTimer().reset();
                         //make it respawn as public
@@ -67,18 +66,17 @@ public class GroundItemManager implements Runnable {
                         //couldn't merge, add to global list
                         publicItemsList.add(item);
                         addItem(item, World.getPlayers());
-                        break;
+                    break;
                     case PUBLIC:
-			if(item.getGlobalTimer() == 0) {
-			    if (item.getTimer().elapsed() < PUBLIC_HIDE_TICKS) {
-				break;
-			    }
-			}
-			else if(item.getGlobalTimer() > 0) {
-			    if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
-				break;
-			    }
-			}
+                    	if(item.getGlobalTimer() == 0) {
+                    		if (item.getTimer().elapsed() < PUBLIC_HIDE_TICKS) {
+                    			break;
+                    		}
+                    	} else if(item.getGlobalTimer() > 0) {
+                    		if (item.getTimer().elapsed() < Misc.secondsToTicks(item.getGlobalTimer())) {
+                    			break;
+                    		}
+                    	}
                         //going to update
                         item.getTimer().reset();
                         //remove if doesn't respawn
@@ -89,7 +87,7 @@ public class GroundItemManager implements Runnable {
                             size--;
                             continue iterateItems;
                         }
-                        break;
+                    break;
                     case PRIVATE: 
                         //if item is not tradeable then remove it from viewfirst
                         if (item.getItem().getDefinition().isUntradable()) {
@@ -212,8 +210,9 @@ public class GroundItemManager implements Runnable {
         if (item.getStage() == GroundItem.GroundStage.PUBLIC && item.respawns()) {
             item.setStage(GroundItem.GroundStage.HIDDEN);
             item.getTimer().reset();
+        } else {
+        	groundItems.remove(item);
         }
-        else groundItems.remove(item);
 
         if (updatePlayers == null)
             return;
@@ -230,7 +229,8 @@ public class GroundItemManager implements Runnable {
     }
 
 
-    public void dropItem(GroundItem item) {
+    @SuppressWarnings("incomplete-switch")
+	public void dropItem(GroundItem item) {
         Player[] updatePlayers = null;
         switch (item.getStage()) {
             case PRIVATE:
@@ -305,7 +305,6 @@ public class GroundItemManager implements Runnable {
                 player.getGroundItems().add(item);
                 player.getActionSender().sendGroundItem(item);*/
             }
-            
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.rs2.model.content;
 
-import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeTravelData;
 import com.rs2.model.players.Player;
 
 /**
@@ -47,7 +46,7 @@ public class Emotes {
 		SCARED(2836, 59062),
 		ZOMBIEWALK(3544, 72032),
 		ZOMBIEDANCE(3543, 72033),
-		RABBITHOP(3866, 72254);
+		RABBITHOP(6111, 72254);
 		
 		private int emoteId;
 		private int buttonId;

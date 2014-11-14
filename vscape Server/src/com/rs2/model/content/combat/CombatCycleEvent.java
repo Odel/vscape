@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.rs2.model.Entity;
-import com.rs2.model.Entity.AttackTypes;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -27,6 +26,7 @@ public class CombatCycleEvent extends CycleEvent {
 		this.taskId = attacker.getTask();
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void execute(CycleEventContainer container) {
 		try {

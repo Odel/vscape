@@ -280,6 +280,22 @@
 		</statModifiers>
 	</potiondef>
 	<potiondef>
+		<potionName>Combat potion</potionName>
+		<potionType>DRINK</potionType>
+		<potionIds>
+			<int>9739</int>
+			<int>9741</int>
+			<int>9743</int>
+			<int>9745</int>
+		</potionIds>
+		<affectedStats>
+		</affectedStats>
+		<statAddons>
+		</statAddons>
+		<statModifiers>
+		</statModifiers>
+	</potiondef>
+	<potiondef>
 		<potionName>Strength potion</potionName>
 		<potionType>BOOST</potionType>
 		<potionIds>

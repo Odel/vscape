@@ -32,7 +32,7 @@ public class BankManager {
 		Item[] inventory = player.getInventory().getItemContainer().toArray();
 		player.getActionSender().sendUpdateItems(7423, inventory);
 		player.getActionSender().sendInterface(4465, 197);
-		player.getAttributes().put("isBanking", Boolean.TRUE);
+		//player.getAttributes().put("isBanking", Boolean.TRUE);
 	}
 	
 	public void openBank() {
@@ -52,6 +52,7 @@ public class BankManager {
 		player.getActionSender().sendInterface(5292, 5063);
 		player.getActionSender().sendUpdateItems(5382, bank);
 		player.getAttributes().put("isBanking", Boolean.TRUE);
+		player.setStatedInterface("banking");
 		updateBankInterface();
 	}
 	
@@ -132,8 +133,12 @@ public class BankManager {
 	
 	public void bankItem(int slot, int bankItem, int bankAmount) {
 	    RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
-        if (!player.hasInterfaceOpen(inter)) {
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
             return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
         }
 		Item inventoryItem = player.getInventory().getItemContainer().get(slot);
 		if (inventoryItem == null || inventoryItem.getId() != bankItem || !inventoryItem.validItem()) {
@@ -189,8 +194,12 @@ public class BankManager {
 	public void bankAll()
 	{
 		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
-        if (!player.hasInterfaceOpen(inter)) {
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
             return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
         }
 		try
 		{
@@ -245,6 +254,14 @@ public class BankManager {
 	}
 	
 	public void withdrawItemAll(int slot, int bankItem) {
+		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
+            return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
+        }
 		Container tabContainer = tabContainer(currentTab);
 		int amount = tabContainer.getCount(bankItem);
 		withdrawItem(slot, bankItem, amount);
@@ -252,8 +269,12 @@ public class BankManager {
 	
 	public void withdrawItem(int slot, int bankItem, int bankAmount) {
 		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
-        if (!player.hasInterfaceOpen(inter)) {
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
             return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
         }
 		Item item = new Item(bankItem);
 		Container tabContainer = tabContainer(currentTab);
@@ -289,6 +310,7 @@ public class BankManager {
 		if(currentTab != 0){
 			if(tabContainer.size() <= 0)
 			{
+				tabContainer.clear();
 				removeTab(currentTab);
 				selectTab(0, false);
 			}
@@ -304,8 +326,12 @@ public class BankManager {
 	public void toTab(int tab, int from)
 	{
 	    RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
-        if (!player.hasInterfaceOpen(inter)) {
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
             return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
         }
 		if (tab == currentTab || tab > getUsedTabs() || tab > tabSize)
 			return;
@@ -338,7 +364,9 @@ public class BankManager {
 		if(fromTab.size() <= 0)
 		{
 			fromTab.clear();
-			removeTab(currentTab);
+			if(currentTab != 0){
+				removeTab(currentTab);
+			}
 		}
 		if(tab > (getUsedTabs()-1))
 		{
@@ -348,6 +376,14 @@ public class BankManager {
 	}
 	
 	public void handleBankOptions(int fromSlot, int toSlot) {
+		RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
+            return;
+        }
+        if(!((Boolean) player.getAttributes().get("isBanking")))
+        {
+        	return;
+        }
 		Container tabContainer = tabContainer(currentTab);
 		if(tabContainer == null){
             return;
@@ -425,6 +461,17 @@ public class BankManager {
 	
 	private void selectTab(int tab, boolean buttonClick)
 	{
+		if(buttonClick)
+		{
+			RSInterface inter = RSInterface.forId(DEFAULT_BANK_INTERFACE);
+	        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("banking")) {
+	            return;
+	        }
+	        if(!((Boolean) player.getAttributes().get("isBanking")))
+	        {
+	        	return;
+	        }
+		}
 		if(buttonClick && tab == currentTab)
 			return;
 		if(tab < getUsedTabs()){
@@ -494,6 +541,12 @@ public class BankManager {
 		if(containerId >= 0)
 		{
 			tabContainer(containerId).remove(item);
+			if(containerId != 0){
+				if(tabContainer(containerId).size() <= 0)
+				{
+					removeTab(containerId);
+				}
+			}
 		}
 	}
 	
@@ -501,6 +554,12 @@ public class BankManager {
 		if(tabContains(tab, item.getId()))
 		{
 			tabContainer(tab).remove(item, slot);
+			if(tab != 0){
+				if(tabContainer(tab).size() <= 0)
+				{
+					removeTab(tab);
+				}
+			}
 		}
 	}
 	
@@ -543,7 +602,17 @@ public class BankManager {
 	//Free Room methods
 	public boolean roomForItem(Item item)
 	{
-		return false;
+		int containerId = tabsContain(item.getId());
+		if(containerId >= 0)
+		{
+			return true;
+		}else{
+			if(!roomForItems()){
+				return false;
+			}else{
+				return true;
+			}
+		}
 	}
 	
 	public boolean roomForItems()

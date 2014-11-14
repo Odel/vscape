@@ -1,3 +1,32 @@
+@dre@=November 11th=
+-Pillory random event added.
+-Range and Magic prayers added.
+-Combat Potions (Goats are west of Nardah)
+-Cakes can now be made properly.
+-Granite respawn time fixed.
+-Dr Jekyll / Mr Hyde proper combat stats.
+-Fixed God Book recovery.
+-Can assist in Heroes Quest after finishing.
+
+@dre@=November 9th=
+-Pillory random event
+-half assed shit as temporary fixes
+ because faggots
+
+@dre@=November 4th=
+-Pest Control improvements:
+a.) Ravagers now ravage barriers.
+b.) Grunts are a little "smarter".
+-Cat fixes.
+
+@dre@=November 2nd=
+@blu@Gertrude's Cat
+-Puzzle box fixes.
+-Removed the Halloween event.
+
+@dre@=October 26th=
+@blu@Halloween Happenings VER2
+
 @dre@=October 24th=
 @blu@Halloween Happenings
 H'ween masks will spawn around the world!

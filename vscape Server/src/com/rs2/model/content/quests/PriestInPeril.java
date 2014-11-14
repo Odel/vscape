@@ -1,41 +1,15 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
-import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
-import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
-import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
-import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
-import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
-import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
-import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.PiratesTreasure.BANANA;
+import static com.rs2.model.content.dialogue.Dialogues.*;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class PriestInPeril implements Quest {
 
@@ -142,7 +116,6 @@ public class PriestInPeril implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -343,7 +316,6 @@ public class PriestInPeril implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to @dre@King Roald @bla@in the @dre@Varrock Palace @bla@to begin this quest.", 8147);
@@ -373,7 +345,7 @@ public class PriestInPeril implements Quest {
     
     public boolean itemHandling(final Player player, int itemId) { return false; }
 
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
     
     public boolean doItemOnObject(final Player player, int object, int item) {
 	switch(object) {
@@ -1251,5 +1223,17 @@ public class PriestInPeril implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

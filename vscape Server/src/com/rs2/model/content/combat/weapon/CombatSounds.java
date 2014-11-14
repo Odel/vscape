@@ -96,6 +96,10 @@ public class CombatSounds {
 		{
 			soundId = 4;
 		}
+		else if(npcName.contains("dog"))
+		{
+			soundId = 36;
+		}
 		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
@@ -107,6 +111,10 @@ public class CombatSounds {
 		{
 			soundId = 3;
 		}
+		else if(npcName.contains("dog"))
+		{
+			soundId = 34;
+		}
 		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
@@ -115,11 +123,14 @@ public class CombatSounds {
 		int soundId = 69;
 		String npcName = NpcDefinition.forId(npc.getNpcId()).getName().toLowerCase();
 		if(npcName.contains("cow")){
-			soundId = 3;
+			soundId = 5;
 		} else if(npcName.contentEquals("man")) {
 			soundId = 72;
 		} else if(npcName.contentEquals("woman")) {
 			soundId = 73;
+		} else if(npcName.contains("dog"))
+		{
+			soundId = 37;
 		}
 		player.getActionSender().sendSound(soundId,0,0);
 	}
@@ -134,6 +145,8 @@ public class CombatSounds {
 			soundId = 70;
 		} else if(npcName.contentEquals("woman")) {
 			soundId = 71;
+		} else if(npcName.contains("dog")) {
+			soundId = 35;
 		}
 		player.getActionSender().sendSound(soundId,0,0);
 	}

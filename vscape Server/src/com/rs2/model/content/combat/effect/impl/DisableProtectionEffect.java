@@ -4,7 +4,7 @@ import com.rs2.model.Entity;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.players.Player;
 
 @SuppressWarnings("rawtypes")
@@ -31,9 +31,9 @@ public class DisableProtectionEffect extends Effect {
 			((Player) victim).getActionSender().sendMessage("You have been injured!");
 			// disable protect prayers
 			((Player) victim).setStopProtectPrayer(System.currentTimeMillis() + disabledPrayersTicks);
-			((Player) victim).getPrayer().unactivatePrayer(Prayer.PROTECT_FROM_MAGIC);
-			((Player) victim).getPrayer().unactivatePrayer(Prayer.PROTECT_FROM_RANGED);
-			((Player) victim).getPrayer().unactivatePrayer(Prayer.PROTECT_FROM_MELEE);
+			((Player) victim).getPrayer().unactivatePrayer(PrayerData.PROTECT_FROM_MAGIC);
+			((Player) victim).getPrayer().unactivatePrayer(PrayerData.PROTECT_FROM_RANGED);
+			((Player) victim).getPrayer().unactivatePrayer(PrayerData.PROTECT_FROM_MELEE);
 		}
 	}
 

@@ -11,8 +11,6 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -139,7 +137,6 @@ public class ErnestTheChicken implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
             player.getActionSender().sendString(getQuestName(), 8144);
@@ -252,7 +249,6 @@ public class ErnestTheChicken implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("Talk to Veronica near Draynor Manor to start this quest.", 8147);
@@ -301,7 +297,7 @@ public class ErnestTheChicken implements Quest {
     }
     public boolean itemHandling(Player player, int itemId) { return false; }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	if((firstItem == POISON && secondItem == FISH_FOOD) || (firstItem == FISH_FOOD && secondItem == POISON)) {
 	    player.getInventory().removeItem(new Item(POISON));
 	    player.getInventory().replaceItemWithItem(new Item(FISH_FOOD), new Item(POISON_FISH_FOOD));
@@ -728,6 +724,18 @@ public class ErnestTheChicken implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
     
     

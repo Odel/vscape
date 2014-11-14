@@ -1,12 +1,8 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
-import com.rs2.model.players.item.ItemDefinition;
 
 public class RuneMysteries implements Quest {
 	
@@ -222,12 +218,24 @@ public class RuneMysteries implements Quest {
     
     public boolean itemHandling(final Player player, int itemId) { return false; }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
     
     public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
     public boolean doObjectClicking(final Player player, int object, int x, int y) { return false; }
     
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { return false; }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }

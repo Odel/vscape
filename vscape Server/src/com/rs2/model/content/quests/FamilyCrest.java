@@ -326,8 +326,7 @@ public class FamilyCrest implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
     
@@ -381,7 +380,7 @@ public class FamilyCrest implements Quest {
 	}
 	return false;
     }
-    public static boolean doItemOnNpc(final Player player, final int itemId, final Npc npc) {
+    public boolean doItemOnNpc(Player player, final int itemId, final Npc npc) {
 	Item used = new Item(itemId);
 	if(used.getDefinition().getName().toLowerCase().contains("antipoison") && !used.getDefinition().isNoted()) {
 	    if(player.getInventory().playerHasItem(used)) {
@@ -502,7 +501,7 @@ public class FamilyCrest implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  {
 	Inventory i = player.getInventory();
 	switch(firstItem) {
 	    case CREST_PART_1:
@@ -1579,5 +1578,11 @@ public class FamilyCrest implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

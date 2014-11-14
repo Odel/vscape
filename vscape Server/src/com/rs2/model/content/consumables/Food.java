@@ -1,6 +1,5 @@
 package com.rs2.model.content.consumables;
 
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
@@ -49,6 +48,8 @@ public class Food {
 		TWENTY(20, -1, new int[]{7058, 385}), 
 		TWENTYONE(21, -1, new int[]{397}), 
 		TWENTYTWOHP(22, -1, new int[]{391, 7060}),
+		
+		SWEETS(2, -1, new int[]{4558, 4559, 4560, 4561, 4562, 4563, 4564}),
 		
 		TUNACORN(13, 1923, new int[]{7068}), 
 		TUNABOWL(7, 1923, new int[]{7086}), 

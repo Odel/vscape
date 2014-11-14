@@ -1,10 +1,8 @@
 package com.rs2.model.content.quests;
 import com.rs2.Constants;
-import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
@@ -23,8 +21,6 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.content.skills.*;
-import com.rs2.model.players.ShopManager;
 
 public class PrinceAli implements Quest {
 
@@ -302,7 +298,7 @@ public class PrinceAli implements Quest {
     
     public boolean itemHandling(final Player player, int itemId) { return false; }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { return false; }
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
     
     public boolean doItemOnObject(final Player player, int object, int item) { return false; }
     
@@ -1010,4 +1006,16 @@ public class PrinceAli implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

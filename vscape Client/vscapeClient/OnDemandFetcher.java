@@ -442,6 +442,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent
 		return false;
 	}
 
+	@SuppressWarnings("unused")
 	private void handleFailed()
 	{
 		uncompletedCount = 0;

@@ -2,6 +2,7 @@ package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
+
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
@@ -10,8 +11,7 @@ import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import static com.rs2.model.content.quests.GhostsAhoy.BLACK_INTERFACE_TEXT;
 import static com.rs2.model.content.quests.GhostsAhoy.STRING_ON_BLACK;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
+
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -135,7 +135,6 @@ public class AnimalMagnetism implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         int questStage = player.getQuestStage(getQuestID());
         if (questStage == QUEST_STARTED) {
@@ -495,7 +494,6 @@ public class AnimalMagnetism implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
     	player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendString(getQuestName(), 8144);
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
@@ -627,7 +625,8 @@ public class AnimalMagnetism implements Quest {
 	return false;
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) {
+    @Override
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
 	 if((firstItem == HAMMER && secondItem == SELECTED_IRON) || (firstItem == SELECTED_IRON && secondItem == HAMMER)) {
 	     if(player.inRimmingtonMine()) {
 		if(player.getSkill().getLevel()[Skill.CRAFTING] < 19) {
@@ -1777,4 +1776,15 @@ public class AnimalMagnetism implements Quest {
 	return false;
     }
 
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

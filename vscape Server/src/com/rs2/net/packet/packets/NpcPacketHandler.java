@@ -1,10 +1,8 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
-import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -21,16 +19,9 @@ import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.WalkToActionHandler;
 import com.rs2.model.players.WalkToActionHandler.Actions;
-import com.rs2.model.players.item.Item;
-import com.rs2.model.players.item.ItemDefinition;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
-import com.rs2.util.Misc;
-import com.rs2.util.NameUtil;
 
 public class NpcPacketHandler implements PacketHandler {
 
@@ -194,9 +185,6 @@ public class NpcPacketHandler implements PacketHandler {
 			return;
 		}
 		final Npc npc = World.getNpcs()[npcSlot];
-		if(npc.getNpcId() == 1550) {
-		    CombatManager.attack(player, npc);
-		}
 		if (npc == null || !npc.isRealNpc()) {
 			return;
 		}
@@ -271,6 +259,7 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setNpcClickIndex(npcSlot);
 		player.setInteractingEntity(npc);
 		player.setClickItem(itemId);
+		player.setSlot(itemSlot);
 		player.setClickId(npc.getNpcId());
 		player.setClickX(npc.getPosition().getX());
 		player.setClickY(npc.getPosition().getY());

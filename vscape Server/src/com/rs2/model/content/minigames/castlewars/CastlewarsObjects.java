@@ -3,8 +3,6 @@ package com.rs2.model.content.minigames.castlewars;
 import com.rs2.model.Position;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.content.minigames.MinigameAreas;
-import com.rs2.model.content.minigames.castlewars.*;
 
 public class CastlewarsObjects {
 

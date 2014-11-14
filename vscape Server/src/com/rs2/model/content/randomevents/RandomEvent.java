@@ -41,7 +41,7 @@ public class RandomEvent {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
-				if (player.getRandomEventNpc() != null || player.cantTeleport()) {
+				if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail()) {
 					return;
 				}
 				int random = Misc.random(100);
@@ -61,10 +61,8 @@ public class RandomEvent {
 						TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 						break;
 					case 4:
-					    if(Misc.random(2) == 1) {
 						player.getFreakyForester().spawnForester();
-					    }
-					    break;
+						break;
 					//case 5 :
 						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
 						//break;

@@ -135,7 +135,7 @@ public enum Degradeables {
 		if (itemName.contains("helm"))	return GUTHANS_HELM;
 	    }
 	    if (itemName.contains("torag")) {
-		if (itemName.contains("hammers")) return TORAGS_HAMMERS;
+		if (itemName.contains("hammers") || itemName.contains("hammer")) return TORAGS_HAMMERS;
 		if (itemName.contains("legs"))	return TORAGS_LEGS;
 		if (itemName.contains("body"))	return TORAGS_PLATE;
 		if (itemName.contains("helm"))	return TORAGS_HELM;
@@ -149,11 +149,11 @@ public enum Degradeables {
 	    if (itemName.contains("verac")) {
 		if (itemName.contains("flail")) return VERACS_FLAIL;
 		if (itemName.contains("skirt"))	return VERACS_SKIRT;
-		if (itemName.contains("brassard")) return VERACS_TOP;
+		if (itemName.contains("brassard") || itemName.contains("top")) return VERACS_TOP;
 		if (itemName.contains("helm"))	return VERACS_HELM;
 	    }
 	    if (itemName.contains("karil")) {
-		if (itemName.contains("bow"))	return KARILS_CROSSBOW;
+		if (itemName.contains("crossbow") || itemName.contains("xbow"))	return KARILS_CROSSBOW;
 		if (itemName.contains("skirt"))	return KARILS_SKIRT;
 		if (itemName.contains("top"))	return KARILS_TOP;
 		if (itemName.contains("coif"))	return KARILS_COIF;

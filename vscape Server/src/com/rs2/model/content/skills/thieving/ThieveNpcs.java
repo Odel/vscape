@@ -154,7 +154,7 @@ public class ThieveNpcs {
                                             player.getInventory().addItem(new Item(loot.getId(), loot.getCount() * multiple(player, thieveNpc.getLevelReq())));
 					    player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(loot.getId()).getName().toLowerCase() + ".");
 					}
-                                        player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
+                    player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
 				} else {
 					npc.getUpdateFlags().sendForceMessage("What do you think you're doing?");
 					npc.getUpdateFlags().sendAnimation(401);
@@ -165,6 +165,9 @@ public class ThieveNpcs {
 					player.hit(stunnedHit < 1 ? 1 : stunnedHit, HitType.NORMAL);
 					player.getStunTimer().setWaitDuration(thieveNpc.getStunTime());
 					player.getStunTimer().reset();
+				}
+				if (player.getPillory().doJailEvent()) {
+					player.getPillory().JailPlayer();
 				}
 				container.stop();
 			}

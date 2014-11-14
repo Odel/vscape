@@ -4,11 +4,7 @@ import java.util.Iterator;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.players.Player;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 

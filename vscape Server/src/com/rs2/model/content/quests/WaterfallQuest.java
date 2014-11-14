@@ -18,11 +18,9 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.players.MovementLock;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.util.Misc;
 import java.util.Random;
 
 public class WaterfallQuest implements Quest {
@@ -50,6 +48,7 @@ public class WaterfallQuest implements Quest {
     public static final int KEY_W = 298;
     public static final int DIAMOND = 1601;
     public static final int GOLD_BAR = 2357;
+    public static final int MITHRIL_SEEDS = 299;
     //Positions
     public static final Position CRASH_LANDING = new Position(2512, 3481, 0);
     public static final Position DROP_DOWN = new Position(2511, 3463, 0);
@@ -101,7 +100,9 @@ public class WaterfallQuest implements Quest {
 
     private int reward[][] = { //Items in the form of {Id, #},
 	{DIAMOND, 2},
-	{GOLD_BAR, 2}, };
+	{GOLD_BAR, 2},
+	{MITHRIL_SEEDS, 40}};
+    
     private int expReward[][] = { //Exp in the form of {Skill.AGILITY, x},
 	{Skill.STRENGTH, 13750},
 	{Skill.ATTACK, 13750}, }; //The 2.25 multiplier is added later, use vanilla values
@@ -148,6 +149,7 @@ public class WaterfallQuest implements Quest {
 	player.getActionSender().sendString("30927.5 Attack XP", 12152);
 	player.getActionSender().sendString("2 Diamonds", 12153);
 	player.getActionSender().sendString("2 Gold Bars", 12154);
+	player.getActionSender().sendString("40 Mithril Seeds", 12155);
 	player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
 	player.getActionSender().sendString(" ", 12147);
 	player.setQuestStage(getQuestID(), QUEST_COMPLETE);
@@ -260,7 +262,6 @@ public class WaterfallQuest implements Quest {
     }
 
     public void showInterface(Player player) { //Don't change
-	String prefix = "";
 	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 	player.getActionSender().sendString(getQuestName(), 8144);
     }
@@ -359,7 +360,7 @@ public class WaterfallQuest implements Quest {
 	return false;
     }
 
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { //Inherited, will work without a call to it
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { //Inherited, will work without a call to it
 	return false;
     }
     public static boolean doMiscItemOnObject(final Player player, int object, int item) {
@@ -1060,4 +1061,16 @@ public class WaterfallQuest implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

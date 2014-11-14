@@ -2,18 +2,13 @@ package com.rs2.model.players;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -31,10 +26,7 @@ import com.rs2.GlobalVariables;
 import com.rs2.HostGateway;
 import com.rs2.Server;
 import com.rs2.cache.interfaces.RSInterface;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
@@ -47,10 +39,6 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.SkullRecord;
-import com.rs2.model.content.combat.effect.impl.PoisonEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.weapon.Weapon;
@@ -59,7 +47,6 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
@@ -74,19 +61,17 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.RandomEvent;
-import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
 import com.rs2.model.content.skills.SkillcapeEmotes;
 import com.rs2.model.content.skills.SkillCapeHandler;
+import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.cooking.BrewData;
@@ -113,11 +98,11 @@ import com.rs2.model.content.skills.magic.Teleportation;
 import com.rs2.model.content.skills.mining.MineOre;
 import com.rs2.model.content.skills.prayer.BoneBurying;
 import com.rs2.model.content.skills.prayer.Prayer;
+import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.content.skills.slayer.Slayer;
 import com.rs2.model.content.treasuretrails.ClueScroll;
-import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.content.tutorialisland.NewComersSide;
 import com.rs2.model.content.tutorialisland.StagesLoader;
 import com.rs2.model.ground.GroundItem;
@@ -125,9 +110,7 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
-import com.rs2.model.npcs.drop.NpcDropController;
-import com.rs2.model.npcs.drop.NpcDropItem;
-import com.rs2.model.objects.GameObject;
+import com.rs2.model.npcs.functions.Cat;
 import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
@@ -140,8 +123,6 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
-import com.rs2.model.transport.MagicCarpet;
-import com.rs2.model.transport.Sailing;
 import com.rs2.model.region.music.RegionMusic;
 import com.rs2.model.region.music.MusicPlayer;
 import com.rs2.net.ActionSender;
@@ -154,11 +135,8 @@ import com.rs2.net.packet.PacketManager;
 import com.rs2.util.Area;
 import com.rs2.util.Benchmark;
 import com.rs2.util.Benchmarks;
-import com.rs2.util.LogHandler;
 import com.rs2.util.Misc;
-import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
-import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
@@ -167,11 +145,9 @@ import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
 
-import com.rs2.model.content.randomevents.TalkToEvent;
+import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
-import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.Puzzle;
-import com.rs2.model.content.treasuretrails.SearchScrolls;
 
 /**
  * Represents a logged-in player.
@@ -212,13 +188,17 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private Puzzle puzzle = new Puzzle(this);
+	private MithrilSeeds seeds = new MithrilSeeds(this);
 	private Barrows barrows = new Barrows(this);
 	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
 	private FreakyForester freakyForester = new FreakyForester(this);
+	private Pillory pillory = new Pillory(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
 	private boolean[] runeDrawWins = {false, false, false};
 	private boolean justWonRuneDraw = false;
 	private boolean wyvernWarned = false;
+	private boolean shotGrip = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -231,7 +211,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-	private PestControl pestControl = new PestControl();
+	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
 	private Wine wine = new Wine(this);
@@ -260,6 +240,7 @@ public class Player extends Entity {
 	private SkillResources skillResources = new SkillResources(this);
 	private BrewData brewData = new BrewData(this);
 	private Pets pets = new Pets(this);
+	private Cat cat = new Cat(this);
 	private InterfaceClickHandler randomInterfaceClick = new InterfaceClickHandler(this);
 	private DialogueManager dialogue = new DialogueManager(this);
 	private BankPin bankPin = new BankPin(this);
@@ -291,7 +272,9 @@ public class Player extends Entity {
 	private int shopId;
 	private boolean isLoggedIn;
 	private Map<Integer, Integer> bonuses = new HashMap<Integer, Integer>();
+	private boolean friendsConverted = false;
 	private long[] friends = new long[200];
+	private boolean ignoresConverted = false;
 	private long[] ignores = new long[100];
 	private int currentDialogueId;
 	private int currentOptionId;
@@ -312,7 +295,7 @@ public class Player extends Entity {
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
 	private int serverPoints = 0;
-	private boolean[] isUsingPrayer = new boolean[18];
+	private boolean[] isUsingPrayer = new boolean[24];
 	private boolean[] ernestLevers = new boolean[6];
 	private boolean hurkotsSpawned = false;
 	private int prayerDrainTimer = 6;
@@ -347,6 +330,7 @@ public class Player extends Entity {
 	private boolean placedSword = false;
 	private boolean placedArrow = false;
 	private int godBook = 0;
+	private int lostGodBook = 0;
 	private int railingsFixed = 0;
 	private ArrayList<Integer> railings = new ArrayList<>();
 	private double specialDamage = 1, specialAccuracy = 1;
@@ -403,7 +387,7 @@ public class Player extends Entity {
     private Item destroyItem;
     private boolean hearMessage = true;
     private boolean bankWarning;
-    private boolean debugCombat;
+    public boolean debugCombat;
     private Npc randomEventNpc;
     private Item randomHerb;
     private int genieSelect;
@@ -423,7 +407,7 @@ public class Player extends Entity {
 
 	public Position npcClickingLocation, objectClickingLocation;
 
-	private boolean visible = true;
+	public boolean visible = true;
 	public boolean tempBoolean = false;
 	public boolean wildyWarned = false;
 	public int transformNpc = -1;
@@ -456,6 +440,8 @@ public class Player extends Entity {
     private long logoutTimer;
     private int coalTruckAmount;
     private int dfsCharges = 0;
+    private boolean receivedMasks = false;
+    private boolean hasZombieHead = false;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -497,12 +483,12 @@ public class Player extends Entity {
 	private String desiredSkullOfGhostsAhoyFlag = "black";
 	private boolean lobsterSpawned = false;
 	private boolean petitionSigned = false;
-	public CanoeStationData curCanoeStation;
+	private Canoe canoe = new Canoe(this);
     private String currentChannel = null;
-    
     private boolean homeTeleporting = false;
-    
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
+    private boolean inJail = false;
+ 
        
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -657,16 +643,17 @@ public class Player extends Entity {
 	}
 
 	public void send(ByteBuffer buffer) {
-        if (!socketChannel.isOpen())
+		if(buffer == null)
+			return;
+        if (socketChannel == null)
             return;
-
+        if (!socketChannel.isOpen())
+        	return;
 		// Prepare the buffer for writing.
 		buffer.flip();
-
 		try {
 			// ...and write it!
 			socketChannel.write(buffer);
-
 			// If not all the data was sent
 			if (buffer.hasRemaining()) {
 				// Queue it
@@ -681,7 +668,7 @@ public class Player extends Entity {
 				}
 			}
 		} catch (Exception ex) {
-		    System.out.println("here1");
+			System.out.println("Failed to write packet to client");
 			disconnect();
 		}
 	}
@@ -709,14 +696,11 @@ public class Player extends Entity {
             return;
         if(inPestControlLobbyArea())
         {
-        	PestControl.leaveLobby(this);
+        	PestControl.leaveLobby(this, true);
         }
         else if(inPestControlGameArea())
         {
-        	PestControl.leaveGame(this);
-        }
-        else if(inWarriorGuildArena()) {
-        	WarriorsGuild.exitArena(this, true);
+        	PestControl.leaveGame(this, true);
         }
         else if(inFightCaves()) {
 	    //FightCaves.exitCave(this);
@@ -769,8 +753,8 @@ public class Player extends Entity {
          }
      }*/
 
-    private long lastYell;
-    private long lastReport;
+    public long lastYell;
+    public long lastReport;
 
 	@Override
 	public void process() {
@@ -805,1486 +789,7 @@ public class Player extends Entity {
 	public void appendPlayerPosition(int xModifier, int yModifier) {
 		getPosition().move(xModifier, yModifier);
 	}
-	
-	/**
-	 * Handles a player command.
-	 * 
-	 * @param keyword
-	 *            the command keyword
-	 * @param args
-	 *            the arguments (separated by spaces)
-	 */
-	public void handleCommand(String keyword, String[] args, String fullString) {
-		keyword = keyword.toLowerCase();
 
-		if (getStaffRights() >= 0) {
-			playerCommands(keyword, args, fullString);
-		}
-		if (getStaffRights() >= 1) {
-			modCommands(keyword, args, fullString);
-		}
-		if (getStaffRights() >= 2) {
-			adminCommands(keyword, args, fullString);
-		}
-	}
-
-	public void playerCommands(String keyword, String[] args, String fullString) {
-		if (keyword.equals("outfit")) {
-			getActionSender().sendInterface(3559);
-		}
-		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") || keyword.equals("hiscores") )
-		{
-	        if(Constants.SQL_ENABLED)
-	        {
-			try {
-				ResultSet rs = SQL.query("SELECT * FROM `skillsoverall` ORDER BY totallevel DESC LIMIT 50;");
-				getActionSender().sendInterface(8134);
-				ClearNotes();
-				this.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
-				int line = 8147;
-				while ( rs.next() ) {
-					String  name = rs.getString("username");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Mod dammit") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
-					{
-						int lv  = rs.getInt("totallevel");
-						this.getActionSender().sendString(name + " - level " + lv, line);
-						line++;
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        }
-		}
-		else if (keyword.equals("panic") || keyword.equals("helpme")) {
-			if (args.length < 1) {
-				actionSender.sendMessage("Please use ::panic/::helpme (reason) (can be multiple words).");
-				return;
-			}
-			if(System.currentTimeMillis() - lastReport < 1800000) {
-				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
-				return;
-			}
-			lastReport = System.currentTimeMillis();
-			World.messageToStaff("@blu@"+ getUsername() + " paniced because:" + fullString + "!");
-			getActionSender().sendMessage("A message for assistance has been sent to the staff.");
-		}
-		else if (keyword.equals("report")) {
-			if (args.length < 2) {
-				actionSender.sendMessage("Please use ::report username reason (reason can be multiple words).");
-				return;
-			}
-			String name = args[0];
-			Player player = World.getPlayerByName(name);
-			if (player == null) {
-                getActionSender().sendMessage("Cannot report an offline player.");
-                return;
-            }
-			if( player.getUsername() == getUsername()){
-				getActionSender().sendMessage("You can't report yourself, silly.");
-				return;
-			}
-            if(System.currentTimeMillis() - lastReport < 1800000) {
-				getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
-				return;
-			}
-            lastReport = System.currentTimeMillis();
-			getActionSender().sendMessage("A message has been sent to staff about your report.");
-			World.messageToStaff("@dre@"+getUsername() + " has reported " + player.getUsername() + " for "+ fullString);
-		}
-		else if (keyword.equals("yell") || keyword.equals("y")) {
-			Yell(fullString);
-		}
-		/*else if (keyword.equals("hideyell") || keyword.equals("hy")) {
-			setHideYell(!hideYell,true);
-		}*/
-		else if (keyword.equals("hidecolor")  || keyword.equals("hc") ) {
-			setHideColors(!hideColors,true);
-		}
-		else if (keyword.equals("bugreport") || keyword.equals("bug")){
-			if (args.length < 2) {
-				getActionSender().sendMessage("Please write more than two words.");
-				return;
-			}
-			if(System.currentTimeMillis() - lastReport < 1800000) {
-				getActionSender().sendMessage("You can only report, ask for assistance or report a bug once every 30 minutes!");
-				return;
-			}
-			lastReport = System.currentTimeMillis();
-			getActionSender().sendMessage("The bug has been reported. Thank you!");
-			appendToBugList(fullString);
-		}
-		else if (keyword.equals("home")) {
-		    if (inWild() || isAttacking() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea() || isDead() || !getInCombatTick().completed() || inFightCaves()) {
-			getActionSender().sendMessage("You cannot do that here!");
-		    } else {
-			if(this.getStaffRights() < 2) {
-			    getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
-			} else {
-			    teleport(new Position(Constants.START_X, Constants.START_Y, 0));
-			}
-             /*   teleport(new Position(Constants.START_X, Constants.START_Y, 0));
-                getActionSender().sendMessage("You teleported home.");
-                */
-            } 
-		}
-		/*else if (keyword.equals("showhp")) {
-			setShowHp(!showHp, true);
-                }*/
-		else if (keyword.equals("players")) {
-			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
-			getActionSender().sendInterface(8134);
-			ClearNotes();
-			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
-			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
-			int line = 8147;
-			for (Player player : World.getPlayers()) {
-				if(player != null)
-				{	
-					if(line > 8195 && line < 12174)
-					{
-						line = 12174;
-					}
-					getActionSender().sendString("@dre@"+player.getUsername(), line);
-					line++;
-				}
-			}
-		}
-		else if (keyword.equals("changepass")) {
-					String pass = fullString;
-                        if(pass.length() > 20){ 
-                            getActionSender().sendMessage("Your password is too long! 20 characters maximum."); 
-                        } else if(pass.equals("changepass")){ 
-                            getActionSender().sendMessage("Please input a password.");
-                        } else if(pass.length() < 4){ 
-                            getActionSender().sendMessage("Your password is too short! 4 characters required.");  
-                        } else if (getUsername().equals("Community")) {
-                            getActionSender().sendMessage("You cannot change the community account's password!");
-						} else {
-                            setPassword(pass);// setPassword
-                            getActionSender().sendMessage("Your new password is " + pass + ".");
-			}
-		}
-		else if (keyword.equals("removemypin")) {
-			if (getUsername().equals("Community")){
-		    getBankPin().deleteBankPin();
-			getActionSender().sendMessage("Community bankpin deleted.");		
-			}
-		}
-		else if (keyword.equals("patchnotes")) {
-			getActionSender().sendInterface(8134);
-			ClearNotes();	
-			this.getActionSender().sendString("@dre@-=vscape patch notes=-", 8144);
-			int line = 8147;
-			for(String q: GlobalVariables.patchNotes)
-			{
-				if(q!=null)
-				{	
-					if(line > 8195 && line < 12174) {
-					    line = 12174;
-					}
-					this.getActionSender().sendString(q, line);
-					line++;
-				}
-			}
-		}
-		else if (keyword.equals("info")) {
-			info();
-		}
-		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
-        roll();
-        }
-		else if(keyword.equals("resetpet")) {
-			this.getPets().unregisterPet();
-		}
-		else if(keyword.equals("pcpoints")) {
-			getActionSender().sendMessage("You have " + this.getPcPoints() + " commendation points." );
-		}
-		else if(keyword.equals("sss") && (this.getUsername().toLowerCase().equals("ssssssssssss") || this.getStaffRights() == 2)) {
-			getActionSender().sendMessage("Sssssss" );
-			this.transformNpc = 3484;
-			this.standAnim = 3535;
-			this.runAnim = 3537;
-			this.walkAnim = 3538;
-		}
-		else if(keyword.equals("pc")) {
-			World.messageToPc(this, fullString);
-		}
-		else if(keyword.equals("pcactive")) {
-		    if(PestControl.gameActive())
-			getActionSender().sendMessage("There is an active Pest Control game with " +PestControl.playerCount() + " players playing.");
-		    else {
-			getActionSender().sendMessage("Pest Control is not running at the moment.");
-		    }
-		}
-		else if(keyword.equals("resetcaves")) {
-		    this.setFightCavesWave(0);
-		}
-		else if (keyword.equals("maxqp")) {
-		    int x = 0;
-		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
-			x += QuestHandler.getQuests()[i].getQuestPoints();
-		    }
-		    this.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + "."); //Minus one for the easter event's class
-		}
-		
-	
-	}
-
-	public void modCommands(String keyword, String[] args, String fullString) {
-		String name = fullString;
-		 if (keyword.equals("closeinterface")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.getActionSender().removeInterfaces();
-        }
-		else if (keyword.equals("clan") || keyword.equals("c")) {
-			Clan(fullString);
-		}
-		else if (keyword.equals("joinclan") || keyword.equals("jc")) {
-			setClanChannel(fullString);
-		}
-        else if (keyword.equals("leaveclan") || keyword.equals("lc")){
-                        leaveClanChannel();
-        }        
-		else if (keyword.equals("modban")) {
-        	ModBan(args);
-        }  else if (keyword.equals("kick")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.disconnect();
-            actionSender.sendMessage("You have kicked "+player.getUsername());
-        }  	else if (keyword.equals("staff") || keyword.equals("s")) {
-	    World.messageToStaff(this, fullString);
-		}	else if (keyword.equals("mute")) {
-            if (args.length < 2) {
-                actionSender.sendMessage("::mute hours username");
-                return;
-            }
-            int hours = Integer.parseInt(args[0]);
-            int maxHours = getStaffRights() == 1 ? 24 : 100;
-            if (hours <= 0 || hours > maxHours) {
-                actionSender.sendMessage("Mute between 0 and "+maxHours+" hours");
-                return;
-            }
-            name = "";
-            for (int i = 1; i < args.length; i++) {
-                name += args[i];
-            }
-            Player player = World.getPlayerByName(name);
-            if (player == null) {
-                actionSender.sendMessage("Could not find "+name);
-                return;
-            }
-            if (player.isMuted()) {
-                actionSender.sendMessage("Player is already muted");
-                return;
-            }
-            try {
-                OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/modlog.out", true));
-                out.write(player.getUsername()+" was muted by "+username+" for "+hours+" hours.");
-                out.flush();
-                out.close(); //CLOSEFILE
-            } catch (FileNotFoundException e) {
-                e.printStackTrace(); 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            actionSender.sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
-            player.actionSender.sendMessage("You have been muted for "+hours+" hours");
-            player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
-        }
-/*		if(keyword.equals("bankof")) {
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(fullString)) {
-				    getActionSender().sendInterface(8134);
-				    ClearNotes();
-				    getActionSender().sendString("Bank of: " + player.getUsername(), 8144);
-				    int line = 8145;
-				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
-					    if (line > 8195 && line < 12174) {
-						line = 12174;
-					    }
-					    Item item1 = player.getBank().getItems()[counter];
-					    Item item2 = player.getBank().getItems()[counter+1];
-					    if(item1 == null) {
-						counter++;
-						continue;
-					    }
-					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
-					    line++;
-				    }
-				    break;
-				}
-			}
-		}
-		if(keyword.equals("bank2of")) {
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(fullString)) {
-				    getActionSender().sendInterface(8134);
-				    ClearNotes();
-				    getActionSender().sendString("Bank part two of: " + player.getUsername(), 8144);
-				    int line = 8145;
-				    for (int counter = 0; counter < player.getBank().getItems().length; counter = counter + 2) {
-					if(counter < 200) continue;
-					else {
-					    if (line > 8195 && line < 12174) {
-						line = 12174;
-					    }
-					    Item item1 = player.getBank().getItems()[counter];
-					    Item item2 = player.getBank().getItems()[counter+1];
-					    getActionSender().sendString(item1.getDefinition().getName() + "[ " + item1.getCount() + " ]  " + item2.getDefinition().getName() + "[ " + item2.getCount() + " ]", line);
-					    line++;
-					}
-				    }
-				    break;
-				}
-			}
-		}*/
-	}
-	public void adminCommands(String keyword, String[] args, String fullString) {
-		saveCommand(getUsername(), keyword+" "+fullString);
-		if (keyword.equals("getrandom")) {
-			switch(Misc.random(5)) {
-				case 0 :
-					SpawnEvent.spawnNpc(this, RandomNpc.EVIL_CHICKEN);
-					break;
-				case 1 :
-					SpawnEvent.spawnNpc(this, RandomNpc.RIVER_TROLL);
-					break;
-				case 2 :
-					SpawnEvent.spawnNpc(this, RandomNpc.ROCK_GOLEM);
-					break;
-				case 3 :
-					SpawnEvent.spawnNpc(this, RandomNpc.SHADE);
-					break;
-				case 4 :
-					SpawnEvent.spawnNpc(this, RandomNpc.TREE_SPIRIT);
-					break;
-				case 5 :
-					SpawnEvent.spawnNpc(this, RandomNpc.ZOMBIE);
-					break;
-			}
-		}
-		/*if (keyword.equals("highscoresinit"))
-		{
-			SQL.initHighScores();
-		}*/
-		if (keyword.equals("resettask")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null)
-                return;
-            player.slayer.resetSlayerTask();
-            actionSender.sendMessage("You have reset the slayer task for "+player.getUsername());
-		}
-		if (keyword.equals("forcerandom")) {
-			getActionSender().sendMessage("Sent random to " + args[0].toLowerCase());
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(fullString)) {
-					    switch(Misc.random(3)) {
-						case 0 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
-						    break;
-						case 1 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.GENIE);
-						    break;
-						case 2 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.JEKYLL);
-						    break;
-						//case 3 :
-						    //TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.RICK);
-						    //break;
-						case 3 :
-						    player.getRandomInterfaceClick().sendEventRandomly();
-						    break;
-					    }
-					return;
-				}
-			}
-			getActionSender().sendMessage("The player is not online at the moment.");
-		}
-		if (keyword.equals("coordinate")) {
-			final int id = Integer.parseInt(args[0]);
-			CoordinateData clue = CoordinateData.forIdClue(id);
-			actionSender.sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
-		}
-		else if (keyword.equals("usa")) { //4th of july command
-			getUpdateFlags().sendAnimation(2106, 0); //animation
-			Graphic graphic = new Graphic(199, 100); //gfx part
-			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
-			getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
-		}
-		else if (keyword.equals("forcefox")) {
-			String name = fullString;
-			getActionSender().sendMessage("You have foxed " +
-			args[0].toLowerCase() + ". Yiff!"); 
-			for (Player player : World.getPlayers()) { 
-					if (player == null) continue; 
-					if(player.getUsername().equalsIgnoreCase(name)) {
-						player.transformNpc = 1319;
-						player.setStandAnim(6561);
-						player.setWalkAnim(6560);
-						player.setRunAnim(6560);
-						player.setAppearanceUpdateRequired(true);
-						player.getUpdateFlags().setForceChatMessage("Yiff!");
-						player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!"); 
-					return;
-                  } 
-               }
-			getActionSender().sendMessage("Player offline or not found."); 
-			}
-		else if (keyword.equals("sayit")) {
-		    String whattosay = fullString.substring(0, fullString.indexOf("-")-1);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-			player.getUpdateFlags().setForceChatMessage(whattosay);
-		    if(player != null) {
-			this.getActionSender().sendMessage("Made " + player.getUsername() +" say something.");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		else if (keyword.equals("teletoclue")) {
-			try {
-				final int id = Integer.parseInt(args[0]);
-				CoordinateData clue = CoordinateData.forIdClue(id);
-				int x = clue.getDiggingPosition().getX();
-				int y = clue.getDiggingPosition().getY();
-				teleport(new Position(x, y, getPosition().getZ()));
-				getActionSender().sendMessage("You teleported to clue:"+id+" at " + x + ", " + y + ", " + getPosition().getZ());
-			} catch (Exception e1) {
-				final int id = Integer.parseInt(args[0]);
-				if(SearchScrolls.SearchData.forIdClue(id).getClueId() == id) {
-				    teleport(SearchScrolls.SearchData.forIdClue(id).getObjectPosition().clone());
-				}
-				else {
-				    getActionSender().sendMessage("Please use ::teletoclue clueid. If you did, an error occured, sorry.");
-				}
-			}
-		}
-		
-		//hween debug
-		if (keyword.equals("forcemaskspawn")) {
-			MaskDropController.removeMask();
-			MaskDropController.spawnMask();
-		}
-		if (keyword.equals("forcemaskremove")) {
-			MaskDropController.removeMask();
-		}
-		if (keyword.equals("teletomask")) {
-			teleport(MaskDropController.currentPosition);
-		}
-		if (keyword.equals("maskspawndelay")) {
-			final int delay = Integer.parseInt(args[0]);
-			if(MaskDropController.spawnTime >= 1)
-			{
-				MaskDropController.spawnTime = delay;
-			}else{
-			    getActionSender().sendMessage("delay should be 1 minute or more");
-			}
-		}
-		if (keyword.equals("masklifetime")) {
-			final int delay = Integer.parseInt(args[0]);
-			if(MaskDropController.lifeTime >= 1)
-			{
-				MaskDropController.lifeTime = delay;
-			}else{
-			    getActionSender().sendMessage("lifeTime should be 1 minute or more");
-			}
-		}
-	
-		//sound debug
-		if (keyword.equals("sound")) {
-			final int id = Integer.parseInt(args[0]);
-			getActionSender().sendSound(id, 0, 0);
-		}
-		if (keyword.equals("quicksong")) {
-			final int id = Integer.parseInt(args[0]);
-			final int delay = Integer.parseInt(args[1]);
-			getActionSender().sendQuickSong(id, delay);
-		}
-		if (keyword.equals("music")) {
-			final int id = Integer.parseInt(args[0]);
-			getActionSender().sendSong(id);
-		}
-		if(keyword.equals("testinterfaceitem")) {
-		    final int item = Integer.parseInt(args[0]);
-		    final int line = Integer.parseInt(args[1]);
-		    getActionSender().sendItemOnInterface(item, 200, line);
-		}
-		if(keyword.equals("setqueststage") || keyword.equals("queststage")) {
-		    final int quest = Integer.parseInt(args[0]);
-		    final int stage = Integer.parseInt(args[1]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    if(!fullString.contains("-")) {
-			this.setQuestStage(quest, stage);
-			QuestHandler.getQuests()[quest].sendQuestTabStatus(this);
-			getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
-		    }
-		    else {
-			try {
-			    player.setQuestStage(quest, stage);
-			    QuestHandler.getQuests()[quest].sendQuestTabStatus(player);
-			    getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
-			}
-			catch(Exception e) {
-			    this.getActionSender().sendMessage("Could not find player.");
-			}
-		    }
-		}
-		if(keyword.equals("setzamorakcasts")) {
-		    final int casts = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.saveZamorakCasts(casts);
-			getActionSender().sendMessage("Set " + player.getUsername() + "'s zamorak casts to " + casts + ".");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("setsaradomincasts")) {
-		    final int casts = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.saveSaradominCasts(casts);
-			getActionSender().sendMessage("Set " + player.getUsername() + "'s saradomin casts to " + casts + ".");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("setguthixcasts")) {
-		    final int casts = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.saveGuthixCasts(casts);
-			getActionSender().sendMessage("Set " + player.getUsername() + "'s guthix casts to " + casts + ".");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("setbananacrate")) {
-		    final int count = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.setBananaCrateCount(count);
-			getActionSender().sendMessage("Set " + player.getUsername() + "'s banana crate count to " + count + ".");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("resetgangs")) {
-		    String name = fullString;
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.joinBlackArmGang(false);
-			player.joinPhoenixGang(false);
-			getActionSender().sendMessage("Reset " + player.getUsername() + "'s gangs.");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("resetghostsahoyflag")) {
-		    String name = fullString;
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    try {
-			player.dyeGhostsAhoyFlag("top", "undyed");
-			player.dyeGhostsAhoyFlag("bottom", "undyed");
-			player.dyeGhostsAhoyFlag("skull", "undyed");
-			player.setDesiredGhostsAhoyFlag("top", "undyed");
-			player.setDesiredGhostsAhoyFlag("bottom", "undyed");
-			player.setDesiredGhostsAhoyFlag("skull", "undyed");
-			getActionSender().sendMessage("Reset " + player.getUsername() + "'s Ghosts Ahoy flag.");
-		    } catch (Exception e) {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("setmagearenastage") || keyword.equals("magearenastage")) {
-		    final int stage = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    if(!fullString.contains("-")) {
-			this.setMageArenaStage(stage);
-			getActionSender().sendMessage("Set Mage Arena to stage " + stage + ".");
-		    }
-		    else {
-			try {
-			    player.setMageArenaStage(stage);
-			    getActionSender().sendMessage("Set " + player.getUsername() + "'s Mage Arena to stage " + stage + ".");
-			}
-			catch(Exception e) {
-			    this.getActionSender().sendMessage("Could not find player.");
-			}
-		    }
-		}
-		if(keyword.equals("resetquests")) {
-		    for(Quest q : QuestHandler.getQuests()) {
-			this.setQuestStage(q.getQuestID(), 0);
-		    }
-		}
-		if(keyword.equals("completequests")) {
-		    for(Quest q : QuestHandler.getQuests()) {
-			QuestHandler.completeQuest(this, q.getQuestID());
-		    }
-		}
-		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp") || keyword.equals("getqp")) {
-		    String name = fullString;
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    this.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.");
-		}
-		else if (keyword.equals("playersquestpoints")) {
-			getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
-			getActionSender().sendInterface(8134);
-			ClearNotes();
-			getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
-			getActionSender().sendString("@dbl@Online players(" +World.playerAmount()+ "):", 8145);
-			int line = 8147;
-			for (Player player : World.getPlayers()) {
-				if(player != null)
-				{	
-					if(line > 8195 && line < 12174)
-					{
-						line = 12174;
-					}
-					getActionSender().sendString("@dre@"+player.getUsername()+ " - QP: " + player.getQuestPoints(), line);
-					line++;
-				}
-			}
-		}
-		if(keyword.equals("setplayerquestpoints") || keyword.equals("setplayerqp")) {
-		    final int qp = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    player.setQuestPoints(qp);
-		    this.getActionSender().sendMessage("That player now has " +qp+ " quest points.");
-		}
-		if(keyword.equals("getexp") || keyword.equals("getlevel") || keyword.equals("getstat")) {
-		    final int skill = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    final double exp = player.getSkill().getExp()[skill];
-		    if(player != null) {
-			this.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		
-		if(keyword.equals("subtractexp")) {
-		    final int skill = Integer.parseInt(args[0]);
-		    final int exp = Integer.parseInt(args[1]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    player.getSkill().subtractExp(skill, exp/2.25);
-		    if(player != null) {
-			this.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		if(keyword.equals("addexp")) {
-		    final int skill = Integer.parseInt(args[0]);
-		    final int exp = Integer.parseInt(args[1]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    player.getSkill().addExp(skill, exp/2.25);
-		    if(player != null) {
-			this.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
-		    }
-		    else {
-			this.getActionSender().sendMessage("Could not find player.");
-		    }
-		}
-		
-		if (keyword.equals("run")) {
-			final int id = Integer.parseInt(args[0]);
-			setRunAnim(id);
-			setAppearanceUpdateRequired(true);
-		}
-		if (keyword.equals("walk")) {
-			final int id = Integer.parseInt(args[0]);
-			setWalkAnim(id);
-			setAppearanceUpdateRequired(true);
-		}
-		if (keyword.equals("stand")) {
-			final int id = Integer.parseInt(args[0]);
-			setStandAnim(id);
-			setAppearanceUpdateRequired(true);
-		}
-		if (keyword.equals("poison")) {
-			HitDef hitDef = new HitDef(null, HitType.POISON, Math.ceil(4.0)).setStartingHitDelay(1);
-			Hit hit = new Hit(this, this, hitDef);
-			PoisonEffect p = new PoisonEffect(4.0, false);
-			p.initialize(hit);
-		}
-        else if (keyword.equals("dbhs")) {
-            HighscoresManager.debug = !HighscoresManager.debug;
-            getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
-        }
-		else if (keyword.equals("empty")) {
-	    getInventory().getItemContainer().clear();
-	    getInventory().refresh();
-		}
-		else if (keyword.equals("hsstatus")) {
-            getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
-        }
-		else if (keyword.equals("rebooths")) {
-            HighscoresManager.running = !HighscoresManager.running;
-            getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
-        }
-        else if (keyword.equals("fox")) {
-        transformNpc = 1319;
-        setStandAnim(6561);
-        setWalkAnim(6560);
-        setRunAnim(6560);
-        setAppearanceUpdateRequired(true);
-	getUpdateFlags().setForceChatMessage("Yiff!");
-		}
-		else if (keyword.equals("uptime")) {
-            getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
-        }
-        else if (keyword.equals("save")) {
-	    PlayerSave.saveAllPlayers();
-	    actionSender.sendMessage("Saved players.");
-        }
-		else if (keyword.equals("forcespace")) { 
-	   	 String name = fullString;
-		 getActionSender().sendMessage("You have sent " +
-		 args[0].toLowerCase() + " to space."); 
-		 for (Player player : World.getPlayers()) { 
-		 if (player == null) continue; 
-		 if(player.getUsername().equalsIgnoreCase(name)) {
-		 player.teleport(new Position(3108, 3954));
-		 player.getActionSender().sendMessage
-		 ("You have been sent to space. Good luck escaping!"); return;
-			} 
-		 }
-		 getActionSender
-		 ().sendMessage("Player offline or not found."); 
-		}
-		else if (keyword.equalsIgnoreCase("fillspec")) {
-			setSpecialAmount(100);
-			updateSpecialBar();
-		}
-		else if (keyword.equals("master")) {
-			for (int i = 0; i < skill.getLevel().length; i++) {
-				skill.getLevel()[i] = 99;
-				skill.getExp()[i] = 200000000;
-			}
-			skill.refresh();
-		}
-		else if (keyword.equals("resetstats")) {
-			for (int i = 0; i < skill.getLevel().length; i++) {
-				if(i == 3)
-				{
-					skill.getLevel()[i] = 10;
-					skill.getExp()[i] = skill.getXPForLevel(9);
-				}
-				else
-				{
-					skill.getLevel()[i] = 1;
-					skill.getExp()[i] = skill.getXPForLevel(0);
-				}
-			}
-			skill.refresh();
-		}
-		else if (keyword.equals("changeuser")) {
-		    String name = args[0];
-		    String newName = args[1];
-		    Player player = World.getPlayerByName(name);
-		    if(player == null ) {
-			this.getActionSender().sendMessage("Could not find player.");
-			return;
-		    }
-		    player.setUsername(newName);
-		    this.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .");
-		}
-		else if (keyword.equals("forester")) {
-		    this.getFreakyForester().spawnForester();
-		}
-		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
-		    String name = fullString;
-		    Player player = World.getPlayerByName(name);
-			if (player == null) {
-			    this.actionSender.sendMessage("Cannot find player: "+name);
-			    return;
-			}
-			BufferedWriter file = null;
-			try {
-			    file = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+"dump.txt"));
-			    for(int i = 0; i < 21; i++) {
-				file.write(Skill.SKILL_NAME[i] + " lvl = ", 0, Skill.SKILL_NAME[i].length() + 7);
-				file.write(Integer.toString(player.getSkill().getLevel()[i]), 0, Integer.toString(player.getSkill().getLevel()[i]).length());
-				file.newLine();
-				file.write("Exp = ", 0, 6);
-				file.write(Integer.toString((int)player.getSkill().getExp()[i]), 0, Integer.toString((int)player.getSkill().getExp()[i]).length());
-				file.newLine();
-				file.newLine();
-			    }
-			    file.newLine();
-			    file.close();
-			    this.getActionSender().sendMessage("Dumping complete.");
-			}
-			catch (IOException e) {
-			    this.getActionSender().sendMessage("Error dumping player information.");
-			}
-		}
-		else if (keyword.equals("poisondump")) {
-			//bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
-		    getBankManager().add(new Item(PiratesTreasure.CLEANING_CLOTH));
-		 //   PiratesTreasure.dumpAllPoisonedItems(this);
-		}
-		else if (keyword.equals("dyedump")) {
-		    inventory.addItem(new Item(GhostsAhoy.RED_DYE));
-		    inventory.addItem(new Item(GhostsAhoy.YELLOW_DYE));
-		    inventory.addItem(new Item(GhostsAhoy.BLUE_DYE));
-		    inventory.addItem(new Item(GhostsAhoy.ORANGE_DYE));
-		    inventory.addItem(new Item(GhostsAhoy.PURPLE_DYE));
-		    inventory.addItem(new Item(GhostsAhoy.GREEN_DYE));
-		}
-		else if (keyword.equals("enchantdump")) {
-			getBankManager().add(new Item(8016, 100));
-		    getBankManager().add(new Item(8017, 100));
-		    getBankManager().add(new Item(8018, 100));
-		    getBankManager().add(new Item(8019, 100));
-		    getBankManager().add(new Item(8020, 100));
-		    getBankManager().add(new Item(8021, 100));
-		    for(int i = 0; i < 6; i++) {
-				for(int x = 0; x < 4; x++) {
-				    if(TabHandler.ENCHANTABLES[i][x] == -1) continue;
-				    getBankManager().add(new Item(TabHandler.ENCHANTABLES[i][x]));
-				}
-		    }
-		}
-		else if (keyword.equals("stillcamera")) {
-		    this.getActionSender().stillCamera(2515, 10008, Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-		}
-		else if (keyword.equals("spincamera")) {
-		    this.getActionSender().spinCamera(this.getPosition().getX(), this.getPosition().getY(), Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-		}
-		else if (keyword.equals("resetcamera")) {
-		    this.getActionSender().resetCamera();
-		}
-		else if (keyword.equals("debugcombat")) {
-		    this.debugCombat = true;
-		    this.getActionSender().sendMessage("Starting accuracy messages for combat debugging.");
-		}
-		else if (keyword.equals("stopdebugcombat")) {
-		    this.debugCombat = false;
-		    this.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.");
-		}
-		else if (keyword.equals("pnpc")) {
-			final int npcId = Integer.parseInt(args[0]);
-			transformNpc = npcId;
-			setAppearanceUpdateRequired(true);
-			setSize(new Npc(npcId).getDefinition().getSize());
-			getActionSender().sendMessage("NPC #" + npcId);
-		}
-		else if (keyword.equals("rnpc")) {
-			int npcId = (int)Misc.random(6390);
-			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
-			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
-			    return;
-			}
-			transformNpc = npcId;
-			setAppearanceUpdateRequired(true);
-			setSize(new Npc(npcId).getDefinition().getSize());
-			getActionSender().sendMessage("NPC #" + npcId);
-		}
-		else if (keyword.equals("pet")) {
-                final int petId = Integer.parseInt(args[0]);
-                this.getPets().registerPet(-1, petId);
-                	if ( petId == 1319)
-                            this.getPets().getPet().getUpdateFlags().setForceChatMessage("Yiff!");
-		}
-		else if (keyword.equals("talkpet") || keyword.equals("tp")) {
-		    this.getPets().getPet().getUpdateFlags().setForceChatMessage(args[0]);
-		}
-		else if (keyword.equals("invisible") || keyword.equals("invis")) {
-			visible = !visible;
-			getActionSender().sendMessage("Invisible: " + !visible);
-		}
-		else if (keyword.equals("scan")) {
-			for (int i = 0; i < Constants.MAX_NPC_ID; i++) {
-				for (NpcDropItem item : NpcDropController.forId(i).getDropList()) {
-					for (int c : item.getCount()) {
-						if (c > 1000) {
-							System.out.println(c);
-						}
-					}
-				}
-			}
-		}
-		else if (keyword.equals("bank")) {
-			bankmanager.openBank();
-		}
-		else if (keyword.equals("npc")) {
-			int npcId = Integer.parseInt(args[0]);
-			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
-			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
-			    return;
-			}
-			Npc npc = new Npc(npcId);
-			npc.setPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
-			npc.setSpawnPosition(new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
-			npc.setCurrentX(getPosition().getX());
-			npc.setCurrentY(getPosition().getY());
-			World.register(npc);
-			getActionSender().sendMessage("You spawn NPC #" + npcId);
-			setLastNpc(npc.getNpcId());
-		}
-        else if (keyword.equals("tfra")) {
-            actionSender.sendFrame106(Integer.parseInt(args[0]));
-
-        }
-		else if (keyword.equals("removenpc")) {
-			for (Npc npc : World.getNpcs()) {
-				if (npc != null) {
-					if (npc.getPosition().equals(getPosition())) {
-						getActionSender().sendMessage("You remove NPC #" + npc.getNpcId());
-						npc.setVisible(false);
-						World.unregister(npc);
-						break;
-					}
-				}
-			}
-		}
-		else if (keyword.equals("object")) {
-			int objectId = Integer.parseInt(args[0]);
-			if(objectId < 0)
-			{
-				getActionSender().sendMessage("Object id must be 0 or more");
-				return;
-			}
-			int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
-			int type = args.length > 2 ? Integer.parseInt(args[2]) : 10;
-			new GameObject(objectId, getPosition().getX(), getPosition().getY(), getPosition().getZ(), face, type, 0, 999999, false);
-		}
-		else if(keyword.equals("removeobject"))
-		{
-			GameObject obj = ObjectHandler.getInstance().getObject(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-			if(obj != null)
-			{
-				ObjectHandler.getInstance().removeObject(obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getType());
-				getActionSender().sendObject(-1, obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getFace(), obj.getDef().getType());
-				getActionSender().sendMessage("GameObject removed");
-				return;
-			}
-		}else if (keyword.equals("item")) {
-			int id = Integer.parseInt(args[0]);
-			int amount = 1;
-			if (args.length > 1) {
-				amount = Integer.parseInt(args[1]);
-				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
-			}
-			inventory.addItem(new Item(id, amount));
-			getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").");
-		}
-		else if (keyword.equals("giveitem")) {
-			int id = Integer.parseInt(args[0]);
-			int amount = 1;
-			String name = fullString.substring(fullString.indexOf("-")+1);
-			long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-			Player player = World.getPlayerByName(nameLong);
-			if (args.length > 1) {
-				amount = Integer.parseInt(args[1]);
-				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
-			}
-			player.getInventory().addItem(new Item(id, amount));
-			getActionSender().sendMessage("You give a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ") to " + name + "." );
-		}
-		else if (keyword.equals("runes")) {
-			for (int i = 0; i < 566 - 554 + 1; i++) {
-				inventory.addItem(new Item(554 + i, 1000));
-			}
-			inventory.addItem(new Item(1381, 1));
-			inventory.addItem(new Item(4675, 1));
-		}
-		else if (keyword.equals("tabs") || keyword.equals("teleports")) {
-		    for(int i = 0; i < 8012 - 8007 + 1; i++) {
-			inventory.addItem(new Item(8007 + i, 100));
-		    }
-		    inventory.addItem(new Item(1712, 2)); //glories
-		    inventory.addItem(new Item(3853)); //games necklace
-		    inventory.addItem(new Item(11105)); //skills necklace
-		    inventory.addItem(new Item(2552)); //duel ring
-		    inventory.addItem(new Item(GhostsAhoy.ECTOPHIAL));
-		}
-		else if (keyword.equals("tele")) {
-			try {
-				int x = Integer.parseInt(args[0]);
-				int y = Integer.parseInt(args[1]);
-				int z = Integer.parseInt(args[2]);
-				teleport(new Position(x, y, z));
-				getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + z);
-			} catch (Exception e) {
-				try {
-					int x = Integer.parseInt(args[0]);
-					int y = Integer.parseInt(args[1]);
-					teleport(new Position(x, y, getPosition().getZ()));
-					getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + getPosition().getZ());
-				} catch (Exception e1) {
-					getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
-				}
-			}
-		}
-		else if (keyword.equals("bump")) {
-			try {
-				int amount = Integer.parseInt(args[0]);
-				String direction = args[1].toLowerCase();
-				String name = fullString.substring(fullString.indexOf("-")+1);
-				long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-				Player player = World.getPlayerByName(nameLong);
-				if(player == null && fullString.toLowerCase().contains("-")) {
-				    this.getActionSender().sendMessage("Could not find player.");
-				    return;
-				}
-				switch(direction) {
-				    case "up":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ() + amount));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ() + amount));
-					    break;
-					}
-				    case "down":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ() - amount < 0 ? 0 : player.getPosition().getZ() - amount));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ() - amount < 0 ? 0 : this.getPosition().getZ() - amount));
-					    break;
-					}
-				    case "e":
-				    case "east":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX() + amount, player.getPosition().getY(), player.getPosition().getZ()));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX() + amount, this.getPosition().getY(), this.getPosition().getZ()));
-					    break;
-					}
-				    case "w":
-				    case "west":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX() - amount, player.getPosition().getY(), player.getPosition().getZ()));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX() - amount, this.getPosition().getY(), this.getPosition().getZ()));
-					    break; 
-					}
-				    case "n":
-				    case "north":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY() + amount, player.getPosition().getZ()));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() + amount, this.getPosition().getZ()));
-					    break;
-					}
-				    case "s":
-				    case "south":
-					if(fullString.toLowerCase().contains("-")) {
-					    player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY() - amount, player.getPosition().getZ()));
-					    break;
-					}
-					else {
-					    this.teleport(new Position(this.getPosition().getX(), this.getPosition().getY() - amount, this.getPosition().getZ()));
-					    break;
-					}
-				}
-			} catch (Exception e) {
-			    getActionSender().sendMessage("Please use the syntax ::bump amount direction (east, e, west, w, etc.)");
-			    }
-		}
-		else if (keyword.equals("removebankpin")) {
-		    Player player = World.getPlayerByName(fullString);
-		    if (player == null)
-			return;
-		    player.getBankPin().deleteBankPin();
-		}
-		else if (keyword.equals("melee")) {
-			inventory.addItem(new Item(4151)); //whip
-			inventory.addItem(new Item(11335)); //d full
-			inventory.addItem(new Item(3140)); //d chain
-			inventory.addItem(new Item(4087)); //d legs
-			inventory.addItem(new Item(11732)); //dragon boots
-			inventory.addItem(new Item(1187)); //d square
-			inventory.addItem(new Item(6585)); //amulet of fury
-			inventory.addItem(new Item(6570)); //fire cape
-			inventory.addItem(new Item(7461)); //dragon gloves
-		}
-		else if (keyword.equals("purple")) {
-			for(int i = 2934; i < 2944; i += 2) {
-			    inventory.addItem(new Item(i));
-			}
-			inventory.addItem(new Item(3785)); //purple cloak
-		}
-		else if (keyword.equals("range")) {
-			inventory.addItem(new Item(2581)); //Robin hood
-			inventory.addItem(new Item(6585)); //fury
-			inventory.addItem(new Item(4736)); //karil's top
-			inventory.addItem(new Item(4738)); //karil's skirt
-			inventory.addItem(new Item(2577)); //ranger boots
-			inventory.addItem(new Item(10376)); //guthix bracers
-			inventory.addItem(new Item(6570)); //fire cape
-			inventory.addItem(new Item(1540)); //anti
-			inventory.addItem(new Item(892, 10000)); //rune arrows
-			inventory.addItem(new Item(11212, 10000)); //dragon arrows
-			inventory.addItem(new Item(9342, 10000)); //onyx bolts
-			inventory.addItem(new Item(861)); //msb
-			inventory.addItem(new Item(4212)); //crystal bow
-			inventory.addItem(new Item(11235)); //dark bow
-			inventory.addItem(new Item(9185)); //rune cbow
-		}
-		else if (keyword.equals("mage")) {
-			getActionSender().sendMessage("Use the ::runes command for runes.");
-			inventory.addItem(new Item(3053)); //lava battlestaff
-			inventory.addItem(new Item(1397)); //air battlestaff
-			inventory.addItem(new Item(6563)); //mystic mud battlestaff
-			inventory.addItem(new Item(1712)); //glory
-			inventory.addItem(new Item(10342)); //3 age mage hat
-			inventory.addItem(new Item(10338)); //3rd age mage top
-			inventory.addItem(new Item(10340)); //3rd age mage bottoms
-			inventory.addItem(new Item(2579)); //wizard boots
-			inventory.addItem(new Item(4095)); //mystic gloves
-			inventory.addItem(new Item(2890)); //elemental shield
-			this.setQuestStage(12, 11);
-		}
-		else if (keyword.equals("potions")) {
-			inventory.addItem(new Item(2437, 100));
-			inventory.addItem(new Item(2441, 100));
-			inventory.addItem(new Item(2443, 100));
-			inventory.addItem(new Item(2435, 100));
-		}
-		else if (keyword.equals("food")) {
-			inventory.addItem(new Item(391, 28));
-		}
-		else if (keyword.equals("spawn")) {
-			int id = Integer.parseInt(args[0]);
-			if(GlobalVariables.npcDump[id].toLowerCase().contains("null")) {
-			    getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
-			    return;
-			}
-			NpcDefinition npc = NpcDefinition.forId(id);
-			appendToAutoSpawn(npc);
-		}
-		else if (keyword.equals("team")) {
-			int cape = Integer.parseInt(args[0]);
-			int count = 0;
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getEquipment().getId(Constants.CAPE) == cape) {
-					player.teleport(getPosition());
-					count++;
-				}
-			}
-			getActionSender().sendMessage("You have " + count + " teammates on your team.");
-		}
-		else if (keyword.equals("teleto")) {
-			String name = fullString;
-			for (Player player : World.getPlayers()) {
-				if (player == null)
-					continue;
-				if (player.getUsername().equalsIgnoreCase(name)) {
-				    if (player.inFightCaves()) {
-					getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
-					break;
-				    }
-				    else {
-					teleport(player.getPosition().clone());
-					break;
-				    }
-				}
-			}
-		}
-		else if (keyword.equals("teletome") || keyword.equals("bring")) {
-			String name = fullString;
-           // if (inWild())  {
-             //   actionSender.sendMessage("You can't teleport someone into the wild!");
-               // return;
-            //}
-			Player player = World.getPlayerByName(name);
-            if (player == null) {
-                actionSender.sendMessage("Cannot find player: "+name);
-                return;
-            }
-            if (player.inDuelArena()) {
-                actionSender.sendMessage("That person is dueling right now.");
-            }
-            if(player.inPestControlLobbyArea() || player.inPestControlGameArea())
-            {
-            	actionSender.sendMessage("That person is in pest control right now.");
-            }
-	    if(player.inFightCaves()) {
-		getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.");
-		return;
-	    }
-		player.getPets().unregisterPet();
-            player.teleport(getPosition().clone());
-		}
-		else if (keyword.equals("modern")) {
-			getActionSender().sendSidebarInterface(6, 1151);
-			magicBookType = SpellBook.MODERN;
-		}
-		else if (keyword.equals("ancient")) {
-			getActionSender().sendSidebarInterface(6, 12855);
-			magicBookType = SpellBook.ANCIENT;
-		}
-		else if (keyword.equals("hits")) {
-		    int hits = Integer.parseInt(args[0]);
-		    for (int i = 0; i < hits; i++) {
-			hit(i, HitType.NORMAL);
-		    }
-		}
-		else if(keyword.equals("hitme")) {
-		    this.hit(Integer.parseInt(args[0]), HitType.NORMAL);
-		    getActionSender().sendMessage("Your hp is at " + (getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".");
-		    skill.refresh();
-		}
-		
-		else if (keyword.equals("mypos")) {
-			getActionSender().sendMessage("You are at: " + getPosition());
-		}
-		else if (keyword.equalsIgnoreCase("shiptest")) {
-			Sailing.sailShip(this, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
-		}
-		else if (keyword.equalsIgnoreCase("scrolltest")) {
-		    for(int i = Integer.parseInt(args[0]); i < Integer.parseInt(args[1]); i++) {
-			this.getActionSender().sendString("" + i, i);
-		    }
-		}
-		else if (keyword.equalsIgnoreCase("carpet")) {
-			int xDiff = Integer.parseInt(args[0]);
-			int yDiff = Integer.parseInt(args[1]);
-			Position pos = new Position(getPosition().getX() + xDiff, getPosition().getY() + yDiff);
-			MagicCarpet.ride(this, pos);
-		}
-		else if (keyword.equals("ranim")) {
-			int animationId = (int)Misc.random(7200);
-			getUpdateFlags().sendAnimation(animationId, 0);
-			getActionSender().sendMessage("Animation #" + animationId);
-		}
-		else if (keyword.equals("anim")) {
-			int animationId = Integer.parseInt(args[0]);
-			getUpdateFlags().sendAnimation(animationId, 0);
-			getActionSender().sendMessage("Animation #" + animationId);
-		}
-		else if (keyword.equals("gfx")) {
-			int gfxId = Integer.parseInt(args[0]);
-			Graphic graphic = new Graphic(gfxId, 100);
-			getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
-			getActionSender().sendMessage("GFX #" + gfxId);
-		}
-		else if (keyword.equals("solvepuzzle")) {
-		    for (int i = 0; i < this.puzzleStoredItems.length; i++) {
-			this.puzzleStoredItems[i] = new Item(Puzzle.getPuzzleIndex(Puzzle.index)[i]);
-		    }
-		}
-		else if (keyword.equals("barrowsreward")) {
-		    int amount = Integer.parseInt(args[0]);
-		    for(int i = 0; i < amount; i++) {
-			this.setKillCount(14);
-			for(int i2 = 0; i < this.getBarrowsNpcDead().length; i++) {
-			    this.setBarrowsNpcDead(i, true);
-			}
-			barrows.getReward(this);
-		    }
-		    this.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.");
-		}
-		else if (keyword.equals("addpcpoints")) {
-		    int points = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    addPcPoints(points, player);
-		    this.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.");
-		}
-		else if (keyword.equals("setpcpoints")) {
-		    int points = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    setPcPoints(points, player);
-		    this.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".");
-		}
-		else if (keyword.equals("getpcpoints")) {
-		    String name = fullString;
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    this.getActionSender().sendMessage("That player has " + getPcPoints(player) + " commendation points.");
-		}
-		
-		else if (keyword.equals("setwave") || keyword.equals("wave")) {
-		    int wave = Integer.parseInt(args[0]);
-		    this.setFightCavesWave(wave - 1);
-		    this.getActionSender().sendMessage("Set Fight Caves wave to " + wave + ".");
-		}
-		else if (keyword.equals("setplayerwave") || keyword.equals("playerwave")) {
-		    int wave = Integer.parseInt(args[0]);
-		    String name = fullString.substring(fullString.indexOf("-")+1);
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    player.setFightCavesWave(wave);
-		    this.getActionSender().sendMessage("Set " + player.getUsername() + " Fight Caves wave to " + wave + ".");
-		}
-		else if (keyword.equals("forcefightcaves")) {
-		    String name = fullString;
-		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-		    Player player = World.getPlayerByName(nameLong);
-		    FightCaves.enterCave(player);
-		    this.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.");
-		}
-		else if (keyword.equals("interface")) {
-			this.getActionSender().sendInterface(Integer.parseInt(args[0]));
-		} 
-		else if (keyword.equals("teststring")) {
-		    for(int i = 18500; i < 19000; i++) {
-			this.getActionSender().sendString("" + i, i);
-		    }
-		}
-		else if (keyword.equals("resetinterface")) {
-		    this.getActionSender().removeInterfaces();
-		}
-		else if (keyword.equals("unmute")) {
-            Player player = World.getPlayerByName(fullString);
-            if (player == null) {
-                actionSender.sendMessage("Could not find player "+fullString);
-                return;
-            }
-            actionSender.sendMessage("Unmuted "+fullString);
-            player.setMuteExpire(System.currentTimeMillis());
-        } 
-		else if (keyword.equals("ban")) {
-        	Ban(args);
-		} 
-		else if (keyword.equals("unban")) {
-		Player player = World.getPlayerByName(fullString);
-		if(player == null) {
-		    actionSender.sendMessage("Could not find player "+fullString);
-		    return;
-		}
-		else {
-		    player.setBanExpire(System.currentTimeMillis() + 1000);
-		}
-        } 
-		else if (keyword.equals("banip")) {
-        	BanIpAddress(args);
-        } 
-		else if (keyword.equals("banmac")) {
-        	BanMacAddress(args);
-        } 
-		else if (keyword.equals("checkips")) {
-        //	checkHosts();
-        } 
-		else if (keyword.equals("update") ) {
-        	final int seconds = Integer.parseInt(args[0]);
-			if (getUsername().equals("Odel") || getUsername().equals("Bobster") || getUsername().equals("Mr Foxter") || getUsername().equals("Noiryx") || getUsername().equals("Pickles") || getUsername().equals("Mod dammit")){
-			SystemUpdate(seconds);
-			}
-        }
-        else if (keyword.equals("stat")) {
-		int skillId = Integer.parseInt(args[0]);
-                int lvl = Integer.parseInt(args[1]);
-                if (!fullString.contains("-")) {
-		    this.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-		    this.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
-		    this.getSkill().refresh(skillId);
-                }
-                String name = fullString.substring(fullString.indexOf("-")+1);
-                long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
-                Player player = World.getPlayerByName(nameLong);
-                if (player == null && fullString.contains("-")) {
-                    getActionSender().sendMessage("Can't find player "+name);
-                    return;
-                }
-		player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
-		player.getSkill().getExp()[skillId] = getSkill().getXPForLevel(lvl) - (getSkill().getXPForLevel(lvl) - getSkill().getXPForLevel(lvl-1));
-                player.getSkill().refresh(skillId);
-        }
-        else if (keyword.equals("rights")) {
-			if (getUsername().equals("Odel") || getUsername().equals("Noiryx") || getUsername().equals("Mr Foxter") || getUsername().equals("Bobster") || getUsername().equals("Pickles")){
-						GiveRights(args);
-			}
-        }
-        else if(keyword.equals("staffyell")) {
-        	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
-            getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"));
-    		for (Player player : World.getPlayers()) 
-    		{
-    			if (player == null)
-    				continue;
-    			if(!player.hideYell)
-    			{
-    				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(getUsername()));
-    			}
-    		}
-        }
-        else if(keyword.equals("highscoresupdate"))
-        {
-        	if (getUsername().equals("Bobster")){
-        		getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
-        		SQL.cleanHighScores();
-        		SQL.initHighScores();
-        	}
-        }
-	}
-
-	//clear note interface
-	public void ClearNotes()
-	{
-		if(getInterface() == 8134)
-		{
-			int line = 8144;
-			for (int i = 0; i < 120; i++) {
-				if(line > 8195 && line < 12174)
-				{
-					line = 12174;
-				}
-				getActionSender().sendString("",line);
-				line++;
-			}
-		}
-	}
-	
-	
 	/**
 	 * get players by host
 	 * 
@@ -2347,527 +852,8 @@ public class Player extends Entity {
 		return playerHosts;
 	}
 	*/
-	private void info() {
-	    getActionSender().sendInterface(8134);
-	    ClearNotes();
-	    this.getActionSender().sendString("@dre@-=vscape information=-", 8144);
-	    int line = 8147;
-	    for (String q : GlobalVariables.info) {
-		if (q != null) {
-		    if (line > 8195 && line < 12174) {
-			line = 12174;
-		    }
-		    this.getActionSender().sendString(q, line);
-		    line++;
-		}
-	    }
-	}
-	            private void roll() {
-                       switch(Misc.random(42)) {
-                                    case 0 :
-                                            getActionSender().sendMessage("You should grind Attack!");
-                                            break;
-                                    case 1 :
-                                            getActionSender().sendMessage("You should grind Strength!");
-                                            break;
-                                    case 2 :
-                                            getActionSender().sendMessage("You should grind Defense!");
-                                            break;
-                                    case 3 :
-                                            getActionSender().sendMessage("You should grind Ranged!");
-                                            break;
-                                    case 4 :
-                                            getActionSender().sendMessage("You should grind magic!");
-                                            break;
-                                    case 5 :
-                                            getActionSender().sendMessage("You should grind Runecrafting!");
-                                            break;
-                                    case 6 :
-                                            getActionSender().sendMessage("You should grind Agility!");
-                                            break;
-                                    case 7 :
-                                            getActionSender().sendMessage("You should grind Herblore!");
-                                            break;
-                                    case 8 :
-                                            getActionSender().sendMessage("You should grind Thieving!");
-                                            break;
-                                    case 9 :
-                                            getActionSender().sendMessage("You should grind Crafting!");
-                                            break;
-                                    case 10 :
-                                            getActionSender().sendMessage("You should grind Fletching!");
-                                            break;
-                                    case 11 :
-                                            getActionSender().sendMessage("You should grind Slayer!");
-                                            break;
-                                    case 12 :
-                                            getActionSender().sendMessage("You should grind Mining!");
-                                            break;
-                                    case 13 :
-                                            getActionSender().sendMessage("You should grind Smithing!");
-                                            break;
-                                    case 14 :
-                                            getActionSender().sendMessage("You should grind Fishing!");
-                                            break;
-                                    case 15 :
-                                            getActionSender().sendMessage("You should grind Cooking!");
-                                            break;
-                                    case 16 :
-                                            getActionSender().sendMessage("You should grind Firemaking!");
-                                            break;
-                                    case 17 :
-                                            getActionSender().sendMessage("You should grind Woodcutting!");
-                                            break;
-                                    case 18 :
-                                            getActionSender().sendMessage("You should grind Farming!");
-                                            break;
-                                    case 19 :
-                                            getActionSender().sendMessage("You should shitpost in yell!");
-                                            break;
-                                    case 20 :
-                                            getActionSender().sendMessage("You should bother Pickles about unimportant stuff!");
-                                            break;
-                                    case 21 :
-                                            getActionSender().sendMessage("You should bother Noiryx about unimportant stuff!");
-                                            break;
-                                    case 22 :
-                                            getActionSender().sendMessage("You should bother Odel about unimportant stuff!");
-                                            break;
-                                    case 23 :
-                                            getActionSender().sendMessage("You should alch some stuff. If your Magic is <50, go train Magic!");
-                                            break;
-                                    case 24 :
-                                            getActionSender().sendMessage("You should go do some Controlled grinding!");
-                                            break;
-                                    case 25 :
-                                            getActionSender().sendMessage("Post stats in thread!");
-                                            break;
-                                    case 26 :
-                                            getActionSender().sendMessage("Go do some quests!");
-                                            break;
-                                    case 27 :
-                                            getActionSender().sendMessage("Go do some level 1 clue scrolls!!");
-                                            break;
-                                    case 28 :
-                                            getActionSender().sendMessage("Go do some level 2 clue scrolls!!");
-                                            break;
-                                    case 29 :
-                                            getActionSender().sendMessage("Go do some level 3 clue scrolls!!");
-                                            break;
-                                    case 30 :
-                                            getActionSender().sendMessage("Post tfw no gf in thread ;_;");
-                                            break;
-                                     case 31 :
-                                            getActionSender().sendMessage("A dark fate descends upon your character.");
-                                            darkFate();
-                                            break;
-                                     case 32 :
-                                            getActionSender().sendMessage("You should pick flax!");
-                                            break;
-                                     case 33 :
-                                            getActionSender().sendMessage("you should spin flax into bowstrings!");
-                                            break;
-                                     case 34 :
-                                            getActionSender().sendMessage("You should sort your bank, it's messy!");
-                                            break;
-                                     case 35 :
-                                            getActionSender().sendMessage("You should sell some stuff in yell!");
-                                            break;
-                                     case 36 :
-                                            getActionSender().sendMessage("You should do some pest control!");
-                                            break;
-                                     case 37 :
-                                            getActionSender().sendMessage("You should go try for a fire cape (fight caves)!");
-                                            break;
-                                     case 38 :
-                                            getActionSender().sendMessage("You should go do some barrows!");
-                                            break;
-                                     case 39 :
-                                            getActionSender().sendMessage("Go try for that piece of equipment you want! Or try to buy it in ::yell.");
-                                            break;
-                                      case 40 :
-                                            getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: ayylmao");
-                                            break;
-                                      case 41 :
-                                            getActionSender().sendMessage("You should go mine some pess.");
-                                            break;
-                                      default :
-                                            getActionSender().sendMessage("Your dice broke! The generous /v/scape admins give you a new one.");
-                                            roll();
-                                            break;   
-                            }	
-            }
-
-            private void darkFate(){
-                                            this.getActionSender().sendInterface(18681);
-                                            transformNpc = 1973;
-                                            setStandAnim(5493);
-                                            setWalkAnim(5497);
-                                            setRunAnim(5497);
-                                            setAppearanceUpdateRequired(true);
-                                            try {   
-                                                Thread.sleep(1500);                 //1000 milliseconds is one second.
-                                            } catch(InterruptedException ex) {
-                                                Thread.currentThread().interrupt();
-                                            }
-                                            getActionSender().removeInterfaces();
-            }
-	/**
-	 * Yell Message
-	 * 
-	 * @param msg
-	 *            the yell message
-	 * 
-	 */
-	private void Yell(String Msg) {
-		if(Constants.STAFF_ONLY_YELL & getStaffRights() < 1)
-		{
-			getActionSender().sendMessage("Yell is currently set to Staff only.");
-			return;
-		}
-		if(hideYell)
-		{
-			getActionSender().sendMessage("Your yelling is currently disabled ::hideyell");
-			return;
-		}
-		if(getStaffRights() < 1){  
-	        int yellCooldown = World.playerAmount() * 1000 / 2; //  0.5s per player
-			 if (yellCooldown < 5000){ //minimum of 5 seconds (so 10 players)
-				yellCooldown = 5000;
-				} 
-	        long secBeforeNextYell = ( System.currentTimeMillis() - lastYell ) * -1 + yellCooldown;
-	        long output= secBeforeNextYell / 1000 + 1;  
-	         if(System.currentTimeMillis() - lastYell < yellCooldown) {
-				getActionSender().sendMessage("You can yell again in " + output + " seconds!");
-				return;
-				}
-		}
-		String YellMsg = Msg;
-		
-		for(int i = 0; i < Constants.bad.length; i++)
-		{
-			if(YellMsg.toLowerCase().contains(Constants.bad[i]))
-			{
-				getActionSender().sendMessage("You are trying to say something that should not be said!");
-				return;
-			}
-		}
-		
-		if (isMuted()) 
-		{
-			getActionSender().sendMessage("You are muted and cannot use yell.");
-			return;
-		}
-		
-		String yeller = NameUtil.formatName(getUsername());
-		
-		lastYell = System.currentTimeMillis();
-		LogHandler.logYell(getUsername(), YellMsg);
-		for (Player player : World.getPlayers()) 
-		{
-			if (player == null)
-				continue;
-			
-			String message = YellMsg;
-			
-			if(player.hideColors)
-			{
-				for(int k = 0; k < Constants.colorStrings.length;k++)
-				{
-					message = message.replace(Constants.colorStrings[k], "");
-				}
-			}
-			
-			player.getActionSender().sendGlobalChat("[G] ", yeller, message, getStaffRights());
-			//player.getActionSender().sendMessage(UserCrown+yeller + ":" + YellMsg + ":yell:");
-		}
-	}
-        
-        //oh fuck it's clan chat dude idshabbeding
-        	private void Clan(String Msg) {
-                if( currentChannel == null){ 
-			getActionSender().sendMessage("You're not in a clan.");
-			return;
-		}
-
-		String ClanMsg = Msg;
-		String chatter = NameUtil.formatName(getUsername());
-                
-                String clan = currentChannel;
-                
-                for(int i = 0; i < Constants.bad.length; i++)
-		{
-			if(ClanMsg.toLowerCase().contains(Constants.bad[i]))
-			{
-				getActionSender().sendMessage("You are trying to say something that should not be said!");
-				return;
-			}
-		}
-                
-		for (Player player : World.getPlayers()) {
-			if (player == null)
-				continue;
-                        
-                        if(player.currentChannel.equals(clan)){
-				if(player.hideColors){
-					for(int k = 0; k < Constants.colorStrings.length;k++){
-						ClanMsg = ClanMsg.replace(Constants.colorStrings[k], "");
-					}
-				}
-				player.getActionSender().sendMessage("@gre@[" + NameUtil.uppercaseFirstLetter(clan) + "]@blu@["+ chatter +"]@bla@: " + NameUtil.uppercaseFirstLetter(ClanMsg));
-                            
-			}
-		}
-	}
-             //glanzchat ends here
-                
-
-	/**
-	 * Modify Stats
-	 * 
-	 * @param player
-	 *            the player
-	 * 
-	 * @param skill
-	 *            the skill
-	 * 
-	 * @param newLvl
-	 *            the new level
-	 */
-	private void Stat(String player, int skill, int newLvl) {
-
-	}
-
-	/**
-	 * Mute Player
-	 * 
-	 * @param player
-	 *            the player to mute
-	 * 
-	 */
-	private void Mute(String[] args) {
-
-	}
 	
-	/**
-	 * Change Player rights
-	 * 
-	 * @param player
-	 *            the player
-	 *
-	 * @param rights
-	 *            right access level
-	 */
-	private void GiveRights(String[] args) {
-		if (args.length < 2) {
-			actionSender.sendMessage("::rights username rightType");
-			actionSender.sendMessage("rightType ex: player, mod, admin");
-			return;
-		}
-		String name = args[0];
-		String rightType = args[1];
-		Player player = World.getPlayerByName(name);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + name);
-			return;
-		}
-		if (player.isBanned()) {
-			actionSender.sendMessage("Player is banned");
-			return;
-		}
-		int rightLevel = 0;
-        switch (rightType) {
-        case "player":
-        	rightLevel = 0;
-		break;
-        case "mod":
-        	rightLevel = 1;
-		break;
-        case "admin":
-        	rightLevel = 2;
-		break;
-	case "dev":
-		rightLevel = 3;
-		break;
-        }
-        
-		String playerName = NameUtil.formatName(player.getUsername());
-        if(player.getStaffRights() != rightLevel)
-        {
-			player.setStaffRights(rightLevel);
-			World.messageToStaff("@dre@"+getUsername()+" has made "+ playerName +" "+ rightType +".");
-        }
-        else
-        {
-        	actionSender.sendMessage(playerName + " is already a "+ rightType +".");
-        }
-    }
-	
-	/**
-	 * Ban Player
-	 * 
-	 * @param player
-	 *            the player to ban
-	 * 
-	 */
-	private void Ban(String[] args) {
-		if (args.length < 2) {
-			actionSender.sendMessage("::ban username hours"); //use underscore instead of space if name is two words
-			return;
-		}
-		String name = "";
-		for (int i = 1; i < args.length; i++) {
-			name += args[0];
-		}
-		int hours = Integer.parseInt(args[1]);
-		if (hours <= 0 || hours > 1000000) {
-			actionSender.sendMessage("Ban between 0 and 1000000 hours");
-			return;
-		}
-		Player player = World.getPlayerByName(name);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + name);
-			return;
-		}
-		if (player.isBanned()) {
-			actionSender.sendMessage("Player is already banned");
-			return;
-		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					new FileOutputStream("./data/modlog.out", true));
-			out.write(player.getUsername() + " was banned by " + username
-					+ " for " + hours + " hours.");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		actionSender.sendMessage("Banned " + player.getUsername() + " for "
-				+ hours + " hours.");
-		player.setBanExpire(System.currentTimeMillis()
-				+ (hours * 60 * 60 * 1000));
-		player.disconnect();
-	}
-	
-	private void ModBan(String[] args) {
-		if (args.length < 1) {
-			actionSender.sendMessage("::ban username hours"); //use underscore instead of space if name is two words
-			return;
-		}
-		String name = args[0];
-		int hours = 2;
-		Player player = World.getPlayerByName(name);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + name);
-			return;
-		}
-		if (player.getStaffRights() > 1) {
-		    actionSender.sendMessage("You can't ban someone with more rights than you!");
-		    return;
-		}
-		if (player.isBanned()) {
-			actionSender.sendMessage("Player is already banned");
-			return;
-		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					new FileOutputStream("./data/modlog.out", true));
-			out.write(player.getUsername() + " was banned by " + username
-					+ " for " + hours + " hours.");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		actionSender.sendMessage("Banned " + player.getUsername() + " for "
-				+ hours + " hours.");
-		player.setBanExpire(System.currentTimeMillis()
-				+ (hours * 60 * 60 * 1000));
-		player.disconnect();
-	}
-	
-	/**
-	 * Ban Player mac address
-	 * 
-	 * @param player
-	 *            the player to ban
-	 * 
-	 */
-	private void BanMacAddress(String[] args) {
-		Player player = World.getPlayerByName(args[0]);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + args[0]);
-			return;
-		}
-		if (player.isMacBanned()) {
-			actionSender.sendMessage("Player is already MAC banned."); //wut
-			return;
-		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/bannedmacs.txt", true));
-			out.write(player.getMacAddress()+"\n");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		actionSender.sendMessage("Banned " + player.getUsername() + "'s MAC address.");
-		player.disconnect();
-	}
-	private void BanIpAddress(String[] args) {
-		Player player = World.getPlayerByName(args[0]);
-		if (player == null) {
-			actionSender.sendMessage("Could not find player " + args[0]);
-			return;
-		}
-		if (player.isIpBanned()) {
-			actionSender.sendMessage("Player is already IP banned."); //wut
-			return;
-		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					new FileOutputStream("./data/bannedips.txt", true));
-			out.write(player.getHost()+"\n");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		actionSender.sendMessage("Banned " + player.getUsername() + "'s ip address.");
-		player.disconnect();
-	}
-
-	private void SystemUpdate(int seconds) {
-		if (seconds <= 0) {
-			getActionSender().sendMessage("Invalid timer parameter provided.");
-			return;
-		}
-		final int ticks = seconds * 1000 / 600;
-		if (GlobalVariables.getServerUpdateTimer() != null) {
-			getActionSender().sendMessage(
-					"An update has already been executed.");
-			return;
-		}
-		Constants.SYSTEM_UPDATE = true;
-		for (Player player : World.getPlayers()) {
-			if (player == null || player.getIndex() == -1)
-				continue;
-			player.getActionSender().sendUpdateServer(ticks);
-			TradeManager.declineTrade(player);
-		}
-
-		new ShutdownWorldProcess(seconds).start();
-	}
-
+	@SuppressWarnings("unused")
 	private void writeNpc(Npc npc) {
 		String filePath = "./data/npcs/spawn-config.cfg";
 		try {
@@ -2950,6 +936,7 @@ public class Player extends Entity {
 		//
 		resetAllActions();
 		this.getPets().unregisterPet();
+		this.getCat().unregisterCat();
 		movePlayer(position);
 		getActionSender().sendMapState(0);
 		getActionSender().removeInterfaces();
@@ -3010,9 +997,11 @@ public class Player extends Entity {
         }, delayTime);
 }
 	public void movePlayer(Position position) {
+		Position lastPosition = getPosition().clone();
 		getPosition().setAs(position);
-		getPosition().setLastX(position.getX());
-		getPosition().setLastY(position.getY() + 1);
+		getPosition().setLastX(lastPosition.getX());
+		getPosition().setLastY(lastPosition.getY());
+		getPosition().setLastZ(lastPosition.getZ());
 		getMovementHandler().reset();
 		setResetMovementQueue(true);
 		setNeedsPlacement(true);
@@ -3095,7 +1084,7 @@ public class Player extends Entity {
 		wildyWarned = inWild();
 		if (getNewComersSide().getTutorialIslandStage() == 99) {
 			getNewComersSide().setTutorialIslandStage(100, true);
-			info();
+			CommandHandler.info(this);
 			//getActionSender().sendInterface(3559);
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
@@ -3148,6 +1137,21 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
+        if(inPestControlLobbyArea())
+        {
+        	teleport(PestControl.LOBBY_EXIT);
+        }
+        else if(inPestControlGameArea())
+        {
+        	setPcDamage(0);
+		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
+        	teleport(PestControl.LOBBY_EXIT);
+        }       
+        if(inWarriorGuildArena()) {
+        	teleport(WarriorsGuild.DC_EXIT);
+        	setWarriorsGuildGameActive(false);
+        }
+	//	getCat().initChecks();
 	}
 
 	public boolean beginLogin() throws Exception {
@@ -3163,6 +1167,47 @@ public class Player extends Entity {
 			return false;
 		}
 	}
+	
+	public boolean validName(){
+		if(username.startsWith("_") || username.endsWith("_") || username.startsWith("\\s+") || username.endsWith("\\s+"))
+		{
+			return false;
+		}
+		for(int i = 0; i < Constants.bannedChars.length; i++)
+		{
+			if(username.contains(Constants.bannedChars[i]))
+			{
+				return false;
+			}
+		}
+		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x5b5b57f8a98a5dd1L)
+		{
+			return false;
+		}
+		char lastChar = username.charAt(0);
+		int validChars = 0;
+		for(int i = 0; i < username.length(); i++)
+		{
+			char c = username.charAt(i);
+			if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9') {
+				if (lastChar >= 'A' && lastChar <= 'Z' || lastChar >= 'a' && lastChar <= 'z' || lastChar >= '0' && lastChar <= '9') {
+					validChars++;
+				}
+			} 
+			else if(c == ' ' || c == '_')
+			{
+				if(lastChar == ' ' || lastChar == '_')
+				{
+					return false;
+				}
+			}
+			lastChar = c;
+		}
+		if(validChars <= 3){
+			return false;
+		}
+		return true;
+	}
 
 	private boolean checkLoginStatus() {
         if(isBanned() || isIpBanned() || isMacBanned())
@@ -3170,13 +1215,9 @@ public class Player extends Entity {
 			setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_DISABLED);
 			return false;
 		}
-		for(int i = 0; i < Constants.bannedChars.length; i++)
-		{
-			if(username.contains(Constants.bannedChars[i]))
-			{
-	            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
-	            return false;
-			}
+		if(!validName()){
+            setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
+            return false;
 		}
         if (username.length() <= 3 || username.length() > 12 || password.length() < 4 || password.length() > 20) {
             setReturnCode(Constants.LOGIN_RESPONSE_INVALID_CREDENTIALS);
@@ -3194,6 +1235,10 @@ public class Player extends Entity {
 					continue;
 				}
 				if (player.getUsernameAsLong() == getUsernameAsLong()) {
+					if(player.getMacAddress().equals(getMacAddress()))
+					{
+						player.disconnect();
+					}
 					setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
 					return false;
                 }
@@ -3319,14 +1364,11 @@ public class Player extends Entity {
 		}
         if(inPestControlLobbyArea())
         {
-        	PestControl.leaveLobby(this);
+        	PestControl.leaveLobby(this, true);
         }
         else if(inPestControlGameArea())
         {
-        	PestControl.leaveGame(this);
-        }
-        else if(inWarriorGuildArena()) {
-        	WarriorsGuild.exitArena(this, true);
+        	PestControl.leaveGame(this, true);
         }
         else if(inFightCaves()) {
         	FightCaves.destroyNpcs(this);
@@ -3353,6 +1395,10 @@ public class Player extends Entity {
             b.start();
 			if (getPets().getPet() != null) {
 				getPets().unregisterPet();
+			}
+			if(getCat().catNpc() != null)
+			{
+				getCat().unregisterCat();
 			}
             b.stop();
             b = Benchmarks.getBenchmark("cannonUnregister");
@@ -3716,6 +1762,22 @@ public class Player extends Entity {
 		return bonuses;
 	}
 
+	public void setFriendsConverted(boolean val) {
+		this.friendsConverted = val;
+	}
+	
+	public boolean getFriendsConverted() {
+		return friendsConverted;
+	}
+	
+	public void setIgnoresConverted(boolean val) {
+		this.ignoresConverted = val;
+	}
+	
+	public boolean getIgnoresConverted() {
+		return ignoresConverted;
+	}
+	
 	public void setFriends(long[] friends) {
 		this.friends = friends;
 	}
@@ -3772,6 +1834,14 @@ public class Player extends Entity {
 		return runeDraw;
 	}
 	
+	public Puzzle getPuzzle() {
+		return puzzle;
+	}
+	
+	public MithrilSeeds getMithrilSeeds() {
+		return seeds;
+	}
+	
 	public Barrows getBarrows() {
 		return barrows;
 	}
@@ -3782,6 +1852,10 @@ public class Player extends Entity {
 	
 	public FreakyForester getFreakyForester() {
 		return freakyForester;
+	}
+	
+	public Pillory getPillory() {
+		return pillory;
 	}
 	
 	public GhostsAhoyPetition getPetition() {
@@ -3800,6 +1874,12 @@ public class Player extends Entity {
 	}
 	public void setWyvernWarned(boolean bool) {
 	    this.wyvernWarned = bool;
+	}
+	public boolean hasShotGrip() {
+	    return this.shotGrip;
+	}
+	public void setShotGrip(boolean bool) {
+	    this.shotGrip = bool;
 	}
 	public boolean justWonRuneDraw() {
 		return justWonRuneDraw;
@@ -3832,10 +1912,14 @@ public class Player extends Entity {
 	public EnchantingChamber getEnchantingChamber() {
 		return enchantingChamber;
 	}
+	/*
         public PestControl getPestControl() {
                 return pestControl;
-        }
-
+        }*/
+	
+	public ArrayList<Position> getPestControlBarricades() {
+		return pestControlBarricades;
+	}
 	public PlayerInteraction getDuelInteraction() {
 		return playerInteraction;
 	}
@@ -3986,6 +2070,10 @@ public class Player extends Entity {
 
 	public Pets getPets() {
 		return pets;
+	}
+	
+	public Cat getCat() {
+		return cat;
 	}
 
 	public void setPrivateMessaging(PrivateMessaging privateMessaging) {
@@ -4540,6 +2628,12 @@ public class Player extends Entity {
 	}
 	public void setGodBook(int set) {
 	    this.godBook = set;
+	}
+	public int getLostGodBook() {
+	    return lostGodBook;
+	}
+	public void setLostGodBook(int set) {
+	    this.lostGodBook = set;
 	}
 	public int getRailingsFixed() {
 	    return this.railingsFixed;
@@ -5257,11 +3351,11 @@ public class Player extends Entity {
 	@Override
 	public boolean isProtectingFromCombat(AttackType attackType, Entity attacker) {
 		if (attackType == AttackType.MELEE)
-			return isUsingPrayer[Prayer.PROTECT_FROM_MELEE];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_MELEE.getIndex()];
 		else if (attackType == AttackType.RANGED)
-			return isUsingPrayer[Prayer.PROTECT_FROM_RANGED];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_RANGED.getIndex()];
 		else if (attackType == AttackType.MAGIC)
-			return isUsingPrayer[Prayer.PROTECT_FROM_MAGIC];
+			return isUsingPrayer[PrayerData.PROTECT_FROM_MAGIC.getIndex()];
 		return false;
 	}
 
@@ -5452,7 +3546,7 @@ public class Player extends Entity {
 		}
 		ArrayList<Item> keptItems = new ArrayList<Item>();
 		int itemsKept = isSkulled ? 0 : 3;
-		if (isUsingPrayer[Prayer.PROTECT_ITEM])
+		if (isUsingPrayer[PrayerData.PROTECT_ITEM.getIndex()])
 			itemsKept += 1;
 		while (keptItems.size() < itemsKept && allItems.size() > 0) {
 			keptItems.add(allItems.poll());
@@ -5479,9 +3573,9 @@ public class Player extends Entity {
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
 		ArrayList<Item> keptItems = getItemsKeptOnDeath(items);
 		List<Item> allItems = new ArrayList<Item>(Arrays.asList(items));
-		for(int i = 0; i < getPets().PET_IDS.length; i++) {
-		    if(inventory.playerHasItem(new Item(getPets().PET_IDS[i][0])) )
-				keptItems.add(new Item(getPets().PET_IDS[i][0]));
+		for(int i = 0; i < Pets.PET_IDS.length; i++) {
+		    if(inventory.playerHasItem(new Item(Pets.PET_IDS[i][0])) )
+				keptItems.add(new Item(Pets.PET_IDS[i][0]));
 		}
 		for (Item kept : keptItems) {
 			if (kept == null)
@@ -5505,9 +3599,12 @@ public class Player extends Entity {
 		for (Item dropped : allItems) {
 			if (dropped == null)
 				continue;
-			for(int i = 0; i < getPets().PET_IDS.length; i++) {
-			    if(dropped.getId() == getPets().PET_IDS[i][0])
+			for(int i = 0; i < Pets.PET_IDS.length; i++) {
+			    if(dropped.getId() == Pets.PET_IDS[i][0])
 				inventory.addItem(dropped);
+			}
+			if(dropped.getId() == this.getGodBook()) {
+			    this.setLostGodBook(this.getGodBook());
 			}
 			if(Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
 				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
@@ -5624,15 +3721,11 @@ public class Player extends Entity {
 		return smithInterface;
 	}
 	
-	public void setCanoeStation(CanoeStationData newStation)
+	public Canoe getCanoe()
 	{
-		curCanoeStation = newStation;
+		return canoe;
 	}
 	
-	public CanoeStationData getCanoeStation()
-	{
-		return curCanoeStation;
-	}
 	public int getStandAnim() {
 		if (standAnim == -1)
 			return getEquipment().getStandAnim();
@@ -5771,7 +3864,8 @@ public class Player extends Entity {
 	}
 
 	public void appendToAutoSpawn(NpcDefinition npc) {
-		int randNum = Misc.random(4) + 2;
+		//int randNum = Misc.random(4) + 2;
+		/*
 		String filePath = "./data/spawns.txt";
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
@@ -5785,7 +3879,8 @@ public class Player extends Entity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		NpcLoader.newNPC(npc.getId(), getPosition().getX(), getPosition().getY(), getPosition().getZ(), randNum);
+		*/
+		NpcLoader.newWanderNPC(npc.getId(), getPosition().getX(), getPosition().getY(), getPosition().getZ());
 	}
 
 	public void resetAllActions() {
@@ -5867,7 +3962,7 @@ public class Player extends Entity {
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
-		if (npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
+		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
 			return true;
 		}
 		if (npc.getNpcId() == 18) {
@@ -5904,6 +3999,9 @@ public class Player extends Entity {
 				CombatCycleEvent.CanAttackResponse response = CombatCycleEvent.canAttack(npc, this);
 				if (response != CombatCycleEvent.CanAttackResponse.SUCCESS)
 					continue;
+				if (npc.getNpcId() == 99) {
+					npc.getUpdateFlags().setForceChatMessage("Grrr!");
+				}
 				if (npc.getNpcId() == 180) {
 					npc.getUpdateFlags().setForceChatMessage("Stand and deliver!");
 				}
@@ -5989,6 +4087,14 @@ public class Player extends Entity {
 
 	public BrewData getBrewData() {
 		return brewData;
+	}
+	
+	public boolean getInJail() {
+		return inJail;
+	}
+
+	public void setInJail(boolean state) {
+		inJail = state;
 	}
 
 	public boolean hasCombatEquipment() {
@@ -6367,22 +4473,7 @@ public class Player extends Entity {
 	public boolean isBrimhavenDungeonOpen() {
 		return brimhavenDungeonOpen;
 	}
-
-	private void saveCommand(String user, String command) {
-		String filePath = "./data/commands.txt";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.write(user+" used "+command);
-				out.newLine();
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * @param teleotherPosition the teleotherPosition to set
 	 */
@@ -6541,6 +4632,27 @@ public class Player extends Entity {
 	public int getDfsCharges() {
 	    return this.dfsCharges;
 	}
+	
+	public void setReceivedMasks(boolean val)
+	{
+		receivedMasks = val;
+	}
+	
+	public boolean getReceivedMasks()
+	{
+		return receivedMasks;
+	}
+	
+	public void setHasZombieHead(boolean val)
+	{
+		hasZombieHead = val;
+	}
+	
+	public boolean getHasZombieHead()
+	{
+		return hasZombieHead;
+	}
+	
 	/**
 	 * @param lastPersonChallenged the lastPersonChallenged to set
 	 */
@@ -6593,7 +4705,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 14169); //forgettable tale
 		getActionSender().sendString("", 10115); //the fremennik trials
 		getActionSender().sendString("", 14604); //garden of tranquility
-		getActionSender().sendString("", 7360); //gertrude's cat
+		getActionSender().sendString("@red@Gertrudes Cat", 7360); //gertrude's cat
 		getActionSender().sendString("@red@Ghosts Ahoy", 12282); //ghosts ahoy
 		getActionSender().sendString("", 13577); //the giant dwarf
 		getActionSender().sendString("", 12839); //the golem
@@ -6695,20 +4807,7 @@ public class Player extends Entity {
 			}
 		}
 	}
-    public boolean getShowHp(){
-        return showHp;
-    }
-        public void setShowHp(boolean show, boolean msg) {
-		showHp = show;
-			if (showHp) {
-				getActionSender().sendMessage(
-						"You have turned on your HP and Prayer display.");
-			} else {
-				getActionSender().sendMessage(
-						"You have turned off your HP and Prayer display.");
-			}
-		
-	}
+ 
 		public String getClanChannel(){
 			return currentChannel;
 		}

@@ -5,7 +5,6 @@ import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -14,20 +13,13 @@ import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
-import com.rs2.model.content.skills.agility.Agility;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ShopManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -151,7 +143,6 @@ public class HeroesQuest implements Quest {
     }
     
     public void sendQuestRequirements(Player player) {
-        String prefix = "";
         player.getActionSender().sendString(getQuestName(), 8144);
         int questStage = player.getQuestStage(getQuestID());
 	switch(questStage) {
@@ -281,8 +272,7 @@ public class HeroesQuest implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
-        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
 	player.getActionSender().sendString("Talk to @dre@Achietties @bla@outside the @dre@Heroes Guild @bla@, north", 8147);
 	player.getActionSender().sendString("of Taverly to begin this quest.", 8148);
@@ -385,6 +375,9 @@ public class HeroesQuest implements Quest {
 			public void execute(CycleEventContainer b) {
 			    npc.getUpdateFlags().setForceChatMessage("Urgggh...");
 			    npc.hit(npc.getCurrentHp(), HitType.NORMAL);
+			    if(player.getQuestStage(27) < ARMBAND_GOTTEN) {
+				player.setShotGrip(true);
+			    }
 			    b.stop();
 			}
 
@@ -448,7 +441,7 @@ public class HeroesQuest implements Quest {
 	}
     }
     
-    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem) { 
+    public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { 
 	if((firstItem == HARRALANDER_POTION && secondItem == BLAMISH_SNAIL_SLIME) || (firstItem == BLAMISH_SNAIL_SLIME && secondItem == HARRALANDER_POTION)) {
 	    if(player.getSkill().getLevel()[Skill.HERBLORE] < 25) {
 		player.getDialogue().sendStatement("You need a Herblore level of 25 to make this potion.");
@@ -506,6 +499,10 @@ public class HeroesQuest implements Quest {
 		} else if(player.getQuestStage(27) == QUEST_STARTED && !player.getInventory().canAddItem(new Item(CANDLESTICK, 2))) {
 		    player.getDialogue().sendStatement("You find two candlesticks, but you don't have room for them.");
 		    return true;
+		} else if(player.getQuestStage(27) >= QUEST_COMPLETE && !player.getInventory().ownsItem(CANDLESTICK)) {
+		    player.getDialogue().sendStatement("You find a candlestick in the chest. Must be to assist", "the person who killed Grip for you.");
+		    player.getInventory().addItemOrDrop(new Item(CANDLESTICK));
+		    return true;
 		} else {
 		    return false;
 		}
@@ -548,7 +545,7 @@ public class HeroesQuest implements Quest {
 		player.getActionSender().walkThroughDoor(object, x, y, 0);
 		return true;
 	    case 2629: //chef's "wall"
-		if(player.spokeToCharlie()) {
+		if(player.spokeToCharlie() || (player.getQuestStage(27) >= QUEST_COMPLETE && player.isPhoenixGang())) {
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2787 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -1049,7 +1046,7 @@ public class HeroesQuest implements Quest {
 				if(player.isBlackArmGang() && !player.getInventory().ownsItem(CANDLESTICK)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK)) {
+				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.getQuestStage(27) == CANDLESTICKS_GOTTEN) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(12);
 				    return true;
@@ -1175,7 +1172,7 @@ public class HeroesQuest implements Quest {
 				if(player.isPhoenixGang() && !player.getInventory().ownsItem(1577)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(1577)) {
+				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.hasShotGrip()) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
@@ -1221,6 +1218,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().endDialogue();
 				player.getInventory().replaceItemWithItem(new Item(CANDLESTICK), new Item(ARMBAND));
 				player.setQuestStage(27, ARMBAND_GOTTEN);
+				player.setShotGrip(false);
 				return true;
 			}
 		    return false;
@@ -1437,5 +1435,17 @@ public class HeroesQuest implements Quest {
 	}
 	return false;
     }
+
+	@Override
+	public boolean doNpcClicking(Player player, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

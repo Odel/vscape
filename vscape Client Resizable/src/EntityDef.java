@@ -12,6 +12,24 @@ public final class EntityDef {
 		entityDef.interfaceType = i;
 		entityDef.readValues(stream);
 		switch (i) {
+			case 6142 :
+			case 6143 :
+			case 6144 :
+			case 6145 :
+			case 6146 :
+			case 6147 :
+			case 6148 :
+			case 6149 :
+			case 6150 :
+			case 6151 :
+			case 6152 :
+			case 6153 :
+			case 6154 :
+			case 6155 :
+			case 6156 :
+			case 6157 :
+					entityDef.drawMapDot = false;
+				break;
 		/*
 			case 1:
 				entityDef.actions = new String[5];
@@ -258,7 +276,7 @@ public final class EntityDef {
 			else if (i == 92)
 				stream.readUnsignedWord();
 			else if (i == 93)
-				aBoolean87 = false;
+				drawMapDot = false;
 			else if (i == 95)
 				combatLevel = stream.readUnsignedWord();
 			else if (i == 97)
@@ -291,7 +309,7 @@ public final class EntityDef {
 				}
 
 			} else if (i == 107)
-				aBoolean84 = false;
+				hasActions = false;
 		} while (true);
 	}
 
@@ -309,9 +327,9 @@ public final class EntityDef {
 		interfaceType = -1L;
 		anInt79 = 32;
 		anInt83 = -1;
-		aBoolean84 = true;
+		hasActions = true;
 		anInt86 = 128;
-		aBoolean87 = true;
+		drawMapDot = true;
 		anInt91 = 128;
 		aBoolean93 = false;
 	}
@@ -340,10 +358,10 @@ public final class EntityDef {
 	public static EntityDef[] cache;
 	public static Client clientInstance;
 	public int anInt83;
-	public boolean aBoolean84;
+	public boolean hasActions;
 	public int anInt85;
 	public int anInt86;
-	public boolean aBoolean87;
+	public boolean drawMapDot;
 	public int childrenIDs[];
 	public byte description[];
 	public int anInt91;

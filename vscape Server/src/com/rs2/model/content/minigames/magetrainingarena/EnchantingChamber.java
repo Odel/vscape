@@ -111,20 +111,20 @@ public class EnchantingChamber {
 	public void showInterfaceComponent(String bonusItem) {
 		removeInterfaceComponent();
 		if (bonusItem == "red")
-			player.getActionSender().sendFrame171(0, 15924);
+			player.getActionSender().sendInterfaceHidden(0, 15924);
 		else if (bonusItem == "yellow")
-			player.getActionSender().sendFrame171(0, 15922);
+			player.getActionSender().sendInterfaceHidden(0, 15922);
 		else if (bonusItem == "green")
-			player.getActionSender().sendFrame171(0, 15923);
+			player.getActionSender().sendInterfaceHidden(0, 15923);
 		else if (bonusItem == "blue")
-			player.getActionSender().sendFrame171(0, 15925);
+			player.getActionSender().sendInterfaceHidden(0, 15925);
 	}
 
 	public void removeInterfaceComponent() {
-		player.getActionSender().sendFrame171(1, 15924);
-		player.getActionSender().sendFrame171(1, 15922);
-		player.getActionSender().sendFrame171(1, 15923);
-		player.getActionSender().sendFrame171(1, 15925);
+		player.getActionSender().sendInterfaceHidden(1, 15924);
+		player.getActionSender().sendInterfaceHidden(1, 15922);
+		player.getActionSender().sendInterfaceHidden(1, 15923);
+		player.getActionSender().sendInterfaceHidden(1, 15925);
 	}
 
 	/* handle object clicking packet */

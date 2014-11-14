@@ -43,7 +43,9 @@ public class ItemOnItemHandling {
 		
 		CRYSTAL_KEY(985, 987, new Item[]{new Item(985), new Item(987)}, new Item[]{new Item(989)}, -1, null, 0, "You join the two halves of the key together."),
 		
-		WATERMELON_SLICES(5982, 946, new Item[]{new Item(5982)}, new Item[]{new Item(5984), new Item(5984), new Item(5984)}, -1, null, 0, "You cut the watermelon into 3 slices.");
+		WATERMELON_SLICES(5982, 946, new Item[]{new Item(5982)}, new Item[]{new Item(5984), new Item(5984), new Item(5984)}, -1, null, 0, "You cut the watermelon into 3 slices."),
+		
+		CHOCOLATE_DUST(946, 1973, new Item[]{new Item(1973)}, new Item[]{new Item(1975)}, -1, null, 0, "You use your knife to turn the chocolate to dust.");
 		/*
 		PINEAPPLE_CHUNKS(946, 2114, new Item[]{new Item(2114)}, new Item[]{new Item(2116)}, -1, null, 0, "You cut the pineapple into chunks."),
 		

@@ -1,6 +1,6 @@
 package com.rs2.cache.object;
 
-import com.rs2.Constants;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -14,9 +14,9 @@ import com.rs2.cache.obj.ObjectDefinitionListener;
 import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.objects.GameObject;
+/*import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
-import com.rs2.model.players.GlobalObjectHandler;
+import com.rs2.model.players.GlobalObjectHandler;*/
 import com.rs2.model.players.ObjectHandler;
 
 /**

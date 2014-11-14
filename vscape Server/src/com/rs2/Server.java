@@ -6,7 +6,6 @@ import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.events.MaskDropController;
 import com.rs2.model.content.minigames.GroupMiniGame;
 import com.rs2.model.content.minigames.groupminigames.CastleWarsCounter;
 import com.rs2.model.content.minigames.magetrainingarena.*;
@@ -31,8 +30,6 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.util.clip.Region;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
-import com.rs2.util.sql.SQLEngine;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -225,9 +222,6 @@ public class Server implements Runnable {
 			NpcLoader.loadAutoSpawn("./data/npcs/spawn-config.cfg");
 
             HighscoresManager.load();
-            
-            MaskDropController.initController();
-
 
 			// Start up and get a'rollin!
 			startup();

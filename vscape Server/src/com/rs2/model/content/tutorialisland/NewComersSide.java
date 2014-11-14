@@ -116,11 +116,11 @@ public class NewComersSide {
 
 	public void sendProgressInterface() {
 		player.getActionSender().sendConfig(406, progressValue);
-		player.getActionSender().sendFrame171(1, 12224);
-		player.getActionSender().sendFrame171(1, 12225);
-		player.getActionSender().sendFrame171(1, 12226);
-		player.getActionSender().sendFrame171(1, 12227);
-		player.getActionSender().sendFrame171(0, 12161);
+		player.getActionSender().sendInterfaceHidden(1, 12224);
+		player.getActionSender().sendInterfaceHidden(1, 12225);
+		player.getActionSender().sendInterfaceHidden(1, 12226);
+		player.getActionSender().sendInterfaceHidden(1, 12227);
+		player.getActionSender().sendInterfaceHidden(0, 12161);
 		player.getActionSender().sendString("% Done", 12224);
 		player.getActionSender().sendWalkableInterface(8680);
 

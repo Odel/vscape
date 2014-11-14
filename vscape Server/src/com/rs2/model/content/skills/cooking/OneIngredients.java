@@ -26,10 +26,10 @@ public class OneIngredients {
 		PINEAPPLE_PIZZA(2116, 0, 2289, 2301, 65, 195, true, 0), 
 		PINEAPPLE_PIZZA2(2118, 0, 2289, 2301, 65, 195, true, 0),
 
-		CHOCOLATE_CAKE(1973, 0, 1891, 1897, 50, 210, true, 0),
-		CHOCOLATE_CAKE2(1975, 0, 1891, 1897, 50, 210, true, 0), 
+		CHOCOLATE_CAKE(1973, 0, 1891, 1897, 50, 20, true, 0),
+		CHOCOLATE_CAKE2(1975, 0, 1891, 1897, 50, 20, true, 0), 
 		CHOCOLATE_MILK(1975, 0, 1927, 1977, 4, 0, true, 0), 
-		CAKE1(2516, 0, 1887, 1889, 40, 0, true, 0), 
+		CAKE1(1933, 0, 1887, 1889, 40, 0, true, 0), 
 		CAKE2(1927, 0, 1887, 1889, 40, 0, true, 0), 
 		CAKE3(1944, 0, 1887, 1889, 40, 0, true, 0),
 
@@ -141,7 +141,7 @@ public class OneIngredients {
 			return true;
 		}
 		if (rightData.getResult() == 1889)// making cake
-			if (!player.getInventory().getItemContainer().contains(2516) || !player.getInventory().getItemContainer().contains(1927) || !player.getInventory().getItemContainer().contains(1944))
+			if (!player.getInventory().getItemContainer().contains(1933) || !player.getInventory().getItemContainer().contains(1927) || !player.getInventory().getItemContainer().contains(1944))
 				return true;
 			else {
 				handleCake(player);
@@ -169,13 +169,10 @@ public class OneIngredients {
 	}
 
 	public static void handleCake(Player player) {
-		player.getInventory().removeItem(new Item(2516));
-		player.getInventory().removeItem(new Item(1927));
-		player.getInventory().removeItem(new Item(1944));
-		player.getInventory().removeItem(new Item(1887));
-		player.getInventory().addItem(new Item(3727));
-		player.getInventory().addItem(new Item(1931));
-		player.getInventory().addItem(new Item(1889));
+		player.getInventory().replaceItemWithItem(new Item(1933), new Item(1931)); //flour
+		player.getInventory().replaceItemWithItem(new Item(1927), new Item(1925)); //milk
+		player.getInventory().replaceItemWithItem(new Item(1887), new Item(1889)); //tin
+		player.getInventory().removeItem(new Item(1944)); //egg
 		player.getActionSender().sendMessage("You mix the ingredients together and make a cake.");
 	}
 }

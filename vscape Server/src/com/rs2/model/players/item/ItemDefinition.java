@@ -1,7 +1,6 @@
 package com.rs2.model.players.item;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,8 +12,6 @@ import java.util.logging.Logger;
 
 import com.rs2.Constants;
 //import com.rs2.util.XStreamUtil;
-
-import com.rs2.model.players.ShopManager.Shop;
 
 import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
@@ -67,7 +64,6 @@ public class ItemDefinition {
 	 * @throws IllegalStateException
 	 *             if the definitions have been loaded already.
 	 */
-	@SuppressWarnings("unchecked")
 	public static void init() throws IOException {
 		FileReader reader = new FileReader("./datajson/content/itemDefinitions.json");
 		try {
@@ -468,6 +464,9 @@ public class ItemDefinition {
     	if (!stackable && !noteable) {
     		return true;
     	}
+    	if(untradable || Arrays.binarySearch(Constants.UNTRADEABLE_ITEMS, id) > -1){
+    		return true;
+    	}
         return Arrays.binarySearch(Constants.UNTRADEABLE_ITEMS, id) > -1;
     }
 
@@ -525,7 +524,7 @@ public class ItemDefinition {
 		if (itemName.contains("seercull")) {
 			return true;
 		}
-		if (itemName.contains("tzhaar-ket-om")) {
+		if (itemName.contains("tzhaar-ket-om") || itemName.contains("toktz-mej-tal")) {
 			return true;
 		}
 		if (itemName.contains("mjolnir")) {

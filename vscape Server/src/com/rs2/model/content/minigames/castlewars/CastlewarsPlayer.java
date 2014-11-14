@@ -1,7 +1,5 @@
 package com.rs2.model.content.minigames.castlewars;
 
-import com.rs2.model.content.minigames.castlewars.*;
-
 public class CastlewarsPlayer{
 	private int team; //1 is sara, 2 is zammy
 	private boolean isInLobby;

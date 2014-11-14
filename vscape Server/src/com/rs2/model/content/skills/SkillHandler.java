@@ -108,6 +108,9 @@ public class SkillHandler {
 		if (player.getSpawnedNpc() != null) {
 			return false;
 		}
+        if (player.getInJail()){
+        	return false;
+        }
 		return Misc.random(3000) == 0;
 	}
 

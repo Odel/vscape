@@ -1,7 +1,6 @@
 package com.rs2.model.content;
 
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.players.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.util.Misc;
 

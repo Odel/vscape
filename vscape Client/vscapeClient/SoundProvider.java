@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import javax.sound.midi.*;
 import javax.sound.sampled.*;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;

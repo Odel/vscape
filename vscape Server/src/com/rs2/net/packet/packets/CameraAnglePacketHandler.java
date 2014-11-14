@@ -1,6 +1,5 @@
 package com.rs2.net.packet.packets;
 
-import com.rs2.Constants;
 import com.rs2.model.players.Player;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
