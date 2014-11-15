@@ -12,6 +12,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import java.util.Random;
 
 public class FreakyForester {
     public Player player;
@@ -24,9 +25,6 @@ public class FreakyForester {
     public static final int TOP = 6180;
     public static final int LEGS = 6181;
     public static final int[] CLOTHES = {6182, 6180, 6181};
-    public static final int[] CLOTHES_SANS_HAT = {6180, 6181};
-    public static final int[] CLOTHES_SANS_TOP = {6182, 6181};
-    public static final int[] CLOTHES_SANS_LEGS = {6182, 6180};
     
     public FreakyForester(Player eventee) {
 	this.player = eventee;
@@ -53,21 +51,21 @@ public class FreakyForester {
 	    return new Item(CLOTHES[Misc.random(2)]);
 	}
 	else if(player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(CLOTHES_SANS_HAT[Misc.random(1)]);
+	    return new Item(50 >= new Random().nextDouble() * 100 ? TOP : LEGS);
 	}
-	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(CLOTHES_SANS_TOP[Misc.random(1)]);
+	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
+	    return new Item(50 >= new Random().nextDouble() * 100 ? HAT : LEGS);
 	}
 	else if(!player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
-	    return new Item(CLOTHES_SANS_LEGS[Misc.random(1)]);
+	    return new Item(50 >= new Random().nextDouble() * 100 ? HAT : TOP);
 	}
 	else if(player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
 	    return new Item(LEGS);
 	}
-	else if(player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(LEGS) && !player.getInventory().ownsItem(TOP)) {
+	else if(player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
 	    return new Item(TOP);
 	}
-	else if(player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS) && !player.getInventory().ownsItem(HAT)) {
+	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
 	    return new Item(HAT);
 	}
 	else {
