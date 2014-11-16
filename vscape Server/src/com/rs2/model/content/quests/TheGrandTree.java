@@ -1335,7 +1335,7 @@ public class TheGrandTree implements Quest {
 				    return true;
 				}
 			    case 4:
-				player.getDialogue().sendStatement("The mage carefully examines the sample.", CONTENT);
+				player.getDialogue().sendStatement("The mage carefully examines the sample.");
 				return true;
 			    case 5:
 				player.getDialogue().sendNpcChat("Blah, blah... Daconia... blah, blah.", CONTENT);
