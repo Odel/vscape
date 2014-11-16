@@ -872,16 +872,24 @@ public class WalkToActionHandler {
 					player.teleport(new Position(2208, 4938));
 					break;
 				case 5959 : // magebank lever
-					player.teleport(new Position(2539, 4712));
+					if(!player.isTeleblocked()){
+						player.teleport(new Position(2539, 4712));
+					}else{
+						player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+					}
 					break;
 				case 9706 : //magebank lever
 				case 9707 :
-					if(player.getCombatingEntity() != null)
-					    player.getActionSender().sendMessage("You cannot use this in combat!");
-					else if(player.getCombatingEntity() == null && y == 3956)
-					    player.teleport(new Position(3106, 3952, 0));
-					else if(player.getCombatingEntity() == null && y == 3952)
-					    player.teleport(new Position(3105, 3956, 0));
+					if(!player.isTeleblocked()){
+						if(player.getCombatingEntity() != null)
+						    player.getActionSender().sendMessage("You cannot use this in combat!");
+						else if(player.getCombatingEntity() == null && y == 3956)
+						    player.teleport(new Position(3106, 3952, 0));
+						else if(player.getCombatingEntity() == null && y == 3952)
+						    player.teleport(new Position(3105, 3956, 0));
+					}else{
+						player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+					}
 				break;
 				case 2878: //magebank pool - cadillac
 				    if(player.getMageArenaStage() >= 2) {
@@ -958,10 +966,18 @@ public class WalkToActionHandler {
 					player.getActionSender().sendMessage("You cannot obtain a God Cape yet.");
 				break;
 				case 1815 : // magebank lever near webs
-					player.teleport(new Position(2561, 3311)); //3153 3923
+					if(!player.isTeleblocked()){
+						player.teleport(new Position(2561, 3311)); //3153 3923
+					}else{
+						player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+					}
 					break;
 				case 1814 : // ardy lever
-					player.teleport(new Position(3153, 3923)); //3153 3923
+					if(!player.isTeleblocked()){
+						player.teleport(new Position(3153, 3923)); //3153 3923
+					}else{
+						player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+					}
 					break;
 				case 5960 :
 					player.teleport(new Position(3091, 3956));
