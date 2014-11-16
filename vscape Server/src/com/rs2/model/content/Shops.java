@@ -500,6 +500,8 @@ public class Shops {
 			case 553:
                             // if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) //auburry my dick so far
 				return 19;
+			case 836 :
+				return 201;
                        /* case 961:
                             if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
                                 return 179;

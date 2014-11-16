@@ -8631,5 +8631,78 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
-    }
+    },
+	{
+    "shopId": 201,
+    "name": "Shantay Pass Shop",
+    "items": [
+      {
+        "id": 1823,
+        "count": 30
+      },
+	  {
+        "id": 1831,
+        "count": 30
+      },
+	  {
+        "id": 1937,
+        "count": 10
+      },
+	  {
+        "id": 1921,
+        "count": 10
+      },
+	  {
+        "id": 1929,
+        "count": 10
+      },
+	  {
+        "id": 946,
+        "count": 10
+      },
+	  {
+        "id": 1833,
+        "count": 10
+      },
+	  {
+        "id": 1835,
+        "count": 10
+      },
+	  {
+        "id": 1837,
+        "count": 10
+      },
+	  {
+        "id": 2349,
+        "count": 0
+      },
+	  {
+        "id": 314,
+        "count": 1000
+      },
+	  {
+        "id": 2347,
+        "count": 10
+      },
+	  {
+        "id": 1925,
+        "count": 10
+      },
+	  {
+        "id": 1923,
+        "count": 10
+      },
+	  {
+        "id": 1935,
+        "count": 10
+      },
+	  {
+        "id": 954,
+        "count": 100
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  }
 ]

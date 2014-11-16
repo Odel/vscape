@@ -12,7 +12,7 @@ import com.rs2.model.tick.CycleEventHandler;
 
 public class DesertHeat {
 	
-	//TODO FIX SHANTAYS SHOP AND OTHER DESERT SHOPS
+	//TODO OTHER DESERT SHOPS
 	
 	private final int KNIFE = 946;
 	
