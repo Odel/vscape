@@ -210,6 +210,10 @@ public class WalkToActionHandler {
 					this.stop();
 				    return;
 				}
+				if(player.getDesertHeat().CutCactus(id, x, y, z, def.getFace())) {
+					this.stop();
+				    return;
+				}
 				if(x == 2763 && y == 3402 && player.getClickId() == 71) {
 				    if(player.getQuestStage(11) < 6) {
 					player.getDialogue().sendStatement("These doors are locked.");

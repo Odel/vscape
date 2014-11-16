@@ -137,6 +137,12 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		slayerDataObj.addProperty("taskAmount", player.getSlayer().taskAmount);
 		characterObj.add("slayerData", slayerDataObj);
 		
+		JsonObject dehydrationObj = new JsonObject();
+		dehydrationObj.addProperty("curDehydrateTime", player.getDesertHeat().getDehydrateTime());
+		dehydrationObj.addProperty("curDehydrateDmgTime", player.getDesertHeat().getDehydrateDmgTime());
+		dehydrationObj.addProperty("dehydrated", player.getDesertHeat().getDehydrated());
+		characterObj.add("dehydrationData", dehydrationObj);
+		
 		JsonArray friendsArray = new JsonArray();
 		for (int i = 0; i < player.getFriends().length; i++) {
 			if(player.getFriends()[i] < 0L || player.getFriends()[i] >= 0x5b5b57f8a98a5dd1L)

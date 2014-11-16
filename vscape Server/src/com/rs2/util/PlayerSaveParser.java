@@ -209,6 +209,13 @@ public class PlayerSaveParser {
                 }else{
                 	player.getSlayer().resetSlayerTask();
                 }
+                
+                JsonObject dehydrationData = characterObj.getAsJsonObject("dehydrationData");
+                if(dehydrationData != null){
+	                player.getDesertHeat().setDehydrateTime(dehydrationData.get("curDehydrateTime").getAsInt());
+	                player.getDesertHeat().setDehydrateDmgTime(dehydrationData.get("curDehydrateDmgTime").getAsInt());
+	                player.getDesertHeat().setDehydrated(dehydrationData.get("dehydrated").getAsBoolean());
+                }
             	
                 if(mainObj.get("friendsConverted") != null)
                 {

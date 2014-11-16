@@ -368,6 +368,22 @@ public abstract class Entity {
 	public boolean inSlayerTower() {
 		return Area(3403, 3453, 3530, 3580);
 	}
+	
+	public boolean inDesert() {
+		return Area(3200, 3294, 3068, 3134) || //1
+		Area(3294, 3311, 3068, 3134) || //2
+		Area(3311, 3518, 3068, 3134) || //3
+		Area(3311, 3480, 3134, 3170) || // 4
+		Area(3135, 3456, 3008, 3068) || // 5
+		Area(3135, 3154, 2879, 3008) || // 6
+		Area(3154, 3191, 2993, 3008) || // 7
+		Area(3154, 3191, 2879, 2962) || // 8
+		Area(3191, 3327, 2879, 3008) || // 9
+		Area(3199, 3392, 2810, 2879) || // 10
+		Area(3327, 3392, 2879, 2942) || // 11
+		Area(3362, 3392, 2942, 2960) || // 12
+		Area(3380, 3456, 2942, 3068); // 13
+	}
 
 	public void setIndex(int index) {
 		this.index = index;
