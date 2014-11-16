@@ -41,7 +41,7 @@ public class RandomEvent {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
-				if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail()) {
+				if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle) {
 					return;
 				}
 				int random = Misc.random(100);
