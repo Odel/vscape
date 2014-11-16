@@ -197,9 +197,9 @@ public class DialogueManager {
 	}
 
 	public void sendStatement(String line1, int itemId) {
-		player.getActionSender().sendItemOnInterface(307, 150, itemId);
-		player.getActionSender().sendString(line1, 357);
-		player.getActionSender().sendChatInterface(356);
+		player.getActionSender().sendString(line1, 308);
+		player.getActionSender().sendItemOnInterface(307, 200, itemId);
+		player.getActionSender().sendChatInterface(306);
 	}
 
 	public void sendStatement(String line1, String line2) {

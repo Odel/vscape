@@ -36,7 +36,7 @@ public class TbEffect extends Effect<EffectTick> {
 		if (victim.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
 			victim.getTeleblockTimer().setWaitDuration(teleblockTime / 2);
 		} else {
-			victim.getTeleblockTimer().setWaitDuration(teleblockTime / 2);
+			victim.getTeleblockTimer().setWaitDuration(teleblockTime);
 		}
 		victim.getTeleblockTimer().reset();
 	}

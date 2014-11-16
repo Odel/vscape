@@ -700,7 +700,7 @@ public class FamilyCrest implements Quest {
 		    case QUEST_COMPLETE:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendStatement("Johnathon casts an unknown spell...", CONTENT);
+				player.getDialogue().sendStatement("Johnathon casts an unknown spell...");
 				return true;
 			    case 2:
 				player.getDialogue().sendPlayerChat("Err...Johnathon?", CONTENT);

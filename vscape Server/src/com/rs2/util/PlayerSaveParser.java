@@ -57,8 +57,8 @@ public class PlayerSaveParser {
 	            }
 	            player.setPassword(password);
 	            player.setStaffRights(characterObj.get("rights").getAsInt());
-                player.setMuteExpire(characterObj.get("muteExpire").getAsInt());
-                player.setBanExpire(characterObj.get("banExpire").getAsInt());
+                player.setMuteExpire(characterObj.get("muteExpire").getAsLong());
+                player.setBanExpire(characterObj.get("banExpire").getAsLong());
                 if(characterObj.get("inJail") != null)
                 {
                 	player.setInJail(characterObj.get("inJail").getAsBoolean());
@@ -208,6 +208,13 @@ public class PlayerSaveParser {
 	            	player.getSlayer().taskAmount = slayerData.get("taskAmount").getAsInt();
                 }else{
                 	player.getSlayer().resetSlayerTask();
+                }
+                
+                JsonObject dehydrationData = characterObj.getAsJsonObject("dehydrationData");
+                if(dehydrationData != null){
+	                player.getDesertHeat().setDehydrateTime(dehydrationData.get("curDehydrateTime").getAsInt());
+	                player.getDesertHeat().setDehydrateDmgTime(dehydrationData.get("curDehydrateDmgTime").getAsInt());
+	                player.getDesertHeat().setDehydrated(dehydrationData.get("dehydrated").getAsBoolean());
                 }
             	
                 if(mainObj.get("friendsConverted") != null)

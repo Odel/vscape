@@ -488,6 +488,7 @@ public class Player extends Entity {
     private boolean homeTeleporting = false;
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
     private boolean inJail = false;
+    private DesertHeat desertHeat = new DesertHeat(this);
  
        
 	public void resetAnimation() {
@@ -771,6 +772,7 @@ public class Player extends Entity {
 		    energy += (100 / (222 - (double) getSkill().getLevel()[Skill.AGILITY])) * 0.6;
 		    actionSender.sendEnergy();
 		}
+		getDesertHeat().CheckDesertHeat();
 		if(timeOutCheck()) {
 		    disconnect();
 		}
@@ -3724,6 +3726,11 @@ public class Player extends Entity {
 	public Canoe getCanoe()
 	{
 		return canoe;
+	}
+	
+	public DesertHeat getDesertHeat()
+	{
+		return desertHeat;
 	}
 	
 	public int getStandAnim() {

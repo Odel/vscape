@@ -37,7 +37,7 @@ public class ClueScroll {
 	public static final int REWARD_CASKET_LV2 = 2714;
 	public static final int REWARD_CASKET_LV3 = 2715;
 
-	public static final int CLUE_ITEM = 2701;
+	public static final int CLUE_ITEM = 2677;
 
 	/* the puzzle class constants */
 

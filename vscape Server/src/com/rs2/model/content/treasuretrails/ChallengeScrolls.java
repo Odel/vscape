@@ -21,19 +21,19 @@ public class ChallengeScrolls {
 		QUESTION_1(new String[]{"What is 19 to the power of 3?"}, 2681, 2842, 6859),
 		QUESTION_2(new String[]{"What is 57x89+23?"}, 3498, 2844, 5096),
 		QUESTION_3(new String[]{"If x is 15 and y is 3,", " what is 3x + y?"}, 2680, 2846, 48),
-		QUESTION_4(new String[]{"How many cannons does Lumbridge", "castle have?"}, 2698, 2852, 9),
-		QUESTION_5(new String[]{"How many animals are in the Zoo?"}, 2686, 2854, 40),
-		QUESTION_6(new String[]{"What is 5 times 5 add 3?"}, 2678, 7269, 28),
-		QUESTION_7(new String[]{"How many flowers are there in", "the clearing below this platform?"}, 2683, 7271, 13),
-		QUESTION_8(new String[]{"How many banana trees are there", "in the plantation?"}, 2691, 7273, 33),
-		QUESTION_8_1(new String[]{"How many banana trees are there", "in the plantation?"}, 2697, 7273, 33),
-		QUESTION_9(new String[]{"How many gnomeballers have", "red patches on their uniforms?"}, 2684, 7275, 6),
-		QUESTION_10(new String[]{"How many houses have a cross", "on the door?"}, 2688, 7277, 20),
-		QUESTION_11(new String[]{"How many pigeon cages are there ", "around the back of Jerico's house?"}, 2695, 7279, 3),
-		QUESTION_12(new String[]{"How many buldings are there in", "the village?"}, 2690, 7281, 11),
-		QUESTION_13(new String[]{"How many fishermen are there on", "the fishing platform?"}, 2679, 7283, 23),
-		QUESTION_14(new String[]{"How many people are waiting for", "the next Bard to perform?"}, 2685, 7285, 4),
-		QUESTION_15(new String[]{"How many bookcases are there ", "in the palace library?"}, 2693, 7287, 18);
+		QUESTION_4(new String[]{"How many cannons does Lumbridge", "castle have?"}, 2698, 2850, 9),
+		QUESTION_5(new String[]{"How many animals are in the Zoo?"}, 2686, 2852, 40),
+		QUESTION_6(new String[]{"What is 5 times 5 add 3?"}, 2678, 2854, 28),
+		QUESTION_7(new String[]{"How many flowers are there in", "the clearing below this platform?"}, 2683, 7269, 13),
+		QUESTION_8(new String[]{"How many banana trees are there", "in the plantation?"}, 2691, 7271, 33),
+		QUESTION_8_1(new String[]{"How many banana trees are there", "in the plantation?"}, 2697, 7271, 33),
+		QUESTION_9(new String[]{"How many gnomeballers have", "red patches on their uniforms?"}, 2684, 7273, 6),
+		QUESTION_10(new String[]{"How many houses have a cross", "on the door?"}, 2688, 7275, 20),
+		QUESTION_11(new String[]{"How many pigeon cages are there ", "around the back of Jerico's house?"}, 2695, 7277, 3),
+		QUESTION_12(new String[]{"How many buldings are there in", "the village?"}, 2690, 7279, 11),
+		QUESTION_13(new String[]{"How many fishermen are there on", "the fishing platform?"}, 2679, 7281, 23),
+		QUESTION_14(new String[]{"How many people are waiting for", "the next Bard to perform?"}, 2685, 7283, 4),
+		QUESTION_15(new String[]{"How many bookcases are there ", "in the palace library?"}, 2693, 7285, 18);
 
 		private String[] question;
 		private int clueId;
