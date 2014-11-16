@@ -17,7 +17,7 @@ public class DesertHeat {
 	private final int KNIFE = 946;
 	
 	private final int baseDehydrateTime = 90;
-	private final int dehydrateDmgTime = 60;
+	private final int dehydrateDmgTime = 90;
 	private final int cycleInterval = 10;
 	
 	private final int[] waterSkins = {1823,1825,1827,1829};
