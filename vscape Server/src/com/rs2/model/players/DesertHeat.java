@@ -94,7 +94,7 @@ public class DesertHeat {
 						if(curDehydrateTime >= finalDehydrateTime)
 						{
 							if(!DrinkWater()){
-								player.hit(1, HitType.NORMAL);
+								player.hit(4, HitType.NORMAL);
 								dehydrated = true;
 							}
 							curDehydrateTime = 0;
@@ -107,7 +107,7 @@ public class DesertHeat {
 						if(curDehydrateDmgTime >= finalDehydrateDmgTime)
 						{
 							if(!DrinkWater()){
-								player.hit(1, HitType.NORMAL);
+								player.hit(4, HitType.NORMAL);
 							}
 							curDehydrateDmgTime = 0;
 						}
