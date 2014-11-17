@@ -604,6 +604,12 @@ public class Equipment {
 				}
 			    }
 			}
+			if (prayerLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.PRAYER) < prayerLevelReq) {
+					player.getActionSender().sendMessage("You need a Prayer level of " + prayerLevelReq + " to wield this weapon.");
+					return false;
+				}
+			}
 			if (attackLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.ATTACK) < attackLevelReq) {
 					player.getActionSender().sendMessage("You need an Attack level of " + attackLevelReq + " to wield this weapon.");
@@ -634,7 +640,7 @@ public class Equipment {
 					return false;
 				}
 			}
-		} else if (targetSlot == Constants.FEET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
+		} else if (targetSlot == Constants.FEET || targetSlot == Constants.AMULET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
 				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
@@ -1418,6 +1424,15 @@ public class Equipment {
 		if (itemName.contains("saradomin") || itemName.contains("zamorak") || itemName.contains("guthix")) {
 			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("full") || itemName.contains("kite") || itemName.contains("skirt")) {
 				defenceLevelReq = 40;
+			}
+			if (itemName.contains("robe")) {
+				prayerLevelReq = 40;
+			}
+			if (itemName.contains("crozier")) {
+				prayerLevelReq = 60;
+			}
+			if (itemName.contains("stole")) {
+				prayerLevelReq = 60;
 			}
 			if (itemName.contains("mitre")) {
 				magicLevelReq = 40;
