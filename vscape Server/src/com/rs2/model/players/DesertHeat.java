@@ -86,6 +86,7 @@ public class DesertHeat {
 					return;
 				}
 				int finalDehydrateTime = baseDehydrateTime + DesertEquipment();
+				int finalDehydrateDmgTime = dehydrateDmgTime + DesertEquipment();
 				if(!dehydrated){
 					if(curDehydrateTime < finalDehydrateTime)
 					{
@@ -100,10 +101,10 @@ public class DesertHeat {
 						}
 					}
 				}else{
-					if(curDehydrateDmgTime < dehydrateDmgTime)
+					if(curDehydrateDmgTime < finalDehydrateDmgTime)
 					{
 						curDehydrateDmgTime += cycleInterval;
-						if(curDehydrateDmgTime >= dehydrateDmgTime)
+						if(curDehydrateDmgTime >= finalDehydrateDmgTime)
 						{
 							if(!DrinkWater()){
 								player.hit(1, HitType.NORMAL);
