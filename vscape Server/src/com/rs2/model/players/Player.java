@@ -256,6 +256,10 @@ public class Player extends Entity {
 	private final int[] colors = new int[5];
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
 	private boolean pickupItem;
+	public boolean trackerGnome1 = false;
+	public boolean trackerGnome2 = false;
+	public boolean trackerGnome3 = false;
+	private int ballistaIndex = -1;
 	private int clickX = -1;
 	private int clickY = -1;
 	private int clickZ = -1;
@@ -2934,11 +2938,19 @@ public class Player extends Entity {
 		this.effectVolume = effectVolume;
 	}
 	
-	public boolean getCanHaveGodCape() {	//cadillac
+	public int getBallistaIndex() {
+	    return this.ballistaIndex;
+	}
+	
+	public void setBallistaIndex(int set) {
+	    this.ballistaIndex = set;
+	}
+	
+	public boolean getCanHaveGodCape() {
 	    return canHaveGodCape;
 	}
 	
-	public void setCanHaveGodCape(boolean bool){ //cadillac-ack-ack-ack
+	public void setCanHaveGodCape(boolean bool){
 	    this.canHaveGodCape = bool;
 	}
 	
@@ -4752,7 +4764,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7378); //temple of ikov
 		getActionSender().sendString("", 6518); //throne of miscellania
 		getActionSender().sendString("", 7379); //the tourist trap
-		getActionSender().sendString("", 7380); //tree gnome village
+		getActionSender().sendString("@red@Tree Gnome Village", 7380); //tree gnome village
 		getActionSender().sendString("", 7381); //tribal totem
 		getActionSender().sendString("", 11858); //troll romance
 		// unknown id

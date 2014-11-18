@@ -28,6 +28,7 @@ import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.TheGrandTree;
+import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
@@ -418,6 +419,7 @@ public class CombatManager extends Tick {
 			HeroesQuest.handleGripDeath((Player)killer, npc);
 			FamilyCrest.handleDrops((Player) killer, npc);
 			TheGrandTree.handleDeath((Player) killer, npc);
+			TreeGnomeVillage.handleDeath((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }

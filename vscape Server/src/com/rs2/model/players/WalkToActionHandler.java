@@ -83,6 +83,7 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
@@ -604,13 +605,28 @@ public class WalkToActionHandler {
 					new GameObject(3194, x, y, z, def.getFace(), def.getType(), id, 500);
 					break;
 				case 1317: //spirit tree south ardougne && northwest varrock
-				    Dialogues.startDialogue(player, 10022);
+				    if(QuestHandler.questCompleted(player, 33)) {
+					Dialogues.startDialogue(player, 10022);
+				    } else {
+					player.getDialogue().sendStatement("You must complete Tree Gnome Village to use this.");
+					player.getDialogue().endDialogue();
+				    }
 				    break;
 				case 1293 : // spirit tree the grand tree
-				    Dialogues.startDialogue(player, 10011);
+				    if(QuestHandler.questCompleted(player, 33)) {
+					Dialogues.startDialogue(player, 10011);
+				    } else {
+					player.getDialogue().sendStatement("You must complete Tree Gnome Village to use this.");
+					player.getDialogue().endDialogue();
+				    }
 				    break;
 				case 1294 : //spirit tree tree gnome village
-				    Dialogues.startDialogue(player, 10023);
+				    if(QuestHandler.questCompleted(player, 33)) {
+					Dialogues.startDialogue(player, 10023);
+				    } else {
+					player.getDialogue().sendStatement("You must complete Tree Gnome Village to use this.");
+					player.getDialogue().endDialogue();
+				    }
 				    break;
 				case 9356: //fight caves entrance
 				    if(x == 2437) {
@@ -1944,6 +1960,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(HeroesQuest.doObjectSecondClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if (TreeGnomeVillage.doObjectSecondClick(player, id, x, y)) {
 					this.stop();
 					return;
 				}

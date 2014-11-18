@@ -400,6 +400,9 @@ public class PlayerSaveParser {
 		            	if(questVars.get("hasShotGrip") != null){
 		            		player.setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
 		            	}
+				if(questVars.get("ballistaIndex") != null){
+		            		player.setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
+		            	}
 		            }
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){

@@ -55,7 +55,8 @@ public class QuestHandler {
 	new TheGrandTree(),
 	new DwarfCannon(),
 	new WaterfallQuest(),
-	new GertrudesCat()
+	new GertrudesCat(),
+	new TreeGnomeVillage()
     };
     
     public static void init() {
@@ -236,6 +237,9 @@ public class QuestHandler {
         		return true;
 		case 28192: //Gertrudes cat
 			showInterface(player,quests[32]);
+        		return true;
+		case 28212: //Tree Gnome Village
+			showInterface(player,quests[33]);
         		return true;
         }
         return false;
