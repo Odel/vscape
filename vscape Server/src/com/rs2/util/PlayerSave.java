@@ -60,8 +60,9 @@ public class PlayerSave {
 		    final GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 		    gsonBuilder.registerTypeAdapter(Player.class, new PlayerSaveSerialize());
 		    final Gson gson = gsonBuilder.create();
+		    byte[] playerBytes = gson.toJson(player).getBytes();
 			try(GZIPOutputStream compress = new GZIPOutputStream(new FileOutputStream(file))){
-				compress.write(gson.toJson(player).getBytes());
+				compress.write(playerBytes);
 				compress.flush();
 				compress.close();
 			} catch(IOException e) {
