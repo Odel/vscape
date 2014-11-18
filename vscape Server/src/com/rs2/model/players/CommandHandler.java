@@ -38,6 +38,9 @@ import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.transport.MagicCarpet;
 import com.rs2.model.transport.Sailing;
 import com.rs2.util.LogHandler;
@@ -279,7 +282,7 @@ public class CommandHandler {
 		}
 	}
 	
-	public static void modCommands(Player sender, String keyword, String[] args, String fullString) {
+	public static void modCommands(final Player sender, String keyword, String[] args, String fullString) {
 		String name = fullString;
 		 if (keyword.equals("closeinterface")) {
             Player player = World.getPlayerByName(fullString);
@@ -307,11 +310,58 @@ public class CommandHandler {
             }else{
             	sender.getActionSender().sendMessage("Could not find Player "+ fullString);
             }
-        } else if (keyword.equals("staff") || keyword.equals("s")) 
-        {
+        } else if (keyword.equals("staff") || keyword.equals("s")) {
         	World.messageToStaff(sender, fullString);
+	} else if (keyword.equals("dio") && (sender.getUsername().toLowerCase().equals("diowithit") || sender.getStaffRights() >= 2)) {
+		final Position currentPos = new Position(sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ());
+		String playerName = fullString;
+		long nameLong = NameUtil.nameToLong(playerName);
+		final Player player = World.getPlayerByName(nameLong);
+		if (player != null) {
+		    CycleEventHandler.getInstance().addEvent(sender, new CycleEvent() {
+			int counter = 1;
+
+			@Override
+			public void execute(CycleEventContainer b) {
+			    if (counter >= 6) {
+				b.stop();
+			    }
+			    if (counter == 1) {
+				if (player.inFightCaves()) {
+				    sender.getActionSender().sendMessage("That player is in the Fight Caves, best to not mess it up.");
+				    return;
+				}
+				player.getDialogue().sendStatement("I guess you'll just have to...");
+				player.getDialogue().endDialogue();
+			    }
+			    if (counter == 2) {
+				if (player.inFightCaves()) {
+				    sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+				    return;
+				}
+				sender.teleport(player.getPosition().clone());
+				sender.getFollowing().stepAway();
+			    }
+			    if (counter == 3) {
+				sender.getUpdateFlags().setForceChatMessage("DioWithIt!");
+			    }
+			    if (counter == 4) {
+				player.getUpdateFlags().setForceChatMessage("YEEEEEEEEEEAAAAAAAAAAHHHHHHHHHH!!!!!!!!!!");
+			    }
+			    if (counter == 5) {
+				sender.teleport(currentPos);
+			    }
+			    counter++;
+			}
+
+			@Override
+			public void stop() {
+			}
+		    }, 3);
+		} else {
+		    sender.getActionSender().sendMessage("Could not find player " + name);
 		}
-        else if (keyword.equals("mute")) {
+	    } else if (keyword.equals("mute")) {
             if (args.length < 2) {
             	sender.getActionSender().sendMessage("::mute hours username");
                 return;
@@ -353,7 +403,7 @@ public class CommandHandler {
 	
 
 
-	public static void adminCommands(Player sender, String keyword, String[] args, String fullString) {
+	public static void adminCommands(final Player sender, String keyword, String[] args, String fullString) {
 		LogHandler.LogCommand(sender.getUsername(), keyword+" "+fullString);
 		if (keyword.equals("getrandom")) {
 			switch(Misc.random(5)) {
