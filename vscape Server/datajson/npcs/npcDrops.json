@@ -46430,6 +46430,19 @@
     ]
   },
   {
+    "npcId": 447,
+    "rareTableAccess":false,
+    "drops": [
+      {
+	   "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+      ]
+  },
+  {
     "npcId": 459,
     "rareTableAccess": false,
     "drops": [
