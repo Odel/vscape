@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
@@ -45,6 +46,7 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
+import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
@@ -132,7 +134,10 @@ public class Dialogues {
 		if(wetClayHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		if(player.getBarbarianSpirits().sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		if(BarbarianSpirits.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(Constants.DEGRADING_ENABLED && WeaponDegrading.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {
