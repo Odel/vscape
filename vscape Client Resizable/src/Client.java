@@ -5540,6 +5540,10 @@ public class Client extends RSApplet {
 						if (inputString.equals("::models"))
 							packModels();
 */
+						
+						if (inputString.equals("::dumpclip"))
+							onDemandFetcher.DumpMapClipping();
+						
 						if (inputString.equals("::regular"))
 							toggleSize(0);
 						if (inputString.equals("::resize"))

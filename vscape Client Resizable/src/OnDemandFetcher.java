@@ -86,7 +86,31 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	}
 
 	public int mapAmount = 0;
-
+	
+	public void DumpMapClipping() {
+		for (int i = 0; i < mapIndices3.length; i++) {
+			try {
+				byte abyte[] = clientInstance.decompressors[4].decompress(mapIndices3[i]);
+				File map = new File("Configs/mapdata/"+mapIndices3[i]+".gz");
+				FileOutputStream fos = new FileOutputStream(map);
+				fos.write(abyte);
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		for (int i = 0; i < mapIndices2.length; i++) {
+			try {
+				byte abyte[] = clientInstance.decompressors[4].decompress(mapIndices2[i]);
+				File map = new File("Configs/mapdata/"+mapIndices2[i]+".gz");
+				FileOutputStream fos = new FileOutputStream(map);
+				fos.write(abyte);
+				fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public void start(StreamLoader streamLoader, Client client1) {
         byte[] abyte2 = streamLoader.getDataForName("map_index");
         Stream stream2 = new Stream(abyte2);
