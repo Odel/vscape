@@ -1,6 +1,8 @@
 package com.rs2.model.content.skills.firemaking;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -119,6 +121,14 @@ public class Firemaking {// todo firelighters
 		if (p != null) {
 			player.getActionSender().sendMessage("You can't light a fire here.");
 			return;
+		}
+		final CacheObject obj = ObjectLoader.object(x, y, h);
+		if (obj != null) {
+			int type = obj.getType();
+			if(type != 22){
+				player.getActionSender().sendMessage("You can't light a fire here.");
+				return;
+			}
 		}
 		if (!SkillHandler.hasRequiredLevel(player, Skill.FIREMAKING, firemake.getLevel(), "light these logs")) {
 			return;

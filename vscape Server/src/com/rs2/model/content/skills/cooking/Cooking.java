@@ -188,7 +188,7 @@ public class Cooking {
 				player.getActionSender().sendChatInterface(1743);
 				return true;
 			}
-			if (name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot")) {
+			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot")) {
 				player.setNewSkillTask();
 				player.setStatedInterface("cookRange");
 				player.setTempInteger(item);
