@@ -48,7 +48,7 @@ public class SkillHandler {
 	}
 
 	public static boolean hasRequiredLevel(final Player player, int skillId, int lvlReq, String event) {
-		if(skillId == Skill.SMITHING && player.getSkill().getLevel()[skillId] >= lvlReq) {
+		if((skillId == Skill.SMITHING || skillId == Skill.MINING) && player.getSkill().getLevel()[skillId] >= lvlReq) {
 		    return true;
 		}
 		else if (player.getSkill().getPlayerLevel(skillId) < lvlReq) {
