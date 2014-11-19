@@ -613,7 +613,7 @@ public class CombatManager extends Tick {
 			if (npcs != null && npcs.goodDistanceEntity(died, 3) && npcs != died && !PestControl.isPortal(npcs))
 			    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
 		    }
-		    /*for (PestControl.BarricadeData b : PestControl.BarricadeData.values()) {
+		    for (PestControl.BarricadeData b : PestControl.BarricadeData.values()) {
 				if (b.forName(b.name()) != null) {
 				    for (Position p : b.iterablePositions()) {
 						if (PestControl.getBrokenBarricades().contains(p)) {
@@ -627,7 +627,7 @@ public class CombatManager extends Tick {
 						}
 				    }
 				}
-		    }*/
+		    }
 		}
 		if(died.isNpc() && PestControl.isPortal((Npc) died) && died.inPestControlGameArea()) {
 		    for (Npc npcs : World.getNpcs()) {

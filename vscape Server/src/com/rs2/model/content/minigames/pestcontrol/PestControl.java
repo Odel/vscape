@@ -1,5 +1,7 @@
 package com.rs2.model.content.minigames.pestcontrol;
 
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,10 +10,16 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 
@@ -20,19 +28,24 @@ public class PestControl {
     private final static int LOBBY_TIME = 90;
     private final static int GAME_TIME = 600;
     private final static int PLAYERS_REQUIRED = 3;
-    private final static int GRUNT_TIME = 30;
+    private final static int GRUNT_TIME = 20;
     private final static int NPC_LOGIC_TIME = 15;
     
     public static final Position LOBBY_EXIT = new Position(2657, 2639, 0);
     private static final MinigameAreas.Area LOBBY_AREA = new MinigameAreas.Area(new Position(2660, 2638, 0), new Position(2663, 2643, 0));
     private static final MinigameAreas.Area LANDING_AREA = new MinigameAreas.Area(new Position(2656, 2609, 0), new Position(2659, 2614, 0));
     private static final MinigameAreas.Area INSIDE_FORT = new MinigameAreas.Area(new Position(2645, 2587, 0), new Position(2667, 2603, 0));
-	
+    private static final MinigameAreas.Area KNIGHT_PLATFORM = new MinigameAreas.Area(2654, 2590, 2659, 2595, 0);
+    
     private static final int PORTAL_SIZE = 4;
     private static int[] PORTAL_IDS = {6146, 6147, 6148, 6149};
     private static int[] PORTAL_HEALTH = {250, 250, 250, 250};
     private static boolean[] PORTAL_SHIELD = {true, true, true, true};
     private static int[] KNIGHT_DATA = {3782, 2656, 2592};
+    
+    private static ArrayList<Npc> ravagers = new ArrayList<Npc>();
+    private static ArrayList<Position> brokenBarricades = new ArrayList<Position>();
+    //private static ArrayList<Position> brokenDoors = new ArrayList<Position>();
     
     //6142 - 6145 normal portal
     //6146 - 6150 shielded portals
@@ -136,6 +149,252 @@ public class PestControl {
 		    }
 		    return null;
 		}
+    }
+    
+    public enum BarricadeData {
+	REPAIRED(14225, 14224, 14226, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}),
+	DAMAGED(14228, 14227, 14229, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}),
+	BROKEN(14232, 14230, 14231, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}, new int[]{0, 0}),
+	
+	WEST(0, 0, 0, new int[]{2636, 2588}, new int[]{2636, 2589}, new int[]{2636, 2590}, new int[]{2636, 2591}),
+	SOUTHWEST(0, 0, 0, new int[]{2637, 2574}, new int[]{2637, 2573}, new int[]{2637, 2572}, new int[]{2637, 2571}),
+	SOUTHWEST_PORTAL(0, 0, 0, new int[]{2650, 2578}, new int[]{2649, 2578}, new int[]{2648, 2578}, new int[]{2647, 2578}),
+	SOUTH(0, 0, 0, new int[]{2659, 2575}, new int[]{2658, 2575}, new int[]{2657, 2575}, new int[]{2656, 2575}),
+	SOUTHEAST_PORTAL(0, 0, 0, new int[]{2669, 2578}, new int[]{2668, 2578}, new int[]{2667, 2578}, new int[]{2666, 2578}),
+	SOUTHEAST(0, 0, 0, new int[]{2676, 2571}, new int[]{2676, 2572}, new int[]{2676, 2573}, new int[]{2676, 2574}),
+	EAST_PORTAL(0, 0, 0, new int[]{2676, 2587}, new int[]{2676, 2586}, new int[]{2676, 2585}, new int[]{2676, 2584}),
+	EAST(0, 0, 0, new int[]{2673, 2593}, new int[]{2673, 2592}, new int[]{2673, 2591}, new int[]{2673, 2590});
+	
+	private int leftId;
+	private int centerId;
+	private int rightId;
+	private int[] leftCoords;
+	private int[] centerLCoords;
+	private int[] centerRCoords;
+	private int[] rightCoords;
+
+	private BarricadeData(int leftId, int centerId, int rightId, int[] leftCoords, int[] centerLCoords, int[] centerRCoords, int[] rightCoords) {
+	    this.leftId = leftId;
+	    this.centerId = centerId;
+	    this.rightId = rightId;
+	    this.leftCoords = leftCoords;
+	    this.centerLCoords = centerLCoords;
+	    this.centerRCoords = centerRCoords;
+	    this.rightCoords = rightCoords;
+	}
+
+	public int getLeftId() {
+	    return this.leftId;
+	}
+
+	public int getCenterId() {
+	    return this.centerId;
+	}
+
+	public int getRightId() {
+	    return this.rightId;
+	}
+
+	public int[] getLeftCoords() {
+	    return this.leftCoords;
+	}
+
+	public int[] getCenterLCoords() {
+	    return this.centerLCoords;
+	}
+
+	public int[] getCenterRCoords() {
+	    return this.centerRCoords;
+	}
+
+	public int[] getRightCoords() {
+	    return this.rightCoords;
+	}
+
+	public int sideForCoords(int x, int y) {
+	    if (x == this.leftCoords[0] && y == this.leftCoords[1]) {
+		return 1;
+	    } else if ((x == this.centerLCoords[0] && y == this.centerLCoords[1])) {
+		return 2;
+	    } else if ((x == this.centerRCoords[0] && y == this.centerRCoords[1])) {
+		return 3;
+	    } else if (x == this.rightCoords[0] && y == this.rightCoords[1]) {
+		return 4;
+	    } else {
+		return 0;
+	    }
+	}
+
+	public ArrayList<Position> iterablePositions() {
+	    ArrayList<Position> toReturn = new ArrayList<>();
+	    toReturn.add(new Position(this.getLeftCoords()[0], this.getLeftCoords()[1]));
+	    toReturn.add(new Position(this.getCenterLCoords()[0], this.getCenterLCoords()[1]));
+	    toReturn.add(new Position(this.getCenterRCoords()[0], this.getCenterRCoords()[1]));
+	    toReturn.add(new Position(this.getRightCoords()[0], this.getRightCoords()[1]));
+	    return toReturn;
+	}
+
+	public BarricadeData forName(String name) {
+	    switch (name) {
+		default:
+		    return null;
+		case "WEST":
+		    return WEST;
+		case "SOUTHWEST":
+		    return SOUTHWEST;
+		case "SOUTHWEST_PORTAL":
+		    return SOUTHWEST_PORTAL;
+		case "SOUTH":
+		    return SOUTH;
+		case "SOUTHEAST_PORTAL":
+		    return SOUTHEAST_PORTAL;
+		case "SOUTHEAST":
+		    return SOUTHEAST;
+		case "EAST_PORTAL":
+		    return EAST_PORTAL;
+		case "EAST":
+		    return EAST;
+	    }
+	}
+
+	public int getAdditive(int side, int face) {
+	    int additive = 1;
+	    if (side == 1 && (face == 2 || face == 1)) {
+		additive = -1;
+	    } else if (side == 1 && face == 3) {
+		additive = 1;
+	    } else if ((side == 2 || side == 3) && face == 2) {
+		additive = -1;
+	    } else if (side == 4 && face == 0) {
+		additive = -1;
+	    } else if (side == 4 && (face == 2 || face == 3)) {
+		additive = 1;
+	    }
+	    return additive;
+	}
+
+	public void ravage(Position p, boolean adjacent) {
+	    int x = p.getX();
+	    int y = p.getY();
+	    int side = this.sideForCoords(x, y);
+	    if (side != 0) {
+		CacheObject index = ObjectLoader.object(this.leftCoords[0], this.leftCoords[1], 0);
+		CacheObject g = ObjectLoader.object(x, y, 0);
+		CacheObject g2 = ObjectLoader.object(index.getRotation() == 2 ? x + getAdditive(side, g.getDef().getFace()) : x, index.getRotation() == 1 ? y + getAdditive(side, g.getDef().getFace()) : index.getRotation() == 3 ? y + getAdditive(side, g.getDef().getFace()) : y, 0);
+		if (!brokenBarricades.contains(p)) {
+		    ObjectHandler.getInstance().removeObject(x, y, 0, g.getType());
+		    int oldId = side == 1 ? this.leftId : side == 2 ? this.centerId : side == 3 ? this.centerId : this.rightId;
+		    int newId = side == 1 ? BROKEN.leftId : side == 2 ? BROKEN.centerId : side == 3 ? BROKEN.centerId : BROKEN.rightId;
+		    GameObject o = new GameObject(newId, x, y, 0, g.getRotation(), g.getType(), oldId, 999999);
+		    ObjectHandler.getInstance().addObject(o, false);
+		    for(int i = 0; i < 5; i++) {
+			ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), i);
+			ObjectHandler.getInstance().removeDoorClip(x, y, 0, i);
+		    }
+		    brokenBarricades.add(p);
+		}
+		if (g2 != null && !brokenBarricades.contains(g2.getLocation()) && adjacent) {
+		    int side2 = this.sideForCoords(g2.getLocation().getX(), g2.getLocation().getY());
+		    ObjectHandler.getInstance().removeObject(g2.getLocation().getX(), g2.getLocation().getY(), 0, g2.getType());
+		    int oldId = side2 == 1 ? this.leftId : side2 == 2 ? this.centerId : side2 == 3 ? this.centerId : this.rightId;
+		    int newId = side2 == 1 ? BROKEN.leftId : side2 == 2 ? BROKEN.centerId : side2 == 3 ? BROKEN.centerId : BROKEN.rightId;
+		    GameObject o = new GameObject(newId, g2.getLocation().getX(), g2.getLocation().getY(), 0, g2.getRotation(), g2.getType(), oldId, 999999);
+		    ObjectHandler.getInstance().addObject(o, false);
+		    for(int i = 0; i < 5; i++) {
+			ObjectHandler.getInstance().removeClip(x, y, 0, g.getType(), i);
+			ObjectHandler.getInstance().removeDoorClip(x, y, 0, i);
+		    }
+		    //We don't add to brokenBarricades so that ravagers can wreck shit
+		}
+	    }
+	}
+    }
+    
+    public enum DoorData {
+	REPAIRED(14233, 14235, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}),
+	DAMAGED(14237, 14239, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}),
+	DAMAGED_2(14241, 14243, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}),
+	BROKEN(14245, 14247, new int[]{0, 0, 0, 0}, new int[]{0, 0, 0, 0}),
+
+	WEST(0, 0, new int[]{2643, 2593, 2642, 2593}, new int[]{2643, 2592, 2642, 2592}),
+	SOUTH(0, 0, new int[]{2656, 2585, 2656, 2584}, new int[]{2657, 2585, 2657, 2584}),
+	EAST(0, 0, new int[]{2670, 2592, 2671, 2592}, new int[]{2670, 2593, 2671, 2593});
+	
+	private int leftId;
+	private int rightId;
+	private int[] leftCoords;
+	private int[] rightCoords;
+
+	private DoorData(int leftId, int rightId, int[] leftCoords, int[] rightCoords) {
+	    this.leftId = leftId;
+	    this.rightId = rightId;
+	    this.leftCoords = leftCoords;
+	    this.rightCoords = rightCoords;
+	}
+	
+	public static DoorData forCoords(int x, int y) {
+	    for(DoorData d : DoorData.values()) {
+		for(Position p : d.iterablePositions()) {
+		    if(x == p.getX() && y == p.getY()) {
+			return d;
+		    }
+		}
+	    }
+	    return null;
+	}
+	public int getLeftId() {
+	    return this.leftId;
+	}
+	
+	public void setLeftId(int set) {
+	    this.leftId = set;
+	}
+	
+	public int getRightId() {
+	    return this.rightId;
+	}
+
+	public void setRightId(int set) {
+	    this.rightId = set;
+	}
+	
+	public int[] getLeftCoords() {
+	    return this.leftCoords;
+	}
+
+	public int[] getRightCoords() {
+	    return this.rightCoords;
+	}
+	
+	public ArrayList<Position> iterablePositions() {
+	    ArrayList<Position> toReturn = new ArrayList<>();
+	    toReturn.add(new Position(this.leftCoords[0], this.leftCoords[1]));
+	    toReturn.add(new Position(this.leftCoords[2], this.leftCoords[3]));
+	    toReturn.add(new Position(this.rightCoords[0], this.rightCoords[1]));
+	    toReturn.add(new Position(this.rightCoords[2], this.rightCoords[3]));
+	    return toReturn;
+	}
+	
+	public String leftOrRightForPos(Position pos) {
+	    if((pos.getX() == this.leftCoords[0] && pos.getY() == this.leftCoords[1]) || (pos.getX() == this.leftCoords[2] && pos.getY() == this.leftCoords[3])) {
+		return "left";
+	    } else {
+		return "right";
+	    }
+	}
+	
+	public DoorData forName(String name) {
+	    switch (name) {
+		default:
+		    return null;
+		case "WEST":
+		    return WEST;
+		case "SOUTH":
+		    return SOUTH;
+		case "EAST":
+		    return EAST;
+	    }
+	}
     }
     
     public static void lobbyInterface(Player player) {
@@ -247,6 +506,7 @@ public class PestControl {
 									}
 									handleNpcBehavior();
 								} 
+								handleRavaging();
 								npcLogicTime += 5;
 								if(npcLogicTime >= NPC_LOGIC_TIME)
 								{
@@ -342,6 +602,25 @@ public class PestControl {
 		}
     }
     
+    private static void resetBarricades() {
+	brokenBarricades.clear();
+	for (BarricadeData b : BarricadeData.values()) {
+	    if (b.forName(b.name()) != null) {
+		for (Position p : b.iterablePositions()) {
+		    int x = p.getX();
+		    int y = p.getY();
+		    int side = b.sideForCoords(x, y);
+		    if (side != 0) {
+			final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
+			ObjectHandler.getInstance().removeObject(x, y, 0, g.getType());
+			GameObject o = new GameObject(side == 1 ? BarricadeData.REPAIRED.getLeftId() : side == 2 ? BarricadeData.REPAIRED.getCenterId() : side == 3 ? BarricadeData.REPAIRED.getCenterId() : BarricadeData.REPAIRED.getRightId(), x, y, 0, g.getRotation(), g.getType(), side == 1 ? b.getLeftId() : side == 2 ? b.getCenterId() : b.getRightId(), 999999);
+			ObjectHandler.getInstance().addObject(o, true);
+		    }
+		}
+	    }
+	}
+    }
+    
     private static void spawnMainNpcs() {
     	for (int i = 0; i < PORTAL_SIZE; i++) {
     	    PortalData data = PortalData.values()[i];
@@ -380,15 +659,19 @@ public class PestControl {
 				PortalData portalData = PortalData.values()[i];
 				GruntData gruntData = GruntData.values()[Misc.randomMinusOne(GruntData.values().length)];
 				Npc grunt = new Npc(!picklesTime ? gruntData.npcId : 1828);
-				//gameGrunts.add(grunt);
+				if(grunt.getDefinition().getName().toLowerCase().contains("ravager")) {
+				    ravagers.add(grunt);
+				}
 				if(gruntData.attackKnight && !picklesTime) {
 				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(2), portalData.y + Misc.randomMinusOne(2), 0));
 				    grunt.setSpawnPosition(knight.getPosition());
 				    World.register(grunt);
 				    grunt.walkTo(knight.getPosition(), true);
 				} else {
-				    grunt.setPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
-				    grunt.setSpawnPosition(new Position(portalData.x + Misc.randomMinusOne(3), portalData.y + Misc.randomMinusOne(3), 0));
+				    MinigameAreas.Area spawnArea = new MinigameAreas.Area(portalData.x, portalData.x + 1, portalData.y, portalData.y + 1, 0).enlarge(4);
+				    Position spawnPosition = MinigameAreas.randomPosition(spawnArea);
+				    grunt.setPosition(spawnPosition);
+				    grunt.setSpawnPosition(spawnPosition);
 				    grunt.setMinWalk(new Position(portalData.x - 5, portalData.y - 5));
 				    grunt.setMaxWalk(new Position(portalData.x + 5, portalData.y + 5));
 				    grunt.setWalkType(Npc.WalkType.WALK);
@@ -398,6 +681,55 @@ public class PestControl {
 		}
 	}
 	
+	public static void handleRavaging() {
+		if(ravagers.isEmpty()) {
+		    return;
+		}
+		for (Npc npc : World.getNpcs()) {
+			if(npc == null)
+				continue;
+			if(npc.isVisible() && !npc.isAttacking() && npc.getDefinition().getName().toLowerCase().contains("ravager")) {
+			    ravageBarricade(npc);
+			}
+		}
+	}
+	public static void ravageBarricade(Npc npc) {
+	    for (BarricadeData b : BarricadeData.values()) {
+		if (b.forName(b.name()) != null) {
+		    for (Position p : b.iterablePositions()) {
+			if (brokenBarricades.contains(p)) {
+			    continue;
+			}
+			final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
+			npc.setSpawnPosition(p);
+			if (g != null) {
+			    if (Misc.goodDistance(npc.getPosition(), p, 2)) {
+				npc.getUpdateFlags().sendFaceToDirection(p);
+				npc.getUpdateFlags().sendAnimation(npc.getDefinition().getAttackAnim());
+				b.ravage(p, true);
+				break;
+			    } else {
+				for (Position p2 : b.iterablePositions()) {
+				    if (brokenBarricades.contains(p2)) {
+					continue;
+				    }
+				    if (Misc.goodDistance(npc.getPosition(), p2, 1)) {
+					npc.walkTo(p2, true);
+				    }
+				}
+				//Else, roam
+				if(Misc.random(5) == 1 && !npc.inMiniGameArea(INSIDE_FORT)){
+				    npc.walkTo(knight.getPosition().clone(), true);
+				}
+				npc.setMinWalk(new Position(npc.getPosition().getX() - 5, npc.getPosition().getY() - 5));
+				npc.setMaxWalk(new Position(npc.getPosition().getX() + 5, npc.getPosition().getY() + 5));
+				npc.setWalkType(Npc.WalkType.WALK);
+			    }
+			}
+		    }
+		}
+	    }
+	}
 	public static void handleNpcBehavior() {
 		for (Npc npc : World.getNpcs()) {
 		    if (npc == null) {
@@ -407,7 +739,7 @@ public class PestControl {
 		    	continue;
 		    }
 		    npc.setSpawnPosition(npc.getPosition());
-		    if (isShifter(npc) && knight != null && !Misc.goodDistance(npc.getPosition(), knight.getPosition(), 3)) {
+		    if (isShifter(npc) && knight != null && !npc.inMiniGameArea(KNIGHT_PLATFORM)) {
 		    	teleportShifter(npc);
 		    	continue;
 		    }
@@ -443,12 +775,10 @@ public class PestControl {
     }
     
 	public static void healPortal(Npc grunt) {
-		System.out.println("attempting heal");
 		if(grunt == null)
 			return;
 		if(grunt.isDead())
 			return;
-		System.out.println("attempting heal 2");
 		try {
 			for (Npc npc : World.getNpcs()) {
 				if(npc == null)
@@ -697,7 +1027,8 @@ public class PestControl {
 	
 	private static void startGame() {
 		try {
-			spawnMainNpcs();
+		    spawnMainNpcs();
+		    resetBarricades();
 		    shieldTime = 0;
 		    gruntTime = 0;
 		    npcLogicTime = 0;
@@ -778,11 +1109,11 @@ public class PestControl {
 		lobbyTime = LOBBY_TIME;
 		gamePlayers.clear();
 		//gameGrunts.clear();
-		//ravagers.clear();
+		ravagers.clear();
 		destroyAllNpcs();
 		resetShields();
 		setKnightHealth(200);
-	//	resetBarricades();
+		resetBarricades();
     }
     
     private static void resetLobby() {
@@ -814,36 +1145,94 @@ public class PestControl {
 		}
     }
     
-	public static boolean handleObjectClicking(Player player, int objectId, int x, int y) {
-		switch (objectId) {
-		    case 14315: //gangplank
-				if (x == 2658 && y == 2639) {
-				    if(player.getInventory().playerHasItem(1511)) {
-				    	player.getActionSender().sendMessage("You cannot take your own logs into the game area.");
-				    	return true;
-				    }
-				    if (!player.inPestControlLobbyArea()) {
-				    	joinLobby(player);
-				    }
+    public static boolean handleBarricadeClicking(final Player player, final int objectId, final int x, final int y) {
+	switch (objectId) {
+	    case 14228:
+	    case 14227:
+	    case 14229: //Damaged barricades
+	    case 14232:
+	    case 14230:
+	    case 14231: //Broken barricades
+		if (player.getInventory().playerHasItem(1511)) {
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+			    ArrayList<Position> repairs = player.getPestControlBarricades();
+			    CacheObject g = ObjectLoader.object(x, y, 0);
+			    ObjectHandler.getInstance().removeObject(x, y, 0, 10);
+			    boolean broken = objectId == 14230 ? true : objectId == 14231 ? true : objectId == 14232;
+			    int side = 0;
+			    for (BarricadeData b : BarricadeData.values()) {
+				if (b.forName(b.name()) == null || b.sideForCoords(x, y) == 0) {
+				    continue;
 				}
-			return true;
-		    case 14314: //ladder
-				if (x == 2660 && y == 2639) {
-				    if (player.inPestControlLobbyArea()) {
-				    	leaveLobby(player, false);
-				    }
-				}
-			return true;
+				side = b.sideForCoords(x, y);
+			    }
+			    if (broken) {
+				new GameObject(side == 1 ? BarricadeData.DAMAGED.getLeftId() : side == 2 ? BarricadeData.DAMAGED.getCenterId() : side == 3 ? BarricadeData.DAMAGED.getCenterId() : BarricadeData.DAMAGED.getRightId(), x, y, 0, g.getRotation(), g.getType(), objectId, 999999);
+				player.getActionSender().sendMessage("You carefully patch up the broken barricade.");
+			    } else {
+				new GameObject(side == 1 ? BarricadeData.REPAIRED.getLeftId() : side == 2 ? BarricadeData.REPAIRED.getCenterId() : side == 3 ? BarricadeData.REPAIRED.getCenterId() : BarricadeData.REPAIRED.getRightId(), x, y, 0, g.getRotation(), g.getType(), objectId, 999999);
+				player.getActionSender().sendMessage("You fully repair the barricade.");
+			    }
+			    ObjectHandler.getInstance().addClip(objectId, x, y, 0, g.getDef().getFace(), 10);
+			    ObjectHandler.getInstance().addDoorClip(x, y, 0, g.getDef().getFace());
+			    
+			    player.getInventory().removeItem(new Item(1511));
+			    Position p = new Position(x, y, 0);
+			    brokenBarricades.remove(p);
+			    if (!repairs.contains(p) && !broken) {
+				repairs.add(p);
+				player.addPcDamage(5);
+			    }
+			    player.setStopPacket(false);
+			}
+		    }, 2);
+		} else {
+		    player.getActionSender().sendMessage("You need some logs to fix this barricade.");
 		}
-		return false;
+	    return true;
 	}
+	return false;
+    }
     
-	private static int playersInLobby() {
-		if (lobbyPlayers != null) {
-		    return lobbyPlayers.size();
+    public static boolean handleObjectClicking(Player player, int objectId, int x, int y) {
+	switch (objectId) {
+	    case 14315: //gangplank
+		if (x == 2658 && y == 2639) {
+		    if (player.getInventory().playerHasItem(1511)) {
+			player.getActionSender().sendMessage("You cannot take your own logs into the game area.");
+			return true;
+		    }
+		    if (!player.inPestControlLobbyArea()) {
+			joinLobby(player);
+		    }
 		}
-		return 0;
+		return true;
+	    case 14314: //ladder
+		if (x == 2660 && y == 2639) {
+		    if (player.inPestControlLobbyArea()) {
+			leaveLobby(player, false);
+		    }
+		}
+		return true;
 	}
+	return false;
+    }
+
+    private static int playersInLobby() {
+	if (lobbyPlayers != null) {
+	    return lobbyPlayers.size();
+	}
+	return 0;
+    }
 	
     public static int playersInGame() {
 		if (gamePlayers != null) {
@@ -872,15 +1261,12 @@ public class PestControl {
     	return gameActive;
     }
     
- /*   private static ArrayList<Position> getBrokenBarricades() {
+    public static ArrayList<Position> getBrokenBarricades() {
     	return brokenBarricades;
-    }*/
+    }
     
     private static ArrayList<Player> lobbyPlayers = new ArrayList<Player>();
     private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
-    //private static ArrayList<Npc> gameGrunts = new ArrayList<Npc>();
-    //private static ArrayList<Npc> ravagers = new ArrayList<Npc>();
-    //private static ArrayList<Position> brokenBarricades = new ArrayList<Position>();
     
     private static int lobbyTime = LOBBY_TIME;
     private static int gameTime = 0;

@@ -23,6 +23,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitRecord;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.skills.prayer.Prayer;
@@ -363,6 +364,10 @@ public abstract class Entity {
 	
 	public boolean inMiniGameArea() {
 		return inDuelArena() || isInDuelArea() || inFightCaves() || inPestControlGameArea();
+	}
+	
+	public boolean inMiniGameArea(MinigameAreas.Area area) {
+		return Area(area.getSouthWestCorner().getX(), area.getNorthEastCorner().getX(), area.getSouthWestCorner().getY(), area.getNorthEastCorner().getY());
 	}
 	
 	public boolean inSlayerTower() {
