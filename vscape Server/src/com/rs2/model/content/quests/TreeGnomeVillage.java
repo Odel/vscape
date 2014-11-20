@@ -254,8 +254,10 @@ public class TreeGnomeVillage implements Quest {
     }
     
     public static void handleDeath(final Player player, Npc npc) {
-        if (npc.getNpcId() == KHAZARD_WARLORD && player.getQuestStage(33) == ARE_YOU_FUCKING_KIDDING_ME) {
-            player.setQuestStage(33, KICK_WARLORDS_ASS);
+        if (npc.getNpcId() == KHAZARD_WARLORD && (player.getQuestStage(33) == ARE_YOU_FUCKING_KIDDING_ME || player.getQuestStage(33) == KICK_WARLORDS_ASS)) {
+	    if(player.getQuestStage(33) == ARE_YOU_FUCKING_KIDDING_ME) {
+		player.setQuestStage(33, KICK_WARLORDS_ASS);
+	    }
             player.getInventory().addItemOrDrop(new Item (OTHER_ORBS));
             player.getDialogue().sendPlayerChat("I'll be taking these back to their rightful owner.", CONTENT);
         }
@@ -350,7 +352,7 @@ public class TreeGnomeVillage implements Quest {
                     return true;
                 } else {
 		    player.getActionSender().sendMessage("You open the door and walk through.");
-		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3250 ? 1 : -1, true);
+		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3251 ? 1 : -1, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
 		}
@@ -710,16 +712,16 @@ public class TreeGnomeVillage implements Quest {
                                 player.getDialogue().endDialogue();
                                 return true;
                             case 4:
-                                player.getDialogue().sendNpcChat("That's excellent, now we can make more defensive", "battlements. Give me a moment to organize the troops", "and then come speak to me. I'll inform you of our next", "phase of attack.", CONTENT);
+                                player.getDialogue().sendNpcChat("That's excellent, now we can make more defensive", "battlements. Allow me to tell you about our", "next phase of attack.", CONTENT);
                                 player.setQuestStage(33, GAVE_MONTAI_WOOD);
                                 player.getInventory().removeItem(new Item(LOGS, 6));
-                                player.getDialogue().endDialogue();
+                                player.getDialogue().setNextChatId(1);
                                 return true;
                         }
                     case GAVE_MONTAI_WOOD:
                         switch (player.getDialogue().getChatId()) {
                             case 1:
-                                player.getDialogue().sendPlayerChat("So what's the problem?", CONTENT);
+                                player.getDialogue().sendNpcChat("We need to permanently damage the Khazard stronghold.", "This is an easy task with the ballista in working order.", "However...", CONTENT);
                                 return true;
                             case 2:
                                 player.getDialogue().sendNpcChat("From this distance we can't get an accurate enough", "shot. We need the correct coordinates of the", "stronghold for a direct hit. I've sent three tracker", "gnomes to gather them.", CONTENT);
