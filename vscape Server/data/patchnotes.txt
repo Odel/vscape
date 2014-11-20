@@ -1,3 +1,16 @@
+@dre@=November 19th=
+@blu@Tree Gnome Village
+-Pest Control is fixed.
+-Desert Heat system.
+-Degrading system (Read ::degradeinfo)
+-Canoe system overhaul.
+-Prayer guild entry req fixed.
+-Can boost mining to mine ores.
+-Combat potion fix.
+-Untradeables drop fix.
+-Mithril dragons are a task from Duradel.
+-::toggleroofs on the new client.
+
 @dre@=November 11th=
 -Pillory random event added.
 -Range and Magic prayers added.

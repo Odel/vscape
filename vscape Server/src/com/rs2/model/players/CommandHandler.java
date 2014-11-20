@@ -245,6 +245,9 @@ public class CommandHandler {
 		else if (keyword.equals("info")) {
 			info(sender);
 		}
+		else if (keyword.equals("degradeinfo")) {
+			degradeInfo(sender);
+		}
 		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
 			roll(sender);
         }
@@ -1596,11 +1599,27 @@ public class CommandHandler {
 	}
 	
 	public static void info(Player player) {
-		player.getActionSender().sendInterface(8134);
+	    player.getActionSender().sendInterface(8134);
 	    ClearNotes(player);
 	    player.getActionSender().sendString("@dre@-=vscape information=-", 8144);
 	    int line = 8147;
 	    for (String q : GlobalVariables.info) {
+		if (q != null) {
+		    if (line > 8195 && line < 12174) {
+			line = 12174;
+		    }
+		    player.getActionSender().sendString(q, line);
+		    line++;
+		}
+	    }
+	}
+	
+	public static void degradeInfo(Player player) {
+	    player.getActionSender().sendInterface(8134);
+	    ClearNotes(player);
+	    player.getActionSender().sendString("@dre@-=Degradation Information=-", 8144);
+	    int line = 8147;
+	    for (String q : GlobalVariables.degradeInfo) {
 		if (q != null) {
 		    if (line > 8195 && line < 12174) {
 			line = 12174;

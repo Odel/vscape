@@ -2,21 +2,21 @@
 ::info (This interface.)
 ::outfit (Changes your appearance.)
 ::yell/::y (Sends a global message.)
-::hidecolor/::hc (Hides color text in yell.)
 ::home
 ::players
 ::roll / ::8ball (suggests what to do in-game)
 ::changepass
 ::patchnotes
 ::highscores / ::hs / ::hiscores
-::maxqp (Tells you the rough maximum quest points available.)
+::maxqp (Tells you the maximum quest points available.)
 ::report
 ::bugreport
-::helpme/::panic (Sends a request for assistance to the staff.)
+::helpme/::panic (Sends a request for help to the staff.)
 ::pcpoints (Tells you your commendation points.)
 ::pc (General chat for Pest Control games.)
 ::pcactive (Tells you if a PC game is running.)
 ::resetpet (Picks up custom pets from PC.)
+::degradeinfo (Info about degrading.)
 
 @dre@ =General Info=
 -2.25x higher experience rate.
@@ -27,8 +27,6 @@
 -Coordinate clues only require a spade.
 -Dig in the garden of the quest marker house near
 West Ardougne to tunnel into West Ardouge.
--If you die with your god book, do not equip another!
-Go straight to Jossik to recover the lost book.
 
 @dre@=Admins=
 Pickles

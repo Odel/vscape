@@ -1,0 +1,28 @@
+@dbl@-In general-
+Degradation is hit based, with the following rules:
+
+-2500 hits per degrade stage.
+-10gp per hit repair cost.
+
+That gives Barrows items 10k total hits, and
+Crystal equipment 25k total hits / shots.
+
+@dbl@-Hit based?-
+Each time you strike an Npc, a hit is applied
+to your weapon (provided it is Barrows/Crystal).
+
+However, each time you recieve a hit, the hit is
+applied randomly to a piece of degradeable worn.
+If you are wearing a full set of Barrows, then
+only the helm or body or legs will take a hit each
+time you take a hit. This can be extended further
+using the Crystal shield.
+
+@dbl@-Where to repair?-
+Barrows can be repaired by Bob in Lumbridge, or
+the Squire located on Pest Control Island.
+
+Crystal equipment can be repaired by Ilfeen, just
+outside the west gate of the Elf city, by the
+Crystal vendor. She is also known to visit Pest
+Control Island.

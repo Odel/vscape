@@ -584,6 +584,25 @@ public class Misc {
 		}
 		return info;
 	}
+	public static String[] loadDegradeInfo() throws IOException {
+		String[] info = new String[200];
+		int count = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/degradeinfo.txt")));
+	
+			String line = null;
+			// if no more lines the readLine() returns null
+			int q = 0;
+			while (((line = br.readLine()) != null) && (q<200)) {
+				info[q]=line;
+				q++;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return info;
+	}
 	public static String[] getNpcDump() throws IOException {
 		String[] info = new String[7000];
 		int count = 0;
