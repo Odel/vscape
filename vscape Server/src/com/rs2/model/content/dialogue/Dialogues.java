@@ -11,7 +11,7 @@ import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.util.WeaponDegrading;
+import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
@@ -137,7 +137,7 @@ public class Dialogues {
 		if(BarbarianSpirits.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		if(Constants.DEGRADING_ENABLED && WeaponDegrading.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		if(Constants.DEGRADING_ENABLED && Degrading.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {

@@ -191,11 +191,12 @@ public class Degrading {
 				return true;
 			}
 		    case 4:
-			d.sendNpcChat("My name is Ilfeen, enchanter and life-giver of the", "crysal seed. I have studied it extensively, enough", "to give charge back to equipment created from seed.", CONTENT);
+			d.sendNpcChat("My name is Ilfeen, enchanter and life-giver of the", "crystal seed. I have studied it extensively, enough", "to give charge back to equipment created from seed.", CONTENT);
 			return true;
 		    case 5:
 			d.sendPlayerChat("Very interesting, thank you.", CONTENT);
 			d.endDialogue();
+			return true;
 		    case 6:
 			String name = new Item(Degradeables.getDegradeableItem(toRepairCrystal.get(0)).getOriginalId()).getDefinition().getName();
 			name = name.substring(name.indexOf("c"));
