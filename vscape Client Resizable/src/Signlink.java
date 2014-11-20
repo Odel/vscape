@@ -8,13 +8,10 @@ import javax.sound.sampled.*;
 
 public final class Signlink implements Runnable {
 
-	private static String cacheName = "/.vscape2/";
-	private final static String cacheNameNormal = "/.vscape2/";
-	private final static String cacheNameDev = "/.vscape2dev/";
+	private final static String cacheName = "/.vscape2/";
 
 	public static String findcachedir()
     {
-		cacheName = Client.DevMode ? cacheNameDev : cacheNameNormal;
         boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
         if(exists)
         {
@@ -29,7 +26,6 @@ public final class Signlink implements Runnable {
 
     public static final String findcachedir2()
     {
-    	cacheName = Client.DevMode ? cacheNameDev : cacheNameNormal;
         boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
         if(exists)
         {

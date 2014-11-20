@@ -1397,9 +1397,6 @@ public class WalkToActionHandler {
 				case 1568: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1570, def);
 					break;
-				case 26933: // open trapdoor
-					TrapDoor.handleTrapdoor(player, id, 26934, def);
-					break;
 				case 1570: // climb down trapdoor
 				case 5947: // climb into lumby swamp
 				case 6435: // climb down trapdoor
@@ -1408,7 +1405,6 @@ public class WalkToActionHandler {
 				case 9472: // climb down port sarim dungeon
 				case 1759: // taverly dungeon entrance
 				case 11867: // dwarven mine entrance
-				case 26934 :
 					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY() + 6400));
 					break;
 				case 1755: // exit stairs
@@ -1503,7 +1499,6 @@ public class WalkToActionHandler {
 				case 11731:// fally staircase
 				case 9584 : // draynor manor top floor
 				case 12538:// wizard tower staircase down to height 1
-				case 15638: //warrior guild top floor
 					Ladders.checkClimbTallStaircase(player, "down");
 					break;
 				case 11736:// fally staircase
@@ -1694,7 +1689,6 @@ public class WalkToActionHandler {
 				case 14367: //pc bank booth
 				case 5276: //port phasmatys bank booth
 				case 10517: //Nardah bank booth
-				case 26972 : //edgeville booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -2002,9 +1996,6 @@ public class WalkToActionHandler {
 				case 1570: // close trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1568, def);
 					break;
-				case 26934: // close trapdoor
-					TrapDoor.handleTrapdoor(player, id, 26933, def);
-					break;
 				case 1739: // staircase mid
 				case 12537:
 					Ladders.checkClimbTallStaircase(player, "up");
@@ -2024,7 +2015,7 @@ public class WalkToActionHandler {
 				case 2781:
 				case 3044:
 				case 12100:
-				case 26814:
+				
 					Smelting.smeltInterface(player);
 					// player.getSmithing().setUpSmelting();or
 					break;
@@ -2037,7 +2028,6 @@ public class WalkToActionHandler {
 				case 14367: //pc bank booth
 				case 5276: //port phasmatys bank booth
 				case 10517: //Nardah bank booth
-				case 26972 : //edgeville booth
 				    if(player.getFightCavesWave() > 0 ) {
 					player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
 					break;
@@ -2936,7 +2926,6 @@ public class WalkToActionHandler {
 				case 2966:
 				case 3044:
 				case 3294:
-				case 26814:
 				//case 3413: //elemental workshop furnace
 				case 4304:
 				case 4305:
