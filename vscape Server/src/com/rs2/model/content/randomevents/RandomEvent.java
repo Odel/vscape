@@ -63,6 +63,9 @@ public class RandomEvent {
 					case 4:
 						player.getFreakyForester().spawnForester();
 						break;
+					case 5:
+						player.getRandomInterfaceClick().sendEventRandomly(); //Sandwich lady
+						break;
 					//case 5 :
 						//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
 						//break;
