@@ -293,17 +293,17 @@ public class GroundItemManager implements Runnable {
     public void refreshLandscapeDisplay(Player player) {
         for (GroundItem item : player.getGroundItems())
             player.getActionSender().removeGroundItem(item);
-        player.getGroundItems().clear();
+	player.getGroundItems().clear();
         for (GroundItem item : groundItems) {
             if (!item.canBeSeenByPlayer(player))
                 continue;
             if (item.getStage() == GroundItem.GroundStage.PUBLIC) { 
                 player.getGroundItems().add(item);
                 player.getActionSender().sendGroundItem(item);
-         /*   } else if(item.getStage() == GroundItem.GroundStage.PRIVATE && item.getViewFirst() != null
-                    && item.getViewFirst().equals(player)) {
+            } else if(item.getStage() == GroundItem.GroundStage.PRIVATE && item.getViewFirst() != null
+                    && item.getViewFirst().getEntity() == player) {
                 player.getGroundItems().add(item);
-                player.getActionSender().sendGroundItem(item);*/
+                player.getActionSender().sendGroundItem(item);
             }
         }
     }

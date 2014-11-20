@@ -944,6 +944,7 @@ public class Player extends Entity {
 		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
+		GroundItemManager.getManager().refreshLandscapeDisplay(player);
                 if (heightChange) {
                 	player.reloadRegion();
                 }
@@ -3574,6 +3575,12 @@ public class Player extends Entity {
 		for(int i = 0; i < Pets.PET_IDS.length; i++) {
 		    if(inventory.playerHasItem(new Item(Pets.PET_IDS[i][0])) )
 				keptItems.add(new Item(Pets.PET_IDS[i][0]));
+		}
+		if(inventory.playerHasItem(FightCaves.FIRE_CAPE) || equipment.getId(Constants.CAPE) == FightCaves.FIRE_CAPE) {
+		    keptItems.add(new Item(FightCaves.FIRE_CAPE));
+		}
+		if(inventory.playerHasItem(7462) || equipment.getId(Constants.HANDS) == 7462) {
+		    keptItems.add(new Item(7462));
 		}
 		for (Item kept : keptItems) {
 			if (kept == null)
