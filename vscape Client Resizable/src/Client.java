@@ -5521,6 +5521,9 @@ public class Client extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
+					if (inputString.equals("::toggleroofs")){
+						roofsToggled = !roofsToggled;
+					}
 					if (myPrivilege == 2) {
 					/*	if (inputString.startsWith("//setspecto")) {
 							int amt = Integer.parseInt(inputString.substring(12));
@@ -10198,6 +10201,9 @@ public class Client extends RSApplet {
 	}
 
 	private int method120() {
+		if (roofsToggled) {
+			return plane;
+		}
 		int j = 3;
 		if (yCameraCurve < 310) {
 			int k = xCameraPos >> 7;
@@ -10266,6 +10272,9 @@ public class Client extends RSApplet {
 	}
 
 	private int method121() {
+		if (roofsToggled) {
+			return plane;
+		}
 		int j = method42(plane, yCameraPos, xCameraPos);
 		if (j - zCameraPos < 800 && (byteGroundArray[plane][xCameraPos >> 7][yCameraPos >> 7] & 4) != 0)
 			return plane;
@@ -13255,7 +13264,7 @@ public class Client extends RSApplet {
 	public boolean outDated = true;
 	
 	public double chosenBrightness = 0.80000000000000004D;
-	
+	private boolean roofsToggled = false;
 	public boolean autocast;
 	public int rights;
 	public String clanname;
