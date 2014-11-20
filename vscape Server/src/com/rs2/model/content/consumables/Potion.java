@@ -345,6 +345,13 @@ public class Potion {
 			case 2444:
 				player.getActionSender().statEdit(Skill.RANGED, ((int) Math.floor(player.getSkill().getPlayerLevel(Skill.RANGED) * 0.10)) + 4, true);
 				break;
+			case 9739: //combat
+			case 9741:
+			case 9743:
+			case 9745:
+				player.getActionSender().statEdit(Skill.ATTACK, ((int) Math.floor(player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.15)), true);
+				player.getActionSender().statEdit(Skill.STRENGTH, ((int) Math.floor(player.getSkill().getPlayerLevel(Skill.STRENGTH) * 0.15)), true);
+				break;
 			default :
 				break;
 		}
