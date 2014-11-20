@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.FamilyCrest;
@@ -19,7 +20,6 @@ import com.rs2.model.content.skills.Crafting.Spinning;
 import com.rs2.model.content.skills.Crafting.Tanning;
 import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
-import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.cooking.DoughHandler;
@@ -432,7 +432,9 @@ public class ButtonPacketHandler implements PacketHandler {
 				    }
 				    if (Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
 					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(item).getBrokenId()), player));
-					player.setDegradeableHits(Degradeables.getDegradeableItem(item).getPlayerArraySlot(), 0);
+					if(!Degrading.ownsDegradedVersion(player, item.getId())) {
+					    player.setDegradeableHits(Degradeables.getDegradeableItem(item).getPlayerArraySlot(), 0);
+					}
 				    }
 					player.getInventory().removeItem(player.getDestroyItem());
 				}

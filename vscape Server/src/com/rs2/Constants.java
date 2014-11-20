@@ -120,7 +120,7 @@ public class Constants {
 	
 	public static boolean FARMING_BUSHES_ENABLED = true;
 	
-	public static boolean DEGRADING_ENABLED = false;
+	public static boolean DEGRADING_ENABLED = true;
 
     public static boolean DUELING_DISABLED = false;
     

@@ -23,8 +23,8 @@ import com.rs2.model.content.combat.effect.impl.StatEffect;
 import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.special.SpecialType;
+import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.util.RingEffect;
-import com.rs2.model.content.combat.util.WeaponDegrading;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -333,10 +333,10 @@ public class Hit {
 		}
 		if(Constants.DEGRADING_ENABLED) {
 		    if(attacker != null && attacker.isPlayer() && victim != null && victim.isNpc()) {
-			WeaponDegrading.handlePlayerHit((Player)attacker);
+			Degrading.handleHit((Player)attacker, true);
 		    }
 		    if(attacker != null && attacker.isNpc() && victim != null && victim.isPlayer()) {
-			WeaponDegrading.handleNpcHit((Player)victim);
+			Degrading.handleHit((Player)victim, false);
 		    }
 		}
 		if (hitDef.getProjectileDef() != null)

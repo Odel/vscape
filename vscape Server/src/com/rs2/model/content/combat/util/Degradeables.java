@@ -3,6 +3,7 @@ package com.rs2.model.content.combat.util;
 import com.rs2.Constants;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
+import java.util.ArrayList;
 
 public enum Degradeables {
     
@@ -36,8 +37,8 @@ public enum Degradeables {
     VERACS_SKIRT(4759, 4994, 4995, 4996, 4997, 4998, Constants.LEGS, 22),
     VERACS_FLAIL(4755, 4982, 4983, 4984, 4985, 4986, Constants.WEAPON, 23),
 
-    CRYSTAL_BOW(4212, 4214, 4215, 4216, 4217, 4218, 4219, 4220, 4221, 4222, 4223, 4211, Constants.WEAPON, 24),
-    CRYSTAL_SHIELD(4224, 4225, 4226, 4227, 4228, 4229, 4230, 4231, 4232, 4233, 4234, 4211, Constants.WEAPON, 25);
+    CRYSTAL_BOW(4212, 4214, 4215, 4216, 4217, 4218, 4219, 4220, 4221, 4222, 4223, 4207, Constants.WEAPON, 24),
+    CRYSTAL_SHIELD(4224, 4225, 4226, 4227, 4228, 4229, 4230, 4231, 4232, 4233, 4234, 4211, Constants.SHIELD, 25);
     
     private final int originalId, firstDegradeId, secondDegradeId, thirdDegradeId, fourthDegradeId, fifthDegradeId, sixthDegradeId, seventhDegradeId, eigthDegradeId, ninthDegradeId, tenthDegradeId, brokenId, equipSlot, playerArraySlot;
     public static final int DEGRADE_HITS = 2500;
@@ -118,6 +119,48 @@ public enum Degradeables {
     public int getPlayerArraySlot() {
 	return playerArraySlot;
     }
+    public int getDegradeIdForInt(int i) {
+	switch(i) {
+	    case 1:
+		return firstDegradeId;
+	    case 2:
+		return secondDegradeId;
+	    case 3:
+		return thirdDegradeId;
+	    case 4:
+		return fourthDegradeId;
+	    case 5:
+		return fifthDegradeId;
+	    case 6:
+		return sixthDegradeId;
+	    case 7:
+		return seventhDegradeId;
+	    case 8:
+		return eigthDegradeId;
+	    case 9:
+		return ninthDegradeId;
+	    case 10:
+		return tenthDegradeId;
+	}
+	return -1;
+    }
+    public ArrayList<Integer> getIterableDegradedIds(boolean barrows) {
+	ArrayList<Integer> toReturn = new ArrayList<>();
+	toReturn.add(firstDegradeId);
+	toReturn.add(secondDegradeId);
+	toReturn.add(thirdDegradeId);
+	toReturn.add(fourthDegradeId);
+	if(!barrows) {
+	    toReturn.add(fifthDegradeId);
+	    toReturn.add(sixthDegradeId);
+	    toReturn.add(seventhDegradeId);
+	    toReturn.add(eigthDegradeId); 
+	    toReturn.add(ninthDegradeId); 
+	    toReturn.add(tenthDegradeId); 
+	}
+	toReturn.add(brokenId);
+	return toReturn;
+    }
 
     public static Degradeables getDegradeableItem(Item item) {
 	if(item != null) {
@@ -153,15 +196,17 @@ public enum Degradeables {
 		if (itemName.contains("helm"))	return VERACS_HELM;
 	    }
 	    if (itemName.contains("karil")) {
-		if (itemName.contains("crossbow") || itemName.contains("xbow"))	return KARILS_CROSSBOW;
+		if (itemName.contains("crossbow") || itemName.contains("x-bow")) return KARILS_CROSSBOW;
 		if (itemName.contains("skirt"))	return KARILS_SKIRT;
 		if (itemName.contains("top"))	return KARILS_TOP;
 		if (itemName.contains("coif"))	return KARILS_COIF;
 	    }
-	    if (itemName.toLowerCase().contains("crystal")) {
-		if (itemName.toLowerCase().contains("bow")) return CRYSTAL_BOW;
-		if (itemName.toLowerCase().contains("shield")) return CRYSTAL_SHIELD;
+	    if (itemName.contains("crystal")) {
+		if (itemName.contains("bow")) return CRYSTAL_BOW;
+		if (itemName.contains("shield")) return CRYSTAL_SHIELD;
 	    }
+	    if (itemName.equals("crystal seed")) return CRYSTAL_BOW;
+	    if (itemName.equals("elf crystal")) return CRYSTAL_SHIELD;
 	}
 	return null;
     }

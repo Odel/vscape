@@ -521,27 +521,6 @@ public class Player extends Entity {
 		getAttributes().put("canTakeDamage", Boolean.TRUE);
 	}
 
-	/*public Item destroyedBarrow(Item item) {
-		if (item != null) {
-			for (String s : WeaponDegrading.barrowsEquipments) {
-				if (item.getDefinition().getName().toLowerCase().contains(s)) {
-					if (item.getDefinition().getName().toLowerCase().contains("100"))
-						return new Item(item.getId() + 4, item.getCount());
-					if (item.getDefinition().getName().toLowerCase().contains("75"))
-						return new Item(item.getId() + 3, item.getCount());
-					if (item.getDefinition().getName().toLowerCase().contains("50"))
-						return new Item(item.getId() + 2, item.getCount());
-					if (item.getDefinition().getName().toLowerCase().contains("25"))
-						return new Item(item.getId() + 1, item.getCount());
-
-					return new Item(WeaponDegrading.getFirstDegraded(item.getId()) + 4, item.getCount());
-				}
-			}
-			return item;
-		}
-		return null;
-	}*/
-
 	public void handleDropItems(int amountToDrop, Player player) {
 		ArrayList<Item> items = new ArrayList<Item>();
 		/*for (int i = 0; i < Inventory.SIZE; i++)
@@ -1142,6 +1121,11 @@ public class Player extends Entity {
 		}
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
+		}
+		for(int i = 0; i < this.degradeableHits.length; i++) {
+		    if(this.degradeableHits[i] > Degradeables.DEGRADE_HITS) {
+			this.setDegradeableHits(i, Degradeables.DEGRADE_HITS - 1);
+		    }
 		}
         if(inPestControlLobbyArea())
         {

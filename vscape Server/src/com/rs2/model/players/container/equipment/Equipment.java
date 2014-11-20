@@ -7,6 +7,7 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -305,27 +306,22 @@ public class Equipment {
 			player.setAutoSpell(null);
 		}
 		if(Constants.DEGRADING_ENABLED) {
-		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getOriginalId() == item.getId()) {
-			if (player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()] <= 0) {
-			    player.setDegradeableHits(Degradeables.getDegradeableItem(item).getPlayerArraySlot(), 0);
-			    player.getActionSender().sendMessage("Your " + item.getDefinition().getName().toLowerCase() + " will degrade and become untradeable upon combat.");
+		    Degradeables d = Degradeables.getDegradeableItem(item);
+		    if (d != null) {
+			if (d.getOriginalId() == item.getId()) {
+			    if (player.getDegradeableHits()[d.getPlayerArraySlot()] <= 0) {
+				player.setDegradeableHits(d.getPlayerArraySlot(), 0);
+				player.getActionSender().sendMessage("Your " + item.getDefinition().getName().toLowerCase() + " will degrade and become untradeable upon combat.");
+			    }
 			}
-		    }
-		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getFirstDegradeId() == item.getId()) {
-			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
-			player.getActionSender().sendMessage("You have " + (Degradeables.DEGRADE_HITS - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
-		    }
-		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getSecondDegradeId() == item.getId()) {
-			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
-			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 2) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
-		    }
-		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getThirdDegradeId() == item.getId()) {
-			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
-			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 3) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
-		    }
-		    if (Degradeables.getDegradeableItem(item) != null && Degradeables.getDegradeableItem(item).getFourthDegradeId() == item.getId()) {
-			int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
-			player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * 4) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+			int count = 1;
+			for (int i : d.getIterableDegradedIds(!item.getDefinition().getName().toLowerCase().contains("crystal"))) {
+			    if (item.getId() == i) {
+				int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+				player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * count) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.");
+			    }
+			    count++;
+			}
 		    }
 		}
 		if(item.getId() == GhostsAhoy.BEDSHEET) {
@@ -595,6 +591,10 @@ public class Equipment {
 			if(Constants.DEGRADING_ENABLED) {
 			    if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).getOriginalId() == itemId) {
 				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				    if(!Degrading.ownsDegradedVersion(player, itemId)) {
+					player.setDegradeableHits(Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot(), 0);
+					return true;
+				    }
 				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
 				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
 				    return false;
@@ -650,6 +650,10 @@ public class Equipment {
 			if(Constants.DEGRADING_ENABLED) {
 			    if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).getOriginalId() == itemId) {
 				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
+				    if(!Degrading.ownsDegradedVersion(player, itemId)) {
+					player.setDegradeableHits(Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot(), 0);
+					return true;
+				    }
 				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
 				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
 				    return false;
