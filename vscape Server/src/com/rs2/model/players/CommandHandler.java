@@ -18,6 +18,7 @@ import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -476,6 +477,15 @@ public class CommandHandler {
 			Graphic graphic = new Graphic(199, 100); //gfx part
 			sender.getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue()); //gfx part2
 			sender.getUpdateFlags().setForceChatMessage("U S A! U S A! U S A!"); //Message
+		}
+		else if (keyword.equals("degradingoff")) {
+		    Constants.DEGRADING_ENABLED = false;
+		    for(Player player : World.getPlayers()) {
+			if(player == null) continue;
+			for(int i = 0; i < player.getDegradeableHits().length; i++) {
+			    player.setDegradeableHits(i, 0);
+			}
+		    }
 		}
 		else if (keyword.equals("forcefox")) {
 		    String name = fullString;

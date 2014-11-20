@@ -1124,7 +1124,10 @@ public class Player extends Entity {
 		    this.setEctoWorshipCount(0);
 		}
 		for(int i = 0; i < this.degradeableHits.length; i++) {
-		    if(this.degradeableHits[i] > Degradeables.DEGRADE_HITS) {
+		    if(!Constants.DEGRADING_ENABLED) {
+			this.setDegradeableHits(i, 0);
+		    }
+		    else if(this.degradeableHits[i] > Degradeables.DEGRADE_HITS) {
 			this.setDegradeableHits(i, Degradeables.DEGRADE_HITS - 1);
 		    }
 		}
