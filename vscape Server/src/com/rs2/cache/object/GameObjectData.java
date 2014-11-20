@@ -16,7 +16,7 @@ public class GameObjectData {
 	/**
 	 * The maximum number of object definitions
 	 */
-	public static final int MAX_DEFINITIONS = 25374;
+	public static final int MAX_DEFINITIONS = 27283;
 
 	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(GameObjectData.class.getName());
