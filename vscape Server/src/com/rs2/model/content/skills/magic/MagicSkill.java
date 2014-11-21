@@ -217,6 +217,8 @@ public abstract class MagicSkill extends CycleEvent {
 				CacheObject object = ObjectLoader.object(objectId, x, y, z);
 				if (object == null || object.getDef().getId() != objectId)
 					return false;
+				if(!player.getPosition().withinDistance(object.getLocation(), 2))
+					return false;
 				switch (spell) {
 				    case CHARGE_FIRE: //fire obelisk
 					if(objectId == 2153 && player.getInventory().playerHasItem(567)) {
