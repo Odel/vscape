@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.2";
+	private final static String CLIENT_VERSION = "3.2b";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -5525,28 +5525,10 @@ public class Client extends RSApplet {
 						roofsToggled = !roofsToggled;
 					}
 					if (myPrivilege == 2) {
-					/*	if (inputString.startsWith("//setspecto")) {
-							int amt = Integer.parseInt(inputString.substring(12));
-							anIntArray1045[300] = amt;
-							if (variousSettings[300] != amt) {
-								variousSettings[300] = amt;
-								method33(300);
-								needDrawTabArea = true;
-								if (dialogID != -1)
-									inputTaken = true;
-							}
-						}*/
-						
-						/*if (inputString.equals("::maps"))
-							packMaps();
-						
-						if (inputString.equals("::models"))
-							packModels();
-*/
 						
 						if (inputString.equals("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
-						
+
 						if (inputString.equals("::regular"))
 							toggleSize(0);
 						if (inputString.equals("::resize"))
