@@ -475,6 +475,11 @@ public class CommandHandler {
 			CoordinateData clue = CoordinateData.forIdClue(id);
 			sender.getActionSender().sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
 		}
+		if(keyword.equals("degradeables")) {
+		    for(Degradeables d : Degradeables.values()) {
+			sender.getInventory().addItem(new Item(d.getOriginalId()));
+		    }
+		}
 		else if (keyword.equals("usa")) { //4th of july command
 			sender.getUpdateFlags().sendAnimation(2106, 0); //animation
 			Graphic graphic = new Graphic(199, 100); //gfx part
@@ -483,12 +488,6 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("degradingoff")) {
 		    Constants.DEGRADING_ENABLED = false;
-		    for(Player player : World.getPlayers()) {
-			if(player == null) continue;
-			for(int i = 0; i < player.getDegradeableHits().length; i++) {
-			    player.setDegradeableHits(i, 0);
-			}
-		    }
 		}
 		else if (keyword.equals("forcefox")) {
 		    String name = fullString;

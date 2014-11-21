@@ -86,17 +86,16 @@ public class Degrading {
 	}
 	
 	public static String[] optionBuilder(final ArrayList<Item> items, int options, int offset) {
-	    if(options > 5) {
-		return new String[]{"Nevermind."};
-	    }
 	    String[] toReturn = new String[options];
+	    boolean isLastOptions = (items.size() - offset) <= 5;
 	    for(int i = 0; i < options; i++) {
+		if(i == 4 && items.size() % 4 == 0) continue;
 		toReturn[i] = "" + new Item(Degradeables.getDegradeableItem(items.get(i + offset)).getOriginalId()).getDefinition().getName();
 	    }
-	    if(options > 4) {
-		if(offset == 20) {
+	    if(options == 5) {
+		if(items.size() % 4 == 0 && (items.size() - offset) == 4) {
 		    toReturn[4] = "Nevermind.";
-		} else {
+		} else if((items.size() - 1) % 4 != 0 || (items.size() > 5 && (items.size() - 1) % 4 == 0 && !isLastOptions)){
 		    toReturn[4] = "More...";
 		}
 	    }
@@ -382,7 +381,7 @@ public class Degrading {
 				return true;
 			}
 		    case 9:
-			if(toRepair.size() > 4) {
+			if(toRepair.size() >= 4) {
 			    d.sendOption(optionBuilder(toRepair, 5, 0));
 			    return true;
 			} else if(toRepair.size() > 1) {
@@ -407,13 +406,24 @@ public class Degrading {
 				player.setTempInteger(optionId - 1);
 				return true;
 			    case 5:
-				d.setNextChatId(20);
-				if (toRepair.size() > 8) {
-				    d.sendOption(optionBuilder(toRepair, 5, 4));
+				if (toRepair.size() > 5) {
+				    d.setNextChatId(20);
+				    if (toRepair.size() >= 8) {
+					d.sendOption(optionBuilder(toRepair, 5, 4));
+					return true;
+				    } else {
+					int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
+					d.sendOption(optionBuilder(toRepair, size, 4));
+					return true;
+				    }
+				} else if((toRepair.size() - 1)%4 == 0) {
+				    String itemName2 = new Item(Degradeables.getDegradeableItem(toRepair.get(optionId - 1)).getOriginalId()).getDefinition().getName();
+				    d.sendPlayerChat("I'd like my " + itemName2 + " repaired.", CONTENT);
+				    player.setTempInteger(optionId - 1);
 				    return true;
 				} else {
-				    int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
-				    d.sendOption(optionBuilder(toRepair, size, 4));
+				    d.sendPlayerChat("Nevermind.", CONTENT);
+				    d.endDialogue();
 				    return true;
 				}
 			}
@@ -504,12 +514,24 @@ public class Degrading {
 				player.setTempInteger(optionId + 3);
 				return true;
 			    case 5:
-				if (toRepair.size() > 12) {
-				    d.sendOption(optionBuilder(toRepair, 5, 8));
+				if (toRepair.size() > 9) {
+				    if (toRepair.size() >= 12) {
+					d.sendOption(optionBuilder(toRepair, 5, 8));
+					return true;
+				    } else {
+					int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
+					d.sendOption(optionBuilder(toRepair, size, 8));
+					return true;
+				    }
+				} else if((toRepair.size() - 1)%4 == 0) {
+				    String itemName3 = new Item(Degradeables.getDegradeableItem(toRepair.get(optionId + 3)).getOriginalId()).getDefinition().getName();
+				    d.sendPlayerChat("I'd like my " + itemName3 + " repaired.", CONTENT);
+				    d.setNextChatId(11);
+				    player.setTempInteger(optionId + 3);
 				    return true;
 				} else {
-				    int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
-				    d.sendOption(optionBuilder(toRepair, size, 8));
+				    d.sendPlayerChat("Nevermind.", CONTENT);
+				    d.endDialogue();
 				    return true;
 				}
 			}
@@ -525,12 +547,24 @@ public class Degrading {
 				player.setTempInteger(optionId + 7);
 				return true;
 			    case 5:
-				if (toRepair.size() > 16) {
-				    d.sendOption(optionBuilder(toRepair, 5, 12));
+				if (toRepair.size() > 13) {
+				    if (toRepair.size() >= 16) {
+					d.sendOption(optionBuilder(toRepair, 5, 12));
+					return true;
+				    } else {
+					int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
+					d.sendOption(optionBuilder(toRepair, size, 12));
+					return true;
+				    }
+				} else if((toRepair.size() - 1)%4 == 0) {
+				    String itemName4 = new Item(Degradeables.getDegradeableItem(toRepair.get(optionId + 7)).getOriginalId()).getDefinition().getName();
+				    d.sendPlayerChat("I'd like my " + itemName4 + " repaired.", CONTENT);
+				    d.setNextChatId(11);
+				    player.setTempInteger(optionId + 7);
 				    return true;
 				} else {
-				    int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
-				    d.sendOption(optionBuilder(toRepair, size, 12));
+				    d.sendPlayerChat("Nevermind.", CONTENT);
+				    d.endDialogue();
 				    return true;
 				}
 			}
@@ -546,12 +580,24 @@ public class Degrading {
 				player.setTempInteger(optionId + 11);
 				return true;
 			    case 5:
-				if (toRepair.size() > 20) {
-				    d.sendOption(optionBuilder(toRepair, 5, 16));
+				if (toRepair.size() > 17) {
+				    if (toRepair.size() >= 20) {
+					d.sendOption(optionBuilder(toRepair, 5, 16));
+					return true;
+				    } else {
+					int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
+					d.sendOption(optionBuilder(toRepair, size, 16));
+					return true;
+				    }
+				} else if((toRepair.size() - 1)%4 == 0) {
+				    String itemName4 = new Item(Degradeables.getDegradeableItem(toRepair.get(optionId + 11)).getOriginalId()).getDefinition().getName();
+				    d.sendPlayerChat("I'd like my " + itemName4 + " repaired.", CONTENT);
+				    d.setNextChatId(11);
+				    player.setTempInteger(optionId + 11);
 				    return true;
 				} else {
-				    int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
-				    d.sendOption(optionBuilder(toRepair, size, 16));
+				    d.sendPlayerChat("Nevermind.", CONTENT);
+				    d.endDialogue();
 				    return true;
 				}
 			}
@@ -567,12 +613,24 @@ public class Degrading {
 				player.setTempInteger(optionId + 15);
 				return true;
 			    case 5:
-				if (toRepair.size() > 24) {
-				    d.sendOption(optionBuilder(toRepair, 5, 20));
+				if (toRepair.size() > 21) {
+				    if (toRepair.size() >= 24) {
+					d.sendOption(optionBuilder(toRepair, 5, 20));
+					return true;
+				    } else {
+					int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
+					d.sendOption(optionBuilder(toRepair, size, 20));
+					return true;
+				    }
+				} else if((toRepair.size() - 1)%4 == 0) {
+				    String itemName4 = new Item(Degradeables.getDegradeableItem(toRepair.get(optionId + 15)).getOriginalId()).getDefinition().getName();
+				    d.sendPlayerChat("I'd like my " + itemName4 + " repaired.", CONTENT);
+				    d.setNextChatId(11);
+				    player.setTempInteger(optionId + 15);
 				    return true;
 				} else {
-				    int size = (int) (4 - (Math.floor(4d / (toRepair.size() % 4))));
-				    d.sendOption(optionBuilder(toRepair, size, 20));
+				    d.sendPlayerChat("Nevermind.", CONTENT);
+				    d.endDialogue();
 				    return true;
 				}
 			}
