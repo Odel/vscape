@@ -185,6 +185,214 @@ public class ConfigWriter {
 		}
 	}
 	
+    public static void writeObjectsConfig() {
+        try {
+            DataOutputStream dat = new DataOutputStream(new FileOutputStream(conDir+"loc.dat"));
+            DataOutputStream idx = new DataOutputStream(new FileOutputStream(conDir+"loc.idx"));
+            idx.writeShort(ObjectDef.totalObjects);
+            dat.writeShort(ObjectDef.totalObjects);
+
+            for (int index = 0; index < ObjectDef.totalObjects; index++) {
+                ObjectDef obj = ObjectDef.forID(index);
+                int offset1 = dat.size();
+
+                if (obj.anIntArray773 != null) {
+                    if (obj.anIntArray776 != null) {
+                        dat.writeByte(1);
+                        dat.writeByte(obj.anIntArray773.length);
+                        if (obj.anIntArray773.length > 0) {
+                            for (int i = 0; i < obj.anIntArray773.length; i++) {
+                                dat.writeShort(obj.anIntArray773[i]);
+                                dat.writeByte(obj.anIntArray776[i]);
+                            }
+                        }
+                    } else {
+                        dat.writeByte(5);
+                        dat.writeByte(obj.anIntArray773.length);
+                        if (obj.anIntArray773.length > 0) {
+                            for (int i = 0; i < obj.anIntArray773.length; i++) {
+                                dat.writeShort(obj.anIntArray773[i]);
+                            }
+                        }
+                    }
+                }
+
+                if (obj.name != null) {
+                    dat.writeByte(2);
+                    writeString(dat, obj.name);
+                }
+
+                if (obj.description != null) {
+                    dat.writeByte(3);
+                    writeString(dat, new String(obj.description));
+                }
+
+                if (obj.anInt744 != 1) {
+                    dat.writeByte(14);
+                    dat.writeByte(obj.anInt744);
+                }
+
+                if (obj.anInt761 != 1) {
+                    dat.writeByte(15);
+                    dat.writeByte(obj.anInt761);
+                }
+
+                if (!obj.aBoolean767) {
+                    dat.writeByte(17);
+                }
+
+                if (!obj.aBoolean757) {
+                    dat.writeByte(18);
+                }
+
+                if (obj.hasActions) {
+                    dat.writeByte(19);
+                    dat.writeByte(1);
+                }else{
+                    dat.writeByte(19);
+                    dat.writeByte(0);
+                }
+
+                if (obj.aBoolean762) {
+                    dat.writeByte(21);
+                }
+
+                if (obj.aBoolean769) {
+                    dat.writeByte(22);
+                }
+
+                if (obj.aBoolean764) {
+                    dat.writeByte(23);
+                }
+
+                if (obj.anInt781 != -1) {
+                    dat.writeByte(24);
+                    dat.writeShort(obj.anInt781);
+                }
+
+                if (obj.anInt775 != 16) {
+                    dat.writeByte(28);
+                    dat.writeByte(obj.anInt775);
+                }
+
+                if (obj.aByte737 != 0) {
+                    dat.writeByte(29);
+                    dat.writeByte(obj.aByte737);
+                }
+
+                if (obj.aByte742 != 0) {
+                    dat.writeByte(39);
+                    dat.writeByte(obj.aByte742);
+                }
+
+                if (obj.actions != null) {
+                    for (int i = 0; i < obj.actions.length; i++) {
+                        dat.writeByte(30 + i);
+                        if (obj.actions[i] != null) {
+                            writeString(dat, obj.actions[i]);
+                        }else{
+                        	writeString(dat, "hidden");
+                        }
+                    }
+                }
+
+                if (obj.modifiedModelColors != null || obj.originalModelColors != null) {
+                    dat.writeByte(40);
+                    dat.writeByte(obj.modifiedModelColors.length);
+                    for (int i = 0; i < obj.modifiedModelColors.length; i++) {
+                        dat.writeShort(obj.modifiedModelColors[i]);
+                        dat.writeShort(obj.originalModelColors[i]);
+                    }
+                }
+
+                if (obj.anInt746 != -1) {
+                    dat.writeByte(60);
+                    dat.writeShort(obj.anInt746);
+                }
+
+                if (obj.aBoolean751) {
+                    dat.writeByte(62);
+                }
+
+                if (!obj.aBoolean779) {
+                    dat.writeByte(64);
+                }
+
+                if (obj.anInt748 != 128) {
+                    dat.writeByte(65);
+                    dat.writeShort(obj.anInt748);
+                }
+
+                if (obj.anInt772 != 128) {
+                    dat.writeByte(66);
+                    dat.writeShort(obj.anInt772);
+                }
+
+                if (obj.anInt740 != 128) {
+                    dat.writeByte(67);
+                    dat.writeShort(obj.anInt740);
+                }
+
+                if (obj.anInt758 != -1) {
+                    dat.writeByte(68);
+                    dat.writeShort(obj.anInt758);
+                }
+
+                if (obj.anInt768 != 0) {
+                    dat.writeByte(69);
+                    dat.writeByte(obj.anInt768);
+                }
+
+                if (obj.anInt738 != 0) {
+                    dat.writeByte(70);
+                    dat.writeShort(obj.anInt738);
+                }
+
+                if (obj.anInt745 != 0) {
+                    dat.writeByte(71);
+                    dat.writeShort(obj.anInt745);
+                }
+
+                if (obj.anInt783 != 0) {
+                    dat.writeByte(72);
+                    dat.writeShort(obj.anInt783);
+                }
+
+                if (obj.aBoolean736) {
+                    dat.writeByte(73);
+                }
+
+                if (obj.aBoolean766) {
+                    dat.writeByte(74);
+                }
+
+                if (obj.anInt760 != -1) {
+                    dat.writeByte(75);
+                    dat.writeByte(obj.anInt760);
+                }
+
+                if (obj.anInt774 != -1 || obj.anInt749 != -1 || obj.childrenIDs != null) {
+                    dat.writeByte(77);
+                    dat.writeShort(obj.anInt774);
+                    dat.writeShort(obj.anInt749);
+                    dat.writeByte(obj.childrenIDs.length - 1);
+                    for (int i = 0; i < obj.childrenIDs.length; i++) {
+                        dat.writeShort(obj.childrenIDs[i]);
+                    }
+                }
+                dat.writeByte(0);
+                int offset2 = dat.size();
+                int writeOffset = offset2 - offset1;
+                idx.writeShort(writeOffset);
+            }
+            dat.close();
+            idx.close();
+            System.out.println("Finished writing.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
     public static void writeString(DataOutputStream dos, String input) throws IOException {
         dos.write(input.getBytes());
         dos.writeByte(10);

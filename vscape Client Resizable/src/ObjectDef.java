@@ -71,15 +71,17 @@ public final class ObjectDef
 		mruNodes2 = null;
 		streamIndices = null;
 		cache = null;
-stream = null;
+		stream = null;
 	}
 
+	public static int totalObjects;
 	public static void unpackConfig(StreamLoader streamLoader)
 	{
 		stream = new Stream(streamLoader.getDataForName("loc.dat"));
 		Stream stream = new Stream(streamLoader.getDataForName("loc.idx"));
-		int totalObjects = stream.readUnsignedWord();
+		totalObjects = stream.readUnsignedWord();
 		streamIndices = new int[totalObjects];
+		System.out.println("Objects Loaded: " + totalObjects);
 		int i = 2;
 		for(int j = 0; j < totalObjects; j++)
 		{
@@ -468,19 +470,19 @@ label0:
 	}
 
 	public boolean aBoolean736;
-	private byte aByte737;
-	private int anInt738;
+	public byte aByte737;
+	public int anInt738;
 	public String name;
-	private int anInt740;
+	public int anInt740;
 	private static final Model[] aModelArray741s = new Model[4];
-	private byte aByte742;
+	public byte aByte742;
 	public int anInt744;
-	private int anInt745;
+	public int anInt745;
 	public int anInt746;
-	private int[] originalModelColors;
-	private int anInt748;
+	public int[] originalModelColors;
+	public int anInt748;
 	public int anInt749;
-	private boolean aBoolean751;
+	public boolean aBoolean751;
 	public static boolean lowMem;
 	private static Stream stream;
 	public int type;
@@ -488,29 +490,29 @@ label0:
 	public boolean aBoolean757;
 	public int anInt758;
 	public int childrenIDs[];
-	private int anInt760;
+	public int anInt760;
 	public int anInt761;
 	public boolean aBoolean762;
 	public boolean aBoolean764;
 	public static Client clientInstance;
-	private boolean aBoolean766;
+	public boolean aBoolean766;
 	public boolean aBoolean767;
 	public int anInt768;
-	private boolean aBoolean769;
+	public boolean aBoolean769;
 	private static int cacheIndex;
-	private int anInt772;
-	private int[] anIntArray773;
+	public int anInt772;
+	public int[] anIntArray773;
 	public int anInt774;
 	public int anInt775;
-	private int[] anIntArray776;
+	public int[] anIntArray776;
 	public byte description[];
 	public boolean hasActions;
 	public boolean aBoolean779;
 	public static MRUNodes mruNodes2 = new MRUNodes(30);
 	public int anInt781;
 	private static ObjectDef[] cache;
-	private int anInt783;
-	private int[] modifiedModelColors;
+	public int anInt783;
+	public int[] modifiedModelColors;
 	public static MRUNodes mruNodes1 = new MRUNodes(500);
 	public String actions[];
 
