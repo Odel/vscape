@@ -13,6 +13,7 @@ import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -1155,11 +1156,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.getPets().registerPet(6541, 901);
 	    return;
 	}
-	if (itemId == 5608) {
-	    player.getEquipment().equip(player.getSlot());
-	    return;
-	}
-	if (itemId == 5609) {
+	if (itemId == 5608 || itemId == 5609 || (itemId >= 3327 && itemId < 3344)) {
 	    player.getEquipment().equip(player.getSlot());
 	    return;
 	}
@@ -1169,8 +1166,7 @@ public class ItemPacketHandler implements PacketHandler {
 	if (QuestHandler.getQuests()[25].itemHandling(player, itemId)) { //Animal Magnetism
 	    return;
 	}
-	if (itemId >= 3327 && itemId < 3344) {
-	    player.getEquipment().equip(player.getSlot());
+	if (ApeAtoll.handleGreeGreeEquip(player, itemId)) {
 	    return;
 	}
 	if (itemId == 11664) {

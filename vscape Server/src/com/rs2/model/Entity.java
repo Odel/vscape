@@ -330,6 +330,10 @@ public abstract class Entity {
 		return Area(2640, 2671, 2637, 2678);
 	}
 	
+	public boolean onApeAtoll() {
+		return Area(2688, 2829, 2688, 2822);
+	}
+	
 	public boolean inWarriorGuild() {
 		return Area(2585, 2619, 3139, 3171);
 	}

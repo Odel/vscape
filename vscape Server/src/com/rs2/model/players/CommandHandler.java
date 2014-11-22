@@ -22,6 +22,7 @@ import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -469,6 +470,11 @@ public class CommandHandler {
 				}
 			}
 			sender.getActionSender().sendMessage("The player is not online at the moment.");
+		}
+		if(keyword.equals("greegree")) {
+		    for(ApeAtoll.GreeGreeData g : ApeAtoll.GreeGreeData.values()) {
+			sender.getInventory().addItem(new Item(g.getItemId()));
+		    }
 		}
 		if (keyword.equals("coordinate")) {
 			final int id = Integer.parseInt(args[0]);
