@@ -652,14 +652,11 @@ public class Equipment {
 				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
 				    if(!Degrading.ownsDegradedVersion(player, itemId)) {
 					player.setDegradeableHits(Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot(), 0);
-					return true;
+				    } else {
+					player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
+					player.getActionSender().sendMessage("Repair it, or let it break completely.");
+					return false;
 				    }
-				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
-				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
-				    return false;
-				}
-				else {
-				    return true;
 				}
 			    }
 			}

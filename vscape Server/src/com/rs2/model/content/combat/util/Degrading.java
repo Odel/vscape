@@ -267,7 +267,7 @@ public class Degrading {
 		    case 12:
 			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getPlayerArraySlot()] * 10;
 			if(toRepairCrystal.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getBrokenId()) {
-			    amountToPay = Degradeables.DEGRADE_HITS * 10;
+			    amountToPay = Degradeables.DEGRADE_HITS * 10 * 10;
 			}
 			d.sendGiveItemNpc("You exchange the money...", "...for the charged crystal equipment.", new Item(995, amountToPay), new Item(Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getOriginalId()));
 			player.getInventory().replaceItemWithItem(toRepairCrystal.get(player.getTempInteger()), new Item(Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getOriginalId()));
@@ -466,7 +466,7 @@ public class Degrading {
 		    case 14:
 			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getPlayerArraySlot()] * 10;
 			if(toRepair.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getBrokenId()) {
-			    amountToPay = Degradeables.DEGRADE_HITS * 10;
+			    amountToPay = Degradeables.DEGRADE_HITS * 4 * 10;
 			}
 			d.sendGiveItemNpc("You exchange the money...", "...for the repaired piece of equipment.", new Item(995, amountToPay), new Item(Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getOriginalId()));
 			player.getInventory().replaceItemWithItem(toRepair.get(player.getTempInteger()), new Item(Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getOriginalId()));

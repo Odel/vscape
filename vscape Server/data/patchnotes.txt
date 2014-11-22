@@ -1,4 +1,8 @@
-@dre@=November 21th=
+@dre@=November 21st Re-dux=
+-Fixed Pest Control reward points.
+-Fixed stats on degraded items (Sorry).
+
+@dre@=November 21st=
 @blu@Tree Gnome Village
 -Pest Control is fixed.
 -Desert Heat system.
