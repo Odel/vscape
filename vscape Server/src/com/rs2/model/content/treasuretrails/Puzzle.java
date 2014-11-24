@@ -3,6 +3,7 @@ package com.rs2.model.content.treasuretrails;
 import java.util.ArrayList;
 
 import com.rs2.model.Position;
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
@@ -15,6 +16,7 @@ import com.rs2.util.Misc;
 public class Puzzle {// todo maybe hovering button message
 
     private Player player;
+    private int SCRAMBLE_ITERATIONS = 150;
     /* a variable which stocks the puzzle items */
 
     public Puzzle(Player player) {
@@ -76,6 +78,8 @@ public class Puzzle {// todo maybe hovering button message
 		return 2;
 	    case ClueScroll.TROLL_PUZZLE:
 		return 3;
+	    case 6661234:
+		return 4;
 	}
 	return 0;
     }
@@ -89,6 +93,8 @@ public class Puzzle {// todo maybe hovering button message
 		return ClueScroll.secondPuzzle;
 	    case 3:
 		return ClueScroll.thirdPuzzle;
+	    case 4:
+		return MonkeyMadness.GLIDER_PUZZLE;
 	}
 	return null;
     }
@@ -104,9 +110,15 @@ public class Puzzle {// todo maybe hovering button message
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
 	    player.puzzleStoredItems[i] = new Item(getPuzzleIndex(index)[i]);
 	}
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < SCRAMBLE_ITERATIONS; i++) {
 	    int move = adjacentToBlank().get(Misc.randomMinusOne(adjacentToBlank().size()));
 	    moveSlidingPiece(move, false);
+	}
+	if(index == 4) {
+	    for (int i = 0; i < SCRAMBLE_ITERATIONS; i++) {
+		int move = adjacentToBlank().get(Misc.randomMinusOne(adjacentToBlank().size()));
+		moveSlidingPiece(move, false);
+	    }
 	}
     }
 
@@ -130,10 +142,11 @@ public class Puzzle {// todo maybe hovering button message
     }
 
     public void loadPuzzle() {
-	player.getActionSender().sendInterface(ClueScroll.PUZZLE_INTERFACE);
-	player.getActionSender().sendUpdateItems(ClueScroll.PUZZLE_INTERFACE_CONTAINER, player.puzzleStoredItems);
-	player.getActionSender().sendUpdateItems(ClueScroll.PUZZLE_INTERFACE_DEFAULT_CONTAINER, getDefaultItems());
-
+	player.getActionSender().sendInterface(index == 4 ? MonkeyMadness.PUZZLE_INTERFACE : ClueScroll.PUZZLE_INTERFACE);
+	player.getActionSender().sendUpdateItems(index == 4 ? 11130 : ClueScroll.PUZZLE_INTERFACE_CONTAINER, player.puzzleStoredItems);
+	if(index != 4) {
+	    player.getActionSender().sendUpdateItems(ClueScroll.PUZZLE_INTERFACE_DEFAULT_CONTAINER, getDefaultItems());
+	}
     }
 
     /* gets the position of a puzzle slide (using mathematical way) */

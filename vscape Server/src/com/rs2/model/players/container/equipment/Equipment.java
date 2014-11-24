@@ -13,6 +13,7 @@ import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
@@ -359,8 +360,11 @@ public class Equipment {
             player.getActionSender().sendMessage("Not enough space in your inventory.");
             return;
         }
-		if (item.getId() == 6583 || item.getId() == 7927) {
+		if (item.getId() == 6583 || item.getId() == 7927 || ApeAtoll.GreeGreeData.forItemId(item.getId()) != null) {
 			player.transformNpc = -1;
+			player.setStandAnim(-1);
+			player.setWalkAnim(-1);
+			player.setRunAnim(-1);
 			player.getActionSender().sendSideBarInterfaces();
 			player.setAppearanceUpdateRequired(true);
 		}
