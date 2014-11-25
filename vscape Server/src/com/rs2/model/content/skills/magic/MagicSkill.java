@@ -488,6 +488,10 @@ public abstract class MagicSkill extends CycleEvent {
 		if (!player.getSkill().canDoAction(1200)) {
 			return false;
 		}
+		if (player.inCwGame() || player.inCwLobby()) {
+			player.getActionSender().sendMessage("You cannot use this spell in Castlewars.");
+			return false;
+		}
 		for (int smelt[] : SMELT) {
 			if (itemID == smelt[0]) {
 				if (!player.getInventory().playerHasItem(smelt[2], smelt[3])) {
@@ -616,6 +620,10 @@ public abstract class MagicSkill extends CycleEvent {
 
 	public static boolean alchItem(Player player, int itemId, int slot, int price, int timer) {
 		if (!player.getSkill().canDoAction(timer)) {
+			return false;
+		}
+		if (player.inCwGame() || player.inCwLobby()) {
+			player.getActionSender().sendMessage("You cannot use this spell in Castlewars.");
 			return false;
 		}
 		if (new Item(itemId).getDefinition().isUntradable() || itemId == 995) {

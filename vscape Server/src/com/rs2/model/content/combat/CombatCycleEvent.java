@@ -59,6 +59,9 @@ public class CombatCycleEvent extends CycleEvent {
 						case INCORRECT_DUEL_OPPONENT :
 							((Player) attacker).getActionSender().sendMessage("That player is not your opponent!");
 							break;
+						case NOT_ENEMY_CASTLEWARS :
+							((Player) attacker).getActionSender().sendMessage("That player is on the same team!");
+							break;
 						case NOT_IN_COMBAT_AREA :
 							((Player) attacker).getActionSender().sendMessage("That player is not in the wilderness!");
 							break;
@@ -84,7 +87,9 @@ public class CombatCycleEvent extends CycleEvent {
 						case INCORRECT_DUEL_OPPONENT :
 							((Player) attacker).getActionSender().sendMessage("That player is not your opponent!");
 							break;
-
+						case NOT_ENEMY_CASTLEWARS :
+							((Player) attacker).getActionSender().sendMessage("That player is on the same team!");
+							break;
 					}
 				}
 				return;
@@ -187,12 +192,20 @@ public class CombatCycleEvent extends CycleEvent {
 			/*if (attacker.getInCombatTick().getOther() != null && !attacker.getInCombatTick().getOther().isDead() && !attacker.getInCombatTick().completed() && attacker.getInCombatTick().getOther() != victim) {
 			}*/
 		}
+		
 		boolean bothPlayers = attacker.isPlayer() && victim.isPlayer();
 		// if they are both players, need to do additional checks
 		if (bothPlayers) {
 			if (attacker.inDuelArena() && ((Player) attacker).getDuelMainData().getOpponent() != victim) {
 				// check if in duel with victim, else return false
 				return CanAttackResponse.INCORRECT_DUEL_OPPONENT;
+			} else if (attacker.inCwGame() && victim.inCwGame()){
+				if(((Player) attacker).getCastlewarsTeam() == ((Player) victim).getCastlewarsTeam()) {
+					return CanAttackResponse.NOT_ENEMY_CASTLEWARS;
+				}
+				if(((Player) attacker).getCastlewarsTeam() == -1 || ((Player) victim).getCastlewarsTeam() == -1) {
+					return CanAttackResponse.NOT_ENEMY_CASTLEWARS;
+				}
 			} else if (attacker.inWild()) {
 				// check if in wild range, else return false
 				int attackerWildLevel = attacker.getWildernessLevel();
@@ -201,7 +214,7 @@ public class CombatCycleEvent extends CycleEvent {
 				if (attackerWildLevel < Math.abs(attackerCombatLevel - victimCombatLevel)) {
 					return CanAttackResponse.WILD_LEVEL;
 				}
-			} else if (attacker.isPlayer() && !attacker.inDuelArena())
+			} else if (attacker.isPlayer() && !attacker.inDuelArena() && !attacker.inCwGame())
 				return CanAttackResponse.NOT_IN_COMBAT_AREA;
 		}
 		return CanAttackResponse.SUCCESS;
@@ -238,6 +251,6 @@ public class CombatCycleEvent extends CycleEvent {
 	}
 
 	public enum CanAttackResponse {
-		CANT_ATTACK, WARRIORS_GUILD, WILD_LEVEL, NOT_IN_COMBAT_AREA, ALREADY_IN_COMBAT, INCORRECT_DUEL_OPPONENT, FAIL, SUCCESS
+		CANT_ATTACK, WARRIORS_GUILD, WILD_LEVEL, NOT_IN_COMBAT_AREA, ALREADY_IN_COMBAT, INCORRECT_DUEL_OPPONENT, NOT_ENEMY_CASTLEWARS, FAIL, SUCCESS
 	}
 }
