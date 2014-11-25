@@ -170,9 +170,9 @@ public class ApeAtoll {
 	    case 4800: //jail cell doors
 		GameObjectDef d = SkillHandler.getObject(object, x, y, player.getPosition().getZ());
 		if (d.getFace() == 0) {
-		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, player.getPosition().getX() >= x ? x - 1 : x + 1, y);
+		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, player.getPosition().getX() >= x ? -1 : 1, 0);
 		} else if (d.getFace() == 1) {
-		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, x, player.getPosition().getY() > y ? y - 1 : y + 1);
+		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, 0, player.getPosition().getY() > y ? -1 : 1);
 		}
 		return true;
 	    case BANANA_TREE:
