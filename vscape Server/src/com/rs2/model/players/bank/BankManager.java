@@ -13,7 +13,7 @@ import com.rs2.model.players.item.Item;
 
 public class BankManager {
 	
-	public static final int SIZE = 352; // 352
+	public static final int SIZE = 600; // 352
 	public static final int tabSize = 9; //(8 + 1) 8 tabs 1 main
 	private ArrayList<Container> itemContainers = new ArrayList<Container>(tabSize);
 
@@ -165,6 +165,10 @@ public class BankManager {
 					player.getActionSender().sendMessage("You don't have enough space in your bank account.");
 					return;
 				}
+                                if(tabContainer(currentTab).size() == 350) {
+                                        player.getActionSender().sendMessage("You do not have enough room in this tab. Item limit for tabs is 350.");
+                                        return;
+                                }
 			}
 		}
 		if (amount > bankAmount) {
@@ -230,6 +234,10 @@ public class BankManager {
 							player.getActionSender().sendMessage("You don't have enough space in your bank account.");
 							break;
 						}
+                                                if (tabContainer(currentTab).size() == 350) {
+                                                player.getActionSender().sendMessage("You do not have enough room in this tab. Item limit for tabs is 350.");
+                                                break;
+                                                }
 					}
 				}
 				if (!item.getDefinition().isStackable()) {
