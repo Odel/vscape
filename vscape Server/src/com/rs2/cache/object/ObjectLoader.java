@@ -103,7 +103,11 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3021, 3251, 0, 10, 0); //port sarim fence
 		ObjectHandler.getInstance().removeClip(2984, 3227, 0, 10, 0); //Rimmington mine fence
 		
-		
+		ObjectHandler.getInstance().removeClip(2766, 2782, 0, 10, 0); //ape atoll spot
+		ObjectHandler.getInstance().removeClip(2766, 2781, 0, 10, 0); //ape atoll spot
+		ObjectHandler.getInstance().removeClip(2765, 2782, 0, 10, 0); //ape atoll spot
+		ObjectHandler.getInstance().removeClip(2765, 2781, 0, 10, 0); //ape atoll spot
+		ObjectHandler.getInstance().removeClip(2764, 2783, 0, 10, 0); //ape atoll spot
 	}
 	
 	public static void addNecessaryClipping() {
@@ -121,6 +125,9 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().addClip(2150, 3086, 9932, 0, 0, 10); //still obelisk of earth
 		ObjectHandler.getInstance().addClip(2150, 3086, 9933, 0, 0, 10);
 		ObjectHandler.getInstance().addClip(2150, 3086, 9934, 0, 0, 10);
+		
+		ObjectHandler.getInstance().addClip(4712, 2749, 2768, 0, 1, 22);
+		ObjectHandler.getInstance().addClip(4712, 2764, 2769, 0, 1, 22);
 	}
 	
 	public static void addObjects() {

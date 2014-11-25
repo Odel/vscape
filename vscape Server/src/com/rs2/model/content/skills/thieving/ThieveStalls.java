@@ -85,7 +85,7 @@ public class ThieveStalls {
 	}
 
 	public static int emptyId(final int objectId) {
-        return objectId >= 4874 && objectId <= 4878 ? 4276 : objectId == 6163 ? 6573 : 634; //objectId > 6000 ? 6569
+	    return objectId >= 4874 && objectId <= 4878 ? 4797 : objectId == 6163 ? 6573 : 634; //objectId > 6000 ? 6569
 	}
 
 	private static final Random r = new Random();

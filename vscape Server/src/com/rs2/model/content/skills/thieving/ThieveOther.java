@@ -47,8 +47,9 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 				}
 				player.getActionSender().sendMessage("And manage to pass through it.");
 				player.getSkill().addExp(Skill.THIEVING, xp);
-
-				Doors.handlePassThroughDoor(player, objectId, position.getX(), position.getY(), position.getZ(), destX, destY);
+				player.getActionSender().walkTo(destX - position.getX(), destY - position.getY(), true);
+				player.getActionSender().walkThroughDoor(objectId, position.getX(), position.getY(), player.getPosition().getZ());
+				//Doors.handlePassThroughDoor(player, objectId, position.getX(), position.getY(), position.getZ(), destX, destY);
 				container.stop();
 			}
 
