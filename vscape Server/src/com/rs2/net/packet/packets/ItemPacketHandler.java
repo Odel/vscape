@@ -4,12 +4,10 @@ import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Pets;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
-import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -204,17 +202,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    ShopManager.sellItem(player, player.getSlot(), itemId, 1);
 	}*/
 	if (!player.getInventory().getItemContainer().contains(item.getId())) {
-	    return;
-	}
-	if (item.getId() == 4045) {
-		player.getActionSender().sendSoundRadius(97, 0, 0, player.getPosition(), 5);
-		player.getUpdateFlags().sendGraphic(287);
-		player.hit(15, HitType.NORMAL);
-	    if (!player.getInventory().removeItemSlot(item, player.getSlot())) {
-	    	player.getInventory().removeItem(item);
-	    }
-	    player.getUpdateFlags().sendForceMessage("ow!");
-	    player.getActionSender().sendMessage("You were injured by the exploding potion.");
 	    return;
 	}
 	if (item.getId() == 530 && player.getPosition().getX() == 2780 && player.getPosition().getY() == 3515) {
@@ -895,9 +882,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    }
 	}
 	switch (itemId) {
-		case 4053 :
-			Castlewars.PlaceBarricade(player, itemId, player.getSlot());
-		return;
 	    case 2528: // genie lamp
 		player.setGenieSelect(-1);
 		player.getActionSender().sendConfig(261, 0);

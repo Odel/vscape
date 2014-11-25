@@ -88,19 +88,6 @@ public class SkillHandler {
 		return null;
 	}
 
-	public static GameObjectDef getObject(int x, int y, int h) {
-		final GameObject p = ObjectHandler.getInstance().getObject(x, y, h);
-		if (p != null) {
-			return p.getDef();
-		}
-		final CacheObject g = ObjectLoader.object(x, y, h);
-		if (g != null) {
-			return g.getDef();
-		}
-		return null;
-	}
-
-	
 	public static int getFace(int object, int x, int y, int h) {
 		final CacheObject g = ObjectLoader.object(object, x, y, h);
 		if (g != null) {

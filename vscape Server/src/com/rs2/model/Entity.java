@@ -201,10 +201,6 @@ public abstract class Entity {
 	public boolean inCw() {
 		return inCwGame() || inSaraWait() || inZammyWait() || Area(2432, 2446, 3082, 3117);
 	}
-	
-	public boolean inCwLobby() {
-		return inSaraWait() || inZammyWait();
-	}
 
 	public boolean inCwSafe() {
 		return (Area(2423, 2431, 3072, 3080) || Area(2368, 2376, 3127, 3135)) && getPosition().getZ() == 1;
@@ -219,7 +215,7 @@ public abstract class Entity {
 	}
 
 	public boolean inCwGame() {
-		return Area(2368, 2431, 3072, 3135) || inCwUnderground();
+		return Area(2368, 2431, 9479, 9535) || Area(2368, 2431, 3072, 3135) && !inSaraWait() && !inZammyWait();
 	}
 
 	public boolean inCwUnderground() {
@@ -371,7 +367,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby();
+		return inDuelArena() || isInDuelArea() || inFightCaves() || inPestControlGameArea();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {
@@ -970,7 +966,7 @@ public abstract class Entity {
 	}
 
 	public boolean cantTeleport() {
-		return inRandomEvent() || inMiniGameArea();
+		return inRandomEvent() || inPits() || inPitsWait() || inCaves() || inDuelArena() || inPestControlLobbyArea() || inPestControlGameArea();
 	}
 
 	public boolean isFrozen() {

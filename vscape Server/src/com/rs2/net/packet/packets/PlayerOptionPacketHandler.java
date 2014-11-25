@@ -282,7 +282,7 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		final int taskId = player.getTask();
 		player.setCastedSpell(null);
 		player.getUpdateFlags().faceEntity(otherPlayer.getFaceIndex());
-		if (!player.inDuelArena() && !player.inWild() && !player.inCwGame()) {
+		if (!player.inDuelArena() && !player.inWild()) {
 			handleChallenge(player, otherPlayer, taskId);
 		} else
 			CombatManager.attack(player, otherPlayer);

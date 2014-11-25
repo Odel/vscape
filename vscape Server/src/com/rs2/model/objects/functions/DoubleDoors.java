@@ -60,10 +60,6 @@ public class DoubleDoors {
 		{
 			return false;
 		}
-		if(id == 4423 || id == 4424 || id == 4427 || id == 4428 || id == 4465 || id == 4466 || id == 4467 || id == 4468)
-		{
-			return false;
-		}
 		DoubleDoors doorClicked = getDoor(x, y, z);
 		if (doorClicked == null) {
 			return false;

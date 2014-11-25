@@ -71,10 +71,6 @@ public class Doors {
 		{
 			return false;
 		}
-		if(id == 4423 || id == 4424 || id == 4427 || id == 4428 || id == 4465 || id == 4466 || id == 4467 || id == 4468)
-		{
-			return false;
-		}
 		Doors d = getDoor(id, x, y, z);
 		if (d == null) {
 			return false;

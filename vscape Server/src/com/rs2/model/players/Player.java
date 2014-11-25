@@ -49,8 +49,8 @@ import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
-import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
+import com.rs2.model.content.minigames.castlewars.CastlewarsPlayer;
 import com.rs2.model.content.minigames.duelarena.DuelAreas;
 import com.rs2.model.content.minigames.duelarena.DuelInterfaces;
 import com.rs2.model.content.minigames.duelarena.DuelMainData;
@@ -450,6 +450,8 @@ public class Player extends Entity {
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
 
+	public CastlewarsPlayer cwplayer;
+	
 	private int drunkTimer;
 	private boolean isDrunk;
 	
@@ -491,9 +493,8 @@ public class Player extends Entity {
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
     private boolean inJail = false;
     private DesertHeat desertHeat = new DesertHeat(this);
-    
-    private int castleWarsTeam = -1;
-    
+ 
+       
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
 	}
@@ -688,14 +689,6 @@ public class Player extends Entity {
         else if(inFightCaves()) {
 	    //FightCaves.exitCave(this);
         	FightCaves.destroyNpcs(this);
-        }       
-        else if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, true);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, true, 0);
         }
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
@@ -951,12 +944,8 @@ public class Player extends Entity {
 		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
-            	GroundItemManager.getManager().refreshLandscapeDisplay(player);
+		GroundItemManager.getManager().refreshLandscapeDisplay(player);
                 if (heightChange) {
-                	player.reloadRegion();
-                }
-                if(inCwGame() && !heightChange)
-                {
                 	player.reloadRegion();
                 }
         		if (!stopPacket) {
@@ -1152,14 +1141,6 @@ public class Player extends Entity {
         if(inWarriorGuildArena()) {
         	teleport(WarriorsGuild.DC_EXIT);
         	setWarriorsGuildGameActive(false);
-        }        
-        if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, false);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, false, 0);
         }
 	//	getCat().initChecks();
 	}
@@ -1382,14 +1363,6 @@ public class Player extends Entity {
         }
         else if(inFightCaves()) {
         	FightCaves.destroyNpcs(this);
-        }
-        else if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, true);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, true, 0);
         }
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -3540,8 +3513,6 @@ public class Player extends Entity {
 		Player other = (Player) victim;
 		if (inDuelArena())
 			return;
-		if (inCwGame())
-			return;
 		if (other.containsSkullRecord(this))
 			return;
 		for (SkullRecord skullRecord : skullRecords)
@@ -3585,9 +3556,6 @@ public class Player extends Entity {
 	@Override
 	public void dropItems(Entity killer) {
 		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() || inFightCaves()) {
-			return; //prevents the dropping of items
-		}
-		if (inCwGame()) {
 			return; //prevents the dropping of items
 		}
 		if (killer == null) {
@@ -3766,15 +3734,6 @@ public class Player extends Entity {
 	public DesertHeat getDesertHeat()
 	{
 		return desertHeat;
-	}
-	
-	public void setCastlewarsTeam(int cwteam)
-	{
-		castleWarsTeam = cwteam;
-	}
-	public int getCastlewarsTeam()
-	{
-		return castleWarsTeam;
 	}
 	
 	public int getStandAnim() {

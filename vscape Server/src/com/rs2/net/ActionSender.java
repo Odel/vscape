@@ -1220,17 +1220,5 @@ public class ActionSender {
 		new GameObject(id2, x2, y2, h, g2.getRotation() + 1, 0, id2, 1,
 				g2.getRotation(), x2, y2, false);
 	}
-	
-	public void walkThroughDoubleDoor2(final int id1, final int id2,
-			final int x1, final int y1, final int x2, final int y2, final int h, int xOff, int yOff) {
-		final CacheObject g1 = ObjectLoader.object(id1, x1, y1, h);
-		final CacheObject g2 = ObjectLoader.object(id2, x2, y2, h);
-		new GameObject(Constants.EMPTY_OBJECT, x1, y1, h, g1.getRotation(), 0, id1, 1, false);
-		new GameObject(Constants.EMPTY_OBJECT, x2, y2, h, g2.getRotation(), 0, id2, 1, false);
-		new GameObject(id1, x1+xOff, y1+yOff, h, g1.getRotation() + 1, 0, Constants.EMPTY_OBJECT, 1,
-				g1.getRotation(), x1, y1, false);
-		new GameObject(id2, x2+xOff, y2+yOff, h, g2.getRotation() - 1, 0, Constants.EMPTY_OBJECT, 1,
-				g2.getRotation(), x2, y2, false);
-	}
 
 }

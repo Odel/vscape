@@ -2,7 +2,6 @@ package com.rs2.model.content;
 
 import com.rs2.Constants;
 import com.rs2.model.players.Player;
-import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
 
@@ -54,17 +53,6 @@ public class WalkInterfaces {
 			changeWalkableInterface(player, 24131);
 			PestControl.gameInterface(player);
 		} 
-		else if(player.inCwLobby())
-		{
-			changeWalkableInterface(player, 11479);
-			Castlewars.lobbyInterface(player);
-		}
-		else if(player.inCwGame())
-		{
-			player.getActionSender().sendPlayerOption("Attack", 1, false);
-			changeWalkableInterface(player, 11146);
-			Castlewars.gameInterface(player);
-		}
 		else if(player.getPosition().getX() > 3615 && player.getPosition().getX() < 3630
 			&& player.getPosition().getY() > 3540 && player.getPosition().getY() < 3546
 			&& player.getPosition().getZ() == 2) {

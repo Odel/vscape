@@ -171,7 +171,7 @@ public class CommandHandler {
 			appendToBugList(sender, fullString);
 		}
 		else if (keyword.equals("home")) {
-		    if (sender.cantTeleport() || sender.inWild() || sender.isDead() || !sender.getInCombatTick().completed()) {
+		    if (sender.getInJail() || sender.inWild() || sender.isAttacking() || sender.inDuelArena() || sender.inPestControlLobbyArea() || sender.inPestControlGameArea() || sender.isDead() || !sender.getInCombatTick().completed() || sender.inFightCaves()) {
 		    	sender.getActionSender().sendMessage("You cannot do that here!");
 		    } else {
 			if(sender.getStaffRights() < 2) {
@@ -1361,10 +1361,6 @@ public class CommandHandler {
 			    {
 			    	return;
 			    }
-			    if(sender.inCwGame() || sender.inCwLobby())
-			    {
-			    	return;
-			    }
 			    sender.teleport(player.getPosition().clone());
 			 }else{
 				 sender.getActionSender().sendMessage("could not find player "+ name);
@@ -1395,11 +1391,6 @@ public class CommandHandler {
 		    if(player.getInJail())
 		    {
 		    	sender.getActionSender().sendMessage("Player is in jail");
-		    	return;
-		    }
-		    if(player.inCwGame() || player.inCwLobby())
-		    {
-		    	sender.getActionSender().sendMessage("That person is in castlewars right now.");
 		    	return;
 		    }
 	    	player.getCat().unregisterCat();
