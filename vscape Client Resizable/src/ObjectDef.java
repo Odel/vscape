@@ -449,7 +449,7 @@ label0:
 			}
 
 		} while(true);
-		if(i == -1 && name != "null" && name != null)
+		if(i == -1 /*&& name != "null" && name != null*/)
 		{
 			hasActions = anIntArray773 != null && (anIntArray776 == null || anIntArray776[0] == 10);
 			if(actions != null)
