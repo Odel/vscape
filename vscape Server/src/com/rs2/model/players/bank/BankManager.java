@@ -572,16 +572,33 @@ public class BankManager {
 			if(!roomForItems())
 				return;
 			int freeSlot = tabFreeSlot(0);
-			if(freeSlot == -1){
-				if(getUsedTabs() < tabSize){
-					addTab();
-					tabContainer(getUsedTabs()-1).add(item);
-					return;
+			if (freeSlot == -1) {
+				int nextFreeTab = -1;
+				for(int i = 0; i < getUsedTabs()-1; i++)
+				{
+					int freeSlots = tabFreeSlot(i);
+					if(freeSlots != -1)
+					{
+						nextFreeTab = i;
+						break;
+					}
+				}
+				if(nextFreeTab == -1)
+				{
+					if(getUsedTabs() < tabSize){
+						addTab();
+						tabContainer(getUsedTabs()-1).add(item);
+						return;
+					}else{
+						return;
+					}
 				}else{
+					tabContainer(nextFreeTab).add(item);
 					return;
 				}
+			}else{
+				tabContainer(0).add(item);
 			}
-			tabContainer(0).add(item);
 		}
 	}
 	
@@ -594,16 +611,33 @@ public class BankManager {
 			if(!roomForItems())
 				return;
 			int freeSlot = tabFreeSlot(tab);
-			if(freeSlot == -1){
-				if(getUsedTabs() < tabSize){
-					addTab();
-					tabContainer(getUsedTabs()-1).add(item);
-					return;
+			if (freeSlot == -1) {
+				int nextFreeTab = -1;
+				for(int i = 0; i < getUsedTabs()-1; i++)
+				{
+					int freeSlots = tabFreeSlot(i);
+					if(freeSlots != -1)
+					{
+						nextFreeTab = i;
+						break;
+					}
+				}
+				if(nextFreeTab == -1)
+				{
+					if(getUsedTabs() < tabSize){
+						addTab();
+						tabContainer(getUsedTabs()-1).add(item);
+						return;
+					}else{
+						return;
+					}
 				}else{
+					tabContainer(nextFreeTab).add(item);
 					return;
 				}
+			}else{
+				tabContainer(tab).add(item);
 			}
-			tabContainer(tab).add(item);
 		}
 	}
 	
