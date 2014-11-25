@@ -1,5 +1,6 @@
 package com.rs2.model.content.minigames.castlewars;
 
+import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.minigames.castlewars.Castlewars.CaveWallData;
 import com.rs2.model.content.skills.Skill;
@@ -69,13 +70,22 @@ public class CastlewarsObjects {
     public static boolean handleObject(final Player player, final int id, final int x, final int y, final int z) {
         switch (id) {
 	    	case 4408: //guthix portal
-	    		Castlewars.JoinLobby(player, Castlewars.GUTHIX);
+        		if(Constants.CASTLEWARS_ENABLED)
+        		{
+        			Castlewars.JoinLobby(player, Castlewars.GUTHIX);
+        		}
 	    	return true;
         	case 4388: //zammy portal
-        		Castlewars.JoinLobby(player, Castlewars.ZAMORAK);
+        		if(Constants.CASTLEWARS_ENABLED)
+        		{
+        			Castlewars.JoinLobby(player, Castlewars.ZAMORAK);
+        		}
             return true;
         	case 4387: //sara portal
-        		Castlewars.JoinLobby(player, Castlewars.SARADOMIN);
+        		if(Constants.CASTLEWARS_ENABLED)
+        		{
+        			Castlewars.JoinLobby(player, Castlewars.SARADOMIN);
+        		}
             return true;
         	case 4390: //zammy exit
         	case 4389: //sara exit

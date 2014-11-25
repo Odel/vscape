@@ -842,6 +842,9 @@ public class Castlewars {
     public static void RemoveItems(final Player player, boolean death)
     {
     	try{
+    		player.getInventory().removeItem(new Item(590, player.getInventory().getItemAmount(590)));
+    		player.getInventory().removeItem(new Item(1925, player.getInventory().getItemAmount(1925)));
+    		player.getInventory().removeItem(new Item(1929, player.getInventory().getItemAmount(1929)));
 	    	player.getInventory().removeItem(new Item(4049, player.getInventory().getItemAmount(4049)));
 	    	player.getInventory().removeItem(new Item(4051, player.getInventory().getItemAmount(4051)));
 	    	player.getInventory().removeItem(new Item(4053, player.getInventory().getItemAmount(4053)));

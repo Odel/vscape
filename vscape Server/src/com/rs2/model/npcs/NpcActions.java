@@ -12,6 +12,11 @@ public class NpcActions {
 		if (player.getInteractingEntity() == null || player.getInteractingEntity().isPlayer()) {
 			return;
 		}
+		if(!player.getInventory().playerHasItem(1735))
+		{
+			player.getActionSender().sendMessage("You don't have any shears.");
+			return;
+		}
 		final Npc npc = (Npc) player.getInteractingEntity();
 		final int x = npc.getPosition().getX(), y = npc.getPosition().getY();
 		if (npc.getTransformTimer() > 0) {
