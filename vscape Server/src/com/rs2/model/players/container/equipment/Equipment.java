@@ -3,18 +3,20 @@ package com.rs2.model.players.container.equipment;
 import java.text.DecimalFormat;
 
 import com.rs2.Constants;
+import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.weapon.Weapon;
+import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
@@ -143,9 +145,11 @@ public class Equipment {
 	}
 
 	public void replaceEquipment(int id, int slot) {
-		Item currentEquip = new Item(player.getEquipment().getId(slot));
+		if(player.getEquipment().getId(slot) > 0){
+			Item currentEquip = new Item(player.getEquipment().getId(slot));
+			itemContainer.remove(currentEquip, slot);
+		}
 		Item newItem = new Item(id);
-		itemContainer.remove(currentEquip, slot);
 		itemContainer.set(slot, newItem);
 		refresh();
 		player.setSpecialAttackActive(false);
@@ -156,7 +160,7 @@ public class Equipment {
 		player.setAppearanceUpdateRequired(true);
 		player.getAttributes().put("usedGlory", Boolean.FALSE);
 	}
-
+	
 	public void equip(int slot) {
 		Item item = player.getInventory().getItemContainer().get(slot);
 		if (item == null) {
@@ -191,6 +195,18 @@ public class Equipment {
 		    else {
 			player.setGodBook(item.getId());
 		    }
+		}
+		if(player.inCwGame() || player.inCwLobby())
+		{
+			if(equipSlot == Constants.WEAPON){
+			    Item equipItem = itemContainer.get(equipSlot);
+			    if (equipItem != null) {
+			    	if(equipItem.getId() == Castlewars.SARA_BANNER || equipItem.getId() == Castlewars.ZAMMY_BANNER){
+			    		player.getActionSender().sendMessage("Return the banner to your base!");
+			    		return;
+			    	}
+			    }
+			}
 		}
 		if (item.getId() == 1205 && player.getNewComersSide().getTutorialIslandStage() == 40)
 			player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
@@ -356,17 +372,30 @@ public class Equipment {
 		if (item == null) {
 			return;
 		}
+		if(player.inCwGame() || player.inCwLobby())
+		{
+			if(slot == Constants.CAPE){
+			    player.getActionSender().sendMessage("You cannot unequip this cape in Castlewars!");
+				return;
+			}
+			if(slot == Constants.WEAPON){
+				if(item.getId() == Castlewars.SARA_BANNER || item.getId() == Castlewars.ZAMMY_BANNER){
+					player.getActionSender().sendMessage("Return the banner to your base!");
+					return;
+				}
+			}
+		}
         if (player.getInventory().getItemContainer().freeSlot() == -1) {
             player.getActionSender().sendMessage("Not enough space in your inventory.");
             return;
         }
-		if (item.getId() == 6583 || item.getId() == 7927 || ApeAtoll.GreeGreeData.forItemId(item.getId()) != null) {
-			player.transformNpc = -1;
-			player.setStandAnim(-1);
-			player.setWalkAnim(-1);
-			player.setRunAnim(-1);
-			player.getActionSender().sendSideBarInterfaces();
-			player.setAppearanceUpdateRequired(true);
+    	if (item.getId() == 6583 || item.getId() == 7927 || ApeAtoll.GreeGreeData.forItemId(item.getId()) != null) {
+    		player.transformNpc = -1;
+    		player.setStandAnim(-1);
+    		player.setWalkAnim(-1);
+    		player.setRunAnim(-1);
+    		player.getActionSender().sendSideBarInterfaces();
+    		player.setAppearanceUpdateRequired(true);
 		}
 		if (slot == Constants.HAT) {
 			Tiaras.handleTiara(player, -1);
@@ -639,6 +668,11 @@ public class Equipment {
 				}
 			}
 		} else if (targetSlot == Constants.FEET || targetSlot == Constants.LEGS || targetSlot == Constants.SHIELD || targetSlot == Constants.CHEST || targetSlot == Constants.HAT || targetSlot == Constants.HANDS) {
+			if(targetSlot == Constants.HAT && (player.inCwGame() || player.inCwLobby()))
+			{
+			    player.getActionSender().sendMessage("You cannot wear this headwear in Castlewars!");
+				return false;
+			}
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
 				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
@@ -795,6 +829,11 @@ public class Equipment {
 			    player.getDialogue().sendStatement("You must complete Animal Magnetism to equip this.");
 			    return false;
 			} 
+			if(player.inCwGame() || player.inCwLobby())
+			{
+			    player.getActionSender().sendMessage("You cannot wear this cape in Castlewars!");
+				return false;
+			}
 			if (defenceLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.DEFENCE) < defenceLevelReq) {
 					player.getActionSender().sendMessage("You need a Defence level of " + defenceLevelReq + " to wear this item.");

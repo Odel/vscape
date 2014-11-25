@@ -220,6 +220,11 @@ public class WalkToActionHandler {
 					this.stop();
 				    return;
 				}
+				if(CastlewarsObjects.handleObject(player, id, x, y, z))
+				{
+					this.stop();
+					return;
+				}
 				if(x == 2763 && y == 3402 && player.getClickId() == 71) {
 				    if(player.getQuestStage(11) < 6) {
 					player.getDialogue().sendStatement("These doors are locked.");
@@ -1716,49 +1721,6 @@ public class WalkToActionHandler {
 				case 3416: //stairs up from elemental workshop
 					player.fadeTeleport(new Position(2709, 3495));
 					break;
-		        //case 1747:
-		        //case 1757:
-				case 4411:
-	            case 4415:
-	            case 4417:
-	            case 4418:
-	            case 4419:
-	            case 4420:
-	            case 4469:
-	            case 4470:
-	            case 4911:
-	            case 4912:
-	            case 4437:
-	            case 6281:
-	            case 6280:
-	            case 4472:
-	            case 4471:
-	            case 4406:
-	            case 4407:
-	            case 4458:
-	            case 4902:
-	            case 4903:
-	            case 4900:
-	            case 4901:
-	            case 4461:
-	            case 4463:
-	            case 4464:
-	            case 4377:
-	            case 4378:
-	            case 4408: //guthix portal
-	            case 4388: //zammy portal
-	            case 4387: //sara portal
-	            case 4390: //zammy portal out of lobby
-	            case 4389: //sara portal out of lobby
-	                CastlewarsObjects.handleObject(player, id, x, y);
-				break;
-	            /*case 1568:
-	                if (x== 3097 && y == 3468) {
-						//c.getPA().movePlayer(3097, 9868, 0);
-	                } else {
-	                    CastleWarObjects.handleObject(player, x, y, z);
-	                }
-	                break;*/
 				case 4031: //shantay pass
 					if(player.getPosition().getY() < 3116)
 					{
@@ -2746,6 +2708,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(BarbarianSpirits.handleItemOnObject(player, id, item, x, y)) {
+					this.stop();
+					return;
+				}
+				if(CastlewarsObjects.handleItemOnObject(player, item, player.getSlot(), id, x, y, z)) {
 					this.stop();
 					return;
 				}

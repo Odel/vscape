@@ -117,6 +117,16 @@ public class DialogueManager {
 		player.getActionSender().sendString(line4, 6184);
 		player.getActionSender().sendChatInterface(6179);
 	}
+	
+	/**
+	 * Castle wars Dialogue box
+	 */
+	public void sendCastlewarsScoreBox(String title, String line1, String line2) {
+		player.getActionSender().sendString(title, 11334);
+		player.getActionSender().sendString(line1, 11335);
+		player.getActionSender().sendString(line2, 11336);
+		player.getActionSender().sendChatInterface(11333);
+	}
 
 	/**
 	 * Option selection.

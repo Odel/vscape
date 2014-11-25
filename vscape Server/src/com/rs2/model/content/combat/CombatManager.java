@@ -14,6 +14,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
+import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -586,6 +587,9 @@ public class CombatManager extends Tick {
 		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
 		}
+        if(died != null && died.isPlayer() && Castlewars.handleDeath((Player) died)) {
+		    return;
+        }
 		if(died != null && died.isPlayer() && ((Player) died).inFightCaves()) {
                     FightCaves.exitCave((Player) died);
 		    return;

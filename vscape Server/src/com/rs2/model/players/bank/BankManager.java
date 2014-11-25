@@ -13,8 +13,9 @@ import com.rs2.model.players.item.Item;
 
 public class BankManager {
 	
-	public static final int SIZE = 600; // 352
+	public static final int SIZE = 352; // 352
 	public static final int tabSize = 9; //(8 + 1) 8 tabs 1 main
+	public static final int slotModifier = 6;
 	private ArrayList<Container> itemContainers = new ArrayList<Container>(tabSize);
 
 	public static final int DEFAULT_BANK_INTERFACE = 5292;
@@ -128,7 +129,7 @@ public class BankManager {
 
 	public void updateBankTotal(){
 		player.getActionSender().sendString(Integer.toString(totalUsedSlots()), 50011);
-		player.getActionSender().sendString(Integer.toString(SIZE), 50012);
+		player.getActionSender().sendString(Integer.toString(((SIZE*tabSize) / slotModifier)), 50012);
 	}
 	
 	public void bankItem(int slot, int bankItem, int bankAmount) {
@@ -160,15 +161,25 @@ public class BankManager {
 				tabContainer = tabContainer(tabContains);
 				selectTab(tabContains, false);
 			}else{
-				int freeSlot = tabFreeSlot(currentTab);
-				if (freeSlot == -1 || !roomForItems()) {
+				if (!roomForItems()) {
+					updateBankTotal();
+					refreshTabContainer();	
 					player.getActionSender().sendMessage("You don't have enough space in your bank account.");
 					return;
 				}
-                                if(tabContainer(currentTab).size() == 350) {
-                                        player.getActionSender().sendMessage("You do not have enough room in this tab. Item limit for tabs is 350.");
-                                        return;
-                                }
+				int freeSlot = tabFreeSlot(currentTab);
+				if (freeSlot == -1) {
+					if(getUsedTabs() < tabSize){
+						addTab();
+						tabContainer = tabContainer(getUsedTabs()-1);
+						selectTab(getUsedTabs()-1, false);
+					}else{
+						updateBankTotal();
+						refreshTabContainer();	
+						player.getActionSender().sendMessage("This bank tab is full.");
+						return;
+					}
+				}
 			}
 		}
 		if (amount > bankAmount) {
@@ -184,6 +195,8 @@ public class BankManager {
 		int bankCount = tabContainer.getCount(bankItem);
 		if (bankCount == 0) {
 			tabContainer.add(new Item(transferId, amount));
+			if(tabContainer.size() == 1)
+				updateTabs();
 		} else {
 			tabContainer.set(tabContainer.getSlotById(transferId), new Item(transferId, bankCount + amount));
 			if(bankItem == 995)
@@ -229,15 +242,39 @@ public class BankManager {
 					{
 						tabContainer = tabContainer(tabContains);
 					}else{
-						int freeSlot = tabFreeSlot(currentTab);
-						if (freeSlot == -1 || !roomForItems()) {
+						if (!roomForItems()) {
+							updateBankTotal();
+							refreshTabContainer();	
 							player.getActionSender().sendMessage("You don't have enough space in your bank account.");
-							break;
+							return;
 						}
-                                                if (tabContainer(currentTab).size() == 350) {
-                                                player.getActionSender().sendMessage("You do not have enough room in this tab. Item limit for tabs is 350.");
-                                                break;
-                                                }
+						int freeSlot = tabFreeSlot(currentTab);
+						if (freeSlot == -1) {
+							int nextFreeTab = -1;
+							for(int i = 0; i < getUsedTabs()-1; i++)
+							{
+								int freeSlots = tabFreeSlot(i);
+								if(freeSlots != -1)
+								{
+									nextFreeTab = i;
+									tabContainer = tabContainer(i);
+									break;
+								}
+							}
+							if(nextFreeTab == -1)
+							{
+								if(getUsedTabs() < tabSize){
+									addTab();
+									tabContainer = tabContainer(getUsedTabs()-1);
+									selectTab(getUsedTabs()-1, false);
+								}else{
+									updateBankTotal();
+									refreshTabContainer();	
+									player.getActionSender().sendMessage("This bank tab is full.");
+									return;
+								}
+							}
+						}
 					}
 				}
 				if (!item.getDefinition().isStackable()) {
@@ -250,8 +287,14 @@ public class BankManager {
 				int bankCount = tabContainer.getCount(itemId);
 				if (bankCount == 0) {
 					tabContainer.add(new Item(transferId, amount));
+					if(tabContainer.size() == 1)
+						updateTabs();
 				} else {
 					tabContainer.set(tabContainer.getSlotById(transferId), new Item(transferId, bankCount + amount));
+					if(itemId == 995)
+					{
+						updateTabs();
+					}
 				}
 			}
 		} catch (Exception e) {	
@@ -356,7 +399,7 @@ public class BankManager {
 			return;
 		int freeSlot = toTab.freeSlot();
 		if (freeSlot == -1) {
-			player.getActionSender().sendMessage("You don't have enough space in your bank account.");
+			player.getActionSender().sendMessage("That bank tab is already full.");
 			return;
 		}
 		final int id = fromTab.get(from).getId();
@@ -528,6 +571,16 @@ public class BankManager {
 		}else{
 			if(!roomForItems())
 				return;
+			int freeSlot = tabFreeSlot(0);
+			if(freeSlot == -1){
+				if(getUsedTabs() < tabSize){
+					addTab();
+					tabContainer(getUsedTabs()-1).add(item);
+					return;
+				}else{
+					return;
+				}
+			}
 			tabContainer(0).add(item);
 		}
 	}
@@ -540,6 +593,16 @@ public class BankManager {
 		}else{
 			if(!roomForItems())
 				return;
+			int freeSlot = tabFreeSlot(tab);
+			if(freeSlot == -1){
+				if(getUsedTabs() < tabSize){
+					addTab();
+					tabContainer(getUsedTabs()-1).add(item);
+					return;
+				}else{
+					return;
+				}
+			}
 			tabContainer(tab).add(item);
 		}
 	}
@@ -625,23 +688,13 @@ public class BankManager {
 	
 	public boolean roomForItems()
 	{
-		return totalUsedSlots() < SIZE;
+		return totalUsedSlots() < ((SIZE*tabSize) / slotModifier);
 	}
 	
 	// Slot Methods
 	private int tabFreeSlot(int tab)
 	{
 		return tabContainer(tab).freeSlot();
-	}
-	
-	@SuppressWarnings("unused")
-	private int totalFreeSlots()
-	{
-		int freeSlots = getUsedTabs();
-		for(int i = 0; i < getUsedTabs(); i++){
-			freeSlots += tabContainer(i).freeSlots();
-		}
-		return (freeSlots / SIZE) - getUsedTabs();
 	}
 	
 	private int totalUsedSlots()

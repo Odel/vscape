@@ -22,10 +22,10 @@ import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -171,7 +171,7 @@ public class CommandHandler {
 			appendToBugList(sender, fullString);
 		}
 		else if (keyword.equals("home")) {
-		    if (sender.getInJail() || sender.inWild() || sender.isAttacking() || sender.inDuelArena() || sender.inPestControlLobbyArea() || sender.inPestControlGameArea() || sender.isDead() || !sender.getInCombatTick().completed() || sender.inFightCaves()) {
+		    if (sender.cantTeleport() || sender.inWild() || sender.isDead() || !sender.getInCombatTick().completed()) {
 		    	sender.getActionSender().sendMessage("You cannot do that here!");
 		    } else {
 			if(sender.getStaffRights() < 2) {
@@ -1361,6 +1361,10 @@ public class CommandHandler {
 			    {
 			    	return;
 			    }
+			    if(sender.inCwGame() || sender.inCwLobby())
+			    {
+			    	return;
+			    }
 			    sender.teleport(player.getPosition().clone());
 			 }else{
 				 sender.getActionSender().sendMessage("could not find player "+ name);
@@ -1391,6 +1395,11 @@ public class CommandHandler {
 		    if(player.getInJail())
 		    {
 		    	sender.getActionSender().sendMessage("Player is in jail");
+		    	return;
+		    }
+		    if(player.inCwGame() || player.inCwLobby())
+		    {
+		    	sender.getActionSender().sendMessage("That person is in castlewars right now.");
 		    	return;
 		    }
 	    	player.getCat().unregisterCat();

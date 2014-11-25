@@ -27,8 +27,6 @@ import com.rs2.util.clip.Region;
 public class ObjectHandler {
 
 	public static ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	public static ArrayList<GameObject> toRemove = new ArrayList<GameObject>();
-
 	/**
 	 * The instance of this class
 	 */
@@ -49,21 +47,24 @@ public class ObjectHandler {
 	public void tick() {
 		Benchmark b = Benchmarks.getBenchmark("tickObjects");
 		b.start();
-		for (GameObject o : objects) {
+		for (GameObject o : new ArrayList<GameObject>(objects)) {
+			if(o == null)
+			{
+				continue;
+			}
 			if (o.tick > 0 && o.tick < 99999) {
 				o.tick--;
 			} else if (o.tick < 99999) {
-				if (CreatureGraveyard.handleBonesRestore(o)) {
+				if (CreatureGraveyard.handleBonesRestore(o)) 
+				{
+				} else if(o.getDef().getId() == 4422) {
+					removeObject(o.getDef().getId(), o.getDef().getPosition().getX(), o.getDef().getPosition().getY(), o.getDef().getPosition().getZ(), o.getDef().getType());
 				} else {
-					toRemove.add(o);
+					objects.remove(o);
 					updateObject(o);
 				}
 			}
 		}
-		for (GameObject o : toRemove) {
-			objects.remove(o);
-		}
-		toRemove.clear();
 		b.stop();
 	}
 
