@@ -251,7 +251,7 @@ public class BankManager {
 						int freeSlot = tabFreeSlot(currentTab);
 						if (freeSlot == -1) {
 							int nextFreeTab = -1;
-							for(int i = 0; i < getUsedTabs()-1; i++)
+							for(int i = 0; i < getUsedTabs(); i++)
 							{
 								int freeSlots = tabFreeSlot(i);
 								if(freeSlots != -1)
@@ -574,7 +574,7 @@ public class BankManager {
 			int freeSlot = tabFreeSlot(0);
 			if (freeSlot == -1) {
 				int nextFreeTab = -1;
-				for(int i = 0; i < getUsedTabs()-1; i++)
+				for(int i = 0; i < getUsedTabs(); i++)
 				{
 					int freeSlots = tabFreeSlot(i);
 					if(freeSlots != -1)
@@ -613,7 +613,7 @@ public class BankManager {
 			int freeSlot = tabFreeSlot(tab);
 			if (freeSlot == -1) {
 				int nextFreeTab = -1;
-				for(int i = 0; i < getUsedTabs()-1; i++)
+				for(int i = 0; i < getUsedTabs(); i++)
 				{
 					int freeSlots = tabFreeSlot(i);
 					if(freeSlots != -1)
