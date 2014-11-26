@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.2c";
+	private final static String CLIENT_VERSION = "3.3";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
