@@ -413,8 +413,10 @@ public class Client extends RSApplet {
 		if (clientSize == 0) 
 			aRSImageProducer_1166.initDrawingArea();
 		
-		if (clientSize == 0)
+		if (clientSize == 0){
 			cacheSprite[25].drawSprite(0, y);
+			mascotChat.draw24BitSprite(7, y+6);
+		}
 		
 		if (clientSize != 0)
 			y = clientHeight - 165;
@@ -422,6 +424,7 @@ public class Client extends RSApplet {
 		if (clientSize != 0 && showChat) {
 			cacheSprite[30].drawSprite(0, y - 1);
 			DrawingArea.method335(0xccbb9a, y + 6, 506, 129, 200, 7);
+			mascotChat.draw24BitSprite(7, y+6);
 		}
 		
 		if(clientSize != 0) {
@@ -2416,6 +2419,7 @@ public class Client extends RSApplet {
 		}
 		if(clientSize == 0) {
 			cacheSprite[23].drawSprite(0, 0);
+			mascotInv.draw24BitSprite(30, 37);
 		}
 		Texture.anIntArray1472 = anIntArray1181;
 		int y = clientWidth >= smallTabs ? 37 : 74;
@@ -2430,9 +2434,11 @@ public class Client extends RSApplet {
 			if(clientWidth >= smallTabs) {
 				cacheSprite[29].drawSprite(clientWidth - 204, clientHeight - 310);
 				DrawingArea.method335(0x50463C, clientHeight - 303, 190, 260, 100, clientWidth - 197);
+				mascotInv.draw24BitSprite(clientWidth - 198, clientHeight - 303);
 			} else {
 				cacheSprite[29].drawSprite(clientWidth - 222, clientHeight - 346);
 				DrawingArea.method335(0x50463C, clientHeight - 339, 190, 260, 100, clientWidth - 216);
+				mascotInv.draw24BitSprite(clientWidth - 216, clientHeight - 339);
 			}
 		}
 		int x1 = 0, y1 = 0;
@@ -5315,6 +5321,9 @@ public class Client extends RSApplet {
 		aRSImageProducer_1124 = null;
 		aRSImageProducer_1125 = null;
 		/* Null pointers for custom sprites */
+		background = null;
+		mascotInv = null;
+		mascotChat = null;
 		cacheSprite = null;
 		mapBack = null;
 		sideIcons = null;
@@ -8002,6 +8011,9 @@ public class Client extends RSApplet {
 			//repackCacheIndex(4); //maps
 			
 			drawLoadingText(80, "Unpacking media");
+			background = new Sprite("background");
+			mascotInv = new Sprite("mascot_inv");
+			mascotChat = new Sprite("mascot_chat");
 			multiOverlay = new Sprite(streamLoader_2, "overlay_multiway", 0);
 			mapBack = new Background(streamLoader_2, "mapback", 0);
 			for (int j3 = 0; j3 <= 14; j3++)
@@ -11015,9 +11027,7 @@ public class Client extends RSApplet {
 		} catch(Exception e) {}
 	}
 	
-	private Sprite background;
 	private void drawLoginScreen(boolean flag) {
-		background = new Sprite("background");
 	    refreshClientScreen();
 	    if (loginScreenState == 2) {
 	    	if(background != null)
@@ -13259,6 +13269,9 @@ public class Client extends RSApplet {
 	public int gameMode;
 	public int autoCastId = 0;
 	public Sprite[] cacheSprite;
+	private Sprite background;
+	public Sprite mascotInv;
+	public Sprite mascotChat;
 	/**/
 	private RSImageProducer leftFrame;
 	private RSImageProducer topFrame;
