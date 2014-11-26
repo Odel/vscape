@@ -42,6 +42,11 @@ public class NpcPacketHandler implements PacketHandler {
 		if (player.stopPlayerPacket()) {
 			return;
 		}
+		switch (packet.getOpcode()) {
+			case EXAMINE_NPC :
+				handleNpcExamine(player, packet);
+				return;
+		}
 		player.getActionSender().removeInterfaces();
 		player.resetAllActions();
 		switch (packet.getOpcode()) {
@@ -66,9 +71,6 @@ public class NpcPacketHandler implements PacketHandler {
 				break;
 			case ITEM_ON_NPC :
 				handleItemOnNpc(player, packet);
-				break;
-			case EXAMINE_NPC :
-				handleNpcExamine(player, packet);
 				break;
 		}
 	}
