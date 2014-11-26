@@ -2,6 +2,7 @@ package com.rs2.model.content.skills.agility;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -36,8 +37,15 @@ public class Agility {
 			@Override
 			public void execute(CycleEventContainer container) {
 				player.setStopPacket(false);
-				player.setRunAnim(-1);
-				player.setWalkAnim(-1);
+				GreeGreeData g = GreeGreeData.forItemId(player.getEquipment().getId(Constants.WEAPON));
+				if(g != null)
+				{
+					player.setRunAnim(g.getWalkAnim());
+					player.setWalkAnim(g.getWalkAnim());
+				}else{
+					player.setRunAnim(-1);
+					player.setWalkAnim(-1);
+				}
 				player.setAppearanceUpdateRequired(true);
 				if(xp > 0){
 					player.getSkill().addExp(Skill.AGILITY, xp);
@@ -91,8 +99,15 @@ public class Agility {
 			@Override
 			public void execute(CycleEventContainer container) {
 				player.setStopPacket(false);
-				player.setRunAnim(-1);
-				player.setWalkAnim(-1);
+				GreeGreeData g = GreeGreeData.forItemId(player.getEquipment().getId(Constants.WEAPON));
+				if(g != null)
+				{
+					player.setRunAnim(g.getWalkAnim());
+					player.setWalkAnim(g.getWalkAnim());
+				}else{
+					player.setRunAnim(-1);
+					player.setWalkAnim(-1);
+				}
 				player.setAppearanceUpdateRequired(true);
 				if(xp > 0){
 					player.getSkill().addExp(Skill.AGILITY, xp);
@@ -164,7 +179,9 @@ public class Agility {
 		player.setStopPacket(true);
 		player.getMovementHandler().reset();
 		player.resetAnimation();
-		player.getUpdateFlags().sendAnimation(anim);
+		if(anim > 0){
+			player.getUpdateFlags().sendAnimation(anim);
+		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -235,6 +252,19 @@ public class Agility {
 		crossObstacle(player, x, y, 749, time, xp);
 	}
 	
+	public static void climbTree(Player player, int x, int y, int z, int anim, int time, int level, double xp)
+	{
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb this tree.");
+			return;
+		}
+		climbObstacle(player, x, y, z, anim, time, xp);
+	}
+	
 	public static void climbNet(Player player, int x, int y, int z, int level, double xp)
 	{
 		if (!Constants.AGILITY_ENABLED) {
@@ -289,6 +319,19 @@ public class Agility {
 		crossObstacle(player, x, y, anim, 7, xp);
 	}
 	
+	public static void crossMonkeyBars(Player player, int x, int y, int z, int anim, int time, int level, double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to cross these bars.");
+			return;
+		}
+		crossObstacle(player, x, y, anim, time, xp);
+		climbObstacle(player, x, y, z, anim, time, 0);
+	}
+	
 	public static void crossMonkeyBars(Player player, int x, int y, int level, double xp) {
 		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
@@ -299,6 +342,49 @@ public class Agility {
 			return;
 		}
 		crossObstacle(player, x, y, 744, 7, xp);
+	}
+	
+	public static void crossTreeRope(Player player, int x, int y, int anim, int time, int level, double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to climb down this.");
+			return;
+		}
+		crossObstacle(player, x, y, anim, time, xp);
+	}
+	
+	public static void swingRope(final Player player,final int x,final int y, final int anim, final int level,final double xp) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to swing across this.");
+			return;
+		}
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
+		player.resetAnimation();
+		player.getUpdateFlags().sendAnimation(anim);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.teleport(new Position(x,y,0));
+				player.setStopPacket(false);
+				if(xp > 0){
+					player.getSkill().addExp(Skill.AGILITY, xp);
+				}
+				player.getMovementHandler().reset();
+				player.resetAnimation();
+				container.stop();
+			}
+			@Override
+			public void stop() {
+			}
+		}, 3);
 	}
 	
 	public static void swingRope(final Player player,final int x,final int y,final int level,final double xp) {

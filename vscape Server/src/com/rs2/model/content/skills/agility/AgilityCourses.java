@@ -2,6 +2,7 @@ package com.rs2.model.content.skills.agility;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
 
@@ -15,9 +16,10 @@ public class AgilityCourses {
 	}
 	
 	private int[] courseStage = {
-		0,
-		0,
-		0
+		0, // gnome
+		0, // barb
+		0, // wild
+		0 // ape
 	};
 	
 	public boolean handleCourse(int id, int x, int y)
@@ -29,6 +31,9 @@ public class AgilityCourses {
 			return true;
 		}
 		if(wildyCourse(id,x,y)){
+			return true;
+		}
+		if(apeCourse(id,x,y)){
 			return true;
 		}
 		return false;
@@ -211,6 +216,88 @@ public class AgilityCourses {
 		}
 		return false;
 	}
+	
+	private boolean apeCourse(int id, int x, int y)
+	{
+		if(canDoApe(id)){
+			switch(id)
+			{
+				case 12568 : // jump stone
+					if(x == 2754 && y == 2742){
+						if(player.getPosition().getX() > x)
+						{
+							Agility.crossObstacle(player, 2753, y, 3481, 3, 48, 40);
+						}
+					}
+					return true;
+				case 12570 : // tropical tree climb
+					if(x == 2753 && y == 2741){
+						Agility.climbTree(player, 2753, 2742, 2, 3487, 3, 48, 40);
+					}
+					return true;
+				case 12573 : // monkey bars
+					if(x == 2752 && y == 2741){
+						Agility.crossMonkeyBars(player, 2747, y, 0, 3483, 6, 48, 40);
+					}
+					return true;
+				case 12576 : // rock climb
+					if(x == 2746 && y == 2741){
+						if(player.getPosition().getX() >= x)
+						{
+							Agility.crossObstacle(player, 2743, y, 3485, 5, 48, 60);
+						}
+					}
+					return true;
+				case 12578 : // swing
+					if(x == 2752 && y == 2731){
+						if(player.getPosition().getX() <= x)
+						{
+							Agility.swingRope(player, 2756, y, 3488, 48, 100);
+						}
+					}
+					return true;	
+				case 12618 : // rope down (couldnt find right anim)
+					if(x == 2757 && y == 2734){
+						Agility.crossTreeRope(player, 2770, 2747, 3483, 14, 48, 100);
+					}
+					return true;	
+			}
+		}
+		return false;
+	}
+	private boolean canDoApe(int object){
+		switch(object)
+		{
+			case 12568 : // jump stone
+			case 12570 : // tropical tree climb
+			case 12573 : // monkey bars
+			case 12576 : // rock climb
+			case 12578 : // swing
+			case 12618 : // rope down
+				GreeGreeData g = GreeGreeData.forItemId(player.getEquipment().getId(Constants.WEAPON));
+				if(g == null)
+				{
+					player.getActionSender().sendMessage("You need to be wielding a monkey GreeGree to do this course.");
+					return false;
+				}else{
+					if(g.getItemId() != 4024 && g.getItemId() != 4025)
+					{
+						player.getActionSender().sendMessage("This Monkey is not agile enough to do this course.");
+						return false;
+					}
+					if(g.getItemId() == 4024 || g.getItemId() == 4025)
+					{
+						if(player.transformNpc != g.getTransformId()){
+							player.getActionSender().sendMessage("Requip the GreeGree to transform into a monkey.");
+							return false;
+						}
+					}
+				}
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public void setCourseStage(int course, int stage){
 		courseStage[course] = stage;
