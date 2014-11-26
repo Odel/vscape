@@ -241,6 +241,7 @@ public class Player extends Entity {
 	private BrewData brewData = new BrewData(this);
 	private Pets pets = new Pets(this);
 	private Cat cat = new Cat(this);
+	private MonkeyMadnessVars MMVars = new MonkeyMadnessVars(this);
 	private InterfaceClickHandler randomInterfaceClick = new InterfaceClickHandler(this);
 	private DialogueManager dialogue = new DialogueManager(this);
 	private BankPin bankPin = new BankPin(this);
@@ -2092,6 +2093,10 @@ public class Player extends Entity {
 	
 	public Cat getCat() {
 		return cat;
+	}
+	
+	public MonkeyMadnessVars getMMVars() {
+		return MMVars;
 	}
 
 	public void setPrivateMessaging(PrivateMessaging privateMessaging) {

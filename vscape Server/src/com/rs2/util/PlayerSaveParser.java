@@ -381,7 +381,7 @@ public class PlayerSaveParser {
 	            if(quests != null){
 		            player.setQuestPoints(quests.get("questpoints").getAsInt());
 		            JsonObject questVars = quests.getAsJsonObject("questVars");
-		            if(questVars != null){
+		            if(questVars != null) {
 			            player.joinPhoenixGang(questVars.get("phoenixGang").getAsBoolean());
 			            player.joinBlackArmGang(questVars.get("blackArmGang").getAsBoolean());
 			            player.setMelzarsDoorUnlock(questVars.get("melzarsDoorUnlock").getAsBoolean());
@@ -404,6 +404,15 @@ public class PlayerSaveParser {
 		            		player.setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
 		            	}
 		            }
+			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
+				if(MMVars != null) {
+				    if(MMVars.get("monkeyChildBananas") != null) {
+					player.getMMVars().setGivenMonkeyChildBananas(MMVars.get("monkeyChildBananas").getAsBoolean());
+				    }
+				    if(MMVars.get("monkeyChildToy") != null) {
+					player.getMMVars().setMonkeyChildHasToy(MMVars.get("monkeyChildToy").getAsBoolean());
+				    }
+				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){
 	            		for (int i = 0; i < QuestHandler.getQuests().length; i++)
