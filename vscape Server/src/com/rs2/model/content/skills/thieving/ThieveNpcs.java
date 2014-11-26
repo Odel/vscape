@@ -185,7 +185,7 @@ public class ThieveNpcs {
 		 * The chance of a x4 loot is 1/25
 		 */
 		if (Misc.random(25) == 0) {
-			if (player.getSkill().getLevel()[Skill.THIEVING] > reqLevel + 30 && player.getSkill().getLevel()[Skill.AGILITY] > reqLevel + 20) {
+			if (player.getSkill().getPlayerLevel(Skill.THIEVING) >= reqLevel + 30 && player.getSkill().getPlayerLevel(Skill.AGILITY) >= reqLevel + 20) {
 				player.getActionSender().sendMessage("You recieve a quadruple loot!");
 				return 4;
 			}
@@ -194,7 +194,7 @@ public class ThieveNpcs {
 		 * The chance of a 3x loot is 1/20
 		 */
 		if (Misc.random(20) == 0) {
-			if (player.getSkill().getLevel()[Skill.THIEVING] > reqLevel + 20 && player.getSkill().getLevel()[Skill.AGILITY] > reqLevel + 10) {
+			if (player.getSkill().getPlayerLevel(Skill.THIEVING) >= reqLevel + 20 && player.getSkill().getPlayerLevel(Skill.AGILITY) >= reqLevel + 10) {
 				player.getActionSender().sendMessage("You recieve a triple loot!");
 				return 3;
 			}
@@ -203,7 +203,7 @@ public class ThieveNpcs {
 		 * The chance of a 2x loot is 1/15
 		 */
 		if (Misc.random(15) == 0) {
-			if (player.getSkill().getLevel()[Skill.THIEVING] > reqLevel + 10 && player.getSkill().getLevel()[Skill.AGILITY] > reqLevel) {
+			if (player.getSkill().getPlayerLevel(Skill.THIEVING) >= reqLevel + 10 && player.getSkill().getPlayerLevel(Skill.AGILITY) >= reqLevel) {
 				player.getActionSender().sendMessage("You recieve a double loot!");
 				return 2;
 			}
