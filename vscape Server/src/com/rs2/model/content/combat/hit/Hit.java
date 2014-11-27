@@ -81,6 +81,11 @@ public class Hit {
 		    damage = 0;
 		    return;
 		}
+		if(victim.isNpc() && hitDef.getHitType() == HitType.POISON)
+		{
+			if(((Npc)victim).getDefinition() != null && ((Npc)victim).getDefinition().isPoisonImmune())
+				return;
+		}
 		if (hitDef.shouldRandomizeDamage()) {
 		    if(hitDef.isDarkBowSpec()) 
 			this.damage = Misc.random(5, damage);

@@ -56,11 +56,11 @@ public class Npc extends Entity {
 
 	public static int[] npcsTransformOnAggression = {1266, 1268, 2453, 2886, 2890, 1024, 1025, 1026, 1027, 1028, 1029};
 
-	public static int[] npcsDontWalk = {1266, 1268, 2453, 2886, 2890, 1827, 2892, 2894, 2896};
+	public static int[] npcsDontWalk = {1266, 1268, 2453, 2886, 2890, 1827, 2892, 2894, 2896, 1532, 1533, 1534, 1535};
 
-	public static int[] npcsDontFollow = {1827, 2892, 2894, 2896};
+	public static int[] npcsDontFollow = {1827, 2892, 2894, 2896, 1532, 1533, 1534, 1535};
 
-	public static int[] npcsDontAttack = {2440, 2443, 2446, 6142, 6143, 6144, 6145, 3782};
+	public static int[] npcsDontAttack = {2440, 2443, 2446, 6142, 6143, 6144, 6145, 3782, 1532, 1533, 1534, 1535};
 
 	/**
 	 * Creates a new Npc.

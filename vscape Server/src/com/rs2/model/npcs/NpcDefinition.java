@@ -132,6 +132,7 @@ public class NpcDefinition {
 	private boolean aggressive = false;
 	private boolean retreats = false;
 	private boolean poisonous = false;
+	private boolean poisonImmune = false;
 
 	public int getId() {
 		return id;
@@ -184,12 +185,15 @@ public class NpcDefinition {
 	public boolean isPoisonous() {
 		return poisonous;
 	}
-
+	
+	public boolean isPoisonImmune(){
+		return poisonImmune;
+	}
+	
 	public int getHitpoints() {
 		return hitpoints;
 	}
 	
-
 	public int getMaxhit() {
 		return maxHit;
 	}
