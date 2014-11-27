@@ -252,7 +252,7 @@ public class FightCaves {
 			}
 		    }
 		}
-		else if(died.getNpcId() == TZTOK_JAD) {
+		else if(died.getNpcId() == TZTOK_JAD && player.inFightCaves()) {
 		    exitCave(player);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override

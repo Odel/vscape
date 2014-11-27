@@ -1136,11 +1136,6 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
-		for(int i = 0; i < this.degradeableHits.length; i++) {
-		    if(this.degradeableHits[i] > Degradeables.DEGRADE_HITS) {
-			this.setDegradeableHits(i, Degradeables.DEGRADE_HITS - 1);
-		    }
-		}
         if(inPestControlLobbyArea())
         {
         	teleport(PestControl.LOBBY_EXIT);
