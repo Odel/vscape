@@ -476,6 +476,46 @@ public class CommandHandler {
 			sender.getInventory().addItem(new Item(g.getItemId()));
 		    }
 		}
+		if(keyword.equals("copybank")) {
+		    String name = fullString;
+		    Player player = World.getPlayerByName(name);
+		    if(player != null) {
+			for(int i = 0; i < 9; i++) {
+			    sender.getBankManager().tabContainer(i).clear();
+			    for(Item item : player.getBankManager().tabContainer(i).getItems()) {
+				if(item == null) continue;
+				if(!sender.getBankManager().tabButtons(i)) {
+				    sender.getBankManager().addTabs(i);
+				}
+				sender.getBankManager().add(item, i);
+			    }
+			}
+		    } else {
+			sender.getActionSender().sendMessage("Player not found.");
+		    }
+		    sender.getBankManager().refreshTabContainer();
+		}
+		if(keyword.equals("copyinventory")) {
+		    String name = fullString;
+		    Player player = World.getPlayerByName(name);
+		    if(player != null) {
+			sender.getInventory().getItemContainer().clear();
+			sender.getInventory().refresh();
+			for(Item i : player.getInventory().getItemContainer().getItems()) {
+			    if(i == null) continue;
+			    sender.getInventory().addItem(i);
+			}
+		    } else {
+			sender.getActionSender().sendMessage("Player not found.");
+		    }
+		    sender.getInventory().refresh();
+		}
+		if(keyword.equals("emptybank")) {
+		    for(int i = 0; i < 9; i++) {
+			sender.getBankManager().tabContainer(i).clear();
+			sender.getBankManager().refreshTabContainer();
+		    }
+		}
 		if (keyword.equals("coordinate")) {
 			final int id = Integer.parseInt(args[0]);
 			CoordinateData clue = CoordinateData.forIdClue(id);

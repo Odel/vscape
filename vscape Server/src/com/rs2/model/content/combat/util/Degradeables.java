@@ -240,4 +240,21 @@ public enum Degradeables {
 	    return false;
 	}
     }
+    
+    public static boolean fullBarrowsSet(Item helmet, Item body, Item legs, Item weapon, String name) {
+	if(Degradeables.getDegradeableItem(helmet) == null || Degradeables.getDegradeableItem(body) == null || Degradeables.getDegradeableItem(legs) == null || Degradeables.getDegradeableItem(weapon) == null) {
+	    return false;
+	} else {
+	    Degradeables helm = Degradeables.getDegradeableItem(helmet);
+	    Degradeables chest = Degradeables.getDegradeableItem(body);
+	    Degradeables leg = Degradeables.getDegradeableItem(legs);
+	    Degradeables wep = Degradeables.getDegradeableItem(weapon);
+	    if(helm.getEquipSlot() == Constants.HAT && chest.getEquipSlot() == Constants.CHEST && leg.getEquipSlot() == Constants.LEGS && wep.getEquipSlot() == Constants.WEAPON) {
+		if(helm.name().contains(name) && chest.name().contains(name) && leg.name().contains(name) && wep.name().contains(name)) {
+		    return true;
+		}
+	    }
+	}
+	return false;
+    }
 }
