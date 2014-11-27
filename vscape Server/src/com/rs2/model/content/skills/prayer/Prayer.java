@@ -316,6 +316,9 @@ public class Prayer {
 	}
 	
 	public void applySmiteEffect(Player victim, int hit) {
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			return;
+		}
 		if (player.getIsUsingPrayer()[PrayerData.SMITE.getIndex()]) {
 			if ((victim.getSkill().getLevel()[Skill.PRAYER] -= hit / 4) < 0) {
 				victim.getSkill().getLevel()[Skill.PRAYER] = 0;
@@ -327,12 +330,16 @@ public class Prayer {
 	}
 
 	public void applyRedemptionPrayer(Player player) {
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			return;
+		}
 		if (player.getSkill().getLevel()[Skill.HITPOINTS] <= (int) (player.getSkill().getPlayerLevel(Skill.HITPOINTS) * 0.1)) {
 			player.getSkill().getLevel()[Skill.HITPOINTS] += (int) (player.getSkill().getPlayerLevel(Skill.PRAYER) * 0.25);
 			player.getUpdateFlags().sendGraphic(436, 0);
-			player.getSkill().refresh(Skill.PRAYER);
 			player.getSkill().setSkillLevel(Skill.PRAYER, 0);
+			player.getSkill().refresh(Skill.PRAYER);
 			player.getSkill().refresh(Skill.HITPOINTS);
+			player.getPrayer().resetAll();
 		}
 	}
 	
@@ -465,6 +472,9 @@ public class Prayer {
 
 	public static void applyRetribution(final Entity died, final Entity killer) {
 		final Player player = (Player) died;
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			return;
+		}
 		final boolean inMulti = died.inMulti();
 		final int damage = player.getSkill().getPlayerLevel(Skill.PRAYER) / 4;
 		final HitDef hitDef = new HitDef(null, HitType.NORMAL, damage).randomizeDamage().setUnblockable(true);
@@ -508,16 +518,25 @@ public class Prayer {
 	}
 
 	public static void applyRedemption(Player player, Entity victim, int currentHp) {
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			return;
+		}
 		int lifeBonus = (int) Math.floor(player.getSkill().getPlayerLevel(Skill.PRAYER) / 4.0);
 		currentHp += lifeBonus;
 		if (currentHp > victim.getMaxHp())
 			currentHp = victim.getMaxHp();
 		player.getUpdateFlags().sendGraphic(436, 0);
+		player.getSkill().getLevel()[Skill.HITPOINTS] = currentHp;
 		player.getSkill().setSkillLevel(Skill.PRAYER, 0);
+		player.getSkill().refresh(Skill.PRAYER);
+		player.getSkill().refresh(Skill.HITPOINTS);
 		player.getPrayer().resetAll();
 	}
 
 	public static void applySmite(Player player, Player other, int damage) {
+		if (player.getSkill().getLevel()[Skill.PRAYER] <= 0) {
+			return;
+		}
 		int prayerLevel = other.getSkill().getLevel()[Skill.PRAYER] - (int) Math.floor(damage / 4);
 		if (prayerLevel < 0)
 			prayerLevel = 0;
