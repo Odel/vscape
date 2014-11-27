@@ -1033,6 +1033,17 @@ public class CommandHandler {
 			sender.transformNpc = npcId;
 			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
+			NpcDefinition def = NpcDefinition.forId(npcId);
+			if(def != null)
+			{
+				sender.setStandAnim(def.getStandAnim());
+				sender.setWalkAnim(def.getWalkAnim());
+				sender.setRunAnim(def.getWalkAnim());
+			}else{
+				sender.setStandAnim(-1);
+				sender.setWalkAnim(-1);
+				sender.setRunAnim(-1);
+			}
 			sender.getActionSender().sendMessage("NPC #" + npcId);
 		}
 		else if (keyword.equals("rnpc")) {
@@ -1044,6 +1055,17 @@ public class CommandHandler {
 			sender.transformNpc = npcId;
 			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
+			NpcDefinition def = NpcDefinition.forId(npcId);
+			if(def != null)
+			{
+				sender.setStandAnim(def.getStandAnim());
+				sender.setWalkAnim(def.getWalkAnim());
+				sender.setRunAnim(def.getWalkAnim());
+			}else{
+				sender.setStandAnim(-1);
+				sender.setWalkAnim(-1);
+				sender.setRunAnim(-1);
+			}
 			sender.getActionSender().sendMessage("NPC #" + npcId);
 		}
 		else if (keyword.equals("pet")) {

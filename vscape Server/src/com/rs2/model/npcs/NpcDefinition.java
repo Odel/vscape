@@ -126,7 +126,7 @@ public class NpcDefinition {
 
 	private int id;
 	private String name, examine;
-	private int respawn = 0, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 4000, attackAnim = 422, defenceAnim = 404, deathAnim = 2304, attackBonus = 20, defenceMelee = 20, defenceRange = 20, defenceMage = 20;
+	private int respawn = 0, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 4000, attackAnim = 422, standAnim = 808, walkAnim = 819, defenceAnim = 404, deathAnim = 2304, attackBonus = 20, defenceMelee = 20, defenceRange = 20, defenceMage = 20;
 
 	private boolean attackable = false;
 	private boolean aggressive = false;
@@ -155,6 +155,14 @@ public class NpcDefinition {
 
 	public int getAttackAnim() {
 		return attackAnim;
+	}
+	
+	public int getStandAnim() {
+		return standAnim;
+	}
+
+	public int getWalkAnim() {
+		return walkAnim;
 	}
 
 	public int getCombat() {
