@@ -615,25 +615,15 @@ public class Equipment {
 				return false;
 			    }
 			}
-			if(itemId == 4212 || itemId == 4224) {
-			    if(player.getSkill().getLevel()[Skill.AGILITY] < 50) {
-				player.getDialogue().sendStatement("You need 50 Agility to equip this.");
-				return false;
-			    }
-			}
 			if(Constants.DEGRADING_ENABLED) {
 			    if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).getOriginalId() == itemId) {
 				if(player.getDegradeableHits()[Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot()] > 0) {
 				    if(!Degrading.ownsDegradedVersion(player, itemId)) {
 					player.setDegradeableHits(Degradeables.getDegradeableItem(new Item(itemId)).getPlayerArraySlot(), 0);
-					return true;
 				    }
 				    player.getActionSender().sendMessage("You already have this degradeable item bound to you!");
 				    player.getActionSender().sendMessage("Repair it, or let it break completely.");
 				    return false;
-				}
-				else {
-				    return true;
 				}
 			    }
 			}
@@ -664,6 +654,12 @@ public class Equipment {
 			if (slayerLevelReq > 0) {
 				if (player.getSkill().getPlayerLevel(Skill.SLAYER) < slayerLevelReq) {
 					player.getActionSender().sendMessage("You need a Slayer level of " + slayerLevelReq + " to wield this weapon.");
+					return false;
+				}
+			}
+			if (agilityLevelReq > 0) {
+				if (player.getSkill().getPlayerLevel(Skill.AGILITY) < agilityLevelReq) {
+					player.getActionSender().sendMessage("You need an Agility level of " + agilityLevelReq + " to wield this weapon.");
 					return false;
 				}
 			}
@@ -1477,41 +1473,35 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("crystal") || itemId == 4212) {
+		if(Degradeables.getDegradeableItem(new Item(itemId)) != null && Degradeables.getDegradeableItem(new Item(itemId)).name().toLowerCase().contains("crystal")) {
+		    Degradeables d = Degradeables.getDegradeableItem(new Item(itemId));
 		    agilityLevelReq = 50;
-		    if(itemName.contains("shield"))
-			defenceLevelReq = 70;
-		return;
-		}
-		//barrows
-		if (itemName.contains("ahrim")) {
-			magicLevelReq = 70;
-			if (itemName.contains("staff")) {
-				attackLevelReq = 70;
-			defenceLevelReq = 1;
-                        
-			}  else {
-			defenceLevelReq = 70;
-			}
-		return;
-		}
-		if (itemName.contains("karil")) {
+		    if(d.equals(Degradeables.CRYSTAL_BOW)) {
 			rangeLevelReq = 70;
-			if (!itemName.contains("crossbow")) {
-				defenceLevelReq = 70;
-			}
-			return;
+		    }
+		    if(d.equals(Degradeables.CRYSTAL_SHIELD)) {
+			defenceLevelReq = 70;
+		    }
+		    return;
 		}
-		if (itemName.contains("verac") || itemName.contains("guthan") || itemName.contains("dharok") || itemName.contains("torag")) {
-			if (itemName.contains("hammers") || itemName.contains("axe")) {
-				attackLevelReq = 70;
-				strengthLevelReq = 70;
-			} else if (itemName.contains("warspear") || itemName.contains("flail")) {
-				attackLevelReq = 70;
-			} else {
-				defenceLevelReq = 70;
+		if(Degradeables.getDegradeableItem(new Item(itemId)) != null && !Degradeables.getDegradeableItem(new Item(itemId)).name().toLowerCase().contains("crystal")) {
+		    Degradeables d = Degradeables.getDegradeableItem(new Item(itemId));
+		    if(d.name().toLowerCase().contains("karils")) {
+			rangeLevelReq = 70;
+		    }
+		    if(d.name().toLowerCase().contains("ahrims")) {
+			magicLevelReq = 70;
+		    }
+		    if(d.getEquipSlot() != Constants.WEAPON) {
+			defenceLevelReq = 70;
+		    }
+		    if(d.getEquipSlot() == Constants.WEAPON && !d.equals(Degradeables.KARILS_CROSSBOW)) {
+			attackLevelReq = 70;
+			if(d.equals(Degradeables.DHAROKS_AXE) || d.equals(Degradeables.TORAGS_HAMMERS)) {
+			    strengthLevelReq = 70;
 			}
-			return;
+		    }
+		    return;
 		}
 		//range
 		if (itemName.contains("arrow")) {
@@ -1675,7 +1665,7 @@ public class Equipment {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("ahrims hood") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("ahrims robetop") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("ahrims robeskirt") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("ahrims staff"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.AHRIMS_HOOD) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.AHRIMS_TOP) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.AHRIMS_SKIRT) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.AHRIMS_STAFF));
 
 	}
 
@@ -1683,35 +1673,35 @@ public class Equipment {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("karils coif") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("karils leathertop") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("karils leatherskirt") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("karils crossbow"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.KARILS_COIF) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.KARILS_TOP) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.KARILS_SKIRT) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.KARILS_CROSSBOW));
 	}
 
 	public boolean fullVerac() {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("veracs helm") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("veracs brassard") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("veracs plateskirt") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("veracs flail"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.VERACS_HELM) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.VERACS_TOP) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.VERACS_SKIRT) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.VERACS_FLAIL));
 	}
 
 	public boolean fullGuthan() {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("guthans helm") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("guthans platebody") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("guthans chainskirt") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("guthans warspear"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.GUTHANS_HELM) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.GUTHANS_PLATE) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.GUTHANS_SKIRT) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.GUTHANS_WARSPEAR));
 	}
 
 	public boolean fullDharok() {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("dharoks helm") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("dharoks platebody") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("dharoks platelegs") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("dharoks greataxe"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.DHAROKS_HELM) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.DHAROKS_PLATE) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.DHAROKS_LEGS) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.DHAROKS_AXE));
 	}
 
 	public boolean fullTorag() {
 		if (player.getEquipment().getItemContainer().get(Constants.HAT) == null || player.getEquipment().getItemContainer().get(Constants.LEGS) == null || player.getEquipment().getItemContainer().get(Constants.CHEST) == null || player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
 			return false;
 
-		return (player.getEquipment().getItemContainer().get(Constants.HAT).getDefinition().getName().toLowerCase().contains("torags helm") && player.getEquipment().getItemContainer().get(Constants.CHEST).getDefinition().getName().toLowerCase().contains("torags platebody") && player.getEquipment().getItemContainer().get(Constants.LEGS).getDefinition().getName().toLowerCase().contains("torags platelegs") && player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().toLowerCase().contains("torags hammers"));
+		return (Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.HAT)).equals(Degradeables.TORAGS_HELM) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.CHEST)).equals(Degradeables.TORAGS_PLATE) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.LEGS)).equals(Degradeables.TORAGS_LEGS) && Degradeables.getDegradeableItem(player.getEquipment().getItemContainer().get(Constants.WEAPON)).equals(Degradeables.TORAGS_HAMMERS));
 	}
 	
 	public boolean fullVoidMelee() {
