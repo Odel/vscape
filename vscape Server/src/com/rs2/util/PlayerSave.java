@@ -799,6 +799,7 @@ public class PlayerSave {
 					friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friendLong));
 	                player.getFriends()[i] = friendLong;
 	            }
+	            player.setFriendsConverted(true);
 	            for (int i = 0; i < player.getIgnores().length; i++) {
 					long ignoreLong = load.readLong();
 					if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
@@ -806,6 +807,7 @@ public class PlayerSave {
 					ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignoreLong));
 	                player.getIgnores()[i] = ignoreLong;
 	            }
+	            player.setIgnoresConverted(true);
 	            for (int i = 0; i < player.getPendingItems().length; i++) {
 	                player.getPendingItems()[i] = load.readInt();
 	                player.getPendingItemsAmount()[i] = load.readInt();
