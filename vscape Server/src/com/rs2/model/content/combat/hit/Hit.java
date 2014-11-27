@@ -590,7 +590,9 @@ public class Hit {
 
         //if (hitDef.getDamageDelay() == 0) {
         if (attacker != null && hitDef != null && attacker.isPlayer()) {
-            addCombatExp((Player) attacker, damage, hitDef.getAttackStyle());
+        	if(canAddXp()){
+        		addCombatExp((Player) attacker, damage, hitDef.getAttackStyle());
+        	}
         }
         currentHp -= damage;
         
@@ -649,6 +651,17 @@ public class Hit {
         for (int i : attackStyle.getMode().getSkillsTrained())
             player.getSkill().addExp(i, expPerSkill);
         player.getSkill().addExp(Skill.HITPOINTS, (totalExp / 3d));
+    }
+    
+    public boolean canAddXp(){
+    	if(getVictim().isNpc()){
+    		Npc npc = ((Npc)victim);
+    		int npcId = npc.getNpcId();
+    		if(npcId == 1532 || npcId == 1533 || npcId == 1534 || npcId == 1535){
+    			return false;
+    		}
+    	}	
+    	return true;
     }
 
     public boolean shouldExecute() {
