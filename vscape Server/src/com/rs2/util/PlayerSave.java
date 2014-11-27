@@ -793,10 +793,18 @@ public class PlayerSave {
                     }
                 }
 	            for (int i = 0; i < player.getFriends().length; i++) {
-	                player.getFriends()[i] = load.readLong();
+					long friendLong = load.readLong();
+					if(friendLong < 0L || friendLong >= 0x5b5b57f8a98a5dd1L)
+						continue;
+					friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friendLong));
+	                player.getFriends()[i] = friendLong;
 	            }
 	            for (int i = 0; i < player.getIgnores().length; i++) {
-	                player.getIgnores()[i] = load.readLong();
+					long ignoreLong = load.readLong();
+					if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
+						continue;
+					ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignoreLong));
+	                player.getIgnores()[i] = ignoreLong;
 	            }
 	            for (int i = 0; i < player.getPendingItems().length; i++) {
 	                player.getPendingItems()[i] = load.readInt();
