@@ -1291,10 +1291,10 @@ public class Player extends Entity {
 					continue;
 				}
 				if (player.getUsernameAsLong() == getUsernameAsLong()) {
-					if(player.getMacAddress().equals(getMacAddress()))
+					/*if(player.getMacAddress().equals(getMacAddress()))
 					{
 						player.disconnect();
-					} //Bad bad bad
+					}*/ //Bad bad bad
 					setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
 					return false;
                 }
