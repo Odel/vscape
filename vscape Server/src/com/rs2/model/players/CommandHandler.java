@@ -305,7 +305,7 @@ public class CommandHandler {
             //leaveClanChannel();
         }        
 		else if (keyword.equals("modban")) {
-        	ModBan(sender, args);
+        	ModBan(sender, args, fullString);
         }  else if (keyword.equals("kick")) {
             Player player = World.getPlayerByName(fullString);
             if (player != null)
@@ -1600,7 +1600,7 @@ public class CommandHandler {
             player.setMuteExpire(System.currentTimeMillis());
         } 
 		else if (keyword.equals("ban")) {
-        	Ban(sender, args);
+        	Ban(sender, args, fullString);
 		} 
 		else if (keyword.equals("unban")) {
 		Player player = World.getPlayerByName(fullString);
@@ -1613,10 +1613,10 @@ public class CommandHandler {
 		}
         } 
 		else if (keyword.equals("banip")) {
-        	BanIpAddress(sender, args);
+        	BanIpAddress(sender, fullString);
         } 
 		else if (keyword.equals("banmac")) {
-        	BanMacAddress(sender, args);
+        	BanMacAddress(sender, fullString);
         } 
 		else if (keyword.equals("checkips")) {
         //	checkHosts();
@@ -2090,23 +2090,22 @@ public class CommandHandler {
 	 *            the player to ban
 	 * 
 	 */
-	private static void Ban(Player sender, String[] args) {
-		if (args.length < 2) {
-			sender.getActionSender().sendMessage("::ban username hours"); //use underscore instead of space if name is two words
+	private static void Ban(Player sender, String[] args, String fullString) {
+		if (args.length < 1) {
+			sender.getActionSender().sendMessage("::ban hours -username");
 			return;
 		}
-		String name = "";
-		for (int i = 1; i < args.length; i++) {
-			name += args[0];
-		}
-		int hours = Integer.parseInt(args[1]);
+		int hours = Integer.parseInt(args[0]);
 		if (hours <= 0 || hours > 1000000) {
 			sender.getActionSender().sendMessage("Ban between 0 and 1000000 hours");
 			return;
 		}
-		Player player = World.getPlayerByName(name);
+	    String name = fullString.substring(fullString.indexOf("-")+1);
+	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
 			sender.getActionSender().sendMessage("Could not find player " + name);
+			sender.getActionSender().sendMessage("::ban hours -username");
 			return;
 		}
 		if (player.isBanned()) {
@@ -2131,14 +2130,15 @@ public class CommandHandler {
 		player.disconnect();
 	}
 	
-	private static void ModBan(Player sender, String[] args) {
+	private static void ModBan(Player sender, String[] args, String fullString) {
 		if (args.length < 1) {
-			sender.getActionSender().sendMessage("::ban username hours"); //use underscore instead of space if name is two words
+			sender.getActionSender().sendMessage("::ban hours -username"); //use underscore instead of space if name is two words
 			return;
 		}
-		String name = args[0];
 		int hours = 2;
-		Player player = World.getPlayerByName(name);
+	    String name = fullString.substring(fullString.indexOf("-")+1);
+	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
 			sender.getActionSender().sendMessage("Could not find player " + name);
 			return;
@@ -2176,10 +2176,12 @@ public class CommandHandler {
 	 *            the player to ban
 	 * 
 	 */
-	private static void BanMacAddress(Player sender, String[] args) {
-		Player player = World.getPlayerByName(args[0]);
+	private static void BanMacAddress(Player sender, String fullString) {
+	    String name = NameUtil.uppercaseFirstLetter(fullString);
+	    long nameLong = NameUtil.nameToLong(name);
+	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + args[0]);
+			sender.getActionSender().sendMessage("Could not find player " + name);
 			return;
 		}
 		if (player.isMacBanned()) {
@@ -2199,10 +2201,12 @@ public class CommandHandler {
 		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s MAC address.");
 		player.disconnect();
 	}
-	private static void BanIpAddress(Player sender, String[] args) {
-		Player player = World.getPlayerByName(args[0]);
+	private static void BanIpAddress(Player sender, String fullString) {
+	    String name = NameUtil.uppercaseFirstLetter(fullString);
+	    long nameLong = NameUtil.nameToLong(name);
+	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + args[0]);
+			sender.getActionSender().sendMessage("Could not find player " + name);
 			return;
 		}
 		if (player.isIpBanned()) {
