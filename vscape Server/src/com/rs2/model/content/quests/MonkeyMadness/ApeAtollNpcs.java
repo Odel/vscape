@@ -204,7 +204,7 @@ public class ApeAtollNpcs {
 		    } else {
 			guard2.getUpdateFlags().sendAnimation(1402);
 		    }
-		    jail(player);
+		    ApeAtoll.jail(player);
 		} else if(Misc.goodDistance(player.getPosition(), other, 1)) {
 		    b.stop();
 		    player.hit(7, HitType.NORMAL);
@@ -213,7 +213,7 @@ public class ApeAtollNpcs {
 		    } else {
 			guard2.getUpdateFlags().sendAnimation(1402);
 		    }
-		    jail(player);
+		    ApeAtoll.jail(player);
 		}
 	    }
 
@@ -221,31 +221,6 @@ public class ApeAtollNpcs {
 	    public void stop() {
 	    }
 	}, 1);
-    }
-    
-    public static void jail(final Player player) {
-	player.getUpdateFlags().sendAnimation(836);
-	player.getMovementHandler().reset();
-	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-	    @Override
-	    public void execute(CycleEventContainer b) {
-		b.stop();
-	    }
-	    @Override
-	    public void stop() {
-		player.fadeTeleport(new Position(2773, 2794, 0));
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-		    @Override
-		    public void execute(CycleEventContainer b) {
-			b.stop();
-		    }
-		    @Override
-		    public void stop() {
-			player.getMMVars().setJailCheckRunning(false);
-		    }
-		}, 5);
-	    }
-	}, 2);
     }
 
 }

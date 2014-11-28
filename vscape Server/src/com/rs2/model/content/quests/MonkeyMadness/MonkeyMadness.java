@@ -303,6 +303,14 @@ public class MonkeyMadness implements Quest {
     }
     
     public boolean doNpcClicking(Player player, Npc npc) {
+	switch(npc.getNpcId()) {
+	    case TREFAJI:
+	    case ABERAB:
+		if(!player.getMMVars().isMonkey()) {
+		    ApeAtoll.jail(player);
+		}
+	    return true;
+	}
 	return false;
     }
     

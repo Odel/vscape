@@ -103,7 +103,32 @@ public class ApeAtoll {
 	}
 
     }
-
+    
+    public static void jail(final Player player) {
+	player.getUpdateFlags().sendAnimation(836);
+	player.getMovementHandler().reset();
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		b.stop();
+	    }
+	    @Override
+	    public void stop() {
+		player.fadeTeleport(new Position(2773, 2794, 0));
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+		    @Override
+		    public void stop() {
+			player.getMMVars().setJailCheckRunning(false);
+		    }
+		}, 5);
+	    }
+	}, 2);
+    }
+    
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {
 	    if (player.onApeAtoll()) {
