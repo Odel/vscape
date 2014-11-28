@@ -2601,9 +2601,9 @@ public class WalkToActionHandler {
 		final int id = player.getClickId();
 		final int item = player.getClickItem();
 		final int task = player.getTask();
-		final CacheObject obj = ObjectLoader.object(id, x, y, z);
+	/*	final CacheObject obj = ObjectLoader.object(id, x, y, z);
 		if (obj == null && ObjectHandler.getInstance().getObject(x, y, z) == null)
-			return;
+			return;*/
 		World.submit(new Tick(1, true) {
 			@Override
 			public void execute() {
@@ -2615,8 +2615,12 @@ public class WalkToActionHandler {
 					return;
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
-				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					return;
+				if (def == null) {
+					if (id == 4446 || id == 4447) { //exceptions
+						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
+					} else {
+						return;
+					}
 				}
 				GameObjectData object = GameObjectData.forId(player.getClickId());
 				Position objectPosition;
@@ -3050,6 +3054,10 @@ public class WalkToActionHandler {
 		}
 		if(def.getId() == 2142) {
 		    return true;
+		}
+		if(def.getId() == 4446 || def.getId() == 4447)
+		{
+			return true;
 		}
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
 		boolean canInteract = Misc.checkClip(player.getPosition(), objectPos, false);
