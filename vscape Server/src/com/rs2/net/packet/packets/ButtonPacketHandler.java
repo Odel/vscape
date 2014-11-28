@@ -472,6 +472,14 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout during a duel fight!");
                     return;
                 }
+                if (player.inPestControlGameArea()) {
+                    player.getActionSender().sendMessage("You can't logout while in Pest control");
+                    return;
+                }
+                if (player.inCwGame() || player.inCwLobby()) {
+                    player.getActionSender().sendMessage("You can't logout while in Castle wars!");
+                    return;
+                }
 				player.getActionSender().sendLogout();
 				return;
 		}
