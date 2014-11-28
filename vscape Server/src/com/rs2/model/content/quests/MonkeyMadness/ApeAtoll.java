@@ -3,6 +3,7 @@ package com.rs2.model.content.quests.MonkeyMadness;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.thieving.ThieveOther;
@@ -31,10 +32,12 @@ public class ApeAtoll {
     public static final int GORILLA_STATUE = 4859;
     public static final int TEMPLE_STAIRS_DOWN = 4755;
     public static final int TEMPLE_STAIRS_UP = 4756;
-    public static final int BANANA_TREE = 4745;
+    public static final int BANANA_TREE = 4749;
     public static final int PINEAPPLE_PLANT = 4827;
     public static final int DUNGEON_LADDER_UP = 4781;
     public static final int DUNGEON_LADDER_DOWN = 4780;
+    
+    public static final MinigameAreas.Area JAIL = new MinigameAreas.Area(2764, 2776, 2792, 2804, 0);
 
     public enum GreeGreeData {
 
@@ -104,6 +107,7 @@ public class ApeAtoll {
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {
 	    if (player.onApeAtoll()) {
+		player.getUpdateFlags().sendGraphic(160);
 		player.getEquipment().equip(player.getSlot());
 		GreeGreeData g = GreeGreeData.forItemId(itemId);
 		player.transformNpc = g.getTransformId();
@@ -111,6 +115,7 @@ public class ApeAtoll {
 		player.setWalkAnim(g.getWalkAnim());
 		player.setRunAnim(g.getWalkAnim());
 		player.getUpdateFlags().setUpdateRequired(true);
+		player.getMMVars().setIsMonkey(true);
 		return true;
 	    } else {
 		player.getActionSender().sendMessage("You must be on Ape Atoll to feel the effects of the greegree.");

@@ -29,7 +29,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			player.getActionSender().sendMessage("Your thieving level is not high enough to pick this lock.");
 			return;
 		}
-		if (!player.getInventory().getItemContainer().contains(1523)) {
+		if (!player.getInventory().getItemContainer().contains(1523) && !player.onApeAtoll()) {
 			player.getActionSender().sendMessage("You need a lockpick to do that.");
 			return;
 		}

@@ -9,6 +9,8 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatScript;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.ApeAtollNpcData;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.KeyToClue;
@@ -227,16 +229,16 @@ public class Npc extends Entity {
 	public void npcRandomWalk() {
 		if (this == null || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
 			return;
-		if (isDontWalk()) {
+		if (isDontWalk() || ApeAtollNpcData.forNpcId(this.getNpcId()) != null) {
 			return;
 		}
 		if (getWalkType() == WalkType.STAND) {
 			getUpdateFlags().sendFaceToDirection(getFacingDirection(getPosition(), getFace()));
 		} else if (!isFrozen() && !isStunned() && Misc.random(9) == 0) {
-            int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
-            int x1 = Misc.getRandom().nextInt(width), y1 = Misc.getRandom().nextInt(length);
-            Position position = new Position(x+x1, y+y1, getPosition().getZ());
-            walkTo(position, true);
+			int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
+			int x1 = Misc.getRandom().nextInt(width), y1 = Misc.getRandom().nextInt(length);
+			Position position = new Position(x+x1, y+y1, getPosition().getZ());
+			walkTo(position, true);
 		}
 	}
 

@@ -23,6 +23,7 @@ import com.rs2.model.objects.GameObject;
 import com.rs2.model.World;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.util.Misc;
 import com.rs2.model.content.skills.agility.Agility;
 
@@ -268,6 +269,17 @@ public class MonkeyMadness implements Quest {
     public static void openGliderPuzzle(final Player player) {
 	player.getPuzzle().initPuzzle(6661234);
 	player.getPuzzle().loadClueInterface(6661234);
+    }
+    
+    public static boolean isHiddenInGrass(final Player player) {
+	int objectId = 0;
+	if(SkillHandler.getObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()) != null) {
+	    objectId = SkillHandler.getObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()).getId();
+	}
+	if(objectId >= 4812 && objectId <= 4815) {
+	    return true;
+	}
+	return false;
     }
     
     public static void handleDeath(final Player player, Npc npc) {

@@ -4,11 +4,14 @@ import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
@@ -82,6 +85,10 @@ public final class PlayerUpdating {
 			    npc.getUpdateFlags().sendFaceToDirection(new Position(3228, 3369, 0));
 			}
 		    }
+		}
+		if(player.onApeAtoll() && MinigameAreas.isInArea(player.getPosition(), ApeAtoll.JAIL) && !player.getMMVars().isMonkey() && !player.getMMVars().jailCheckRunning()) { //&& player.getQuestStage(34) > 0
+		    player.getMMVars().setJailCheckRunning(true);
+		    ApeAtollNpcs.startJailCheck(player);
 		}
 		if(player.inFightCaves()) {
 		    FightCaves.attack(player);
