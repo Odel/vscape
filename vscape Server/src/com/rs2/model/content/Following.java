@@ -209,6 +209,10 @@ public class Following {
 		if (victim.isDoorSupport()) {
 			return true;
 		}
+		if(victim.isBarricade())
+		{
+			return true;
+		}
 		return Misc.checkClip(attacker.getPosition(), victim.getPosition(), distance < 2);
 	}
 

@@ -1050,6 +1050,11 @@ public abstract class Entity {
 	public boolean isDoorSupport() {
 		return isNpc() && (((Npc) this).getNpcId() == 2440 || ((Npc) this).getNpcId() == 2443 || ((Npc) this).getNpcId() == 2446);
 	}
+	
+	public boolean isBarricade() {
+		return isNpc() && (((Npc) this).getNpcId() == 1532 || ((Npc) this).getNpcId() == 1533 || ((Npc) this).getNpcId() == 1534 || ((Npc) this).getNpcId() == 1535);
+	}
+	
 	/**
 	 * @param dontAttack the dontAttack to set
 	 */

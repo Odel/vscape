@@ -522,51 +522,6 @@ public class Player extends Entity {
 		getAttributes().put("canTakeDamage", Boolean.TRUE);
 	}
 
-	public void handleDropItems(int amountToDrop, Player player) {
-		ArrayList<Item> items = new ArrayList<Item>();
-		/*for (int i = 0; i < Inventory.SIZE; i++)
-			if (getInventory().getItemContainer().get(i) != null && !ItemManager.getInstance().isUntradeable(getInventory().getItemContainer().get(i).getId()))
-				items.add(destroyedBarrow(getInventory().getItemContainer().get(i)));
-
-		for (int i = 0; i < Equipment.SIZE; i++)
-			if (getEquipment().getItemContainer().get(i) != null && !ItemManager.getInstance().isUntradeable(getEquipment().getItemContainer().get(i).getId()))
-				items.add(destroyedBarrow(getEquipment().getItemContainer().get(i)));
-		*/
-		if (items.size() == 0)
-			return;
-		// getting the highest price in the list
-		items = getHighestPriceListed(items);
-		getInventory().getItemContainer().clear();
-		getInventory().refresh();
-		getEquipment().getItemContainer().clear();
-		getEquipment().refresh();
-		if (amountToDrop != 0)
-			for (int i = 0; i < amountToDrop; i++)
-				getInventory().addItem(items.get(i));
-		for (int i = amountToDrop; i < items.size(); i++) {
-			ItemManager.getInstance().createGroundItem(player, items.get(i), new Position(getPosition().getX(), getPosition().getY(), getPosition().getZ()));
-		}
-		player.getActionSender().sendSound(376, 0, 0);
-	} 
-
-	public ArrayList<Item> getHighestPriceListed(ArrayList<Item> array) {
-		ArrayList<Item> tempArray = array;
-		ArrayList<Item> listedArray = new ArrayList<Item>();
-		Item highest;
-		for (int i = 0; i < tempArray.size(); i++) {
-			highest = new Item(0);
-			for (Item items : tempArray) {
-				if (items == null)
-					continue;
-				if (items.getDefinition().getPrice() >= highest.getDefinition().getPrice())
-					highest = items;
-			}
-			tempArray.remove(highest);
-			listedArray.add(highest);
-		}
-		return listedArray;
-	}
-
 	public Player(SelectionKey key) {
 		this.key = key;
 		inData = ByteBuffer.allocateDirect(512);
@@ -675,6 +630,100 @@ public class Player extends Entity {
             }
         });
     }
+    
+	public void logout() {
+		if(Constants.SQL_ENABLED)
+		{
+			SQL.saveHighScore(this);
+		}
+        if(inPestControlLobbyArea())
+        {
+        	PestControl.leaveLobby(this, true);
+        }
+        else if(inPestControlGameArea())
+        {
+        	PestControl.leaveGame(this, true);
+        }
+        else if(inFightCaves()) {
+        	FightCaves.destroyNpcs(this);
+        }
+        else if(inCwLobby())
+        {
+        	Castlewars.LeaveLobby(this, true);
+        }
+        else if(inCwGame())
+        {
+        	Castlewars.LeaveGame(this, true, 0);
+        }
+        try {
+            Benchmark b = Benchmarks.getBenchmark("tradeDecline");
+            b.start();
+            if (getTradingEntity() != null) {
+            	TradeManager.declineTrade(this);
+            }
+            b.stop();
+            b = Benchmarks.getBenchmark("duelDecline");
+            b.start();
+            if(getDuelMainData().getOpponent() != null){
+                if(getDuelMainData().startedDuel()) {
+                    DuelMainData.handleVictory(getDuelMainData().getOpponent(), this);
+                } else {
+                    getDuelMainData().getOpponent().getDuelInteraction().endDuelInteraction(true);
+                    getDuelInteraction().endDuelInteraction(true);
+                }
+            }
+            b.stop();
+            b = Benchmarks.getBenchmark("petUnregister");
+            b.start();
+			if (getPets().getPet() != null) {
+				getPets().unregisterPet();
+			}
+			if(getCat().catNpc() != null)
+			{
+				getCat().unregisterCat();
+			}
+            b.stop();
+            b = Benchmarks.getBenchmark("cannonUnregister");
+            b.start();
+			if (getMultiCannon() != null && getMultiCannon().hasCannon()) {
+				getMultiCannon().pickupCannon();
+			}
+            b.stop();
+            b = Benchmarks.getBenchmark("unlockMovement");
+            b.start();
+			getMovementHandler().unlock();
+            b.stop();
+            b = Benchmarks.getBenchmark("resetFollowing");
+            b.start();
+			if (getFollowingEntity() != null)
+				Following.resetFollow(this);
+            b.stop();
+            b = Benchmarks.getBenchmark("logoutPrivatemessage");
+            b.start();
+            getPrivateMessaging().refresh(true);
+            b.stop();
+            b = Benchmarks.getBenchmark("saveHighscores");
+            b.start();
+            if (getStaffRights() < 2) {
+                HighscoresManager.getSingleton().savePlayer(this);
+            }
+            b.stop();
+            b = Benchmarks.getBenchmark("savePlayer");
+            b.start();
+            PlayerSave.save(this);
+            b.stop();
+            // if (getLoginStage() == LoginStages.LOGGED_IN) {
+            // World.deleteFromWorld(getUsername());
+            // }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Benchmark b = Benchmarks.getBenchmark("unregisterPlayer");
+            b.start();
+            World.unregister(this);
+            b.stop();
+        }
+    }
 
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
@@ -712,7 +761,7 @@ public class Player extends Entity {
 		attacker.setCombatingEntity(null);
 		attacker.getMovementHandler().reset();
 	    }
-	}
+        }
         RandomEvent.resetEvents(this);
 		setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
@@ -1245,7 +1294,7 @@ public class Player extends Entity {
 					if(player.getMacAddress().equals(getMacAddress()))
 					{
 						player.disconnect();
-					}
+					} //Bad bad bad
 					setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
 					return false;
                 }
@@ -1363,100 +1412,7 @@ public class Player extends Entity {
 			actionSender.sendMessage("Talk to a banker to retrive these items.");
 		}
 	}
-
-	public void logout() {
-		if(Constants.SQL_ENABLED)
-		{
-			SQL.saveHighScore(this);
-		}
-        if(inPestControlLobbyArea())
-        {
-        	PestControl.leaveLobby(this, true);
-        }
-        else if(inPestControlGameArea())
-        {
-        	PestControl.leaveGame(this, true);
-        }
-        else if(inFightCaves()) {
-        	FightCaves.destroyNpcs(this);
-        }
-        else if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, true);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, true, 0);
-        }
-        try {
-            Benchmark b = Benchmarks.getBenchmark("tradeDecline");
-            b.start();
-            if (getTradingEntity() != null) {
-            	TradeManager.declineTrade(this);
-            }
-            b.stop();
-            b = Benchmarks.getBenchmark("duelDecline");
-            b.start();
-            if(getDuelMainData().getOpponent() != null){
-                if(getDuelMainData().startedDuel()) {
-                    DuelMainData.handleVictory(getDuelMainData().getOpponent(), this);
-                } else {
-                    getDuelMainData().getOpponent().getDuelInteraction().endDuelInteraction(true);
-                    getDuelInteraction().endDuelInteraction(true);
-                }
-            }
-            b.stop();
-            b = Benchmarks.getBenchmark("petUnregister");
-            b.start();
-			if (getPets().getPet() != null) {
-				getPets().unregisterPet();
-			}
-			if(getCat().catNpc() != null)
-			{
-				getCat().unregisterCat();
-			}
-            b.stop();
-            b = Benchmarks.getBenchmark("cannonUnregister");
-            b.start();
-			if (getMultiCannon() != null && getMultiCannon().hasCannon()) {
-				getMultiCannon().pickupCannon();
-			}
-            b.stop();
-            b = Benchmarks.getBenchmark("unlockMovement");
-            b.start();
-			getMovementHandler().unlock();
-            b.stop();
-            b = Benchmarks.getBenchmark("resetFollowing");
-            b.start();
-			if (getFollowingEntity() != null)
-				Following.resetFollow(this);
-            b.stop();
-            b = Benchmarks.getBenchmark("logoutPrivatemessage");
-            b.start();
-            getPrivateMessaging().refresh(true);
-            b.stop();
-            b = Benchmarks.getBenchmark("saveHighscores");
-            b.start();
-            if (getStaffRights() < 2) {
-                HighscoresManager.getSingleton().savePlayer(this);
-            }
-            b.stop();
-            b = Benchmarks.getBenchmark("savePlayer");
-            b.start();
-            PlayerSave.save(this);
-            b.stop();
-            // if (getLoginStage() == LoginStages.LOGGED_IN) {
-            // World.deleteFromWorld(getUsername());
-            // }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            Benchmark b = Benchmarks.getBenchmark("unregisterPlayer");
-            b.start();
-            World.unregister(this);
-            b.stop();
-        }
-    }
+	
 /*public int destroyBarrowItemOnDeath(Item item) {	//cadillac
          String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
          if(itemName.contains("ahrim")) {
@@ -3600,6 +3556,10 @@ public class Player extends Entity {
 	/*	if (!killer.isPlayer()) {
 			killer = this;
 		}*/
+		if(getLoginStage() != LoginStages.LOGGED_IN)
+		{
+			return;
+		}
 		Item[] items = new Item[equipment.getItemContainer().capacity() + inventory.getItemContainer().capacity()];
 		System.arraycopy(equipment.getItemContainer().getItems(), 0, items, 0, equipment.getItemContainer().getItems().length);
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
@@ -3651,10 +3611,9 @@ public class Player extends Entity {
 			else if (!dropped.getDefinition().isUntradable()) {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
-			}
-			else {
-				 GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
-				 GroundItemManager.getManager().dropItem(item);
+			} else {
+				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
+				GroundItemManager.getManager().dropItem(item);
 			}
 		}
 		equipment.refresh();

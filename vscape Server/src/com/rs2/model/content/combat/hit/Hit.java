@@ -655,9 +655,7 @@ public class Hit {
     
     public boolean canAddXp(){
     	if(getVictim().isNpc()){
-    		Npc npc = ((Npc)victim);
-    		int npcId = npc.getNpcId();
-    		if(npcId == 1532 || npcId == 1533 || npcId == 1534 || npcId == 1535){
+    		if(victim.isBarricade()){
     			return false;
     		}
     	}	
