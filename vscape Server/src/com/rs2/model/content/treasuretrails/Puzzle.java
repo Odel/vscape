@@ -25,12 +25,15 @@ public class Puzzle {// todo maybe hovering button message
     public ArrayList<Integer> puzzleArray = new ArrayList<Integer>(ClueScroll.PUZZLE_LENGTH);
 
     /* the puzzle index */
-    public static int index;
+    public int index;
 
     /* load the main puzzle */
     public boolean loadClueInterface(int itemId) {
 	if (getIndexByItem(itemId) == 0) {
 	    return false;
+	}
+	if(index == 0) {
+	    this.index = getIndexByItem(itemId);
 	}
 	loadPuzzle();
 	if (finishedPuzzle()) {
@@ -41,28 +44,32 @@ public class Puzzle {// todo maybe hovering button message
     }
 
     public boolean initPuzzle(int itemId) {
-	index = getIndexByItem(itemId);
-	if (index == 0) {
+	int indexToSet = getIndexByItem(itemId);
+	if (indexToSet == 0) {
 	    return false;
+	} else {
+	    this.index = indexToSet;
+	    loadPuzzleArray();
+	    loadPuzzleItems();
+	    return true;
 	}
-	loadPuzzleArray(index);
-	loadPuzzleItems();
-	return true;
     }
 
     /* add the puzzle items to an arrayList */
-    public void loadPuzzleArray(int index) {
+    public void loadPuzzleArray() {
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
-	    puzzleArray.add(getPuzzleIndex(index)[i]);
+	    if(getPuzzleIndex(index) != null) {
+		puzzleArray.add(getPuzzleIndex(index)[i]);
+	    }
 	}
     }
 
     public int getBlockNumberForItemId(int itemId) {
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
-	    if (itemId == -1) {
+	    if (itemId == -1 || getPuzzleIndex(index) == null) {
 		return 0;
 	    }
-	    if (itemId == getPuzzleIndex(player.getPuzzle().index)[i]) {
+	    if (itemId == getPuzzleIndex(index)[i]) {
 		return i + 1;
 	    }
 	}
@@ -103,10 +110,14 @@ public class Puzzle {// todo maybe hovering button message
 	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
 	    player.puzzleStoredItems[i] = new Item(-1);
 	}
+	this.index = 0;
     }
     
     /* loading the puzzle items */
     public void loadPuzzleItems() {
+	if(index == 0 || getPuzzleIndex(index) == null) {
+	    return;
+	}
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
 	    player.puzzleStoredItems[i] = new Item(getPuzzleIndex(index)[i]);
 	}
@@ -136,7 +147,9 @@ public class Puzzle {// todo maybe hovering button message
     public Item[] getDefaultItems() {
 	Item[] item = new Item[ClueScroll.PUZZLE_LENGTH];
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
-	    item[i] = new Item(getPuzzleIndex(index)[i]);
+	    if(getPuzzleIndex(index) != null) {
+		item[i] = new Item(getPuzzleIndex(index)[i]);
+	    }
 	}
 	return item;
     }
@@ -283,7 +296,7 @@ public class Puzzle {// todo maybe hovering button message
 
     /* checks if the puzzle is solved */
     public boolean finishedPuzzle() {
-	if (player.puzzleStoredItems == null || player.puzzleStoredItems.length == 0) {
+	if (player.puzzleStoredItems == null || player.puzzleStoredItems.length == 0 || getPuzzleIndex(index) == null) {
 	    return false;
 	}
 	int counter = 0;
@@ -292,12 +305,7 @@ public class Puzzle {// todo maybe hovering button message
 		counter++;
 	    }
 	}
-
-	if (counter == player.puzzleStoredItems.length) {
-	    return true;
-	}
-
-	return false;
+	return counter == player.puzzleStoredItems.length;
     }
 
     /*
@@ -336,10 +344,11 @@ public class Puzzle {// todo maybe hovering button message
     }
 
     public void addRandomPuzzle() {
-	int[] items = {2800, 3565, 3571};
+	int[] items = {ClueScroll.CASTLE_PUZZLE, ClueScroll.TREE_PUZZLE, ClueScroll.TROLL_PUZZLE};
 	int item = items[Misc.randomMinusOne(items.length)];
-	player.getInventory().addItem(new Item(item));
-	initPuzzle(item);
+	if(initPuzzle(item)) {
+	    player.getInventory().addItem(new Item(item));
+	}
     }
 
     public boolean playerHasPuzzle() {
