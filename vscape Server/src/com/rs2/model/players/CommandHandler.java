@@ -1648,7 +1648,7 @@ public class CommandHandler {
         }
         else if (keyword.equals("rights")) {
 			if (sender.getUsername().equals("Odel") || sender.getUsername().equals("Noiryx") || sender.getUsername().equals("Mr Foxter") || sender.getUsername().equals("Bobster") || sender.getUsername().equals("Pickles")){
-				GiveRights(sender, args);
+				GiveRights(sender, args, fullString);
 			}
         }
         else if(keyword.equals("staffyell")) {
@@ -2006,17 +2006,20 @@ public class CommandHandler {
 	 * @param rights
 	 *            right access level
 	 */
-	private static void GiveRights(Player sender, String[] args) {
-		if (args.length < 2) {
-			sender.getActionSender().sendMessage("::rights username rightType");
-			sender.getActionSender().sendMessage("rightType ex: player, mod, admin");
+	private static void GiveRights(Player sender, String[] args, String fullString) {
+		if (args.length < 1) {
+			sender.getActionSender().sendMessage("::rights rightType -name");
+			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev");
 			return;
 		}
-		String name = args[0];
-		String rightType = args[1];
-		Player player = World.getPlayerByName(name);
+		String rightType = args[0];
+	    String name = fullString.substring(fullString.indexOf("-")+1);
+	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
 			sender.getActionSender().sendMessage("Could not find player " + name);
+			sender.getActionSender().sendMessage("::rights rightType -name");
+			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev");
 			return;
 		}
 		if (player.isBanned()) {
