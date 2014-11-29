@@ -127,11 +127,14 @@ public class Equipment {
 		    player.setRunAnim(1640);
 		    player.setStandAnim(1639);
 		}
-		if(player.getEquipment().getId(Constants.HAT) != GhostsAhoy.BEDSHEET && player.getEquipment().getId(Constants.HAT) != GhostsAhoy.ECTOPLASM_BEDSHEET) {
-		    player.transformNpc = 0;
-		    player.setWalkAnim(-1);
-		    player.setRunAnim(-1);
-		    player.setStandAnim(-1);
+		if((player.transformNpc == 1707 || player.transformNpc == 1708)) {
+		    int hat = player.transformNpc == 1707 ? GhostsAhoy.BEDSHEET : GhostsAhoy.ECTOPLASM_BEDSHEET;
+		    if (player.getEquipment().getId(Constants.HAT) != hat) {
+			player.transformNpc = -1;
+			player.setWalkAnim(-1);
+			player.setRunAnim(-1);
+			player.setStandAnim(-1);
+		    }
 		}
 	}
 
@@ -142,6 +145,15 @@ public class Equipment {
 		player.getEquipment().checkVoidGear();
 		sendBonus(player);
 		sendWeaponInterface();
+		if((player.transformNpc == 1707 || player.transformNpc == 1708)) {
+		    int hat = player.transformNpc == 1707 ? GhostsAhoy.BEDSHEET : GhostsAhoy.ECTOPLASM_BEDSHEET;
+		    if (player.getEquipment().getId(Constants.HAT) != hat) {
+			player.transformNpc = -1;
+			player.setWalkAnim(-1);
+			player.setRunAnim(-1);
+			player.setStandAnim(-1);
+		    }
+		}
 	}
 
 	public void replaceEquipment(int id, int slot) {
@@ -362,7 +374,7 @@ public class Equipment {
 			player.getActionSender().hideAllSideBars();
 			player.getActionSender().sendSidebarInterface(3, 6014);
 		}
-        WalkInterfaces.checkChickenOption(player);
+		WalkInterfaces.checkChickenOption(player);
 		Tiaras.handleTiara(player, item.getId());
 		player.setAppearanceUpdateRequired(true);
 	}
@@ -419,7 +431,7 @@ public class Equipment {
 		}
 		refresh(slot, new Item(-1, 0));
 		updateWeight();
-        WalkInterfaces.checkChickenOption(player);
+		WalkInterfaces.checkChickenOption(player);
 		player.setAppearanceUpdateRequired(true);
 	}
 

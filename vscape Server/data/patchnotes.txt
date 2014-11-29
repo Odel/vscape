@@ -1,3 +1,17 @@
+@dre@=November 29th=
+-Total bank space increased.
+-The return of ::rnpc.
+-Barrows equipment bug fixes.
+-Puzzle bug fix.
+-Support added for inventory / chat area
+sprite overlays / mascots. (Only in client
+version 3.3+)
+
+@blu@How to sprite??
+-Find your user home folder, C:/Users/You/
+on Windows for example, it's in the
+.vscape2 cache folder.
+
 @dre@=November 21st Re-dux=
 -Fixed Pest Control reward points.
 -Fixed stats on degraded items (Sorry).

@@ -84,6 +84,28 @@ public class CommandHandler {
 			sender.getPrivateMessaging().refresh(false);
 			sender.disconnect();
 		}
+		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
+			int npcId = (int)Misc.random(6000);
+			NpcDefinition def = NpcDefinition.forId(npcId);
+			while(GlobalVariables.npcDump[npcId].toLowerCase().contains("null") || def == null || def.getSize() > 1) {
+				npcId = (int)Misc.random(6390);
+				def = NpcDefinition.forId(npcId);
+			}
+			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 500)) {
+				sender.getActionSender().sendMessage("Random npc costs 500 gold to use!");
+				return;
+			}
+			sender.getInventory().removeItem(new Item(995, 1000));
+			sender.transformNpc = npcId;
+			sender.setAppearanceUpdateRequired(true);
+			sender.setSize(new Npc(npcId).getDefinition().getSize());
+			sender.setStandAnim(def.getStandAnim());
+			sender.setWalkAnim(def.getWalkAnim());
+			sender.setRunAnim(def.getWalkAnim());
+			if(sender.getStaffRights() > 1) {
+			    sender.getActionSender().sendMessage("NPC #" + npcId);
+			}
+		}
 		if (keyword.equals("outfit")) {
 			sender.getActionSender().sendInterface(3559);
 		}
@@ -1070,28 +1092,6 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("pnpc")) {
 			final int npcId = Integer.parseInt(args[0]);
-			sender.transformNpc = npcId;
-			sender.setAppearanceUpdateRequired(true);
-			sender.setSize(new Npc(npcId).getDefinition().getSize());
-			NpcDefinition def = NpcDefinition.forId(npcId);
-			if(def != null)
-			{
-				sender.setStandAnim(def.getStandAnim());
-				sender.setWalkAnim(def.getWalkAnim());
-				sender.setRunAnim(def.getWalkAnim());
-			}else{
-				sender.setStandAnim(-1);
-				sender.setWalkAnim(-1);
-				sender.setRunAnim(-1);
-			}
-			sender.getActionSender().sendMessage("NPC #" + npcId);
-		}
-		else if (keyword.equals("rnpc")) {
-			int npcId = (int)Misc.random(6390);
-			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
-				sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
-			    return;
-			}
 			sender.transformNpc = npcId;
 			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
