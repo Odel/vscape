@@ -31,7 +31,7 @@ public class JewelleryTeleport {
 				player.getInventory().addItem(new Item(item));
 			}
 		}*/
-		if (player.getEquipment().getId(player.getSlot()) == player.getClickItem()){
+		if (player.getSlot() < 15 && player.getEquipment().getId(player.getSlot()) == player.getClickItem()){
 			int item = findNextJewellery(player.getClickItem());
 			if (item > 0) {
 				player.getEquipment().replaceEquipment(item, player.getSlot());
@@ -55,7 +55,7 @@ public class JewelleryTeleport {
 		{
 			return;
 		}*/
-		if (player.getEquipment().getId(player.getSlot()) != player.getClickItem() && !player.getInventory().playerHasItem(player.getClickItem())) {
+		if (player.getSlot() < 15 && player.getEquipment().getId(player.getSlot()) != player.getClickItem() && !player.getInventory().playerHasItem(player.getClickItem())) {
 			return;
 		}
 		if (!player.getTeleportation().attemptTeleportJewellery(position)) {

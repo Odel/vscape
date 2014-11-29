@@ -55,16 +55,6 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEY_SKULL = 4034;
     public static final int TENTH_SQUAD_SIGIL = 4035;
 
-    //Positions
-    public static final Position INSIDE_VILLAGE = new Position(2515,3162,0);
-    public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
-    public static final Position JUNGLE_DEMON_POS = new Position(2715, 9161, 1);
-    public static final Position HANGAR = new Position(2649, 4518, 0);
-    public static final Position BELOW_PYRES = new Position(2807, 9201, 0);
-    public static final Position UP_FROM_PYRES = new Position(2806, 2785, 0);
-    public static final Position START_OF_DUNGEON = new Position(2764, 9103, 0);
-    public static final Position END_OF_DUNGEON = new Position(2805, 9142, 0);
-
     //Interfaces
     public static final int[] GLIDER_PUZZLE = {3904, 3906, 3908, 3910, 3912, 3914, 3916, 3918, 3920, 3922, 3924, 3926, 3928, 3930, 3932, 3934, 3936, 3938, 3940, 3942, 3944, 3946, 3948, 3950, -1};
     public static final int PUZZLE_INTERFACE = 11126;

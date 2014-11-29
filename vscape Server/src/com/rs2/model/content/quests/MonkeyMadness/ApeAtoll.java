@@ -1,8 +1,7 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.prayer.Prayer;
@@ -17,6 +16,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.util.Misc;
 
 public class ApeAtoll {
 
@@ -37,10 +37,21 @@ public class ApeAtoll {
     public static final int DUNGEON_LADDER_UP = 4781;
     public static final int DUNGEON_LADDER_DOWN = 4780;
     
+    public static final Position INSIDE_VILLAGE = new Position(2515,3162,0);
+    public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
+    public static final Position JUNGLE_DEMON_POS = new Position(2715, 9161, 1);
+    public static final Position HANGAR = new Position(2649, 4518, 0);
+    public static final Position BELOW_PYRES = new Position(2807, 9201, 0);
+    public static final Position UP_FROM_PYRES = new Position(2806, 2785, 0);
+    public static final Position START_OF_DUNGEON = new Position(2764, 9103, 0);
+    public static final Position END_OF_DUNGEON = new Position(2805, 9142, 0);
+    public static final Position CRASH_ISLAND = new Position(2892, 2727, 0);
+    
     public static final MinigameAreas.Area JAIL = new MinigameAreas.Area(2764, 2776, 2792, 2804, 0);
+    public static final MinigameAreas.Area DUNGEON = new MinigameAreas.Area(2682, 2822, 9087, 9155, 0);
+    public static final MinigameAreas.Area END_DUNGEON = new MinigameAreas.Area(2800, 2810, 9139, 9149, 0);
 
     public enum GreeGreeData {
-
 	SMALL_NINJA_GREEGREE(4024, 3179, 1480, 1386, 1380),
 	MEDIUM_NINJA_GREEGREE(4025, 3180, 1481, 1386, 1380),
 	GORILLA_GREEGREE(4026, 3181, 1482, 1401, 1399),
@@ -104,6 +115,80 @@ public class ApeAtoll {
 
     }
     
+    public enum DungeonSpikesData {
+	SPIKES_1(new Position(2793, 9115, 0)),
+	SPIKES_2(new Position(2809, 9111, 0)),
+	SPIKES_3(new Position(2740, 9135, 0)),
+	SPIKES_4(new Position(2715, 9137, 0)),
+	SPIKES_5(new Position(2712, 9136, 0)),
+	SPIKES_6(new Position(2708, 9136, 0)),
+	SPIKES_7(new Position(2709, 9134, 0)),
+	SPIKES_8(new Position(2715, 9134, 0)),
+	SPIKES_9(new Position(2717, 9133, 0)),
+	SPIKES_10(new Position(2712, 9133, 0)),
+	SPIKES_11(new Position(2708, 9132, 0)),
+	SPIKES_12(new Position(2711, 9131, 0)),
+	SPIKES_13(new Position(2713, 9130, 0)),
+	SPIKES_14(new Position(2716, 9131, 0)),
+	SPIKES_15(new Position(2719, 9130, 0)),
+	SPIKES_16(new Position(2739, 9127, 0)),
+	SPIKES_17(new Position(2741, 9125, 0)),
+	SPIKES_18(new Position(2743, 9123, 0)),
+	SPIKES_19(new Position(2737, 9123, 0)),
+	SPIKES_20(new Position(2735, 9122, 0)),
+	SPIKES_21(new Position(2740, 9122, 0)),
+	SPIKES_22(new Position(2742, 9121, 0)),
+	SPIKES_23(new Position(2736, 9120, 0)),
+	SPIKES_24(new Position(2739, 9119, 0)),
+	SPIKES_25(new Position(2738, 9117, 0)),
+	SPIKES_26(new Position(2715, 9119, 0)),
+	SPIKES_27(new Position(2710, 9114, 0)),
+	SPIKES_28(new Position(2707, 9113, 0)),
+	SPIKES_29(new Position(2704, 9113, 0)),
+	SPIKES_30(new Position(2703, 9108, 0)),
+	SPIKES_31(new Position(2706, 9109, 0)),
+	SPIKES_32(new Position(2709, 9110, 0)),
+	SPIKES_33(new Position(2711, 9111, 0)),
+	SPIKES_34(new Position(2713, 9109, 0)),
+	SPIKES_35(new Position(2713, 9107, 0)),
+	SPIKES_36(new Position(2710, 9106, 0)),
+	SPIKES_37(new Position(2706, 9106, 0)),
+	SPIKES_38(new Position(2703, 9106, 0)),
+	SPIKES_39(new Position(2705, 9102, 0)),
+	SPIKES_40(new Position(2707, 9103, 0)),
+	SPIKES_41(new Position(2711, 9104, 0)),
+	SPIKES_42(new Position(2733, 9105, 0)),
+	SPIKES_43(new Position(2740, 9105, 0)),
+	SPIKES_44(new Position(2742, 9107, 0)),
+	SPIKES_45(new Position(2745, 9106, 0)),
+	SPIKES_46(new Position(2745, 9104, 0)),
+	SPIKES_47(new Position(2742, 9103, 0)),
+	SPIKES_48(new Position(2746, 9101, 0)),
+	SPIKES_49(new Position(2743, 9100, 0)),
+	SPIKES_50(new Position(2746, 9099, 0)),
+	SPIKES_51(new Position(2744, 9098, 0)),
+	SPIKES_52(new Position(2742, 9097, 0)),
+	SPIKES_53(new Position(2740, 9098, 0)),
+	SPIKES_54(new Position(2725, 9097, 0)),
+	SPIKES_55(new Position(2691, 9115, 0)),
+	SPIKES_56(new Position(2701, 9142, 0));
+	
+	private Position position;
+	
+	DungeonSpikesData(Position pos) {
+	    this.position = pos;
+	}
+	
+	public static boolean onSpikes(Position p) {
+	    for(DungeonSpikesData d : DungeonSpikesData.values()) {
+		if(d.position.equals(p)) {
+		    return true;
+		}
+	    }
+	    return false;
+	}
+    }
+    
     public static void jail(final Player player) {
 	player.getUpdateFlags().sendAnimation(836);
 	player.getMovementHandler().reset();
@@ -127,6 +212,70 @@ public class ApeAtoll {
 		}, 5);
 	    }
 	}, 2);
+    }
+    
+    public static void runDungeon(final Player player) {
+	player.getMMVars().setDungeonRunning(true);
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    int rocksTimer = 0;
+	    boolean hitBySpikes = false;
+	    Position hitBySpikesHere = null;
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if(!MinigameAreas.isInArea(player.getPosition(), DUNGEON)) {
+		    b.stop();
+		}
+		if(Misc.random(15) == 1 && !MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && rocksTimer >= 15) {
+		    rocksTimer = 0;
+		    fallingRocks(player);
+		}
+		if(hitBySpikesHere != null && !hitBySpikesHere.equals(player.getPosition().clone())) {
+		    hitBySpikes = false;
+		    hitBySpikesHere = null;
+		}
+		if(DungeonSpikesData.onSpikes(player.getPosition()) && !hitBySpikes) {
+		    hitBySpikes = true;
+		    hitBySpikesHere = player.getPosition().clone();
+		    floorSpikes(player, player.getPosition());
+		}
+		rocksTimer++;
+	    }
+	    @Override
+	    public void stop() {
+		player.getMMVars().setDungeonRunning(false);
+	    }
+	}, 1);
+    }
+    
+    public static void floorSpikes(final Player player, final Position p) {
+	player.hit(Misc.random(7), HitType.NORMAL);
+	player.getActionSender().animateObject(p.getX(), p.getY(), p.getZ(), 1111);
+	player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+	player.getActionSender().sendMessage("You are injured by the floor spikes!");
+    }
+    
+    public static void fallingRocks(final Player player) {
+	player.getActionSender().shakeScreen(2, 10, 10, 4);
+	player.getUpdateFlags().sendGraphic(60);
+	player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    int count = 1;
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if(count == 1) {
+		    player.hit(Misc.random(4), HitType.NORMAL);
+		}
+		if(count >= 2) {
+		    b.stop();
+		}
+		count++;
+	    }
+
+	    @Override
+	    public void stop() {
+		player.getActionSender().resetCamera();
+	    }
+	}, 1);
     }
     
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
@@ -246,7 +395,17 @@ public class ApeAtoll {
 		return true;
 	    case DUNGEON_LADDER_DOWN:
 		//TO DO, a warning here? not sure how the quest goes
-		Ladders.climbLadder(player, MonkeyMadness.START_OF_DUNGEON);
+		Ladders.climbLadder(player, START_OF_DUNGEON);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+		    @Override
+		    public void stop() {
+			runDungeon(player);
+		    }
+		}, 3);
 		return true;
 	    case DUNGEON_LADDER_UP:
 		Ladders.climbLadder(player, new Position(2764, 2703, 0));
@@ -279,10 +438,10 @@ public class ApeAtoll {
 		Ladders.climbLadder(player, new Position(2749, 2769, 0));
 		return true;
 	    case PYRE_TRAPDOOR_OPEN:
-		Ladders.climbLadder(player, MonkeyMadness.BELOW_PYRES);
+		Ladders.climbLadder(player, BELOW_PYRES);
 		return true;
 	    case PYRE_ROPE:
-		Ladders.climbLadder(player, MonkeyMadness.UP_FROM_PYRES);
+		Ladders.climbLadder(player, UP_FROM_PYRES);
 		return true;
 	}
 	return false;

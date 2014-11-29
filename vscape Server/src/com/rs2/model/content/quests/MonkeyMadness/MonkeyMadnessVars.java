@@ -7,6 +7,7 @@ public class MonkeyMadnessVars {
     private boolean givenMonkeyChildBananas;
     private boolean monkeyChildHasToy;
     private boolean jailCheckRunning;
+    private boolean dungeonRunning;
     private boolean isMonkey;
     
     public MonkeyMadnessVars(final Player player) {
@@ -35,6 +36,14 @@ public class MonkeyMadnessVars {
     
     public void setJailCheckRunning(boolean set) {
 	this.jailCheckRunning = set;
+    }
+    
+    public boolean dungeonRunning() {
+	return this.dungeonRunning;
+    }
+    
+    public void setDungeonRunning(boolean set) {
+	this.dungeonRunning = set;
     }
     
     public boolean isMonkey() {
