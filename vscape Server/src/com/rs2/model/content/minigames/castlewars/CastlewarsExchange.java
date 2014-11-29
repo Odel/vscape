@@ -126,7 +126,7 @@ public class CastlewarsExchange {
 		}
 		int price = exchangeItem.getPrice();
 		String currencyName = ItemManager.getInstance().getItemName(TICKET_ID);
-		player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + Misc.formatNumber(price) + " " + currencyName + ".");
+		player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + Misc.formatNumber(price) + " " + currencyName + "s.");
 	}
 
 }
