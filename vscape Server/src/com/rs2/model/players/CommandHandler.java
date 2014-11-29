@@ -1175,7 +1175,7 @@ public class CommandHandler {
 			}
 			int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
 			int type = args.length > 2 ? Integer.parseInt(args[2]) : 10;
-			new GameObject(objectId, sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ(), face, type, 0, 999999, false);
+			new GameObject(objectId, sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ(), face, type, 0, 999999, true);
 		}
 		else if(keyword.equals("removeobject"))
 		{
