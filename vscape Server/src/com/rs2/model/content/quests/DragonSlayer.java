@@ -10,6 +10,7 @@ import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS_2;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -45,6 +46,8 @@ public class DragonSlayer implements Quest {
     public static final int BLUE_KEY = 1546;
     public static final int MAGENTA_KEY = 1547;
     public static final int GREEN_KEY = 1548;
+    
+    public static MinigameAreas.Area BASEMENT = new MinigameAreas.Area(2921, 2941, 9639, 9661, 0);
     
     
     public int dialogueStage = 0;
@@ -769,8 +772,7 @@ public class DragonSlayer implements Quest {
     }
     
     public static void handleDrops(Player player, Npc npc) {
-	if(npc.getNpcId() == 82 && player.getPosition().getX() > 2930 && player.getPosition().getX() < 2940
-		&& player.getPosition().getY() < 9656 && player.getPosition().getY() > 9647) { //lesser demon
+	if(npc.getNpcId() == 82 && MinigameAreas.isInArea(player.getPosition(), BASEMENT)) { //lesser demon
 	    if(!player.getInventory().playerHasItem(GREEN_KEY)) {
 		GroundItem drop = new GroundItem(new Item(GREEN_KEY), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
 		GroundItemManager.getManager().dropItem(drop);
