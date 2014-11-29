@@ -95,7 +95,7 @@ public class CommandHandler {
 				sender.getActionSender().sendMessage("Random npc costs 500 gold to use!");
 				return;
 			}
-			sender.getInventory().removeItem(new Item(995, 1000));
+			sender.getInventory().removeItem(new Item(995, 500));
 			sender.transformNpc = npcId;
 			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
