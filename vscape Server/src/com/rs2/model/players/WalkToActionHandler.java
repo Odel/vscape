@@ -2488,6 +2488,9 @@ public class WalkToActionHandler {
 					return;
 				}
 				switch (player.getClickId()) {
+				case 1526:
+					CastlewarsExchange.OpenInterface(player);
+					break;
 				case 553:
 					Runecrafting.teleportRunecraft(player, npc);
 					break;

@@ -132,7 +132,7 @@ public enum Weapon {
 			return Weapon.WARHAMMER;
 		} else if (name.contains("hasta")) {
 			return Weapon.HASTA;
-		} else if (name.contains("spear") || name.contains("mjolnir")) {
+		} else if (name.contains("spear") || name.contains("mjolnir") || name.contains("banner")) {
 			return Weapon.SPEAR;
 		} else if (name.contains("claw")) {
 			return Weapon.CLAWS;
