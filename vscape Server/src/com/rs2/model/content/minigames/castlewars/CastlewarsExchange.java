@@ -14,7 +14,7 @@ public class CastlewarsExchange {
 	
 	private final static int TICKET_ID = 4067;
 	
-	private static Container stock = new Container(Type.STANDARD, 24);
+	private static Container stock = new Container(Type.ALWAYS_STACK, 24);
 	
 	public enum ExchangeItem {
 		RDH(new Item(4071,1), 4),
