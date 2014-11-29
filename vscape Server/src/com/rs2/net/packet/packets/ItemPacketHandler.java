@@ -1178,7 +1178,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.getPets().registerPet(6541, 901);
 	    return;
 	}
-	if (itemId == 5608 || itemId == 5609 || (itemId >= 3327 && itemId < 3344)) {
+	if ((itemId >= 3327 && itemId < 3344)) {
 	    player.getEquipment().equip(player.getSlot());
 	    return;
 	}
