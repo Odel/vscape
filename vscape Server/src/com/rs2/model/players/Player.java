@@ -502,6 +502,14 @@ public class Player extends Entity {
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
 	}
+	
+	public void resetTransform() {         
+		transformNpc = 0;
+		setStandAnim(-1);
+		setWalkAnim(-1);
+		setRunAnim(-1);
+		setAppearanceUpdateRequired(true);
+	}
 
 	@Override
 	public void reset() {         
