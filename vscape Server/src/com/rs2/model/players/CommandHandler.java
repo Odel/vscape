@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import com.rs2.Constants;
 import com.rs2.GlobalVariables;
@@ -85,7 +86,12 @@ public class CommandHandler {
 			sender.disconnect();
 		}
 		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
-			int npcId = (int)Misc.random(6000);
+			if(sender.inMiniGameArea() || sender.inWild())
+			{
+				sender.getActionSender().sendMessage("You cannot use this command here.");
+				return;
+			}
+			int npcId = (int)Misc.random(6390);
 			NpcDefinition def = NpcDefinition.forId(npcId);
 			while(GlobalVariables.npcDump[npcId].toLowerCase().contains("null") || def == null || def.getSize() > 1) {
 				npcId = (int)Misc.random(6390);
@@ -95,7 +101,7 @@ public class CommandHandler {
 				sender.getActionSender().sendMessage("Random npc costs 500 gold to use!");
 				return;
 			}
-			sender.getInventory().removeItem(new Item(995, 500));
+			sender.getInventory().removeItem(new Item(995, 1000));
 			sender.transformNpc = npcId;
 			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
