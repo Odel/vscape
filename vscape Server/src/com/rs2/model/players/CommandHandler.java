@@ -97,7 +97,7 @@ public class CommandHandler {
 				npcId = (int)Misc.random(6390);
 				def = NpcDefinition.forId(npcId);
 			}
-			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 500)) {
+			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 1000)) {
 				sender.getActionSender().sendMessage("Random npc costs 500 gold to use!");
 				return;
 			}
