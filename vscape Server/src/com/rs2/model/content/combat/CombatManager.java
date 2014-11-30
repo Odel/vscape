@@ -105,6 +105,13 @@ public class CombatManager extends Tick {
             CombatManager.resetCombat(attacker);
             return;
 	}
+	if(attacker.isPlayer() && victim.isPlayer() && ((Player) attacker).transformNpc > 0 || ((Player) victim).transformNpc > 0) {
+		if(attacker.inWild() && victim.inWild()){
+	        ((Player) attacker).getActionSender().sendMessage("Cannot attack another player while ::rnpc is in use.");
+	        CombatManager.resetCombat(attacker);
+	        return;
+		}
+	}
 	if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
 	    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
 	    return;
@@ -587,7 +594,7 @@ public class CombatManager extends Tick {
 		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
 		}
-        if(died != null && died.isPlayer() && Castlewars.handleDeath((Player) died)) {
+		if(died != null && died.isPlayer() && Castlewars.handleDeath((Player) died)) {
 		    return;
         }
 		if(died != null && died.isPlayer() && ((Player) died).inFightCaves()) {
