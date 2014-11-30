@@ -25,6 +25,7 @@ import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.cooking.DoughHandler;
 import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.cooking.SliceDiceHandler;
+import com.rs2.model.content.skills.magic.BoltEnchanting;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.prayer.Ectofungus;
@@ -587,6 +588,11 @@ public class ButtonPacketHandler implements PacketHandler {
 		{
 			return;
 		}
+		/*if(BoltEnchanting.BoltData.forButtonId(buttonId) != null) {
+		    BoltEnchanting.BoltData b = BoltEnchanting.BoltData.forButtonId(buttonId);
+		    BoltEnchanting.enchantBolts(player, b.getOriginalId(), 1); //Amount?
+		    return;
+		}*/
         if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("button "+buttonId+" doesn't do anything");
 	}
