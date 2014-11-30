@@ -105,11 +105,12 @@ public class CombatManager extends Tick {
             CombatManager.resetCombat(attacker);
             return;
 	}
-	if(attacker.isPlayer() && victim.isPlayer() && ((Player) attacker).transformNpc > 0 || ((Player) victim).transformNpc > 0) {
-		if(attacker.inWild() && victim.inWild()){
-	        ((Player) attacker).getActionSender().sendMessage("Cannot attack another player while ::rnpc is in use.");
-	        CombatManager.resetCombat(attacker);
-	        return;
+	if(attacker.isPlayer() && victim.isPlayer()) {
+		if(attacker.inWild() && ((Player) attacker).transformNpc > 0){
+			((Player) attacker).resetTransform();
+		}
+		if(victim.inWild() && ((Player) victim).transformNpc > 0){
+			((Player) victim).resetTransform();
 		}
 	}
 	if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
