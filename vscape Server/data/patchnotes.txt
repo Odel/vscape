@@ -1,3 +1,6 @@
+@dre@=November 30th hotfix=
+-Prevent RNPC combat in the wilderness
+
 @dre@=November 29th=
 -Total bank space increased.
 -The return of ::rnpc.
