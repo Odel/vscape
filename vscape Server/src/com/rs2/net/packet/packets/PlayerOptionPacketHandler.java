@@ -284,9 +284,15 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		player.getUpdateFlags().faceEntity(otherPlayer.getFaceIndex());
 		if (!player.inDuelArena() && !player.inWild() && !player.inCwGame()) {
 			handleChallenge(player, otherPlayer, taskId);
-		} else
+		} else {
+			if(player.inWild()){
+				if(player.transformNpc > 0 || otherPlayer.transformNpc > 0){
+					player.getActionSender().sendMessage("Cannot attack another player while ::rnpc is in use.");
+					return;
+				}
+			}
 			CombatManager.attack(player, otherPlayer);
-
+		}
 	}
 
 	private void handleMagicOnPlayer(Player player, Packet packet) {
@@ -305,9 +311,16 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 			if (spell == Spell.TELEOTHER_CAMELOT || spell == Spell.TELEOTHER_FALADOR || spell == Spell.TELEOTHER_LUMBRIDGE) {
 				MagicSkill.spellOnPlayer(player, otherPlayer, spell);
 			} else {
+				if(player.inWild()){
+					if(player.transformNpc > 0 || otherPlayer.transformNpc > 0){
+						player.getActionSender().sendMessage("Cannot attack another player while ::rnpc is in use.");
+						return;
+					}
+				}
 				CombatManager.attack(player, otherPlayer);
 			}
-		} else if (Constants.SERVER_DEBUG)
+		} else if (Constants.SERVER_DEBUG) {
 			System.out.println("Magic ID: " + magicId);
+		}
 	}
 }
