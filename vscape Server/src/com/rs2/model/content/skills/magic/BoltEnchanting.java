@@ -15,17 +15,17 @@ public class BoltEnchanting {
     public static final int ENCHANT_ANIM = 4462;
     public static final int ENCHANT_GFX = 759;
     
-    private static final int AIR_RUNE = 556;
-    private static final int EARTH_RUNE = 557;
-    private static final int FIRE_RUNE = 554;
-    private static final int WATER_RUNE = 555;
-    private static final int LAW_RUNE = 563;
-    private static final int NATURE_RUNE = 561;
-    private static final int COSMIC_RUNE = 564;
-    private static final int BLOOD_RUNE = 565;
-    private static final int DEATH_RUNE = 560;
-    private static final int SOUL_RUNE = 566;
-    private static final int MIND_RUNE = 558;
+    public static final int AIR_RUNE = 556;
+    public static final int EARTH_RUNE = 557;
+    public static final int FIRE_RUNE = 554;
+    public static final int WATER_RUNE = 555;
+    public static final int LAW_RUNE = 563;
+    public static final int NATURE_RUNE = 561;
+    public static final int COSMIC_RUNE = 564;
+    public static final int BLOOD_RUNE = 565;
+    public static final int DEATH_RUNE = 560;
+    public static final int SOUL_RUNE = 566;
+    public static final int MIND_RUNE = 558;
     
     public enum BoltData {
 	OPAL(879, 9236, 4, 9d, new int[][]{{AIR_RUNE, 2}, {COSMIC_RUNE, 1}}, -1),

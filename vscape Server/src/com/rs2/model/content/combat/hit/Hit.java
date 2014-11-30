@@ -19,11 +19,13 @@ import static com.rs2.model.content.combat.attacks.SpellAttack.getMultiAncients;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.effect.impl.BindingEffect;
+import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
 import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degrading;
+import com.rs2.model.content.combat.util.EnchantedBolts;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
@@ -156,6 +158,28 @@ public class Hit {
 			    player.setHitChronozonFire(true);
 			}
 		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer()) {
+		    Player player = (Player)attacker;
+		    EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
+		    if(b != null && (b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
+			if(EnchantedBolts.activateSpecial(b, player, victim, damage)) {
+			    if(!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+				damage *= b.getIncreasedDamage();
+			    }
+			    if(b.equals(EnchantedBolts.BoltSpecials.PEARL) && victim.isNpc() && EnchantedBolts.fireNpc((Npc)victim)) {
+				damage *= 1.1;
+			    } else if(b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+				damage = (int)Math.ceil(victim.getCurrentHp() / 5);
+			    } else if(b.equals(EnchantedBolts.BoltSpecials.DRAGONSTONE)) {
+				damage += 20;
+			    }
+			}
+		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && ((Player)attacker).getArmorPiercedEntity() != null && ((Player)attacker).getArmorPiercedEntity().equals(victim)) {
+		    damage *= 1.1;
+		    ((Player)attacker).getActionSender().sendMessage("Armor piercing...");
 		}
 		if(attacker != null && victim != null && attacker.isPlayer()) {
 		    Player player = (Player)attacker;

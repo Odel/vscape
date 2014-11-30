@@ -44,7 +44,7 @@ public class Equipment {
 
 	private Player player;
 
-	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torag's body", "dharok's body", "guthan's body"};
+	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torags body", "dharoks body", "guthans body"};
 	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm"};
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm", "3rd age mage hat"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
@@ -69,6 +69,10 @@ public class Equipment {
 		String item = new Item(id).getDefinition().getName().toLowerCase();
 		if (id == 426 || id == 544 || id == 6107) {
 			return true;
+		}
+		Degradeables d = Degradeables.getDegradeableItem(new Item(id));
+		if(d != null && d.getEquipSlot() == Constants.CHEST) {
+		    return true;
 		}
 		if (id == 7110 || id == 7134 || id == 7128 || id == 7122) {
 		    return false;

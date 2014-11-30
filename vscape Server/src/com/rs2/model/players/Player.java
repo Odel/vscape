@@ -47,6 +47,7 @@ import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
@@ -62,6 +63,7 @@ import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.randomevents.Pillory;
@@ -400,6 +402,7 @@ public class Player extends Entity {
     private boolean hideYell = false;
     private boolean hideColors = false;
     public boolean showHp = false;
+    private Entity armorPiercedEntity = null;
 	public Object[][] questData = {
 	// questName, currentStage, finishedStage, questPoints
 	{"Getting Started", 0, 2, 1}};
@@ -1184,6 +1187,9 @@ public class Player extends Entity {
 		}
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
+		}
+		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
+		    ApeAtoll.runDungeon(this);
 		}
         if(inPestControlLobbyArea())
         {
@@ -2959,7 +2965,15 @@ public class Player extends Entity {
 	public void setMageArenaStage(int stage) {
 	    this.mageArenaStage = stage;
 	}
-
+	
+	public Entity getArmorPiercedEntity() {
+	    return this.armorPiercedEntity;
+	}
+	
+	public void setArmorPiercedEntity(Entity set) {
+	    this.armorPiercedEntity = set;
+	}
+	
 	public int getQuestPoints() {
 		return questPoints;
 	}
