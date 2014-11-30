@@ -2,6 +2,8 @@
 -Total bank space increased.
 -The return of ::rnpc.
 -Barrows equipment bug fixes.
+-Diagonal ranged safespot / pathfinding bug
+fixed.
 -Puzzle bug fix.
 -Support added for inventory / chat area
 sprite overlays / mascots. (Only in client
