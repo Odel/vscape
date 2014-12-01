@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * this template use File | Settings | File Templates.
  */
 public class Degrading {
+    public static final int REPAIR_COST_BARROWS = 10;
+    public static final int REPAIR_COST_CRYSTAL = 50;
 	
 	public static void handleHit(final Player player, boolean weaponHit) {
 	    Item equipped = new Item(player.getEquipment().getId(Constants.WEAPON));
@@ -235,10 +237,10 @@ public class Degrading {
 			    hits = Degradeables.DEGRADE_HITS * 10;
 			}
 			if(hits > 0) {
-			    d.sendNpcChat("That will be " + (10 * hits) + " gold to charge your", "" + itemName + ". Is this alright?", CONTENT);
+			    d.sendNpcChat("That will be " + (REPAIR_COST_CRYSTAL * hits) + " gold to charge your", "" + itemName + ". Is this alright?", CONTENT);
 			    return true;
 			} else {
-			    d.sendNpcChat("Hmm, I'm not sure how you managed to damage this...", "But I'll charge it anyways.", "It will be " + (10 * hits) + " gold to fix,", "Is this alright?", CONTENT);
+			    d.sendNpcChat("Hmm, I'm not sure how you managed to damage this...", "But I'll charge it anyways.", "It will be " + (REPAIR_COST_CRYSTAL * hits) + " gold to fix,", "Is this alright?", CONTENT);
 			    return true;
 			}
 		    case 10:
@@ -251,7 +253,7 @@ public class Degrading {
 				if(toRepairCrystal.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getBrokenId()) {
 				    hitsToPay = Degradeables.DEGRADE_HITS * 10;
 				}
-				if(player.getInventory().playerHasItem(new Item(995, hitsToPay * 10))) {
+				if(player.getInventory().playerHasItem(new Item(995, hitsToPay * REPAIR_COST_CRYSTAL))) {
 				    d.sendPlayerChat("Yes, that's fine.", CONTENT);
 				    return true;
 				} else {
@@ -265,9 +267,9 @@ public class Degrading {
 				return true;
 			}
 		    case 12:
-			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getPlayerArraySlot()] * 10;
+			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getPlayerArraySlot()] * REPAIR_COST_CRYSTAL;
 			if(toRepairCrystal.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getBrokenId()) {
-			    amountToPay = Degradeables.DEGRADE_HITS * 10 * 10;
+			    amountToPay = Degradeables.DEGRADE_HITS * 10 * REPAIR_COST_CRYSTAL;
 			}
 			d.sendGiveItemNpc("You exchange the money...", "...for the charged crystal equipment.", new Item(995, amountToPay), new Item(Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getOriginalId()));
 			player.getInventory().replaceItemWithItem(toRepairCrystal.get(player.getTempInteger()), new Item(Degradeables.getDegradeableItem(toRepairCrystal.get(player.getTempInteger())).getOriginalId()));
@@ -434,10 +436,10 @@ public class Degrading {
 			    hits = Degradeables.DEGRADE_HITS * 4;
 			}
 			if(hits > 0) {
-			    d.sendNpcChat("That will be " + (10 * hits) + " gold to fix your", "" + itemName + ". Is this alright?", CONTENT);
+			    d.sendNpcChat("That will be " + (REPAIR_COST_BARROWS * hits) + " gold to fix your", "" + itemName + ". Is this alright?", CONTENT);
 			    return true;
 			} else {
-			    d.sendNpcChat("Hmm, I'm not sure how you managed to damage this...", "But I'll repair it anyways.", "It will be " + (10 * hits) + " gold to fix,", "Is this alright?", CONTENT);
+			    d.sendNpcChat("Hmm, I'm not sure how you managed to damage this...", "But I'll repair it anyways.", "It will be " + (REPAIR_COST_BARROWS * hits) + " gold to fix,", "Is this alright?", CONTENT);
 			    return true;
 			}
 		    case 12:
@@ -450,7 +452,7 @@ public class Degrading {
 				if(toRepair.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getBrokenId()) {
 				    hitsToPay = Degradeables.DEGRADE_HITS * 4;
 				}
-				if(player.getInventory().playerHasItem(new Item(995, hitsToPay * 10))) {
+				if(player.getInventory().playerHasItem(new Item(995, hitsToPay * REPAIR_COST_BARROWS))) {
 				    d.sendPlayerChat("Yes, that's fine.", CONTENT);
 				    return true;
 				} else {
@@ -464,9 +466,9 @@ public class Degrading {
 				return true;
 			}
 		    case 14:
-			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getPlayerArraySlot()] * 10;
+			int amountToPay = player.getDegradeableHits()[Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getPlayerArraySlot()] * REPAIR_COST_BARROWS;
 			if(toRepair.get(player.getTempInteger()).getId() == Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getBrokenId()) {
-			    amountToPay = Degradeables.DEGRADE_HITS * 4 * 10;
+			    amountToPay = Degradeables.DEGRADE_HITS * 4 * REPAIR_COST_BARROWS;
 			}
 			d.sendGiveItemNpc("You exchange the money...", "...for the repaired piece of equipment.", new Item(995, amountToPay), new Item(Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getOriginalId()));
 			player.getInventory().replaceItemWithItem(toRepair.get(player.getTempInteger()), new Item(Degradeables.getDegradeableItem(toRepair.get(player.getTempInteger())).getOriginalId()));
@@ -659,7 +661,7 @@ public class Degrading {
 				hitsAll += player.getDegradeableHits()[Degradeables.getDegradeableItem(i).getPlayerArraySlot()];
 			    }
 			}
-			int amountToPayAll = hitsAll * 10;
+			int amountToPayAll = hitsAll * REPAIR_COST_BARROWS;
 			player.setTempInteger(amountToPayAll);
 			if(hitsAll > 0) {
 			    d.sendNpcChat("That will be " + (amountToPayAll) + " gold to fix all your items.", "Is this alright?", CONTENT);

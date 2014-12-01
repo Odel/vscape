@@ -85,33 +85,6 @@ public class CommandHandler {
 			sender.getPrivateMessaging().refresh(false);
 			sender.disconnect();
 		}
-		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
-			if(sender.inMiniGameArea() || sender.inWild())
-			{
-				sender.getActionSender().sendMessage("You cannot use this command here.");
-				return;
-			}
-			int npcId = (int)Misc.random(6390);
-			NpcDefinition def = NpcDefinition.forId(npcId);
-			while(GlobalVariables.npcDump[npcId].toLowerCase().contains("null") || def == null || def.getSize() > 1) {
-				npcId = (int)Misc.random(6390);
-				def = NpcDefinition.forId(npcId);
-			}
-			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 1000)) {
-				sender.getActionSender().sendMessage("Random npc costs 1000 gold to use!");
-				return;
-			}
-			sender.getInventory().removeItem(new Item(995, 1000));
-			sender.transformNpc = npcId;
-			sender.setAppearanceUpdateRequired(true);
-			sender.setSize(new Npc(npcId).getDefinition().getSize());
-			sender.setStandAnim(def.getStandAnim());
-			sender.setWalkAnim(def.getWalkAnim());
-			sender.setRunAnim(def.getWalkAnim());
-			if(sender.getStaffRights() > 1) {
-			    sender.getActionSender().sendMessage("NPC #" + npcId);
-			}
-		}
 		if (keyword.equals("outfit")) {
 			sender.getActionSender().sendInterface(3559);
 		}
@@ -602,6 +575,33 @@ public class CommandHandler {
 			}
 		    }
 		    sender.getActionSender().sendMessage("Player offline or not found."); 
+		}
+		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
+			if(sender.inMiniGameArea() || sender.inWild())
+			{
+				sender.getActionSender().sendMessage("You cannot use this command here.");
+				return;
+			}
+			int npcId = (int)Misc.random(6390);
+			NpcDefinition def = NpcDefinition.forId(npcId);
+			while(GlobalVariables.npcDump[npcId].toLowerCase().contains("null") || def == null || def.getSize() > 1) {
+				npcId = (int)Misc.random(6390);
+				def = NpcDefinition.forId(npcId);
+			}
+			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 1000)) {
+				sender.getActionSender().sendMessage("Random npc costs 1000 gold to use!");
+				return;
+			}
+			sender.getInventory().removeItem(new Item(995, 1000));
+			sender.transformNpc = npcId;
+			sender.setAppearanceUpdateRequired(true);
+			sender.setSize(new Npc(npcId).getDefinition().getSize());
+			sender.setStandAnim(def.getStandAnim());
+			sender.setWalkAnim(def.getWalkAnim());
+			sender.setRunAnim(def.getWalkAnim());
+			if(sender.getStaffRights() > 1) {
+			    sender.getActionSender().sendMessage("NPC #" + npcId);
+			}
 		}
 		else if (keyword.equals("sayit")) {
 		    String whattosay = fullString.substring(0, fullString.indexOf("-")-1);

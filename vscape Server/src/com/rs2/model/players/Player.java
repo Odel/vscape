@@ -1187,7 +1187,7 @@ public class Player extends Entity {
 		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
 		    this.getSlayer().resetSlayerTask();
 		}
-		if(this.getClayBraceletLife() > 1000 || this.getClayBraceletLife() < 0) {
+		if(this.getClayBraceletLife() > 28 || this.getClayBraceletLife() < 0) {
 		    this.setClayBraceletLife(28);
 		}
 		if(this.getFightCavesWave() > 55 || this.getFightCavesWave() < 0) {
