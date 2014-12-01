@@ -175,10 +175,6 @@ public class MovementHandler {
 				Following.resetFollow(player);
 				reset();
 			}
-			if((entity.inWild() || entity.inMiniGameArea()) && player.transformNpc > 0)
-			{
-				player.resetTransform();
-			}
 			//if (!player.currentArea.equals(Position.getCurrentArea(player)))
 			WalkInterfaces.addWalkableInterfaces(player);
 			player.getRegionMusic().playMusic();
