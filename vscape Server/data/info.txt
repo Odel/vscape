@@ -5,7 +5,6 @@
 ::home
 ::players
 ::roll / ::8ball (suggests what to do in-game)
-::rnpc (Pay 1000 gold to transform to a random npc!)
 ::changepass
 ::patchnotes
 ::highscores / ::hs / ::hiscores
