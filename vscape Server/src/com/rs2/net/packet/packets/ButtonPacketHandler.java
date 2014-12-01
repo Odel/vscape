@@ -588,11 +588,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		{
 			return;
 		}
-		/*if(BoltEnchanting.BoltData.forButtonId(buttonId) != null) {
-		    BoltEnchanting.BoltData b = BoltEnchanting.BoltData.forButtonId(buttonId);
-		    BoltEnchanting.enchantBolts(player, b.getOriginalId(), 1); //Amount?
-		    return;
-		}*/
+		if (BoltEnchanting.handleButtons(player, buttonId)) {
+			return;
+		}
         if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
 			System.out.println("button "+buttonId+" doesn't do anything");
 	}
