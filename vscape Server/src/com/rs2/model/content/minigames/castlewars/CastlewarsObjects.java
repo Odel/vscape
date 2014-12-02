@@ -6,6 +6,8 @@ import com.rs2.model.content.minigames.castlewars.Castlewars.CaveWallData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
+import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -49,6 +51,14 @@ public class CastlewarsObjects {
 	        				return true;
 	        			}
 	        		}
+            	}
+			return false;
+			case 4047 :
+            	if(id == 4446 || id == 4447)
+            	{
+            		if(Castlewars.HandleItemOnBattlement(player, id, x, y, z)){
+            			return true;
+            		}
             	}
 			return false;
 		}
@@ -197,6 +207,27 @@ public class CastlewarsObjects {
                     player.teleport(new Position(player.getPosition().getX(), player.getPosition().getY() + 6400, 0));
                 }
             return true;
+            
+            case 4444:// CLIMBING ROPE
+    			GameObject rope = ObjectHandler.getInstance().getObject(4444, x, y, z);
+    			if(rope != null){
+    				int face = rope.getDef().getFace();
+    				switch(face){
+    					case 0 :
+    						player.teleport(new Position(x - 1, player.getPosition().getY(), z));
+    					return true;
+    					case 1 :
+    						player.teleport(new Position(player.getPosition().getX(), y + 1, z));
+    					return true;
+    					case 2 :
+    						player.teleport(new Position(x + 1, player.getPosition().getY(), z));
+    					return true;
+    					case 3 :
+    						player.teleport(new Position(player.getPosition().getX(), y - 1, z));
+    					return true;
+    				}
+    			}
+    		return false;
                 
             //TABLES
             case 4458: //bandages
@@ -229,7 +260,8 @@ public class CastlewarsObjects {
 				                player.getActionSender().sendMessage("You get a barricade.");
 				                break;
 				            case 4462: //climbing ropes
-				            	player.getActionSender().sendMessage("Not implemented.");
+				                player.getInventory().addItem(new Item(4047,1));
+				                player.getActionSender().sendMessage("You get a climbing rope.");
 				            	break;
 				            case 4463: // explosive potion
 				                player.getInventory().addItem(new Item(4045,1));

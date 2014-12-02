@@ -3,6 +3,8 @@ package com.rs2.model.content.minigames.castlewars;
 import java.util.ArrayList;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -14,8 +16,6 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.consumables.Food.FoodData;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.SkillHandler;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
@@ -322,6 +322,7 @@ public class Castlewars {
 			ResetAllRocks();
 			ResetDoors();
 			RemoveBarricades();
+			RemoveClimbingRopes();
 			//ResetCatapults();
 		}catch(Exception ex) { System.out.println("Problem resetting Castlewars game"); }
 	}
@@ -867,6 +868,7 @@ public class Castlewars {
 	    	player.getInventory().removeItem(new Item(4049, player.getInventory().getItemAmount(4049)));
 	    	player.getInventory().removeItem(new Item(4051, player.getInventory().getItemAmount(4051)));
 	    	player.getInventory().removeItem(new Item(4053, player.getInventory().getItemAmount(4053)));
+	    	player.getInventory().removeItem(new Item(4047, player.getInventory().getItemAmount(4047)));
 	    	player.getInventory().removeItem(new Item(4045, player.getInventory().getItemAmount(4045)));
 	    	player.getInventory().removeItem(new Item(1265, player.getInventory().getItemAmount(1265)));
 	    	if(!death)
@@ -1675,29 +1677,35 @@ public class Castlewars {
     
     public static boolean HandleItemOnBarricades(final Player player, int item, Npc npc)
     {
-		final int x = npc.getPosition().getX();
-		final int y = npc.getPosition().getY();
-		final int z = npc.getPosition().getZ();
-		switch(item)
-		{
-			case 590 :
-				if(SetBarricadeFire(player, npc, x, y, z))
-				{
-					return true;
-				}
-			return false;
-			case 1929 :
-				if(ExtinguishBarricadeFire(player, npc, x, y, z))
-				{
-					return true;
-				}
-			return false;
-			case 4045 :
-				if(ExplodeBarricade(player, npc, x, y, z))
-				{
-					return true;
-				}
-			return false;
+		if(isBarricade(npc)){
+			if(!isInGame(player))
+			{
+				return false;
+			}
+			final int x = npc.getPosition().getX();
+			final int y = npc.getPosition().getY();
+			final int z = npc.getPosition().getZ();
+			switch(item)
+			{
+				case 590 :
+					if(SetBarricadeFire(player, npc, x, y, z))
+					{
+						return true;
+					}
+				return false;
+				case 1929 :
+					if(ExtinguishBarricadeFire(player, npc, x, y, z))
+					{
+						return true;
+					}
+				return false;
+				case 4045 :
+					if(ExplodeBarricade(player, npc, x, y, z))
+					{
+						return true;
+					}
+				return false;
+			}
 		}
 		return false;
     }
@@ -1737,23 +1745,21 @@ public class Castlewars {
     }
     
     private static boolean isBarricade(Npc npc){
-		if(barricadesZammy.contains(npc))
-		{
-			return true;
-		}
-		if(barricadesSara.contains(npc))
-		{
-			return true;
-		}
+    	if(npc.inCwGame()){
+			if(barricadesZammy.contains(npc))
+			{
+				return true;
+			}
+			if(barricadesSara.contains(npc))
+			{
+				return true;
+			}
+    	}
     	return false;
     }
     
     public static void PlaceBarricade(final Player player, int item, int slot){
 		if(!isInGame(player))
-		{
-			return;
-		}
-		if(item != 4053)
 		{
 			return;
 		}
@@ -1810,10 +1816,6 @@ public class Castlewars {
     public static boolean SetBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
-				if(!isInGame(player))
-				{
-					return false;
-				}
 				if(npc.getNpcId() == 1533)
 				{
 					player.getActionSender().sendMessage("This barricade is already on fire.");
@@ -1863,10 +1865,6 @@ public class Castlewars {
     public static boolean ExtinguishBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
-				if(!isInGame(player))
-				{
-					return false;
-				}
 				if(npc.getNpcId() == 1533)
 				{
 					if(!player.getInventory().removeItemSlot(new Item(1929,1), player.getSlot())){
@@ -1888,10 +1886,6 @@ public class Castlewars {
     private static boolean ExplodeBarricade(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
-				if(!isInGame(player))
-				{
-					return false;
-				}
 				if(!player.getInventory().removeItemSlot(new Item(4045,1), player.getSlot())){
 					player.getInventory().removeItem(new Item(4045,1));
 				}
@@ -1951,16 +1945,19 @@ public class Castlewars {
     	}catch(Exception ex) { System.out.println("Problem resetting Castlewars barricades"); }
     }
     
-    public static boolean HandleItemOnObject(final Player player, int item, int object, int x, int y, int z){
-		if(!isInGame(player))
+    public static boolean HandleItemOnBattlement(final Player player, int objectId, int x, int y, int z){
+    	if(!isInGame(player))
 		{
 			return false;
 		}
-    	
+    	if(PlaceClimbingRope(player, objectId, x, y, z))
+    	{
+    		return true;
+    	}
     	return false;
     }
     
-    private final static int CLIMBING_ROPE_ITEM = 0;
+    private final static int CLIMBING_ROPE_ITEM = 4047;
     private final static int CLIMBING_ROPE_OBJECT = 4444; //type 4 seems best
     
     private static ArrayList<GameObject> climbingRopes = new ArrayList<GameObject>();
@@ -1980,18 +1977,75 @@ public class Castlewars {
     	return true;
     }
     
-    private static boolean PlaceClimbingRope(final Player player){
-    	if(!canPlaceRope(player))
-    	{
-    		player.getActionSender().sendMessage("There is already a climbing rope here!");
-    		return true;
-    	}
-    		
+    private static boolean PlaceClimbingRope(final Player player, int objectId, int x, int y, int z){
+    	try{
+			switch(player.getCastlewarsTeam())
+			{
+				case ZAMORAK :
+					if(objectId == 4447)
+					{
+						player.getActionSender().sendMessage("You Cannot place a climbing rope on your own battlements!");
+						return true;
+					}
+				break;
+				case SARADOMIN :
+					if(objectId == 4446)
+					{
+						player.getActionSender().sendMessage("You Cannot place a climbing rope on your own battlements!");
+						return true;
+					}
+				break;
+			}
+	    	if(!canPlaceRope(player))
+	    	{
+	    		player.getActionSender().sendMessage("There is already a climbing rope here!");
+	    		return true;
+	    	}
+			GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+			if(empty != null){
+				ObjectHandler.getInstance().removeObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 10);
+			}
+			GameObjectDef objectHere = SkillHandler.getObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+			if(objectHere != null && objectHere.getType() != 22){
+				player.getActionSender().sendMessage("You cannot place a climbing rope here!");
+				return true;
+			}
+			final CacheObject bobj = ObjectLoader.object(x, y, z);
+			if (bobj != null) {
+				int face = bobj.getRotation();
+				int ropeFace = face + 2;
+				switch(objectId)
+				{
+					case 4446 :
+						ropeFace = face + 2;
+					break;
+					case 4447 :
+						ropeFace = face - 2;
+					break;
+				}
+				if(!player.getInventory().removeItemSlot(new Item(CLIMBING_ROPE_ITEM,1), player.getSlot())){
+					player.getInventory().removeItem(new Item(CLIMBING_ROPE_ITEM,1));
+				}
+				player.getActionSender().sendMessage("You manage to throw the climbing rope over the battlement wall.");
+				climbingRopes.add(new GameObject(CLIMBING_ROPE_OBJECT, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), ropeFace, 4, Constants.EMPTY_OBJECT, 999999));
+				return true;
+			}
+    	}catch(Exception ex) { System.out.println("Problem placing Castlewars rope"); }
     	return false;
     }
     
     private static void RemoveClimbingRopes()
     {
-    	
+    	try{
+	    	for(GameObject obj : new ArrayList<GameObject>(climbingRopes))
+	    	{
+	    		if(obj != null)
+	    		{
+	    			GameObjectDef def = obj.getDef();
+					ObjectHandler.getInstance().removeObject(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), 4);
+	    		}
+	    	}
+	    	climbingRopes.clear();
+    	}catch(Exception ex) { System.out.println("Problem resetting Castlewars ropes"); }
     }
 }
