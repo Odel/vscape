@@ -1829,7 +1829,7 @@ public class Castlewars {
 			        player.setSkilling(new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							if (!player.checkTask(task)) {
+							if (!player.checkTask(task) || npc.getNpcId() == 1533) {
 								container.stop();
 								return;
 							}
