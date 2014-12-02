@@ -1546,34 +1546,83 @@ public class Castlewars {
 			return;
 		}
 		try{
-			switch(team)
-			{
-				case ZAMORAK:
-	            	if(getSideDoorUnlocked(ZAMORAK)){
-	            		return;
-	            	}
-					SideDoorData sideDoorDataz = SideDoorData.forTeam(ZAMORAK);
-	                player.getActionSender().sendMessage("You unlock the door.");
-					if(ObjectHandler.getInstance().getObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
-						ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
-					}
-					ObjectHandler.getInstance().removeClip(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0, sideDoorDataz.face);
-					new GameObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face-1, 0, sideDoorDataz.unlockedId, 99999, false);
-					setSideDoorUnlocked(ZAMORAK, true);
-				return;
-				case SARADOMIN:
-	            	if(getSideDoorUnlocked(SARADOMIN)){
-	            		return;
-	            	}
-					SideDoorData sideDoorDataS = SideDoorData.forTeam(SARADOMIN);
-	                player.getActionSender().sendMessage("You unlock the door.");
-					if(ObjectHandler.getInstance().getObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
-						ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
-					}
-					ObjectHandler.getInstance().removeClip(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0, sideDoorDataS.face);
-					new GameObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face-1, 0, sideDoorDataS.unlockedId, 99999, false);
-					setSideDoorUnlocked(SARADOMIN, true);
-				return;
+			if(team == ZAMORAK){
+            	if(getSideDoorUnlocked(ZAMORAK)){
+            		return;
+            	}
+    			int time = 3 + Misc.random(6);
+    			player.getActionSender().sendMessage("You attempt to picklock the door.");
+    			player.getUpdateFlags().sendAnimation(881);
+    			final int task = player.getTask();
+    	        player.setSkilling(new CycleEvent() {
+    				@Override
+    				public void execute(CycleEventContainer container) {
+    					if (!player.checkTask(task) || getSideDoorUnlocked(ZAMORAK)) {
+    						container.stop();
+    						return;
+    					}
+    					if (Misc.random(2) == 0) {
+    						SideDoorData sideDoorDataz = SideDoorData.forTeam(ZAMORAK);
+    		                player.getActionSender().sendMessage("You manage to pick the door lock.");
+    						if(ObjectHandler.getInstance().getObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
+    							ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
+    						}
+    						ObjectHandler.getInstance().removeClip(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0, sideDoorDataz.face);
+    						new GameObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face-1, 0, sideDoorDataz.unlockedId, 99999, false);
+    						setSideDoorUnlocked(ZAMORAK, true);
+    						container.stop();
+    						return;
+    					}else{
+    						player.getActionSender().sendMessage("You fail to pick the lock.");
+    						container.stop();
+    					}
+    				}
+    				@Override
+    				public void stop() {
+    					player.resetAnimation();
+    				}
+    			});
+    	        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), time);
+    	        return;
+			}
+			if(team == SARADOMIN){
+            	if(getSideDoorUnlocked(SARADOMIN)){
+            		return;
+            	}
+    			int time = 3 + Misc.random(6);
+    			player.getActionSender().sendMessage("You attempt to picklock the door.");
+    			player.getUpdateFlags().sendAnimation(881);
+    			final int task = player.getTask();
+    	        player.setSkilling(new CycleEvent() {
+    				@Override
+    				public void execute(CycleEventContainer container) {
+    					if (!player.checkTask(task) || getSideDoorUnlocked(SARADOMIN)) {
+    						container.stop();
+    						return;
+    					}
+    					if (Misc.random(2) == 0) {
+    						SideDoorData sideDoorDataS = SideDoorData.forTeam(SARADOMIN);
+    		                player.getActionSender().sendMessage("You manage to pick the door lock.");
+    						if(ObjectHandler.getInstance().getObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
+    							ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
+    						}
+    						ObjectHandler.getInstance().removeClip(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0, sideDoorDataS.face);
+    						new GameObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face-1, 0, sideDoorDataS.unlockedId, 99999, false);
+    						setSideDoorUnlocked(SARADOMIN, true);
+    						container.stop();
+    						return;
+    					}else{
+    						player.getActionSender().sendMessage("You fail to pick the lock.");
+    						container.stop();
+    					}
+    				}
+    				@Override
+    				public void stop() {
+    					player.resetAnimation();
+    				}
+    			});
+    	        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), time);
+    	        return;
 			}
 	    }catch(Exception ex) { System.out.println("Problem unlocking Castlewars side door"); }
     }
