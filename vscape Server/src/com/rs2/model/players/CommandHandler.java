@@ -1107,10 +1107,11 @@ public class CommandHandler {
 				sender.setStandAnim(def.getStandAnim());
 				sender.setWalkAnim(def.getWalkAnim());
 				sender.setRunAnim(def.getWalkAnim());
-			}else{
+			}
+			if(npcId <= 0) {
 				sender.setStandAnim(-1);
-				sender.setWalkAnim(-1);
 				sender.setRunAnim(-1);
+				sender.setWalkAnim(-1);
 			}
 			sender.getActionSender().sendMessage("NPC #" + npcId);
 		}

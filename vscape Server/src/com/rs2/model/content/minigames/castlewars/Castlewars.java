@@ -1822,7 +1822,7 @@ public class Castlewars {
 				if(npc.getNpcId() == 1532)
 				{
 					int time = 3 + Misc.random(6);
-					player.getActionSender().sendMessage("You attempt to light the barricades on fire.");
+					player.getActionSender().sendMessage("You attempt to light the barricade on fire.");
 					player.getUpdateFlags().sendAnimation(733);
 					player.getActionSender().sendSound(375, 0, 0);
 					final int task = player.getTask();
