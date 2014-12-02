@@ -587,7 +587,7 @@ public class CombatManager extends Tick {
 		    ((Player) died).teleport(new Position(2657, 2639, 0));
 		    return;
 		}
-		if(died != null && died.isPlayer() && Castlewars.handleDeath((Player) died)) {
+        if(died != null && Castlewars.handleDeath(died)) {
 		    return;
         }
 		if(died != null && died.isPlayer() && ((Player) died).inFightCaves()) {

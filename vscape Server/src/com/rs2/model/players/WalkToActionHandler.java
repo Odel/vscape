@@ -2965,9 +2965,17 @@ public class WalkToActionHandler {
 				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
 					return;
 				}
-				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+				if(!npc.isBarricade()){
+					if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+						return;
+					}
+				}
+				
+				if(Castlewars.HandleItemOnBarricades(player, item, npc)){
+					this.stop();
 					return;
 				}
+				
 				for(Quest q : QuestHandler.getQuests()) {
 				    if(q.doItemOnNpc(player, item, npc)) {
 				    	this.stop();

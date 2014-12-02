@@ -57,8 +57,6 @@ public class ObjectHandler {
 			} else if (o.tick < 99999) {
 				if (CreatureGraveyard.handleBonesRestore(o)) 
 				{
-				} else if(o.getDef().getId() == 4422) {
-					removeObject(o.getDef().getId(), o.getDef().getPosition().getX(), o.getDef().getPosition().getY(), o.getDef().getPosition().getZ(), o.getDef().getType());
 				} else {
 					objects.remove(o);
 					updateObject(o);
