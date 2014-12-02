@@ -1675,10 +1675,6 @@ public class Castlewars {
     
     public static boolean HandleItemOnBarricades(final Player player, int item, Npc npc)
     {
-		if(!isInGame(player))
-		{
-			return false;
-		}
 		final int x = npc.getPosition().getX();
 		final int y = npc.getPosition().getY();
 		final int z = npc.getPosition().getZ();
@@ -1814,6 +1810,10 @@ public class Castlewars {
     public static boolean SetBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
+				if(!isInGame(player))
+				{
+					return false;
+				}
 				if(npc.getNpcId() == 1533)
 				{
 					player.getActionSender().sendMessage("This barricade is already on fire.");
@@ -1863,6 +1863,10 @@ public class Castlewars {
     public static boolean ExtinguishBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
+				if(!isInGame(player))
+				{
+					return false;
+				}
 				if(npc.getNpcId() == 1533)
 				{
 					if(!player.getInventory().removeItemSlot(new Item(1929,1), player.getSlot())){
@@ -1884,6 +1888,10 @@ public class Castlewars {
     private static boolean ExplodeBarricade(final Player player, final Npc npc, final int x, final int y, final int z){
 		try{
 			if(isBarricade(npc)){
+				if(!isInGame(player))
+				{
+					return false;
+				}
 				if(!player.getInventory().removeItemSlot(new Item(4045,1), player.getSlot())){
 					player.getInventory().removeItem(new Item(4045,1));
 				}
@@ -1941,5 +1949,49 @@ public class Castlewars {
 	    	barricadesZammy.clear();
 	    	barricadesSara.clear();
     	}catch(Exception ex) { System.out.println("Problem resetting Castlewars barricades"); }
+    }
+    
+    public static boolean HandleItemOnObject(final Player player, int item, int object, int x, int y, int z){
+		if(!isInGame(player))
+		{
+			return false;
+		}
+    	
+    	return false;
+    }
+    
+    private final static int CLIMBING_ROPE_ITEM = 0;
+    private final static int CLIMBING_ROPE_OBJECT = 4444; //type 4 seems best
+    
+    private static ArrayList<GameObject> climbingRopes = new ArrayList<GameObject>();
+    
+    private static boolean canPlaceRope(final Player player){
+    	for(GameObject rope : new ArrayList<GameObject>(climbingRopes))
+    	{
+    		if(rope == null)
+    			continue;
+    		GameObjectDef def = rope.getDef();
+    		if(def.getPosition().getX() == player.getPosition().getX() && def.getPosition().getY() == player.getPosition().getY()
+    				&& def.getPosition().getZ() == player.getPosition().getZ())
+    		{
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    private static boolean PlaceClimbingRope(final Player player){
+    	if(!canPlaceRope(player))
+    	{
+    		player.getActionSender().sendMessage("There is already a climbing rope here!");
+    		return true;
+    	}
+    		
+    	return false;
+    }
+    
+    private static void RemoveClimbingRopes()
+    {
+    	
     }
 }
