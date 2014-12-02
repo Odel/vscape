@@ -89,6 +89,10 @@ public class BoltEnchanting {
 	public int getLevelReq() {
 	    return this.levelReq;
 	}
+	
+	public double getExp() {
+	    return this.exp;
+	}
     }
     
     public static boolean handleButtons(final Player player, int buttonId){
@@ -168,6 +172,7 @@ public class BoltEnchanting {
 		player.getActionSender().removeInterfaces();
 		player.setStatedInterface("");
 		player.getUpdateFlags().sendAnimation(ENCHANT_ANIM);
+		player.getUpdateFlags().sendGraphic(ENCHANT_GFX);
 		final int boltCount = 10;
 		final int task = player.getTask();
 		player.setSkilling(new CycleEvent() {
@@ -184,7 +189,8 @@ public class BoltEnchanting {
 						((ExecutableRequirement) requirement).execute(player);
 				}
 				player.getInventory().removeItem(new Item(bd.originalId, amnt));
-				player.getInventory().addItem(new Item(bd.enchantedId, amnt));
+				player.getInventory().addItemOrDrop(new Item(bd.enchantedId, amnt));
+				player.getSkill().addExp(Skill.MAGIC, bd.getExp());
 				container.stop();
 		    }
 			

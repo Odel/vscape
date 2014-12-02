@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
@@ -28,7 +29,7 @@ public class DwarfMultiCannon {
 	private final ProjectileDef CANNON_PROJECTILE = new ProjectileDef(53, ProjectileTrajectory.DART);
 	private final int MAX_DAMAGE = 30;
 	private final int MAX_RANGE = 5;
-    private final int MIN_BUILD_DISTANCE = 10;
+	private final int MIN_BUILD_DISTANCE = 10;
     
     private final static int[] IGNORE = {
     	1266,
@@ -332,6 +333,7 @@ public class DwarfMultiCannon {
 		hitDef.setDamageDelay(calculateHitDelay(getCannonPosOffset(), victim.getPosition(), CANNON_PROJECTILE));
 		Hit hit = new Hit(attacker, victim, hitDef);
 		hit.initialize();
+		player.getSkill().addExp(Skill.RANGED,  hitDef.getDamage());
 		setAmmo(getAmmo() - 1);
 		if(getAmmo() <= 0)
 		{
