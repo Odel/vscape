@@ -16,6 +16,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.*;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.*;
@@ -2971,7 +2972,7 @@ public class WalkToActionHandler {
 					}
 				}
 				
-				if(Castlewars.HandleItemOnBarricades(player, item, npc)){
+				if(CastlewarsBarricades.HandleItemOnBarricades(player, item, npc)){
 					this.stop();
 					return;
 				}

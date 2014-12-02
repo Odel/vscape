@@ -2,7 +2,10 @@ package com.rs2.model.content.minigames.castlewars;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
-import com.rs2.model.content.minigames.castlewars.Castlewars.CaveWallData;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBattlements;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsDoors;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks.CaveWallData;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
@@ -24,12 +27,12 @@ public class CastlewarsObjects {
             		final CaveWallData caveWall = CaveWallData.forRockPosition(new Position(x,y,z));
 	        		if(caveWall != null)
 	        		{
-	        			if(Castlewars.getCollapsedCave(caveWall.index))
+	        			if(CastlewarsRocks.getCollapsedCave(caveWall.index))
 	        			{
 	        				if(!player.getInventory().removeItemSlot(new Item(4045,1), itemSlot)){
 	        					player.getInventory().removeItem(new Item(4045,1));
 	        				}
-	        				Castlewars.removeCollapse(caveWall, id, x, y, z);
+	        				CastlewarsRocks.removeCollapse(caveWall, id, x, y, z);
 	        				return true;
 	        			}
 	        		}
@@ -39,12 +42,12 @@ public class CastlewarsObjects {
 	        		final CaveWallData caveWall = CaveWallData.forWallPosition(new Position(x,y,z));
 	        		if(caveWall != null)
 	        		{
-	        			if(!Castlewars.getCollapsedCave(caveWall.index))
+	        			if(!CastlewarsRocks.getCollapsedCave(caveWall.index))
 	        			{
 	        				if(!player.getInventory().removeItemSlot(new Item(4045,1), itemSlot)){
 	        					player.getInventory().removeItem(new Item(4045,1));
 	        				}
-	        				Castlewars.collapseRock(caveWall);
+	        				CastlewarsRocks.collapseRock(caveWall);
 	        				return true;
 	        			}else{
 	        				player.getActionSender().sendMessage("This rock wall has already collapsed.");
@@ -56,7 +59,7 @@ public class CastlewarsObjects {
 			case 4047 :
             	if(id == 4446 || id == 4447)
             	{
-            		if(Castlewars.HandleItemOnBattlement(player, id, x, y, z)){
+            		if(CastlewarsBattlements.HandleItemOnBattlement(player, id, x, y, z)){
             			return true;
             		}
             	}
@@ -286,7 +289,7 @@ public class CastlewarsObjects {
             case 4466: //sara side door
             case 4467: //zammy side door
             case 4468: //zammy side door
-            	return Castlewars.HandleDoors(player, id, x, y, z);
+            	return CastlewarsDoors.HandleDoors(player, id, x, y, z);
             case 4423: //sara main door
             case 4424: //sara main door
                 if (player.getCastlewarsTeam() == 0) {
@@ -314,7 +317,7 @@ public class CastlewarsObjects {
             		final CaveWallData caveWall = CaveWallData.forRockPosition(new Position(x,y,z));
             		if(caveWall != null)
             		{
-            			if(Castlewars.getCollapsedCave(caveWall.index))
+            			if(CastlewarsRocks.getCollapsedCave(caveWall.index))
             			{
             				final Tool pickaxe = Tools.getTool(player, Skill.MINING);
             				if (pickaxe == null) {
@@ -329,14 +332,14 @@ public class CastlewarsObjects {
             				player.setSkilling(new CycleEvent() {
             					@Override
             					public void execute(CycleEventContainer container) {
-            						if (!player.checkTask(task) || !Castlewars.getCollapsedCave(caveWall.index)) {
+            						if (!player.checkTask(task) || !CastlewarsRocks.getCollapsedCave(caveWall.index)) {
             							container.stop();
             							return;
             						}
             						container.setTick(3);
             						player.getUpdateFlags().sendAnimation(anim);
             						player.getActionSender().sendSound(432, 0, 0);
-            						Castlewars.removeCollapse(caveWall, id, x, y, z);
+            						CastlewarsRocks.removeCollapse(caveWall, id, x, y, z);
             						container.stop();
             					}
             					@Override
@@ -354,7 +357,7 @@ public class CastlewarsObjects {
             		final CaveWallData caveWall = CaveWallData.forWallPosition(new Position(x,y,z));
             		if(caveWall != null)
             		{
-            			if(!Castlewars.getCollapsedCave(caveWall.index))
+            			if(!CastlewarsRocks.getCollapsedCave(caveWall.index))
             			{
             				final Tool pickaxe = Tools.getTool(player, Skill.MINING);
             				if (pickaxe == null) {
@@ -369,14 +372,14 @@ public class CastlewarsObjects {
             				player.setSkilling(new CycleEvent() {
             					@Override
             					public void execute(CycleEventContainer container) {
-            						if (!player.checkTask(task) || Castlewars.getCollapsedCave(caveWall.index)) {
+            						if (!player.checkTask(task) || CastlewarsRocks.getCollapsedCave(caveWall.index)) {
             							container.stop();
             							return;
             						}
             						container.setTick(3);
             						player.getUpdateFlags().sendAnimation(anim);
             						player.getActionSender().sendSound(432, 0, 0);
-        							Castlewars.collapseRock(caveWall);
+            						CastlewarsRocks.collapseRock(caveWall);
             						container.stop();
             					}
             					@Override

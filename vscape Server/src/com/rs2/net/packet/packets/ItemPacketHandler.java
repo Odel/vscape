@@ -11,6 +11,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -902,7 +903,7 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	switch (itemId) {
 		case 4053 :
-			Castlewars.PlaceBarricade(player, itemId, player.getSlot());
+			CastlewarsBarricades.PlaceBarricade(player, itemId, player.getSlot());
 		return;
 	    case 2528: // genie lamp
 		player.setGenieSelect(-1);

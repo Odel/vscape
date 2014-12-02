@@ -3,18 +3,16 @@ package com.rs2.model.content.minigames.castlewars;
 import java.util.ArrayList;
 
 import com.rs2.Constants;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.Following;
-import com.rs2.model.content.combat.effect.impl.BurnEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.consumables.Food.FoodData;
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBattlements;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsCatapults;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsDoors;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
@@ -22,9 +20,6 @@ import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Region;
@@ -45,8 +40,8 @@ public class Castlewars {
 	
 	private static ArrayList<Player> zammyLobbyPlayers = new ArrayList<Player>();
 	private static ArrayList<Player> saraLobbyPlayers = new ArrayList<Player>();
-	private static ArrayList<Player> zammyGamePlayers = new ArrayList<Player>();
-	private static ArrayList<Player> saraGamePlayers = new ArrayList<Player>();
+	public static ArrayList<Player> zammyGamePlayers = new ArrayList<Player>();
+	public static ArrayList<Player> saraGamePlayers = new ArrayList<Player>();
 	
     private enum WinType {
         NONE, WIN_ZAMMY, WIN_SARA, DRAW
@@ -64,73 +59,8 @@ public class Castlewars {
 	private static final MinigameAreas.Area ZAMMY_LOBBY_AREA = new MinigameAreas.Area(new Position(2417, 9517, 0), new Position(2428, 9531, 0));
 	private static final MinigameAreas.Area SARA_LOBBY_AREA = new MinigameAreas.Area(new Position(2372, 9483, 0), new Position(2388, 9492, 0));
 	
-	private static final MinigameAreas.Area ZAMMY_SPAWN_ROOM = new MinigameAreas.Area(new Position(2368, 3127, 1), new Position(2376, 3135, 1));
-	private static final MinigameAreas.Area SARA_SPAWN_ROOM = new MinigameAreas.Area(new Position(2423, 3072, 1), new Position(2431, 3080, 1));
-	
-	private static final MinigameAreas.Area ZAMMY_CAVE_TOP = new MinigameAreas.Area(new Position(2399, 9511, 0), new Position(2402, 9514, 0));
-	private static final MinigameAreas.Area ZAMMY_CAVE_SIDE = new MinigameAreas.Area(new Position(2390, 9500, 0), new Position(2393, 9503, 0));
-	private static final MinigameAreas.Area SARA_CAVE_BOTTOM = new MinigameAreas.Area(new Position(2400, 9493, 0), new Position(2403, 9496, 0));
-	private static final MinigameAreas.Area SARA_CAVE_SIDE = new MinigameAreas.Area(new Position(2408, 9502, 0), new Position(2411, 9505, 0));
-	
-	private static final MinigameAreas.Area ZAMMY_ROCK_TOP = new MinigameAreas.Area(new Position(2400, 9512, 0), new Position(2401, 9513, 0));
-	private static final MinigameAreas.Area ZAMMY_ROCK_SIDE = new MinigameAreas.Area(new Position(2391, 9501, 0), new Position(2392, 9502, 0));
-	private static final MinigameAreas.Area SARA_ROCK_BOTTOM = new MinigameAreas.Area(new Position(2401, 9494, 0), new Position(2402, 9495, 0));
-	private static final MinigameAreas.Area SARA_ROCK_SIDE = new MinigameAreas.Area(new Position(2409, 9503, 0), new Position(2410, 9504, 0));
-
-	public enum CaveWallData {
-		ZAMMY_TOP(0, ZAMMY_CAVE_TOP, new Position(2400,9512,0), ZAMMY_ROCK_TOP),
-		ZAMMY_SIDE(1, ZAMMY_CAVE_SIDE, new Position(2391,9501,0), ZAMMY_ROCK_SIDE),
-		SARA_BOTTOM(2, SARA_CAVE_BOTTOM, new Position(2401,9494,0), SARA_ROCK_BOTTOM),
-		SARA_SIDE(3, SARA_CAVE_SIDE, new Position(2409,9503,0), SARA_ROCK_SIDE);
-		
-		public int index;
-		private MinigameAreas.Area area;
-		public Position rockPosition;
-		public MinigameAreas.Area rockArea;
-		
-		private CaveWallData(int index, MinigameAreas.Area area, Position rockPosition, MinigameAreas.Area rockArea)
-		{
-			this.index = index;
-			this.area = area;
-			this.rockPosition = rockPosition;
-			this.rockArea = rockArea;
-		}
-		
-		public static CaveWallData forIndex(int index) {
-	    	for (CaveWallData caveWallData : CaveWallData.values()) {
-				if (caveWallData.index == index) {
-			    	return caveWallData;
-				}
-	    	}
-	    	return null;
-		}
-		
-		public static CaveWallData forWallPosition(Position pos) {
-	    	for (CaveWallData caveWallData : CaveWallData.values()) {
-				if (MinigameAreas.isInArea(pos, caveWallData.area)) {
-			    	return caveWallData;
-				}
-	    	}
-	    	return null;
-		}
-		
-		public static CaveWallData forRockPosition(Position pos) {
-	    	for (CaveWallData caveWallData : CaveWallData.values()) {
-				if (caveWallData.rockPosition.getX() == pos.getX() && caveWallData.rockPosition.getY() == pos.getY() &&
-						caveWallData.rockPosition.getZ() == pos.getZ()) {
-			    	return caveWallData;
-				}
-	    	}
-	    	return null;
-		}
-	}
-	
-	private static boolean[] caveCollapsed = {
-		true, //zammy top
-		true, //zammy side
-		true, //sara bottom
-		true //sara side
-	};
+	public static final MinigameAreas.Area ZAMMY_SPAWN_ROOM = new MinigameAreas.Area(new Position(2368, 3127, 1), new Position(2376, 3135, 1));
+	public static final MinigameAreas.Area SARA_SPAWN_ROOM = new MinigameAreas.Area(new Position(2423, 3072, 1), new Position(2431, 3080, 1));
 
 	private static void ProcessLogic(){
 		World.submit(new Tick(TICK) {
@@ -319,11 +249,11 @@ public class Castlewars {
 			zammyGamePlayers.clear();
 			saraGamePlayers.clear();
 			ResetBanners();
-			ResetAllRocks();
-			ResetDoors();
-			RemoveBarricades();
-			RemoveClimbingRopes();
-			//ResetCatapults();
+			CastlewarsRocks.ResetAllRocks();
+			CastlewarsDoors.ResetDoors();
+			CastlewarsBarricades.RemoveBarricades();
+			CastlewarsBattlements.RemoveClimbingRopes();
+			CastlewarsCatapults.ResetCatapults();
 		}catch(Exception ex) { System.out.println("Problem resetting Castlewars game"); }
 	}
 	
@@ -651,7 +581,7 @@ public class Castlewars {
 		return count;
     }
     
-    private static boolean isInGame(Player player) {
+    public static boolean isInGame(Player player) {
     	if(player != null && zammyGamePlayers != null && saraGamePlayers != null)
     	{
     		if(zammyGamePlayers.contains(player)){
@@ -727,104 +657,22 @@ public class Castlewars {
 			    {
 			    	case ZAMORAK :
 			    		player.getActionSender().sendString("@red@Health 0%", 11154); // main door
-			    		player.getActionSender().sendString(getSideDoorUnlocked(ZAMORAK) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
-			    		player.getActionSender().sendString(getCollapsedCave(0) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
-			    		player.getActionSender().sendString(getCollapsedCave(1) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
+			    		player.getActionSender().sendString(CastlewarsDoors.getSideDoorUnlocked(ZAMORAK) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
+			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(0) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
+			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(1) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
 			    		player.getActionSender().sendString("@red@Destroyed", 11164); // catapult
 			    	break;
 			    	case SARADOMIN :
 			    		player.getActionSender().sendString("@red@dead", 11154); // main door
-			    		player.getActionSender().sendString(getSideDoorUnlocked(SARADOMIN) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
-			    		player.getActionSender().sendString(getCollapsedCave(2) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
-			    		player.getActionSender().sendString(getCollapsedCave(3) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
+			    		player.getActionSender().sendString(CastlewarsDoors.getSideDoorUnlocked(SARADOMIN) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
+			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(2) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
+			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(3) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
 			    		player.getActionSender().sendString("@red@Destroyed", 11164); // catapult
 			    	break;
 			    }
     		}
     	} catch (Exception ex) { }
     }
-	
-	public static void setCollapsedCave(int id, boolean val)
-	{
-		caveCollapsed[id] = val;
-	}
-	
-	public static boolean getCollapsedCave(int id)
-	{
-		return caveCollapsed[id];
-	}
-	
-	public static void collapseRock(CaveWallData caveWall)
-	{
-		try{
-			if(caveWall != null)
-			{
-				setCollapsedCave(caveWall.index, true);
-				int face = SkillHandler.getFace(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
-				GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
-				if(empty != null){
-					ObjectHandler.getInstance().removeObject(caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), 10);
-				}
-				new GameObject(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), face, 10, Constants.EMPTY_OBJECT, 99999);
-			    for (Player player : new ArrayList<Player>(zammyGamePlayers)) {
-					if(player == null) {
-					    continue; 
-					}
-					if(MinigameAreas.isInArea(player.getPosition(), caveWall.rockArea))
-					{
-						player.hit(player.getCurrentHp(), HitType.NORMAL);
-					}
-			    }
-			    for (Player player : new ArrayList<Player>(saraGamePlayers)) {
-					if(player == null) {
-					    continue; 
-					}
-					if(MinigameAreas.isInArea(player.getPosition(), caveWall.rockArea))
-					{
-						player.hit(player.getCurrentHp(), HitType.NORMAL);
-					}
-			    }
-			}
-		}catch(Exception ex) { System.out.println("Problem collapsing Castlewars rocks"); }
-	}
-	
-	public static void removeCollapse(CaveWallData caveWall, int id, int x, int y, int z)
-	{
-		try{
-			if(caveWall != null)
-			{
-				setCollapsedCave(caveWall.index, false);
-				int face = SkillHandler.getFace(id, x, y, z);
-				GameObject rock = ObjectHandler.getInstance().getObject(4437, x, y, z);
-				if(rock != null){
-					ObjectHandler.getInstance().removeObject(x, y, z, 10);
-				}
-				new GameObject(Constants.EMPTY_OBJECT, x, y, z, face, 10, id, 99999, false);
-				ObjectHandler.getInstance().removeClip(id, x, y, z, 10, face);
-			}
-		}catch(Exception ex) { System.out.println("Problem removing Castlewars rocks collapse"); }
-	}
-	
-	private static void ResetAllRocks(){
-		try{
-			for(int i = 0; i < 4; i++)
-			{
-				if(!getCollapsedCave(i)){
-					CaveWallData caveWall = CaveWallData.forIndex(i);
-					if(caveWall != null)
-					{
-						setCollapsedCave(caveWall.index, true);
-						int face = SkillHandler.getFace(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
-						GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
-						if(empty != null){
-							ObjectHandler.getInstance().removeObject(caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), 10);
-						}
-						new GameObject(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), face, 10, 4437, 99999);
-					}
-				}
-			}
-		}catch(Exception ex) { System.out.println("Problem resetting Castlewars rocks"); }
-	}
 	
     public static boolean handleDeath(final Entity ent) {
     	if(ent.isPlayer()){
@@ -852,7 +700,7 @@ public class Castlewars {
     	if(ent.isNpc()){
     		Npc npc = ((Npc)ent);
     		if (npc.inCwGame() && npc.isBarricade()) {
-    			destroyBarricade(npc);
+    			CastlewarsBarricades.destroyBarricade(npc);
     			return true;
     		}
     	}
@@ -1396,705 +1244,5 @@ public class Castlewars {
     {
     	ResetBanner(SARADOMIN);
     	ResetBanner(ZAMORAK);
-    }
-    
-	public enum SideDoorData {
-		ZAMMY(0, new Position(2384,3134,0), 4467, 4468, 2),
-		SARA(1, new Position(2415,3073,0), 4465, 4466, 0);
-		
-		public int teamIndex;
-		public Position position;
-		public int lockedId;
-		public int unlockedId;
-		public int face;
-		
-		private SideDoorData(int teamIndex, Position position, int lockedId, int unlockedId, int face)
-		{
-			this.teamIndex = teamIndex;
-			this.position = position;
-			this.lockedId = lockedId;
-			this.unlockedId = unlockedId;
-			this.face = face;
-		}
-		
-		public static SideDoorData forTeam(int team) {
-	    	for (SideDoorData sideDoorData : SideDoorData.values()) {
-				if (sideDoorData.teamIndex == team) {
-			    	return sideDoorData;
-				}
-	    	}
-	    	return null;
-		}
-		
-		public static SideDoorData forPosition(Position pos) {
-			for (SideDoorData sideDoorData : SideDoorData.values()) {
-				if (sideDoorData.position.getX() == pos.getX() && sideDoorData.position.getY() == pos.getY() &&
-						sideDoorData.position.getZ() == pos.getZ()) {
-			    	return sideDoorData;
-				}
-	    	}
-	    	return null;
-		}
-	}
-	private static boolean[] doorUnlocked = {
-		false, //zammy
-		false //sara
-	};
-    private static void setSideDoorUnlocked(int team, boolean val)
-    {
-    	doorUnlocked[team] = val;
-    }
-    private static boolean getSideDoorUnlocked(int team)
-    {
-    	return doorUnlocked[team];
-    }
-    
-    public static boolean HandleDoors(final Player player, int objectId, int x, int y, int z)
-    {
-		if(!isInGame(player))
-		{
-			return false;
-		}
-		int playerTeam = player.getCastlewarsTeam();
-		switch(objectId)
-		{
-			case 4465: //sara side door locked
-				switch(playerTeam)
-				{
-					case ZAMORAK:
-						UnlockDoor(player, SARADOMIN);
-					return true;
-					case SARADOMIN:
-		            	player.getActionSender().walkTo(player.getPosition().getX() >= 2415 ? -1 : 1, 0, true);
-		            	player.getActionSender().walkThroughDoor(objectId, x, y, z);
-					return true;
-				}
-			return false;
-			case 4466: //sara side door unlocked
-				switch(playerTeam)
-				{
-					case SARADOMIN:
-						LockDoor(player, SARADOMIN);
-					return true;
-				}
-			return false;
-			case 4467: //zammy side door locked
-				switch(playerTeam)
-				{
-					case SARADOMIN:
-						UnlockDoor(player, ZAMORAK);
-					return true;
-					case ZAMORAK:
-		            	player.getActionSender().walkTo(player.getPosition().getX() <= 2384 ? 1 : -1, 0, true);
-		            	player.getActionSender().walkThroughDoor(objectId, x, y, z);
-					return true;
-				}
-			return false;
-			case 4468: //zammy side door unlocked
-				switch(playerTeam)
-				{
-					case ZAMORAK:
-						LockDoor(player, ZAMORAK);
-					return true;
-				}
-			return false;
-		}
-    	return false;
-    }
-    
-    private static void LockDoor(final Player player, int team)
-    {
-		if(!isInGame(player))
-		{
-			return;
-		}
-		try{
-			switch(team)
-			{
-				case ZAMORAK:
-	            	if(!getSideDoorUnlocked(ZAMORAK)){
-	            		return;
-	            	}
-					SideDoorData sideDoorDataz = SideDoorData.forTeam(ZAMORAK);
-	                player.getActionSender().sendMessage("You lock the door.");
-					if(ObjectHandler.getInstance().getObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
-						ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
-					}
-					new GameObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face, 0, sideDoorDataz.lockedId, 99999);
-					setSideDoorUnlocked(ZAMORAK, false);
-				return;
-				case SARADOMIN:
-	            	if(!getSideDoorUnlocked(SARADOMIN)){
-	            		return;
-	            	}
-					SideDoorData sideDoorDataS = SideDoorData.forTeam(SARADOMIN);
-	                player.getActionSender().sendMessage("You lock the door.");
-					if(ObjectHandler.getInstance().getObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
-						ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
-					}
-					new GameObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face, 0, sideDoorDataS.lockedId, 99999);
-					setSideDoorUnlocked(SARADOMIN, false);
-				return;
-			}
-	    }catch(Exception ex) { System.out.println("Problem locking Castlewars side door"); }
-    }
-    
-    private static void UnlockDoor(final Player player, int team)
-    {
-		if(!isInGame(player))
-		{
-			return;
-		}
-		try{
-			if(team == ZAMORAK){
-            	if(getSideDoorUnlocked(ZAMORAK)){
-            		return;
-            	}
-    			int time = 3 + Misc.random(6);
-    			player.getActionSender().sendMessage("You attempt to picklock the door.");
-    			player.getUpdateFlags().sendAnimation(881);
-    			final int task = player.getTask();
-    	        player.setSkilling(new CycleEvent() {
-    				@Override
-    				public void execute(CycleEventContainer container) {
-    					if (!player.checkTask(task) || getSideDoorUnlocked(ZAMORAK)) {
-    						container.stop();
-    						return;
-    					}
-    					if (Misc.random(2) == 0) {
-    						SideDoorData sideDoorDataz = SideDoorData.forTeam(ZAMORAK);
-    		                player.getActionSender().sendMessage("You manage to pick the door lock.");
-    						if(ObjectHandler.getInstance().getObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
-    							ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
-    						}
-    						ObjectHandler.getInstance().removeClip(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0, sideDoorDataz.face);
-    						new GameObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face-1, 0, sideDoorDataz.unlockedId, 99999, false);
-    						setSideDoorUnlocked(ZAMORAK, true);
-    						container.stop();
-    						return;
-    					}else{
-    						player.getActionSender().sendMessage("You fail to pick the lock.");
-    						container.stop();
-    					}
-    				}
-    				@Override
-    				public void stop() {
-    					player.resetAnimation();
-    				}
-    			});
-    	        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), time);
-    	        return;
-			}
-			if(team == SARADOMIN){
-            	if(getSideDoorUnlocked(SARADOMIN)){
-            		return;
-            	}
-    			int time = 3 + Misc.random(6);
-    			player.getActionSender().sendMessage("You attempt to picklock the door.");
-    			player.getUpdateFlags().sendAnimation(881);
-    			final int task = player.getTask();
-    	        player.setSkilling(new CycleEvent() {
-    				@Override
-    				public void execute(CycleEventContainer container) {
-    					if (!player.checkTask(task) || getSideDoorUnlocked(SARADOMIN)) {
-    						container.stop();
-    						return;
-    					}
-    					if (Misc.random(2) == 0) {
-    						SideDoorData sideDoorDataS = SideDoorData.forTeam(SARADOMIN);
-    		                player.getActionSender().sendMessage("You manage to pick the door lock.");
-    						if(ObjectHandler.getInstance().getObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
-    							ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
-    						}
-    						ObjectHandler.getInstance().removeClip(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0, sideDoorDataS.face);
-    						new GameObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face-1, 0, sideDoorDataS.unlockedId, 99999, false);
-    						setSideDoorUnlocked(SARADOMIN, true);
-    						container.stop();
-    						return;
-    					}else{
-    						player.getActionSender().sendMessage("You fail to pick the lock.");
-    						container.stop();
-    					}
-    				}
-    				@Override
-    				public void stop() {
-    					player.resetAnimation();
-    				}
-    			});
-    	        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), time);
-    	        return;
-			}
-	    }catch(Exception ex) { System.out.println("Problem unlocking Castlewars side door"); }
-    }
-    
-    private static void ResetSideDoors()
-    {
-	    try{
-	    	if(getSideDoorUnlocked(ZAMORAK)){
-	    		SideDoorData sideDoorDataz = SideDoorData.forTeam(ZAMORAK);
-				if(ObjectHandler.getInstance().getObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
-					ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
-				}
-				new GameObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face, 0, sideDoorDataz.lockedId, 99999);
-				setSideDoorUnlocked(ZAMORAK, false);
-	    	}
-	    	if(getSideDoorUnlocked(SARADOMIN)){
-	    		SideDoorData sideDoorDataS = SideDoorData.forTeam(SARADOMIN);
-				if(ObjectHandler.getInstance().getObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
-					ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
-				}
-				new GameObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face, 0, sideDoorDataS.lockedId, 99999);
-				setSideDoorUnlocked(SARADOMIN, false);
-	    	}
-	    }catch(Exception ex) { System.out.println("Problem resetting Castlewars side doors"); }
-    }
-    //main door
-    
-    private static void ResetDoors()
-    {
-    	ResetSideDoors();
-    	//ResetMainDoors();
-    }
-    
-    private final static int MAX_BARRICADES = 10;
-    private static ArrayList<Npc> barricadesZammy = new ArrayList<Npc>(MAX_BARRICADES);
-    private static ArrayList<Npc> barricadesSara = new ArrayList<Npc>(MAX_BARRICADES);
-    private final static MinigameAreas.Area[] badArea = {
-    	ZAMMY_SPAWN_ROOM,
-    	SARA_SPAWN_ROOM,
-    	new MinigameAreas.Area(new Position(2371, 3118, 0), new Position(2374, 3121, 0)), // zammy main door
-    	new MinigameAreas.Area(new Position(2425, 3087, 0), new Position(2428, 3089, 0)), // sara main door
-    	ZAMMY_ROCK_TOP,
-    	ZAMMY_ROCK_SIDE,
-    	SARA_ROCK_BOTTOM,
-    	SARA_ROCK_SIDE
-    };
-    
-    private final static Position[] badPos = {
-    	new Position(2417, 3077, 0), //sara
-    	new Position(2416, 3074, 0),
-    	new Position(2414, 3073, 0),
-    	new Position(2421, 3074, 0),
-    	new Position(2430, 3081, 0),
-    	new Position(2430, 9481, 0),
-    	new Position(2399, 9500, 0),
-    	new Position(2399, 3100, 0),
-    	new Position(2420, 3080, 1),
-    	new Position(2421, 3074, 1),
-    	new Position(2422, 3076, 1),
-    	new Position(2426, 3081, 1),
-    	new Position(2427, 3081, 1),
-    	new Position(2430, 3080, 2),
-    	new Position(2425, 3077, 2),
-    	new Position(2426, 3074, 3),
-    	new Position(2400, 3107, 0),//zammy
-    	new Position(2400, 9507, 0),
-    	new Position(2369, 9526, 0),
-    	new Position(2369, 3126, 0),
-    	new Position(2378, 3133, 0),
-    	new Position(2385, 3134, 0),
-    	new Position(2382, 3130, 0),
-    	new Position(2383, 3133, 0),
-    	new Position(2380, 3130, 0),
-    	new Position(2378, 3133, 1),
-    	new Position(2377, 3131, 1),
-    	new Position(2379, 3127, 1),
-    	new Position(2373, 3126, 1),
-    	new Position(2372, 3126, 1),
-    	new Position(2369, 3127, 2),
-    	new Position(2374, 3130, 2),
-    	new Position(2373, 3133, 3),
-    };
-    
-    private static boolean barricadeBadPos(final Player player)
-    {
-    	Position pos = player.getPosition();
-    	for(MinigameAreas.Area area : badArea){
-	    	if(MinigameAreas.isInArea(pos, area))
-	    	{
-	    		return true;
-	    	}
-    	}
-    	for(Position position : badPos){
-	    	if(pos.getX() == position.getX() && pos.getY() == position.getY() && pos.getZ() == position.getZ())
-	    	{
-	    		return true;
-	    	}
-    	}
-    	return false;
-    }
-    
-    public static boolean HandleItemOnBarricades(final Player player, int item, Npc npc)
-    {
-		if(isBarricade(npc)){
-			if(!isInGame(player))
-			{
-				return false;
-			}
-			final int x = npc.getPosition().getX();
-			final int y = npc.getPosition().getY();
-			final int z = npc.getPosition().getZ();
-			switch(item)
-			{
-				case 590 :
-					if(SetBarricadeFire(player, npc, x, y, z))
-					{
-						return true;
-					}
-				return false;
-				case 1929 :
-					if(ExtinguishBarricadeFire(player, npc, x, y, z))
-					{
-						return true;
-					}
-				return false;
-				case 4045 :
-					if(ExplodeBarricade(player, npc, x, y, z))
-					{
-						return true;
-					}
-				return false;
-			}
-		}
-		return false;
-    }
-    
-    
-    private static Npc spawnBarricade(int id, Position pos)
-    {
-    	new GameObject(4421, pos.getX(), pos.getY(), pos.getZ(), 0, 10, Constants.EMPTY_OBJECT, 99999);
-    	Npc npc = new Npc(1532);
-	    npc.setPosition(pos);
-	    npc.setSpawnPosition(pos);
-	    npc.setCurrentX(pos.getX());
-	    npc.setCurrentY(pos.getY());
-	    World.register(npc);
-	    return npc;
-    }
-    
-    private static void destroyBarricade(Npc npc){
-    	try{
-			GameObject barricade = ObjectHandler.getInstance().getObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-			if(barricade != null){
-				ObjectHandler.getInstance().removeObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-			}
-			GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-			if(empty != null){
-				ObjectHandler.getInstance().removeObject(npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-			}
-			if(barricadesZammy.contains(npc))
-			{
-				barricadesZammy.remove(npc);
-			}
-			if(barricadesSara.contains(npc))
-			{
-				barricadesSara.remove(npc);
-			}
-    	}catch(Exception ex) { System.out.println("Problem destroying Castlewars barricade"); }
-    }
-    
-    private static boolean isBarricade(Npc npc){
-    	if(npc.inCwGame()){
-			if(barricadesZammy.contains(npc))
-			{
-				return true;
-			}
-			if(barricadesSara.contains(npc))
-			{
-				return true;
-			}
-    	}
-    	return false;
-    }
-    
-    public static void PlaceBarricade(final Player player, int item, int slot){
-		if(!isInGame(player))
-		{
-			return;
-		}
-		try{
-			if(barricadeBadPos(player))
-			{
-				player.getActionSender().sendMessage("You cannot place a barricade here!");
-				return;
-			}
-			final int x = player.getPosition().getX();
-			final int y = player.getPosition().getY();
-			final int z = player.getPosition().getZ();
-			if(player.getCastlewarsTeam() == ZAMORAK){
-				if(barricadesZammy.size() >= MAX_BARRICADES)
-				{
-					player.getActionSender().sendMessage("Your team has hit the barricade limit.");
-					return;
-				}
-				GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, x, y, z);
-				if(empty != null){
-					ObjectHandler.getInstance().removeObject(x, y, z, 10);
-				}
-				GameObjectDef objectHere = SkillHandler.getObject(x, y, z);
-				if(objectHere != null && objectHere.getType() != 22){
-					player.getActionSender().sendMessage("You cannot place a barricade here!");
-					return;
-				}
-				player.getInventory().removeItemSlot(new Item(4053,1), slot);
-				barricadesZammy.add(spawnBarricade(1532,new Position(x,y,z)));
-				return;
-			}
-			if(player.getCastlewarsTeam() == SARADOMIN){
-				if(barricadesSara.size() >= MAX_BARRICADES)
-				{
-					player.getActionSender().sendMessage("Your team has hit the barricade limit.");
-					return;
-				}
-				GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, x, y, z);
-				if(empty != null){
-					ObjectHandler.getInstance().removeObject(x, y, z, 10);
-				}
-				GameObjectDef objectHere = SkillHandler.getObject(x, y, z);
-				if(objectHere != null && objectHere.getType() != 22){
-					player.getActionSender().sendMessage("You cannot place a barricade here!");
-					return;
-				}
-				player.getInventory().removeItemSlot(new Item(4053,1), slot);
-				barricadesSara.add(spawnBarricade(1532,new Position(x,y,z)));
-				return;
-			}
-		}catch(Exception ex) { System.out.println("Problem placing Castlewars barricade"); }
-    }
-    
-    public static boolean SetBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
-		try{
-			if(isBarricade(npc)){
-				if(npc.getNpcId() == 1533)
-				{
-					player.getActionSender().sendMessage("This barricade is already on fire.");
-					return true;
-				}
-				if(npc.getNpcId() == 1532)
-				{
-					int time = 3 + Misc.random(6);
-					player.getActionSender().sendMessage("You attempt to light the barricade on fire.");
-					player.getUpdateFlags().sendAnimation(733);
-					player.getActionSender().sendSound(375, 0, 0);
-					final int task = player.getTask();
-			        player.setSkilling(new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer container) {
-							if (!player.checkTask(task) || npc.getNpcId() == 1533) {
-								container.stop();
-								return;
-							}
-							if (Misc.random(2) == 0) {
-								player.getActionSender().sendMessage("The fire catches and the barricade begins to burn.");
-								npc.sendTransform(1533, 99999999);
-								HitDef hitDef = new HitDef(null, HitType.BURN, Math.ceil(4.0)).setStartingHitDelay(-1).setUnblockable(true).setDoBlock(false);
-								Hit hit = new Hit(npc, npc, hitDef);
-								BurnEffect burn = new BurnEffect(5, 5);
-								burn.initialize(hit);
-								container.stop();
-								return;
-							}else{
-								player.getActionSender().sendMessage("You fail to set the barricade on fire.");
-								container.stop();
-							}
-						}
-						@Override
-						public void stop() {
-							player.resetAnimation();
-						}
-					});
-			        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), time);
-					return true;
-				}
-			}
-		}catch(Exception ex) { System.out.println("Problem setting Castlewars barricade fire"); }
-		return false;
-    }
-    
-    public static boolean ExtinguishBarricadeFire(final Player player, final Npc npc, final int x, final int y, final int z){
-		try{
-			if(isBarricade(npc)){
-				if(npc.getNpcId() == 1533)
-				{
-					if(!player.getInventory().removeItemSlot(new Item(1929,1), player.getSlot())){
-						player.getInventory().removeItem(new Item(1929,1));
-						player.getInventory().addItemOrDrop(new Item(1925,1));
-					}else{
-						player.getInventory().addItemToSlot(new Item(1925,1), player.getSlot());
-					}
-					npc.removeAllEffects();
-					npc.sendTransform(1532, 99999999);
-					player.getActionSender().sendMessage("You extinguish the fire.");
-					return true;
-				}
-			}
-		}catch(Exception ex) { System.out.println("Problem setting Castlewars barricade fire"); }
-		return false;
-    }
-    
-    private static boolean ExplodeBarricade(final Player player, final Npc npc, final int x, final int y, final int z){
-		try{
-			if(isBarricade(npc)){
-				if(!player.getInventory().removeItemSlot(new Item(4045,1), player.getSlot())){
-					player.getInventory().removeItem(new Item(4045,1));
-				}
-				npc.hit((npc.getMaxHp() / 2), HitType.BURN);
-		    	player.getActionSender().sendSoundRadius(97, 0, 0, npc.getPosition(), 5);
-		    	npc.getUpdateFlags().sendHighGraphic(346);
-				player.getActionSender().sendMessage("You throw the potion at the barricade and it explodes.");
-				return true;
-			}
-		}catch(Exception ex) { System.out.println("Problem Exploding Castlewars barricade"); }
-		return false;
-    }
-    
-    private static void RemoveBarricades()
-    {
-    	try{
-	    	for(Npc npc : new ArrayList<Npc>(barricadesZammy))
-	    	{
-	    		if(npc != null)
-	    		{
-	    			GameObject barricade = ObjectHandler.getInstance().getObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-	    			if(barricade != null){
-	    				ObjectHandler.getInstance().removeObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-	    			}
-	    			GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-	    			if(empty != null){
-	    				ObjectHandler.getInstance().removeObject(npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-	    			}
-	    			npc.removeAllEffects();
-	    			npc.setVisible(false);
-	    			Following.resetFollow(npc);
-	    			World.unregister(npc);
-	    			barricadesZammy.remove(npc);
-	    		}
-	    	}
-	    	for(Npc npc : new ArrayList<Npc>(barricadesSara))
-	    	{
-	    		if(npc != null)
-	    		{
-	    			GameObject barricade = ObjectHandler.getInstance().getObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-	    			if(barricade != null){
-	    				ObjectHandler.getInstance().removeObject(4421, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-	    			}
-	    			GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ());
-	    			if(empty != null){
-	    				ObjectHandler.getInstance().removeObject(npc.getPosition().getX(), npc.getPosition().getY(), npc.getPosition().getZ(), 10);
-	    			}
-	    			npc.removeAllEffects();
-	    			npc.setVisible(false);
-	    			Following.resetFollow(npc);
-	    			World.unregister(npc);
-	    			barricadesSara.remove(npc);
-	    		}
-	    	}
-	    	barricadesZammy.clear();
-	    	barricadesSara.clear();
-    	}catch(Exception ex) { System.out.println("Problem resetting Castlewars barricades"); }
-    }
-    
-    public static boolean HandleItemOnBattlement(final Player player, int objectId, int x, int y, int z){
-    	if(!isInGame(player))
-		{
-			return false;
-		}
-    	if(PlaceClimbingRope(player, objectId, x, y, z))
-    	{
-    		return true;
-    	}
-    	return false;
-    }
-    
-    private final static int CLIMBING_ROPE_ITEM = 4047;
-    private final static int CLIMBING_ROPE_OBJECT = 4444; //type 4 seems best
-    
-    private static ArrayList<GameObject> climbingRopes = new ArrayList<GameObject>();
-    
-    private static boolean canPlaceRope(final Player player){
-    	for(GameObject rope : new ArrayList<GameObject>(climbingRopes))
-    	{
-    		if(rope == null)
-    			continue;
-    		GameObjectDef def = rope.getDef();
-    		if(def.getPosition().getX() == player.getPosition().getX() && def.getPosition().getY() == player.getPosition().getY()
-    				&& def.getPosition().getZ() == player.getPosition().getZ())
-    		{
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-    
-    private static boolean PlaceClimbingRope(final Player player, int objectId, int x, int y, int z){
-    	try{
-			switch(player.getCastlewarsTeam())
-			{
-				case ZAMORAK :
-					if(objectId == 4447)
-					{
-						player.getActionSender().sendMessage("You Cannot place a climbing rope on your own battlements!");
-						return true;
-					}
-				break;
-				case SARADOMIN :
-					if(objectId == 4446)
-					{
-						player.getActionSender().sendMessage("You Cannot place a climbing rope on your own battlements!");
-						return true;
-					}
-				break;
-			}
-	    	if(!canPlaceRope(player))
-	    	{
-	    		player.getActionSender().sendMessage("There is already a climbing rope here!");
-	    		return true;
-	    	}
-			GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-			if(empty != null){
-				ObjectHandler.getInstance().removeObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 10);
-			}
-			GameObjectDef objectHere = SkillHandler.getObject(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-			if(objectHere != null && objectHere.getType() != 22){
-				player.getActionSender().sendMessage("You cannot place a climbing rope here!");
-				return true;
-			}
-			final CacheObject bobj = ObjectLoader.object(x, y, z);
-			if (bobj != null) {
-				int face = bobj.getRotation();
-				int ropeFace = face + 2;
-				switch(objectId)
-				{
-					case 4446 :
-						ropeFace = face + 2;
-					break;
-					case 4447 :
-						ropeFace = face - 2;
-					break;
-				}
-				if(!player.getInventory().removeItemSlot(new Item(CLIMBING_ROPE_ITEM,1), player.getSlot())){
-					player.getInventory().removeItem(new Item(CLIMBING_ROPE_ITEM,1));
-				}
-				player.getActionSender().sendMessage("You manage to throw the climbing rope over the battlement wall.");
-				climbingRopes.add(new GameObject(CLIMBING_ROPE_OBJECT, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), ropeFace, 4, Constants.EMPTY_OBJECT, 999999));
-				return true;
-			}
-    	}catch(Exception ex) { System.out.println("Problem placing Castlewars rope"); }
-    	return false;
-    }
-    
-    private static void RemoveClimbingRopes()
-    {
-    	try{
-	    	for(GameObject obj : new ArrayList<GameObject>(climbingRopes))
-	    	{
-	    		if(obj != null)
-	    		{
-	    			GameObjectDef def = obj.getDef();
-					ObjectHandler.getInstance().removeObject(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), 4);
-	    		}
-	    	}
-	    	climbingRopes.clear();
-    	}catch(Exception ex) { System.out.println("Problem resetting Castlewars ropes"); }
     }
 }
