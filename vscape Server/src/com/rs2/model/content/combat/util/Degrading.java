@@ -110,7 +110,7 @@ public class Degrading {
 		if(i == null) {
 		    continue;
 		}
-		if(i.getDefinition().getName().contains(" 100") || i.getDefinition().getName().contains(" 75")
+		if(i.getDefinition().getName().contains(" 100") || i.getDefinition().getName().contains(" 75") || i.getDefinition().getName().contains(" 50")
 		|| i.getDefinition().getName().contains(" 25") || i.getDefinition().getName().contains(" 0")) {
 		    if(!toReturn.contains(i)) {
 			toReturn.add(i);
