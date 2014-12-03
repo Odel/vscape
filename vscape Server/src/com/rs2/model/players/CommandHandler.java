@@ -98,12 +98,14 @@ public class CommandHandler {
 				ClearNotes(sender);
 				sender.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
 				int line = 8147;
+				int counter = 1;
 				while ( rs.next() ) {
 					String  name = rs.getString("username");
 					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Mod dammit") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
 					{
 						int lv  = rs.getInt("totallevel");
-						sender.getActionSender().sendString(name + " - level " + lv, line);
+						sender.getActionSender().sendString(counter + ".  " + name + " - level " + lv, line);
+						counter++;
 						line++;
 					}
 				}
