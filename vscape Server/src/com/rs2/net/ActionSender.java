@@ -336,12 +336,12 @@ public class ActionSender {
 		return this;
 	}
 
-	public ActionSender sendFrame70(int id, int x, int y) {
+	public ActionSender moveInterface(int x, int y, int id) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(7);
 		out.writeHeader(player.getEncryptor(), 70);
-		out.writeShort(id);
-		out.writeShort(x, StreamBuffer.ByteOrder.LITTLE);
+		out.writeShort(x);
 		out.writeShort(y, StreamBuffer.ByteOrder.LITTLE);
+		out.writeShort(id, StreamBuffer.ByteOrder.LITTLE);
 		player.send(out.getBuffer());
 		return this;
 	}

@@ -27,17 +27,17 @@ public class CatapultInterface {
 		return baseCoords[team];
 	}
 	
-	private static int[][] catapultCoords = {
+	private static int[][] fireCoords = {
 		{0,0}, //zammy
 		{0,0} //sara
 	};
 	private static void setCoords(int team, int x, int y)
 	{
-		catapultCoords[team] = new int[]{x,y};
+		fireCoords[team] = new int[]{x,y};
 	}
 	private static int[] getCoords(int team)
 	{
-		return catapultCoords[team];
+		return fireCoords[team];
 	}
 
 	public static void resetCoords(int team){
@@ -78,7 +78,7 @@ public class CatapultInterface {
 		int[] base = getBaseCoords(team);
 		int baseX = base[0];
 		int baseY = base[1];
-		player.getActionSender().sendFrame70(baseX + (team == 0 ? x * 2 : -x * 2), baseY + (team == 0 ? y * 2 : -y * 2), 11332);
+		player.getActionSender().moveInterface(baseX + (team == 0 ? x * 2 : -x * 2), baseY + (team == 0 ? y * 2 : -y * 2), 11332);
 	}
 	
 	private static void incrementCoord(int team, int x, int y)

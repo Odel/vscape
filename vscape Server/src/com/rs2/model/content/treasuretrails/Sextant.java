@@ -125,7 +125,7 @@ public class Sextant {
 		int y = (int) Math.floor(Math.abs((SEXTANT_BAR_LENTH / 2) * (1 - Math.cos(degree * Math.PI / 180))));
 		c.getActionSender().sendFrame230(SEXTANT_BAR, SEXTANT_ROTATION1, realDegree, SEXTANT_BAR_ZOOM);
 
-		c.getActionSender().sendFrame70(degree > 0 ? -(x - c.rotationFactor / 2) : (x + c.rotationFactor / 2), -y, SEXTANT_BAR);
+		c.getActionSender().moveInterface(degree > 0 ? -(x - c.rotationFactor / 2) : (x + c.rotationFactor / 2), -y, SEXTANT_BAR);
 
 	}
 
@@ -190,7 +190,7 @@ public class Sextant {
 
 	/* moving the landscape horizon with a formula */
 	public static void moveLandScapeWithFormula(Player c) {
-		c.getActionSender().sendFrame70(0, c.sextantLandScapeCoords, SEXTANT_LANDSCAPE);
+		c.getActionSender().moveInterface(0, c.sextantLandScapeCoords, SEXTANT_LANDSCAPE);
 	}
 
 	/* moves the sun by two pixels */
@@ -204,7 +204,7 @@ public class Sextant {
 
 	/* moves the sun to a specific coordinate */
 	public static void moveSunWithFormula(Player c) {
-		c.getActionSender().sendFrame70(0, c.sextantSunCoords, SEXTANT_SUN);
+		c.getActionSender().moveInterface(0, c.sextantSunCoords, SEXTANT_SUN);
 	}
 
 	/* display the player position in degree and minutes */
