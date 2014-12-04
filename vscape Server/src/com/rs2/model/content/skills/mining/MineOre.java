@@ -293,6 +293,9 @@ public class MineOre {
 		if (object == 10947 || object == 10949) {
 			return 10945;
 		}
+		if(object == 10583 || object == 10584) {
+			return 10585;
+		}
 		for (int i : ore1) {
 			if (object == i) {
 				return 9723;
