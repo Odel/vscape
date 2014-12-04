@@ -27,7 +27,7 @@ import com.rs2.util.clip.Region;
 public class Castlewars {
 	
 	private final static int LOBBY_TIME = 10; // 3 minutes
-	private final static int GAME_TIME = 300; // 1200 | 20 minutes
+	private final static int GAME_TIME = 1200; // 1200 | 20 minutes
 	private final static int PROCESS_INTERVAL = 5; // ++ 5 seconds
 	private final static int TICK = 8; // 5 seconds
 	private final static int PLAYERS_MIN_TEAM = 1;

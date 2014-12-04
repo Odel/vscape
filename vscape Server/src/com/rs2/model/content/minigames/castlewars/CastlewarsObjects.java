@@ -1,15 +1,20 @@
 package com.rs2.model.content.minigames.castlewars;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBattlements;
+import com.rs2.model.content.minigames.castlewars.impl.CastlewarsCatapults;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsDoors;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks.CaveWallData;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -405,6 +410,10 @@ public class CastlewarsObjects {
             case 4900:
             case 4901:
             	return Castlewars.HandleBannerCapture(player, id, x, y, z);
+            	
+            case 4381:
+            case 4382:
+            	return CastlewarsCatapults.OperateCatapult(player, id, x, y, z);
             
             case 4484:// scoreboard
                player.getDialogue().sendCastlewarsScoreBox("Total Wins This Session!", "Saradomin: "+ Castlewars.SARA_TOTAL_WINS, "Zamorak: "+ Castlewars.ZAMMY_TOTAL_WINS);
