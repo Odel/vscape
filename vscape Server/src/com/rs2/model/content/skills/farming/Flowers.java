@@ -539,7 +539,7 @@ public class Flowers { // todo scarecrow 6059
 				farmingTimer[flowerFieldsData.getFlowerIndex()] = Server.getMinutesCounter();
 				player.getUpdateFlags().sendAnimation(FarmingConstants.SPADE_ANIM);
 				player.getActionSender().sendMessage("You harvest the crop, and get some vegetables.");
-				player.getInventory().addItem(new Item(flowerData.getHarvestId(), flowerData.getHarvestId() == 5099 || flowerData.getHarvestId() == 5100 ? 3 : 1));
+				player.getInventory().addItem(new Item(flowerData.getHarvestId(), flowerData.getSeedId() == 5099 || flowerData.getSeedId() == 5100 ? 3 : 1));
 				player.getSkill().addExp(Skill.FARMING, flowerData.getHarvestXp());
 				container.stop();
 			}
