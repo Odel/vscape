@@ -164,11 +164,12 @@ public class EnchantedBolts {
 	    return false;
 	    case DRAGONSTONE:
 		//Dragon's breath, Deals dragonfire damage (resisted through anti-dragonfire equipment)
-		victim.getUpdateFlags().sendGraphic(b.getGfxId());
-		if(pVictim != null && pVictim.isFireImmune()) {
+		if(pVictim != null && pVictim.antiFire() > 0) {
 		    return false;
+		} else {
+		    victim.getUpdateFlags().sendGraphic(b.getGfxId());
+		    return true;
 		}
-		return true;
 	    case ONYX:
 		victim.getUpdateFlags().sendGraphic(b.getGfxId());
 		attacker.heal((int)Math.ceil(damage * 0.25));
