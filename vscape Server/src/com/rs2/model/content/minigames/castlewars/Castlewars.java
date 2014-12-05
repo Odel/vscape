@@ -119,7 +119,6 @@ public class Castlewars {
 					}
 				} catch (Exception ex){
 					System.out.println("Error processing Castlewars Logic");
-					ex.printStackTrace();
 				}
 		    }
 		});
@@ -645,31 +644,29 @@ public class Castlewars {
 			    {
 			    	minutes = 0;
 			    }
-			    player.getActionSender().sendString(minutes + " min", 11155); //time left
-			    player.getActionSender().sendString("Zamorak = " + ZAMMY_SCORE, 11147); // Score zammy
-			    player.getActionSender().sendString(SARA_SCORE + " = Saradomin", 11148); // Score sara
-			    
-			    player.getActionSender().sendString(!getBannerTaken(SARADOMIN) ? "@gre@Safe" : getBannerDropped(SARADOMIN) ? "@yel@Dropped" : "@red@Taken", 11151); // sara Flag
-			    player.getActionSender().sendString(!getBannerTaken(ZAMORAK) ? "@gre@Safe" : getBannerDropped(ZAMORAK) ? "@yel@Dropped" : "@red@Taken", 11152); // zammy Flag
-			    //sara flag 11151
-			    //zammy flag 11152
-			    switch(player.getCastlewarsTeam())
-			    {
-			    	case ZAMORAK :
-			    		player.getActionSender().sendString("@red@Health 0%", 11154); // main door
-			    		player.getActionSender().sendString(CastlewarsDoors.getSideDoorUnlocked(ZAMORAK) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
-			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(0) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
-			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(1) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
-			    		player.getActionSender().sendString("@red@Destroyed", 11164); // catapult
-			    	break;
-			    	case SARADOMIN :
-			    		player.getActionSender().sendString("@red@dead", 11154); // main door
-			    		player.getActionSender().sendString(CastlewarsDoors.getSideDoorUnlocked(SARADOMIN) ? "@red@Unlocked" : "@gre@Locked", 11158); // side door
-			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(2) ? "@gre@Collapsed" : "@red@Cleared", 11160); // collapse 1
-			    		player.getActionSender().sendString(CastlewarsRocks.getCollapsedCave(3) ? "@gre@Collapsed" : "@red@Cleared", 11162); // collapse 2
-			    		player.getActionSender().sendString("@red@Destroyed", 11164); // catapult
-			    	break;
-			    }
+			    player.getActionSender().sendString(minutes + " min", 11353); //time left
+				int config = 100;
+				if(player.getCastlewarsTeam() == ZAMORAK)
+				{
+					config += (CastlewarsDoors.getSideDoorUnlocked(ZAMORAK) ? 128 : 0);
+					config += (!CastlewarsRocks.getCollapsedCave(0) ? 256 : 0);
+					config += (!CastlewarsRocks.getCollapsedCave(1) ? 512 : 0);
+					config += (CastlewarsCatapults.getDestroyed(ZAMORAK) ? 1024 : 0);
+				}
+				config += player.getCastlewarsTeam() == ZAMORAK ? (getBannerTaken(ZAMORAK) ? getBannerDropped(ZAMORAK) ? 2097152 * 2 : 2097152 * 1 : 0) : (getBannerTaken(SARADOMIN) ? getBannerDropped(SARADOMIN) ? 2097152 * 2 : 2097152 * 1 : 0);
+				config += 16777216 * (player.getCastlewarsTeam() == ZAMORAK ? ZAMMY_SCORE : SARA_SCORE);
+				player.getActionSender().sendConfig(player.getCastlewarsTeam() == ZAMORAK ? 377 : 378, config);
+				config = 100;
+				if(player.getCastlewarsTeam() == SARADOMIN)
+				{
+					config += (CastlewarsDoors.getSideDoorUnlocked(SARADOMIN) ? 128 : 0);
+					config += (!CastlewarsRocks.getCollapsedCave(2) ? 256 : 0);
+					config += (!CastlewarsRocks.getCollapsedCave(3) ? 512 : 0);
+					config += (CastlewarsCatapults.getDestroyed(SARADOMIN) ? 1024 : 0);
+				}
+				config += player.getCastlewarsTeam() == ZAMORAK ? (getBannerTaken(SARADOMIN) ? getBannerDropped(SARADOMIN) ? 2097152 * 2 : 2097152 * 1 : 0) : (getBannerTaken(ZAMORAK) ? getBannerDropped(ZAMORAK) ? 2097152 * 2 : 2097152 * 1 : 0);
+				config += 16777216 * (player.getCastlewarsTeam() == ZAMORAK ? SARA_SCORE : ZAMMY_SCORE);
+				player.getActionSender().sendConfig(player.getCastlewarsTeam() == ZAMORAK ? 378 : 377, config);
     		}
     	} catch (Exception ex) { }
     }
@@ -715,6 +712,7 @@ public class Castlewars {
     		player.getInventory().removeItem(new Item(1929, player.getInventory().getItemAmount(1929)));
 	    	player.getInventory().removeItem(new Item(4049, player.getInventory().getItemAmount(4049)));
 	    	player.getInventory().removeItem(new Item(4051, player.getInventory().getItemAmount(4051)));
+	    	player.getInventory().removeItem(new Item(4043, player.getInventory().getItemAmount(4043)));
 	    	player.getInventory().removeItem(new Item(4053, player.getInventory().getItemAmount(4053)));
 	    	player.getInventory().removeItem(new Item(4047, player.getInventory().getItemAmount(4047)));
 	    	player.getInventory().removeItem(new Item(4045, player.getInventory().getItemAmount(4045)));

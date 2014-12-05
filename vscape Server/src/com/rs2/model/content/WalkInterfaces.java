@@ -62,7 +62,7 @@ public class WalkInterfaces {
 		else if(player.inCwGame())
 		{
 			player.getActionSender().sendPlayerOption("Attack", 1, false);
-			changeWalkableInterface(player, 11146);
+			changeWalkableInterface(player, 11344);
 			Castlewars.gameInterface(player);
 		}
 		else if(player.getPosition().getX() > 3615 && player.getPosition().getX() < 3630

@@ -1,8 +1,6 @@
 package com.rs2.model.content.minigames.castlewars;
 
 import com.rs2.Constants;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBattlements;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsCatapults;
@@ -10,11 +8,9 @@ import com.rs2.model.content.minigames.castlewars.impl.CastlewarsDoors;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsRocks.CaveWallData;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Tools.Tool;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -25,6 +21,19 @@ import com.rs2.model.tick.CycleEventHandler;
 public class CastlewarsObjects {
 
 	public static boolean handleItemOnObject(Player player, int itemId, int itemSlot, int id, int x, int y, int z) {
+		switch (id) {
+			case 4381 :
+			case 4382 :
+			case 4904 :
+			case 4905 :
+			case 4385 :
+			case 4386 :
+				if(CastlewarsCatapults.handleItemOnCatapult(player, itemId, id, x, y, z))
+				{
+					return true;
+				}
+			return false;
+		}
 		switch (itemId) {
 			case 4045 :
             	if(id == 4437)
@@ -261,7 +270,8 @@ public class CastlewarsObjects {
 			                    player.getActionSender().sendMessage("You get a toolkit.");
 			            		break;
 							case 4460: //rocks
-								player.getActionSender().sendMessage("Not implemented.");
+								player.getInventory().addItem(new Item(4043,1));
+								player.getActionSender().sendMessage("You get a rock.");
 								break;
 							case 4461: //barricades
 				                player.getInventory().addItem(new Item(4053,1));
@@ -414,6 +424,10 @@ public class CastlewarsObjects {
             case 4381:
             case 4382:
             	return CastlewarsCatapults.OperateCatapult(player, id, x, y, z);
+            	
+            case 4385:
+            case 4386:
+            	return CastlewarsCatapults.HandleRepair(player, id);
             
             case 4484:// scoreboard
                player.getDialogue().sendCastlewarsScoreBox("Total Wins This Session!", "Saradomin: "+ Castlewars.SARA_TOTAL_WINS, "Zamorak: "+ Castlewars.ZAMMY_TOTAL_WINS);

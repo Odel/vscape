@@ -150,12 +150,14 @@ public class CastlewarsRocks {
 					if(caveWall != null)
 					{
 						setCollapsedCave(caveWall.index, true);
-						int face = SkillHandler.getFace(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
 						GameObject empty = ObjectHandler.getInstance().getObject(Constants.EMPTY_OBJECT, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
 						if(empty != null){
 							ObjectHandler.getInstance().removeObject(caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), 10);
 						}
-						new GameObject(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), face, 10, 4437, 99999);
+						GameObject rocks = ObjectHandler.getInstance().getObject(4437, caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ());
+						if(rocks != null){
+							ObjectHandler.getInstance().removeObject(caveWall.rockPosition.getX(), caveWall.rockPosition.getY(), caveWall.rockPosition.getZ(), 10);
+						}
 					}
 				}
 			}

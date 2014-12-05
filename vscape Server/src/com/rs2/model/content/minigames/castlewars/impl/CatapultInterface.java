@@ -18,13 +18,13 @@ public class CatapultInterface {
 		4872 //9
 	};
 	
-	private static int[][] baseCoords = {
-		{-5,15}, //zammy
-		{100,70} //sara
+	private static int[][] baseXCoords = {
+		{0,0}, //zammy
+		{90,90} //sara
 	};
-	private static int[] getBaseCoords(int team)
+	private static int[] getBaseXCoords(int team)
 	{
-		return baseCoords[team];
+		return baseXCoords[team];
 	}
 	
 	private static int[][] fireCoords = {
@@ -75,7 +75,7 @@ public class CatapultInterface {
 			player.getActionSender().sendComponentInterface(11319, numberModels[first]);
 			player.getActionSender().sendComponentInterface(11320, numberModels[second]);
 		}
-		int[] base = getBaseCoords(team);
+		int[] base = getBaseXCoords(team);
 		int baseX = base[0];
 		int baseY = base[1];
 		player.getActionSender().moveInterface(baseX + (team == 0 ? x * 2 : -x * 2), baseY + (team == 0 ? y * 2 : -y * 2), 11332);
@@ -131,7 +131,12 @@ public class CatapultInterface {
 				setCoordinatesInterface(player, team);
 			return true;
 			case 44065 : // fire
-				
+				int[] coords = getCoords(team);
+				int x = coords[0];
+				int y = coords[1];
+				player.setStatedInterface("");
+				player.getActionSender().removeInterfaces();
+				CastlewarsCatapults.fireCatapult(player, team, x, y);
 			return true;
 		}
 		return false;

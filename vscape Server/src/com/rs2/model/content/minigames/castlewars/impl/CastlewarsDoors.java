@@ -249,7 +249,9 @@ public class CastlewarsDoors {
 				if(ObjectHandler.getInstance().getObject(sideDoorDataz.unlockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
 					ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
 				}
-				new GameObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), sideDoorDataz.face, 0, sideDoorDataz.lockedId, 99999);
+				if(ObjectHandler.getInstance().getObject(sideDoorDataz.lockedId, sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ()) != null){
+					ObjectHandler.getInstance().removeObject(sideDoorDataz.position.getX(), sideDoorDataz.position.getY(), sideDoorDataz.position.getZ(), 0);
+				}
 				setSideDoorUnlocked(Castlewars.ZAMORAK, false);
 	    	}
 	    	if(getSideDoorUnlocked(Castlewars.SARADOMIN)){
@@ -257,7 +259,9 @@ public class CastlewarsDoors {
 				if(ObjectHandler.getInstance().getObject(sideDoorDataS.unlockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
 					ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
 				}
-				new GameObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), sideDoorDataS.face, 0, sideDoorDataS.lockedId, 99999);
+				if(ObjectHandler.getInstance().getObject(sideDoorDataS.lockedId, sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ()) != null){
+					ObjectHandler.getInstance().removeObject(sideDoorDataS.position.getX(), sideDoorDataS.position.getY(), sideDoorDataS.position.getZ(), 0);
+				}
 				setSideDoorUnlocked(Castlewars.SARADOMIN, false);
 	    	}
 	    }catch(Exception ex) { System.out.println("Problem resetting Castlewars side doors"); }
