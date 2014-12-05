@@ -391,7 +391,7 @@ public enum SpecialType {
 			return weaponAttack;
 		}
 	},
-	DARK_BOW(50) {
+	DARK_BOW(55) {
 		@Override
 		public WeaponAttack getSpecialAttack(final Player attacker, final Entity victim, final Weapon weapon) {
 			final WeaponAttack weaponAttack = new WeaponAttack(attacker, victim, weapon) {
