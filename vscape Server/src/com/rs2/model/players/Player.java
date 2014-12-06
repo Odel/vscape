@@ -3246,6 +3246,24 @@ public class Player extends Entity {
 	public void setVoidMace(boolean voidMace) {
 		this.voidMace = voidMace;
 	}
+	public boolean wearingCwBracelet(){
+		int brace = getEquipment().getId(Constants.HANDS);
+		return brace == 11079 || brace == 11081 || brace == 11083;
+	}
+	
+	public void damageCwBracelet(){
+		int brace = getEquipment().getId(Constants.HANDS);
+		String msg = "Your " + ItemManager.getInstance().getItemName(brace) + " has degraded.";
+		if(brace == 11079){
+			getEquipment().replaceEquipment(11081, Constants.HANDS);
+		} else if(brace == 11081){
+			getEquipment().replaceEquipment(11083, Constants.HANDS);
+		} else if(brace == 11083){
+			getEquipment().replaceEquipment(-1, Constants.HANDS);
+			msg = "Your " + ItemManager.getInstance().getItemName(brace) + " crumbles.";
+		}
+		getActionSender().sendMessage(msg);
+	}
 	
 	public int getSkillAnswer() {
 	    return this.skillAnswer;

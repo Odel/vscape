@@ -541,6 +541,10 @@ public class Castlewars {
 				player.resetEffects();
 				player.removeAllEffects();
 				player.getSkill().refresh();
+	    		if(player.wearingCwBracelet())
+	    		{
+	    			player.damageCwBracelet();
+	    		}
 	    		player.teleport(MinigameAreas.randomPosition(LOBBY_EXIT_AREA));
 	    	}
 		}catch(Exception ex) { System.out.println("Problem leaving Castlewars game"); }

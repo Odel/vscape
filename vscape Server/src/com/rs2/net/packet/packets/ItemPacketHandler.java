@@ -82,6 +82,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
+import com.rs2.util.Misc;
 
 public class ItemPacketHandler implements PacketHandler {
 
@@ -902,6 +903,20 @@ public class ItemPacketHandler implements PacketHandler {
 	    }
 	}
 	switch (itemId) {
+		case 4049 :
+			player.getUpdateFlags().sendAnimation(829);
+			if(player.wearingCwBracelet()){
+				player.heal((int)Misc.fromPercent(15, player.getMaxHp()));
+			}else{
+				player.heal((int)Misc.fromPercent(10, player.getMaxHp()));
+			}
+			player.removeAllEffects();
+			if (!player.getInventory().removeItemSlot(item, player.getSlot())) {
+				player.getInventory().removeItem(item);
+			}
+			player.getTask();
+			player.getCombatDelayTick().setWaitDuration(player.getCombatDelayTick().getWaitDuration() + 2);
+		return;
 		case 4053 :
 			CastlewarsBarricades.PlaceBarricade(player, itemId, player.getSlot());
 		return;

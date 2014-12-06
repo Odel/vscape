@@ -214,8 +214,8 @@ public class Equipment {
 		}
 		if(player.inCwGame() || player.inCwLobby())
 		{
+		    Item equipItem = itemContainer.get(equipSlot);
 			if(equipSlot == Constants.WEAPON){
-			    Item equipItem = itemContainer.get(equipSlot);
 			    if (equipItem != null) {
 			    	if(equipItem.getId() == Castlewars.SARA_BANNER || equipItem.getId() == Castlewars.ZAMMY_BANNER){
 			    		player.getActionSender().sendMessage("Return the banner to your base!");
@@ -399,6 +399,14 @@ public class Equipment {
 					player.getActionSender().sendMessage("Return the banner to your base!");
 					return;
 				}
+			}
+			if(slot == Constants.HANDS)
+			{
+		    	if(player.wearingCwBracelet())
+		    	{
+		    		player.getActionSender().sendMessage("You cannot unequip your Castlewars bracelet while in castlewars.");
+		    		return;
+		    	}
 			}
 		}
         if (player.getInventory().getItemContainer().freeSlot() == -1) {
@@ -685,6 +693,14 @@ public class Equipment {
 			{
 			    player.getActionSender().sendMessage("You cannot wear this headwear in Castlewars!");
 				return false;
+			}
+			if(targetSlot == Constants.HANDS && (player.inCwGame() || player.inCwLobby()))
+			{
+		    	if(player.wearingCwBracelet())
+		    	{
+		    		player.getActionSender().sendMessage("You cannot unequip your Castlewars bracelet while in castlewars.");
+		    		return false;
+		    	}
 			}
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
