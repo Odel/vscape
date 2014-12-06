@@ -277,7 +277,8 @@ public class Castlewars {
 			player.getActionSender().sendMessage("Please remove your headwear before entering Castlewars.");
 			return;
 		}
-		if(player.getEquipment().getId(Constants.WEAPON) == SARA_BANNER || player.getEquipment().getId(Constants.WEAPON) == ZAMMY_BANNER)
+		if(player.getEquipment().getId(Constants.WEAPON) == SARA_BANNER || player.getEquipment().getId(Constants.WEAPON) == ZAMMY_BANNER
+				|| player.getInventory().playerHasItem(SARA_BANNER) || player.getInventory().playerHasItem(ZAMMY_BANNER))
 		{
 			player.getActionSender().sendMessage("You cannot take this banner into Castlewars.");
 			return;
