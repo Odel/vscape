@@ -574,7 +574,7 @@ public class Castlewars {
 		return 0;
     }
     
-    private static int playersInGameTotal() {
+    public static int playersInGameTotal() {
     	int count = 0;
     	if (zammyGamePlayers != null) {
     		count += zammyGamePlayers.size();
@@ -598,6 +598,10 @@ public class Castlewars {
     	return false;
     }
 	
+    public static boolean GameActive() {
+    	return gameActive;
+    }
+    
     public static void lobbyInterface(Player player) {
     	try {
     		if(player == null)

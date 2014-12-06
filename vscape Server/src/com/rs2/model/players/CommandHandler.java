@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import com.rs2.Constants;
 import com.rs2.GlobalVariables;
@@ -20,6 +19,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -634,6 +634,17 @@ public class CommandHandler {
 					sender.getActionSender().sendMessage("Please use ::teletoclue clueid. If you did, an error occured, sorry.");
 				}
 			}
+		}
+		else if (keyword.equals("togglecw")) {
+		    Constants.CASTLEWARS_ENABLED = !Constants.CASTLEWARS_ENABLED;
+        	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."));
+		}	
+		else if(keyword.equals("cwactive")) {
+		    if(Castlewars.GameActive()){
+		    	sender.getActionSender().sendMessage("There is an active Castlewars game with " + Castlewars.playersInGameTotal() + " players playing.");
+		    } else {
+		    	sender.getActionSender().sendMessage("A Castlewars game is not running at the moment.");
+		    }
 		}
 		if(keyword.equals("smite")) {
 			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
