@@ -179,7 +179,17 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && ((Player)attacker).getArmorPiercedEntity() != null && ((Player)attacker).getArmorPiercedEntity().equals(victim)) {
 		    damage *= 1.1;
-		    ((Player)attacker).getActionSender().sendMessage("Armor piercing...");
+		   // ((Player)attacker).getActionSender().sendMessage("Armor piercing...");
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isPlayer())
+		{
+			if(attacker.inCwGame() && victim.inCwGame()){
+				Player playerA = (Player)attacker;
+				Player playerV = (Player)victim;
+				if(playerA.wearingCwBracelet() && playerV.carryingCwBanner()){
+					 damage *= 1.2;
+				}
+			}
 		}
 		if(attacker != null && victim != null && attacker.isPlayer()) {
 		    Player player = (Player)attacker;

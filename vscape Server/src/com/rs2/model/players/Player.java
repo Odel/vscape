@@ -3265,6 +3265,10 @@ public class Player extends Entity {
 		getActionSender().sendMessage(msg);
 	}
 	
+	public boolean carryingCwBanner(){
+		return getEquipment().getId(Constants.WEAPON) == Castlewars.SARA_BANNER || getEquipment().getId(Constants.WEAPON) == Castlewars.ZAMMY_BANNER;
+	}
+	
 	public int getSkillAnswer() {
 	    return this.skillAnswer;
 	}
