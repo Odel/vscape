@@ -273,7 +273,7 @@ public class CastlewarsCatapults {
 			    			}
 			    	    	new GameObject(cd.burningId, cd.position.getX(), cd.position.getY(), cd.position.getZ(), cd.face, 11, cd.burningId, 9999999);
 			    	    	setOnFire(team, true);
-			    	    	World.submit(new Tick(33) {
+			    	    	World.submit(new Tick(16) {
 			    			    @Override 
 			    			    public void execute() {
 			    			    	DestroyCatapult(team);
@@ -301,7 +301,7 @@ public class CastlewarsCatapults {
 	}
 	
 	private static void DestroyCatapult(final int team){
-		if(getDestroyed(team))
+		if(!getOnFire(team) || getDestroyed(team))
 		{
 			return;
 		}
