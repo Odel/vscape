@@ -49,6 +49,9 @@ public class Equipment {
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm", "3rd age mage hat"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
+	private static int[] hideArmsInt = {4069,4504,4509};
+	private static int[] hideHairInt = {4071,4506,4511};
+	
 	private Container itemContainer = new Container(Type.STANDARD, 14) {
 		@Override
 		public void clear() {
@@ -77,6 +80,11 @@ public class Equipment {
 		if (id == 7110 || id == 7134 || id == 7128 || id == 7122) {
 		    return false;
 		}
+		for (int element : hideArmsInt) {
+			if (element == id) {
+				return true;
+			}
+		}
 		for (String element : hideArms) {
 			if (item.contains(element)) {
 				return true;
@@ -96,6 +104,11 @@ public class Equipment {
 	}
 
 	public static boolean hideHair(int id) {
+		for (int element : hideHairInt) {
+			if (element == id) {
+				return true;
+			}
+		}
 		String item = new Item(id).getDefinition().getName().toLowerCase();
 		for (String element : hideHair) {
 			if (item.contains(element) && id != 2581 && id != 2631 && id != 3057 && id != 4164) {

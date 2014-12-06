@@ -121,6 +121,10 @@ public class CastlewarsObjects {
                     player.getActionSender().sendMessage("You are not allowed in the other teams spawn point.");
                     return true;
                 }
+                if (player.carryingCwBanner()) {
+                    player.getActionSender().sendMessage("You are not allowed to take the banner into the safe area!");
+                    return true;
+                }
                 if (x == 2373 && y == 3126) {
                     player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -1 : 1, true);
                 } else if (x == 2377 && y == 3131) {
@@ -130,6 +134,10 @@ public class CastlewarsObjects {
             case 4469://sara safe room barrier
                 if (player.getCastlewarsTeam() == 0) {
                     player.getActionSender().sendMessage("You are not allowed in the other teams spawn point.");
+                    return true;
+                }
+                if (player.carryingCwBanner()) {
+                    player.getActionSender().sendMessage("You are not allowed to take the banner into the safe area!");
                     return true;
                 }
                 if (x == 2426 && y == 3081) {
