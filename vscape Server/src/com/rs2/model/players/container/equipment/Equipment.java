@@ -389,7 +389,6 @@ public class Equipment {
 		if((SkillCapeHandler.SkillCape.forItemId(item.getId()) != null)) {
 		    player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(item.getId()).getSkillId(), 1, true);
 		    player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
-		    return;
 		}
 		refresh();
 		updateWeight();
