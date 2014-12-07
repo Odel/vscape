@@ -312,7 +312,7 @@ public class Castlewars {
 	    	switch(team)
 	    	{
 		    	case ZAMORAK :
-	    			if(zammyLobbyCount < saraLobbyCount)
+	    			if((zammyLobbyCount < saraLobbyCount) || (zammyLobbyCount == saraLobbyCount))
 	    			{
 	    				AddToLobby(player, ZAMORAK);
 	    			}
@@ -326,7 +326,7 @@ public class Castlewars {
 	    			{
 	    				AddToLobby(player, ZAMORAK);
 	    			}
-	    			else if(saraLobbyCount < zammyLobbyCount)
+	    			else if((saraLobbyCount < zammyLobbyCount) || (zammyLobbyCount == saraLobbyCount))
 	    			{
 	    				AddToLobby(player, SARADOMIN);
 	    			}
