@@ -271,7 +271,7 @@ public class Hit {
 			}
 		    }
 		}
-		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() != 2745 && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
+		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() != 2745 && hitDef != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
 		    FightCaves.handlePlayerHit(attacker, (Npc)victim, damage);
 		}
 		if (attacker != null && victim != null && attacker.isPlayer() && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && getMultiAncients(hitDef.getHitGraphic() == null ? new Graphic(0, 0) : hitDef.getHitGraphic())  && attacker.inMulti() && victim.inMulti()) {
