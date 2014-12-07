@@ -278,6 +278,13 @@ public class CommandHandler {
 		    	sender.getActionSender().sendMessage("Pest Control is not running at the moment.");
 		    }
 		}
+		else if(keyword.equals("cwactive")) {
+		    if(Castlewars.GameActive()){
+		    	sender.getActionSender().sendMessage("There is an active Castlewars game with " + Castlewars.playersInGameTotal() + " players playing.");
+		    } else {
+		    	sender.getActionSender().sendMessage("A Castlewars game is not running at the moment.");
+		    }
+		}
 		else if(keyword.equals("resetcaves")) {
 		    sender.setFightCavesWave(0);
 		}
@@ -639,13 +646,6 @@ public class CommandHandler {
 		    Constants.CASTLEWARS_ENABLED = !Constants.CASTLEWARS_ENABLED;
         	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."));
 		}	
-		else if(keyword.equals("cwactive")) {
-		    if(Castlewars.GameActive()){
-		    	sender.getActionSender().sendMessage("There is an active Castlewars game with " + Castlewars.playersInGameTotal() + " players playing.");
-		    } else {
-		    	sender.getActionSender().sendMessage("A Castlewars game is not running at the moment.");
-		    }
-		}
 		if(keyword.equals("smite")) {
 			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
 		    long nameLong = NameUtil.nameToLong(name);
