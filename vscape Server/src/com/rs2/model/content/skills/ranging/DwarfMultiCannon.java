@@ -130,31 +130,51 @@ public class DwarfMultiCannon {
 		if(!checkCannonOwner(x, y, z)){
 			return;
 		}
-		player.getUpdateFlags().sendAnimation(827);
-		removeCannonObj(getCannonObject());
 		switch (getCannonStage()) {
 			case 1:
-				player.getInventory().addItemOrBank(new Item(6,1));
+			    if(player.getInventory().canAddItem(new Item(6,1))) {
+				player.getInventory().addItem(new Item(6,1));
+			    } else {
+				player.getActionSender().sendMessage("You do not have room in your inventory.");
+				return;
+			    }
 				break;
 			case 2:
+			    if(player.getInventory().getItemContainer().emptySlots() >= 2) {
 				player.getInventory().addItemOrBank(new Item(6,1));
 				player.getInventory().addItemOrBank(new Item(8,1));
+			    } else {
+				player.getActionSender().sendMessage("You do not have room in your inventory.");
+				return;
+			    }
 				break;
 			case 3:
+			    if(player.getInventory().getItemContainer().emptySlots() >= 3) {
 				player.getInventory().addItemOrBank(new Item(6,1));
 				player.getInventory().addItemOrBank(new Item(8,1));
 				player.getInventory().addItemOrBank(new Item(10,1));
+			    } else {
+				player.getActionSender().sendMessage("You do not have room in your inventory.");
+				return;
+			    }
 				break;
 			case 4:
+			    if(player.getInventory().getItemContainer().emptySlots() >= 4) {
 				player.getInventory().addItemOrBank(new Item(6,1));
 				player.getInventory().addItemOrBank(new Item(8,1));
 				player.getInventory().addItemOrBank(new Item(10,1));
 				player.getInventory().addItemOrBank(new Item(12,1));
+			    } else {
+				player.getActionSender().sendMessage("You do not have room in your inventory.");
+				return;
+			    }
 				break;
 		}
 		if(getAmmo() > 0){
-			player.getInventory().addItemOrBank(new Item(CANNON_BALL, getAmmo()));
+			player.getInventory().addItemOrDrop(new Item(CANNON_BALL, getAmmo()));
 		}
+		player.getUpdateFlags().sendAnimation(827);
+		removeCannonObj(getCannonObject());
 		setCannonStage(0);
 		setHasCannon(false);
 		SetCannonObject(null);
