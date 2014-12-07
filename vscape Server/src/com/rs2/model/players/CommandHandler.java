@@ -174,7 +174,7 @@ public class CommandHandler {
 			appendToBugList(sender, fullString);
 		}
 		else if (keyword.equals("home")) {
-		    if (sender.cantTeleport() || sender.inWild() || sender.isDead() || !sender.getInCombatTick().completed()) {
+		    if (sender.cantTeleport() || (player.inWild() && player.getWildernessLevel() > 20)|| sender.isDead() || !sender.getInCombatTick().completed()) {
 		    	sender.getActionSender().sendMessage("You cannot do that here!");
 		    } else {
 			if(sender.getStaffRights() < 2) {
