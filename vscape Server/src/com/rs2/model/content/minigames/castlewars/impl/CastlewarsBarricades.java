@@ -178,7 +178,7 @@ public class CastlewarsBarricades {
     }
     
     public static void PlaceBarricade(final Player player, int item, int slot){
-		if(!Castlewars.isInGame(player))
+		if(!player.inCwGame() || !Castlewars.isInGame(player))
 		{
 			return;
 		}
