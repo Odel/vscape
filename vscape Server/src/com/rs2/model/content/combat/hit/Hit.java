@@ -308,7 +308,9 @@ public class Hit {
 					    spell.getAdditionalEffect().onInit(hit, t2);
 					}
 					hit.execute(hitList);
-					npcs.hit(Misc.random(hitDefMulti.getDamage()), HitType.NORMAL);
+					int damage = Misc.random(hitDefMulti.getDamage());
+					npcs.hit(damage, HitType.NORMAL);
+					((Player) attacker).getSkill().addExp(Skill.MAGIC, damage * 4d);
 					hitList.clear();
 					b.stop();
 				    }
