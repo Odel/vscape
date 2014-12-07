@@ -1,3 +1,14 @@
+@dre@=December 6th=
+@blu@Castlewars Public Testing Phase
+-Bolt enchanting.
+-Basic wizard robes added to proper npcs.
+-Cannons provide some ranged experience.
+-Limpwurt and woad harvest amount fixed.
+-Tz-Kek recoils only on melee.
+-Waterskins no longer turn into vials.
+-Skills Necklace charges at the Legends totem.
+-Can't pick up cannon until you have space.
+
 @dre@=November 30th hotfix=
 -Untransform RNPC on combat in the wilderness
 

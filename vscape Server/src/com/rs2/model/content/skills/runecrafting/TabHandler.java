@@ -24,8 +24,8 @@ public class TabHandler {
     
     private static final int FIRE_STAFF[] = {1387, 1393, 1401, 3053, 3054};
     private static final int AIR_STAFF[] = {1381, 1397, 1405};
-    private static final int WATER_STAFF[] = {1383, 1395, 1403, 6726, 6727, 6563}; //11736 & 11738 - steam battlestaff and mystic steam
-    private static final int EARTH_STAFF[] = {1385, 1399, 1407, 6726, 6727, 3053, 3054, 6563};
+    private static final int WATER_STAFF[] = {1383, 1395, 1403, 6562, 6563}; //11736 & 11738 - steam battlestaff and mystic steam
+    private static final int EARTH_STAFF[] = {1385, 1399, 1407, 3053, 3054, 6562, 6563};
     
     private static final int VARROCK = 1;
     private static final int LUMBRIDGE = 2;
