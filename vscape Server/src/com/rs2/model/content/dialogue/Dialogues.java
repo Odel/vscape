@@ -266,6 +266,17 @@ public class Dialogues {
 						return true;
 				}
 				break;
+			case 159: //gnome child
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendNpcChat("The world is so vast...", CALM);
+						return true;
+					case 2 :
+						player.getDialogue().sendPlayerChat("Thank you.", HAPPY);
+						player.getDialogue().endDialogue();
+						return true;
+				}
+			return false;
 			case 543 : //Karim
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
