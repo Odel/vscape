@@ -176,7 +176,7 @@ public class CastlewarsCatapults {
 		            @Override
 		            public void execute(CycleEventContainer container) {
 		    			World.createStaticGraphic(Graphic.lowGraphic(287), firePosition);
-		    			int damage = Misc.random(2, 10);
+		    			int damage = Misc.random(2, 10) + 20;
 		    		    for (Player playerZ : new ArrayList<Player>(Castlewars.zammyGamePlayers)) {
 		    				if(playerZ == null) {
 		    				    continue; 
