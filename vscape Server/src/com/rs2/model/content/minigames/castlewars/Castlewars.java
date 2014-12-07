@@ -506,66 +506,68 @@ public class Castlewars {
 		if(player == null)
 			return;
 		try{
-			switch(player.getCastlewarsTeam())
-			{
-	    		case ZAMORAK :
-		        	if (zammyGamePlayers != null) {
-		        		if(zammyGamePlayers.contains(player)){
-		        			zammyGamePlayers.remove(player);
-		        			DropBanner(player, player.getPosition().clone(), DC);
-		        		}
+			if (isInGame(player) && !player.isDead()) {
+				switch(player.getCastlewarsTeam())
+				{
+		    		case ZAMORAK :
+			        	if (zammyGamePlayers != null) {
+			        		if(zammyGamePlayers.contains(player)){
+			        			zammyGamePlayers.remove(player);
+			        			DropBanner(player, player.getPosition().clone(), DC);
+			        		}
+			    		}
+		    		break;
+		    		case SARADOMIN :
+			        	if (saraGamePlayers != null) {
+			        		if(saraGamePlayers.contains(player)){
+			        			saraGamePlayers.remove(player);
+			        			DropBanner(player, player.getPosition().clone(), DC);
+			        		}
+			    		}
+			        break;
+				}
+		    	if(gameActive && gameTime > 0 && (gameTime / 60) > 1 && playersInGameTotal() >= 1)
+		    	{
+		    		switch(player.getCastlewarsTeam())
+		    		{
+		        		case ZAMORAK :
+		        			if(zammyLobbyPlayers.size() > 0){
+			        			if(zammyGamePlayers.size() < saraGamePlayers.size())
+			        			{
+			        				Player newPlayer = zammyLobbyPlayers.get(Misc.randomMinusOne(zammyLobbyPlayers.size()));
+			        				AddToGame(newPlayer, ZAMORAK);
+			        			}
+		        			}
+		        		break;
+		        		case SARADOMIN :
+		        			if(saraLobbyPlayers.size() > 0){
+			        			if(saraGamePlayers.size() < zammyGamePlayers.size())
+			        			{
+			        				Player newPlayer = saraLobbyPlayers.get(Misc.randomMinusOne(saraLobbyPlayers.size()));
+			        				AddToGame(newPlayer, SARADOMIN);
+			        			}
+		        			}
+		    	        break;
 		    		}
-	    		break;
-	    		case SARADOMIN :
-		        	if (saraGamePlayers != null) {
-		        		if(saraGamePlayers.contains(player)){
-		        			saraGamePlayers.remove(player);
-		        			DropBanner(player, player.getPosition().clone(), DC);
-		        		}
+		    	}
+		    	if(!DC)
+		    	{
+		    		RemoveItems(player, false);
+		    		if(ticketAmount > 0)
+		    		{
+		    			player.getInventory().addItem(new Item(4067, ticketAmount));
 		    		}
-		        break;
+		    		player.setCastlewarsTeam(-1);
+					player.resetEffects();
+					player.removeAllEffects();
+					player.getSkill().refresh();
+		    		if(player.wearingCwBracelet())
+		    		{
+		    			player.damageCwBracelet();
+		    		}
+		    		player.teleport(MinigameAreas.randomPosition(LOBBY_EXIT_AREA));
+		    	}
 			}
-	    	if(gameActive && gameTime > 0 && (gameTime / 60) > 1 && playersInGameTotal() >= 1)
-	    	{
-	    		switch(player.getCastlewarsTeam())
-	    		{
-	        		case ZAMORAK :
-	        			if(zammyLobbyPlayers.size() > 0){
-		        			if(zammyGamePlayers.size() < saraGamePlayers.size())
-		        			{
-		        				Player newPlayer = zammyLobbyPlayers.get(Misc.randomMinusOne(zammyLobbyPlayers.size()));
-		        				AddToGame(newPlayer, ZAMORAK);
-		        			}
-	        			}
-	        		break;
-	        		case SARADOMIN :
-	        			if(saraLobbyPlayers.size() > 0){
-		        			if(saraGamePlayers.size() < zammyGamePlayers.size())
-		        			{
-		        				Player newPlayer = saraLobbyPlayers.get(Misc.randomMinusOne(saraLobbyPlayers.size()));
-		        				AddToGame(newPlayer, SARADOMIN);
-		        			}
-	        			}
-	    	        break;
-	    		}
-	    	}
-	    	if(!DC)
-	    	{
-	    		RemoveItems(player, false);
-	    		if(ticketAmount > 0)
-	    		{
-	    			player.getInventory().addItem(new Item(4067, ticketAmount));
-	    		}
-	    		player.setCastlewarsTeam(-1);
-				player.resetEffects();
-				player.removeAllEffects();
-				player.getSkill().refresh();
-	    		if(player.wearingCwBracelet())
-	    		{
-	    			player.damageCwBracelet();
-	    		}
-	    		player.teleport(MinigameAreas.randomPosition(LOBBY_EXIT_AREA));
-	    	}
 		}catch(Exception ex) { System.out.println("Problem leaving Castlewars game"); }
 		if (playersInGameTotal() <= 0) {
 			ResetGame();
