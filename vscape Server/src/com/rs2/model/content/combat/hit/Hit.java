@@ -159,7 +159,7 @@ public class Hit {
 			}
 		    }
 		}
-		if(attacker != null && victim != null && attacker.isPlayer()) {
+		if(attacker != null && victim != null && attacker.isPlayer() && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
 		    Player player = (Player)attacker;
 		    EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
 		    if(b != null && (b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
