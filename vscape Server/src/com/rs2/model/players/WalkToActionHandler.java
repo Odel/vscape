@@ -2837,14 +2837,6 @@ public class WalkToActionHandler {
 							player.getInventory().replaceItemWithItem(new Item(item), new Item(1712, 1)); //old code ate glories, oops.
 						}
 					}
-					if (item == 11113 || item == 11111 || item == 11109 || item == 11107 ) {
-						if (player.getInventory().playerHasItem(item)) 
-						{
-							player.getActionSender().sendMessage("You dip your amulet into the fountain...");
-							player.getUpdateFlags().sendAnimation(827, 0);
-							player.getInventory().addItemToSlot(new Item(11105, 1), player.getSlot());
-						}
-					}
 					break;
 				case 3827: //kq
 				case 3830:
@@ -2895,6 +2887,14 @@ public class WalkToActionHandler {
 							player.getActionSender().sendMessage("You charge the bracelet at the totem...");
 							player.getUpdateFlags().sendAnimation(827, 0);
 							player.getInventory().addItemToSlot(new Item(11118, 1), player.getSlot());
+						}
+					}
+					if (item == 11113 || item == 11111 || item == 11109 || item == 11107 ) {
+						if (player.getInventory().playerHasItem(item)) 
+						{
+							player.getActionSender().sendMessage("You charge your necklace at the totem...");
+							player.getUpdateFlags().sendAnimation(827, 0);
+							player.getInventory().addItemToSlot(new Item(11105, 1), player.getSlot());
 						}
 					}
 					break;
