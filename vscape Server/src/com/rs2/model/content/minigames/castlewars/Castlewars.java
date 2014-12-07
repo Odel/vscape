@@ -307,17 +307,31 @@ public class Castlewars {
 			}
 		}
 		try{
+			int zammyLobbyCount = playersInLobby(ZAMORAK);
+			int saraLobbyCount = playersInLobby(SARADOMIN);
 	    	switch(team)
 	    	{
 		    	case ZAMORAK :
-		    		AddToLobby(player, ZAMORAK);
+	    			if(zammyLobbyCount < saraLobbyCount)
+	    			{
+	    				AddToLobby(player, ZAMORAK);
+	    			}
+	    			else if(saraLobbyCount < zammyLobbyCount)
+	    			{
+	    				AddToLobby(player, SARADOMIN);
+	    			}
 		    		return;
 		    	case SARADOMIN :
-		    		AddToLobby(player, SARADOMIN);
+	    			if(zammyLobbyCount < saraLobbyCount)
+	    			{
+	    				AddToLobby(player, ZAMORAK);
+	    			}
+	    			else if(saraLobbyCount < zammyLobbyCount)
+	    			{
+	    				AddToLobby(player, SARADOMIN);
+	    			}
 		        	return;
 		    	case GUTHIX :
-		    			int zammyLobbyCount = playersInLobby(ZAMORAK);
-		    			int saraLobbyCount = playersInLobby(SARADOMIN);
 		    			if(zammyLobbyCount < saraLobbyCount)
 		    			{
 		    				AddToLobby(player, ZAMORAK);
@@ -464,6 +478,10 @@ public class Castlewars {
 		if(isInGame(player))
 			return;
 		try{
+			if(player.transformNpc > 0)
+			{
+				player.resetTransform();
+			}
 	    	switch(team)
 	    	{
 		    	case ZAMORAK :
