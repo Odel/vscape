@@ -53,6 +53,15 @@ public class SkillCapeHandler {
 						return cape;
 			return null;
 		}
+		public static SkillCape forItemId(int itemId) {
+			for (SkillCape cape : SkillCape.values())
+					if (cape.skillcapeId == itemId || cape.skillcapeTrimmedId == itemId )
+						return cape;
+			return null;
+		}
+		public int getSkillId() {
+		    return this.skillId;
+		}
 	}
 	
 	public int getCapeId(int skillId, int type)

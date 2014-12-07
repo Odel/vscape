@@ -9,7 +9,6 @@ import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
-import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -37,6 +36,7 @@ import com.rs2.model.content.skills.Fletching.GemTips;
 import com.rs2.model.content.skills.Fletching.LogCuttingInterfaces;
 import com.rs2.model.content.skills.Fletching.CbowFletching;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.cooking.OneIngredients;
 import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
@@ -1269,8 +1269,9 @@ public class ItemPacketHandler implements PacketHandler {
     }
 
     private void operateItem(Player player, int itemId) {
-	if((Dialogues.isSkillCape(itemId) || Dialogues.isSkillCape(itemId - 1)) && new Item(itemId).getDefinition().getName().toLowerCase().contains("cape")) {
-	    player.getActionSender().statEdit(Dialogues.skillCapeSkillForId(itemId), 1, true);
+	if((SkillCapeHandler.SkillCape.forItemId(itemId) != null)) {
+	    player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(itemId).getSkillId(), 1, true);
+	    player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
 	    return;
 	}
 	switch (itemId) {

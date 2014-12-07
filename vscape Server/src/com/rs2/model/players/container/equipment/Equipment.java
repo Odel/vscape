@@ -3,7 +3,6 @@ package com.rs2.model.players.container.equipment;
 import java.text.DecimalFormat;
 
 import com.rs2.Constants;
-import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.special.SpecialType;
@@ -18,6 +17,7 @@ import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.Container;
@@ -385,6 +385,11 @@ public class Equipment {
 		    player.setWalkAnim(1640);
 		    player.setRunAnim(1640);
 		    player.setStandAnim(1639);
+		}
+		if((SkillCapeHandler.SkillCape.forItemId(item.getId()) != null)) {
+		    player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(item.getId()).getSkillId(), 1, true);
+		    player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
+		    return;
 		}
 		refresh();
 		updateWeight();
