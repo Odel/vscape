@@ -1,6 +1,7 @@
 @dre@=December 6th=
 @blu@Castlewars Public Testing Phase
 -Bolt enchanting.
+-Skillcapes stat boost by 1 on 'operate'.
 -Basic wizard robes added to proper npcs.
 -Cannons provide some ranged experience.
 -Limpwurt and woad harvest amount fixed.

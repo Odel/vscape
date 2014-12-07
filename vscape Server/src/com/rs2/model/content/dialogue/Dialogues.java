@@ -80,7 +80,7 @@ public class Dialogues {
                 if (player.getSkill().getLevel()[i] == 99)
                     x++;
             }  
-            return x >= 2 ? true : false;
+            return x >= 2;
         }
         public static void trimCape(Player player, int capeId) {
             if(player.getInventory().playerHasItem(capeId)) {
@@ -91,12 +91,27 @@ public class Dialogues {
 	
 	public static final int[][] skillCapeData = { {4288, Skill.ATTACK, 9747, 172}, {4297, Skill.STRENGTH, 9750, 173}, {705, Skill.DEFENCE, 9753, 174}, {682, Skill.RANGED, 9756, 175}, {1658, Skill.MAGIC, 9762, 177}, {437, Skill.AGILITY, 9771, 180}, {2270, Skill.THIEVING, 9777, 182}, {575, Skill.FLETCHING, 9783, 184}, {3295, Skill.MINING, 9792, 186}, {308, Skill.FISHING, 9798, 188}, {847, Skill.COOKING, 9801, 189}, {4946, Skill.FIREMAKING, 9804, 190}, {4906, Skill.WOODCUTTING, 9807, 191}, {3299, Skill.FARMING, 9810, 192} };
 	public static int skillCapeData(Player player, int npc, int index) {
-	    int x = 0;
 	    for(int i = 0; i < skillCapeData.length; i++) {
 		if(skillCapeData[i][0] == npc)
-		    x = skillCapeData[i][index];
+		    return skillCapeData[i][index];
 	    }
-	    return x;
+	    return 0;
+	}
+	public static int skillCapeSkillForId(int itemId) {
+	    for(int i = 0; i < skillCapeData.length; i++) {
+		if(skillCapeData[i][2] == itemId) {
+		    return skillCapeData[i][1];
+		}
+	    }
+	    return 0;
+	}
+	public static boolean isSkillCape(int itemId) {
+	    for(int i = 0; i < skillCapeData.length; i++) {
+		if(skillCapeData[i][2] == itemId) {
+		    return true;
+		}
+	    }
+	    return false;
 	}
 
 	/** Instruction

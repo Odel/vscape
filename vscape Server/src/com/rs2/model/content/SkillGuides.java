@@ -2187,6 +2187,7 @@ public class SkillGuides {
 			menuLine("8", "Blurite Bolts (unf) - 1 Bar makes 10", 9376, 0);
 			menuLine("13", "Blurite Limbs - 1 Bar", 9422, 1);
 			menuLine("60", "Dragon Square Shield", 1187, 2);
+			menuLine("90", "Dragonfire Shield", 11283, 3);
 			optionTab("Smithing", "Other", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 11) {
 			clearMenu();

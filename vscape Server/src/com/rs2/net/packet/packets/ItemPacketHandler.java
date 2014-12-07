@@ -1269,6 +1269,10 @@ public class ItemPacketHandler implements PacketHandler {
     }
 
     private void operateItem(Player player, int itemId) {
+	if((Dialogues.isSkillCape(itemId) || Dialogues.isSkillCape(itemId - 1)) && new Item(itemId).getDefinition().getName().toLowerCase().contains("cape")) {
+	    player.getActionSender().statEdit(Dialogues.skillCapeSkillForId(itemId), 1, true);
+	    return;
+	}
 	switch (itemId) {
 	    case 11283:
 		if(player.dfsTimer) {
