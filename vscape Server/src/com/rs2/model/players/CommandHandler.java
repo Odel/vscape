@@ -253,7 +253,12 @@ public class CommandHandler {
 			degradeInfo(sender);
 		}
 		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
-			roll(sender);
+			if(sender.inMiniGameArea())
+			{
+				sender.getActionSender().sendMessage("Cannot use roll in a minigame");
+			}else{
+				roll(sender);
+			}
         }
 		else if(keyword.equals("resetpet")) {
 			sender.getPets().unregisterPet();
