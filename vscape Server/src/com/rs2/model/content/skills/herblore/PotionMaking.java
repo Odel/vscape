@@ -26,6 +26,9 @@ public class PotionMaking {// todo description items
 		Item item2 = new Item(itemused2);
 		String itemName1 = item1.getDefinition().getName().toLowerCase();
 		String itemName2 = item2.getDefinition().getName().toLowerCase();
+		if (itemName1.contains("waterskin") || itemName2.contains("waterskin")) {
+			return false;
+		}
 		if (itemName1.contains("(4)") || itemName2.contains("(4)")) {
 			return false;
 		}
