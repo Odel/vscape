@@ -552,6 +552,7 @@ public class Castlewars {
 		    	}
 		    	if(!DC)
 		    	{
+		    		player.getActionSender().createPlayerHints(10, -1);
 		    		RemoveItems(player, false);
 		    		if(ticketAmount > 0)
 		    		{
