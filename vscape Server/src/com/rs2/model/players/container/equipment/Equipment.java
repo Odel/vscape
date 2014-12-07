@@ -50,7 +50,7 @@ public class Equipment {
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
 	private static int[] hideArmsInt = {4069,4504,4509};
-	private static int[] hideHairInt = {4071,4506,4511};
+	private static int[] hideHairInt = {4071,4506,4511, 10350};
 	
 	private Container itemContainer = new Container(Type.STANDARD, 14) {
 		@Override
@@ -94,6 +94,10 @@ public class Equipment {
 	}
 
 	public static boolean hideHairAndBeard(int id) {
+		if(id == 10350)
+		{
+			return false;
+		}
 		String item = new Item(id).getDefinition().getName().toLowerCase();
 		for (String element : hideHairAndBeard) {
 			if (item.contains(element)) {
