@@ -246,8 +246,12 @@ public class CommandHandler {
 				}
 			}
 		}
+		
 		else if (keyword.equals("info")) {
 			info(sender);
+		}
+		else if (keyword.equals("rules")) {
+			rules(sender);
 		}
 		else if (keyword.equals("degradeinfo")) {
 			degradeInfo(sender);
