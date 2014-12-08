@@ -456,7 +456,7 @@ public class Hit {
     	}
         if (hitDef.getDropItem() != null && attacker != null && attacker.isPlayer()) {
             Player player = (Player) attacker;
-            if (player.isDropArrow() /*&& Misc.getRandom().nextInt(10) < 6*/) {
+            if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {
             	Item arrow = new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount());
             	if(player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ATTRACTOR || player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ACCUMULATOR) {
             		player.getEquipment().addEquipment(arrow, arrow.getDefinition().getSlot());
