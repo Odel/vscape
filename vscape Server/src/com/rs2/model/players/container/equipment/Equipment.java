@@ -194,6 +194,30 @@ public class Equipment {
 		player.getAttributes().put("usedGlory", Boolean.FALSE);
 	}
 	
+	public void addEquipment(Item item, int slot)
+	{
+		Item addItem = new Item(item.getId(), item.getCount());
+		if(player.getEquipment().getId(slot) > 0){
+			int slotItemId = player.getEquipment().getId(slot);
+			Item currentEquip = new Item(slotItemId, player.getEquipment().getItemContainer().getCount(slotItemId));		
+			if(currentEquip.getId() != addItem.getId())
+			{
+				return;
+			}	
+			if(!currentEquip.getDefinition().isStackable())
+			{
+				return;
+			}	
+			addItem.setCount(addItem.getCount() + currentEquip.getCount());
+			itemContainer.remove(currentEquip, slot);
+		}
+		itemContainer.set(slot, addItem);
+		refresh();
+		sendWeaponInterface();
+		player.getInventory().refresh();
+		player.setAppearanceUpdateRequired(true);
+	}
+	
 	public void equip(int slot) {
 		Item item = player.getInventory().getItemContainer().get(slot);
 		if (item == null) {

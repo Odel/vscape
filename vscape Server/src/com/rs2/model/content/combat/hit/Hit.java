@@ -456,20 +456,19 @@ public class Hit {
     	}
         if (hitDef.getDropItem() != null && attacker != null && attacker.isPlayer()) {
             Player player = (Player) attacker;
-            if (player.isDropArrow() && Misc.getRandom().nextInt(10) < 6) {
-		if(player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ATTRACTOR || player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ACCUMULATOR) {
-		    Item arrow = new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount());
-		    player.getEquipment().getItemContainer().add(arrow, hitDef.getDropItem().getDefinition().getSlot());
-		}
+            if (player.isDropArrow() /*&& Misc.getRandom().nextInt(10) < 6*/) {
+            	Item arrow = new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount());
+            	if(player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ATTRACTOR || player.getEquipment().getId(Constants.CAPE) == AnimalMagnetism.AVAS_ACCUMULATOR) {
+            		player.getEquipment().addEquipment(arrow, arrow.getDefinition().getSlot());
+            	}
             	/*if (player.inDuelArena()) {
             		player.getActionSender().sendMessage(""+hitDef.getDropItem().getId());
             		player.getDuelMainData().getAmmoUsed().add(new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount()));
             	} else {*/
-		else {
-                    GroundItem dropItem = new GroundItem(new Item(hitDef.getDropItem().getId(), hitDef.getDropItem().getCount()), player, victim.getPosition().clone());
+            	 else {
+                    GroundItem dropItem = new GroundItem(arrow, player, victim.getPosition().clone());
                     GroundItemManager.getManager().dropItem(dropItem);
-		}
-            	//}
+				}
             }
         }
 
