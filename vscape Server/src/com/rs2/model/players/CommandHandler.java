@@ -652,7 +652,7 @@ public class CommandHandler {
         	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."));
 		}	
 		if(keyword.equals("smite")) {
-			String name = NameUtil.uppercaseFirstLetter(args[0].toLowerCase());
+			String name = fullString;
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
