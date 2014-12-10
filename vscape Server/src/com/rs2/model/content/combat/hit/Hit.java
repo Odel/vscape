@@ -311,6 +311,9 @@ public class Hit {
 					int damage = Misc.random(hitDefMulti.getDamage());
 					npcs.hit(damage, HitType.NORMAL);
 					((Player) attacker).getSkill().addExp(Skill.MAGIC, damage * 4d);
+					if(((Player) attacker).inPestControlGameArea()) {
+					    PestControl.handleHit(attacker, victim, damage);
+					}
 					hitList.clear();
 					b.stop();
 				    }
