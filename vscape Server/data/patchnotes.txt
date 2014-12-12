@@ -1,9 +1,3 @@
-@dre@=December 12th=
--::rules are now available
--::report and ::panic now save to file
-so that admins can check these out 
-in the future, even when offline
-
 @dre@=December 7th=
 -CW fixes :^)
 
