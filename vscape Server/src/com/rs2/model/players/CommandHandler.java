@@ -126,7 +126,8 @@ public class CommandHandler {
 			}
 			sender.lastReport = System.currentTimeMillis();
 			World.messageToStaff("@blu@"+ sender.getUsername() + " paniced because:" + fullString + "!");
-			sender.getActionSender().sendMessage("A message for assistance has been sent to the staff.");
+			sender.getActionSender().sendMessage("A message for assistance was saved and sent to the admins.");
+			appendToReportList(sender, fullString);
 		}
 		else if (keyword.equals("report")) {
 			if (args.length < 2) {
@@ -148,8 +149,9 @@ public class CommandHandler {
 				return;
 			}
             sender.lastReport = System.currentTimeMillis();
-            sender.getActionSender().sendMessage("A message has been sent to staff about your report.");
 			World.messageToStaff("@dre@"+sender.getUsername() + " has reported " + player.getUsername() + " for "+ fullString);
+			sender.getActionSender().sendMessage("The report has been saved and sent to staff. Thank you!");
+			appendToReportList(sender, fullString);
 		}
 		else if (keyword.equals("yell") || keyword.equals("y")) {
 			Yell(sender, fullString);
@@ -1718,7 +1720,21 @@ public class CommandHandler {
 		}
 	    }
 	}
-	
+	public static void rules(Player player) {
+	    player.getActionSender().sendInterface(8134);
+	    ClearNotes(player);
+	    player.getActionSender().sendString("@dre@-=vscape rules=-", 8144);
+	    int line = 8147;
+	    for (String q : GlobalVariables.rules) {
+		if (q != null) {
+		    if (line > 8195 && line < 12174) {
+			line = 12174;
+		    }
+		    player.getActionSender().sendString(q, line);
+		    line++;
+		}
+	    }
+	}
 	public static void degradeInfo(Player player) {
 	    player.getActionSender().sendInterface(8134);
 	    ClearNotes(player);
@@ -1767,7 +1783,23 @@ public class CommandHandler {
 			e.printStackTrace();
 		}
 	}
+
+		public static void appendToReportList(Player player, String bug) {
+		String filePath = "./data/reports.txt";
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
+			try {
+				out.write("Report/ticket by " + player.getUsername() + " about : " + bug);
+				out.newLine();
+			} finally {
+				out.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+
     private static void roll(Player player) {
         switch(Misc.random(42)) {
              case 0 :
