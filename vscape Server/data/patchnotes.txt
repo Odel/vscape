@@ -3,6 +3,11 @@
 -::report and ::panic now save to file
 so that admins can check these out 
 in the future, even when offline
+-::roll only spooks you, will no longer
+transform you into a skeleton
+-Any transformation will now be undone
+in the wilderness
+-numerous fixes left and right
 
 @dre@=December 7th=
 -CW fixes :^)
