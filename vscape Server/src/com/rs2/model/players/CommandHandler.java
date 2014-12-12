@@ -1720,7 +1720,7 @@ public class CommandHandler {
 		}
 	    }
 	}
-/*
+
 	public static void rules(Player player) {
 	    player.getActionSender().sendInterface(8134);
 	    ClearNotes(player);
@@ -1736,7 +1736,7 @@ public class CommandHandler {
 		}
 	    }
 	}
-*/
+	
 	public static void degradeInfo(Player player) {
 	    player.getActionSender().sendInterface(8134);
 	    ClearNotes(player);
