@@ -1799,7 +1799,7 @@ public class CommandHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
     private static void roll(Player player) {
         switch(Misc.random(42)) {
              case 0 :
@@ -1938,11 +1938,11 @@ public class CommandHandler {
 	
     private static void darkFate(Player player){
     	player.getActionSender().sendInterface(18681);
-    	player.transformNpc = 1973;
+/*    	player.transformNpc = 1973;
     	player.setStandAnim(5493);
     	player.setWalkAnim(5497);
     	player.setRunAnim(5497);
-    	player.setAppearanceUpdateRequired(true);
+    	player.setAppearanceUpdateRequired(true);*/
         try {   
             Thread.sleep(1500);                 //1000 milliseconds is one second.
         } catch(InterruptedException ex) {
