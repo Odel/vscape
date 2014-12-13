@@ -1721,19 +1721,19 @@ public class CommandHandler {
 	    }
 	}
 
-		public static void rules(Player player) {
+	public static void rules(Player player) {
 	    player.getActionSender().sendInterface(8134);
 	    ClearNotes(player);
 	    player.getActionSender().sendString("@dre@-=vscape rules=-", 8144);
 	    int line = 8147;
 	    for (String q : GlobalVariables.rules) {
-		if (q != null) {
-		    if (line > 8195 && line < 12174) {
-			line = 12174;
-		    }
-		    player.getActionSender().sendString(q, line);
-		    line++;
-		}
+			if (q != null) {
+			    if (line > 8195 && line < 12174) {
+				line = 12174;
+			    }
+			    player.getActionSender().sendString(q, line);
+			    line++;
+			}
 	    }
 	}
 	public static void degradeInfo(Player player) {

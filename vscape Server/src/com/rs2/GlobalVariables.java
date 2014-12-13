@@ -11,7 +11,7 @@ public class GlobalVariables {
 	
 	public static String[] patchNotes = null;
 	public static String[] info = null;
-	public stqtic String[] rules = null;
+	public static String[] rules = null;
 	public static String[] degradeInfo = null;
 	public static String[] npcDump = null;
 	public static String[] itemDump = null;
