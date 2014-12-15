@@ -1134,7 +1134,7 @@ public class Player extends Entity {
 		getActionSender().hideAllSideBars();
 		setCombatLevel(getSkill().calculateCombatLevel());
 		// getNewComersSide().setTutorialIslandStage(100, true);
-		Tiaras.handleTiara(this, getEquipment().getId(Constants.HAT));
+		Tiaras.handleTiara(this);
 		getEquipment().checkRangeGear();
 		getEquipment().checkBarrowsGear();
 		getEquipment().checkVoidGear();

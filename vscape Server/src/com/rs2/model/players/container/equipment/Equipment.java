@@ -424,7 +424,9 @@ public class Equipment {
 			player.getActionSender().sendSidebarInterface(3, 6014);
 		}
 		WalkInterfaces.checkChickenOption(player);
-		Tiaras.handleTiara(player, item.getId());
+		if (equipSlot == Constants.HAT) {
+			Tiaras.handleTiara(player);
+		}
 		player.setAppearanceUpdateRequired(true);
 	}
 
@@ -466,9 +468,6 @@ public class Equipment {
     		player.getActionSender().sendSideBarInterfaces();
     		player.setAppearanceUpdateRequired(true);
 		}
-		if (slot == Constants.HAT) {
-			Tiaras.handleTiara(player, -1);
-		}
         if(!player.getEquipment().getItemContainer().contains(item.getId()))
             return;
 		player.getTask();
@@ -489,6 +488,9 @@ public class Equipment {
 		refresh(slot, new Item(-1, 0));
 		updateWeight();
 		WalkInterfaces.checkChickenOption(player);
+		if (slot == Constants.HAT) {
+			Tiaras.handleTiara(player);
+		}
 		player.setAppearanceUpdateRequired(true);
 	}
 

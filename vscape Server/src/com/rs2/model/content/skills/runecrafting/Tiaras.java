@@ -100,7 +100,8 @@ public class Tiaras {
 		return true;
 	}
 
-	public static void handleTiara(Player player, int id) {
+	public static void handleTiara(Player player) {
+		int id = player.getEquipment().getId(Constants.HAT);
 		final Tiara tiara = Tiara.getTiara(id);
 		if (tiara == null) {
 			player.getActionSender().sendConfig(491, 0);
