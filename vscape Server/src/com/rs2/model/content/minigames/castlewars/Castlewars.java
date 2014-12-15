@@ -987,6 +987,9 @@ public class Castlewars {
 		{
 			return;
 		}
+		if(player.carryingCwBanner()){
+			return;
+		}
 		if(player.getEquipment().getId(Constants.WEAPON) > 0){
 			if(player.getInventory().getItemContainer().freeSlots() <= 0)
 			{
@@ -1080,6 +1083,9 @@ public class Castlewars {
 		}
 		if(!getBannerTaken(team))
 		{
+			return;
+		}
+		if(player.carryingCwBanner()){
 			return;
 		}
 		if(player.getEquipment().getId(Constants.WEAPON) > 0){
