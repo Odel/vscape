@@ -62,6 +62,7 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
@@ -299,6 +300,9 @@ public class Player extends Entity {
 	private boolean appearanceUpdateRequired;
 	private boolean killedTreeSpirit;
 	private boolean resetbank;
+	public static boolean christmasUpdated = false;
+	public static boolean snowballsReady = false;
+	public static boolean snowballsTimerRunning = false;
 	private boolean killedJungleDemon;
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
@@ -1021,6 +1025,9 @@ public class Player extends Entity {
                 {
                 	player.reloadRegion();
                 }
+		if(ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470)) {
+		    player.reloadRegion();
+		}
         		if (!stopPacket) {
     				setStopPacket(false);
         		}
@@ -1031,6 +1038,7 @@ public class Player extends Entity {
 			public void stop() {
 			}
         }, 2);
+		christmasUpdated = false;
 	}
 
 	public void reloadRegion() {
@@ -1041,6 +1049,9 @@ public class Player extends Entity {
 		GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
 		getRegionMusic().playMusic();
+		if(!this.Area(3175, 3235, 3410, 3470)) {
+		    christmasUpdated = false;
+		}
 	    
 	}
 	

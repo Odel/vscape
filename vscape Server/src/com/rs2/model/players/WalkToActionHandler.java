@@ -1,9 +1,7 @@
 package com.rs2.model.players;
 
 import com.rs2.Constants;
-import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -2972,7 +2970,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
+				if ((!player.goodDistanceEntity(npc, 1) && item != 10501) || player.inEntity(npc)) {
 					return;
 				}
 				if(!npc.isBarricade()){

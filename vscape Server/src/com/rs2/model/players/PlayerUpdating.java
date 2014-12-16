@@ -8,6 +8,7 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
+import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
@@ -17,6 +18,9 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
@@ -97,6 +101,21 @@ public final class PlayerUpdating {
 		if(BlackKnightsFortress.attackPlayer(player)) {
 		    BlackKnightsFortress.attackPlayer(player, true);
 		}
+		if(ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470) && !player.christmasUpdated && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
+		    player.christmasUpdated = true;
+		    final Player finalPlayer = player;
+		    CycleEventHandler.getInstance().addEvent(finalPlayer, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    finalPlayer.reloadRegion();
+			}
+		    }, 2);
+		} 
 		if(player.getPosition().getY() > 3312 && player.getPosition().getY() < 3400 && player.getPosition().getX() > 3068 && player.getPosition().getX() < 3145) {
 		    for(Npc npc : World.getNpcs()) {
 			if(npc == null || npc.getNpcId() != AnimalMagnetism.UNDEAD_TREE) continue;

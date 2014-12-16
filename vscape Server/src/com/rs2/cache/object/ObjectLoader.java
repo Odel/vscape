@@ -14,6 +14,9 @@ import com.rs2.cache.obj.ObjectDefinitionListener;
 import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.ChristmasEvent;
+import com.rs2.model.objects.GameObject;
+import com.rs2.model.players.GlobalObjectHandler;
 /*import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.GlobalObjectHandler;*/
@@ -66,6 +69,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 			logger.info("Loaded " + objectCount + " objects.");
 			removeUnnecessaryClipping();
 			addNecessaryClipping();
+			addObjects();
 			//GlobalObjectHandler.createGlobalObject();
 		} catch(Exception e) { 
             e.printStackTrace();
@@ -131,7 +135,43 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 	}
 	
 	public static void addObjects() {
-	    
+	    if(ChristmasEvent.CHRISTMAS_ENABLED) {
+		//ObjectHandler.getInstance().placeObject(new GameObject(10659, 3195, 3437, 0, 0, 10, 0, 999999, true), true);
+		//ObjectHandler.getInstance().placeObject(new GameObject(10665, 3194, 3440, 0, 1, 10, 0, 999999, true), true);
+		//ObjectHandler.getInstance().placeObject(new GameObject(10665, 3192, 3438, 0, 2, 10, 0, 999999, true), true);
+		new GameObject(10659, 3195, 3437, 0, 0, 10, 0, 999999, true);
+		new GameObject(10665, 3194, 3440, 0, 1, 10, 0, 999999, true);
+		new GameObject(10665, 3192, 3438, 0, 2, 10, 0, 999999, true);
+		
+		new GameObject(210, 2851, 3783, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2851, 3782, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2851, 3781, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2851, 3780, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2851, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2852, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2853, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2854, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2855, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2856, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2857, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2858, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2859, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3779, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3780, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3781, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3782, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3783, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2860, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2859, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2858, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2857, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2856, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2855, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2854, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2853, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2852, 3784, 0, 0, 10, 0, 999999, true);
+		new GameObject(210, 2851, 3784, 0, 0, 10, 0, 999999, true);
+	    }
 	}
 
 	@Override

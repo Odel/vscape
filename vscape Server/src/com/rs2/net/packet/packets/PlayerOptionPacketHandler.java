@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.minigames.Snowball;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.minigames.gnomeball.GnomeBall;
 import com.rs2.model.content.skills.magic.Spell;
@@ -80,7 +81,7 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		}
 		//player.setClickId(otherPlayerId);
 		player.setInteractingEntity(otherPlayer);
-		if(item.getId() != 751) {
+		if(item.getId() != 751 && item.getId() != 10501) {
 		    player.setFollowDistance(1);
 		    player.setFollowingEntity(otherPlayer);
 		}
@@ -96,6 +97,12 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 				}
 				if(item.getId() == 751) {
 				    GnomeBall.throwGnomeBall(player, otherPlayer);
+				    player.getMovementHandler().reset();
+				    this.stop();
+				    return;
+				}
+				if(item.getId() == 10501) {
+				    Snowball.throwSnowball(player, otherPlayer);
 				    player.getMovementHandler().reset();
 				    this.stop();
 				    return;

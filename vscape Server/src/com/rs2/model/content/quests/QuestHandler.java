@@ -56,7 +56,8 @@ public class QuestHandler {
 	new DwarfCannon(),
 	new WaterfallQuest(),
 	new GertrudesCat(),
-	new TreeGnomeVillage()
+	new TreeGnomeVillage(),
+	new ChristmasEvent()
     };
     
     public static void init() {
