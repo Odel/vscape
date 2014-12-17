@@ -1122,20 +1122,31 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("pnpc")) {
 			final int npcId = Integer.parseInt(args[0]);
-			sender.transformNpc = npcId;
-			sender.setAppearanceUpdateRequired(true);
-			sender.setSize(new Npc(npcId).getDefinition().getSize());
+			String name = fullString.substring(fullString.indexOf("-")+1);
+			long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+			Player player = World.getPlayerByName(nameLong);
+			if(player == null && fullString.toLowerCase().contains("-")) {
+				sender.getActionSender().sendMessage("Could not find player.");
+			    return;
+			}
+			if(player == null)
+			{
+				player = sender;
+			}
+			player.transformNpc = npcId;
+			player.setAppearanceUpdateRequired(true);
+			player.setSize(new Npc(npcId).getDefinition().getSize());
 			NpcDefinition def = NpcDefinition.forId(npcId);
 			if(def != null)
 			{
-				sender.setStandAnim(def.getStandAnim());
-				sender.setWalkAnim(def.getWalkAnim());
-				sender.setRunAnim(def.getWalkAnim());
+				player.setStandAnim(def.getStandAnim());
+				player.setWalkAnim(def.getWalkAnim());
+				player.setRunAnim(def.getWalkAnim());
 			}
 			if(npcId <= 0) {
-				sender.setStandAnim(-1);
-				sender.setRunAnim(-1);
-				sender.setWalkAnim(-1);
+				player.setStandAnim(-1);
+				player.setRunAnim(-1);
+				player.setWalkAnim(-1);
 			}
 			sender.getActionSender().sendMessage("NPC #" + npcId);
 		}
