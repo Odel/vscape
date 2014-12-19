@@ -11723,8 +11723,15 @@
   },
   {
     "npcId": 84,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
+      {  
+	  "id": 592,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
       {
         "id": 1365,
         "count": [
@@ -17635,7 +17642,7 @@
   },
   {
     "npcId": 112,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 532,
@@ -17923,7 +17930,7 @@
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 3
       },
       {
         "id": 201,
@@ -17951,7 +17958,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 215,
@@ -17972,7 +17979,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 213,
@@ -17993,7 +18000,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 7869,
@@ -95214,7 +95221,7 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 1317,
@@ -95598,7 +95605,7 @@
   },
   {
     "npcId": 1592,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 536,
@@ -95619,7 +95626,7 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 9431,
@@ -95633,7 +95640,7 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 1373,
@@ -95668,7 +95675,7 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 6
       },
       {
         "id": 1185,
@@ -95694,6 +95701,7 @@
       {
         "id": 565,
         "count": [
+		  15,
           20
         ],
         "chance": 2
@@ -95724,7 +95732,7 @@
         "count": [
           7
         ],
-        "chance": 3
+        "chance": 6
       },
       {
         "id": 886,
