@@ -1306,7 +1306,7 @@
     "respawn": 10,
     "combat": 48,
     "hitpoints": 50,
-    "maxHit": 15,
+    "maxHit": 5,
     "size": 2,
     "attackSpeed": 4000,
     "attackAnim": 25,
@@ -1394,7 +1394,7 @@
     "defenceRange": 55,
     "defenceMage": 37,
     "attackable": true,
-    "aggressive": false,
+    "aggressive": true,
     "retreats": false,
     "poisonous": false,
     "poisonImmune": false
