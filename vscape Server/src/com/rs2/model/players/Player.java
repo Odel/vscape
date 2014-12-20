@@ -4291,6 +4291,10 @@ public class Player extends Entity {
     public boolean isIpBanned() 
     {
         File file = new File("./data/bannedips.txt");
+        if(getHost().length() <= 0 || getHost().equalsIgnoreCase(" "))
+        {
+        	return false;
+        }
         if (!file.exists()) {
             return false;
         }
