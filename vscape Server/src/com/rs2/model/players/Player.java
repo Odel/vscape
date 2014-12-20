@@ -303,6 +303,7 @@ public class Player extends Entity {
 	public static boolean christmasUpdated = false;
 	public static boolean snowballsReady = false;
 	public static boolean snowballsTimerRunning = false;
+	public static boolean encounterRunning = false;
 	private boolean killedJungleDemon;
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
@@ -1232,6 +1233,9 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, false, 0);
         }
+	if(this.Area(2754, 2814, 3833, 3873)) {
+	    this.teleport(ChristmasEvent.SNOWY_JAIL);
+	}
 	//	getCat().initChecks();
 	}
 
@@ -3599,7 +3603,7 @@ public class Player extends Entity {
 		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() || inFightCaves()) {
 			return; //prevents the dropping of items
 		}
-		if (inCwGame()) {
+		if (inCwGame() || this.Area(2754, 2814, 3833, 3873)) {
 			return; //prevents the dropping of items
 		}
 		if (killer == null) {

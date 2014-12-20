@@ -1,13 +1,13 @@
 package com.rs2.model.content.minigames;
 
 import com.rs2.model.Entity;
-import com.rs2.model.Graphic;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -15,6 +15,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.util.Misc;
 import java.util.Random;
 
 public class Snowball {
@@ -24,6 +25,10 @@ public class Snowball {
 
     private static boolean isSanta(final Entity victim) {
 	return victim.isNpc() && ((Npc) victim).getNpcId() == ChristmasEvent.SANTA;
+    }
+    
+    private static boolean isLightCreature(final Entity victim) {
+	return victim.isNpc() && ((Npc) victim).getNpcId() == ChristmasEvent.LIGHT_CREATURE;
     }
 
     public static void throwSnowball(final Player player, final Entity victim) {
@@ -37,10 +42,22 @@ public class Snowball {
 		int victimX = victim.getPosition().getX(), victimY = victim.getPosition().getY();
 		final int offsetX = (attackerY - victimY) * -1;
 		final int offsetY = (attackerX - victimX) * -1;
-		//player.getActionSender().walkTo(0, 0, true);
-
+		if(isSanta(victim) && !player.Area(2754, 2814, 3833, 3873)) {
+		    player.getDialogue().sendPlayerChat("I don't think that would be a good idea...", Dialogues.CONTENT);
+		    player.getDialogue().endDialogue();
+		    container.stop();
+		    this.stop();
+		    return;
+		}
 		if (!player.getInCombatTick().completed()) {
 		    player.getActionSender().sendMessage("You cannot throw a snowball in combat!");
+		    container.stop();
+		    this.stop();
+		    return;
+		}
+		if(player.Area(2754, 2814, 3833, 3873) && isSanta(victim) && !Misc.goodDistance(player.getPosition(), victim.getPosition(), 1)) {
+		    player.getDialogue().sendPlayerChat("I need to get closer for a guaranteed hit.", Dialogues.CONTENT);
+		    player.getDialogue().endDialogue();
 		    container.stop();
 		    this.stop();
 		    return;
@@ -73,20 +90,13 @@ public class Snowball {
 			public void execute(CycleEventContainer container) {
 			    if (75 > (new Random().nextDouble() * 100) && victim.getFrozenImmunity().completed()) {
 				player.getActionSender().sendMessage("...it freezes your target in place!");
-				/*victim.getFrozenTimer().setWaitDuration(isSanta(victim) ? frozenTime + 30 : frozenTime);
-				victim.getFrozenTimer().reset();
-				*/
-				HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, isSanta(victim) ? 5 : 0);
+				HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, isSanta(victim) ? 15 : 0);
 				Hit freeze = new Hit(player, victim, hitDefFreeze);
-				BindingEffect bind = new BindingEffect(isSanta(victim) ? frozenTime + 30 : frozenTime);
+				BindingEffect bind = new BindingEffect(isLightCreature(victim) ? frozenTime + 5 : frozenTime);
 				bind.initialize(freeze);
 				if(isSanta(victim) && !player.Area(3175, 3235, 3410, 3470)) {
-				    if(victim.getCurrentHp() - 5 <= 0) {
-					CombatManager.startDeath(victim);
-				    } else {
-					freeze.display();
-					victim.setCurrentHp(victim.getCurrentHp() - 5);
-				    }
+				    freeze.display();
+				    CombatManager.startDeath(victim);
 				}
 				victim.getFrozenImmunity().setWaitDuration(isSanta(victim) ? frozenTime + 36 : frozenTime + 6);
 				victim.getFrozenImmunity().reset();

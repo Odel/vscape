@@ -73,7 +73,7 @@ public class WalkInterfaces {
 			    GhostsAhoy.handleWindSpeed(player);
 			}
 		}
-		else if (player.inWaterbirthIsland()) {
+		else if (player.inWaterbirthIsland() || player.Area(2754, 2814, 3833, 3873)) {
 			if (changeWalkableInterface(player, 11877)) {
 				player.getActionSender().sendPlayerOption("null", 1, false);
 			}

@@ -1,6 +1,7 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
@@ -13,12 +14,18 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.SkillHandler;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
+import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
+import java.util.ArrayList;
 
 public class ChristmasEvent implements Quest {
     public static boolean CHRISTMAS_ENABLED = true;
@@ -30,11 +37,12 @@ public class ChristmasEvent implements Quest {
     public static final int INVESTIGATE = 5;
     public static final int TRAPDOOR = 6;
     public static final int CONFRONT_SANTA = 7;
-    public static final int QUEST_COMPLETE = 9;
+    public static final int QUEST_COMPLETE = 8;
     //Items
     public static final int SNOWBALL_ITEM = 10501;
     //Positions
     public static final Position SNOWY_JAIL = new Position(2855, 3783, 0);
+    public static final Position ENCOUNTER = new Position(2775, 3840, 0);
     //Interfaces
 
     //Npcs
@@ -42,10 +50,17 @@ public class ChristmasEvent implements Quest {
     public static final int COAL_SLAVE = 979;
     public static final int DJANGO = 970;
     public static final int WISE_OLD_MAN = 2253;
+    public static final int ICE_FIEND = 3406;
+    public static final int ICE_GIANT = 111;
+    public static final int ICE_SPIDER = 64;
+    public static final int ICE_WOLF = 1558;
+    public static final int ICE_TROLL = 1936;
+    public static final int LIGHT_CREATURE  = 2021;
     //Objects
     public static final int ICE_COLUMN = 516;
     public static final int ICE_LIGHT = 210;
     public static final int TRAPDOOR_OBJ = 6434;
+    public static final int SLOPE = 5015;
     
     public static final int PLACE_ANIM = 832;
     
@@ -155,6 +170,190 @@ public class ChristmasEvent implements Quest {
     public void setDialogueStage(int in) { //Don't change
 	dialogueStage = in;
     }
+    public enum LightCreatureEnum {
+	ONE(0, new Position(2782, 3868, 0), new Position(2784, 3868, 0)),
+	TWO(1, new Position(2781, 3867, 0), new Position(2785, 3867, 0)),
+	THREE(2, new Position(2780, 3866, 0), new Position(2786, 3866, 0)),
+	FOUR(3, new Position(2765, 3846, 0), new Position(2775, 3846, 0)),
+	FIVE(4, new Position(2769, 3852, 0), new Position(2775, 3847, 0)),
+	SIX(5, new Position(2775, 3855, 0), new Position(2779, 3855, 0)),
+	SEVEN(6, new Position(2762, 3856, 0), new Position(2771, 3856, 0)),
+	EIGHT(7, new Position(2765, 3851, 0), new Position(2762, 3854, 0)),
+	NINE(8, new Position(2766, 3849, 0), new Position(2765, 3846, 0)),
+	TEN(9, new Position(2758, 3848, 0), new Position(2758, 3861, 0)),
+	ELEVEN(10, new Position(2781, 3843, 0), new Position(2787, 3843, 0)),
+	TWELVE(11, new Position(2797, 3837, 0), new Position(2782, 3837, 0)),
+	THIRTEEN(12, new Position(2787, 3844, 0), new Position(2779, 3847, 0)),
+	FOURTEEN(13, new Position(2778, 3849, 0), new Position(2781, 3852, 0)),
+	FIFTEEN(14, new Position(2783, 3854, 0), new Position(2789, 3846, 0)),
+	SIXTEEN(15, new Position(2791, 3854, 0), new Position(2792, 3851, 0)),
+	SEVENTEEN(16, new Position(2792, 3856, 0), new Position(2799, 3856, 0)),
+	EIGHTEEN(17, new Position(2801, 3853, 0), new Position(2804, 3848, 0)),
+	NINETEEN(18, new Position(2802, 3846, 0), new Position(2799, 3846, 0)),
+	TWENTY(19, new Position(2805, 3848, 0), new Position(2808, 3852, 0)),
+	TWENTY1(20, new Position(2808, 3857, 0), new Position(2803, 3855, 0)),
+	TWENTY2(21, new Position(2793, 3840, 0), new Position(2797, 3843, 0)),
+	TWENTY3(22, new Position(2791, 3845, 0), new Position(2795, 3845, 0)),
+	TWENTY4(22, new Position(2805, 3844, 0), new Position(2807, 3838, 0));
+	public int id;
+	public Position startPos;
+	public Position endPos;
+	
+	LightCreatureEnum(int id, Position startPos, Position endPos) {
+	    this.id = id;
+	    this.startPos = startPos;
+	    this.endPos = endPos;
+	}
+	
+	public static LightCreatureEnum forIndex(int index) {
+	    for(LightCreatureEnum l : LightCreatureEnum.values()) {
+		if(index == l.id) {
+		    return l;
+		}
+	    }
+	    return null;
+	}
+	
+	public Position getStartPosition() {
+	    return this.startPos;
+	}
+	
+	public Position getEndPosition() {
+	    return this.endPos;
+	}
+    }
+    public static void sendDelaySantaChat(final Player player, final String[] chat) {
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		b.stop();
+	    }
+
+	    @Override
+	    public void stop() {
+		player.getDialogue().setLastNpcTalk(SANTA);
+		player.getDialogue().sendNpcChat(chat, LAUGHING);
+		player.getDialogue().endDialogue();
+	    }
+	}, 3);
+    }
+    public static void spawnEncounterNpc(Npc npc, Position spawningPosition) {
+	npc.setPosition(spawningPosition);
+	npc.setSpawnPosition(spawningPosition);
+	npc.setWalkType(Npc.WalkType.STAND);
+	npc.setCurrentX(spawningPosition.getX());
+	npc.setCurrentY(spawningPosition.getY());
+	npc.setNeedsRespawn(false);
+	World.register(npc);
+    }
+    public void startEncounterLogic(final Player player) {
+	final Npc santa = new Npc(SANTA);
+	final ArrayList<Npc> lightCreatures = new ArrayList<>();
+	for(int i = 0; i < LightCreatureEnum.values().length; i++) {
+	    lightCreatures.add(new Npc(LIGHT_CREATURE));
+	}
+	final int heightLevel = player.getPosition().getZ();
+	final int combat = player.getCombatLevel();
+	final int spawnId = combat < 10 ? ICE_FIEND : combat < 20 ? ICE_FIEND : combat < 40 ? ICE_GIANT : combat < 70 ? ICE_SPIDER : combat < 110 ? ICE_WOLF : ICE_TROLL;
+	spawnEncounterNpc(santa, new Position(2783, 3869, heightLevel));
+	for(int i = 0; i < lightCreatures.size(); i++) {
+	    LightCreatureEnum l = LightCreatureEnum.forIndex(i);
+	    Npc n = lightCreatures.get(i);
+	    if (l != null) {
+		spawnEncounterNpc(n, new Position(l.getStartPosition().getX(), l.getStartPosition().getY(), heightLevel));
+	    }
+	}
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    boolean enemySpawned = false;
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if (player == null || santa == null || !santa.isVisible() || santa.isDead()) {
+		    b.stop();
+		    return;
+		} else if (!player.Area(2754, 2814, 3833, 3873) || !player.encounterRunning || player.getPosition().getZ() != heightLevel) {
+		    b.stop();
+		    return;
+		} else {
+		    if (Misc.goodDistance(player.getPosition(), lightCreatures.get(2).getPosition(), 1) || Misc.goodDistance(player.getPosition(), lightCreatures.get(1).getPosition(), 1) || player.getPosition().equals(lightCreatures.get(0).getPosition())) {
+			player.teleport(new Position(ENCOUNTER.getX(), ENCOUNTER.getY(), heightLevel));
+			sendDelaySantaChat(player, new String[]{"HO HO! You thought you could stop me?!"});
+		    }
+		    if (Misc.random(20) == 1 && !enemySpawned && !Misc.goodDistance(player.getPosition(), santa.getPosition(), 4)) {
+			enemySpawned = true;
+			Npc spawn = new Npc(spawnId);
+			spawn.setCombatDelay(3);
+			NpcLoader.spawnNpc(player, spawn, true, false);
+			player.getDialogue().setLastNpcTalk(SANTA);
+			player.getDialogue().sendNpcChat("Let's see how you like this!", LAUGHING);
+			player.getDialogue().endDialogue();
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				enemySpawned = false;
+			    }
+			}, 15);
+		    }
+		    for (int i = 0; i < lightCreatures.size(); i++) {
+			LightCreatureEnum l = LightCreatureEnum.forIndex(i);
+			Npc n = lightCreatures.get(i);
+			if (l != null) {
+			    if (lightCreatures.get(i).getPosition().equals(new Position(l.getStartPosition().getX(), l.getStartPosition().getY(), heightLevel)) && n.getFrozenImmunity().completed()) {
+				n.walkTo(new Position(l.getEndPosition().getX(), l.getEndPosition().getY(), heightLevel), true);
+			    }
+			    if ((lightCreatures.get(i).getPosition().equals(new Position(l.getEndPosition().getX(), l.getEndPosition().getY(), heightLevel)) && n.getFrozenImmunity().completed())) {
+				n.walkTo(new Position(l.getStartPosition().getX(), l.getStartPosition().getY(), heightLevel), true);
+			    }
+			    if (!lightCreatures.get(i).getPosition().equals(new Position(l.getStartPosition().getX(), l.getStartPosition().getY(), heightLevel)) && !lightCreatures.get(i).getPosition().equals(new Position(l.getEndPosition().getX(), l.getEndPosition().getY(), heightLevel)) && n.getFrozenImmunity().completed() && !n.isMoving()) {
+				n.walkTo(new Position(l.getStartPosition().getX(), l.getStartPosition().getY(), heightLevel), true);
+			    }
+			    if (i > 2 && Misc.goodDistance(player.getPosition(), n.getPosition(), 1)) {
+				player.teleport(new Position(ENCOUNTER.getX(), ENCOUNTER.getY(), heightLevel));
+				sendDelaySantaChat(player, new String[]{"Ho ho ho! Feel the power of my magic!"});
+			    }
+			}
+		    }
+		}
+	    }
+	    @Override
+	    public void stop() {
+		if(player != null && !player.getPosition().equals(new Position(2755, 3649, 0)) && player.getQuestStage(34) != QUEST_COMPLETE) {
+		    player.teleport(SNOWY_JAIL);
+		    player.encounterRunning = false;
+		}
+		for(Npc npc : World.getNpcs()) {
+		    if(npc != null && npc.Area(2754, 2814, 3833, 3873) && npc.getPosition().getZ() == heightLevel) {
+			NpcLoader.destroyNpc(npc);
+		    }
+		}
+	    }
+	}, 1);
+    }
+    public void startEncounter(final Player player) {
+	player.fadeTeleport(new Position(ENCOUNTER.getX(), ENCOUNTER.getY(), player.getIndex() * 4));
+	player.setStopPacket(true);
+	new GameObject(5015, 2773, 3835, 0, 0, 10, 0, 999999, true);
+	new GameObject(5015, 2772, 3835, 0, 0, 10, 0, 999999, true);
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		sendDelaySantaChat(player, new String[] {"HO HO! You think you can best me?", "Just try and reach me! Ho ho ho!"});
+		b.stop();
+	    }
+
+	    @Override
+	    public void stop() {
+		player.setStopPacket(false);
+		player.encounterRunning = true;
+		startEncounterLogic(player);
+	    }
+	}, 5);
+	
+    }
     public void startSnowballTimer(final Player player) {
 	if (!player.snowballsTimerRunning) {
 	    player.snowballsTimerRunning = true;
@@ -193,6 +392,10 @@ public class ChristmasEvent implements Quest {
     public boolean doObjectClicking(final Player player, int object, int x, int y) { //Inherited, will work without a call to it
 	if(CHRISTMAS_ENABLED) {
 	    switch (object) {
+		case SLOPE:
+		    player.fadeTeleport(new Position(2755, 3649, 0));
+		    player.getActionSender().sendMessage("You find yourself at the foot of the mountain after a rough trip down.");
+		    return true;
 		case TRAPDOOR_OBJ:
 		    if (player.getQuestStage(34) >= TRAPDOOR) {
 			GameObjectDef def = SkillHandler.getObject(object, x, y, 0);
@@ -373,7 +576,7 @@ public class ChristmasEvent implements Quest {
 		    case INVESTIGATE:
 		    case TRAPDOOR:
 		    case CONFRONT_SANTA:
-			d.sendNpcChat("Please help me...", SAD);
+			d.sendNpcChat("Please help us... Santa is a tyrant...", SAD);
 			d.endDialogue();
 			return true;
 		    case SNOW_JAIL:
@@ -549,14 +752,60 @@ public class ChristmasEvent implements Quest {
 		    case CONFRONT_SANTA:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
+				if(player.Area(2754, 2814, 3833, 3873)) {
+				    d.sendPlayerChat("Hah! Here I am! Not so mighty after all.", CONTENT);
+				    d.setNextChatId(5);
+				    return true;
+				}
 				d.sendPlayerChat("Santa! I know what you're up to!", "I demand you stop this, or I will stop you myself!", Dialogues.ANGRY_2);
 				return true;
 			    case 2:
 				d.sendNpcChat("HO HO! So be it. I'll end this outrage", "before you can even say the words", "'permanent naughty list'", ANGRY_1);
 				return true;
 			    case 3:
-				//teleport
+				startEncounter(player);
 				d.endDialogue();
+				return true;
+			    case 5:
+				d.sendNpcChat("Wha?! It's not possible!", ANGRY_1);
+				return true;
+			    case 6:
+				if(player.getInventory().playerHasItem(SNOWBALL_ITEM)) {
+				    d.sendStatement("You pelt Santa with an enchanted Snowball.");
+				    d.setNextChatId(9);
+				    for(Npc n : World.getNpcs()) {
+					if(n != null && n.getNpcId() == SANTA && Misc.goodDistance(player.getPosition(), n.getPosition(), 1)) {
+					    Snowball.throwSnowball(player, n);
+					}
+				    }
+				    
+				} else {
+				    d.sendStatement("If only you had something to hurt Santa with...", "...perhaps an enchanted snowball would do the trick.");
+				    return true;
+				}
+			    return true;
+			    case 7:
+				d.sendNpcChat("Nevermind! You fool! Away with you!", Dialogues.ANGRY_2);
+				return true;
+			    case 8:
+				player.fadeTeleport(new Position(ENCOUNTER.getX(), ENCOUNTER.getY(), player.getPosition().getZ()));
+				sendDelaySantaChat(player, new String[] {"I won't let this happen again! Hmmrph!"});
+				d.endDialogue();
+				return true;
+			    case 9:
+				d.sendNpcChat("AAARGH! NO!", Dialogues.ANGRY_2);
+				for (Npc npc : World.getNpcs()) {
+				    if (npc != null && npc.Area(2754, 2814, 3833, 3873) && npc.getPosition().getZ() == player.getPosition().getZ()) {
+					NpcLoader.destroyNpc(npc);
+				    }
+				}
+				return true;
+			    case 10:
+				GroundItem drop = new GroundItem(new Item(1050), player, new Position(2783, 3869, player.getPosition().getZ()));
+				GroundItemManager.getManager().dropItem(drop);
+				d.sendPlayerChat("Phew, glad that is over. I suppose I should", "get out of here...", CONTENT);
+				d.endDialogue();
+				player.setQuestStage(34, QUEST_COMPLETE);
 				return true;
 			}
 		    return false;
