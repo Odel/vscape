@@ -494,7 +494,7 @@ public class Npc extends Entity {
 	@Override
 	public void dropItems(Entity killer) {
 	    NpcDropController drops = NpcDropController.forId(getNpcId());
-	    if (killer != null && drops != null && !killer.inPestControlGameArea()) {
+	    if (killer != null && drops != null && !killer.inPestControlGameArea() && !killer.Area(2754, 2814, 3833, 3873)) {
 		if (killer.isPlayer()) {
 		    boolean bool = RingEffect.ringOfWealth((Player) killer);
 		    drops.setRareTableChance(bool);
