@@ -304,6 +304,7 @@ public class Player extends Entity {
 	public static boolean snowballsReady = false;
 	public static boolean snowballsTimerRunning = false;
 	public static boolean encounterRunning = false;
+	public static boolean skillCapeBoost = false;
 	private boolean killedJungleDemon;
 	private int prayerIcon = -1;
 	private int skullIcon = -1;

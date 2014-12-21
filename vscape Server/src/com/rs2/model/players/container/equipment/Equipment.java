@@ -25,6 +25,9 @@ import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.players.item.ItemManager;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class Equipment {
@@ -411,8 +414,22 @@ public class Equipment {
 		    player.setStandAnim(1639);
 		}
 		if((SkillCapeHandler.SkillCape.forItemId(item.getId()) != null)) {
-		    player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(item.getId()).getSkillId(), 1, true);
-		    player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
+		    if(!player.skillCapeBoost) {
+			player.skillCapeBoost = true;
+			player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(item.getId()).getSkillId(), 1, true);
+			player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				player.skillCapeBoost = false;
+			    }
+			}, 60);
+		    }
 		}
 		refresh();
 		updateWeight();

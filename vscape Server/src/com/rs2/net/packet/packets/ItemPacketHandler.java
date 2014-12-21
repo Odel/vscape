@@ -1268,11 +1268,28 @@ public class ItemPacketHandler implements PacketHandler {
 	}
     }
 
-    private void operateItem(Player player, int itemId) {
-	if((SkillCapeHandler.SkillCape.forItemId(itemId) != null)) {
-	    player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(itemId).getSkillId(), 1, true);
-	    player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
-	    return;
+    private void operateItem(final Player player, int itemId) {
+	if ((SkillCapeHandler.SkillCape.forItemId(itemId) != null)) {
+	    if (!player.skillCapeBoost) {
+		player.skillCapeBoost = true;
+		player.getActionSender().statEdit(SkillCapeHandler.SkillCape.forItemId(itemId).getSkillId(), 1, true);
+		player.getActionSender().sendMessage("You feel a slight boost in your abilities.");
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.skillCapeBoost = false;
+		    }
+		}, 60);
+		return;
+	    } else {
+		player.getActionSender().sendMessage("You must wait a minute in between stat boosts!");
+		return;
+	    }
 	}
 	switch (itemId) {
 	    case 11283:
