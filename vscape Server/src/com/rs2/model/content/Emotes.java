@@ -1,5 +1,6 @@
 package com.rs2.model.content;
 
+import com.rs2.Constants;
 import com.rs2.model.players.Player;
 
 /**
@@ -19,12 +20,12 @@ public class Emotes {
 		NO(856, 169),
 		THINK(857, 162),
 		BOW(858, 164),
-		ANGRY(859, 165),
+		ANGRY(859, 167),
 		CRY(860, 161),
 		LAUGTH(861, 170),
 		CHEER(862, 171),
 		WAVE(863, 163),
-		BECKON(864, 167),
+		BECKON(864, 165),
 		CLAP(865, 172),
 		DANCE(866, 166),
 		PANIC(2105, 52050),
@@ -71,34 +72,64 @@ public class Emotes {
 		}
 	}
 
-	public void performEmote(int emoteId) {
-		player.getUpdateFlags().sendAnimation(emoteId, 0);
-	}
-	
-	public void performEmote(int emoteId, int graphicId) {
-		player.getMovementHandler().reset();
-		player.getUpdateFlags().sendAnimation(emoteId, 0);
-		if(graphicId > 0)
-		{
-			player.getUpdateFlags().sendGraphic(graphicId);
+	public enum EMOTEENHANCER
+	{
+		POWDEREDWIG(EMOTE.ANGRY, Constants.HAT, 10392, 5315, 0, 0),
+		SLEEPINGCAP(EMOTE.YAWN, Constants.HAT, 10398, 5313, 277, 190),
+		FLAREDTROUSERS(EMOTE.DANCE, Constants.LEGS, 10394, 5316, 0, 0),
+		PANTALOONS(EMOTE.BOW, Constants.LEGS, 10396, 5312, 0, 0);
+		
+		private EMOTE emote;
+		private int slot;
+		private int item;
+		private int animationId;
+		private int graphicId;
+		private int graphicDelay;
+		
+		EMOTEENHANCER(EMOTE emote, int slot, int item, int animationId, int graphicId, int graphicDelay) {
+			this.emote = emote;
+			this.slot = slot;
+			this.item = item;
+			this.animationId = animationId;
+			this.graphicId = graphicId;
+			this.graphicDelay = graphicDelay;
+		}
+		
+		public static EMOTEENHANCER forEmote(EMOTE emote) {
+			for (EMOTEENHANCER emoteE : EMOTEENHANCER.values())
+					if (emote == emoteE.emote)
+						return emoteE;
+			return null;
 		}
 	}
-
+	
+	public void performEmote(EMOTE emote) {
+		int anim = emote.emoteId;
+		int graphic = emote.graphicId;
+		int graphicDelay = 0;
+		EMOTEENHANCER emoteE = EMOTEENHANCER.forEmote(emote);
+		if(emoteE != null)
+		{
+			if(player.getEquipment().getId(emoteE.slot) == emoteE.item)
+			{
+				anim = emoteE.animationId;
+				graphic = emoteE.graphicId;
+				graphicDelay = emoteE.graphicDelay;
+			}
+		}
+		player.getMovementHandler().reset();
+		player.getUpdateFlags().sendAnimation(anim, 0);
+		if(graphic > 0)
+		{
+			player.getUpdateFlags().sendGraphic(graphic, graphicDelay);
+		}
+	}
+	
 	public boolean activateEmoteButton(int buttonId) {
 		EMOTE emote = EMOTE.forButtonId(buttonId);
 		if(emote != null)
 		{
-			performEmote(emote.emoteId,emote.graphicId);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean isEmote(int buttonId)
-	{
-		EMOTE emote = EMOTE.forButtonId(buttonId);
-		if(emote != null)
-		{
+			performEmote(emote);
 			return true;
 		}
 		return false;
