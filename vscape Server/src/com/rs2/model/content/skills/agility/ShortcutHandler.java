@@ -237,7 +237,7 @@ public class ShortcutHandler {
 		} else if (y == 3594) {
 		    Agility.crossObstacle(player, 2880, 3596, 844, 6, 25, 1);
 		}
-		break;
+		return true;
 	    case 11844: //falador wall shortcut
 		if (player.getPosition().getX() == 2934) {
 		    Agility.climbOver(player, 2936, 3355, 11, 5);
@@ -252,7 +252,7 @@ public class ShortcutHandler {
 		} else if (y == 3108) {
 		    Agility.crossObstacle(player, 2575, 3112, 844, 6, 16, 7);
 		}
-		break;
+		return true;
 	    case 12127: //Zanaris / cosmic altar shortcuts
 		if (x == 2400) {
 		    if (75 >= new Random().nextDouble() * 100) {
