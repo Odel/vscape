@@ -145,6 +145,7 @@ import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.SantaEncounter;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 
@@ -301,6 +302,7 @@ public class Player extends Entity {
 	private boolean killedTreeSpirit;
 	private boolean resetbank;
 	public static boolean christmasUpdated = false;
+	public SantaEncounter santaEncounter = new SantaEncounter(this);
 	public static boolean snowballsReady = false;
 	public static boolean snowballsTimerRunning = false;
 	public static boolean encounterRunning = false;
@@ -4386,6 +4388,10 @@ public class Player extends Entity {
 	
 	public void setKilledJungleDemon(boolean killedJungleDemon) {
 		this.killedJungleDemon = killedJungleDemon;
+	}
+	
+	public SantaEncounter getSantaEncounter() {
+	    return this.santaEncounter;
 	}
 
 	/**

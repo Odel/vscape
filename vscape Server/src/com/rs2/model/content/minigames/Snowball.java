@@ -73,6 +73,12 @@ public class Snowball {
 		    player.getUpdateFlags().sendGraphic(860);
 		    player.getUpdateFlags().sendAnimation(5063);
 		    player.getActionSender().sendMessage("You throw your snowball...");
+		    if(player.getInventory().playerHasItem(SNOWBALL)) {
+			player.getInventory().removeItem(new Item(SNOWBALL, 1));
+		    } else if (player.getEquipment().getId(Constants.WEAPON) == SNOWBALL) {
+			player.getEquipment().removeAmount(Constants.WEAPON, 1);
+			player.getEquipment().refresh();
+		    }
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {

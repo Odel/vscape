@@ -3,8 +3,6 @@
 @blu@Speak with Santa in Varrock to begin.
 -Pest Control Fixes including Barrage damage.
 -Wyverns have more appropriate drops now.
--::rules are now available 
-in the future, even when offline
 -::roll only spooks you, will no longer
 transform you into a skeleton
 -Tiara "enter" option bug fixed.

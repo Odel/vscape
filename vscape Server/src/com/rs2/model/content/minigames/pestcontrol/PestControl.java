@@ -25,9 +25,9 @@ import com.rs2.util.Misc;
 
 public class PestControl {
 
-    private final static int LOBBY_TIME = 90;
+    private final static int LOBBY_TIME = 10;
     private final static int GAME_TIME = 600;
-    private final static int PLAYERS_REQUIRED = 3;
+    private final static int PLAYERS_REQUIRED = 1;
     private final static int GRUNT_TIME = 20;
     private final static int NPC_LOGIC_TIME = 15;
     
@@ -1246,8 +1246,14 @@ public class PestControl {
 	
     public static int playersInGame() {
 	for(Player p : gamePlayers) {
-	    if(p == null) gamePlayers.remove(p);
-	    else if(!p.inPestControlLobbyArea()) gamePlayers.remove(p);
+	    if(p == null) {
+		gamePlayers.remove(p);
+		break;
+	    }
+	    else if(!p.inPestControlGameArea()) {
+		gamePlayers.remove(p);
+		break;
+	    }
 	}
 		if (gamePlayers != null) {
 		    return gamePlayers.size();
