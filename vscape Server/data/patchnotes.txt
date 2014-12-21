@@ -1,6 +1,8 @@
 @dre@=December 20th=
 @blu@Christmas Event!
 @blu@Speak with Santa in Varrock to begin.
+-"Emote enhancing" wear added to lvl 1 clues.
+-Cosmic altar agility shortcut fixed.
 -Pest Control Fixes including Barrage damage.
 -Wyverns have more appropriate drops now.
 -::roll only spooks you, will no longer
