@@ -1315,7 +1315,7 @@ public class SkillGuides {
 			//menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 12);
 			//menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 13);
 			//menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 14);
-			menuLine("44", "Cosmic Temple Medium Narrow Walkway", 6517, 12);
+			menuLine("46", "Cosmic Temple Medium Narrow Walkway", 6517, 12);
 			//menuLine("46", "Trollheim Hard Cliffside Scramble", 6516, 16);
 			menuLine("47", "Log Balance To The Fremennik Province", 6517, 13);
 			menuLine("48", "Edgeville Dungeon To Varrock Sewers Pipe", 6515, 14);
