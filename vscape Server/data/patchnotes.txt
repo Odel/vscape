@@ -1,13 +1,13 @@
-@dre@=December 12th=
--::rules are now available
--::report and ::panic now save to file
-so that admins can check these out 
+@dre@=December 20th=
+@blu@Christmas Event!
+@blu@Speak with Santa in Varrock to begin.
+-Pest Control Fixes including Barrage damage.
+-Wyverns have more appropriate drops now.
+-::rules are now available 
 in the future, even when offline
 -::roll only spooks you, will no longer
 transform you into a skeleton
--Any transformation will now be undone
-in the wilderness
--numerous fixes left and right
+-Tiara "enter" option bug fixed.
 
 @dre@=December 7th=
 -CW fixes :^)

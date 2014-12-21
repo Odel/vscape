@@ -1,5 +1,6 @@
 @dre@ =Commands=
 ::info (This interface.)
+::rules (Some rules for the server.)
 ::outfit (Changes your appearance.)
 ::yell/::y (Sends a global message.)
 ::home
