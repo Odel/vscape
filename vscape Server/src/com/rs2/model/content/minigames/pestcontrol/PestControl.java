@@ -518,7 +518,7 @@ public class PestControl {
 								}
 								updatePortalHealth();
 							}
-							if (getKnightHealth() == 0 || knight.isDead()) {
+							if (getKnightHealth() == 0 || knight.isDead() || !knight.isVisible() || knight.getCurrentHp() <= 0) {
 								if (playersInLobby() <= 0) {
 									this.stop();
 								}
@@ -739,7 +739,10 @@ public class PestControl {
 		    	continue;
 		    }
 		    npc.setSpawnPosition(npc.getPosition());
-		    if (isShifter(npc) && knight != null && !npc.inMiniGameArea(KNIGHT_PLATFORM)) {
+		    if (isShifter(npc) && knight != null && !npc.inMiniGameArea(KNIGHT_PLATFORM) && npc.getCombatingEntity() != null && !npc.getCombatingEntity().isPlayer()) {
+			if(npc.getCombatingEntity().isNpc() && ((Npc)npc.getCombatingEntity()).getNpcId() == knight.getNpcId() && Misc.goodDistance(npc.getPosition(), knight.getPosition(), 3)) {
+			    return;
+			}
 		    	teleportShifter(npc);
 		    	continue;
 		    }
@@ -821,18 +824,21 @@ public class PestControl {
 	}
 	
     public static void attackKnight(Npc grunt) {
-    	if(knight == null)
+    	if(knight == null) {
     		return;
-    	if(knight.isDead() || getKnightHealth() <= 0)
+	}
+	else if(knight.isDead() || getKnightHealth() <= 0 || knight.getCurrentHp() <= 0 || !knight.isVisible()) {
     		return;
-		if(Misc.goodDistance(grunt.getPosition(), knight.getPosition(), 15)) {
-		    CombatCycleEvent.startCombat(grunt, knight);
-		} else {
-		    grunt.walkTo(knight.getPosition(), true);
-		}
-		grunt.getUpdateFlags().sendFaceToDirection(knight.getPosition());
-		grunt.getUpdateFlags().setFace(knight.getPosition());
-		grunt.getUpdateFlags().setFaceToDirection(true);
+	} else {
+	    if (Misc.goodDistance(grunt.getPosition(), knight.getPosition(), 15)) {
+		CombatCycleEvent.startCombat(grunt, knight);
+	    } else {
+		grunt.walkTo(knight.getPosition(), true);
+	    }
+	    grunt.getUpdateFlags().sendFaceToDirection(knight.getPosition());
+	    grunt.getUpdateFlags().setFace(knight.getPosition());
+	    grunt.getUpdateFlags().setFaceToDirection(true);
+	}
     }
     
     public static boolean shouldAttackKnight(Npc npc) {
@@ -1084,19 +1090,19 @@ public class PestControl {
     public static void leaveGame(Player player, boolean DC) {
     	if(player == null)
     		return;
-		if (isInGame(player) && !player.isDead()) {
-			gamePlayers.remove(player);
-			if(!DC) {
-			    player.teleport(LOBBY_EXIT);
-				player.setPcDamage(0);
-			    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
-				player.resetEffects();
-				player.removeAllEffects();
-				player.heal(100);
-				player.getPrayer().resetAll();
-				player.getSkill().refresh();
-				player.getPestControlBarricades().clear();
-			}
+		if (isInGame(player) && !DC) {
+		    gamePlayers.remove(player);
+		    if (!player.isDead()) {
+			player.teleport(LOBBY_EXIT);
+			player.resetEffects();
+			player.removeAllEffects();
+			player.heal(100);
+			player.getPrayer().resetAll();
+			player.getSkill().refresh();
+		    }
+		    player.setPcDamage(0);
+		    player.getInventory().removeItem(new Item(1511, player.getInventory().getItemAmount(1511)));
+		    player.getPestControlBarricades().clear();
 		}
     }
 	
@@ -1228,6 +1234,10 @@ public class PestControl {
     }
 
     private static int playersInLobby() {
+	for(Player p : lobbyPlayers) {
+	    if(p == null) lobbyPlayers.remove(p);
+	    else if(!p.inPestControlLobbyArea()) lobbyPlayers.remove(p);
+	}
 	if (lobbyPlayers != null) {
 	    return lobbyPlayers.size();
 	}
@@ -1235,6 +1245,10 @@ public class PestControl {
     }
 	
     public static int playersInGame() {
+	for(Player p : gamePlayers) {
+	    if(p == null) gamePlayers.remove(p);
+	    else if(!p.inPestControlLobbyArea()) gamePlayers.remove(p);
+	}
 		if (gamePlayers != null) {
 		    return gamePlayers.size();
 		}
