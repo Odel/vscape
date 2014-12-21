@@ -1,5 +1,6 @@
 package com.rs2.model.content.minigames;
 
+import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -32,7 +33,7 @@ public class Snowball {
     }
 
     public static void throwSnowball(final Player player, final Entity victim) {
-	if (!player.getInventory().getItemContainer().contains(SNOWBALL)) {
+	if (!player.getInventory().getItemContainer().contains(SNOWBALL) && player.getEquipment().getId(Constants.WEAPON) != ChristmasEvent.SNOWBALL_ITEM) {
 	    return;
 	}
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -68,6 +69,7 @@ public class Snowball {
 		    this.stop();
 		    return;
 		} else {
+		    player.getMovementHandler().reset();
 		    player.getUpdateFlags().sendGraphic(860);
 		    player.getUpdateFlags().sendAnimation(5063);
 		    player.getActionSender().sendMessage("You throw your snowball...");

@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.dialogue.DialogueManager;
@@ -194,7 +195,9 @@ public class ChristmasEvent implements Quest {
 	TWENTY1(20, new Position(2808, 3857, 0), new Position(2803, 3855, 0)),
 	TWENTY2(21, new Position(2793, 3840, 0), new Position(2797, 3843, 0)),
 	TWENTY3(22, new Position(2791, 3845, 0), new Position(2795, 3845, 0)),
-	TWENTY4(22, new Position(2805, 3844, 0), new Position(2807, 3838, 0));
+	TWENTY4(22, new Position(2805, 3844, 0), new Position(2807, 3838, 0)),
+	TWENTY5(23, new Position(2782, 3870, 0), new Position(2782, 3871, 0)),
+	TWENTY6(24, new Position(2784, 3870, 0), new Position(2784, 3871, 0));
 	public int id;
 	public Position startPos;
 	public Position endPos;
@@ -321,10 +324,13 @@ public class ChristmasEvent implements Quest {
 	    }
 	    @Override
 	    public void stop() {
-		if(player != null && !player.getPosition().equals(new Position(2755, 3649, 0)) && player.getQuestStage(34) != QUEST_COMPLETE) {
-		    player.teleport(SNOWY_JAIL);
+		if(player != null) {
 		    player.encounterRunning = false;
+		    if(!player.getPosition().equals(new Position(2755, 3649, 0)) && !Misc.goodDistance(player.getPosition(), santa.getPosition(), 1)) {
+			player.teleport(SNOWY_JAIL);
+		    }
 		}
+		
 		for(Npc npc : World.getNpcs()) {
 		    if(npc != null && npc.Area(2754, 2814, 3833, 3873) && npc.getPosition().getZ() == heightLevel) {
 			NpcLoader.destroyNpc(npc);
@@ -427,6 +433,46 @@ public class ChristmasEvent implements Quest {
 	switch (id) { //Npc ID
 	    case WISE_OLD_MAN:
 		switch (player.getQuestStage(34)) {
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				d.sendPlayerChat("Can I have some more of those snowballs?", CONTENT);
+				return true;
+			    case 2:
+				if(player.snowballsReady) {
+				    d.sendNpcChat("You're in luck! I managed to make a few more.", "Here they are!", HAPPY);
+				} else {
+				    d.sendNpcChat("I don't have any new snowballs ready for you,", "sorry. Come back a bit later.", CONTENT);
+				    d.endDialogue();
+				    startSnowballTimer(player);
+				}
+				return true;
+			    case 3:
+				if(player.getInventory().canAddItem(new Item(SNOWBALL_ITEM))) {
+				    d.sendGiveItemNpc("The Wise Old Man hands you some snowballs.", new Item(SNOWBALL_ITEM, 10));
+				    d.setNextChatId(5);
+				    player.getInventory().addItem(new Item(SNOWBALL_ITEM, 6 + Misc.random(4)));
+				    return true;
+				} else {
+				    d.sendNpcChat("Oh, you don't have enough space in your", "inventory. Talk to me again when you do.", SAD);
+				    d.endDialogue();
+				    return true;
+				}
+			    case 5:
+				d.sendPlayerChat("So, what exactly do they do again?", CONTENT);
+				return true;
+			    case 6:
+				d.sendNpcChat("Well, if you throw them at a monster or a player...", "They should freeze in place! However, my magic isn't", "so good these days, so the effect may fail.", CONTENT);
+				return true;
+			    case 7:
+				d.sendPlayerChat("Thank you! When can I get some more?", CONTENT);
+				return true;
+			    case 8:
+				d.sendNpcChat("Hmm, it usually takes me several minutes to collect", "snow that has fallen from the top and then enchant it.", "Come back in a little while.", CONTENT);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    case CONFRONT_SANTA:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
@@ -532,6 +578,14 @@ public class ChristmasEvent implements Quest {
 	    return false;
 	    case COAL_SLAVE:
 		switch (player.getQuestStage(34)) { //Dialogue per stage
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				d.sendNpcChat("Thank you so much for defeating Santa!", HAPPY);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    default:
 			d.sendNpcChat("Go away. Don't talk to me.", "You'll make me look bad.", ANGRY_1);
 			d.endDialogue();
@@ -569,6 +623,14 @@ public class ChristmasEvent implements Quest {
 	    case 984:
 	    case 985: //slaves
 		switch (player.getQuestStage(34)) { //Dialogue per stage
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				d.sendNpcChat("Thank you so much for defeating Santa!", HAPPY);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    default:
 			d.sendStatement("The slave looks very busy.");
 			d.endDialogue();
@@ -671,6 +733,14 @@ public class ChristmasEvent implements Quest {
 		}
 	    case DJANGO:
 		switch (player.getQuestStage(34)) { //Dialogue per stage
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				d.sendNpcChat("Well, you defeated my business partner...", "I'll have to re-evaluate my motives for future profit.", CONTENT);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    case INVESTIGATE:
 		    case TRAPDOOR:
 		    case SNOW_JAIL:
@@ -749,6 +819,14 @@ public class ChristmasEvent implements Quest {
 	    return false;
 	    case SANTA:
 		switch (player.getQuestStage(34)) { //Dialogue per stage
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				d.sendNpcChat("Hmrph. Go away.", "I have to plan for next year.", Dialogues.ANGRY_2);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    case CONFRONT_SANTA:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
@@ -770,7 +848,7 @@ public class ChristmasEvent implements Quest {
 				d.sendNpcChat("Wha?! It's not possible!", ANGRY_1);
 				return true;
 			    case 6:
-				if(player.getInventory().playerHasItem(SNOWBALL_ITEM)) {
+				if(player.getInventory().playerHasItem(SNOWBALL_ITEM) || player.getEquipment().getId(Constants.WEAPON) == SNOWBALL_ITEM) {
 				    d.sendStatement("You pelt Santa with an enchanted Snowball.");
 				    d.setNextChatId(9);
 				    for(Npc n : World.getNpcs()) {
@@ -778,12 +856,12 @@ public class ChristmasEvent implements Quest {
 					    Snowball.throwSnowball(player, n);
 					}
 				    }
-				    
+				    return true;
 				} else {
 				    d.sendStatement("If only you had something to hurt Santa with...", "...perhaps an enchanted snowball would do the trick.");
 				    return true;
 				}
-			    return true;
+			    
 			    case 7:
 				d.sendNpcChat("Nevermind! You fool! Away with you!", Dialogues.ANGRY_2);
 				return true;
