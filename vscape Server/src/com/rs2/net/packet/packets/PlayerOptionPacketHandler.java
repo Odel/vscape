@@ -57,9 +57,9 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 			break;
 		case WHACK_PLAYER :
 		    if (player.getEquipment().getId(Constants.WEAPON) == ChristmasEvent.SNOWBALL_ITEM) {
-			handlePeltSnowball(player, packet);
+		    	handlePeltSnowball(player, packet);
 		    } else {
-			handleRubberChicken(player, packet);
+		    	handleRubberChicken(player, packet);
 		    }
 			break;
 		}
@@ -235,6 +235,10 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 
 	private void handleRubberChicken(final Player player, Packet packet) {
 		final int otherPlayerId = packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE);
+		if(player.getEquipment().getId(Constants.WEAPON) != 4566)
+		{
+			return;
+		}
 		if (otherPlayerId < 0 || otherPlayerId > World.getPlayers().length) {
 			return;
 		}
