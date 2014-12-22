@@ -3,6 +3,7 @@ package com.rs2.model.content.minigames;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
+import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.impl.BindingEffect;
 import com.rs2.model.content.combat.hit.Hit;
@@ -17,6 +18,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+
 import java.util.Random;
 
 public class Snowball {
@@ -77,6 +79,7 @@ public class Snowball {
 			player.getInventory().removeItem(new Item(SNOWBALL, 1));
 		    } else if (player.getEquipment().getId(Constants.WEAPON) == SNOWBALL) {
 			player.getEquipment().removeAmount(Constants.WEAPON, 1);
+			WalkInterfaces.checkChickenOption(player);
 			player.getEquipment().refresh();
 		    }
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
