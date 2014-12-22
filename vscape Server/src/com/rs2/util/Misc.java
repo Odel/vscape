@@ -575,7 +575,7 @@ public class Misc {
 			// if no more lines the readLine() returns null
 			int q = 0;
 			while (((line = br.readLine()) != null) && (q<100)) {
-				patchNotes[q]=line;
+				rules[q]=line;
 				q++;
 			}
 			br.close();
