@@ -565,6 +565,25 @@ public class Misc {
 		}
 		return patchNotes;
 	}
+	public static String[] loadRules() throws IOException {
+		String[] rules = new String[100];
+		int count = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/rules.txt")));
+	
+			String line = null;
+			// if no more lines the readLine() returns null
+			int q = 0;
+			while (((line = br.readLine()) != null) && (q<100)) {
+				patchNotes[q]=line;
+				q++;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return rules;
+	}
 	public static String[] loadInfo() throws IOException {
 		String[] info = new String[200];
 		int count = 0;
