@@ -19,11 +19,13 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import com.rs2.util.clip.Rangable;
 
 public class HeroesQuest implements Quest {
     //Quest stages
@@ -388,7 +390,7 @@ public class HeroesQuest implements Quest {
 				if (players == null) {
 				    continue;
 				}
-				if (Misc.goodDistance(players.getPosition(), npc.getPosition(), 10) && players.isBlackArmGang() && (players.getQuestStage(27) == 1 || players.getQuestStage(27) == 2)) {
+				if (Misc.goodDistance(players.getPosition(), npc.getPosition(), 10) && players.isBlackArmGang() && players.getQuestStage(27) >= 1) {
 				    players.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
 				    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
@@ -402,7 +404,7 @@ public class HeroesQuest implements Quest {
 		player.walkTo(new Position(2780, 3198, 0), true);
 		return;
 	    }
-	} else {
+	} else if(Misc.goodDistance(player.getPosition().clone(), npc.getPosition().clone(), 2)){
 	    player.getDialogue().setLastNpcTalk(npc.getNpcId());
 	    player.getDialogue().sendNpcChat("What are you doing so close to me?", Dialogues.CONTENT);
 	    player.getDialogue().endDialogue();
@@ -477,7 +479,11 @@ public class HeroesQuest implements Quest {
 		    if(npc == null) continue;
 		    if(npc.getNpcId() == GRIP) {
 			npc.getUpdateFlags().setForceChatMessage("Hey! Get away from there!");
-			npc.walkTo(new Position(2777, 3197, 0), true);
+			if(!Misc.checkClip(npc.getPosition().clone(), new Position(2777, 3197, 0), true)) {
+			    npc.walkTo(new Position(2777, 3194, 0), true);
+			} else {
+			    npc.walkTo(new Position(2777, 3197, 0), true);
+			}
 			return true;
 		    }
 		}
@@ -500,7 +506,7 @@ public class HeroesQuest implements Quest {
 		    player.getDialogue().sendStatement("You find two candlesticks, but you don't have room for them.");
 		    return true;
 		} else if(player.getQuestStage(27) >= QUEST_COMPLETE && !player.getInventory().ownsItem(CANDLESTICK)) {
-		    player.getDialogue().sendStatement("You find a candlestick in the chest. Must be to assist", "the person who killed Grip for you.");
+		    player.getDialogue().sendStatement("You find a candlestick in the chest. Must be to assist", "the person who just killed Grip.");
 		    player.getInventory().addItemOrDrop(new Item(CANDLESTICK));
 		    return true;
 		} else {
@@ -844,6 +850,10 @@ public class HeroesQuest implements Quest {
 				    player.getDialogue().sendPlayerChat("Hi. I'm Hartigen. I've come to work here.", CONTENT);
 				    player.getDialogue().setNextChatId(5);
 				    return true;
+				} else if(player.getQuestStage(27) == QUEST_COMPLETE) {
+				    player.getDialogue().sendPlayerChat("It's me, Hartigen.", CONTENT);
+				    player.getDialogue().setNextChatId(10);
+				    return true;
 				} else {
 				    player.getDialogue().sendPlayerChat("Can I go in there?", CONTENT);
 				    return true;
@@ -869,6 +879,17 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().endDialogue();
 				player.setSpokeToGarv(true);
 				return true;
+			    case 10:
+				if(blackKnightsGear(player)) {
+				    player.getDialogue().sendNpcChat("Ah, of course, welcome back.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    player.setSpokeToGarv(true);
+				    return true;
+				} else {
+				    player.getDialogue().sendNpcChat("Ah, of course, I didn't recognize you without", "your Black Knight uniform on. You need to be in uniform", "to be able to enter, sir. It's policy to avoid infiltration.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				}
 			}
 		    return false;
 		}
