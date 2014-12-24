@@ -1138,6 +1138,22 @@ public class Equipment {
 			case 11235 : //dark bow
 			    rangeLevelReq = 60;
 			    return;
+			case 1391: //Battlestaff
+			case 1393: //Fire Battlestaff
+			case 1395: //Water battlestaff
+			case 1397: //air battlestaff
+			case 1399: //earth battlestaff
+			case 3053: //lava battlestaff
+			case 6652: //mud battlestaff
+			    attackLevelReq = 30;
+			    return;
+			case 3481: // gilded platebody
+			case 3483: // gilded platelegs
+			case 3485: // gilded plateskirt
+			case 3486: // gilded full help
+			case 3488: // gilded kiteshield
+			    defenceLevelReq = 40;
+			    return;
 			case 10346: //2rd age melee
 			case 10348:
 			case 10350:
