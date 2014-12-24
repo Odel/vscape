@@ -25,7 +25,7 @@ public class ThieveNpcs {
                 HAM(new String[] {"h.a.m. member"}, 15, 18, new Item[] { new Item(995, 12), new Item(882, 15), new Item(1349), new Item(688), new Item(1203), new Item(314, 8)}, new Item[] {new Item(4298), new Item(4300), new Item(4302), new Item(4304), new Item(4306), new Item(4308), new Item(4310) }, 6, 1),
 		WARRIOR(new String[] { "warrior woman", "al-kharid warrior" }, 25, 26, new Item[] { new Item(995, 18) }, 5, 2),
 		ROGUE(new String[] { "rogue" }, 32, 36.5, new Item[] { new Item(995, 25), new Item(995, 40), new Item(7919, 1), new Item(556, 6), new Item(5686, 1), new Item(1523, 1), new Item(1944, 1) }, 5, 2),
-		MASTER_FARMER(new String[] { "master farmer"}, 38, 43, new Item[] { new Item(5318), new Item(5319), new Item(5324), new Item(5322), new Item(5320), new Item(5323), new Item(5305), new Item(5307),
+		MASTER_FARMER(new String[] { "master farmer", "master gardener" }, 38, 43, new Item[] { new Item(5318), new Item(5319), new Item(5324), new Item(5322), new Item(5320), new Item(5323), new Item(5305), new Item(5307),
 				new Item(5308), new Item(5306), new Item(5309), new Item(5310), new Item(5104), new Item(5105), new Item(5106), new Item(5096), new Item(5097), new Item(5098), new Item(5099), new Item(5100),
 				new Item(5291), new Item(5292), new Item(5293), new Item(5294)}, new Item[]{new Item(5321), new Item(5311), new Item(5101), new Item(5102), new Item(5103), new Item(5295), new Item(5296),
 				new Item(5297), new Item(5298), new Item(5299), new Item(5300), new Item(5301), new Item(5302), new Item(5303), new Item(5304), new Item(5280), new Item(5281)}, 5, 3),
