@@ -536,6 +536,12 @@ public class WalkToActionHandler {
 				    	player.getBankManager().openBank();
 					break;
 				    }
+				case 11888: //Dark wizard tower bottom floor stairs up
+				    Ladders.climbLadder(player, new Position(2908, 3336, 1));
+				    break;
+				case 11890: //Dark wizard tower top floor stairs down
+				    Ladders.climbLadder(player, new Position(2908, 3336, 1));
+				    break;
 				case 10595: //skeletal wyvern exit
 				    player.teleport(new Position(3056, 9562, 0));
 				    break;
@@ -1435,20 +1441,47 @@ public class WalkToActionHandler {
 					int height2 = z < 1 ? 1 : 2;
 					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), height2));
 					break;
-				case 1765: // climb into KBD cave
-					Ladders.climbLadder(player, new Position(2257, 4695, 0));
+				case 1765: //Lava dungeon maze - to KBD lever
+					Ladders.climbLadder(player, new Position(3069, 10255, 0));
 					break;
+				case 1766: //Lava dungeon maze - back up from KBD lever
+					Ladders.climbLadder(player, new Position(3017, 3847, 0));
+					break;
+				case 1767: //Lava dungeon maze - to black dragons
+					Ladders.climbLadder(player, new Position(3017, 10249, 0));
+					break;
+				case 1768: //Lava dungeon maze - back up from black dragons
+					Ladders.climbLadder(player, new Position(3069, 3855, 0));
+					break;
+				case 1816: //Lava dungeon maze - lever to KBD
+				    player.getUpdateFlags().sendAnimation(2140);
+				    player.fadeTeleport(new Position(2271, 4680, 0));
+				    break;
+				case 1817: //KBD lever to Lava dungeon maze
+				    player.getUpdateFlags().sendAnimation(2140);
+				    player.fadeTeleport(new Position(3067, 10253, 0));
+				    break;
+				case 14735: //Rogue castle bottom floor staircase
+				    Ladders.climbLadder(player, new Position(3282, 3936, 1));
+				    break;
 				case 1738: // staircase up
-                    if(x == 2673 && y == 3300) {
-                        player.teleport(new Position(2675, 3300, 1));
-                    }else{
-                    	Ladders.checkClimbTallStaircase(player, "up");
-                    }
+				    if(x == 2673 && y == 3300) {
+					player.teleport(new Position(2675, 3300, 1));
+				    } else {
+					Ladders.checkClimbTallStaircase(player, "up");
+				    }
+					break;
+				case 14737: //Rogue castle top staircase
+					Ladders.climbLadder(player, new Position(3282, 3936, 2));
 					break;
 				case 1740: // staircase down
 					Ladders.checkClimbTallStaircase(player, "down");
 					break;
+				case 14736: //Rogue castle staircase
+					Dialogues.startDialogue(player, 14736);
+					break;
 				case 1739: // staircase mid
+				case 11889: //Dark wizard tower mid stairs
 				case 12537:
 					Dialogues.startDialogue(player, 10007);
 					break;
@@ -1760,7 +1793,17 @@ public class WalkToActionHandler {
 				case 1570: // close trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1568, def);
 					break;
+				case 14736: //Rogue castle staircase up
+				    if (player.getPosition().getZ() == 1) {
+					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 2));
+					break;
+				    } else if (player.getPosition().getZ() == 2) {
+					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 3));
+					break;
+				    }
+				break;
 				case 1739: // staircase mid
+				
 				case 12537:
 					Ladders.checkClimbTallStaircase(player, "up");
 					break;
@@ -1771,6 +1814,7 @@ public class WalkToActionHandler {
 				case 8745:
 				case 12965:// flour mill
 				case 2884: // gnome tree
+				case 11889: //Dark wizard tower mid stairs up
 					Ladders.checkClimbLadder(player, "up");
 					break;
 				case 14921: // furnace
@@ -1779,7 +1823,6 @@ public class WalkToActionHandler {
 				case 2781:
 				case 3044:
 				case 12100:
-				
 					Smelting.smeltInterface(player);
 					// player.getSmithing().setUpSmelting();or
 					break;
@@ -1887,8 +1930,18 @@ public class WalkToActionHandler {
 				case 4569: //lighthouse level 1 ladder:
 				    Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 0));
 				    break;
+				case 14736: //Rogue castle staircase
+				    if (player.getPosition().getZ() == 1) {
+					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 0));
+					break;
+				    } else if (player.getPosition().getZ() == 2) {
+					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 1));
+					break;
+				    }
+				    break;
 				case 1739: //staircase
 				case 12537:
+				case 11889: //Dark wizard tower mid stairs down
 					Ladders.checkClimbTallStaircase(player, "down");
 					break;
 				case 1748: // stairs mid

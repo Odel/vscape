@@ -4266,6 +4266,35 @@ public class Dialogues {
 						break;
 				}
 				break;
+			 case 14736 : //staircase rogue castle
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+						player.getDialogue().sendOption("Go up the stairs.", "Go down the stairs.", "Never mind.");
+						return true;
+					case 2 :
+						switch(optionId) {
+							case 1:
+							    if(player.getPosition().getZ() == 1) {
+								Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 2));
+								break;
+							    } else if(player.getPosition().getZ() == 2) {
+								Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 3));
+								break;
+							    }
+							break;
+							case 2:
+							    if(player.getPosition().getZ() == 1) {
+								Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 0));
+								break;
+							    } else if(player.getPosition().getZ() == 2) {
+								Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY(), 1));
+								break;
+							    }
+							break;
+						}
+						break;
+				}
+				break;
 			case 10007 : //staircase
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
