@@ -155,6 +155,16 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 			return;
 		}
 		final int taskId = player.getTask();
+		if(player.isIronman())
+		{
+			player.getActionSender().sendMessage("You cannot trade with other players as an ironman.");
+			return;
+		}
+		if(otherPlayer.isIronman())
+		{
+			player.getActionSender().sendMessage("This player is an ironman and cannot trade.");
+			return;
+		}
 		if (otherPlayer.getTradingEntity() == player) {
 			TradeManager.declineTrade(player);
 		} else if (otherPlayer.getInterface() > 0) {

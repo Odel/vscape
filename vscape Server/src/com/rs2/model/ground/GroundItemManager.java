@@ -90,7 +90,9 @@ public class GroundItemManager implements Runnable {
                     break;
                     case PRIVATE: 
                         //if item is not tradeable then remove it from viewfirst
-                        if (item.getItem().getDefinition().isUntradable()) {
+                    	Entity viewfirst = item.getViewFirst() == null ? null : item.getViewFirst().getEntity();
+                    	Entity dropper = item.getDropper() == null ? null : item.getDropper().getEntity();
+                        if (item.getItem().getDefinition().isUntradable() || (viewfirst != null && dropper != null && viewfirst.isPlayer() && dropper.isPlayer() && viewfirst == dropper && ((Player) dropper).isIronman())) {
                             if (item.getTimer().elapsed() < UNTRADABLE_HIDE_TICKS) {
                             	break;
                             }

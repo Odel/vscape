@@ -87,8 +87,18 @@ public class ItemManager {
                 GroundItem item = GroundItemManager.getManager().findItem(player, itemId, pos);
                 if (item == null)
                     return;
+                
+                if(item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
+                {
+                	Player viewFirst = (Player) item.getViewFirst().getEntity();
+                	Player dropper = (Player) item.getDropper().getEntity();
+                	if(viewFirst != player && dropper != player) {
+	            		player.getActionSender().sendMessage("You cannot pickup items dropped by other players as an ironman.");
+	                	return;
+                	}
+                }
 
-               boolean takeFromTable = !player.getPosition().equals(pos) && !Misc.checkClip(player.getPosition(), pos, true);
+                boolean takeFromTable = !player.getPosition().equals(pos) && !Misc.checkClip(player.getPosition(), pos, true);
             	if(takeFromTable)
             		player.getUpdateFlags().sendAnimation(832);
                 

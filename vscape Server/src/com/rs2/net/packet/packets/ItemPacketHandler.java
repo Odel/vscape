@@ -272,12 +272,12 @@ public class ItemPacketHandler implements PacketHandler {
 	if (player.getInventory().getItemContainer().contains(item.getId())) {
 	    player.getActionSender().sendSound(376, 1, 0);
 	    if (!Constants.ADMINS_CAN_INTERACT && player.getStaffRights() >= 2) {
-		player.getActionSender().sendMessage("Your item disappears because you're an administrator.");
+	    	player.getActionSender().sendMessage("Your item disappears because you're an administrator.");
 	    } else {
-		GroundItemManager.getManager().dropItem(new GroundItem(new Item(item.getId(), item.getCount()), player));
+	    	GroundItemManager.getManager().dropItem(new GroundItem(new Item(item.getId(), item.getCount()), player));
 	    }
 	    if (!player.getInventory().removeItemSlot(item, player.getSlot())) {
-		player.getInventory().removeItem(item);
+	    	player.getInventory().removeItem(item);
 	    }
 	    player.getActionSender().removeInterfaces();
 	    player.getDialogue().resetDialogue();

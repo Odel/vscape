@@ -194,6 +194,16 @@ public class DuelMainData {
 	public void stakeItem(Item item, int slot) {
 		if (player.getStatedInterface() != "duel" || item == null || !player.getInventory().getItemContainer().contains(item.getId()) || opponent == null)
 			return;
+		if(player.isIronman())
+		{
+			player.getActionSender().sendMessage("You can't stake this item as an ironman.");
+			return;
+		}
+		if(opponent.isIronman())
+		{
+			player.getActionSender().sendMessage("The opponent is an ironman staking is disabled.");
+			return;
+		}
 		if (item.getDefinition().isUntradable()) {
 			player.getActionSender().sendMessage("You can't stake this item.");
 			return;

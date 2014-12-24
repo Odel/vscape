@@ -507,6 +507,8 @@ public class Player extends Entity {
     
     private int castleWarsTeam = -1;
     
+    private boolean ironman = false;
+    
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
 	}
@@ -2761,6 +2763,20 @@ public class Player extends Entity {
 
 	public String getMacAddress() {
 		return macAddress;
+	}
+	
+	public void setIronman(boolean val)
+	{
+		ironman = val;
+	}
+	
+	public boolean isIronman()
+	{
+		if(getUsername().equals("Community"))
+		{
+			return true;
+		}
+		return ironman;
 	}
 
 	public void setPrayerIcon(int prayerIcon) {
