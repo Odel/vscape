@@ -201,15 +201,15 @@ public class Teleportation {
         	return;
 		}
         player.setHomeTeleporting(true);
-		player.setStopPacket(true);
-		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			int teleTimer = 0;
+		final int task = player.getTask();
+        player.setSkilling(new CycleEvent() {
+        	int teleTimer = 0;
 			@Override
 			public void execute(CycleEventContainer container) {
-                if (!player.isHomeTeleporting()) {
-                	container.stop();
-	            }
+				if (!player.checkTask(task) || !player.isHomeTeleporting()) {
+					container.stop();
+					return;
+				}
                 if (!player.isDead()) {
 		            if (teleTimer == 0) {
 	                    player.getUpdateFlags().sendAnimation(4850);
@@ -222,6 +222,7 @@ public class Teleportation {
 		            } else if (teleTimer == 9) {
 	                    player.getUpdateFlags().sendAnimation(4857);
 	                    player.getUpdateFlags().sendGraphic(804);
+	                    player.setStopPacket(true);
 		            } else if (teleTimer == 11) {
 	                    player.teleport(new Position(x, y, height));
 	                    container.stop();
@@ -236,7 +237,8 @@ public class Teleportation {
 			public void stop() {
 				player.setHomeTeleporting(false);
 			}
-		}, 1);
+		});
+        CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
 	}
 	
 	public void teleport(final int x, final int y, final int height, final boolean modern) {

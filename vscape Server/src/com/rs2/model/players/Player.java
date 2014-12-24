@@ -970,7 +970,6 @@ public class Player extends Entity {
 		homeTeleporting = state;
 		if (state == false){
 			setStopPacket(false);
-			getAttributes().put("canTakeDamage", Boolean.TRUE);
 			getUpdateFlags().sendAnimation(-1);
 			getUpdateFlags().sendGraphic(-1);
 			setAppearanceUpdateRequired(true);
