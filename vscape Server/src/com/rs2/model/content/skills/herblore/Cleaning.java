@@ -76,7 +76,7 @@ public class Cleaning {
 			} else if (player.getInventory().removeItem(new Item(itemId))) {
 				player.getInventory().addItem(new Item(herbloring.getCleanId()));
 			}
-			player.getActionSender().sendMessage("You identify the herb, it's a " + new Item(herbloring.getCleanId()).getDefinition().getName().toLowerCase().replace("clean", "") + "");
+			player.getActionSender().sendMessage("You carefully clean the dirt and grime from the herb.");
 			return true;
 		}
 		return false;

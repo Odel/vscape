@@ -238741,6 +238741,386 @@
     ]
   },
   {
+    "npcId": 4291,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 532,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 1101,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1217,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 869,
+        "count": [
+          4,
+		8,
+		12,
+		19
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1283,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1297,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1207,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1424,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1365,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1105,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 995,
+        "count": [
+          4,
+		69,
+		169,
+		269,
+		369,
+		473
+		
+        ],
+        "chance": 2
+      },
+      {
+        "id": 199,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 203,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1311,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1313,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1209,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1299,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1430,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 207,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 209,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 3049,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1317,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5280,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5295,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5323,
+        "count": [
+          1
+        ],
+        "chance": 4
+      }
+    ]
+  },
+  {
+    "npcId": 4292,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 532,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 1101,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1217,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 869,
+        "count": [
+          4,
+		8,
+		12,
+		19
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1283,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1297,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1207,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1424,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1365,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1105,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 995,
+        "count": [
+          4,
+		69,
+		169,
+		269,
+		369,
+		473
+		
+        ],
+        "chance": 2
+      },
+      {
+        "id": 199,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 203,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 1311,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1313,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1209,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1299,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1430,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 207,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 209,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 3049,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1317,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5280,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5295,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
+      {
+        "id": 5323,
+        "count": [
+          1
+        ],
+        "chance": 4
+      }
+    ]
+  },
+  {
     "npcId": 5362,
     "rareTableAccess": true,
     "drops": [
