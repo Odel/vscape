@@ -371,7 +371,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inEnchantingChamber();
+		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {
@@ -382,10 +382,26 @@ public abstract class Entity {
 		return Area(3403, 3453, 3530, 3580);
 	}
 	
+	public boolean inMageTrainingArena() {
+	    return this.inEnchantingChamber() || this.inAlchemistPlayground() || this.inCreatureGraveyard();
+	}
+	
 	public boolean inEnchantingChamber() {
 	    int x = this.getPosition().getX();
 	    int y = this.getPosition().getY();
 	    return this.getPosition().getZ() == 0 && x >= 3334 && x <= 3388 && y >= 9610 && y <= 9664;
+	}
+	
+	public boolean inAlchemistPlayground() {
+	    int x = this.getPosition().getX();
+	    int y = this.getPosition().getY();
+	    return this.getPosition().getZ() == 2 && x >= 3355 && x <= 3390 && y >= 9600 && y <= 9665;
+	}
+	
+	public boolean inCreatureGraveyard() {
+	    int x = this.getPosition().getX();
+	    int y = this.getPosition().getY();
+	    return this.getPosition().getZ() == 1 && x >= 3340 && x <= 3390 && y >= 9610 && y <= 9670;
 	}
 	
 	public boolean inDesert() {

@@ -1227,6 +1227,12 @@ public class Player extends Entity {
 		if(this.inEnchantingChamber()) {
 		    this.getEnchantingChamber().exit();
 		}
+		if(this.inAlchemistPlayground()) {
+		    this.getAlchemistPlayground().exit();
+		}
+		if(this.inCreatureGraveyard()) {
+		    this.getCreatureGraveyard().exit();
+		}
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);
 		}

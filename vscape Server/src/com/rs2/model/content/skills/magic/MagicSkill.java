@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.attacks.SpellAttack;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
+import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
@@ -630,8 +631,12 @@ public abstract class MagicSkill extends CycleEvent {
 			player.getActionSender().sendMessage("You cannot use this spell in Castlewars.");
 			return false;
 		}
-		if (new Item(itemId).getDefinition().isUntradable() || itemId == 995) {
+		if ((new Item(itemId).getDefinition().isUntradable() || itemId == 995) && !AlchemistPlayground.isAlchemistPlaygroundItem(itemId)) {
 			player.getActionSender().sendMessage("You cannot alch this item.");
+			return false;
+		}
+		if(player.inAlchemistPlayground() && !AlchemistPlayground.isAlchemistPlaygroundItem(itemId)) {
+			player.getActionSender().sendMessage("You cannot alch this item here.");
 			return false;
 		}
 		if (player.getInventory().getItemContainer().get(slot).getCount() > 1 && !player.getInventory().getItemContainer().hasRoomFor(new Item(995))) {
@@ -641,7 +646,7 @@ public abstract class MagicSkill extends CycleEvent {
 		player.getActionSender().stopPlayerPacket(2);
 		player.getActionSender().sendFrame106(6);
 		player.getInventory().removeItem(new Item(itemId, 1));
-		if (price > 0) {
+		if (price > 0 && !AlchemistPlayground.isAlchemistPlaygroundItem(itemId)) {
 			player.getInventory().addItem(new Item(995, price));
 		}
 		return true;

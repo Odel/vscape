@@ -1256,7 +1256,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (player.getAlchemistPlayground().isInAlchemistPlayGround()) {
-	    player.getAlchemistPlayground().alchemyItem(itemId);
+	    player.getAlchemistPlayground().alchItem(itemId);
 	    return;
 	} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG) {
 	    System.out.println("Slot: " + player.getSlot() + " Item id: " + itemId + " Interface ID: " + player.getInterfaceId() + " magic id: " + magicId);

@@ -69,12 +69,9 @@ public class CreatureGraveyard {// todo handle death, logout, login
 	}
 
 	public boolean isInCreatureGraveyard() {
-		int x = player.getPosition().getX();
-		int y = player.getPosition().getY();
-
-		return player.getPosition().getZ() == 1 && x >= 3340 && x <= 3390 && y >= 9610 && y <= 9670;
-
+	    return player.inCreatureGraveyard();
 	}
+	
 	public void enter() {
 		Random random = new Random();
 		int number = random.nextInt(ENTERING_POSITION.length);
