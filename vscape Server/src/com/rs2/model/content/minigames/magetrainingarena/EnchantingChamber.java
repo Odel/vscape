@@ -349,6 +349,9 @@ public class EnchantingChamber {
 	    int overflow = (orbDepositCount + count) - 20;
 	    player.getInventory().addItemOrDrop(new Item(REWARD_RUNES[Misc.randomMinusOne(3)], 3));
 	    orbDepositCount = overflow;
+	} else if (orbDepositCount + count == 20) {
+	    player.getInventory().addItemOrDrop(new Item(REWARD_RUNES[Misc.randomMinusOne(3)], 3));
+	    orbDepositCount = 0;
 	} else {
 	    orbDepositCount += count;
 	}
