@@ -112,6 +112,15 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(2765, 2782, 0, 10, 0); //ape atoll spot
 		ObjectHandler.getInstance().removeClip(2765, 2781, 0, 10, 0); //ape atoll spot
 		ObjectHandler.getInstance().removeClip(2764, 2783, 0, 10, 0); //ape atoll spot
+		
+		ObjectHandler.getInstance().removeClip(3367, 9644, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3366, 9643, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3360, 9643, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3359, 9644, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3360, 9637, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3359, 9636, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3367, 9636, 0, 22, 0);
+		ObjectHandler.getInstance().removeClip(3366, 9637, 0, 22, 0); //Mage arena enchanting chamber
 	}
 	
 	public static void addNecessaryClipping() {

@@ -371,7 +371,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby();
+		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inEnchantingChamber();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {
@@ -380,6 +380,12 @@ public abstract class Entity {
 	
 	public boolean inSlayerTower() {
 		return Area(3403, 3453, 3530, 3580);
+	}
+	
+	public boolean inEnchantingChamber() {
+	    int x = this.getPosition().getX();
+	    int y = this.getPosition().getY();
+	    return this.getPosition().getZ() == 0 && x >= 3334 && x <= 3388 && y >= 9610 && y <= 9664;
 	}
 	
 	public boolean inDesert() {

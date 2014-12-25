@@ -114,7 +114,7 @@ public abstract class MagicSkill extends CycleEvent {
 	public final void execute(CycleEventContainer container) {
 		if (!player.checkTask(taskId) || !canUseSpell() || !onExecute()) {
 			//container.stop();
-            stop();
+		    stop();
 			return;
 		}
 		for (Requirement requirement : requirements) {
@@ -527,6 +527,9 @@ public abstract class MagicSkill extends CycleEvent {
 	public boolean enchantJewelry(int item, int spellId) {
 		if (!player.getSkill().canDoAction(1200)) {
 			return false;
+		}
+		if(player.inEnchantingChamber()) {
+		    return true;
 		}
 		int index = -1;
 		if (item == ENCHANT[spellId][0]) {

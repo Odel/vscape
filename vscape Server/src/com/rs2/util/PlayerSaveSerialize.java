@@ -298,6 +298,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		JsonObject fightCavesObj = new JsonObject();
 		fightCavesObj.addProperty("wave", player.getFightCavesWave());
 		minigameObj.add("fightCaves", fightCavesObj);
+		JsonObject mageTrainingArenaObj = new JsonObject();
+		mageTrainingArenaObj.addProperty("enchantingPizazz", player.getEnchantingPizazz());
+		minigameObj.add("mageTrainingArena", mageTrainingArenaObj);
 		
 		JsonObject farmingObj = new JsonObject();
 		JsonObject allotmentsObj = new JsonObject();

@@ -472,6 +472,10 @@ public class PlayerSaveParser {
 		            if(fightCaves != null){
 		            	player.setFightCavesWave(fightCaves.get("wave").getAsInt());
 		            }
+			    JsonObject mageTrainingArena = minigames.getAsJsonObject("mageTrainingArena");
+		            if(mageTrainingArena != null){
+		            	player.setEnchantingPizazz(mageTrainingArena.get("enchantingPizazz").getAsInt());
+		            }
 	            }
 	            JsonObject farming = mainObj.getAsJsonObject("farming");
 		        if(farming != null){

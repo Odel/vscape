@@ -216,6 +216,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
+	private int enchantingPizazz;
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -1212,6 +1213,9 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
+		if(this.inEnchantingChamber()) {
+		    this.getEnchantingChamber().exit();
+		}
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);
 		}
@@ -1915,6 +1919,14 @@ public class Player extends Entity {
 
 	public EnchantingChamber getEnchantingChamber() {
 		return enchantingChamber;
+	}
+	
+	public int getEnchantingPizazz() {
+	    return this.enchantingPizazz;
+	}
+	
+	public void setEnchantingPizazz(int set) {
+	    this.enchantingPizazz = set;
 	}
 	/*
         public PestControl getPestControl() {
