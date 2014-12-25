@@ -20,5 +20,7 @@ public class MageGameConstants {// todo to enter need to stand at square pos &
 	public static final int MAX_ENCHANTING_POINT = 16000;
 	public static final int MAX_TELEKINETIC_POINT = 4000;
 	public static final int MAX_GRAVEYARD_POINT = 4000;
+	
+	public static String bonusItemEnchantingChamber;
 
 }

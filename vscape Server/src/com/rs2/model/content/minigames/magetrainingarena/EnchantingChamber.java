@@ -28,11 +28,12 @@ public class EnchantingChamber {
 
     private Player player;
 
-    private int tempPizzazPoint;
-    private int enchantPizazzPoint;
+    private int tempPizazzPoint;
     private int[] enchantSpellsUsed = new int[6];
     private static ArrayList<GroundItem> DRAGONSTONES = new ArrayList<>();
-
+    private static int enchantCount = 0;
+    private static int orbDepositCount = 0;
+    
     public static Npc guardian() {
 	for (Npc npc : World.getNpcs()) {
 	    if (npc == null) {
@@ -50,7 +51,7 @@ public class EnchantingChamber {
     }
 
     private static final String[] color = {"red", "yellow", "green", "blue"};
-
+    private static final int[] REWARD_RUNES = {565, 560, 564};
     private static final int RED = 6901;
     private static final int YELLOW = 6899;
     private static final int GREEN = 6898;
@@ -60,18 +61,15 @@ public class EnchantingChamber {
     
     private static final MinigameAreas.Area CHAMBER = new MinigameAreas.Area(3341, 3386, 9616, 9662, 0);
 
-    private static String bonusItem = "red";
-
     static Random random = new Random();
 
     /* loading the enchanting chamber part */
     public static void loadEnchantingChamber() {
-	//loadInitialVariables();
 	loadEnchantingEvent();
     }
-
-    private static void loadInitialVariables() {
-	bonusItem = "red";
+    
+    public static boolean isEnchantingChamberItem(int itemId) {
+	return itemId == RED || itemId == YELLOW || itemId == GREEN || itemId == BLUE || itemId == DRAGONSTONE;
     }
 
     /* loading the enchanting chamber event */
@@ -79,17 +77,17 @@ public class EnchantingChamber {
 	World.submit(new Tick(40) { // 24 seconds
 	    @Override
 	    public void execute() {
-		bonusItem = color[random.nextInt(color.length)];
+		MageGameConstants.bonusItemEnchantingChamber = color[random.nextInt(color.length)];
 		for (Player player : World.getPlayers()) {
 		    if (player == null) {
 			continue;
 		    }
 		    if (player.getEnchantingChamber().isInEnchantingChamber()) {
-			player.getEnchantingChamber().showInterfaceComponent(bonusItem);
+			player.getEnchantingChamber().showInterfaceComponent(MageGameConstants.bonusItemEnchantingChamber);
 		    }
 		}
 		if (guardian() != null) {
-		    guardian().getUpdateFlags().sendForceMessage("The color shape is now " + bonusItem + "!");
+		    guardian().getUpdateFlags().sendForceMessage("The color shape is now " + MageGameConstants.bonusItemEnchantingChamber + "!");
 		}
 	    }
 	});
@@ -101,7 +99,7 @@ public class EnchantingChamber {
 
     public void loadInterfacePlayer() {
 	player.getActionSender().sendWalkableInterface(15917);
-	player.getActionSender().sendString("" + (enchantPizazzPoint + tempPizzazPoint), 15921);
+	player.getActionSender().sendString("" + (player.getEnchantingPizazz() + tempPizazzPoint), 15921);
     }
 
     public void showInterfaceComponent(String bonusItem) {
@@ -202,10 +200,12 @@ public class EnchantingChamber {
 		if(!isInEnchantingChamber()) {
 		    b.stop();
 		} else {
-		    player.getActionSender().sendMessage("You hear the tinkle of a gem hit the floor.");
-		    GroundItem drop = new GroundItem(new Item(DRAGONSTONE), player, player, MinigameAreas.randomPosition(CHAMBER));
-		    GroundItemManager.getManager().dropItem(drop);
-		    DRAGONSTONES.add(drop);
+		    player.getActionSender().sendMessage("You hear the tinkle of gems hitting the floor.");
+		    for(int i = 0; i < 6; i++) {
+			GroundItem drop = new GroundItem(new Item(DRAGONSTONE), player, player, MinigameAreas.randomPosition(CHAMBER));
+			GroundItemManager.getManager().dropItem(drop);
+			DRAGONSTONES.add(drop);
+		    }
 		}
 	    }
 
@@ -221,17 +221,32 @@ public class EnchantingChamber {
 	    }
 	}, 300);
     }
-
+    
+    public void saveVariables() {
+	player.setEnchantingPizazz(player.getEnchantingPizazz() + tempPizazzPoint);
+	player.setEnchantingEnchantCount(enchantCount);
+	player.setEnchantingOrbCount(orbDepositCount);
+	tempPizazzPoint = 0;
+    }
+    
     public void exit() {
 	player.getActionSender().sendMessage("You've left the Enchantment Chamber.");
 	player.getActionSender().sendWalkableInterface(-1);
 	player.teleport(MageGameConstants.LEAVING_POSITION);
 	removeItems();
-	enchantPizazzPoint += tempPizzazPoint;
-	tempPizzazPoint = 0;
 	player.getActionSender().sendWalkableInterface(-1);
-	player.setEnchantingPizazz(player.getEnchantingPizazz() + enchantPizazzPoint);
+	player.setEnchantingPizazz(player.getEnchantingPizazz() + tempPizazzPoint);
+	player.setEnchantingEnchantCount(enchantCount);
+	player.setEnchantingOrbCount(orbDepositCount);
+	if (!DRAGONSTONES.isEmpty()) {
+	    for (GroundItem g : DRAGONSTONES) {
+		if (g != null) {
+		    GroundItemManager.getManager().destroyItem(g);
+		}
+	    }
+	}
 	DRAGONSTONES.clear();
+	tempPizazzPoint = 0;
     }
 
     /* removing the minigame items */
@@ -294,22 +309,29 @@ public class EnchantingChamber {
 	}
 	if (itemId == DRAGONSTONE) {
 	    /* check if the max point is reached or not */
-	    if ((enchantPizazzPoint + tempPizzazPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
-		tempPizzazPoint += getPointsBySpell(spellId);
+	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
+		tempPizazzPoint += getPointsBySpell(spellId);
 	    } else {
-		tempPizzazPoint = MageGameConstants.MAX_ENCHANTING_POINT - enchantPizazzPoint;
+		tempPizazzPoint = MageGameConstants.MAX_ENCHANTING_POINT - player.getEnchantingPizazz();
 	    }
 	} else {
 	    /* if the player is enchanting the item shown as bonus */
-	    if (bonusItem.equals(getStringById(itemId)) && (enchantPizazzPoint + tempPizzazPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
+	    if (MageGameConstants.bonusItemEnchantingChamber.equals(getStringById(itemId)) && (player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
 		player.getActionSender().sendMessage("You recieve 1 bonus point!");
-		enchantPizazzPoint += 1;
+		tempPizazzPoint++;
 	    }
-	    /*
-	     * extra points handling : win points depending on the enchanting
-	     * point used: will be added when deposit orb
-	     */
 	    enchantSpellsUsed[getEnchantingIndex(spellId)] += 1;
+	    // checks if the max point is reached or not
+	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
+		if(enchantCount == 9) {
+		    tempPizazzPoint += getExtraPointsByIndex(getEnchantingIndex(spellId));
+		    resetEnchantingSpells();
+		} else {
+		    enchantCount++;
+		}
+	    } else {
+		tempPizazzPoint = MageGameConstants.MAX_ENCHANTING_POINT - player.getEnchantingPizazz();
+	    }
 	}
 	/* standard enchanting methods */
 	player.getInventory().removeItem(new Item(itemId));
@@ -322,26 +344,16 @@ public class EnchantingChamber {
 	    player.getActionSender().sendMessage("You don't have any orbs to deposit.");
 	    return;
 	}
-	int count = player.getInventory().getItemContainer().getCount(ORB);
-	int extraPoints = 0;
-	// checks if the max point is reached or not
-	if ((enchantPizazzPoint + tempPizzazPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
-	    tempPizzazPoint += Math.floor(count / 10) * 10;
-	    for (int i = 0; i < enchantSpellsUsed.length; i++) {
-		while (enchantSpellsUsed[i] - 10 >= 0) {
-		    enchantSpellsUsed[i] -= 10;
-		    tempPizzazPoint += getExtraPointsByIndex(i);
-		    extraPoints += getExtraPointsByIndex(i);
-		}
-	    }
+	int count = player.getInventory().getItemAmount(ORB);
+	if(orbDepositCount + count > 20) {
+	    int overflow = (orbDepositCount + count) - 20;
+	    player.getInventory().addItemOrDrop(new Item(REWARD_RUNES[Misc.randomMinusOne(3)], 3));
+	    orbDepositCount = overflow;
 	} else {
-	    tempPizzazPoint = MageGameConstants.MAX_ENCHANTING_POINT - enchantPizazzPoint;
+	    orbDepositCount += count;
 	}
-	player.getDialogue().sendStatement("You've just deposited " + count + " orbs, earning you " + (int) (Math.floor(count / 10) * 10) + " Enchanting Pizazz", "Points and " + extraPoints + " extra points for the enchanting spell used.");
-	resetEnchantingSpells();
-	player.getInventory().removeItem(new Item(ORB, player.getInventory().getItemAmount(ORB)));
+	player.getInventory().removeItem(new Item(ORB, count));
 	player.getUpdateFlags().sendAnimation(832, 0);
-
     }
 
     /* reset the enchanting spells after depositing orbs */
@@ -349,6 +361,7 @@ public class EnchantingChamber {
 	for (int i = 0; i < enchantSpellsUsed.length; i++) {
 	    enchantSpellsUsed[i] = 0;
 	}
+	enchantCount = 0;
     }
 
 }

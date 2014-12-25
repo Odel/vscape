@@ -474,7 +474,15 @@ public class PlayerSaveParser {
 		            }
 			    JsonObject mageTrainingArena = minigames.getAsJsonObject("mageTrainingArena");
 		            if(mageTrainingArena != null){
-		            	player.setEnchantingPizazz(mageTrainingArena.get("enchantingPizazz").getAsInt());
+				if(mageTrainingArena.get("enchantingPizazz") != null) {
+				    player.setEnchantingPizazz(mageTrainingArena.get("enchantingPizazz").getAsInt());
+				}
+				if(mageTrainingArena.get("enchantCount") != null) {
+				    player.setEnchantingEnchantCount(mageTrainingArena.get("enchantCount").getAsInt());
+				}
+				if(mageTrainingArena.get("orbCount") != null) {
+				    player.setEnchantingOrbCount(mageTrainingArena.get("orbCount").getAsInt());
+				}
 		            }
 	            }
 	            JsonObject farming = mainObj.getAsJsonObject("farming");

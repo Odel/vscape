@@ -216,7 +216,9 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-	private int enchantingPizazz;
+	private int enchantingPizazz = 0;
+	private int enchantingOrbCount = 0;
+	private int enchantingEnchantCount = 0;
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -677,6 +679,9 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
+	else if(this.inEnchantingChamber()) {
+		this.getEnchantingChamber().saveVariables();
+	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -770,6 +775,9 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
+	else if(this.inEnchantingChamber()) {
+		this.getEnchantingChamber().saveVariables();
+	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {
@@ -1927,6 +1935,22 @@ public class Player extends Entity {
 	
 	public void setEnchantingPizazz(int set) {
 	    this.enchantingPizazz = set;
+	}
+	
+	public int getEnchantingOrbCount() {
+	    return this.enchantingOrbCount;
+	}
+	
+	public void setEnchantingOrbCount(int set) {
+	    this.enchantingOrbCount = set;
+	}
+	
+	public int getEnchantingEnchantCount() {
+	    return this.enchantingEnchantCount;
+	}
+	
+	public void setEnchantingEnchantCount(int set) {
+	    this.enchantingEnchantCount = set;
 	}
 	/*
         public PestControl getPestControl() {

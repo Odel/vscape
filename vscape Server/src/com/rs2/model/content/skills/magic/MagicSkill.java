@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.attacks.SpellAttack;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
+import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.ground.GroundItem;
@@ -528,7 +529,7 @@ public abstract class MagicSkill extends CycleEvent {
 		if (!player.getSkill().canDoAction(1200)) {
 			return false;
 		}
-		if(player.inEnchantingChamber()) {
+		if(player.inEnchantingChamber() && EnchantingChamber.isEnchantingChamberItem(item)) {
 		    return true;
 		}
 		int index = -1;
