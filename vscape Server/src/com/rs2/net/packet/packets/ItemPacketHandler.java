@@ -11,6 +11,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
+import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -607,12 +608,16 @@ public class ItemPacketHandler implements PacketHandler {
 		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 3);
 		break;
 	}
+	
 	if (!player.hasInterfaceOpen(inter)) {
             //player.getActionSender().removeInterfaces();
 		if (interfaceID == 12392) {
 		    CastlewarsExchange.getBuyValue(player, itemId);
 		}
 	    return;
+	}
+	if (interfaceID == 15948) {
+	    MageRewardHandling.getBuyValue(player, itemId);
 	}
 	if (interfaceID == 1119 || interfaceID == 1120 || interfaceID == 1121 || interfaceID == 1122 || interfaceID == 1123) {
 	    //player.getSmithing().smithItem(itemId, 1);
@@ -671,8 +676,12 @@ public class ItemPacketHandler implements PacketHandler {
 	    //player.getActionSender().removeInterfaces();
 		if (interfaceID == 12392) {
 			CastlewarsExchange.BuyItem(player, player.getSlot(), itemId);
-		} 
+		}
+		
 	    return;
+	}
+	if (interfaceID == 15948) {
+	    MageRewardHandling.buyItem(player, player.getSlot(), itemId);
 	}
 	if (interfaceID == 5064 || interfaceID == 7423) {
 		player.getBankManager().bankItem(player.getSlot(), itemId, 5);
@@ -840,7 +849,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    Pouches.fillEssencePouch(player, itemId);
 	    return;
 	}
-
+	
 	if (player.getPotion().isPotion(itemId)) {
 	    player.getPotion().drinkPotion(itemId, player.getSlot());
 	    return;

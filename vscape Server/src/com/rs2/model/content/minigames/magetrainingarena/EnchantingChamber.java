@@ -18,21 +18,29 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
 
-/**
- * Created by IntelliJ IDEA. User: vayken Date: 01/01/12 Time: 00:47 To change
- * this template use File | Settings | File Templates.
- */
 public class EnchantingChamber {
-
-    private static final Position[] ENTERING_POSITION = {new Position(3373, 9640, 0), new Position(3374, 9639, 0), new Position(3375, 9640, 0), new Position(3374, 9641, 0), new Position(3362, 9650, 0), new Position(3363, 9651, 0), new Position(3364, 9650, 0), new Position(3363, 9649, 0), new Position(3363, 9628, 0), new Position(3364, 9629, 0), new Position(3363, 9630, 0), new Position(3362, 9629, 0), new Position(3354, 9640, 0), new Position(3353, 9639, 0), new Position(3352, 9640, 0), new Position(3353, 9641, 0)};
 
     private Player player;
 
     private int tempPizazzPoint;
     private int[] enchantSpellsUsed = new int[6];
-    private static ArrayList<GroundItem> DRAGONSTONES = new ArrayList<>();
-    private static int enchantCount = 0;
-    private static int orbDepositCount = 0;
+    private ArrayList<GroundItem> DRAGONSTONES = new ArrayList<>();
+    private int enchantCount = 0;
+    private int orbDepositCount = 0;
+    
+    private static final String[] color = {"red", "yellow", "green", "blue"};
+    private static final int[] REWARD_RUNES = {565, 560, 564};
+    private static final int RED = 6901;
+    private static final int YELLOW = 6899;
+    private static final int GREEN = 6898;
+    private static final int BLUE = 6900;
+    private static final int ORB = 6902;
+    private static final int DRAGONSTONE = 6903;
+    
+    private static final MinigameAreas.Area CHAMBER = new MinigameAreas.Area(3341, 3386, 9616, 9662, 0);
+    private static final Position[] ENTERING_POSITION = {new Position(3373, 9640, 0), new Position(3374, 9639, 0), new Position(3375, 9640, 0), new Position(3374, 9641, 0), new Position(3362, 9650, 0), new Position(3363, 9651, 0), new Position(3364, 9650, 0), new Position(3363, 9649, 0), new Position(3363, 9628, 0), new Position(3364, 9629, 0), new Position(3363, 9630, 0), new Position(3362, 9629, 0), new Position(3354, 9640, 0), new Position(3353, 9639, 0), new Position(3352, 9640, 0), new Position(3353, 9641, 0)};
+
+    static Random random = new Random();
     
     public static Npc guardian() {
 	for (Npc npc : World.getNpcs()) {
@@ -49,19 +57,6 @@ public class EnchantingChamber {
     public EnchantingChamber(Player player) {
 	this.player = player;
     }
-
-    private static final String[] color = {"red", "yellow", "green", "blue"};
-    private static final int[] REWARD_RUNES = {565, 560, 564};
-    private static final int RED = 6901;
-    private static final int YELLOW = 6899;
-    private static final int GREEN = 6898;
-    private static final int BLUE = 6900;
-    private static final int ORB = 6902;
-    private static final int DRAGONSTONE = 6903;
-    
-    private static final MinigameAreas.Area CHAMBER = new MinigameAreas.Area(3341, 3386, 9616, 9662, 0);
-
-    static Random random = new Random();
 
     /* loading the enchanting chamber part */
     public static void loadEnchantingChamber() {
@@ -191,6 +186,7 @@ public class EnchantingChamber {
 	    player.getActionSender().sendMessage("You need a magic level of " + MageGameConstants.ENCHANTING_LEVEL + " to enter here.");
 	    return;
 	}
+	orbDepositCount = player.getEnchantingOrbCount();
 	player.getActionSender().sendMessage("You've entered the Enchantment Chamber.");
 	int number = random.nextInt(ENTERING_POSITION.length);
 	player.teleport(ENTERING_POSITION[number]);
@@ -345,13 +341,10 @@ public class EnchantingChamber {
 	    return;
 	}
 	int count = player.getInventory().getItemAmount(ORB);
-	if(orbDepositCount + count > 20) {
+	if((orbDepositCount + count) >= 20) {
 	    int overflow = (orbDepositCount + count) - 20;
 	    player.getInventory().addItemOrDrop(new Item(REWARD_RUNES[Misc.randomMinusOne(3)], 3));
 	    orbDepositCount = overflow;
-	} else if (orbDepositCount + count == 20) {
-	    player.getInventory().addItemOrDrop(new Item(REWARD_RUNES[Misc.randomMinusOne(3)], 3));
-	    orbDepositCount = 0;
 	} else {
 	    orbDepositCount += count;
 	}

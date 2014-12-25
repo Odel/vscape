@@ -17,6 +17,7 @@ import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
+import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
@@ -2359,6 +2360,9 @@ public class WalkToActionHandler {
 				// break;
 				case 2258:
 					Abyss.teleportToAbyss(player, npc);
+					break;
+				case 3103: //MTA Rewards Guardian
+					MageRewardHandling.openInterface(player);
 					break;
 				case 836: //SHANTAY Buy pass
 					Item SHANTAY_PASS = new Item(1854);

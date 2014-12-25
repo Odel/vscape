@@ -219,6 +219,9 @@ public class Player extends Entity {
 	private int enchantingPizazz = 0;
 	private int enchantingOrbCount = 0;
 	private int enchantingEnchantCount = 0;
+	private int telekineticPizazz = 0;
+	private int alchemistPizazz = 0;
+	private int graveyardPizazz = 0;
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -1951,6 +1954,30 @@ public class Player extends Entity {
 	
 	public void setEnchantingEnchantCount(int set) {
 	    this.enchantingEnchantCount = set;
+	}
+	
+	public int getTelekineticPizazz() {
+	    return this.telekineticPizazz;
+	}
+	
+	public void setTelekineticPizazz(int set) {
+	    this.telekineticPizazz = set;
+	}
+	
+	public int getAlchemistPizazz() {
+	    return this.alchemistPizazz;
+	}
+	
+	public void setAlchemistPizazz(int set) {
+	    this.alchemistPizazz = set;
+	}
+	
+	public int getGraveyardPizazz() {
+	    return this.graveyardPizazz;
+	}
+	
+	public void setGraveyardPizazz(int set) {
+	    this.graveyardPizazz = set;
 	}
 	/*
         public PestControl getPestControl() {
