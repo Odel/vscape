@@ -121,6 +121,18 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3359, 9636, 0, 22, 0);
 		ObjectHandler.getInstance().removeClip(3367, 9636, 0, 22, 0);
 		ObjectHandler.getInstance().removeClip(3366, 9637, 0, 22, 0); //Mage arena enchanting chamber
+		
+		ObjectHandler.getInstance().removeClip(3363, 9630, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3366, 9630, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3371, 9630, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3371, 9646, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3366, 9646, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3363, 9646, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3358, 9646, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3358, 9630, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3356, 9628, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3356, 9648, 2, 22, 0);
+		ObjectHandler.getInstance().removeClip(3373, 9628, 2, 22, 0); //MTA alchemist playground
 	}
 	
 	public static void addNecessaryClipping() {

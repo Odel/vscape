@@ -223,17 +223,6 @@ public class EnchantingChamber {
 	player.setEnchantingEnchantCount(enchantCount);
 	player.setEnchantingOrbCount(orbDepositCount);
 	tempPizazzPoint = 0;
-    }
-    
-    public void exit() {
-	player.getActionSender().sendMessage("You've left the Enchantment Chamber.");
-	player.getActionSender().sendWalkableInterface(-1);
-	player.teleport(MageGameConstants.LEAVING_POSITION);
-	removeItems();
-	player.getActionSender().sendWalkableInterface(-1);
-	player.setEnchantingPizazz(player.getEnchantingPizazz() + tempPizazzPoint);
-	player.setEnchantingEnchantCount(enchantCount);
-	player.setEnchantingOrbCount(orbDepositCount);
 	if (!DRAGONSTONES.isEmpty()) {
 	    for (GroundItem g : DRAGONSTONES) {
 		if (g != null) {
@@ -244,9 +233,17 @@ public class EnchantingChamber {
 	DRAGONSTONES.clear();
 	tempPizazzPoint = 0;
     }
+    
+    public void exit() {
+	player.getActionSender().sendMessage("You've left the Enchantment Chamber.");
+	player.getActionSender().sendWalkableInterface(-1);
+	player.teleport(MageGameConstants.LEAVING_POSITION);
+	removeItems();
+	player.getActionSender().sendWalkableInterface(-1);
+	saveVariables();
+    }
 
-    /* removing the minigame items */
-    private void removeItems() {
+    public void removeItems() {
 	player.getInventory().removeItem(new Item(RED, player.getInventory().getItemAmount(RED)));
 	player.getInventory().removeItem(new Item(YELLOW, player.getInventory().getItemAmount(YELLOW)));
 	player.getInventory().removeItem(new Item(GREEN, player.getInventory().getItemAmount(GREEN)));
@@ -303,6 +300,9 @@ public class EnchantingChamber {
 	if (itemId != RED && itemId != YELLOW && itemId != GREEN && itemId != BLUE && itemId != DRAGONSTONE) {
 	    return;
 	}
+	if(getEnchantingIndex(spellId) < 0) {
+	    return;
+	}
 	if (itemId == DRAGONSTONE) {
 	    /* check if the max point is reached or not */
 	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
@@ -316,7 +316,7 @@ public class EnchantingChamber {
 		player.getActionSender().sendMessage("You recieve 1 bonus point!");
 		tempPizazzPoint++;
 	    }
-	    enchantSpellsUsed[getEnchantingIndex(spellId)] += 1;
+		enchantSpellsUsed[getEnchantingIndex(spellId)] += 1;
 	    // checks if the max point is reached or not
 	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
 		if(enchantCount == 9) {

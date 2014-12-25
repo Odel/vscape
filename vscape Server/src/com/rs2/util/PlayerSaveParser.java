@@ -483,6 +483,9 @@ public class PlayerSaveParser {
 				if(mageTrainingArena.get("orbCount") != null) {
 				    player.setEnchantingOrbCount(mageTrainingArena.get("orbCount").getAsInt());
 				}
+				if(mageTrainingArena.get("alchemistPizazz") != null) {
+				    player.setAlchemistPizazz(mageTrainingArena.get("alchemistPizazz").getAsInt());
+				}
 		            }
 	            }
 	            JsonObject farming = mainObj.getAsJsonObject("farming");

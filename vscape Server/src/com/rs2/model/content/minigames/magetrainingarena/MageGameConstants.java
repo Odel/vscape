@@ -6,10 +6,8 @@ import com.rs2.model.Position;
  * Created by IntelliJ IDEA. User: vayken Date: 01/01/12 Time: 02:52 To change
  * this template use File | Settings | File Templates.
  */
-public class MageGameConstants {// todo to enter need to stand at square pos &
-								// handle death + cannot teleport out w/e
-								// teletabs
-								// todo each room for each players
+public class MageGameConstants {
+    
 	public static final Position LEAVING_POSITION = new Position(3363, 3318, 0);
 	public static final int ALCHEMIST_LEVEL = 21;
 	public static final int ENCHANTING_LEVEL = 7;
@@ -22,5 +20,11 @@ public class MageGameConstants {// todo to enter need to stand at square pos &
 	public static final int MAX_GRAVEYARD_POINT = 4000;
 	
 	public static String bonusItemEnchantingChamber;
+	
+	public static int RUNE_LONGSWORD_PRICE;
+	public static int EMERALD_PRICE;
+	public static int ADAMANT_MED_HELM_PRICE;
+	public static int ADAMANT_KITE_PRICE;
+	public static int LEATHER_BOOTS_PRICE;
 
 }

@@ -684,6 +684,11 @@ public class Player extends Entity {
         }
 	else if(this.inEnchantingChamber()) {
 		this.getEnchantingChamber().saveVariables();
+		this.getEnchantingChamber().removeItems();
+	}
+	else if(this.inAlchemistPlayground()) {
+		this.getAlchemistPlayground().saveVariables();
+		this.getAlchemistPlayground().removeItems();
 	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -780,6 +785,11 @@ public class Player extends Entity {
         }
 	else if(this.inEnchantingChamber()) {
 		this.getEnchantingChamber().saveVariables();
+		this.getEnchantingChamber().removeItems();
+	}
+	else if(this.inAlchemistPlayground()) {
+		this.getAlchemistPlayground().saveVariables();
+		this.getAlchemistPlayground().removeItems();
 	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
