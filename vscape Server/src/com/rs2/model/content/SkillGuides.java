@@ -482,7 +482,7 @@ public class SkillGuides {
 			menuLine(level, "Ahrim's Staff(With 70 Magic)", 4710, 0);
 			menuLine(level, "Dharok's Greataxe(With 70 Strength)", 4718, 1);
 			menuLine(level, "Guthan's Spear", 4726, 2);
-			menuLine(level, "Torag's Hammers(With 70 Strength", 4747, 3);
+			menuLine(level, "Torag's Hammers(With 70 Strength)", 4747, 3);
 			menuLine(level, "Verac's Flail", 4755, 4);
 			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
 		} else if (screen == 11) {
@@ -889,9 +889,9 @@ public class SkillGuides {
 			menuLine("65", "3rd Age Range Top(With 45 Defence)", 10330, 28);
 			menuLine("65", "3rd Age Range Legs(With 45 Defence)", 10332, 29);
 			menuLine("65", "3rd Age Vambraces(With 45 Defence)", 10336, 30);
-			menuLine("70", "Black Dragonhdie Vambraces", 2491, 31);
-			menuLine("70", "Black Dragonhdie Chaps", 2497, 32);
-			menuLine("70", "Black Dragonhdie Body(With 40 Defence)", 2503, 33);
+			menuLine("70", "Black Dragonhide Vambraces", 2491, 31);
+			menuLine("70", "Black Dragonhide Chaps", 2497, 32);
+			menuLine("70", "Black Dragonhide Body(With 40 Defence)", 2503, 33);
 			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 34);
 			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 35);
 			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 36);
@@ -901,7 +901,7 @@ public class SkillGuides {
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("1", "Crossbow", 837, 0);
-			menuLine("1", "Pheonix Crossbow", 767, 1);
+			menuLine("1", "Phoenix Crossbow", 767, 1);
 			menuLine("1", "Bronze C'bow", 9174, 2);
 			menuLine("26", "Iron C'bow", 9177, 3);
 			menuLine("31", "Steel C'bow", 9179, 4);
@@ -1264,7 +1264,7 @@ public class SkillGuides {
 			menuLine("1", "Gnome Ball", 751, 1);// gnomeball
 			menuLine("1", "Low-Level Agility Arena Obstacles", 2996, 2);// arena
 			// ticket
-			menuLine("20", "Medium-Level Agility Arena )bstacles", 2996, 3);// arena
+			menuLine("20", "Medium-Level Agility Arena Obstacles", 2996, 3);// arena
 			// ticket
 			menuLine("25", "Werewolf Skullball Game", 1061, 4);// boots
 			menuLine("35", "Barbarian Outpost Agility Course", 1365, 5);// steel
@@ -1879,7 +1879,7 @@ public class SkillGuides {
 	public void smithingComplex(int screen) {
 		if (screen == 1) {
 			clearMenu();
-			menuLine("1", "Bronze(1 Tin Ore + 1 Copper Ore", 2349, 0);
+			menuLine("1", "Bronze(1 Tin Ore + 1 Copper Ore)", 2349, 0);
 			menuLine("1", "Blurite", 9467, 1);
 			menuLine("15", "Iron(50% Chance of Success)", 2351, 2);
 			menuLine("20", "Elemental Metal(After Elemental Workshop)", 2893, 3);
@@ -2175,8 +2175,8 @@ public class SkillGuides {
 			optionTab("Smithing", "Runite", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 8) {
 			clearMenu();
-			menuLine("50", "Gold Bowl(After Starting Legends' Quest", 721, 0);
-			menuLine("50", "Gold Helmet(After starting Between a Rock...", 4567, 1);
+			menuLine("50", "Gold Bowl(After Starting Legends' Quest)", 721, 0);
+			menuLine("50", "Gold Helmet(After starting Between a Rock...)", 4567, 1);
 			optionTab("Smithing", "Gold", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		} else if (screen == 9) {
 			clearMenu();
