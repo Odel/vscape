@@ -128,8 +128,9 @@ public class EnchantingChamber {
 	    case 10782:// exiting object
 		if (isInEnchantingChamber()) {
 		    exit();
+		    return true;
 		}
-		return true;
+		return false;
 	    case 10779:// entering object
 		enter();
 		return true;

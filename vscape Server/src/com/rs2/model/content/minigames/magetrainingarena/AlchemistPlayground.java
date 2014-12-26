@@ -229,6 +229,7 @@ public class AlchemistPlayground {
 	} else if (objectId == 10782) {
 	    if (isInAlchemistPlayGround()) {
 		exit();
+		return true;
 	    }
 	    return false;
 	} else if (objectId == 10780) {

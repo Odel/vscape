@@ -15,7 +15,7 @@ public class MageRewardHandling {
     public static final int ALCHEMY = 15957;
     public static final int GRAVEYARD = 15958;
 
-    private static Container stock = new Container(Container.Type.ALWAYS_STACK, 24);
+    public static Container stock = new Container(Container.Type.ALWAYS_STACK, 24);
 
     public static final Item[] REWARD_ITEMS = {new Item(6908, 100), new Item(6910, 100), new Item(6912, 100), new Item(6914, 100), new Item(6918, 100), new Item(6916, 100), new Item(6924, 100), new Item(6920, 100), new Item(6922, 100), new Item(6889, 100), new Item(6926, 100), new Item(4695, 100), new Item(4696, 100), new Item(4698, 100), new Item(4697, 100), new Item(4694, 100), new Item(4699, 100), new Item(564, 100), new Item(562, 100), new Item(561, 100), new Item(560, 100), new Item(563, 100), new Item(566, 100), new Item(565, 100)};
 
@@ -28,7 +28,7 @@ public class MageRewardHandling {
     public static void openInterface(final Player player) {
 	player.getActionSender().sendInterface(INTERFACE, 3822);
 	player.getInventory().refresh(3823);
-	player.getActionSender().sendUpdateItems(ITEM_GROUP, REWARD_ITEMS);
+	player.getActionSender().sendUpdateItems(ITEM_GROUP, stock.toArray());
 	player.getAttributes().put("isShopping", Boolean.TRUE);
 	player.getActionSender().sendString("" + player.getTelekineticPizazz(), TELEKINETIC);
 	player.getActionSender().sendString("" + player.getEnchantingPizazz(), ENCHANTING);
@@ -77,7 +77,9 @@ public class MageRewardHandling {
 	    return;
 	}
 	player.getInventory().addItem(new Item(shopItem, 1));
+	stock.set(slot, new Item(shopItem, item.getCount() - 1));
 	player.getInventory().refresh(3823);
+	player.getActionSender().sendUpdateItems(ITEM_GROUP, stock.toArray());
 	player.setTelekineticPizazz(player.getTelekineticPizazz() - telePizazz);
 	player.setAlchemistPizazz(player.getAlchemistPizazz() - alchPizazz);
 	player.setEnchantingPizazz(player.getEnchantingPizazz() - enchantPizazz);

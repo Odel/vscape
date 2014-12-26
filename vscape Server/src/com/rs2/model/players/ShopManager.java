@@ -18,6 +18,7 @@ import com.rs2.util.LogHandler;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 
 public class ShopManager {
 
@@ -466,6 +467,19 @@ public class ShopManager {
 						}
 					}
 					refreshAll(shop.getShopId());
+				}
+				for (Item item : MageRewardHandling.stock.toArray()) {
+				    if (item == null) {
+					continue;
+				    }
+				    if (item.getCount() < 100) {
+					MageRewardHandling.stock.set(MageRewardHandling.stock.getSlotById(item.getId()), new Item(item.getId(), item.getCount() + 1));
+					for(Player player : World.getPlayers()) {
+					    if(player != null && (Boolean)player.getAttributes().get("isShopping")) {
+						player.getActionSender().sendUpdateItems(MageRewardHandling.ITEM_GROUP, MageRewardHandling.stock.toArray());
+					    }
+					}
+				    }
 				}
 			}
 		});
