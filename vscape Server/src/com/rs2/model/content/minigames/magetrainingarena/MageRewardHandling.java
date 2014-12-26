@@ -71,12 +71,27 @@ public class MageRewardHandling {
 	    player.getActionSender().sendMessage("You do not have enough Pizazz Points to purchase this item.");
 	    return;
 	}
+	if(shopItem == 6926) {
+	    player.getActionSender().sendMessage("You have unlocked the spell Bones to Peaches.");
+	    player.setBonesToPeachesEnabled(true);
+	} else if (shopItem == 6910 && !player.getInventory().ownsItem(6908)) {
+	    player.getActionSender().sendMessage("You need to own the Beginner wand in order to purchase this.");
+	    return;
+	} else if (shopItem == 6912 && !player.getInventory().ownsItem(6910)) {
+	    player.getActionSender().sendMessage("You need to own the Apprentice wand in order to purchase this.");
+	    return;
+	} else if (shopItem == 6914 && !player.getInventory().ownsItem(6912)) {
+	    player.getActionSender().sendMessage("You need to own the Teacher wand in order to purchase this.");
+	    return;
+	}
 	int freeSpace = inventory.freeSlots();
 	if ((!item.getDefinition().isStackable() || !player.getInventory().playerHasItem(shopItem)) && freeSpace < 1) {
 	    player.getActionSender().sendMessage("Not enough space in your inventory.");
 	    return;
 	}
-	player.getInventory().addItem(new Item(shopItem, 1));
+	if(shopItem != 6926) {
+	    player.getInventory().addItem(new Item(shopItem, 1));
+	}
 	stock.set(slot, new Item(shopItem, item.getCount() - 1));
 	player.getInventory().refresh(3823);
 	player.getActionSender().sendUpdateItems(ITEM_GROUP, stock.toArray());

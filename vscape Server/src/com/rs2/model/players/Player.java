@@ -222,6 +222,8 @@ public class Player extends Entity {
 	private int telekineticPizazz = 0;
 	private int alchemistPizazz = 0;
 	private int graveyardPizazz = 0;
+	private int graveyardFruitDeposited = 0;
+	private boolean bonesToPeachesEnabled = false;
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -690,6 +692,10 @@ public class Player extends Entity {
 		this.getAlchemistPlayground().saveVariables();
 		this.getAlchemistPlayground().removeItems();
 	}
+	else if(this.inCreatureGraveyard()) {
+		this.getCreatureGraveyard().saveVariables();
+		this.getCreatureGraveyard().removeItems();
+	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -790,6 +796,10 @@ public class Player extends Entity {
 	else if(this.inAlchemistPlayground()) {
 		this.getAlchemistPlayground().saveVariables();
 		this.getAlchemistPlayground().removeItems();
+	}
+	else if(this.inCreatureGraveyard()) {
+		this.getCreatureGraveyard().saveVariables();
+		this.getCreatureGraveyard().removeItems();
 	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
@@ -1994,6 +2004,22 @@ public class Player extends Entity {
 	
 	public void setGraveyardPizazz(int set) {
 	    this.graveyardPizazz = set;
+	}
+	
+	public int getGraveyardFruitDeposited() {
+	    return this.graveyardFruitDeposited;
+	}
+	
+	public void setGraveyardFruitDeposited(int set) {
+	    this.graveyardFruitDeposited = set;
+	}
+	
+	public boolean bonesToPeachesEnabled() {
+	    return this.bonesToPeachesEnabled;
+	}
+	
+	public void setBonesToPeachesEnabled(boolean set) {
+	    this.bonesToPeachesEnabled = set;
 	}
 	/*
         public PestControl getPestControl() {

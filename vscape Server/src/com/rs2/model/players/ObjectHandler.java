@@ -54,13 +54,9 @@ public class ObjectHandler {
 			}
 			if (o.tick > 0 && o.tick < 99999) {
 				o.tick--;
-			} else if (o.tick < 99999) {
-				if (CreatureGraveyard.handleBonesRestore(o)) 
-				{
-				} else {
+			} else if (o.tick <= 0) {
 					objects.remove(o);
 					updateObject(o);
-				}
 			}
 		}
 		b.stop();

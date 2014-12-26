@@ -293,9 +293,17 @@ public abstract class MagicSkill extends CycleEvent {
 			public boolean onExecute() {
 				switch (spell) {
 					case BONES_TO_PEACH :
+					    if(player.inCreatureGraveyard()) {
+						return player.getCreatureGraveyard().applyBonesToFruit(true);
+					    } else {
 						return applyBonesToFruit(true);
+					    }
 					case BONES_TO_BANANA :
+					    if(player.inCreatureGraveyard()) {
+						return player.getCreatureGraveyard().applyBonesToFruit(false);
+					    } else {
 						return applyBonesToFruit(false);
+					    }
 					case CHARGE :
 						if (player.getGodChargeDelayTimer().completed()) {
 							player.refreshGodChargeEffect();
@@ -557,6 +565,10 @@ public abstract class MagicSkill extends CycleEvent {
 	public boolean applyBonesToFruit(boolean peaches) {
 		if (!player.getSkill().canDoAction(1200)) {
 			return false;
+		}
+		if(peaches && !player.bonesToPeachesEnabled()) {
+		    player.getActionSender().sendMessage("You must unlock this spell from the Mage Training Arena before using it.");
+		    return false;
 		}
 		int fruit = peaches ? PEACH : BANANA;
 		boolean hasBones = false;

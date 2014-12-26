@@ -486,6 +486,15 @@ public class PlayerSaveParser {
 				if(mageTrainingArena.get("alchemistPizazz") != null) {
 				    player.setAlchemistPizazz(mageTrainingArena.get("alchemistPizazz").getAsInt());
 				}
+				if(mageTrainingArena.get("graveyardPizazz") != null) {
+				    player.setGraveyardPizazz(mageTrainingArena.get("graveyardPizazz").getAsInt());
+				}
+				if(mageTrainingArena.get("graveyardFruitDeposited") != null) {
+				    player.setGraveyardFruitDeposited(mageTrainingArena.get("graveyardFruitDeposited").getAsInt());
+				}
+				if(mageTrainingArena.get("bonesToPeacheEnabled") != null) {
+				    player.setBonesToPeachesEnabled(mageTrainingArena.get("bonesToPeachesEnabled").getAsBoolean());
+				}
 		            }
 	            }
 	            JsonObject farming = mainObj.getAsJsonObject("farming");
