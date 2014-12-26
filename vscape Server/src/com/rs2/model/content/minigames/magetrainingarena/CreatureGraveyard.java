@@ -21,8 +21,7 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 
 public class CreatureGraveyard {
-
-    public static final Position[] ENTERING_POSITION = {new Position(3364, 9640, 1), new Position(3363, 9641, 1), new Position(3362, 9640, 1), new Position(3363, 9639, 1)};
+    
     public static final int BANANA = 1963;
     public static final int PEACH = 6883;
     public static final int BONES_1 = 6904;
@@ -36,7 +35,9 @@ public class CreatureGraveyard {
     public static final int BONEPILE_4 = 10728;
     
     public static final MinigameAreas.Area GRAVEYARD_AREA = new MinigameAreas.Area(3344, 3384, 9620, 9660, 1);
-
+    public static final Position[] ENTERING_POSITION = {new Position(3364, 9640, 1), new Position(3363, 9641, 1), new Position(3362, 9640, 1), new Position(3363, 9639, 1)};
+    public static final int[] RUNE_REWARDS = {565, 560, 557, 555, 561};
+    
     private Player player;
     private int pizazzPoints;
     private int fruitDeposited;
@@ -199,9 +200,10 @@ public class CreatureGraveyard {
 	    pizazzPoints = MageGameConstants.MAX_GRAVEYARD_POINT;
 	}
 	if(pizazzWon > 0) {
-	    player.getActionSender().sendMessage("You put " + (bananaCount + peachCount) + " fruit in the food chute and receive " + pizazzWon + " point(s).");
+	    player.getActionSender().sendMessage("You put " + (bananaCount + peachCount) + " fruit in the food chute and receive " + pizazzWon + " point(s) and a rune reward!");
 	    int newCount = (bananaCount + peachCount + fruitDeposited) - 16;
 	    fruitDeposited = newCount > 0 ? newCount : 0;
+	    player.getInventory().addItemOrDrop(new Item(RUNE_REWARDS[Misc.randomMinusOne(RUNE_REWARDS.length)], pizazzWon));
 	} else {
 	    player.getActionSender().sendMessage("You put " + (bananaCount + peachCount) + " fruit in the food chute.");
 	    fruitDeposited = bananaCount + peachCount;

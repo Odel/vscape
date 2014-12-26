@@ -76,7 +76,6 @@ import com.rs2.model.content.skills.SkillResources;
 import com.rs2.model.content.skills.SkillcapeEmotes;
 import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.Woodcutting.Canoe;
-import com.rs2.model.content.skills.Woodcutting.Canoe.CanoeStationData;
 import com.rs2.model.content.skills.agility.AgilityCourses;
 import com.rs2.model.content.skills.cooking.BrewData;
 import com.rs2.model.content.skills.cooking.Cooking;
@@ -309,7 +308,6 @@ public class Player extends Entity {
 	private boolean appearanceUpdateRequired;
 	private boolean killedTreeSpirit;
 	private boolean resetbank;
-	public static boolean christmasUpdated = false;
 	public SantaEncounter santaEncounter = new SantaEncounter(this);
 	public static boolean snowballsReady = false;
 	public static boolean snowballsTimerRunning = false;
@@ -1075,7 +1073,6 @@ public class Player extends Entity {
 			public void stop() {
 			}
         }, 2);
-		christmasUpdated = false;
 	}
 
 	public void reloadRegion() {
@@ -1085,11 +1082,7 @@ public class Player extends Entity {
 		//GlobalObjectHandler.createGlobalObject();
 		GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
-		getRegionMusic().playMusic();
-		if(!this.Area(3175, 3235, 3410, 3470)) {
-		    christmasUpdated = false;
-		}
-	    
+		getRegionMusic().playMusic(); 
 	}
 	
     public void demoDelayedTask() {
