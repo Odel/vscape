@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.firemaking.Firemaking;
 import com.rs2.model.ground.GroundItem;

@@ -20,7 +20,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 
-public class CreatureGraveyard {// todo handle death, logout, login
+public class CreatureGraveyard {
 
     public static final Position[] ENTERING_POSITION = {new Position(3364, 9640, 1), new Position(3363, 9641, 1), new Position(3362, 9640, 1), new Position(3363, 9639, 1)};
     public static final int BANANA = 1963;
@@ -79,8 +79,7 @@ public class CreatureGraveyard {// todo handle death, logout, login
 
     public void enter() {
 	fruitDeposited = player.getGraveyardFruitDeposited();
-	Random random = new Random();
-	int number = random.nextInt(ENTERING_POSITION.length);
+	int number = new Random().nextInt(ENTERING_POSITION.length);
 	if (player.getSkill().getLevel()[Skill.MAGIC] < MageGameConstants.GRAVEYARD_LEVEL) {
 	    player.getActionSender().sendMessage("You need a magic level of " + MageGameConstants.GRAVEYARD_LEVEL + " to enter here.");
 	    return;
@@ -172,10 +171,8 @@ public class CreatureGraveyard {// todo handle death, logout, login
 	player.getInventory().removeItem(new Item(BONES_2, count[1]));
 	player.getInventory().removeItem(new Item(BONES_3, count[2]));
 	player.getInventory().removeItem(new Item(BONES_4, count[3]));
-	player.getInventory().addItem(new Item(fruit, count[0] * getFruitAmount(BONES_1)));
-	player.getInventory().addItem(new Item(fruit, count[1] * getFruitAmount(BONES_2)));
-	player.getInventory().addItem(new Item(fruit, count[2] * getFruitAmount(BONES_3)));
-	player.getInventory().addItem(new Item(fruit, count[3] * getFruitAmount(BONES_4)));
+	int fruitCount = (count[0] * getFruitAmount(BONES_1)) + (count[1] * getFruitAmount(BONES_2)) + (count[2] * getFruitAmount(BONES_3)) + (count[3] * getFruitAmount(BONES_4));
+	player.getInventory().addItem(new Item(fruit, fruitCount));
 	return true;
     }
 
