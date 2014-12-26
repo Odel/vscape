@@ -27,7 +27,7 @@ public class Login {
 			// Validate the request.
 			int request = inData.get() & 0xff;
 			inData.get(); // Name hash.
-			
+			/*
 			//checks if player is banned
 			if (player.isBanned()){
 				System.err.println("You have been banned, you will be unbanned in" + player.getBanExpire()*6000 + "minutes.");
@@ -41,7 +41,7 @@ public class Login {
 				player.disconnect();
 				return;
 			}
-			
+			*/
 			if (request != 14) {
 				System.err.println("Invalid login request: " + request);
 				player.disconnect();
@@ -158,13 +158,14 @@ public class Login {
 			
             player.setUsernameAsLong(NameUtil.nameToLong(player.getUsername().toLowerCase()));
             player.setLoginStage(LoginStages.AWAITING_LOGIN_COMPLETE);
-
+	    
+	    /*
             if(!player.validName())
             {
 				player.disconnect();
 	            return;
             }
-            
+            */
             if (player.beginLogin()) {
                 // Switch the player to the cycled reactor.
                 synchronized (DedicatedReactor.getInstance()) {

@@ -4425,7 +4425,7 @@ public class Player extends Entity {
             {
             	if(CurrentLine.length() > 0)
             	{
-					if(CurrentLine.startsWith(getHost()))
+					if(CurrentLine.trim().contentEquals(getHost()))
 					{
 						br.close();
 						return true;
@@ -4452,7 +4452,7 @@ public class Player extends Entity {
             {
             	if(CurrentLine.length() > 0)
             	{
-					if(CurrentLine.startsWith(getMacAddress()))
+					if(CurrentLine.trim().contentEquals(getMacAddress()))
 					{
 						br.close();
 						return true;

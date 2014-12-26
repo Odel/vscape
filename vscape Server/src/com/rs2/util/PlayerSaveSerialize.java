@@ -25,6 +25,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("password", player.getPassword());
 		characterObj.addProperty("rights", player.getStaffRights());
 		characterObj.addProperty("mac", player.getMacAddress());
+		characterObj.addProperty("host", player.getHost());
 		characterObj.addProperty("muteExpire", player.getMuteExpire());
 		characterObj.addProperty("banExpire", player.getBanExpire());
 		characterObj.addProperty("inJail", player.getInJail());
