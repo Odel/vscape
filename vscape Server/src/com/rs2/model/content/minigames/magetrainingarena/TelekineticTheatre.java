@@ -24,6 +24,7 @@ import com.rs2.util.Misc;
 public class TelekineticTheatre {
 
     public static final int STATUE = 6888;
+    public static final int MAZE_GUARDIAN = 3102;
 
     public GroundItem STATUE_ITEM;
     public GameObject EXIT_OBJECT;
@@ -37,19 +38,16 @@ public class TelekineticTheatre {
 	this.player = player;
     }
 
-    /* loading the telekinetic theatre minigame */
     public static void loadTelekineticTheatre() {
 	loadCenterSquares();
     }
 
-    /* calculating the position of the center spot of the whole maze */
     private static void loadCenterSquares() {
 	for (int i = 0; i < MAZE_POSITIONS.length - 1; i++) {
 	    CENTER_SQUARE[i] = getCenterPosition(BOTTOM_LEFT_CORNER[i], UPPER_RIGHT_CORNER[i]);
 	}
     }
 
-    /* putting the camera on the maze */
     public void loadCamera() {
 	player.getActionSender().resetCamera();
 	//player.getActionSender().spinCamera(CENTER_SQUARE[mazeIndex].getX(), CENTER_SQUARE[mazeIndex].getY(), 0001, 0001, 0001);
@@ -130,22 +128,22 @@ public class TelekineticTheatre {
 	int x = player.getPosition().getX();
 	int y = player.getPosition().getY();
 
-	if (x == BOTTOM_LEFT_CORNER[mazeIndex].getX()) {
+	if (x == BOTTOM_LEFT_CORNER[mazeIndex].getX() || x + 1 == BOTTOM_LEFT_CORNER[mazeIndex].getX()) {
 	    if (y > BOTTOM_LEFT_CORNER[mazeIndex].getY() && y < UPPER_LEFT_CORNER[mazeIndex].getY()) {
 		return "WEST";
 	    }
 	}
-	if (x == BOTTOM_RIGHT_CORNER[mazeIndex].getX()) {
+	if (x == BOTTOM_RIGHT_CORNER[mazeIndex].getX() || x - 1 == BOTTOM_RIGHT_CORNER[mazeIndex].getX()) {
 	    if (y > BOTTOM_RIGHT_CORNER[mazeIndex].getY() && y < UPPER_RIGHT_CORNER[mazeIndex].getY()) {
 		return "EAST";
 	    }
 	}
-	if (y == UPPER_LEFT_CORNER[mazeIndex].getY()) {
+	if (y == UPPER_LEFT_CORNER[mazeIndex].getY() || y - 1 == UPPER_LEFT_CORNER[mazeIndex].getY()) {
 	    if (x > UPPER_LEFT_CORNER[mazeIndex].getX() && x < UPPER_RIGHT_CORNER[mazeIndex].getX()) {
 		return "NORTH";
 	    }
 	}
-	if (y == BOTTOM_LEFT_CORNER[mazeIndex].getY()) {
+	if (y == BOTTOM_LEFT_CORNER[mazeIndex].getY() || y + 1 == BOTTOM_LEFT_CORNER[mazeIndex].getY()) {
 	    if (x > BOTTOM_LEFT_CORNER[mazeIndex].getX() && x < BOTTOM_RIGHT_CORNER[mazeIndex].getX()) {
 		return "SOUTH";
 	    }
