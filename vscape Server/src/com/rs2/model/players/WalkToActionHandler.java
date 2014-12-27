@@ -54,7 +54,6 @@ import com.rs2.model.content.skills.thieving.ThieveOther;
 import com.rs2.model.content.skills.thieving.ThieveStalls;
 import com.rs2.model.content.skills.Woodcutting.ChopTree;
 import com.rs2.model.content.skills.Woodcutting.ChopTree.Tree;
-import com.rs2.model.content.skills.Woodcutting.Canoe;
 import com.rs2.model.content.treasuretrails.AnagramsScrolls;
 import com.rs2.model.content.treasuretrails.MapScrolls;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
@@ -300,6 +299,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (player.getCreatureGraveyard().handleObjectClicking(id, x, y, z)) {
+					this.stop();
+					return;
+				}
+				if (player.getTelekineticTheatre().handleObjectClicking(id, x, y, z)) {
 					this.stop();
 					return;
 				}
@@ -2916,13 +2919,7 @@ public class WalkToActionHandler {
 	return false;
     }
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
-		if (def.getId() == 2638) {
-			return true;
-		}
-		if(def.getId() == 2142) {
-		    return true;
-		}
-		if(def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015)
+		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782)
 		{
 			return true;
 		}

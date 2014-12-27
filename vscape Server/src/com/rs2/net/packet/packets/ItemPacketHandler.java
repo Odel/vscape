@@ -12,6 +12,7 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
+import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.GhostsAhoy;
@@ -476,6 +477,10 @@ public class ItemPacketHandler implements PacketHandler {
 	player.setClickId(packet.getIn().readShort());
 	player.setClickX(packet.getIn().readShort(StreamBuffer.ByteOrder.LITTLE));
 	player.setClickZ(player.getPosition().getZ());
+	if(player.getClickId() == TelekineticTheatre.STATUE) {
+	    player.getTelekineticTheatre().loadCamera();
+	    return;
+	}
 	if (!player.getInventory().canAddItem(new Item(player.getClickId()))) {
 	    return;
 	}

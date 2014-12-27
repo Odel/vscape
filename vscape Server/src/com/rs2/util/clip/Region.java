@@ -427,6 +427,9 @@ public class Region {
         int diffX = endX - startX;
         int diffY = endY - startY;
         int max = Math.max(Math.abs(diffX), Math.abs(diffY));
+	if(height > 3) {
+	    height = height%4;
+	}
         for (int ii = 0; ii < max; ii++) {
             int currentX = endX - diffX;
             int currentY = endY - diffY;

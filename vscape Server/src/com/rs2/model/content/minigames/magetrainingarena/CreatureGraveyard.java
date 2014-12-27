@@ -253,8 +253,8 @@ public class CreatureGraveyard {
 	if (objectId == 10782) {
 	    if (isInCreatureGraveyard()) {
 		exit();
+		return true;
 	    }
-	    return true;
 	} else if (objectId == 10781) {
 	    enter();
 	    return true;

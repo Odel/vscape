@@ -8,7 +8,6 @@ import java.util.zip.GZIPInputStream;
 
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.model.Position;
-import com.rs2.util.Misc;
 
 public class Rangable {
 
@@ -463,6 +462,9 @@ public class Rangable {
         int diffX = endX - startX;
         int diffY = endY - startY;
         int max = Math.max(Math.abs(diffX), Math.abs(diffY));
+	if(height > 3) {
+	    height = height%4;
+	}
         for (int ii = 0; ii < max; ii++) {
             int currentX = endX - diffX;
             int currentY = endY - diffY;

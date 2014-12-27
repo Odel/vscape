@@ -52,6 +52,12 @@ public class Position {
 		this.setY(y);
 		this.setZ(z);
 	}
+	
+	public Position(Position copy) {
+		this.setX(copy.getX());
+		this.setY(copy.getY());
+		this.setZ(copy.getZ());
+	}
 
 	@Override
 	public String toString() {
@@ -108,6 +114,11 @@ public class Position {
 	public void setX(int x) {
 		this.x = x;
 	}
+	
+	public Position modifyX(int x) {
+		this.x = x;
+		return new Position(this);
+	}
 
 	/**
 	 * Gets the X coordinate.
@@ -127,6 +138,11 @@ public class Position {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public Position modifyY(int y) {
+		this.y = y;
+		return new Position(this);
+	}
 
 	/**
 	 * Gets the Y coordinate.
@@ -145,6 +161,11 @@ public class Position {
 	 */
 	public void setZ(int z) {
 		this.z = z;
+	}
+	
+	public Position modifyZ(int z) {
+		this.z = z;
+		return new Position(this);
 	}
 
 	/**

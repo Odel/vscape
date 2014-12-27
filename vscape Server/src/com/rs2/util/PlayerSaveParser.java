@@ -474,26 +474,41 @@ public class PlayerSaveParser {
 		            }
 			    JsonObject mageTrainingArena = minigames.getAsJsonObject("mageTrainingArena");
 		            if(mageTrainingArena != null){
-				if(mageTrainingArena.get("enchantingPizazz") != null) {
-				    player.setEnchantingPizazz(mageTrainingArena.get("enchantingPizazz").getAsInt());
+				JsonObject enchantingChamber = mageTrainingArena.getAsJsonObject("enchantingChamber");
+				if (enchantingChamber != null) {
+				    if (enchantingChamber.get("pizazzPoints") != null) {
+					player.setEnchantingPizazz(enchantingChamber.get("pizazzPoints").getAsInt());
+				    }
+				    if (enchantingChamber.get("enchantCount") != null) {
+					player.setEnchantingEnchantCount(enchantingChamber.get("enchantCount").getAsInt());
+				    }
+				    if (enchantingChamber.get("orbCount") != null) {
+					player.setEnchantingOrbCount(enchantingChamber.get("orbCount").getAsInt());
+				    }
 				}
-				if(mageTrainingArena.get("enchantCount") != null) {
-				    player.setEnchantingEnchantCount(mageTrainingArena.get("enchantCount").getAsInt());
+				JsonObject alchemistPlayground = mageTrainingArena.getAsJsonObject("alchemistPlayground");
+				if (alchemistPlayground != null) {
+				    if(alchemistPlayground.get("pizazzPoints") != null) {
+					player.setAlchemistPizazz(alchemistPlayground.get("pizazzPoints").getAsInt());
+				    }
 				}
-				if(mageTrainingArena.get("orbCount") != null) {
-				    player.setEnchantingOrbCount(mageTrainingArena.get("orbCount").getAsInt());
+				JsonObject creatureGraveyard = mageTrainingArena.getAsJsonObject("creatureGraveyard");
+				if (creatureGraveyard != null) {
+				    if (creatureGraveyard.get("pizazzPoints") != null) {
+					player.setGraveyardPizazz(creatureGraveyard.get("pizazzPoints").getAsInt());
+				    }
+				    if (creatureGraveyard.get("graveyardFruitDeposited") != null) {
+					player.setGraveyardFruitDeposited(creatureGraveyard.get("graveyardFruitDeposited").getAsInt());
+				    }
+				    if (creatureGraveyard.get("bonesToPeacheEnabled") != null) {
+					player.setBonesToPeachesEnabled(creatureGraveyard.get("bonesToPeachesEnabled").getAsBoolean());
+				    }
 				}
-				if(mageTrainingArena.get("alchemistPizazz") != null) {
-				    player.setAlchemistPizazz(mageTrainingArena.get("alchemistPizazz").getAsInt());
-				}
-				if(mageTrainingArena.get("graveyardPizazz") != null) {
-				    player.setGraveyardPizazz(mageTrainingArena.get("graveyardPizazz").getAsInt());
-				}
-				if(mageTrainingArena.get("graveyardFruitDeposited") != null) {
-				    player.setGraveyardFruitDeposited(mageTrainingArena.get("graveyardFruitDeposited").getAsInt());
-				}
-				if(mageTrainingArena.get("bonesToPeacheEnabled") != null) {
-				    player.setBonesToPeachesEnabled(mageTrainingArena.get("bonesToPeachesEnabled").getAsBoolean());
+				JsonObject telekineticTheatre = mageTrainingArena.getAsJsonObject("telekineticTheatre");
+				if (telekineticTheatre != null) {
+				    if(telekineticTheatre.get("pizazzPoints") != null) {
+					player.setTelekineticPizazz(telekineticTheatre.get("pizazzPoints").getAsInt());
+				    }
 				}
 		            }
 	            }

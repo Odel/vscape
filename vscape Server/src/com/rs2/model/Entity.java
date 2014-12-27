@@ -190,6 +190,10 @@ public abstract class Entity {
 		return getPosition().getX() >= x && getPosition().getX() <= x1 && getPosition().getY() >= y && getPosition().getY() <= y1;
 	}
 	
+	public boolean Area(int x, int x1, int y, int y1, int z) {
+		return getPosition().getX() >= x && getPosition().getX() <= x1 && getPosition().getY() >= y && getPosition().getY() <= y1 && getPosition().getZ() == z;
+	}
+	
 	public static boolean inArea(Entity ent, int x, int x1, int y, int y1) {
 		return ent.getPosition().getX() >= x && ent.getPosition().getX() <= x1 && ent.getPosition().getY() >= y && ent.getPosition().getY() <= y1;
 	}
@@ -383,7 +387,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMageTrainingArena() {
-	    return this.inEnchantingChamber() || this.inAlchemistPlayground() || this.inCreatureGraveyard();
+	    return this.inEnchantingChamber() || this.inAlchemistPlayground() || this.inCreatureGraveyard() || this.inTelekineticTheatre();
 	}
 	
 	public boolean inEnchantingChamber() {
@@ -402,6 +406,14 @@ public abstract class Entity {
 	    int x = this.getPosition().getX();
 	    int y = this.getPosition().getY();
 	    return this.getPosition().getZ() == 1 && x >= 3340 && x <= 3390 && y >= 9610 && y <= 9670;
+	}
+	
+	public boolean inTelekineticTheatre() {
+	    if(this.isPlayer()) {
+		return this.Area(3331, 3389, 9664, 9724, this.getPosition().getZ() % 4 == 0 ? ((Player)this).getTelekineticTheatre().z : 3) || this.Area(3334, 3391, 9669, 9726, this.getPosition().getZ() % 4 == 1 ? ((Player)this).getTelekineticTheatre().z : 3) || this.Area(3333, 3375, 9666, 9726, this.getPosition().getZ() % 4 == 2 ? ((Player)this).getTelekineticTheatre().z : 3);
+	    } else {
+		return false;
+	    }
 	}
 	
 	public boolean inDesert() {

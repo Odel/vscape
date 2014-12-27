@@ -694,6 +694,11 @@ public class Player extends Entity {
 		this.getCreatureGraveyard().saveVariables();
 		this.getCreatureGraveyard().removeItems();
 	}
+	else if(this.inTelekineticTheatre()) {
+		this.getTelekineticTheatre().saveVariables();
+		this.getTelekineticTheatre().removeItems();
+	}
+	
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -798,6 +803,10 @@ public class Player extends Entity {
 	else if(this.inCreatureGraveyard()) {
 		this.getCreatureGraveyard().saveVariables();
 		this.getCreatureGraveyard().removeItems();
+	}
+	else if(this.inTelekineticTheatre()) {
+		this.getTelekineticTheatre().saveVariables();
+		this.getTelekineticTheatre().removeItems();
 	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
@@ -1245,6 +1254,9 @@ public class Player extends Entity {
 		}
 		if(this.inCreatureGraveyard()) {
 		    this.getCreatureGraveyard().exit();
+		}
+		if(this.inTelekineticTheatre()) {
+		    this.getTelekineticTheatre().exit();
 		}
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);

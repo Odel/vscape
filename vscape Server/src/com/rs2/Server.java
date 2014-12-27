@@ -216,7 +216,7 @@ public class Server implements Runnable {
 			 AlchemistPlayground.loadAlchemistPlayGround();
 			 EnchantingChamber.loadEnchantingChamber();
 			 CreatureGraveyard.loadCreatureGraveyard();
-
+			 TelekineticTheatre.loadTelekineticTheatre();
 			// spawning world fishing spots
 			FishingSpots.spawnFishingSpots();
 			
