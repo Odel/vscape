@@ -312,6 +312,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		creatureGraveyardObj.addProperty("graveyardFruitDeposited", player.getGraveyardFruitDeposited());
 		creatureGraveyardObj.addProperty("bonesToPeachesEnabled", player.bonesToPeachesEnabled());
 		telekineticTheatreObj.addProperty("pizazzPoints", player.getTelekineticPizazz());
+		telekineticTheatreObj.addProperty("mazesCompleted", player.getTelekineticMazesCompleted());
 		mageTrainingArenaObj.add("enchantingChamber", enchantingChamberObj);
 		mageTrainingArenaObj.add("alchemistPlayground", alchemistPlaygroundObj);
 		mageTrainingArenaObj.add("creatureGraveyard", creatureGraveyardObj);

@@ -510,6 +510,10 @@ public class ItemPacketHandler implements PacketHandler {
 	player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE));
 	player.setClickId(packet.getIn().readShort(StreamBuffer.ValueType.A));
 	player.setClickZ(player.getPosition().getZ());
+	if(player.getClickId() == TelekineticTheatre.STATUE) {
+	    player.getTelekineticTheatre().resetStatue();
+	    return;
+	}
 	if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG) {
 	    System.out.println(player.getClickX() + " " + player.getClickY());
 	}

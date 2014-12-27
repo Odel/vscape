@@ -41,6 +41,7 @@ import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
+import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
@@ -153,6 +154,9 @@ public class Dialogues {
 		    return true;
 		}
 		if(Constants.DEGRADING_ENABLED && Degrading.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		    return true;
+		}
+		if(TelekineticTheatre.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {

@@ -127,6 +127,10 @@ public class NpcPacketHandler implements PacketHandler {
 			return;
 		    }
 		}
+		if (npc.getNpcId() == 3102) {
+		    Dialogues.startDialogue(player, 3102);
+		    return;
+		}
 		WalkToActionHandler.setActions(Actions.NPC_FIRST_CLICK);
 		WalkToActionHandler.doActions(player);
 	}

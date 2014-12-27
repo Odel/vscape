@@ -509,6 +509,9 @@ public class PlayerSaveParser {
 				    if(telekineticTheatre.get("pizazzPoints") != null) {
 					player.setTelekineticPizazz(telekineticTheatre.get("pizazzPoints").getAsInt());
 				    }
+				    if(telekineticTheatre.get("mazesCompleted") != null) {
+					player.setTelekineticMazesCompleted(telekineticTheatre.get("mazesCompleted").getAsInt());
+				    }
 				}
 		            }
 	            }

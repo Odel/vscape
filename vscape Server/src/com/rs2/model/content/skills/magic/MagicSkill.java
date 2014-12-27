@@ -12,6 +12,7 @@ import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
+import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.ground.GroundItem;
@@ -375,7 +376,7 @@ public abstract class MagicSkill extends CycleEvent {
 						    player.getActionSender().sendMessage("You cannot telegrab this item.");
 						    return;
 						}
-						if (!Misc.checkClip(player.getPosition(), itemPos, false) || !Misc.goodDistance(player.getPosition(), itemPos, 10)) {
+						if ((!Misc.checkClip(player.getPosition(), itemPos, false) || !Misc.goodDistance(player.getPosition(), itemPos, 10)) && !player.inTelekineticTheatre()) {
 							return;
 						}
 						if (player.getPosition().equals(itemPos)) {
@@ -399,7 +400,7 @@ public abstract class MagicSkill extends CycleEvent {
 			@SuppressWarnings("incomplete-switch")
 			@Override
 			public boolean onExecute() {
-				if (groundItem == null)
+				if (groundItem == null && !player.inTelekineticTheatre())
 					return false;
 				switch (spell) {
 					case TELEGRAB :
@@ -417,6 +418,9 @@ public abstract class MagicSkill extends CycleEvent {
 			public void onHit(HitDef hitDef) {
 				switch (spell) {
 					case TELEGRAB :
+						if(itemId == TelekineticTheatre.STATUE) {
+						    player.getTelekineticTheatre().handleTelegrab(itemPos);
+						}
 						if (!GroundItemManager.getManager().itemExists(player, groundItem)) {
 							hitDef.setHitGraphic(null);
 							return;

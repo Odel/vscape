@@ -219,6 +219,7 @@ public class Player extends Entity {
 	private int enchantingOrbCount = 0;
 	private int enchantingEnchantCount = 0;
 	private int telekineticPizazz = 0;
+	private int telekineticMazesCompleted = 0;
 	private int alchemistPizazz = 0;
 	private int graveyardPizazz = 0;
 	private int graveyardFruitDeposited = 0;
@@ -1993,6 +1994,14 @@ public class Player extends Entity {
 	
 	public void setTelekineticPizazz(int set) {
 	    this.telekineticPizazz = set;
+	}
+	
+	public int getTelekineticMazesCompleted() {
+	    return this.telekineticMazesCompleted;
+	}
+	
+	public void setTelekineticMazesCompleted(int set) {
+	    this.telekineticMazesCompleted = set;
 	}
 	
 	public int getAlchemistPizazz() {
