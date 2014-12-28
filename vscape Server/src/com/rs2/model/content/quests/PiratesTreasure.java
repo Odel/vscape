@@ -784,7 +784,7 @@ public class PiratesTreasure implements Quest {
 				player.getDialogue().sendPlayerChat("Can I get a job here?", CONTENT);
 				return true;
 			    case 2:
-				player.getDialogue().sendNpcChat("Hmm, you're eager, I like that. Sure.", "I'll give you a go. Have you go your own white", "apron?", CONTENT);
+				player.getDialogue().sendNpcChat("Hmm, you're eager, I like that. Sure.", "I'll give you a go. Have you got your own white", "apron?", CONTENT);
 				return true;
 			    case 3:
 				player.getDialogue().sendOption("Of course.", "I'm sure I can find one.");
