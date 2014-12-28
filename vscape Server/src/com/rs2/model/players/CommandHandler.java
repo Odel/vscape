@@ -52,6 +52,10 @@ import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
 import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.sql.SQL;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 
 public class CommandHandler {
 	
@@ -1452,6 +1456,36 @@ public class CommandHandler {
 			}
 			sender.getActionSender().sendMessage("You have " + count + " teammates on your team.");
 		}
+		else if (keyword.equals("getmac")) {
+			 String name = fullString;
+			 Player player = World.getPlayerByName(name);
+			 if(player != null)
+			 {
+			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a MAC address of: " + player.getMacAddress());
+			 } else {
+				 sender.getActionSender().sendMessage("Could not find player "+ name);
+			 }
+		}
+		else if (keyword.equals("parsemacs") || keyword.equals("parsemac")) {
+		    String name = fullString;
+			 Player player = World.getPlayerByName(name);
+			 if(player != null)
+			 {
+			    parseMacList(sender, player.getMacAddress());
+			 } else {
+				 sender.getActionSender().sendMessage("Could not find player "+ name);
+			 }
+		}
+		else if (keyword.equals("gethost")) {
+			 String name = fullString;
+			 Player player = World.getPlayerByName(name);
+			 if(player != null)
+			 {
+			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a host address of: " + player.getHost());
+			 } else {
+				 sender.getActionSender().sendMessage("Could not find player "+ name);
+			 }
+		}
 		else if (keyword.equals("teleto")) {
 			 String name = fullString;
 			 Player player = World.getPlayerByName(name);
@@ -1531,6 +1565,7 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("mypos")) {
 			sender.getActionSender().sendMessage("You are at: " + sender.getPosition());
+			System.out.println("new " + sender.getPosition() + ",");
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(sender, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
@@ -1779,7 +1814,79 @@ public class CommandHandler {
 			}
 		}
 	}
+	public static ArrayList<String> macExists(String MAC) {
+		ArrayList<String> matching = new ArrayList<>();
+		int q = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				if(line.contains(MAC) && q < 20) {
+				    matching.add(line.substring(line.indexOf("Username:")));
+				    q++;
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return matching;
+	}
 	
+	public static void parseMacList(Player player, String MAC) {
+		ArrayList<String> matching = macExists(MAC);
+		if(!matching.isEmpty()) {
+		    player.getActionSender().sendMessage("Parsing complete. Atleast " + (matching.size() - 1) + " matches logged. Check matchmacs.txt");
+		    String filePath = "./data/matchmacs.txt";
+		    try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
+			try {
+			    String names = "";
+			    for(String entry : matching) {
+				names = names.concat(entry.substring(entry.indexOf(":") + 2) + ", ");
+			    }
+				out.write("MAC: " + MAC + " Usernames: " + names);
+				out.newLine();
+			} finally {
+				out.close();
+			}
+		    } catch (IOException e) {
+			e.printStackTrace();
+		    }
+		} else {
+		    player.getActionSender().sendMessage("Parsing complete. No logged matches.");
+		}
+	}
+	
+	public static void appendToMacList(Player player, String MAC) {
+		boolean match = false;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				if(line.contains(MAC) && line.contains(player.getUsername())) {
+				    match = true;
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(!match) {
+		String filePath = "./data/macs.txt";
+		    try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
+			try {
+				out.write("MAC: " + MAC + " Username: " + player.getUsername());
+				out.newLine();
+			} finally {
+				out.close();
+			}
+		    } catch (IOException e) {
+			e.printStackTrace();
+		    }
+		}
+	}
 
 	public static void appendToBugList(Player player, String bug) {
 		String filePath = "./data/bugs.txt";

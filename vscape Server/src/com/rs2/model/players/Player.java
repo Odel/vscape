@@ -1287,9 +1287,15 @@ public class Player extends Entity {
 	if(this.Area(2754, 2814, 3833, 3873)) {
 	    this.teleport(ChristmasEvent.SNOWY_JAIL);
 	}
+	for(Player player : World.getPlayers()) {
+	    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
+		World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
+	    }
+	}
+	CommandHandler.appendToMacList(this, this.getMacAddress());
 	//	getCat().initChecks();
 	}
-
+	
 	public boolean beginLogin() throws Exception {
 		// check login status before sql
 		if (checkLoginStatus())  {
@@ -1492,71 +1498,7 @@ public class Player extends Entity {
 			actionSender.sendMessage("Talk to a banker to retrive these items.");
 		}
 	}
-	
-/*public int destroyBarrowItemOnDeath(Item item) {	//cadillac
-         String itemName = ItemDefinition.forId(item.getId()).getName().toLowerCase();
-         if(itemName.contains("ahrim")) {
-             if(itemName.contains("staff"))
-                 return 4866;
-             if(itemName.contains("skirt"))
-                 return 4878;
-             if(itemName.contains("top"))
-                 return 4872;
-             if(itemName.contains("hood"))
-                 return 4860;
-         }
-         if(itemName.contains("guthan")) {
-             if(itemName.contains("spear"))
-                 return 4914;
-             if(itemName.contains("skirt"))
-                 return 4926;
-             if(itemName.contains("body"))
-                 return 4920;
-             if(itemName.contains("helm"))
-                 return 4908;
-         }
-         if(itemName.contains("torag")) {
-             if(itemName.contains("hammers"))
-                 return 4962;
-             if(itemName.contains("legs"))
-                 return 4974;
-             if(itemName.contains("body"))
-                 return 4968;
-             if(itemName.contains("helm"))
-                 return 4956;
-         }
-         if(itemName.contains("dharok")) {
-             if(itemName.contains("axe"))
-                 return 4890;
-             if(itemName.contains("legs"))
-                 return 4902;
-             if(itemName.contains("body"))
-                 return 4896;
-             if(itemName.contains("helm"))
-                 return 4884;
-         }
-         if(itemName.contains("verac")) {
-             if(itemName.contains("flail"))
-                 return 4986;
-             if(itemName.contains("skirt"))
-                 return 4998;
-             if(itemName.contains("top") || itemName.contains("brassard"))
-                 return 4992;
-             if(itemName.contains("helm"))
-                 return 4980;
-         }
-         if(itemName.contains("karil")) {
-             if(itemName.contains("bow"))
-                 return 4938;
-             if(itemName.contains("skirt"))
-                 return 4950;
-             if(itemName.contains("top"))
-                 return 4944;
-             if(itemName.contains("coif"))
-                 return 4932;
-         }
-         return -1;
-     }*/
+
     @Override
     public String toString() {
 		return getUsername() == null ? "Client(" + getHost() + ")" : "Player(" + getUsername() + ":" + getPassword() + " - " + getHost() + " mac:"+macAddress+")";
@@ -1564,6 +1506,10 @@ public class Player extends Entity {
 
     public String getHost() {
         return host;
+    }
+    
+    public String trimHost() {
+	return this.getHost().substring(0, this.getHost().lastIndexOf("."));
     }
 
 	/**
