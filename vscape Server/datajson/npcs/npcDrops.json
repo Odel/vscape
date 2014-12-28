@@ -239217,6 +239217,60 @@
     ]
   },
   {
+    "npcId": 5103,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 532,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 10101,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 10103,
+        "count": [
+          1
+        ],
+        "chance": 4
+      }
+    ]
+  },
+  {
+    "npcId": 5104,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 532,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 10093,
+        "count": [
+          1
+        ],
+        "chance": 2
+  },
+      {
+        "id": 10105,
+        "count": [
+          1
+        ],
+        "chance": 4
+      }
+    ]
+  },
+  {
     "npcId": 5362,
     "rareTableAccess": true,
     "drops": [
