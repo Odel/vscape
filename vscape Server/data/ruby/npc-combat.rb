@@ -175,6 +175,19 @@ class BlackDragon < NpcCombatDef
     end
 end
 
+class KingBlackDragon < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 26, 5, 80),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE, 2, 8, 81, Graphic.new(-1, 0), Graphic.new(-1, 0), 393, ProjectileTrajectory.SPELL),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::DRAGONFIRE_FAR, 2, 8, 81, Graphic.new(-1, 0), Graphic.new(-1, 0), 393, ProjectileTrajectory.SPELL),
+			BasicAttack.magicAttack(attacker, victim, Spell::KBD_POISON),
+			BasicAttack.magicAttack(attacker, victim, Spell::KBD_SHOCK),
+			BasicAttack.magicAttack(attacker, victim, Spell::KBD_FREEZE)
+        ];
+    end
+end
+
 class BronzeDragon < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -398,6 +411,7 @@ NpcCombatDef.add([5362], BrutalGreenDragon.new())
 NpcCombatDef.add([55], BlueDragon.new())
 NpcCombatDef.add([53], RedDragon.new())
 NpcCombatDef.add([54], BlackDragon.new())
+NpcCombatDef.add([50], KingBlackDragon.new())
 NpcCombatDef.add([1590], BronzeDragon.new())
 NpcCombatDef.add([1591], IronDragon.new())
 NpcCombatDef.add([1592], SteelDragon.new())

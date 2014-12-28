@@ -534,63 +534,79 @@ public class Hit {
         }
         if (!isDelayedDamaged) {
             if (hitDef.getAttackStyle() != null) {
-            	if (hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE || hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR && victim.isPlayer()) {
-            		Player player = (Player) victim;
-					switch (player.antiFire()) {
-						case 2 :
-							damage = 0;
-							break;
-						case 1 :
-						    if(attacker != null && attacker.isNpc() && !((Npc)attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
-							player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
-							if(player.getEquipment().getId(Constants.SHIELD) == 11284) {
-							    player.getUpdateFlags().sendAnimation(6695); //6700 removing charges, 6696 special
-							    player.getUpdateFlags().sendGraphic(new Graphic(1164, 0));
-							    if(player.getDfsCharges() < 49) {
-								player.setDfsCharges(player.getDfsCharges() + 1);
-							    } else if (player.getDfsCharges() == 49) {
-								player.setDfsCharges(50);
-								player.getActionSender().sendMessage("Your Dragonfire shield is fully charged.");
-								player.getEquipment().replaceEquipment(11283, Constants.SHIELD);
-							    }
-							    player.getEquipment().sendBonus(player);
-							}
-							damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
-							break;
-						    } else {
-							HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
-							Hit freeze = new Hit(player, player, hitDefFreeze);
-							BindingEffect bind = new BindingEffect(12);
-							bind.initialize(freeze);
-							player.getActionSender().sendMessage("You manage to resist most of the icy breath, but are frozen in place.");
-							damage = Misc.random(10);
-							break;
-						    }
-						default :
-						    if(attacker != null && attacker.isNpc() && !((Npc)attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
-							player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
-							damage = 30 + Misc.random(20);
-							break;
-						    } else {
-							if(player.getEquipment().getId(Constants.SHIELD) != 2890) {
-							    player.getActionSender().sendMessage("You are horribly burned by the ice breath!");
-							    damage = 30 + Misc.random(20);
-							    break;
-							} else {
-							    HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
-							    Hit freeze = new Hit(player, player, hitDefFreeze);
-							    BindingEffect bind = new BindingEffect(12);
-							    bind.initialize(freeze);
-							    player.getActionSender().sendMessage("You magically resist most of the icy breath, but are frozen in place.");
-							    damage = Misc.random(10);
-							    break;
-							}
-						    }
-					}
-					if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
-            			player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
-            			damage = Misc.random(10);
-            		}
+            	if (hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE || hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR || (attacker.isNpc() && ((Npc)attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE) && victim.isPlayer()) {
+		    Player player = (Player) victim;
+		    switch (player.antiFire()) {
+			case 2:
+			    if (attacker.isNpc() && ((Npc)attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE_FAR) {
+				damage = Misc.random(10); //KBD's 3 special breaths
+			    } else {
+				damage = 0;
+			    }
+			    break;
+			case 1:
+			    if (attacker != null && attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
+				player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
+				if (player.getEquipment().getId(Constants.SHIELD) == 11284) {
+				    player.getUpdateFlags().sendAnimation(6695); //6700 removing charges, 6696 special
+				    player.getUpdateFlags().sendGraphic(new Graphic(1164, 0));
+				    if (player.getDfsCharges() < 49) {
+					player.setDfsCharges(player.getDfsCharges() + 1);
+				    } else if (player.getDfsCharges() == 49) {
+					player.setDfsCharges(50);
+					player.getActionSender().sendMessage("Your Dragonfire shield is fully charged.");
+					player.getEquipment().replaceEquipment(11283, Constants.SHIELD);
+				    }
+				    player.getEquipment().sendBonus(player);
+				}
+				if(((Npc) attacker).getNpcId() == 50) {
+				    if (attacker.isNpc() && ((Npc)attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE_FAR) {
+					damage = Misc.random(10); //KBD's 3 special breaths
+				    } else {
+					damage = Misc.random(15);
+				    }
+				} else {
+				    damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
+				}
+				break;
+			    } else {
+				HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
+				Hit freeze = new Hit(player, player, hitDefFreeze);
+				BindingEffect bind = new BindingEffect(12);
+				bind.initialize(freeze);
+				player.getActionSender().sendMessage("You manage to resist most of the icy breath, but are frozen in place.");
+				damage = Misc.random(10);
+				break;
+			    }
+			default:
+			    if (attacker != null && attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
+				player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
+				damage = 30 + Misc.random(20);
+				break;
+			    } else if (attacker != null && attacker.isNpc() && ((Npc) attacker).getNpcId() == 50) {
+				player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
+				damage = 45 + Misc.random(20);
+				break;
+			    } else {
+				if (player.getEquipment().getId(Constants.SHIELD) != 2890) {
+				    player.getActionSender().sendMessage("You are horribly burned by the ice breath!");
+				    damage = 30 + Misc.random(20);
+				    break;
+				} else {
+				    HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
+				    Hit freeze = new Hit(player, player, hitDefFreeze);
+				    BindingEffect bind = new BindingEffect(12);
+				    bind.initialize(freeze);
+				    player.getActionSender().sendMessage("You magically resist most of the icy breath, but are frozen in place.");
+				    damage = Misc.random(10);
+				    break;
+				}
+			    }
+		    }
+		    if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
+			player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
+			damage = Misc.random(10);
+		    }
             	} else if (victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker) && hitDef.getSpecialEffect() != 11 ) {
                     if (attacker != null && attacker.isPlayer())
                         damage = (int) Math.ceil(damage * .6);

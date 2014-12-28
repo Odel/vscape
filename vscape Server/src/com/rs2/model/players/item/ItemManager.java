@@ -88,7 +88,7 @@ public class ItemManager {
                 if (item == null)
                     return;
                 
-                if(item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
+                if(item.getDropper().getEntity() != null && item.getViewFirst() != null && item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
                 {
                 	Player viewFirst = (Player) item.getViewFirst().getEntity();
                 	Player dropper = (Player) item.getDropper().getEntity();
