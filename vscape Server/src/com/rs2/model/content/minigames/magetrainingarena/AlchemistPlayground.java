@@ -5,7 +5,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
@@ -13,6 +12,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
+import com.rs2.util.Misc;
 
 public class AlchemistPlayground {
     //todo green arrow for free alch
@@ -21,7 +21,6 @@ public class AlchemistPlayground {
 
     private int coinReward;
     private int alchPizazzPoint;
-    private static int cycleSynchTicks;
 
     public static Npc guardian() {
 	for (Npc npc : World.getNpcs()) {
@@ -49,18 +48,20 @@ public class AlchemistPlayground {
     static Random random = new Random();
 
     /* set of constants determining the different item ids */
-    private static final int LEATHER_BOOTS = 6893;
-    private static final int ADAMANT_KITE = 6894;
-    private static final int ADAMANT_MED_HELM = 6895;
-    private static final int EMERALD = 6896;
-    private static final int RUNE_LONGSWORD = 6897;
-
+    public static final int LEATHER_BOOTS = 6893;
+    public static final int ADAMANT_KITE = 6894;
+    public static final int ADAMANT_MED_HELM = 6895;
+    public static final int EMERALD = 6896;
+    public static final int RUNE_LONGSWORD = 6897;
+    public static int[] ITEMS = {LEATHER_BOOTS, ADAMANT_KITE, ADAMANT_MED_HELM, EMERALD, RUNE_LONGSWORD};
     /* setting up the different objects */
-    private static int RUNE_LONGSWORD_OBJECT;
-    private static int EMERALD_OBJECT;
-    private static int ADAMANT_MED_HELM_OBJECT;
-    private static int ADAMANT_KITE_OBJECT;
-    private static int LEATHER_BOOTS_OBJECT;
+    private int RUNE_LONGSWORD_OBJECT;
+    private int EMERALD_OBJECT;
+    private int ADAMANT_MED_HELM_OBJECT;
+    private int ADAMANT_KITE_OBJECT;
+    private int LEATHER_BOOTS_OBJECT;
+    
+     
 
     /* Loading the minigame itself */
     public static void loadAlchemistPlayGround() {
@@ -70,19 +71,22 @@ public class AlchemistPlayground {
     public static boolean isAlchemistPlaygroundItem(int id) {
 	return id == LEATHER_BOOTS || id == ADAMANT_KITE || id == ADAMANT_MED_HELM || id == EMERALD || id == RUNE_LONGSWORD;
     }
-    /* the initial variable for each object and prices */
+
     private static void loadInitialVariables() {
-	LEATHER_BOOTS_OBJECT = 10791;
-	ADAMANT_KITE_OBJECT = 10789;
-	ADAMANT_MED_HELM_OBJECT = 10787;
-	EMERALD_OBJECT = 10785;
-	RUNE_LONGSWORD_OBJECT = 10783;
 	MageGameConstants.LEATHER_BOOTS_PRICE = 30;
 	MageGameConstants.ADAMANT_KITE_PRICE = 15;
 	MageGameConstants.ADAMANT_MED_HELM_PRICE = 8;
 	MageGameConstants.EMERALD_PRICE = 5;
 	MageGameConstants.RUNE_LONGSWORD_PRICE = 1;
 
+    }
+    
+    private void initializeObjects() {
+	LEATHER_BOOTS_OBJECT = 10791;
+	ADAMANT_KITE_OBJECT = 10789;
+	ADAMANT_MED_HELM_OBJECT = 10787;
+	EMERALD_OBJECT = 10785;
+	RUNE_LONGSWORD_OBJECT = 10783;
     }
 
     /* the rotating object and price event */
@@ -95,6 +99,18 @@ public class AlchemistPlayground {
 		    if(player == null) continue;
 		    if(player.inAlchemistPlayground()) {
 			player.getAlchemistPlayground().rotateObjects();
+			for(int i : ITEMS) {
+			    player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+			    MageGameConstants.FREE_ALCH_ITEM = 0;
+			}
+			if(Misc.random(2) == 1) {
+			    int freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
+			    while(MageGameConstants.FREE_ALCH_ITEM == freeItem) {
+				freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
+			    }
+			    player.getActionSender().sendInterfaceHidden(0, getArrowIndexForItemId(freeItem));
+			    MageGameConstants.FREE_ALCH_ITEM = freeItem;
+			}
 		    }
 		}
 	    }
@@ -113,6 +129,7 @@ public class AlchemistPlayground {
 	}
 	player.teleport(ENTERING_POSITION[number]);
 	player.getActionSender().sendMessage("You've entered the Alchemists' Playground.");
+	initializeObjects();
     }
 
     public void exit() {
@@ -127,6 +144,9 @@ public class AlchemistPlayground {
 	player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
 	alchPizazzPoint = 0;
 	coinReward = 0;
+	for (int i : ITEMS) {
+	    player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+	}
     }
 
     public void removeItems() {
@@ -187,11 +207,27 @@ public class AlchemistPlayground {
 	MageGameConstants.ADAMANT_KITE_PRICE = objects[3];
 	MageGameConstants.LEATHER_BOOTS_PRICE = objects[4];
     }
-
+    
+    public static int getArrowIndexForItemId(int itemId) {
+	switch(itemId) {
+	    case LEATHER_BOOTS:
+		return 15907;
+	    case ADAMANT_KITE:
+		return 15908;
+	    case ADAMANT_MED_HELM:
+		return 15909;
+	    case EMERALD:
+		return 15910;
+	    case RUNE_LONGSWORD:
+		return 15911;
+	}
+	return 0;
+    }
+    
     public boolean isInAlchemistPlayGround() {
 	return player.inAlchemistPlayground();
     }
-
+    
     public void loadInterfacePlayer() {
 	player.getActionSender().sendWalkableInterface(15892);
 	player.getActionSender().sendString("" + (player.getAlchemistPizazz() + alchPizazzPoint), 15896);
@@ -209,16 +245,28 @@ public class AlchemistPlayground {
 		    player.getActionSender().sendMessage("Not enough space in your inventory.");
 		    return true;
 		}
-		int itemId = correspondingItem(objectId);
-		player.getInventory().addItem(new Item(itemId));
+		final int itemId = correspondingItem(objectId);
 		player.getUpdateFlags().sendAnimation(832, 0);
-		if(itemId == LEATHER_BOOTS) {
-		    player.getActionSender().sendMessage("You find some " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
-		} else if (itemId == RUNE_LONGSWORD) {
-		    player.getActionSender().sendMessage("You find a " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
-		} else {
-		    player.getActionSender().sendMessage("You find an " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
-		}
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.getInventory().addItem(new Item(itemId));
+			if (itemId == LEATHER_BOOTS) {
+			    player.getActionSender().sendMessage("You find some " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
+			} else if (itemId == RUNE_LONGSWORD) {
+			    player.getActionSender().sendMessage("You find a " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
+			} else {
+			    player.getActionSender().sendMessage("You find an " + ItemManager.getInstance().getItemName(itemId).toLowerCase() + ".");
+			}
+			player.setStopPacket(false);
+		    }
+		}, 2);
 		return true;
 	    }
 	} else if (objectId == 10734) {
@@ -249,7 +297,7 @@ public class AlchemistPlayground {
     }*/
 
     /* get the corresponding item of an object */
-    private static int correspondingItem(int objectId) {
+    private int correspondingItem(int objectId) {
 	if (objectId == LEATHER_BOOTS_OBJECT) {
 	    return LEATHER_BOOTS;
 	}

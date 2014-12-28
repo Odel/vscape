@@ -24,6 +24,7 @@ public class MageGameConstants {
 	public static int ADAMANT_MED_HELM_PRICE;
 	public static int ADAMANT_KITE_PRICE;
 	public static int LEATHER_BOOTS_PRICE;
+	public static int FREE_ALCH_ITEM;
 	
 	//Graveyard enum
 	public enum BonePile {

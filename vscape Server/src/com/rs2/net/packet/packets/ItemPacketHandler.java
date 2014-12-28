@@ -1259,14 +1259,6 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (spell != null) {
 	    MagicSkill.spellOnItem(player, spell, itemId, player.getSlot());
-	}
-	if (player.getEnchantingChamber().isInEnchantingChamber()) {
-	    player.getEnchantingChamber().enchantItem(magicId, itemId);
-	    return;
-	}
-	if (player.getAlchemistPlayground().isInAlchemistPlayGround()) {
-	    player.getAlchemistPlayground().alchItem(itemId);
-	    return;
 	} else if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG) {
 	    System.out.println("Slot: " + player.getSlot() + " Item id: " + itemId + " Interface ID: " + player.getInterfaceId() + " magic id: " + magicId);
 	}

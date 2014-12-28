@@ -641,6 +641,21 @@ public class WalkToActionHandler {
 					break;
 				    }
 				break;
+				case 10771: //Mage training arena stairs up east
+				    player.teleport(new Position(3369, 3307, 1));
+				    break;
+				case 10775: //Mage training arena stairs up west
+				    player.teleport(new Position(3357, 3307, 1));
+				    break;
+				case 10773: //Mage training arena stairs down east
+				    player.teleport(new Position(3366, 3306, 0));
+				    break;
+				case 10776: //Mage training arena stairs down west
+				    player.teleport(new Position(3360, 3306, 0));
+				    break;
+				case 10721: //Mage training arena entrance
+				    player.getActionSender().walkTo(0, player.getPosition().getY() > 3298 ? -2 : 2, true);
+				    break;
 				case 2143:
 				case 2144:
 				    if(player.getQuestStage(10) == 2) {

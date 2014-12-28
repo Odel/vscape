@@ -12,9 +12,11 @@ import com.rs2.model.content.combat.projectile.Projectile;
 import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
+import com.rs2.model.content.minigames.magetrainingarena.MageGameConstants;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.players.Player;
@@ -543,6 +545,7 @@ public abstract class MagicSkill extends CycleEvent {
 			return false;
 		}
 		if(player.inEnchantingChamber() && EnchantingChamber.isEnchantingChamberItem(item)) {
+		    player.getEnchantingChamber().enchantItem(spellId, item);
 		    return true;
 		}
 		int index = -1;
@@ -658,6 +661,20 @@ public abstract class MagicSkill extends CycleEvent {
 		if (player.getInventory().getItemContainer().get(slot).getCount() > 1 && !player.getInventory().getItemContainer().hasRoomFor(new Item(995))) {
 			player.getActionSender().sendMessage("Not enough space in your inventory.");
 			return false;
+		}
+		if(player.inAlchemistPlayground()) {
+		    player.getAlchemistPlayground().alchItem(itemId);
+		    if (itemId == MageGameConstants.FREE_ALCH_ITEM) {
+			player.getActionSender().sendMessage("You alchemize this item at no rune cost!");
+			if (!TabHandler.fireStaff(player.getEquipment().getId(Constants.WEAPON))) {
+			    if (price == ItemManager.getInstance().getItemValue(itemId, "lowalch")) {
+				player.getInventory().addItem(Spell.LOW_ALCH.getRunesRequired()[0]); //Fire runes
+			    } else {
+				player.getInventory().addItem(Spell.HIGH_ALCH.getRunesRequired()[0]);
+			    }
+			}
+			player.getInventory().addItem(new Item(561, 1)); //Nature rune
+		    }
 		}
 		player.getActionSender().stopPlayerPacket(2);
 		player.getActionSender().sendFrame106(6);

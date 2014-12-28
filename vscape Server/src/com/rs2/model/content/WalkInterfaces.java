@@ -18,12 +18,17 @@ public class WalkInterfaces {
 			player.wildyWarned = true;
 		sendGameInterface(player);
 		sendMultiInterface(player);
-		if (player.getAlchemistPlayground().isInAlchemistPlayGround())
+		if (player.inAlchemistPlayground()) {
 			player.getAlchemistPlayground().loadInterfacePlayer();
-		if (player.getEnchantingChamber().isInEnchantingChamber())
+		}
+		if (player.inEnchantingChamber()) {
 			player.getEnchantingChamber().loadInterfacePlayer();
-		if (player.getCreatureGraveyard().isInCreatureGraveyard()) {
+		}
+		if (player.inCreatureGraveyard()) {
 			player.getCreatureGraveyard().loadInterfacePlayer();
+		}
+		if(player.inTelekineticTheatre()) {
+			player.getTelekineticTheatre().loadInterfacePlayer();
 		}
 	}
 

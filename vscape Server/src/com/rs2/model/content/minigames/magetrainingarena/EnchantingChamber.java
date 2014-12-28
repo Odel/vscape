@@ -148,7 +148,19 @@ public class EnchantingChamber {
 	    return;
 	}
 	player.getUpdateFlags().sendAnimation(832, 0);
-	player.getInventory().addItem(new Item(correspondingItem(objectId)));
+	player.setStopPacket(true);
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		b.stop();
+	    }
+
+	    @Override
+	    public void stop() {
+		player.getInventory().addItem(new Item(correspondingItem(objectId)));
+		player.setStopPacket(false);
+	    }
+	}, 2);
     }
 
     /* gets the correspondint item for an object id */
@@ -189,6 +201,7 @@ public class EnchantingChamber {
 	}
 	orbDepositCount = player.getEnchantingOrbCount();
 	player.getActionSender().sendMessage("You've entered the Enchantment Chamber.");
+	showInterfaceComponent(MageGameConstants.bonusItemEnchantingChamber);
 	int number = random.nextInt(ENTERING_POSITION.length);
 	player.teleport(ENTERING_POSITION[number]);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -253,75 +266,28 @@ public class EnchantingChamber {
 	player.getInventory().removeItem(new Item(DRAGONSTONE, player.getInventory().getItemAmount(DRAGONSTONE)));
     }
 
-    /* getting the points given with the spell id */
-    private static int getPointsBySpell(int spellId) {
-	switch (spellId) {
-	    case 1155:// lv 1
-		return 2;
-	    case 1165:// lv 2
-		return 4;
-	    case 1176:// lv 3
-		return 6;
-	    case 1180:// lv 4
-		return 8;
-	    case 1187:// lv 5
-		return 10;
-	    case 6003:// lv 6
-		return 12;
-	}
-	return 0;
-    }
-
-    private static int getExtraPointsByIndex(int index) {
-	switch (index) {
-	    case 0:// lv 1
-		return 1;
-	    case 1:// lv 2
-		return 2;
-	    case 2:// lv 3
-		return 3;
-	    case 3:// lv 4
-		return 4;
-	    case 4:// lv 5
-		return 5;
-	    case 5:// lv 6
-		return 6;
-	}
-	return 0;
-    }
-
-    /* getting the enchanting index */
-    private static int getEnchantingIndex(int spellId) {
-	return getPointsBySpell(spellId) / 2 - 1;
-    }
-
-    /* enchanting an item in the minigame */
-    public void enchantItem(int spellId, int itemId) {
-	/* checks if the item enchanted can be enchanted */
+    public void enchantItem(int spellIndex, int itemId) {
 	if (itemId != RED && itemId != YELLOW && itemId != GREEN && itemId != BLUE && itemId != DRAGONSTONE) {
 	    return;
 	}
-	if(getEnchantingIndex(spellId) < 0) {
+	if(spellIndex < 0) {
 	    return;
 	}
 	if (itemId == DRAGONSTONE) {
-	    /* check if the max point is reached or not */
 	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
-		tempPizazzPoint += getPointsBySpell(spellId);
+		tempPizazzPoint += (spellIndex + 1) * 2;
 	    } else {
 		tempPizazzPoint = MageGameConstants.MAX_ENCHANTING_POINT - player.getEnchantingPizazz();
 	    }
 	} else {
-	    /* if the player is enchanting the item shown as bonus */
 	    if (MageGameConstants.bonusItemEnchantingChamber.equals(getStringById(itemId)) && (player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
 		player.getActionSender().sendMessage("You recieve 1 bonus point!");
 		tempPizazzPoint++;
 	    }
-		enchantSpellsUsed[getEnchantingIndex(spellId)] += 1;
-	    // checks if the max point is reached or not
+	    enchantSpellsUsed[spellIndex] += 1;
 	    if ((player.getEnchantingPizazz() + tempPizazzPoint) <= MageGameConstants.MAX_ENCHANTING_POINT) {
 		if(enchantCount == 9) {
-		    tempPizazzPoint += getExtraPointsByIndex(getEnchantingIndex(spellId));
+		    tempPizazzPoint += (spellIndex + 1);
 		    resetEnchantingSpells();
 		} else {
 		    enchantCount++;
@@ -330,12 +296,9 @@ public class EnchantingChamber {
 		tempPizazzPoint = MageGameConstants.MAX_ENCHANTING_POINT - player.getEnchantingPizazz();
 	    }
 	}
-	/* standard enchanting methods */
-	player.getInventory().removeItem(new Item(itemId));
-	player.getInventory().addItem(new Item(ORB));
+	player.getInventory().replaceItemWithItem(new Item(itemId), new Item(ORB));
     }
 
-    /* deposit the orbs into the hole */
     private void depositOrbs() {
 	if (!player.getInventory().getItemContainer().contains(ORB)) {
 	    player.getActionSender().sendMessage("You don't have any orbs to deposit.");
@@ -353,7 +316,6 @@ public class EnchantingChamber {
 	player.getUpdateFlags().sendAnimation(832, 0);
     }
 
-    /* reset the enchanting spells after depositing orbs */
     private void resetEnchantingSpells() {
 	for (int i = 0; i < enchantSpellsUsed.length; i++) {
 	    enchantSpellsUsed[i] = 0;
