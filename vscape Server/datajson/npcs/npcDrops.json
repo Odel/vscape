@@ -239269,6 +239269,32 @@
         "chance": 4
       }
     ]
+  },  {
+    "npcId": 5105,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 532,
+        "count": [
+          1
+        ],
+        "chance": 1
+      },
+      {
+        "id": 10097,
+        "count": [
+          1
+        ],
+        "chance": 2
+  },
+      {
+        "id": 10099,
+        "count": [
+          1
+        ],
+        "chance": 4
+      }
+    ]
   },
   {
     "npcId": 5362,
