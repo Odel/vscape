@@ -1,5 +1,6 @@
 package com.rs2.util;
 
+import com.rs2.GlobalVariables;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -75,6 +76,35 @@ public class Misc {
 		str = ucWords(str);
 		str.replace("_", " ");
 		return str;
+	}
+	
+	public static void initAlphabet() {
+	    GlobalVariables.ALPHABET.put(1, "A");
+	    GlobalVariables.ALPHABET.put(2, "B");
+	    GlobalVariables.ALPHABET.put(3, "C");
+	    GlobalVariables.ALPHABET.put(4, "D");
+	    GlobalVariables.ALPHABET.put(5, "E");
+	    GlobalVariables.ALPHABET.put(6, "F");
+	    GlobalVariables.ALPHABET.put(7, "G");
+	    GlobalVariables.ALPHABET.put(8, "H");
+	    GlobalVariables.ALPHABET.put(9, "I");
+	    GlobalVariables.ALPHABET.put(10, "J");
+	    GlobalVariables.ALPHABET.put(11, "K");
+	    GlobalVariables.ALPHABET.put(12, "L");
+	    GlobalVariables.ALPHABET.put(13, "M");
+	    GlobalVariables.ALPHABET.put(14, "N");
+	    GlobalVariables.ALPHABET.put(15, "O");
+	    GlobalVariables.ALPHABET.put(16, "P");
+	    GlobalVariables.ALPHABET.put(17, "Q");
+	    GlobalVariables.ALPHABET.put(18, "R");
+	    GlobalVariables.ALPHABET.put(19, "S");
+	    GlobalVariables.ALPHABET.put(20, "T");
+	    GlobalVariables.ALPHABET.put(21, "U");
+	    GlobalVariables.ALPHABET.put(22, "V");
+	    GlobalVariables.ALPHABET.put(23, "W");
+	    GlobalVariables.ALPHABET.put(24, "X");
+	    GlobalVariables.ALPHABET.put(25, "Y");
+	    GlobalVariables.ALPHABET.put(26, "Z");
 	}
 
 	public static int randomMinusOne(int range) {

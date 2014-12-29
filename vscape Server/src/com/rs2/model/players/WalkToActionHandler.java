@@ -2092,8 +2092,11 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
+				{
+				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287) { //Exceptions
 					return;
+				    }
 				}
 				Following.resetFollow(player);
 				if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK) {

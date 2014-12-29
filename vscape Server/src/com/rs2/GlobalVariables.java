@@ -1,6 +1,7 @@
 package com.rs2;
 
 import com.rs2.model.tick.TickTimer;
+import java.util.HashMap;
 
 public class GlobalVariables {
 
@@ -15,9 +16,11 @@ public class GlobalVariables {
 	public static String[] degradeInfo = null;
 	public static String[] npcDump = null;
 	public static String[] itemDump = null;
+	
+	public static HashMap<Integer, String> ALPHABET = new HashMap<>();
 	// public static long leverTimer[] = new long[LeverHandler.lever.length];
 	public static int grainHopper = 0, grainBin = 0;
-
+	
 	public static int getServerGlobalTimer() {
 		return serverGlobalTimer;
 	}

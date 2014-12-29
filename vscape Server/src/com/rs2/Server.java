@@ -175,6 +175,7 @@ public class Server implements Runnable {
             GlobalVariables.degradeInfo = Misc.loadDegradeInfo();
             GlobalVariables.npcDump = Misc.getNpcDump();
             GlobalVariables.itemDump = Misc.getItemDump();
+	    Misc.initAlphabet();
 
 
 			// load all xstream related files.
