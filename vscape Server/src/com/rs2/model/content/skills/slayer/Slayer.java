@@ -211,6 +211,7 @@ public class Slayer { // todo fungicide
 		SKELETAL_WYVERNS("skeletal wyvern", 72, new int[] { ELEMENTAL_SHIELD, 11283, 11284 }, "equipment"),
 		GARGOYLE("gargoyle", 75, new int[] { ROCK_HAMMER }, "use"),
 		NECHRYAL("nechryael", 80, null, "none"),
+		SPIRITUAL_MAGE("spiritual mage", 83, null, "none"),
 		ABYSSAL_DEMON("abyssal demon", 85, null, "none"),
 		DARK_BEAST("dark beast", 90, null, "none");
 
