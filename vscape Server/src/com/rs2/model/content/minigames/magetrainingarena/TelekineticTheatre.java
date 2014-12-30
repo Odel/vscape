@@ -2,8 +2,6 @@ package com.rs2.model.content.minigames.magetrainingarena;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.dialogue.DialogueManager;
-import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.minigames.magetrainingarena.MageGameConstants.BOTTOM_LEFT_CORNER;
 import static com.rs2.model.content.minigames.magetrainingarena.MageGameConstants.BOTTOM_RIGHT_CORNER;
 import static com.rs2.model.content.minigames.magetrainingarena.MageGameConstants.CENTER_SQUARE;
@@ -202,7 +200,6 @@ public class TelekineticTheatre {
 	return new Position(((x1 + x2) / 2) + 1, ((y1 + y2) / 2) + 1);
     }
 
-    @SuppressWarnings("unused")
     private String getDirectionToMoveStatue() {
 	int x = player.getPosition().getX();
 	int y = player.getPosition().getY();
@@ -248,7 +245,11 @@ public class TelekineticTheatre {
     
     public void handleTelegrab(final Position itemPos) {
 	String direction = getDirectionToMoveStatue();
-	moveStatue(direction, itemPos);
+	if(direction.equals("")) {
+	    player.getDialogue().sendStatement("You need to get to a closer, more appropriate spot to move the Statue.");
+	} else {
+	    moveStatue(direction, itemPos);
+	}
     }
     
     public void moveStatue(String direction, Position startPos) {
@@ -307,43 +308,6 @@ public class TelekineticTheatre {
 	GroundItemManager.getManager().destroyItem(STATUE_ITEM);
 	STATUE_ITEM = null;
 	spawnMazeGuardian();
-    }
-    
-    public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
-	DialogueManager d = player.getDialogue();
-	switch (id) {
-	    case 3102: //Maze guardian
-		switch (player.getDialogue().getChatId()) {
-		    case 1:
-			d.sendPlayerChat("Hi!", Dialogues.HAPPY);
-			return true;
-		    case 2:
-			d.sendNpcChat("Well done on releasing me. Would you like to try", "another maze?", Dialogues.CONTENT);
-			return true;
-		    case 3:
-			d.sendOption("Yes please!", "No thanks.");
-			return true;
-		    case 4:
-			switch(optionId) {
-			    case 1:
-				d.sendPlayerChat("Yes please!", Dialogues.CONTENT);
-				return true;
-			    case 2:
-				d.sendPlayerChat("No thanks.", Dialogues.CONTENT);
-				d.endDialogue();
-				return true;
-			}
-		    case 5:
-			d.sendNpcChat("Very well, I shall teleport you.", Dialogues.CONTENT);
-			return true;
-		    case 6:
-			d.endDialogue();
-			player.getTelekineticTheatre().newMaze();
-			return true;
-		}
-		return false;
-	}
-	return false;
     }
 
 }

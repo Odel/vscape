@@ -200,7 +200,7 @@ public class EnchantingChamber {
 	    return;
 	}
 	orbDepositCount = player.getEnchantingOrbCount();
-	player.getActionSender().sendMessage("You've entered the Enchantment Chamber.");
+	player.getActionSender().sendMessage("You've entered the Enchanting Chamber.");
 	showInterfaceComponent(MageGameConstants.bonusItemEnchantingChamber);
 	int number = random.nextInt(ENTERING_POSITION.length);
 	player.teleport(ENTERING_POSITION[number]);
@@ -249,7 +249,7 @@ public class EnchantingChamber {
     }
     
     public void exit() {
-	player.getActionSender().sendMessage("You've left the Enchantment Chamber.");
+	player.getActionSender().sendMessage("You've left the Enchanting Chamber.");
 	player.getActionSender().sendWalkableInterface(-1);
 	player.teleport(MageGameConstants.LEAVING_POSITION);
 	removeItems();

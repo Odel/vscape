@@ -42,7 +42,7 @@ public class MageRewardHandling {
 	    return;
 	}
 	//int price = item.getPrice();
-	player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + item.getTelePoints() + " Telekinetic, " + item.getAlchPoints() + " Alchemist, " + item.getEnchantPoints() + " Enchantment,");
+	player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + item.getTelePoints() + " Telekinetic, " + item.getAlchPoints() + " Alchemist, " + item.getEnchantPoints() + " Enchanting,");
 	player.getActionSender().sendMessage("and " + item.getGraveyardPoints() + " Graveyard Pizazz Point(s).");
     }
 
