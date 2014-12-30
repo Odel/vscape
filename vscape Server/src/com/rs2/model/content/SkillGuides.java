@@ -1793,9 +1793,10 @@ public class SkillGuides {
 			menuLine("70", "Kurask", 4146, 15);
 			menuLine("72", "Skeletal Wyvern", 6811, 16);
 			menuLine("75", "Gargoyle", 4147, 17);
-			menuLine("80", "Nechrael", 4148, 18);
-			menuLine("85", "Abyssal Demon", 4149, 19);
-			menuLine("90", "Dark Beast", 6637, 20);
+			menuLine("80", "Nechryael", 4148, 18);
+			menuLine("83", "Spiritual Mage", 11740, 19);
+			menuLine("85", "Abyssal Demon", 4149, 20);
+			menuLine("90", "Dark Beast", 6637, 21);
 			optionTab("Slayer", "Monsters", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 

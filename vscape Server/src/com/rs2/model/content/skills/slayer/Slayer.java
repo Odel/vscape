@@ -97,6 +97,7 @@ public class Slayer { // todo fungicide
 		MITHRILDRAGON("mithril dragon", new String[] { "Mithril dragons are found in Brimhaven dungeon.", "A team of archaeologists uncovered a cavern", "containing them and other ancient monsters.", "Good luck." }),
 		GARGOYLE("gargoyle", new String[] { "Gargoyles are stone figures that are weak to", "crush attacks.  To defeat them, you need a rock", "hammer.  These are found in the Slayer Tower and", "are known for their Granite maul drops." }),
 		SHADE("shade", new String[] { "Shades are weak to crush attacks and are", "of all levels.  They are accurate monsters", "and are found in the darkest parts of vscape." }),
+		SPIRITUALMAGE("spiritual mage", new String[] { "There are two ancient spiritual mages on", "the Frozen Waste Plateau in the deep Wilderness.", "Legend has it they may still have a pair of dragon boots", "from the old God Wars." }),
 		NECHRYAEL("nechryael", new String[] { "These demons are among the strongest demons", "in vscape. They are sought after for their", "rune boot drops.  Nechryaels are found in the", "Slayer Tower." });
 
 		private String monsterName;
@@ -210,7 +211,8 @@ public class Slayer { // todo fungicide
 		KURASK("kurask", 70, new int[] { LEAF_BLADED_SPEAR }, "equipment"),
 		SKELETAL_WYVERNS("skeletal wyvern", 72, new int[] { ELEMENTAL_SHIELD, 11283, 11284 }, "equipment"),
 		GARGOYLE("gargoyle", 75, new int[] { ROCK_HAMMER }, "use"),
-		NECHRYAL("nechryael", 80, null, "none"),
+		NECHRYAEL("nechryael", 80, null, "none"),
+		SPIRITUAL_MAGE("spiritual mage", 83, null, "none"),
 		ABYSSAL_DEMON("abyssal demon", 85, null, "none"),
 		DARK_BEAST("dark beast", 90, null, "none");
 
@@ -283,7 +285,7 @@ public class Slayer { // todo fungicide
 	public static final String CANIFIS_ASSIGNMENTS[] = {"basilisk", "kalphite", "cave crawler", "crawling hand", "skeleton", "earth warrior","bat", "bear","bloodveld","cockatrice","ghost", "hobgoblin","ice giant", "ice warrior", "infernal mage", "jelly","lesser demon", "ogre", "pyrefiend", "shadow warrior", "zombie", "moss giant", "rockslug", "banshee"};
 	public static final String EDGEVILLE_DUNGEON_ASSIGNMENTS[] = {"aberrant spectre", "kalphite", "ice warrior", "iron dragon", "jelly", "pyrefiend", "shadow warrior", "dagannoth", "goblin", "hill giant", "banshee", "basilisk", "bloodveld", "blue dragon", "bronze dragon", "cockatrice", "dust devil", "crawling hand", "earth warrior", "fire giant", "green dragon", "hellhound", "ice giant", "lesser demon", "moss giant", "rockslug", "turoth"};
 	public static final String ZANARIS_ASSIGNMENTS[] = {"basilisk", "abyssal demon", "kalphite", "black demon", "dust devil", "gargoyle", "greater demon", "nechryael", "skeletal wyvern", "kurask", "dagannoth", "turoth", "aberrant spectre", "gargoyle", "bronze dragon", "cockatrice", "infernal mage", "fire giant", "hellhound", "iron dragon", "jelly", "lesser demon", "pyrefiend", "steel dragon"};
-	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "abyssal demon", "kalphite", "black demon", "black dragon", "dust devil", "gargoyle", "kurask", "hellhound", "dagannoth", "skeletal wyvern", "mithril dragon", "steel dragon", "nechryael", "iron dragon", "aberrant spectre", "turoth", "fire giant", "greater demon", "dark beast"};
+	public static final String SHILO_VILLAGE_ASSIGNMENTS[] = {"bronze dragon", "abyssal demon", "kalphite", "black demon", "black dragon", "dust devil", "gargoyle", "kurask", "hellhound", "dagannoth", "skeletal wyvern", "mithril dragon", "spiritual mage", "steel dragon", "nechryael", "iron dragon", "aberrant spectre", "turoth", "fire giant", "greater demon", "dark beast"};
 
 	public void assignNewTask(int id) {
 		SlayerMasterData master = SlayerMasterData.forId(id);
