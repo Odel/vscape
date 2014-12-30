@@ -260,6 +260,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("idPapers", player.givenIdPapers());
 		questVarsObj.addProperty("hasShotGrip", player.hasShotGrip());
 		questVarsObj.addProperty("ballistaIndex", player.getBallistaIndex());
+		questVarsObj.addProperty("gazeOfSaradomin", player.isGazeOfSaradomin());
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		//if(player.getQuestStage(34) > 0) {

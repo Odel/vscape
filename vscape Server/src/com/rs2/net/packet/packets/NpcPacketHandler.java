@@ -104,8 +104,13 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setClickZ(player.getPosition().getZ());
 		player.setNpcClickIndex(npcSlot);
 		player.getUpdateFlags().faceEntity(npcSlot);
-		player.setFollowDistance(1);
+		player.setFollowDistance(npc.isBoothBanker() ? 2 : 1);
 		player.setFollowingEntity(npc);
+		if(npc.isBoothBanker()) {
+		    player.setClickX(npc.getUpdateFlags().getFace().getX());
+		    player.setClickY(npc.getUpdateFlags().getFace().getY());
+		    player.setClickZ(player.getPosition().getZ());
+		}
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("First click npc: "+player.getClickId());
 		}
@@ -150,8 +155,13 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setClickZ(player.getPosition().getZ());
 		player.setNpcClickIndex(npcSlot);
 		player.getUpdateFlags().faceEntity(npcSlot);
-		player.setFollowDistance(1);
+		player.setFollowDistance(npc.isBoothBanker() ? 2 : 1);
 		player.setFollowingEntity(npc);
+		if(npc.isBoothBanker()) {
+		    player.setClickX(npc.getUpdateFlags().getFace().getX());
+		    player.setClickY(npc.getUpdateFlags().getFace().getY());
+		    player.setClickZ(player.getPosition().getZ());
+		}
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("Second click npc: "+player.getClickId());
 		}

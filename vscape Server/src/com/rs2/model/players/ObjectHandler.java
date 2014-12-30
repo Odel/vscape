@@ -129,7 +129,9 @@ public class ObjectHandler {
 	public void removeObject(int x, int y, int height, int type) {
 		GameObject o = getObject(x, y, height);
 		if (o != null) {
+		    if(height < 4) {
 			removeClip(o.getDef().getId(), x, y, height, type, o.getDef().getFace());
+		    }
 			objects.remove(o);
 			updateObject(o);
 		}

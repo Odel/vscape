@@ -152,6 +152,9 @@ public class PacketManager {
     			if(!(packetHandler instanceof DefaultPacketHandler) && packet.getOpcode() != 202) {
     				
     			}
+			if(player.inTempleKnightsTraining() && player.getQuestStage(35) == 5) {
+			    player.recievedPacket = true;
+			}
                 packetHandler.handlePacket(player, packet);
                 player.getTimeoutStopwatch().reset();
             } catch(Exception e) {

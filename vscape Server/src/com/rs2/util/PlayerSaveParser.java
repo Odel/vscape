@@ -403,6 +403,9 @@ public class PlayerSaveParser {
 				if(questVars.get("ballistaIndex") != null){
 		            		player.setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
 		            	}
+				if(questVars.get("gazeOfSaradomin") != null) {
+					player.setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

@@ -21,7 +21,7 @@ public class Teleportation {
 	}
 
 	public static final Position HOME = new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0);
-
+	public static final Position WHITE_KNIGHTS_CASTLE = new Position(2973, 3344, 0);
 	public static final Position EDGEVILLE = new Position(3087, 3495);
 	public static final Position KARAMJA = new Position(2912, 3170);
 	public static final Position DRAYNOR_VILLAGE = new Position(3104, 3249);

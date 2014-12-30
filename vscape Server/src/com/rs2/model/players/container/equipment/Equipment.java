@@ -16,6 +16,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillCapeHandler;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
@@ -47,8 +48,8 @@ public class Equipment {
 
 	private Player player;
 
-	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torags body", "dharoks body", "guthans body"};
-	private static String[] hideHairAndBeard = {"spiny helmet", "initiate helm", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm", "h'ween mask"};
+	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torags body", "dharoks body", "guthans body", "initiate hauberk"};
+	private static String[] hideHairAndBeard = {"spiny helmet", "initiate sallet", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm", "h'ween mask"};
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm", "3rd age mage hat"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
@@ -766,6 +767,12 @@ public class Equipment {
 		    		return false;
 		    	}
 			}
+			if(itemId == RecruitmentDrive.INITIATE_SALLET || itemId == RecruitmentDrive.INITIATE_HAUBERK || itemId == RecruitmentDrive.INITIATE_CUISSE) {
+			    if(!QuestHandler.questCompleted(player, 35)) {
+				player.getDialogue().sendStatement("You must complete Recruitment Drive to equip this.");
+				return false;
+			    }
+			}
 			if(itemId == 2890) {
 			    if(player.getQuestStage(12) < 11) {
 				player.getDialogue().sendStatement("You must complete Elemental Workshop to equip this.");
@@ -1145,6 +1152,8 @@ public class Equipment {
 			case 1399: //earth battlestaff
 			case 3053: //lava battlestaff
 			case 6652: //mud battlestaff
+			case 11736: //steam battlestaff
+			    magicLevelReq = 30;
 			    attackLevelReq = 30;
 			    return;
 			case 3481: // gilded platebody

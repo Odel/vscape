@@ -27,6 +27,7 @@ import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.ShieldOfArrav;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.quests.TreeGnomeVillage;
@@ -421,6 +422,7 @@ public class CombatManager extends Tick {
 			FamilyCrest.handleDrops((Player) killer, npc);
 			TheGrandTree.handleDeath((Player) killer, npc);
 			TreeGnomeVillage.handleDeath((Player) killer, npc);
+			RecruitmentDrive.handleDeath((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			((Player) killer).setSpawnedNpc(null);
 		    }
@@ -650,7 +652,7 @@ public class CombatManager extends Tick {
 		}
 		if (died.isPlayer()) {
 		    Player player = (Player) died;
-		    player.teleport(Teleportation.HOME);
+		    player.teleport(player.isGazeOfSaradomin() ? Teleportation.WHITE_KNIGHTS_CASTLE : Teleportation.HOME);
 		    player.getActionSender().sendMessage("Oh dear, you are dead!");
 			if (player.getMultiCannon() != null && player.getMultiCannon().hasCannon()) {
 				player.getMultiCannon().pickupCannon();

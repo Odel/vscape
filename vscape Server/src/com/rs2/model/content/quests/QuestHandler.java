@@ -57,7 +57,8 @@ public class QuestHandler {
 	new WaterfallQuest(),
 	new GertrudesCat(),
 	new TreeGnomeVillage(),
-	new ChristmasEvent()
+	new ChristmasEvent(),
+	new RecruitmentDrive()
     };
     
     public static void init() {
@@ -241,6 +242,9 @@ public class QuestHandler {
         		return true;
 		case 28212: //Tree Gnome Village
 			showInterface(player,quests[33]);
+        		return true;
+		case 2156: //Recruitment Drive
+			showInterface(player,quests[35]);
         		return true;
         }
         return false;

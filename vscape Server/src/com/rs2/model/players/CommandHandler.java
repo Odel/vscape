@@ -27,6 +27,7 @@ import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -36,6 +37,7 @@ import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
@@ -90,7 +92,11 @@ public class CommandHandler {
 			sender.disconnect();
 		}
 		if (keyword.equals("outfit")) {
+		    if(sender.getQuestStage(35) > 0 && sender.getQuestStage(35) < RecruitmentDrive.QUEST_COMPLETE) {
+			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.");
+		    } else {
 			sender.getActionSender().sendInterface(3559);
+		    }
 		}
 		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") || keyword.equals("hiscores") )
 		{

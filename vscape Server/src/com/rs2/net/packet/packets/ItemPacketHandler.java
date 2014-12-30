@@ -22,6 +22,7 @@ import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
@@ -210,6 +211,15 @@ public class ItemPacketHandler implements PacketHandler {
 	}*/
 	if (!player.getInventory().getItemContainer().contains(item.getId())) {
 	    return;
+	}
+	if (player.inTempleKnightsTraining()) {
+	    if(item.getId() == RecruitmentDrive.FOX || item.getId() == RecruitmentDrive.GRAIN || item.getId() == RecruitmentDrive.CHICKEN) {
+		player.getActionSender().sendSound(376, 1, 0);
+		player.getInventory().removeItem(item);
+		player.getEquipment().updateWeight();
+		RecruitmentDrive.handleDropItem(player, item);
+		return;
+	    }
 	}
 	if (item.getId() == 530 && player.getPosition().getX() == 2780 && player.getPosition().getY() == 3515) {
 	    if (player.getInventory().playerHasItem(32)) {
@@ -1203,6 +1213,13 @@ public class ItemPacketHandler implements PacketHandler {
 	RSInterface inter = RSInterface.forId(player.getInterfaceId());
 	if (!player.hasInterfaceOpen(inter)) {
 	    return;
+	}
+	if (player.inTempleKnightsTraining()) {
+	    if(itemId == 5607 || itemId == 5608 || itemId == 5609) {
+		player.getDialogue().sendPlayerChat("I had better just carry this across in my backpack.", Dialogues.CONTENT);
+		player.getDialogue().endDialogue();
+		return;
+	    }
 	}
 	if (itemId == 6722){
 		player.getUpdateFlags().sendAnimation(2844);

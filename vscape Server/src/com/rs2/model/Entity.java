@@ -375,7 +375,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena();
+		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena() || inTempleKnightsTraining();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {
@@ -414,6 +414,10 @@ public abstract class Entity {
 	    } else {
 		return false;
 	    }
+	}
+	
+	public boolean inTempleKnightsTraining() {
+	    return this.Area(2436, 2495, 4931, 4992);
 	}
 	
 	public boolean inDesert() {

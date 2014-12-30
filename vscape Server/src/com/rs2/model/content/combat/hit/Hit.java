@@ -35,6 +35,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
@@ -203,6 +204,12 @@ public class Hit {
 			} else if(hitDef.getHitGraphic().getId() == 128) {
 			    damage += 4;
 			}
+		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == RecruitmentDrive.SIR_LEYE) {
+		    if((victim.getCurrentHp() - damage) <= 0 && ((Player)attacker).getGender() != 1) {
+			victim.getUpdateFlags().sendForceMessage("Fool! No man can defeat me!");
+			damage = 0;
 		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() 

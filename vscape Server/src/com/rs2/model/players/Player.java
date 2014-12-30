@@ -144,6 +144,7 @@ import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.SantaEncounter;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
@@ -298,6 +299,19 @@ public class Player extends Entity {
 	private int currentOptionId;
 	private int optionClickId;
 	private int currentGloryId;
+	public int comboLockLetter1 = 1;
+	public int comboLockLetter2 = 1;
+	public int comboLockLetter3 = 1;
+	public int comboLockLetter4 = 1;
+	public boolean foxRight = true;
+	public boolean chickenRight = true;
+	public boolean grainRight = true;
+	public boolean foxLeft = false;
+	public boolean chickenLeft = false;
+	public boolean grainLeft = false;
+	public boolean recievedPacket = false;
+	private boolean gazeOfSaradomin = false;
+	public String templeKnightRiddleAnswer = "NULL";
 	private int returnCode = Constants.LOGIN_RESPONSE_OK;
 	private TradeStage tradeStage = TradeStage.WAITING;
 	private int[] pendingItems = new int[Inventory.SIZE];
@@ -1041,7 +1055,9 @@ public class Player extends Entity {
 		this.getPets().unregisterPet();
 		this.getCat().unregisterCat();
 		movePlayer(position);
-		getActionSender().sendMapState(0);
+		if(!this.inTempleKnightsTraining()) {
+		    getActionSender().sendMapState(0);
+		}
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
 		getUpdateFlags().sendGraphic(-1);
@@ -1262,6 +1278,9 @@ public class Player extends Entity {
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);
 		}
+		if(this.inTempleKnightsTraining()) {
+		    RecruitmentDrive.exitTrainingGrounds(this);
+		}
         if(inPestControlLobbyArea())
         {
         	teleport(PestControl.LOBBY_EXIT);
@@ -1286,6 +1305,9 @@ public class Player extends Entity {
         }
 	if(this.Area(2754, 2814, 3833, 3873)) {
 	    this.teleport(ChristmasEvent.SNOWY_JAIL);
+	}
+	if(this.inTempleKnightsTraining()) {
+	    this.getActionSender().sendMapState(2);
 	}
 	for(Player player : World.getPlayers()) {
 	    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
@@ -3344,6 +3366,15 @@ public class Player extends Entity {
 	public void setVoidMace(boolean voidMace) {
 		this.voidMace = voidMace;
 	}
+	
+	public boolean isGazeOfSaradomin() {
+	    return this.gazeOfSaradomin;
+	}
+	
+	public void setGazeOfSaradomin(boolean set) {
+	    this.gazeOfSaradomin = set;
+	}
+	
 	public boolean wearingCwBracelet(){
 		int brace = getEquipment().getId(Constants.HANDS);
 		return brace == 11079 || brace == 11081 || brace == 11083;
@@ -4924,7 +4955,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 15098); //a soul's bane
 		getActionSender().sendString("", 15352); //shadow of the storm
 		getActionSender().sendString("", 14912); //rum deal
-		getActionSender().sendString("", 668); //recruitment drive
+		getActionSender().sendString("@red@Recruitment Drive", 668); //recruitment drive
 		getActionSender().sendString("", 18306); //recipe for disaster
 		getActionSender().sendString("", 15499); //rat catchers
 		getActionSender().sendString("", 18684); //rag and bone man
