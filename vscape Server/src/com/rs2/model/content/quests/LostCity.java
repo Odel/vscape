@@ -179,6 +179,18 @@ public class LostCity implements Quest {
     	dialogueStage = in;
     }
     
+    public static boolean isShamusSpawned() {
+	for (Npc npc : World.getNpcs()) {
+	    if (npc == null) {
+		continue;
+	    }
+	    if (npc.getNpcId() == 654) {
+		return true;
+	    }
+	}
+	return false;
+    }
+    
     public boolean itemHandling(final Player player, int itemId) { return false; }
     
     public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot)  { return false; }
@@ -190,7 +202,9 @@ public class LostCity implements Quest {
 	    case 2409:
 		if(player.getQuestStage(14) == 1 && x == 3138 && y == 3212) {
 		    player.getDialogue().sendStatement("You shake the tree and an angry leprechaun falls out.");
-		    NpcLoader.newNPC(654, 3140, 3214, 0, 2);
+		    if(!isShamusSpawned()) {
+			NpcLoader.newNPC(654, 3140, 3214, 0, 2);
+		    }
 		    for(Npc npc : World.getNpcs()) {
 			if(npc == null) continue;
 			if(npc.getNpcId() == 654) npc.setInteractingEntity(player);
@@ -303,11 +317,19 @@ public class LostCity implements Quest {
 			return true;
 		    case 13:
 			player.getDialogue().sendPlayerChat("Fine. Thanks for your help.", "I'll be going now.", ANNOYED);
-			player.setQuestStage(14, 2);
 			return true;
 		    case 14:
 			player.getDialogue().sendNpcChat("Good luck!", LAUGHING);
 			player.getDialogue().endDialogue();
+			player.setQuestStage(14, 2);
+			for (Npc npc : World.getNpcs()) {
+			    if (npc == null) {
+				continue;
+			    }
+			    if (npc.getNpcId() == 654) {
+				NpcLoader.destroyNpc(npc);
+			    }
+			}
 			return true;
 			
 		}
