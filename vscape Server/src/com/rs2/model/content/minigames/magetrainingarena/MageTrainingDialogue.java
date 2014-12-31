@@ -2,13 +2,15 @@ package com.rs2.model.content.minigames.magetrainingarena;
 
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.dialogue.Dialogues;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
 public class MageTrainingDialogue {
-
+    
+    public static final int PIZAZZ_HAT = 3096;
     public static final int ENTRANCE_GUARDIAN = 3097;
     public static final int TELEKINETIC_GUARDIAN = 3098;
     public static final int ALCHEMY_GUARDIAN = 3099;
@@ -16,10 +18,62 @@ public class MageTrainingDialogue {
     public static final int GRAVEYARD_GUARDIAN = 3101;
     public static final int MAZE_GUARDIAN = 3102;
     public static final int REWARDS_GUARDIAN = 3103;
+    
 
     public static boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	DialogueManager d = player.getDialogue();
 	switch (id) {
+	    case PIZAZZ_HAT:
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			d.sendPlayerChat("Hello.", CONTENT);
+			return true;
+		    case 2:
+			d.sendNpcChat("What do you want to know? Make it snappy.", ANGRY_1);
+			return true;
+		    case 3:
+			d.sendOption("Telekinetic Pizazz Points.", "Alchemist Pizazz Points.", "Enchanting Pizazz Points.", "Graveyard Pizazz Points.", "Nevermind.");
+			return true;
+		    case 4:
+			switch(optionId) {
+			    case 1:
+				d.sendPlayerChat("How many Telekinetic Pizazz Points do I have?", CONTENT);
+				return true;
+			    case 2:
+				d.sendPlayerChat("How many Alchemist Pizazz Points do I have?", CONTENT);
+				d.setNextChatId(6);
+				return true;
+			    case 3:
+				d.sendPlayerChat("How many Enchanting Pizazz Points do I have?", CONTENT);
+				d.setNextChatId(7);
+				return true;
+			    case 4:
+				d.sendPlayerChat("How many Graveyard Pizazz Points do I have?", CONTENT);
+				d.setNextChatId(8);
+				return true;
+			    case 5:
+				d.sendPlayerChat("Nevermind.", CONTENT);
+				d.endDialogue();
+				return true;
+			}
+		    case 5:
+			d.sendNpcChat("You have " + player.getTelekineticPizazz() + " Telekinetic Pizazz Point(s), now", "leave me alone.", ANGRY_1);
+			d.endDialogue();
+			return true;
+		    case 6:
+			d.sendNpcChat("You have " + player.getAlchemistPizazz() + " Alchemist Pizazz Point(s), now", "leave me alone.", ANGRY_1);
+			d.endDialogue();
+			return true;
+		    case 7:
+			d.sendNpcChat("You have " + player.getEnchantingPizazz() + " Enchanting Pizazz Point(s), now", "leave me alone.", ANGRY_1);
+			d.endDialogue();
+			return true;
+		    case 8:
+			d.sendNpcChat("You have " + player.getGraveyardPizazz() + " Graveyard Pizazz Point(s), now", "leave me alone.", ANGRY_1);
+			d.endDialogue();
+			return true;
+		}
+	    return false;
 	    case REWARDS_GUARDIAN:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
