@@ -91,13 +91,15 @@ public class Tiaras {
 			return false;
 		}
 		if(player.carryingItem(5525) && player.carryingItem(tiara.getTalisman())){
+			player.getUpdateFlags().sendAnimation(791);
 			player.getInventory().removeItem(new Item(5525, 1));
 			player.getInventory().removeItem(new Item(tiara.getTalisman(), 1));
 			player.getInventory().addItem(new Item(tiara.getTiara(), 1));
 			player.getActionSender().sendMessage("You bind the power of the talisman into the tiara.");
 			player.getSkill().addExp(Skill.RUNECRAFTING, tiara.getExp());
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	public static void handleTiara(Player player) {

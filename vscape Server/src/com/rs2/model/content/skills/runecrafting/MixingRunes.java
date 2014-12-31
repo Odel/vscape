@@ -6,11 +6,15 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import java.util.Random;
 
 public class MixingRunes {
 
-	public final static int BindingNeck = 5521;
+	public final static int BINDING_NECKLACE = 5521;
 	
 	public enum MixingRunesData {
 		MIST_RUNES_AIR(1438, 556, 2480, 4695, 6, 8), MIST_RUNES_WATER(1444, 555, 2478, 4695, 6, 8), DUST_RUNES_AIR(1438, 556, 2481, 4696, 10, 8.3), DUST_RUNES_EARTH(1440, 557, 2478, 4696, 10, 8.3), MUD_RUNES_WATER(1444, 555, 2481, 4698, 13, 9.3), MUD_RUNES_EARTH(1440, 557, 2480, 4698, 13, 9.3), SMOKE_RUNES_AIR(1438, 556, 2482, 4697, 15, 9.5), SMOKE_RUNES_FIRE(1442, 554, 2478, 4697, 15, 9.5), STEAM_RUNES_WATER(1444, 555, 2482, 4694, 19, 10), STEAM_RUNES_FIRE(1442, 554, 2480, 4694, 19, 10), LAVA_RUNES_EARTH(1440, 557, 2482, 4699, 23, 10.5), LAVA_RUNES_FIRE(1442, 554, 2481, 4699, 23, 10.5), ;
@@ -59,8 +63,8 @@ public class MixingRunes {
 		}
 	}
 
-	public static boolean combineRunes(Player player, int itemUsed, int objectId) {
-		MixingRunesData mixingRunesData = MixingRunesData.forId(itemUsed, objectId);
+	public static boolean combineRunes(final Player player, int itemUsed, int objectId) {
+		final MixingRunesData mixingRunesData = MixingRunesData.forId(itemUsed, objectId);
 		if (mixingRunesData == null) {
 			return false;
 		}
@@ -70,8 +74,8 @@ public class MixingRunes {
 		}
 		if(!QuestHandler.questCompleted(player, 5))
 		{
-			player.getDialogue().sendStatement("You must complete Rune Mysteries","to access this skill.");
-			return false;
+			player.getDialogue().sendStatement("You must complete Rune Mysteries to access this skill.");
+			return true;
 		}
 		if (!player.getInventory().playerHasItem(mixingRunesData.getTalismanId())) {
 			player.getActionSender().sendMessage("You need a " + ItemManager.getInstance().getItemName(mixingRunesData.getTalismanId()).toLowerCase() + " to do this.");
@@ -85,26 +89,42 @@ public class MixingRunes {
 			player.getActionSender().sendMessage("You need a runecrafting level of " + mixingRunesData.getLevelRequired() + " to do this.");
 			return true;
 		}
-		if (player.getEquipment().getId(Constants.WEAPON) == BindingNeck) {
-			player.setBindingNeckCharge(player.getBindingNeckCharge() - 1);
-		}
-		if (player.getBindingNeckCharge() <= 0) {
-			player.setBindingNeckCharge(15);
-			player.getEquipment().replaceEquipment(BindingNeck, Constants.AMULET);
-
-			player.getActionSender().sendMessage("Your binding necklace crumble into dust.");
-		}
 		player.getInventory().removeItem(new Item(mixingRunesData.getTalismanId(), 1));
-		player.getActionSender().sendMessage("You attempt to bind the Runes.");
+		player.getActionSender().sendMessage("You attempt to bind the Runes...");
 		player.getUpdateFlags().sendAnimation(791);
-		while (player.getInventory().playerHasItem(mixingRunesData.getElementalRuneId()) && player.getInventory().playerHasItem(Runecrafting.PureEss)) {
-			player.getInventory().removeItem(new Item(mixingRunesData.getElementalRuneId(), 1));
-			player.getInventory().removeItem(new Item(Runecrafting.PureEss, 1));
-			if (Misc.random(1) == 0 || player.getEquipment().getId(Constants.WEAPON) == BindingNeck) {
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+			if (player.getEquipment().getId(Constants.AMULET) == BINDING_NECKLACE) {
+			    player.setBindingNeckCharge(player.getBindingNeckCharge() - 1);
+			    if (player.getBindingNeckCharge() <= 0) {
+				player.setBindingNeckCharge(15);
+				player.getEquipment().removeAmount(Constants.AMULET, 1);
+				player.getEquipment().refresh();
+				player.getActionSender().sendMessage("You successfully bind the runes together. Your binding necklace crumbles into dust.");
+			    } else {
+				player.getActionSender().sendMessage("You successfully bind the runes together. You feel your necklace uncharge slightly.");
+			    }
+			} else {
+			    player.getActionSender().sendMessage("You manage to bind most of the runes together with the power of the Talisman.");
+			}
+			while (player.getInventory().playerHasItem(mixingRunesData.getElementalRuneId()) && player.getInventory().playerHasItem(Runecrafting.PureEss)) {
+			    player.getInventory().removeItem(new Item(mixingRunesData.getElementalRuneId(), 1));
+			    player.getInventory().removeItem(new Item(Runecrafting.PureEss, 1));
+			    if ((50 >= (new Random().nextDouble() * 100)) || player.getEquipment().getId(Constants.AMULET) == BINDING_NECKLACE) {
 				player.getInventory().addItem(new Item(mixingRunesData.getCombinedRune(), 1));
 				player.getSkill().addExp(Skill.RUNECRAFTING, mixingRunesData.getExperienceReceived());
+			    }
 			}
-		}
+		    }
+		}, 3);
 		return true;
 	}
 }
