@@ -13,7 +13,7 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
-import com.rs2.model.content.Shops;
+import com.rs2.model.World;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.content.dialogue.DialogueManager;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
@@ -223,12 +223,7 @@ public class RecruitmentDrive implements Quest {
 		} else {
 		    player.getActionSender().sendString("@dre@-Completion of Black Knight's Fortress.", 8150);
 		}
-		if(QuestHandler.questCompleted(player, 10)) {
-		    player.getActionSender().sendString("@str@-Completion of Druidic Ritual.", 8151);
-		} else {
-		    player.getActionSender().sendString("@dre@-Completion of Druidic Ritual.", 8151);
-		}
-		player.getActionSender().sendString("@dre@-I must be able to defeat a level 20 monster with no items.", 8152);
+		player.getActionSender().sendString("@dre@-I must be able to defeat a level 20 monster with no items.", 8151);
 		break;
         }
     }
@@ -334,7 +329,20 @@ public class RecruitmentDrive implements Quest {
     }
     
     public static void enterThirdRoom(final Player player) {
-	player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 4));
+	boolean occupied = false;
+	for(Player p : World.getPlayers()) {
+	    if(p == null) {
+		continue;
+	    }
+	    if(p.getPosition().getZ() == player.getIndex() * 4) {
+		occupied = true;
+	    }
+	}
+	if(!occupied) {
+	    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 4));
+	} else {
+	    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 16));
+	}
 	int z = player.getPosition().getZ();
 	NpcLoader.spawnNpc(SIR_SPISHYUS, 2488, 4973, z, true, true);
 	CacheObject chicken = ObjectLoader.object(2487, 4974, 0);
@@ -425,7 +433,7 @@ public class RecruitmentDrive implements Quest {
 		}
 	    case SECOND_ROOM_PORTAL:
 		if(player.getQuestStage(35) >= SECOND_ROOM_COMPLETE) {
-		    player.teleport(THIRD_ROOM);
+		    enterThirdRoom(player);
 		    return true;
 		}
 	    case FIRST_ROOM_PORTAL:
@@ -675,22 +683,26 @@ public class RecruitmentDrive implements Quest {
 	}
 	if(player.foxRight && player.chickenRight && !player.grainRight) {
 	    player.getActionSender().sendMessage("The fox has eaten the chicken!");
+	    player.chickenRight = false;
 	    ObjectHandler.getInstance().removeObject(2487, 4974, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2487, 4974, player.getPosition().getZ(), 0, 10, 0, 999999, false);
 	} else if(player.chickenRight && player.grainRight && !player.foxRight) {
 	    player.getActionSender().sendMessage("The chicken has eaten the grain!");
+	    player.grainRight = false;
 	    ObjectHandler.getInstance().removeObject(2486, 4974, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2486, 4974, player.getPosition().getZ(), 0, 10, 0, 999999, false);
 	} else if(player.foxLeft && player.chickenLeft && !player.grainLeft) {
 	    player.getActionSender().sendMessage("The fox has eaten the chicken!");
+	    player.chickenLeft = false;
 	    ObjectHandler.getInstance().removeObject(2473, 4970, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2473, 4970, player.getPosition().getZ(), 0, 10, 0, 999999, false);
 	} else if(player.chickenLeft && player.grainLeft && !player.foxLeft) {
 	    player.getActionSender().sendMessage("The chicken has eaten the grain!");
+	    player.grainLeft = false;
 	    ObjectHandler.getInstance().removeObject(2474, 4970, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2474, 4970, player.getPosition().getZ(), 0, 10, 0, 999999, false);
 	}
-	if(player.foxLeft && player.chickenLeft && player.grainLeft) {
+	if(player.foxLeft && player.chickenLeft && player.grainLeft && !player.foxRight && !player.chickenRight && !player.grainRight) {
 	    player.setQuestStage(35, THIRD_ROOM_COMPLETE);
 	    Dialogues.startDialogue(player, SIR_SPISHYUS);
 	}
@@ -895,7 +907,7 @@ public class RecruitmentDrive implements Quest {
 				    int count = 0;
 				    @Override
 				    public void execute(CycleEventContainer b) {
-					if(count > 3 && player.recievedPacket) {
+					if(count > 10 && player.recievedPacket) {
 					    b.stop();
 					} else if (count == 15) {
 					    player.setQuestStage(35, FOURTH_ROOM_COMPLETE);

@@ -259,7 +259,7 @@ public abstract class Entity {
 	}
 
 	public boolean inWild() {
-		return Area(2942, 3391, 3520, 3965) || Area(2942, 3391, 9919, 10365);
+		return Area(2942, 3391, 3520, 4000) || Area(2942, 3391, 9919, 10365);
 	}
 
 	public boolean nextToWildy(int x, int y) {
@@ -275,6 +275,9 @@ public abstract class Entity {
 			return 0;
 		} else {
 			int modY = getPosition().getY() > 6400 ? getPosition().getY() - 6400 : getPosition().getY();
+			if(getPosition().getY() > 3965 && getPosition().getY() < 4000) {
+			    return 69;
+			}
 			return (modY - 3520) / 8 + 1;
 		}
 	}
