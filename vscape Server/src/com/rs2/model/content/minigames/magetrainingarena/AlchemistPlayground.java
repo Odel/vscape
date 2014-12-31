@@ -6,6 +6,7 @@ import com.rs2.model.World;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
@@ -144,8 +145,10 @@ public class AlchemistPlayground {
 	player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
 	alchPizazzPoint = 0;
 	coinReward = 0;
-	for (int i : ITEMS) {
-	    player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+	if (player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
+	    for (int i : ITEMS) {
+		player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+	    }
 	}
     }
 

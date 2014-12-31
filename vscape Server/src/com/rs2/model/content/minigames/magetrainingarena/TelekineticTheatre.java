@@ -19,6 +19,7 @@ import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -142,21 +143,23 @@ public class TelekineticTheatre {
     }
 
     public void removeItems() {
-	if (EXIT_OBJECT != null) {
-	    ObjectHandler.getInstance().removeObject(EXIT_OBJECT.oX, EXIT_OBJECT.oY, z, 10);
-	    EXIT_OBJECT = null;
-	}
-	if (STATUE_ITEM != null) {
-	    GroundItemManager.getManager().destroyItem(STATUE_ITEM);
-	    STATUE_ITEM = null;
-	}
-	if (GUARDIAN != null) {
-	    NpcLoader.destroyNpc(GUARDIAN);
-	    GUARDIAN = null;
-	}
-	if (MAZE_GUARDIAN != null) {
-	    NpcLoader.destroyNpc(MAZE_GUARDIAN);
-	    MAZE_GUARDIAN = null;
+	if (player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
+	    if (EXIT_OBJECT != null) {
+		ObjectHandler.getInstance().removeObject(EXIT_OBJECT.oX, EXIT_OBJECT.oY, z, 10);
+		EXIT_OBJECT = null;
+	    }
+	    if (STATUE_ITEM != null) {
+		GroundItemManager.getManager().destroyItem(STATUE_ITEM);
+		STATUE_ITEM = null;
+	    }
+	    if (GUARDIAN != null) {
+		NpcLoader.destroyNpc(GUARDIAN);
+		GUARDIAN = null;
+	    }
+	    if (MAZE_GUARDIAN != null) {
+		NpcLoader.destroyNpc(MAZE_GUARDIAN);
+		MAZE_GUARDIAN = null;
+	    }
 	}
     }
     
