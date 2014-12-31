@@ -77,12 +77,21 @@ public abstract class MagicSkill extends CycleEvent {
 		this.taskId = player.getTask();
 		int i = 0;
 		for (Item rune : spell.getRunesRequired()) {
+		    if(!player.getInventory().playerHasItem(new Item(rune.getId(), rune.getCount())) && swapForComboRunes(player, rune.getId()) != 0) {
+			requirements[i++] = new RuneRequirement(swapForComboRunes(player, rune.getId()) , rune.getCount()) {
+				@Override
+				public String getFailMessage() {
+					return SpellAttack.FAILED_REQUIRED_RUNES;
+				}
+			};
+		    } else {
 			requirements[i++] = new RuneRequirement(rune.getId(), rune.getCount()) {
 				@Override
 				public String getFailMessage() {
 					return SpellAttack.FAILED_REQUIRED_RUNES;
 				}
 			};
+		    }
 		}
 		requirements[i] = new SkillLevelRequirement(Skill.MAGIC, spell.getLevelRequired()) {
 			@Override
@@ -288,7 +297,50 @@ public abstract class MagicSkill extends CycleEvent {
 		magicSkill.initialize();
 
 	}
-
+	
+	private static int swapForComboRunes(Player player, int runeId) {
+	    switch(runeId) {
+		default:
+		    return 0;
+		case 556: //Air rune
+		    if(player.getInventory().playerHasItem(4696)) {
+			return 4696; //Dust
+		    } else if(player.getInventory().playerHasItem(4695)) {
+			return 4695; //Mist
+		    } else if(player.getInventory().playerHasItem(4697)) {
+			return 4697; //Smoke
+		    }
+		return 0;
+		case 555: //Water rune
+		    if(player.getInventory().playerHasItem(4695)) {
+			return 4695; //Mist
+		    } else if(player.getInventory().playerHasItem(4698)) {
+			return 4698; //Mud
+		    } else if (player.getInventory().playerHasItem(4694)) {
+			return 4694; //Steam
+		    }
+		return 0;
+		case 557: //Earth rune
+		    if(player.getInventory().playerHasItem(4696)) {
+			return 4696; //Dust
+		    } else if(player.getInventory().playerHasItem(4698)) {
+			return 4698; //Mud
+		    } else if(player.getInventory().playerHasItem(4699)) {
+			return 4699; //Lava
+		    }
+		return 0;
+		case 554: //Fire rune
+		    if(player.getInventory().playerHasItem(4697)) {
+			return 4697; //Smoke
+		    } else if (player.getInventory().playerHasItem(4694)) {
+			return 4694; //Steam
+		    } else if(player.getInventory().playerHasItem(4699)) {
+			return 4699; //Lava
+		    }
+		return 0;
+	    }
+	}
+	
 	public static void spellButtonClicked(final Player player, final Spell spell) {
 		MagicSkill magicSkill = new MagicSkill(player, spell) {
 			@SuppressWarnings("incomplete-switch")
