@@ -1742,7 +1742,9 @@ public class CommandHandler {
     				continue;
     			if(!player.getHideYell())
     			{
+			    if(Constants.STAFF_ONLY_YELL) {
     				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(sender.getUsername()));
+			    }
     			}
     		}
         }
