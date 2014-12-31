@@ -1225,6 +1225,10 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
+	if (itemId == 6893 || itemId == 6894 || itemId == 6895 || itemId == 6897) {
+	    player.getActionSender().sendMessage("You cannot equip this item.");
+	    return;
+	}
 	if (itemId == 6722){
 		player.getUpdateFlags().sendAnimation(2844);
 		player.getUpdateFlags().setForceChatMessage("Muahahahah!");
