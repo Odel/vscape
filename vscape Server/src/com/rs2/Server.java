@@ -328,7 +328,7 @@ public class Server implements Runnable {
 				player.finishLogin();
 				player.setLoginStage(LoginStages.LOGGED_IN);
 			} catch (Exception ex) {
-				//ex.printStackTrace();
+				ex.printStackTrace();
 				System.out.println("Error, infinite DC loop for this player");
 				player.disconnect();
 			}
