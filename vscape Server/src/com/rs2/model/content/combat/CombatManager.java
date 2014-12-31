@@ -424,7 +424,10 @@ public class CombatManager extends Tick {
 			TreeGnomeVillage.handleDeath((Player) killer, npc);
 			RecruitmentDrive.handleDeath((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
-			((Player) killer).setSpawnedNpc(null);
+			if(((Player) killer).getSpawnedNpc() != null) {
+			    ((Player) killer).setSpawnedNpc(null);
+			    ((Player) killer).getActionSender().createPlayerHints(10, -1);
+			}
 		    }
 		}
 	    if (died != null && died.isNpc()) {

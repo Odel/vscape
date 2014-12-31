@@ -1571,7 +1571,6 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("mypos")) {
 			sender.getActionSender().sendMessage("You are at: " + sender.getPosition());
-			System.out.println("new " + sender.getPosition() + ",");
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(sender, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);

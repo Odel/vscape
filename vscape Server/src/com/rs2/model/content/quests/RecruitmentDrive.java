@@ -178,17 +178,8 @@ public class RecruitmentDrive implements Quest {
 		player.getActionSender().sendString("@str@" + "Talk to Sir Amik Varze, in the White Knights' Castle.", 8147);
 		
 		player.getActionSender().sendString("Sir Amik Varze told me to meet with Sir Tiffy Cashien", 8149);
-		player.getActionSender().sendString("in Falador park about the Temple Knights initiation.", 8150);
+		player.getActionSender().sendString("in Falador Park about the Temple Knights initiation.", 8150);
 		break;
-		/*
-		
-		
-		TRIALS_STARTED = 2;
-    public static final int FIRST_ROOM_COMPLETE = 3;
-    public static final int SECOND_ROOM_COMPLETE = 4;
-    public static final int THIRD_ROOM_COMPLETE = 5;
-    public static final int FOURTH_ROOM_COMPLETE = 6;
-		*/
 	    case TRIALS_STARTED:
 	    case FIRST_ROOM_COMPLETE:
 	    case SECOND_ROOM_COMPLETE:
@@ -196,7 +187,7 @@ public class RecruitmentDrive implements Quest {
 	    case FOURTH_ROOM_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to Sir Amik Varze, in the White Knights' Castle.", 8147);
 		player.getActionSender().sendString("@str@" + "Sir Amik Varze told me to meet with Sir Tiffy Cashien", 8149);
-		player.getActionSender().sendString("@str@" + "in Falador park about the Temple Knights initiation.", 8150);
+		player.getActionSender().sendString("@str@" + "in Falador Park about the Temple Knights initiation.", 8150);
 		
 		player.getActionSender().sendString("Apparently my Temple Knight initiation are trials of", 8152);
 		player.getActionSender().sendString("some sort. I should complete all my trials. Sir Tiffy", 8153);
@@ -206,7 +197,7 @@ public class RecruitmentDrive implements Quest {
 	    case TRIALS_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to Sir Amik Varze, in the White Knights' Castle.", 8147);
 		player.getActionSender().sendString("@str@" + "Sir Amik Varze told me to meet with Sir Tiffy Cashien", 8149);
-		player.getActionSender().sendString("@str@" + "in Falador park about the Temple Knights initiation.", 8150);
+		player.getActionSender().sendString("@str@" + "in Falador Park about the Temple Knights initiation.", 8150);
 		player.getActionSender().sendString("@str@" + "Apparently my Temple Knight initiation are trials of", 8152);
 		player.getActionSender().sendString("@str@" + "some sort. I should complete all my trials.", 8153);
 		
@@ -216,7 +207,7 @@ public class RecruitmentDrive implements Quest {
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to Sir Amik Varze, in the White Knights' Castle.", 8147);
 		player.getActionSender().sendString("@str@" + "Sir Amik Varze told me to meet with Sir Tiffy Cashien", 8149);
-		player.getActionSender().sendString("@str@" + "in Falador park about the Temple Knights initiation.", 8150);
+		player.getActionSender().sendString("@str@" + "in Falador Park about the Temple Knights initiation.", 8150);
 		player.getActionSender().sendString("@str@" + "Apparently my Temple Knight initiation are trials of", 8152);
 		player.getActionSender().sendString("@str@" + "some sort. I should complete all my trials.", 8153);
 		player.getActionSender().sendString("@str@" + "I completed all the Temple Knight trials! I should", 8155);
@@ -347,10 +338,13 @@ public class RecruitmentDrive implements Quest {
 	int z = player.getPosition().getZ();
 	NpcLoader.spawnNpc(SIR_SPISHYUS, 2488, 4973, z, true, true);
 	CacheObject chicken = ObjectLoader.object(2487, 4974, 0);
+	ObjectHandler.getInstance().removeObject(2487, 4974, z, 10);
 	GameObject o = new GameObject(CHICKEN_OBJ, chicken.getLocation().getX(), chicken.getLocation().getY(), z, chicken.getRotation(), chicken.getType(), 0, 999999, false);
 	CacheObject grain = ObjectLoader.object(2486, 4974, 0);
+	ObjectHandler.getInstance().removeObject(2486, 4974, z, 10);
 	GameObject o2 = new GameObject(GRAIN_OBJ, grain.getLocation().getX(), grain.getLocation().getY(), z, grain.getRotation(), grain.getType(), 0, 999999, false);
 	CacheObject fox = ObjectLoader.object(2485, 4974, 0);
+	ObjectHandler.getInstance().removeObject(2485, 4974, z, 10);
 	GameObject o3 = new GameObject(FOX_OBJ, fox.getLocation().getX(), fox.getLocation().getY(), z, fox.getRotation(), fox.getType(), 0, 999999, false);
 	GameObject o4 = new GameObject(7286, 2483, 4972, z, 0, 10, 0, 999999, false);
 	GameObject o5 = new GameObject(7287, 2477, 4972, z, 0, 10, 0, 999999, false);
@@ -359,6 +353,9 @@ public class RecruitmentDrive implements Quest {
 	GameObject o7 = new GameObject(EXIT_PORTAL_3, exit.getLocation().getX(), exit.getLocation().getY(), z, exit.getRotation(), exit.getType(), 0, 999999, false);
 	CacheObject portal = ObjectLoader.object(2487, 4974, 0);
 	GameObject o8 = new GameObject(THIRD_ROOM_PORTAL, portal.getLocation().getX(), portal.getLocation().getY(), z, portal.getRotation(), portal.getType(), 0, 999999, false);
+	ObjectHandler.getInstance().removeObject(2473, 4970, z, 10);
+	ObjectHandler.getInstance().removeObject(2474, 4970, z, 10);
+	ObjectHandler.getInstance().removeObject(2475, 4970, z, 10);
     }
     
     public static void openComboLockInterface(final Player player) {
@@ -439,7 +436,7 @@ public class RecruitmentDrive implements Quest {
 	    case COMBINATION_LOCK_DOOR:
 		if(player.getQuestStage(35) >= FIRST_ROOM_COMPLETE) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(player.getPosition().getX() < 2447 ? 1 : -1, 0, true);
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2447 ? 1 : -1, player.getPosition().getY() == 4956 ? 0 : player.getPosition().getY() > 4956 ? -1 : 1, true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -459,7 +456,7 @@ public class RecruitmentDrive implements Quest {
 	    case SECOND_ROOM_DOOR:
 		if(player.getQuestStage(35) >= SECOND_ROOM_COMPLETE) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(player.getPosition().getX() < 2464 ? 1 : -1, 0, true);
+		    player.getActionSender().walkTo(player.getPosition().getX() < 2464 ? 1 : -1, player.getPosition().getY() == 4963 ? 0 : player.getPosition().getY() > 4963 ? -1 : 1, true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -479,7 +476,7 @@ public class RecruitmentDrive implements Quest {
 	    case THIRD_ROOM_DOOR:
 		if(player.getQuestStage(35) >= THIRD_ROOM_COMPLETE) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(-1, 0, true);
+		    player.getActionSender().walkTo(-1, player.getPosition().getY() == 4972 ? 0 : player.getPosition().getY() > 4972 ? -1 : 1, true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -498,7 +495,7 @@ public class RecruitmentDrive implements Quest {
 	    case FOURTH_ROOM_DOOR:
 		if(player.getQuestStage(35) >= FOURTH_ROOM_COMPLETE) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(1, 0, true);
+		    player.getActionSender().walkTo(1, player.getPosition().getY() == 4956 ? 0 : player.getPosition().getY() > 4956 ? -1 : 1, true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -518,7 +515,7 @@ public class RecruitmentDrive implements Quest {
 	    case FIFTH_ROOM_DOOR:
 		if(player.getQuestStage(35) >= TRIALS_COMPLETE) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
-		    player.getActionSender().walkTo(0, 1, true);
+		    player.getActionSender().walkTo(player.getPosition().getX() == 2452 ? 0 : player.getPosition().getX() > 2452 ? -1 : 1, 1, true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -549,7 +546,7 @@ public class RecruitmentDrive implements Quest {
 	    case 7287: //Bridge 2
 		player.setEnergy(0);
 		player.getActionSender().walkTo(object == 7287 ? 4 : -4, 0, true);
-		player.getActionSender().sendMessage("You carefully walk across the bridge...");
+		player.getActionSender().sendMessage("You carefully walk across the rickety bridge...");
 		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    int count = 0;
@@ -577,6 +574,10 @@ public class RecruitmentDrive implements Quest {
 		}, 4);
 		return true;
 	    case FOX_OBJ:
+		if(player.getInventory().getItemContainer().freeSlots() == 0) {
+		    player.getActionSender().sendMessage("Your inventory is full.");
+		    return true;
+		}
 		if (player.getQuestStage(35) == SECOND_ROOM_COMPLETE) {
 		    ObjectHandler.getInstance().removeObject(x, y, player.getPosition().getZ(), 10);
 		    CacheObject fox = ObjectLoader.object(2485, 4974, 0);
@@ -592,6 +593,10 @@ public class RecruitmentDrive implements Quest {
 		}
 	    return false;
 	    case CHICKEN_OBJ:
+		if(player.getInventory().getItemContainer().freeSlots() == 0) {
+		    player.getActionSender().sendMessage("Your inventory is full.");
+		    return true;
+		}
 		if (player.getQuestStage(35) == SECOND_ROOM_COMPLETE) {
 		    ObjectHandler.getInstance().removeObject(x, y, player.getPosition().getZ(), 10);
 		    CacheObject chicken = ObjectLoader.object(2487, 4974, 0);
@@ -607,6 +612,10 @@ public class RecruitmentDrive implements Quest {
 		}
 		return false;
 	    case GRAIN_OBJ:
+		if(player.getInventory().getItemContainer().freeSlots() == 0) {
+		    player.getActionSender().sendMessage("Your inventory is full.");
+		    return true;
+		}
 		if (player.getQuestStage(35) == SECOND_ROOM_COMPLETE) {
 		    ObjectHandler.getInstance().removeObject(x, y, player.getPosition().getZ(), 10);
 		    CacheObject grain = ObjectLoader.object(2486, 4974, 0);
@@ -876,6 +885,7 @@ public class RecruitmentDrive implements Quest {
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				d.sendNpcChat("Ah, welcome " + player.getUsername() + ".", "I have but one clue for you to pass this room's puzzle:", "'Patience'.", CONTENT);
+				player.recievedPacket = false;
 				return true;
 			    case 2:
 				player.getActionSender().removeInterfaces();
@@ -885,7 +895,7 @@ public class RecruitmentDrive implements Quest {
 				    int count = 0;
 				    @Override
 				    public void execute(CycleEventContainer b) {
-					if(count > 1 && player.recievedPacket) {
+					if(count > 3 && player.recievedPacket) {
 					    b.stop();
 					} else if (count == 15) {
 					    player.setQuestStage(35, FOURTH_ROOM_COMPLETE);
@@ -939,7 +949,7 @@ public class RecruitmentDrive implements Quest {
 				d.sendNpcChat("Firstly, you may only carry one of the objects across", "the room at a time, for the bridge is old and fragile.", CONTENT);
 				return true;
 			    case 8:
-				d.sendNpcChat("Secondly, the fox wants to eat the chicken, and the", "chicken wants to eat the grain.", "Should you ever leave fox unattended with the", "chicken, or the grain unattended with the chicken, then", CONTENT);
+				d.sendNpcChat("Secondly, the fox wants to eat the chicken, and the", "chicken wants to eat the grain.", "Should you ever leave the fox unattended with the", "chicken, or the grain unattended with the chicken, then", CONTENT);
 				return true;
 			    case 9:
 				d.sendNpcChat("one of them will be eaten, and you will be unable to", "complete the test.", CONTENT);
@@ -1152,7 +1162,7 @@ public class RecruitmentDrive implements Quest {
 		    case QUEST_STARTED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				d.sendPlayerChat("Sir Amik Varze sent me here to meet you here for", "some sort of testing...?", CONTENT);
+				d.sendPlayerChat("Sir Amik Varze sent me to meet you here for", "some sort of testing...?", CONTENT);
 				return true;
 			    case 2:
 				d.sendNpcChat("Ah, " + player.getUsername() + "!", "Amik told me all about you, dont-cha-know!", "Spiffing job you did with the old Black Knights there,", "absolutely first class.", CONTENT);
@@ -1199,7 +1209,7 @@ public class RecruitmentDrive implements Quest {
 				d.sendPlayerChat("Who should I be talking to again?", CONTENT);
 				return true;
 			    case 2:
-				d.sendNpcChat("You are to meet Sir Tiffy Cashien in Falador park for", "testing immediately.", CONTENT);
+				d.sendNpcChat("You are to meet Sir Tiffy Cashien in Falador Park for", "testing immediately.", CONTENT);
 				return true;
 			    case 3:
 				d.sendPlayerChat("Ah, alright. Thank you.", CONTENT);
@@ -1231,7 +1241,7 @@ public class RecruitmentDrive implements Quest {
 				    return true;
 				}
 			    case 6:
-				d.sendNpcChat("Would you like me to put your name forwards to", "them?", CONTENT);
+				d.sendNpcChat("Would you like me to put your name forward to", "them?", CONTENT);
 				return true;
 			    case 7:
 				d.sendOption("Yes please.", "No thanks.");
@@ -1250,7 +1260,7 @@ public class RecruitmentDrive implements Quest {
 				d.sendNpcChat("Erm, well, this is a little embarrassing, I already HAVE", "put you forward as a potential member.", CONTENT);
 				return true;
 			    case 10:
-				d.sendNpcChat("They are called the Temple Knights, and you are to", "meet Sir Tiffy Cashien in Falador park for testing", "immediately.", CONTENT);
+				d.sendNpcChat("They are called the Temple Knights, and you are to", "meet Sir Tiffy Cashien in Falador Park for testing", "immediately.", CONTENT);
 				return true;
 			    case 11:
 				d.sendPlayerChat("Alright, I'll go do that then.", CONTENT);

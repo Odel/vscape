@@ -132,6 +132,7 @@ public class TelekineticTheatre {
 	player.getActionSender().sendWalkableInterface(-1);
 	removeItems();
 	saveVariables();
+	player.setTelekineticMazesCompleted(0);
     }
     
     public void newMaze() {
