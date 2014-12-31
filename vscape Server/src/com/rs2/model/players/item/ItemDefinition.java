@@ -440,7 +440,11 @@ public class ItemDefinition {
 	}
 
 	public static double getWeight(int itemId) {
+	    if(itemId < 0) {
+		return weights[0];
+	    } else {
 		return weights[itemId] + 0.1;
+	    }
 	}
 
 	public String getEquipmentType() {

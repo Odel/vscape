@@ -10,6 +10,7 @@ import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -237,10 +238,14 @@ public class EnchantingChamber {
 	player.setEnchantingEnchantCount(enchantCount);
 	player.setEnchantingOrbCount(orbDepositCount);
 	tempPizazzPoint = 0;
-	if (!DRAGONSTONES.isEmpty()) {
+	if (!DRAGONSTONES.isEmpty() && player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
 	    for (GroundItem g : DRAGONSTONES) {
 		if (g != null) {
-		    GroundItemManager.getManager().destroyItem(g);
+		    try {
+			GroundItemManager.getManager().destroyItem(g);
+		    } catch(Exception e) {
+			
+		    }
 		}
 	    }
 	}
