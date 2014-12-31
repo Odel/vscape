@@ -474,6 +474,7 @@ public abstract class MagicSkill extends CycleEvent {
 					case TELEGRAB :
 						if(itemId == TelekineticTheatre.STATUE) {
 						    player.getTelekineticTheatre().handleTelegrab(itemPos);
+						    return;
 						}
 						if (!GroundItemManager.getManager().itemExists(player, groundItem)) {
 							hitDef.setHitGraphic(null);

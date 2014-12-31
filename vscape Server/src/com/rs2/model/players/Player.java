@@ -697,22 +697,18 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
-	else if(this.inEnchantingChamber()) {
-		this.getEnchantingChamber().saveVariables();
-		this.getEnchantingChamber().removeItems();
-	}
-	else if(this.inAlchemistPlayground()) {
-		this.getAlchemistPlayground().saveVariables();
-		this.getAlchemistPlayground().removeItems();
-	}
-	else if(this.inCreatureGraveyard()) {
-		this.getCreatureGraveyard().saveVariables();
-		this.getCreatureGraveyard().removeItems();
-	}
-	else if(this.inTelekineticTheatre()) {
-		this.getTelekineticTheatre().saveVariables();
-		this.getTelekineticTheatre().removeItems();
-	}
+		else if(this.inEnchantingChamber()) {
+			this.getEnchantingChamber().saveVariables();
+		}
+		else if(this.inAlchemistPlayground()) {
+			this.getAlchemistPlayground().saveVariables(true);
+		}
+		else if(this.inCreatureGraveyard()) {
+			this.getCreatureGraveyard().saveVariables();
+		}
+		else if(this.inTelekineticTheatre()) {
+			this.getTelekineticTheatre().saveVariables();
+		}
 	
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -807,22 +803,18 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
-	else if(this.inEnchantingChamber()) {
-		this.getEnchantingChamber().saveVariables();
-		this.getEnchantingChamber().removeItems();
-	}
-	else if(this.inAlchemistPlayground()) {
-		this.getAlchemistPlayground().saveVariables();
-		this.getAlchemistPlayground().removeItems();
-	}
-	else if(this.inCreatureGraveyard()) {
-		this.getCreatureGraveyard().saveVariables();
-		this.getCreatureGraveyard().removeItems();
-	}
-	else if(this.inTelekineticTheatre()) {
-		this.getTelekineticTheatre().saveVariables();
-		this.getTelekineticTheatre().removeItems();
-	}
+		else if(this.inEnchantingChamber()) {
+			this.getEnchantingChamber().saveVariables();
+		}
+		else if(this.inAlchemistPlayground()) {
+			this.getAlchemistPlayground().saveVariables(true);
+		}
+		else if(this.inCreatureGraveyard()) {
+			this.getCreatureGraveyard().saveVariables();
+		}
+		else if(this.inTelekineticTheatre()) {
+			this.getTelekineticTheatre().saveVariables();
+		}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {

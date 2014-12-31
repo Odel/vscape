@@ -483,6 +483,11 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
+                if(player.inMageTrainingArena())
+                {
+                    player.getActionSender().sendMessage("You can't logout while in A mage training room!");
+                    return;
+                }
 				player.getActionSender().sendLogout();
 				return;
 		}

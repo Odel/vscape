@@ -134,31 +134,31 @@ public class AlchemistPlayground {
     }
 
     public void exit() {
-	player.getActionSender().sendWalkableInterface(-1);
-	removeItems();
-	player.teleport(MageGameConstants.LEAVING_POSITION);
-	player.getActionSender().sendMessage("You've left the Alchemists' Playground.");
-	saveVariables();
+		player.getActionSender().sendWalkableInterface(-1);
+		removeItems();
+		player.teleport(MageGameConstants.LEAVING_POSITION);
+		player.getActionSender().sendMessage("You've left the Alchemists' Playground.");
+		saveVariables(false);
     }
     
-    public void saveVariables() {
-	player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
-	alchPizazzPoint = 0;
-	coinReward = 0;
-	if (player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
-	    for (int i : ITEMS) {
-		player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
-	    }
-	}
+    public void saveVariables(boolean DC) {
+		player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
+		alchPizazzPoint = 0;
+		coinReward = 0;
+		if (player != null && !DC) {
+		    for (int i : ITEMS) {
+		    	player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+		    }
+		}
     }
 
     public void removeItems() {
-	player.getInventory().removeItem(new Item(995, player.getInventory().getItemAmount(995)));
-	player.getInventory().removeItem(new Item(LEATHER_BOOTS, player.getInventory().getItemAmount(LEATHER_BOOTS)));
-	player.getInventory().removeItem(new Item(ADAMANT_KITE, player.getInventory().getItemAmount(ADAMANT_KITE)));
-	player.getInventory().removeItem(new Item(ADAMANT_MED_HELM, player.getInventory().getItemAmount(ADAMANT_MED_HELM)));
-	player.getInventory().removeItem(new Item(RUNE_LONGSWORD, player.getInventory().getItemAmount(RUNE_LONGSWORD)));
-	player.getInventory().removeItem(new Item(EMERALD, player.getInventory().getItemAmount(EMERALD)));
+    	player.getInventory().removeItem(new Item(995, player.getInventory().getItemAmount(995)));
+    	player.getInventory().removeItem(new Item(LEATHER_BOOTS, player.getInventory().getItemAmount(LEATHER_BOOTS)));
+    	player.getInventory().removeItem(new Item(ADAMANT_KITE, player.getInventory().getItemAmount(ADAMANT_KITE)));
+    	player.getInventory().removeItem(new Item(ADAMANT_MED_HELM, player.getInventory().getItemAmount(ADAMANT_MED_HELM)));
+		player.getInventory().removeItem(new Item(RUNE_LONGSWORD, player.getInventory().getItemAmount(RUNE_LONGSWORD)));
+		player.getInventory().removeItem(new Item(EMERALD, player.getInventory().getItemAmount(EMERALD)));
     }
 
     /* rotating the item contained in each cupboard */

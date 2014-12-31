@@ -221,3 +221,4 @@ vscape Server/datajson/Newtonsoft.Json.dll
 vscape Server/data/logs/
 *.db
 vscape Client Resizable/Configs/
+vscape Server/data/macs.txt
