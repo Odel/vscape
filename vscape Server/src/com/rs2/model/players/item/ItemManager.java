@@ -92,6 +92,10 @@ public class ItemManager {
                 {
                 	Player viewFirst = (Player) item.getViewFirst().getEntity();
                 	Player dropper = (Player) item.getDropper().getEntity();
+                	if(viewFirst != player && dropper != player && (viewFirst.isIronman() || dropper.isIronman()) && !player.isIronman()) {
+	            		player.getActionSender().sendMessage("You cannot pickup items dropped by an ironman.");
+	                	return;
+                	}
                 	if(viewFirst != player && dropper != player && player.isIronman()) {
 	            		player.getActionSender().sendMessage("You cannot pickup items dropped by other players as an ironman.");
 	                	return;
