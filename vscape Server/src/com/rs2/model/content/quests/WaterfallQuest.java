@@ -694,7 +694,7 @@ public class WaterfallQuest implements Quest {
 		player.teleport(DROP_DOWN);
 		return true;
 	    case WATERFALL_DUNGEON_CRATE:
-		if (!player.getInventory().ownsItem(KEY_W)) {
+		if (!player.getInventory().playerHasItem(KEY_W) & player.Area(2580, 2600, 9880, 9890)) {
 		    player.getActionSender().sendMessage("You search the crate and find a key!");
 		    player.getInventory().addItemOrDrop(new Item(KEY_W));
 		    return true;
