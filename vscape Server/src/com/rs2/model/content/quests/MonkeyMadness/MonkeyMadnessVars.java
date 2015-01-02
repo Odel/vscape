@@ -9,9 +9,21 @@ public class MonkeyMadnessVars {
     private boolean jailCheckRunning;
     private boolean dungeonRunning;
     private boolean isMonkey;
+    private boolean gotAmulet;
+    private boolean gotTalisman;
+    private boolean openGate;
+    private boolean spokenToMonkeyChild1;
     
     public MonkeyMadnessVars(final Player player) {
 	this.player = player;
+    }
+    
+    public boolean spokenToMonkeyChild1() {
+        return this.spokenToMonkeyChild1;
+    }
+    
+    public void setSpokenToMonkeyChild1(boolean set) {
+        this.spokenToMonkeyChild1 = set;
     }
     
     public boolean givenMonkeyChildBananas() {
@@ -52,6 +64,30 @@ public class MonkeyMadnessVars {
 
     public void setIsMonkey(boolean set) {
 	this.isMonkey = set;
+    }
+    
+    public boolean gotAmulet() {
+        return gotAmulet;
+    }
+    
+    public void setGotAmulet(boolean set) {
+        this.gotAmulet = set;
+    }
+    
+    public boolean gotTalisman() {
+        return gotTalisman;
+    }
+    
+    public void setGotTalisman(boolean set) {
+        this.gotTalisman = set;
+    }
+    
+    public boolean openGate() {
+        return openGate;
+    }
+    
+    public void setOpenGate(boolean set) {
+        this.openGate = set;
     }
     
 }

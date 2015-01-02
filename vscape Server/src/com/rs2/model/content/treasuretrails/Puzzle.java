@@ -7,6 +7,9 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 /**
@@ -37,7 +40,26 @@ public class Puzzle {// todo maybe hovering button message
 	}
 	loadPuzzle();
 	if (finishedPuzzle()) {
-	    player.getActionSender().sendMessage("You have completed this puzzle!");
+	    if(index == 4) {
+		player.getActionSender().sendMessage("As you slide the final piece into place you begin to hear a low rumbling sound...");
+		player.getActionSender().shakeScreen(2, 10, 10, 40);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.fadeTeleport(MonkeyMadness.HANGAR_INITIALIZED);
+			player.setQuestStage(36, MonkeyMadness.CRACKED_THE_CODE);
+			player.setStopPacket(false);
+		    }
+		}, 3);
+	    } else {
+		player.getActionSender().sendMessage("You have completed this puzzle!");
+	    }
 	    return true;
 	}
 	return true;

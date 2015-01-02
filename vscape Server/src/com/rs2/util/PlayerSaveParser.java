@@ -415,6 +415,9 @@ public class PlayerSaveParser {
 				    if(MMVars.get("monkeyChildToy") != null) {
 					player.getMMVars().setMonkeyChildHasToy(MMVars.get("monkeyChildToy").getAsBoolean());
 				    }
+				    if(MMVars.get("openGate") != null) {
+					player.getMMVars().setOpenGate(MMVars.get("openGate").getAsBoolean());
+				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){

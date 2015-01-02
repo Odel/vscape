@@ -7640,38 +7640,43 @@ public class Dialogues {
 			    }
 			break;
 			case 675: //shipyard worker / crate guy
-			    switch(player.getDialogue().getChatId()) {
-				case 1:
-				    for(Npc npc : World.getNpcs()) {
-					if(npc == null) continue;
-					if(npc.getNpcId() == 675)
-					    npc.walkTo(player.getPosition().clone(), true);
-				    }
-				    player.getDialogue().sendNpcChat("*Singing*", "Load 'em up, move 'em out, load 'em up...", CONTENT);
-				    return true;
-				case 2:
-				    player.getDialogue().sendStatement("Your crate shakes a little. You hear the worker grunt.");
-				    return true;
-				case 3:
-				    player.getDialogue().sendNpcChat("Woah, this one is a bit heavier than usual.", "Must be the boss man fuckin' with me.", LAUGHING);
-				    return true;
-				case 4:
-				    player.getActionSender().sendMessage("You feel your crate being carried...and dropped off after a long voyage.");
-				    player.fadeTeleport(new Position(2779, 3400));
-				    for(Npc npc : World.getNpcs()) {
-					if(npc == null) continue;
-					if(npc.getNpcId() == 675) {
-					    npc.setVisible(false);
-					    World.unregister(npc);
+			    if (player.getQuestStage(11) == 4) {
+				switch (player.getDialogue().getChatId()) {
+				    case 1:
+					for (Npc npc : World.getNpcs()) {
+					    if (npc == null) {
+						continue;
+					    }
+					    if (npc.getNpcId() == 675) {
+						npc.walkTo(player.getPosition().clone(), true);
+					    }
 					}
-				    }
-				    if(player.getQuestStage(11) == 4 ) {
+					player.getDialogue().sendNpcChat("*Singing*", "Load 'em up, move 'em out, load 'em up...", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendStatement("Your crate shakes a little. You hear the worker grunt.");
+					return true;
+				    case 3:
+					player.getDialogue().sendNpcChat("Woah, this one is a bit heavier than usual.", "Must be the boss man fuckin' with me.", LAUGHING);
+					return true;
+				    case 4:
+					player.getActionSender().sendMessage("You feel your crate being carried...and dropped off after a long voyage.");
+					player.fadeTeleport(new Position(2779, 3400));
+					for (Npc npc : World.getNpcs()) {
+					    if (npc == null) {
+						continue;
+					    }
+					    if (npc.getNpcId() == 675) {
+						npc.setVisible(false);
+						World.unregister(npc);
+					    }
+					}
 					player.setQuestStage(11, 5);
-				    }
-				    player.getDialogue().endDialogue();
-				    player.transformNpc = -1;
-				    player.resetEffects();
-				    return true;
+					player.getDialogue().endDialogue();
+					player.transformNpc = -1;
+					player.resetEffects();
+					return true;
+				}
 			    }
 			break;
 			case 250: //lady of the lake
