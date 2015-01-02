@@ -83,6 +83,7 @@ public class CreatureGraveyard {
 
     public void enter() {
 	fruitDeposited = player.getGraveyardFruitDeposited();
+	player.setGraveyardFruitDeposited(0);
 	int number = new Random().nextInt(ENTERING_POSITION.length);
 	if (player.getSkill().getLevel()[Skill.MAGIC] < MageGameConstants.GRAVEYARD_LEVEL) {
 	    player.getActionSender().sendMessage("You need a magic level of " + MageGameConstants.GRAVEYARD_LEVEL + " to enter here.");

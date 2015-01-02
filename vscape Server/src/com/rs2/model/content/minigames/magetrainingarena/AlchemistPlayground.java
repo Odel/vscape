@@ -6,7 +6,6 @@ import com.rs2.model.World;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
@@ -96,6 +95,13 @@ public class AlchemistPlayground {
 	    @Override
 	    public void execute() {
 		updatePrices();
+		if (Misc.random(2) == 1) {
+		    int freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
+		    while (MageGameConstants.FREE_ALCH_ITEM == freeItem) {
+			freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
+		    }
+		    MageGameConstants.FREE_ALCH_ITEM = freeItem;
+		}
 		for(Player player : World.getPlayers()) {
 		    if(player == null) continue;
 		    if(player.inAlchemistPlayground()) {
@@ -104,14 +110,7 @@ public class AlchemistPlayground {
 			    player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
 			    MageGameConstants.FREE_ALCH_ITEM = 0;
 			}
-			if(Misc.random(2) == 1) {
-			    int freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
-			    while(MageGameConstants.FREE_ALCH_ITEM == freeItem) {
-				freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
-			    }
-			    player.getActionSender().sendInterfaceHidden(0, getArrowIndexForItemId(freeItem));
-			    MageGameConstants.FREE_ALCH_ITEM = freeItem;
-			}
+			player.getActionSender().sendInterfaceHidden(0, getArrowIndexForItemId(MageGameConstants.FREE_ALCH_ITEM));
 		    }
 		}
 	    }
@@ -128,6 +127,7 @@ public class AlchemistPlayground {
 	    player.getActionSender().sendMessage("You can't take coins in the Alchemists' Playground.");
 	    return;
 	}
+	alchPizazzPoint = player.getAlchemistPizazz();
 	player.teleport(ENTERING_POSITION[number]);
 	player.getActionSender().sendMessage("You've entered the Alchemists' Playground.");
 	initializeObjects();
@@ -142,7 +142,7 @@ public class AlchemistPlayground {
     }
     
     public void saveVariables(boolean DC) {
-		player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
+		player.setAlchemistPizazz(alchPizazzPoint > 8000 ? 8000 : alchPizazzPoint);
 		alchPizazzPoint = 0;
 		coinReward = 0;
 		if (player != null && !DC) {
@@ -153,7 +153,7 @@ public class AlchemistPlayground {
     }
 
     public void removeItems() {
-    	player.getInventory().removeItem(new Item(995, player.getInventory().getItemAmount(995)));
+    	player.getInventory().removeItem(new Item(8890, player.getInventory().getItemAmount(8890)));
     	player.getInventory().removeItem(new Item(LEATHER_BOOTS, player.getInventory().getItemAmount(LEATHER_BOOTS)));
     	player.getInventory().removeItem(new Item(ADAMANT_KITE, player.getInventory().getItemAmount(ADAMANT_KITE)));
     	player.getInventory().removeItem(new Item(ADAMANT_MED_HELM, player.getInventory().getItemAmount(ADAMANT_MED_HELM)));
@@ -233,7 +233,7 @@ public class AlchemistPlayground {
     
     public void loadInterfacePlayer() {
 	player.getActionSender().sendWalkableInterface(15892);
-	player.getActionSender().sendString("" + (player.getAlchemistPizazz() + alchPizazzPoint), 15896);
+	player.getActionSender().sendString("" + alchPizazzPoint, 15896);
 	player.getActionSender().sendString("" + MageGameConstants.LEATHER_BOOTS_PRICE, 15902);
 	player.getActionSender().sendString("" + MageGameConstants.ADAMANT_KITE_PRICE, 15903);																	// kiteshield
 	player.getActionSender().sendString("" + MageGameConstants.ADAMANT_MED_HELM_PRICE, 15904);																	// med
@@ -344,16 +344,16 @@ public class AlchemistPlayground {
 	if (correspondingPrice(itemId) == 0) {
 	    return;
 	}
-	player.getInventory().addItem(new Item(995, correspondingPrice(itemId)));
+	player.getInventory().addItem(new Item(8890, correspondingPrice(itemId)));
     }
 
     /* rewarding the player in the coins collector */
     private void reward() {
-	if (!player.getInventory().getItemContainer().contains(995)) {
+	if (!player.getInventory().getItemContainer().contains(8890)) {
 	    player.getActionSender().sendMessage("You don't have any coins to deposit.");
 	    return;
 	}
-	int count = player.getInventory().getItemContainer().getCount(995);
+	int count = player.getInventory().getItemContainer().getCount(8890);
 	if (count > 12000) {
 	    count = 12000; // cannot deposit more than 12k coins
 	}
@@ -364,12 +364,13 @@ public class AlchemistPlayground {
 	}
 	alchPizazzPoint += reward;
 	coinReward += reward * 10;
-	player.getInventory().removeItem(new Item(995, count));
+	player.getInventory().removeItem(new Item(8890, count));
 	player.getBankManager().add(new Item(995, coinReward));
 	player.getUpdateFlags().sendAnimation(832, 0);
 
 	player.getActionSender().sendChatInterface(363);
 	player.getDialogue().sendStatement("You've just deposited " + count + " coins, earning you " + reward + " Alchemist Pizazz", "Points and " + count * 4.5 + " magic XP. " + coinReward + " coin(s) have been deposited", "directly to your bank!");
+	coinReward = 0;
     }
 
 }
