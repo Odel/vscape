@@ -93,6 +93,7 @@ import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Travel;
+import com.rs2.util.clip.ClippedPathFinder;
 
 import java.util.Random;
 
@@ -2058,6 +2059,7 @@ public class WalkToActionHandler {
 		    npc.setInteractingEntity(player);
 		}
 		World.submit(new Tick(1, true) {
+			int count = 0;
 			@Override
 			public void execute() {
 				if (player == null || !player.checkTask(task) || npc.isDead()) {
@@ -2065,7 +2067,7 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (npc.isBoothBanker()) {
-				    if(player.goodDistanceEntity(npc, 2)) {
+				    if(Misc.goodDistance(player.getPosition(), new Position(npc.getUpdateFlags().getFace().getX(), npc.getUpdateFlags().getFace().getY(), player.getPosition().getZ()), 1)) {
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 					Dialogues.startDialogue(player, player.getClickId());
@@ -2073,10 +2075,11 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				    } else {
-					player.walkTo(new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()), true);
+					ClippedPathFinder.getPathFinder().findRoute(player, player.getClickX(), player.getClickY(), true, 0, 0);
+					return;
 				    }
 				}
-				if ((!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) && !npc.isBoothBanker()) {
+				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
 					return;
 				}
 				final Fishing.FishingSpot spot = Fishing.FishingSpot.getSpot(npc.getDefinition().getId(), 1);
@@ -2187,7 +2190,7 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (npc.isBoothBanker()) {
-				    if(player.goodDistanceEntity(npc, 2)) {
+				    if(Misc.goodDistance(player.getPosition(), new Position(npc.getUpdateFlags().getFace().getX(), npc.getUpdateFlags().getFace().getY(), player.getPosition().getZ()), 1)) {
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
 					player.getBankManager().openBank();
@@ -2195,10 +2198,11 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				    } else {
-					player.walkTo(new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()), true);
+					ClippedPathFinder.getPathFinder().findRoute(player, player.getClickX(), player.getClickY(), true, 0, 0);
+					return;
 				    }
 				}
-				if ((!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) && !npc.isBoothBanker()) {
+				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
 					return;
 				}
 				final Fishing.FishingSpot spot = Fishing.FishingSpot.getSpot(npc.getDefinition().getId(), 2);
@@ -2208,7 +2212,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true) && !npc.isBoothBanker()) {
+				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
 					return;
 				}
 				Following.resetFollow(player);

@@ -23,6 +23,7 @@ import com.rs2.model.players.WalkToActionHandler.Actions;
 import com.rs2.net.StreamBuffer;
 import com.rs2.net.packet.Packet;
 import com.rs2.net.packet.PacketManager.PacketHandler;
+import com.rs2.util.Misc;
 
 public class NpcPacketHandler implements PacketHandler {
 
@@ -104,12 +105,18 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setClickZ(player.getPosition().getZ());
 		player.setNpcClickIndex(npcSlot);
 		player.getUpdateFlags().faceEntity(npcSlot);
-		player.setFollowDistance(npc.isBoothBanker() ? 2 : 1);
-		player.setFollowingEntity(npc);
+		if(!npc.isBoothBanker()) {
+		    player.setFollowDistance(1);
+		    player.setFollowingEntity(npc);
+		}
 		if(npc.isBoothBanker()) {
-		    player.setClickX(npc.getUpdateFlags().getFace().getX());
-		    player.setClickY(npc.getUpdateFlags().getFace().getY());
-		    player.setClickZ(player.getPosition().getZ());
+		    if(!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+		    player.setClickX(npc.getUpdateFlags().getFace().getX() == npc.getPosition().getX() ? npc.getPosition().getX() : npc.getUpdateFlags().getFace().getX() < npc.getPosition().getX() ? npc.getUpdateFlags().getFace().getX() - 1 : npc.getUpdateFlags().getFace().getX() + 1);
+		    player.setClickY(npc.getUpdateFlags().getFace().getY() == npc.getPosition().getY() ? npc.getPosition().getY() : npc.getUpdateFlags().getFace().getY() < npc.getPosition().getY() ? npc.getUpdateFlags().getFace().getY() - 1 : npc.getUpdateFlags().getFace().getY() + 1);
+		    } else {
+			player.setClickX(npc.getUpdateFlags().getFace().getX());
+			player.setClickY(npc.getUpdateFlags().getFace().getY());
+		    }
 		}
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("First click npc: "+player.getClickId());
@@ -155,12 +162,18 @@ public class NpcPacketHandler implements PacketHandler {
 		player.setClickZ(player.getPosition().getZ());
 		player.setNpcClickIndex(npcSlot);
 		player.getUpdateFlags().faceEntity(npcSlot);
-		player.setFollowDistance(npc.isBoothBanker() ? 2 : 1);
-		player.setFollowingEntity(npc);
+		if(!npc.isBoothBanker()) {
+		    player.setFollowDistance(1);
+		    player.setFollowingEntity(npc);
+		}
 		if(npc.isBoothBanker()) {
-		    player.setClickX(npc.getUpdateFlags().getFace().getX());
-		    player.setClickY(npc.getUpdateFlags().getFace().getY());
-		    player.setClickZ(player.getPosition().getZ());
+		    if(!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+		    player.setClickX(npc.getUpdateFlags().getFace().getX() == npc.getPosition().getX() ? npc.getPosition().getX() : npc.getUpdateFlags().getFace().getX() < npc.getPosition().getX() ? npc.getUpdateFlags().getFace().getX() - 1 : npc.getUpdateFlags().getFace().getX() + 1);
+		    player.setClickY(npc.getUpdateFlags().getFace().getY() == npc.getPosition().getY() ? npc.getPosition().getY() : npc.getUpdateFlags().getFace().getY() < npc.getPosition().getY() ? npc.getUpdateFlags().getFace().getY() - 1 : npc.getUpdateFlags().getFace().getY() + 1);
+		    } else {
+			player.setClickX(npc.getUpdateFlags().getFace().getX());
+			player.setClickY(npc.getUpdateFlags().getFace().getY());
+		    }
 		}
 		if (Constants.SERVER_DEBUG) {
 			player.getActionSender().sendMessage("Second click npc: "+player.getClickId());
