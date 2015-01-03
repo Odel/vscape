@@ -1,11 +1,13 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.thieving.ThieveOther;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.objects.functions.Ladders;
@@ -190,8 +192,10 @@ public class ApeAtoll {
     }
     
     public static void jail(final Player player) {
+	player.getMMVars().inProcessOfBeingJailed = true;
 	player.getUpdateFlags().sendAnimation(836);
 	player.getMovementHandler().reset();
+	player.setStopPacket(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -207,7 +211,9 @@ public class ApeAtoll {
 		    }
 		    @Override
 		    public void stop() {
+			player.setStopPacket(false);
 			player.getMMVars().setJailCheckRunning(false);
+			player.getMMVars().inProcessOfBeingJailed = false;
 		    }
 		}, 5);
 	    }

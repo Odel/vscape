@@ -65,6 +65,7 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.randomevents.Pillory;
@@ -697,18 +698,18 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
-		else if(this.inEnchantingChamber()) {
-			this.getEnchantingChamber().saveVariables();
-		}
-		else if(this.inAlchemistPlayground()) {
-			this.getAlchemistPlayground().saveVariables(true);
-		}
-		else if(this.inCreatureGraveyard()) {
-			this.getCreatureGraveyard().saveVariables();
-		}
-		else if(this.inTelekineticTheatre()) {
-			this.getTelekineticTheatre().saveVariables();
-		}
+	else if(this.inEnchantingChamber()) {
+		this.getEnchantingChamber().saveVariables();
+	}
+	else if(this.inAlchemistPlayground()) {
+		this.getAlchemistPlayground().saveVariables(true);
+	}
+	else if(this.inCreatureGraveyard()) {
+		this.getCreatureGraveyard().saveVariables();
+	}
+	else if(this.inTelekineticTheatre()) {
+		this.getTelekineticTheatre().saveVariables();
+	}
 	
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -803,18 +804,18 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, true, 0);
         }
-		else if(this.inEnchantingChamber()) {
-			this.getEnchantingChamber().saveVariables();
-		}
-		else if(this.inAlchemistPlayground()) {
-			this.getAlchemistPlayground().saveVariables(true);
-		}
-		else if(this.inCreatureGraveyard()) {
-			this.getCreatureGraveyard().saveVariables();
-		}
-		else if(this.inTelekineticTheatre()) {
-			this.getTelekineticTheatre().saveVariables();
-		}
+	else if(this.inEnchantingChamber()) {
+		this.getEnchantingChamber().saveVariables();
+	}
+	else if(this.inAlchemistPlayground()) {
+		this.getAlchemistPlayground().saveVariables(true);
+	}
+	else if(this.inCreatureGraveyard()) {
+		this.getCreatureGraveyard().saveVariables();
+	}
+	else if(this.inTelekineticTheatre()) {
+		this.getTelekineticTheatre().saveVariables();
+	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {
@@ -4138,6 +4139,13 @@ public class Player extends Entity {
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
+		if(ApeAtollNpcs.isAggressiveNpc(npc.getNpcId())) {
+		    if(!getMMVars().isMonkey()) {
+			return true;
+		    } else if(getMMVars().isMonkey() && npc.getDefinition().getName().toLowerCase().contains("monkey")) {
+			return false;
+		    }
+		}
 		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
 			return true;
 		}
@@ -4166,6 +4174,12 @@ public class Player extends Entity {
 		for (Npc npc : getNpcs()) {
 			if (npc.getPlayerOwner() != null) {
 				continue;
+			}
+			if (npc.getNpcId() == 1456 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 10) && getPosition().getY() > 2744 && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
+			    CombatManager.attack(npc, this);
+			    if(getPosition().getY() > 2755) {
+				ApeAtoll.jail(this);
+			    }
 			}
 			if (!npcCanAttack(npc)) {
 				continue;

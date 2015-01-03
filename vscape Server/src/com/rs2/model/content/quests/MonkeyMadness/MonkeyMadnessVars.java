@@ -14,6 +14,7 @@ public class MonkeyMadnessVars {
     private boolean openGate;
     private boolean spokenToMonkeyChild1;
     public boolean whereAreWeWaydar = false;
+    public boolean inProcessOfBeingJailed = false;
     
     public MonkeyMadnessVars(final Player player) {
 	this.player = player;

@@ -19,6 +19,11 @@ public class ApeAtollNpcs {
     private static final Npc monkeyAunt = new Npc(MonkeyMadness.MONKEYS_AUNT);
     private static final Npc monkeyGuard_1 = new Npc(MonkeyMadness.TREFAJI);
     private static final Npc monkeyGuard_2 = new Npc(MonkeyMadness.ABERAB);
+    public static final int SPIDER = 1473;
+    public static final int SCORPION = 1477;
+    public static final int JUNGLE_SPIDER = 1478;
+    public static final int SNAKE = 1479;
+    public static final int MONKEY_ARCHER_GATE = 1456;
 
     private static int patrollingGuard = 1;
 
@@ -172,7 +177,7 @@ public class ApeAtollNpcs {
 	    }, 8);
 	}
     }
-
+    
     public static void init() {
 	for (ApeAtollNpcData a : ApeAtollNpcData.values()) {
 	    a.spawnNpc();
@@ -221,6 +226,10 @@ public class ApeAtollNpcs {
 	    public void stop() {
 	    }
 	}, 1);
+    }
+    
+    public static boolean isAggressiveNpc(int id) {
+	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE;
     }
 
 }

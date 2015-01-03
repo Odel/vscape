@@ -84,6 +84,9 @@ public class Hit {
 		    damage = 0;
 		    return;
 		}
+		if(victim != null && victim.isPlayer() && ((Player)victim).getMMVars().inProcessOfBeingJailed && ((Player)victim).onApeAtoll()) {
+		    return;
+		}
 		if(victim.isNpc() && hitDef.getHitType() == HitType.POISON)
 		{
 			if(((Npc)victim).getDefinition() != null && ((Npc)victim).getDefinition().isPoisonImmune())
@@ -516,7 +519,7 @@ public class Hit {
                 victim.getUpdateFlags().sendAnimation(victim.getBlockAnimation());
     		}
         }
-        if (victim.isPlayer()) {
+        if (victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();
         }
