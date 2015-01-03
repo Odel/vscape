@@ -12,6 +12,7 @@ public enum Weapon {
 	// movementAnimations are { stand, walk, run }
 	FISTS(WeaponInterface.FISTS, 4, new int[]{422, 423, 422}, Constants.MOVEMENT_ANIMS, 424), 
 	SHORT_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 4, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
+	MONKEY_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.MONKEY_ARROW, 4, new int[]{1394, 1394, 1394}, new int[]{1386, 1380, 1380}, 1395),
     SPECIAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.ARROW, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
 	CRYSTAL_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.CRYSTAL, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     OGRE_BOW(WeaponInterface.SHORT_BOW, RangedAmmoType.OGRE, 5, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),

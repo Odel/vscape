@@ -108,6 +108,14 @@ class Karil < NpcCombatDef
     end
 end
 
+class MonkeyArcher < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.rangedAttack(attacker, victim, AttackStyle::Mode::RAPID, 12, Weapon::MONKEY_BOW, RangedAmmo::MONKEY_ARROW)			
+        ];
+    end
+end
+
 class GreenDragon < NpcCombatDef
     def attackScripts attacker, victim
         return [
@@ -439,3 +447,4 @@ NpcCombatDef.add([1351, 1352, 1353, 1354, 1355, 1356], DagannothMother.new())
 NpcCombatDef.add([1341, 1342, 1343], WeakDagannothMelee.new())
 NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())
 NpcCombatDef.add([3068, 3069, 3070, 3071], SkeletalWyvern.new())
+NpcCombatDef.add([1456, 1457, 1458], MonkeyArcher.new())
