@@ -40,26 +40,7 @@ public class Puzzle {// todo maybe hovering button message
 	}
 	loadPuzzle();
 	if (finishedPuzzle()) {
-	    if(index == 4) {
-		player.getActionSender().sendMessage("As you slide the final piece into place you begin to hear a low rumbling sound...");
-		player.getActionSender().shakeScreen(2, 10, 10, 40);
-		player.setStopPacket(true);
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-		    @Override
-		    public void execute(CycleEventContainer b) {
-			b.stop();
-		    }
-
-		    @Override
-		    public void stop() {
-			player.fadeTeleport(MonkeyMadness.HANGAR_INITIALIZED);
-			player.setQuestStage(36, MonkeyMadness.CRACKED_THE_CODE);
-			player.setStopPacket(false);
-		    }
-		}, 3);
-	    } else {
-		player.getActionSender().sendMessage("You have completed this puzzle!");
-	    }
+	    player.getActionSender().sendMessage("You have completed this puzzle!");
 	    return true;
 	}
 	return true;
@@ -266,7 +247,11 @@ public class Puzzle {// todo maybe hovering button message
 	    return false;
 	}
 	if (finishedPuzzle() && reload) {
-	    player.getActionSender().sendMessage("You have completed this puzzle!");
+	    if(index == 4) {
+		MonkeyMadness.reinitializeHangar(player);
+	    } else {
+		player.getActionSender().sendMessage("You have completed this puzzle!");
+	    }
 	    return true;
 	}
 	Position position = getPosition(itemId);
@@ -311,6 +296,9 @@ public class Puzzle {// todo maybe hovering button message
 
 		}
 
+	    }
+	    if (finishedPuzzle() && index == 4) {
+		MonkeyMadness.reinitializeHangar(player);
 	    }
 	}
 	return true;

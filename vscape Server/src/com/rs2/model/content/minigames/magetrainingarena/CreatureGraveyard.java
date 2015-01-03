@@ -260,6 +260,10 @@ public class CreatureGraveyard {
 		return true;
 	    }
 	} else if (objectId == 10781) {
+	    if(player.getInventory().playerHasItem(new Item(BANANA)) || player.getInventory().playerHasItem(new Item(PEACH))) {
+		player.getActionSender().sendMessage("You cannot bring fruit into the Creature Graveyard.");
+		return true;
+	    }
 	    enter();
 	    return true;
 	} else if (objectId == 10735) {
