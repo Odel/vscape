@@ -15,6 +15,7 @@ import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.MageGameConstants;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.FamilyCrest;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.ground.GroundItem;
@@ -383,7 +384,12 @@ public abstract class MagicSkill extends CycleEvent {
 					case TROLLHEIM :
 						return player.getTeleportation().attemptTeleport(new Position(Constants.TROLLHEIM_X + Misc.random(1), Constants.TROLLHEIM_Y + Misc.random(1), 0));
 					case APE_ATOLL :
+					    if(QuestHandler.questCompleted(player, 36)) {
 						return player.getTeleportation().attemptTeleport(new Position(Constants.APE_ATOLL_X + Misc.random(1), Constants.APE_ATOLL_Y + Misc.random(1), 0));
+					    } else {
+						player.getActionSender().sendMessage("You must complete Monkey Madness to use this spell.");
+						return false;
+					    }
 					case PADDEWWA :
 						return player.getTeleportation().attemptTeleport(new Position(Constants.PADDEWWA_X + Misc.random(1), Constants.PADDEWWA_Y + Misc.random(1), 0));
 					case SENNTISTEN :

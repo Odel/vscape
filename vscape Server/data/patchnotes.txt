@@ -1,3 +1,7 @@
+@dre@=January 2nd=
+-BUG FIXES
+@bla@Monkey Madness lurks in the distance...
+
 @dre@=December 31st=
 @red@-New Year's Edition-
 @blu@Mage Training Arena
