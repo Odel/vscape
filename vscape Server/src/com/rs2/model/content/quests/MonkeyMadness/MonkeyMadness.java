@@ -325,14 +325,14 @@ public class MonkeyMadness implements Quest {
     }
 
     public void sendQuestTabStatus(Player player) {
-	int questStage = player.getQuestStage(getQuestID());
+	/*int questStage = player.getQuestStage(getQuestID());
 	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
 	    player.getActionSender().sendString("@yel@" + getQuestName(), 11132);
 	} else if (questStage == QUEST_COMPLETE) {
 	    player.getActionSender().sendString("@gre@" + getQuestName(), 11132);
 	} else {
 	    player.getActionSender().sendString("@red@" + getQuestName(), 11132);
-	}
+	}*/
     }
 
     public int getQuestPoints() {
