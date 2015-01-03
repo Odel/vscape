@@ -399,7 +399,7 @@ public class CommandHandler {
 		}
 	    } else if (keyword.equals("mute")) {
             if (args.length < 2) {
-            	sender.getActionSender().sendMessage("::mute hours username");
+            	sender.getActionSender().sendMessage("::mute hours -username");
                 return;
             }
             int hours = Integer.parseInt(args[0]);
@@ -408,13 +408,12 @@ public class CommandHandler {
             	sender.getActionSender().sendMessage("Mute between 0 and "+maxHours+" hours");
                 return;
             }
-            name = "";
-            for (int i = 1; i < args.length; i++) {
-                name += args[i];
-            }
-            Player player = World.getPlayerByName(name);
+		    name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
             if (player == null) {
             	sender.getActionSender().sendMessage("Could not find "+name);
+            	sender.getActionSender().sendMessage("::mute hours -username");
                 return;
             }
             if (player.isMuted()) {
