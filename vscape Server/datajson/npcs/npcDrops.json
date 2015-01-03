@@ -17620,13 +17620,6 @@
         "chance": 6
       },
       {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 2
-      },
-      {
         "id": 5311,
         "count": [
           1
@@ -48741,7 +48734,7 @@
   },
   {
     "npcId": 941,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 536,
@@ -48837,9 +48830,7 @@
       {
         "id": 561,
         "count": [
-          15,
-          30,
-          75
+          15
         ],
         "chance": 2
       },
@@ -104137,7 +104128,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 2485,
@@ -105795,7 +105786,7 @@
   },
   {
     "npcId": 1616,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
       {
         "id": 526,
@@ -105890,42 +105881,42 @@
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 201,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 203,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 205,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 2
       },
       {
         "id": 207,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 209,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 2485,
@@ -105939,14 +105930,14 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 215,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 213,
@@ -106348,6 +106339,13 @@
           31
         ],
         "chance": 6
+	  },
+      {
+        "id": 4117,
+        "count": [
+          1
+        ],
+        "chance": 5
       },
       {
         "id": 4109,
@@ -106362,13 +106360,6 @@
           100
         ],
         "chance": 5
-      },
-      {
-        "id": 4117,
-        "count": [
-          1
-        ],
-        "chance": 8
       },
       {
         "id": 995,
@@ -125929,14 +125920,14 @@
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 3
       },
       {
         "id": 215,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
       {
         "id": 213,
@@ -125950,21 +125941,21 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 209,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 211,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 2485,
@@ -126050,6 +126041,13 @@
           1
         ],
         "chance": 3
+      },
+      {
+	   "id": 4109,
+        "count": [
+          1
+        ],
+        "chance": 5
       },
       {
         "id": 4542,
