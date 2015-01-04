@@ -4145,15 +4145,11 @@ public class Player extends Entity {
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
-		if(ApeAtollNpcs.isAggressiveNpc(npc.getNpcId())) {
+		if(npc.onApeAtoll() && ApeAtollNpcs.isAggressiveNpc(npc.getNpcId())) {
 		    if(npc.getNpcId() == ApeAtollNpcs.SCORPION && !Misc.goodDistance(getPosition(), npc.getPosition(), 2)) {
 			return false;
 		    }
-		    if(!getMMVars().isMonkey()) {
-			return true;
-		    } else if(getMMVars().isMonkey() && (npc.getDefinition().getName().toLowerCase().contains("monkey") || (npc.getNpcId() >= 1441 && npc.getNpcId() <= 1447))) {
-			return false;
-		    }
+		    return !getMMVars().isMonkey();
 		}
 		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
 			return true;
@@ -4184,35 +4180,37 @@ public class Player extends Entity {
 			if (npc.getPlayerOwner() != null) {
 				continue;
 			}
-			if(npc.getNpcId() == MonkeyMadness.MONKEYS_AUNT && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && !getMMVars().inProcessOfBeingJailed) {
-			    npc.getUpdateFlags().setForceChatMessage("OOH! OOH! AAH!");
-			    ApeAtoll.jail(this, true);
-			}
-			if(npc.getNpcId() == 1457 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && ApeAtoll.hiddenInGrass(this) && npc.isAttacking()) {
-			    CombatManager.resetCombat(npc);
-			}
-			if(npc.getNpcId() == 1458 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && !Area(2762, 2767, 2767, 2772) && npc.isAttacking()) {
-			    CombatManager.resetCombat(npc);
-			}
-			if (npc.getNpcId() == 1456 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 10) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
-			    CombatManager.attack(npc, this);
-			    if(getPosition().getY() > 2758) {
-				ApeAtoll.jail(this, false);
+			if(onApeAtoll() && npc.onApeAtoll()) {
+			    if (npc.getNpcId() == MonkeyMadness.MONKEYS_AUNT && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
+				npc.getUpdateFlags().setForceChatMessage("OOH! OOH! AAH!");
+				ApeAtoll.jail(this, true);
 			    }
-			}
-			if (npc.getNpcId() == 1457 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && !ApeAtoll.hiddenInGrass(this)) {
-			    if(!npc.isAttacking()) {
+			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && ApeAtoll.hiddenInGrass(this) && npc.isAttacking()) {
+				CombatManager.resetCombat(npc);
+			    }
+			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && !Area(2762, 2767, 2767, 2772) && npc.isAttacking()) {
+				CombatManager.resetCombat(npc);
+			    }
+			    if (npc.getNpcId() == 1456 && Misc.goodDistance(npc.getPosition(), getPosition(), 10) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
 				CombatManager.attack(npc, this);
+				if (getPosition().getY() > 2758) {
+				    ApeAtoll.jail(this, false);
+				}
 			    }
-			    if(Misc.random(4) == 1) {
+			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && !ApeAtoll.hiddenInGrass(this)) {
+				if (!npc.isAttacking()) {
+				    CombatManager.attack(npc, this);
+				}
+				if (Misc.random(4) == 1) {
+				    CombatManager.attack(npc, this);
+				    ApeAtoll.jail(this, false);
+				}
+			    }
+			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && Area(2762, 2767, 2767, 2772) && !npc.isAttacking()) {
 				CombatManager.attack(npc, this);
-				ApeAtoll.jail(this, false);
+				npc.getUpdateFlags().setForceChatMessage("AAH! AAH!");
+				ApeAtoll.jail(this, true);
 			    }
-			}
-			if (npc.getNpcId() == 1458 && onApeAtoll() && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && Area(2762, 2767, 2767, 2772) && !npc.isAttacking()) {
-			    CombatManager.attack(npc, this);
-			    npc.getUpdateFlags().setForceChatMessage("AAH! AAH!");
-			    ApeAtoll.jail(this, true);
 			}
 			if (!npcCanAttack(npc)) {
 				continue;

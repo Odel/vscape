@@ -9,9 +9,6 @@ import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.pf.Path;
-import com.rs2.pf.PathFinder;
-import com.rs2.pf.StraightPathFinder;
 import com.rs2.util.Misc;
 
 public class ApeAtollNpcs {
@@ -25,7 +22,8 @@ public class ApeAtollNpcs {
     public static final int SNAKE = 1479;
     public static final int MONKEY_ARCHER_GATE = 1456;
     public static final int MONKEY_GUARD_BLOCK = 1460;
-    public static final int ELDER_GUARD_BLOCK = 1462;
+    public static final int ZOMBIE_MONKEY_TUNNEL = 1465;
+    public static final int SKELETON = 1471;
     
     private static int patrollingGuard = 1;
 
@@ -228,7 +226,8 @@ public class ApeAtollNpcs {
     }
     
     public static boolean isAggressiveNpc(int id) {
-	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE || id == MonkeyMadness.PADULAH;
+	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE || id == MonkeyMadness.PADULAH
+		|| id == ZOMBIE_MONKEY_TUNNEL || id == SKELETON;
     }
     
 }

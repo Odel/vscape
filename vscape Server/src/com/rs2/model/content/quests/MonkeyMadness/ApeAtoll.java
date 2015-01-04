@@ -43,6 +43,9 @@ public class ApeAtoll {
     public static final int PINEAPPLE_PLANT = 4827;
     public static final int DUNGEON_LADDER_UP = 4781;
     public static final int DUNGEON_LADDER_DOWN = 4780;
+    public static final int BAMBOO_LADDER = 4743;
+    public static final int BAMBOO_LADDER_DOWN = 4744;
+    public static final int END_OF_BRIDGE = 4745;
     
     public static final Position INSIDE_VILLAGE = new Position(2515,3162,0);
     public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
@@ -324,6 +327,7 @@ public class ApeAtoll {
 		    player.getMovementHandler().setRunToggled(false);
 		} else {
 		    player.setRunAnim(g.getRunAnim());
+		    player.getMovementHandler().setRunToggled(true);
 		}
 		player.getUpdateFlags().setUpdateRequired(true);
 		player.getMMVars().setIsMonkey(true);
@@ -345,6 +349,7 @@ public class ApeAtoll {
 		player.getMovementHandler().setRunToggled(false);
 	    } else {
 		player.setRunAnim(g.getRunAnim());
+		player.getMovementHandler().setRunToggled(true);
 	    }
 	    player.getUpdateFlags().setUpdateRequired(true);
 	    player.getMMVars().setIsMonkey(true);
@@ -414,6 +419,28 @@ public class ApeAtoll {
 		} else if (d.getFace() == 1) {
 		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, 0, player.getPosition().getY() > y ? -1 : 1);
 		}
+		return true;
+	    case BAMBOO_LADDER:
+		Ladders.climbLadder(player, new Position(2803, 2733, 2));
+		return true;
+	    case BAMBOO_LADDER_DOWN:
+		Ladders.climbLadder(player, new Position(2803, 2735, 0));
+		return true;
+	    case END_OF_BRIDGE:
+		player.getActionSender().sendMessage("You jump off the edge of the bridge...");
+		player.fadeTeleport(new Position(2803, 2725, 0));
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("...and wind up mildy bruised.");
+			player.hit(2, HitType.NORMAL);
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+		    }
+		}, 5);
 		return true;
 	    case BANANA_TREE:
 		player.getActionSender().sendMessage("You search the banana tree...");
