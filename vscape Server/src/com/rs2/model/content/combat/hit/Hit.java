@@ -28,6 +28,7 @@ import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.util.EnchantedBolts;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -35,6 +36,7 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
@@ -194,6 +196,14 @@ public class Hit {
 					 damage *= 1.2;
 				}
 			}
+		}
+		if(attacker != null && victim != null) {
+		    if(attacker.isNpc() && victim.isPlayer() && attacker.onApeAtoll() && ((Player)victim).getMMVars().isMonkey()) {
+			CombatManager.resetCombat(attacker);
+		    } else if (attacker.isPlayer() && victim.isNpc() && attacker.onApeAtoll() && ((Player)attacker).getMMVars().isMonkey()) {
+			((Player)attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
+			CombatManager.resetCombat(attacker);
+		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer()) {
 		    Player player = (Player)attacker;

@@ -32,9 +32,6 @@ public class NpcUpdating {
 				Npc npc = i.next();
 				if (npc.isVisible() && npc.getPosition().isViewableFrom(player.getPosition())) {
 					updateNpcMovement(out, npc);
-					if(npc.getNpcId() == 1688) {
-					    npc.getUpdateFlags().sendAnimation(2797);
-					}
 					if (npc.getUpdateFlags().isUpdateRequired()) {
 						appendState(player, block, npc);
 					}

@@ -26,6 +26,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -342,7 +343,7 @@ public abstract class Entity {
 	}
 	
 	public boolean onApeAtoll() {
-		return Area(2688, 2829, 2688, 2822);
+		return Area(2688, 2829, 2688, 2822) || MinigameAreas.isInArea(getPosition(), ApeAtoll.DUNGEON);
 	}
 	
 	public boolean inWarriorGuild() {
