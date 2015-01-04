@@ -284,6 +284,12 @@ public class MovementHandler {
 	public boolean isRunToggled() {
 		if (movementLock != null)
 			return false;
+		if(entity.isPlayer()) {
+		    Player player = (Player)entity;
+		    if (player.transformNpc >= 1485 && player.transformNpc <= 1487) {
+			return false;
+		    }
+		}
 		return runToggled;
 	}
 

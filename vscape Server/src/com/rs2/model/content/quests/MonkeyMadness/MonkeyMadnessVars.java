@@ -12,7 +12,9 @@ public class MonkeyMadnessVars {
     private boolean gotAmulet;
     private boolean gotTalisman;
     private boolean openGate;
+    private boolean firstTimeJail = true;
     private boolean spokenToMonkeyChild1;
+    private boolean canHideInGrass = false;
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
     
@@ -90,6 +92,22 @@ public class MonkeyMadnessVars {
     
     public void setOpenGate(boolean set) {
         this.openGate = set;
+    }
+    
+    public boolean canHideInGrass() {
+        return canHideInGrass;
+    }
+    
+    public void setCanHideInGrass(boolean set) {
+        this.canHideInGrass = set;
+    }
+    
+    public boolean firstTimeJail() {
+        return firstTimeJail;
+    }
+    
+    public void setFirstTimeJail(boolean set) {
+        this.firstTimeJail = set;
     }
     
 }

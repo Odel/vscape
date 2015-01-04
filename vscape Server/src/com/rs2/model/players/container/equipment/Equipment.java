@@ -479,13 +479,17 @@ public class Equipment {
             return;
         }
     	if (item.getId() == 6583 || item.getId() == 7927 || ApeAtoll.GreeGreeData.forItemId(item.getId()) != null) {
-    		player.transformNpc = -1;
-    		player.setStandAnim(-1);
-    		player.setWalkAnim(-1);
-    		player.setRunAnim(-1);
-    		player.getActionSender().sendSideBarInterfaces();
-    		player.setAppearanceUpdateRequired(true);
+		player.transformNpc = -1;
+		player.setStandAnim(-1);
+		player.setWalkAnim(-1);
+		player.setRunAnim(-1);
+		player.getActionSender().sendSideBarInterfaces();
+		player.setAppearanceUpdateRequired(true);
+		if(ApeAtoll.GreeGreeData.forItemId(item.getId()) != null) {
+		    player.getMMVars().setIsMonkey(false);
+		    player.getMovementHandler().setRunToggled(true);
 		}
+	}
         if(!player.getEquipment().getItemContainer().contains(item.getId()))
             return;
 		player.getTask();

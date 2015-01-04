@@ -24,7 +24,9 @@ public class ApeAtollNpcs {
     public static final int JUNGLE_SPIDER = 1478;
     public static final int SNAKE = 1479;
     public static final int MONKEY_ARCHER_GATE = 1456;
-
+    public static final int MONKEY_GUARD_BLOCK = 1460;
+    public static final int ELDER_GUARD_BLOCK = 1462;
+    
     private static int patrollingGuard = 1;
 
     public enum ApeAtollNpcData {
@@ -190,35 +192,32 @@ public class ApeAtollNpcs {
     }
     
     public static void startJailCheck(final Player player) {
-	final Npc guard1 = ApeAtollNpcData.PRISON_GUARD_1.getNpc();
-	final Npc guard2 = ApeAtollNpcData.PRISON_GUARD_2.getNpc();
-	
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-	    Position toCheck = patrollingGuard == 1 ? guard1.getPosition() : guard2.getPosition();
-	    Position other = patrollingGuard == 2 ? guard1.getPosition() : guard2.getPosition();
+	    Position toCheck = patrollingGuard == 1 ? monkeyGuard_1.getPosition() : monkeyGuard_2.getPosition();
+	    Position other = patrollingGuard == 2 ? monkeyGuard_1.getPosition() : monkeyGuard_2.getPosition();
 	    @Override
 	    public void execute(CycleEventContainer b) {
-		if(!MinigameAreas.isInArea(player.getPosition(), ApeAtoll.JAIL) || !player.onApeAtoll()) {
+		if(!MinigameAreas.isInArea(player.getPosition(), ApeAtoll.JAIL) || !player.onApeAtoll() || player.getMMVars().isMonkey()) {
 		    b.stop();
 		}
 		if(Misc.checkClip(player.getPosition(), toCheck, true) && Misc.goodDistance(player.getPosition(), toCheck, 2)) {
 		    b.stop();
-		    player.hit(7, HitType.NORMAL);
-		    if(patrollingGuard == 1) {
-			guard1.getUpdateFlags().sendAnimation(1402);
+		    player.hit(Misc.random(3) + 5, HitType.NORMAL);
+		    if(toCheck == monkeyGuard_1.getPosition()) {
+			monkeyGuard_1.getUpdateFlags().sendAnimation(1402);
 		    } else {
-			guard2.getUpdateFlags().sendAnimation(1402);
+			monkeyGuard_2.getUpdateFlags().sendAnimation(1402);
 		    }
-		    ApeAtoll.jail(player);
+		    ApeAtoll.jail(player, false);
 		} else if(Misc.goodDistance(player.getPosition(), other, 1)) {
 		    b.stop();
-		    player.hit(7, HitType.NORMAL);
-		    if(patrollingGuard == 2) {
-			guard1.getUpdateFlags().sendAnimation(1402);
+		    player.hit(Misc.random(3) + 5, HitType.NORMAL);
+		    if(other == monkeyGuard_1.getPosition()) {
+			monkeyGuard_1.getUpdateFlags().sendAnimation(1402);
 		    } else {
-			guard2.getUpdateFlags().sendAnimation(1402);
+			monkeyGuard_2.getUpdateFlags().sendAnimation(1402);
 		    }
-		    ApeAtoll.jail(player);
+		    ApeAtoll.jail(player, false);
 		}
 	    }
 
@@ -229,7 +228,7 @@ public class ApeAtollNpcs {
     }
     
     public static boolean isAggressiveNpc(int id) {
-	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE;
+	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE || id == MonkeyMadness.PADULAH;
     }
-
+    
 }
