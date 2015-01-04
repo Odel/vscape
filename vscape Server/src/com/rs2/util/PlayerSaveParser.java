@@ -506,7 +506,7 @@ public class PlayerSaveParser {
 				    if (creatureGraveyard.get("graveyardFruitDeposited") != null) {
 					player.setGraveyardFruitDeposited(creatureGraveyard.get("graveyardFruitDeposited").getAsInt());
 				    }
-				    if (creatureGraveyard.get("bonesToPeacheEnabled") != null) {
+				    if (creatureGraveyard.get("bonesToPeachesEnabled") != null) {
 					player.setBonesToPeachesEnabled(creatureGraveyard.get("bonesToPeachesEnabled").getAsBoolean());
 				    }
 				}
