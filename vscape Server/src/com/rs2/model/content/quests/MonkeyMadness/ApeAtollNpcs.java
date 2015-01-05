@@ -28,6 +28,8 @@ public class ApeAtollNpcs {
     public static final int MONKEY_GUARD = 1459;
     public static final int MONKEY_GUARD_BLOCK = 1460;
     public static final int ZOMBIE_MONKEY_TUNNEL = 1465;
+    public static final int ZOMBIE_MONKEY_LARGE = 1466;
+    public static final int ZOMBIE_MONKEY_SMALL = 1467;
     public static final int SKELETON = 1471;
     
     public static boolean rubbingWalls = false;
@@ -297,7 +299,7 @@ public class ApeAtollNpcs {
     
      public static boolean isAggressiveNpc(int id) {
 	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE || id == MonkeyMadness.PADULAH
-		|| id == ZOMBIE_MONKEY_TUNNEL || id == SKELETON || id == MONKEY_GUARD || id == MONKEY_GUARD_BLOCK;
+		|| id == ZOMBIE_MONKEY_TUNNEL || id == SKELETON || id == MONKEY_GUARD || id == MONKEY_GUARD_BLOCK || id == ZOMBIE_MONKEY_SMALL || id == ZOMBIE_MONKEY_LARGE;
     }
     
 }

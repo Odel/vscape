@@ -167,6 +167,7 @@ public class MonkeyMadness implements Quest {
     public static final int HANGAR_EXIT = 4868;
     public static final int REINITIALIZATION_PANEL = 4871;
     public static final int WALL_OF_FLAMES = 4766;
+    public static final int WALL_OF_FLAMES_2 = 4765;
     public static final int CRATE_1 = 4714;
     public static final int CRATE_2 = 4717;
     public static final int CRATE_3 = 4716;
@@ -414,26 +415,29 @@ public class MonkeyMadness implements Quest {
     }
 
     public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
-        if (firstItem == WOOL && secondItem == MONKEYSPEAK_AMULET_U) {
+        if ((firstItem == WOOL && secondItem == MONKEYSPEAK_AMULET_U) || (firstItem == MONKEYSPEAK_AMULET_U && secondItem == WOOL)) {
             player.getInventory().removeItem(new Item(WOOL));
-            player.getInventory().removeItem(new Item(MONKEYSPEAK_AMULET_U));
-            player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET));
-            player.getActionSender().sendMessage("You string the Monkeyspeak Amulet.");
-        }
-        else if (firstItem == MONKEYSPEAK_AMULET_U && secondItem == WOOL) {
-            player.getInventory().removeItem(new Item(WOOL));
-            player.getInventory().removeItem(new Item(MONKEYSPEAK_AMULET_U));
-            player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET));
-            player.getActionSender().sendMessage("You string the Monkeyspeak Amulet.");
+            player.getInventory().replaceItemWithItem(new Item(MONKEYSPEAK_AMULET_U), new Item(MONKEYSPEAK_AMULET));
+            player.getActionSender().sendMessage("You put some string on your amulet. It makes a slight 'Ook' sound.");
+	    return true;
         }
 	return false; 
     }
     
     public boolean doItemOnObject(final Player player, int object, int item) {
-        if (object == WALL_OF_FLAMES) {
+        if (object == WALL_OF_FLAMES || object == WALL_OF_FLAMES_2) {
             if (item == ENCHANTED_BAR) {
-                player.getInventory().removeItem(new Item(ENCHANTED_BAR));
-                player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET_U));
+		if (player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
+		    player.getUpdateFlags().sendAnimation(899);
+		    player.getActionSender().sendSound(469, 0, 0);
+		    player.getActionSender().sendMessage("You smith the enchanted gold into an amulet.");
+		    player.getInventory().replaceItemWithItem(new Item(ENCHANTED_BAR), new Item(MONKEYSPEAK_AMULET_U));
+		    return true;
+		} else {
+		    player.getDialogue().sendStatement("You need a monkey amulet mould to do this.");
+		    player.getDialogue().endDialogue();
+		    return true;
+		}
             }
         }
 	return false;
