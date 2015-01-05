@@ -9,30 +9,42 @@ import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 
 public class ApeAtollNpcs {
 
     private static final Npc monkeyAunt = new Npc(MonkeyMadness.MONKEYS_AUNT);
+    private static final Npc waymottin = new Npc(MonkeyMadness.WAYMOTTIN);
+    private static final Npc bunkwicket = new Npc(MonkeyMadness.BUNKWICKET);
     private static final Npc monkeyGuard_1 = new Npc(MonkeyMadness.TREFAJI);
     private static final Npc monkeyGuard_2 = new Npc(MonkeyMadness.ABERAB);
+    
     public static final int SPIDER = 1473;
     public static final int SCORPION = 1477;
     public static final int JUNGLE_SPIDER = 1478;
     public static final int SNAKE = 1479;
     public static final int MONKEY_ARCHER_GATE = 1456;
+    public static final int MONKEY_GUARD = 1459;
     public static final int MONKEY_GUARD_BLOCK = 1460;
     public static final int ZOMBIE_MONKEY_TUNNEL = 1465;
     public static final int SKELETON = 1471;
+    
+    public static boolean rubbingWalls = false;
     
     private static int patrollingGuard = 1;
 
     public enum ApeAtollNpcData {
 	
 	MONKEYS_AUNT(monkeyAunt, new Position(2736, 2787, 0), new Position(2737, 2790, 0), new Position(2736, 2794, 0), new Position(2739, 2794, 0), new Position(2742, 2794), new Position(0, 0, 0), new Position(0, 0, 0), true),
+	WAYMOTTIN(waymottin, new Position(2805, 9147, 0), new Position(2805, 9148, 0)),
+	BUNKWICKET(bunkwicket, new Position(2803, 9148, 0), new Position(2803, 9149, 0)),
 	PRISON_GUARD_1(monkeyGuard_1, new Position(2768, 2804, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false),
 	PRISON_GUARD_2(monkeyGuard_2, new Position(2767, 2802, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false);
-	    
+	     /*
+    
+    
+    */
 	private Npc npc;
 	private Position spawnPosition;
 	private Position first;
@@ -53,6 +65,12 @@ public class ApeAtollNpcs {
 	    this.fifth = fifth;
 	    this.end = end;
 	    this.basicCycle = basicCycle;
+	}
+	
+	ApeAtollNpcData(Npc npc, Position spawnPosition, Position face) {
+	    this.npc = npc;
+	    this.spawnPosition = spawnPosition;
+	    this.first = face;
 	}
 
 	public static ApeAtollNpcData forNpcId(int npcId) {
@@ -89,7 +107,7 @@ public class ApeAtollNpcs {
 	}
 
 	public void spawnNpc() {
-	    npc.setPosition(new Position(spawnPosition.getX(), spawnPosition.getY() - 1, spawnPosition.getZ()));
+	    npc.setPosition(new Position(spawnPosition.getX(), this.second == null ? spawnPosition.getY() : spawnPosition.getY() - 1, spawnPosition.getZ()));
 	    npc.setSpawnPosition(this.spawnPosition);
 	    npc.setWalkType(Npc.WalkType.STAND);
 	    npc.setNeedsRespawn(false);
@@ -185,6 +203,10 @@ public class ApeAtollNpcs {
 		a.startGuardWalkCycle();
 	    } else if(!a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
 		a.startBasicWalkCycle();
+	    } else if (a.equals(ApeAtollNpcData.WAYMOTTIN) || a.equals(ApeAtollNpcData.BUNKWICKET)) {
+		a.getNpc().getUpdateFlags().setFace(a.first);
+		a.getNpc().getUpdateFlags().sendFaceToDirection(a.first);
+		a.getNpc().getUpdateFlags().setUpdateRequired(true);
 	    }
 	}
     }
@@ -225,9 +247,57 @@ public class ApeAtollNpcs {
 	}, 1);
     }
     
-    public static boolean isAggressiveNpc(int id) {
+    public static void rubWalls() {
+	rubbingWalls = true;
+	waymottin.getUpdateFlags().sendAnimation(1414);
+	bunkwicket.getUpdateFlags().sendAnimation(1414);
+	World.submit(new Tick(100) {
+	    @Override
+	    public void execute() {
+		this.stop();
+		return;
+	    }
+	    
+	    @Override
+	    public void stop() {
+		ApeAtollNpcs.rubbingWalls = false;
+	    }
+	});
+    }
+    
+    public static boolean walkIntoNpc(final Player player, int dirX, int dirY) {
+	for (Npc npc : World.getNpcs()) {
+	    if (npc == null || npc.getNpcId() != MONKEY_GUARD_BLOCK) {
+		//DO NOTHING? WHAT A MADMAN
+	    } else if (!player.isDead() && npc.getPosition().getZ() == player.getPosition().getZ() && !npc.isPet()) {
+		if (Misc.goodDistance(player.getPosition().getX(), player.getPosition().getY(), npc.getPosition().getX(), npc.getPosition().getY(), npc.getSize())) {
+		    if (npcInNpc(player, npc, dirX, dirY)) {
+			return true;
+		    }
+		}
+	    }
+	}
+	return false;
+    }
+
+    public static boolean npcInNpc(Player player, Npc npc, int dirX, int dirY) {
+	for (int x = player.getPosition().getX(); x < player.getPosition().getX() + player.getSize(); x++) {
+	    for (int y = player.getPosition().getY(); y < player.getPosition().getY() + player.getSize(); y++) {
+		for (int x2 = npc.getPosition().getX(); x2 < npc.getPosition().getX() + npc.getSize(); x2++) {
+		    for (int y2 = npc.getPosition().getY(); y2 < npc.getPosition().getY() + npc.getSize(); y2++) {
+			if (x2 == x + dirX && y2 == y + dirY) {
+			    return true;
+			}
+		    }
+		}
+	    }
+	}
+	return false;
+    }
+    
+     public static boolean isAggressiveNpc(int id) {
 	return id == SNAKE || id == JUNGLE_SPIDER || id == SPIDER || id == SCORPION || id == MONKEY_ARCHER_GATE || id == MonkeyMadness.PADULAH
-		|| id == ZOMBIE_MONKEY_TUNNEL || id == SKELETON;
+		|| id == ZOMBIE_MONKEY_TUNNEL || id == SKELETON || id == MONKEY_GUARD || id == MONKEY_GUARD_BLOCK;
     }
     
 }

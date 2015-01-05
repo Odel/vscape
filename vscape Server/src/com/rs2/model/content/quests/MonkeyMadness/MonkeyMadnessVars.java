@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
+import com.rs2.model.Position;
 import com.rs2.model.players.Player;
 
 public class MonkeyMadnessVars {
@@ -17,6 +18,8 @@ public class MonkeyMadnessVars {
     private boolean canHideInGrass = false;
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
+    public boolean hitBySpikes = false;
+    public Position hitBySpikesHere = null;
     
     public MonkeyMadnessVars(final Player player) {
 	this.player = player;

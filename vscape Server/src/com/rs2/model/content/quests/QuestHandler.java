@@ -249,7 +249,7 @@ public class QuestHandler {
 			showInterface(player,quests[35]);
         		return true;
 		case 43124: //Monkey Madness
-			//showInterface(player,quests[36]);
+			showInterface(player,quests[36]);
         		return true;
         }
         return false;

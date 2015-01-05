@@ -23,6 +23,7 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.World;
+import com.rs2.model.content.combat.hit.HitType;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
 import com.rs2.model.content.quests.Quest;
@@ -78,6 +79,7 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEY = 4033;
     public static final int MONKEY_SKULL = 4034;
     public static final int TENTH_SQUAD_SIGIL = 4035;
+    public static final int WOOL = 1759;
 
     //Positions
     public static final Position INSIDE_VILLAGE = new Position(2515, 3162, 0);
@@ -152,7 +154,7 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEY_CHILD = 1452;
     public static final int MONKEYS_UNCLE = 1453;
     public static final int MONKEYS_AUNT = 1454;
-    public static final int ELDER_GUARD = 1461;
+    public static final int ELDER_GUARD_1 = 1461;
     public static final int ELDER_GUARD_2 = 1462;
     public static final int BONZARA = 1468;
     public static final int MONKEY_MINDER = 1469;
@@ -164,6 +166,17 @@ public class MonkeyMadness implements Quest {
     public static final int SHIPYARD_GATE_2 = 2438;
     public static final int HANGAR_EXIT = 4868;
     public static final int REINITIALIZATION_PANEL = 4871;
+    public static final int WALL_OF_FLAMES = 4766;
+    public static final int CRATE_1 = 4714;
+    public static final int CRATE_2 = 4717;
+    public static final int CRATE_3 = 4716;
+    public static final int CRATE_4 = 4715;
+    public static final int CRATE_5 = 4718;
+    public static final int CRATE_6 = 4719;
+    public static final int CRATE_7 = 4721;
+    public static final int CRATE_8 = 4722;
+    public static final int CRATE_9 = 4723;
+    public static final int AMULET_MOULD_CRATE = 4724;
     
     public int dialogueStage = 0;
 
@@ -325,14 +338,14 @@ public class MonkeyMadness implements Quest {
     }
 
     public void sendQuestTabStatus(Player player) {
-	/*int questStage = player.getQuestStage(getQuestID());
+	int questStage = player.getQuestStage(getQuestID());
 	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
 	    player.getActionSender().sendString("@yel@" + getQuestName(), 11132);
 	} else if (questStage == QUEST_COMPLETE) {
 	    player.getActionSender().sendString("@gre@" + getQuestName(), 11132);
 	} else {
 	    player.getActionSender().sendString("@red@" + getQuestName(), 11132);
-	}*/
+	}
     }
 
     public int getQuestPoints() {
@@ -360,6 +373,13 @@ public class MonkeyMadness implements Quest {
     public static void openGliderPuzzle(final Player player) {
 	player.getPuzzle().initPuzzle(6661234);
 	player.getPuzzle().loadClueInterface(6661234);
+    }
+    
+    public static void openChapterInterface(final Player player) {
+	player.getActionSender().sendInterface(11104);
+	for(int i = 0; i < 11; i++) {
+	    player.getActionSender().sendString("", 11112 + i);
+	}
     }
     
     public static void reinitializeHangar(final Player player) {
@@ -394,10 +414,28 @@ public class MonkeyMadness implements Quest {
     }
 
     public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
-	return false;
+        if (firstItem == WOOL && secondItem == MONKEYSPEAK_AMULET_U) {
+            player.getInventory().removeItem(new Item(WOOL));
+            player.getInventory().removeItem(new Item(MONKEYSPEAK_AMULET_U));
+            player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET));
+            player.getActionSender().sendMessage("You string the Monkeyspeak Amulet.");
+        }
+        else if (firstItem == MONKEYSPEAK_AMULET_U && secondItem == WOOL) {
+            player.getInventory().removeItem(new Item(WOOL));
+            player.getInventory().removeItem(new Item(MONKEYSPEAK_AMULET_U));
+            player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET));
+            player.getActionSender().sendMessage("You string the Monkeyspeak Amulet.");
+        }
+	return false; 
     }
-
+    
     public boolean doItemOnObject(final Player player, int object, int item) {
+        if (object == WALL_OF_FLAMES) {
+            if (item == ENCHANTED_BAR) {
+                player.getInventory().removeItem(new Item(ENCHANTED_BAR));
+                player.getInventory().addItem(new Item(MONKEYSPEAK_AMULET_U));
+            }
+        }
 	return false;
     }
 
@@ -433,6 +471,194 @@ public class MonkeyMadness implements Quest {
 			return true;
 		    }
 		}
+	    case CRATE_1:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			Dialogues.startDialogue(player, 4714999);
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_2:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find some wool.");
+			player.getInventory().addItem(new Item(WOOL));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_3:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find some thread.");
+			player.getInventory().addItem(new Item(1734));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_4:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			if(!player.getInventory().playerHasItem(MONKEY_DENTURES)) {
+			    player.getActionSender().sendMessage("You find a magical talking pair of Monkey Dentures.");
+			    player.getInventory().addItem(new Item(MONKEY_DENTURES));
+			} else {
+			    player.getActionSender().sendMessage("You already have a pair of Monkey Dentures.");
+			}
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_5:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find a needle.");
+			player.getInventory().addItem(new Item(1733));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_6:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find a tinderbox.");
+			player.getInventory().addItem(new Item(590));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_7:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find a knife.");
+			player.getInventory().addItem(new Item(946));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_8:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find a chisel.");
+			player.getInventory().addItem(new Item(1755));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case CRATE_9:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("You find it full of bananas.");
+			player.getInventory().addItemOrDrop(new Item(1963));
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+	    case AMULET_MOULD_CRATE:
+		player.getActionSender().sendMessage("You search the crate...");
+		player.getUpdateFlags().sendAnimation(832);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			if(!player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
+			player.getActionSender().sendMessage("You find a monkey amulet mould!");
+			player.getInventory().addItemOrDrop(new Item(MONKEYSPEAK_AMULET_MOULD));
+			} else {
+			    player.getActionSender().sendMessage("You already have a monkey amulet mould.");
+			}
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 3);
+		return true;
+		
 	}
 	return false;
     }
@@ -450,6 +676,9 @@ public class MonkeyMadness implements Quest {
 
     public static int getFirstBonesInInventory(final Player player) {
 	for (Item i : player.getInventory().getItemContainer().toArray()) {
+	    if(i == null || i.getId() == -1) {
+		continue;
+	    }
 	    if (GreeGreeData.talismanForBones(i.getId()) != 0) {
 		return i.getId();
 	    }
@@ -461,9 +690,100 @@ public class MonkeyMadness implements Quest {
 	player.setStopPacket(true);
 	switch (player.getQuestStage(36)) {
 	    case LUMBDO_A_DICK:
-		//player.fadeTeleport(CUTSCENE_1);
 		player.setQuestStage(36, MEANWHILE);
-		Dialogues.startDialogue(player, 1223334444);
+		player.getActionSender().sendWalkableInterface(8677);
+		player.getActionSender().sendMapState(2);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    int count = 1;
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			DialogueManager d = player.getDialogue();
+			player.setStopPacket(true);
+			switch(count) {
+			    case 1:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("The workers are getting restless, Caranock.", CONTENT);
+				break;
+			    case 2:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("I know...", CONTENT);
+				break;
+			    case 3:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("All this talk of Glough being replaced doesn't bode well", "for... how shall I put this... their morale.", CONTENT);
+				break;
+			    case 4:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Look, I know.", CONTENT);
+				break;
+			    case 5:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("Those are all men with children to feed. Fafmished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
+				break;
+			    case 6:
+				d.sendNpcChat("If something isn't done soon there'll be revolt. And I", "won't be able to stop it.", CONTENT);
+				break;
+			    case 7:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Stop worrying. I'm working on something.", CONTENT);
+				break;
+			    case 8:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("What something? You're always working on something.", "all we ever hear is bad news.", CONTENT);
+				break;
+			    case 9:
+				d.sendNpcChat("First, Glough disappears. Then news of a missing squad", "of the Royal Guard in our area. And what about that", "human sent by the king?", CONTENT);
+				break;
+			    case 10:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("The human means nothing. If it becomes too much", "trouble, I will simply have it... removed. In the", "meantime, let it continue to search for that blasted 10th", "Squad.", CONTENT);
+				break;
+			    case 11:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("I am still worried. What am I meant to tell the men?", CONTENT);
+				break;
+			    case 12:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Stop worrying. I'm working on something, Glough left", "a few of his agents in the Gnome airforce.", CONTENT);
+				break;
+			    case 13:
+				d.sendNpcChat("For now tell your men to continue work on the", "battleships. Give me some time.", CONTENT);
+				break;
+			    case 14:
+				d.setLastNpcTalk(FOREMAN);
+				d.sendNpcChat("I hope you're right, Caranock, for your sake. My sake.", "For all of our sakes...", CONTENT);
+				break;
+			    case 15:
+				b.stop();
+			}
+			count++;
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+			player.getActionSender().sendWalkableInterface(-1);
+			player.teleport(APE_ATOLL_LANDING);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				openChapterInterface(player);
+				player.getActionSender().sendString("Monkey Madness: Chapter 2", 11112);
+				player.getActionSender().sendString("In which our hero finds himself engaging in severe quantities", 11115);
+				player.getActionSender().sendString("of monkey business.", 11116);
+			    }
+			}, 3);
+			player.getDialogue().dontCloseInterface();
+			player.getActionSender().sendMapState(0);
+		    }
+		}, 8);
+		//Dialogues.startDialogue(player, 1223334444);
 		return;
 	    case MONKEY_MAN:
 		//player.fadeTeleport(CUTSCENE_2);
@@ -479,7 +799,45 @@ public class MonkeyMadness implements Quest {
 
     public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 	DialogueManager d = player.getDialogue();
-	/*switch (id) { //Npc ID
+	switch (id) { //Npc ID
+	    case 4714999:
+		switch(d.getChatId()) {
+		    case 1:
+			d.sendStatement("You find a hole in the floor under the crate! All you can see is", "the faint glimmer of light from extremely far below.");
+			return true;
+		    case 2:
+			d.sendOption("Go down the hole.", "Do nothing.");
+			return true;
+		    case 3:
+			switch(optionId) {
+			    case 1:
+				d.sendStatement("You being to lower yourself into the hole...");
+				return true;
+			    case 2:
+				d.endDialogue();
+				player.getActionSender().removeInterfaces();
+				return true;
+			}
+		    case 4:
+			d.endDialogue();
+			player.fadeTeleport(new Position(2801, 9169, 0));
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				if(player.getSkill().getLevel()[Skill.AGILITY] < 51) {
+				    player.getActionSender().sendMessage("You were not agile enough and fell down the hole!");
+				    player.hit(11, HitType.NORMAL);
+				}
+			    }
+			}, 5);
+			return true;
+		}
+	    return false;
 	    case KING_NARNODE:
 		if (!QuestHandler.questCompleted(player, 29) || !QuestHandler.questCompleted(player, 33)) { //Grand Tree or Tree Gnome Village
 		    player.getDialogue().sendNpcChat("Thank you ever so much again Traveller, and", "welcome back to the Grand Tree!", HAPPY);
@@ -597,8 +955,8 @@ public class MonkeyMadness implements Quest {
 				QuestHandler.startQuest(player, getQuestID());
 				return true;
 			    case 23:
-				player.getActionSender().sendInterface(11104);
-				player.getActionSender().sendString("Monkey Madness Chapter 1", 11112);
+				openChapterInterface(player);
+				player.getActionSender().sendString("Monkey Madness: Chapter 1", 11112);
 				player.getActionSender().sendString("In which our hero finds himself drawn back into Glough's web", 11115);
 				player.getActionSender().sendString("of deception and deceit.", 11116);
 				d.dontCloseInterface();
@@ -1015,7 +1373,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Would you like to go back to the hangar?", CONTENT);
 				return true;
 			    case 2:
-				d.sendOption("Yes", "No");
+				d.sendOption("Yes.", "No.");
 				return true;
 			    case 3:
 				switch (optionId) {
@@ -1406,93 +1764,127 @@ public class MonkeyMadness implements Quest {
 		}
 		return false;
 	    case LUMBDO:
-		switch (player.getQuestStage(36)) {
-		    case CRACKED_THE_CODE:
-			switch (d.getChatId()) {
-			    case 1:
-				d.sendNpcChat("Who are you two?", CONTENT);
-				return true;
-			    case 2:
-				d.sendPlayerChat("We are on a mission for King Narnode Shareen. I am", player.getUsername() + " and this is Flight Commander Waydar.", CONTENT);
-				return true;
-			    case 3:
-				d.sendNpcChat("What business do you have here?", CONTENT);
-				return true;
-			    case 4:
-				d.sendPlayerChat("We are to investigate the disappearance of the 10th", "Squad of the Royal Guard. Am I right in suspecting", "that you, Lumbdo, are a member of the 10th Squad?", CONTENT);
-				return true;
-			    case 5:
-				d.sendNpcChat("I might be. Do you have any way to prove that you", "are who you say you are?", CONTENT);
-				return true;
-			    case 6:
-				if (!player.getInventory().playerHasItem(ROYAL_SEAL)) {
-				    d.sendPlayerChat("I don't have the royal seal with me...", SAD);
+		if (player.getQuestStage(36) > LUMBDO_A_DICK) {
+		    switch (d.getChatId()) {
+			case 1:
+			    if(player.getPosition().getX() < 2852) {
+				d.sendNpcChat("I suppose you want to go back to Crash Island?", CONTENT);
+			    } else {
+				d.sendNpcChat("I suppose you want to go back to the atoll?", CONTENT);
+			    }
+			    return true;
+			case 2:
+			    d.sendOption("Yes.", "No.");
+			    return true;
+			case 3:
+			    switch (optionId) {
+				case 1:
+				    d.sendPlayerChat("Yes, I do.", CONTENT);
+				    return true;
+				case 2:
+				    d.sendPlayerChat("No, not right now.", CONTENT);
 				    d.endDialogue();
 				    return true;
-				} else {
-				    d.sendGiveItemNpc("You show Lumbdo the Royal Seal.", new Item(ROYAL_SEAL));
+			    }
+			    return false;
+			case 4:
+			    d.sendNpcChat("Alright.", CONTENT);
+			    return true;
+			case 5:
+			    player.fadeTeleport(player.getPosition().getX() < 2852 ? CRASH_ISLAND : APE_ATOLL_LANDING);
+			    d.endDialogue();
+			    return true;
+		    }
+		    return false;
+		} else {
+		    switch (player.getQuestStage(36)) {
+			case CRACKED_THE_CODE:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("Who are you two?", CONTENT);
 				    return true;
-				}
-			    case 7:
-				d.sendNpcChat("I see. Sorry for my mistrust.", CONTENT);
-				return true;
-			    case 8:
-				d.sendPlayerChat("So are you Lumbdo of the 10th Squad?", CONTENT);
-				return true;
-			    case 9:
-				d.sendNpcChat("I am indeed.", CONTENT);
-				return true;
-			    case 10:
-				d.sendPlayerChat("Where are the rest of your squad? Where is your", "Sergeant?", CONTENT);
-				return true;
-			    case 11:
-				d.sendNpcChat("Let me begin at the beginning human.", CONTENT);
-				return true;
-			    case 12:
-				d.sendNpcChat("We were on our way to decommission Glough's old ship", "building facilities in eastern Karamja, as you probably", "know. However, we obviously chose the wrong season to", "fly.", CONTENT);
-				return true;
-			    case 13:
-				d.sendNpcChat("We were one gnome to a glider, so each was extremely", "light. Like leaves in a wind, we were blown south before", "we even landed on that island.", CONTENT);
-				return true;
-			    case 14:
-				d.sendPlayerChat("Did you crash straight here?", CONTENT);
-				return true;
-			    case 15:
-				d.sendNpcChat("Yes. The winds drove us into the treetops, which", "destroyed the canvas of our gliders. We dragged what", "remained of the gliders out onto this beach.", CONTENT);
-				return true;
-			    case 16:
-				d.sendPlayerChat("What did you do then?", CONTENT);
-				return true;
-			    case 17:
-				d.sendNpcChat("Whilst we were falling, Sergeant Garkor noticed a large", "populated atoll to our west. You cannot see it from", "here, but it is within sailing distance.", CONTENT);
-				return true;
-			    case 18:
-				d.sendNpcChat("We spent time gathering enough wood to fashion two", "boats. The Sergeant took the rest of the 10th Squad in", "the larger of the boats to explore the island and to", "search for potential glider launch sites.", CONTENT);
-				return true;
-			    case 19:
-				d.sendPlayerChat("Presumably you are to guard the gliders until they", "return?", CONTENT);
-				return true;
-			    case 20:
-				d.sendNpcChat("Affirmative.", CONTENT);
-				return true;
-			    case 21:
-				d.sendPlayerChat("You must take us to the island. I have orders from the", "High Tree Guardian to make contact with your", "Sergeant.", CONTENT);
-				return true;
-			    case 22:
-				d.sendNpcChat("And I have orders from the Sergeant to stay here.", CONTENT);
-				return true;
-			    case 23:
-				d.sendPlayerChat("You will not take me?", CONTENT);
-				return true;
-			    case 24:
-				d.sendNpcChat("I'll tell you what I won't take...", "orders from you.", ANGRY_2);
-				player.setQuestStage(36, LUMBDO_A_DICK);
-				d.endDialogue();
-				return true;
-			}
-			return false;
+				case 2:
+				    d.sendPlayerChat("We are on a mission for King Narnode Shareen. I am", player.getUsername() + " and this is Flight Commander Waydar.", CONTENT);
+				    return true;
+				case 3:
+				    d.sendNpcChat("What business do you have here?", CONTENT);
+				    return true;
+				case 4:
+				    d.sendPlayerChat("We are to investigate the disappearance of the 10th", "Squad of the Royal Guard. Am I right in suspecting", "that you, Lumbdo, are a member of the 10th Squad?", CONTENT);
+				    return true;
+				case 5:
+				    d.sendNpcChat("I might be. Do you have any way to prove that you", "are who you say you are?", CONTENT);
+				    return true;
+				case 6:
+				    if (!player.getInventory().playerHasItem(ROYAL_SEAL)) {
+					d.sendPlayerChat("I don't have the royal seal with me...", SAD);
+					d.endDialogue();
+					return true;
+				    } else {
+					d.sendGiveItemNpc("You show Lumbdo the Royal Seal.", new Item(ROYAL_SEAL));
+					return true;
+				    }
+				case 7:
+				    d.sendNpcChat("I see. Sorry for my mistrust.", CONTENT);
+				    return true;
+				case 8:
+				    d.sendPlayerChat("So are you Lumbdo of the 10th Squad?", CONTENT);
+				    return true;
+				case 9:
+				    d.sendNpcChat("I am indeed.", CONTENT);
+				    return true;
+				case 10:
+				    d.sendPlayerChat("Where are the rest of your squad? Where is your", "Sergeant?", CONTENT);
+				    return true;
+				case 11:
+				    d.sendNpcChat("Let me begin at the beginning human.", CONTENT);
+				    return true;
+				case 12:
+				    d.sendNpcChat("We were on our way to decommission Glough's old ship", "building facilities in eastern Karamja, as you probably", "know. However, we obviously chose the wrong season to", "fly.", CONTENT);
+				    return true;
+				case 13:
+				    d.sendNpcChat("We were one gnome to a glider, so each was extremely", "light. Like leaves in a wind, we were blown south before", "we even landed on that island.", CONTENT);
+				    return true;
+				case 14:
+				    d.sendPlayerChat("Did you crash straight here?", CONTENT);
+				    return true;
+				case 15:
+				    d.sendNpcChat("Yes. The winds drove us into the treetops, which", "destroyed the canvas of our gliders. We dragged what", "remained of the gliders out onto this beach.", CONTENT);
+				    return true;
+				case 16:
+				    d.sendPlayerChat("What did you do then?", CONTENT);
+				    return true;
+				case 17:
+				    d.sendNpcChat("Whilst we were falling, Sergeant Garkor noticed a large", "populated atoll to our west. You cannot see it from", "here, but it is within sailing distance.", CONTENT);
+				    return true;
+				case 18:
+				    d.sendNpcChat("We spent time gathering enough wood to fashion two", "boats. The Sergeant took the rest of the 10th Squad in", "the larger of the boats to explore the island and to", "search for potential glider launch sites.", CONTENT);
+				    return true;
+				case 19:
+				    d.sendPlayerChat("Presumably you are to guard the gliders until they", "return?", CONTENT);
+				    return true;
+				case 20:
+				    d.sendNpcChat("Affirmative.", CONTENT);
+				    return true;
+				case 21:
+				    d.sendPlayerChat("You must take us to the island. I have orders from the", "High Tree Guardian to make contact with your", "Sergeant.", CONTENT);
+				    return true;
+				case 22:
+				    d.sendNpcChat("And I have orders from the Sergeant to stay here.", CONTENT);
+				    return true;
+				case 23:
+				    d.sendPlayerChat("You will not take me?", CONTENT);
+				    return true;
+				case 24:
+				    d.sendNpcChat("I'll tell you what I won't take...", "orders from you.", ANGRY_2);
+				    player.setQuestStage(36, LUMBDO_A_DICK);
+				    d.endDialogue();
+				    return true;
+			    }
+			    return false;
+		    }
+		    return false;
 		}
-		return false;
 	    case WAYDAR_2:
 		if (player.getQuestStage(36) > LUMBDO_A_DICK) {
 		    switch (d.getChatId()) {
@@ -1600,6 +1992,7 @@ public class MonkeyMadness implements Quest {
 				    return true;
 				case 3:
 				    d.sendPlayerChat("Did our glider survive?", CONTENT);
+				    d.setNextChatId(30);
 				    return true;
 				case 4:
 				    d.sendOption("What shall we do now?", "Do you recognize the gnome on the beach?", "Can you take me back to your kingdom?", "I cannot convince Lumdo to take us to the island.");
@@ -1700,7 +2093,7 @@ public class MonkeyMadness implements Quest {
 				    d.sendNpcChat("Enough. Return here when you are done.", CONTENT);
 				    return true;
 				case 28:
-				    player.getActionSender().sendInterface(11104);
+				    openChapterInterface(player);
 				    player.getActionSender().sendString("Meanwhile, far away in Karamja...", 11115);
 				    d.dontCloseInterface();
 				    meanwhile(player);
@@ -1715,104 +2108,140 @@ public class MonkeyMadness implements Quest {
 		    }
 		}
 		return false;
-	    case LUMO:
-		if (player.getQuestStage(36) == MEANWHILE) {
+	    case CARADO:
+		if(!player.getMMVars().canHideInGrass()) {
 		    switch (d.getChatId()) {
 			case 1:
-			    d.sendNpcChat("Look, a newcomer. I'd say let me be the first to", "welcome you to Ape Atoll, but I see you've already met", "the welcoming party...", CONTENT);
+			    d.sendNpcChat("Psst, if you haven't already - you should", "seek out our Assasin, Karam. He is skilled", "in the art of deception and can help you", "hide from those monkey archers.", CONTENT);
 			    return true;
 			case 2:
-			    d.sendPlayerChat("Hello?", CONTENT);
+			    d.sendPlayerChat("How so?", CONTENT);
 			    return true;
 			case 3:
-			    d.sendNpcChat("Hello.  Who are you?", CONTENT);
+			    d.sendNpcChat("I'm not exactly sure, but he is always", "going on about surroundings, particularly the", "grass around here.", CONTENT);
 			    return true;
 			case 4:
-			    d.sendPlayerChat("I am in the service of King Narnode Shareen. I have", "been sent here to locate the missing 10th Squad of the", "Royal Guard.", CONTENT);
+			    d.sendPlayerChat("Alright, where is he?", CONTENT);
 			    return true;
 			case 5:
-			    d.sendNpcChat("Well we're certainly missing home, I'll give you that.", CONTENT);
-			    return true;
-			case 6:
-			    d.sendPlayerChat("How long have you been here?", CONTENT);
-			    return true;
-			case 7:
-			    d.sendNpcChat("oh, not for too long. The jail guards keep us", "entertained every now and then too.", CONTENT);
-			    return true;
-			case 8:
-			    d.sendNpcChat("Isn't that right Bunkdo?", CONTENT);
-			    return true;
-			case 9:
-			    d.setLastNpcTalk(BUNKDO);
-			    d.sendNpcChat("That's right Lumo. Remember the time when they got", "all confused when changing shifts?", CONTENT);
-			    return true;
-			case 10:
-			    d.setLastNpcTalk(LUMO);
-			    d.sendNpcChat("Oh yeah. Trifaija and Aberab, they're as dense as", "bricks. They do give mighty punches though.", CONTENT);
-			    return true;
-			case 11:
-			    d.setLastNpcTalk(BUNKDO);
-			    d.sendNpcChat("Indeed. My back side is still a little sore...", CONTENT);
-			    return true;
-			case 12:
-			    d.setLastNpcTalk(LUMO);
-			    d.sendNpcChat("Your backside?", CONTENT);
-			    return true;
-			case 13:
-			    d.setLastNpcTalk(BUNKDO);
-			    d.sendNpcChat("I turned around at the wrong time...", CONTENT);
-			    return true;
-			case 14:
-			    d.setLastNpcTalk(CARADO);
-			    d.sendNpcChat("Serves you bloody right too.", CONTENT);
-			    return true;
-			case 15:
-			    d.setLastNpcTalk(LUMO);
-			    d.sendNpcChat("Now, now lads, watch your language. You'll have to", "excuse them, human, they're only soldiers!", CONTENT);
-			    return true;
-			case 16:
-			    d.setLastNpcTalk(CARADO);
-			    d.sendNpcChat("Excuse me...", CONTENT);
-			    return true;
-			case 17:
-			    d.sendPlayerChat("Oh that's quite alright.", CONTENT);
-			    return true;
-			case 18:
-			    d.setLastNpcTalk(LUMO);
-			    d.sendNpcChat("So human, what can we do for you?", CONTENT);
-			    return true;
-			case 19:
-			    d.sendPlayerChat("Well I suppose I ought to help you escape.", CONTENT);
-			    return true;
-			case 20:
-			    d.setLastNpcTalk(BUNKDO);
-			    d.sendNpcChat("No it's alright lad, we quite like it in here.", CONTENT);
-			    return true;
-			case 21:
-			    d.setLastNpcTalk(LUMO);
-			    d.sendNpcChat("Do your best to ignore him...", CONTENT);
-			    return true;
-			case 22:
-			    d.sendNpcChat("To be fair human, you're not much help stuck in here.", CONTENT);
-			    return true;
-			case 23:
-			    d.sendPlayerChat("Well how do I get out?", CONTENT);
-			    return true;
-			case 24:
-			    d.sendNpcChat("Well, you can try picking the lock on your door.", "Watch out for guards though.", CONTENT);
-			    return true;
-			case 25:
-			    d.sendNpcChat("We've been trying to pick ours but we haven't been", "able to do so yet.", CONTENT);
+			    d.sendNpcChat("He's hiding all around, but you may", "find him just outside this cell to the east.", CONTENT);
 			    d.endDialogue();
 			    return true;
+		    }
+		}
+	    case LUMO:
+		if (player.getQuestStage(36) == MEANWHILE) {
+		    if (player.getMMVars().firstTimeJail()) {
+			switch (d.getChatId()) {
+
+			    case 1:
+				d.sendNpcChat("Look, a newcomer. I'd say let me be the first to", "welcome you to Ape Atoll, but I see you've already met", "the welcoming party...", CONTENT);
+				return true;
+			    case 2:
+				d.sendPlayerChat("Hello?", CONTENT);
+				return true;
+			    case 3:
+				d.sendNpcChat("Hello. Who are you?", CONTENT);
+				return true;
+			    case 4:
+				d.sendPlayerChat("I am in the service of King Narnode Shareen. I have", "been sent here to locate the missing 10th Squad of the", "Royal Guard.", CONTENT);
+				return true;
+			    case 5:
+				d.sendNpcChat("Well we're certainly missing home, I'll give you that.", CONTENT);
+				return true;
+			    case 6:
+				d.sendPlayerChat("How long have you been here?", CONTENT);
+				return true;
+			    case 7:
+				d.sendNpcChat("Oh, not for too long. The jail guards keep us", "entertained every now and then too.", CONTENT);
+				return true;
+			    case 8:
+				d.sendNpcChat("Isn't that right Bunkdo?", CONTENT);
+				return true;
+			    case 9:
+				d.setLastNpcTalk(BUNKDO);
+				d.sendNpcChat("That's right Lumo. Remember the time when they got", "all confused when changing shifts?", CONTENT);
+				return true;
+			    case 10:
+				d.setLastNpcTalk(LUMO);
+				d.sendNpcChat("Oh yeah. Trefaji and Aberab, they're as dense as", "bricks. They do give mighty punches though.", CONTENT);
+				return true;
+			    case 11:
+				d.setLastNpcTalk(BUNKDO);
+				d.sendNpcChat("Indeed. My back side is still a little sore...", CONTENT);
+				return true;
+			    case 12:
+				d.setLastNpcTalk(LUMO);
+				d.sendNpcChat("Your backside?", CONTENT);
+				return true;
+			    case 13:
+				d.setLastNpcTalk(BUNKDO);
+				d.sendNpcChat("I turned around at the wrong time...", CONTENT);
+				return true;
+			    case 14:
+				d.setLastNpcTalk(CARADO);
+				d.sendNpcChat("Serves you bloody right too.", CONTENT);
+				return true;
+			    case 15:
+				d.setLastNpcTalk(LUMO);
+				d.sendNpcChat("Now, now lads, watch your language. You'll have to", "excuse them, human, they're only soldiers!", CONTENT);
+				return true;
+			    case 16:
+				d.setLastNpcTalk(CARADO);
+				d.sendNpcChat("Excuse me...", CONTENT);
+				return true;
+			    case 17:
+				d.sendPlayerChat("Oh that's quite alright.", CONTENT);
+				return true;
+			    case 18:
+				d.setLastNpcTalk(LUMO);
+				d.sendNpcChat("So human, what can we do for you?", CONTENT);
+				return true;
+			    case 19:
+				d.sendPlayerChat("Well I suppose I ought to help you escape.", CONTENT);
+				return true;
+			    case 20:
+				d.setLastNpcTalk(BUNKDO);
+				d.sendNpcChat("No it's alright lad, we quite like it in here.", CONTENT);
+				return true;
+			    case 21:
+				d.setLastNpcTalk(LUMO);
+				d.sendNpcChat("Do your best to ignore him...", CONTENT);
+				return true;
+			    case 22:
+				d.sendNpcChat("To be fair human, you're not much help stuck in here.", CONTENT);
+				return true;
+			    case 23:
+				d.sendPlayerChat("Well how do I get out?", CONTENT);
+				return true;
+			    case 24:
+				d.sendNpcChat("Well, you can try picking the lock on your door.", "Watch out for guards though.", CONTENT);
+				return true;
+			    case 25:
+				d.sendNpcChat("We've been trying to pick ours but we haven't been", "able to do so yet.", CONTENT);
+				d.endDialogue();
+				return true;
+			}
+			return false;
+		    } else {
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("Any luck on getting us out yet?", CONTENT);
+				return true;
+			    case 2:
+				d.sendPlayerChat("I'm still working on it...", CONTENT);
+				d.endDialogue();
+				return true;
+			}
 		    }
 		} else if (player.getQuestStage(36) > MEANWHILE) {
 		    switch (d.getChatId()) {
 			case 1:
 			    d.sendNpcChat("Any luck on getting us out yet?", CONTENT);
 			    return true;
-			case 3:
+			case 2:
 			    d.sendPlayerChat("I'm still working on it...", CONTENT);
+			    d.endDialogue();
 			    return true;
 		    }
 		}
@@ -1863,21 +2292,22 @@ public class MonkeyMadness implements Quest {
 			    return false;
 			case 9:
 			    d.sendNpcChat("I am thinking of a way to free my friends. In the", "meantime, I am helping those who further my cause.", CONTENT);
-			    d.setNextChatId(8);
+			    d.setNextChatId(7);
 			    return true;
 			case 10:
 			    d.sendNpcChat("I have been gifted by Zooknock, our squad mage. I", "have saved his life on a number of occasions.", CONTENT);
 			    return true;
 			case 11:
-			    d.sendPlayerChat("Is there any way I could be like taht?", CONTENT);
+			    d.sendPlayerChat("Is there any way I could be like that?", CONTENT);
 			    return true;
 			case 12:
 			    d.sendNpcChat("Your best chance is to hide in this tall grass, human.", CONTENT);
-			    d.setNextChatId(8);
+			    d.setNextChatId(7);
+			    player.getMMVars().setCanHideInGrass(true);
 			    return true;
 			case 13:
 			    d.sendNpcChat("I move quickly.", CONTENT);
-			    d.setNextChatId(8);
+			    d.setNextChatId(7);
 			    return true;
 		    }
 		}
@@ -1893,7 +2323,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("A fine day you have chosen to visit this hellish island,", "human.", CONTENT);
 				return true;
 			    case 3:
-				d.sendPlayerChat("Good day to you to Sergeant. I've been sent here by your", "King Narnode to-", CONTENT);
+				d.sendPlayerChat("Good day to you to Sergeant. I've been sent here", "by your King Narnode to-", CONTENT);
 				return true;
 			    case 4:
 				d.sendNpcChat("Investigate the circumstances surrounding the", "mysterious disappearance of my squad. Yes, I know.", CONTENT);
@@ -1914,7 +2344,7 @@ public class MonkeyMadness implements Quest {
 				d.sendPlayerChat("Well...", CONTENT);
 				return true;
 			    case 10:
-				d.sendNpcChat("indeed. But there are more pressing matters at hand.", "Three of my squad have been captured and placed in", "the jail. They are watched over by somewhat", "overpowering guards.", CONTENT);
+				d.sendNpcChat("Indeed. But there are more pressing matters at hand.", "Three of my squad have been captured and placed in", "the jail. They are watched over by somewhat", "overpowering guards.", CONTENT);
 				return true;
 			    case 11:
 				d.sendNpcChat("Before we can resume our original mission we must", "rescue them.", CONTENT);
@@ -1938,7 +2368,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("The self-proclaimed ruler of the island. I have been", "listening to him for some time now. I believe we will", "incur a minimum of casualties if we have an insider - a", "monkey working for us.", CONTENT);
 				return true;
 			    case 18:
-				d.sendPlayerChat("Have you seen these monkeys? you could never", "convince them to work for you!", CONTENT);
+				d.sendPlayerChat("Have you seen these monkeys? You could never", "convince them to work for you!", CONTENT);
 				return true;
 			    case 19:
 				d.sendNpcChat("I wasn't suggesting convincing them, human, but you.", CONTENT);
@@ -1953,7 +2383,7 @@ public class MonkeyMadness implements Quest {
 				d.sendPlayerChat("Yes, but...", CONTENT);
 				return true;
 			    case 23:
-				d.sendNpcChat("Go and see my squad mage, Zooknock. Tell him I have", "asked you to be 'disguised' as a monkey so that you", "may infiltrate the villiage. As you will see, he is", "something of an expert on the subject.", CONTENT);
+				d.sendNpcChat("Go and see my squad mage, Zooknock. Tell him I have", "asked you to be 'disguised' as a monkey so that you", "may infiltrate the village. As you will see, he is", "something of an expert on the subject.", CONTENT);
 				return true;
 			    case 25:
 				d.sendPlayerChat("I can't even communicate with the monkeys!", CONTENT);
@@ -2036,8 +2466,8 @@ public class MonkeyMadness implements Quest {
 				player.setQuestStage(36, GARKORS_RETELLING);
 				return true;
 			    case 7:
-				player.getActionSender().sendInterface(11104);
-				player.getActionSender().sendString("SOMEWHERE FAR BELOW THE APE ATOLL...", 11115);
+				openChapterInterface(player);
+				player.getActionSender().sendString("Somewhere far below ape atoll...", 11115);
 				d.dontCloseInterface();
 				meanwhile(player);
 				return true;
@@ -2146,7 +2576,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Well you've found us, what's left of us that is.", CONTENT);
 				return true;
 			    case 6:
-				d.sendNpcChat("I am Zooknock, the 10th Squad mage. These are", "Bunkwicket and Waymotting, two of our finest sappers.", "I assume you will want to know how we got here?", CONTENT);
+				d.sendNpcChat("I am Zooknock, the 10th Squad mage. These are", "Bunkwicket and Waymottin, two of our finest sappers.", "I assume you will want to know how we got here?", CONTENT);
 				return true;
 			    case 7:
 				d.sendPlayerChat("Of course!", CONTENT);
@@ -2167,16 +2597,16 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("You were sent alone?", CONTENT);
 				return true;
 			    case 13:
-				d.sendPlayerChat("No, I ahve been accompanied by Flight Commander", "Waydar. We flew south on a special type of glider and", "landed on a small island to our east.", CONTENT);
+				d.sendPlayerChat("No, I have been accompanied by Flight Commander", "Waydar. We flew south on a special type of glider and", "landed on a small island to our east.", CONTENT);
 				return true;
 			    case 14:
-				d.sendNpcChat("The so called Crash Island. We left there one of our", "Number, Lumdo, to guard our gliders until our return.", CONTENT);
+				d.sendNpcChat("The so called Crash Island. We left there one of our", "number, Lumdo, to guard our gliders until our return.", CONTENT);
 				return true;
 			    case 15:
 				d.sendPlayerChat("Yes, we have met. He ferried me across to the atoll.", CONTENT);
 				return true;
 			    case 16:
-				d.sendNpcChat("He did?! He was explicitly ordered to guard the gliders!", "How did this happen? Who is guarding the gliders now?", CONTENT);
+				d.sendNpcChat("He did?! He was explicitly ordered to guard the gliders!", "How did this happen? Who is guarding the gliders now?", ANGRY_1);
 				return true;
 			    case 17:
 				d.sendPlayerChat("Waydar ordered him to leave his post. He is guarding", "the gliders himself.", CONTENT);
@@ -2224,7 +2654,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Lumo, Bunkdo and Carado were captured, as I said.", "We believe they are being held in the jail. We are", "working on a way to release them. I have sensed there", "lies a cavern to the north.", CONTENT);
 				return true;
 			    case 32:
-				d.sendNpcChat("We are attempting to tunnel to this northern cavern", "and then move upwards form there.", CONTENT);
+				d.sendNpcChat("We are attempting to tunnel to this northern cavern", "and then move upwards from there.", CONTENT);
 				return true;
 			    case 33:
 				d.sendPlayerChat("Why don't you just go overground?", CONTENT);
@@ -2236,7 +2666,7 @@ public class MonkeyMadness implements Quest {
 				d.sendPlayerChat("I see...", CONTENT);
 				return true;
 			    case 36:
-				d.sendPlayerChat("I have spoken to your Sergeant. He believes that the", "best way to rescue the rest of your squad with the", "minimum of casualties is to have an insider, a monkey", "working for us", CONTENT);
+				d.sendPlayerChat("I have spoken to your Sergeant. He believes that the", "best way to rescue the rest of your squad with the", "minimum of casualties is to have an insider, a monkey", "working for us.", CONTENT);
 				return true;
 			    case 37:
 				d.sendNpcChat("Aha. He wants me to turn you into a monkey.", CONTENT);
@@ -2296,92 +2726,6 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Similarly, the transformation spell should be stored in a", "monkey talisman of some kind.", CONTENT);
 				player.setQuestStage(36, ZOOKNOOK_SPEECH);
 				return true;
-			    case 56:
-				d.sendOption("What do we ened for the monkey amulet?", "What do we need for the monkey talisman?");
-				return true;
-			    case 57:
-				switch (optionId) {
-				    case 1:
-					d.sendPlayerChat("What do we need for the monkey amulet?", CONTENT);
-					return true;
-				    case 2:
-					d.sendPlayerChat("What do we need for the monkey talisman?", CONTENT);
-					d.setNextChatId(64);
-					return true;
-				}
-				return false;
-			    case 58:
-				d.sendNpcChat("We need a gold bar, a monkey amulet mold, and", "something to do monkey speech.", CONTENT);
-				return true;
-			    case 59:
-				d.sendOption("Where do I find a gold bar?", "Where do I find a monkey amulet mold?", "Where do I find something to do monkey speech?", "I'll be back later.");
-				return true;
-			    case 60:
-				switch (optionId) {
-				    case 1:
-					d.sendPlayerChat("Where do I find a gold bar?", CONTENT);
-					return true;
-				    case 2:
-					d.sendPlayerChat("Where do I find a monkey amulet mold?", CONTENT);
-					d.setNextChatId(62);
-					return true;
-				    case 3:
-					d.sendPlayerChat("Where do I find something to do monkey speech?", CONTENT);
-					d.setNextChatId(63);
-					return true;
-				    case 4:
-					d.sendPlayerChat("I'll be back later.", CONTENT);
-					d.endDialogue();
-					return true;
-				}
-				return false;
-			    case 61:
-				d.sendNpcChat("I'll leave that to you, there's no way you would have", "gotten this far and couldn't figure out how to make a", "bar of gold.", CONTENT);
-				d.setNextChatId(60);
-				return true;
-			    case 62:
-				d.sendNpcChat("I'm sure you could find one in the village above.", "It might be where the thing to do monkeey speech is too.", CONTENT);
-				d.setNextChatId(60);
-				return true;
-			    case 63:
-				d.sendNpcChat("I'm sure there's something in the village above.", "It might be where the amulet most is too.", CONTENT);
-				d.setNextChatId(60);
-				return true;
-			    case 64:
-				d.sendNpcChat("We need some kind of monkey remains as well as an", "authentic magical monkey talisman.", CONTENT);
-				return true;
-			    case 65:
-				d.sendOption("Where do I find monkey remains?", "Where do I find a magical monkey talisman?", "I'll be back later.");
-				return true;
-			    case 66:
-				switch (optionId) {
-				    case 1:
-					d.sendPlayerChat("Where do I find monkey remains?", CONTENT);
-					return true;
-				    case 2:
-					d.sendPlayerChat("Where do I find a magical monkey talisman?", CONTENT);
-					d.setNextChatId(70);
-					return true;
-				    case 3:
-					d.sendPlayerChat("I'll be back later.", CONTENT);
-					d.endDialogue();
-					return true;
-				}
-				return false;
-			    case 67:
-				d.sendNpcChat("I'll leave that to your better judgment... However, bear", "in mind the type of remain might affect the type of", "monkey you become...", CONTENT);
-				return true;
-			    case 68:
-				d.sendPlayerChat("What if I need to be another type of monkey?", CONTENT);
-				return true;
-			    case 69:
-				d.sendNpcChat("Then bring me different monkey remains and another", "talisman.", CONTENT);
-				d.setNextChatId(66);
-				return true;
-			    case 70:
-				d.sendNpcChat("There ought to be something in the village. I cannot", "be sure, as I have not spent much time there.", CONTENT);
-				d.setNextChatId(66);
-				return true;
 			}
 			return false;
 		    case ZOOKNOOK_SPEECH:
@@ -2400,15 +2744,12 @@ public class MonkeyMadness implements Quest {
 				    d.sendPlayerChat("Where do I find a place of religious significance to", "monkeys?", CONTENT);
 				    return true;
 				case 5:
-				    d.sendNpcChat("Somehwhere in the village. It ought to be obvious. Now", "give me a moment.", CONTENT);
+				    d.sendNpcChat("Somewhere in the village. It ought to be obvious. Now,", "give me a moment.", CONTENT);
 				    return true;
 				case 6:
-				    player.getInventory().removeItem(new Item(GOLD_BAR));
-				    player.getInventory().removeItem(new Item(MONKEYSPEAK_AMULET_MOULD));
+				    player.getInventory().replaceItemWithItem(new Item(GOLD_BAR), new Item(ENCHANTED_BAR));
 				    player.getInventory().removeItem(new Item(MONKEY_DENTURES));
-				    d.sendGiveItemNpc("Zooknock hands you back the gold bar and the monkey", "amulet mould.", new Item(ENCHANTED_BAR), new Item(MONKEYSPEAK_AMULET_MOULD));
-				    player.getInventory().addItemOrDrop(new Item(MONKEYSPEAK_AMULET_MOULD));
-				    player.getInventory().addItemOrDrop(new Item(ENCHANTED_BAR));
+				    d.sendGiveItemNpc("Zooknock hands you back the gold bar and the", "monkey amulet mould.", new Item(ENCHANTED_BAR), new Item(MONKEYSPEAK_AMULET_MOULD));
 				    player.getMMVars().setGotAmulet(true);
 				    if (amuletAndTalisman(player)) {
 					player.setQuestStage(36, MONKEY_MAN);
@@ -2418,14 +2759,14 @@ public class MonkeyMadness implements Quest {
 				    }
 				    return true;
 				case 7:
-				    player.getActionSender().sendInterface(11104);
-				    player.getActionSender().sendString("MEANWHILE, SOMEWHERE FAR BELOW THE APE ATOLL...", 11115);
+				    openChapterInterface(player);
+				    player.getActionSender().sendString("Meanwhile, somewhere far below the Ape Atoll...", 11115);
 				    d.dontCloseInterface();
 				    meanwhile(player);
 				    return true;
 			    }
 			}
-			if (getFirstBonesInInventory(player) != 0 && player.getInventory().playerHasItem(MONKEY_TALISMAN)) {
+			else if (getFirstBonesInInventory(player) != 0 && player.getInventory().playerHasItem(MONKEY_TALISMAN)) {
 			    switch (d.getChatId()) {
 				case 1:
 				    d.sendNpcChat("Excellent.", CONTENT);
@@ -2461,10 +2802,103 @@ public class MonkeyMadness implements Quest {
 				    }
 				    return true;
 				case 7:
-				    player.getActionSender().sendInterface(11104);
-				    player.getActionSender().sendString("MEANWHILE, SOMEWHERE FAR BELOW THE APE ATOLL...", 11115);
+				    openChapterInterface(player);
+				    player.getActionSender().sendString("Meanwhile, somewhere far below the Ape Atoll...", 11115);
 				    d.dontCloseInterface();
 				    meanwhile(player);
+				    return true;
+			    }
+			} else {
+			    switch(d.getChatId()) {
+				case 1:
+				    d.sendOption("What do we need for the monkey amulet?", "What do we need for the monkey talisman?");
+				    d.setNextChatId(57);
+				    return true;
+				case 56:
+				    d.sendOption("What do we need for the monkey amulet?", "What do we need for the monkey talisman?");
+				    return true;
+				case 57:
+				    switch (optionId) {
+					case 1:
+					    d.sendPlayerChat("What do we need for the monkey amulet?", CONTENT);
+					    return true;
+					case 2:
+					    d.sendPlayerChat("What do we need for the monkey talisman?", CONTENT);
+					    d.setNextChatId(64);
+					    return true;
+				    }
+				    return false;
+				case 58:
+				    d.sendNpcChat("We need a gold bar, a monkey amulet mould, and", "something to do monkey speech.", CONTENT);
+				    return true;
+				case 59:
+				    d.sendOption("Where do I find a gold bar?", "Where do I find a monkey amulet mould?", "Where do I find something to do monkey speech?", "I'll be back later.");
+				    return true;
+				case 60:
+				    switch (optionId) {
+					case 1:
+					    d.sendPlayerChat("Where do I find a gold bar?", CONTENT);
+					    return true;
+					case 2:
+					    d.sendPlayerChat("Where do I find a monkey amulet mold?", CONTENT);
+					    d.setNextChatId(62);
+					    return true;
+					case 3:
+					    d.sendPlayerChat("Where do I find something to do monkey speech?", CONTENT);
+					    d.setNextChatId(63);
+					    return true;
+					case 4:
+					    d.sendPlayerChat("I'll be back later.", CONTENT);
+					    d.endDialogue();
+					    return true;
+				    }
+				    return false;
+				case 61:
+				    d.sendNpcChat("I'll leave that to you, there's no way you would have", "gotten this far and couldn't figure out how to make a", "bar of gold.", CONTENT);
+				    d.setNextChatId(59);
+				    return true;
+				case 62:
+				    d.sendNpcChat("I'm sure you could find one in the village above.", "It might be where the thing to do monkey speech is too.", CONTENT);
+				    d.setNextChatId(59);
+				    return true;
+				case 63:
+				    d.sendNpcChat("I'm sure there's something in the village above.", "It might be where the amulet mould is too.", CONTENT);
+				    d.setNextChatId(59);
+				    return true;
+				case 64:
+				    d.sendNpcChat("We need some kind of monkey remains as well as an", "authentic magical monkey talisman.", CONTENT);
+				    return true;
+				case 65:
+				    d.sendOption("Where do I find monkey remains?", "Where do I find a magical monkey talisman?", "I'll be back later.");
+				    return true;
+				case 66:
+				    switch (optionId) {
+					case 1:
+					    d.sendPlayerChat("Where do I find monkey remains?", CONTENT);
+					    return true;
+					case 2:
+					    d.sendPlayerChat("Where do I find a magical monkey talisman?", CONTENT);
+					    d.setNextChatId(70);
+					    return true;
+					case 3:
+					    d.sendPlayerChat("I'll be back later.", CONTENT);
+					    d.endDialogue();
+					    return true;
+				    }
+				    return false;
+				case 67:
+				    d.sendNpcChat("I'll leave that to your better judgment... However, bear", "in mind the type of remain might affect the type of", "monkey you become...", CONTENT);
+				    return true;
+				case 68:
+				    d.sendPlayerChat("What if I need to be another type of monkey?", CONTENT);
+				    return true;
+				case 69:
+				    d.sendNpcChat("Then bring me different monkey remains and another", "talisman.", CONTENT);
+				    d.setNextChatId(65);
+				    return true;
+				case 70:
+				    d.sendNpcChat("There ought to be something in the village. I cannot", "be sure, as I have not spent much time there.", CONTENT);
+				    d.setNextChatId(65);
 				    return true;
 			    }
 			}
@@ -3020,7 +3454,8 @@ public class MonkeyMadness implements Quest {
 		    d.endDialogue();
 		}
 		return false;
-	    case ELDER_GUARD:
+	    case ELDER_GUARD_1:
+	    case ELDER_GUARD_2:
 		if (!player.getMMVars().isMonkey()) {
 		    return false;
 		}
@@ -3066,74 +3501,11 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 3:
 				d.sendNpcChat("Very well, you may enter.", CONTENT);
+				//Enter awowogei
 				d.endDialogue();
 				return true;
 			}
 			return false;
-		}
-		return false;
-	    case 1223334444:
-		switch (d.getChatId()) {
-		    case 1:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("The workers are getting restless, Caranock.", CONTENT);
-			return true;
-		    case 2:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("I know...", CONTENT);
-			return true;
-		    case 3:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("All this talk of Glough being replaced doesn't bode well", "for... how shall I put this... their morale.", CONTENT);
-			return true;
-		    case 4:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Look, I know.", CONTENT);
-			return true;
-		    case 5:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("Those are all men with children to feed. Fafmished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
-			return true;
-		    case 6:
-			d.sendNpcChat("If something isn't done soon there'll be revolt. And I", "won't be able to stop it.", CONTENT);
-			return true;
-		    case 7:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Stop worrying. I'm working on something.", CONTENT);
-			return true;
-		    case 8:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("What something? You're always working on something.", "all we ever hear is bad news.", CONTENT);
-			return true;
-		    case 9:
-			d.sendNpcChat("First, Glough disappears. Then news of a missing squad", "of the Royal Guard in our area. And what about that", "human sent by the king?", CONTENT);
-			return true;
-		    case 10:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("The human means nothing. If it becomes too much", "trouble, I will simply have it... removed. In the", "meantime, let it continue to search for that blasted 10th", "Squad.", CONTENT);
-			return true;
-		    case 11:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("I am still worried. What am I meant to tell the men?", CONTENT);
-			return true;
-		    case 12:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Stop worrying. I'm working on something, Glough left", "a few of his agents in the Gnome airforce.", CONTENT);
-			return true;
-		    case 13:
-			d.sendNpcChat("For now tell your men to continue work on the", "battleships. Give me some time.", CONTENT);
-			return true;
-		    case 14:
-			d.setLastNpcTalk(FOREMAN);
-			d.sendNpcChat("I hope you're right, Caranock, for your sake. My sake.", "For all of our sakes...", CONTENT);
-			return true;
-		    case 15:
-			//player.fadeTeleport(); Cutscene
-			player.getActionSender().sendInterface(11104);
-			player.getActionSender().sendString("Monkey Madness Chapter 2", 11112);
-			player.getActionSender().sendString("In which our hero finds himself engaging in severe quantaties", 11115);
-			player.getActionSender().sendString("of monkey business.", 11116);
-			d.dontCloseInterface();
 		}
 		return false;
 	    case 444433322:
@@ -3214,8 +3586,8 @@ public class MonkeyMadness implements Quest {
 			return true;
 		    case 20:
 			//player.fadeTeleport(); Cutscene
-			player.getActionSender().sendInterface(11104);
-			player.getActionSender().sendString("Monkey Madness Chapter 3", 11112);
+			openChapterInterface(player);
+			player.getActionSender().sendString("Monkey Madness: Chapter 3", 11112);
 			player.getActionSender().sendString("In which our hero finds himself contending with life as a", 11115);
 			player.getActionSender().sendString("monkey.", 11116);
 			d.dontCloseInterface();
@@ -3321,14 +3693,14 @@ public class MonkeyMadness implements Quest {
 			return true;
 		    case 26:
 			//player.fadeTeleport(); Cutscene
-			player.getActionSender().sendInterface(11104);
-			player.getActionSender().sendString("Monkey Madness Chapter 4", 11112);
+			openChapterInterface(player);
+			player.getActionSender().sendString("Monkey Madness: Chapter 4", 11112);
 			player.getActionSender().sendString("The Final Battle", 11115);
 			d.dontCloseInterface();
 			return true;
 		}
 		return false;
-	}*/
+	}
 	return false;
     }
 

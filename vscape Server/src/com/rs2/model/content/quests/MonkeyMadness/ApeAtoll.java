@@ -250,24 +250,25 @@ public class ApeAtoll {
 	player.getMMVars().setDungeonRunning(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    int rocksTimer = 0;
-	    boolean hitBySpikes = false;
-	    Position hitBySpikesHere = null;
 	    @Override
 	    public void execute(CycleEventContainer b) {
 		if(!MinigameAreas.isInArea(player.getPosition(), DUNGEON)) {
 		    b.stop();
 		}
+		if(MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && !ApeAtollNpcs.rubbingWalls) {
+		    ApeAtollNpcs.rubWalls();
+		}
 		if(Misc.random(15) == 1 && !MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && rocksTimer >= 15) {
 		    rocksTimer = 0;
 		    fallingRocks(player);
 		}
-		if(hitBySpikesHere != null && !hitBySpikesHere.equals(player.getPosition().clone())) {
-		    hitBySpikes = false;
-		    hitBySpikesHere = null;
+		if(player.getMMVars().hitBySpikesHere != null && !player.getMMVars().hitBySpikesHere.equals(player.getPosition().clone())) {
+		    player.getMMVars().hitBySpikes = false;
+		    player.getMMVars().hitBySpikesHere = null;
 		}
-		if(DungeonSpikesData.onSpikes(player.getPosition()) && !hitBySpikes) {
-		    hitBySpikes = true;
-		    hitBySpikesHere = player.getPosition().clone();
+		if(DungeonSpikesData.onSpikes(player.getPosition()) && !player.getMMVars().hitBySpikes) {
+		    player.getMMVars().hitBySpikes = true;
+		    player.getMMVars().hitBySpikesHere = player.getPosition().clone();
 		    floorSpikes(player, player.getPosition());
 		}
 		rocksTimer++;
@@ -275,6 +276,8 @@ public class ApeAtoll {
 	    @Override
 	    public void stop() {
 		player.getMMVars().setDungeonRunning(false);
+		player.getMMVars().hitBySpikes = false;
+		player.getMMVars().hitBySpikesHere = null;
 	    }
 	}, 1);
     }
