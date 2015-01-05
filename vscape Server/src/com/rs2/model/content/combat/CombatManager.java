@@ -50,6 +50,7 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
+import com.rs2.util.clip.ClippedPathFinder;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -885,6 +886,12 @@ public class CombatManager extends Tick {
 		entity.setInstigatingAttack(false);
 		entity.setSkilling(null);
 		entity.getUpdateFlags().faceEntity(-1);
+		if(entity.isNpc() && ((Npc)entity).getNpcId() == 1460) {
+		    ((Npc)entity).setFollowingEntity(null);
+		    ClippedPathFinder.getPathFinder().findRoute(entity, ((Npc)entity).getSpawnPosition().getX(), ((Npc)entity).getSpawnPosition().getY(), true, 0, 0);
+		    //((Npc)entity).walkTo(((Npc)entity).getSpawnPosition(), true);
+		    
+		}
 		Following.resetFollow(entity);
 	}
 	public static boolean arenaNpc(Npc npc) {

@@ -197,14 +197,6 @@ public class Hit {
 				}
 			}
 		}
-		if(attacker != null && victim != null) {
-		    if(attacker.isNpc() && victim.isPlayer() && attacker.onApeAtoll() && ((Player)victim).getMMVars().isMonkey()) {
-			CombatManager.resetCombat(attacker);
-		    } else if (attacker.isPlayer() && victim.isNpc() && attacker.onApeAtoll() && ((Player)attacker).getMMVars().isMonkey()) {
-			((Player)attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
-			CombatManager.resetCombat(attacker);
-		    }
-		}
 		if(attacker != null && victim != null && attacker.isPlayer()) {
 		    Player player = (Player)attacker;
 		    if(hitDef.getHitGraphic() != null && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.CHAOS_GAUNTLETS) {

@@ -94,6 +94,14 @@ public class CombatCycleEvent extends CycleEvent {
 				}
 				return;
 			}
+			if(attacker != null && victim != null && attacker.onApeAtoll() && victim.onApeAtoll()) {
+			    if (attacker.isNpc() && victim.isPlayer() && ((Player) victim).getMMVars().isMonkey()) {
+				CombatManager.resetCombat(attacker);
+			    } else if (attacker.isPlayer() && victim.isNpc() && ((Player) attacker).getMMVars().isMonkey()) {
+				((Player) attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
+				CombatManager.resetCombat(attacker);
+			    }
+			}
 			/* ORDER IS SUPER IMPORTANT HERE, DON'T ADD ANYTHING AFTER */
 			int distance = Misc.getDistance(attacker.getPosition(), victim.getPosition());
 			List<AttackUsableResponse> attacksInDistance = new LinkedList<AttackUsableResponse>();

@@ -65,6 +65,7 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import static com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.DUNGEON;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;

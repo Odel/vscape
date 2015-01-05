@@ -343,7 +343,7 @@ public abstract class Entity {
 	}
 	
 	public boolean onApeAtoll() {
-		return Area(2688, 2829, 2688, 2822) || MinigameAreas.isInArea(getPosition(), ApeAtoll.DUNGEON);
+		return Area(2688, 2829, 2688, 2822) || Area(2753, 2815, 9179, 9215) || MinigameAreas.isInArea(getPosition(), ApeAtoll.DUNGEON);
 	}
 	
 	public boolean inWarriorGuild() {

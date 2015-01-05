@@ -2055,7 +2055,8 @@ public class WalkToActionHandler {
 			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;
 		}
-		if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK && !npc.isBoothBanker()) {
+		int id = npc.getNpcId();
+		if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
 		    npc.setInteractingEntity(player);
 		}
 		World.submit(new Tick(1, true) {
@@ -2097,7 +2098,8 @@ public class WalkToActionHandler {
 				    }
 				}
 				Following.resetFollow(player);
-				if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK && !npc.isBoothBanker()) {
+				int id = npc.getNpcId();
+				if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
 				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				}
 				player.setInteractingEntity(npc);
