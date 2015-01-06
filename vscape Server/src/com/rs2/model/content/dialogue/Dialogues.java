@@ -1817,7 +1817,7 @@ public class Dialogues {
 							case 2:
                                                             switch(player.getDialogue().getChatId())  {
 								case 1:
-                                                                    player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
+                                                                    player.getDialogue().sendNpcChat("What a nice day in videogames!", "Do you want to buy some runes?", CONTENT);
                                                                 return true;
                                                                 case 2:
                                                                     if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && !checkTrim(player)) 
