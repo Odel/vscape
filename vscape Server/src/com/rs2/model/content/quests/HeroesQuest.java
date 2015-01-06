@@ -836,6 +836,21 @@ public class HeroesQuest implements Quest {
 				return true;
 			}
 		    return false;
+		    case QUEST_COMPLETE:
+			switch (player.getDialogue().getChatId()) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("Grip, I lost the key you gave me...", SAD);
+				return true;
+			    case 2:
+				player.getDialogue().sendGiveItemNpc("Grip hands you a key.", new Item(MISC_KEY));
+				player.getInventory().addItemOrDrop(new Item(MISC_KEY));
+				return true;
+			    case 3:
+				player.getDialogue().sendNpcChat("Try not to lose it this time. Remember to", "stay away from the cupboards as well.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    return false;
 		}
 	    return false;
 	    case GARV:
