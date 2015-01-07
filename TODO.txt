@@ -1,9 +1,7 @@
-https://dl.dropboxusercontent.com/u/67092038/dedcluescrolls.htm
----------------------------------------------------------------
 -Gnome tree stronghold cave doesn't work
 -Wizards from level 3 clues, proper attacks (poison / spells);
 -Dead herb inspection (stage 3) gives a null exception?
 -Gnome gianna store / all the gnome cooking battas
 -Zogre coffin picklocks south of castlewars
 -Rantz ogre bow shop and other ogre shit
--Warrior's Guild cyclops drops
+kek

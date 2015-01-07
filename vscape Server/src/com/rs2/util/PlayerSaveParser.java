@@ -403,14 +403,35 @@ public class PlayerSaveParser {
 				if(questVars.get("ballistaIndex") != null){
 		            		player.setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
 		            	}
+				if(questVars.get("gazeOfSaradomin") != null) {
+					player.setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {
+				    if(MMVars.get("spokenMonkeyChild") != null) {
+					player.getMMVars().setSpokenToMonkeyChild(MMVars.get("spokenMonkeyChild").getAsBoolean());
+				    }
 				    if(MMVars.get("monkeyChildBananas") != null) {
 					player.getMMVars().setGivenMonkeyChildBananas(MMVars.get("monkeyChildBananas").getAsBoolean());
 				    }
 				    if(MMVars.get("monkeyChildToy") != null) {
 					player.getMMVars().setMonkeyChildHasToy(MMVars.get("monkeyChildToy").getAsBoolean());
+				    }
+				    if(MMVars.get("openGate") != null) {
+					player.getMMVars().setOpenGate(MMVars.get("openGate").getAsBoolean());
+				    }
+				    if(MMVars.get("canHideInGrass") != null) {
+					player.getMMVars().setCanHideInGrass(MMVars.get("canHideInGrass").getAsBoolean());
+				    }
+				    if(MMVars.get("firstTimeJail") != null) {
+					player.getMMVars().setFirstTimeJail(MMVars.get("firstTimeJail").getAsBoolean());
+				    }
+				    if(MMVars.get("gotAmulet") != null) {
+					player.getMMVars().setGotAmulet(MMVars.get("gotAmulet").getAsBoolean());
+				    }
+				    if(MMVars.get("gotTalisman") != null) {
+					player.getMMVars().setGotTalisman(MMVars.get("gotTalisman").getAsBoolean());
 				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");
@@ -500,7 +521,7 @@ public class PlayerSaveParser {
 				    if (creatureGraveyard.get("graveyardFruitDeposited") != null) {
 					player.setGraveyardFruitDeposited(creatureGraveyard.get("graveyardFruitDeposited").getAsInt());
 				    }
-				    if (creatureGraveyard.get("bonesToPeacheEnabled") != null) {
+				    if (creatureGraveyard.get("bonesToPeachesEnabled") != null) {
 					player.setBonesToPeachesEnabled(creatureGraveyard.get("bonesToPeachesEnabled").getAsBoolean());
 				    }
 				}

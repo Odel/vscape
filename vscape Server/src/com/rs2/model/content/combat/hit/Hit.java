@@ -28,6 +28,7 @@ import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.util.EnchantedBolts;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
@@ -35,6 +36,8 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.Spell;
@@ -81,6 +84,9 @@ public class Hit {
 	public void initialize(boolean queue) {
 		if(victim != null && victim.isPlayer() && ((Player)victim).getStaffRights() >= 3) { //dev mode just in case
 		    damage = 0;
+		    return;
+		}
+		if(victim != null && victim.isPlayer() && ((Player)victim).getMMVars().inProcessOfBeingJailed && ((Player)victim).onApeAtoll()) {
 		    return;
 		}
 		if(victim.isNpc() && hitDef.getHitType() == HitType.POISON)
@@ -203,6 +209,12 @@ public class Hit {
 			} else if(hitDef.getHitGraphic().getId() == 128) {
 			    damage += 4;
 			}
+		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == RecruitmentDrive.SIR_LEYE) {
+		    if((victim.getCurrentHp() - damage) <= 0 && ((Player)attacker).getGender() != 1) {
+			victim.getUpdateFlags().sendForceMessage("Fool! No man can defeat me!");
+			damage = 0;
 		    }
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() 
@@ -509,7 +521,7 @@ public class Hit {
                 victim.getUpdateFlags().sendAnimation(victim.getBlockAnimation());
     		}
         }
-        if (victim.isPlayer()) {
+        if (victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();
         }

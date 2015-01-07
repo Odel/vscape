@@ -10,6 +10,7 @@ import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.SkillsX;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
@@ -482,6 +483,11 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
+                if(player.inMageTrainingArena())
+                {
+                    player.getActionSender().sendMessage("You can't logout while in A mage training room!");
+                    return;
+                }
 				player.getActionSender().sendLogout();
 				return;
 		}
@@ -544,6 +550,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (DwarfCannon.buttonHandling(player, buttonId)) {
+			return;
+		}
+		if(RecruitmentDrive.buttonHandling(player, buttonId)) {
 			return;
 		}
 		if (Spinning.spin(player, buttonId, 0)) {

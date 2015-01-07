@@ -21,7 +21,7 @@ public class Teleportation {
 	}
 
 	public static final Position HOME = new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0);
-
+	public static final Position WHITE_KNIGHTS_CASTLE = new Position(2973, 3344, 0);
 	public static final Position EDGEVILLE = new Position(3087, 3495);
 	public static final Position KARAMJA = new Position(2912, 3170);
 	public static final Position DRAYNOR_VILLAGE = new Position(3104, 3249);
@@ -51,6 +51,10 @@ public class Teleportation {
 		}
 		if(player.inFightCaves()) {
 		    player.getActionSender().sendMessage("You can't teleport here.");
+		    return false;
+		}
+		if (player.getMMVars().isMonkey()) {
+		    player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
 		    return false;
 		}
 		if (player.isTeleblocked()) {
@@ -86,6 +90,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
 			return false;
 		}
+		if (player.getMMVars().isMonkey()) {
+			player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
+			return false;
+		}
 		if (player.cantTeleport()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
 			return false;
@@ -115,6 +123,10 @@ public class Teleportation {
 	    }
 	    if (player.isTeleblocked()) {
 		player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+		return false;
+	    }
+	    if (player.getMMVars().isMonkey()) {
+		player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
 		return false;
 	    }
 	    if (player.cantTeleport()) {
@@ -147,6 +159,10 @@ public class Teleportation {
 		}
 		if (player.isTeleblocked()) {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
+			return false;
+		}
+		if (player.getMMVars().isMonkey()) {
+			player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
 			return false;
 		}
 		if (player.cantTeleport()) {
@@ -183,6 +199,10 @@ public class Teleportation {
 		}
 		if(player.inFightCaves()) {
 		    player.getActionSender().sendMessage("You can't teleport here.");
+		    return;
+		}
+		if (player.getMMVars().isMonkey()) {
+		    player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
 		    return;
 		}
         if (player.isTeleblocked() || player.cantTeleport()) {
@@ -246,6 +266,10 @@ public class Teleportation {
             player.getActionSender().sendMessage("You can't teleport out of here!");
             return;
         }
+	if (player.getMMVars().isMonkey()) {
+		    player.getActionSender().sendMessage("You cannot teleport while disguised as a monkey.");
+		    return;
+		}
 		if (player.isHomeTeleporting()) {
 			player.getActionSender().sendMessage("You can't teleport while teleporting home.");
 			return;

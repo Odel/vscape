@@ -93,6 +93,7 @@ import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.transport.Sailing;
 import com.rs2.model.transport.Travel;
+import com.rs2.util.clip.ClippedPathFinder;
 
 import java.util.Random;
 
@@ -155,10 +156,14 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2142 || id == 2297 || id == 4879 || id == 4880 || id == 4881 || id == 5015 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank") || (id >= 14227 && id <= 14231)) { //exceptions
+					if (id == 2142 || id == 2297 || id == 4879 || (id >= 7272 && id <= 7287)  || id == 4766 || id == 4880 || id == 4881 || id == 5015 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank") || (id >= 14227 && id <= 14231)) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else if (id == 4381 || id == 4382 || id == 4385 || id == 4386) { //exceptions
 						def = new GameObjectDef(id, 11, 0, new Position(x, y, z));
+					} else if (id == 4765) {
+						def = new GameObjectDef(id, 0, 0, new Position(x, y, z));
+					} else if (id == 4766) {
+						def = new GameObjectDef(id, 9, 0, new Position(x, y, z));
 					} else {
 						return;
 					}
@@ -2054,10 +2059,12 @@ public class WalkToActionHandler {
 			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;
 		}
-		if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK) {
+		int id = npc.getNpcId();
+		if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
 		    npc.setInteractingEntity(player);
 		}
 		World.submit(new Tick(1, true) {
+			int count = 0;
 			@Override
 			public void execute() {
 				if (player == null || !player.checkTask(task) || npc.isDead()) {
@@ -2065,21 +2072,17 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (npc.isBoothBanker()) {
-					if (npc.getCorrectStandPosition(player.getPosition(), 2)) {
-						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
-						player.setInteractingEntity(npc);
-						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						if(player.getFightCavesWave() > 0 ) {
-						    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
-						    this.stop();
-						}
-						else {
-						    Dialogues.startDialogue(player, player.getClickId());
-						}
-						Following.resetFollow(player);
-						this.stop();
-					}
+				    if(Misc.goodDistance(player.getPosition(), new Position(npc.getUpdateFlags().getFace().getX(), npc.getUpdateFlags().getFace().getY(), player.getPosition().getZ()), 1)) {
+					player.setInteractingEntity(npc);
+					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
+					Dialogues.startDialogue(player, player.getClickId());
+					Following.resetFollow(player);
+					this.stop();
 					return;
+				    } else {
+					ClippedPathFinder.getPathFinder().findRoute(player, player.getClickX(), player.getClickY(), true, 0, 0);
+					return;
+				    }
 				}
 				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
 					return;
@@ -2094,12 +2097,13 @@ public class WalkToActionHandler {
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
 				{
-				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287) { //Exceptions
+				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker()) { //Exceptions
 					return;
 				    }
 				}
 				Following.resetFollow(player);
-				if(npc.getNpcId() != HorrorFromTheDeep.SITTING_JOSSIK) {
+				int id = npc.getNpcId();
+				if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
 				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				}
 				player.setInteractingEntity(npc);
@@ -2192,21 +2196,17 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (npc.isBoothBanker()) {
-					if (npc.getCorrectStandPosition(player.getPosition(), 2)) {
-						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
-						player.setInteractingEntity(npc);
-						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-						if(player.getFightCavesWave() > 0 ) {
-						    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
-						    this.stop();
-						}
-						else {
-							player.getBankManager().openBank();
-						}
-						Following.resetFollow(player);
-						this.stop();
-					}
+				    if(Misc.goodDistance(player.getPosition(), new Position(npc.getUpdateFlags().getFace().getX(), npc.getUpdateFlags().getFace().getY(), player.getPosition().getZ()), 1)) {
+					player.setInteractingEntity(npc);
+					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
+					player.getBankManager().openBank();
+					Following.resetFollow(player);
+					this.stop();
 					return;
+				    } else {
+					ClippedPathFinder.getPathFinder().findRoute(player, player.getClickX(), player.getClickY(), true, 0, 0);
+					return;
+				    }
 				}
 				if (!player.goodDistanceEntity(npc, 1) || player.inEntity(npc)) {
 					return;
@@ -2227,7 +2227,9 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				if(!npc.isBoothBanker()) {
+				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
+				}
 				player.setInteractingEntity(npc);
 				if (Shops.openShop(player, npc.getNpcId())) {
 					this.stop();
@@ -2251,13 +2253,7 @@ public class WalkToActionHandler {
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());
-					if(player.getFightCavesWave() > 0 ) {
-					    player.getActionSender().sendMessage("You cannot bank with a Fight Caves wave saved! Use ::resetcaves if needed.");
-					    break;
-					}
-					else {
-						player.getBankManager().openBank();
-					}
+					player.getBankManager().openBank();
 					Following.resetFollow(player);
 					break;
 				case PestControlExpHandler.EXP_LADY:
@@ -2937,7 +2933,7 @@ public class WalkToActionHandler {
 	return false;
     }
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
-		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782)
+		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782 || (def.getId() >= 7272 && def.getId() <= 7287) || def.getId() == 4765 || def.getId() == 4766)
 		{
 			return true;
 		}

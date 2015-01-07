@@ -9,6 +9,7 @@ import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
 import com.rs2.model.content.minigames.barrows.Barrows;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
 import com.rs2.model.players.Player;
@@ -284,6 +285,12 @@ public class MovementHandler {
 	public boolean isRunToggled() {
 		if (movementLock != null)
 			return false;
+		if(entity.isPlayer()) {
+		    Player player = (Player)entity;
+		    if (player.transformNpc >= 1485 && player.transformNpc <= 1487) {
+			return false;
+		    }
+		}
 		return runToggled;
 	}
 
@@ -406,6 +413,11 @@ public class MovementHandler {
 		{2509, 10023}
 		};
 	public static boolean walkIntoNpcCheck(Entity entity, int x, int y) {
+	    if (entity.isPlayer() && entity.onApeAtoll()) {
+		if(ApeAtollNpcs.walkIntoNpc(((Player)entity), x, y)) {
+		    return true;
+		}
+	    }
 	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
 			Npc n = (Npc) entity;
 			if(n.isPet() || Barrows.inBarrowsCrypts(n)) {

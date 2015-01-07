@@ -88,11 +88,15 @@ public class ItemManager {
                 if (item == null)
                     return;
                 
-                if(item.getDropper().getEntity() != null && item.getViewFirst() != null && item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
+                if(item.getDropper() != null && item.getDropper().getEntity() != null && item.getViewFirst() != null && item.getViewFirst().getEntity() != null && item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
                 {
                 	Player viewFirst = (Player) item.getViewFirst().getEntity();
                 	Player dropper = (Player) item.getDropper().getEntity();
-                	if(viewFirst != player && dropper != player) {
+                	if(viewFirst != player && dropper != player && (viewFirst.isIronman() || dropper.isIronman()) && !player.isIronman()) {
+	            		player.getActionSender().sendMessage("You cannot pickup items dropped by an ironman.");
+	                	return;
+                	}
+                	if(viewFirst != player && dropper != player && player.isIronman()) {
 	            		player.getActionSender().sendMessage("You cannot pickup items dropped by other players as an ironman.");
 	                	return;
                 	}

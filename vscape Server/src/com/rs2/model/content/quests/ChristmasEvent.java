@@ -24,12 +24,11 @@ import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
 
 public class ChristmasEvent implements Quest {
-    public static boolean CHRISTMAS_ENABLED = true;
+    public static boolean CHRISTMAS_ENABLED = false;
     //Quest stages
     public static final int QUEST_STARTED = 1;
     public static final int GATHER_COAL = 2;

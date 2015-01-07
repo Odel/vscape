@@ -27,6 +27,7 @@ import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
@@ -36,6 +37,7 @@ import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
@@ -90,7 +92,11 @@ public class CommandHandler {
 			sender.disconnect();
 		}
 		if (keyword.equals("outfit")) {
+		    if(sender.getQuestStage(35) > 0 && sender.getQuestStage(35) < RecruitmentDrive.QUEST_COMPLETE) {
+			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.");
+		    } else {
 			sender.getActionSender().sendInterface(3559);
+		    }
 		}
 		else if ( keyword.equals("highscores") || keyword.equals("highscore") || keyword.equals("hs") || keyword.equals("hiscores") )
 		{
@@ -393,7 +399,7 @@ public class CommandHandler {
 		}
 	    } else if (keyword.equals("mute")) {
             if (args.length < 2) {
-            	sender.getActionSender().sendMessage("::mute hours username");
+            	sender.getActionSender().sendMessage("::mute hours -username");
                 return;
             }
             int hours = Integer.parseInt(args[0]);
@@ -402,13 +408,12 @@ public class CommandHandler {
             	sender.getActionSender().sendMessage("Mute between 0 and "+maxHours+" hours");
                 return;
             }
-            name = "";
-            for (int i = 1; i < args.length; i++) {
-                name += args[i];
-            }
-            Player player = World.getPlayerByName(name);
+		    name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
             if (player == null) {
             	sender.getActionSender().sendMessage("Could not find "+name);
+            	sender.getActionSender().sendMessage("::mute hours -username");
                 return;
             }
             if (player.isMuted()) {
@@ -1565,7 +1570,10 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("mypos")) {
 			sender.getActionSender().sendMessage("You are at: " + sender.getPosition());
-			System.out.println("new " + sender.getPosition() + ",");
+			System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
+			if(Constants.SERVER_DEBUG && sender.getStaffRights() == 3) {
+			    System.out.println("" + sender.getPosition());
+			}
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(sender, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
@@ -1737,7 +1745,9 @@ public class CommandHandler {
     				continue;
     			if(!player.getHideYell())
     			{
+			    if(Constants.STAFF_ONLY_YELL) {
     				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(sender.getUsername()));
+			    }
     			}
     		}
         }

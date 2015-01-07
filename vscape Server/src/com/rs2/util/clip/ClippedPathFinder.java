@@ -1,9 +1,9 @@
 package com.rs2.util.clip;
 
+import com.rs2.model.Entity;
 import java.util.LinkedList;
 
 import com.rs2.model.Position;
-import com.rs2.model.players.Player;
 
 public class ClippedPathFinder {
 
@@ -16,9 +16,8 @@ public class ClippedPathFinder {
 	public ClippedPathFinder() {
 	}
 
-	public void findRoute(Player c, int destX, int destY, boolean moveNear, int xLength, int yLength) {
+	public void findRoute(Entity c, int destX, int destY, boolean moveNear, int xLength, int yLength) {
 		if (destX == c.getPosition().getLocalX() && destY == c.getPosition().getLocalY() && !moveNear) {
-			c.getActionSender().sendMessage("ERROR!");
 			return;
 		}
 		destX = destX - 8 * c.getPosition().getRegionX();

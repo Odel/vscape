@@ -10,6 +10,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.magetrainingarena.MageGameConstants.BonePile;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
@@ -37,6 +38,8 @@ public class CreatureGraveyard {
     public static final MinigameAreas.Area GRAVEYARD_AREA = new MinigameAreas.Area(3344, 3384, 9620, 9660, 1);
     public static final Position[] ENTERING_POSITION = {new Position(3364, 9640, 1), new Position(3363, 9641, 1), new Position(3362, 9640, 1), new Position(3363, 9639, 1)};
     public static final int[] RUNE_REWARDS = {565, 560, 557, 555, 561};
+    
+    public static Npc GUARDIAN;
     
     private Player player;
     private int pizazzPoints;
@@ -80,6 +83,7 @@ public class CreatureGraveyard {
 
     public void enter() {
 	fruitDeposited = player.getGraveyardFruitDeposited();
+	player.setGraveyardFruitDeposited(0);
 	int number = new Random().nextInt(ENTERING_POSITION.length);
 	if (player.getSkill().getLevel()[Skill.MAGIC] < MageGameConstants.GRAVEYARD_LEVEL) {
 	    player.getActionSender().sendMessage("You need a magic level of " + MageGameConstants.GRAVEYARD_LEVEL + " to enter here.");
@@ -135,7 +139,7 @@ public class CreatureGraveyard {
 			for (int i = 0; i < 20; i++) {
 			    p.getActionSender().sendStillGraphic(520, MinigameAreas.randomPosition(GRAVEYARD_AREA).clone(), 0);
 			}
-			if (Misc.random(2) == 1) {
+			if ((75 >= (new Random().nextDouble() * 100)) && !Misc.goodDistance(p.getPosition(), GUARDIAN.getPosition(), 2)) {
 			    p.hit(2, HitType.NORMAL);
 			}
 		    }
@@ -256,6 +260,10 @@ public class CreatureGraveyard {
 		return true;
 	    }
 	} else if (objectId == 10781) {
+	    if(player.getInventory().playerHasItem(new Item(BANANA)) || player.getInventory().playerHasItem(new Item(PEACH))) {
+		player.getActionSender().sendMessage("You cannot bring fruit into the Creature Graveyard.");
+		return true;
+	    }
 	    enter();
 	    return true;
 	} else if (objectId == 10735) {

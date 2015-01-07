@@ -26,6 +26,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -259,7 +260,7 @@ public abstract class Entity {
 	}
 
 	public boolean inWild() {
-		return Area(2942, 3391, 3520, 3965) || Area(2942, 3391, 9919, 10365);
+		return Area(2942, 3391, 3520, 4000) || Area(2942, 3391, 9919, 10365);
 	}
 
 	public boolean nextToWildy(int x, int y) {
@@ -275,6 +276,9 @@ public abstract class Entity {
 			return 0;
 		} else {
 			int modY = getPosition().getY() > 6400 ? getPosition().getY() - 6400 : getPosition().getY();
+			if(getPosition().getY() > 3965 && getPosition().getY() < 4000) {
+			    return 69;
+			}
 			return (modY - 3520) / 8 + 1;
 		}
 	}
@@ -288,7 +292,7 @@ public abstract class Entity {
 	}
 
 	public boolean inMulti() {
-		return Area(3281, 3304, 3158, 3178) || Area(2660, 2675, 3226, 3249) || Area(2854, 2878, 9931, 9965) || Area(1758, 1864, 4347, 4418) || Area(2502, 2536, 4626, 4666) || Area(3158, 3189, 2969, 2992)|| Area(3067, 3099, 3402, 3449) || Area(2655, 2695, 3705, 3740) || Area(3136, 3327, 3519, 3607) || Area(3190, 3327, 3648, 3839) || Area(3200, 3390, 3840, 3967) || Area(2992, 3007, 3912, 3967) || Area(2946, 2959, 3816, 3831) || Area(3008, 3199, 3856, 3903) || Area(3008, 3071, 3600, 3711) || Area(3072, 3327, 3608, 3647) || Area(2624, 2690, 2550, 2619) || Area(2896, 2927, 3595, 3630) || Area(2894, 2938, 4413, 4478) || Area(2256, 2287, 4680, 4711) || Area(2863, 2878, 5350, 5372) || Area(2396, 2435, 4691, 4739) || Area(2365, 2395, 4702, 4739) || Area(3461, 3514, 9473, 9525) || Area(2448, 2481, 4764, 4795) || Area(2703, 2734, 9797, 9832) || Area(1868, 1950, 4343, 4415) || Area(2429, 2566, 10112, 10180) || inCwGame() || inPits() || inCaves() || Area(2754, 2814, 3833, 3873);
+		return Area(3281, 3304, 3158, 3178) || Area(2660, 2675, 3226, 3249) || Area(2854, 2878, 9931, 9965) || Area(1758, 1864, 4347, 4418) || Area(2502, 2536, 4626, 4666) || Area(3158, 3189, 2969, 2992)|| Area(3067, 3099, 3402, 3449) || Area(2655, 2695, 3705, 3740) || Area(3136, 3327, 3519, 3607) || Area(3190, 3327, 3648, 3839) || Area(3200, 3390, 3840, 3967) || Area(2992, 3007, 3912, 3967) || Area(2946, 2959, 3816, 3831) || Area(3008, 3199, 3856, 3903) || Area(3008, 3071, 3600, 3711) || Area(3072, 3327, 3608, 3647) || Area(2624, 2690, 2550, 2619) || Area(2896, 2927, 3595, 3630) || Area(2894, 2938, 4413, 4478) || Area(2256, 2287, 4680, 4711) || Area(2863, 2878, 5350, 5372) || Area(2396, 2435, 4691, 4739) || Area(2365, 2395, 4702, 4739) || Area(3461, 3514, 9473, 9525) || Area(2448, 2481, 4764, 4795) || Area(2703, 2734, 9797, 9832) || Area(1868, 1950, 4343, 4415) || Area(2429, 2566, 10112, 10180) || inCwGame() || inPits() || inCaves() || onApeAtoll() || Area(2754, 2814, 3833, 3873);
 	}
 
 	public boolean rangableArea(int x, int y) {
@@ -339,7 +343,7 @@ public abstract class Entity {
 	}
 	
 	public boolean onApeAtoll() {
-		return Area(2688, 2829, 2688, 2822);
+		return Area(2688, 2829, 2688, 2822) || Area(2753, 2815, 9179, 9215) || MinigameAreas.isInArea(getPosition(), ApeAtoll.DUNGEON);
 	}
 	
 	public boolean inWarriorGuild() {
@@ -375,7 +379,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena();
+		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena() || inTempleKnightsTraining();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {
@@ -414,6 +418,10 @@ public abstract class Entity {
 	    } else {
 		return false;
 	    }
+	}
+	
+	public boolean inTempleKnightsTraining() {
+	    return this.Area(2436, 2495, 4931, 4992);
 	}
 	
 	public boolean inDesert() {

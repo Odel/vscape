@@ -41,7 +41,7 @@ import com.rs2.model.content.skills.smithing.DragonShieldSmith;
 import com.rs2.util.Misc;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
-import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
+import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
@@ -156,7 +156,7 @@ public class Dialogues {
 		if(Constants.DEGRADING_ENABLED && Degrading.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
-		if(TelekineticTheatre.sendDialogue(player, id, chatId, optionId, npcChatId)) {
+		if(MageTrainingDialogue.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		switch(id) {
@@ -1817,7 +1817,7 @@ public class Dialogues {
 							case 2:
                                                             switch(player.getDialogue().getChatId())  {
 								case 1:
-                                                                    player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
+                                                                    player.getDialogue().sendNpcChat("What a nice day in videogames!", "Do you want to buy some runes?", CONTENT);
                                                                 return true;
                                                                 case 2:
                                                                     if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && !checkTrim(player)) 
@@ -1873,7 +1873,7 @@ public class Dialogues {
 								switch(player.getDialogue().getChatId()) 
 								{
 									case 1:
-										player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
+										player.getDialogue().sendNpcChat("What a nice day in videogames!", "Do you want to buy some runes?", CONTENT);
 									return true;
 									case 2:
 										player.getDialogue().sendOption("Yes please!", "No thanks.","I have been sent here with a package for you.");
@@ -1977,7 +1977,7 @@ public class Dialogues {
 						switch(player.getDialogue().getChatId()) 
 						{
 							case 1:
-								player.getDialogue().sendNpcChat("Do you want to buy some runes?", CONTENT);
+								player.getDialogue().sendNpcChat("What a nice day in videogames!", "Do you want to buy some runes?", CONTENT);
 							return true;
 							case 2:
                                                             if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99 && !checkTrim(player)) 
@@ -4946,9 +4946,8 @@ public class Dialogues {
 								player.getDialogue().dontCloseInterface();
 								break;
 							case 2:
-								Farmers.ProtectPlant(player, 1, "allotment", player.getClickId(), 1);
-								player.getDialogue().dontCloseInterface();
-								break;
+								player.getDialogue().setNextChatId(Farmers.ProtectPlant(player, 1, "allotment", player.getClickId(), 1));
+								return true;
 						}
 						break;
 					case 7 :
@@ -7640,38 +7639,43 @@ public class Dialogues {
 			    }
 			break;
 			case 675: //shipyard worker / crate guy
-			    switch(player.getDialogue().getChatId()) {
-				case 1:
-				    for(Npc npc : World.getNpcs()) {
-					if(npc == null) continue;
-					if(npc.getNpcId() == 675)
-					    npc.walkTo(player.getPosition().clone(), true);
-				    }
-				    player.getDialogue().sendNpcChat("*Singing*", "Load 'em up, move 'em out, load 'em up...", CONTENT);
-				    return true;
-				case 2:
-				    player.getDialogue().sendStatement("Your crate shakes a little. You hear the worker grunt.");
-				    return true;
-				case 3:
-				    player.getDialogue().sendNpcChat("Woah, this one is a bit heavier than usual.", "Must be the boss man fuckin' with me.", LAUGHING);
-				    return true;
-				case 4:
-				    player.getActionSender().sendMessage("You feel your crate being carried...and dropped off after a long voyage.");
-				    player.fadeTeleport(new Position(2779, 3400));
-				    for(Npc npc : World.getNpcs()) {
-					if(npc == null) continue;
-					if(npc.getNpcId() == 675) {
-					    npc.setVisible(false);
-					    World.unregister(npc);
+			    if (player.getQuestStage(11) == 4) {
+				switch (player.getDialogue().getChatId()) {
+				    case 1:
+					for (Npc npc : World.getNpcs()) {
+					    if (npc == null) {
+						continue;
+					    }
+					    if (npc.getNpcId() == 675) {
+						npc.walkTo(player.getPosition().clone(), true);
+					    }
 					}
-				    }
-				    if(player.getQuestStage(11) == 4 ) {
+					player.getDialogue().sendNpcChat("*Singing*", "Load 'em up, move 'em out, load 'em up...", CONTENT);
+					return true;
+				    case 2:
+					player.getDialogue().sendStatement("Your crate shakes a little. You hear the worker grunt.");
+					return true;
+				    case 3:
+					player.getDialogue().sendNpcChat("Woah, this one is a bit heavier than usual.", "Must be the boss man fuckin' with me.", LAUGHING);
+					return true;
+				    case 4:
+					player.getActionSender().sendMessage("You feel your crate being carried...and dropped off after a long voyage.");
+					player.fadeTeleport(new Position(2779, 3400));
+					for (Npc npc : World.getNpcs()) {
+					    if (npc == null) {
+						continue;
+					    }
+					    if (npc.getNpcId() == 675) {
+						npc.setVisible(false);
+						World.unregister(npc);
+					    }
+					}
 					player.setQuestStage(11, 5);
-				    }
-				    player.getDialogue().endDialogue();
-				    player.transformNpc = -1;
-				    player.resetEffects();
-				    return true;
+					player.getDialogue().endDialogue();
+					player.transformNpc = -1;
+					player.resetEffects();
+					return true;
+				}
 			    }
 			break;
 			case 250: //lady of the lake

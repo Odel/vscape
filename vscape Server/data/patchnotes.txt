@@ -1,3 +1,26 @@
+@dre@=January 2nd=
+-BUG FIXES
+@bla@Monkey Madness lurks in the distance...
+
+@dre@=December 31st=
+@red@-New Year's Edition-
+@blu@Mage Training Arena
+@blu@Recruitment Drive
+-Heroes quest properly allows help from those
+who have completed the quest (both gangs).
+-Toadflax added to a few npcs.
+-Warriors' Guild Cyclops drops.
+-Light / Dark mystic now drop properly from
+their respective droppers.
+-Can cancel Home Teleport.
+-Two Spiritual Mages now reside in the Frozen
+Waste Plateau. Happy hunting.
+-KBD proper combat script and entrance.
+-Lava Maze dungeon (Black drags & Rune rock).
+-Fire giants in the other Waterfall room.
+-Mixed rune crafting / using functional.
+
+
 @dre@=December 20th=
 @blu@Christmas Event!
 @blu@Speak with Santa in Varrock to begin.

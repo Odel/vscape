@@ -8704,5 +8704,26 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+  },
+	{
+    "shopId": 202,
+    "name": "Initiate Temple Knight Armory",
+    "items": [
+      {
+        "id": 5574,
+        "count": 30
+      },
+	  {
+        "id": 5575,
+        "count": 30
+      },
+	  {
+        "id": 5576,
+        "count": 30
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]

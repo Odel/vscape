@@ -754,6 +754,9 @@ public class TheGrandTree implements Quest {
 		}
 	    case SHIPYARD_GATE:
 	    case SHIPYARD_GATE_2:
+		if(player.getQuestStage(36) > 0) {
+		    return false;
+		}
 		if(player.getQuestStage(29) < ESCAPE_FROM_ALCATRAZ) {
 		    player.getDialogue().setLastNpcTalk(SHIPYARD_WORKER);
 		    player.getDialogue().sendNpcChat("Hey! Get away from there!", ANGRY_1);
@@ -1986,14 +1989,6 @@ public class TheGrandTree implements Quest {
 				return true;
 			    case 27:
 				player.getDialogue().sendNpcChat("Not here. Meet me downstairs, down the trapdoor", "just right over there.", CONTENT);
-				player.getDialogue().endDialogue();
-				return true;
-			}
-		    return false;
-		    case QUEST_COMPLETE:
-			switch (player.getDialogue().getChatId()) {
-			    case 1:
-				player.getDialogue().sendNpcChat("Thank you ever so much again Traveller, and", "welcome back to the Grand Tree!", HAPPY);
 				player.getDialogue().endDialogue();
 				return true;
 			}

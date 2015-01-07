@@ -137,15 +137,6 @@ public final class PlayerUpdating {
 			}
 		    }
 		}
-		/*if(player.getPosition().getX() > 3600) {
-		    for(Npc npc : World.getNpcs()) {
-			if(npc == null) continue;
-			if(npc.getNpcId() == 1688 && npc.getPosition().isViewableFrom(player.getPosition())) {
-			    npc.getUpdateFlags().sendAnimation(2061);
-			    npc.getUpdateFlags().setAnimationDelay(0);
-			}
-		    }
-		}*/
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());
 		for (Iterator<Player> i = player.getPlayers().iterator(); i.hasNext();) {

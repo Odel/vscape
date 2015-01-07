@@ -47,9 +47,6 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 	}
 
 	private void handleDialogue(Player player, Packet packet) {
-		if (Constants.SERVER_DEBUG) {
-			System.out.println("dialogue: "+player.getDialogue().getDialogueId()+" chat: "+player.getDialogue().getChatId());
-		}
 		if(player.getPetition().sendDialogue(player, player.getDialogue().getLastNpcTalk(), player.getPetition().getChatId() + 1, 0)) {
 		    return;
 		}
@@ -58,7 +55,7 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			player.getDialogue().resetDialogue();
 			return;
 		}
-		    Dialogues.sendDialogue(player, player.getDialogue().getDialogueId(), player.getDialogue().getChatId() + 1, 0);
+		Dialogues.sendDialogue(player, player.getDialogue().getDialogueId(), player.getDialogue().getChatId() + 1, 0);
 	}
 
 	private void showEnterX(Player player, Packet packet) {

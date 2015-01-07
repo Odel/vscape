@@ -63,7 +63,7 @@ public class Farmers {
 		}
 	}
 
-	public static void ProtectPlant(Player player, int indexArray, String fieldType, int npcId, int stage) {
+	public static int ProtectPlant(Player player, int indexArray, String fieldType, int npcId, int stage) {
 		int index = 0;
 		int[] payment = new int[2];
 		if (stage == 1) {
@@ -76,8 +76,9 @@ public class Farmers {
 					player.getDialogue().endDialogue();
 				} else {
 					player.getDialogue().sendNpcChat("If you like, but I want " + payment[1] + " " + getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()) + (getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()).endsWith("s") ? "" : "s") + " for that.", Dialogues.UNINTERESTED);
-					Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
+					//Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
 					player.setTempInteger(indexArray);
+					return 18;
 				}
 			}
 			if (fieldType == "bushes") {
@@ -89,8 +90,9 @@ public class Farmers {
 					player.getDialogue().endDialogue();
 				} else {
 					player.getDialogue().sendNpcChat("If you like, but I want " + payment[1] + " " + getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()) + (getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()).endsWith("s") ? "" : "s") + " for that.", Dialogues.UNINTERESTED);
-					Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
+					//Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
 					player.setTempInteger(indexArray);
+					return 18;
 				}
 			}
 			if (fieldType == "fruitTree") {
@@ -102,8 +104,9 @@ public class Farmers {
 					player.getDialogue().endDialogue();
 				} else {
 					player.getDialogue().sendNpcChat("If you like, but I want " + payment[1] + " " + getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()) + (getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()).endsWith("s") ? "" : "s") + " for that.", Dialogues.UNINTERESTED);
-					Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
+					//Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
 					player.setTempInteger(indexArray);
+					return 18;
 				}
 			}
 
@@ -116,8 +119,9 @@ public class Farmers {
 					player.getDialogue().endDialogue();
 				} else {
 					player.getDialogue().sendNpcChat("If you like, but I want " + payment[1] + " " + getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()) + (getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()).endsWith("s") ? "" : "s") + " for that.", Dialogues.UNINTERESTED);
-					Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
+					//Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
 					player.setTempInteger(indexArray);
+					return 18;
 				}
 			}
 
@@ -130,8 +134,9 @@ public class Farmers {
 					player.getDialogue().endDialogue();
 				} else {
 					player.getDialogue().sendNpcChat("If you like, but I want " + payment[1] + " " + getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()) + (getFinalPaymentString(ItemDefinition.forId(payment[0]).getName().toLowerCase()).endsWith("s") ? "" : "s") + " for that.", Dialogues.UNINTERESTED);
-					Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
+					//Dialogues.sendDialogue(player, player.getDialogue().getLastNpcTalk(), 18, 0);
 					player.setTempInteger(indexArray);
+					return 18;
 				}
 			}
 
@@ -180,6 +185,7 @@ public class Farmers {
 				player.getDialogue().endDialogue();
 			}
 		}
+		return 0;
 
 	}
 	public static void chopDownTree(Player player, int npcId) {

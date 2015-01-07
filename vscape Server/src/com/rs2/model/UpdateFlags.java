@@ -99,9 +99,7 @@ public class UpdateFlags {
 	}
 
 	public void sendAnimation(int animationId) {
-        if(owner.isPlayer()){
-        }
-	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
+	    if (owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || (((Player)owner).transformNpc >= 1480 && ((Player)owner).transformNpc <= 1487)) ) {
 		return;
 	    }
 		this.animationId = animationId;

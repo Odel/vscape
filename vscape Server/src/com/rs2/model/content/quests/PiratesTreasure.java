@@ -465,32 +465,32 @@ public class PiratesTreasure implements Quest {
     public boolean doItemOnObject(Player player, int object, int item) {
 	switch(object) {
 	    case BANANA_CRATE:
-		if(item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() < 9) {
-		    player.getActionSender().sendMessage("You load the banana into the crate.");
-		    player.getInventory().removeItem(new Item(BANANA));
-		    player.getUpdateFlags().sendAnimation(832);
-		    player.setBananaCrateCount(player.getBananaCrateCount() + 1);
-		    return true;
-		}
-		else if(item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 9) {
-		    player.getActionSender().sendMessage("You load the last banana, the crate is full. Better go tell Luthas.");
-		    player.getInventory().removeItem(new Item(BANANA));
-		    player.getUpdateFlags().sendAnimation(832);
-		    player.setBananaCrateCount(10);
-		    return true;
-		}
-		else if(item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 10) {
-		    player.getActionSender().sendMessage("The crate is full. Go tell Luthas.");
-		    return true;
-		}
-		else if(item == KARAMJAN_RUM && player.getBananaCrate() && player.getQuestStage(20) == 1) {
-		    player.getDialogue().sendGiveItemNpc("You stash the rum in the crate.", new Item(KARAMJAN_RUM));
-		    player.getInventory().removeItem(new Item(KARAMJAN_RUM));
-		    player.getUpdateFlags().sendAnimation(832);
-		    player.setQuestStage(20, 2);
-		    return true;
-		}
-		else {
+		if (!player.onApeAtoll()) {
+		    if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() < 9) {
+			player.getActionSender().sendMessage("You load the banana into the crate.");
+			player.getInventory().removeItem(new Item(BANANA));
+			player.getUpdateFlags().sendAnimation(832);
+			player.setBananaCrateCount(player.getBananaCrateCount() + 1);
+			return true;
+		    } else if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 9) {
+			player.getActionSender().sendMessage("You load the last banana, the crate is full. Better go tell Luthas.");
+			player.getInventory().removeItem(new Item(BANANA));
+			player.getUpdateFlags().sendAnimation(832);
+			player.setBananaCrateCount(10);
+			return true;
+		    } else if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 10) {
+			player.getActionSender().sendMessage("The crate is full. Go tell Luthas.");
+			return true;
+		    } else if (item == KARAMJAN_RUM && player.getBananaCrate() && player.getQuestStage(20) == 1) {
+			player.getDialogue().sendGiveItemNpc("You stash the rum in the crate.", new Item(KARAMJAN_RUM));
+			player.getInventory().removeItem(new Item(KARAMJAN_RUM));
+			player.getUpdateFlags().sendAnimation(832);
+			player.setQuestStage(20, 2);
+			return true;
+		    } else {
+			return false;
+		    }
+		} else {
 		    return false;
 		}
 	    case HECTOR_CHEST:
@@ -527,19 +527,21 @@ public class PiratesTreasure implements Quest {
 		}, 3);
 		return true;
 	    case BANANA_CRATE:
-		if(player.getBananaCrate()) {
-		    if(player.getBananaCrateCount() == 1) {
-			player.getActionSender().sendMessage("You have loaded a single banana.");
+		if (!player.onApeAtoll()) {
+		    if (player.getBananaCrate()) {
+			if (player.getBananaCrateCount() == 1) {
+			    player.getActionSender().sendMessage("You have loaded a single banana.");
+			    return true;
+			} else {
+			    player.getActionSender().sendMessage("You have loaded " + player.getBananaCrateCount() + " bananas.");
+			    return true;
+			}
+		    } else {
+			player.getDialogue().sendPlayerChat("I probably shouldn't rummage through Luthas' crate.", CONTENT);
 			return true;
 		    }
-		    else {
-			player.getActionSender().sendMessage("You have loaded " + player.getBananaCrateCount() + " bananas.");
-			return true;
-		    }
-		}
-		else {
-		    player.getDialogue().sendPlayerChat("I probably shouldn't rummage through Luthas' crate.", CONTENT);
-		    return true;
+		} else {
+		    return false;
 		}
 	    case STORE_DOOR:
 		switch(player.getQuestStage(20)) {

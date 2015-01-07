@@ -100,7 +100,9 @@ public class ItemDefinition {
 			Scanner s = new Scanner(new File("./data/content/weight.txt"));
 			while (s.hasNextLine()) {
 				String[] line = s.nextLine().split(" ");
-				weights[Integer.parseInt(line[0])] = Double.parseDouble(line[1]);
+				int id = Integer.parseInt(line[0]);
+				double weight = Double.parseDouble(line[1]);
+				weights[id] = weight;
 			}
 			System.out.println("Loaded " + weights.length + " item weights");
 			s.close();// CLOSEFILE
@@ -438,7 +440,11 @@ public class ItemDefinition {
 	}
 
 	public static double getWeight(int itemId) {
-		return weights[itemId + 1] + 0.1;
+	    if(itemId < 0) {
+		return weights[0];
+	    } else {
+		return weights[itemId] + 0.1;
+	    }
 	}
 
 	public String getEquipmentType() {

@@ -65,6 +65,9 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import static com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.DUNGEON;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.randomevents.Pillory;
@@ -144,6 +147,7 @@ import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.SantaEncounter;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
@@ -298,6 +302,19 @@ public class Player extends Entity {
 	private int currentOptionId;
 	private int optionClickId;
 	private int currentGloryId;
+	public int comboLockLetter1 = 1;
+	public int comboLockLetter2 = 1;
+	public int comboLockLetter3 = 1;
+	public int comboLockLetter4 = 1;
+	public boolean foxRight = true;
+	public boolean chickenRight = true;
+	public boolean grainRight = true;
+	public boolean foxLeft = false;
+	public boolean chickenLeft = false;
+	public boolean grainLeft = false;
+	public boolean recievedPacket = false;
+	private boolean gazeOfSaradomin = false;
+	public String templeKnightRiddleAnswer = "NULL";
 	private int returnCode = Constants.LOGIN_RESPONSE_OK;
 	private TradeStage tradeStage = TradeStage.WAITING;
 	private int[] pendingItems = new int[Inventory.SIZE];
@@ -685,19 +702,15 @@ public class Player extends Entity {
         }
 	else if(this.inEnchantingChamber()) {
 		this.getEnchantingChamber().saveVariables();
-		this.getEnchantingChamber().removeItems();
 	}
 	else if(this.inAlchemistPlayground()) {
-		this.getAlchemistPlayground().saveVariables();
-		this.getAlchemistPlayground().removeItems();
+		this.getAlchemistPlayground().saveVariables(true);
 	}
 	else if(this.inCreatureGraveyard()) {
 		this.getCreatureGraveyard().saveVariables();
-		this.getCreatureGraveyard().removeItems();
 	}
 	else if(this.inTelekineticTheatre()) {
 		this.getTelekineticTheatre().saveVariables();
-		this.getTelekineticTheatre().removeItems();
 	}
 	
         try {
@@ -795,19 +808,15 @@ public class Player extends Entity {
         }
 	else if(this.inEnchantingChamber()) {
 		this.getEnchantingChamber().saveVariables();
-		this.getEnchantingChamber().removeItems();
 	}
 	else if(this.inAlchemistPlayground()) {
-		this.getAlchemistPlayground().saveVariables();
-		this.getAlchemistPlayground().removeItems();
+		this.getAlchemistPlayground().saveVariables(true);
 	}
 	else if(this.inCreatureGraveyard()) {
 		this.getCreatureGraveyard().saveVariables();
-		this.getCreatureGraveyard().removeItems();
 	}
 	else if(this.inTelekineticTheatre()) {
 		this.getTelekineticTheatre().saveVariables();
-		this.getTelekineticTheatre().removeItems();
 	}
         else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
@@ -1041,7 +1050,12 @@ public class Player extends Entity {
 		this.getPets().unregisterPet();
 		this.getCat().unregisterCat();
 		movePlayer(position);
-		getActionSender().sendMapState(0);
+		if(!this.inTempleKnightsTraining()) {
+		    getActionSender().sendMapState(0);
+		}
+		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
+		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
+		}
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
 		getUpdateFlags().sendGraphic(-1);
@@ -1262,6 +1276,9 @@ public class Player extends Entity {
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);
 		}
+		if(this.inTempleKnightsTraining()) {
+		    RecruitmentDrive.exitTrainingGrounds(this);
+		}
         if(inPestControlLobbyArea())
         {
         	teleport(PestControl.LOBBY_EXIT);
@@ -1287,6 +1304,12 @@ public class Player extends Entity {
 	if(this.Area(2754, 2814, 3833, 3873)) {
 	    this.teleport(ChristmasEvent.SNOWY_JAIL);
 	}
+	if(this.inTempleKnightsTraining()) {
+	    this.getActionSender().sendMapState(2);
+	}
+	if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
+	    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
+	}
 	for(Player player : World.getPlayers()) {
 	    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
 		World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
@@ -1304,7 +1327,6 @@ public class Player extends Entity {
 			return true;
 		} else {
 			sendLoginResponse();
-			System.out.println("17");
 			disconnect();
 			return false;
 		}
@@ -3344,6 +3366,15 @@ public class Player extends Entity {
 	public void setVoidMace(boolean voidMace) {
 		this.voidMace = voidMace;
 	}
+	
+	public boolean isGazeOfSaradomin() {
+	    return this.gazeOfSaradomin;
+	}
+	
+	public void setGazeOfSaradomin(boolean set) {
+	    this.gazeOfSaradomin = set;
+	}
+	
 	public boolean wearingCwBracelet(){
 		int brace = getEquipment().getId(Constants.HANDS);
 		return brace == 11079 || brace == 11081 || brace == 11083;
@@ -4115,6 +4146,12 @@ public class Player extends Entity {
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
+		if(npc.onApeAtoll() && ApeAtollNpcs.isAggressiveNpc(npc.getNpcId())) {
+		    if(npc.getNpcId() == ApeAtollNpcs.SCORPION && !Misc.goodDistance(getPosition(), npc.getPosition(), 2)) {
+			return false;
+		    }
+		    return !getMMVars().isMonkey();
+		}
 		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
 			return true;
 		}
@@ -4143,6 +4180,38 @@ public class Player extends Entity {
 		for (Npc npc : getNpcs()) {
 			if (npc.getPlayerOwner() != null) {
 				continue;
+			}
+			if(onApeAtoll() && npc.onApeAtoll()) {
+			    if (npc.getNpcId() == MonkeyMadness.MONKEYS_AUNT && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
+				npc.getUpdateFlags().setForceChatMessage("OOH! OOH! AAH!");
+				ApeAtoll.jail(this, true);
+			    }
+			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && ApeAtoll.hiddenInGrass(this) && npc.isAttacking()) {
+				CombatManager.resetCombat(npc);
+			    }
+			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && !Area(2762, 2767, 2767, 2772) && npc.isAttacking()) {
+				CombatManager.resetCombat(npc);
+			    }
+			    if (npc.getNpcId() == 1456 && Misc.goodDistance(npc.getPosition(), getPosition(), 10) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
+				CombatManager.attack(npc, this);
+				if (getPosition().getY() > 2758) {
+				    ApeAtoll.jail(this, false);
+				}
+			    }
+			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && !ApeAtoll.hiddenInGrass(this)) {
+				if (!npc.isAttacking()) {
+				    CombatManager.attack(npc, this);
+				}
+				if (Misc.random(4) == 1) {
+				    CombatManager.attack(npc, this);
+				    ApeAtoll.jail(this, false);
+				}
+			    }
+			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && Area(2762, 2767, 2767, 2772) && !npc.isAttacking()) {
+				CombatManager.attack(npc, this);
+				npc.getUpdateFlags().setForceChatMessage("AAH! AAH!");
+				ApeAtoll.jail(this, true);
+			    }
 			}
 			if (!npcCanAttack(npc)) {
 				continue;
@@ -4924,7 +4993,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 15098); //a soul's bane
 		getActionSender().sendString("", 15352); //shadow of the storm
 		getActionSender().sendString("", 14912); //rum deal
-		getActionSender().sendString("", 668); //recruitment drive
+		getActionSender().sendString("@red@Recruitment Drive", 668); //recruitment drive
 		getActionSender().sendString("", 18306); //recipe for disaster
 		getActionSender().sendString("", 15499); //rat catchers
 		getActionSender().sendString("", 18684); //rag and bone man

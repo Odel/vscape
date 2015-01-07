@@ -1,11 +1,18 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
+import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.thieving.ThieveOther;
+import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.objects.functions.Ladders;
@@ -36,6 +43,9 @@ public class ApeAtoll {
     public static final int PINEAPPLE_PLANT = 4827;
     public static final int DUNGEON_LADDER_UP = 4781;
     public static final int DUNGEON_LADDER_DOWN = 4780;
+    public static final int BAMBOO_LADDER = 4743;
+    public static final int BAMBOO_LADDER_DOWN = 4744;
+    public static final int END_OF_BRIDGE = 4745;
     
     public static final Position INSIDE_VILLAGE = new Position(2515,3162,0);
     public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
@@ -52,27 +62,29 @@ public class ApeAtoll {
     public static final MinigameAreas.Area END_DUNGEON = new MinigameAreas.Area(2800, 2810, 9139, 9149, 0);
 
     public enum GreeGreeData {
-	SMALL_NINJA_GREEGREE(4024, 3179, 1480, 1386, 1380),
-	MEDIUM_NINJA_GREEGREE(4025, 3180, 1481, 1386, 1380),
-	GORILLA_GREEGREE(4026, 3181, 1482, 1401, 1399),
-	BEARED_GORILLA_GREEGREE(4027, 3182, 1483, 1401, 1399),
-	MYSTERIOUS_GREEGREE(4028, -1, 1484, 1401, 1399), //bonesId?
-	SMALL_ZOMBIE_GREEGREE(4029, 3185, 1485, 1386, 1382),
-	LARGE_ZOMBIE_GREEGREE(4030, 3186, 1486, 1386, 1382),
-	MONKEY_GREEGREE(4031, 3183, 1487, 222, 219);
+	SMALL_NINJA_GREEGREE(4024, 3179, 1480, 1386, 1380, 1381),
+	MEDIUM_NINJA_GREEGREE(4025, 3180, 1481, 1386, 1380, 1381),
+	GORILLA_GREEGREE(4026, 3181, 1482, 1401, 1399, 1400),
+	BEARED_GORILLA_GREEGREE(4027, 3182, 1483, 1401, 1399, 1400),
+	MYSTERIOUS_GREEGREE(4028, -1, 1484, 1401, 1399, 1400),
+	SMALL_ZOMBIE_GREEGREE(4029, 3185, 1485, 1386, 1382, -1),
+	LARGE_ZOMBIE_GREEGREE(4030, 3186, 1486, 1386, 1382, -1),
+	MONKEY_GREEGREE(4031, 3183, 1487, 222, 219, -1);
 
 	private int itemId;
 	private int bonesId;
 	private int transformId;
 	private int standAnim;
 	private int walkAnim;
+	private int runAnim;
 
-	GreeGreeData(int itemId, int bonesId, int transformId, int standAnim, int walkAnim) {
+	GreeGreeData(int itemId, int bonesId, int transformId, int standAnim, int walkAnim, int runAnim) {
 	    this.itemId = itemId;
 	    this.bonesId = bonesId;
 	    this.transformId = transformId;
 	    this.standAnim = standAnim;
 	    this.walkAnim = walkAnim;
+	    this.runAnim = runAnim;
 	}
 
 	public static GreeGreeData forItemId(int itemId) {
@@ -86,7 +98,7 @@ public class ApeAtoll {
 
 	public static int talismanForBones(int itemId) {
 	    for (GreeGreeData g : GreeGreeData.values()) {
-		if (g.bonesId == itemId) {
+		if (g.bonesId != -1 && g.bonesId == itemId) {
 		    return g.itemId;
 		}
 	    }
@@ -111,6 +123,10 @@ public class ApeAtoll {
 
 	public int getWalkAnim() {
 	    return this.walkAnim;
+	}
+	
+	public int getRunAnim() {
+	    return this.runAnim;
 	}
 
     }
@@ -189,9 +205,17 @@ public class ApeAtoll {
 	}
     }
     
-    public static void jail(final Player player) {
+    public static void jail(final Player player, boolean guards) {
+	if(player.getMMVars().isMonkey()) {
+	    return;
+	}
+	if(guards) {
+	    NpcLoader.spawnNpc(player, new Npc(1455), false, false);
+	}
+	player.getMMVars().inProcessOfBeingJailed = true;
 	player.getUpdateFlags().sendAnimation(836);
 	player.getMovementHandler().reset();
+	player.setStopPacket(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -207,35 +231,44 @@ public class ApeAtoll {
 		    }
 		    @Override
 		    public void stop() {
+			if(player.getMMVars().firstTimeJail()) {
+			    player.getMMVars().setFirstTimeJail(false);
+			    Dialogues.startDialogue(player, MonkeyMadness.LUMO);
+			} else if(!player.getMMVars().canHideInGrass()) {
+			    Dialogues.startDialogue(player, MonkeyMadness.CARADO);
+			}
+			player.setStopPacket(false);
 			player.getMMVars().setJailCheckRunning(false);
+			player.getMMVars().inProcessOfBeingJailed = false;
 		    }
 		}, 5);
 	    }
-	}, 2);
+	}, guards ? 4 : 2);
     }
     
     public static void runDungeon(final Player player) {
 	player.getMMVars().setDungeonRunning(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    int rocksTimer = 0;
-	    boolean hitBySpikes = false;
-	    Position hitBySpikesHere = null;
 	    @Override
 	    public void execute(CycleEventContainer b) {
 		if(!MinigameAreas.isInArea(player.getPosition(), DUNGEON)) {
 		    b.stop();
 		}
+		if(rocksTimer > 2 && MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && !ApeAtollNpcs.rubbingWalls) {
+		    ApeAtollNpcs.rubWalls();
+		}
 		if(Misc.random(15) == 1 && !MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && rocksTimer >= 15) {
 		    rocksTimer = 0;
 		    fallingRocks(player);
 		}
-		if(hitBySpikesHere != null && !hitBySpikesHere.equals(player.getPosition().clone())) {
-		    hitBySpikes = false;
-		    hitBySpikesHere = null;
+		if(player.getMMVars().hitBySpikesHere != null && !player.getMMVars().hitBySpikesHere.equals(player.getPosition().clone())) {
+		    player.getMMVars().hitBySpikes = false;
+		    player.getMMVars().hitBySpikesHere = null;
 		}
-		if(DungeonSpikesData.onSpikes(player.getPosition()) && !hitBySpikes) {
-		    hitBySpikes = true;
-		    hitBySpikesHere = player.getPosition().clone();
+		if(DungeonSpikesData.onSpikes(player.getPosition()) && !player.getMMVars().hitBySpikes) {
+		    player.getMMVars().hitBySpikes = true;
+		    player.getMMVars().hitBySpikesHere = player.getPosition().clone();
 		    floorSpikes(player, player.getPosition());
 		}
 		rocksTimer++;
@@ -243,6 +276,8 @@ public class ApeAtoll {
 	    @Override
 	    public void stop() {
 		player.getMMVars().setDungeonRunning(false);
+		player.getMMVars().hitBySpikes = false;
+		player.getMMVars().hitBySpikesHere = null;
 	    }
 	}, 1);
     }
@@ -255,29 +290,36 @@ public class ApeAtoll {
     }
     
     public static void fallingRocks(final Player player) {
-	player.getActionSender().shakeScreen(2, 10, 10, 4);
-	player.getUpdateFlags().sendGraphic(60);
-	player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
-	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-	    int count = 1;
-	    @Override
-	    public void execute(CycleEventContainer b) {
-		if(count == 1) {
-		    player.hit(Misc.random(4), HitType.NORMAL);
-		}
-		if(count >= 2) {
-		    b.stop();
-		}
-		count++;
-	    }
+	if (!player.getMMVars().isMonkey()) {
+	    player.getActionSender().shakeScreen(2, 10, 10, 4);
+	    player.getUpdateFlags().sendGraphic(60);
+	    player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		int count = 1;
 
-	    @Override
-	    public void stop() {
-		player.getActionSender().resetCamera();
-	    }
-	}, 1);
+		@Override
+		public void execute(CycleEventContainer b) {
+		    if (count == 1) {
+			player.hit(Misc.random(4), HitType.NORMAL);
+		    }
+		    if (count >= 2) {
+			b.stop();
+		    }
+		    count++;
+		}
+
+		@Override
+		public void stop() {
+		    player.getActionSender().resetCamera();
+		}
+	    }, 1);
+	}
     }
     
+    public static boolean hiddenInGrass(final Player player) {
+	CacheObject g = ObjectLoader.object("Jungle Grass", player.getPosition().getX(), player.getPosition().getY(), 0);
+	return g != null && g.getDef().getId() >= 4812 && g.getDef().getId() <= 4814 && player.getMMVars().canHideInGrass();
+    }
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {
 	    if (player.onApeAtoll()) {
@@ -287,7 +329,12 @@ public class ApeAtoll {
 		player.transformNpc = g.getTransformId();
 		player.setStandAnim(g.getStandAnim());
 		player.setWalkAnim(g.getWalkAnim());
-		player.setRunAnim(g.getWalkAnim());
+		if(g.getRunAnim() == -1) {
+		    player.getMovementHandler().setRunToggled(false);
+		} else {
+		    player.setRunAnim(g.getRunAnim());
+		    player.getMovementHandler().setRunToggled(true);
+		}
 		player.getUpdateFlags().setUpdateRequired(true);
 		player.getMMVars().setIsMonkey(true);
 		return true;
@@ -296,8 +343,33 @@ public class ApeAtoll {
 		return true;
 	    }
 	}
-
 	return false;
+    }
+    
+    public static void handleGreeGree(final Player player, GreeGreeData g) {
+	if (player.onApeAtoll()) {
+	    player.transformNpc = g.getTransformId();
+	    player.setStandAnim(g.getStandAnim());
+	    player.setWalkAnim(g.getWalkAnim());
+	    if (g.getRunAnim() == -1) {
+		player.getMovementHandler().setRunToggled(false);
+	    } else {
+		player.setRunAnim(g.getRunAnim());
+		player.getMovementHandler().setRunToggled(true);
+	    }
+	    player.getUpdateFlags().setUpdateRequired(true);
+	    player.getMMVars().setIsMonkey(true);
+	} else {
+	    player.getActionSender().sendMessage("You must be on Ape Atoll to feel the effects of the greegree.");
+	    player.transformNpc = -1;
+	    player.setStandAnim(-1);
+	    player.setWalkAnim(-1);
+	    player.setRunAnim(-1);
+	    player.getActionSender().sendSideBarInterfaces();
+	    player.setAppearanceUpdateRequired(true);
+	    player.getMMVars().setIsMonkey(false);
+	    player.getMovementHandler().setRunToggled(true);
+	}
     }
 
     public static boolean doObjectFirstClick(final Player player, final int object, final int x, final int y) {
@@ -354,6 +426,28 @@ public class ApeAtoll {
 		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, 0, player.getPosition().getY() > y ? -1 : 1);
 		}
 		return true;
+	    case BAMBOO_LADDER:
+		Ladders.climbLadder(player, new Position(2803, 2733, 2));
+		return true;
+	    case BAMBOO_LADDER_DOWN:
+		Ladders.climbLadder(player, new Position(2803, 2735, 0));
+		return true;
+	    case END_OF_BRIDGE:
+		player.getActionSender().sendMessage("You jump off the edge of the bridge...");
+		player.fadeTeleport(new Position(2803, 2725, 0));
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().sendMessage("...and wind up mildy bruised.");
+			player.hit(2, HitType.NORMAL);
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+		    }
+		}, 5);
+		return true;
 	    case BANANA_TREE:
 		player.getActionSender().sendMessage("You search the banana tree...");
 		player.getUpdateFlags().sendAnimation(832);
@@ -370,7 +464,7 @@ public class ApeAtoll {
 		    public void stop() {
 			player.setStopPacket(false);
 		    }
-		}, 3);
+		}, 2);
 		return true;
 	    case 4772:
 	    case 4773:
@@ -425,7 +519,7 @@ public class ApeAtoll {
 		if(x != 2749) {
 		    TrapDoor.handleTrapdoor(player, object, object == PYRE_TRAPDOOR ? PYRE_TRAPDOOR_OPEN : DENTURES_TRAPDOOR_OPEN, def);
 		} else {
-		    player.getActionSender().sendMessage("The trapdoor is locked from this side?");
+		    player.getActionSender().sendMessage("The trapdoor is locked from this side.");
 		}
 		return true;
 	    case DENTURES_TRAPDOOR_OPEN:

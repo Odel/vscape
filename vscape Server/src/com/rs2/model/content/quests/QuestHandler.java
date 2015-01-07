@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import java.io.IOException;
 
 import com.rs2.model.players.CommandHandler;
@@ -57,7 +58,9 @@ public class QuestHandler {
 	new WaterfallQuest(),
 	new GertrudesCat(),
 	new TreeGnomeVillage(),
-	new ChristmasEvent()
+	new ChristmasEvent(),
+	new RecruitmentDrive(),
+	new MonkeyMadness()
     };
     
     public static void init() {
@@ -241,6 +244,12 @@ public class QuestHandler {
         		return true;
 		case 28212: //Tree Gnome Village
 			showInterface(player,quests[33]);
+        		return true;
+		case 2156: //Recruitment Drive
+			showInterface(player,quests[35]);
+        		return true;
+		case 43124: //Monkey Madness
+			showInterface(player,quests[36]);
         		return true;
         }
         return false;

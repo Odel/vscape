@@ -12,6 +12,8 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -92,6 +94,15 @@ public class NpcLoader {
 
 	public static void newNPC(int id, int x, int y, int heightLevel, int face) {
 		Npc npc = new Npc(id);
+		if(id == 3101) {
+		    CreatureGraveyard.GUARDIAN = npc;
+		}
+		if(id == 1424) {
+		    ApeAtollNpcs.WAYMOTTIN = npc;
+		}
+		if(id == 1423) {
+		    ApeAtollNpcs.BUNKWICKET = npc;
+		}
 		npc.setPosition(new Position(x, y, heightLevel));
 		npc.setSpawnPosition(new Position(x, y, heightLevel));
 		npc.setNeedsRespawn(true);
