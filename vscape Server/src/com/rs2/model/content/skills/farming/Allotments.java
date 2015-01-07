@@ -377,7 +377,9 @@ public class Allotments {
 				player.getFlowers().farmingState[indexGiven] = 3;
 				player.getFlowers().updateFlowerStates();
 			} else {
-				farmingState[index] = 2;
+				if (Misc.random(100) <= maxChance) {
+					farmingState[index] = 2;
+				}
 			}
 		}
 	}

@@ -4946,9 +4946,8 @@ public class Dialogues {
 								player.getDialogue().dontCloseInterface();
 								break;
 							case 2:
-								Farmers.ProtectPlant(player, 1, "allotment", player.getClickId(), 1);
-								player.getDialogue().dontCloseInterface();
-								break;
+								player.getDialogue().setNextChatId(Farmers.ProtectPlant(player, 1, "allotment", player.getClickId(), 1));
+								return true;
 						}
 						break;
 					case 7 :
