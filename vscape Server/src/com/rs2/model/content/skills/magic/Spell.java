@@ -72,8 +72,8 @@ public enum Spell {
 	LASSAR(72, 1979, Graphic.lowGraphic(392), 82, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.WATER, 4)}),
 	DAREEYAK(78, 1979, Graphic.lowGraphic(392), 88, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.FIRE, 3), new Item(Runes.AIR, 2)}),
 	CARRALLANGAR(84, 1979, Graphic.lowGraphic(392), 94, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.SOUL, 2)}),
-	ANNAKARL(90, 1979, Graphic.lowGraphic(392), 100, new Item[]{new Item(Runes.LAW, 1), new Item(Runes.BLOOD, 1)}),
-	GHORROCK(96, 1979, Graphic.lowGraphic(392), 106, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.BLOOD, 8)}),
+	ANNAKARL(90, 1979, Graphic.lowGraphic(392), 100, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.BLOOD, 2)}),
+	GHORROCK(96, 1979, Graphic.lowGraphic(392), 106, new Item[]{new Item(Runes.LAW, 2), new Item(Runes.WATER, 8)}),
 
 	//Special spells
 	CONFUSE(3, 716, Graphic.highGraphic(102), 13, new Item[]{new Item(Runes.WATER, 3), new Item(Runes.EARTH, 2), new Item(Runes.BODY, 1)}, magicHit(-1, magicProjectile(103), Graphic.highGraphic(104)), true, new StatEffect(Skill.ATTACK, .05), null),
