@@ -409,6 +409,9 @@ public class PlayerSaveParser {
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {
+				    if(MMVars.get("spokenMonkeyChild") != null) {
+					player.getMMVars().setSpokenToMonkeyChild(MMVars.get("spokenMonkeyChild").getAsBoolean());
+				    }
 				    if(MMVars.get("monkeyChildBananas") != null) {
 					player.getMMVars().setGivenMonkeyChildBananas(MMVars.get("monkeyChildBananas").getAsBoolean());
 				    }
@@ -417,6 +420,18 @@ public class PlayerSaveParser {
 				    }
 				    if(MMVars.get("openGate") != null) {
 					player.getMMVars().setOpenGate(MMVars.get("openGate").getAsBoolean());
+				    }
+				    if(MMVars.get("canHideInGrass") != null) {
+					player.getMMVars().setCanHideInGrass(MMVars.get("canHideInGrass").getAsBoolean());
+				    }
+				    if(MMVars.get("firstTimeJail") != null) {
+					player.getMMVars().setFirstTimeJail(MMVars.get("firstTimeJail").getAsBoolean());
+				    }
+				    if(MMVars.get("gotAmulet") != null) {
+					player.getMMVars().setGotAmulet(MMVars.get("gotAmulet").getAsBoolean());
+				    }
+				    if(MMVars.get("gotTalisman") != null) {
+					player.getMMVars().setGotTalisman(MMVars.get("gotTalisman").getAsBoolean());
 				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");

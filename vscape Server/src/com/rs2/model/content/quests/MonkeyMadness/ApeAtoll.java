@@ -98,7 +98,7 @@ public class ApeAtoll {
 
 	public static int talismanForBones(int itemId) {
 	    for (GreeGreeData g : GreeGreeData.values()) {
-		if (g.bonesId == itemId) {
+		if (g.bonesId != -1 && g.bonesId == itemId) {
 		    return g.itemId;
 		}
 	    }
@@ -255,7 +255,7 @@ public class ApeAtoll {
 		if(!MinigameAreas.isInArea(player.getPosition(), DUNGEON)) {
 		    b.stop();
 		}
-		if(MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && !ApeAtollNpcs.rubbingWalls) {
+		if(rocksTimer > 2 && MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && !ApeAtollNpcs.rubbingWalls) {
 		    ApeAtollNpcs.rubWalls();
 		}
 		if(Misc.random(15) == 1 && !MinigameAreas.isInArea(player.getPosition(), END_DUNGEON) && rocksTimer >= 15) {
@@ -290,27 +290,30 @@ public class ApeAtoll {
     }
     
     public static void fallingRocks(final Player player) {
-	player.getActionSender().shakeScreen(2, 10, 10, 4);
-	player.getUpdateFlags().sendGraphic(60);
-	player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
-	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-	    int count = 1;
-	    @Override
-	    public void execute(CycleEventContainer b) {
-		if(count == 1) {
-		    player.hit(Misc.random(4), HitType.NORMAL);
-		}
-		if(count >= 2) {
-		    b.stop();
-		}
-		count++;
-	    }
+	if (!player.getMMVars().isMonkey()) {
+	    player.getActionSender().shakeScreen(2, 10, 10, 4);
+	    player.getUpdateFlags().sendGraphic(60);
+	    player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+	    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		int count = 1;
 
-	    @Override
-	    public void stop() {
-		player.getActionSender().resetCamera();
-	    }
-	}, 1);
+		@Override
+		public void execute(CycleEventContainer b) {
+		    if (count == 1) {
+			player.hit(Misc.random(4), HitType.NORMAL);
+		    }
+		    if (count >= 2) {
+			b.stop();
+		    }
+		    count++;
+		}
+
+		@Override
+		public void stop() {
+		    player.getActionSender().resetCamera();
+		}
+	    }, 1);
+	}
     }
     
     public static boolean hiddenInGrass(final Player player) {
@@ -461,7 +464,7 @@ public class ApeAtoll {
 		    public void stop() {
 			player.setStopPacket(false);
 		    }
-		}, 3);
+		}, 2);
 		return true;
 	    case 4772:
 	    case 4773:

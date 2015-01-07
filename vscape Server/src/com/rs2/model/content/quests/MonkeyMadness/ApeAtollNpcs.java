@@ -15,8 +15,6 @@ import com.rs2.util.Misc;
 public class ApeAtollNpcs {
 
     private static final Npc monkeyAunt = new Npc(MonkeyMadness.MONKEYS_AUNT);
-    private static final Npc waymottin = new Npc(MonkeyMadness.WAYMOTTIN);
-    private static final Npc bunkwicket = new Npc(MonkeyMadness.BUNKWICKET);
     private static final Npc monkeyGuard_1 = new Npc(MonkeyMadness.TREFAJI);
     private static final Npc monkeyGuard_2 = new Npc(MonkeyMadness.ABERAB);
     
@@ -31,6 +29,8 @@ public class ApeAtollNpcs {
     public static final int ZOMBIE_MONKEY_LARGE = 1466;
     public static final int ZOMBIE_MONKEY_SMALL = 1467;
     public static final int SKELETON = 1471;
+    public static Npc WAYMOTTIN = null;
+    public static Npc BUNKWICKET = null;
     
     public static boolean rubbingWalls = false;
     
@@ -39,8 +39,6 @@ public class ApeAtollNpcs {
     public enum ApeAtollNpcData {
 	
 	MONKEYS_AUNT(monkeyAunt, new Position(2736, 2787, 0), new Position(2737, 2790, 0), new Position(2736, 2794, 0), new Position(2739, 2794, 0), new Position(2742, 2794), new Position(0, 0, 0), new Position(0, 0, 0), true),
-	WAYMOTTIN(waymottin, new Position(2805, 9147, 0), new Position(2805, 9148, 0)),
-	BUNKWICKET(bunkwicket, new Position(2803, 9148, 0), new Position(2803, 9149, 0)),
 	PRISON_GUARD_1(monkeyGuard_1, new Position(2768, 2804, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false),
 	PRISON_GUARD_2(monkeyGuard_2, new Position(2767, 2802, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false);
 	     /*
@@ -205,10 +203,6 @@ public class ApeAtollNpcs {
 		a.startGuardWalkCycle();
 	    } else if(!a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
 		a.startBasicWalkCycle();
-	    } else if (a.equals(ApeAtollNpcData.WAYMOTTIN) || a.equals(ApeAtollNpcData.BUNKWICKET)) {
-		a.getNpc().getUpdateFlags().setFace(a.first);
-		a.getNpc().getUpdateFlags().sendFaceToDirection(a.first);
-		a.getNpc().getUpdateFlags().setUpdateRequired(true);
 	    }
 	}
     }
@@ -251,8 +245,8 @@ public class ApeAtollNpcs {
     
     public static void rubWalls() {
 	rubbingWalls = true;
-	waymottin.getUpdateFlags().sendAnimation(1414);
-	bunkwicket.getUpdateFlags().sendAnimation(1414);
+	WAYMOTTIN.getUpdateFlags().sendAnimation(1414);
+	BUNKWICKET.getUpdateFlags().sendAnimation(1414);
 	World.submit(new Tick(100) {
 	    @Override
 	    public void execute() {

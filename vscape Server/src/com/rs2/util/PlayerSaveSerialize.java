@@ -264,9 +264,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {
+		    monkeyMadnessVarsObj.addProperty("spokenMonkeyChild", player.getMMVars().spokenToMonkeyChild());
 		    monkeyMadnessVarsObj.addProperty("monkeyChildBananas", player.getMMVars().givenMonkeyChildBananas());
 		    monkeyMadnessVarsObj.addProperty("monkeyChildToy", player.getMMVars().monkeyChildHasToy());
 		    monkeyMadnessVarsObj.addProperty("openGate", player.getMMVars().openGate());
+		    monkeyMadnessVarsObj.addProperty("firstTimeJail", player.getMMVars().firstTimeJail());
+		    monkeyMadnessVarsObj.addProperty("canHideInGrass", player.getMMVars().canHideInGrass());
+		    monkeyMadnessVarsObj.addProperty("gotAmulet", player.getMMVars().gotAmulet());
+		    monkeyMadnessVarsObj.addProperty("gotTalisman", player.getMMVars().gotTalisman());
 		}
 		questObj.add("monkeyMadnessVars", monkeyMadnessVarsObj);
 		JsonArray questArray = new JsonArray();

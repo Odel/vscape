@@ -14,7 +14,7 @@ public class MonkeyMadnessVars {
     private boolean gotTalisman;
     private boolean openGate;
     private boolean firstTimeJail = true;
-    private boolean spokenToMonkeyChild1;
+    private boolean spokenToMonkeyChild;
     private boolean canHideInGrass = false;
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
@@ -25,12 +25,12 @@ public class MonkeyMadnessVars {
 	this.player = player;
     }
     
-    public boolean spokenToMonkeyChild1() {
-        return this.spokenToMonkeyChild1;
+    public boolean spokenToMonkeyChild() {
+        return this.spokenToMonkeyChild;
     }
     
-    public void setSpokenToMonkeyChild1(boolean set) {
-        this.spokenToMonkeyChild1 = set;
+    public void setSpokenToMonkeyChild(boolean set) {
+        this.spokenToMonkeyChild = set;
     }
     
     public boolean givenMonkeyChildBananas() {

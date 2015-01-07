@@ -127,7 +127,7 @@ public class AlchemistPlayground {
 	    player.getActionSender().sendMessage("You can't take coins in the Alchemists' Playground.");
 	    return;
 	}
-	alchPizazzPoint = player.getAlchemistPizazz();
+	alchPizazzPoint = 0;
 	player.teleport(ENTERING_POSITION[number]);
 	player.getActionSender().sendMessage("You've entered the Alchemists' Playground.");
 	initializeObjects();
@@ -142,7 +142,7 @@ public class AlchemistPlayground {
     }
     
     public void saveVariables(boolean DC) {
-		player.setAlchemistPizazz(alchPizazzPoint > 8000 ? 8000 : alchPizazzPoint);
+		player.setAlchemistPizazz(player.getAlchemistPizazz() + alchPizazzPoint);
 		alchPizazzPoint = 0;
 		coinReward = 0;
 		if (player != null && !DC) {
@@ -233,7 +233,7 @@ public class AlchemistPlayground {
     
     public void loadInterfacePlayer() {
 	player.getActionSender().sendWalkableInterface(15892);
-	player.getActionSender().sendString("" + alchPizazzPoint, 15896);
+	player.getActionSender().sendString("" + (player.getAlchemistPizazz() + alchPizazzPoint), 15896);
 	player.getActionSender().sendString("" + MageGameConstants.LEATHER_BOOTS_PRICE, 15902);
 	player.getActionSender().sendString("" + MageGameConstants.ADAMANT_KITE_PRICE, 15903);																	// kiteshield
 	player.getActionSender().sendString("" + MageGameConstants.ADAMANT_MED_HELM_PRICE, 15904);																	// med

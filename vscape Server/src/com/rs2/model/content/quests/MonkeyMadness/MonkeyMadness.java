@@ -43,7 +43,7 @@ public class MonkeyMadness implements Quest {
     public static final int MEANWHILE = 7;
     public static final int PRISON_DAY_1 = 8;
     public static final int GARKORS_ORDERS = 9;
-    public static final int ZOOKNOOK_SPEECH = 10;
+    public static final int ZOOKNOCK_SPEECH = 10;
     public static final int MONKEY_MAN = 11;
     public static final int GARKORS_PLAN = 12;
     public static final int KRUKS_PERMISSION = 13;
@@ -178,6 +178,8 @@ public class MonkeyMadness implements Quest {
     public static final int CRATE_8 = 4722;
     public static final int CRATE_9 = 4723;
     public static final int AMULET_MOULD_CRATE = 4724;
+    public static final int BAMBOO_GATE_LEFT = 4787;
+    public static final int BAMBOO_GATE_RIGHT = 4788;
     
     public int dialogueStage = 0;
 
@@ -297,6 +299,17 @@ public class MonkeyMadness implements Quest {
 		player.getActionSender().sendString("Lumbdo from the 10th Squad is here protecting the", 8154);
 		player.getActionSender().sendString("intact gliders, but refuses to take me to the atoll", 8155);
 		player.getActionSender().sendString("where Segeant Garkor and the rest of the Squad are.", 8156);
+		break;
+	    case MEANWHILE:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and myself have ended up on 'Crash Island'.", 8153);
+		
+		player.getActionSender().sendString("It took some convincing, but Lumbdo has taken me", 8154);
+		player.getActionSender().sendString("to the mysterious atoll. I need to find Sergeant", 8155);
+		player.getActionSender().sendString("Garkor immediately.", 8156);
 		break;
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
@@ -453,6 +466,25 @@ public class MonkeyMadness implements Quest {
 
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch (object) {
+	    case BAMBOO_GATE_LEFT:
+	    case BAMBOO_GATE_RIGHT:
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getActionSender().walkTo(0, player.getPosition().getY() < 2766 ? 2 : -2, true);
+			GameObject o = new GameObject(4790, 2722, 2766, 0, 2, 10, -1, 1);
+			GameObject ob = new GameObject(Constants.EMPTY_OBJECT, 2721, 2766, 0, 2, 10, 4788, 1);
+			GameObject oc = new GameObject(4789, 2719, 2766, 0, 0, 10, 4787, 1);
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 2);
+		return true;
 	    case REINITIALIZATION_PANEL:
 		if(player.getQuestStage(36) == ORDERS_FROM_DAERO) {
 		    openGliderPuzzle(player);
@@ -683,7 +715,7 @@ public class MonkeyMadness implements Quest {
 	    if(i == null || i.getId() == -1) {
 		continue;
 	    }
-	    if (GreeGreeData.talismanForBones(i.getId()) != 0) {
+	    if (GreeGreeData.talismanForBones(i.getId()) != -1) {
 		return i.getId();
 	    }
 	}
@@ -789,9 +821,124 @@ public class MonkeyMadness implements Quest {
 		}, 8);
 		//Dialogues.startDialogue(player, 1223334444);
 		return;
-	    case MONKEY_MAN:
-		//player.fadeTeleport(CUTSCENE_2);
-		Dialogues.startDialogue(player, 444433322);
+	    case ZOOKNOCK_SPEECH:
+		player.setQuestStage(36, MONKEY_MAN);
+		player.getActionSender().sendWalkableInterface(8677);
+		player.getActionSender().sendMapState(2);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    int count = 1;
+
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			DialogueManager d = player.getDialogue();
+			player.setStopPacket(true);
+			switch (count) {
+			    case 1:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("It is good of you to meet with me, Waydar.", CONTENT);
+				break;
+			    case 2:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("It is good to see you again, Caranock. It is a strange", "island these monkeys inhabit.", CONTENT);
+				break;
+			    case 3:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Well observed. How have you been keeping yourself", "occupied?", CONTENT);
+				break;
+			    case 4:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("I am now a Flight Commander. My duties include", "testing Glough's prototype military glider.", CONTENT);
+				break;
+			    case 5:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("My my. How things have changed somewhat since", "Glough's time... Now, what of the human?", CONTENT);
+				break;
+			    case 6:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("The human? Just somebody Narnode appears to have", "taken a fancy to. It is hard to tell why. I suspect the", "human was involved with Glough's fall from grace.", CONTENT);
+				break;
+			    case 7:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("You may be right. Never mind, there are greater", "matters afoot. With Glough gone, it falls to us to", "continue with his plans.", CONTENT);
+				break;
+			    case 8:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Also, the shipyard workers are becoming restless.", CONTENT);
+				break;
+			    case 9:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("I see. What do you have in mind?", CONTENT);
+				break;
+			    case 10:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Money for me, Waydar, and promotion for you. As", "you know the 10th Squad of the Royal Guard are", "slightly worse for wear on this island.", CONTENT);
+				break;
+			    case 11:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("This I know. But I don't see how it leads to money or", "a promotion.", CONTENT);
+				break;
+			    case 12:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("What if they were to die? An entire squad of the Royal", "Guard goes missing in the jungle of Karamja... We", "could blame it on the human.", CONTENT);
+				break;
+			    case 13:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("Narnode would be furious.", CONTENT);
+				break;
+			    case 14:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Precisely. He might even order an invasion. At the", "very least he'll step up the defense. More orders for me,", "promotion for you.", CONTENT);
+				break;
+			    case 15:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("Very clever. It might also serve us well to remind", "Narnode of Bolren's situation.", CONTENT);
+			    case 16:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Ah yes, all that trouble with the Khazard. Last I heard,", "Bolren had retrieved the orbs of protection. Apparently", "some human lent their assistance.", CONTENT);
+				break;
+			    case 17:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("Really? Typical meddling human behavior.", "Nevertheless, it will stoke fires of worry. After all, the", "battle still continues.", CONTENT);
+				break;
+			    case 18:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("I agree. Anyhow, we don't want your human", "wondering as to your whereabouts. When the time is", "right, don't hesitate to... dispose of it.", CONTENT);
+				break;
+			    case 19:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("Understood. Military gliders are after all, an untested", "form of transport...", CONTENT);
+				break;
+			    case 20:
+				b.stop();
+			}
+			count++;
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+			player.getActionSender().sendWalkableInterface(-1);
+			player.getActionSender().removeInterfaces();
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				openChapterInterface(player);
+				player.getActionSender().sendString("Monkey Madness: Chapter 3", 11112);
+				player.getActionSender().sendString("In which our hero finds himself contending with life as a", 11115);
+				player.getActionSender().sendString("monkey.", 11116);
+			    }
+			}, 3);
+			player.getDialogue().dontCloseInterface();
+			player.getActionSender().sendMapState(0);
+		    }
+		}, 8);
+		//Dialogues.startDialogue(player, 444433322);
 		return;
 	    case GARKORS_RETELLING:
 		//player.fadeTeleport(CUTSCENE_3);
@@ -2400,20 +2547,7 @@ public class MonkeyMadness implements Quest {
 			}
 			return false;
 		    case GARKORS_ORDERS:
-			switch (d.getChatId()) {
-			    case 1:
-				d.sendNpcChat("Have you obtained a disguise yet?", CONTENT);
-				return true;
-			    case 2:
-				d.sendPlayerChat("Not yet I'm afraid...", CONTENT);
-				return true;
-			    case 3:
-				d.sendNpcChat("Remember to talk to Zooknock in the underground", "caves if you need help, human.", CONTENT);
-				d.endDialogue();
-				return true;
-			}
-			return false;
-		    case ZOOKNOOK_SPEECH:
+		    case ZOOKNOCK_SPEECH:
 			switch (d.getChatId()) {
 			    case 1:
 				d.sendNpcChat("Have you obtained a disguise yet?", CONTENT);
@@ -2728,11 +2862,11 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 55:
 				d.sendNpcChat("Similarly, the transformation spell should be stored in a", "monkey talisman of some kind.", CONTENT);
-				player.setQuestStage(36, ZOOKNOOK_SPEECH);
+				player.setQuestStage(36, ZOOKNOCK_SPEECH);
 				return true;
 			}
 			return false;
-		    case ZOOKNOOK_SPEECH:
+		    case ZOOKNOCK_SPEECH:
 			if (player.getInventory().playerHasItem(MONKEY_DENTURES) && player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD) && player.getInventory().playerHasItem(GOLD_BAR)) {
 			    switch (d.getChatId()) {
 				case 1:
@@ -2756,12 +2890,11 @@ public class MonkeyMadness implements Quest {
 				    d.sendGiveItemNpc("Zooknock hands you back the gold bar and the", "monkey amulet mould.", new Item(ENCHANTED_BAR), new Item(MONKEYSPEAK_AMULET_MOULD));
 				    player.getMMVars().setGotAmulet(true);
 				    if (amuletAndTalisman(player)) {
-					player.setQuestStage(36, MONKEY_MAN);
+					return true;
 				    } else {
 					d.endDialogue();
 					return true;
 				    }
-				    return true;
 				case 7:
 				    openChapterInterface(player);
 				    player.getActionSender().sendString("Meanwhile, somewhere far below the Ape Atoll...", 11115);
@@ -2776,40 +2909,41 @@ public class MonkeyMadness implements Quest {
 				    d.sendNpcChat("Excellent.", CONTENT);
 				    return true;
 				case 2:
-				    d.sendNpcChat("Bear with me human, I must now cast an extremely", "powerful spell. It is not often we are sccessful in", "investing shapeshifting powers within objects.", CONTENT);
+				    d.sendNpcChat("Bear with me human, I must now cast an extremely", "powerful spell. It is not often we are successful in", "investing shapeshifting powers within objects.", CONTENT);
 				    return true;
 				case 3:
-				    int talismanId = GreeGreeData.talismanForBones(getFirstBonesInInventory(player));
-				    int bonesId = getFirstBonesInInventory(player);
-				    if (talismanId != -1) {
-					player.getInventory().removeItem(new Item(MONKEY_TALISMAN));
-					player.getInventory().removeItem(new Item(bonesId));
-					d.sendGiveItemNpc("Zooknock hands you back the talisman. It seems to glow.", new Item(talismanId));
-					player.getInventory().addItemOrDrop(new Item(talismanId));
-					return true;
-				    }
+				    d.sendStatement("Zooknock seems to focus intently.");
 				    return true;
 				case 4:
-				    d.sendNpcChat("I am afraid I have not been able to fully invest my", "powers in that talisman. You may use it, but it will", "continue to draw its energy directly from me.", CONTENT);
+				    d.sendStatement("The air begins to hum.");
 				    return true;
 				case 5:
-				    d.sendNpcChat("The range at which I will be able to sustain it is limited.", "I cannot ensure it will be effective off the atoll.", CONTENT);
+				    int talismanId = GreeGreeData.talismanForBones(getFirstBonesInInventory(player));
+				    d.sendGiveItemNpc("Zooknock hands you back the talisman. It seems to glow.", new Item(talismanId));
 				    return true;
 				case 6:
-				    d.sendNpcChat("Furthermore, you will not be able to attack whilst using", "this, so be careful. perhaps when I refine my spells I", "could look into making this possible.", CONTENT);
-				    player.getMMVars().setGotTalisman(true);
-				    if (amuletAndTalisman(player)) {
-					player.setQuestStage(36, MONKEY_MAN);
-				    } else {
-					d.endDialogue();
-					return true;
-				    }
+				    d.sendNpcChat("I am afraid I have not been able to fully invest my", "powers in that talisman. You may use it, but it will", "continue to draw its energy directly from me.", CONTENT);
 				    return true;
 				case 7:
-				    openChapterInterface(player);
-				    player.getActionSender().sendString("Meanwhile, somewhere far below the Ape Atoll...", 11115);
-				    d.dontCloseInterface();
-				    meanwhile(player);
+				    d.sendNpcChat("The range at which I will be able to sustain it is limited.", "I cannot ensure it will be effective off the atoll.", CONTENT);
+				    return true;
+				case 8:
+				    d.sendNpcChat("Furthermore, you will not be able to attack whilst using", "this, so be careful. perhaps when I refine my spells I", "could look into making this possible.", CONTENT);
+				    return true;
+				case 9:
+				    player.getMMVars().setGotTalisman(true);
+				    int talisman = GreeGreeData.talismanForBones(getFirstBonesInInventory(player));
+				    int bonesId = getFirstBonesInInventory(player);
+				    player.getInventory().replaceItemWithItem(new Item(MONKEY_TALISMAN), new Item(talisman));
+				    player.getInventory().removeItem(new Item(bonesId));
+				    if (amuletAndTalisman(player)) {
+					openChapterInterface(player);
+					player.getActionSender().sendString("Meanwhile, somewhere far below the Ape Atoll...", 11115);
+					d.dontCloseInterface();
+					meanwhile(player);
+				    } else {
+					player.getActionSender().removeInterfaces();
+				    }
 				    return true;
 			    }
 			} else {
@@ -2908,7 +3042,7 @@ public class MonkeyMadness implements Quest {
 			}
 			return false;
 		}
-		if (player.getQuestStage(36) > ZOOKNOOK_SPEECH) {
+		if (player.getQuestStage(36) > ZOOKNOCK_SPEECH) {
 		    if (player.getInventory().playerHasItem(MONKEY_DENTURES) && player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD) && player.getInventory().playerHasItem(GOLD_BAR)) {
 			switch (d.getChatId()) {
 			    case 1:
@@ -3135,14 +3269,14 @@ public class MonkeyMadness implements Quest {
 		if (player.getEquipment().getId(Constants.AMULET) != MONKEYSPEAK_AMULET) {
 		    d.sendNpcChat("Ook. Ook.", CONTENT);
 		    d.endDialogue();
-		    return false;
-		} else if (!player.getMMVars().spokenToMonkeyChild1()) {
+		    return true;
+		} else if (!player.getMMVars().spokenToMonkeyChild() && !player.getMMVars().givenMonkeyChildBananas() && !player.getMMVars().monkeyChildHasToy()) {
 		    switch (d.getChatId()) {
 			case 1:
-			    d.sendNpcChat("You look a lot bigger than last time, Uncle!", CONTENT);
+			    d.sendNpcChat("You look a lot bigger than last time", "I saw you, Uncle!", CONTENT);
 			    return true;
 			case 2:
-			    d.sendPlayerChat("I've been... eating more bananas... just like you should", "be!", CONTENT);
+			    d.sendPlayerChat("I've uh, been... eating more bananas... ", "just like you should be!", CONTENT);
 			    return true;
 			case 3:
 			    d.sendNpcChat("I'm bored.", CONTENT);
@@ -3154,7 +3288,7 @@ public class MonkeyMadness implements Quest {
 			    d.sendNpcChat("Aunty told me to pick loads of bananas. She said if, I", "got bananas she'd give me a new toy!", CONTENT);
 			    return true;
 			case 6:
-			    d.sendOption("What kind of toy did AUnty say she'd give you?", "How many bananas did Aunty want?");
+			    d.sendOption("What kind of toy did Aunty say she'd give you?", "How many bananas did Aunty want?");
 			    return true;
 			case 7:
 			    switch (optionId) {
@@ -3172,7 +3306,7 @@ public class MonkeyMadness implements Quest {
 			    d.setNextChatId(7);
 			    return true;
 			case 9:
-			    d.sendNpcChat("Twenty! But I can't count! IT's very mean of her, isn't", "it uncle?", CONTENT);
+			    d.sendNpcChat("Twenty! But I can't count! It's very mean of her, isn't", "it uncle?", CONTENT);
 			    return true;
 			case 10:
 			    d.sendPlayerChat("Yes, very mean... do you want me to get the bananas", "for you?", CONTENT);
@@ -3185,20 +3319,26 @@ public class MonkeyMadness implements Quest {
 			    return true;
 			case 13:
 			    d.sendNpcChat("Ok Uncle!", CONTENT);
-			    player.getMMVars().setSpokenToMonkeyChild1(true);
+			    player.getMMVars().setSpokenToMonkeyChild(true);
 			    d.endDialogue();
 			    return true;
 		    }
-		} else if (player.getMMVars().spokenToMonkeyChild1()) {
+		} else if (player.getMMVars().spokenToMonkeyChild() && !player.getMMVars().givenMonkeyChildBananas() && !player.getMMVars().monkeyChildHasToy()) {
 		    switch (d.getChatId()) {
 			case 1:
 			    d.sendNpcChat("Did you get any bananas, Uncle?", CONTENT);
 			    return true;
 			case 2:
-			    if (player.getInventory().playerHasItem(BANANA, 5)) {
+			    int amount = player.getInventory().getItemAmount(BANANA);
+			    if (amount >= 5) {
 				d.sendPlayerChat("Yes, I have some here.", CONTENT);
-				player.getInventory().removeItem(new Item(BANANA, 5));
+				player.getInventory().removeItem(new Item(BANANA, amount));
 				return true;
+			    } else if (amount > 0 && amount < 5) {
+				d.sendPlayerChat("I have some bananas here for you.", CONTENT);
+				d.setNextChatId(6);
+				return true;
+				
 			    } else {
 				d.sendPlayerChat("Not yet, I'm afraid.", CONTENT);
 				d.endDialogue();
@@ -3215,8 +3355,21 @@ public class MonkeyMadness implements Quest {
 			    player.getMMVars().setGivenMonkeyChildBananas(true);
 			    d.endDialogue();
 			    return true;
+			case 6:
+			    d.sendNpcChat("That doesn't look like twenty bananas Uncle! I", "need more bananas!", DISTRESSED);
+			    return true;
+			case 7:
+			    d.sendStatement("The child looks on the verge of tears.");
+			    return true;
+			case 8:
+			    d.sendPlayerChat("N-no, don't cry! I'll get some more!", DISTRESSED);
+			    return true;
+			case 9:
+			    d.sendNpcChat("Yay! Thanks Uncle!", HAPPY);
+			    d.endDialogue();
+			    return true;
 		    }
-		} else if (player.getMMVars().givenMonkeyChildBananas() && !player.getMMVars().monkeyChildHasToy()) {
+		} else if (player.getMMVars().spokenToMonkeyChild() && player.getMMVars().givenMonkeyChildBananas() && !player.getMMVars().monkeyChildHasToy()) {
 		    switch (d.getChatId()) {
 			case 1:
 			    d.sendPlayerChat("Has Aunty given you the toy yet?", CONTENT);
@@ -3224,6 +3377,17 @@ public class MonkeyMadness implements Quest {
 			case 2:
 			    d.sendNpcChat("No, not yet... she said she's too busy dealing with", "something called humans.", CONTENT);
 			    d.endDialogue();
+			    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+				    b.stop();
+				}
+
+				@Override
+				public void stop() {
+				    player.getMMVars().setMonkeyChildHasToy(true);
+				}
+			    }, 120);
 			    return true;
 		    }
 		} else if (player.getMMVars().givenMonkeyChildBananas() && player.getMMVars().monkeyChildHasToy() && !player.getInventory().ownsItem(MONKEY_TALISMAN)) {
@@ -3510,91 +3674,6 @@ public class MonkeyMadness implements Quest {
 				return true;
 			}
 			return false;
-		}
-		return false;
-	    case 444433322:
-		switch (d.getChatId()) {
-		    case 1:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("It is good of you to meet with me, Waydar.", CONTENT);
-			return true;
-		    case 2:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("It is good to see you again, Caranock. It is a strange", "island these monkeys inhabit.", CONTENT);
-			return true;
-		    case 3:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Well observed. How have you been keeping yourself", "occupied?", CONTENT);
-			return true;
-		    case 4:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("I am now a Flight Commander. My duties include", "testing Glough's prototype military glider.", CONTENT);
-			return true;
-		    case 5:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("My my. How things have changed somewhat since", "Glough's time... Now, what of the human?", CONTENT);
-			return true;
-		    case 6:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("The human? Just somebody Narnode appears to have", "taken a fancy to. It is hard to tell why. I suspect the", "human was involved with Glough's fall from grace.", CONTENT);
-			return true;
-		    case 7:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("You may be right. Never mind, there are greater", "matters afoot. With Glough gone, it falls to us to", "continue with his plans.", CONTENT);
-			return true;
-		    case 8:
-			d.sendNpcChat("Also, the shipyard workers are becoming restless.", CONTENT);
-			return true;
-		    case 9:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("I see. What do you have in mind?", CONTENT);
-			return true;
-		    case 10:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Money for me, Waydar, and promotion for you. As", "you know the 10th Squad of the Royal Guard are", "slightly worse for wear on this island.", CONTENT);
-			return true;
-		    case 11:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("This i know. But I don't see how it leads to money or", "a promotion.", CONTENT);
-			return true;
-		    case 12:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("What if they were to die? An entire squad of the Royal", "Guard goes missing in the jungle of Karamja... We", "could blame it on the human.", CONTENT);
-			return true;
-		    case 13:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("Narnode would be furious.", CONTENT);
-			return true;
-		    case 14:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Precisely. He might even order an invasion. At the", "very least he'll step up the defense. More orders for me,", "promotion for you.", CONTENT);
-			return true;
-		    case 15:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("Very clever. It might also serve us well to remind", "Narnode of Bolren's situation.", CONTENT);
-		    case 16:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Ah yes, all that trouble with the Khazard. Last I heard,", "Bolren had retrieved the orbs of protection. Apparently", "some human lent their assistance.", CONTENT);
-			return true;
-		    case 17:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("Really? Typical meddling human behavior.", "Nevertheless, it will stoke fires of worry. After all, the", "battle still continues.", CONTENT);
-			return true;
-		    case 18:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("I agree. Anyhow, we don't want your human", "wondering as to your whereabouts. When the time is", "right, don't hesitate to... dispose of it.", CONTENT);
-			return true;
-		    case 19:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("Understood. Military gliders are after all, an untested", "form of transport...", CONTENT);
-			return true;
-		    case 20:
-			//player.fadeTeleport(); Cutscene
-			openChapterInterface(player);
-			player.getActionSender().sendString("Monkey Madness: Chapter 3", 11112);
-			player.getActionSender().sendString("In which our hero finds himself contending with life as a", 11115);
-			player.getActionSender().sendString("monkey.", 11116);
-			d.dontCloseInterface();
 		}
 		return false;
 	    case 666666221:
