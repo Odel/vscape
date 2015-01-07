@@ -441,7 +441,7 @@ public class Server implements Runnable {
 		}
 
 		//originaly 25 1/4 15 secs - changed to 50 1/2 30 secs - (100 ticks =  1 minute)
-		World.submit(new Tick(50) {
+		World.submit(new Tick(100) {
 		    @Override public void execute() {
 		        setMinutesCounter(getMinutesCounter() + 1);
                 for (Player player : World.getPlayers()) {
