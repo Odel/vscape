@@ -11,6 +11,7 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
+import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.DemonSlayer;
@@ -1225,7 +1226,7 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
-	if (itemId == 6893 || itemId == 6894 || itemId == 6895 || itemId == 6897) {
+	if (itemId == 6893 || itemId == 6894 || itemId == 6895 || itemId == 6897 || itemId == 5607 || itemId == 5608 || itemId == 5609) {
 	    player.getActionSender().sendMessage("You cannot equip this item.");
 	    return;
 	}
