@@ -1301,14 +1301,14 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, false, 0);
         }
-	if(this.Area(2754, 2814, 3833, 3873)) {
-	    this.teleport(ChristmasEvent.SNOWY_JAIL);
-	}
 	if(this.inTempleKnightsTraining()) {
 	    this.getActionSender().sendMapState(2);
 	}
 	if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
 	    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
+	}
+	if(this.getGraveyardFruitDeposited() > 15) {
+	    this.setGraveyardFruitDeposited(15);
 	}
 	for(Player player : World.getPlayers()) {
 	    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
