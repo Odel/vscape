@@ -157,6 +157,11 @@ public class BankPin {
 	}
 
 	private void verifyPin(int pinEntered) {
+	    if(interfaceStatus < 0) {
+		player.getActionSender().sendMessage("Something has gone wrong with the PIN interface. Please ::bugreport.");
+		System.out.println("interfaceStatus was < 0 for:" + player.getUsername() + " line 162 BankPin.java");
+		return;
+	    }
 		player.setPinAttempt(pinEntered, interfaceStatus);
 		if (interfaceStatus + 1 < 4) {
 			sendBankPinVerificationInterface(interfaceStatus + 1);
