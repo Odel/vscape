@@ -64,7 +64,7 @@ public class ClueScroll {
 	public static String[] levelTwoClueNpc = {"Guard", "Tribesman", "Bandit Camp Human", "Cockatrice", "Abyssal Leech", "Pyrefiend", "Harpie Bug Swarm", "Black Guard", "Rellekka Warrior", "Market Guard", "Jogre", "Ice Warrior", "Abyssal Guardian", "Paladin", "Vampire", "Dagannoth", "Skeleton", "Abyssal Walker", "Dagannoth", "Wallasalki", "Mummy", "Giant Rock Crab", "Werewolf", "Hill Giant",
 						    "Alexis", "Boris", "Eduard", "Galina", "Georgy", "Imre", "Irina", "Joseph", "Ksenia", "Liliya", "Lev", "Milla", "Nikita", "Nikolai", "Sofiya", "Svetlana", "Vera", "Yadviga", "Yuri", "Zoja", "Moss Giant"};
 
-	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon", "Black Demon", "Aberrant Spectre", "Bloodveld"};
+	public static String[] levelThreeClueNpc = {"Greater Demon", "Elf Warrior", "Tyras Guard", "Hellhound", "Dragon", "Dagannoth", "Turoth", "Jelly", "Aberrant Specter", "Gargoyle", "Nechryael", "Abyssal Demon", "Black Demon", "Aberrant Spectre"};
 
 	// todo torn page make into mage books + firelighters + reward items to reward
 
