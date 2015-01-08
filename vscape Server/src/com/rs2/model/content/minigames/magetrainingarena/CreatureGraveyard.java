@@ -205,7 +205,7 @@ public class CreatureGraveyard {
 	}
 	if(pizazzWon > 0) {
 	    player.getActionSender().sendMessage("You put " + (bananaCount + peachCount) + " fruit in the food chute and receive " + pizazzWon + " point(s) and a rune reward!");
-	    int newCount = (bananaCount + peachCount + fruitDeposited) - (pizazzWon * 16)c;
+	    int newCount = (bananaCount + peachCount + fruitDeposited) - (pizazzWon * 16);
 	    fruitDeposited = newCount > 0 ? newCount : 0;
 	    player.getInventory().addItemOrDrop(new Item(RUNE_REWARDS[Misc.randomMinusOne(RUNE_REWARDS.length)], pizazzWon));
 	} else {
