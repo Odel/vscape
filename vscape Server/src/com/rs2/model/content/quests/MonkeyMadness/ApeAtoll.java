@@ -69,7 +69,7 @@ public class ApeAtoll {
 	MYSTERIOUS_GREEGREE(4028, -1, 1484, 1401, 1399, 1400),
 	SMALL_ZOMBIE_GREEGREE(4029, 3185, 1485, 1386, 1382, -1),
 	LARGE_ZOMBIE_GREEGREE(4030, 3186, 1486, 1386, 1382, -1),
-	MONKEY_GREEGREE(4031, 3183, 1487, 222, 219, -1);
+	MONKEY_GREEGREE(4031, 3183, 1487, 222, 219, 219);
 
 	private int itemId;
 	private int bonesId;
@@ -89,7 +89,7 @@ public class ApeAtoll {
 
 	public static GreeGreeData forItemId(int itemId) {
 	    for (GreeGreeData g : GreeGreeData.values()) {
-		if (g.itemId == itemId) {
+		if (itemId != -1 && g.itemId == itemId) {
 		    return g;
 		}
 	    }
@@ -322,7 +322,7 @@ public class ApeAtoll {
     }
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {
-	    if (player.onApeAtoll()) {
+	    if (player.onApeAtoll() || player.Area(2591, 2639, 3264, 3288)) {
 		player.getUpdateFlags().sendGraphic(160);
 		player.getEquipment().equip(player.getSlot());
 		GreeGreeData g = GreeGreeData.forItemId(itemId);
@@ -347,7 +347,7 @@ public class ApeAtoll {
     }
     
     public static void handleGreeGree(final Player player, GreeGreeData g) {
-	if (player.onApeAtoll()) {
+	if (player.onApeAtoll() || player.Area(2591, 2639, 3264, 3288)) {
 	    player.transformNpc = g.getTransformId();
 	    player.setStandAnim(g.getStandAnim());
 	    player.setWalkAnim(g.getWalkAnim());

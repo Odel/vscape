@@ -263,7 +263,7 @@ public class ApeAtollNpcs {
     
     public static boolean walkIntoNpc(final Player player, int dirX, int dirY) {
 	for (Npc npc : World.getNpcs()) {
-	    if (npc == null || npc.getNpcId() != MONKEY_GUARD_BLOCK) {
+	    if (npc == null || (npc.getNpcId() != MONKEY_GUARD_BLOCK && npc.getNpcId() != 1461 && npc.getNpcId() != 1462)) {
 		//DO NOTHING? WHAT A MADMAN
 	    } else if (!player.isDead() && npc.getPosition().getZ() == player.getPosition().getZ() && !npc.isPet()) {
 		if (Misc.goodDistance(player.getPosition().getX(), player.getPosition().getY(), npc.getPosition().getX(), npc.getPosition().getY(), npc.getSize())) {

@@ -874,7 +874,7 @@ public class WalkToActionHandler {
 					}
 					break;
 				case 1968 :
-				case 1967 :
+				case 1967 : //grand tree doors
 				    player.setStopPacket(true);
 				    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					@Override
@@ -2097,7 +2097,7 @@ public class WalkToActionHandler {
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
 				{
-				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker()) { //Exceptions
+				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462) { //Exceptions
 					return;
 				    }
 				}

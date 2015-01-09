@@ -111,7 +111,13 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(2766, 2781, 0, 10, 0); //ape atoll spot
 		ObjectHandler.getInstance().removeClip(2765, 2782, 0, 10, 0); //ape atoll spot
 		ObjectHandler.getInstance().removeClip(2765, 2781, 0, 10, 0); //ape atoll spot
-		ObjectHandler.getInstance().removeClip(2764, 2783, 0, 10, 0); //ape atoll spot
+		ObjectHandler.getInstance().removeClip(2764, 2783, 0, 10, 0); //ape atoll
+		ObjectHandler.getInstance().removeClip(2755, 2705, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2742, 2763, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2742, 2762, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2760, 2761, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2760, 2762, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2761, 2762, 0, 10, 0);
 		
 		ObjectHandler.getInstance().removeClip(3367, 9644, 0, 22, 0);
 		ObjectHandler.getInstance().removeClip(3366, 9643, 0, 22, 0);
@@ -153,6 +159,9 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		
 		ObjectHandler.getInstance().addClip(4712, 2749, 2768, 0, 1, 22);
 		ObjectHandler.getInstance().addClip(4712, 2764, 2769, 0, 1, 22);
+		
+		//ObjectHandler.getInstance().addDoorClip(2802, 2758, 0, 1);
+		//ObjectHandler.getInstance().addDoorClip(2799, 2761, 0, 1); //Awowogei's palace
 	}
 	
 	public static void addObjects() {

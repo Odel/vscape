@@ -287,7 +287,7 @@ public class MovementHandler {
 			return false;
 		if(entity.isPlayer()) {
 		    Player player = (Player)entity;
-		    if (player.transformNpc >= 1485 && player.transformNpc <= 1487) {
+		    if (player.transformNpc >= 1485 && player.transformNpc < 1487) {
 			return false;
 		    }
 		}

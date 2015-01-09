@@ -23,6 +23,7 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.World;
+import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
@@ -30,6 +31,7 @@ import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.util.Misc;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.objects.functions.Ladders;
 
 public class MonkeyMadness implements Quest {
 
@@ -80,7 +82,8 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEY_SKULL = 4034;
     public static final int TENTH_SQUAD_SIGIL = 4035;
     public static final int WOOL = 1759;
-
+    public static final int KARAMJA_MONKEY_BONES = 3183;
+    
     //Positions
     public static final Position INSIDE_VILLAGE = new Position(2515, 3162, 0);
     public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
@@ -466,9 +469,25 @@ public class MonkeyMadness implements Quest {
 
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch (object) {
+	    case 4771: //AWOWOGEI
+		Dialogues.startDialogue(player, AWOWOGEI);
+		return true;
+	    case 4774:
+		Ladders.climbLadder(player, new Position(2728, 2766, 2));
+		return true;
+	    case 4776:
+		Ladders.climbLadder(player, new Position(2730, 2766, 0));
+		return true;
+	    case 4777:
+		Ladders.climbLadder(player, new Position(2712, 2766, 0));
+		return true;
+	    case 4775:
+		Ladders.climbLadder(player, new Position(2714, 2766, 2));
+		return true;
 	    case BAMBOO_GATE_LEFT:
 	    case BAMBOO_GATE_RIGHT:
 		player.setStopPacket(true);
+		player.getActionSender().sendMessage("The guards give you a wink and a nod as you pass through the gate.");
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
@@ -721,6 +740,14 @@ public class MonkeyMadness implements Quest {
 	}
 	return 0;
     }
+    
+    public static String getMonkeyTransformName(final Player player) {
+	GreeGreeData g = GreeGreeData.forItemId(player.getEquipment().getId(Constants.WEAPON));
+	if(g != null) {
+	    return g.name().substring(0, g.name().indexOf('_'));
+	}
+	return "null";
+    }
 
     public static void meanwhile(final Player player) {
 	player.setStopPacket(true);
@@ -940,9 +967,147 @@ public class MonkeyMadness implements Quest {
 		}, 8);
 		//Dialogues.startDialogue(player, 444433322);
 		return;
-	    case GARKORS_RETELLING:
-		//player.fadeTeleport(CUTSCENE_3);
-		Dialogues.startDialogue(player, 666666221);
+	    case PASSED_THE_TEST:
+		player.setQuestStage(36, GARKORS_RETELLING);
+		player.getActionSender().sendWalkableInterface(8677);
+		player.getActionSender().sendMapState(2);
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    int count = 1;
+
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			DialogueManager d = player.getDialogue();
+			player.setStopPacket(true);
+			switch (count) {
+			    case 1:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Good evening, Awowogei.", CONTENT);
+				break;
+			    case 2:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("It is always dark here, Gnome. Why have you asked to", "see me in private?", CONTENT);
+				break;
+			    case 3:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("Caranock and I have a suggestion to make.", CONTENT);
+				break;
+			    case 4:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Then be quick about it.", CONTENT);
+				break;
+			    case 5:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("The foot soldiers of the Royal Guard in your jail...", CONTENT);
+				break;
+			    case 6:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Would it not be easier if they were somehow just to...", "die?", CONTENT);
+				break;
+			    case 7:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Why would I want to do that? Your king would declare", "war on my island.", CONTENT);
+				break;
+			    case 8:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("I can assure you he will not. We will lay the blame at", "the humans' feet.", CONTENT);
+				break;
+			    case 9:
+				d.sendNpcChat("Narnode will indeed declare war, not against you, but", "against humankind.", CONTENT);
+				break;
+			    case 10:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("You are of course welcome to your share of the profit.", CONTENT);
+				break;
+			    case 11:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Intriguing. I have recently secured an alliance with the", "northern monkeys, which may prove useful.", CONTENT);
+				break;
+			    case 12:
+				d.sendNpcChat("What would you have me do?", CONTENT);
+				break;
+			    case 13:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Kill the foot soldiers and the rest of the 10th Squad. My", "superior has sent you a few tricks which may prove", "useful.", CONTENT);
+				break;
+			    case 14:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Such as?", CONTENT);
+				break;
+			    case 15:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("High magic: the ability to summon the entire 10th Squad", "to a single location. and-", CONTENT);
+				break;
+			    case 16:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Even those who escaped?", CONTENT);
+				break;
+			    case 17:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Yes. And of course you will also receive access to one", "of his 'pets'.", CONTENT);
+				break;
+			    case 18:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("You must be careful with these, as you have only one", "use of each. Ensure you set your trap well, none", "must survive lest they spread the truth.", CONTENT);
+				break;
+			    case 19:
+				d.setLastNpcTalk(WAYDAR);
+				d.sendNpcChat("What of my human?", CONTENT);
+				break;
+			    case 20:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("What human?", CONTENT);
+				break;
+			    case 21:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Ignore him. My colleague's official mission was to look", "after a human in the area, but don't worry, it is", "probably dead already.", CONTENT);
+				break;
+			    case 22:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("I should hope so, for both of your sakes.", CONTENT);
+				break;
+			    case 23:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("Very well. I shall let you know when I have dealt with", "the Royal Guard.", CONTENT);
+				break;
+			    case 24:
+				d.setLastNpcTalk(GLO_CARANOCK);
+				d.sendNpcChat("Good luck, Awowogei.", CONTENT);
+				break;
+			    case 25:
+				d.setLastNpcTalk(AWOWOGEI);
+				d.sendNpcChat("With access to one of Glough's 'pets' I don't think I'll", "need it...", CONTENT);
+				break;
+			    case 26:
+				b.stop();
+			}
+			count++;
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+			player.getActionSender().sendWalkableInterface(-1);
+			player.getActionSender().removeInterfaces();
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+
+			    @Override
+			    public void stop() {
+				openChapterInterface(player);
+				player.getActionSender().sendString("Monkey Madness: Chapter 4", 11112);
+				player.getActionSender().sendString("The Final Battle", 11115);
+				player.getDialogue().dontCloseInterface();
+			    }
+			}, 3);
+			player.getDialogue().dontCloseInterface();
+			player.getActionSender().sendMapState(0);
+		    }
+		}, 8);
+		//Dialogues.startDialogue(player, 666666221);
 		return;
 	}
 	return;
@@ -2564,24 +2729,45 @@ public class MonkeyMadness implements Quest {
 		    case MONKEY_MAN:
 			switch (d.getChatId()) {
 			    case 1:
-				d.sendNpcChat("My, my, Zooknock has outdone himself this time. You", "Do look very much like a monkey with that.", CONTENT);
+				if(player.getMMVars().isMonkey()) {
+				    d.sendNpcChat("My, my, Zooknock has outdone himself this time. You", "do look very much like a monkey with that.", CONTENT);
+				} else {
+				    d.sendNpcChat("Hm, you don't quite look like a monkey yet.", "Come back when you're disguised and we'll talk then.", CONTENT);
+				    d.endDialogue();
+				}
 				return true;
 			    case 2:
 				d.sendPlayerChat("I know.", CONTENT);
 				return true;
 			    case 3:
-				d.sendNpcChat("And by happy coincidence you appear to be just the", "right sort of monkey.", CONTENT);
+				if(getMonkeyTransformName(player).equals("MONKEY")) {
+				    d.sendNpcChat("And by happy coincidence you appear to be just the", "right sort of monkey.", CONTENT);
+				} else {
+				    d.sendNpcChat("Hm, you're not disguised as a simple Karamjan", "monkey. You'll need to look humble for this next task.", "Come back when you have the proper greegree.", CONTENT);
+				    d.endDialogue();
+				}
 				return true;
 			    case 4:
 				d.sendNpcChat("I need you now to seek audience with Awowogei. Claim", "you are an envoy from the monkeys of Karamja and", "are seeking an alliance.", CONTENT);
 				return true;
 			    case 5:
-				d.sendNpcChat("You must win hi strust if we are to succeed.", CONTENT);
+				d.sendNpcChat("You must win his trust if we are to succeed.", CONTENT);
 				player.setQuestStage(36, GARKORS_PLAN);
 				d.endDialogue();
 				return true;
 			}
 			return true;
+		    case AWOWOGEIS_TEST:
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("I need you now to seek audience with Awowogei. Claim", "you are an envoy from the monkeys of Karamja and", "are seeking an alliance.", CONTENT);
+				return true;
+			    case 2:
+				d.sendNpcChat("You must win his trust if we are to succeed.", CONTENT);
+				d.endDialogue();
+				return true;
+			}
+		    return false;
 		    case PASSED_THE_TEST:
 			switch (d.getChatId()) {
 			    case 1:
@@ -2601,7 +2787,6 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 6:
 				d.sendNpcChat("Listen closely whilst I narrate the details.", CONTENT);
-				player.setQuestStage(36, GARKORS_RETELLING);
 				return true;
 			    case 7:
 				openChapterInterface(player);
@@ -2903,7 +3088,7 @@ public class MonkeyMadness implements Quest {
 				    return true;
 			    }
 			}
-			else if (getFirstBonesInInventory(player) != 0 && player.getInventory().playerHasItem(MONKEY_TALISMAN)) {
+			else if (player.getInventory().playerHasItem(KARAMJA_MONKEY_BONES) && player.getInventory().playerHasItem(MONKEY_TALISMAN)) {
 			    switch (d.getChatId()) {
 				case 1:
 				    d.sendNpcChat("Excellent.", CONTENT);
@@ -3074,10 +3259,9 @@ public class MonkeyMadness implements Quest {
 				int bonesId = getFirstBonesInInventory(player);
 				int talismanId = GreeGreeData.talismanForBones(bonesId);
 				if (talismanId != -1) {
-				    player.getInventory().removeItem(new Item(MONKEY_TALISMAN));
+				    player.getInventory().replaceItemWithItem(new Item(MONKEY_TALISMAN), new Item(talismanId));
 				    player.getInventory().removeItem(new Item(bonesId));
 				    d.sendGiveItemNpc("Zocknook hands you back the talisman. It seems to glow.", new Item(talismanId));
-				    player.getInventory().addItemOrDrop(new Item(talismanId));
 				    d.endDialogue();
 				    return true;
 				}
@@ -3101,16 +3285,16 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Greetings, visitor. What brings you to my island?", CONTENT);
 				return true;
 			    case 3:
-				d.sendPlayerChat("I am an envoy frmo the monkeys of Karamja. We wish", "to propose an alliance.", CONTENT);
+				d.sendPlayerChat("I am an envoy from the monkeys of Karamja.", "We wish to propose an alliance.", CONTENT);
 				return true;
 			    case 4:
-				d.sendNpcChat("I see. Ours is a strong and mighty lineage of monkey,", "visitor. We clearly do not need your offer of an", "alliance.", CONTENT);
+				d.sendNpcChat("I see. Ours is a strong and mighty lineage of", "monkey, visitor. We clearly do not need your offer", "of an alliance.", CONTENT);
 				return true;
 			    case 5:
 				d.sendPlayerChat("Awowogei, please consider my offer carefully.", CONTENT);
 				return true;
 			    case 6:
-				d.sendPlayerChat("We offer strength in numberes and our island would", "serve as a northern platform for defence. All that we", "ask for in return is peace.", CONTENT);
+				d.sendPlayerChat("We offer strength in numbers and our island would", "serve as a northern platform for defence. All that we", "ask for in return is peace.", CONTENT);
 				return true;
 			    case 7:
 				d.setLastNpcTalk(UWOGO);
@@ -3118,7 +3302,7 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 8:
 				d.setLastNpcTalk(AWOWOGEI);
-				d.sendNpcChat("What is your opinion, Mururwoi?", CONTENT);
+				d.sendNpcChat("What is your opinion, Muruwoi?", CONTENT);
 				return true;
 			    case 9:
 				d.setLastNpcTalk(MURUWOI);
@@ -3126,7 +3310,7 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 10:
 				d.setLastNpcTalk(AWOWOGEI);
-				d.sendNpcChat("I must admit. I have always regared your kind as our", "inferior cousins, visitor.", CONTENT);
+				d.sendNpcChat("I must admit. I have always regared your kind", "as our inferior cousins, visitor.", CONTENT);
 				return true;
 			    case 11:
 				d.sendNpcChat("However, I am well aware that you may have a few", "things to offer.", CONTENT);
@@ -3140,19 +3324,19 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Be silent, Uwogo!", CONTENT);
 				return true;
 			    case 14:
-				d.sendNpcChat("I have heard your kind are exceptionally resourceful. I", "wish to put this reputation to the test.", CONTENT);
+				d.sendNpcChat("I have heard your kind are exceptionally resourceful.", "I wish to put this reputation to the test.", CONTENT);
 				return true;
 			    case 15:
 				d.sendNpcChat("You must be well aware your kind are hunted and", "trapped almost everywhere.", CONTENT);
 				return true;
 			    case 16:
-				d.sendNpcChat("In particualr you may have heard of such activities in a", "city known to the humans as Ardougne.", CONTENT);
+				d.sendNpcChat("In particular you may have heard of such activities", "in a city known to the humans as Ardougne.", CONTENT);
 				return true;
 			    case 17:
 				d.sendNpcChat("There are several of your kind kept captive there. I", "challenge you to free one and return it to me.", CONTENT);
 				return true;
 			    case 18:
-				d.sendPlayerChat("How am I meant to free on of them?", CONTENT);
+				d.sendPlayerChat("How am I meant to free one of them?", CONTENT);
 				return true;
 			    case 19:
 				d.sendNpcChat("This is for you to decide, visitor.", CONTENT);
@@ -3167,7 +3351,7 @@ public class MonkeyMadness implements Quest {
 		    case AWOWOGEIS_TEST:
 			switch (d.getChatId()) {
 			    case 1:
-				d.sendNpcChat("Have you gone to Ardougne and retrieved a captive yet?", CONTENT);
+				d.sendNpcChat("Have you gone to Ardougne and", "retrieved a captive yet?", CONTENT);
 				return true;
 			    case 2:
 				d.sendPlayerChat("Not yet.", CONTENT);
@@ -3181,12 +3365,12 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Have you brought with you a captive?", CONTENT);
 				return true;
 			    case 2:
-				if (!player.getInventory().playerHasItem(MONKEY)) {
+				if (player.getInventory().playerHasItem(MONKEY)) {
+				    d.sendPlayerChat("Yes, I have.", CONTENT);
+				} else {
 				    d.sendPlayerChat("No, I haven't...", CONTENT);
-				    d.endDialogue();
-				    return true;
+				    d.endDialogue(); 
 				}
-				d.sendPlayerChat("Yes, I have.", CONTENT);
 				return true;
 			    case 3:
 				d.sendNpcChat("Well done!", CONTENT);
@@ -3434,19 +3618,20 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("What brings you up here, monkey?", CONTENT);
 				return true;
 			    case 3:
-				d.sendPlayerChat("I have come to seek audience with Awowogei. I am told", "I need your permission to do so.", CONTENT);
+				d.sendPlayerChat("I have come to seek audience with Awowogei.", "I am told I need your permission to do so.", CONTENT);
 				return true;
 			    case 4:
 				d.sendNpcChat("That's right, you do. What business have you on our", "island?", CONTENT);
 				return true;
 			    case 5:
-				d.sendPlayerChat("I am an envoy from the monkeys of Karamja. I have", "come to propose an alliance.", CONTENT);
+				d.sendPlayerChat("I am an envoy from the monkeys of Karamja.", "I have come to propose an alliance.", CONTENT);
 				return true;
 			    case 6:
 				d.sendNpcChat("I see. Very well, you look genuine enough. Follow me.", CONTENT);
 				return true;
 			    case 7:
 				player.fadeTeleport(AWOWOGEIS_PALACE);
+				player.setQuestStage(36, KRUKS_PERMISSION);
 				d.endDialogue();
 				return true;
 			}
@@ -3660,127 +3845,44 @@ public class MonkeyMadness implements Quest {
 			}
 			return false;
 		    case KRUKS_PERMISSION:
+		    case AWOWOGEIS_TEST:
 			switch (d.getChatId()) {
 			    case 1:
 				d.sendNpcChat("Grr... What do you want?", ANGRY_1);
 				return true;
 			    case 2:
-				d.sendPlayerChat("I'd like to speak with Awowogei, please.", CONTENT);
+				if (id == 1461) {
+				    if (player.getPosition().getY() < 2759) {
+					d.sendPlayerChat("I'd like to speak with Awowogei, please.", CONTENT);
+				    } else {
+					d.sendPlayerChat("I would like to leave now.", CONTENT);
+				    }
+				} else {
+				    if (player.getPosition().getY() < 2762) {
+					d.sendPlayerChat("I'd like to speak with Awowogei, please.", CONTENT);
+				    } else {
+					d.sendPlayerChat("I would like to leave now.", CONTENT);
+				    }
+				}
 				return true;
 			    case 3:
-				d.sendNpcChat("Very well, you may enter.", CONTENT);
-				//Enter awowogei
+				d.sendNpcChat("Very well.", CONTENT);
+				return true;
+			    case 4:
+				player.getActionSender().removeInterfaces();
+				Following.resetFollow(player);
+				player.setInteractingEntity(null);
+				if(id == 1461) {
+				    //player.walkTo(player.getPosition().getY() < 2759 ? new Position(2802, 2759, 0) : new Position(2802, 2756, 0), false);
+				    player.getActionSender().walkTo(player.getPosition().getX() != 2802 ? 2802 - player.getPosition().getX() : 0, player.getPosition().getY() < 2759 ? 2759 - player.getPosition().getY() : 2756 - player.getPosition().getY(), true);
+				} else {
+				    //player.walkTo(player.getPosition().getY() < 2762 ? new Position(2799, 2762, 0) : new Position(2799, 2759, 0), false);
+				    player.getActionSender().walkTo(player.getPosition().getX() != 2799 ? 2799 - player.getPosition().getX() : 0, player.getPosition().getY() < 2762 ? 2762 - player.getPosition().getY() : 2759 - player.getPosition().getY(), true);
+				}
 				d.endDialogue();
 				return true;
 			}
 			return false;
-		}
-		return false;
-	    case 666666221:
-		switch (d.getChatId()) {
-		    case 1:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Good evening, Awowogei.", CONTENT);
-			return true;
-		    case 2:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("It is always dark here, Gnome. Why have you asked to", "see me in private?", CONTENT);
-			return true;
-		    case 3:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("Caranock and I have a suggestion to make.", CONTENT);
-			return true;
-		    case 4:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("Then be quick about it.", CONTENT);
-			return true;
-		    case 5:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("The foot soldiers of the Royal Guard in your jail...", CONTENT);
-			return true;
-		    case 6:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Would it not be easier if they were somehow just to...", "die?", CONTENT);
-			return true;
-		    case 7:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("Why would I want to do that? Your king would declare", "war on my island.", CONTENT);
-			return true;
-		    case 8:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("I can assure you he will not. We will lay the blame at", "the humans' feet.", CONTENT);
-			return true;
-		    case 9:
-			d.sendNpcChat("Narnode will indeed declare war, not against you, but", "against humankind.", CONTENT);
-			return true;
-		    case 10:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("You are of course welcome to your share of the profit.", CONTENT);
-			return true;
-		    case 11:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("Intriguing. I have recently secured an alliance with the", "northern monkeys, which may prove useful.", CONTENT);
-			return true;
-		    case 12:
-			d.sendNpcChat("What would you have me do?", CONTENT);
-			return true;
-		    case 13:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Kill the foot soldiers and the rest of the 10th Squad. My", "superior has sent you a few tricks which may prove", "useful.", CONTENT);
-			return true;
-		    case 14:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("Such as?", CONTENT);
-			return true;
-		    case 15:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("High magic: the ability to summon the entire 10th Squad", "to a single location. and-", CONTENT);
-			return true;
-		    case 16:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("Even those who escaped?", CONTENT);
-			return true;
-		    case 17:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Yes. And of course you will also receive access to one", "of his 'pets'.", CONTENT);
-			return true;
-		    case 18:
-			d.sendNpcChat("You must be careful with these, as you have only one", "use of each. Ensure you set your trap well, none", "must survive lest they spread the truth.", CONTENT);
-			return true;
-		    case 19:
-			d.setLastNpcTalk(WAYDAR);
-			d.sendNpcChat("What of my human?", CONTENT);
-			return true;
-		    case 20:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("What human?", CONTENT);
-			return true;
-		    case 21:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Ignore him. My colleague's official mission was to look", "after a human in the area, but don't worry, it is", "probably dead already.", CONTENT);
-			return true;
-		    case 22:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("I should hope so, for both of your sakes.", CONTENT);
-			return true;
-		    case 23:
-			d.sendNpcChat("Very well. I shall let you know when I have dealt with", "the Royal Guard.", CONTENT);
-			return true;
-		    case 24:
-			d.setLastNpcTalk(GLO_CARANOCK);
-			d.sendNpcChat("Good luck, Awowogei.", CONTENT);
-			return true;
-		    case 25:
-			d.setLastNpcTalk(AWOWOGEI);
-			d.sendNpcChat("With access to one of Glough's 'pets' I don't think I'll", "need it...", CONTENT);
-			return true;
-		    case 26:
-			//player.fadeTeleport(); Cutscene
-			openChapterInterface(player);
-			player.getActionSender().sendString("Monkey Madness: Chapter 4", 11112);
-			player.getActionSender().sendString("The Final Battle", 11115);
-			d.dontCloseInterface();
-			return true;
 		}
 		return false;
 	}
