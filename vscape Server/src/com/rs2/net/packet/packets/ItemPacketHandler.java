@@ -20,6 +20,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -242,7 +243,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    if (!player.getInventory().removeItemSlot(item, player.getSlot())) {
 	    	player.getInventory().removeItem(item);
 	    }
-	    player.getUpdateFlags().sendForceMessage("ow!");
+	    player.getUpdateFlags().sendForceMessage("Ow!");
 	    player.getActionSender().sendMessage("You were injured by the exploding potion.");
 	    return;
 	}
@@ -252,6 +253,16 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (item.getId() == 6541) {
 	    player.getActionSender().sendMessage("You don't want to destroy your pet!");
+	    return;
+	}
+	if (item.getId() == 4033 && player.getQuestStage(36) >= 14) {
+	    player.getDialogue().setLastNpcTalk(1463);
+	    if(player.getEquipment().getId(Constants.AMULET) == MonkeyMadness.MONKEYSPEAK_AMULET) {
+		player.getDialogue().sendNpcChat("Don't drop me! You said you'd rescue me!", Dialogues.SAD);
+	    } else {
+		player.getDialogue().sendNpcChat("OOK! OOK!", Dialogues.DISTRESSED);
+	    }
+	    player.getDialogue().endDialogue();
 	    return;
 	}
 	if(player.getCat().registerCat(item.getId()))

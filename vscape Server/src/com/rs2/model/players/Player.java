@@ -1056,6 +1056,10 @@ public class Player extends Entity {
 		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
 		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
 		}
+		if(getQuestStage(36) >= 14 && getInventory().playerHasItem(4033)) {
+		    getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
+		    getInventory().removeItem(new Item(4033));
+		}
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
 		getUpdateFlags().sendGraphic(-1);

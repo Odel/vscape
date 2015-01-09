@@ -6,7 +6,7 @@ import com.rs2.model.Position;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.minigames.castlewars.impl.CatapultInterface;
-import com.rs2.model.content.minigames.pestcontrol.PestControlExpHandler;
+import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -225,7 +225,6 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 153 :
 				if (player.getNewComersSide().getTutorialIslandStage() == 22)
 					player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
-
 				player.getMovementHandler().setRunToggled(true);
 				return;
 			case 74214 :	
@@ -483,9 +482,9 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
-                if(player.inMageTrainingArena())
+		if(player.inMageTrainingArena())
                 {
-                    player.getActionSender().sendMessage("You can't logout while in A mage training room!");
+                    player.getActionSender().sendMessage("You can't logout while in a Mage Training room!");
                     return;
                 }
 				player.getActionSender().sendLogout();
@@ -588,7 +587,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (SliceDiceHandler.handleButtons(player, buttonId, 0)) {
 			return;
 		}
-		if (PestControlExpHandler.handleButtons(player, buttonId)) {
+		if (PestControlRewardHandler.handleButtons(player, buttonId)) {
 			return;
 		}
 		if (Smelting.handleSmelting(player, buttonId, 0)) {
