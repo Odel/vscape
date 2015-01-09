@@ -394,7 +394,7 @@ public class MonkeyMadness implements Quest {
 		player.getInventory().removeItem(new Item(MONKEY_ITEM));
 		break;
 	    case 1: //Bank
-		player.getBankManager().findAndRemoveItem(new Item(4033));
+		player.getBankManager().remove(new Item(4033));
 		break;
 	}
 	player.addPcPoints(225, player);

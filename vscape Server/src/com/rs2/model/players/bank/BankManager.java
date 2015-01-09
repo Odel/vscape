@@ -704,18 +704,6 @@ public class BankManager {
 		return false;
 	}
 	
-	public void findAndRemoveItem(Item toRemove) {
-		for(int i = 0; i < getUsedTabs(); i++){
-			for (int k = 0; k < tabContainer(i).getItems().length; k++) {
-			    Item item = tabContainer(i).getItems()[k];
-				if (item == null)
-					continue;
-				if (item.getId() == toRemove.getId())
-					this.remove(item, i, k);
-			}
-		}
-	}
-	
 	//Free Room methods
 	public boolean roomForItem(Item item)
 	{
