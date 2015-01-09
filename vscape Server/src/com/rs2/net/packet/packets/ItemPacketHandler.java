@@ -1237,6 +1237,10 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
+	if(itemId == 4035 && player.getQuestStage(36) == 19) {
+	    Dialogues.startDialogue(player, 885789);
+	    return;
+	}
 	if (itemId == 6893 || itemId == 6894 || itemId == 6895 || itemId == 6897 || itemId == 5607 || itemId == 5608 || itemId == 5609) {
 	    player.getActionSender().sendMessage("You cannot equip this item.");
 	    return;

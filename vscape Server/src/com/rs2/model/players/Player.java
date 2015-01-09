@@ -1056,10 +1056,6 @@ public class Player extends Entity {
 		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
 		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
 		}
-		if(getQuestStage(36) >= 14 && getInventory().playerHasItem(4033)) {
-		    getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
-		    getInventory().removeItem(new Item(4033));
-		}
 		getActionSender().removeInterfaces();
 		getUpdateFlags().sendAnimation(-1);
 		getUpdateFlags().sendGraphic(-1);
@@ -1077,30 +1073,30 @@ public class Player extends Entity {
 		    }
 		    player.getActionSender().sendMessage("Your Karamjan rum breaks.");
 		}
-		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
-            @Override
-            public void execute(CycleEventContainer container) {
-            	GroundItemManager.getManager().refreshLandscapeDisplay(player);
-                if (heightChange) {
-                	player.reloadRegion();
-                }
-                if(inCwGame() && !heightChange)
-                {
-                	player.reloadRegion();
-                }
-		if(ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470)) {
-		    player.reloadRegion();
+	    CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+		@Override
+		public void execute(CycleEventContainer container) {
+		    GroundItemManager.getManager().refreshLandscapeDisplay(player);
+		    if (heightChange) {
+			player.reloadRegion();
+		    }
+		    if (inCwGame() && !heightChange) {
+			player.reloadRegion();
+		    }
+		    if (ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470)) {
+			player.reloadRegion();
+		    }
+		    if (!stopPacket) {
+			setStopPacket(false);
+		    }
+		    getMovementHandler().reset();
+		    container.stop();
 		}
-        		if (!stopPacket) {
-    				setStopPacket(false);
-        		}
-        		getMovementHandler().reset();
-        		container.stop();
-            }
-			@Override
-			public void stop() {
-			}
-        }, 2);
+
+		@Override
+		public void stop() {
+		}
+	    }, 2);
 	}
 
 	public void reloadRegion() {
