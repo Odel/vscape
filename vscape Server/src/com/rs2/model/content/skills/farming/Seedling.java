@@ -6,6 +6,7 @@ import java.util.Map;
 import com.rs2.Constants;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemManager;
 
 /**
  * Created by IntelliJ IDEA. User: vayken Date: 18/03/12 Time: 11:00 To change
@@ -95,14 +96,16 @@ public class Seedling {
 			seedlingData = SeedlingData.getUnwatered(usedWith);
 		if (seedlingData == null || (!new Item(itemUsed).getDefinition().getName().toLowerCase().contains("watering") && !new Item(usedWith).getDefinition().getName().toLowerCase().contains("watering")))
 			return false;
-		if (itemUsed >= 5333 && itemUsed <= 5340)
+		if (itemUsed >= 5333 && itemUsed <= 5340){
 			if (player.getInventory().removeItem(new Item(itemUsed))) {
 				player.getInventory().addItem(new Item(itemUsed == 5333 ? itemUsed - 2 : itemUsed - 1));
 			}
-		if (usedWith >= 5333 && usedWith <= 5340)
+		}
+		if (usedWith >= 5333 && usedWith <= 5340) {
 			if (player.getInventory().removeItem(new Item(usedWith))) {
 				player.getInventory().addItem(new Item(itemUsed == 5333 ? itemUsed - 2 : itemUsed - 1));
 			}
+		}
 		player.getActionSender().sendMessage("You water the " + new Item(seedlingData.getSeedId()).getDefinition().getName().toLowerCase() + ".");
 		player.getInventory().removeItem(new Item(seedlingData.getUnwateredSeedlingId()));
 		player.getInventory().addItem(new Item(seedlingData.getWateredSeedlingId()));
@@ -117,11 +120,13 @@ public class Seedling {
 		if (seedlingData == null || (itemUsed != 5354 && usedWith != 5354))
 			return false;
 		if (player.getInventory().removeItemSlot(new Item(seedlingData.getSeedId()), itemUsed == 5354 ? itemUsedSlot : usedWithSlot)) {
+			player.getInventory().removeItemSlot(new Item(5354), itemUsed == 5354 ? itemUsedSlot : usedWithSlot);
 			player.getInventory().addItemToSlot(new Item(seedlingData.getUnwateredSeedlingId()), itemUsed == 5354 ? itemUsedSlot : usedWithSlot);
 		} else if (player.getInventory().removeItem(new Item(seedlingData.getSeedId()))) {
+			player.getInventory().addItem(new Item(5354));
 			player.getInventory().addItem(new Item(seedlingData.getUnwateredSeedlingId()));
 		}
-		player.getActionSender().sendMessage("You sow some maple tree seeds in the plantpots.");
+		player.getActionSender().sendMessage("You sow some "+ItemManager.getInstance().getItemName(seedlingData.getSeedId())+" in the Plant Pot.");
 		player.getActionSender().sendMessage("They need watering before they will grow.");
 		return true;
 	}
