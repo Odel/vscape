@@ -143,6 +143,10 @@ public class NpcPacketHandler implements PacketHandler {
 		    Dialogues.startDialogue(player, 3102);
 		    return;
 		}
+		if (npc.getNpcId() == 1469 && player.getPosition().getX() <= 2606 && player.getQuestStage(36) >= 14) {
+		    Dialogues.startDialogue(player, 1469);
+		    return;
+		}
 		WalkToActionHandler.setActions(Actions.NPC_FIRST_CLICK);
 		WalkToActionHandler.doActions(player);
 	}

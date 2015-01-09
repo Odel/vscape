@@ -433,6 +433,9 @@ public class PlayerSaveParser {
 				    if(MMVars.get("gotTalisman") != null) {
 					player.getMMVars().setGotTalisman(MMVars.get("gotTalisman").getAsBoolean());
 				    }
+				    if(MMVars.get("monkeyPetDeleted") != null) {
+					player.getMMVars().monkeyPetDeleted = MMVars.get("monkeyPetDeleted").getAsBoolean();
+				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){

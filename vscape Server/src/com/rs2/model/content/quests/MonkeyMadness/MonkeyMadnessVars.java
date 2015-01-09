@@ -19,6 +19,7 @@ public class MonkeyMadnessVars {
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
     public boolean hitBySpikes = false;
+    public boolean monkeyPetDeleted = false;
     public Position hitBySpikesHere = null;
     
     public MonkeyMadnessVars(final Player player) {

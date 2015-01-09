@@ -2097,7 +2097,7 @@ public class WalkToActionHandler {
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
 				{
-				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462) { //Exceptions
+				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462 && npc.getNpcId() != 1469) { //Exceptions
 					return;
 				    }
 				}
@@ -2256,8 +2256,8 @@ public class WalkToActionHandler {
 					player.getBankManager().openBank();
 					Following.resetFollow(player);
 					break;
-				case PestControlExpHandler.EXP_LADY:
-					PestControlExpHandler.openInterface(player);
+				case PestControlRewardHandler.EXP_LADY:
+					PestControlRewardHandler.openInterface(player);
 					break;
 				case 2437:
 					Dialogues.sendDialogue(player, 2437, 4, 0);

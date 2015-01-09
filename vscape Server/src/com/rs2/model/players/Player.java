@@ -1280,6 +1280,17 @@ public class Player extends Entity {
 		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
 		    ApeAtoll.runDungeon(this);
 		}
+		if(!getInventory().ownsItem(4033) && getQuestStage(36) == 0) {
+		    getMMVars().monkeyPetDeleted = true;
+		}
+		if(getInventory().ownsItem(4033) && getQuestStage(36) == 0 && !getMMVars().monkeyPetDeleted) {
+		    if(getInventory().playerHasItem(4033)) {
+			MonkeyMadness.deleteMonkey(this, 0);
+		    }
+		    if (getBankManager().ownsItem(4033)) {
+			MonkeyMadness.deleteMonkey(this, 1);
+		    }
+		}
 		if(this.inTempleKnightsTraining()) {
 		    RecruitmentDrive.exitTrainingGrounds(this);
 		}

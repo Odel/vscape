@@ -78,7 +78,7 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEYSPEAK_AMULET = 4021;
     public static final int MONKEYSPEAK_AMULET_U = 4022;
     public static final int MONKEY_TALISMAN = 4023;
-    public static final int MONKEY = 4033;
+    public static final int MONKEY_ITEM = 4033;
     public static final int MONKEY_SKULL = 4034;
     public static final int TENTH_SQUAD_SIGIL = 4035;
     public static final int WOOL = 1759;
@@ -159,6 +159,7 @@ public class MonkeyMadness implements Quest {
     public static final int MONKEYS_AUNT = 1454;
     public static final int ELDER_GUARD_1 = 1461;
     public static final int ELDER_GUARD_2 = 1462;
+    public static final int MONKEY = 1463;
     public static final int BONZARA = 1468;
     public static final int MONKEY_MINDER = 1469;
     public static final int FOREMAN = 1470;
@@ -386,7 +387,21 @@ public class MonkeyMadness implements Quest {
     public void setDialogueStage(int in) {
 	dialogueStage = in;
     }
-
+    
+    public static void deleteMonkey(final Player player, int location) {
+	switch(location) {
+	    case 0: //Inventory
+		player.getInventory().removeItem(new Item(MONKEY_ITEM));
+		break;
+	    case 1: //Bank
+		player.getBankManager().findAndRemoveItem(new Item(4033));
+		break;
+	}
+	player.addPcPoints(225, player);
+	player.getActionSender().sendMessage("Your pet monkey has fled due to Monkey Madness."); 
+	player.getActionSender().sendMessage("You have been restored 225 commendation points.");
+    }
+    
     public static void openGliderPuzzle(final Player player) {
 	player.getPuzzle().initPuzzle(6661234);
 	player.getPuzzle().loadClueInterface(6661234);
@@ -3365,7 +3380,7 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Have you brought with you a captive?", CONTENT);
 				return true;
 			    case 2:
-				if (player.getInventory().playerHasItem(MONKEY)) {
+				if (player.getInventory().playerHasItem(MONKEY_ITEM)) {
 				    d.sendPlayerChat("Yes, I have.", CONTENT);
 				} else {
 				    d.sendPlayerChat("No, I haven't...", CONTENT);
@@ -3640,10 +3655,11 @@ public class MonkeyMadness implements Quest {
 		return false;
 	    case MONKEY_MINDER:
 		if (player.getQuestStage(36) >= AWOWOGEIS_TEST) {
-		    if (!player.getInventory().playerHasItem(MONKEY) && player.getMMVars().isMonkey() && player.getPosition().getX() >= 2607) {
+		    if (!player.getInventory().playerHasItem(MONKEY_ITEM) && player.getMMVars().isMonkey() && player.getPosition().getX() >= 2607) {
+			System.out.println("inside first");
 			switch (d.getChatId()) {
 			    case 1:
-				d.sendPlayerChat("Ook.  Ook.", CONTENT);
+				d.sendPlayerChat("Ook. Ook.", CONTENT);
 				return true;
 			    case 2:
 				d.sendNpcChat("Why do you monkeys keep trying to escape? Good", "thing I've caught you before you got away, you little", "scoundrel.", CONTENT);
@@ -3672,35 +3688,36 @@ public class MonkeyMadness implements Quest {
 				d.endDialogue();
 				return true;
 			}
-			if (player.getInventory().playerHasItem(MONKEY) && !player.getMMVars().isMonkey() && player.getPosition().getX() <= 2606) {
-			    switch (d.getChatId()) {
-				case 1:
-				    d.sendNpcChat("My word, what are you doing in there?", CONTENT);
-				    return true;
-				case 2:
-				    d.sendPlayerChat("I... er... I don't know! One minute I was asleep, and", "the next minute I was here surrounded by monkeys!", CONTENT);
-				    return true;
-				case 3:
-				    d.sendNpcChat("Well, don't worry. we'll have you out of there shortly.", CONTENT);
-				    return true;
-				case 4:
-				    d.sendPlayerChat("Thank you.", CONTENT);
-				    return true;
-				case 5:
-				    d.sendNpcChat("No problem.", CONTENT);
-				    return true;
-				case 6:
-				    player.fadeTeleport(OUTSIDE_CAGE);
-				    player.setQuestStage(36, THE_GREAT_ESCAPE);
-				    d.endDialogue();
-				    return true;
-			    }
+			return false;
+		    } else if (player.getInventory().playerHasItem(MONKEY_ITEM) && !player.getMMVars().isMonkey() && player.getPosition().getX() <= 2606) {
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("My word, what are you doing in there?", CONTENT);
+				return true;
+			    case 2:
+				d.sendPlayerChat("I... er... I don't know! One minute I was asleep, and", "the next minute I was here surrounded by monkeys!", CONTENT);
+				return true;
+			    case 3:
+				d.sendNpcChat("Well, don't worry. we'll have you out of there shortly.", CONTENT);
+				return true;
+			    case 4:
+				d.sendPlayerChat("Thank you.", CONTENT);
+				return true;
+			    case 5:
+				d.sendNpcChat("No problem.", CONTENT);
+				return true;
+			    case 6:
+				player.fadeTeleport(OUTSIDE_CAGE);
+				player.setQuestStage(36, THE_GREAT_ESCAPE);
+				d.endDialogue();
+				return true;
 			}
+			return false;
 		    }
 		}
 		return false;
 	    case MONKEY:
-		if (!player.getMMVars().isMonkey()) {
+		if (player.getEquipment().getId(Constants.AMULET) != MONKEYSPEAK_AMULET) {
 		    d.sendNpcChat("Ook. Ook.", CONTENT);
 		    d.endDialogue();
 		    return true;
@@ -3709,12 +3726,12 @@ public class MonkeyMadness implements Quest {
 		    case INTO_THE_CAGE:
 			switch (d.getChatId()) {
 			    case 1:
-				if (player.getInventory().ownsItem(MONKEY)) {
+				if (player.getInventory().ownsItem(MONKEY_ITEM)) {
 				    d.sendNpcChat("Are we leaving soon?", CONTENT);
 				    d.endDialogue();
-				    return true;
+				} else {
+				    d.sendPlayerChat("Hello there, little monkey.", CONTENT);
 				}
-				d.sendPlayerChat("Hello there, little monkey.", CONTENT);
 				return true;
 			    case 2:
 				d.sendNpcChat("Hello there!", CONTENT);
@@ -3762,13 +3779,39 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("Pretty please, with a banana on top?", CONTENT);
 				return true;
 			    case 17:
-				d.sendPlayerChat("Look, I already said no. If you want to come then", "jump into my backpack.", CONTENT);
+				if(player.getInventory().getItemContainer().freeSlots() > 0) {
+				    d.sendPlayerChat("Look, I already said no. If you want to come then", "jump into my backpack.", CONTENT);
+				} else {
+				    d.sendPlayerChat("Look, I already said no. Just let me make room", "in my backpack and then you can come.", CONTENT);
+				    d.endDialogue();
+				}
 				return true;
 			    case 18:
 				d.sendNpcChat("Ook!", CONTENT);
-				player.getInventory().addItemOrDrop(new Item(MONKEY));
-				d.endDialogue();
 				return true;
+			    case 19:
+				d.endDialogue();
+				player.getActionSender().removeInterfaces();
+				for(Npc npc : World.getNpcs()) {
+				    if(npc != null && npc.getNpcId() == MONKEY) {
+					CombatManager.startDeath(npc);
+				    }
+				}
+				player.setStopPacket(true);
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					
+					b.stop();
+				    }
+
+				    @Override
+				    public void stop() {
+					player.setStopPacket(false);
+					player.getActionSender().sendMessage("The monkey hops into your backpack.");
+					player.getInventory().addItem(new Item(MONKEY_ITEM));
+				    }
+				}, 6);
 			}
 			return false;
 		    case THE_GREAT_ESCAPE:

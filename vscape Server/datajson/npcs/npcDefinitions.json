@@ -36588,7 +36588,7 @@
     "standAnim": 222,
     "walkAnim": 219,
     "defenceAnim": 404,
-    "deathAnim": 2304,
+    "deathAnim": 222,
     "attackBonus": 3,
     "defenceMelee": 1,
     "defenceRange": 1,
