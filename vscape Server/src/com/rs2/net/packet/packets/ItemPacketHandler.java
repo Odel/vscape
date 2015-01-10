@@ -376,6 +376,18 @@ public class ItemPacketHandler implements PacketHandler {
 	    Menus.sendSkillMenu(player, "glassMaking");
 	    return;
 	}
+	if(firstItem == 1963 && secondItem == MonkeyMadness.MONKEY_ITEM) {
+	    if(Misc.random(10) == 1 && !player.hasClueScroll()) {
+		player.getActionSender().sendMessage("The monkey chews on the banana and spits out a clue!");
+		player.getInventory().replaceItemWithItem(new Item(1963), new Item(ClueScroll.getRandomClue(2)));
+		player.getMMVars().setRecievedClueFromMonkey(true);
+		return;
+	    } else {
+		player.getActionSender().sendMessage("The monkey chews on the banana, it makes some happy chatter.");
+		player.getInventory().removeItem(new Item(1963));
+		return;
+	    }
+	}
 	/* STRINGING AMULETS */
 	for (int i = 0; i < GemData.stringItems.length; i++) {
 	    if (GemData.stringItems[i][0] == firstItem || GemData.stringItems[i][0] == secondItem) {

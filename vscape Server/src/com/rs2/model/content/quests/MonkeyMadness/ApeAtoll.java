@@ -5,9 +5,12 @@ import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.Following;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.prayer.Prayer;
 import com.rs2.model.content.skills.thieving.ThieveOther;
@@ -67,8 +70,8 @@ public class ApeAtoll {
 	GORILLA_GREEGREE(4026, 3181, 1482, 1401, 1399, 1400),
 	BEARED_GORILLA_GREEGREE(4027, 3182, 1483, 1401, 1399, 1400),
 	MYSTERIOUS_GREEGREE(4028, -1, 1484, 1401, 1399, 1400),
-	SMALL_ZOMBIE_GREEGREE(4029, 3185, 1485, 1386, 1382, -1),
-	LARGE_ZOMBIE_GREEGREE(4030, 3186, 1486, 1386, 1382, -1),
+	SMALL_ZOMBIE_GREEGREE(4029, 3186, 1485, 1386, 1382, -1),
+	LARGE_ZOMBIE_GREEGREE(4030, 3185, 1486, 1386, 1382, -1),
 	MONKEY_GREEGREE(4031, 3183, 1487, 222, 219, 219);
 
 	private int itemId;
@@ -206,16 +209,24 @@ public class ApeAtoll {
     }
     
     public static void jail(final Player player, boolean guards) {
+	final Npc npc = new Npc(1442 + Misc.random(4));
+	if(guards) {
+	    NpcLoader.spawnNpc(player, npc, false, false);
+	    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 0);
+	    npc.getUpdateFlags().setForceChatMessage("Ook.");
+	    npc.setFollowingEntity(player);
+	    npc.setInteractingEntity(player);
+	    npc.setPlayerOwner(player.getIndex());
+	}
 	if(player.getMMVars().isMonkey()) {
 	    return;
 	}
-	if(guards) {
-	    NpcLoader.spawnNpc(player, new Npc(1455), false, false);
-	}
 	player.getMMVars().inProcessOfBeingJailed = true;
-	player.getUpdateFlags().sendAnimation(836);
+	if(!guards) {
+	    player.getUpdateFlags().sendAnimation(836);
+	    player.setStopPacket(true);
+	}
 	player.getMovementHandler().reset();
-	player.setStopPacket(true);
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -223,6 +234,18 @@ public class ApeAtoll {
 	    }
 	    @Override
 	    public void stop() {
+		if(player.getMMVars().isMonkey()) {
+		    Following.resetFollow(npc);
+		    npc.setInteractingEntity(null);
+		    Npc karam = new Npc(MonkeyMadness.KARAM_2);
+		    NpcLoader.spawnNpc(player, karam, false, false);
+		    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 0);
+		    karam.getUpdateFlags().setForceChatMessage("I'll assist you adventurer.");
+		    CombatManager.attack(karam, npc);
+		    player.getMMVars().inProcessOfBeingJailed = false;
+		    karam.setPlayerOwner(player.getIndex());
+		    return;
+		}
 		player.fadeTeleport(new Position(2773, 2794, 0));
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
@@ -243,7 +266,7 @@ public class ApeAtoll {
 		    }
 		}, 5);
 	    }
-	}, guards ? 4 : 2);
+	}, guards ? 8 : 2);
     }
     
     public static void runDungeon(final Player player) {
@@ -318,7 +341,7 @@ public class ApeAtoll {
     
     public static boolean hiddenInGrass(final Player player) {
 	CacheObject g = ObjectLoader.object("Jungle Grass", player.getPosition().getX(), player.getPosition().getY(), 0);
-	return g != null && g.getDef().getId() >= 4812 && g.getDef().getId() <= 4814 && player.getMMVars().canHideInGrass();
+	return g != null && g.getDef().getId() >= 4812 && g.getDef().getId() <= 4814;
     }
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {

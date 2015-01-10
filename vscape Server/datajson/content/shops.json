@@ -8725,5 +8725,46 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+  },
+	{
+    "shopId": 203,
+    "name": "Tutab's Magical Market",
+    "items": [
+      {
+        "id": 554,
+        "count": 1000
+      },
+	  {
+        "id": 555,
+        "count": 1000
+      },
+	  {
+        "id": 556,
+        "count": 1000
+      },
+	  {
+        "id": 557,
+        "count": 1000
+      },
+	  {
+        "id": 563,
+        "count": 100
+      },
+	  {
+        "id": 4008,
+        "count": 10
+      },
+	  {
+        "id": 4006,
+        "count": 10
+      },
+	  {
+        "id": 4023,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]

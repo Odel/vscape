@@ -495,13 +495,15 @@ public class Shops {
 				return 195;
 			case 555:
 				return 97;	//khazard general store	- cadillac
-            case 516:
+			case 516:
 				return 193; //Shilo village general store      	
 			case 553:
                             // if(player.getSkill().getLevel()[Skill.RUNECRAFTING] == 99) //auburry my dick so far
 				return 19;
 			case 836 :
 				return 201;
+			case 1435:
+				return 203;
                        /* case 961:
                             if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
                                 return 179;
@@ -529,6 +531,10 @@ public class Shops {
 	}
 
 	public static boolean openShop(Player player, int npcId) {
+		if(player.onApeAtoll() && !player.getMMVars().isMonkey()) {
+		    player.getActionSender().sendMessage("You must be disguised as a monkey to trade this shopkeep.");
+		    return false;
+		}
 		int shop = findShop(player, npcId);
 		if (shop > -1) {
 		    if(npcId != DwarfCannon.NULODION) {

@@ -436,6 +436,12 @@ public class PlayerSaveParser {
 				    if(MMVars.get("monkeyPetDeleted") != null) {
 					player.getMMVars().monkeyPetDeleted = MMVars.get("monkeyPetDeleted").getAsBoolean();
 				    }
+				    if(MMVars.get("trainingComplete") != null) {
+					player.getMMVars().setTrainingComplete(MMVars.get("trainingComplete").getAsBoolean());
+				    }
+				    if(MMVars.get("recievedClue") != null) {
+					player.getMMVars().setRecievedClueFromMonkey(MMVars.get("recievedClue").getAsBoolean());
+				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");
 	            	if(questData != null && questData.size() > 0){

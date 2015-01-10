@@ -184,6 +184,15 @@ public class Hit {
 			}
 		    }
 		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc() && victim.onApeAtoll()) {
+		    if(((Npc)victim).getNpcId() == 1459 || ((Npc)victim).getNpcId() == 1460) {
+			if(victim.getCurrentHp() < (victim.getMaxHp() / 6) && Misc.random(2) == 1) {
+			    victim.getUpdateFlags().sendAnimation(1405);
+			    hitDef.setVictimAnimation(6969);
+			    ((Npc)victim).setCurrentHp(((Npc)victim).getCurrentHp() + 25);
+			}
+		    }
+		}
 		if(attacker != null && victim != null && attacker.isPlayer() && ((Player)attacker).getArmorPiercedEntity() != null && ((Player)attacker).getArmorPiercedEntity().equals(victim)) {
 		    damage *= 1.1;
 		   // ((Player)attacker).getActionSender().sendMessage("Armor piercing...");
@@ -511,16 +520,22 @@ public class Hit {
 	if (attacker != null && victim != null && attacker.isNpc() && victim.isNpc()) {
 	    Npc attacker = (Npc) this.attacker;
 	    Npc victim = (Npc) this.victim;
-	    if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426 && victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON) {
+	    if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426) {
 		hitDef.setVictimAnimation(6969);
-		if(damage > 1) {
-		    damage = 1;
+		if(victim.getNpcId() == 1472) {
+		    if (damage > 1) {
+			damage = 1;
+		    }
+		    if (Misc.random(4) == 1) {
+			damage = 0;
+		    }
 		}
-		if(Misc.random(4) == 1) {
-		    damage = 0;
+		if(victim.getNpcId() != 1472) {
+		    if(Misc.random(3) == 1) {
+			damage = 1;
+		    }
 		}
-		victim.getPlayerOwner();
-		if (victim.getCurrentHp() < (victim.getMaxHp() / 6) && !victim.getPlayerOwner().isAttacking()) {
+		if (victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON && victim.getCurrentHp() < (victim.getMaxHp() / 6) && !victim.getPlayerOwner().isAttacking()) {
 		    victim.setCurrentHp(victim.getMaxHp());
 		}
 	    }
@@ -848,6 +863,8 @@ public class Hit {
 	    if (getAttacker().isPlayer() && ((Player) attacker).getBonus(3) <= -20 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
 		hit = false;
 	    } else if(attacker != null && attacker.isNpc() && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 1472) {
+		hit = true;
+	    } else if (attacker != null && attacker.isNpc() && victim != null && victim.isNpc() && attacker.onApeAtoll()) {
 		hit = true;
 	    } else {
 		hit = accurate;

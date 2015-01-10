@@ -2097,7 +2097,7 @@ public class WalkToActionHandler {
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
 				{
-				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462 && npc.getNpcId() != 1469) { //Exceptions
+				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462 && npc.getNpcId() != 1469 && npc.getNpcId() != 1436) { //Exceptions
 					return;
 				    }
 				}
@@ -2219,7 +2219,9 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
+				    if(npc.getNpcId() != 1436) { //Exceptions
 					return;
+				    }
 				}
 				Following.resetFollow(player);
 				player.getUpdateFlags().faceEntity(npc.getFaceIndex());

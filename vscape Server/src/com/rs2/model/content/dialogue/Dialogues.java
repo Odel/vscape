@@ -3721,7 +3721,16 @@ public class Dialogues {
 			case 10008 : //shop keeper
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
+					    if(player.onApeAtoll()) {
+						if(player.getMMVars().isMonkey()) {
+						    player.getDialogue().sendNpcChat("Hello "+player.getUsername()+",", "would you like to see my shop?", CONTENT);
+						} else {
+						    player.getDialogue().sendNpcChat("OOK! OOK!", ANGRY_1);
+						    player.getDialogue().endDialogue();
+						}
+					    } else {
 						player.getDialogue().sendNpcChat("Hello "+player.getUsername()+",", "would you like to see my shop?", CONTENT);
+					    }
 						return true;
 					case 2 :
 						player.getDialogue().sendOption("Yes please.", "No thanks.");

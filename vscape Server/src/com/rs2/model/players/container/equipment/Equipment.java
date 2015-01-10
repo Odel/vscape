@@ -152,6 +152,16 @@ public class Equipment {
 		    player.setRunAnim(1640);
 		    player.setStandAnim(1639);
 		}
+		if(player.transformNpc >= 1480 && player.transformNpc <= 1487 && (player.getEquipment().getId(Constants.WEAPON) < 4024 || player.getEquipment().getId(Constants.WEAPON) > 4031)) {
+		    player.transformNpc = -1;
+		    player.setStandAnim(-1);
+		    player.setWalkAnim(-1);
+		    player.setRunAnim(-1);
+		    player.getActionSender().sendSideBarInterfaces();
+		    player.setAppearanceUpdateRequired(true);
+		    player.getMMVars().setIsMonkey(false);
+		    player.getMovementHandler().setRunToggled(true);
+		}
 		if((player.transformNpc == 1707 || player.transformNpc == 1708)) {
 		    int hat = player.transformNpc == 1707 ? GhostsAhoy.BEDSHEET : GhostsAhoy.ECTOPLASM_BEDSHEET;
 		    if (player.getEquipment().getId(Constants.HAT) != hat) {

@@ -24,7 +24,7 @@ public class BoneBurying {
 		BONES(new int[]{526, 2530}, 4.5),
 		BURNT_BONES(new int[]{528}, 6),
 		WOLF_BONES(new int[]{2859}, 7),
-		MONKEY_BONES(new int[]{3179, 3181, 3183, 3185}, 5),
+		MONKEY_BONES(new int[]{3179, 3180, 3181, 3182, 3183, 3185, 3186,}, 5),
 		BAT_BONES(new int[]{530}, 5.3),
 		BIG_BONES(new int[]{532}, 15),
 		SHAIKAHAN_BONES(new int[]{3123}, 25),

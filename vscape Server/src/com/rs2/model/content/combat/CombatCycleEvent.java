@@ -229,7 +229,7 @@ public class CombatCycleEvent extends CycleEvent {
 	}
 
 	public static void startCombat(Entity attacker, Entity victim) {
-	    if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 1472 && victim.isNpc()) {
+	    if ((attacker.isNpc() && ((Npc) attacker).getNpcId() == 1472 && victim.isNpc()) || (attacker.isNpc() && ((Npc)attacker).getNpcId() >= 1442 && ((Npc)attacker).getNpcId() <= 1446)) {
 		return;
 	    }
 	    CombatCycleEvent combatEvent = new CombatCycleEvent(attacker, victim);

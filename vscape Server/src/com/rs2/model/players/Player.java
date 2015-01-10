@@ -4229,7 +4229,7 @@ public class Player extends Entity {
 				}
 				if (Misc.random(4) == 1) {
 				    CombatManager.attack(npc, this);
-				    ApeAtoll.jail(this, false);
+				    ApeAtoll.jail(this, true);
 				}
 			    }
 			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), false) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey() && Area(2762, 2767, 2767, 2772) && !npc.isAttacking()) {

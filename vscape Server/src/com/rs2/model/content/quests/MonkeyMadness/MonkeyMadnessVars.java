@@ -18,6 +18,8 @@ public class MonkeyMadnessVars {
     private boolean firstTimeJail = true;
     private boolean spokenToMonkeyChild;
     private boolean canHideInGrass = false;
+    private boolean trainingComplete = false;
+    private boolean recievedClueFromMonkey = false;
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
     public boolean hitBySpikes = false;
@@ -117,6 +119,22 @@ public class MonkeyMadnessVars {
     
     public void setFirstTimeJail(boolean set) {
         this.firstTimeJail = set;
+    }
+    
+    public boolean trainingComplete() {
+        return trainingComplete;
+    }
+    
+    public void setTrainingComplete(boolean set) {
+        this.trainingComplete = set;
+    }
+    
+    public boolean recievedClueFromMonkey() {
+	return recievedClueFromMonkey;
+    }
+    
+    public void setRecievedClueFromMonkey(boolean set) {
+	this.recievedClueFromMonkey = set;
     }
     
     public ArrayList<Npc> getFinalFightNpcs() {
