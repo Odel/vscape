@@ -123,7 +123,7 @@ public class Seedling {
 			player.getInventory().removeItemSlot(new Item(5354), itemUsed == 5354 ? itemUsedSlot : usedWithSlot);
 			player.getInventory().addItemToSlot(new Item(seedlingData.getUnwateredSeedlingId()), itemUsed == 5354 ? itemUsedSlot : usedWithSlot);
 		} else if (player.getInventory().removeItem(new Item(seedlingData.getSeedId()))) {
-			player.getInventory().addItem(new Item(5354));
+			player.getInventory().removeItem(new Item(5354,1));
 			player.getInventory().addItem(new Item(seedlingData.getUnwateredSeedlingId()));
 		}
 		player.getActionSender().sendMessage("You sow some "+ItemManager.getInstance().getItemName(seedlingData.getSeedId())+" in the Plant Pot.");
