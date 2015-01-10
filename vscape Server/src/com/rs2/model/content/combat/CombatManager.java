@@ -25,6 +25,7 @@ import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.RecruitmentDrive;
@@ -73,8 +74,7 @@ public class CombatManager extends Tick {
 	public static final String WRONG_AMMO_MESSAGE = "You can not use that kind of ammo!";
 	public static final String AMMO_COMPATIBILITY_MESSAGE = "You cannot use that ammo with that weapon!";
 	public static final String NO_SPECIAL_ENERGY_MESSAGE = "You have no special energy left.";
-
-	public static int [] randomItem = {4012, 4024, 4027, 1963};
+	
 	private final List<Hit> hitsStory;
 	
 	public static boolean deathByPortal = false;
@@ -225,6 +225,11 @@ public class CombatManager extends Tick {
 		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == FamilyCrest.CHRONOZON && FamilyCrest.handleDeath((Player) killer, (Npc)died)) {
 		    died.setDead(false);
 		    return;
+		}
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getIndex() == ((Player)killer).getHintIndex()) {
+		    ((Player)killer).getActionSender().createPlayerHints(1, Npc.getNpcById(0).getIndex());
+		    ((Player)killer).getActionSender().createPlayerHints(10, Npc.getNpcById(0).getIndex());
+		    ((Player)killer).setHintIndex(-1);
 		}
 		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died) == ((Player)killer).getBarbarianSpirits().getSpiritSummoned()) {
 		    ((Player)killer).getBarbarianSpirits().setSpiritSummoned(null);
@@ -429,10 +434,10 @@ public class CombatManager extends Tick {
 			TheGrandTree.handleDeath((Player) killer, npc);
 			TreeGnomeVillage.handleDeath((Player) killer, npc);
 			RecruitmentDrive.handleDeath((Player) killer, npc);
+			MonkeyMadness.handleDeath((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			if(((Player) killer).getSpawnedNpc() != null) {
 			    ((Player) killer).setSpawnedNpc(null);
-			    ((Player) killer).getActionSender().createPlayerHints(10, -1);
 			}
 		    }
 		}
@@ -609,14 +614,6 @@ public class CombatManager extends Tick {
 			if (killer != null && killer.isPlayer()) {
 				((Player) killer).setKilledTreeSpirit(true);
 				((Player) killer).getDialogue().sendStatement("With the Tree Spirit defeated you can now chop the tree.");
-			}
-		}
-		if (died.isNpc() && ((Npc) died).getNpcId() == 1472) {
-			if (killer != null && killer.isPlayer()) {
-				((Player) killer).setKilledJungleDemon(true);
-				((Player) killer).getDialogue().sendStatement("With the Jungle Demon defeated you can now wield a dragon scimitar.");
-				((Player) killer).inventory.addItem(new Item(randomItem[Misc.random(5)], 1));
-				//[Misc.random(1)]
 			}
 		}
 		if (died.isNpc() && PestControl.isSplatter((Npc) died) && died.inPestControlGameArea() ) {

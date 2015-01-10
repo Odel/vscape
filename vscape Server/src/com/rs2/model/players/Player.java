@@ -392,6 +392,7 @@ public class Player extends Entity {
 	private int oldObject;
 	private int smithInterface;
 	private int runecraftNpc = 553;
+	private int hintIndex = -1;
 	public ArrayList<Position> followPath = new ArrayList<Position>();
 	public String statedInterface = "";
 	public Npc spawnedNpc;
@@ -711,8 +712,9 @@ public class Player extends Entity {
 	}
 	else if(this.inTelekineticTheatre()) {
 		this.getTelekineticTheatre().saveVariables();
+	} else if(Area(2688, 2748, 9154, 9214)) {
+		MonkeyMadness.endFinalFight(this);
 	}
-	
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
             b.start();
@@ -817,8 +819,9 @@ public class Player extends Entity {
 	}
 	else if(this.inTelekineticTheatre()) {
 		this.getTelekineticTheatre().saveVariables();
-	}
-        else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
+	} else if(Area(2688, 2748, 9154, 9214)) {
+		MonkeyMadness.endFinalFight(this);
+	} else if(!this.getInCombatTick().completed() && !this.inFightCaves()) {
 	    Entity attacker = this.getInCombatTick().getOther();
 	    if(attacker != null && attacker.isNpc()) {
 		Npc npc = (Npc)attacker;
@@ -1278,6 +1281,9 @@ public class Player extends Entity {
 		}
 		if(!getInventory().ownsItem(4033) && getQuestStage(36) == 0) {
 		    getMMVars().monkeyPetDeleted = true;
+		}
+		if(Area(2688, 2748, 9154, 9214)) {
+		    this.teleport(MonkeyMadness.APE_ATOLL_LANDING);
 		}
 		if(getInventory().ownsItem(4033) && getQuestStage(36) == 0 && !getMMVars().monkeyPetDeleted) {
 		    if(getInventory().playerHasItem(4033)) {
@@ -3900,6 +3906,14 @@ public class Player extends Entity {
 
 	public int getSmithInterface() {
 		return smithInterface;
+	}
+	
+	public void setHintIndex(int index) {
+	    this.hintIndex = index;
+	}
+	
+	public int getHintIndex() {
+	    return this.hintIndex;
 	}
 	
 	public Canoe getCanoe()

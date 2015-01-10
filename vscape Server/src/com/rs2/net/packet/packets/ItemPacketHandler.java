@@ -1237,7 +1237,7 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
-	if(itemId == 4035 && player.getQuestStage(36) == 19) {
+	if(itemId == 4035 && player.getQuestStage(36) == 19 && !player.Area(2688, 2748, 9154, 9214)) {
 	    Dialogues.startDialogue(player, 885789);
 	    return;
 	}

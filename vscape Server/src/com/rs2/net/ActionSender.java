@@ -363,6 +363,7 @@ public class ActionSender {
 		out.writeByte(0 >> 8);
 		out.writeByte(0);
 		player.send(out.getBuffer());
+		player.setHintIndex(id);
 		return this;
 	}
 

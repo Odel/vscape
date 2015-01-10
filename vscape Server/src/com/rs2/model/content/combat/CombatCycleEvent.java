@@ -229,12 +229,16 @@ public class CombatCycleEvent extends CycleEvent {
 	}
 
 	public static void startCombat(Entity attacker, Entity victim) {
-		CombatCycleEvent combatEvent = new CombatCycleEvent(attacker, victim);
-		attacker.setCombatingEntity(victim);
-        attacker.getUpdateFlags().faceEntity(victim.getFaceIndex());
-    	attacker.getUpdateFlags().sendFaceToDirection(victim.getPosition());
-    	attacker.setFollowingEntity(victim);
-		attacker.setSkilling(combatEvent);
+	    if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 1472 && victim.isNpc()) {
+		return;
+	    }
+	    CombatCycleEvent combatEvent = new CombatCycleEvent(attacker, victim);
+	    attacker.setCombatingEntity(victim);
+	    attacker.getUpdateFlags().faceEntity(victim.getFaceIndex());
+	    attacker.getUpdateFlags().sendFaceToDirection(victim.getPosition());
+	    attacker.setFollowingEntity(victim);
+	    attacker.setSkilling(combatEvent);
+		
 		if (attacker.isNpc()) {
 			Npc npc = (Npc) attacker;
 			if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {

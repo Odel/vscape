@@ -27,8 +27,10 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
+import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.FinalFightNpcs;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.util.Misc;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.npcs.NpcLoader;
@@ -57,8 +59,7 @@ public class MonkeyMadness implements Quest {
     public static final int GARKORS_RETELLING = 18;
     public static final int NEW_MEMBER = 19;
     public static final int FUCK_THE_DEMON = 20;
-    public static final int TRAINING_PROGRAM = 21;
-    public static final int QUEST_COMPLETE = 22;
+    public static final int QUEST_COMPLETE = 21;
 
     //Items
     public static final int DRAGONSTONE = 1615;
@@ -88,7 +89,7 @@ public class MonkeyMadness implements Quest {
     //Positions
     public static final Position INSIDE_VILLAGE = new Position(2515, 3162, 0);
     public static final Position APE_ATOLL_LANDING = new Position(2805, 2707, 0);
-    public static final Position FINAL_FIGHT = new Position(2730, 9172, 1);
+    public static final Position FINAL_FIGHT = new Position(2729, 9173, 1);
     public static final Position HANGAR = new Position(2585, 4518, 0);
     public static final Position HANGAR_INITIALIZED = new Position(2649, 4518, 0);
     public static final Position BELOW_PYRES = new Position(2807, 9201, 0);
@@ -170,6 +171,7 @@ public class MonkeyMadness implements Quest {
     public static final int SHIPYARD_GATE = 2439;
     public static final int SHIPYARD_GATE_2 = 2438;
     public static final int HANGAR_EXIT = 4868;
+    public static final int HANGAR_EXIT_2 = 4869;
     public static final int REINITIALIZATION_PANEL = 4871;
     public static final int WALL_OF_FLAMES = 4766;
     public static final int WALL_OF_FLAMES_2 = 4765;
@@ -228,7 +230,7 @@ public class MonkeyMadness implements Quest {
     public void completeQuest(Player player) {
 	getReward(player);
 	player.getActionSender().sendInterface(12140);
-	player.getActionSender().sendItemOnInterface(4033, 200, 12142);
+	player.getActionSender().sendItemOnInterface(12145, 250, MONKEY_ITEM);
 	player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 	player.getActionSender().sendString("You are rewarded: ", 12146);
 	player.getActionSender().sendString("3 Quest Points", 12150);
@@ -470,7 +472,10 @@ public class MonkeyMadness implements Quest {
     }
     
     public static void spawnFinalFightNpcs(final Player player, final int z) {
-	//player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 100);
+	for(FinalFightNpcs n : FinalFightNpcs.values()) {
+	    player.getMMVars().getFinalFightNpcs().add(n.spawnNpc(z, player));
+	    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, n.getPosition(), 0);
+	}   
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -479,13 +484,57 @@ public class MonkeyMadness implements Quest {
 
 	    @Override
 	    public void stop() {
-		NpcLoader.spawnPlayerOwnedAttackNpc(player, new Npc(JUNGLE_DEMON), new Position(2728, 9170, z), true, null);
+		Npc jungleDemon = new Npc(JUNGLE_DEMON);
+		NpcLoader.spawnPlayerOwnedAttackNpc(player, jungleDemon, new Position(2728, 9170, z), true, null);
+		player.getMMVars().jungleDemon = jungleDemon;
+		startFinalFightLogic(player, player.getPosition().getZ());
 	    }
 	}, 3);
     }
+    
+    public static void startFinalFightLogic(final Player player, int z) {
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if(!player.Area(2688, 2748, 9154, 9214)) {
+		    b.stop();
+		}
+		for(Npc n : player.getMMVars().getFinalFightNpcs()) {
+		    if(!player.getMMVars().jungleDemon.isDead() && Misc.goodDistance(n.getPosition(), player.getMMVars().jungleDemon.getPosition(), 5) && !n.isAttacking()) {
+			CombatManager.attack(n, player.getMMVars().jungleDemon);
+		    }
+		}
+	    }
 
+	    @Override
+	    public void stop() {
+		endFinalFight(player);
+	    }
+	}, 2);
+    }
+    
+    public static void endFinalFight(final Player player) {
+	for (Npc n : player.getMMVars().getFinalFightNpcs()) {
+	    if (n != null) {
+		NpcLoader.destroyNpc(n);
+	    }
+	}
+	if (player.getMMVars().jungleDemon != null && !player.getMMVars().jungleDemon.isDead()) {
+	    NpcLoader.destroyNpc(player.getMMVars().jungleDemon);
+	    player.getMMVars().jungleDemon = null;
+	}
+	player.getMMVars().getFinalFightNpcs().clear();
+    }
+    
     public static void handleDeath(final Player player, Npc npc) {
-
+	if(npc.getNpcId() == 1472 && player.getQuestStage(36) == NEW_MEMBER) {
+	    player.setQuestStage(36, FUCK_THE_DEMON);
+	    for(Npc n : player.getMMVars().getFinalFightNpcs()) {
+		if(n != null && n.getNpcId() == GARKOR_2) {
+		    player.getActionSender().createPlayerHints(1, n.getIndex());
+		}
+	    }
+	}
     }
 
     public boolean itemHandling(final Player player, int itemId) {
@@ -574,6 +623,7 @@ public class MonkeyMadness implements Quest {
 		}
 	    return true;
 	    case HANGAR_EXIT:
+	    case HANGAR_EXIT_2:
 		player.fadeTeleport(new Position(2412, 3499, 0));
 		return true;
 	    case SHIPYARD_GATE:
@@ -1458,7 +1508,7 @@ public class MonkeyMadness implements Quest {
 				d.sendPlayerChat("King Narnode!", HAPPY);
 				return true;
 			    case 2:
-				d.sendNpcChat("Yes? How is the mission going... it has bee qute some", "time since I sent you on your way.", CONTENT);
+				d.sendNpcChat("Yes? How is the mission going... it has been quite some", "time since I sent you on your way.", CONTENT);
 				return true;
 			    case 3:
 				d.sendPlayerChat("It's over, it's finally over.", CONTENT);
@@ -1479,13 +1529,13 @@ public class MonkeyMadness implements Quest {
 				d.sendNpcChat("And what of my 10th Squad?", DISTRESSED);
 				return true;
 			    case 9:
-				d.sendPlayerChat("They all live, we suffered no casualties", CONTENT);
+				d.sendPlayerChat("They all live, we suffered no casualties.", CONTENT);
 				return true;
 			    case 10:
-				d.sendNpcChat("'We'" + player.getUsername() + "?", CONTENT);
+				d.sendNpcChat("'We', " + player.getUsername() + "?", CONTENT);
 				return true;
 			    case 11:
-				d.sendPlayerChat("I, uh, I'm part of the 10th Squad now. I even have the", "sigil.", CONTENT);
+				d.sendPlayerChat("I, uh, I'm part of the 10th Squad now. I even have", "the sigil.", CONTENT);
 				return true;
 			    case 12:
 				d.sendGiveItemNpc("You show King Narnode your sigil.", new Item(TENTH_SQUAD_SIGIL));
@@ -1499,9 +1549,10 @@ public class MonkeyMadness implements Quest {
 			    case 15:
 				if (player.getInventory().getItemContainer().freeSlots() < 4) {
 				    d.sendNpcChat("You don't have enough room in your inventory.", SAD);
+				    d.endDialogue();
 				    return true;
 				} else {
-				    d.sendGiveItemNpc("King Narnode hands you a huge stack of gold!", "And several dragonstones!", new Item(995), new Item(1615));
+				    d.sendGiveItemNpc("King Narnode shows you a huge stack of gold!", "And several dragonstones!", new Item(995, 100000), new Item(1615));
 				    return true;
 				}
 			    case 16:
@@ -1524,11 +1575,9 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 22:
 				d.sendNpcChat("The High Tree Guardian Daero is in charge of the", "training program. You should know where to find", "him by now.", CONTENT);
-				d.endDialogue();
 				return true;
 			    case 23:
-				//QuestHandler.completeQuest(player, getQuestID());
-				player.setQuestStage(36, TRAINING_PROGRAM);
+				QuestHandler.completeQuest(player, 36);
 				d.dontCloseInterface();
 				return true;
 			}
@@ -1582,7 +1631,7 @@ public class MonkeyMadness implements Quest {
 		}
 		return false;
 	    case DAERO:
-		if (player.getPosition().getZ() > 0 && player.getQuestStage(36) >= ORDERS_FROM_DAERO && player.getQuestStage(36) < TRAINING_PROGRAM) {
+		if (player.getPosition().getZ() > 0 && player.getQuestStage(36) >= ORDERS_FROM_DAERO && player.getQuestStage(36) < QUEST_COMPLETE) {
 		    if (player.getQuestStage(36) == ORDERS_FROM_DAERO) {
 			switch (d.getChatId()) {
 			    case 18:
@@ -2021,7 +2070,15 @@ public class MonkeyMadness implements Quest {
 				    return true;
 			    }
 			    return false;
-			case TRAINING_PROGRAM:
+			case FUCK_THE_DEMON:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("You look like you're in a hurry.", "Use the teleportation device to leave the hangar.", CONTENT);
+				    d.endDialogue();
+				    return true;
+			    }
+			return false;
+			case QUEST_COMPLETE:
 			    switch (d.getChatId()) {
 				case 1:
 				    d.sendPlayerChat("Good day, High Tree Guardian.", CONTENT);
@@ -2069,7 +2126,6 @@ public class MonkeyMadness implements Quest {
 				    }
 				    return true;
 				case 13:
-				    //QuestHandler.completeQuest(player, getQuestID());
 				    return true;
 			    }
 			    return false;
@@ -2204,6 +2260,14 @@ public class MonkeyMadness implements Quest {
 		    return false;
 		} else {
 		    switch (player.getQuestStage(36)) {
+			case FUCK_THE_DEMON:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("Outstanding job adventurer. Talk to Sergean Garkor.", HAPPY);
+				    d.endDialogue();
+				    return true;
+			    }
+			return false;
 			case CRACKED_THE_CODE:
 			    switch (d.getChatId()) {
 				case 1:
@@ -2535,11 +2599,37 @@ public class MonkeyMadness implements Quest {
 			    return true;
 		    }
 		}
+	    return false;
+	    case WAYMOTTIN:
+	    case BUNKWICKET:
+	    case BUNKDO_2:
+	    case CARADO_2:
+	    case KARAM_3:
+	    case LUMO_2:
+		if (player.getQuestStage(36) == FUCK_THE_DEMON) {
+		    switch (d.getChatId()) {
+			case 1:
+			    d.sendNpcChat("Outstanding job adventurer. Talk to Sergean Garkor.", HAPPY);
+			    d.endDialogue();
+			    return true;
+		    }
+		}
+		return false;
+	    case BUNKDO:
+		switch(d.getChatId()) {
+		    case 1:
+			d.sendNpcChat("You gotta get me out of here man.", DISTRESSED);
+			return true;
+		    case 2:
+			d.sendPlayerChat("I'm trying.", SAD);
+			d.endDialogue();
+			return true;
+		}
+	    return false;
 	    case LUMO:
 		if (player.getQuestStage(36) == MEANWHILE) {
 		    if (player.getMMVars().firstTimeJail()) {
 			switch (d.getChatId()) {
-
 			    case 1:
 				d.sendNpcChat("Look, a newcomer. I'd say let me be the first to", "welcome you to Ape Atoll, but I see you've already met", "the welcoming party...", CONTENT);
 				return true;
@@ -2641,18 +2731,23 @@ public class MonkeyMadness implements Quest {
 			}
 		    }
 		} else if (player.getQuestStage(36) > MEANWHILE) {
-		    switch (d.getChatId()) {
-			case 1:
-			    d.sendNpcChat("Any luck on getting us out yet?", CONTENT);
-			    return true;
-			case 2:
-			    d.sendPlayerChat("I'm still working on it...", CONTENT);
-			    d.endDialogue();
-			    return true;
+		    switch (player.getQuestStage(36)) {
+			default:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("Any luck on getting us out yet?", CONTENT);
+				    return true;
+				case 2:
+				    d.sendPlayerChat("I'm still working on it...", CONTENT);
+				    d.endDialogue();
+				    return true;
+			    }
+			    return false;
 		    }
 		}
 		return false;
 	    case KARAM:
+	    case KARAM_2:
 		if (player.getQuestStage(36) >= MEANWHILE) {
 		    switch (d.getChatId()) {
 			case 1:
@@ -2963,6 +3058,19 @@ public class MonkeyMadness implements Quest {
 				case 2:
 				    d.sendNpcChat("Here's another, but be careful, I only", "have so many of these.", CONTENT);
 				    player.getInventory().addItemOrDrop(new Item(TENTH_SQUAD_SIGIL));
+				    d.endDialogue();
+				    return true;
+			    }
+			} else {
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("You should prepare. Collect your thoughts and", "belongings and then wear the sigil. Hurry, human, we", "do not wish to enter this fight without you.", CONTENT);
+				    return true;
+				case 2:
+				    d.sendPlayerChat("All I have to do is wear the sigil?", CONTENT);
+				    return true;
+				case 3:
+				    d.sendNpcChat("Yes, but do not do so until you are ready.", CONTENT);
 				    d.endDialogue();
 				    return true;
 			    }
@@ -3915,15 +4023,37 @@ public class MonkeyMadness implements Quest {
 			case 6:
 			    d.sendNpcChat("Speak to Zooknock. He will arrange for you to leave.", CONTENT);
 			    d.endDialogue();
+			    player.getMMVars().spokeToGarkorEndOfFight = true;
+			    for (Npc n : player.getMMVars().getFinalFightNpcs()) {
+				if (n != null && n.getNpcId() == ZOOKNOCK_2) {
+				    player.getActionSender().createPlayerHints(1, n.getIndex());
+				}
+			    }
 			    return true;
 		    }
 		}
 		return false;
 	    case ZOOKNOCK_2:
 		if (player.getQuestStage(36) >= FUCK_THE_DEMON) {
-		    d.sendNpcChat("Well done, human. Bear with me now.", CONTENT);
-		    player.fadeTeleport(CRASH_ISLAND);
-		    d.endDialogue();
+		    if (player.getMMVars().spokeToGarkorEndOfFight) {
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("Well done, human. Bear with me now.", CONTENT);
+				return true;
+			    case 2:
+				player.fadeTeleport(CRASH_ISLAND);
+				player.getActionSender().createPlayerHints(1, -1);
+				d.endDialogue();
+				return true;
+			}
+		    } else {
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("Outstanding job adventurer. Talk to Sergean Garkor.", HAPPY);
+				d.endDialogue();
+				return true;
+			}
+		    }
 		}
 		return false;
 	    case ELDER_GUARD_1:

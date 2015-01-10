@@ -41,10 +41,7 @@ public class ApeAtollNpcs {
 	MONKEYS_AUNT(monkeyAunt, new Position(2736, 2787, 0), new Position(2737, 2790, 0), new Position(2736, 2794, 0), new Position(2739, 2794, 0), new Position(2742, 2794), new Position(0, 0, 0), new Position(0, 0, 0), true),
 	PRISON_GUARD_1(monkeyGuard_1, new Position(2768, 2804, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false),
 	PRISON_GUARD_2(monkeyGuard_2, new Position(2767, 2802, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false);
-	     /*
-    
-    
-    */
+
 	private Npc npc;
 	private Position spawnPosition;
 	private Position first;
@@ -204,6 +201,43 @@ public class ApeAtollNpcs {
 	    } else if(!a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
 		a.startBasicWalkCycle();
 	    }
+	}
+    }
+    
+    public enum FinalFightNpcs {
+	GARKOR(1412, new Position(2726, 9172, 1)),
+	LUMO(1414, new Position(2731, 9174, 1)),
+	BUNKDO(1416, new Position(2725, 9172, 1)),
+	CARADO(1418, new Position(2731, 9170, 1)),
+	LUMBDO(1419, new Position(2728, 9176, 1)),
+	KARAM(1422, new Position(2728, 9173, 1)),
+	BUNKWICKET(1423, new Position(2727, 9176, 1)),
+	WAYMOTTIN(1424, new Position(2734, 9177, 1)),
+	ZOOKNOCK(1426, new Position(2733, 9168, 1));
+
+	private int id;
+	private Position spawnPos;
+	
+	FinalFightNpcs(int id, Position spawnPos) {
+	    this.id = id;
+	    this.spawnPos = spawnPos;
+	}
+	
+	public Npc spawnNpc(int z, Player player) {
+	    Npc npc = new Npc(id);
+	    npc.setPosition(this.spawnPos.modifyZ(z));
+	    npc.setSpawnPosition(this.spawnPos.modifyZ(z));
+	    npc.setWalkType(Npc.WalkType.WALK);
+	    npc.setMaxWalk(new Position(spawnPos.getX() + 5, spawnPos.getY() + 5, z));
+	    npc.setMinWalk(new Position(spawnPos.getX() - 5, spawnPos.getY() - 5, z));
+	    npc.setNeedsRespawn(false);
+	    npc.setPlayerOwner(player.getIndex());
+	    World.register(npc);
+	    return npc;
+	}
+	
+	public Position getPosition() {
+	    return this.spawnPos;
 	}
     }
     

@@ -1,7 +1,9 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
 import com.rs2.model.Position;
+import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import java.util.ArrayList;
 
 public class MonkeyMadnessVars {
     private final Player player;
@@ -21,6 +23,9 @@ public class MonkeyMadnessVars {
     public boolean hitBySpikes = false;
     public boolean monkeyPetDeleted = false;
     public Position hitBySpikesHere = null;
+    private ArrayList<Npc> finalFightNpcs = new ArrayList<>();
+    public Npc jungleDemon = null;
+    public boolean spokeToGarkorEndOfFight = false;
     
     public MonkeyMadnessVars(final Player player) {
 	this.player = player;
@@ -112,6 +117,10 @@ public class MonkeyMadnessVars {
     
     public void setFirstTimeJail(boolean set) {
         this.firstTimeJail = set;
+    }
+    
+    public ArrayList<Npc> getFinalFightNpcs() {
+	return this.finalFightNpcs;
     }
     
 }

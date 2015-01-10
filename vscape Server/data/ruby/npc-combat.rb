@@ -405,6 +405,18 @@ class KolodionFourthForm < NpcCombatDef
     end
 end
 
+class JungleDemon < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+			BasicAttack.magicAttack(attacker, victim, Spell::JUNGLE_DEMON_BLAST_1),
+			BasicAttack.magicAttack(attacker, victim, Spell::JUNGLE_DEMON_BLAST_2),
+			BasicAttack.magicAttack(attacker, victim, Spell::JUNGLE_DEMON_BLAST_3),
+			BasicAttack.magicAttack(attacker, victim, Spell::JUNGLE_DEMON_BLAST_4),
+                        BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 32, 5, 64),
+		];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
@@ -448,3 +460,4 @@ NpcCombatDef.add([1341, 1342, 1343], WeakDagannothMelee.new())
 NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())
 NpcCombatDef.add([3068, 3069, 3070, 3071], SkeletalWyvern.new())
 NpcCombatDef.add([1456, 1457, 1458], MonkeyArcher.new())
+NpcCombatDef.add([1472], JungleDemon.new())

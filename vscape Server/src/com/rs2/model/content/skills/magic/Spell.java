@@ -154,6 +154,10 @@ public enum Spell {
 	KBD_POISON(82, magicHit(50, magicProjectile(394), null), true, new PoisonEffect(5)),
 	KBD_SHOCK(82, magicHit(50, magicProjectile(396), null), true, new StatEffect(Misc.random(5), 2)),
 	KBD_FREEZE(82, magicHit(50, magicProjectile(395), null), true, new BindingEffect(10)),
+	JUNGLE_DEMON_BLAST_1(69, magicHit(32, magicProjectile(159), Graphic.highGraphic(160)), true),
+	JUNGLE_DEMON_BLAST_2(69, magicHit(32, magicProjectile(162), Graphic.highGraphic(163)), true),
+	JUNGLE_DEMON_BLAST_3(69, magicHit(32, magicProjectile(165), Graphic.highGraphic(166)), true),
+	JUNGLE_DEMON_BLAST_4(69, magicHit(32, magicProjectile(156), Graphic.highGraphic(157)), true),
 	/*End*/;
 
 	private int levelRequired, animation;

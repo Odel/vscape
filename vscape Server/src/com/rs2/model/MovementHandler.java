@@ -420,6 +420,9 @@ public class MovementHandler {
 	    }
 	    if (entity.isNpc() && entity.getFollowingEntity() != null) {
 			Npc n = (Npc) entity;
+			if(n.getNpcId() == 1472) {
+			    return false;
+			}
 			if(n.isPet() || Barrows.inBarrowsCrypts(n)) {
 			    return false;
 			}

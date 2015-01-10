@@ -37,6 +37,7 @@ import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
@@ -507,6 +508,23 @@ public class Hit {
                 }
             }
         }
+	if (attacker != null && victim != null && attacker.isNpc() && victim.isNpc()) {
+	    Npc attacker = (Npc) this.attacker;
+	    Npc victim = (Npc) this.victim;
+	    if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426 && victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON) {
+		hitDef.setVictimAnimation(6969);
+		if(damage > 1) {
+		    damage = 1;
+		}
+		if(Misc.random(4) == 1) {
+		    damage = 0;
+		}
+		victim.getPlayerOwner();
+		if (victim.getCurrentHp() < (victim.getMaxHp() / 6) && !victim.getPlayerOwner().isAttacking()) {
+		    victim.setCurrentHp(victim.getMaxHp());
+		}
+	    }
+	}
         if (hitDef.doBlockAnim() && !victim.getUpdateFlags().isAnimationUpdateRequired()) {
         	if (hitDef.getVictimAnimation() > 0) {
         		 victim.getUpdateFlags().sendAnimation(hitDef.getVictimAnimation());
@@ -518,7 +536,9 @@ public class Hit {
     	            victim.getUpdateFlags().sendAnimation(victim.getBlockAnimation());
     			}
     		} else {
-                victim.getUpdateFlags().sendAnimation(victim.getBlockAnimation());
+			if(victim.getBlockAnimation() > 0) {
+			    victim.getUpdateFlags().sendAnimation(victim.getBlockAnimation());
+			}
     		}
         }
         if (victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
@@ -827,6 +847,8 @@ public class Hit {
             }
 	    if (getAttacker().isPlayer() && ((Player) attacker).getBonus(3) <= -20 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
 		hit = false;
+	    } else if(attacker != null && attacker.isNpc() && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 1472) {
+		hit = true;
 	    } else {
 		hit = accurate;
 	    }
