@@ -27,6 +27,7 @@ public class MonkeyMadnessVars {
     public Position hitBySpikesHere = null;
     private ArrayList<Npc> finalFightNpcs = new ArrayList<>();
     public Npc jungleDemon = null;
+    public Npc guardCalled = null;
     public boolean spokeToGarkorEndOfFight = false;
     
     public MonkeyMadnessVars(final Player player) {

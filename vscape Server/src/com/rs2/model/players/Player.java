@@ -4227,7 +4227,7 @@ public class Player extends Entity {
 				if (!npc.isAttacking()) {
 				    CombatManager.attack(npc, this);
 				}
-				if (Misc.random(4) == 1) {
+				if (Misc.random(4) == 1 && !this.isAttacking()) {
 				    CombatManager.attack(npc, this);
 				    ApeAtoll.jail(this, true);
 				}

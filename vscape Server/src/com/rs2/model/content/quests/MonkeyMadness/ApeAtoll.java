@@ -1,10 +1,8 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
-import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
-import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
@@ -207,6 +205,23 @@ public class ApeAtoll {
 	    return false;
 	}
     }
+    public static void startGuardDestroyCheck(final Player player) {
+	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if(player != null && player.getMMVars().guardCalled != null) {
+		    if(!player.onApeAtoll() || !Misc.goodDistance(player.getPosition(), player.getMMVars().guardCalled.getPosition(), 15))
+			b.stop();
+		}
+	    }
+
+	    @Override
+	    public void stop() {
+		NpcLoader.destroyNpc(player.getMMVars().guardCalled);
+		player.getMMVars().guardCalled = null;
+	    }
+	}, 1);
+    }
     
     public static void jail(final Player player, boolean guards) {
 	final Npc npc = new Npc(1442 + Misc.random(4));
@@ -217,15 +232,17 @@ public class ApeAtoll {
 	    npc.setFollowingEntity(player);
 	    npc.setInteractingEntity(player);
 	    npc.setPlayerOwner(player.getIndex());
+	    player.getMMVars().guardCalled = npc;
+	    startGuardDestroyCheck(player);
 	}
 	if(player.getMMVars().isMonkey()) {
 	    return;
 	}
-	player.getMMVars().inProcessOfBeingJailed = true;
 	if(!guards) {
 	    player.getUpdateFlags().sendAnimation(836);
 	    player.setStopPacket(true);
 	}
+	player.getMMVars().inProcessOfBeingJailed = true;
 	player.getMovementHandler().reset();
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
@@ -251,6 +268,10 @@ public class ApeAtoll {
 		    return;
 		}
 		player.fadeTeleport(new Position(2773, 2794, 0));
+		if(player.getMMVars().guardCalled != null) {
+		    NpcLoader.destroyNpc(player.getMMVars().guardCalled);
+		    player.getMMVars().guardCalled = null;
+		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
@@ -347,6 +368,7 @@ public class ApeAtoll {
 	CacheObject g = ObjectLoader.object("Jungle Grass", player.getPosition().getX(), player.getPosition().getY(), 0);
 	return g != null && g.getDef().getId() >= 4812 && g.getDef().getId() <= 4814;
     }
+    
     public static boolean handleGreeGreeEquip(final Player player, int itemId) {
 	if (GreeGreeData.forItemId(itemId) != null) {
 	    if (player.onApeAtoll() || player.Area(2591, 2639, 3264, 3288)) {

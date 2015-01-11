@@ -87,7 +87,10 @@ public class Hit {
 		    damage = 0;
 		    return;
 		}
-		if(victim != null && victim.isPlayer() && ((Player)victim).getMMVars().inProcessOfBeingJailed && ((Player)victim).onApeAtoll()) {
+		if(victim != null && victim.isPlayer() && ((Player)victim).getMMVars().inProcessOfBeingJailed && ((Player)victim).onApeAtoll() && ((Npc)attacker).getNpcId() != 1457) {
+		    return;
+		}
+		if(victim != null && victim.isPlayer() && MinigameAreas.isInArea(victim.getPosition(), ApeAtoll.JAIL) && (damage > 8 || (victim.getCurrentHp() - damage) <= 0)) {
 		    return;
 		}
 		if(victim.isNpc() && hitDef.getHitType() == HitType.POISON)

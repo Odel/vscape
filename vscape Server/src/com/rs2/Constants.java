@@ -136,7 +136,7 @@ public class Constants {
 	public static final int ARDOUGNE_X = 2662, ARDOUGNE_Y = 3305;
 	public static final int WATCH_TOWER_X = 2547, WATCH_TOWER_Y = 3112;
 	public static final int TROLLHEIM_X = 2910, TROLLHEIM_Y = 3612;
-	public static final int APE_ATOLL_X = 2754, APE_ATOLL_Y = 2784;
+	public static final int APE_ATOLL_X = 2797, APE_ATOLL_Y = 2799;
 
 	// ancient teleport coords
 	public static final int PADDEWWA_X = 3098, PADDEWWA_Y = 9884;

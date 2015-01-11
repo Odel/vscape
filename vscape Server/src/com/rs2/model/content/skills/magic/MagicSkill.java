@@ -385,7 +385,7 @@ public abstract class MagicSkill extends CycleEvent {
 						return player.getTeleportation().attemptTeleport(new Position(Constants.TROLLHEIM_X + Misc.random(1), Constants.TROLLHEIM_Y + Misc.random(1), 0));
 					case APE_ATOLL :
 					    if(QuestHandler.questCompleted(player, 36) && player.getMMVars().trainingComplete()) {
-						return player.getTeleportation().attemptTeleport(new Position(Constants.APE_ATOLL_X + Misc.random(1), Constants.APE_ATOLL_Y + Misc.random(1), 0));
+						return player.getTeleportation().attemptTeleport(new Position(Constants.APE_ATOLL_X, Constants.APE_ATOLL_Y, 1));
 					    } else {
 						player.getActionSender().sendMessage("You must complete the Training Program after Monkey Madness to use this spell.");
 						return false;
