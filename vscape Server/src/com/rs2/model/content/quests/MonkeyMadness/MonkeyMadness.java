@@ -8,7 +8,6 @@ import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.npcs.Npc;
@@ -18,21 +17,18 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
-import com.rs2.model.Graphic;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
+import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.FinalFightNpcs;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.util.Misc;
-import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.functions.Ladders;
 
@@ -46,7 +42,7 @@ public class MonkeyMadness implements Quest {
     public static final int CRACKED_THE_CODE = 5;
     public static final int LUMBDO_A_DICK = 6;
     public static final int MEANWHILE = 7;
-    public static final int PRISON_DAY_1 = 8;
+    public static final int PRISON_DAY_1 = 8; //Unused
     public static final int GARKORS_ORDERS = 9;
     public static final int ZOOKNOCK_SPEECH = 10;
     public static final int MONKEY_MAN = 11;
@@ -57,7 +53,7 @@ public class MonkeyMadness implements Quest {
     public static final int THE_GREAT_ESCAPE = 16;
     public static final int PASSED_THE_TEST = 17;
     public static final int GARKORS_RETELLING = 18;
-    public static final int NEW_MEMBER = 19;
+    public static final int NEW_MEMEBER = 19;
     public static final int FUCK_THE_DEMON = 20;
     public static final int QUEST_COMPLETE = 21;
 
@@ -69,13 +65,9 @@ public class MonkeyMadness implements Quest {
     public static final int NARNODES_ORDERS = 4005;
     public static final int MONKEY_DENTURES = 4006;
     public static final int ENCHANTED_BAR = 4007;
-    public static final int EYE_OF_GNOME = 4008;
-    public static final int EYE_OF_GNOME_2 = 4009; //Will this be needed?
-    public static final int MONKEY_MAGIC = 4010;
     public static final int MONKEY_NUTS = 4012;
     public static final int MONKEY_BAR = 4014;
     public static final int BANANA_STEW = 4016;
-    public static final int MONKEY_WRENCH = 4018;
     public static final int MONKEYSPEAK_AMULET_MOULD = 4020;
     public static final int MONKEYSPEAK_AMULET = 4021;
     public static final int MONKEYSPEAK_AMULET_U = 4022;
@@ -304,7 +296,7 @@ public class MonkeyMadness implements Quest {
 		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
 		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
 
-		player.getActionSender().sendString("Waydar and myself have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("Waydar and I have ended up on 'Crash Island'.", 8153);
 		player.getActionSender().sendString("Lumbdo from the 10th Squad is here protecting the", 8154);
 		player.getActionSender().sendString("intact gliders, but refuses to take me to the atoll", 8155);
 		player.getActionSender().sendString("where Segeant Garkor and the rest of the Squad are.", 8156);
@@ -314,16 +306,245 @@ public class MonkeyMadness implements Quest {
 		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
 		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
 		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
-		player.getActionSender().sendString("@str@" + "Waydar and myself have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
 		
-		player.getActionSender().sendString("It took some convincing, but Lumbdo has taken me", 8154);
-		player.getActionSender().sendString("to the mysterious atoll. I need to find Sergeant", 8155);
-		player.getActionSender().sendString("Garkor immediately.", 8156);
+		player.getActionSender().sendString("It took some convincing, but Lumbdo has taken me", 8155);
+		player.getActionSender().sendString("to the mysterious atoll. I need to find Sergeant", 8156);
+		player.getActionSender().sendString("Garkor immediately.", 8157);
+		break;
+	    case GARKORS_ORDERS:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me", 8155);
+		player.getActionSender().sendString("@str@" + "to the mysterious atoll. I need to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor immediately.", 8157);
+		
+		player.getActionSender().sendString("I managed to find Sergeant Garkor in this hellish", 8159);
+		player.getActionSender().sendString("place. He told me to find the 10th Squad mage, Zooknock,", 8160);
+		player.getActionSender().sendString("in the tunnels beneath this Atoll.", 8161);
+		break;
+	    case ZOOKNOCK_SPEECH:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		
+		player.getActionSender().sendString("Zooknock said I need 2 items to help the 10th squad:", 8159);
+		player.getActionSender().sendString("@dre@1.) Monkeyspeak Amulet:", 8161);
+		if(!player.getInventory().playerHasItem(MONKEY_DENTURES)) {
+		    player.getActionSender().sendString("-Some sort of magical talking monkey trinket.", 8162);
+		} else {
+		    player.getActionSender().sendString("@str@" + "-Some sort of magical talking monkey trinket.", 8162);
+		}
+		if(!player.getInventory().playerHasItem(GOLD_BAR)) {
+		    player.getActionSender().sendString("-A Gold bar.", 8163);
+		} else {
+		    player.getActionSender().sendString("@str@" + "-A Gold bar.", 8163);
+		}
+		if(!player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
+		    player.getActionSender().sendString("-A Monkeyspeak Amulet Mould.", 8164);
+		} else {
+		    player.getActionSender().sendString("@str@" + "-A Monkeyspeak Amulet Mould.", 8164);
+		}
+		
+		player.getActionSender().sendString("@dre@2.) Monkey Greegree talisman:", 8166);
+		if(!player.getInventory().playerHasItem(MONKEY_TALISMAN)) {
+		    player.getActionSender().sendString("@bla@-A talisman to bind the power of monkey into.", 8167);
+		} else {
+		    player.getActionSender().sendString("@str@" + "@bla@-A talisman to bind the power of monkey into.", 8167);
+		}
+		if(!player.getInventory().playerHasItem(KARAMJA_MONKEY_BONES)) {
+		    player.getActionSender().sendString("@bla@-Bones from a Karamjan monkey to guide the talisman.", 8168);
+		} else {
+		    player.getActionSender().sendString("@str@" + "@bla@-Bones from a Karamjan monkey to guide the talisman.", 8168);
+		}
+		break;
+	    case MONKEY_MAN:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		
+		player.getActionSender().sendString("I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("I should return to Garkor for further orders.", 8161);
+		break;
+	    case GARKORS_PLAN:
+	    case KRUKS_PERMISSION:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		
+		player.getActionSender().sendString("Garkor has plans for me involved King Awowogei.", 8162);
+		player.getActionSender().sendString("I should gain entrance to his 'palace' and speak", 8163);
+		player.getActionSender().sendString("with him.", 8164);
+		break;
+	    case AWOWOGEIS_TEST:
+	    case INTO_THE_CAGE:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		
+		player.getActionSender().sendString("King Awowogei will only believe Garkor's idea of", 8164);
+		player.getActionSender().sendString("an alliance with the Karamjan Monkeys if I travel", 8165);
+		player.getActionSender().sendString("to Ardougne and free a monkey captive there and", 8166);
+		player.getActionSender().sendString("return it to him.", 8167);
+		break;
+	    case THE_GREAT_ESCAPE:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		
+		player.getActionSender().sendString("I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("Zoo for King Awowogei. I should carefully take him", 8165);
+		player.getActionSender().sendString("back to Awowogei without teleporting.", 8166);
+		break;
+	case PASSED_THE_TEST:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		player.getActionSender().sendString("@str@" + "I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("@str@" + "Zoo and proved myself to Awowogei.", 8165);
+		
+		player.getActionSender().sendString("I should talk to Garkor to find out what we", 8167);
+		player.getActionSender().sendString("should do now that Awowogei trusts 'me'.", 8168);
+		break;
+	    case GARKORS_RETELLING:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		player.getActionSender().sendString("@str@" + "I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("@str@" + "Zoo and proved myself to Awowogei.", 8165);
+		
+		player.getActionSender().sendString("Garkor told me of the terrible plans for the", 8167);
+		player.getActionSender().sendString("10th Squad as well as myself! I need to speak", 8168);
+		player.getActionSender().sendString("with him immediately. What am I going to do?!", 8169);
+		break;
+	    case NEW_MEMEBER:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		player.getActionSender().sendString("@str@" + "I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("@str@" + "Zoo and proved myself to Awowogei.", 8165);
+		player.getActionSender().sendString("@str@" + "Garkor told me of the terrible plans for the", 8167);
+		player.getActionSender().sendString("@str@" + "10th Squad as well as myself.", 8168);
+		
+		player.getActionSender().sendString("Garkor gave me a sigil, it signifies I am a real", 8170);
+		player.getActionSender().sendString("member of the 10th Squad in order to help in the", 8171);
+		player.getActionSender().sendString("final battle between another beast of Glough's", 8172);
+		player.getActionSender().sendString("and us. I need to only equip the sigil when I am", 8173);
+		player.getActionSender().sendString("ready to begin the fight.", 8174);
+		break;
+	    case FUCK_THE_DEMON:
+		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		player.getActionSender().sendString("@str@" + "I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("@str@" + "Zoo and proved myself to Awowogei.", 8165);
+		player.getActionSender().sendString("@str@" + "Garkor told me of the terrible plans for the", 8167);
+		player.getActionSender().sendString("@str@" + "10th Squad as well as myself.", 8168);
+		player.getActionSender().sendString("@str@" + "Garkor gave me a sigil, it signifies I am a real", 8170);
+		player.getActionSender().sendString("@str@" + "member of the 10th Squad in order to help in the", 8171);
+		player.getActionSender().sendString("@str@" + "final battle with another beast of Glough's.", 8172);
+		
+		if(!player.getMMVars().spokeToGarkorEndOfFight) {
+		    player.getActionSender().sendString("We did it! We defeated the nasty Jungle Demon!", 8174);
+		    player.getActionSender().sendString("I should talk to Garkor per usual for instructions.", 8175);
+		} else {
+		    player.getActionSender().sendString("We did it! We defeated the nasty Jungle Demon!", 8174);
+		    player.getActionSender().sendString("I should talk to King Narnode Shareen and tell", 8175);
+		    player.getActionSender().sendString("him the good news.", 8176);
+		}
 		break;
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "Talk to King Narnode Shareen in the Grand Tree to begin.", 8147);
-
-		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8156);
+		player.getActionSender().sendString("@str@" + "King Narnode Shareen needs my help again. He told", 8149);
+		player.getActionSender().sendString("@str@" + "me his 10th Squad has not reported anything back from", 8150);
+		player.getActionSender().sendString("@str@" + "Glough's shipyard in Karamja. I need to investigate.", 8151);
+		player.getActionSender().sendString("@str@" + "Waydar and I have ended up on 'Crash Island'.", 8153);
+		player.getActionSender().sendString("@str@" + "It took some convincing, but Lumbdo took me to", 8155);
+		player.getActionSender().sendString("@str@" + "the mysterious atoll. I managed to find Sergeant", 8156);
+		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
+		player.getActionSender().sendString("@str@" + "I managed to make the items Zooknock and Garkor", 8159);
+		player.getActionSender().sendString("@str@" + "required and can now safely disguise as a monkey.", 8160);
+		player.getActionSender().sendString("@str@" + "I gained the favor to enter King Awowogei's 'palace'.", 8162);
+		player.getActionSender().sendString("@str@" + "I managed to capture a monkey from the Ardougne", 8164);
+		player.getActionSender().sendString("@str@" + "Zoo and proved myself to Awowogei.", 8165);
+		player.getActionSender().sendString("@str@" + "Garkor told me of the terrible plans for the", 8167);
+		player.getActionSender().sendString("@str@" + "10th Squad as well as myself.", 8168);
+		player.getActionSender().sendString("@str@" + "Garkor gave me a sigil, it signifies I am a real", 8170);
+		player.getActionSender().sendString("@str@" + "member of the 10th Squad in order to help in the", 8171);
+		player.getActionSender().sendString("@str@" + "final battle with another beast of Glough's.", 8172);
+		player.getActionSender().sendString("@str@" + "I defeated the nasty Jungle Demon with help from", 8174);
+		player.getActionSender().sendString("@str@" + "the Royal 10th Squad of gnomes and saved the day.", 8175);
+		
+		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8177);
 		break;
 	    default:
 		player.getActionSender().sendString("Talk to @dre@King Narnode Shareen @bla@in the @dre@Grand Tree @bla@to begin.", 8147);
@@ -529,7 +750,7 @@ public class MonkeyMadness implements Quest {
     }
     
     public static void handleDeath(final Player player, Npc npc) {
-	if(npc.getNpcId() == 1472 && player.getQuestStage(36) == NEW_MEMBER) {
+	if(npc.getNpcId() == 1472 && player.getQuestStage(36) == NEW_MEMEBER) {
 	    player.setQuestStage(36, FUCK_THE_DEMON);
 	    for(Npc n : player.getMMVars().getFinalFightNpcs()) {
 		if(n != null && n.getNpcId() == GARKOR_2) {
@@ -2081,61 +2302,213 @@ public class MonkeyMadness implements Quest {
 			    }
 			return false;
 			case QUEST_COMPLETE:
-			    switch (d.getChatId()) {
-				case 1:
-				    d.sendPlayerChat("Good day, High Tree Guardian.", CONTENT);
-				    return true;
-				case 2:
-				    d.sendNpcChat("Hello there. I hear your mission is complete.", CONTENT);
-				    return true;
-				case 3:
-				    d.sendPlayerChat("News travels quickly on this tree. I expect you also", "know that I am to be enrolled in the Royal Guard", "Training Programme?", CONTENT);
-				    return true;
-				case 4:
-				    d.sendNpcChat("Indeed I do.", CONTENT);
-				    return true;
-				case 5:
-				    d.sendPlayerChat("How long does it take?", CONTENT);
-				    return true;
-				case 6:
-				    d.sendNpcChat("For you, it should hardly take any time at all.", CONTENT);
-				    return true;
-				case 7:
-				    d.sendPlayerChat("Then let us begin.", CONTENT);
-				    return true;
-				case 8:
-				    d.sendNpcChat("Entusiasm. I like that. We will first begin with a series", "of exercises designed to increase your strength and", "stamina.", CONTENT);
-				    return true;
-				case 9:
-				    d.sendNpcChat("We then will follow these up by improving your attack", "and defense techniques.", CONTENT);
-				    return true;
-				case 10:
-				    d.sendNpcChat("Let us begin. You must choose what you want to focus on.", CONTENT);
-				    return true;
-				case 11:
-				    d.sendOption("Focus on increasing strength and stamina...", "Focus on improving attack and defense techniques...");
-				    return true;
-				case 12:
-				    switch (optionId) {
+			    if (!player.getMMVars().trainingComplete()) {
+				switch (d.getChatId()) {
+				    case 1:
+					d.sendPlayerChat("Good day, High Tree Guardian.", CONTENT);
+					return true;
+				    case 2:
+					d.sendNpcChat("Hello there. I hear your mission is complete.", CONTENT);
+					return true;
+				    case 3:
+					d.sendPlayerChat("News travels quickly on this tree. I expect you also", "know that I am to be enrolled in the Royal Guard", "Training Program?", CONTENT);
+					return true;
+				    case 4:
+					d.sendNpcChat("Indeed I do. It's mandatory training now to", "visit the Ape Atoll.", CONTENT);
+					return true;
+				    case 5:
+					d.sendPlayerChat("How long does it take?", CONTENT);
+					return true;
+				    case 6:
+					d.sendNpcChat("For you, it should hardly take any time at all.", CONTENT);
+					return true;
+				    case 7:
+					d.sendOption("Then let us begin.", "Can't you just lie and say I did the program?");
+					return true;
+				    case 8:
+					d.sendNpcChat("Entusiasm. I like that. We will first begin with a series", "of exercises designed to increase your strength and", "stamina.", CONTENT);
+					return true;
+				    case 9:
+					d.sendNpcChat("We then will follow these up by improving your attack", "and defense techniques.", CONTENT);
+					return true;
+				    case 10:
+					d.sendNpcChat("Let us begin. You must choose what you want to focus on.", CONTENT);
+					return true;
+				    case 11:
+					d.sendOption("Focus on increasing strength and stamina...", "Focus on improving attack and defense techniques...");
+					d.setNextChatId(20);
+					return true;
+				    case 12:
+					switch (optionId) {
+					    case 1:
+						d.sendStatement("Several hours and a training montage later...");
+						player.getMMVars().setTrainingComplete(true);
+						//award xp
+						return true;
+					    case 2:
+						d.sendStatement("Several hours and a training montage later...");
+						player.getMMVars().setTrainingComplete(true);
+						//award xp
+						return true;
+					}
+					return true;
+				    case 13:
+					return true;
+				    case 20:
+					switch (optionId) {
+					    case 1:
+						d.sendPlayerChat("Then let us begin.", CONTENT);
+						d.setNextChatId(8);
+						return true;
+					    case 2:
+						d.sendPlayerChat("Can't you just lie and say I did the", "program?", CONTENT);
+						return true;
+					}
+				    case 21:
+					d.sendNpcChat("Why would you want that? Don't you", "adventurers crave experience?", CONTENT);
+					return true;
+				    case 22:
+					d.sendPlayerChat("Yes, but only in specific skills!", "Why does no one understand that!?", ANGRY_1);
+					return true;
+				    case 23:
+					d.sendNpcChat("Because it sounds a bit... elitist.", CONTENT);
+					return true;
+				    case 24:
+					d.sendPlayerChat("Just tell Narnode I did the training!", ANGRY_2);
+					return true;
+				    case 25:
+					d.sendNpcChat("You won't be able to do it again if you", "make me do this, is that what you want?", CONTENT);
+					return true;
+				    case 26:
+					d.sendOption("Yes!", "Actually... Nevermind.");
+					return true;
+				    case 27:
+					switch (optionId) {
+					    case 1:
+						d.sendPlayerChat("Yes!", ANGRY_1);
+						return true;
+					    case 2:
+						d.sendPlayerChat("Actually... Nevermind.", CONTENT);
+						d.endDialogue();
+						return true;
+					}
+				    case 28:
+					d.sendNpcChat("As you wish, I will tell Narnode you", "completed the program.", CONTENT);
+					d.endDialogue();
+					player.getMMVars().setTrainingComplete(true);
+					return true;
+				}
+				return false;
+			    } else {
+				if(player.getPosition().getZ() > 0) {
+				    switch (d.getChatId()) {
 					case 1:
-					    d.sendStatement("SEVERAL HOURS LATER...");
-					    player.getMMVars().setTrainingComplete(true);
-					    //award xp
+					    d.sendNpcChat("Would you like to go back to the hangar?", CONTENT);
 					    return true;
 					case 2:
-					    d.sendStatement("SEVERAL HOURS LATER...");
-					    player.getMMVars().setTrainingComplete(true);
-					    //award xp
+					    d.sendOption("Yes.", "No.");
+					    return true;
+					case 3:
+					    switch (optionId) {
+						case 1:
+						    d.sendPlayerChat("Yes I would.", CONTENT);
+						    return true;
+						case 2:
+						    d.sendPlayerChat("Not right now, no.", CONTENT);
+						    d.endDialogue();
+						    return true;
+					    }
+					    return false;
+					case 4:
+					    d.sendNpcChat("Alright, you know the drill, blindfold time.", CONTENT);
+					    return true;
+					case 5:
+					    d.sendStatement("You put on the blindfold as Daero takes", "you back to the secret hangar.");
+					    player.fadeTeleport(player.getQuestStage(36) >= CRACKED_THE_CODE ? HANGAR_INITIALIZED : HANGAR);
+					    d.endDialogue();
 					    return true;
 				    }
-				    return true;
-				case 13:
-				    return true;
+				    return false;
+				} else {
+				    switch (d.getChatId()) {
+					case 1:
+					    d.sendNpcChat("Hello again adventurer. Great work with", "the demon. Don't forget Waydar can take you to", "Crash Island and you can use the teleportation", "device to leave the hangar.", CONTENT);
+					    d.endDialogue();
+					    return true;
+				    }
+				    return false;
+				}
 			    }
-			    return false;
 		    }
 		    return false;
 		}
+	    case GLOUGH:
+		switch (player.getQuestStage(36)) {
+		    case ORDERS_FROM_DAERO:
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("Hrmph. What do you want?", ANGRY_1);
+				return true;
+			    case 2:
+				d.sendPlayerChat("King Narnode has set me on a mission. It involves", "using your old military glider hangar. I demand", "to know the reinitialization code.", CONTENT);
+				return true;
+			    case 3:
+				d.sendNpcChat("HA! Why would I EVER do that for you?", LAUGHING);
+				return true;
+			    case 4:
+				d.sendOption("I'll make it worth your while.", "You're right, nevermind.");
+				return true;
+			    case 5:
+				switch(optionId) {
+				    case 1:
+					d.sendPlayerChat("I'll make it worth your while.", CONTENT);
+					return true;
+				    case 2:
+					d.sendPlayerChat("Eh, you're right. Nevermind.", CONTENT);
+					d.endDialogue();
+					return true;
+				}
+			    case 6:
+				d.sendNpcChat("Make it worth my while eh?", "My 'while' is going to cost 200,000 gold.", ANGRY_1);
+				return true;
+			    case 7:
+				d.sendOption("Fine. (200,000 gold)", "That's far too much for me.");
+				return true;
+			    case 8:
+				switch(optionId) {
+				    case 1:
+					if(player.getInventory().playerHasItem(995, 200000)) {
+					    d.sendPlayerChat("Fine. Here's the gold.", ANGRY_2);
+					    return true;
+					} else {
+					    d.sendPlayerChat("I don't have that much on me...", ANGRY_2);
+					    d.endDialogue();
+					    return true;
+					}
+				    case 2:
+					d.sendPlayerChat("That's far too much for me.", SAD);
+					d.endDialogue();
+					return true;
+				}
+			    case 9:
+				d.sendGiveItemNpc("You hand Glough 200,000 gold.", new Item(995, 200000));
+				return true;
+			    case 10:
+				d.sendNpcChat("Thank you... adventurer.", "Now for the code...", CONTENT);
+				return true;
+			    case 11:
+				d.sendStatement("Glough begins to whisper into your ear...");
+				return true;
+			    case 12:
+				d.endDialogue();
+				player.getActionSender().removeInterfaces();
+				player.getInventory().removeItem(new Item(995, 200000));
+				reinitializeHangar(player);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
 	    case WAYDAR:
 		if (player.getQuestStage(36) > ORDERS_FROM_DAERO) {
 		    switch (d.getChatId()) {
@@ -3048,12 +3421,12 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 20:
 				d.sendNpcChat("Yes, but do not do so until you are ready.", CONTENT);
-				player.setQuestStage(36, NEW_MEMBER);
+				player.setQuestStage(36, NEW_MEMEBER);
 				d.endDialogue();
 				return true;
 			}
 			return false;
-		    case NEW_MEMBER:
+		    case NEW_MEMEBER:
 			if (!player.getInventory().ownsItem(TENTH_SQUAD_SIGIL)) {
 			    switch (d.getChatId()) {
 				case 1:
@@ -3145,7 +3518,7 @@ public class MonkeyMadness implements Quest {
 				    d.sendPlayerChat("So why are you here?", CONTENT);
 				    return true;
 				case 20:
-				    d.sendNpcChat("The rumours are correct. We were indeed blown off", "course. Fortunately, we managed to find a small island", "to steer our gliders towards, else we surely would have", "drowned.", CONTENT);
+				    d.sendNpcChat("The rumors are correct. We were indeed blown off", "course. Fortunately, we managed to find a small island", "to steer our gliders towards, else we surely would have", "drowned.", CONTENT);
 				    return true;
 				case 21:
 				    d.sendPlayerChat("When you gathered enough wood to fashion two boats.", "your Sergeant and the rest of the 10th Squad took the", "larger boat to this island, leaving Lumdo to guard the", "gliders and the other boat.", CONTENT);
@@ -3163,7 +3536,7 @@ public class MonkeyMadness implements Quest {
 				    d.sendPlayerChat("...", CONTENT);
 				    return true;
 				case 26:
-				    d.sendNpcChat("Niggers. Lots of monkeys. They are unlike any other", "type of monkey we've come across. A far cry from the", "usual wild variety, these were armed with high quality", "weaponry and uncanny tactical ability.", CONTENT);
+				    d.sendNpcChat("Naggers. Lots of monkeys. They are unlike any other", "type of monkey we've come across. A far cry from the", "usual wild variety, these were armed with high quality", "weaponry and uncanny tactical ability.", CONTENT);
 				    return true;
 				case 27:
 				    d.sendNpcChat("We were overwhelmed in numbers. Some of us", "managed to escape, but the rest were taken captive.", CONTENT);
@@ -3251,6 +3624,7 @@ public class MonkeyMadness implements Quest {
 				    return true;
 				case 55:
 				    d.sendNpcChat("Similarly, the transformation spell should be stored in a", "monkey talisman of some kind.", CONTENT);
+				    d.endDialogue();
 				    player.setQuestStage(36, ZOOKNOCK_SPEECH);
 				    return true;
 			    }
@@ -3990,7 +4364,9 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 6:
 				player.fadeTeleport(OUTSIDE_CAGE);
-				player.setQuestStage(36, THE_GREAT_ESCAPE);
+				if(player.getQuestStage(36) == INTO_THE_CAGE) {
+				    player.setQuestStage(36, THE_GREAT_ESCAPE);
+				}
 				d.endDialogue();
 				return true;
 			}
@@ -4193,52 +4569,48 @@ public class MonkeyMadness implements Quest {
 			    Following.resetFollow(player);
 			    player.setInteractingEntity(null);
 			    if (id == 1461) {
-				//player.walkTo(player.getPosition().getY() < 2759 ? new Position(2802, 2759, 0) : new Position(2802, 2756, 0), false);
 				player.getActionSender().walkTo(player.getPosition().getX() != 2802 ? 2802 - player.getPosition().getX() : 0, player.getPosition().getY() < 2759 ? 2759 - player.getPosition().getY() : 2756 - player.getPosition().getY(), true);
 			    } else {
-				//player.walkTo(player.getPosition().getY() < 2762 ? new Position(2799, 2762, 0) : new Position(2799, 2759, 0), false);
 				player.getActionSender().walkTo(player.getPosition().getX() != 2799 ? 2799 - player.getPosition().getX() : 0, player.getPosition().getY() < 2762 ? 2762 - player.getPosition().getY() : 2759 - player.getPosition().getY(), true);
 			    }
 			    d.endDialogue();
 			    return true;
 		    }
 		    return false;
-		}
-		switch (player.getQuestStage(36)) {
-		    case MONKEY_MAN:
-			switch (d.getChatId()) {
-			    case 1:
-				d.sendNpcChat("Grr... What do you want?", ANGRY_1);
-				return true;
-			    case 2:
-				d.sendPlayerChat("Nothing, sorry...", CONTENT);
-				d.endDialogue();
-				return true;
-			}
+		} else {
+		    switch (player.getQuestStage(36)) {
+			case MONKEY_MAN:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("Grr... What do you want?", ANGRY_1);
+				    return true;
+				case 2:
+				    d.sendPlayerChat("Nothing, sorry...", CONTENT);
+				    d.endDialogue();
+				    return true;
+			    }
+			    return false;
+			case GARKORS_PLAN:
+			    switch (d.getChatId()) {
+				case 1:
+				    d.sendNpcChat("Grrr... What do you want?", ANGRY_1);
+				    return true;
+				case 2:
+				    d.sendPlayerChat("I'd like to speak with Awowogei, please.", CONTENT);
+				    return true;
+				case 3:
+				    d.sendNpcChat("Only the Captain of the Monkey Guard or those he", "authorizes may enter this building. You will need his", "permission to enter.", CONTENT);
+				    return true;
+				case 4:
+				    d.sendPlayerChat("Who is the Captain of the Monkey Guard?", CONTENT);
+				    return true;
+				case 5:
+				    d.sendNpcChat("He goes by the name of Kruk.  You can find him", "atop the cliffs near the entrance to this village.", CONTENT);
+				    d.endDialogue();
+				    return true;
+			    }
 			return false;
-		    case GARKORS_PLAN:
-			switch (d.getChatId()) {
-			    case 1:
-				d.sendNpcChat("Grrr... What do you want?", ANGRY_1);
-				return true;
-			    case 2:
-				d.sendPlayerChat("I'd like to speak with Awowogei, please.", CONTENT);
-				return true;
-			    case 3:
-				d.sendNpcChat("Only the Captain of the Monkey Guard or those he", "authorizes may enter this building. You will need his", "permission to enter.", CONTENT);
-				return true;
-			    case 4:
-				d.sendPlayerChat("Who is the Captain of the Monkey Guard?", CONTENT);
-				return true;
-			    case 5:
-				d.sendNpcChat("He goes by the name of Kruk.  You can find him", "atop the cliffs near the entrance to this village.", CONTENT);
-				d.endDialogue();
-				return true;
-			}
-			return false;
-		    case KRUKS_PERMISSION:
-		    case AWOWOGEIS_TEST:
-			
+		    }
 		}
 		return false;
 	}

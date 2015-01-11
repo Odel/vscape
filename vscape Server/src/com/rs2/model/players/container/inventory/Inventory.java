@@ -61,7 +61,11 @@ public class Inventory {
 	
 	public void addItemOrBank(Item item) {
 		if (!addItem(item)) {
-			player.getBankManager().add(item);
+			if (player.getBankManager().roomForItem(item)) {
+				player.getBankManager().add(item);
+			} else {
+				GroundItemManager.getManager().dropItem(new GroundItem(item, player));
+			}
 		}
 	}
 

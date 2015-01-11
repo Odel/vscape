@@ -171,6 +171,16 @@ public class Equipment {
 			player.setStandAnim(-1);
 		    }
 		}
+		if(player.getQuestStage(36) == 0 && player.getEquipment().getId(Constants.WEAPON) == 4587) {
+		    if(player.getInventory().getItemContainer().freeSlots() > 0) {
+			player.getEquipment().unequip(Constants.WEAPON);
+		    } else {
+			player.getEquipment().removeAmount(Constants.WEAPON, 1);
+			player.getInventory().addItemOrBank(new Item(4587));
+		    }
+		    player.getActionSender().sendMessage("Your d-scim has been un-equipped due to lack of progress in Monkey Madness. :^)");
+		    player.getActionSender().sendMessage("If your inventory is full it was sent to your bank.");
+		}
 	}
 
 	public void refresh(int slot, Item item) {
@@ -266,6 +276,10 @@ public class Equipment {
 		    else {
 			player.setGodBook(item.getId());
 		    }
+		}
+		if(item.getId() == 4587 && !QuestHandler.questCompleted(player, 36)) {
+		    player.getDialogue().sendStatement("You must complete Monkey Madness to equip this.");
+		    return;
 		}
 		if(player.inCwGame() || player.inCwLobby())
 		{
