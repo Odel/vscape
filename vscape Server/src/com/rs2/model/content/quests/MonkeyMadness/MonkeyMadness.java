@@ -2314,7 +2314,7 @@ public class MonkeyMadness implements Quest {
 					d.sendPlayerChat("News travels quickly on this tree. I expect you also", "know that I am to be enrolled in the Royal Guard", "Training Program?", CONTENT);
 					return true;
 				    case 4:
-					d.sendNpcChat("Indeed I do. It's mandatory training now to", "visit the Ape Atoll.", CONTENT);
+					d.sendNpcChat("Indeed I do. It's mandatory training now to", "visit the Ape Atoll by any means.", CONTENT);
 					return true;
 				    case 5:
 					d.sendPlayerChat("How long does it take?", CONTENT);
@@ -2324,9 +2324,10 @@ public class MonkeyMadness implements Quest {
 					return true;
 				    case 7:
 					d.sendOption("Then let us begin.", "Can't you just lie and say I did the program?");
+					d.setNextChatId(20);
 					return true;
 				    case 8:
-					d.sendNpcChat("Entusiasm. I like that. We will first begin with a series", "of exercises designed to increase your strength and", "stamina.", CONTENT);
+					d.sendNpcChat("Enthusiasm. I like that. We will first begin with a series", "of exercises designed to increase your strength and", "stamina.", CONTENT);
 					return true;
 				    case 9:
 					d.sendNpcChat("We then will follow these up by improving your attack", "and defense techniques.", CONTENT);
@@ -2335,24 +2336,52 @@ public class MonkeyMadness implements Quest {
 					d.sendNpcChat("Let us begin. You must choose what you want to focus on.", CONTENT);
 					return true;
 				    case 11:
-					d.sendOption("Focus on increasing strength and stamina...", "Focus on improving attack and defense techniques...");
-					d.setNextChatId(20);
+					d.sendOption("Focus on increasing strength and stamina...", "Focus on improving attack and defence techniques...");
 					return true;
 				    case 12:
 					switch (optionId) {
 					    case 1:
 						d.sendStatement("Several hours and a training montage later...");
-						player.getMMVars().setTrainingComplete(true);
-						//award xp
+						player.getActionSender().sendWalkableInterface(8677);
+						player.getActionSender().sendMapState(2);
 						return true;
 					    case 2:
 						d.sendStatement("Several hours and a training montage later...");
-						player.getMMVars().setTrainingComplete(true);
-						//award xp
+						player.getActionSender().sendWalkableInterface(8677);
+						player.getActionSender().sendMapState(2);
+						d.setNextChatId(15);
 						return true;
 					}
 					return true;
 				    case 13:
+					d.endDialogue();
+					player.getActionSender().removeInterfaces();
+					player.getActionSender().sendWalkableInterface(-1);
+					player.getActionSender().sendMapState(0);
+					player.getMMVars().setTrainingComplete(true);
+					player.getSkill().addExp(Skill.STRENGTH, 35000);
+					player.getActionSender().sendMessage("You are awarded " + (35000 * 2.25) + " experience in Strength!");
+					player.getSkill().addExp(Skill.HITPOINTS, 35000);
+					player.getActionSender().sendMessage("You are awarded " + (35000 * 2.25) + " experience in Hitpoints!");
+					player.getSkill().addExp(Skill.ATTACK, 20000);
+					player.getActionSender().sendMessage("You are awarded " + (20000 * 2.25) + " experience in Attack!");
+					player.getSkill().addExp(Skill.DEFENCE, 20000);
+					player.getActionSender().sendMessage("You are awarded " + (20000 * 2.25) + " experience in Defence!");
+					player.getActionSender().sendMessage("You may now return to Ape Atoll by means of Glider or Magic.");
+					return true;
+				    case 15:
+					d.endDialogue();
+					player.getActionSender().removeInterfaces();
+					player.getMMVars().setTrainingComplete(true);
+					player.getSkill().addExp(Skill.ATTACK, 35000);
+					player.getActionSender().sendMessage("You are awarded " + (35000 * 2.25) + " experience in Attack!");
+					player.getSkill().addExp(Skill.DEFENCE, 35000);
+					player.getActionSender().sendMessage("You are awarded " + (35000 * 2.25) + " experience in Defence!");
+					player.getSkill().addExp(Skill.STRENGTH, 20000);
+					player.getActionSender().sendMessage("You are awarded " + (20000 * 2.25) + " experience in Strength!");
+					player.getSkill().addExp(Skill.HITPOINTS, 20000);
+					player.getActionSender().sendMessage("You are awarded " + (20000 * 2.25) + " experience in Hitpoints!");
+					player.getActionSender().sendMessage("You may now return to Ape Atoll by means of Glider or Magic.");
 					return true;
 				    case 20:
 					switch (optionId) {

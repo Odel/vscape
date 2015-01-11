@@ -240,10 +240,14 @@ public class ApeAtoll {
 		    Npc karam = new Npc(MonkeyMadness.KARAM_2);
 		    NpcLoader.spawnNpc(player, karam, false, false);
 		    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 0);
-		    karam.getUpdateFlags().setForceChatMessage("I'll assist you adventurer.");
+		    karam.getUpdateFlags().setForceChatMessage("I'll show this guard the meaning of 'going ape shit'.");
 		    CombatManager.attack(karam, npc);
 		    player.getMMVars().inProcessOfBeingJailed = false;
 		    karam.setPlayerOwner(player.getIndex());
+		    return;
+		}
+		if(!player.onApeAtoll()) {
+		    player.getMMVars().inProcessOfBeingJailed = false;
 		    return;
 		}
 		player.fadeTeleport(new Position(2773, 2794, 0));
@@ -254,7 +258,7 @@ public class ApeAtoll {
 		    }
 		    @Override
 		    public void stop() {
-			if(player.getMMVars().firstTimeJail()) {
+			if(player.getMMVars().firstTimeJail() && player.getQuestStage(36) < MonkeyMadness.FUCK_THE_DEMON) {
 			    player.getMMVars().setFirstTimeJail(false);
 			    Dialogues.startDialogue(player, MonkeyMadness.LUMO);
 			} else if(!player.getMMVars().canHideInGrass()) {
