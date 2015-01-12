@@ -19,6 +19,7 @@ import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.pestcontrol.*;
+import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
@@ -209,10 +210,6 @@ public class WalkToActionHandler {
 				if(ApeAtoll.doObjectFirstClick(player, id, x, y)) {
 					this.stop();
 					return;
-				}
-				if(Ectofungus.doObjectFirstClick(player, player.getClickId(), player.getClickX(), player.getClickY())) {
-				    this.stop();
-				    return;
 				}
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
@@ -1229,6 +1226,9 @@ public class WalkToActionHandler {
 				case 1568: // open trapdoor
 					TrapDoor.handleTrapdoor(player, id, 1570, def);
 					break;
+				case GhostsAhoy.TRAPDOOR:
+					TrapDoor.handleTrapdoor(player, id, 5268, def);
+					break;
 				case 1570: // climb down trapdoor
 				case 5947: // climb into lumby swamp
 				case 6435: // climb down trapdoor
@@ -1776,7 +1776,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(Ectofungus.doObjectSecondClick(player, id, x, y)) {
+				if(GhostsAhoy.doObjectSecondClick(player, id, x, y)) {
 					this.stop();
 					return;
 				}
@@ -2552,10 +2552,6 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				    }
-				}
-				if(Ectofungus.doItemOnObject(player, id, item)) {
-					this.stop();
-					return;
 				}
 				if (id == 3044 && player.getNewComersSide().isInTutorialIslandStage() && (item == 438 || item == 436)) {
 					Smelting.oreOnFurnace(player, item);

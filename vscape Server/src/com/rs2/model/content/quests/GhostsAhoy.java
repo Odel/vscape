@@ -12,6 +12,7 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.skills.Menus;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
@@ -21,6 +22,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.prayer.Ectofungus;
+import static com.rs2.model.content.skills.prayer.Ectofungus.BUCKET_OF_SLIME;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -76,7 +78,7 @@ public class GhostsAhoy implements Quest {
     public static final int BONE_KEY = 4272;
     public static final int ECTOPLASM_BEDSHEET = 4285;
     public static final int BONES = 526;
-    public static final int POT = 1951;
+    public static final int POT = 1931;
     public static final int SPADE = 952;
     public static final int BUCKET_OF_MILK = 1927;
     public static final int NEEDLE = 1733;
@@ -143,6 +145,47 @@ public class GhostsAhoy implements Quest {
     public static final int INNKEEPER = 1700;
     public static final int DISCIPLE = 1686;
     public static final int PATCHY = 4359;
+    
+    public static final Position UP_TO_BONEGRINDER = new Position(3666, 3522, 1);
+    public static final Position DOWN_FROM_BONEGRINDER = new Position(3666, 3517, 0);
+    public static final Position DOWN_AT_SLIME = new Position(3683, 9888, 0);
+    public static final Position UP_FROM_SLIME = new Position(3687, 9888, 1);
+    public static final Position DOWN_FROM_FIRST_LEVEL = new Position(3675, 9888, 1);
+    public static final Position UP_FROM_FIRST_LEVEL = new Position(3671, 9888, 2);
+    public static final Position DOWN_FROM_SECOND_LEVEL = new Position(3688, 9888, 2);
+    public static final Position UP_FROM_SECOND_LEVEL = new Position(3692, 9888, 3);
+    public static final Position UP_FROM_FIRST_LEVEL_SHORTCUT = new Position(3670, 9888, 3);
+    public static final Position DOWN_FROM_TRAPDOOR = new Position(3669, 9888, 3);
+    public static final Position UP_FROM_LADDER = new Position(3654, 3519, 0);
+
+    public static final int X = 0, Y = 1;
+    public static final int[] ECTOFUNGUS_OBJ = {3658, 3518};
+    public static final int[] TRAPDOOR_OBJ = {3653, 3519};
+    public static final int[] STAIRS_UP_OBJ = {3666, 3518};
+    public static final int[] STAIRS_DOWN_OBJ = {3666, 3520};
+    public static final int[] STAIRS_UP_TO_SECOND_OBJ = {3689, 9887};
+    public static final int[] STAIRS_UP_TO_FIRST_OBJ = {3672, 9887};
+    public static final int[] STAIRS_UP_FROM_SLIME_OBJ = {3684, 9887};
+    public static final int[] STAIRS_DOWN_TO_SECOND_OBJ = {3689, 9887};
+    public static final int[] STAIRS_DOWN_TO_FIRST_OBJ = {3672, 9887};
+    public static final int[] STAIRS_DOWN_TO_SLIME_OBJ = {3684, 9887};
+    public static final int[] LADDER_UP_OBJ = {3668, 9888};
+    public static final int[] BONEGRINDER_OBJ = {3659, 3525};
+    public static final int[] BONEGRINDER_BIN_OBJ = {3658, 3525};
+
+    public static final int ECTOFUNGUS = 5282;
+    public static final int TRAPDOOR = 5267;
+    public static final int STAIRS_UP = 5280;
+    public static final int STAIRS_DOWN = 5281;
+    public static final int STAIRS_UP_SLIME = 5262;
+    public static final int STAIRS_DOWN_SLIME = 5263;
+    public static final int LADDER_UP = 5264;
+    public static final int JUMP_DOWN = 9308;
+    public static final int LOADER = 11162;
+    public static final int BONEGRINDER = 11163;
+    public static final int BONEGRINDER_BIN = 11164;
+    public static final int SLIME = 5461;
+    public static final int SLIME_2 = 5462;
     
     public int dialogueStage = 0;
     
@@ -508,7 +551,7 @@ public class GhostsAhoy implements Quest {
 		    return true;
 		}
 		else {
-		    return false;
+		    return true;
 		}
 	}
 	return false;
@@ -619,15 +662,58 @@ public class GhostsAhoy implements Quest {
 	return false;
     }
     
-    public boolean doItemOnObject(final Player player, int object, int item) {
+    public boolean doItemOnObject(final Player player, final int object, final int item) {
 	switch(object) {
-	    case Ectofungus.ECTOFUNGUS:
+	    case ECTOFUNGUS:
 		if(item == ECTOPHIAL_EMPTY) {
 		    player.getUpdateFlags().sendAnimation(883);
 		    player.getInventory().replaceItemWithItem(new Item(ECTOPHIAL_EMPTY), new Item(ECTOPHIAL));
 		    player.getActionSender().sendMessage("You refill the ectophial from the Ectofuntus.");
 		    return true;
 		}
+	    case SLIME:
+	    case SLIME_2:
+		if (item == GhostsAhoy.BEDSHEET) {
+		    player.getUpdateFlags().sendAnimation(827);
+		    player.getActionSender().sendMessage("You dip the bedsheet into the ectoplasm, and it comes out dripping with green slime.");
+		    player.getInventory().replaceItemWithItem(new Item(GhostsAhoy.BEDSHEET), new Item(GhostsAhoy.ECTOPLASM_BEDSHEET));
+		    return true;
+		}
+		if (item == BUCKET) {
+		    player.setStatedInterface("Ectoplasm");
+		    Menus.display1Item(player, BUCKET_OF_SLIME, "");
+		    return true;
+		}
+		return false;
+	    case LOADER:
+		final Ectofungus.BonemealData bone = Ectofungus.BonemealData.forBoneId(item);
+		if (bone == null) {
+		    player.getActionSender().sendMessage("Those aren't bones!");
+		    return true;
+		}
+		if (player.getEctofungus().boneType != null && player.getEctofungus().boneType.boneId != item) {
+		    player.getActionSender().sendMessage("You can only process one type of bone at a time. Empty the bin if need be.");
+		    return true;
+		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			if(player.getEctofungus().boneType == null) {
+			    player.getEctofungus().boneType = Ectofungus.BonemealData.forBoneId(item);
+			}
+			player.getActionSender().sendMessage("You add some " + new Item(bone.boneId).getDefinition().getName() + " to the loader.");
+			player.getInventory().removeItem(new Item(bone.boneId));
+			player.getEctofungus().getBonesInLoader().add(bone);
+			player.getUpdateFlags().sendAnimation(1649);
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.setStopPacket(false);
+		    }
+		}, 1);
+		return true;
 	}
 	return false;
     }
@@ -817,6 +903,119 @@ public class GhostsAhoy implements Quest {
 		else {
 		    return false;
 		}
+	    case STAIRS_UP:
+		if (x == STAIRS_UP_OBJ[X] && y == STAIRS_UP_OBJ[Y]) {
+		    player.teleport(UP_TO_BONEGRINDER);
+		    return true;
+		}
+	    case STAIRS_DOWN:
+		if (x == STAIRS_DOWN_OBJ[X] && y == STAIRS_DOWN_OBJ[Y]) {
+		    player.teleport(DOWN_FROM_BONEGRINDER);
+		    return true;
+		}
+	    case ECTOFUNGUS:
+		if (x == ECTOFUNGUS_OBJ[X] && y == ECTOFUNGUS_OBJ[Y]) {
+		    player.getEctofungus().worship();
+		    return true;
+		}
+	    case STAIRS_UP_SLIME:
+		if (x == STAIRS_UP_FROM_SLIME_OBJ[X]) {
+		    player.teleport(UP_FROM_SLIME);
+		    return true;
+		} else if (x == STAIRS_UP_TO_FIRST_OBJ[X]) {
+		    player.teleport(UP_FROM_FIRST_LEVEL);
+		    return true;
+		} else if (x == STAIRS_UP_TO_SECOND_OBJ[X]) {
+		    player.teleport(UP_FROM_SECOND_LEVEL);
+		    return true;
+		}
+	    case STAIRS_DOWN_SLIME:
+		if (x == STAIRS_DOWN_TO_SLIME_OBJ[X]) {
+		    player.teleport(DOWN_AT_SLIME);
+		    return true;
+		} else if (x == STAIRS_DOWN_TO_FIRST_OBJ[X]) {
+		    player.teleport(DOWN_FROM_FIRST_LEVEL);
+		    return true;
+		} else if (x == STAIRS_DOWN_TO_SECOND_OBJ[X]) {
+		    player.teleport(DOWN_FROM_SECOND_LEVEL);
+		    return true;
+		}
+	    case LADDER_UP:
+		if (x == LADDER_UP_OBJ[X]) {
+		    Ladders.climbLadder(player, UP_FROM_LADDER);
+		    return true;
+		}
+	    case BONEGRINDER:
+		if (player.getEctofungus().getBonesInLoader().isEmpty()) {
+		    player.getActionSender().sendMessage("You haven't added any bones to the loader!");
+		    return true;
+		} else {
+		    player.getUpdateFlags().sendAnimation(1648);
+		    player.getActionSender().sendMessage("You grind the bones.");
+		    for (Ectofungus.BonemealData bone : player.getEctofungus().getBonesInLoader()) {
+			player.getEctofungus().getBonemealInBin().add(bone);
+		    }
+		    player.getEctofungus().getBonesInLoader().clear();
+		    return true;
+		}
+	    case BONEGRINDER_BIN:
+		player.getUpdateFlags().setFace(new Position(x, y + 1, 1));
+		if (!player.getInventory().playerHasItem(POT)) {
+		    player.getActionSender().sendMessage("You don't have any pots to collect bonemeal with!");
+		    return true;
+		}
+		if (player.getEctofungus().getBonemealInBin().isEmpty()) {
+		    player.getActionSender().sendMessage("The bin is empty.");
+		    return true;
+		} else if (!player.getEctofungus().getBonemealInBin().isEmpty()) {
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int index = player.getEctofungus().getBonemealInBin().size() - 1;
+			@Override
+			public void execute(CycleEventContainer b) {
+			    player.getUpdateFlags().reset();
+			    if (index < 0) {
+				b.stop();
+			    } else {
+				if (!player.getInventory().playerHasItem(POT)) {
+				    player.getActionSender().sendMessage("You don't have enough pots to collect the rest of the bonemeal!");
+				    b.stop();
+				} else {
+				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(player.getEctofungus().getBonemealInBin().get(index).bonemealId));
+				    player.getUpdateFlags().sendAnimation(1650);
+				    index--;
+				}
+			    }
+			}
+
+			@Override
+			public void stop() {
+			    player.setStopPacket(false);
+			    if (index < 0) {
+				player.getEctofungus().getBonemealInBin().clear();
+				player.getEctofungus().boneType = null;
+				player.getActionSender().sendMessage("You finish collecting the bonemeal from the bin.");
+			    } else {
+				for (int i = player.getEctofungus().getBonemealInBin().size() - 1; i > index; i--) {
+				    player.getEctofungus().getBonemealInBin().remove(i);
+				}
+			    }
+			}
+		    }, 2);
+		    return true;
+		}
+	    return false;
+	}
+	return false;
+    }
+	
+    public static boolean doObjectSecondClick(final Player player, int object, int x, int y) {
+	switch (object) {
+	    case BONEGRINDER:
+		if (x == BONEGRINDER_OBJ[X] && y == BONEGRINDER_OBJ[Y]) {
+		    player.getActionSender().sendMessage("" + player.getEctofungus().getBonesAdded());
+		    return true;
+		}
 	}
 	return false;
     }
@@ -983,6 +1182,111 @@ public class GhostsAhoy implements Quest {
     
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+	    case 1686: //ghost disciple
+		switch (player.getDialogue().getChatId()) {
+		    case 1:
+			if (player.getEctoWorshipCount() > 0) {
+			    player.getDialogue().sendPlayerChat("I've worshipped the Ectofuntus, I'd like", "tokens in exchange for the power it has recieved.", CONTENT);
+			    return true;
+			} else {
+			    player.getDialogue().sendPlayerChat("What is this strange fountain?", CONTENT);
+			    player.getDialogue().setNextChatId(5);
+			    return true;
+			}
+		    case 2:
+			player.getDialogue().sendNpcChat("Yes, good work adventurer. The Ectofuntus is mighty!", "Here are some Ectotokens in reward.", CONTENT);
+			return true;
+		    case 3:
+			player.getDialogue().sendGiveItemNpc("The disciple hands you some Ectotokens.", new Item(4278));
+			player.getDialogue().endDialogue();
+			player.getInventory().addItemOrDrop(new Item(ECTOTOKEN, player.getEctoWorshipCount() > 12 ? 60 : player.getEctoWorshipCount() * 5));
+			player.setEctoWorshipCount(0);
+			return true;
+		    case 5:
+			player.getDialogue().sendNpcChat("This is the Ectofuntus, the most marvellous", "creation of Necrovarus, our glorious leader.", HAPPY);
+			return true;
+		    case 6:
+			player.getDialogue().sendOption("What is the Ectofuntus for?", "Where do I get ectoplasm from?", "How do I grind bones?", "How do I receive Ecto-tokens?", "Thank you for your time.");
+			return true;
+		    case 7:
+			switch (optionId) {
+			    case 1:
+				player.getDialogue().sendPlayerChat("What is the Ectofuntus for?", CONTENT);
+				return true;
+			    case 2:
+				player.getDialogue().sendPlayerChat("Where do I get ectoplasm from?", CONTENT);
+				player.getDialogue().setNextChatId(17);
+				return true;
+			    case 3:
+				player.getDialogue().sendPlayerChat("How do I grind bones?", CONTENT);
+				player.getDialogue().setNextChatId(20);
+				return true;
+			    case 4:
+				player.getDialogue().sendPlayerChat("How do I recieve Ecto-tokens?", CONTENT);
+				player.getDialogue().setNextChatId(24);
+				return true;
+			    case 5:
+				player.getDialogue().sendPlayerChat("Thank you for your time.", CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
+		    case 8:
+			player.getDialogue().sendNpcChat("It provides the power to keep us ghosts", "from passing over into the next plane of", "existence.", CONTENT);
+			return true;
+		    case 9:
+			player.getDialogue().sendPlayerChat("And how does it work?", CONTENT);
+			return true;
+		    case 10:
+			player.getDialogue().sendNpcChat("You have to pour a bucket of ectoplasm and", "a pot of ground bones into the Ectofuntus,", " and then worship at it. A unit of unholy", "power will then be created.", CONTENT);
+			return true;
+		    case 11:
+			player.getDialogue().sendPlayerChat("Can you do it yourself?", CONTENT);
+			return true;
+		    case 12:
+			player.getDialogue().sendNpcChat("No, we must rely upon the living, as the", "worship of the undead no longer holds any", "inherent power.", CONTENT);
+			return true;
+		    case 13:
+			player.getDialogue().sendPlayerChat("Why would people waste their time helping you out?", CONTENT);
+			return true;
+		    case 14:
+			player.getDialogue().sendNpcChat("For every unit of power produced, we will", "give you five Ecto-tokens. These tokens can be used", "in Port Phasmatys to purchase various services,", "not least of which includes access through the main gates.", CONTENT);
+			return true;
+		    case 15:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 17:
+			player.getDialogue().sendNpcChat("Necrovarus sensed the power bubbling beneath our feet", "and we delved long and deep beneath Port Phasmatys,", "until we found a pool of natural ectoplasm. You may", "find it by using the trapdoor over there.", CONTENT);
+			return true;
+		    case 18:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 20:
+			player.getDialogue().sendNpcChat("There is a bone grinding machine upstairs. Put bones", "of any type into the machine's hopper, and then turn", "the handle when you have loaded all your bones.", CONTENT);
+			return true;
+		    case 21:
+			player.getDialogue().sendNpcChat("Necrovarus, in his mighty power, enchanted the bin to allow", " you to seperate all the bonemeal into pots instantaneously.", CONTENT);
+			return true;
+		    case 22:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		    case 24:
+			player.getDialogue().sendNpcChat("We disciples keep track of how many units", "of power have been produced. Just talk to us", "once you have generated some and we will reimburse you.", CONTENT);
+			return true;
+		    case 25:
+			player.getDialogue().sendPlayerChat("How do I produce units of power?", CONTENT);
+			return true;
+		    case 26:
+			player.getDialogue().sendNpcChat("You have to pour a bucket of ectoplasm and", "a pot of ground bones into the Ectofuntus,", " and then worship at it. A unit of unholy", "power will then be created.", CONTENT);
+			return true;
+		    case 27:
+			player.getDialogue().sendPlayerChat("Thanks.", CONTENT);
+			player.getDialogue().endDialogue();
+			return true;
+		}
+		return false;
 	    case AK_HARANU:
 		switch (player.getQuestStage(24)) {
 		    case ITEMS_FOR_ENCHANTMENT:

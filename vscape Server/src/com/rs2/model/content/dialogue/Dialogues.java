@@ -138,9 +138,6 @@ public class Dialogues {
 			return true;
 		    }
 		}
-		if(Ectofungus.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
 		if(TabHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}

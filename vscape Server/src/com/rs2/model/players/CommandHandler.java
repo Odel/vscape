@@ -61,6 +61,7 @@ import java.util.ArrayList;
 
 public class CommandHandler {
 	
+	public static final Position[] forceSpacePositions = {new Position(3288, 3956, 0), new Position(3289, 3953, 0), new Position(3293, 3953, 0), new Position(3293, 3951, 0), new Position(3286, 3953, 0), new Position(3286, 3958, 0), new Position(3284, 3960, 0)};
 	/**
 	 * Handles a player command.
 	 * 
@@ -1011,7 +1012,7 @@ public class CommandHandler {
 	   	 	for (Player player : World.getPlayers()) { 
 	   	 		if (player == null) continue; 
 	   	 		if(player.getUsername().equalsIgnoreCase(name)) {
-	   	 			player.teleport(new Position(3108, 3954));
+	   	 			player.teleport(forceSpacePositions[Misc.randomMinusOne(forceSpacePositions.length)]);
 	   	 			player.getActionSender().sendMessage("You have been sent to space. Good luck escaping!"); 
 	   	 			return;
 	   	 		} 
@@ -1113,7 +1114,7 @@ public class CommandHandler {
 		    }
 		}
 		else if (keyword.equals("stillcamera")) {
-			sender.getActionSender().stillCamera(2515, 10008, Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+			sender.getActionSender().stillCamera(sender.getPosition().getX() + Integer.parseInt(args[0]), sender.getPosition().getY() + Integer.parseInt(args[1]), 0, 0, 0);
 		}
 		else if (keyword.equals("spincamera")) {
 			sender.getActionSender().spinCamera(sender.getPosition().getX(), sender.getPosition().getY(), Integer.parseInt(args[1]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
@@ -1570,10 +1571,10 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("mypos")) {
 			sender.getActionSender().sendMessage("You are at: " + sender.getPosition());
-			System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
-			if(Constants.SERVER_DEBUG && sender.getStaffRights() == 3) {
-			    System.out.println("" + sender.getPosition());
-			}
+			/*System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
+			if(sender.getStaffRights() == 2) {
+			    System.out.println("new " + sender.getPosition());
+			}*/
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(sender, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
@@ -1609,6 +1610,7 @@ public class CommandHandler {
 		    for (int i = 0; i < sender.puzzleStoredItems.length; i++) {
 			sender.puzzleStoredItems[i] = new Item(sender.getPuzzle().getPuzzleIndex(sender.getPuzzle().index)[i]);
 		    }
+		    sender.getPuzzle().loadPuzzle();
 		}
 		else if (keyword.equals("barrowsreward")) {
 		    int amount = Integer.parseInt(args[0]);

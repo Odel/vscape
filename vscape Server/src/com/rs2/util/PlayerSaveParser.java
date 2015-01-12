@@ -20,6 +20,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.SpellBook;
+import com.rs2.model.content.skills.prayer.Ectofungus;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.bank.BankManager;
@@ -183,6 +184,21 @@ public class PlayerSaveParser {
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){
 	                player.setCoalTruckAmount(worldData.get("coaltrucks").getAsInt());
+			if(worldData.get("ectoGrinderBoneType") != null) {
+			    player.getEctofungus().boneType = Ectofungus.BonemealData.forBoneId(worldData.get("ectoGrinderBoneType").getAsInt());
+			}
+			if(worldData.get("bonesInLoader") != null) {
+			    int amount = worldData.get("bonesInLoader").getAsInt();
+			    for(int i = 0; i < amount; i++) {
+				player.getEctofungus().getBonesInLoader().add(i, Ectofungus.BonemealData.forBoneId(player.getEctofungus().boneType.boneId));
+			    }
+			}
+			if(worldData.get("bonemealInBin") != null) {
+			    int amount = worldData.get("bonemealInBin").getAsInt();
+			    for(int i = 0; i < amount; i++) {
+				player.getEctofungus().getBonemealInBin().add(i, Ectofungus.BonemealData.forBoneId(player.getEctofungus().boneType.boneId));
+			    }
+			}
 	                player.setBrimhavenDungeonOpen(worldData.get("brimhavenOpen").getAsBoolean());
                 }
                 JsonObject npcData = characterObj.getAsJsonObject("npcData");
