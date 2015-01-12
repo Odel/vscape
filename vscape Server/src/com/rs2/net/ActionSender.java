@@ -107,8 +107,8 @@ public class ActionSender {
         }
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendIgnoreList(player.getIgnores());
-		sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
-		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
+		sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.", true);
+		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.", true);
 		//QPEdit(player.getQuestPoints());
 		return this;
 	}
@@ -476,19 +476,24 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
-
-	public ActionSender sendMessage(String message) {
+	
+	public ActionSender sendMessage(String message, boolean isFiltered) {
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
 			player.getDialogue().sendStatement(message);
 			player.setClickId(0);
 		}
 		StreamBuffer.OutBuffer out = StreamBuffer
-				.newOutBuffer(message.length() + 3);
+				.newOutBuffer(message.length() + 4);
 		out.writeVariablePacketHeader(player.getEncryptor(), 253);
 		out.writeString(message);
+		out.writeByte(isFiltered == true ? 1 : 0);
 		out.finishVariablePacketHeader();
 		player.send(out.getBuffer());
 		return this;
+	}
+
+	public void sendMessage(String message) {
+		sendMessage(message, false);
 	}
 
 	public void hideAllSideBars() {

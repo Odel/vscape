@@ -43,7 +43,7 @@ public class BankManager {
 				return;
 			}
 		} else if (!player.isBankWarning()) {
-			player.getActionSender().sendMessage("You do not have a bank pin, it is highly recommended you get one.");
+			player.getActionSender().sendMessage("You do not have a bank pin, it is highly recommended you get one.", true);
 			player.setBankWarning(true);
 		}
 
@@ -148,7 +148,7 @@ public class BankManager {
 		int amount = player.getInventory().getItemContainer().getCount(bankItem);
 		boolean isNote = inventoryItem.getDefinition().isNoted();
 		if (inventoryItem.getDefinition().getId() > Constants.MAX_ITEMS) {
-			player.getActionSender().sendMessage("This item is not supported yet.");
+			player.getActionSender().sendMessage("This item is not supported yet.", true);
 			return;
 		}
 		int transferId = isNote ? inventoryItem.getDefinition().getNormalId() : inventoryItem.getDefinition().getId();
@@ -164,7 +164,7 @@ public class BankManager {
 				if (!roomForItems()) {
 					updateBankTotal();
 					refreshTabContainer();	
-					player.getActionSender().sendMessage("You don't have enough space in your bank account.");
+					player.getActionSender().sendMessage("You don't have enough space in your bank account.", true);
 					return;
 				}
 				int freeSlot = tabFreeSlot(currentTab);
@@ -176,7 +176,7 @@ public class BankManager {
 					}else{
 						updateBankTotal();
 						refreshTabContainer();	
-						player.getActionSender().sendMessage("This bank tab is full.");
+						player.getActionSender().sendMessage("This bank tab is full.", true);
 						return;
 					}
 				}
@@ -230,7 +230,7 @@ public class BankManager {
 				int amount = item.getCount();
 				boolean isNote = item.getDefinition().isNoted();
 				if (item.getDefinition().getId() > Constants.MAX_ITEMS) {
-					player.getActionSender().sendMessage("This item is not supported yet.");
+					player.getActionSender().sendMessage("This item is not supported yet.", true);
 					return;
 				}
 				int transferId = isNote ? item.getDefinition().getNormalId() : item.getDefinition().getId();
@@ -245,7 +245,7 @@ public class BankManager {
 						if (!roomForItems()) {
 							updateBankTotal();
 							refreshTabContainer();	
-							player.getActionSender().sendMessage("You don't have enough space in your bank account.");
+							player.getActionSender().sendMessage("You don't have enough space in your bank account.", true);
 							return;
 						}
 						int freeSlot = tabFreeSlot(currentTab);
@@ -270,7 +270,7 @@ public class BankManager {
 								}else{
 									updateBankTotal();
 									refreshTabContainer();	
-									player.getActionSender().sendMessage("This bank tab is full.");
+									player.getActionSender().sendMessage("This bank tab is full.", true);
 									return;
 								}
 							}
@@ -339,14 +339,14 @@ public class BankManager {
 			return;
 		}
 		if (bankItem > Constants.MAX_ITEMS) {
-			player.getActionSender().sendMessage("This item is not supported yet.");
+			player.getActionSender().sendMessage("This item is not supported yet.", true);
 			return;
 		}
 		if (inBankAmount < bankAmount) {
 			bankAmount = inBankAmount;
 		}
 		if (withdrawAsNote && !isNoteable) {
-			player.getActionSender().sendMessage("This item cannot be withdrawn as a note.");
+			player.getActionSender().sendMessage("This item cannot be withdrawn as a note.", true);
 			withdrawAsNote = false;
 		}
 		int count = 0;
@@ -399,7 +399,7 @@ public class BankManager {
 			return;
 		int freeSlot = toTab.freeSlot();
 		if (freeSlot == -1) {
-			player.getActionSender().sendMessage("That bank tab is already full.");
+			player.getActionSender().sendMessage("That bank tab is already full.", true);
 			return;
 		}
 		final int id = fromTab.get(from).getId();

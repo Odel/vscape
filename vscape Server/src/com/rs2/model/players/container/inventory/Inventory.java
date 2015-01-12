@@ -38,7 +38,7 @@ public class Inventory {
 			return 0;
 		}
 		if (itemContainer.freeSlots() <= 0 && !itemContainer.hasRoomFor(item)) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			return 0;
 		}
 		int amount = item.getCount();
@@ -74,7 +74,7 @@ public class Inventory {
 			return false;
 		}
 		if (itemContainer.freeSlots() <= 0 && !itemContainer.hasRoomFor(item)) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			return false;
 		}
 		int amount = item.getCount();
@@ -94,7 +94,7 @@ public class Inventory {
 			return false;
 		}
 		if (itemContainer.freeSlots() <= 0 && !itemContainer.hasRoomFor(item)) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			return false;
 		}
 		return true;
@@ -160,7 +160,7 @@ public class Inventory {
 			return;
 		}
 		if (itemContainer.freeSlot() == -1) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			return;
 		}
 		itemContainer.set(slot, item);

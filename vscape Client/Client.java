@@ -314,8 +314,8 @@ public class Client extends RSApplet {
 		if(clientSize != 0) {
 			y = clientHeight - 164;
 		}
-		String gameText[] = { "On", "Off" };
-		int gameTextColor[] = { 65280, 0xff0000 };
+		String gameText[] = { "On", "Filtered", "Off" };
+		int gameTextColor[] = { 65280, 65535, 0xff0000 };
 		String globalText[] = { "On", "Hidden", "Off" };
 		int globalTextColor[] = { 65280, 65535, 0xff0000 };
 		String text[] = { "On", "Friends", "Off", "Hide" };
@@ -463,6 +463,7 @@ public class Client extends RSApplet {
 			for (int k = 0; k < 500; k++)
 				if (chatMessages[k] != null) {
 					int chatType = chatTypes[k];
+					boolean isFiltered = chatFiltered[k];
 					int yPos = (114 - amountOfMessages * 14) + 3 + chatScrollPos;
 					if (clientSize != 0)
 						yPos += y;
@@ -479,16 +480,15 @@ public class Client extends RSApplet {
 						byte0 = 3;
 					}
 					if (chatType == 0) {
-						if ((chatTypeView == 5 || chatTypeView == 0) && gameMode == 0) {
+						if ((chatTypeView == 5 || chatTypeView == 0) && (gameMode == 0 || (gameMode == 1 && isFiltered))) {
 							if (yPos > y && yPos < y + 210)
-								if (clientSize != 0)
+								if (clientSize != 0) {
 									textDrawingArea.method389(false, 11, 0,
 											chatMessages[k], yPos);// chat
-							// color
-							// enabled
-								else
+								} else {
 									textDrawingArea.method389(false, 11, 0,
 											chatMessages[k], yPos);
+								}
 							amountOfMessages++;
 							//j77++;
 						}
@@ -4533,7 +4533,7 @@ public class Client extends RSApplet {
 			inputTaken = true;
 		}
 		if (l == 1002) {
-			clanChatMode = 1;
+			gameMode = 2;
 			inputTaken = true;
 		}
 		if (l == 1001) {
@@ -5534,7 +5534,6 @@ public class Client extends RSApplet {
 						roofsToggled = !roofsToggled;
 					}
 					if (myPrivilege == 2) {
-						
 						if (inputString.equals("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
 
@@ -5553,6 +5552,8 @@ public class Client extends RSApplet {
 							clientData = true;
 						if (inputString.equals("::dataoff"))
 							clientData = false;
+						if (inputString.equals("::debug"))
+							clientDebug = !clientDebug;
 						if (inputString.equals("::noclip")) {
 							for (int k1 = 0; k1 < 4; k1++) {
 								for (int i2 = 1; i2 < 103; i2++) {
@@ -6230,6 +6231,10 @@ public class Client extends RSApplet {
 	}
 
 	public void pushMessage(String s, int i, String s1) {
+		pushMessage(s, i, s1, false);
+	}
+	
+	public void pushMessage(String s, int i, String s1, boolean isFiltered) {
 		if (i == 0 && dialogID != -1) {
 			aString844 = s;
 			super.clickMode3 = 0;
@@ -6241,11 +6246,13 @@ public class Client extends RSApplet {
 			chatNames[j] = chatNames[j - 1];
 			chatMessages[j] = chatMessages[j - 1];
 			chatRights[j] = chatRights[j - 1];
+			chatFiltered[j] = chatFiltered[j - 1];
 		}
 		chatTypes[0] = i;
 		chatNames[0] = s1;
 		chatMessages[0] = s;
 		chatRights[0] = rights;
+		chatFiltered[0] = isFiltered;
 	}
 
 	public static void setTab(int id) {
@@ -6811,12 +6818,14 @@ public class Client extends RSApplet {
 			menuActionRow = 2;
 		} else if(super.mouseX >= 71 && super.mouseX <= 127 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
 			menuActionName[1] = "Off Game";
-			menuActionID[1] = 1001;
-			menuActionName[2] = "On Game";
-			menuActionID[2] = 1000;
-			menuActionName[3] = "View Game";
-			menuActionID[3] = 998;
-			menuActionRow = 4;
+			menuActionID[1] = 1002;
+			menuActionName[2] = "Filtered Game";
+			menuActionID[2] = 1001;
+			menuActionName[3] = "On Game";
+			menuActionID[3] = 1000;
+			menuActionName[4] = "View Game";
+			menuActionID[4] = 998;
+			menuActionRow = 5;
 		} else if(super.mouseX >= 137 && super.mouseX <= 193 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
 			menuActionName[1] = "Hide public";
 			menuActionID[1] = 997;
@@ -9909,7 +9918,7 @@ public class Client extends RSApplet {
 			}
 		}
 	}
-
+	
 	private void addIgnore(long l) {
 		try {
 			if (l == 0L)
@@ -12380,6 +12389,7 @@ public class Client extends RSApplet {
 
 			case 253:
 				String s = inStream.readString();
+				boolean isFiltered = inStream.readUnsignedByte() == 1;
 				if (s.endsWith(":tradereq:")) {
 					String s3 = s.substring(0, s.indexOf(":"));
 					long l17 = TextClass.longForName(s3);
@@ -12429,7 +12439,7 @@ public class Client extends RSApplet {
 					autocast = false;
 					autoCastId = 0;
 				} else {
-					pushMessage(s, 0, "");
+					pushMessage(s, 0, "", isFiltered);
 				}
 				pktType = -1;
 				return true;
@@ -13076,6 +13086,7 @@ public class Client extends RSApplet {
 		fullscreenInterfaceID = -1;
 		this.toggleSize(0);
 		chatRights = new int[500];
+		chatFiltered = new boolean[500];
 		chatTypeView = 0;
 		clanChatMode = 0;
 		globalMode = 0;
@@ -13262,6 +13273,7 @@ public class Client extends RSApplet {
 	public String clanname;
 	public String globalPrefix;
 	private final int[] chatRights;
+	private final boolean[] chatFiltered;
 	public int chatTypeView;
 	public int clanChatMode;
 	public int duelMode;
@@ -13385,6 +13397,7 @@ public class Client extends RSApplet {
 	private static int nodeID = 10;
 	static int portOff;
 	static boolean clientData;
+	static boolean clientDebug;
 	private static boolean isMembers = true;
 	private static boolean lowMem;
 	private volatile boolean drawingFlames;
