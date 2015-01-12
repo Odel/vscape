@@ -2712,22 +2712,22 @@ public class Client extends RSApplet {
 			if (l == 0L)
 				return;
 			if (friendsCount >= 100 && anInt1046 != 1) {
-				pushMessage("Your friendlist is full. Max of 100 for free users, and 200 for members", 0, "");
+				pushMessage("Your friendlist is full. Max of 100 for free users, and 200 for members", 0, "", true);
 				return;
 			}
 			if (friendsCount >= 200) {
-				pushMessage("Your friendlist is full. Max of 100 for free users, and 200 for members", 0, "");
+				pushMessage("Your friendlist is full. Max of 100 for free users, and 200 for members", 0, "", true);
 				return;
 			}
 			String s = TextClass.fixName(TextClass.nameForLong(l));
 			for (int i = 0; i < friendsCount; i++)
 				if (friendsListAsLongs[i] == l) {
-					pushMessage(s + " is already on your friend list", 0, "");
+					pushMessage(s + " is already on your friend list", 0, "", true);
 					return;
 				}
 			for (int j = 0; j < ignoreCount; j++)
 				if (ignoreListAsLongs[j] == l) {
-					pushMessage("Please remove " + s + " from your ignore list first", 0, "");
+					pushMessage("Please remove " + s + " from your ignore list first", 0, "", true);
 					return;
 				}
 
@@ -2802,6 +2802,13 @@ public class Client extends RSApplet {
 			musicVolume = 200;
 			onDemandFetcher.method558(2, nextSong);
 		}
+		saveChatSettings();
+	}
+	
+	private void saveChatSettings() {
+		try {
+			writeChatSettings();
+		} catch(Exception e) {}
 	}
 
 	private void method45() {
@@ -4390,7 +4397,7 @@ public class Client extends RSApplet {
 				}
 
 				if (!flag9)
-					pushMessage("Unable to find " + s7, 0, "");
+					pushMessage("Unable to find " + s7, 0, "", true);
 			}
 		}
 		if (l == 870) {
@@ -4507,14 +4514,17 @@ public class Client extends RSApplet {
 		if(l == 1008) {
 			globalMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if(l == 1007) {
 			globalMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if(l == 1006) {
 			globalMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if(l == 1005) {
 			cButtonCPos = 0;
@@ -4535,14 +4545,17 @@ public class Client extends RSApplet {
 		if (l == 1002) {
 			gameMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 1001) {
 			gameMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 1000) {
 			gameMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 999) {
 			cButtonCPos = 0;
@@ -4557,18 +4570,22 @@ public class Client extends RSApplet {
 		if (l == 997) {
 			publicChatMode = 3;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 996) {
 			publicChatMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 995) {
 			publicChatMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 994) {
 			publicChatMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 993) {
 			cButtonCPos = 2;
@@ -4578,14 +4595,17 @@ public class Client extends RSApplet {
 		if (l == 992) {
 			privateChatMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 991) {
 			privateChatMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 990) {
 			privateChatMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 989) {
 			cButtonCPos = 3;
@@ -4595,14 +4615,17 @@ public class Client extends RSApplet {
 		if (l == 987) {
 			tradeMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 986) {
 			tradeMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 985) {
 			tradeMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 984) {
 			cButtonCPos = 5;
@@ -4612,14 +4635,17 @@ public class Client extends RSApplet {
 		if (l == 983) {
 			duelMode = 2;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 982) {
 			duelMode = 1;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 981) {
 			duelMode = 0;
 			inputTaken = true;
+			saveChatSettings();
 		}
 		if (l == 980) {
 			cButtonCPos = 6;
@@ -5006,7 +5032,7 @@ public class Client extends RSApplet {
 				s5 = new String(itemDef.description);
 			else
 				s5 = "It's a " + itemDef.name + ".";
-			pushMessage(s5, 0, "");
+			pushMessage(s5, 0, "", true);
 		}
 		if (l == 169) {
 			stream.createFrame(185);
@@ -5037,7 +5063,7 @@ public class Client extends RSApplet {
 			s10 = new String(class46.description);
 		else
 			s10 = "It's a " + class46.name + ".";
-		pushMessage(s10, 0, "");
+		pushMessage(s10, 0, "", true);
 		}
 		if (l == 244) {
 			boolean flag7 = doWalkTo(2, 0, 0, 0, myPlayer.smallY[0], 0, 0, k, myPlayer.smallX[0], false, j);
@@ -5059,7 +5085,7 @@ public class Client extends RSApplet {
 				s6 = new String(itemDef_1.description);
 			else
 				s6 = "It's a " + itemDef_1.name + ".";
-			pushMessage(s6, 0, "");
+			pushMessage(s6, 0, "", true);
 			//EXAMINE ITEM PACKET
 		/*	ItemDef itemDef_1 = ItemDef.forID(i1);
 			if(itemDef_1 != null)
@@ -7948,6 +7974,7 @@ public class Client extends RSApplet {
 		} catch(Exception _ex) { }
 		try {
 			readSettings();
+			readChatSettings();
 		} catch(Exception e) {}
 		if(Signlink.sunjava)
 			super.minDelay = 5;
@@ -9924,18 +9951,18 @@ public class Client extends RSApplet {
 			if (l == 0L)
 				return;
 			if (ignoreCount >= 100) {
-				pushMessage("Your ignore list is full. Max of 100 hit", 0, "");
+				pushMessage("Your ignore list is full. Max of 100 hit", 0, "", true);
 				return;
 			}
 			String s = TextClass.fixName(TextClass.nameForLong(l));
 			for (int j = 0; j < ignoreCount; j++)
 				if (ignoreListAsLongs[j] == l) {
-					pushMessage(s + " is already on your ignore list", 0, "");
+					pushMessage(s + " is already on your ignore list", 0, "", true);
 					return;
 				}
 			for (int k = 0; k < friendsCount; k++)
 				if (friendsListAsLongs[k] == l) {
-					pushMessage("Please remove " + s + " from your friend list first", 0, "");
+					pushMessage("Please remove " + s + " from your friend list first", 0, "", true);
 					return;
 				}
 
@@ -11032,6 +11059,33 @@ public class Client extends RSApplet {
 		myPassword = savedPassword;
 		rememberMe = Boolean.parseBoolean(in.readUTF());
 		loginMusicEnabled = Boolean.parseBoolean(in.readUTF());
+		in.close();
+		} catch(Exception e) {}
+	}
+	
+	public void writeChatSettings() throws IOException {
+		try {
+		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(Signlink.findcachedir() + "chatsettings.dat")));
+		out.writeInt(gameMode);
+		out.writeInt(publicChatMode);
+		out.writeInt(privateChatMode);
+		out.writeInt(duelMode);
+		out.writeInt(tradeMode);
+		out.writeInt(globalMode);
+		out.flush();
+		out.close();
+		} catch(Exception e) {	}
+	}  
+	
+	public void readChatSettings() throws IOException {
+		try {
+		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(Signlink.findcachedir() + "chatsettings.dat")));
+		gameMode = in.readInt();
+		publicChatMode = in.readInt();
+		privateChatMode = in.readInt();
+		duelMode = in.readInt();
+		tradeMode = in.readInt();
+		globalMode = in.readInt();
 		in.close();
 		} catch(Exception e) {}
 	}

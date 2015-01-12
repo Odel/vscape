@@ -81,12 +81,12 @@ public class NpcPacketHandler implements PacketHandler {
 		NpcDefinition npcDef = new Npc(npcId).getDefinition();
 		if(npcDef != null){
 			if(npcDef.getExamine() == null || npcDef.getExamine() == "null"){
-				player.getActionSender().sendMessage("It's an NPC.");
+				player.getActionSender().sendMessage("It's an NPC.", true);
 			}else{
-				player.getActionSender().sendMessage(npcDef.getExamine());
+				player.getActionSender().sendMessage(npcDef.getExamine(), true);
 			}
 		}else{
-			player.getActionSender().sendMessage("It's an NPC.");
+			player.getActionSender().sendMessage("It's an NPC.", true);
 		}
 	}
 
