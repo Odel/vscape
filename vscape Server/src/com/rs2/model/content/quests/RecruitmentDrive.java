@@ -300,9 +300,9 @@ public class RecruitmentDrive implements Quest {
     
     public static void exitTrainingGrounds(final Player player) {
 	player.setQuestStage(35, TRIALS_STARTED);
-	player.getInventory().removeItem(new Item(CHICKEN));
-	player.getInventory().removeItem(new Item(FOX));
-	player.getInventory().removeItem(new Item(GRAIN));
+	player.getInventory().removeItem(new Item(CHICKEN, player.getInventory().getItemAmount(CHICKEN)));
+	player.getInventory().removeItem(new Item(FOX, player.getInventory().getItemAmount(FOX)));
+	player.getInventory().removeItem(new Item(GRAIN, player.getInventory().getItemAmount(GRAIN)));
 	player.foxRight = true;
 	player.chickenRight = true;
 	player.grainRight = true;
