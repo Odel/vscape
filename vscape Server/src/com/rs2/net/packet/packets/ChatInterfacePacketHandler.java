@@ -14,7 +14,7 @@ import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.Cooking;
-import com.rs2.model.content.skills.prayer.Ectofungus;
+import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
 import com.rs2.model.players.Player;
@@ -132,7 +132,7 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		}
 		else if (player.getEnterXInterfaceId() == 6212) {
 		    if(player.getStatedInterface().equals("Ectoplasm")) {
-			Ectofungus.handleFillTick(player, amount);
+			Ectofuntus.handleFillTick(player, amount);
 			return;
 		    } else if(player.getStatedInterface().equals("cannonball")) {
 			DwarfCannon.craftCannonBall(player, amount);

@@ -21,8 +21,8 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.agility.Agility;
-import com.rs2.model.content.skills.prayer.Ectofungus;
-import static com.rs2.model.content.skills.prayer.Ectofungus.BUCKET_OF_SLIME;
+import com.rs2.model.content.skills.prayer.Ectofuntus;
+import static com.rs2.model.content.skills.prayer.Ectofuntus.BUCKET_OF_SLIME;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -159,7 +159,7 @@ public class GhostsAhoy implements Quest {
     public static final Position UP_FROM_LADDER = new Position(3654, 3519, 0);
 
     public static final int X = 0, Y = 1;
-    public static final int[] ECTOFUNGUS_OBJ = {3658, 3518};
+    public static final int[] ECTOFUNTUS_OBJ = {3658, 3518};
     public static final int[] TRAPDOOR_OBJ = {3653, 3519};
     public static final int[] STAIRS_UP_OBJ = {3666, 3518};
     public static final int[] STAIRS_DOWN_OBJ = {3666, 3520};
@@ -173,7 +173,7 @@ public class GhostsAhoy implements Quest {
     public static final int[] BONEGRINDER_OBJ = {3659, 3525};
     public static final int[] BONEGRINDER_BIN_OBJ = {3658, 3525};
 
-    public static final int ECTOFUNGUS = 5282;
+    public static final int ECTOFUNTUS = 5282;
     public static final int TRAPDOOR = 5267;
     public static final int STAIRS_UP = 5280;
     public static final int STAIRS_DOWN = 5281;
@@ -664,7 +664,7 @@ public class GhostsAhoy implements Quest {
     
     public boolean doItemOnObject(final Player player, final int object, final int item) {
 	switch(object) {
-	    case ECTOFUNGUS:
+	    case ECTOFUNTUS:
 		if(item == ECTOPHIAL_EMPTY) {
 		    player.getUpdateFlags().sendAnimation(883);
 		    player.getInventory().replaceItemWithItem(new Item(ECTOPHIAL_EMPTY), new Item(ECTOPHIAL));
@@ -686,24 +686,24 @@ public class GhostsAhoy implements Quest {
 		}
 		return false;
 	    case LOADER:
-		final Ectofungus.BonemealData bone = Ectofungus.BonemealData.forBoneId(item);
+		final Ectofuntus.BonemealData bone = Ectofuntus.BonemealData.forBoneId(item);
 		if (bone == null) {
 		    player.getActionSender().sendMessage("Those aren't bones!");
 		    return true;
 		}
-		if (player.getEctofungus().boneType != null && player.getEctofungus().boneType.boneId != item) {
+		if (player.getEctofuntus().boneType != null && player.getEctofuntus().boneType.boneId != item) {
 		    player.getActionSender().sendMessage("You can only process one type of bone at a time. Empty the bin if need be.");
 		    return true;
 		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
-			if(player.getEctofungus().boneType == null) {
-			    player.getEctofungus().boneType = Ectofungus.BonemealData.forBoneId(item);
+			if(player.getEctofuntus().boneType == null) {
+			    player.getEctofuntus().boneType = Ectofuntus.BonemealData.forBoneId(item);
 			}
 			player.getActionSender().sendMessage("You add some " + new Item(bone.boneId).getDefinition().getName() + " to the loader.");
 			player.getInventory().removeItem(new Item(bone.boneId));
-			player.getEctofungus().getBonesInLoader().add(bone);
+			player.getEctofuntus().getBonesInLoader().add(bone);
 			player.getUpdateFlags().sendAnimation(1649);
 			b.stop();
 		    }
@@ -913,9 +913,9 @@ public class GhostsAhoy implements Quest {
 		    player.teleport(DOWN_FROM_BONEGRINDER);
 		    return true;
 		}
-	    case ECTOFUNGUS:
-		if (x == ECTOFUNGUS_OBJ[X] && y == ECTOFUNGUS_OBJ[Y]) {
-		    player.getEctofungus().worship();
+	    case ECTOFUNTUS:
+		if (x == ECTOFUNTUS_OBJ[X] && y == ECTOFUNTUS_OBJ[Y]) {
+		    player.getEctofuntus().worship();
 		    return true;
 		}
 	    case STAIRS_UP_SLIME:
@@ -946,16 +946,16 @@ public class GhostsAhoy implements Quest {
 		    return true;
 		}
 	    case BONEGRINDER:
-		if (player.getEctofungus().getBonesInLoader().isEmpty()) {
+		if (player.getEctofuntus().getBonesInLoader().isEmpty()) {
 		    player.getActionSender().sendMessage("You haven't added any bones to the loader!");
 		    return true;
 		} else {
 		    player.getUpdateFlags().sendAnimation(1648);
 		    player.getActionSender().sendMessage("You grind the bones.");
-		    for (Ectofungus.BonemealData bone : player.getEctofungus().getBonesInLoader()) {
-			player.getEctofungus().getBonemealInBin().add(bone);
+		    for (Ectofuntus.BonemealData bone : player.getEctofuntus().getBonesInLoader()) {
+			player.getEctofuntus().getBonemealInBin().add(bone);
 		    }
-		    player.getEctofungus().getBonesInLoader().clear();
+		    player.getEctofuntus().getBonesInLoader().clear();
 		    return true;
 		}
 	    case BONEGRINDER_BIN:
@@ -964,13 +964,13 @@ public class GhostsAhoy implements Quest {
 		    player.getActionSender().sendMessage("You don't have any pots to collect bonemeal with!");
 		    return true;
 		}
-		if (player.getEctofungus().getBonemealInBin().isEmpty()) {
+		if (player.getEctofuntus().getBonemealInBin().isEmpty()) {
 		    player.getActionSender().sendMessage("The bin is empty.");
 		    return true;
-		} else if (!player.getEctofungus().getBonemealInBin().isEmpty()) {
+		} else if (!player.getEctofuntus().getBonemealInBin().isEmpty()) {
 		    player.setStopPacket(true);
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			int index = player.getEctofungus().getBonemealInBin().size() - 1;
+			int index = player.getEctofuntus().getBonemealInBin().size() - 1;
 			@Override
 			public void execute(CycleEventContainer b) {
 			    player.getUpdateFlags().reset();
@@ -981,7 +981,7 @@ public class GhostsAhoy implements Quest {
 				    player.getActionSender().sendMessage("You don't have enough pots to collect the rest of the bonemeal!");
 				    b.stop();
 				} else {
-				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(player.getEctofungus().getBonemealInBin().get(index).bonemealId));
+				    player.getInventory().replaceItemWithItem(new Item(POT), new Item(player.getEctofuntus().getBonemealInBin().get(index).bonemealId));
 				    player.getUpdateFlags().sendAnimation(1650);
 				    index--;
 				}
@@ -992,12 +992,12 @@ public class GhostsAhoy implements Quest {
 			public void stop() {
 			    player.setStopPacket(false);
 			    if (index < 0) {
-				player.getEctofungus().getBonemealInBin().clear();
-				player.getEctofungus().boneType = null;
+				player.getEctofuntus().getBonemealInBin().clear();
+				player.getEctofuntus().boneType = null;
 				player.getActionSender().sendMessage("You finish collecting the bonemeal from the bin.");
 			    } else {
-				for (int i = player.getEctofungus().getBonemealInBin().size() - 1; i > index; i--) {
-				    player.getEctofungus().getBonemealInBin().remove(i);
+				for (int i = player.getEctofuntus().getBonemealInBin().size() - 1; i > index; i--) {
+				    player.getEctofuntus().getBonemealInBin().remove(i);
 				}
 			    }
 			}
@@ -1013,7 +1013,7 @@ public class GhostsAhoy implements Quest {
 	switch (object) {
 	    case BONEGRINDER:
 		if (x == BONEGRINDER_OBJ[X] && y == BONEGRINDER_OBJ[Y]) {
-		    player.getActionSender().sendMessage("" + player.getEctofungus().getBonesAdded());
+		    player.getActionSender().sendMessage("" + player.getEctofuntus().getBonesAdded());
 		    return true;
 		}
 	}

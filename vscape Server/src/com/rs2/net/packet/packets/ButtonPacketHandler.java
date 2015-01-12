@@ -30,7 +30,7 @@ import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.magic.BoltEnchanting;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.skills.magic.Spell;
-import com.rs2.model.content.skills.prayer.Ectofungus;
+import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.Sextant;
 import com.rs2.model.ground.GroundItem;
@@ -542,7 +542,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (SilverCrafting.makeSilver(player, buttonId, 0)) {
 			return;
 		}
-		if (Ectofungus.handleButtons(player, buttonId)) {
+		if (Ectofuntus.handleButtons(player, buttonId)) {
 			return;
 		}
 		if (FamilyCrest.buttonHandling(player, buttonId)) {

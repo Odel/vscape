@@ -151,11 +151,9 @@ import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.SantaEncounter;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
-
-
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
-import com.rs2.model.content.skills.prayer.Ectofungus;
+import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.Puzzle;
 
 /**
@@ -220,7 +218,7 @@ public class Player extends Entity {
 	private CreatureGraveyard creatureGraveyard = new CreatureGraveyard(this);
 	private TelekineticTheatre telekineticTheatre = new TelekineticTheatre(this);
 	private EnchantingChamber enchantingChamber = new EnchantingChamber(this);
-	private Ectofungus ectofungus = new Ectofungus(this);
+	private Ectofuntus ectofuntus = new Ectofuntus(this);
 	private int enchantingPizazz = 0;
 	private int enchantingOrbCount = 0;
 	private int enchantingEnchantCount = 0;
@@ -2570,8 +2568,8 @@ public class Player extends Entity {
 	public void setEctoWorshipCount(int count) {
 	    this.ectoWorshipCount = count;
 	}
-	public Ectofungus getEctofungus() {
-	    return this.ectofungus;
+	public Ectofuntus getEctofuntus() {
+	    return this.ectofuntus;
 	}
 	public String getTopHalfFlag() {
 	    return topHalfOfGhostsAhoyFlag;

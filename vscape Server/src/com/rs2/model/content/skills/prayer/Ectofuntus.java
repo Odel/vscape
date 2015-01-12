@@ -1,14 +1,6 @@
 package com.rs2.model.content.skills.prayer;
 
-import com.rs2.model.Position;
-import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -16,13 +8,13 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import java.util.ArrayList;
 
-public class Ectofungus {
+public class Ectofuntus {
     private final Player player;
     private ArrayList<BonemealData> bonesInLoader = new ArrayList<>();
     private ArrayList<BonemealData> bonemealInBin = new ArrayList<>();
     public BonemealData boneType = null;
 
-    public Ectofungus(Player player) {
+    public Ectofuntus(Player player) {
 	this.player = player;
     }
 
