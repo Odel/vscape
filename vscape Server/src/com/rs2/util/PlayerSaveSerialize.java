@@ -114,7 +114,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		
 		JsonObject worldDataObj = new JsonObject();
 		worldDataObj.addProperty("coaltrucks", player.getCoalTruckAmount());
-		worldDataObj.addProperty("ectoGrinderBoneType", player.getEctofuntus().boneType.boneId);
+		worldDataObj.addProperty("ectoGrinderBoneType", player.getEctofuntus().boneType != null ? player.getEctofuntus().boneType.boneId : -1);
 		worldDataObj.addProperty("bonesInLoader", player.getEctofuntus().getBonesInLoader().size());
 		worldDataObj.addProperty("bonemealInBin", player.getEctofuntus().getBonemealInBin().size());
 		worldDataObj.addProperty("brimhavenOpen", player.isBrimhavenDungeonOpen());
