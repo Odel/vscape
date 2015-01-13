@@ -1364,7 +1364,7 @@ public class SkillGuides {
 			menuLine("26", "Energy potion (Harralander + Chocolate dust)", 3010, 4);
 			menuLine("30", "Defence potion (Ranarr + White Berries)", 133, 5);
 			menuLine("34", "Agility potion (Toadflax + Toad's legs)", 3034, 6);
-			menuLine("36", "Combat potion (Harralander + Ghost Horn Dust)", 9741, 7);
+			menuLine("36", "Combat potion (Harralander + Goat Horn Dust)", 9741, 7);
 			menuLine("38", "Prayer restore potion (Ranarr + Snape grass)", 139, 8);
 			menuLine("45", "Super Attack potion (Irit leaf + Eye of newt)", 145, 9);
 			menuLine("48", "Super anti-poison (Irit leaf + Unicorn horn dust)", 181, 10);
