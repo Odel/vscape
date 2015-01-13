@@ -4002,9 +4002,11 @@ public class Player extends Entity {
 		resetEffectTimers();
 		resetImmuneTimers();
 		effects.clear();
+		removeAllEffects();
 		int skills[] = getSkill().getLevel();
 		for (int i = 0; i < skills.length; i++)
 			getSkill().setSkillLevel(i, getSkill().getPlayerLevel(i));
+		getSkill().refresh();
     }
    
     public boolean logoutDisabled() {

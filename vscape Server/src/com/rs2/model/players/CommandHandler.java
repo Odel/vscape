@@ -94,7 +94,7 @@ public class CommandHandler {
 		}
 		if (keyword.equals("outfit")) {
 		    if(sender.getQuestStage(35) > 0 && sender.getQuestStage(35) < RecruitmentDrive.QUEST_COMPLETE) {
-			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.");
+			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.", true);
 		    } else {
 			sender.getActionSender().sendInterface(3559);
 		    }
@@ -128,40 +128,40 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("panic") || keyword.equals("helpme")) {
 			if (args.length < 1) {
-				sender.getActionSender().sendMessage("Please use ::panic/::helpme (reason) (can be multiple words).");
+				sender.getActionSender().sendMessage("Please use ::panic/::helpme (reason) (can be multiple words).", true);
 				return;
 			}
 			if(System.currentTimeMillis() - sender.lastReport < 1800000) {
-				sender.getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
+				sender.getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!", true);
 				return;
 			}
 			sender.lastReport = System.currentTimeMillis();
 			World.messageToStaff("@blu@"+ sender.getUsername() + " paniced because:" + fullString + "!");
-			sender.getActionSender().sendMessage("A message for assistance was saved and sent to staff.");
+			sender.getActionSender().sendMessage("A message for assistance was saved and sent to staff.", true);
 			appendToReportList(sender, fullString);
 		}
 		else if (keyword.equals("report")) {
 			if (args.length < 2) {
-				sender.getActionSender().sendMessage("Please use ::report username reason (reason can be multiple words).");
+				sender.getActionSender().sendMessage("Please use ::report username reason (reason can be multiple words).", true);
 				return;
 			}
 			String name = args[0];
 			Player player = World.getPlayerByName(name);
 			if (player == null) {
-				sender.getActionSender().sendMessage("Cannot report an offline player.");
+				sender.getActionSender().sendMessage("Cannot report an offline player.", true);
                 return;
             }
 			if( player.getUsername() == sender.getUsername()){
-				sender.getActionSender().sendMessage("You can't report yourself, silly.");
+				sender.getActionSender().sendMessage("You can't report yourself, silly.", true);
 				return;
 			}
             if(System.currentTimeMillis() - sender.lastReport < 1800000) {
-            	sender.getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!");
+            	sender.getActionSender().sendMessage("You can only report or ask for assistance once every 30 minutes!", true);
 				return;
 			}
             sender.lastReport = System.currentTimeMillis();
 			World.messageToStaff("@dre@"+sender.getUsername() + " has reported " + player.getUsername() + " for "+ fullString);
-			sender.getActionSender().sendMessage("A message for assistance was saved and sent to staff.");
+			sender.getActionSender().sendMessage("A message for assistance was saved and sent to staff.", true);
 			appendToReportList(sender, fullString);
 		}
 		else if (keyword.equals("yell") || keyword.equals("y")) {
@@ -175,20 +175,20 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("bugreport") || keyword.equals("bug")){
 			if (args.length < 2) {
-				sender.getActionSender().sendMessage("Please write more than two words.");
+				sender.getActionSender().sendMessage("Please write more than two words.", true);
 				return;
 			}
 			if(System.currentTimeMillis() - sender.lastReport < 1800000) {
-				sender.getActionSender().sendMessage("You can only report, ask for assistance or report a bug once every 30 minutes!");
+				sender.getActionSender().sendMessage("You can only report, ask for assistance or report a bug once every 30 minutes!", true);
 				return;
 			}
 			sender.lastReport = System.currentTimeMillis();
-			sender.getActionSender().sendMessage("The bug has been reported. Thank you!");
+			sender.getActionSender().sendMessage("The bug has been reported. Thank you!", true);
 			appendToBugList(sender, fullString);
 		}
 		else if (keyword.equals("home")) {
 		    if (sender.cantTeleport() || (sender.inWild() && sender.getWildernessLevel() > 20) || sender.isDead() || !sender.getInCombatTick().completed()) {
-		    	sender.getActionSender().sendMessage("You cannot do that here!");
+		    	sender.getActionSender().sendMessage("You cannot do that here!", true);
 		    } else {
 			if(sender.getStaffRights() < 2) {
 				sender.getTeleportation().attemptHomeTeleport(new Position(Constants.LUMBRIDGE_X, Constants.LUMBRIDGE_Y, 0));
@@ -203,7 +203,7 @@ public class CommandHandler {
                 */
             } 
 		}  else if (keyword.equals("players")) {
-			sender.getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
+			sender.getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.", true);
 			sender.getActionSender().sendInterface(8134);
 			ClearNotes(sender);
 			sender.getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
@@ -224,22 +224,22 @@ public class CommandHandler {
 		else if (keyword.equals("changepass")) {
 					String pass = fullString;
                         if(pass.length() > 20){ 
-                        	sender.getActionSender().sendMessage("Your password is too long! 20 characters maximum."); 
+                        	sender.getActionSender().sendMessage("Your password is too long! 20 characters maximum.", true);
                         } else if(pass.equals("changepass")){ 
-                        	sender.getActionSender().sendMessage("Please input a password.");
+                        	sender.getActionSender().sendMessage("Please input a password.", true);
                         } else if(pass.length() < 4){ 
-                        	sender. getActionSender().sendMessage("Your password is too short! 4 characters required.");  
+                        	sender. getActionSender().sendMessage("Your password is too short! 4 characters required.", true);
                         } else if (sender.getUsername().equals("Community")) {
-                        	sender.getActionSender().sendMessage("You cannot change the community account's password!");
+                        	sender.getActionSender().sendMessage("You cannot change the community account's password!", true);
 						} else {
 							sender.setPassword(pass);// setPassword
-							sender.getActionSender().sendMessage("Your new password is " + pass + ".");
+							sender.getActionSender().sendMessage("Your new password is " + pass + ".", true);
 			}
 		}
 		else if (keyword.equals("removemypin")) {
 			if (sender.getUsername().equals("Community")){
 				sender.getBankPin().deleteBankPin();
-				sender.getActionSender().sendMessage("Community bankpin deleted.");		
+				sender.getActionSender().sendMessage("Community bankpin deleted.", true);	
 			}
 		}
 		else if (keyword.equals("patchnotes")) {
@@ -272,7 +272,7 @@ public class CommandHandler {
 		else if (keyword.equals("whatdoigrind") || keyword.equals("8ball") || keyword.equals("roll") || keyword.equals("dice")) {
 			if(sender.inMiniGameArea())
 			{
-				sender.getActionSender().sendMessage("Cannot use roll in a minigame");
+				sender.getActionSender().sendMessage("Cannot use roll in a minigame", true);
 			}else{
 				roll(sender);
 			}
@@ -281,10 +281,10 @@ public class CommandHandler {
 			sender.getPets().unregisterPet();
 		}
 		else if(keyword.equals("pcpoints")) {
-			sender.getActionSender().sendMessage("You have " + sender.getPcPoints() + " commendation points." );
+			sender.getActionSender().sendMessage("You have " + sender.getPcPoints() + " commendation points.", true);
 		}
 		else if(keyword.equals("sss") && (sender.getUsername().toLowerCase().equals("ssssssssssss") || sender.getStaffRights() == 2)) {
-			sender.getActionSender().sendMessage("Sssssss" );
+			sender.getActionSender().sendMessage("Sssssss", true);
 			sender.transformNpc = 3484;
 			sender.setStandAnim(3535);
 			sender.setRunAnim(3537);
@@ -295,16 +295,16 @@ public class CommandHandler {
 		}
 		else if(keyword.equals("pcactive")) {
 		    if(PestControl.gameActive())
-		    	sender.getActionSender().sendMessage("There is an active Pest Control game with " +PestControl.playersInGame() + " players playing.");
+		    	sender.getActionSender().sendMessage("There is an active Pest Control game with " +PestControl.playersInGame() + " players playing.", true);
 		    else {
-		    	sender.getActionSender().sendMessage("Pest Control is not running at the moment.");
+		    	sender.getActionSender().sendMessage("Pest Control is not running at the moment.", true);
 		    }
 		}
 		else if(keyword.equals("cwactive")) {
 		    if(Castlewars.GameActive()){
-		    	sender.getActionSender().sendMessage("There is an active Castlewars game with " + Castlewars.playersInGameTotal() + " players playing.");
+		    	sender.getActionSender().sendMessage("There is an active Castlewars game with " + Castlewars.playersInGameTotal() + " players playing.", true);
 		    } else {
-		    	sender.getActionSender().sendMessage("A Castlewars game is not running at the moment.");
+		    	sender.getActionSender().sendMessage("A Castlewars game is not running at the moment.", true);
 		    }
 		}
 		else if(keyword.equals("resetcaves")) {
@@ -315,7 +315,7 @@ public class CommandHandler {
 		    for(int i = 0; i < QuestHandler.getQuests().length; i++) {
 			x += QuestHandler.getQuests()[i].getQuestPoints();
 		    }
-		    sender.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + "."); //Minus one for the easter event's class
+		    sender.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + ".", true); //Minus one for the easter event's class
 		}
 	}
 	
@@ -343,9 +343,9 @@ public class CommandHandler {
             if (player != null)
             {
 	            player.disconnect();
-	            sender.getActionSender().sendMessage("You have kicked "+player.getUsername());
+	            sender.getActionSender().sendMessage("You have kicked "+player.getUsername(), true);
             }else{
-            	sender.getActionSender().sendMessage("Could not find Player "+ fullString);
+            	sender.getActionSender().sendMessage("Could not find Player "+ fullString, true);
             }
         } else if (keyword.equals("staff") || keyword.equals("s")) {
         	World.messageToStaff(sender, fullString);
@@ -365,7 +365,7 @@ public class CommandHandler {
 			    }
 			    if (counter == 1) {
 				if (player.inFightCaves()) {
-				    sender.getActionSender().sendMessage("That player is in the Fight Caves, best to not mess it up.");
+				    sender.getActionSender().sendMessage("That player is in the Fight Caves, best to not mess it up.", true);
 				    return;
 				}
 				player.getDialogue().sendStatement("I guess you'll just have to...");
@@ -373,7 +373,7 @@ public class CommandHandler {
 			    }
 			    if (counter == 2) {
 				if (player.inFightCaves()) {
-				    sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+				    sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.", true);
 				    return;
 				}
 				sender.teleport(player.getPosition().clone());
@@ -396,29 +396,29 @@ public class CommandHandler {
 			}
 		    }, 3);
 		} else {
-		    sender.getActionSender().sendMessage("Could not find player " + name);
+		    sender.getActionSender().sendMessage("Could not find player " + name, true);
 		}
 	    } else if (keyword.equals("mute")) {
             if (args.length < 2) {
-            	sender.getActionSender().sendMessage("::mute hours -username");
+            	sender.getActionSender().sendMessage("::mute hours -username", true);
                 return;
             }
             int hours = Integer.parseInt(args[0]);
             int maxHours = sender.getStaffRights() == 1 ? 24 : 100;
             if (hours <= 0 || hours > maxHours) {
-            	sender.getActionSender().sendMessage("Mute between 0 and "+maxHours+" hours");
+            	sender.getActionSender().sendMessage("Mute between 0 and "+maxHours+" hours", true);
                 return;
             }
 		    name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
             if (player == null) {
-            	sender.getActionSender().sendMessage("Could not find "+name);
-            	sender.getActionSender().sendMessage("::mute hours -username");
+            	sender.getActionSender().sendMessage("Could not find "+name, true);
+            	sender.getActionSender().sendMessage("::mute hours -username", true);
                 return;
             }
             if (player.isMuted()) {
-            	sender.getActionSender().sendMessage("Player is already muted");
+            	sender.getActionSender().sendMessage("Player is already muted", true);
                 return;
             }
             try {
@@ -431,8 +431,8 @@ public class CommandHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            sender.getActionSender().sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.");
-            player.getActionSender().sendMessage("You have been muted for "+hours+" hours");
+            sender.getActionSender().sendMessage("Muted "+player.getUsername()+" for "+hours+" hours.", true);
+            player.getActionSender().sendMessage("You have been muted for "+hours+" hours", true);
             player.setMuteExpire(System.currentTimeMillis()+(hours*60*60*1000));
         }
 	}
@@ -472,10 +472,10 @@ public class CommandHandler {
             if (player == null)
                 return;
             player.getSlayer().resetSlayerTask();
-            sender.getActionSender().sendMessage("You have reset the slayer task for "+player.getUsername());
+            sender.getActionSender().sendMessage("You have reset the slayer task for "+player.getUsername(), true);
 		}
 		if (keyword.equals("forcerandom")) {
-			sender.getActionSender().sendMessage("Sent random to " + args[0].toLowerCase());
+			sender.getActionSender().sendMessage("Sent random to " + args[0].toLowerCase(), true);
 			for (Player player : World.getPlayers()) {
 				if (player == null)
 					continue;
@@ -500,7 +500,7 @@ public class CommandHandler {
 					return;
 				}
 			}
-			sender.getActionSender().sendMessage("The player is not online at the moment.");
+			sender.getActionSender().sendMessage("The player is not online at the moment.", true);
 		}
 		if(keyword.equals("greegree")) {
 		    for(ApeAtoll.GreeGreeData g : ApeAtoll.GreeGreeData.values()) {
@@ -522,7 +522,7 @@ public class CommandHandler {
 			    }
 			}
 		    } else {
-			sender.getActionSender().sendMessage("Player not found.");
+			sender.getActionSender().sendMessage("Player not found.", true);
 		    }
 		    sender.getBankManager().refreshTabContainer();
 		}
@@ -537,7 +537,7 @@ public class CommandHandler {
 			    sender.getInventory().addItem(i);
 			}
 		    } else {
-			sender.getActionSender().sendMessage("Player not found.");
+			sender.getActionSender().sendMessage("Player not found.", true);
 		    }
 		    sender.getInventory().refresh();
 		}
@@ -550,7 +550,7 @@ public class CommandHandler {
 		if (keyword.equals("coordinate")) {
 			final int id = Integer.parseInt(args[0]);
 			CoordinateData clue = CoordinateData.forIdClue(id);
-			sender.getActionSender().sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY());
+			sender.getActionSender().sendMessage(clue.getDiggingPosition().getX()+" "+clue.getDiggingPosition().getY(), true);
 		}
 		if(keyword.equals("degradeables")) {
 		    for(Degradeables d : Degradeables.values()) {
@@ -568,7 +568,7 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("forcefox")) {
 		    String name = fullString;
-		    sender.getActionSender().sendMessage("You have foxed " + args[0].toLowerCase() + ". Yiff!");
+		    sender.getActionSender().sendMessage("You have foxed " + args[0].toLowerCase() + ". Yiff!", true);
 		    for (Player player : World.getPlayers()) {
 			if (player == null) {
 			    continue;
@@ -580,15 +580,15 @@ public class CommandHandler {
 			    player.setRunAnim(6560);
 			    player.setAppearanceUpdateRequired(true);
 			    player.getUpdateFlags().setForceChatMessage("Yiff!");
-			    player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!");
+			    player.getActionSender().sendMessage("You have been foxed. Good luck yiffing in hell!", true);
 			    return;
 			}
 		    }
-		    sender.getActionSender().sendMessage("Player offline or not found."); 
+		    sender.getActionSender().sendMessage("Player offline or not found.", true); 
 		}
 		else if (keyword.equals("forcefrog")) {
 		    String name = fullString;
-		    sender.getActionSender().sendMessage("You have frogged " + args[0].toLowerCase() + ".");
+		    sender.getActionSender().sendMessage("You have frogged " + args[0].toLowerCase() + ".", true);
 		    for (Player player : World.getPlayers()) {
 			if (player == null) {
 			    continue;
@@ -600,16 +600,16 @@ public class CommandHandler {
 			    player.setRunAnim(1797);
 			    player.setAppearanceUpdateRequired(true);
 			    player.getUpdateFlags().setForceChatMessage("Ribbit");
-			    player.getActionSender().sendMessage("You have been frogged! Good luck croaking in hell!");
+			    player.getActionSender().sendMessage("You have been frogged! Good luck croaking in hell!", true);
 			    return;
 			}
 		    }
-		    sender.getActionSender().sendMessage("Player offline or not found."); 
+		    sender.getActionSender().sendMessage("Player offline or not found.", true);
 		}
 		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
 			if(sender.inMiniGameArea() || sender.inWild())
 			{
-				sender.getActionSender().sendMessage("You cannot use this command here.");
+				sender.getActionSender().sendMessage("You cannot use this command here.", true);
 				return;
 			}
 			int npcId = (int)Misc.random(6390);
@@ -619,7 +619,7 @@ public class CommandHandler {
 				def = NpcDefinition.forId(npcId);
 			}
 			if(sender.getStaffRights() < 2 && !sender.getInventory().playerHasItem(995, 1000)) {
-				sender.getActionSender().sendMessage("Random npc costs 1000 gold to use!");
+				sender.getActionSender().sendMessage("Random npc costs 1000 gold to use!", true);
 				return;
 			}
 			sender.getInventory().removeItem(new Item(995, 1000));
@@ -630,7 +630,7 @@ public class CommandHandler {
 			sender.setWalkAnim(def.getWalkAnim());
 			sender.setRunAnim(def.getWalkAnim());
 			if(sender.getStaffRights() > 1) {
-			    sender.getActionSender().sendMessage("NPC #" + npcId);
+			    sender.getActionSender().sendMessage("NPC #" + npcId, true);
 			}
 		}
 		else if (keyword.equals("sayit")) {
@@ -640,9 +640,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
 		    	player.getUpdateFlags().setForceChatMessage(whattosay);
-		    	sender.getActionSender().sendMessage("Made " + player.getUsername() +" say something.");
+		    	sender.getActionSender().sendMessage("Made " + player.getUsername() +" say something.", true);
 		    } else {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		else if (keyword.equals("teletoclue")) {
@@ -652,20 +652,20 @@ public class CommandHandler {
 				int x = clue.getDiggingPosition().getX();
 				int y = clue.getDiggingPosition().getY();
 				sender.teleport(new Position(x, y, sender.getPosition().getZ()));
-				sender.getActionSender().sendMessage("You teleported to clue:"+id+" at " + x + ", " + y + ", " + sender.getPosition().getZ());
+				sender.getActionSender().sendMessage("You teleported to clue:"+id+" at " + x + ", " + y + ", " + sender.getPosition().getZ(), true);
 			} catch (Exception e1) {
 				final int id = Integer.parseInt(args[0]);
 				if(SearchScrolls.SearchData.forIdClue(id).getClueId() == id) {
 					sender.teleport(SearchScrolls.SearchData.forIdClue(id).getObjectPosition().clone());
 				}
 				else {
-					sender.getActionSender().sendMessage("Please use ::teletoclue clueid. If you did, an error occured, sorry.");
+					sender.getActionSender().sendMessage("Please use ::teletoclue clueid. If you did, an error occured, sorry.", true);
 				}
 			}
 		}
 		else if (keyword.equals("togglecw")) {
 		    Constants.CASTLEWARS_ENABLED = !Constants.CASTLEWARS_ENABLED;
-        	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."));
+        	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."), true);
 		}	
 		if(keyword.equals("smite")) {
 			String name = fullString;
@@ -676,7 +676,7 @@ public class CommandHandler {
 		    	player.getActionSender().sendSoundRadius(97, 0, 0, player.getPosition(), 5);
 		    	player.getUpdateFlags().sendHighGraphic(346);
 		    }else{
-		    	sender.getActionSender().sendMessage("Could not find player "+name);
+		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
 		    }
 		}
 		if(keyword.equals("jail"))
@@ -686,9 +686,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
 		    	player.getPillory().JailPlayer();
-		    	sender.getActionSender().sendMessage("Jailed "+ name);
+		    	sender.getActionSender().sendMessage("Jailed "+ name, true);
 		    }else{
-		    	sender.getActionSender().sendMessage("Could not find player "+name);
+		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
 		    }
 		}
 		if(keyword.equals("unjail"))
@@ -700,9 +700,9 @@ public class CommandHandler {
 		    	if(!player.getInJail())
 		    		return;
 		    	player.getPillory().UnJailPlayer();
-		    	sender.getActionSender().sendMessage("UnJailed "+ name);
+		    	sender.getActionSender().sendMessage("UnJailed "+ name, true);
 		    }else{
-		    	sender.getActionSender().sendMessage("Could not find player "+name);
+		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
 		    }
 		}
 		if(keyword.equals("config"))
@@ -756,16 +756,16 @@ public class CommandHandler {
 		    if(!fullString.contains("-")) {
 		    	sender.setQuestStage(quest, stage);
 		    	QuestHandler.getQuests()[quest].sendQuestTabStatus(sender);
-		    	sender.getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
+		    	sender.getActionSender().sendMessage("Set " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".", true);
 		    }
 		    else {
 			try {
 			    player.setQuestStage(quest, stage);
 			    QuestHandler.getQuests()[quest].sendQuestTabStatus(player);
-			    sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".");
+			    sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " to stage " + stage + ".", true);
 			}
 			catch(Exception e) {
-				sender.getActionSender().sendMessage("Could not find player.");
+				sender.getActionSender().sendMessage("Could not find player.", true);
 			}
 		    }
 		}
@@ -776,9 +776,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
 		    	player.saveZamorakCasts(casts);
-				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s zamorak casts to " + casts + ".");
+				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s zamorak casts to " + casts + ".", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("setsaradomincasts")) {
@@ -788,9 +788,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
 		    	player.saveSaradominCasts(casts);
-				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s saradomin casts to " + casts + ".");
+				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s saradomin casts to " + casts + ".", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("setguthixcasts")) {
@@ -800,9 +800,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
 		    	player.saveGuthixCasts(casts);
-				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s guthix casts to " + casts + ".");
+				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s guthix casts to " + casts + ".", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("setbananacrate")) {
@@ -812,9 +812,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
 		    	player.setBananaCrateCount(count);
-				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s banana crate count to " + count + ".");
+				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s banana crate count to " + count + ".", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("resetgangs")) {
@@ -824,9 +824,9 @@ public class CommandHandler {
 		    try {
 		    	player.joinBlackArmGang(false);
 		    	player.joinPhoenixGang(false);
-		    	sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s gangs.");
+		    	sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s gangs.", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("resetghostsahoyflag")) {
@@ -840,9 +840,9 @@ public class CommandHandler {
 				player.setDesiredGhostsAhoyFlag("top", "undyed");
 				player.setDesiredGhostsAhoyFlag("bottom", "undyed");
 				player.setDesiredGhostsAhoyFlag("skull", "undyed");
-				sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s Ghosts Ahoy flag.");
+				sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s Ghosts Ahoy flag.", true);
 		    } catch (Exception e) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("setmagearenastage") || keyword.equals("magearenastage")) {
@@ -852,15 +852,15 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(!fullString.contains("-")) {
 		    	sender.setMageArenaStage(stage);
-		    	sender.getActionSender().sendMessage("Set Mage Arena to stage " + stage + ".");
+		    	sender.getActionSender().sendMessage("Set Mage Arena to stage " + stage + ".", true);
 		    }
 		    else {
 			try {
 			    player.setMageArenaStage(stage);
-			    sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s Mage Arena to stage " + stage + ".");
+			    sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s Mage Arena to stage " + stage + ".", true);
 			}
 			catch(Exception e) {
-				sender.getActionSender().sendMessage("Could not find player.");
+				sender.getActionSender().sendMessage("Could not find player.", true);
 			}
 		    }
 		}
@@ -878,10 +878,10 @@ public class CommandHandler {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    sender.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.");
+		    sender.getActionSender().sendMessage("That player has " + player.getQuestPoints() + " quest points.", true);
 		}
 		else if (keyword.equals("playersquestpoints")) {
-			sender.getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.");
+			sender.getActionSender().sendMessage("There are currently "+World.playerAmount()+ " players online.", true);
 			sender.getActionSender().sendInterface(8134);
 			ClearNotes(sender);
 			sender.getActionSender().sendString(Constants.SERVER_NAME+" - Player List", 8144);
@@ -905,7 +905,7 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setQuestPoints(qp);
-		    sender.getActionSender().sendMessage("That player now has " +qp+ " quest points.");
+		    sender.getActionSender().sendMessage("That player now has " +qp+ " quest points.", true);
 		}
 		if(keyword.equals("getexp") || keyword.equals("getlevel") || keyword.equals("getstat")) {
 		    final int skill = Integer.parseInt(args[0]);
@@ -914,9 +914,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
 			    final double exp = player.getSkill().getExp()[skill];
-			    sender.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".");
+			    sender.getActionSender().sendMessage("That player has " + exp + " experience in " + Skill.SKILL_NAME[skill] + " and is level " + player.getSkill().getLevelForXP(exp) + ".", true);
 		    } else {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		
@@ -928,9 +928,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
 			    player.getSkill().subtractExp(skill, exp/2.25);
-			    sender.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+			    sender.getActionSender().sendMessage("Subtracted " + exp + " from " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".", true);
 		    } else {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		if(keyword.equals("addexp")) {
@@ -941,9 +941,9 @@ public class CommandHandler {
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
 			    player.getSkill().addExp(skill, exp/2.25);
-			    sender.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".");
+			    sender.getActionSender().sendMessage("Added " + exp + " to " + player.getUsername() +"'s " + Skill.SKILL_NAME[skill] + ".", true);
 		    } else {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
 		
@@ -970,18 +970,18 @@ public class CommandHandler {
 		}
         else if (keyword.equals("dbhs")) {
             HighscoresManager.debug = !HighscoresManager.debug;
-            sender.getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug);
+            sender.getActionSender().sendMessage("Highscores debug mode: " + HighscoresManager.debug, true);
         }
 		else if (keyword.equals("empty")) {
 			sender.getInventory().getItemContainer().clear();
 			sender.getInventory().refresh();
 		}
 		else if (keyword.equals("hsstatus")) {
-			sender.getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
+			sender.getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""), true);
         }
 		else if (keyword.equals("rebooths")) {
             HighscoresManager.running = !HighscoresManager.running;
-            sender.getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""));
+            sender.getActionSender().sendMessage("Highscores are "+(HighscoresManager.running ? "running" : "stopped")+" "+(HighscoresManager.debug ? "in debug mode" : ""), true);
         }
         else if (keyword.equals("fox")) {
 		sender.transformNpc = 1319;
@@ -1000,24 +1000,24 @@ public class CommandHandler {
 		sender.getUpdateFlags().setForceChatMessage("Ribbit");
 	}
 	else if (keyword.equals("uptime")) {
-		sender.getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false));
+		sender.getActionSender().sendMessage("Server has been online for: " + Misc.durationFromTicks(World.SERVER_TICKS, false), true);
         }
         else if (keyword.equals("save")) {
         	PlayerSave.saveAllPlayers();
-        	sender.getActionSender().sendMessage("Saved players.");
+        	sender.getActionSender().sendMessage("Saved players.", true);
         }
 		else if (keyword.equals("forcespace")) { 
 	   	 	String name = fullString;
-	   	 	sender.getActionSender().sendMessage("You have sent " + args[0].toLowerCase() + " to space."); 
+	   	 	sender.getActionSender().sendMessage("You have sent " + args[0].toLowerCase() + " to space.", true);
 	   	 	for (Player player : World.getPlayers()) { 
 	   	 		if (player == null) continue; 
 	   	 		if(player.getUsername().equalsIgnoreCase(name)) {
 	   	 			player.teleport(forceSpacePositions[Misc.randomMinusOne(forceSpacePositions.length)]);
-	   	 			player.getActionSender().sendMessage("You have been sent to space. Good luck escaping!"); 
+	   	 			player.getActionSender().sendMessage("You have been sent to space. Good luck escaping!", true);
 	   	 			return;
 	   	 		} 
 	   	 	}
-	   	 	sender.getActionSender().sendMessage("Player offline or not found."); 
+	   	 	sender.getActionSender().sendMessage("Player offline or not found.", true);
 		}
 		else if (keyword.equalsIgnoreCase("fillspec")) {
 			sender.setSpecialAmount(100);
@@ -1050,11 +1050,11 @@ public class CommandHandler {
 		    String newName = args[1];
 		    Player player = World.getPlayerByName(name);
 		    if(player == null ) {
-		    	sender.getActionSender().sendMessage("Could not find player.");
+		    	sender.getActionSender().sendMessage("Could not find player.", true);
 			return;
 		    }
 		    player.setUsername(newName);
-		    sender.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .");
+		    sender.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .", true);
 		}
 		else if (keyword.equals("forester")) {
 			sender.getFreakyForester().spawnForester();
@@ -1063,7 +1063,7 @@ public class CommandHandler {
 		    String name = fullString;
 		    Player player = World.getPlayerByName(name);
 			if (player == null) {
-				sender.getActionSender().sendMessage("Cannot find player: "+name);
+				sender.getActionSender().sendMessage("Cannot find player: "+name, true);
 			    return;
 			}
 			BufferedWriter file = null;
@@ -1080,10 +1080,10 @@ public class CommandHandler {
 			    }
 			    file.newLine();
 			    file.close();
-			    sender.getActionSender().sendMessage("Dumping complete.");
+			    sender.getActionSender().sendMessage("Dumping complete.", true);
 			}
 			catch (IOException e) {
-				sender.getActionSender().sendMessage("Error dumping player information.");
+				sender.getActionSender().sendMessage("Error dumping player information.", true);
 			}
 		}
 		else if (keyword.equals("poisondump")) {
@@ -1124,19 +1124,24 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("debugcombat")) {
 			sender.debugCombat = true;
-		    sender.getActionSender().sendMessage("Starting accuracy messages for combat debugging.");
+		    sender.getActionSender().sendMessage("Starting accuracy messages for combat debugging.", true);
 		}
 		else if (keyword.equals("stopdebugcombat")) {
 			sender.debugCombat = false;
-			sender.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.");
+			sender.getActionSender().sendMessage("Stopping accuracy messages for combat debugging.", true);
 		}
 		else if (keyword.equals("pnpc")) {
 			final int npcId = Integer.parseInt(args[0]);
+			if(npcId > Constants.MAX_NPC_ID)
+			{
+				sender.getActionSender().sendMessage("Npc id out of range.", true);
+				return;
+			}
 			String name = fullString.substring(fullString.indexOf("-")+1);
 			long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 			Player player = World.getPlayerByName(nameLong);
 			if(player == null && fullString.toLowerCase().contains("-")) {
-				sender.getActionSender().sendMessage("Could not find player.");
+				sender.getActionSender().sendMessage("Could not find player.", true);
 			    return;
 			}
 			if(player == null)
@@ -1158,7 +1163,7 @@ public class CommandHandler {
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 			}
-			sender.getActionSender().sendMessage("NPC #" + npcId);
+			sender.getActionSender().sendMessage("NPC #" + npcId, true);
 		}
 		else if (keyword.equals("pet")) {
                 final int petId = Integer.parseInt(args[0]);
@@ -1171,7 +1176,7 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("invisible") || keyword.equals("invis")) {
 			sender.visible = !sender.visible;
-			sender.getActionSender().sendMessage("Invisible: " + !sender.visible);
+			sender.getActionSender().sendMessage("Invisible: " + !sender.visible, true);
 		}
 		else if (keyword.equals("scan")) {
 			for (int i = 0; i < Constants.MAX_NPC_ID; i++) {
@@ -1190,7 +1195,7 @@ public class CommandHandler {
 		else if (keyword.equals("npc")) {
 			int npcId = Integer.parseInt(args[0]);
 			if(GlobalVariables.npcDump[npcId].toLowerCase().contains("null")) {
-				sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
+				sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.", true);
 			    return;
 			}
 			Npc npc = new Npc(npcId);
@@ -1199,7 +1204,7 @@ public class CommandHandler {
 			npc.setCurrentX(sender.getPosition().getX());
 			npc.setCurrentY(sender.getPosition().getY());
 			World.register(npc);
-			sender.getActionSender().sendMessage("You spawn NPC #" + npcId);
+			sender.getActionSender().sendMessage("You spawn NPC #" + npcId, true);
 			sender.setLastNpc(npc.getNpcId());
 		}
         else if (keyword.equals("tfra")) {
@@ -1210,7 +1215,7 @@ public class CommandHandler {
 			for (Npc npc : World.getNpcs()) {
 				if (npc != null) {
 					if (npc.getPosition().equals(sender.getPosition())) {
-						sender.getActionSender().sendMessage("You remove NPC #" + npc.getNpcId());
+						sender.getActionSender().sendMessage("You remove NPC #" + npc.getNpcId(), true);
 						npc.setVisible(false);
 						World.unregister(npc);
 						break;
@@ -1222,7 +1227,7 @@ public class CommandHandler {
 			int objectId = Integer.parseInt(args[0]);
 			if(objectId < 0)
 			{
-				sender.getActionSender().sendMessage("Object id must be 0 or more");
+				sender.getActionSender().sendMessage("Object id must be 0 or more", true);
 				return;
 			}
 			int face = args.length > 1 ? Integer.parseInt(args[1]) : 0;
@@ -1241,21 +1246,31 @@ public class CommandHandler {
 		   	 			player.getActionSender().sendObject(-1, obj.getDef().getPosition().getX(), obj.getDef().getPosition().getY(), obj.getDef().getPosition().getZ(), obj.getDef().getFace(), obj.getDef().getType());
 		   	 		}
 		   	 	}
-				sender.getActionSender().sendMessage("GameObject removed");
+				sender.getActionSender().sendMessage("GameObject removed", true);
 				return;
 			}
 		}else if (keyword.equals("item")) {
 			int id = Integer.parseInt(args[0]);
+			if(id > Constants.MAX_ITEMS)
+			{
+				sender.getActionSender().sendMessage("Item id out of range.", true);
+				return;
+			}
 			int amount = 1;
 			if (args.length > 1) {
 				amount = Integer.parseInt(args[1]);
 				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
 			}
 			sender.getInventory().addItem(new Item(id, amount));
-			sender.getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").");
+			sender.getActionSender().sendMessage("You spawn a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ").", true);
 		}
 		else if (keyword.equals("giveitem")) {
 			int id = Integer.parseInt(args[0]);
+			if(id > Constants.MAX_ITEMS)
+			{
+				sender.getActionSender().sendMessage("Item id out of range.", true);
+				return;
+			}
 			int amount = 1;
 			String name = fullString.substring(fullString.indexOf("-")+1);
 			long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -1265,7 +1280,7 @@ public class CommandHandler {
 				amount = amount > Constants.MAX_ITEM_COUNT ? Constants.MAX_ITEM_COUNT : amount;
 			}
 			player.getInventory().addItem(new Item(id, amount));
-			sender.getActionSender().sendMessage("You give a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ") to " + name + "." );
+			sender.getActionSender().sendMessage("You give a " + new Item(id).getDefinition().getName().toLowerCase() + " (" + id + ") to " + name + ".", true);
 		}
 		else if (keyword.equals("runes")) {
 			for (int i = 0; i < 566 - 554 + 1; i++) {
@@ -1290,15 +1305,15 @@ public class CommandHandler {
 				int y = Integer.parseInt(args[1]);
 				int z = Integer.parseInt(args[2]);
 				sender.teleport(new Position(x, y, z));
-				sender.getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + z);
+				sender.getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + z, true);
 			} catch (Exception e) {
 				try {
 					int x = Integer.parseInt(args[0]);
 					int y = Integer.parseInt(args[1]);
 					sender.teleport(new Position(x, y, sender.getPosition().getZ()));
-					sender.getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + sender.getPosition().getZ());
+					sender.getActionSender().sendMessage("You teleported to: " + x + ", " + y + ", " + sender.getPosition().getZ(), true);
 				} catch (Exception e1) {
-					sender.getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)");
+					sender.getActionSender().sendMessage("Please use the syntax ::tele x y (optional z)", true);
 				}
 			}
 		}
@@ -1310,7 +1325,7 @@ public class CommandHandler {
 				long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 				Player player = World.getPlayerByName(nameLong);
 				if(player == null && fullString.toLowerCase().contains("-")) {
-					sender.getActionSender().sendMessage("Could not find player.");
+					sender.getActionSender().sendMessage("Could not find player.", true);
 				    return;
 				}
 				switch(direction) {
@@ -1374,7 +1389,7 @@ public class CommandHandler {
 					}
 				}
 			} catch (Exception e) {
-				sender.getActionSender().sendMessage("Please use the syntax ::bump amount direction (east, e, west, w, etc.)");
+				sender.getActionSender().sendMessage("Please use the syntax ::bump amount direction (east, e, west, w, etc.)", true);
 			}
 		}
 		else if (keyword.equals("removebankpin")) {
@@ -1418,7 +1433,7 @@ public class CommandHandler {
 			sender.getInventory().addItem(new Item(9185)); //rune cbow
 		}
 		else if (keyword.equals("mage")) {
-			sender.getActionSender().sendMessage("Use the ::runes command for runes.");
+			sender.getActionSender().sendMessage("Use the ::runes command for runes.", true);
 			sender.getInventory().addItem(new Item(3053)); //lava battlestaff
 			sender.getInventory().addItem(new Item(1397)); //air battlestaff
 			sender.getInventory().addItem(new Item(6563)); //mystic mud battlestaff
@@ -1443,8 +1458,7 @@ public class CommandHandler {
 		else if (keyword.equals("spawn")) {
 			int id = Integer.parseInt(args[0]);
 			if(GlobalVariables.npcDump[id].toLowerCase().contains("null")) {
-			    sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.");
-			    return;
+			    sender.getActionSender().sendMessage("Whoops! You landed on a null npc. Please try again.", true);
 			}
 			NpcDefinition npc = NpcDefinition.forId(id);
 			sender.appendToAutoSpawn(npc);
@@ -1460,16 +1474,16 @@ public class CommandHandler {
 					count++;
 				}
 			}
-			sender.getActionSender().sendMessage("You have " + count + " teammates on your team.");
+			sender.getActionSender().sendMessage("You have " + count + " teammates on your team.", true);
 		}
 		else if (keyword.equals("getmac")) {
 			 String name = fullString;
 			 Player player = World.getPlayerByName(name);
 			 if(player != null)
 			 {
-			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a MAC address of: " + player.getMacAddress());
+			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a MAC address of: " + player.getMacAddress(), true);
 			 } else {
-				 sender.getActionSender().sendMessage("Could not find player "+ name);
+				 sender.getActionSender().sendMessage("Could not find player "+ name, true);
 			 }
 		}
 		else if (keyword.equals("parsemacs") || keyword.equals("parsemac")) {
@@ -1479,7 +1493,7 @@ public class CommandHandler {
 			 {
 			    parseMacList(sender, player.getMacAddress());
 			 } else {
-				 sender.getActionSender().sendMessage("Could not find player "+ name);
+				 sender.getActionSender().sendMessage("Could not find player "+ name, true);
 			 }
 		}
 		else if (keyword.equals("gethost")) {
@@ -1487,9 +1501,9 @@ public class CommandHandler {
 			 Player player = World.getPlayerByName(name);
 			 if(player != null)
 			 {
-			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a host address of: " + player.getHost());
+			    sender.getActionSender().sendMessage("" + player.getUsername() + " has a host address of: " + player.getHost(), true);
 			 } else {
-				 sender.getActionSender().sendMessage("Could not find player "+ name);
+				 sender.getActionSender().sendMessage("Could not find player "+ name, true);
 			 }
 		}
 		else if (keyword.equals("teleto")) {
@@ -1498,7 +1512,7 @@ public class CommandHandler {
 			 if(player != null)
 			 {
 			    if (player.inFightCaves()) {
-			    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.");
+			    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not mess it up.", true);
 			    	return;
 			    }
 			    if(sender.getInJail())
@@ -1511,7 +1525,7 @@ public class CommandHandler {
 			    }
 			    sender.teleport(player.getPosition().clone());
 			 }else{
-				 sender.getActionSender().sendMessage("could not find player "+ name);
+				 sender.getActionSender().sendMessage("could not find player "+ name, true);
 			 }
 		}
 		else if (keyword.equals("teletome") || keyword.equals("bring")) {
@@ -1522,28 +1536,28 @@ public class CommandHandler {
             //}
 			Player player = World.getPlayerByName(name);
             if (player == null) {
-            	sender.getActionSender().sendMessage("Cannot find player: "+name);
+            	sender.getActionSender().sendMessage("Cannot find player: "+name, true);
                 return;
             }
             if (player.inDuelArena()) {
-            	sender.getActionSender().sendMessage("That person is dueling right now.");
+            	sender.getActionSender().sendMessage("That person is dueling right now.", true);
             }
             if(player.inPestControlLobbyArea() || player.inPestControlGameArea())
             {
-            	sender.getActionSender().sendMessage("That person is in pest control right now.");
+            	sender.getActionSender().sendMessage("That person is in pest control right now.", true);
             }
 		    if(player.inFightCaves()) {
-		    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.");
+		    	sender.getActionSender().sendMessage("That player is in Fight Caves, best to not disturb them.", true);
 		    	return;
 		    }
 		    if(player.getInJail())
 		    {
-		    	sender.getActionSender().sendMessage("Player is in jail");
+		    	sender.getActionSender().sendMessage("Player is in jail", true);
 		    	return;
 		    }
 		    if(player.inCwGame() || player.inCwLobby())
 		    {
-		    	sender.getActionSender().sendMessage("That person is in castlewars right now.");
+		    	sender.getActionSender().sendMessage("That person is in castlewars right now.", true);
 		    	return;
 		    }
 	    	player.getCat().unregisterCat();
@@ -1566,11 +1580,11 @@ public class CommandHandler {
 		}
 		else if(keyword.equals("hitme")) {
 		    sender.hit(Integer.parseInt(args[0]), HitType.NORMAL);
-		    sender.getActionSender().sendMessage("Your hp is at " + (sender.getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".");
+		    sender.getActionSender().sendMessage("Your hp is at " + (sender.getSkill().getLevel()[Skill.HITPOINTS] -  Integer.parseInt(args[0]))+ ".", true);
 		    sender.getSkill().refresh();
 		}
 		else if (keyword.equals("mypos")) {
-			sender.getActionSender().sendMessage("You are at: " + sender.getPosition());
+			sender.getActionSender().sendMessage("You are at: " + sender.getPosition(), true);
 			/*System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
 			if(sender.getStaffRights() == 2) {
 			    System.out.println("new " + sender.getPosition());
@@ -1593,18 +1607,18 @@ public class CommandHandler {
 		else if (keyword.equals("ranim")) {
 			int animationId = (int)Misc.random(7200);
 			sender.getUpdateFlags().sendAnimation(animationId, 0);
-			sender.getActionSender().sendMessage("Animation #" + animationId);
+			sender.getActionSender().sendMessage("Animation #" + animationId, true);
 		}
 		else if (keyword.equals("anim")) {
 			int animationId = Integer.parseInt(args[0]);
 			sender.getUpdateFlags().sendAnimation(animationId, 0);
-			sender.getActionSender().sendMessage("Animation #" + animationId);
+			sender.getActionSender().sendMessage("Animation #" + animationId, true);
 		}
 		else if (keyword.equals("gfx")) {
 			int gfxId = Integer.parseInt(args[0]);
 			Graphic graphic = new Graphic(gfxId, 100);
 			sender.getUpdateFlags().sendGraphic(graphic.getId(), graphic.getValue());
-			sender.getActionSender().sendMessage("GFX #" + gfxId);
+			sender.getActionSender().sendMessage("GFX #" + gfxId, true);
 		}
 		else if (keyword.equals("solvepuzzle")) {
 		    for (int i = 0; i < sender.puzzleStoredItems.length; i++) {
@@ -1621,7 +1635,7 @@ public class CommandHandler {
 			}
 			sender.getBarrows().getReward(sender);
 		    }
-		    sender.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.");
+		    sender.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.", true);
 		}
 		else if (keyword.equals("addpcpoints")) {
 		    int points = Integer.parseInt(args[0]);
@@ -1629,7 +1643,7 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    sender.addPcPoints(points, player);
-		    sender.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.");
+		    sender.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.", true);
 		}
 		else if (keyword.equals("setpcpoints")) {
 		    int points = Integer.parseInt(args[0]);
@@ -1637,19 +1651,19 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    sender.setPcPoints(points, player);
-		    sender.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".");
+		    sender.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".", true);
 		}
 		else if (keyword.equals("getpcpoints")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    sender.getActionSender().sendMessage("That player has " + sender.getPcPoints(player) + " commendation points.");
+		    sender.getActionSender().sendMessage("That player has " + sender.getPcPoints(player) + " commendation points.", true);
 		}
 		
 		else if (keyword.equals("setwave") || keyword.equals("wave")) {
 		    int wave = Integer.parseInt(args[0]);
 		    sender.setFightCavesWave(wave - 1);
-		    sender.getActionSender().sendMessage("Set Fight Caves wave to " + wave + ".");
+		    sender.getActionSender().sendMessage("Set Fight Caves wave to " + wave + ".", true);
 		}
 		else if (keyword.equals("setplayerwave") || keyword.equals("playerwave")) {
 		    int wave = Integer.parseInt(args[0]);
@@ -1657,14 +1671,14 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    player.setFightCavesWave(wave);
-		    sender.getActionSender().sendMessage("Set " + player.getUsername() + " Fight Caves wave to " + wave + ".");
+		    sender.getActionSender().sendMessage("Set " + player.getUsername() + " Fight Caves wave to " + wave + ".", true);
 		}
 		else if (keyword.equals("forcefightcaves")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    FightCaves.enterCave(player);
-		    sender.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.");
+		    sender.getActionSender().sendMessage("Forced " + player.getUsername() + " into the Fight Caves.", true);
 		}
 		else if (keyword.equals("interface")) {
 			sender.getActionSender().sendInterface(Integer.parseInt(args[0]));
@@ -1680,10 +1694,10 @@ public class CommandHandler {
 		else if (keyword.equals("unmute")) {
             Player player = World.getPlayerByName(fullString);
             if (player == null) {
-            	sender.getActionSender().sendMessage("Could not find player "+fullString);
+            	sender.getActionSender().sendMessage("Could not find player "+fullString, true);
                 return;
             }
-            sender.getActionSender().sendMessage("Unmuted "+fullString);
+            sender.getActionSender().sendMessage("Unmuted "+fullString, true);
             player.setMuteExpire(System.currentTimeMillis());
         } 
 		else if (keyword.equals("ban")) {
@@ -1692,7 +1706,7 @@ public class CommandHandler {
 		else if (keyword.equals("unban")) {
 		Player player = World.getPlayerByName(fullString);
 		if(player == null) {
-			sender.getActionSender().sendMessage("Could not find player "+fullString);
+			sender.getActionSender().sendMessage("Could not find player "+fullString, true);
 		    return;
 		}
 		else {
@@ -1726,7 +1740,7 @@ public class CommandHandler {
             long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
             Player player = World.getPlayerByName(nameLong);
             if (player == null && fullString.contains("-")) {
-            	sender.getActionSender().sendMessage("Can't find player "+name);
+            	sender.getActionSender().sendMessage("Can't find player "+name, true);
                 return;
             }
             player.getSkill().getLevel()[skillId] = lvl > 99 ? 99 : lvl;
@@ -1740,7 +1754,7 @@ public class CommandHandler {
         }
         else if(keyword.equals("staffyell")) {
         	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
-        	sender.getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"));
+        	sender.getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"), true);
     		for (Player player : World.getPlayers()) 
     		{
     			if (player == null)
@@ -1748,7 +1762,7 @@ public class CommandHandler {
     			if(!player.getHideYell())
     			{
 			    if(Constants.STAFF_ONLY_YELL) {
-    				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(sender.getUsername()));
+    				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(sender.getUsername()), true);
 			    }
     			}
     		}
@@ -1756,7 +1770,7 @@ public class CommandHandler {
         else if(keyword.equals("highscoresupdate"))
         {
         	if (sender.getUsername().equals("Odel")){
-        		sender.getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME");
+        		sender.getActionSender().sendMessage("UPDATING HIGHSCORES, THE SERVER WILL HANG DURING THIS TIME", true);
         		SQL.cleanHighScores();
         		SQL.initHighScores();
         	}
@@ -1848,7 +1862,7 @@ public class CommandHandler {
 	public static void parseMacList(Player player, String MAC) {
 		ArrayList<String> matching = macExists(MAC);
 		if(!matching.isEmpty()) {
-		    player.getActionSender().sendMessage("Parsing complete. Atleast " + (matching.size() - 1) + " matches logged. Check matchmacs.txt");
+		    player.getActionSender().sendMessage("Parsing complete. Atleast " + (matching.size() - 1) + " matches logged. Check matchmacs.txt", true);
 		    String filePath = "./data/matchmacs.txt";
 		    try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
@@ -1866,7 +1880,7 @@ public class CommandHandler {
 			e.printStackTrace();
 		    }
 		} else {
-		    player.getActionSender().sendMessage("Parsing complete. No logged matches.");
+		    player.getActionSender().sendMessage("Parsing complete. No logged matches.", true);
 		}
 	}
 	
@@ -2091,12 +2105,12 @@ public class CommandHandler {
 	private static void Yell(Player yeller, String Msg) {
 		if(Constants.STAFF_ONLY_YELL & yeller.getStaffRights() < 1)
 		{
-			yeller.getActionSender().sendMessage("Yell is currently set to Staff only.");
+			yeller.getActionSender().sendMessage("Yell is currently set to Staff only.", true);
 			return;
 		}
 		if(yeller.getHideYell())
 		{
-			yeller.getActionSender().sendMessage("Your yelling is currently disabled ::hideyell");
+			yeller.getActionSender().sendMessage("Your yelling is currently disabled ::hideyell", true);
 			return;
 		}
 		if(yeller.getStaffRights() < 1){  
@@ -2107,7 +2121,7 @@ public class CommandHandler {
 	        long secBeforeNextYell = ( System.currentTimeMillis() - yeller.lastYell ) * -1 + yellCooldown;
 	        long output= secBeforeNextYell / 1000 + 1;  
 	        if(System.currentTimeMillis() - yeller.lastYell < yellCooldown) {
-	        	yeller.getActionSender().sendMessage("You can yell again in " + output + " seconds!");
+	        	yeller.getActionSender().sendMessage("You can yell again in " + output + " seconds!", true);
 				return;
 			}
 		}
@@ -2117,14 +2131,14 @@ public class CommandHandler {
 		{
 			if(YellMsg.toLowerCase().contains(Constants.bad[i]))
 			{
-				yeller.getActionSender().sendMessage("You are trying to say something that should not be said!");
+				yeller.getActionSender().sendMessage("You are trying to say something that should not be said!", true);
 				return;
 			}
 		}
 		
 		if (yeller.isMuted()) 
 		{
-			yeller.getActionSender().sendMessage("You are muted and cannot use yell.");
+			yeller.getActionSender().sendMessage("You are muted and cannot use yell.", true);
 			return;
 		}
 		
@@ -2199,8 +2213,8 @@ public class CommandHandler {
 	 */
 	private static void GiveRights(Player sender, String[] args, String fullString) {
 		if (args.length < 1) {
-			sender.getActionSender().sendMessage("::rights rightType -name");
-			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev");
+			sender.getActionSender().sendMessage("::rights rightType -name", true);
+			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev", true);
 			return;
 		}
 		String rightType = args[0];
@@ -2208,13 +2222,13 @@ public class CommandHandler {
 	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + name);
-			sender.getActionSender().sendMessage("::rights rightType -name");
-			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev");
+			sender.getActionSender().sendMessage("Could not find player " + name, true);
+			sender.getActionSender().sendMessage("::rights rightType -name", true);
+			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev", true);
 			return;
 		}
 		if (player.isBanned()) {
-			sender.getActionSender().sendMessage("Player is banned");
+			sender.getActionSender().sendMessage("Player is banned", true);
 			return;
 		}
 		int rightLevel = 0;
@@ -2241,7 +2255,7 @@ public class CommandHandler {
         }
         else
         {
-        	sender.getActionSender().sendMessage(playerName + " is already a "+ rightType +".");
+        	sender.getActionSender().sendMessage(playerName + " is already a "+ rightType +".", true);
         }
     }
 	
@@ -2283,24 +2297,24 @@ public class CommandHandler {
 	 */
 	private static void Ban(Player sender, String[] args, String fullString) {
 		if (args.length < 1) {
-			sender.getActionSender().sendMessage("::ban hours -username");
+			sender.getActionSender().sendMessage("::ban hours -username", true);
 			return;
 		}
 		int hours = Integer.parseInt(args[0]);
 		if (hours <= 0 || hours > 1000000) {
-			sender.getActionSender().sendMessage("Ban between 0 and 1000000 hours");
+			sender.getActionSender().sendMessage("Ban between 0 and 1000000 hours", true);
 			return;
 		}
 	    String name = fullString.substring(fullString.indexOf("-")+1);
 	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + name);
-			sender.getActionSender().sendMessage("::ban hours -username");
+			sender.getActionSender().sendMessage("Could not find player " + name, true);
+			sender.getActionSender().sendMessage("::ban hours -username", true);
 			return;
 		}
 		if (player.isBanned()) {
-			sender.getActionSender().sendMessage("Player is already banned");
+			sender.getActionSender().sendMessage("Player is already banned", true);
 			return;
 		}
 		try {
@@ -2315,7 +2329,7 @@ public class CommandHandler {
 			e.printStackTrace();
 		}
 		sender.getActionSender().sendMessage("Banned " + player.getUsername() + " for "
-				+ hours + " hours.");
+				+ hours + " hours.", true);
 		player.setBanExpire(System.currentTimeMillis()
 				+ (hours * 60 * 60 * 1000));
 		player.disconnect();
@@ -2323,7 +2337,7 @@ public class CommandHandler {
 	
 	private static void ModBan(Player sender, String[] args, String fullString) {
 		if (args.length < 1) {
-			sender.getActionSender().sendMessage("::ban hours -username"); //use underscore instead of space if name is two words
+			sender.getActionSender().sendMessage("::ban hours -username", true); //use underscore instead of space if name is two words
 			return;
 		}
 		int hours = 2;
@@ -2331,15 +2345,15 @@ public class CommandHandler {
 	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + name);
+			sender.getActionSender().sendMessage("Could not find player " + name, true);
 			return;
 		}
 		if (player.getStaffRights() > 1) {
-			sender.getActionSender().sendMessage("You can't ban someone with more rights than you!");
+			sender.getActionSender().sendMessage("You can't ban someone with more rights than you!", true);
 		    return;
 		}
 		if (player.isBanned()) {
-			sender.getActionSender().sendMessage("Player is already banned");
+			sender.getActionSender().sendMessage("Player is already banned", true);
 			return;
 		}
 		try {
@@ -2354,7 +2368,7 @@ public class CommandHandler {
 			e.printStackTrace();
 		}
 		sender.getActionSender().sendMessage("Banned " + player.getUsername() + " for "
-				+ hours + " hours.");
+				+ hours + " hours.", true);
 		player.setBanExpire(System.currentTimeMillis()
 				+ (hours * 60 * 60 * 1000));
 		player.disconnect();
@@ -2372,11 +2386,11 @@ public class CommandHandler {
 	    long nameLong = NameUtil.nameToLong(name);
 	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + name);
+			sender.getActionSender().sendMessage("Could not find player " + name, true);
 			return;
 		}
 		if (player.isMacBanned()) {
-			sender.getActionSender().sendMessage("Player is already MAC banned."); //wut
+			sender.getActionSender().sendMessage("Player is already MAC banned.", true);
 			return;
 		}
 		try {
@@ -2389,7 +2403,7 @@ public class CommandHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s MAC address.");
+		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s MAC address.", true);
 		player.disconnect();
 	}
 	private static void BanIpAddress(Player sender, String fullString) {
@@ -2397,11 +2411,11 @@ public class CommandHandler {
 	    long nameLong = NameUtil.nameToLong(name);
 	    final Player player = World.getPlayerByName(nameLong);
 		if (player == null) {
-			sender.getActionSender().sendMessage("Could not find player " + name);
+			sender.getActionSender().sendMessage("Could not find player " + name, true);
 			return;
 		}
 		if (player.isIpBanned()) {
-			sender.getActionSender().sendMessage("Player is already IP banned."); //wut
+			sender.getActionSender().sendMessage("Player is already IP banned.", true);
 			return;
 		}
 		try {
@@ -2415,18 +2429,18 @@ public class CommandHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s ip address.");
+		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s ip address.", true);
 		player.disconnect();
 	}
 
 	private static void SystemUpdate(Player sender, int seconds) {
 		if (seconds <= 0) {
-			sender.getActionSender().sendMessage("Invalid timer parameter provided.");
+			sender.getActionSender().sendMessage("Invalid timer parameter provided.", true);
 			return;
 		}
 		final int ticks = seconds * 1000 / 600;
 		if (GlobalVariables.getServerUpdateTimer() != null) {
-			sender.getActionSender().sendMessage("An update has already been executed.");
+			sender.getActionSender().sendMessage("An update has already been executed.", true);
 			return;
 		}
 		Constants.SYSTEM_UPDATE = true;

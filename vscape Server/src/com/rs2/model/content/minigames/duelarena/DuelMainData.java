@@ -134,9 +134,9 @@ public class DuelMainData {
 		}
 		if (forfeit) {
 			player.getActionSender().removeInterfaces();
-			player.getActionSender().sendMessage("You forfeited the duel.");
+			player.getActionSender().sendMessage("You forfeited the duel.", true);
 		} else {
-	        player.getActionSender().sendMessage("You have been defeated!");
+	        player.getActionSender().sendMessage("You have been defeated!", true);
 		}
 		player.resetEffects();
 		player.getActionSender().createPlayerHints(10, -1);
@@ -196,24 +196,24 @@ public class DuelMainData {
 			return;
 		if(player.isIronman())
 		{
-			player.getActionSender().sendMessage("You can't stake this item as an ironman.");
+			player.getActionSender().sendMessage("You can't stake this item as an ironman.", true);
 			return;
 		}
 		if(opponent.isIronman())
 		{
-			player.getActionSender().sendMessage("The opponent is an ironman staking is disabled.");
+			player.getActionSender().sendMessage("The opponent is an ironman staking is disabled.", true);
 			return;
 		}
 		if (item.getDefinition().isUntradable()) {
-			player.getActionSender().sendMessage("You can't stake this item.");
+			player.getActionSender().sendMessage("You can't stake this item.", true);
 			return;
 		}
         if(itemStaked.size() >= opponent.getInventory().getItemContainer().freeSlots() && (!item.getDefinition().isStackable() || !containsItem(item))){
-            player.getActionSender().sendMessage("The opponent has no free spaces left for that.");
+            player.getActionSender().sendMessage("The opponent has no free spaces left for that.", true);
             return;
         }
 		if (!Constants.ADMINS_CAN_INTERACT && player.getStaffRights() >= 2) {
-            player.getActionSender().sendMessage("This action is not allowed.");
+            player.getActionSender().sendMessage("This action is not allowed.", true);
             return;
         }
         if(!player.getInventory().playerHasItem(item))
@@ -302,7 +302,7 @@ public class DuelMainData {
    
 	public boolean canStartDuel() {
 		if (!player.inDuelArena() || !startedDuel())
-			player.getActionSender().sendMessage("The duel hasn't started yet!");
+			player.getActionSender().sendMessage("The duel hasn't started yet!", true);
 		return player.inDuelArena() && startedDuel();
 	}
 
@@ -310,11 +310,11 @@ public class DuelMainData {
 		if (player.getSkill().getLevel()[Skill.HITPOINTS] < player.getSkill().getPlayerLevel(Skill.HITPOINTS)) {
 			player.getUpdateFlags().sendGraphic(84);
 			player.getUpdateFlags().sendAnimation(866);
-			player.getActionSender().sendMessage("You have been healed.");
+			player.getActionSender().sendMessage("You have been healed.", true);
 			player.getSkill().setSkillLevel(Skill.HITPOINTS, player.getSkill().getPlayerLevel(Skill.HITPOINTS));
 			player.getSkill().refresh(Skill.HITPOINTS);
 		} else {
-			player.getActionSender().sendMessage("You are already very healthy.");
+			player.getActionSender().sendMessage("You are already very healthy.", true);
 		}
 	}
 
