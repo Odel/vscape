@@ -127386,6 +127386,19 @@
     ]
   },
   {
+  "npcId": 1931,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
     "npcId": 1936,
     "rareTableAccess": false,
     "drops": [
