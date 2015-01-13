@@ -20,7 +20,7 @@ public class MineEssence {
 		}
 		final Tool pickaxe = Tools.getTool(player, Skill.MINING);
 		if (pickaxe == null) {
-			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");
+			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.", true);
 			if (player.getNewComersSide().isInTutorialIslandStage()) {
 				player.getDialogue().sendStatement("You do not have a pickaxe that you can use.");
 				player.setClickId(0);
@@ -28,7 +28,7 @@ public class MineEssence {
 			return;
 		}
 		if (player.getInventory().getItemContainer().freeSlots() <= 0) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			if (player.getNewComersSide().isInTutorialIslandStage()) {
 				player.getDialogue().sendStatement("Not enough space in your inventory.");
 				player.setClickId(0);
@@ -38,7 +38,7 @@ public class MineEssence {
 		final int task = player.getTask();
 		final int ess = player.getSkill().getPlayerLevel(Skill.MINING) < 30 ? 1436 : 7936;
 		final int anim = pickaxe.getAnimation();
-		player.getActionSender().sendMessage("You swing your pick at the rock.");
+		player.getActionSender().sendMessage("You swing your pick at the rock.", true);
 		player.getUpdateFlags().sendAnimation(anim);
 		player.getActionSender().sendSound(432, 0, 0);
 		player.setSkilling(new CycleEvent() {
@@ -51,8 +51,8 @@ public class MineEssence {
 				player.getUpdateFlags().sendAnimation(anim);
 				player.getActionSender().sendSound(432, 0, 0);
 				if (!player.getInventory().addItem(new Item(ess, 1))) {
-					player.getActionSender().sendMessage("Not enough space in your inventory.");
 					container.stop();
+					return;
 				} else {
 					player.getSkill().addExp(Skill.MINING, 5);
 				}

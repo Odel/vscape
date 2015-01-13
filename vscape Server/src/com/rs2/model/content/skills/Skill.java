@@ -248,11 +248,11 @@ public class Skill {
 			player.getActionSender().sendString("Your " + name[skill] + " level is now " + getPlayerLevel(skill) + ".", data[skill][2]);
 			if(name[skill].charAt(0) == 'A')
 			{
-				player.getActionSender().sendMessage("You've just advanced an " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
+				player.getActionSender().sendMessage("You've just advanced an " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".", true);
 			}
 			else
 			{
-				player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".");
+				player.getActionSender().sendMessage("You've just advanced a " + name[skill] + " level! You have reached level " + getPlayerLevel(skill) + ".", true);
 			}
 			if (skill == 9) {
 				player.getActionSender().sendFrame230(6235, 254, 1257, 408);
@@ -266,14 +266,14 @@ public class Skill {
 				player.getActionSender().sendItemOnInterface(12173, 200, 5340);
 			}
 			if (getLevelForXP(getExp()[skill]) == 99) {
-				player.getActionSender().sendMessage("Well done! You've achieved the highest possible level in this skill!");
+				player.getActionSender().sendMessage("Well done! You've achieved the highest possible level in this skill!", true);
 				for (Player p : World.getPlayers()) 
 				{
 					if (p == null)
 					{
 						continue;
 					}
-					p.getActionSender().sendMessage(NameUtil.uppercaseFirstLetter(player.getUsername() + " just hit level 99 in " + name[skill] + "!"));
+						p.getActionSender().sendMessage("@red@"+NameUtil.uppercaseFirstLetter(player.getUsername() + " just hit level 99 in " + name[skill] + "!"), true);
 					}
 				}
 			

@@ -82,7 +82,7 @@ public class MineOre {
 			return false;
 		}
 		if (player.getInventory().getItemContainer().freeSlots() <= 0) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			if (player.getNewComersSide().isInTutorialIslandStage()) {
 				player.getDialogue().sendStatement("Not enough space in your inventory.");
 				player.setClickId(0);
@@ -90,7 +90,7 @@ public class MineOre {
 			return false;
 		}
 		if (Tools.getTool(player, Skill.MINING) == null) {
-			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");
+			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.", true);
 			if (player.getNewComersSide().isInTutorialIslandStage()) {
 				player.getDialogue().sendStatement("You do not have a pickaxe that you can use.");
 				player.setClickId(0);
@@ -109,7 +109,7 @@ public class MineOre {
 		}
 		final GameObject p = ObjectHandler.getInstance().getObject(obX, obY, player.getPosition().getZ());
 		if (p != null) {
-			player.getActionSender().sendMessage("There is currently no ores remaining in this rock.");
+			player.getActionSender().sendMessage("There is currently no ores remaining in this rock.", true);
 			if (player.getNewComersSide().isInTutorialIslandStage()) {
 				player.getDialogue().sendStatement("There is currently no ores remaining in this rock.");
 				player.setClickId(0);
@@ -117,11 +117,11 @@ public class MineOre {
 			return;
 		}
 		if (player.getInventory().getItemContainer().freeSlots() <= 0) {
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 			return;
 		}
 
-		player.getActionSender().sendMessage("You swing your pick at the rock.");
+		player.getActionSender().sendMessage("You swing your pick at the rock.", true);
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
 			player.getDialogue().sendTutorialIslandWaitingInfo("", "Your character is now attempting to mine the rock.", "This should take only a few seconds.", "", "Please wait...");
 		}
@@ -131,7 +131,7 @@ public class MineOre {
 			return;
 		final Tool pickaxe = Tools.getTool(player, Skill.MINING);
 		if (pickaxe == null) {
-			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");
+			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.", true);
 			return;
 		}
 		player.resetAnimation();
@@ -155,7 +155,7 @@ public class MineOre {
 						player.getDialogue().sendStatement("There is no more ore in this rock.");
 						player.setClickId(0);
 					}
-					player.getActionSender().sendMessage("There is no more ore in this rock.");
+					player.getActionSender().sendMessage("There is no more ore in this rock.", true);
 					container.stop();
 					return;
 				}
@@ -171,7 +171,7 @@ public class MineOre {
 						itemReceived = 1761;
 						if (player.getClayBraceletLife() < 1 && player.getEquipment().getId(Constants.HANDS) == 11074) {
 							player.getEquipment().removeAmount(Constants.HANDS, 1);
-							player.getActionSender().sendMessage("Your Bracelet of Clay shatters!");
+							player.getActionSender().sendMessage("Your Bracelet of Clay shatters!", true);
 							player.setClayBraceletLife(28);
 						}
 					}
@@ -358,7 +358,7 @@ public class MineOre {
 		int[] empty = {14832, 14833, 14834, 10944, 9723, 9724, 9725, 11555, 11552, 11553, 11554, 11557, 11556, 450, 451};
 		for (int i : empty)
 			if (objectId == i) {
-				player.getActionSender().sendMessage("There is currently no ores remaining in this rock.");
+				player.getActionSender().sendMessage("There is currently no ores remaining in this rock.", true);
 				return true;
 			}
 		MiningData miningData = MiningData.forId(objectId);
@@ -442,7 +442,7 @@ public class MineOre {
 						Tools.breakTool(player, Skill.MINING);
 						player.getActionSender().createStillGfx(157, loc.getX(), loc.getY(), 0, 1);
 						ObjectHandler.getInstance().removeObject(loc.getX(), loc.getY(), loc.getZ(), 10);
-						player.getActionSender().sendMessage("Your pickaxe has been broken by the rock!");
+						player.getActionSender().sendMessage("Your pickaxe has been broken by the rock!", true);
 						player.hit(Misc.random(5) + 5, HitType.NORMAL);
 						player.getUpdateFlags().sendAnimation(-1);
 					}
@@ -454,7 +454,7 @@ public class MineOre {
 			}, 5);
 			return true;
 		} else {
-			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.");
+			player.getActionSender().sendMessage("You do not have a pickaxe that you can use.", true);
 		}
 		return false;
 	}

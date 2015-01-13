@@ -115,7 +115,7 @@ public class ChopTree {
 			return;
 		}
 		if(player.getSkill().getLevel()[Skill.WOODCUTTING] < tree.getLevel()) {
-			player.getActionSender().sendMessage("You need a Woodcutting level of " + tree.getLevel() + " to cut this tree.");
+			player.getActionSender().sendMessage("You need a Woodcutting level of " + tree.getLevel() + " to cut this tree.", true);
 			return;
 		}
 		final Item log = new Item(tree.getLog(), 1);
@@ -129,7 +129,7 @@ public class ChopTree {
 				return;
 			   }
 			   if (NpcLoader.checkSpawn(player, 655) && player.getQuestStage(14) == 2) {
-			    player.getActionSender().sendMessage("You need to kill the tree spirit first!");
+			    player.getActionSender().sendMessage("You need to kill the tree spirit first!", true);
 			    return;
 			   }
 			   if (!player.hasKilledTreeSpirit() && player.getQuestStage(14) == 2) {
@@ -140,7 +140,7 @@ public class ChopTree {
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
 			player.getDialogue().sendTutorialIslandWaitingInfo("", "Your character is now attempting to cut down the tree. Sit back", "for a moment whilst he does all the hard work.", "", "Please wait...");
 		} else {
-			player.getActionSender().sendMessage("You swing your axe at the "+(tree == Tree.VINES ? "vines" : "tree")+".");
+			player.getActionSender().sendMessage("You swing your axe at the "+(tree == Tree.VINES ? "vines" : "tree")+".", true);
 		}
 		player.getActionSender().sendSound(472, 0, 0);
 		player.getUpdateFlags().sendAnimation(axe.getAnimation(), 0);
@@ -154,13 +154,13 @@ public class ChopTree {
 				}
 				final GameObject p = ObjectHandler.getInstance().getObject(x, y, player.getPosition().getZ());
 				if (p != null && p.getDef().getId() != id) {
-					player.getActionSender().sendMessage("The tree has run out of logs.");
+					player.getActionSender().sendMessage("The tree has run out of logs.", true);
 					container.stop();
 					return;
 				}
 				final Item log = new Item(tree.getLog(), 1);
 				if(player.getInventory().getItemContainer().freeSlot() == -1) {
-					player.getActionSender().sendMessage("Your inventory is too full to hold any more " + log.getDefinition().getName().toLowerCase() + ".");
+					player.getActionSender().sendMessage("Your inventory is too full to hold any more " + log.getDefinition().getName().toLowerCase() + ".", true);
 					container.stop();
 					return;
 				}
@@ -186,7 +186,7 @@ public class ChopTree {
 					}
 					if (tree != Tree.DRAMEN_TREE && Misc.random(100) <= tree.decayChance) {
 						if (tree != Tree.VINES) {
-							player.getActionSender().sendMessage("The tree has run out of logs.");
+							player.getActionSender().sendMessage("The tree has run out of logs.", true);
 						}
 						int face = SkillHandler.getFace(id, x, y, player.getPosition().getZ());
 						new GameObject(tree.getStump(), x, y, player.getPosition().getZ(), face, 10, id, tree.getRespawnTime(), tree != Tree.VINES);
