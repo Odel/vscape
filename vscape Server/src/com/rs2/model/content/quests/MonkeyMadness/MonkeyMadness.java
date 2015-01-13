@@ -1579,7 +1579,12 @@ public class MonkeyMadness implements Quest {
 				d.sendPlayerChat("King you look worried. Is anything the matter?", CONTENT);
 				return true;
 			    case 8:
-				d.sendNpcChat("Nothing in particular... Well... actually, yes, there is.", DISTRESSED);
+				if(!QuestHandler.questCompleted(player, 33)) {
+				    d.sendNpcChat("No, nothing at all! Don't worry about me", "adventurer. Perhaps there are others things", "that need tending to.", CONTENT);
+				    d.setNextChatId(25);
+				} else {
+				    d.sendNpcChat("Nothing in particular... Well... actually, yes, there is.", DISTRESSED);
+				}
 				return true;
 			    case 9:
 				d.sendPlayerChat("What is it?", CONTENT);
@@ -1639,6 +1644,10 @@ public class MonkeyMadness implements Quest {
 				player.getActionSender().sendString("In which our hero finds himself drawn back into Glough's web", 11115);
 				player.getActionSender().sendString("of deception and deceit.", 11116);
 				d.dontCloseInterface();
+				return true;
+			    case 25:
+				d.sendStatement("You must complete Tree Gnome Village to start Monkey Madness.");
+				d.endDialogue();
 				return true;
 			}
 			return false;
