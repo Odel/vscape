@@ -383,26 +383,26 @@ public class ShortcutHandler {
 		return true;
 	    case 3931: //log
 		if (x == 2201 && y == 3237) {
-		    Agility.crossObstacle(player, 2196, y, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, 2196, y, 762, 8, 45, 0);
 		}
 		if (x == 2197 && y == 3237) {
-		    Agility.crossObstacle(player, 2202, y, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, 2202, y, 762, 8, 45, 0);
 		}
 		return true;
 	    case 3932: //log
 		if (x == 2259 && y == 3250) {
-		    Agility.crossObstacle(player, 2264, y, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, 2264, y, 762, 8, 45, 0);
 		}
 		if (x == 2263 && y == 3250) {
-		    Agility.crossObstacle(player, 2258, y, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, 2258, y, 762, 8, 45, 0);
 		}
 		return true;
 	    case 3933: //log
 		if (x == 2290 && y == 3238) {
-		    Agility.crossObstacle(player, x, 3232, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, x, 3232, 762, 8, 45, 0);
 		}
 		if (x == 2290 && y == 3233) {
-		    Agility.crossObstacle(player, x, 3239, 762, 8, 56, 0);
+		    Agility.crossObstacle(player, x, 3239, 762, 8, 45, 0);
 		}
 		return true;
 	    case 3937: //Dense Forest
