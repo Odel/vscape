@@ -2,11 +2,14 @@ package com.rs2.model.content.skills.agility;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.Player;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+
 import java.util.Random;
 
 public class ShortcutHandler {
@@ -14,6 +17,7 @@ public class ShortcutHandler {
     public static boolean handleShortcut(final Player player, int id, int x, int y) {
 	int targetX = 0;
 	int targetY = 0;
+	int objectFace = SkillHandler.getFace(id, x, y, player.getPosition().getZ());
 	switch (id) {
 	    case 2296: //coal trucks log
 		if (x == 2599) {
@@ -186,6 +190,10 @@ public class ShortcutHandler {
 		targetY = player.getPosition().getY() < y ? 1 : -1;
 		Agility.crossObstacle(player, x, y + targetY, 839, 2, 0);
 		return true;
+	    case 9300: // lumby to varrock fence (the castle wall one)
+		targetY = player.getPosition().getY() < y ? 1 : -1;
+		Agility.crossObstacle(player, x, y + targetY, 2750, 2, 0);
+		return true;
 	    case 12982: // stile
 		targetY = player.getPosition().getY() < y ? 2 : -1;
 		Agility.crossObstacle(player, x, y + targetY, 839, 3, 0);
@@ -339,27 +347,6 @@ public class ShortcutHandler {
 		    player.getActionSender().sendMessage("This shortcut requires level 53 Agility.");
 		}
 		return true;
-	    //Tirannwn
-	    case 3921: //tripwire
-		if (x == 2294 && y == 3243) {
-		    targetY = player.getPosition().getY() > y ? -1 : 1;
-		    Agility.crossObstacle(player, x, y + targetY, 0, 2, 0, 0);
-		}
-		return true;
-	    case 3933: //log
-		if (x == 2290 && y == 3238) {
-		    Agility.crossObstacle(player, x, 3232, 762, 8, 10, 0);
-		}
-		if (x == 2290 && y == 3233) {
-		    Agility.crossObstacle(player, x, 3239, 762, 8, 10, 0);
-		}
-		return true;
-	    case 3937: //Dense Forest
-	    case 3938:
-	    case 3939:
-	    case 3998:
-	    case 3999:
-		return true;
 	    case 2320: //edgeville dungeon monkey bars
 		if (x == 3119 || x == 3120) {
 		    if (y == 9964) {
@@ -375,7 +362,104 @@ public class ShortcutHandler {
 		    targetY = player.getPosition().getY() > y ? 3558 : 3561;
 		    Agility.crawlPipe(player, x, targetY, 3, 35, 0);
 		}
+		return true;	
+	    //Tirannwn
+		//Isafdar
+	    case 3921: //tripwire
+	 //   	System.out.println(objectFace);
+	    	switch(objectFace)
+	    	{
+	    		case 0 :
+	    		case 2 :
+				    targetY = player.getPosition().getY() > y ? -2 : 2;
+				    Agility.crossObstacle(player, x, y + targetY, 2750, 3, 1, 0);
+	    		break;
+	    		case 1 :
+	    		case 3 :
+				    targetX = player.getPosition().getX() > x ? -2 : 2;
+				    Agility.crossObstacle(player, x + targetX, y, 2750, 3, 1, 0);
+	    		break;
+	    	}
 		return true;
+	    case 3931: //log
+		if (x == 2201 && y == 3237) {
+		    Agility.crossObstacle(player, 2196, y, 762, 8, 56, 0);
+		}
+		if (x == 2197 && y == 3237) {
+		    Agility.crossObstacle(player, 2202, y, 762, 8, 56, 0);
+		}
+		return true;
+	    case 3932: //log
+		if (x == 2259 && y == 3250) {
+		    Agility.crossObstacle(player, 2264, y, 762, 8, 56, 0);
+		}
+		if (x == 2263 && y == 3250) {
+		    Agility.crossObstacle(player, 2258, y, 762, 8, 56, 0);
+		}
+		return true;
+	    case 3933: //log
+		if (x == 2290 && y == 3238) {
+		    Agility.crossObstacle(player, x, 3232, 762, 8, 56, 0);
+		}
+		if (x == 2290 && y == 3233) {
+		    Agility.crossObstacle(player, x, 3239, 762, 8, 56, 0);
+		}
+		return true;
+	    case 3937: //Dense Forest
+	    case 3938:
+	    case 3939:
+	    case 3998:
+	    case 3999:
+	    	switch(objectFace)
+	    	{
+	    		case 0 :
+	    		case 2 :
+	    			if(id == 3937 || id == 3999)
+	    			{
+		    			targetY = player.getPosition().getY() < y ? 2 : -1;
+		    			Agility.crossObstacle(player, x + 1, y + targetY, 2750, 4, 1, 0);
+	    			}
+	    			if(id == 3938 || id == 3939 || id == 3998)
+	    			{
+		    			targetY = player.getPosition().getY() < y ? 2 : -1;
+		    			Agility.crossObstacle(player, x + 1, y + targetY, 844, 4, 1, 0);
+	    			}
+	    		break;
+	    		case 1 :
+	    		case 3 :
+	    			if(id == 3937 || id == 3999)
+	    			{
+	    				targetX = player.getPosition().getX() < x ? 2 : -1;
+		    			Agility.crossObstacle(player, x + targetX, y + 1, 2750, 4, 1, 0);
+	    			}
+	    			if(id == 3938 || id == 3939 || id == 3998)
+	    			{
+		    			targetX = player.getPosition().getX() < x ? 2 : -1;
+		    			Agility.crossObstacle(player, x + targetX, y + 1, 844, 4, 1, 0);
+	    			}
+	    		break;
+	    	}
+		return true;
+	    case 8742 :
+			targetX = player.getPosition().getX() < x ? 1 : -1;
+			Agility.crossObstacle(player, x + targetX, 3194, 844, 4, 1, 0);
+	    return true;
+	    //leaves
+	    case 3925 :
+	    	switch(objectFace)
+	    	{
+	    		case 0 :
+	    		case 2 :
+	    			targetX = player.getPosition().getX() < x ? 3 : -3;
+	    			Agility.climbObstacle(player, x + targetX, y, player.getPosition().getZ(), 2750, 2, 0);
+	    		break;
+	    		case 1 :
+	    		case 3 :
+	    			targetY = player.getPosition().getY() < y ? 3 : -3;
+	    			Agility.climbObstacle(player, x, y + targetY, player.getPosition().getZ(), 2750, 2, 0);
+	    		break;
+	    	}
+	    return true;
 	}
 	return false;
     }
