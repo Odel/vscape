@@ -173,7 +173,7 @@ public class PlayerSaveParser {
 					    for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
 							if(i >= puzzleStoredItems.size())
 								break;
-					    	player.puzzleStoredItems[i] = new Item(puzzleStoredItems.get(i).getAsInt());
+					    	player.getPuzzle().puzzleStoredItems[i] = new Item(puzzleStoredItems.get(i).getAsInt());
 					    }
 					}
 					if(itemData.get("recieveMasks") != null)

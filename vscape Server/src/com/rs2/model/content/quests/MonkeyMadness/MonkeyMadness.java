@@ -28,6 +28,7 @@ import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.FinalFightNpcs;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.EventsConstants;
+import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.util.Misc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.functions.Ladders;
@@ -61,6 +62,7 @@ public class MonkeyMadness implements Quest {
     public static final int DRAGONSTONE = 1615;
     public static final int BANANA = 1963;
     public static final int GOLD_BAR = 2357;
+    public static final int SPARE_CONTROLS = 4002;
     public static final int ROYAL_SEAL = 4004;
     public static final int NARNODES_ORDERS = 4005;
     public static final int MONKEY_DENTURES = 4006;
@@ -95,6 +97,7 @@ public class MonkeyMadness implements Quest {
 
     //Interfaces
     public static final int[] GLIDER_PUZZLE = {3904, 3906, 3908, 3910, 3912, 3914, 3916, 3918, 3920, 3922, 3924, 3926, 3928, 3930, 3932, 3934, 3936, 3938, 3940, 3942, 3944, 3946, 3948, 3950, -1};
+    public static Item[] GLIDER_PUZZLE_ITEMS = null;
     public static final int PUZZLE_INTERFACE = 11126;
 
     //Npcs
@@ -629,8 +632,11 @@ public class MonkeyMadness implements Quest {
     }
     
     public static void openGliderPuzzle(final Player player) {
-	player.getPuzzle().initPuzzle(6661234);
-	player.getPuzzle().loadClueInterface(6661234);
+	if(!player.getMMVars().startedGliderPuzzle) {
+	    player.getMMVars().getPuzzle().initPuzzle(6661234);
+	    player.getMMVars().startedGliderPuzzle = true;
+	}
+	player.getMMVars().getPuzzle().loadClueInterface(6661234);
     }
     
     public static void openChapterInterface(final Player player) {
@@ -761,6 +767,19 @@ public class MonkeyMadness implements Quest {
     }
 
     public boolean itemHandling(final Player player, int itemId) {
+	switch(itemId) {
+	    case SPARE_CONTROLS:
+		if (GLIDER_PUZZLE_ITEMS == null) {
+		    GLIDER_PUZZLE_ITEMS = new Item[ClueScroll.PUZZLE_LENGTH];
+		    for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
+			GLIDER_PUZZLE_ITEMS[i] = new Item(GLIDER_PUZZLE[i]);
+		    }
+		}
+		player.setStatedInterface("GLIDER_PUZZLE_HINT");
+		player.getActionSender().sendInterface(PUZZLE_INTERFACE);
+		player.getActionSender().sendUpdateItems(11130, GLIDER_PUZZLE_ITEMS);
+		return true;
+	}
 	return false;
     }
 
@@ -803,6 +822,27 @@ public class MonkeyMadness implements Quest {
 
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch (object) {
+	    case 366: //Spare controls crate
+		if(x == 2588 && y == 4508) {
+		    player.getActionSender().sendMessage("You search the crate...");
+		    player.setStopPacket(true);
+		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+			    b.stop();
+			}
+
+			@Override
+			public void stop() {
+			    if(!player.getInventory().playerHasItem(SPARE_CONTROLS) && player.getInventory().getItemContainer().freeSlots() > 0) {
+				player.getActionSender().sendMessage("...you find a spare control panel.");
+				player.getInventory().addItem(new Item(SPARE_CONTROLS));
+			    }
+			    player.setStopPacket(false);
+			}
+		    }, 2);
+		}
+	    return false;
 	    case 4771: //AWOWOGEI
 		Dialogues.startDialogue(player, AWOWOGEI);
 		return true;
@@ -1522,7 +1562,7 @@ public class MonkeyMadness implements Quest {
 		    player.getDialogue().sendNpcChat("Thank you ever so much again Traveller, and", "welcome back to the Grand Tree!", HAPPY);
 		    player.getDialogue().endDialogue();
 		    return true;
-		} else if (player.getQuestStage(36) >= QUEST_STARTED && player.getQuestStage(36) < NEW_ORDERS && !player.getInventory().ownsItem(ROYAL_SEAL)) {
+		} else if (player.getQuestStage(36) >= QUEST_STARTED && player.getQuestStage(36) <= CRACKED_THE_CODE && !player.getInventory().playerHasItem(ROYAL_SEAL)) {
 		    switch (d.getChatId()) {
 			case 1:
 			    d.sendPlayerChat("Narnode, I've lost the Royal Seal!", DISTRESSED);
@@ -1652,7 +1692,7 @@ public class MonkeyMadness implements Quest {
 			}
 			return false;
 		    case NEW_ORDERS:
-			if (!player.getInventory().ownsItem(NARNODES_ORDERS)) {
+			if (!player.getInventory().playerHasItem(NARNODES_ORDERS)) {
 			    switch (d.getChatId()) {
 				case 1:
 				    d.sendPlayerChat("I, erm... lost your orders...", CONTENT);
@@ -1817,55 +1857,67 @@ public class MonkeyMadness implements Quest {
 		}
 		return false;
 	    case GLO_CARANOCK:
-		switch (d.getChatId()) {
-		    case 1:
-			if (player.getQuestStage(36) != 1) {
-			    return false;
-			} else {
-			    d.sendPlayerChat("Hello!", CONTENT);
-			    return true;
+		switch(player.getQuestStage(36)) {
+		    case SPOKE_TO_CARROTCOCK:
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("I shall see personally to the decommission. You should", "report to the King immediately.", CONTENT);
+				d.endDialogue();
+				return true;
 			}
-		    case 2:
-			d.sendNpcChat("Who are you? Did Glough send you?", CONTENT);
-			return true;
-		    case 3:
-			d.sendPlayerChat("Glough? No. He has been forced", "to resign by the King.", CONTENT);
-			return true;
-		    case 4:
-			d.sendNpcChat("Forced to resign??", DISTRESSED);
-			return true;
-		    case 5:
-			d.sendPlayerChat("He was plotting to start a war between the", "gnomes and humankind.", CONTENT);
-			return true;
-		    case 6:
-			d.sendPlayerChat("Anyway, I am here on a separate mission. I am", "investigating the mysterious disappearance of the 10th", "Squad of King Narnode's Royal Guard. They were to", "carry out some work in the area.", CONTENT);
-			return true;
-		    case 7:
-			d.sendNpcChat("Royal Guard? I know nothing about them. Absolutely", "nothing.", CONTENT);
-			return true;
-		    case 8:
-			d.sendPlayerChat("You have no idea why they mysteriously disappeared?", CONTENT);
-			return true;
-		    case 9:
-			d.sendNpcChat("None whatsoever. What were they here to do?", CONTENT);
-			return true;
-		    case 10:
-			d.sendPlayerChat("They were to oversee the decommission of the shipyard.", CONTENT);
-			return true;
-		    case 11:
-			d.sendNpcChat("Decommission of the shipyard... I see. Well, we have had", "some seriously strong southerly winds as of late. They", "may have been blown off course during flight.", CONTENT);
-			return true;
-		    case 12:
-			d.sendNpcChat("I shall see personally to the decommission. You should", "report to the King immediately.", CONTENT);
-			player.setQuestStage(36, SPOKE_TO_CARROTCOCK);
-			d.endDialogue();
-			return true;
-		}
-		return false;
+		    return false;
+		    case QUEST_STARTED:
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendPlayerChat("Hello!", CONTENT);
+				return true;
+			    case 2:
+				d.sendNpcChat("Who are you? Did Glough send you?", CONTENT);
+				return true;
+			    case 3:
+				d.sendPlayerChat("Glough? No. He has been forced", "to resign by the King.", CONTENT);
+				return true;
+			    case 4:
+				d.sendNpcChat("Forced to resign??", DISTRESSED);
+				return true;
+			    case 5:
+				d.sendPlayerChat("He was plotting to start a war between the", "gnomes and humankind.", CONTENT);
+				return true;
+			    case 6:
+				d.sendPlayerChat("Anyway, I am here on a separate mission. I am", "investigating the mysterious disappearance of the 10th", "Squad of King Narnode's Royal Guard. They were to", "carry out some work in the area.", CONTENT);
+				return true;
+			    case 7:
+				d.sendNpcChat("Royal Guard? I know nothing about them. Absolutely", "nothing.", CONTENT);
+				return true;
+			    case 8:
+				d.sendPlayerChat("You have no idea why they mysteriously disappeared?", CONTENT);
+				return true;
+			    case 9:
+				d.sendNpcChat("None whatsoever. What were they here to do?", CONTENT);
+				return true;
+			    case 10:
+				d.sendPlayerChat("They were to oversee the decommission of the shipyard.", CONTENT);
+				return true;
+			    case 11:
+				d.sendNpcChat("Decommission of the shipyard... I see. Well, we have had", "some seriously strong southerly winds as of late. They", "may have been blown off course during flight.", CONTENT);
+				return true;
+			    case 12:
+				d.sendNpcChat("I shall see personally to the decommission. You should", "report to the King immediately.", CONTENT);
+				player.setQuestStage(36, SPOKE_TO_CARROTCOCK);
+				d.endDialogue();
+				return true;
+			}
+			return false;
+	    }
+	    return false;
 	    case DAERO:
 		if (player.getPosition().getZ() > 0 && player.getQuestStage(36) >= ORDERS_FROM_DAERO && player.getQuestStage(36) < QUEST_COMPLETE) {
 		    if (player.getQuestStage(36) == ORDERS_FROM_DAERO) {
 			switch (d.getChatId()) {
+			    case 1:
+				d.sendPlayerChat("I have a few questions...", CONTENT);
+				d.setNextChatId(18);
+				return true;
 			    case 18:
 				d.sendOption("Talk about the journey...", "Talk about the 10th Squad...", "Talk about Caranock...", "Let's go then.");
 				return true;
@@ -2193,6 +2245,7 @@ public class MonkeyMadness implements Quest {
 				    d.setNextChatId(2);
 				    return true;
 				case 50:
+				    d.setLastNpcTalk(DAERO);
 				    d.sendNpcChat("Welcome, adventurer, to the Underground Military", "Glider Hangar.", CONTENT);
 				    return true;
 				case 51:

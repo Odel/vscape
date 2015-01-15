@@ -1621,8 +1621,8 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("GFX #" + gfxId, true);
 		}
 		else if (keyword.equals("solvepuzzle")) {
-		    for (int i = 0; i < sender.puzzleStoredItems.length; i++) {
-			sender.puzzleStoredItems[i] = new Item(sender.getPuzzle().getPuzzleIndex(sender.getPuzzle().index)[i]);
+		    for (int i = 0; i < sender.getPuzzle().puzzleStoredItems.length; i++) {
+			sender.getPuzzle().puzzleStoredItems[i] = new Item(sender.getPuzzle().getPuzzleIndex(sender.getPuzzle().index)[i]);
 		    }
 		    sender.getPuzzle().loadPuzzle();
 		}

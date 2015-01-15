@@ -467,7 +467,6 @@ public class Player extends Entity {
 	public int challengeScroll;
 	public int skillAnswer;
 	public int pcSkillPoints;
-	public Item[] puzzleStoredItems = new Item[ClueScroll.PUZZLE_LENGTH];
 	public boolean waterfallOption1 = false;
         public boolean waterfallOption2 = false;
         public boolean waterfallOption3 = false;

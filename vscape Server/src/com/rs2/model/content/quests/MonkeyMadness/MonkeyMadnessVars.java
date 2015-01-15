@@ -1,8 +1,11 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
 import com.rs2.model.Position;
+import com.rs2.model.content.treasuretrails.ClueScroll;
+import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
 import java.util.ArrayList;
 
 public class MonkeyMadnessVars {
@@ -29,9 +32,12 @@ public class MonkeyMadnessVars {
     public Npc jungleDemon = null;
     public Npc guardCalled = null;
     public boolean spokeToGarkorEndOfFight = false;
+    public boolean startedGliderPuzzle = false;
+    private Puzzle puzzle = null;
     
     public MonkeyMadnessVars(final Player player) {
 	this.player = player;
+	puzzle = new Puzzle(this.player);
     }
     
     public boolean spokenToMonkeyChild() {
@@ -140,6 +146,10 @@ public class MonkeyMadnessVars {
     
     public ArrayList<Npc> getFinalFightNpcs() {
 	return this.finalFightNpcs;
+    }
+    
+    public Puzzle getPuzzle() {
+	return puzzle;
     }
     
 }

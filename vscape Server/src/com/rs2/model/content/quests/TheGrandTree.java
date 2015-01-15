@@ -1205,9 +1205,13 @@ public class TheGrandTree implements Quest {
 		    default:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				player.getDialogue().sendNpcChat("You look shifty, human. I've got my eye", "on you.", CONTENT);
-				player.getDialogue().endDialogue();
-				return true;
+				if (player.getQuestStage(36) != 4) {
+				    player.getDialogue().sendNpcChat("You look shifty, human. I've got my eye", "on you.", CONTENT);
+				    player.getDialogue().endDialogue();
+				    return true;
+				} else {
+				    return false;
+				}
 			}
 		    return false;
 		    case TRAPDOOR_OPEN:

@@ -198,6 +198,9 @@ public class ItemPacketHandler implements PacketHandler {
 	if (player.getPuzzle().moveSlidingPiece(itemId, true)) {
 	    return;
 	}
+	if(player.getQuestStage(36) == 4 && player.getMMVars().getPuzzle().moveSlidingPiece(itemId, true)) {
+	    return;
+	}
 	if (item == null || item.getId() != itemId || !item.validItem()) {
 	    return;
 	}

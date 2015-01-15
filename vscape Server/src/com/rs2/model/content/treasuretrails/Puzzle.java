@@ -12,15 +12,11 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
-/**
- * Created by IntelliJ IDEA. User: vayken Date: 03/01/12 Time: 22:01 To change
- * this template use File | Settings | File Templates.
- */
-public class Puzzle {// todo maybe hovering button message
+public class Puzzle {
 
     private Player player;
     private int SCRAMBLE_ITERATIONS = 150;
-    /* a variable which stocks the puzzle items */
+    public Item[] puzzleStoredItems = new Item[ClueScroll.PUZZLE_LENGTH];
 
     public Puzzle(Player player) {
 	this.player = player;
@@ -110,8 +106,8 @@ public class Puzzle {// todo maybe hovering button message
     }
 
     public void resetPuzzleItems() {
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
-	    player.puzzleStoredItems[i] = new Item(-1);
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+	    this.puzzleStoredItems[i] = new Item(-1);
 	}
 	this.index = 0;
     }
@@ -122,7 +118,7 @@ public class Puzzle {// todo maybe hovering button message
 	    return;
 	}
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
-	    player.puzzleStoredItems[i] = new Item(getPuzzleIndex(index)[i]);
+	    this.puzzleStoredItems[i] = new Item(getPuzzleIndex(index)[i]);
 	}
 	for (int i = 0; i < SCRAMBLE_ITERATIONS; i++) {
 	    int move = adjacentToBlank().get(Misc.randomMinusOne(adjacentToBlank().size()));
@@ -139,8 +135,8 @@ public class Puzzle {// todo maybe hovering button message
     public ArrayList<Integer> adjacentToBlank() {
 	ArrayList<Integer> toReturn = new ArrayList<>();
 	for (int i = 0; i < ClueScroll.PUZZLE_LENGTH; i++) {
-	    if (distanceToPiece(getPosition(player.puzzleStoredItems[i].getId()), getBlankPosition()) == 1) {
-		toReturn.add(player.puzzleStoredItems[i].getId());
+	    if (distanceToPiece(getPosition(this.puzzleStoredItems[i].getId()), getBlankPosition()) == 1) {
+		toReturn.add(this.puzzleStoredItems[i].getId());
 	    }
 	}
 	return toReturn;
@@ -159,7 +155,7 @@ public class Puzzle {// todo maybe hovering button message
 
     public void loadPuzzle() {
 	player.getActionSender().sendInterface(index == 4 ? MonkeyMadness.PUZZLE_INTERFACE : ClueScroll.PUZZLE_INTERFACE);
-	player.getActionSender().sendUpdateItems(index == 4 ? 11130 : ClueScroll.PUZZLE_INTERFACE_CONTAINER, player.puzzleStoredItems);
+	player.getActionSender().sendUpdateItems(index == 4 ? 11130 : ClueScroll.PUZZLE_INTERFACE_CONTAINER, this.puzzleStoredItems);
 	if(index != 4) {
 	    player.getActionSender().sendUpdateItems(ClueScroll.PUZZLE_INTERFACE_DEFAULT_CONTAINER, getDefaultItems());
 	}
@@ -168,9 +164,9 @@ public class Puzzle {// todo maybe hovering button message
     /* gets the position of a puzzle slide (using mathematical way) */
     public Position getPosition(int itemId) {
 	int x = 0, y = 0;
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
-	    if (player.puzzleStoredItems[i] != null) {
-		if (player.puzzleStoredItems[i].getId() == itemId) {
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+	    if (this.puzzleStoredItems[i] != null) {
+		if (this.puzzleStoredItems[i].getId() == itemId) {
 		    x = i - 5 * (i / 5) + 1;
 		    y = i / 5 + 1;
 		}
@@ -243,6 +239,9 @@ public class Puzzle {// todo maybe hovering button message
 
     /* moves the slide piece */
     public boolean moveSlidingPiece(int itemId, boolean reload) {
+	if(player.getStatedInterface().equals("GLIDER_PUZZLE_HINT")) {
+	    return false;
+	}
 	if (getPosition(itemId).equals(new Position(0, 0, 0)) || getPosition(itemId) == null) {
 	    return false;
 	}
@@ -264,17 +263,17 @@ public class Puzzle {// todo maybe hovering button message
 	ArrayList<Position> nearPieces = new ArrayList<Position>(2);
 
 	/* loop to gather the square that surround the blank one */
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
-	    Position thisPuzzlePosition = getPosition(player.puzzleStoredItems[i].getId());
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+	    Position thisPuzzlePosition = getPosition(this.puzzleStoredItems[i].getId());
 	    if (surroundedByBlank(thisPuzzlePosition) && distanceToPiece(blankPosition, position) >= distanceToPiece(position, thisPuzzlePosition)) {
 		nearPieces.add(thisPuzzlePosition);
 	    }
 	}
 
 	/* loop for the main algorithm */
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
 	    ArrayList<Integer> comp = new ArrayList<Integer>(4);
-	    Position thisPuzzlePosition = getPosition(player.puzzleStoredItems[i].getId());
+	    Position thisPuzzlePosition = getPosition(this.puzzleStoredItems[i].getId());
 
 	    if (!thisPuzzlePosition.equals(blankPosition) && distanceToPiece(blankPosition, position) >= distanceToPiece(position, thisPuzzlePosition)) {
 
@@ -297,25 +296,22 @@ public class Puzzle {// todo maybe hovering button message
 		}
 
 	    }
-	    if (finishedPuzzle() && index == 4) {
-		MonkeyMadness.reinitializeHangar(player);
-	    }
 	}
 	return true;
     }
 
     /* checks if the puzzle is solved */
     public boolean finishedPuzzle() {
-	if (player.puzzleStoredItems == null || player.puzzleStoredItems.length == 0 || getPuzzleIndex(index) == null) {
+	if (this.puzzleStoredItems == null || this.puzzleStoredItems.length == 0 || getPuzzleIndex(index) == null) {
 	    return false;
 	}
 	int counter = 0;
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
-	    if (player.puzzleStoredItems[i] != null && player.puzzleStoredItems[i].getId() == getPuzzleIndex(index)[i]) {
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+	    if (this.puzzleStoredItems[i] != null && this.puzzleStoredItems[i].getId() == getPuzzleIndex(index)[i]) {
 		counter++;
 	    }
 	}
-	return counter == player.puzzleStoredItems.length;
+	return counter == this.puzzleStoredItems.length;
     }
 
     /*
@@ -325,20 +321,23 @@ public class Puzzle {// todo maybe hovering button message
     private void swapWithBlank(Position position, boolean reload) {
 	int index1 = 0;
 	int index2 = 0;
-	for (int i = 0; i < player.puzzleStoredItems.length; i++) {
-	    if (player.puzzleStoredItems[i].getId() == -1) {
+	for (int i = 0; i < this.puzzleStoredItems.length; i++) {
+	    if (this.puzzleStoredItems[i].getId() == -1) {
 		index1 = i;
 	    }
-	    if (getPosition(player.puzzleStoredItems[i].getId()).equals(position)) {
+	    if (getPosition(this.puzzleStoredItems[i].getId()).equals(position)) {
 		index2 = i;
 	    }
 	}
-	Item blank = player.puzzleStoredItems[index1];
-	Item chosen = player.puzzleStoredItems[index2];
-	player.puzzleStoredItems[index1] = chosen;
-	player.puzzleStoredItems[index2] = blank;
+	Item blank = this.puzzleStoredItems[index1];
+	Item chosen = this.puzzleStoredItems[index2];
+	this.puzzleStoredItems[index1] = chosen;
+	this.puzzleStoredItems[index2] = blank;
 	if (reload) {
 	    loadPuzzle();
+	}
+	if (finishedPuzzle() && index == 4 && reload) {
+	    MonkeyMadness.reinitializeHangar(player);
 	}
     }
 
