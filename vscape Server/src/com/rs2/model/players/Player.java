@@ -398,6 +398,7 @@ public class Player extends Entity {
 	public Npc spawnedNpc;
 	private long usernameAsLong;
 	private boolean hamTrapDoor;
+	private boolean inCutscene = false;
 	private Weapon equippedWeapon = Weapon.FISTS;
 	private SpecialType specialType;
 	private List<SkullRecord> skullRecords;
@@ -4283,6 +4284,22 @@ public class Player extends Entity {
 	 */
 	public boolean isHamTrapDoor() {
 		return hamTrapDoor;
+	}
+	
+	/*
+	@param inCutscene
+	    BOOLEAN TO SET IF U R IN CUTSCEEN
+	*/
+	public void setInCutscene(boolean set) {
+		this.inCutscene = set;
+	}
+	
+	/*
+	@return inCutscene
+	    RETURNS IF PLAYER IN CUTSCEEN OR NO?
+	*/
+	public boolean isInCutscene() {
+		return inCutscene;
 	}
 
 	public int getClientVersion() {

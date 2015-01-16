@@ -961,14 +961,15 @@ public abstract class Entity {
 		    }
 		}
 	    }
-		return Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
+		
+		return this.isNpc() ? Region.canMoveNpc(startX, startY, endX, endY, height, xLength, yLength) : Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
 	}
 	public boolean canMove(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
-		return Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
+		return this.isNpc() ? Region.canMoveNpc(startX, startY, endX, endY, height, xLength, yLength) : Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
 	}
 
 	public boolean canMove(int x, int y) {
-		return Region.canMove(getPosition().getX(), getPosition().getY(), getPosition().getX() + x, getPosition().getY() + y, getPosition().getZ(), getSize(), getSize());
+		return this.isNpc() ? Region.canMoveNpc(getPosition().getX(), getPosition().getY(), getPosition().getX() + x, getPosition().getY() + y, getPosition().getZ(), getSize(), getSize()) : Region.canMove(getPosition().getX(), getPosition().getY(), getPosition().getX() + x, getPosition().getY() + y, getPosition().getZ(), getSize(), getSize());
 	}
 
     public TickTimer getFrozenImmunity() {

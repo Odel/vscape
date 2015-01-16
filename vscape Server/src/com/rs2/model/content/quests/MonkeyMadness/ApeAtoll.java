@@ -225,6 +225,9 @@ public class ApeAtoll {
     
     public static void jail(final Player player, boolean guards) {
 	final Npc npc = new Npc(1442 + Misc.random(4));
+	if(player.getMMVars().isMonkey() || player.isAttacking()) {
+	    return;
+	}
 	if(guards) {
 	    NpcLoader.spawnNpc(player, npc, false, false);
 	    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 0);
@@ -234,9 +237,6 @@ public class ApeAtoll {
 	    npc.setPlayerOwner(player.getIndex());
 	    player.getMMVars().guardCalled = npc;
 	    startGuardDestroyCheck(player);
-	}
-	if(player.getMMVars().isMonkey()) {
-	    return;
 	}
 	if(!guards) {
 	    player.getUpdateFlags().sendAnimation(836);
@@ -263,9 +263,19 @@ public class ApeAtoll {
 		    karam.setPlayerOwner(player.getIndex());
 		    return;
 		}
-		if(!player.onApeAtoll()) {
+		if(!player.onApeAtoll() || player.isAttacking()) {
 		    player.getMMVars().inProcessOfBeingJailed = false;
+		    if(player.getMMVars().guardCalled != null) {
+			NpcLoader.destroyNpc(player.getMMVars().guardCalled);
+			player.getMMVars().guardCalled = null;
+		    }
 		    return;
+		}
+		for(Npc npc : player.getNpcs()) {
+		    if(npc != null && npc.getFollowingEntity() != null && npc.getFollowingEntity().equals(player)) {
+			CombatManager.resetCombat(npc);
+			Following.resetFollow(npc);
+		    }
 		}
 		player.fadeTeleport(new Position(2773, 2794, 0));
 		if(player.getMMVars().guardCalled != null) {
@@ -470,9 +480,9 @@ public class ApeAtoll {
 	    case 4800: //jail cell doors
 		GameObjectDef d = SkillHandler.getObject(object, x, y, player.getPosition().getZ());
 		if (d.getFace() == 0) {
-		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, player.getPosition().getX() >= x ? -1 : 1, 0);
+		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() == y ? 0 : player.getPosition().getY() > y ? -1 : 1);
 		} else if (d.getFace() == 1) {
-		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, 0, player.getPosition().getY() > y ? -1 : 1);
+		    ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), object, 0, 0, player.getPosition().getX() == x ? 0 :  player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() > y ? -1 : 1);
 		}
 		return true;
 	    case BAMBOO_LADDER:

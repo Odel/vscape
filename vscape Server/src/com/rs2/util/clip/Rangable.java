@@ -442,22 +442,7 @@ public class Rangable {
         }
         return new int[] { baseX, baseY };
     }
-    public static boolean diagonalCheck(int diffX, int diffY, Position toCheck, Position original) {
-	if(diffX == -1 && diffY == 1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() + 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() + 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    || (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() - 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() - 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == 1 && diffY == 1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() - 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() - 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    || (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() - 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() - 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == -1 && diffY == -1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() + 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() + 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    || (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() + 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() + 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == 1 && diffY == -1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() - 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() - 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    || (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() + 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() + 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	}
-	return false;
-    }
+
     public static boolean canMove(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
         int diffX = endX - startX;
         int diffY = endY - startY;
@@ -470,7 +455,7 @@ public class Rangable {
             int currentY = endY - diffY;
             for (int i = 0; i < xLength; i++) {
                 for (int i2 = 0; i2 < yLength; i2++) {
-		    if(((diffX == -1 || diffX == 1) && (diffY == -1 || diffY == 1)) && diagonalCheck(diffX, diffY, new Position(endX, endY, height), new Position(startX, startY, height))) {
+		    if(Math.abs(diffX) == 1 && Math.abs(diffY) == 1 && Region.diagonalCheck(diffX, diffY, new Position(endX, endY, height), new Position(startX, startY, height)) && xLength == 1 && yLength == 1) {
 			return true;
 		    }
 		    if (diffX < 0 && diffY < 0) {

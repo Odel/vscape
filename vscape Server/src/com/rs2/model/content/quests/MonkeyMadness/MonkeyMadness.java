@@ -1126,6 +1126,7 @@ public class MonkeyMadness implements Quest {
 
     public static void meanwhile(final Player player) {
 	player.setStopPacket(true);
+	player.setInCutscene(true);
 	switch (player.getQuestStage(36)) {
 	    case LUMBDO_A_DICK:
 		player.setQuestStage(36, MEANWHILE);
@@ -1219,6 +1220,7 @@ public class MonkeyMadness implements Quest {
 			}, 3);
 			player.getDialogue().dontCloseInterface();
 			player.getActionSender().sendMapState(0);
+			player.setInCutscene(false);
 		    }
 		}, 8);
 		//Dialogues.startDialogue(player, 1223334444);
@@ -1338,6 +1340,7 @@ public class MonkeyMadness implements Quest {
 			}, 3);
 			player.getDialogue().dontCloseInterface();
 			player.getActionSender().sendMapState(0);
+			player.setInCutscene(false);
 		    }
 		}, 8);
 		//Dialogues.startDialogue(player, 444433322);
@@ -1481,9 +1484,9 @@ public class MonkeyMadness implements Quest {
 			}, 3);
 			player.getDialogue().dontCloseInterface();
 			player.getActionSender().sendMapState(0);
+			player.setInCutscene(false);
 		    }
 		}, 8);
-		//Dialogues.startDialogue(player, 666666221);
 		return;
 	}
 	return;
@@ -2335,7 +2338,7 @@ public class MonkeyMadness implements Quest {
 				    return true;
 				case 5:
 				    d.setLastNpcTalk(WAYDAR);
-				    d.sendNpcChat("Yes Sir.", CONTENT);
+				    d.sendNpcChat("Yes sir.", CONTENT);
 				    return true;
 				case 6:
 				    d.setLastNpcTalk(DAERO);
@@ -2957,11 +2960,11 @@ public class MonkeyMadness implements Quest {
 				    return false;
 				case 6:
 				    d.sendNpcChat("We need to find the 10th Squad now, they probably", "left someone behind to guard their gliders.", CONTENT);
-				    d.setNextChatId(5);
+				    d.setNextChatId(4);
 				    return true;
 				case 7:
 				    d.sendNpcChat("I do not recognize him, though he may be a", "member of the 10th Squad if he is here.", CONTENT);
-				    d.setNextChatId(5);
+				    d.setNextChatId(4);
 				    return true;
 				case 8:
 				    d.sendNpcChat("Of course.", CONTENT);

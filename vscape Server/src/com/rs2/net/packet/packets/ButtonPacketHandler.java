@@ -471,25 +471,30 @@ public class ButtonPacketHandler implements PacketHandler {
 					return;
 				}
                 if (player.inDuelArena()) {
-                    player.getActionSender().sendMessage("You can't logout during a duel fight!");
+                    player.getActionSender().sendMessage("You can't logout during a duel!");
                     return;
                 }
                 if (player.inPestControlGameArea()) {
-                    player.getActionSender().sendMessage("You can't logout while in Pest control");
+                    player.getActionSender().sendMessage("You can't logout while in Pest control!");
                     return;
                 }
                 if (player.inCwGame() || player.inCwLobby()) {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
+		if(player.isInCutscene()) {
+		    player.getActionSender().sendMessage("You can't logout during a cutscene!");
+		    return;
+		}
 		if(player.inMageTrainingArena())
                 {
-                    player.getActionSender().sendMessage("You can't logout while in a Mage Training room!");
+                    player.getActionSender().sendMessage("You can't logout while in the Mage Training Arena!");
                     return;
                 }
 				player.getActionSender().sendLogout();
 				return;
 		}
+		
 		if (TalkToEvent.isGenieLampButton(player, buttonId)) {
 			return;
 		}

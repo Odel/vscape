@@ -425,18 +425,18 @@ public class Region {
     }
   
    public static boolean diagonalCheck(int diffX, int diffY, Position toCheck, Position original) {
-	if(diffX == -1 && diffY == 1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() + 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() + 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    && (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() - 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() - 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == 1 && diffY == 1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() - 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() - 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    && (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() - 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() - 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == -1 && diffY == -1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() + 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() + 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    && (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() + 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() + 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
-	} else if(diffX == 1 && diffY == -1) {
-	    return (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX() - 1, toCheck.getY(), toCheck.getZ(), 1, 1) && canMove(toCheck.getX() - 1, toCheck.getY(), original.getX(), original.getY(), toCheck.getZ(), 1, 1))
-		    && (canMove(toCheck.getX(), toCheck.getY(), toCheck.getX(), toCheck.getY() + 1, toCheck.getZ(), 1, 1) && canMove(toCheck.getX(), toCheck.getY() + 1, original.getX(), original.getY(), toCheck.getZ(), 1, 1));
+	if(diffX == -1 && diffY == 1) { //Northwest
+	    return ((getClipping(original.getX(), original.getY() + 1, toCheck.getZ()) & 0x1280120) == 0 && (getClipping(original.getX() - 1, original.getY() + 1, toCheck.getZ()) & 0x1280108) == 0)
+		    || ((getClipping(original.getX() - 1, original.getY(), toCheck.getZ()) & 0x1280108) == 0 && (getClipping(original.getX() - 1, original.getY() + 1, toCheck.getZ()) & 0x1280120) == 0);
+	} else if(diffX == 1 && diffY == 1) { //Northeast
+	    return ((getClipping(original.getX(), original.getY() + 1, toCheck.getZ()) & 0x1280120) == 0 && (getClipping(original.getX() + 1, original.getY() + 1, toCheck.getZ()) & 0x1280180) == 0)
+		    || ((getClipping(original.getX() + 1, original.getY(), toCheck.getZ()) & 0x1280180) == 0 && (getClipping(original.getX() + 1, original.getY() + 1, toCheck.getZ()) & 0x1280120) == 0);
+	} else if(diffX == -1 && diffY == -1) { //Southwest
+	    return ((getClipping(original.getX() - 1, original.getY(), toCheck.getZ()) & 0x1280108) == 0 && (getClipping(original.getX() - 1, original.getY() - 1, toCheck.getZ()) & 0x1280102) == 0)
+		    || ((getClipping(original.getX(), original.getY() - 1, toCheck.getZ()) & 0x1280102) == 0 && (getClipping(original.getX() - 1, original.getY() - 1, toCheck.getZ()) & 0x1280108) == 0);
+	} else if(diffX == 1 && diffY == -1) { //Southeast
+	    return ((getClipping(original.getX() + 1, original.getY(), toCheck.getZ()) & 0x1280180) == 0 && (getClipping(original.getX() + 1, original.getY() - 1, toCheck.getZ()) & 0x1280102) == 0)
+		    || ((getClipping(original.getX(), original.getY() - 1, toCheck.getZ()) & 0x1280102) == 0 && (getClipping(original.getX() + 1, original.getY() - 1, toCheck.getZ()) & 0x1280180) == 0);
 	}
 	return false;
     }
@@ -453,9 +453,74 @@ public class Region {
             int currentY = endY - diffY;
             for (int i = 0; i < xLength; i++) {
                 for (int i2 = 0; i2 < yLength; i2++) {
-		    if(((diffX == -1 || diffX == 1) && (diffY == -1 || diffY == 1)) && diagonalCheck(diffX, diffY, new Position(endX, endY, height), new Position(startX, startY, height))) {
+		    if(Math.abs(diffX) == 1 && Math.abs(diffY) == 1 && diagonalCheck(diffX, diffY, new Position(endX, endY, height), new Position(startX, startY, height)) && xLength == 1 && yLength == 1) {
 			return true;
 		    }
+                    if (diffX < 0 && diffY < 0) {
+                        if ((getClipping(currentX + i - 1, currentY + i2 - 1, height) & 0x128010e) != 0 || (getClipping(currentX + i - 1, currentY + i2, height) & 0x1280108) != 0
+                                || (getClipping(currentX + i, currentY + i2 - 1, height) & 0x1280102) != 0) {
+                            return false;
+                        }
+                    } else if (diffX > 0 && diffY > 0) {
+                        if ((getClipping(currentX + i + 1, currentY + i2 + 1, height) & 0x12801e0) != 0 || (getClipping(currentX + i + 1, currentY + i2, height) & 0x1280180) != 0
+                                || (getClipping(currentX + i, currentY + i2 + 1, height) & 0x1280120) != 0) {
+                            return false;
+                        }
+                    } else if (diffX < 0 && diffY > 0) {
+                        if ((getClipping(currentX + i - 1, currentY + i2 + 1, height) & 0x1280138) != 0 || (getClipping(currentX + i - 1, currentY + i2, height) & 0x1280108) != 0
+                                || (getClipping(currentX + i, currentY + i2 + 1, height) & 0x1280120) != 0) {
+                            return false;
+                        }
+                    } else if (diffX > 0 && diffY < 0) {
+                        if ((getClipping(currentX + i + 1, currentY + i2 - 1, height) & 0x1280183) != 0 || (getClipping(currentX + i + 1, currentY + i2, height) & 0x1280180) != 0
+                                || (getClipping(currentX + i, currentY + i2 - 1, height) & 0x1280102) != 0) {
+                            return false;
+                        }
+                    } else if (diffX > 0 && diffY == 0) {
+                        if ((getClipping(currentX + i + 1, currentY + i2, height) & 0x1280180) != 0) {
+                            return false;
+                        }
+                    } else if (diffX < 0 && diffY == 0) {
+                        if ((getClipping(currentX + i - 1, currentY + i2, height) & 0x1280108) != 0) {
+                            return false;
+                        }
+                    } else if (diffX == 0 && diffY > 0) {
+                        if ((getClipping(currentX + i, currentY + i2 + 1, height) & 0x1280120) != 0) {
+                            return false;
+                        }
+                    } else if (diffX == 0 && diffY < 0) {
+                        if ((getClipping(currentX + i, currentY + i2 - 1, height) & 0x1280102) != 0) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (diffX < 0) {
+                diffX++;
+            } else if (diffX > 0) {
+                diffX--;
+            }
+            if (diffY < 0) {
+                diffY++;
+            } else if (diffY > 0) {
+                diffY--;
+            }
+        }
+        return true;
+    }
+    
+    public static boolean canMoveNpc(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
+        int diffX = endX - startX;
+        int diffY = endY - startY;
+        int max = Math.max(Math.abs(diffX), Math.abs(diffY));
+	if(height > 3) {
+	    height = height%4;
+	}
+        for (int ii = 0; ii < max; ii++) {
+            int currentX = endX - diffX;
+            int currentY = endY - diffY;
+            for (int i = 0; i < xLength; i++) {
+                for (int i2 = 0; i2 < yLength; i2++) {
                     if (diffX < 0 && diffY < 0) {
                         if ((getClipping(currentX + i - 1, currentY + i2 - 1, height) & 0x128010e) != 0 || (getClipping(currentX + i - 1, currentY + i2, height) & 0x1280108) != 0
                                 || (getClipping(currentX + i, currentY + i2 - 1, height) & 0x1280102) != 0) {
