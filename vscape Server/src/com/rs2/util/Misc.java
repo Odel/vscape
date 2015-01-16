@@ -136,7 +136,7 @@ public class Misc {
 
 	public static boolean checkClip(int x, int y, int x2, int y2, int height, boolean melee) {
 		if (melee) {
-			return Region.canMove(x, y, x2, y2, height, 1, 1);
+			return Region.canMoveNpc(x, y, x2, y2, height, 1, 1);
 		} else {
 			return Rangable.canMove(x, y, x2, y2, height, 1, 1);
 		}

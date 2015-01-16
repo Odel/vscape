@@ -155,6 +155,7 @@ import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.Puzzle;
+import com.rs2.util.clip.Region;
 
 /**
  * Represents a logged-in player.
@@ -4195,7 +4196,7 @@ public class Player extends Entity {
 				npc.getUpdateFlags().setForceChatMessage("OOH! OOH! AAH!");
 				ApeAtoll.jail(this, true);
 			    }
-			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && ApeAtoll.hiddenInGrass(this) && npc.isAttacking()) {
+			    if (npc.getNpcId() == 1457 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && ApeAtoll.hiddenInGrass(this) && npc.isAttacking()) {
 				CombatManager.resetCombat(npc);
 			    }
 			    if (npc.getNpcId() == 1458 && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && !Area(2762, 2767, 2767, 2772) && npc.isAttacking()) {

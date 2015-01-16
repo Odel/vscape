@@ -213,7 +213,7 @@ public class Following {
 		{
 			return true;
 		}
-		if(victim.isNpc() && ((Npc)victim).getNpcId() == 1457 && Misc.goodDistance(attacker.getPosition(), victim.getPosition(), distance)) {
+		if(victim.isNpc() && ((Npc)victim).getNpcId() == 1457 && Misc.goodDistance(attacker.getPosition(), victim.getPosition(), distance) && Misc.checkClip(attacker.getPosition(), victim.getPosition(), false)) {
 			return true;
 		}
 		return Misc.checkClip(attacker.getPosition(), victim.getPosition(), distance < 2);
