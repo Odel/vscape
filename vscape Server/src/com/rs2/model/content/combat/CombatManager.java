@@ -663,6 +663,9 @@ public class CombatManager extends Tick {
 			if (player.getMultiCannon() != null && player.getMultiCannon().hasCannon()) {
 				player.getMultiCannon().pickupCannon();
 			}
+			if(player.getInJail()){
+				player.setInJail(false);
+			}
 		    PlayerSave.save(player);
 		    player.getActionSender().sendQuickSong(75, 16);
 		}
