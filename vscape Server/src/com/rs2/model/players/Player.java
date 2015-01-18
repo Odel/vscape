@@ -4192,7 +4192,7 @@ public class Player extends Entity {
 				continue;
 			}
 			if(onApeAtoll() && npc.onApeAtoll()) {
-			    if (npc.getNpcId() == MonkeyMadness.MONKEYS_AUNT && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
+			    if ((npc.getNpcId() == MonkeyMadness.MONKEYS_AUNT || npc.getNpcId() == MonkeyMadness.AWOWOGEI) && Misc.goodDistance(npc.getPosition(), getPosition(), 5) && Misc.checkClip(npc.getPosition(), getPosition(), true) && !getMMVars().inProcessOfBeingJailed && !getMMVars().isMonkey()) {
 				npc.getUpdateFlags().setForceChatMessage("OOH! OOH! AAH!");
 				ApeAtoll.jail(this, true);
 			    }

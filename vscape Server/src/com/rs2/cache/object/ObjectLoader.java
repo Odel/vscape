@@ -118,6 +118,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(2760, 2761, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(2760, 2762, 0, 10, 0);
 		ObjectHandler.getInstance().removeClip(2761, 2762, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2761, 2761, 0, 10, 0);
 		
 		ObjectHandler.getInstance().removeClip(3367, 9644, 0, 22, 0);
 		ObjectHandler.getInstance().removeClip(3366, 9643, 0, 22, 0);

@@ -228,10 +228,9 @@ public class ApeAtollNpcs {
 	    npc.setPosition(this.spawnPos.modifyZ(z));
 	    npc.setSpawnPosition(this.spawnPos.modifyZ(z));
 	    npc.setWalkType(Npc.WalkType.WALK);
-	    npc.setMaxWalk(new Position(spawnPos.getX() + 5, spawnPos.getY() + 5, z));
-	    npc.setMinWalk(new Position(spawnPos.getX() - 5, spawnPos.getY() - 5, z));
+	    npc.setMaxWalk(new Position(spawnPos.getX() + 15, spawnPos.getY() + 15, z));
+	    npc.setMinWalk(new Position(spawnPos.getX() - 15, spawnPos.getY() - 15, z));
 	    npc.setNeedsRespawn(false);
-	    npc.setPlayerOwner(player.getIndex());
 	    World.register(npc);
 	    return npc;
 	}

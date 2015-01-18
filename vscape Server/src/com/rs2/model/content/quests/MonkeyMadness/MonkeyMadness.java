@@ -340,21 +340,37 @@ public class MonkeyMadness implements Quest {
 		player.getActionSender().sendString("@str@" + "Garkor and Squad mage Zooknock.", 8157);
 		
 		player.getActionSender().sendString("Zooknock said I need 2 items to help the 10th squad:", 8159);
-		player.getActionSender().sendString("@dre@1.) Monkeyspeak Amulet:", 8161);
-		if(!player.getInventory().playerHasItem(MONKEY_DENTURES)) {
-		    player.getActionSender().sendString("-Some sort of magical talking monkey trinket.", 8162);
+		if(!player.getInventory().ownsItem(MONKEYSPEAK_AMULET) && !player.getInventory().ownsItem(MONKEYSPEAK_AMULET_U)) {
+		    player.getActionSender().sendString("@dre@1.) Monkeyspeak Amulet:", 8161);
 		} else {
-		    player.getActionSender().sendString("@str@" + "-Some sort of magical talking monkey trinket.", 8162);
+		    player.getActionSender().sendString("@str@" + "@dre@1.) Monkeyspeak Amulet:", 8161);
 		}
-		if(!player.getInventory().playerHasItem(GOLD_BAR)) {
-		    player.getActionSender().sendString("-A Gold bar.", 8163);
+		if (!player.getInventory().playerHasItem(ENCHANTED_BAR) && !player.getInventory().ownsItem(MONKEYSPEAK_AMULET)) {
+		    if (!player.getInventory().playerHasItem(MONKEY_DENTURES)) {
+			player.getActionSender().sendString("-Some sort of magical talking monkey trinket.", 8162);
+		    } else {
+			player.getActionSender().sendString("@str@" + "-Some sort of magical talking monkey trinket.", 8162);
+		    }
+		    if (!player.getInventory().playerHasItem(GOLD_BAR)) {
+			player.getActionSender().sendString("-A Gold bar.", 8163);
+		    } else {
+			player.getActionSender().sendString("@str@" + "-A Gold bar.", 8163);
+		    }
+		    if (!player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
+			player.getActionSender().sendString("-A Monkeyspeak Amulet Mould.", 8164);
+		    } else {
+			player.getActionSender().sendString("@str@" + "-A Monkeyspeak Amulet Mould.", 8164);
+		    }
 		} else {
-		    player.getActionSender().sendString("@str@" + "-A Gold bar.", 8163);
-		}
-		if(!player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
-		    player.getActionSender().sendString("-A Monkeyspeak Amulet Mould.", 8164);
-		} else {
-		    player.getActionSender().sendString("@str@" + "-A Monkeyspeak Amulet Mould.", 8164);
+		    if(player.getInventory().ownsItem(MONKEYSPEAK_AMULET) || player.getInventory().ownsItem(MONKEYSPEAK_AMULET_U)) {
+			player.getActionSender().sendString("@str@" + "Zooknock told me I need to make the amulet and", 8162);
+			player.getActionSender().sendString("@str@" + "to craft it in a place of religious significance to", 8163);
+			player.getActionSender().sendString("@str@" + "the monkeys. The temple pyres nearby may work.", 8164);
+		    } else {
+			player.getActionSender().sendString("Zooknock told me I need to make the amulet and", 8162);
+			player.getActionSender().sendString("to craft it in a place of religious significance to", 8163);
+			player.getActionSender().sendString("the monkeys. The temple pyres nearby may work.", 8164);
+		    }
 		}
 		
 		player.getActionSender().sendString("@dre@2.) Monkey Greegree talisman:", 8166);
@@ -713,9 +729,17 @@ public class MonkeyMadness implements Quest {
 
 	    @Override
 	    public void stop() {
-		Npc jungleDemon = new Npc(JUNGLE_DEMON);
-		NpcLoader.spawnPlayerOwnedAttackNpc(player, jungleDemon, new Position(2728, 9170, z), true, null);
-		player.getMMVars().jungleDemon = jungleDemon;
+		Position spawnPos = new Position(2728, 9170, z);
+		Npc npc = new Npc(JUNGLE_DEMON);
+		npc.setPosition(spawnPos);
+		npc.setSpawnPosition(spawnPos);
+		npc.setWalkType(Npc.WalkType.WALK);
+		npc.setMaxWalk(new Position(spawnPos.getX() + 50, spawnPos.getY() + 50, z));
+		npc.setMinWalk(new Position(spawnPos.getX() - 50, spawnPos.getY() - 50, z));
+		npc.setNeedsRespawn(false);
+		npc.setPlayerOwner(player.getIndex());
+		World.register(npc);
+		player.getMMVars().jungleDemon = npc;
 		startFinalFightLogic(player, player.getPosition().getZ());
 	    }
 	}, 3);
@@ -727,6 +751,10 @@ public class MonkeyMadness implements Quest {
 	    public void execute(CycleEventContainer b) {
 		if(!player.Area(2688, 2748, 9154, 9214)) {
 		    b.stop();
+		    return;
+		}
+		if(player.getMMVars().jungleDemon != null && !player.getMMVars().jungleDemon.isDead() && !player.getMMVars().jungleDemon.isAttacking()) {
+		    CombatManager.attack(player.getMMVars().jungleDemon, player);
 		}
 		for(Npc n : player.getMMVars().getFinalFightNpcs()) {
 		    if(!player.getMMVars().jungleDemon.isDead() && Misc.goodDistance(n.getPosition(), player.getMMVars().jungleDemon.getPosition(), 5) && !n.isAttacking()) {
@@ -799,7 +827,7 @@ public class MonkeyMadness implements Quest {
 		if (player.getInventory().playerHasItem(MONKEYSPEAK_AMULET_MOULD)) {
 		    player.getUpdateFlags().sendAnimation(899);
 		    player.getActionSender().sendSound(469, 0, 0);
-		    player.getActionSender().sendMessage("You smith the enchanted gold into an amulet.");
+		    player.getActionSender().sendMessage("You melt the enchanted gold into an unstrung amulet.");
 		    player.getInventory().replaceItemWithItem(new Item(ENCHANTED_BAR), new Item(MONKEYSPEAK_AMULET_U));
 		    return true;
 		} else {
@@ -1584,6 +1612,21 @@ public class MonkeyMadness implements Quest {
 		    }
 		}
 		switch (player.getQuestStage(36)) { //Dialogue per stage
+		    case QUEST_COMPLETE:
+			switch (d.getChatId()) {
+			    case 1:
+				if(!player.getMMVars().trainingComplete()) {
+				    d.sendNpcChat("Go talk to Daero and do your 10th Squad", "training! It's a good program and will allow", "you to return to Ape Atoll if need be.", CONTENT);
+				    d.endDialogue();
+				} else {
+				    d.sendNpcChat("Welcome back " + player.getUsername() + "! I am forever", "indebted to your actions which helped save the", "Tree from corruption. Thank you.", HAPPY);
+				}
+				return true;
+			    case 2:
+				d.sendPlayerChat("Of course Narnode. All parts of this vast", "world are worth saving.", HAPPY);
+				d.endDialogue();
+				return true;
+			}
 		    case QUEST_STARTED: //Starting the quest
 			switch (d.getChatId()) {
 			    case 1:
@@ -2734,7 +2777,7 @@ public class MonkeyMadness implements Quest {
 			case FUCK_THE_DEMON:
 			    switch (d.getChatId()) {
 				case 1:
-				    d.sendNpcChat("Outstanding job adventurer. Talk to Sergeant Garkor.", HAPPY);
+				    d.sendNpcChat("Outstanding job adventurer.", HAPPY);
 				    d.endDialogue();
 				    return true;
 			    }
@@ -3080,7 +3123,7 @@ public class MonkeyMadness implements Quest {
 		if (player.getQuestStage(36) == FUCK_THE_DEMON) {
 		    switch (d.getChatId()) {
 			case 1:
-			    d.sendNpcChat("Outstanding job adventurer. Talk to Sergeant Garkor.", HAPPY);
+			    d.sendNpcChat("Outstanding job adventurer.", HAPPY);
 			    d.endDialogue();
 			    return true;
 		    }
@@ -3357,10 +3400,10 @@ public class MonkeyMadness implements Quest {
 			    case 23:
 				d.sendNpcChat("Go and see my squad mage, Zooknock. Tell him I have", "asked you to be 'disguised' as a monkey so that you", "may infiltrate the village. As you will see, he is", "something of an expert on the subject.", CONTENT);
 				return true;
-			    case 25:
+			    case 24:
 				d.sendPlayerChat("I can't even communicate with the monkeys!", CONTENT);
 				return true;
-			    case 26:
+			    case 25:
 				d.sendNpcChat("Just go and find my squad mage, human.", CONTENT);
 				player.setQuestStage(36, GARKORS_ORDERS);
 				d.endDialogue();
@@ -3413,6 +3456,7 @@ public class MonkeyMadness implements Quest {
 				return true;
 			}
 			return true;
+		    case GARKORS_PLAN:
 		    case AWOWOGEIS_TEST:
 		    case INTO_THE_CAGE:
 			switch (d.getChatId()) {
@@ -3447,7 +3491,7 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 7:
 				openChapterInterface(player);
-				player.getActionSender().sendString("Somewhere far below ape atoll...", 11115);
+				player.getActionSender().sendString("Somewhere far below the Ape Atoll...", 11115);
 				d.dontCloseInterface();
 				meanwhile(player);
 				return true;
@@ -3940,28 +3984,47 @@ public class MonkeyMadness implements Quest {
 			} else {
 			    switch (d.getChatId()) {
 				case 1:
-				    d.sendOption("What do we need for the monkey amulet?", "What do we need for the monkey talisman?");
-				    d.setNextChatId(57);
+				    if(player.getQuestStage(36) > MONKEY_MAN) {
+					d.sendOption("What do we need for the monkey amulet?", "What do we need for the monkey talisman?");
+					d.setNextChatId(57);
+				    } else {
+					d.sendNpcChat("Well done with the items adventurer. You should go", "report to Garkor. Unless you have questions of course.", CONTENT);
+					return true;
+				    }
 				    return true;
+				case 2:
+				    d.sendOption("I do have some questions actually.", "Alright, thank you.");
+				    return true;
+				case 3:
+				    switch(optionId) {
+					case 1:
+					    d.sendPlayerChat("I do have some questions actually.", CONTENT);
+					    d.setNextChatId(56);
+					    return true;
+					case 2:
+					    d.sendPlayerChat("Alright, thank you.", CONTENT);
+					    d.endDialogue();
+					    return true;
+				    }
 				case 56:
-				    d.sendOption("What do we need for the monkey amulet?", "What do we need for the monkey talisman?");
+				    d.sendOption("What do I need for a monkey amulet again?", "What do I need for the monkey talisman again?");
 				    return true;
 				case 57:
 				    switch (optionId) {
 					case 1:
-					    d.sendPlayerChat("What do we need for the monkey amulet?", CONTENT);
+					    d.sendPlayerChat("What do I need for a monkey amulet again?", CONTENT);
 					    return true;
 					case 2:
-					    d.sendPlayerChat("What do we need for the monkey talisman?", CONTENT);
+					    d.sendPlayerChat("What do I need for a monkey talisman again?", CONTENT);
 					    d.setNextChatId(64);
 					    return true;
 				    }
 				    return false;
 				case 58:
-				    d.sendNpcChat("We need a gold bar, a monkey amulet mould, and", "something to do monkey speech.", CONTENT);
+				    d.sendNpcChat("You need a gold bar, a monkey amulet mould, and", "those magical monkey dentures.", CONTENT);
 				    return true;
 				case 59:
-				    d.sendOption("Where do I find a gold bar?", "Where do I find a monkey amulet mould?", "Where do I find something to do monkey speech?", "I'll be back later.");
+				    d.sendOption("Where do I find a gold bar?", "Where do I find a monkey amulet mould?", "Where do I find magical monkey dentures?", "I'll be back later.");
 				    return true;
 				case 60:
 				    switch (optionId) {
@@ -3973,7 +4036,7 @@ public class MonkeyMadness implements Quest {
 					    d.setNextChatId(62);
 					    return true;
 					case 3:
-					    d.sendPlayerChat("Where do I find something to do monkey speech?", CONTENT);
+					    d.sendPlayerChat("Where do I find magical monkey dentures?", CONTENT);
 					    d.setNextChatId(63);
 					    return true;
 					case 4:
@@ -3991,7 +4054,7 @@ public class MonkeyMadness implements Quest {
 				    d.setNextChatId(59);
 				    return true;
 				case 63:
-				    d.sendNpcChat("I'm sure there's something in the village above.", "It might be where the amulet mould is too.", CONTENT);
+				    d.sendNpcChat("You tell me adventurer, you already found some!", LAUGHING);
 				    d.setNextChatId(59);
 				    return true;
 				case 64:
@@ -4026,7 +4089,7 @@ public class MonkeyMadness implements Quest {
 				    d.setNextChatId(65);
 				    return true;
 				case 70:
-				    d.sendNpcChat("There ought to be something in the village. I cannot", "be sure, as I have not spent much time there.", CONTENT);
+				    d.sendNpcChat("You tell me adventurer, you already found one!", LAUGHING);
 				    d.setNextChatId(65);
 				    return true;
 			    }
@@ -4158,8 +4221,9 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 9:
 				d.sendNpcChat("I must think upon it some more and discuss the", "matter with my advisors. We will contact you", "when we are ready.", CONTENT);
-				player.setQuestStage(36, PASSED_THE_TEST);
 				d.endDialogue();
+				player.setQuestStage(36, PASSED_THE_TEST);
+				player.getInventory().removeItem(new Item(MONKEY_ITEM));
 				return true;
 			}
 			return false;
@@ -4253,7 +4317,7 @@ public class MonkeyMadness implements Quest {
 			    return false;
 			case 8:
 			    d.sendNpcChat("Aunty said it was some kind of Monkey Talisman!", "I wonder what it looks like...", CONTENT);
-			    d.setNextChatId(7);
+			    d.setNextChatId(6);
 			    return true;
 			case 9:
 			    d.sendNpcChat("Twenty! But I can't count! It's very mean of her, isn't", "it uncle?", CONTENT);
@@ -4617,7 +4681,7 @@ public class MonkeyMadness implements Quest {
 		    } else {
 			switch (d.getChatId()) {
 			    case 1:
-				d.sendNpcChat("Outstanding job adventurer. Talk to Sergeant Garkor.", HAPPY);
+				d.sendNpcChat("Outstanding job adventurer.", HAPPY);
 				d.endDialogue();
 				return true;
 			}

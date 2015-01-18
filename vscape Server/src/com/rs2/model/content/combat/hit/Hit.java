@@ -529,7 +529,7 @@ public class Hit {
 		    if (damage > 1) {
 			damage = 1;
 		    }
-		    if (Misc.random(4) == 1) {
+		    if (Misc.random(1) == 1) {
 			damage = 0;
 		    }
 		}

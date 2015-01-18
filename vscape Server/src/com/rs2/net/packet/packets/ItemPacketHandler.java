@@ -1189,6 +1189,12 @@ public class ItemPacketHandler implements PacketHandler {
 	    }
 	}
 	switch (item.getId()) {
+	    case 4006: //monkey dentures
+		player.getActionSender().sendMessage("You hear a quiet chattering coming from the dentures.");
+		return;
+	    case 4007: //enchanted bar
+		player.getActionSender().sendMessage("You hear a very faint chattering coming from the metal.");
+		return;
 	    case 2552: // ring of duelling
 	    case 2554:
 	    case 2556:

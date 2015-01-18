@@ -9,7 +9,6 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatScript;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dungeons.Abyss;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.ApeAtollNpcData;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -243,11 +242,10 @@ public class Npc extends Entity {
 	}
 
 	public void ownerCheck() {
-		//DEADCODE
-	/*	if (this == null) {
-			return;
-		}*/
 		if (getPlayerIndex() > 0) {
+			if(this.getNpcId() == 1472) {
+			    return;
+			}
 			if (!this.isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
 				NpcLoader.destroyNpc(this);
 			}

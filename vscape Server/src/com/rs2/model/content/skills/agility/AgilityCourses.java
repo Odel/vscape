@@ -229,7 +229,7 @@ public class AgilityCourses {
 				case 12568 : // jump stone
 				    player.setStopPacket(true);
 					if(x == 2754 && y == 2742){
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
@@ -259,7 +259,7 @@ public class AgilityCourses {
 					return true;
 				case 12570 : // tropical tree climb
 					if(x == 2753 && y == 2741) {
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
@@ -289,7 +289,7 @@ public class AgilityCourses {
 					return true;
 				case 12573 : // monkey bars
 					if(x == 2752 && y == 2741){
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
@@ -299,7 +299,7 @@ public class AgilityCourses {
 					return true;
 				case 12576 : // rock climb
 					if(x == 2746 && y == 2741){
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
@@ -312,7 +312,7 @@ public class AgilityCourses {
 					return true;
 				case 12578 : // swing
 					if(x == 2752 && y == 2731){
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
@@ -325,7 +325,7 @@ public class AgilityCourses {
 					return true;	
 				case 12618 : // rope down (couldnt find right anim)
 					if(x == 2757 && y == 2734){
-					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+					    if(player.transformNpc != 1480 && player.transformNpc != 1481) {
 						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
 						player.getDialogue().endDialogue();
 						return true;
