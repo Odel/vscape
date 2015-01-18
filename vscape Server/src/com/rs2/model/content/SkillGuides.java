@@ -1270,9 +1270,9 @@ public class SkillGuides {
 			menuLine("35", "Barbarian Outpost Agility Course", 1365, 5);// steel
 			// baxe
 			menuLine("40", "High-Level Agility Area Obstacles", 2996, 6);
-			menuLine("48", "Ape Atoll Agility Course", 4024, 7);// greegree
-			menuLine("52", "Wilderness Agility Course", 964, 8);// skull
-			menuLine("60", "Werewolf Agility Course", 6465, 9);// charos
+			menuLine("52", "Wilderness Agility Course", 964, 7);// skull
+			menuLine("60", "Werewolf Agility Course", 6465, 8);// charos
+			menuLine("65", "Ape Atoll Agility Course", 4024, 9);// greegree
 			optionTab("Agility", "Courses", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
 		}
 

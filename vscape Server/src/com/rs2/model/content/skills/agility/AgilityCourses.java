@@ -3,8 +3,12 @@ package com.rs2.model.content.skills.agility;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 
 public class AgilityCourses {
 	
@@ -217,48 +221,140 @@ public class AgilityCourses {
 		return false;
 	}
 	
-	private boolean apeCourse(int id, int x, int y)
+	private boolean apeCourse(int id, int x, final int y)
 	{
 		if(canDoApe(id)){
 			switch(id)
 			{
 				case 12568 : // jump stone
+				    player.setStopPacket(true);
 					if(x == 2754 && y == 2742){
-						if(player.getPosition().getX() > x)
-						{
-							Agility.crossObstacle(player, 2753, y, 3481, 3, 48, 40);
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					    final boolean westCrossing = player.getPosition().getX() > x;
+					    player.getUpdateFlags().sendFaceToDirection(new Position(westCrossing ? 2753 : 2755, y, 0));
+					    player.getUpdateFlags().setFaceToDirection(true);
+					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+						    if (count == 1) {
+							b.stop();
+						    } else {
+							Agility.crossObstacle(player, 2754, y, 3481, 3, 65, 20);
+							count++;
+						    }
 						}
+
+						@Override
+						public void stop() {
+						    Agility.crossObstacle(player, westCrossing ? 2753 : 2755, y, 3481, 3, 65, 20);
+						    player.setStopPacket(false);
+						}
+					    }, 4);
 					}
 					return true;
 				case 12570 : // tropical tree climb
-					if(x == 2753 && y == 2741){
-						Agility.climbTree(player, 2753, 2742, 2, 3487, 3, 48, 40);
+					if(x == 2753 && y == 2741) {
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+					    if (player.getSkill().getLevel()[Skill.AGILITY] < 65) {
+						player.getDialogue().sendStatement("You need an agility level of " + 65 + " to climb this tree.");
+						return true;
+					    }
+					    player.setStopPacket(true);
+					    player.getUpdateFlags().setFace(new Position(x, y, 0));
+					    player.getUpdateFlags().setUpdateRequired(true);
+					    player.getUpdateFlags().sendAnimation(3487, 0);
+					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+						    b.stop();
+						}
+
+						@Override
+						public void stop() {
+						    Agility.climbTree(player, 2753, 2742, 2, 3487, 0, 65, 40);
+						    player.setStopPacket(false);
+						}
+					    }, 3);
 					}
 					return true;
 				case 12573 : // monkey bars
 					if(x == 2752 && y == 2741){
-						Agility.crossMonkeyBars(player, 2747, y, 0, 3483, 6, 48, 40);
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+						Agility.crossMonkeyBars(player, 2747, y, 0, 3483, 6, 65, 40);
 					}
 					return true;
 				case 12576 : // rock climb
 					if(x == 2746 && y == 2741){
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
 						if(player.getPosition().getX() >= x)
 						{
-							Agility.crossObstacle(player, 2743, y, 3485, 5, 48, 60);
+							Agility.crossObstacle(player, 2743, y, 3485, 5, 65, 60);
 						}
 					}
 					return true;
 				case 12578 : // swing
 					if(x == 2752 && y == 2731){
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
 						if(player.getPosition().getX() <= x)
 						{
-							Agility.swingRope(player, 2756, y, 3488, 48, 100);
+							Agility.swingRope(player, 2756, y, 3488, 65, 100);
 						}
 					}
 					return true;	
 				case 12618 : // rope down (couldnt find right anim)
 					if(x == 2757 && y == 2734){
-						Agility.crossTreeRope(player, 2770, 2747, 3483, 14, 48, 100);
+					    if(player.transformNpc != 1480 || player.transformNpc != 1481) {
+						player.getDialogue().sendStatement("You are not in the agile monkey form needed for this course.");
+						player.getDialogue().endDialogue();
+						return true;
+					    }
+						player.teleport(new Position(2758, 2735, 1));
+						player.setStopPacket(true);
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						    @Override
+						    public void execute(CycleEventContainer b) {
+							b.stop();
+						    }
+
+						    @Override
+						    public void stop() {
+							Agility.crossTreeRope(player, 2770, 2747, 3494, 14, 65, 100);
+							CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							    @Override
+							    public void execute(CycleEventContainer b) {
+								b.stop();
+							    }
+
+							    @Override
+							    public void stop() {
+								player.teleport(new Position(2770, 2747, 0));
+								player.setStopPacket(false);
+							    }
+							}, 14);
+						    }
+						}, 1);
 					}
 					return true;	
 			}

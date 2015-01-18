@@ -742,6 +742,9 @@ public class CommandHandler {
 			final int id = Integer.parseInt(args[0]);
 			sender.getActionSender().sendSong(id);
 		}
+		if (keyword.equals("objectanim")) {
+		    sender.getActionSender().animateObject(Integer.parseInt(args[0]), Integer.parseInt(args[1]), sender.getPosition().getZ(), Integer.parseInt(args[2]));
+		}
 		if(keyword.equals("testinterfaceitem")) {
 		    final int item = Integer.parseInt(args[0]);
 		    final int line = Integer.parseInt(args[1]);
@@ -1585,10 +1588,13 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("mypos")) {
 			sender.getActionSender().sendMessage("You are at: " + sender.getPosition(), true);
-			/*System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
-			if(sender.getStaffRights() == 2) {
-			    System.out.println("new " + sender.getPosition());
-			}*/
+			if(Constants.SERVER_DEBUG) {
+			    if(sender.getStaffRights() <= 2) {
+				System.out.println("new " + sender.getPosition());
+			    } else {
+				System.out.println("spawn = x	"+sender.getPosition().getX() + "	" +sender.getPosition().getY() + "	"+sender.getPosition().getZ() + "	1	Name");
+			    }
+			}
 		}
 		else if (keyword.equalsIgnoreCase("shiptest")) {
 			Sailing.sailShip(sender, Sailing.ShipRoute.values()[Integer.parseInt(args[0])], 0);
