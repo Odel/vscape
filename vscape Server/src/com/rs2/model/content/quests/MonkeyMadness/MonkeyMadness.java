@@ -2508,7 +2508,7 @@ public class MonkeyMadness implements Quest {
 					d.sendPlayerChat("Yes, but only in specific skills!", "Why does no one understand that!?", ANGRY_1);
 					return true;
 				    case 23:
-					d.sendNpcChat("Because it sounds a bit... elitist.", CONTENT);
+					d.sendNpcChat("Because it sounds a bit... autistic.", CONTENT);
 					return true;
 				    case 24:
 					d.sendPlayerChat("Just tell Narnode I did the training!", ANGRY_2);
@@ -2533,6 +2533,7 @@ public class MonkeyMadness implements Quest {
 					d.sendNpcChat("As you wish, I will tell Narnode you", "completed the program.", CONTENT);
 					d.endDialogue();
 					player.getMMVars().setTrainingComplete(true);
+					player.getActionSender().sendMessage("You may now return to Ape Atoll by means of Glider or Magic.");
 					return true;
 				}
 				return false;
