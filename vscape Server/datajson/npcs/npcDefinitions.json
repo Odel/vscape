@@ -6177,7 +6177,7 @@
   {
     "id": 247,
     "name": "Sir Mordred",
-    "examine": "It\u0027s an NPC.",
+    "examine": "Wew lad. He looks tough.",
     "respawn": 10,
     "combat": 39,
     "hitpoints": 55,
@@ -6194,7 +6194,7 @@
     "defenceRange": 19,
     "defenceMage": 13,
     "attackable": true,
-    "aggressive": true,
+    "aggressive": false,
     "retreats": false,
     "poisonous": false,
     "poisonImmune": false
