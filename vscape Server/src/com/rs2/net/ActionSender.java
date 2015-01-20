@@ -109,6 +109,7 @@ public class ActionSender {
 		sendIgnoreList(player.getIgnores());
 		sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.", true);
 		sendMessage("Before you ask a question, check ::info and/or ::patchnotes.", true);
+		sendMessage("Feel like reimbursing Odel for server costs?  Go to odelvidyascape.blogspot.com", true);
 		//QPEdit(player.getQuestPoints());
 		return this;
 	}
