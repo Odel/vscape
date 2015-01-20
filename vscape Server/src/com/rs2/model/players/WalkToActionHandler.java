@@ -174,7 +174,10 @@ public class WalkToActionHandler {
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
 				if (objectPosition == null && id != 1729 && id != 2290)
 					return;
-				if (!canInteractWithObject(player, objectPosition, def)) {
+				if (!canInteractWithObject(player, objectPosition, def) && id != 1729 && id != 2290) {
+					stop();
+					return;
+				} else if(!canInteractWithObject(player, def.getPosition(), def)) {
 					stop();
 					return;
 				}
