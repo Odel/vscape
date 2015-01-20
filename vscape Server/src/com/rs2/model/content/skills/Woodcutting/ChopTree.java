@@ -27,6 +27,8 @@ public class ChopTree {
 	public enum Tree {
 		ACHEY_TREE(new int[]{2023}, 1, 25, 2862, 3371, 75, 100),
 		NORMAL_TREE(new int[]{1276, 1277, 1278, 1279, 1280, 1282, 1283, 1284, 1285, 1286, 1289, 1290, 1291, 1315, 1316, 1318, 1319, 1330, 1331, 1332, 1333, 1365, 1383, 1384, 2409, 3033, 3034, 3035, 3036, 3881, 3882, 3883, 5902, 5903, 5904}, 1, 25, 1511, 1342, 75, 100),
+		JUNGLE_TREE(new int[]{4818}, 1, 25, 1511, 4819, 75, 100),
+		JUNGLE_TREE_2(new int[]{4820}, 1, 25, 1511, 4821, 75, 100),
 		OAK_TREE(new int[]{1281, 2037}, 15, 37.5, 1521, 1356, 14, 25),
 		WILLOW_TREE(new int[]{1308, 5551, 5552, 5553}, 30, 67.5, 1519, 7399, 14, 15),
 		TEAK_TREE(new int[]{9036}, 35, 85, 6333, 9037, 14, 20),
@@ -44,7 +46,7 @@ public class ChopTree {
 		private int log;
 		private int stump;
 		private int respawnTime;
-        private int decayChance;
+		private int decayChance;
 
 		public static Tree getTree(int id) {
             for(Tree tree : Tree.values()){

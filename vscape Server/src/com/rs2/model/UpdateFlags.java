@@ -1,6 +1,5 @@
 package com.rs2.model;
 
-import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 
 public class UpdateFlags {
@@ -100,7 +99,7 @@ public class UpdateFlags {
 	}
 
 	public void sendAnimation(int animationId) {
-	    if (owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || (((Player)owner).transformNpc >= 1480 && ((Player)owner).transformNpc <= 1487)) ) {
+	    if (owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || ((Player)owner).getMMVars().isMonkey()) ) {
 		return;
 	    }
 	    if (owner.isNpc() && animationId == 6969) {
@@ -115,7 +114,7 @@ public class UpdateFlags {
 	public void sendAnimation(int animationId, int animationDelay) {
         if(owner.isPlayer()){
         }
-	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
+	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || ((Player)owner).getMMVars().isMonkey()) ) {
 		return;
 	    }
 		this.animationId = animationId;

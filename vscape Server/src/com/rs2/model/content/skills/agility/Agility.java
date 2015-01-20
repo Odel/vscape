@@ -316,7 +316,7 @@ public class Agility {
 				anim = 756; //north
 				break;
 		}
-		crossObstacle(player, x, y, anim, 7, xp);
+		crossObstacle(player, x, y, anim, time, xp);
 	}
 	
 	public static void crossMonkeyBars(Player player, int x, int y, int z, int anim, int time, int level, double xp) {

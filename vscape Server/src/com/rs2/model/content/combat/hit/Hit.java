@@ -169,8 +169,28 @@ public class Hit {
 			}
 		    }
 		}
+		if(attacker != null && victim != null && victim.isNpc() && hitDef != null && attacker.isPlayer() && ((Npc)victim).getNpcId() == 205) { //Salarin
+		    if(hitDef.getAttackStyle() != null && (hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED) || hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE))) {
+			damage = 0;
+			((Player)attacker).getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
+		    } else {
+			if(hitDef.getHitGraphic() != null) {
+			    int gfxId = hitDef.getHitGraphic().getId();
+			    if(gfxId != 92 && gfxId != 95 && gfxId != 98 && gfxId != 101 && gfxId != 76) {
+				damage = 0;
+				((Player)attacker).getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
+			    }
+			}
+		    }
+		}
 		if(attacker != null && victim != null && attacker.isPlayer() && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
 		    Player player = (Player)attacker;
+		    if(player.getEquipment().getItemContainer().get(Constants.WEAPON) == null) {
+			return;
+		    }
+		    if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow")) {
+			return;
+		    }
 		    EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
 		    if(b != null && (b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
 			if(EnchantedBolts.activateSpecial(b, player, victim, damage)) {

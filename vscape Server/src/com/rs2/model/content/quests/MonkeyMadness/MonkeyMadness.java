@@ -3566,31 +3566,36 @@ public class MonkeyMadness implements Quest {
 			}
 			return false;
 		    case NEW_MEMEBER:
-			if (!player.getInventory().ownsItem(TENTH_SQUAD_SIGIL)) {
 			    switch (d.getChatId()) {
 				case 1:
-				    d.sendPlayerChat("I lost the sigil...", DISTRESSED);
+				    d.sendOption("What should I do now?", "Perhaps I lost the 10th Squad sigil?");
 				    return true;
 				case 2:
+				    switch(optionId) {
+					case 1:
+					    d.sendPlayerChat("What should I do now?", CONTENT);
+					    return true;
+					case 2:
+					    d.sendPlayerChat("Perhaps I lost the 10th Squad sigil?", CONTENT);
+					    d.setNextChatId(10);
+					    return true;
+				    }
+				case 3:
+				    d.sendNpcChat("You should prepare. Collect your thoughts and", "belongings and then wear the sigil. Hurry, human, we", "do not wish to enter this fight without you.", CONTENT);
+				    return true;
+				case 4:
+				    d.sendPlayerChat("All I have to do is wear the sigil?", CONTENT);
+				    return true;
+				case 5:
+				    d.sendNpcChat("Yes, but do not do so until you are ready.", CONTENT);
+				    d.endDialogue();
+				    return true;
+				case 10:
 				    d.sendNpcChat("Here's another, but be careful, I only", "have so many of these.", CONTENT);
 				    player.getInventory().addItemOrDrop(new Item(TENTH_SQUAD_SIGIL));
 				    d.endDialogue();
 				    return true;
 			    }
-			} else {
-			    switch (d.getChatId()) {
-				case 1:
-				    d.sendNpcChat("You should prepare. Collect your thoughts and", "belongings and then wear the sigil. Hurry, human, we", "do not wish to enter this fight without you.", CONTENT);
-				    return true;
-				case 2:
-				    d.sendPlayerChat("All I have to do is wear the sigil?", CONTENT);
-				    return true;
-				case 3:
-				    d.sendNpcChat("Yes, but do not do so until you are ready.", CONTENT);
-				    d.endDialogue();
-				    return true;
-			    }
-			}
 			return false;
 		}
 		return false;

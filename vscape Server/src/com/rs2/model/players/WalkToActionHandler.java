@@ -84,6 +84,7 @@ import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.randomevents.SpawnEvent;
@@ -171,7 +172,7 @@ public class WalkToActionHandler {
 				GameObjectData object = GameObjectData.forId(player.getClickId());
 				Position objectPosition;
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
-				if (objectPosition == null)
+				if (objectPosition == null && id != 1729 && id != 2290)
 					return;
 				if (!canInteractWithObject(player, objectPosition, def)) {
 					stop();
@@ -240,9 +241,16 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (object.getName().toLowerCase().contains("altar") && id != 2640 && id != 6552) {
+				    if(id == 412 && x == 2571 && y == 9499) { //Yanille dungeon trap chaos altar
+					player.getActionSender().sendMessage("The altar moves and you fall into a pit below!");
+					player.fadeTeleport(new Position(2580, 9575, 0));
+					this.stop();
+					return;
+				    } else {
 					Prayer.rechargePrayer(player);
 					this.stop();
 					return;
+				    }
 				}
 				if (player.getAlchemistPlayground().handleObjectClicking(id, x, y)) {
 					this.stop();
@@ -273,7 +281,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if (id == 2551 || id == 2550 || id == 2556 || id == 2558 || id == 2557 || id == 2554) {
+				if (id == 2551 || id == 2550 || id == 2556 || id == 2558 || id == 2557 || id == 2554 || id == 2559) {
 					player.getActionSender().sendMessage("This door is locked.");
 					this.stop();
 					return;
@@ -430,6 +438,21 @@ public class WalkToActionHandler {
 						player.getActionSender().sendMessage("The gate is locked.");
 					}
 					break;
+				case 377:
+				    if(player.getInventory().playerHasItem(993) && Misc.goodDistance(player.getPosition(), new Position(2561, 9507, 0), 2)) {
+					 player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+					 player.getActionSender().sendMessage("You open the sinister looking chest with your key.");
+					 player.getInventory().replaceItemWithItem(new Item(993), new Item(205));
+					 player.getInventory().addItem(new Item(205));
+					 player.getInventory().addItem(new Item(207, 3));
+					 player.getInventory().addItem(new Item(209));
+					 player.getInventory().addItem(new Item(211));
+					 player.getInventory().addItem(new Item(213));
+					 player.getInventory().addItem(new Item(219));
+				    } else {
+					player.getActionSender().sendMessage("The sinister looking chest is locked.");
+				    }
+				    break;
 				case 2994 :
 				case 2993 :
 				case 2992 :
@@ -481,6 +504,35 @@ public class WalkToActionHandler {
 				case 6836 :
 						player.getPillory().openInterface();
 					break;
+				case 2303: //Yanille dungeon balancing ledge
+				    Agility.crossLedge(player, 2580, player.getPosition().getY() < 9520 ? 9520 : 9512, player.getPosition().getY() < 9520 ? 3 : 1, 10, 40, 25);
+				    break;
+				case 2316: //Yanille dungeon staircase from spiders
+				    player.fadeTeleport(new Position(2579, 9520, 0));
+				    break;
+				case 1728: //Yanille dungeon stairs to Salarin
+				    player.fadeTeleport(new Position(2620, 9565, 0));
+				    break;
+				case 1729: //Yanille dungeon stairs back from Salarin
+				    player.fadeTeleport(new Position(2620, 9496, 0));
+				    break;
+				case 2290:
+				    Agility.crawlPipe(player, player.getPosition().getX() > 2572 ? 2572 : 2578, y, 6, 49, 35);
+				    break;
+				case 2321: //Yanille dungeon monkey bars
+				    Agility.crossMonkeyBars(player, player.getPosition().getX(), player.getPosition().getY() < 9495 ? 9495 : 9488, 57, 30);
+				    break;
+				case 2317: //Yanille dungeon rubble level 67
+				    if(player.getSkill().getLevel()[Skill.AGILITY] < 67) {
+					player.getDialogue().sendStatement("You need an Agility level of 67 to climb this obstacle.");
+					break;
+				    } else {
+					Ladders.climbLadder(player, new Position(2614, 9504, 0));
+					break;
+				    }
+				case 2318: //Yanille dungeon pile of rubble
+				    player.fadeTeleport(new Position(2616, 9571, 0));
+				    break;
 				case 2114 : // coal truck
 					CoalTruck.withdrawCoal(player);
 					break;
@@ -1784,6 +1836,9 @@ public class WalkToActionHandler {
 					Smelting.smeltInterface(player);
 					// player.getSmithing().setUpSmelting();or
 					break;
+				case 2559: //Yanille dungeon picklock door
+				    ThieveOther.pickLock(player, new Position(2601, 9482, 0), 2559, 82, 75, 0, player.getPosition().getY() < 9482 ? 1 : -1);
+				    break;
 				case 2644:
 					Menus.sendSkillMenu(player, "spinning");
 					break;
@@ -2845,6 +2900,12 @@ public class WalkToActionHandler {
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
 		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782 || (def.getId() >= 7272 && def.getId() <= 7287) || def.getId() == 4765 || def.getId() == 4766)
 		{
+			return true;
+		}
+		if(def.getId() == 1729 && Misc.goodDistance(player.getPosition(), def.getPosition(), 4)) {
+			return true;
+		}
+		if(def.getId() == 2290 && Misc.goodDistance(player.getPosition(), def.getPosition(), 3)) {
 			return true;
 		}
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
