@@ -223,7 +223,7 @@ public class ApeAtoll {
 	}, 1);
     }
     
-    public static void jail(final Player player, boolean guards) {
+    public static void jail(final Player player, final boolean guards) {
 	final Npc npc = new Npc(1442 + Misc.random(4));
 	if(player.getMMVars().isMonkey() || player.isAttacking()) {
 	    return;
@@ -241,6 +241,7 @@ public class ApeAtoll {
 	if(!guards) {
 	    player.getUpdateFlags().sendAnimation(836);
 	    player.setStopPacket(true);
+	    CombatManager.resetCombat(player);
 	}
 	player.getMMVars().inProcessOfBeingJailed = true;
 	player.getMovementHandler().reset();
@@ -263,7 +264,7 @@ public class ApeAtoll {
 		    karam.setPlayerOwner(player.getIndex());
 		    return;
 		}
-		if(!player.onApeAtoll() || player.isAttacking()) {
+		if(!player.onApeAtoll() || (player.isAttacking() && guards)) {
 		    player.getMMVars().inProcessOfBeingJailed = false;
 		    if(player.getMMVars().guardCalled != null) {
 			NpcLoader.destroyNpc(player.getMMVars().guardCalled);
