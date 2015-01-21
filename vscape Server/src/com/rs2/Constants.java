@@ -48,7 +48,7 @@ public class Constants {
 	public static final byte WORLD_NUMBER = (byte)1;
     public static boolean RSA_CHECK = true;
     public static boolean SYSTEM_UPDATE = false;
-	public static int CLIENT_VERSION = 318;
+	public static int CLIENT_VERSION = 319;
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	

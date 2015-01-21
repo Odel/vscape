@@ -2,7 +2,7 @@
 Degradation is hit based, with the following rules:
 
 -2500 hits per degrade stage.
--10gp per hit repair cost.
+-10gp/hit for Barrows, 50gp/hit for Crystal.
 
 That gives Barrows items 10k total hits, and
 Crystal equipment 25k total hits / shots.

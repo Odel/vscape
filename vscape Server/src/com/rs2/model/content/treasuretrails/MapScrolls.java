@@ -31,7 +31,7 @@ public class MapScrolls {
 		HOBGOBLIN(3525, 4305, new Position(2906, 3294), false, 2),
 		MCGRUBOR(3596, 9196, new Position(2658, 3488), true, 2),
 		CLOCK_TOWER(3599, 9720, new Position(2565, 3248), true, 1),
-		WEST_ARDOUGNE(3601, 9359, new Position(2488, 3308), false, 1),
+		//WEST_ARDOUGNE(3601, 9359, new Position(2488, 3308), false, 1), Disabled until plague city or w/e
 		WIZARD_TOWER(3602, 9275, new Position(3109, 3153), false, 2),
 		MORT_TON(7236, 17774, new Position(3434, 3265), false, 3),
 		CHAOS_ALTAR(7239, 17888, new Position(2454, 3230), false, 3),

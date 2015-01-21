@@ -1060,12 +1060,12 @@ public class ItemPacketHandler implements PacketHandler {
 			    container.stop();
 			    return;
 			}
-			if (player.getPosition().getX() == 2566 && (player.getPosition().getY() == 3331 || player.getPosition().getY() == 3333)) {
+			/*if (player.getPosition().getX() == 2566 && (player.getPosition().getY() == 3331 || player.getPosition().getY() == 3333)) {
 			    player.fadeTeleport(new Position(2530, 3303));
 			    player.getActionSender().sendMessage("and find yourself in plague city.");
 			    container.stop();
 			    return;
-			}
+			}*/
 			if (player.getPosition().getX() == 2999 && player.getPosition().getY() == 3383 && (player.getQuestStage(20) == 6 || player.getQuestStage(20) == 7)) {
 			    player.setQuestStage(20, 8);
 			    QuestHandler.completeQuest(player, 20);

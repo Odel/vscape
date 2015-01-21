@@ -1,3 +1,15 @@
+@dre@=January 20th=
+@blu@Monkey Madness
+-Yanille Dungeon fully functioning.
+-Various drop / alch value fixes.
+-Grimy herbs can be noted at leprechauns.
+-Questionable farming patch "watch" system.
+-Ectofuntus grinder fixed.
+-Elf shortcuts work except spike traps.
+(All elf npcs moved into Isafdar positions)
+-Major pathfinding fix for "stuck" spots.
+-Lundail rune shop in Mage Bank.
+
 @dre@=January 2nd=
 -BUG FIXES
 @bla@Monkey Madness lurks in the distance...

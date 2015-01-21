@@ -25,8 +25,6 @@
 -Quests reward 2.25x the experience as well.
 -Getting a hammer: Imps or Falador General store.
 -Coordinate clues only require a spade.
--Dig in the garden of the quest marker house near
-West Ardougne to tunnel into West Ardouge.
 
 @dre@=Admins=
 Pickles
@@ -34,25 +32,28 @@ Bobster
 Odel
 Mr Foxter
 Noiryx
-Mod Dammit
 
 @dre@=Player Mods=
+Diowithit
 Shiggydiggy
 Dr Grind
 Benny
-Diowithit
 God Dammit
 
 @dre@ =Minigames=
 -Barrows.
 -Fight Caves.
--Mage Arena.
 -Pest Control.
+-Mage Training Arena.
 -Custom Warrior's Guild. (Fight Arena, south of Ard.)
+-Mage Arena.
 -The Abyss.
 
 @dre@ =/v/scape wiki=
 vscape.wikidot.com (A work in progress.)
+
+@dre@Feel like helping Odel with server costs? Go to
+odelvidyascape.blogspot.com
 
 @blu@If you need any help, pm one of the staff.
 @blu@Enjoy the grind.
