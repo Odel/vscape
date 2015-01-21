@@ -313,7 +313,7 @@ public class Player extends Entity {
 	public boolean foxLeft = false;
 	public boolean chickenLeft = false;
 	public boolean grainLeft = false;
-	public boolean recievedPacket = false;
+	public boolean receivedPacket = false;
 	private boolean gazeOfSaradomin = false;
 	public String templeKnightRiddleAnswer = "NULL";
 	private int returnCode = Constants.LOGIN_RESPONSE_OK;
@@ -2874,7 +2874,7 @@ public class Player extends Entity {
 	}
 
 	public void addToServerPoints(int serverPoints) {
-		actionSender.sendMessage("You have recieved " + serverPoints + " server points!");
+		actionSender.sendMessage("You have received " + serverPoints + " server points!");
 		this.serverPoints += serverPoints;
 	}
 
@@ -3692,6 +3692,12 @@ public class Player extends Entity {
 		PriorityQueue<Item> allItems = new PriorityQueue<Item>(1, new Comparator<Item>() {
 			@Override
 			public int compare(Item a, Item b) {
+			    if(Degradeables.getDegradeableItem(a) != null) {
+				a = new Item(Degradeables.getDegradeableItem(a).getOriginalId());
+			    }
+			    if(Degradeables.getDegradeableItem(b) != null) {
+				b = new Item(Degradeables.getDegradeableItem(b).getOriginalId());
+			    }
 				return ItemDefinition.forId(b.getId()).getHighAlcValue() - ItemDefinition.forId(a.getId()).getHighAlcValue();
 			}
 		});
@@ -3785,8 +3791,13 @@ public class Player extends Entity {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
 			} else {
+			    if(dropped.getId() == 11283) {
+				GroundItem item = new GroundItem(new Item(11284, dropped.getCount()), this, getDeathPosition());
+				GroundItemManager.getManager().dropItem(item);
+			    } else {
 				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
 				GroundItemManager.getManager().dropItem(item);
+			    }
 			}
 		}
 		equipment.refresh();

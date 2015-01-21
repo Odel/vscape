@@ -1186,7 +1186,7 @@ public class GhostsAhoy implements Quest {
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
 			if (player.getEctoWorshipCount() > 0) {
-			    player.getDialogue().sendPlayerChat("I've worshipped the Ectofuntus, I'd like", "tokens in exchange for the power it has recieved.", CONTENT);
+			    player.getDialogue().sendPlayerChat("I've worshipped the Ectofuntus, I'd like", "tokens in exchange for the power it has received.", CONTENT);
 			    return true;
 			} else {
 			    player.getDialogue().sendPlayerChat("What is this strange fountain?", CONTENT);

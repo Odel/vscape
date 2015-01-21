@@ -64,6 +64,9 @@ public class PlayerSaveParser {
                 {
                 	player.setInJail(characterObj.get("inJail").getAsBoolean());
                 }
+		if(characterObj.get("isIronman") != null) {
+			player.setIronman(characterObj.get("isIronman").getAsBoolean());
+		}
 	            JsonObject position = characterObj.getAsJsonObject("position");
 	            if(position != null){
 	            player.getPosition().setX(position.get("x") != null ? position.get("x").getAsInt() : Constants.START_X);
@@ -455,8 +458,8 @@ public class PlayerSaveParser {
 				    if(MMVars.get("trainingComplete") != null) {
 					player.getMMVars().setTrainingComplete(MMVars.get("trainingComplete").getAsBoolean());
 				    }
-				    if(MMVars.get("recievedClue") != null) {
-					player.getMMVars().setRecievedClueFromMonkey(MMVars.get("recievedClue").getAsBoolean());
+				    if(MMVars.get("receivedClue") != null) {
+					player.getMMVars().setRecievedClueFromMonkey(MMVars.get("receivedClue").getAsBoolean());
 				    }
 				}
 	            	JsonArray questData = quests.getAsJsonArray("questData");

@@ -309,7 +309,7 @@ public class RecruitmentDrive implements Quest {
 	player.foxLeft = false;
 	player.chickenLeft = false;
 	player.grainLeft = false;
-	player.recievedPacket = false;
+	player.receivedPacket = false;
 	player.fadeTeleport(new Position(Constants.FALADOR_X, Constants.FALADOR_Y, 0));
     }
     
@@ -897,17 +897,17 @@ public class RecruitmentDrive implements Quest {
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				d.sendNpcChat("Ah, welcome " + player.getUsername() + ".", "I have but one clue for you to pass this room's puzzle:", "'Patience'.", CONTENT);
-				player.recievedPacket = false;
+				player.receivedPacket = false;
 				return true;
 			    case 2:
 				player.getActionSender().removeInterfaces();
 				d.endDialogue();
-				player.recievedPacket = false;
+				player.receivedPacket = false;
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				    int count = 0;
 				    @Override
 				    public void execute(CycleEventContainer b) {
-					if(count > 10 && player.recievedPacket) {
+					if(count > 10 && player.receivedPacket) {
 					    b.stop();
 					} else if (count == 15) {
 					    player.setQuestStage(35, FOURTH_ROOM_COMPLETE);

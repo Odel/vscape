@@ -587,7 +587,7 @@ public class BlackKnightsFortress implements Quest {
 				player.getDialogue().sendPlayerChat("I have ruined the Black Knights' invincibility potion.", "That should put a stop to your problem,", "and an end to their little schemes.", CONTENT);
 				return true;
 			    case 2:
-				player.getDialogue().sendNpcChat("Yes, we have just recieved a message from them", "stating they withdraw their demands, which would", "confirm your story.", HAPPY);
+				player.getDialogue().sendNpcChat("Yes, we have just received a message from them", "stating they withdraw their demands, which would", "confirm your story.", HAPPY);
 				return true;
 			    case 3:
 				player.getDialogue().sendNpcChat("Please accept this reward.", HAPPY);

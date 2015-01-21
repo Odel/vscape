@@ -29,6 +29,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("muteExpire", player.getMuteExpire());
 		characterObj.addProperty("banExpire", player.getBanExpire());
 		characterObj.addProperty("inJail", player.getInJail());
+		characterObj.addProperty("isIronman", player.isIronman());
 		JsonObject positionObj = new JsonObject();
 		positionObj.addProperty("x", player.getPosition().getX());
 		positionObj.addProperty("y", player.getPosition().getY());
@@ -276,7 +277,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		    monkeyMadnessVarsObj.addProperty("gotAmulet", player.getMMVars().gotAmulet());
 		    monkeyMadnessVarsObj.addProperty("gotTalisman", player.getMMVars().gotTalisman());
 		    monkeyMadnessVarsObj.addProperty("monkeyPetDeleted", player.getMMVars().monkeyPetDeleted);
-		    monkeyMadnessVarsObj.addProperty("recievedClue", player.getMMVars().recievedClueFromMonkey());
+		    monkeyMadnessVarsObj.addProperty("receivedClue", player.getMMVars().receivedClueFromMonkey());
 		    monkeyMadnessVarsObj.addProperty("trainingComplete", player.getMMVars().trainingComplete());
 		}
 		questObj.add("monkeyMadnessVars", monkeyMadnessVarsObj);

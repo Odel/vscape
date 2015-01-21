@@ -22,7 +22,7 @@ public class MonkeyMadnessVars {
     private boolean spokenToMonkeyChild;
     private boolean canHideInGrass = false;
     private boolean trainingComplete = false;
-    private boolean recievedClueFromMonkey = false;
+    private boolean receivedClueFromMonkey = false;
     public boolean whereAreWeWaydar = false;
     public boolean inProcessOfBeingJailed = false;
     public boolean hitBySpikes = false;
@@ -136,12 +136,12 @@ public class MonkeyMadnessVars {
         this.trainingComplete = set;
     }
     
-    public boolean recievedClueFromMonkey() {
-	return recievedClueFromMonkey;
+    public boolean receivedClueFromMonkey() {
+	return receivedClueFromMonkey;
     }
     
     public void setRecievedClueFromMonkey(boolean set) {
-	this.recievedClueFromMonkey = set;
+	this.receivedClueFromMonkey = set;
     }
     
     public ArrayList<Npc> getFinalFightNpcs() {
