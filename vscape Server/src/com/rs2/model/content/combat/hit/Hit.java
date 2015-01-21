@@ -185,24 +185,27 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
 		    Player player = (Player)attacker;
-		    if(player.getEquipment().getItemContainer().get(Constants.WEAPON) == null) {
-			return;
-		    }
-		    if(player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow")) {
-			return;
-		    }
+		    
 		    EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
-		    if(b != null && (b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
-			if(EnchantedBolts.activateSpecial(b, player, victim, damage)) {
-			    if(!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
-				damage *= b.getIncreasedDamage();
-			    }
-			    if(b.equals(EnchantedBolts.BoltSpecials.PEARL) && victim.isNpc() && EnchantedBolts.fireNpc((Npc)victim)) {
-				damage *= 1.1;
-			    } else if(b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
-				damage = (int)Math.ceil(victim.getCurrentHp() / 5);
-			    } else if(b.equals(EnchantedBolts.BoltSpecials.DRAGONSTONE)) {
-				damage += 20;
+		    if (b != null) {
+			if (player.getEquipment().getItemContainer().get(Constants.WEAPON) == null) {
+			    return;
+			}
+			if (player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow")) {
+			    return;
+			}
+			if ((b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
+			    if (EnchantedBolts.activateSpecial(b, player, victim, damage)) {
+				if (!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+				    damage *= b.getIncreasedDamage();
+				}
+				if (b.equals(EnchantedBolts.BoltSpecials.PEARL) && victim.isNpc() && EnchantedBolts.fireNpc((Npc) victim)) {
+				    damage *= 1.1;
+				} else if (b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+				    damage = (int) Math.ceil(victim.getCurrentHp() / 5);
+				} else if (b.equals(EnchantedBolts.BoltSpecials.DRAGONSTONE)) {
+				    damage += 20;
+				}
 			    }
 			}
 		    }
