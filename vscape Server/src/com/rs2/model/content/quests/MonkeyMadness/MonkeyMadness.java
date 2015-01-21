@@ -4504,7 +4504,9 @@ public class MonkeyMadness implements Quest {
 				return true;
 			    case 9:
 				player.fadeTeleport(INSIDE_CAGE);
-				player.setQuestStage(36, INTO_THE_CAGE);
+				if(player.getQuestStage(36) == AWOWOGEIS_TEST) {
+				    player.setQuestStage(36, INTO_THE_CAGE);
+				}
 				d.endDialogue();
 				return true;
 			}

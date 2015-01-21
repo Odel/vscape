@@ -561,7 +561,7 @@ public class Hit {
 			damage = 1;
 		    }
 		}
-		if (victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON && victim.getCurrentHp() < (victim.getMaxHp() / 6) && !victim.getPlayerOwner().isAttacking()) {
+		if (victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON && victim.getCurrentHp() < (victim.getMaxHp() / 6) && (!victim.getPlayerOwner().getInCombatTick().completed() || !Misc.goodDistance(victim.getPosition(), victim.getPlayerOwner().getPosition(), 8))) {
 		    victim.setCurrentHp(victim.getMaxHp());
 		}
 	    }

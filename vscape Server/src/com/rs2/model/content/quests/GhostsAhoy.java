@@ -720,6 +720,11 @@ public class GhostsAhoy implements Quest {
     
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
+	    case 5268: //Ectofuntus ladder
+		if(x == 3653 && y == 3519) {
+		    player.teleport(new Position(3669, 9888, 3));
+		}
+		return true;
 	    case NECROVARUS_COFFIN:
 		if(x == 3659 && y == 3513) {
 		    if(!player.getInventory().ownsItem(NECROVARUS_ROBES)) {
