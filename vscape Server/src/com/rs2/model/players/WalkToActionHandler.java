@@ -172,11 +172,16 @@ public class WalkToActionHandler {
 				GameObjectData object = GameObjectData.forId(player.getClickId());
 				Position objectPosition;
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
-				if (objectPosition == null && id != 1729 && id != 2290)
+				
+				if(id != 1729 && id != 2290) {
+				    if (objectPosition == null)
 					return;
-				if (!canInteractWithObject(player, objectPosition, def) && id != 1729 && id != 2290) {
+				}
+				if(id != 1729 && id != 2290) {
+				    if (!canInteractWithObject(player, objectPosition, def)) {
 					stop();
 					return;
+				    }
 				} else if(!canInteractWithObject(player, def.getPosition(), def)) {
 					stop();
 					return;
