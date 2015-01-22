@@ -359,6 +359,11 @@ public class ButtonPacketHandler implements PacketHandler {
 					player.setWithdrawAsNote(true);
 				}
 				return;
+			case 77115: //piety
+			case 77113: //chivalry
+			    player.getActionSender().sendMessage("This prayer is disabled.");
+			    player.getActionSender().sendConfig(buttonId == 77113 ? 706 : 707, 0);
+			    return;
 			/*case 21011 :
 				player.setWithdrawAsNote(false);
 				return;*/
