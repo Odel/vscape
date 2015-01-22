@@ -80,7 +80,7 @@ public enum Spell {
 	WEAKEN(11, 716, Graphic.highGraphic(105), 21, new Item[]{new Item(Runes.WATER, 3), new Item(Runes.EARTH, 2), new Item(Runes.BODY, 1)}, magicHit(-1, magicProjectile(106), Graphic.highGraphic(107)), true, new StatEffect(Skill.STRENGTH, .05), null),
 	CURSE(19, 717, Graphic.highGraphic(108), 29, new Item[]{new Item(Runes.WATER, 2), new Item(Runes.EARTH, 3), new Item(Runes.BODY, 1)}, magicHit(-1, magicProjectile(109), Graphic.highGraphic(110)), true, new StatEffect(Skill.DEFENCE, .05), null),
 	VULNERABILITY(66, 729, Graphic.highGraphic(167), 76, new Item[]{new Item(Runes.EARTH, 5), new Item(Runes.WATER, 5), new Item(Runes.SOUL, 2)}, magicHit(-1, magicProjectile(168), Graphic.highGraphic(169)), true, new StatEffect(Skill.DEFENCE, .1), null),
-	ENFEEBLE(73, 729, Graphic.highGraphic(170), 89, new Item[]{new Item(Runes.EARTH, 8), new Item(Runes.WATER, 8), new Item(Runes.SOUL, 2)}, magicHit(-1, magicProjectile(171), Graphic.highGraphic(172)), true, new StatEffect(Skill.STRENGTH, .1), null),
+	ENFEEBLE(73, 729, Graphic.highGraphic(170), 89, new Item[]{new Item(Runes.EARTH, 8), new Item(Runes.WATER, 8), new Item(Runes.SOUL, 1)}, magicHit(-1, magicProjectile(171), Graphic.highGraphic(172)), true, new StatEffect(Skill.STRENGTH, .1), null),
 	STUN(80, 729, Graphic.highGraphic(173), 90, new Item[]{new Item(Runes.EARTH, 12), new Item(Runes.WATER, 12), new Item(Runes.SOUL, 1)}, magicHit(-1, magicProjectile(174), Graphic.highGraphic(107)), true, new StatEffect(Skill.ATTACK, .1), null),
 	BIND(20, 711, Graphic.highGraphic(177), 30, new Item[]{new Item(Runes.EARTH, 3), new Item(Runes.WATER, 3), new Item(Runes.NATURE, 2)}, magicHit(-1, magicProjectile(178), Graphic.highGraphic(181)), true, new BindingEffect(8), null),
 	SNARE(50, 711, Graphic.highGraphic(177), 60, new Item[]{new Item(Runes.EARTH, 4), new Item(Runes.WATER, 4), new Item(Runes.NATURE, 2)}, magicHit(2, magicProjectile(178), Graphic.highGraphic(180)), true, new BindingEffect(17), null),
@@ -110,8 +110,6 @@ public enum Spell {
 	
 	BONES_TO_BANANA(15, 722, Graphic.highGraphic(141), 25, new Item[]{new Item(Runes.EARTH, 2), new Item(Runes.WATER, 2), new Item(Runes.NATURE)}),
 	BONES_TO_PEACH(60, 722, Graphic.highGraphic(311), 36, new Item[]{new Item(Runes.NATURE, 2), new Item(Runes.WATER, 4), new Item(Runes.EARTH, 4)}),
-	
-	
 
 	ENCHANT_LV_1(7, 719, Graphic.highGraphic(114), 7, new Item[]{new Item(Runes.WATER, 1), new Item(Runes.COSMIC)}),
 	ENCHANT_LV_2(27, 719, Graphic.highGraphic(114), 27, new Item[]{new Item(Runes.AIR, 3), new Item(Runes.COSMIC)}),
