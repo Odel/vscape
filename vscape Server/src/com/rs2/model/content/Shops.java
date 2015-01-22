@@ -294,6 +294,7 @@ public class Shops {
 				return 96;
 	
 			case 527:
+			case 526:
 				return 56;
 	
 			case 933:

@@ -124,12 +124,6 @@ public class Puzzle {
 	    int move = adjacentToBlank().get(Misc.randomMinusOne(adjacentToBlank().size()));
 	    moveSlidingPiece(move, false);
 	}
-	if(index == 4) {
-	    for (int i = 0; i < SCRAMBLE_ITERATIONS; i++) {
-		int move = adjacentToBlank().get(Misc.randomMinusOne(adjacentToBlank().size()));
-		moveSlidingPiece(move, false);
-	    }
-	}
     }
 
     public ArrayList<Integer> adjacentToBlank() {

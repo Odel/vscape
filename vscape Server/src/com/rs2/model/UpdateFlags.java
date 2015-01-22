@@ -114,7 +114,7 @@ public class UpdateFlags {
 	public void sendAnimation(int animationId, int animationDelay) {
         if(owner.isPlayer()){
         }
-	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || ((Player)owner).getMMVars().isMonkey()) ) {
+	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
 		return;
 	    }
 		this.animationId = animationId;
