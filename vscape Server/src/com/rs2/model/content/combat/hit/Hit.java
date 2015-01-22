@@ -185,15 +185,10 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
 		    Player player = (Player)attacker;
-		    
+		    boolean noWeapon = player.getEquipment().getItemContainer().get(Constants.WEAPON) == null;
+		    boolean noCrossbow = player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow");
 		    EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
-		    if (b != null) {
-			if (player.getEquipment().getItemContainer().get(Constants.WEAPON) == null) {
-			    return;
-			}
-			if (player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow")) {
-			    return;
-			}
+		    if (b != null && !noWeapon && !noCrossbow) {
 			if ((b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
 			    if (EnchantedBolts.activateSpecial(b, player, victim, damage)) {
 				if (!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
