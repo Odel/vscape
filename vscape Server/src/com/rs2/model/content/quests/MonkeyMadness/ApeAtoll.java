@@ -533,6 +533,9 @@ public class ApeAtoll {
 		if (x == 2781 && y == 2783) {
 		    Ladders.climbLadder(player, new Position(2781, 2784, 2));
 		    return true;
+		} else if (x == 2750 && y == 2794) {
+		    Ladders.climbLadder(player, new Position(2750, 2795, 1));
+		    return true;
 		} else {
 		    GameObjectDef g = SkillHandler.getObject(object, x, y, player.getPosition().getZ());
 		    int r = g.getFace();
