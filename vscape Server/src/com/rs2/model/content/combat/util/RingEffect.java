@@ -31,7 +31,7 @@ public class RingEffect {
 	public static void ringOfLife(Player player) {
         Item ring = player.getEquipment().getItemContainer().get(Constants.RING);
         if (ring != null && ring.getId() == 2570) { //Ring of life
-            if (player.getTeleportation().attemptTeleportJewellery(Teleportation.HOME)) {
+            if (player.getTeleportation().attemptTeleportJewellery(Teleportation.HOME) && !player.getMMVars().inProcessOfBeingJailed) {
                 player.getActionSender().sendMessage("Your ring shatters!");
                 player.getEquipment().removeAmount(Constants.RING, 1);
             }
