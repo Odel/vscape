@@ -1,3 +1,7 @@
+@dre@=January 22nd=
+-Ape Atoll guards no longer overzealous.
+-Bug fix with ranged and enchanted bolts.
+
 @dre@=January 20th=
 @blu@Monkey Madness
 -Yanille Dungeon fully functioning.
