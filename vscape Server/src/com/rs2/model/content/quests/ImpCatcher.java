@@ -117,11 +117,11 @@ public class ImpCatcher implements Quest {
     public void sendQuestTabStatus(Player player) {
 	int questStage = player.getQuestStage(getQuestID());
 	if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
-	    player.getActionSender().sendString("@yel@The Restless Ghost", 7337);
+	    player.getActionSender().sendString("@yel@Imp Catcher", 7340);
 	} else if (questStage >= QUEST_COMPLETE) {
-	    player.getActionSender().sendString("@gre@The Restless Ghost", 7337);
+	    player.getActionSender().sendString("@gre@Imp Catcher", 7340);
 	} else {
-	    player.getActionSender().sendString("@red@The Restless Ghost", 7337);
+	    player.getActionSender().sendString("@red@Imp Catcher", 7340);
 	}
 
     }
