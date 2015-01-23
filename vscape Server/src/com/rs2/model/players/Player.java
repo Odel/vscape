@@ -1417,17 +1417,12 @@ public class Player extends Entity {
 					continue;
 				}
 				if (player.getUsernameAsLong() == getUsernameAsLong()) {
-					if((player.getMacAddress().equals(getMacAddress()) || player.getHost().equals(getHost())) && getStaffRights() >= 1)
-					{
-						player.disconnect();
-					} else {
-						setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
-						return false;
-					}
+					setReturnCode(Constants.LOGIN_RESPONSE_ACCOUNT_ONLINE);
+					return false;
                 }
             }
         }
-        if(Constants.MAC_CHECK && getStaffRights() < 2)
+        if(Constants.MAC_CHECK)
         {
         	int macconnections = 0;
         	for(Player p : World.getPlayers())
@@ -1447,7 +1442,7 @@ public class Player extends Entity {
         		return false;
         	}
         }
-        if(Constants.IP_CHECK && getStaffRights() < 2) {
+        if(Constants.IP_CHECK) {
 	        int ipconnections = 0;
 	        for(Player p : World.getPlayers())
 			{
