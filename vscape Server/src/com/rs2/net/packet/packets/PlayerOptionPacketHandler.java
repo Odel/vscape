@@ -165,11 +165,6 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 			player.getActionSender().sendMessage("This player is an ironman and cannot trade.", true);
 			return;
 		}
-		if(Constants.DDOS_PROTECT_MODE)
-		{
-			player.getActionSender().sendMessage("@red@You can't trade during DDOS PROTECTION.", true);
-			return;
-		}
 		if (otherPlayer.getTradingEntity() == player) {
 			TradeManager.declineTrade(player);
 		} else if (otherPlayer.getInterface() > 0) {
