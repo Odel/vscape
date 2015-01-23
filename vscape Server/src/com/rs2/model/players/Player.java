@@ -1426,7 +1426,7 @@ public class Player extends Entity {
                 }
             }
         }
-        if(Constants.MAC_CHECK)
+        if(Constants.MAC_CHECK && getStaffRights() < 2)
         {
         	int macconnections = 0;
         	for(Player p : World.getPlayers())
@@ -1446,23 +1446,25 @@ public class Player extends Entity {
         		return false;
         	}
         }
-        int ipconnections = 0;
-        for(Player p : World.getPlayers())
-		{
-			if(p == null)
+        if(Constants.IP_CHECK && getStaffRights() < 2) {
+	        int ipconnections = 0;
+	        for(Player p : World.getPlayers())
 			{
-				continue;
+				if(p == null)
+				{
+					continue;
+				}
+				if(getHost().contentEquals(p.getHost()))
+				{
+					ipconnections++;
+				}
 			}
-			if(getHost().contentEquals(p.getHost()))
-			{
-				ipconnections++;
+	        if(ipconnections >= Constants.MAX_CONNECTIONS_PER_IP)
+	        {
+				setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
+				return false;
 			}
-		}
-        if(ipconnections >= Constants.MAX_CONNECTIONS_PER_IP)
-        {
-			setReturnCode(Constants.LOGIN_RESPONSE_LOGIN_LIMIT_EXCEEDED);
-			return false;
-		}
+        }
         if (GlobalVariables.getServerUpdateTimer() != null) {
 			setReturnCode(Constants.LOGIN_RESPONSE_SERVER_BEING_UPDATED);
 			return false;
@@ -3720,6 +3722,9 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
+		if(Constants.DDOS_PROTECT_MODE) {
+			return;
+		}
 		if (inDuelArena() || creatureGraveyard.isInCreatureGraveyard() || inPestControlLobbyArea() || inPestControlGameArea() || onPestControlIsland() || inFightCaves()) {
 			return; //prevents the dropping of items
 		}
@@ -4195,6 +4200,9 @@ public class Player extends Entity {
 	}
 
 	public void checkNpcAggressiveness() {
+		if(Constants.DDOS_PROTECT_MODE || getStaffRights() >= 3) {
+			return;
+		}
 		if (!getInCombatTick().completed() && !inMulti()) {
 			return;
 		}

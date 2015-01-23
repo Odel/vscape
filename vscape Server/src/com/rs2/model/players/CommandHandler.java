@@ -1007,7 +1007,7 @@ public class CommandHandler {
         }
         else if (keyword.equals("save")) {
         	PlayerSave.saveAllPlayers();
-        	sender.getActionSender().sendMessage("Saved players.", true);
+        	World.messageToStaff("@dre@"+sender.getUsername()+" has saved all players.");
         }
 		else if (keyword.equals("forcespace")) { 
 	   	 	String name = fullString;
@@ -1761,17 +1761,14 @@ public class CommandHandler {
         else if(keyword.equals("staffyell")) {
         	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;
         	sender.getActionSender().sendMessage("Staff only yell: "+(Constants.STAFF_ONLY_YELL ? "true" : "false"), true);
-    		for (Player player : World.getPlayers()) 
-    		{
-    			if (player == null)
-    				continue;
-    			if(!player.getHideYell())
-    			{
-			    if(Constants.STAFF_ONLY_YELL) {
-    				player.getActionSender().sendMessage("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users") + " by "+NameUtil.formatName(sender.getUsername()), true);
-			    }
-    			}
-    		}
+        	if(Constants.STAFF_ONLY_YELL) {
+        		World.messageToWorld("@red@Yell has been set to "+(Constants.STAFF_ONLY_YELL ? "staff-only" : "all-users"));
+        	}
+        }
+        else if(keyword.equals("ddos")) {
+        	Constants.DDOS_PROTECT_MODE = !Constants.DDOS_PROTECT_MODE;
+        	sender.getActionSender().sendMessage("DDOS PROTECTION MODE: "+(Constants.DDOS_PROTECT_MODE ? "Enabled" : "Disabled"), true);
+    		World.messageToWorld("@red@DDOS Protection Mode has been "+(Constants.DDOS_PROTECT_MODE ? "Enabled" : "Disabled"));
         }
         else if(keyword.equals("highscoresupdate"))
         {

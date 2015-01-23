@@ -87,9 +87,21 @@ public class CombatManager extends Tick {
 	}
 
 	public static void attack(Entity attacker, Entity victim) {
+		if(Constants.DDOS_PROTECT_MODE) {
+			if(attacker.isPlayer())
+			{
+        		((Player) attacker).getActionSender().sendMessage("@red@You can't attack during DDOS PROTECTION.", true);
+	        	CombatManager.resetCombat(attacker);
+				return;
+			}
+	        if(attacker.isNpc() && victim.isPlayer()) {
+	        	CombatManager.resetCombat(attacker);
+				return;
+	        }
+		}
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
-	}
+        }
         if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || ((Npc) victim).getNpcId() == AnimalMagnetism.UNDEAD_TREE || PestControl.isShieldedPortal((Npc)victim)) ) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
@@ -97,36 +109,36 @@ public class CombatManager extends Tick {
         	CombatManager.resetCombat(attacker);
         	return;
         }
-	if(attacker.isPlayer() && ((Player) attacker).getPets().getPet() == victim) {
-            ((Player) attacker).getActionSender().sendMessage("You cannot attack your own pet!");
-            CombatManager.resetCombat(attacker);
-            return;
-	}
-	if(attacker.isPlayer() && (((Player) attacker).transformNpc == 1707 || ((Player) attacker).transformNpc == 1708)) {
-            ((Player) attacker).getDialogue().sendPlayerChat("I can't see to attack!", Dialogues.DISTRESSED);
-            CombatManager.resetCombat(attacker);
-            return;
-	}
-	if(attacker.isPlayer() && ((Player) attacker).getMMVars().isMonkey()) {
-            ((Player)attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
-	    CombatManager.resetCombat(attacker);
-            return;
-	}
-	if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
-	    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
-	    return;
-	}
-	if(attacker.isPlayer() && ( ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON) == null || ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON).getId() != 2402)
-	   && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
-            ((Player) attacker).getActionSender().sendMessage("You need to equip Silverlight to fight Delrith!");
-            CombatManager.resetCombat(attacker);
-            return;
-	}
-	if(attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 742 && ((Player)attacker).getQuestStage(15) != 7) {
-            ((Player) attacker).getActionSender().sendMessage("I better not try this.");
-            CombatManager.resetCombat(attacker);
-            return;
-	}
+		if(attacker.isPlayer() && ((Player) attacker).getPets().getPet() == victim) {
+	            ((Player) attacker).getActionSender().sendMessage("You cannot attack your own pet!");
+	            CombatManager.resetCombat(attacker);
+	            return;
+		}
+		if(attacker.isPlayer() && (((Player) attacker).transformNpc == 1707 || ((Player) attacker).transformNpc == 1708)) {
+	            ((Player) attacker).getDialogue().sendPlayerChat("I can't see to attack!", Dialogues.DISTRESSED);
+	            CombatManager.resetCombat(attacker);
+	            return;
+		}
+		if(attacker.isPlayer() && ((Player) attacker).getMMVars().isMonkey()) {
+	            ((Player)attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
+	            CombatManager.resetCombat(attacker);
+	            return;
+		}
+		if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
+		    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
+		    return;
+		}
+		if(attacker.isPlayer() && ( ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON) == null || ((Player)attacker).getEquipment().getItemContainer().get(Constants.WEAPON).getId() != 2402)
+		   && victim.isNpc() && ((Npc)victim).getNpcId() == 879) {
+	            ((Player) attacker).getActionSender().sendMessage("You need to equip Silverlight to fight Delrith!");
+	            CombatManager.resetCombat(attacker);
+	            return;
+		}
+		if(attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 742 && ((Player)attacker).getQuestStage(15) != 7) {
+	            ((Player) attacker).getActionSender().sendMessage("I better not try this.");
+	            CombatManager.resetCombat(attacker);
+	            return;
+		}
 		if (attacker.isPlayer() && attacker.inDuelArena()) {
 			if (!((Player) attacker).getDuelMainData().canStartDuel()) {
 	        	CombatManager.resetCombat(attacker);

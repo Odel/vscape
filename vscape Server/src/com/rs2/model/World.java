@@ -445,6 +445,15 @@ public class World {
 			}
 		}
 	}
+	
+	public static void messageToWorld(String message) {
+		for (Player player : players) {
+			if (player == null) {
+				continue;
+			}
+			player.getActionSender().sendMessage(message, true);
+		}
+	}
 
 	public static int getNpcIndex(int id) {
 		for (int i = 1; i < npcs.length; i++) {

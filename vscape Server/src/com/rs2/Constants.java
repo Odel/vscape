@@ -53,8 +53,11 @@ public class Constants {
    	public static final double EXP_RATE = 2.25;
    	
    	public static final boolean MAC_CHECK = true;
+	public static final boolean IP_CHECK = true;
    	public static final int MAX_CONNECTIONS_PER_MAC = 1;
    	public static final int MAX_CONNECTIONS_PER_IP = 3;
+   	
+   	public static boolean DDOS_PROTECT_MODE = false;
    	
    	public static final int START_X = 3222;
 	public static final int START_Y = 3218;

@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.prayer;
 
+import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
@@ -96,6 +97,9 @@ public class Prayer {
 	private double amountToDrain = 0.0;
 	
 	public void prayerTick() {
+		if(Constants.DDOS_PROTECT_MODE) {
+			return;
+		}
 		for (int i = 0; i < player.getIsUsingPrayer().length; i++) {
 			try{
 			prayerTimers[i]--;

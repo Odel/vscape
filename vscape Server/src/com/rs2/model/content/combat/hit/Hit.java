@@ -83,6 +83,12 @@ public class Hit {
     }
 
 	public void initialize(boolean queue) {
+		if(Constants.DDOS_PROTECT_MODE) {
+			if(victim != null && victim.isPlayer()) {
+			    damage = 0;
+			    return;
+			}
+		}
 		if(victim != null && victim.isPlayer() && ((Player)victim).getStaffRights() >= 3) { //dev mode just in case
 		    damage = 0;
 		    return;
