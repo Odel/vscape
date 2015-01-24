@@ -38,6 +38,7 @@ import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.skills.Skill;
@@ -162,16 +163,16 @@ public class Hit {
 		    if(hitDef.getHitGraphic() != null) {
 			if(hitDef.getHitGraphic().getId() == 134) {
 			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
-			    player.setHitChronozonWind(true);
+			    player.getQuestVars().setHitChronozonWind(true);
 			} else if(hitDef.getHitGraphic().getId() == 137) {
 			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
-			    player.setHitChronozonWater(true);
+			    player.getQuestVars().setHitChronozonWater(true);
 			} else if(hitDef.getHitGraphic().getId() == 140) {
 			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
-			    player.setHitChronozonEarth(true);
+			    player.getQuestVars().setHitChronozonEarth(true);
 			} else if(hitDef.getHitGraphic().getId() == 131) {
 			    player.getActionSender().sendMessage("Chronozon weakens slightly.");
-			    player.setHitChronozonFire(true);
+			    player.getQuestVars().setHitChronozonFire(true);
 			}
 		    }
 		}
@@ -449,6 +450,9 @@ public class Hit {
 			return;
 		UpdateFlags flags = victim.getUpdateFlags();
 		HitType hitType = damage == 0 ? HitType.MISS : hitDef.getHitType();
+		if(attacker != null && attacker.isNpc() && ((Npc)attacker).getNpcId() == 1052 && hitType == HitType.MISS) {
+		    return;
+		}
 		if(hitDef.isDarkBowSpec() && hitType == HitType.MISS) {
 		    hitType = hitDef.getHitType();
 		    damage = 5;
@@ -583,10 +587,13 @@ public class Hit {
 			}
     		}
         }
-        if (victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
+        if (victim != null && victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();
         }
+	if (attacker != null && attacker.isNpc() && victim != null && victim.isPlayer() && ((Npc)attacker).getNpcId() == NatureSpirit.GHAST) {
+	    NatureSpirit.handleSpoilFood((Npc)attacker, (Player)victim);
+	}
         if (hitDef.getHitGraphic() != null)
             victim.getUpdateFlags().sendGraphic(hitDef.getHitGraphic());
         if (!hit && !hitDef.isUnblockable()) {

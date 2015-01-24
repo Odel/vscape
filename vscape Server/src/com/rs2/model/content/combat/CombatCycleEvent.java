@@ -31,7 +31,7 @@ public class CombatCycleEvent extends CycleEvent {
 	public void execute(CycleEventContainer container) {
 		try {
 			// check if attacker executes a different task
-			if (!attacker.checkTask(taskId) || attacker.getCombatingEntity() == null) {
+			if (!attacker.checkTask(taskId) || attacker.getCombatingEntity() == null || victim == null) {
 				container.stop();
 				return;
 			}
@@ -100,6 +100,11 @@ public class CombatCycleEvent extends CycleEvent {
 			    } else if (attacker.isPlayer() && victim.isNpc() && ((Player) attacker).getMMVars().isMonkey()) {
 				((Player) attacker).getActionSender().sendMessage("You cannot attack as a monkey!");
 				CombatManager.resetCombat(attacker);
+			    }
+			}
+			if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
+			    if(((Npc)victim).getNpcId() == 1052) {
+				return;
 			    }
 			}
 			/* ORDER IS SUPER IMPORTANT HERE, DON'T ADD ANYTHING AFTER */

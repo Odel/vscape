@@ -19,13 +19,11 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.Tools;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
-import com.rs2.util.clip.Rangable;
 
 public class HeroesQuest implements Quest {
     //Quest stages
@@ -352,7 +350,7 @@ public class HeroesQuest implements Quest {
 	return player.getEquipment().getId(Constants.HAT) == 1165 && player.getEquipment().getId(Constants.CHEST) == 1125 && player.getEquipment().getId(Constants.LEGS) == 1077;
     }
     public static void handleShootGrip(final Player player, final Npc npc) {
-	if (player.isPhoenixGang()) {
+	if (player.getQuestVars().isPhoenixGang()) {
 	    if (player.getPosition().equals(new Position(2780, 3198, 0)) && Misc.goodDistance(player.getPosition(), npc.getPosition(), 5) && npc.getPosition().getY() > 3195) {
 		int attackerX = player.getPosition().getX(), attackerY = player.getPosition().getY();
 		int victimX = npc.getPosition().getX(), victimY = npc.getPosition().getY();
@@ -378,7 +376,7 @@ public class HeroesQuest implements Quest {
 			    npc.getUpdateFlags().setForceChatMessage("Urgggh...");
 			    npc.hit(npc.getCurrentHp(), HitType.NORMAL);
 			    if(player.getQuestStage(27) < ARMBAND_GOTTEN) {
-				player.setShotGrip(true);
+				player.getQuestVars().setShotGrip(true);
 			    }
 			    b.stop();
 			}
@@ -390,7 +388,7 @@ public class HeroesQuest implements Quest {
 				if (players == null) {
 				    continue;
 				}
-				if (Misc.goodDistance(players.getPosition(), npc.getPosition(), 10) && players.isBlackArmGang() && players.getQuestStage(27) >= 1) {
+				if (Misc.goodDistance(players.getPosition(), npc.getPosition(), 10) && players.getQuestVars().isBlackArmGang() && players.getQuestStage(27) >= 1) {
 				    players.getUpdateFlags().faceEntity(npc.getFaceIndex());
 				    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
 				    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
@@ -416,7 +414,7 @@ public class HeroesQuest implements Quest {
 	if(died.getNpcId() == GRIP) {
 	    for(Player players : World.getPlayers()) {
 		if(players == null) continue;
-		if(Misc.goodDistance(players.getPosition(), died.getPosition(), 10) && players.isBlackArmGang() && (players.getQuestStage(27) == 1 || players.getQuestStage(27) == 2)) {
+		if(Misc.goodDistance(players.getPosition(), died.getPosition(), 10) && players.getQuestVars().isBlackArmGang() && (players.getQuestStage(27) == 1 || players.getQuestStage(27) == 2)) {
 		    players.walkTo(died.getPosition().clone(), true);
 		    players.getActionSender().sendMessage("You find a key on Grip's corpse.");
 		    players.getInventory().addItemOrDrop(new Item(CANDLESTICKS_KEY));
@@ -551,7 +549,7 @@ public class HeroesQuest implements Quest {
 		player.getActionSender().walkThroughDoor(object, x, y, 0);
 		return true;
 	    case 2629: //chef's "wall"
-		if(player.spokeToCharlie() || (player.getQuestStage(27) >= QUEST_COMPLETE && player.isPhoenixGang())) {
+		if(player.spokeToCharlie() || (player.getQuestStage(27) >= QUEST_COMPLETE && player.getQuestVars().isPhoenixGang())) {
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2787 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -646,11 +644,11 @@ public class HeroesQuest implements Quest {
 		    case ARMBAND_GOTTEN:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getInventory().ownsItem(BLAMISH_SNAIL_SLIME) && !player.getInventory().ownsItem(OILY_FISHING_ROD) && !player.getInventory().ownsItem(BLAMISH_OIL) && player.givenSnailSlime()) {
+				if(!player.getInventory().ownsItem(BLAMISH_SNAIL_SLIME) && !player.getInventory().ownsItem(OILY_FISHING_ROD) && !player.getInventory().ownsItem(BLAMISH_OIL) && player.getQuestVars().givenSnailSlime()) {
 				    player.getDialogue().sendPlayerChat("I lost my snail slime...", CONTENT);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
-				} else if(!player.givenSnailSlime()) {
+				} else if(!player.getQuestVars().givenSnailSlime()) {
 				    player.getDialogue().sendPlayerChat("I want to find out how to catch a lava eel.", CONTENT);
 				    return true;
 				} else {
@@ -700,7 +698,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Hey! What the hell are you doing back here?!", ANGRY_1);
 				return true;
 			    case 2:
-				if(player.spokeToAlfonse() && player.isPhoenixGang() && !player.isBlackArmGang()) {
+				if(player.spokeToAlfonse() && player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I'm looking for a gherkin...", CONTENT);
 				    return true;
 				} else {
@@ -775,7 +773,7 @@ public class HeroesQuest implements Quest {
 		    case QUEST_STARTED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(player.isBlackArmGang()) {
+				if(player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("Hi there. I am Hartigen. Reporting for duty as your", "new deputy sir.", CONTENT);
 				    return true;
 				} else {
@@ -861,7 +859,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("What do you want?", CONTENT);
 				return true;
 			    case 2:
-				if(player.givenIdPapers() && player.getInventory().playerHasItem(ID_PAPERS)) {
+				if(player.getQuestVars().givenIdPapers() && player.getInventory().playerHasItem(ID_PAPERS)) {
 				    player.getDialogue().sendPlayerChat("Hi. I'm Hartigen. I've come to work here.", CONTENT);
 				    player.getDialogue().setNextChatId(5);
 				    return true;
@@ -913,14 +911,14 @@ public class HeroesQuest implements Quest {
 		    case QUEST_STARTED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(player.spokeToGrubor() && player.isBlackArmGang() && !player.givenIdPapers()) {
+				if(player.spokeToGrubor() && player.getQuestVars().isBlackArmGang() && !player.getQuestVars().givenIdPapers()) {
 				    player.getDialogue().sendNpcChat("Hi. Welcome to our Brimhaven headquarters. I'm", "Trobert and I'm in charge here.", CONTENT);
 				    return true;
-				} else if(player.givenIdPapers() && player.spokeToGrubor() && player.isBlackArmGang()) {
+				} else if(player.getQuestVars().givenIdPapers() && player.spokeToGrubor() && player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendNpcChat("Godspeed on those candlesticks.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
-				} else if(player.givenIdPapers() && !player.getInventory().playerHasItem(ID_PAPERS) && player.spokeToGrubor() && player.isBlackArmGang()) {
+				} else if(player.getQuestVars().givenIdPapers() && !player.getInventory().playerHasItem(ID_PAPERS) && player.spokeToGrubor() && player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I seem to have, erm, lost the ID papers.", SAD);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
@@ -951,7 +949,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendGiveItemNpc("Trobert hands you some ID papers.", new Item(ID_PAPERS));
 				player.getDialogue().endDialogue();
 				player.getInventory().addItemOrDrop(new Item(ID_PAPERS));
-				player.setGivenIdPapers(true);
+				player.getQuestVars().setGivenIdPapers(true);
 				return true;
 			    case 10:
 				player.getDialogue().sendNpcChat("Luckily for you, we made copies.", CONTENT);
@@ -998,7 +996,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Welcome to the Shrimp and Parrot.", "Would you like to order, sir?", CONTENT);
 				return true;
 			    case 2:
-				if(player.isPhoenixGang() && !player.isBlackArmGang()) {
+				if(player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("Do you sell Gherkins?", CONTENT);
 				    return true;
 				} else {
@@ -1021,7 +1019,7 @@ public class HeroesQuest implements Quest {
 	    case KATRINE:
 		switch (player.getQuestStage(13)) {
 		    case 12:
-			if (!player.isPhoenixGang() && !player.isBlackArmGang()) {
+			if (!player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 			    switch (player.getDialogue().getChatId()) {
 				case 1:
 				    player.getDialogue().sendPlayerChat("Hello, Katrine.", CONTENT);
@@ -1049,7 +1047,7 @@ public class HeroesQuest implements Quest {
 				case 29:
 				    player.getDialogue().sendStatement("You have been recognized as a member of the Black Arm Gang.");
 				    player.getDialogue().endDialogue();
-				    player.joinBlackArmGang(true);
+				    player.getQuestVars().joinBlackArmGang(true);
 				    return true;
 			    }
 			}
@@ -1079,10 +1077,10 @@ public class HeroesQuest implements Quest {
 		    case CANDLESTICKS_GOTTEN:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(player.isBlackArmGang() && !player.getInventory().ownsItem(CANDLESTICK)) {
+				if(player.getQuestVars().isBlackArmGang() && !player.getInventory().ownsItem(CANDLESTICK)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.getQuestStage(27) == CANDLESTICKS_GOTTEN) {
+				} else if(player.getQuestVars().isBlackArmGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.getQuestStage(27) == CANDLESTICKS_GOTTEN) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(12);
 				    return true;
@@ -1148,7 +1146,7 @@ public class HeroesQuest implements Quest {
 	    case STRAVEN:
 		switch (player.getQuestStage(13)) {
 		    case 12:
-			if (!player.isPhoenixGang() && !player.isBlackArmGang()) {
+			if (!player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 			    switch (player.getDialogue().getChatId()) {
 				case 1:
 				    player.getDialogue().sendPlayerChat("Hello, Straven.", CONTENT);
@@ -1175,7 +1173,7 @@ public class HeroesQuest implements Quest {
 				    return true;
 				case 29:
 				    player.getDialogue().sendStatement("You have been recognized as a member of the Phoenix Gang.");
-				    player.joinPhoenixGang(true);
+				    player.getQuestVars().joinPhoenixGang(true);
 				    player.getDialogue().endDialogue();
 				    return true;
 			    }
@@ -1205,10 +1203,10 @@ public class HeroesQuest implements Quest {
 		    case QUEST_STARTED:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(player.isPhoenixGang() && !player.getInventory().ownsItem(1577)) {
+				if(player.getQuestVars().isPhoenixGang() && !player.getInventory().ownsItem(1577)) {
 				    player.getDialogue().sendPlayerChat("How would I go about getting a Master Thief", "armband?", CONTENT);
 				    return true;
-				} else if(player.isPhoenixGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.hasShotGrip()) {
+				} else if(player.getQuestVars().isPhoenixGang() && player.getInventory().playerHasItem(CANDLESTICK) && player.getQuestVars().hasShotGrip()) {
 				    player.getDialogue().sendPlayerChat("I have retrieved a candlestick!", HAPPY);
 				    player.getDialogue().setNextChatId(10);
 				    return true;
@@ -1254,7 +1252,7 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().endDialogue();
 				player.getInventory().replaceItemWithItem(new Item(CANDLESTICK), new Item(ARMBAND));
 				player.setQuestStage(27, ARMBAND_GOTTEN);
-				player.setShotGrip(false);
+				player.getQuestVars().setShotGrip(false);
 				return true;
 			}
 		    return false;
@@ -1316,11 +1314,11 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Connections you made in the Varrock gangs may be able", "to assist you. Which gang are you a part of?", CONTENT);
 				return true;
 			    case 10:
-				if(player.isPhoenixGang() && !player.isBlackArmGang()) {
+				if(player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I'm a member of the Phoenix Gang.", CONTENT);
 				    return true;
 				}
-				else if(!player.isPhoenixGang() && player.isBlackArmGang()) {
+				else if(!player.getQuestVars().isPhoenixGang() && player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I'm a member of the Black Arm Gang.", CONTENT);
 				    return true;
 				}
@@ -1416,11 +1414,11 @@ public class HeroesQuest implements Quest {
 				player.getDialogue().sendNpcChat("Connections you made in the Varrock gangs may be able", "to assist you. Which gang are you a part of?", CONTENT);
 				return true;
 			    case 10:
-				if(player.isPhoenixGang() && !player.isBlackArmGang()) {
+				if(player.getQuestVars().isPhoenixGang() && !player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I'm a member of the Phoenix Gang.", CONTENT);
 				    return true;
 				}
-				else if(!player.isPhoenixGang() && player.isBlackArmGang()) {
+				else if(!player.getQuestVars().isPhoenixGang() && player.getQuestVars().isBlackArmGang()) {
 				    player.getDialogue().sendPlayerChat("I'm a member of the Black Arm Gang.", CONTENT);
 				    return true;
 				}

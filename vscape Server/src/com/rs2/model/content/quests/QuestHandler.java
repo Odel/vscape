@@ -60,7 +60,8 @@ public class QuestHandler {
 	new TreeGnomeVillage(),
 	new ChristmasEvent(),
 	new RecruitmentDrive(),
-	new MonkeyMadness()
+	new MonkeyMadness(),
+	new NatureSpirit()
     };
     
     public static void init() {
@@ -250,6 +251,9 @@ public class QuestHandler {
         		return true;
 		case 43124: //Monkey Madness
 			showInterface(player,quests[36]);
+        		return true;
+		case 31201:
+			showInterface(player,quests[37]); //Nature Spirit
         		return true;
         }
         return false;

@@ -283,9 +283,9 @@ public class WaterfallQuest implements Quest {
 	player.setQuestStage(31, AMULET_AND_URN);
 	player.getActionSender().sendMessage("You've been washed out of the dungeon!");
 	for(int i = 0; i < 6; i++) {
-	    player.waterfallPillars[i][0] = false;
-	    player.waterfallPillars[i][1] = false;
-	    player.waterfallPillars[i][2] = false;
+	    player.getQuestVars().waterfallPillars[i][0] = false;
+	    player.getQuestVars().waterfallPillars[i][1] = false;
+	    player.getQuestVars().waterfallPillars[i][2] = false;
 	}
     }
     
@@ -343,7 +343,7 @@ public class WaterfallQuest implements Quest {
     }
     
     public boolean hasPlacedRunes(Player player, int index) {
-	return player.waterfallPillars[index][0] && player.waterfallPillars[index][1] && player.waterfallPillars[index][2];
+	return player.getQuestVars().waterfallPillars[index][0] && player.getQuestVars().waterfallPillars[index][1] && player.getQuestVars().waterfallPillars[index][2];
     }
     
     public boolean hasCompletedPillars(Player player) {
@@ -466,8 +466,8 @@ public class WaterfallQuest implements Quest {
 	    case WATERFALL_DUNGEON_PILLAR:
 		int pillarIndex = getPillarNumberForCoords(player.getClickX(), player.getClickY());
 		if(player.getQuestStage(31) == AMULET_AND_URN && pillarIndex != -1) {
-		    if (item == AIR_RUNE  && !player.waterfallPillars[pillarIndex][0]) {
-			player.waterfallPillars[pillarIndex][0] = true;
+		    if (item == AIR_RUNE  && !player.getQuestVars().waterfallPillars[pillarIndex][0]) {
+			player.getQuestVars().waterfallPillars[pillarIndex][0] = true;
 			player.getActionSender().sendMessage("The Air Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
 			player.getInventory().removeItem(new Item(AIR_RUNE));
@@ -480,8 +480,8 @@ public class WaterfallQuest implements Quest {
 			} else {
 			    return true;
 			}
-		    } else if (item == WATER_RUNE && !player.waterfallPillars[pillarIndex][1]) {
-			player.waterfallPillars[pillarIndex][1] = true;
+		    } else if (item == WATER_RUNE && !player.getQuestVars().waterfallPillars[pillarIndex][1]) {
+			player.getQuestVars().waterfallPillars[pillarIndex][1] = true;
 			player.getActionSender().sendMessage("The Water Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
 			player.getInventory().removeItem(new Item(WATER_RUNE));
@@ -494,8 +494,8 @@ public class WaterfallQuest implements Quest {
 			} else {
 			    return true;
 			}
-		    } else if (item == EARTH_RUNE  && !player.waterfallPillars[pillarIndex][2]) {
-			player.waterfallPillars[pillarIndex][2] = true;
+		    } else if (item == EARTH_RUNE  && !player.getQuestVars().waterfallPillars[pillarIndex][2]) {
+			player.getQuestVars().waterfallPillars[pillarIndex][2] = true;
 			player.getActionSender().sendMessage("The Earth Rune is absorbed into the pillar.");
 			player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
 			player.getInventory().removeItem(new Item(EARTH_RUNE));
@@ -752,7 +752,7 @@ public class WaterfallQuest implements Quest {
     }
 
     public static boolean playerAskedAllThree(final Player player) {
-	return player.waterfallOption1 && player.waterfallOption2 && player.waterfallOption3;
+	return player.getQuestVars().waterfallOption1 && player.getQuestVars().waterfallOption2 && player.getQuestVars().waterfallOption3;
     }
 
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) { //Inherited
@@ -936,7 +936,7 @@ public class WaterfallQuest implements Quest {
 			    case 12:
 				player.getDialogue().sendNpcChat("Oh, I don't know. I believe we have some pages on him", "upstairs in our archives. If you wish to look at them", "please be careful, they're all pretty delicate.", CONTENT);
 				player.getDialogue().setNextChatId(25);
-				player.waterfallOption1 = true;
+				player.getQuestVars().waterfallOption1 = true;
 				return true;
 			    case 13:
 				player.getDialogue().sendNpcChat("There is a lovely spot for a picnic on the hill to the", "north east, there lies a monument to the deceased elven", "Queen Glarial. It really is quite pretty.", CONTENT);
@@ -955,12 +955,12 @@ public class WaterfallQuest implements Quest {
 				return true;
 			    case 18:
 				player.getDialogue().sendNpcChat("True, I believe there's some information about her", "upstairs, if you look at them please be careful.", CONTENT);
-				player.waterfallOption2 = true;
+				player.getQuestVars().waterfallOption2 = true;
 				player.getDialogue().setNextChatId(25);
 				return true;
 			    case 19:
 				player.getDialogue().sendNpcChat("Ha ha... Another treasure hunter. Well if there is, no", "one's been able to get to it. They've been searching that", "river for decades, all to no avail.", LAUGHING);
-				player.waterfallOption3 = true;
+				player.getQuestVars().waterfallOption3 = true;
 				player.getDialogue().setNextChatId(25);
 				return true;
 			    case 20:

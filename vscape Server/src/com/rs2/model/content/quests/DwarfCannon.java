@@ -339,9 +339,9 @@ public class DwarfCannon implements Quest {
 		    player.getActionSender().sendMessage("This railing is now fixed.");
 		    player.getInventory().removeItem(new Item(RAILING, 1));
 		    player.setStopPacket(false);
-		    player.setRailingsFixed(player.getRailingsFixed() + 1);
-		    player.addRailingsFixed(railing);
-		    if(player.getRailingsFixed() == 6){
+		    player.getQuestVars().setRailingsFixed(player.getQuestVars().getRailingsFixed() + 1);
+		    player.getQuestVars().addRailingsFixed(railing);
+		    if(player.getQuestVars().getRailingsFixed() == 6){
 			player.setQuestStage(30, RAILINGS_FIXED);
 		    }
 		    return;
@@ -514,7 +514,7 @@ public class DwarfCannon implements Quest {
 	    case BROKEN_RAILING_5:
 	    case BROKEN_RAILING_6:
 		if(player.getQuestStage(30) == 1) {
-		    if(!player.getRailingsArray().contains(object)) {
+		    if(!player.getQuestVars().getRailingsArray().contains(object)) {
 			player.getDialogue().sendStatement("This railing is broken and needs to be replaced.");
 			player.getDialogue().endDialogue();
 			repairRailing(player, object);

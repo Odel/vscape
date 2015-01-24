@@ -484,7 +484,7 @@ public class CombatManager extends Tick {
 		}
 		else if(npc.getNpcId() == GhostsAhoy.GIANT_LOBSTER) {
 		    if(killer != null && killer.isPlayer()) {
-			((Player)killer).setLobsterSpawnedAndDead(true);
+			((Player)killer).getQuestVars().setLobsterSpawnedAndDead(true);
 		    }
 		}
 		else if ( npc.getNpcId() == 879 && firstTime ) { // delrith
@@ -670,7 +670,7 @@ public class CombatManager extends Tick {
 		}
 		if (died.isPlayer()) {
 		    Player player = (Player) died;
-		    player.teleport(player.isGazeOfSaradomin() ? Teleportation.WHITE_KNIGHTS_CASTLE : Teleportation.HOME);
+		    player.teleport(player.getQuestVars().isGazeOfSaradomin() ? Teleportation.WHITE_KNIGHTS_CASTLE : Teleportation.HOME);
 		    player.getActionSender().sendMessage("Oh dear, you are dead!");
 			if (player.getMultiCannon() != null && player.getMultiCannon().hasCannon()) {
 				player.getMultiCannon().pickupCannon();

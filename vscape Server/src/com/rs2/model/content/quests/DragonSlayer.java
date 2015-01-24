@@ -641,10 +641,10 @@ public class DragonSlayer implements Quest {
 		    return true;
 		}
 	    case 2595: //melzar's front door
-		if(player.getInventory().playerHasItem(MAZE_KEY) || player.getMelzarsDoorUnlock()) {
+		if(player.getInventory().playerHasItem(MAZE_KEY) || player.getQuestVars().getMelzarsDoorUnlock()) {
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    player.getActionSender().walkTo(player.getPosition().getX() > 2940 ? -1 : 1, 0, true);
-		    player.setMelzarsDoorUnlock(true);
+		    player.getQuestVars().setMelzarsDoorUnlock(true);
 		    player.getActionSender().sendMessage("The door slams shut behind you.");
 		    return true;
 		}

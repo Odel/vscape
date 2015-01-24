@@ -346,16 +346,16 @@ public class FamilyCrest implements Quest {
 	    npc.heal(100);
 	    CombatManager.attack(npc, player);
 	    npc.getUpdateFlags().sendForceMessage("Ha Ha Ha Ha Ha Ha...");
-	    player.setHitChronozonWind(false);
-	    player.setHitChronozonWater(false);
-	    player.setHitChronozonEarth(false);
-	    player.setHitChronozonFire(false);
+	    player.getQuestVars().setHitChronozonWind(false);
+	    player.getQuestVars().setHitChronozonWater(false);
+	    player.getQuestVars().setHitChronozonEarth(false);
+	    player.getQuestVars().setHitChronozonFire(false);
 	}
     }
     
     public static boolean handleDeath(final Player player, final Npc npc) {
 	if (npc.getNpcId() == CHRONOZON) {
-	    if (!player.hasHitChronozonWind() || !player.hasHitChronozonWater() || !player.hasHitChronozonEarth() || !player.hasHitChronozonFire()) {
+	    if (!player.getQuestVars().hasHitChronozonWind() || !player.getQuestVars().hasHitChronozonWater() || !player.getQuestVars().hasHitChronozonEarth() || !player.getQuestVars().hasHitChronozonFire()) {
 		player.getActionSender().sendMessage("Chronozon regenerates!");
 		healChronozon(player, npc);
 		return true;
@@ -618,7 +618,7 @@ public class FamilyCrest implements Quest {
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case GOLD_DOOR:
-		if(player.northPerfectGoldMineLever() && !player.southPerfectGoldMineLever() && player.northRoomPerfectGoldMineLever()) {
+		if(player.getQuestVars().northPerfectGoldMineLever() && !player.getQuestVars().southPerfectGoldMineLever() && player.getQuestVars().northRoomPerfectGoldMineLever()) {
 		    player.getActionSender().walkTo(player.getPosition().getX() < 2728 ? 1 : -1, 0, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -633,7 +633,7 @@ public class FamilyCrest implements Quest {
 		    }
 		}
 	    case NORTH_ROOM_DOOR:
-		if(!player.northPerfectGoldMineLever() && player.southPerfectGoldMineLever()) {
+		if(!player.getQuestVars().northPerfectGoldMineLever() && player.getQuestVars().southPerfectGoldMineLever()) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() < 9711 ? 1 : -1, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -649,7 +649,7 @@ public class FamilyCrest implements Quest {
 		}
 	    case SOUTH_ROOM_DOOR_1:
 	    case SOUTH_ROOM_DOOR_2:
-		if(player.northPerfectGoldMineLever()) {
+		if(player.getQuestVars().northPerfectGoldMineLever()) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() < 9672 ? 1 : -1, true);
 		    player.getActionSender().walkThroughDoor(object, x, y, 0);
 		    return true;
@@ -666,21 +666,21 @@ public class FamilyCrest implements Quest {
 	    case NORTH_LEVER:
 		player.getActionSender().sendMessage("You pull the lever.");
 		player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-		player.setNorthPerfectGoldMineLever(!player.northPerfectGoldMineLever());
+		player.getQuestVars().setNorthPerfectGoldMineLever(!player.getQuestVars().northPerfectGoldMineLever());
 		return true;
 	    case NORTH_ROOM_LEVER:
 		player.getActionSender().sendMessage("You pull the lever.");
 		player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-		player.setNorthRoomPerfectGoldMineLever(!player.northRoomPerfectGoldMineLever());
+		player.getQuestVars().setNorthRoomPerfectGoldMineLever(!player.getQuestVars().northRoomPerfectGoldMineLever());
 		return true;
 	    case SOUTH_LEVER:
-		if(player.northPerfectGoldMineLever() && player.northRoomPerfectGoldMineLever() && player.southPerfectGoldMineLever()) {
+		if(player.getQuestVars().northPerfectGoldMineLever() && player.getQuestVars().northRoomPerfectGoldMineLever() && player.getQuestVars().southPerfectGoldMineLever()) {
 		    player.getActionSender().sendMessage("You pull the lever. You hear something click into place.");
 		} else {
 		    player.getActionSender().sendMessage("You pull the lever.");
 		}
 		player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-		player.setSouthPerfectGoldMineLever(!player.southPerfectGoldMineLever());
+		player.getQuestVars().setSouthPerfectGoldMineLever(!player.getQuestVars().southPerfectGoldMineLever());
 		return true;
 	}
 	return false;
@@ -725,7 +725,7 @@ public class FamilyCrest implements Quest {
 				player.getDialogue().sendNpcChat("Ah, a powerful choice! My enchantment will greatly", "increase the amount of damage you do with bolt spells!", HAPPY);
 				return true;
 			    case 7:
-				if(player.usedFreeGauntletsCharge()) {
+				if(player.getQuestVars().usedFreeGauntletsCharge()) {
 				    player.getDialogue().sendNpcChat("It'll cost you 25,000 coins for me to do this", "enchantment however, It's not particularly easy!", CONTENT);
 				    player.getDialogue().setNextChatId(15);
 				    return true;
@@ -744,7 +744,7 @@ public class FamilyCrest implements Quest {
 				    player.getDialogue().sendGiveItemNpc("After some motions, Johnathon hands you your gauntlets.", new Item(CHAOS_GAUNTLETS));
 				    player.getDialogue().endDialogue();
 				    player.getInventory().replaceItemWithItem(new Item(STEEL_GAUNTLETS), new Item(CHAOS_GAUNTLETS));
-				    player.setHasUsedFreeGauntletsCharge(true);
+				    player.getQuestVars().setHasUsedFreeGauntletsCharge(true);
 				    return true;
 				} else {
 				    player.getDialogue().sendNpcChat("You don't have the gauntlets with you!", "Go get them and come back!", Dialogues.ANNOYED);
@@ -967,7 +967,7 @@ public class FamilyCrest implements Quest {
 				player.getDialogue().sendNpcChat("Ah, a wise choice! My enchantment will greatly", "boost the experience rewarded for smelting gold!", HAPPY);
 				return true;
 			    case 7:
-				if(player.usedFreeGauntletsCharge()) {
+				if(player.getQuestVars().usedFreeGauntletsCharge()) {
 				    player.getDialogue().sendNpcChat("It'll cost you 25,000 coins for me to do this", "enchantment however, It's not particularly easy!", CONTENT);
 				    player.getDialogue().setNextChatId(15);
 				    return true;
@@ -986,7 +986,7 @@ public class FamilyCrest implements Quest {
 				    player.getDialogue().sendGiveItemNpc("After some motions, Avan hands you your pair of gauntlets.", new Item(GOLDSMITH_GAUNTLETS));
 				    player.getDialogue().endDialogue();
 				    player.getInventory().replaceItemWithItem(new Item(STEEL_GAUNTLETS), new Item(GOLDSMITH_GAUNTLETS));
-				    player.setHasUsedFreeGauntletsCharge(true);
+				    player.getQuestVars().setHasUsedFreeGauntletsCharge(true);
 				    return true;
 				} else {
 				    player.getDialogue().sendNpcChat("You don't have the gauntlets with you!", "Go get them and come back!", Dialogues.ANNOYED);
@@ -1217,7 +1217,7 @@ public class FamilyCrest implements Quest {
 				player.getDialogue().sendNpcChat("Ah, a noble choice! My enchantment will decrease", "your chance to burn higher level fish while cooking!", HAPPY);
 				return true;
 			    case 7:
-				if(player.usedFreeGauntletsCharge()) {
+				if(player.getQuestVars().usedFreeGauntletsCharge()) {
 				    player.getDialogue().sendNpcChat("It'll cost you 25,000 coins for me to do this", "enchantment however, It's not particularly easy!", CONTENT);
 				    player.getDialogue().setNextChatId(15);
 				    return true;
@@ -1236,7 +1236,7 @@ public class FamilyCrest implements Quest {
 				    player.getDialogue().sendGiveItemNpc("After some motions, Caleb hands you your pair of gauntlets.", new Item(COOKING_GAUNTLETS));
 				    player.getDialogue().endDialogue();
 				    player.getInventory().replaceItemWithItem(new Item(STEEL_GAUNTLETS), new Item(COOKING_GAUNTLETS));
-				    player.setHasUsedFreeGauntletsCharge(true);
+				    player.getQuestVars().setHasUsedFreeGauntletsCharge(true);
 				    return true;
 				} else {
 				    player.getDialogue().sendNpcChat("You don't have the gauntlets with you!", "Go get them and come back!", Dialogues.ANNOYED);

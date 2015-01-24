@@ -459,7 +459,7 @@ public class TheGrandTree implements Quest {
 	return false;
     }
     public static boolean placedAllTwigs(final Player player) {
-	return player.hasPlacedTTwig() && player.hasPlacedUTwig() && player.hasPlacedZTwig() && player.hasPlacedOTwig();
+	return player.getQuestVars().hasPlacedTTwig() && player.getQuestVars().hasPlacedUTwig() && player.getQuestVars().hasPlacedZTwig() && player.getQuestVars().hasPlacedOTwig();
     }
     public static boolean itemPickupHandling(final Player player, final int id) {
 	if ((id == TWIGS_T || id == TWIGS_U || id == TWIGS_Z || id == TWIGS_O) && player.getInventory().getItemContainer().emptySlots() >= 1) {
@@ -557,7 +557,7 @@ public class TheGrandTree implements Quest {
 		    case TWIGS_T:
 			player.getActionSender().sendMessage("You place the 'T' twigs on the pillar.");
 			player.getUpdateFlags().sendAnimation(PLACE_ANIM);
-			player.setPlacedTTwig(true);
+			player.getQuestVars().setPlacedTTwig(true);
 			if(placedAllTwigs(player) && player.getQuestStage(29) == TWIGS_GET) {
 			    player.getActionSender().sendMessage("You hear something grind and click into place in the trapdoor.");
 			    player.setQuestStage(29, TRAPDOOR_OPEN);
@@ -580,7 +580,7 @@ public class TheGrandTree implements Quest {
 		    case TWIGS_U:
 			player.getActionSender().sendMessage("You place the 'U' twigs on the pillar.");
 			player.getUpdateFlags().sendAnimation(PLACE_ANIM);
-			player.setPlacedUTwig(true);
+			player.getQuestVars().setPlacedUTwig(true);
 			if(placedAllTwigs(player) && player.getQuestStage(29) == TWIGS_GET) {
 			    player.getActionSender().sendMessage("You hear something grind and click into place in the trapdoor.");
 			    player.setQuestStage(29, TRAPDOOR_OPEN);
@@ -603,7 +603,7 @@ public class TheGrandTree implements Quest {
 		    case TWIGS_Z:
 			player.getActionSender().sendMessage("You place the 'Z' twigs on the pillar.");
 			player.getUpdateFlags().sendAnimation(PLACE_ANIM);
-			player.setPlacedZTwig(true);
+			player.getQuestVars().setPlacedZTwig(true);
 			if(placedAllTwigs(player) && player.getQuestStage(29) == TWIGS_GET) {
 			    player.getActionSender().sendMessage("You hear something grind and click into place in the trapdoor.");
 			    player.setQuestStage(29, TRAPDOOR_OPEN);
@@ -626,7 +626,7 @@ public class TheGrandTree implements Quest {
 		    case TWIGS_O:
 			player.getActionSender().sendMessage("You place the 'O' twigs on the pillar.");
 			player.getUpdateFlags().sendAnimation(PLACE_ANIM);
-			player.setPlacedOTwig(true);
+			player.getQuestVars().setPlacedOTwig(true);
 			if(placedAllTwigs(player) && player.getQuestStage(29) == TWIGS_GET) {
 			    player.getActionSender().sendMessage("You hear something grind and click into place in the trapdoor.");
 			    player.setQuestStage(29, TRAPDOOR_OPEN);
@@ -762,7 +762,7 @@ public class TheGrandTree implements Quest {
 		    player.getDialogue().sendNpcChat("Hey! Get away from there!", ANGRY_1);
 		    return true;
 		} else {
-		    if(!player.getShipyardGateOpen() && player.getPosition().getX() < 2945) {
+		    if(!player.getQuestVars().getShipyardGateOpen() && player.getPosition().getX() < 2945) {
 			Dialogues.startDialogue(player, SHIPYARD_WORKER);
 			return true;
 		    } else {
@@ -1006,7 +1006,7 @@ public class TheGrandTree implements Quest {
 			    case 14:
 				player.getDialogue().sendNpcChat("Sorry to have kept you.", CONTENT);
 				player.getDialogue().endDialogue();
-				player.setShipyardGateOpen(true);
+				player.getQuestVars().setShipyardGateOpen(true);
 				return true;
 			    case 25:
 				player.getDialogue().sendNpcChat("What are you trying to pull?! That's not", "how the password goes!", ANGRY_1);

@@ -87,17 +87,23 @@ public class TemplateQuest implements Quest {
 	int questStage = player.getQuestStage(getQuestID());
 	switch (questStage) {
 	    case QUEST_STARTED:
-		player.getActionSender().sendString("@str@" + "", 8147); //default quest log to begin quest
+		player.getActionSender().sendString("@str@" + "", 8147);
 		//Change
 		player.getActionSender().sendString("", 8149);
 		break;
 	    case QUEST_COMPLETE:
-		player.getActionSender().sendString("@str@" + "", 8147); //default quest log to begin quest
+		player.getActionSender().sendString("@str@" + "", 8147);
 		//Change
 		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8177);
 		break;
 	    default:
-		player.getActionSender().sendString("@str@" + "", 8147); //default quest log to begin quest
+		player.getActionSender().sendString("Talk to @dre@ x @bla@in the @dre@ x @bla@to begin.", 8147);
+		player.getActionSender().sendString("@dre@Requirements:", 8148);
+		if (QuestHandler.questCompleted(player, -1)) {
+		    player.getActionSender().sendString("@str@-Template Quest.", 8150);
+		} else {
+		    player.getActionSender().sendString("@dbl@-Template Quest.", 8150);
+		}
 		//Change
 		break;
 	}
@@ -155,8 +161,7 @@ public class TemplateQuest implements Quest {
     
     public boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
-	    case ITEM:
-		return true;
+	    
 	}
 	return false;
     }

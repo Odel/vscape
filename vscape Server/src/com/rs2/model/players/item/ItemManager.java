@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.skills.farming.FarmingConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -67,26 +68,45 @@ public class ItemManager {
         World.submit(new Tick(1, true) {
 			@Override
 			public void execute() {
-				if (!player.checkTask(task)) {
-					this.stop();
-					return;
+			    GroundItem item = GroundItemManager.getManager().findItem(player, itemId, pos);
+			    if (item == null) {
+				return;
+			    }
+			    if (!player.checkTask(task)) {
+				this.stop();
+				return;
+			    }
+			    if (!Misc.goodDistance(player.getPosition(), pos, 1)) {
+				return;
+			    }
+			    if (itemId == NatureSpirit.WASHING_BOWL) {
+				player.getUpdateFlags().sendAnimation(832);
+				boolean pickedUp = false;
+				if (item.getItem().getDefinition().isStackable()) {
+				    if (player.getInventory().addItem(new Item(player.getClickId(), item.getItem().getCount()))) {
+					pickedUp = true;
+				    }
+				} else if (player.getInventory().addItem(new Item(player.getClickId(), 1))) {
+				    pickedUp = true;
 				}
-				if (!Misc.goodDistance(player.getPosition(), pos, 1)) {
-					return;
+				if (pickedUp) {
+				    player.getEquipment().updateWeight();
+				    GroundItemManager.getManager().destroyItem(item);
 				}
-				if (!Misc.checkClip(player.getPosition(), pos, false)) {
-					return;
+				if (!player.getInventory().playerHasItem(NatureSpirit.MIRROR)) {
+				    player.getActionSender().sendMessage("You find a small mirror under the washing bowl.");
+				    player.getInventory().addItem(new Item(NatureSpirit.MIRROR));
 				}
-				if (Misc.checkClip(player.getPosition(), pos, true) && !player.getPosition().equals(pos)) {
-					return;
-				}
+			    }
+			    if (!Misc.checkClip(player.getPosition(), pos, false)) {
+				return;
+			    }
+			    if (Misc.checkClip(player.getPosition(), pos, true) && !player.getPosition().equals(pos)) {
+				return;
+			    }
                 if (player.getPrimaryDirection() >= 0 || player.getSecondaryDirection() >= 0)
                     return;
                 stop();
-
-                GroundItem item = GroundItemManager.getManager().findItem(player, itemId, pos);
-                if (item == null)
-                    return;
                 
                 if(item.getDropper() != null && item.getDropper().getEntity() != null && item.getViewFirst() != null && item.getViewFirst().getEntity() != null && item.getDropper().getEntity().isPlayer() && item.getViewFirst().getEntity().isPlayer())
                 {
@@ -101,7 +121,7 @@ public class ItemManager {
 	                	return;
                 	}
                 }
-
+		
                 boolean takeFromTable = !player.getPosition().equals(pos) && !Misc.checkClip(player.getPosition(), pos, true);
             	if(takeFromTable)
             		player.getUpdateFlags().sendAnimation(832);
@@ -120,6 +140,7 @@ public class ItemManager {
 				}
 			}
 		});
+		
 	}
 
 	public int getItemValue(int itemId, String type) {

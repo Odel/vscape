@@ -181,7 +181,7 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("You are now a member of the Black Arm Gang.", 8160);
 	    player.getActionSender().sendString("The Black Arm half of the shield should be nearby.", 8161);
         }
-	else if (questStage == SHIELD_TO_CURATOR && player.isPhoenixGang()) {
+	else if (questStage == SHIELD_TO_CURATOR && player.getQuestVars().isPhoenixGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -198,7 +198,7 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("Take your half of the shield to the musuem curator.", 8163);
 	    player.getActionSender().sendString("Your partner will have the other half-certificate.", 8164);
         }
-	else if (questStage == SHIELD_TO_CURATOR && player.isBlackArmGang()) {
+	else if (questStage == SHIELD_TO_CURATOR && player.getQuestVars().isBlackArmGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -215,7 +215,7 @@ public class ShieldOfArrav implements Quest {
 	    player.getActionSender().sendString("Take your half of the shield to the musuem curator.", 8163);
 	    player.getActionSender().sendString("Your partner will have the other half-certificate.", 8164);
         }
-	else if (questStage == CERTS_TO_ROALD && player.isPhoenixGang()) {
+	else if (questStage == CERTS_TO_ROALD && player.getQuestVars().isPhoenixGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -234,7 +234,7 @@ public class ShieldOfArrav implements Quest {
 	    
 	    player.getActionSender().sendString("Take your certificate to King Roald.", 8167);
         }
-	else if (questStage == CERTS_TO_ROALD && player.isBlackArmGang()) {
+	else if (questStage == CERTS_TO_ROALD && player.getQuestVars().isBlackArmGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -253,7 +253,7 @@ public class ShieldOfArrav implements Quest {
 	    
 	    player.getActionSender().sendString("Take your certificate to King Roald.", 8167);
         }
-	else if(questStage == QUEST_COMPLETE && player.isPhoenixGang()) {
+	else if(questStage == QUEST_COMPLETE && player.getQuestVars().isPhoenixGang()) {
 	    player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -273,7 +273,7 @@ public class ShieldOfArrav implements Quest {
 	    
 	    player.getActionSender().sendString("@red@You have completed this quest!", 8169);
 	}
-	else if (questStage == QUEST_COMPLETE && player.isBlackArmGang()) {
+	else if (questStage == QUEST_COMPLETE && player.getQuestVars().isBlackArmGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -293,7 +293,7 @@ public class ShieldOfArrav implements Quest {
 	    
 	    player.getActionSender().sendString("@red@You have completed this quest!", 8169);
 	}
-	else if (questStage == QUEST_COMPLETE && !player.isBlackArmGang() && !player.isPhoenixGang()) {
+	else if (questStage == QUEST_COMPLETE && !player.getQuestVars().isBlackArmGang() && !player.getQuestVars().isPhoenixGang()) {
             player.getActionSender().sendString(getQuestName(), 8144);
             player.getActionSender().sendString("@str@" + "To start this quest, talk with Reldo.", 8147);
 	    player.getActionSender().sendString("@str@" + "He can be found in service to Varrock, as the librarian.", 8148);
@@ -420,7 +420,7 @@ public class ShieldOfArrav implements Quest {
 		    return true;
 		}
 	    case 2397: //phoenix gang door
-		if(player.isPhoenixGang() && x == 3247 && y == 9779) {
+		if(player.getQuestVars().isPhoenixGang() && x == 3247 && y == 9779) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() > 9779 ? -1 : 1, true);
 		    player.getActionSender().walkThroughDoor(2397, 3247, 9779, 0);
 		    return true;
@@ -442,7 +442,7 @@ public class ShieldOfArrav implements Quest {
 		}
 	    return false;
 	    case 2399: //black arm gang door
-		if(player.isBlackArmGang() && x == 3185 && y == 3388) {
+		if(player.getQuestVars().isBlackArmGang() && x == 3185 && y == 3388) {
 		    player.getActionSender().walkTo(0, player.getPosition().getY() < 3388 ? 1 : -1, true);
 		    player.getActionSender().walkThroughDoor(2399, 3185, 3388, 0);
 		    return true;
@@ -565,7 +565,7 @@ public class ShieldOfArrav implements Quest {
 				return true;
 			    case 15:
 				player.getDialogue().sendNpcChat("Good, you were up to the task.", "I suppose you are worthy of the gang.", CONTENT);
-				player.joinBlackArmGang(true);
+				player.getQuestVars().joinBlackArmGang(true);
 				player.setQuestStage(13, 7);
 				return true;
 			    case 16:
@@ -861,7 +861,7 @@ public class ShieldOfArrav implements Quest {
 				return true;
 			    case 15:
 				player.getDialogue().sendNpcChat("Excellent. You were serious.", "I suppose you are worthy of the gang.", CONTENT);
-				player.joinPhoenixGang(true);
+				player.getQuestVars().joinPhoenixGang(true);
 				player.setQuestStage(13, 4);
 				return true;
 			    case 16:

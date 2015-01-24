@@ -281,7 +281,7 @@ public class RecruitmentDrive implements Quest {
     
     public static void enterTrainingGrounds(final Player player) {
 	player.fadeTeleport(FIRST_ROOM);
-	player.templeKnightRiddleAnswer = RIDDLE_ANSWERS[Misc.randomMinusOne(RIDDLE_ANSWERS.length)];
+	player.getQuestVars().templeKnightRiddleAnswer = RIDDLE_ANSWERS[Misc.randomMinusOne(RIDDLE_ANSWERS.length)];
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    @Override
 	    public void execute(CycleEventContainer b) {
@@ -303,13 +303,13 @@ public class RecruitmentDrive implements Quest {
 	player.getInventory().removeItem(new Item(CHICKEN, player.getInventory().getItemAmount(CHICKEN)));
 	player.getInventory().removeItem(new Item(FOX, player.getInventory().getItemAmount(FOX)));
 	player.getInventory().removeItem(new Item(GRAIN, player.getInventory().getItemAmount(GRAIN)));
-	player.foxRight = true;
-	player.chickenRight = true;
-	player.grainRight = true;
-	player.foxLeft = false;
-	player.chickenLeft = false;
-	player.grainLeft = false;
-	player.receivedPacket = false;
+	player.getQuestVars().foxRight = true;
+	player.getQuestVars().chickenRight = true;
+	player.getQuestVars().grainRight = true;
+	player.getQuestVars().foxLeft = false;
+	player.getQuestVars().chickenLeft = false;
+	player.getQuestVars().grainLeft = false;
+	player.getQuestVars().receivedPacket = false;
 	player.fadeTeleport(new Position(Constants.FALADOR_X, Constants.FALADOR_Y, 0));
     }
     
@@ -372,18 +372,18 @@ public class RecruitmentDrive implements Quest {
 	player.getActionSender().sendString("A", 13885);
 	player.getActionSender().sendString("A", 13886);
 	player.getActionSender().sendString("A", 13887);
-	player.comboLockLetter1 = 1;
-	player.comboLockLetter2 = 1;
-	player.comboLockLetter3 = 1;
-	player.comboLockLetter4 = 1;
+	player.getQuestVars().comboLockLetter1 = 1;
+	player.getQuestVars().comboLockLetter2 = 1;
+	player.getQuestVars().comboLockLetter3 = 1;
+	player.getQuestVars().comboLockLetter4 = 1;
     }
     
     public static boolean comboLockCorrect(final Player player) {
-	String concat = GlobalVariables.ALPHABET.get(player.comboLockLetter1);
-	concat = concat.concat(GlobalVariables.ALPHABET.get(player.comboLockLetter2));
-	concat = concat.concat(GlobalVariables.ALPHABET.get(player.comboLockLetter3));
-	concat = concat.concat(GlobalVariables.ALPHABET.get(player.comboLockLetter4));
-	return concat.equals(player.templeKnightRiddleAnswer);
+	String concat = GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter1);
+	concat = concat.concat(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter2));
+	concat = concat.concat(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter3));
+	concat = concat.concat(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter4));
+	return concat.equals(player.getQuestVars().templeKnightRiddleAnswer);
     }
     
     public static void handleDeath(final Player player, Npc npc) {
@@ -593,9 +593,9 @@ public class RecruitmentDrive implements Quest {
 		    player.getInventory().addItem(new Item(FOX));
 		    player.getActionSender().sendMessage("You gently pick up the fox.");
 		    if (player.getPosition().getX() > 2483) {
-			player.foxRight = false;
+			player.getQuestVars().foxRight = false;
 		    } else {
-			player.foxLeft = false;
+			player.getQuestVars().foxLeft = false;
 		    }
 		    return true;
 		}
@@ -612,9 +612,9 @@ public class RecruitmentDrive implements Quest {
 		    player.getInventory().addItem(new Item(CHICKEN));
 		    player.getActionSender().sendMessage("You gently pick up the chicken.");
 		    if (player.getPosition().getX() > 2483) {
-			player.chickenRight = false;
+			player.getQuestVars().chickenRight = false;
 		    } else {
-			player.chickenLeft = false;
+			player.getQuestVars().chickenLeft = false;
 		    }
 		    return true;
 		}
@@ -631,9 +631,9 @@ public class RecruitmentDrive implements Quest {
 		    player.getInventory().addItem(new Item(GRAIN));
 		    player.getActionSender().sendMessage("You pick up the sack of grain.");
 		    if (player.getPosition().getX() > 2483) {
-			player.grainRight = false;
+			player.getQuestVars().grainRight = false;
 		    } else {
-			player.grainLeft = false;
+			player.getQuestVars().grainLeft = false;
 		    }
 		    return true;
 		}
@@ -649,11 +649,11 @@ public class RecruitmentDrive implements Quest {
 		if(player.getPosition().getX() > 2483) {
 		    ObjectHandler.getInstance().removeObject(chicken.getLocation().getX(), chicken.getLocation().getY(), z, 10);
 		    new GameObject(CHICKEN_OBJ, chicken.getLocation().getX(), chicken.getLocation().getY(), z, chicken.getRotation(), 10, 0, 999999, false);
-		    player.chickenRight = true;
+		    player.getQuestVars().chickenRight = true;
 		} else {
 		    ObjectHandler.getInstance().removeObject(2473, 4970, z, 10);
 		    new GameObject(CHICKEN_OBJ, 2473, 4970, z, 3, 10, 0, 999999, false);
-		    player.chickenLeft = true;
+		    player.getQuestVars().chickenLeft = true;
 		}
 		break;
 	    case GRAIN:
@@ -661,11 +661,11 @@ public class RecruitmentDrive implements Quest {
 		if(player.getPosition().getX() > 2483) {
 		    ObjectHandler.getInstance().removeObject(grain.getLocation().getX(), grain.getLocation().getY(), z, 10);
 		    new GameObject(GRAIN_OBJ, grain.getLocation().getX(), grain.getLocation().getY(), z, grain.getRotation(), 10, 0, 999999, false);
-		    player.grainRight = true;
+		    player.getQuestVars().grainRight = true;
 		} else {
 		    ObjectHandler.getInstance().removeObject(2474, 4970, z, 10);
 		    new GameObject(GRAIN_OBJ, 2474, 4970, z, 2, 10, 0, 999999, false);
-		    player.grainLeft = true;
+		    player.getQuestVars().grainLeft = true;
 		}
 		break;
 	    case FOX:
@@ -673,36 +673,36 @@ public class RecruitmentDrive implements Quest {
 		if(player.getPosition().getX() > 2483) {
 		    ObjectHandler.getInstance().removeObject(fox.getLocation().getX(), fox.getLocation().getY(), z, 10);
 		    new GameObject(FOX_OBJ, fox.getLocation().getX(), fox.getLocation().getY(), z, fox.getRotation(), 10, 0, 999999, false);
-		    player.foxRight = true;
+		    player.getQuestVars().foxRight = true;
 		} else {
 		    ObjectHandler.getInstance().removeObject(2475, 4970, z, 10);
 		    new GameObject(FOX_OBJ, 2475, 4970, z, 2, 10, 0, 999999, false);
-		    player.foxLeft = true;
+		    player.getQuestVars().foxLeft = true;
 		}
 		break;
 	}
-	if(player.foxRight && player.chickenRight && !player.grainRight) {
+	if(player.getQuestVars().foxRight && player.getQuestVars().chickenRight && !player.getQuestVars().grainRight) {
 	    player.getActionSender().sendMessage("The fox has eaten the chicken!");
-	    player.chickenRight = false;
+	    player.getQuestVars().chickenRight = false;
 	    ObjectHandler.getInstance().removeObject(2487, 4974, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2487, 4974, player.getPosition().getZ(), 0, 10, 0, 999999, false);
-	} else if(player.chickenRight && player.grainRight && !player.foxRight) {
+	} else if(player.getQuestVars().chickenRight && player.getQuestVars().grainRight && !player.getQuestVars().foxRight) {
 	    player.getActionSender().sendMessage("The chicken has eaten the grain!");
-	    player.grainRight = false;
+	    player.getQuestVars().grainRight = false;
 	    ObjectHandler.getInstance().removeObject(2486, 4974, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2486, 4974, player.getPosition().getZ(), 0, 10, 0, 999999, false);
-	} else if(player.foxLeft && player.chickenLeft && !player.grainLeft) {
+	} else if(player.getQuestVars().foxLeft && player.getQuestVars().chickenLeft && !player.getQuestVars().grainLeft) {
 	    player.getActionSender().sendMessage("The fox has eaten the chicken!");
-	    player.chickenLeft = false;
+	    player.getQuestVars().chickenLeft = false;
 	    ObjectHandler.getInstance().removeObject(2473, 4970, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2473, 4970, player.getPosition().getZ(), 0, 10, 0, 999999, false);
-	} else if(player.chickenLeft && player.grainLeft && !player.foxLeft) {
+	} else if(player.getQuestVars().chickenLeft && player.getQuestVars().grainLeft && !player.getQuestVars().foxLeft) {
 	    player.getActionSender().sendMessage("The chicken has eaten the grain!");
-	    player.grainLeft = false;
+	    player.getQuestVars().grainLeft = false;
 	    ObjectHandler.getInstance().removeObject(2474, 4970, player.getPosition().getZ(), 10);
 	    new GameObject(Constants.EMPTY_OBJECT, 2474, 4970, player.getPosition().getZ(), 0, 10, 0, 999999, false);
 	}
-	if(player.foxLeft && player.chickenLeft && player.grainLeft && !player.foxRight && !player.chickenRight && !player.grainRight) {
+	if(player.getQuestVars().foxLeft && player.getQuestVars().chickenLeft && player.getQuestVars().grainLeft && !player.getQuestVars().foxRight && !player.getQuestVars().chickenRight && !player.getQuestVars().grainRight) {
 	    player.setQuestStage(35, THIRD_ROOM_COMPLETE);
 	    Dialogues.startDialogue(player, SIR_SPISHYUS);
 	}
@@ -719,65 +719,65 @@ public class RecruitmentDrive implements Quest {
 	    case 54064: //Combo lock 1 L
 	    case 54065: //Combo lock 1 R
 		int change1 = buttonId == 54065 ? 1 : -1;
-		if (player.comboLockLetter1 == 1 && change1 == -1) {
-		    player.comboLockLetter1 = 26;
+		if (player.getQuestVars().comboLockLetter1 == 1 && change1 == -1) {
+		    player.getQuestVars().comboLockLetter1 = 26;
 		    player.getActionSender().sendString("Z", 13884);
 		    return true;
-		} else if (player.comboLockLetter1 == 26 && change1 == 1) {
-		    player.comboLockLetter1 = 1;
+		} else if (player.getQuestVars().comboLockLetter1 == 26 && change1 == 1) {
+		    player.getQuestVars().comboLockLetter1 = 1;
 		    player.getActionSender().sendString("A", 13884);
 		    return true;
 		} else {
-		    player.comboLockLetter1 += change1;
-		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.comboLockLetter1), 13884);
+		    player.getQuestVars().comboLockLetter1 += change1;
+		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter1), 13884);
 		}
 		return true;
 	    case 54066: //Combo lock 2 L
 	    case 54067: //Combo lock 2 R
 		int change2 = buttonId == 54067 ? 1 : -1;
-		if (player.comboLockLetter2 == 1 && change2 == -1) {
-		    player.comboLockLetter2 = 26;
+		if (player.getQuestVars().comboLockLetter2 == 1 && change2 == -1) {
+		    player.getQuestVars().comboLockLetter2 = 26;
 		    player.getActionSender().sendString("Z", 13885);
 		    return true;
-		} else if (player.comboLockLetter2 == 26 && change2 == 1) {
-		    player.comboLockLetter2 = 1;
+		} else if (player.getQuestVars().comboLockLetter2 == 26 && change2 == 1) {
+		    player.getQuestVars().comboLockLetter2 = 1;
 		    player.getActionSender().sendString("A", 13885);
 		    return true;
 		} else {
-		    player.comboLockLetter2 += change2;
-		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.comboLockLetter2), 13885);
+		    player.getQuestVars().comboLockLetter2 += change2;
+		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter2), 13885);
 		}
 		return true;
 	    case 54068: //Combo lock 3 L
 	    case 54069: //Combo lock 3 R
 		int change3 = buttonId == 54069 ? 1 : -1;
-		if (player.comboLockLetter3 == 1 && change3 == -1) {
-		    player.comboLockLetter3 = 26;
+		if (player.getQuestVars().comboLockLetter3 == 1 && change3 == -1) {
+		    player.getQuestVars().comboLockLetter3 = 26;
 		    player.getActionSender().sendString("Z", 13886);
 		    return true;
-		} else if (player.comboLockLetter3 == 26 && change3 == 1) {
-		    player.comboLockLetter3 = 1;
+		} else if (player.getQuestVars().comboLockLetter3 == 26 && change3 == 1) {
+		    player.getQuestVars().comboLockLetter3 = 1;
 		    player.getActionSender().sendString("A", 13886);
 		    return true;
 		} else {
-		    player.comboLockLetter3 += change3;
-		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.comboLockLetter3), 13886);
+		    player.getQuestVars().comboLockLetter3 += change3;
+		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter3), 13886);
 		}
 		return true;
 	    case 54070: //Combo lock 4 L
 	    case 54071: //Combo lock 4 R
 		int change4 = buttonId == 54071 ? 1 : -1;
-		if (player.comboLockLetter4 == 1 && change4 == -1) {
-		    player.comboLockLetter4 = 26;
+		if (player.getQuestVars().comboLockLetter4 == 1 && change4 == -1) {
+		    player.getQuestVars().comboLockLetter4 = 26;
 		    player.getActionSender().sendString("Z", 13887);
 		    return true;
-		} else if (player.comboLockLetter4 == 26 && change4 == 1) {
-		    player.comboLockLetter4 = 1;
+		} else if (player.getQuestVars().comboLockLetter4 == 26 && change4 == 1) {
+		    player.getQuestVars().comboLockLetter4 = 1;
 		    player.getActionSender().sendString("A", 13887);
 		    return true;
 		} else {
-		    player.comboLockLetter4 += change4;
-		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.comboLockLetter4), 13887);
+		    player.getQuestVars().comboLockLetter4 += change4;
+		    player.getActionSender().sendString(GlobalVariables.ALPHABET.get(player.getQuestVars().comboLockLetter4), 13887);
 		}
 		return true;
 	    case 54074: //Enter combo
@@ -897,17 +897,17 @@ public class RecruitmentDrive implements Quest {
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
 				d.sendNpcChat("Ah, welcome " + player.getUsername() + ".", "I have but one clue for you to pass this room's puzzle:", "'Patience'.", CONTENT);
-				player.receivedPacket = false;
+				player.getQuestVars().receivedPacket = false;
 				return true;
 			    case 2:
 				player.getActionSender().removeInterfaces();
 				d.endDialogue();
-				player.receivedPacket = false;
+				player.getQuestVars().receivedPacket = false;
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				    int count = 0;
 				    @Override
 				    public void execute(CycleEventContainer b) {
-					if(count > 10 && player.receivedPacket) {
+					if(count > 10 && player.getQuestVars().receivedPacket) {
 					    b.stop();
 					} else if (count == 15) {
 					    player.setQuestStage(35, FOURTH_ROOM_COMPLETE);
@@ -1024,9 +1024,9 @@ public class RecruitmentDrive implements Quest {
 				    case 1:
 				    case 2:
 					if(optionId == 2) {
-					    player.templeKnightRiddleAnswer = RIDDLE_ANSWERS[Misc.randomMinusOne(RIDDLE_ANSWERS.length)];
+					    player.getQuestVars().templeKnightRiddleAnswer = RIDDLE_ANSWERS[Misc.randomMinusOne(RIDDLE_ANSWERS.length)];
 					}
-					switch (player.templeKnightRiddleAnswer) {
+					switch (player.getQuestVars().templeKnightRiddleAnswer) {
 					    case "TIME":
 						d.sendNpcChat("The riddle of mine may confuse,", "I am quite sure of that.", "Maybe you should closely peruse", "Every word I have spat?", CONTENT);
 						d.endDialogue();
@@ -1109,15 +1109,15 @@ public class RecruitmentDrive implements Quest {
 				d.sendStatement("Sir Tiffy Cashien waves his hands around you...");
 				return true;
 			    case 10:
-				if(!player.isGazeOfSaradomin()) {
+				if(!player.getQuestVars().isGazeOfSaradomin()) {
 				    d.sendStatement("Your respawn point is now the White Knight Castle.");
 				    d.endDialogue();
-				    player.setGazeOfSaradomin(true);
+				    player.getQuestVars().setGazeOfSaradomin(true);
 				    return true;
 				} else {
 				    d.sendStatement("Your respawn point is now Lumbridge Castle.");
 				    d.endDialogue();
-				    player.setGazeOfSaradomin(false);
+				    player.getQuestVars().setGazeOfSaradomin(false);
 				    return true;
 				}
 			    case 15:

@@ -160,7 +160,7 @@ public class PlayerSaveParser {
 		        	if(itemData.get("lostgodbook") != null){
 		        		player.setLostGodBook(itemData.get("lostgodbook").getAsInt());
 		        	}
-	                player.setHasUsedFreeGauntletsCharge(itemData.get("usedFreeGauntletsCharge").getAsBoolean());
+	                player.getQuestVars().setHasUsedFreeGauntletsCharge(itemData.get("usedFreeGauntletsCharge").getAsBoolean());
 	                player.setDefender(itemData.get("defender").getAsInt());
 	                player.setDfsCharges(itemData.get("dfsCharges").getAsInt());
 	                JsonArray pouchData = itemData.getAsJsonArray("pouchData");
@@ -401,29 +401,29 @@ public class PlayerSaveParser {
 		            player.setQuestPoints(quests.get("questpoints").getAsInt());
 		            JsonObject questVars = quests.getAsJsonObject("questVars");
 		            if(questVars != null) {
-			            player.joinPhoenixGang(questVars.get("phoenixGang").getAsBoolean());
-			            player.joinBlackArmGang(questVars.get("blackArmGang").getAsBoolean());
-			            player.setMelzarsDoorUnlock(questVars.get("melzarsDoorUnlock").getAsBoolean());
-		            	player.setBananaCrate(questVars.get("bananaCrate").getAsBoolean());
-		            	player.setBananaCrateCount(questVars.get("bananaCrateCount").getAsInt());
-		            	player.setEctoWorshipCount(questVars.get("ectoWorshipCount").getAsInt());
-		            	player.dyeGhostsAhoyFlag("top", questVars.get("topHalfFlag").getAsString());
-		            	player.dyeGhostsAhoyFlag("bottom", questVars.get("bottomHalfFlag").getAsString());
-		            	player.dyeGhostsAhoyFlag("skull", questVars.get("skullFlag").getAsString());
-			    		player.setDesiredGhostsAhoyFlag("top", questVars.get("desiredTopHalfFlag").getAsString());
-			    		player.setDesiredGhostsAhoyFlag("bottom", questVars.get("desiredBottomHalfFlag").getAsString());
-			    		player.setDesiredGhostsAhoyFlag("top", questVars.get("desiredSkullFlag").getAsString());
-		            	player.setPetitionSigned(questVars.get("petitionSigned").getAsBoolean());
-		            	player.setGivenSnailSlime(questVars.get("snailSlime").getAsBoolean());
-		            	player.setGivenIdPapers(questVars.get("idPapers").getAsBoolean());
+			            player.getQuestVars().joinPhoenixGang(questVars.get("phoenixGang").getAsBoolean());
+			            player.getQuestVars().joinBlackArmGang(questVars.get("blackArmGang").getAsBoolean());
+			            player.getQuestVars().setMelzarsDoorUnlock(questVars.get("melzarsDoorUnlock").getAsBoolean());
+				    player.getQuestVars().setBananaCrate(questVars.get("bananaCrate").getAsBoolean());
+				    player.getQuestVars().setBananaCrateCount(questVars.get("bananaCrateCount").getAsInt());
+				    player.setEctoWorshipCount(questVars.get("ectoWorshipCount").getAsInt());
+				    player.getQuestVars().dyeGhostsAhoyFlag("top", questVars.get("topHalfFlag").getAsString());
+				    player.getQuestVars().dyeGhostsAhoyFlag("bottom", questVars.get("bottomHalfFlag").getAsString());
+				    player.getQuestVars().dyeGhostsAhoyFlag("skull", questVars.get("skullFlag").getAsString());
+				    player.getQuestVars().setDesiredGhostsAhoyFlag("top", questVars.get("desiredTopHalfFlag").getAsString());
+				    player.getQuestVars().setDesiredGhostsAhoyFlag("bottom", questVars.get("desiredBottomHalfFlag").getAsString());
+				    player.getQuestVars().setDesiredGhostsAhoyFlag("top", questVars.get("desiredSkullFlag").getAsString());
+				    player.getQuestVars().setPetitionSigned(questVars.get("petitionSigned").getAsBoolean());
+				    player.getQuestVars().setGivenSnailSlime(questVars.get("snailSlime").getAsBoolean());
+				    player.getQuestVars().setGivenIdPapers(questVars.get("idPapers").getAsBoolean());
 		            	if(questVars.get("hasShotGrip") != null){
-		            		player.setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
+		            		player.getQuestVars().setShotGrip(questVars.get("hasShotGrip").getAsBoolean());
 		            	}
 				if(questVars.get("ballistaIndex") != null){
-		            		player.setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
+		            		player.getQuestVars().setBallistaIndex(questVars.get("ballistaIndex").getAsInt());
 		            	}
 				if(questVars.get("gazeOfSaradomin") != null) {
-					player.setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
+					player.getQuestVars().setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
 				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");

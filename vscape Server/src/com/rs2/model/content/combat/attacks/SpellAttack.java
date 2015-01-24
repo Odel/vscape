@@ -43,6 +43,11 @@ public class SpellAttack extends BasicAttack {
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
 			}
+			if (getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 1052) {
+				((Player) getAttacker()).getActionSender().sendMessage("You cannot cast a spell on this npc.");
+				((Player) getAttacker()).setCastedSpell(null);
+				return AttackUsableResponse.Type.FAIL;
+			}
 			if(getAttacker().isPlayer() && (getAttacker().inWarriorGuildArena() || getAttacker().inWarriorGuild()) ) {
 			    ((Player) getAttacker()).getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
 			    return AttackUsableResponse.Type.FAIL;

@@ -212,14 +212,14 @@ public class RuneDraw {
 	    player.getInventory().addItem(new Item(995, (bet * 2)));
 	}
 	if (questFlag) {
-	    if (!player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-		player.setRuneDrawWins(0, true);
-	    } else if (player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-		player.setRuneDrawWins(1, true);
-	    } else if (player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-		player.setRuneDrawWins(2, true);
+	    if (!player.getQuestVars().getRuneDrawWins()[0] && !player.getQuestVars().getRuneDrawWins()[1] && !player.getQuestVars().getRuneDrawWins()[2]) {
+		player.getQuestVars().setRuneDrawWins(0, true);
+	    } else if (player.getQuestVars().getRuneDrawWins()[0] && !player.getQuestVars().getRuneDrawWins()[1] && !player.getQuestVars().getRuneDrawWins()[2]) {
+		player.getQuestVars().setRuneDrawWins(1, true);
+	    } else if (player.getQuestVars().getRuneDrawWins()[0] && player.getQuestVars().getRuneDrawWins()[1] && !player.getQuestVars().getRuneDrawWins()[2]) {
+		player.getQuestVars().setRuneDrawWins(2, true);
 	    }
-	    player.setJustWonRuneDraw(true);
+	    player.getQuestVars().setJustWonRuneDraw(true);
 	}
 	gameOver = true;
     }
@@ -230,7 +230,7 @@ public class RuneDraw {
 	player.getActionSender().sendString("", DRAW_TEXT);
 	player.getActionSender().sendString("", HOLD_TEXT);
 	if(questFlag) {
-	    player.setJustWonRuneDraw(false);
+	    player.getQuestVars().setJustWonRuneDraw(false);
 	}
 	gameOver = true;
     }

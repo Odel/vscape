@@ -153,7 +153,7 @@ public class PacketManager {
     				
     			}
 			if(player.inTempleKnightsTraining() && player.getQuestStage(35) == 5) {
-			    player.receivedPacket = true;
+			    player.getQuestVars().receivedPacket = true;
 			}
                 packetHandler.handlePacket(player, packet);
                 player.getTimeoutStopwatch().reset();

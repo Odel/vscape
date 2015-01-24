@@ -814,7 +814,7 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
-		    	player.setBananaCrateCount(count);
+		    	player.getQuestVars().setBananaCrateCount(count);
 				sender.getActionSender().sendMessage("Set " + player.getUsername() + "'s banana crate count to " + count + ".", true);
 		    } catch (Exception e) {
 		    	sender.getActionSender().sendMessage("Could not find player.", true);
@@ -825,8 +825,8 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
-		    	player.joinBlackArmGang(false);
-		    	player.joinPhoenixGang(false);
+		    	player.getQuestVars().joinBlackArmGang(false);
+		    	player.getQuestVars().joinPhoenixGang(false);
 		    	sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s gangs.", true);
 		    } catch (Exception e) {
 		    	sender.getActionSender().sendMessage("Could not find player.", true);
@@ -837,12 +837,12 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
 		    try {
-				player.dyeGhostsAhoyFlag("top", "undyed");
-				player.dyeGhostsAhoyFlag("bottom", "undyed");
-				player.dyeGhostsAhoyFlag("skull", "undyed");
-				player.setDesiredGhostsAhoyFlag("top", "undyed");
-				player.setDesiredGhostsAhoyFlag("bottom", "undyed");
-				player.setDesiredGhostsAhoyFlag("skull", "undyed");
+				player.getQuestVars().dyeGhostsAhoyFlag("top", "undyed");
+				player.getQuestVars().dyeGhostsAhoyFlag("bottom", "undyed");
+				player.getQuestVars().dyeGhostsAhoyFlag("skull", "undyed");
+				player.getQuestVars().setDesiredGhostsAhoyFlag("top", "undyed");
+				player.getQuestVars().setDesiredGhostsAhoyFlag("bottom", "undyed");
+				player.getQuestVars().setDesiredGhostsAhoyFlag("skull", "undyed");
 				sender.getActionSender().sendMessage("Reset " + player.getUsername() + "'s Ghosts Ahoy flag.", true);
 		    } catch (Exception e) {
 		    	sender.getActionSender().sendMessage("Could not find player.", true);

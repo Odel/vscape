@@ -511,7 +511,7 @@ public class GhostsAhoy implements Quest {
 		player.getActionSender().sendInterface(MAP_INTERFACE);
 		return true;
 	    case MODEL_SHIP_SILK:
-		player.getDialogue().sendStatement("The top half of the flag is " + player.getTopHalfFlag() + ".", "The bottom half of the flag is " + player.getBottomHalfFlag() + ".", "The skull emblem of the flag is " + player.getSkullFlag() + ".");
+		player.getDialogue().sendStatement("The top half of the flag is " + player.getQuestVars().getTopHalfFlag() + ".", "The bottom half of the flag is " + player.getQuestVars().getBottomHalfFlag() + ".", "The skull emblem of the flag is " + player.getQuestVars().getSkullFlag() + ".");
 		return true;
 	    case MODEL_SHIP:
 		if (player.getInventory().playerHasItem(SILK)) {
@@ -790,29 +790,29 @@ public class GhostsAhoy implements Quest {
 		} else {
 		    int index1 = Misc.randomMinusOne(DYES.length);
 		    int index2 = 0, index3 = 0;
-		    if(player.getDesiredTopHalfFlag().equals("black")) {
+		    if(player.getQuestVars().getDesiredTopHalfFlag().equals("black")) {
 			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The top half of the flag is colored " + DYES[index1] + ".");
-			player.setDesiredGhostsAhoyFlag("top", DYES[index1]);
+			player.getQuestVars().setDesiredGhostsAhoyFlag("top", DYES[index1]);
 			return true;
 		    }
-		    else if(!player.getDesiredTopHalfFlag().equals("black") && player.getDesiredBottomHalfFlag().equals("black")) {
+		    else if(!player.getQuestVars().getDesiredTopHalfFlag().equals("black") && player.getQuestVars().getDesiredBottomHalfFlag().equals("black")) {
 			do {
 			    index2 = Misc.randomMinusOne(DYES.length);
-			} while (DYES[index2].equals(player.getDesiredTopHalfFlag()));
+			} while (DYES[index2].equals(player.getQuestVars().getDesiredTopHalfFlag()));
 			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The bottom half of the flag is colored " + DYES[index2] + ".");
-			player.setDesiredGhostsAhoyFlag("bottom", DYES[index2]);
+			player.getQuestVars().setDesiredGhostsAhoyFlag("bottom", DYES[index2]);
 			return true;
 		    }
-		    else if(!player.getDesiredTopHalfFlag().equals("black") && !player.getDesiredBottomHalfFlag().equals("black") && player.getDesiredSkullFlag().equals("black")) {
+		    else if(!player.getQuestVars().getDesiredTopHalfFlag().equals("black") && !player.getQuestVars().getDesiredBottomHalfFlag().equals("black") && player.getQuestVars().getDesiredSkullFlag().equals("black")) {
 			do {
 			    index3 = Misc.randomMinusOne(DYES.length);
-			} while (DYES[index3].equals(player.getDesiredBottomHalfFlag()));
+			} while (DYES[index3].equals(player.getQuestVars().getDesiredBottomHalfFlag()));
 			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.", "The skull emblem on the flag is colored " + DYES[index3] + ".");
-			player.setDesiredGhostsAhoyFlag("skull", DYES[index3]);
+			player.getQuestVars().setDesiredGhostsAhoyFlag("skull", DYES[index3]);
 			return true;
 		    }
-		    else if(!player.getDesiredTopHalfFlag().equals("black") && !player.getDesiredBottomHalfFlag().equals("black") && !player.getDesiredSkullFlag().equals("black")){
-			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.",  "The top half of the flag is colored " + player.getDesiredTopHalfFlag() + ".", "The bottom half of the flag is colored " + player.getDesiredBottomHalfFlag() + ".","The skull emblem on the flag is colored " + player.getDesiredSkullFlag() + ".");
+		    else if(!player.getQuestVars().getDesiredTopHalfFlag().equals("black") && !player.getQuestVars().getDesiredBottomHalfFlag().equals("black") && !player.getQuestVars().getDesiredSkullFlag().equals("black")){
+			player.getDialogue().sendStatement("You see a tattered flag blowing in the wind.",  "The top half of the flag is colored " + player.getQuestVars().getDesiredTopHalfFlag() + ".", "The bottom half of the flag is colored " + player.getQuestVars().getDesiredBottomHalfFlag() + ".","The skull emblem on the flag is colored " + player.getQuestVars().getDesiredSkullFlag() + ".");
 			return true;
 		    }
 		}
@@ -1141,11 +1141,11 @@ public class GhostsAhoy implements Quest {
 		    }
 		} else if (x == 3618 && y == 3542) {
 		    if (Misc.goodDistance(player.getPosition().clone(), new Position(x, y), 2)) {
-			if (!player.lobsterSpawnedAndDead() && player.getSpawnedNpc() == null) {
+			if (!player.getQuestVars().lobsterSpawnedAndDead() && player.getSpawnedNpc() == null) {
 			    player.getActionSender().sendMessage("You are attacked by a giant lobster!");
 			    NpcLoader.spawnPlayerOwnedSpecificLocationNpc(player, new Npc(GIANT_LOBSTER), LOBSTER_SPAWN, true, null);
 			    return true;
-			} else if(player.lobsterSpawnedAndDead()) {
+			} else if(player.getQuestVars().lobsterSpawnedAndDead()) {
 			    if (!player.getInventory().ownsItem(MAP_SCRAP_2) && !player.getInventory().ownsItem(TREASURE_MAP)) {
 				player.getUpdateFlags().sendAnimation(832);
 				player.getDialogue().sendGiveItemNpc("You find a piece of a map.", new Item(MAP_SCRAP_2));
@@ -1366,42 +1366,42 @@ public class GhostsAhoy implements Quest {
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag red.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(RED_DYE));
-					player.dyeGhostsAhoyFlag("top", "red");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "red");
 					player.setTempInteger(0);
 					return true;
 				    case BLUE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag blue.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(BLUE_DYE));
-					player.dyeGhostsAhoyFlag("top", "blue");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "blue");
 					player.setTempInteger(0);
 					return true;
 				    case YELLOW_DYE:
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag yellow.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(YELLOW_DYE));
-					player.dyeGhostsAhoyFlag("top", "yellow");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "yellow");
 					player.setTempInteger(0);
 					return true;
 				    case ORANGE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag orange.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(ORANGE_DYE));
-					player.dyeGhostsAhoyFlag("top", "orange");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "orange");
 					player.setTempInteger(0);
 					return true;
 				    case PURPLE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag purple.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(PURPLE_DYE));
-					player.dyeGhostsAhoyFlag("top", "purple");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "purple");
 					player.setTempInteger(0);
 					return true;
 				    case GREEN_DYE:
 					player.getDialogue().sendStatement("You carefully dye the top half of the silk flag green.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(GREEN_DYE));
-					player.dyeGhostsAhoyFlag("top", "green");
+					player.getQuestVars().dyeGhostsAhoyFlag("top", "green");
 					player.setTempInteger(0);
 					return true;
 				}
@@ -1412,42 +1412,42 @@ public class GhostsAhoy implements Quest {
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag red.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(RED_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "red");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "red");
 					player.setTempInteger(0);
 					return true;
 				    case BLUE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag blue.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(BLUE_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "blue");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "blue");
 					player.setTempInteger(0);
 					return true;
 				    case YELLOW_DYE:
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag yellow.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(YELLOW_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "yellow");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "yellow");
 					player.setTempInteger(0);
 					return true;
 				    case ORANGE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag orange.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(ORANGE_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "orange");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "orange");
 					player.setTempInteger(0);
 					return true;
 				    case PURPLE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag purple.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(PURPLE_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "purple");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "purple");
 					player.setTempInteger(0);
 					return true;
 				    case GREEN_DYE:
 					player.getDialogue().sendStatement("You carefully dye the bottom half of the silk flag green.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(GREEN_DYE));
-					player.dyeGhostsAhoyFlag("bottom", "green");
+					player.getQuestVars().dyeGhostsAhoyFlag("bottom", "green");
 					player.setTempInteger(0);
 					return true;
 				}
@@ -1458,42 +1458,42 @@ public class GhostsAhoy implements Quest {
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag red.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(RED_DYE));
-					player.dyeGhostsAhoyFlag("skull", "red");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "red");
 					player.setTempInteger(0);
 					return true;
 				    case BLUE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag blue.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(BLUE_DYE));
-					player.dyeGhostsAhoyFlag("skull", "blue");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "blue");
 					player.setTempInteger(0);
 					return true;
 				    case YELLOW_DYE:
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag yellow.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(YELLOW_DYE));
-					player.dyeGhostsAhoyFlag("skull", "yellow");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "yellow");
 					player.setTempInteger(0);
 					return true;
 				    case ORANGE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag orange.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(ORANGE_DYE));
-					player.dyeGhostsAhoyFlag("skull", "orange");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "orange");
 					player.setTempInteger(0);
 					return true;
 				    case PURPLE_DYE:
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag purple.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(PURPLE_DYE));
-					player.dyeGhostsAhoyFlag("skull", "purple");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "purple");
 					player.setTempInteger(0);
 					return true;
 				    case GREEN_DYE:
 					player.getDialogue().sendStatement("You carefully dye the skull of the silk flag green.");
 					player.getDialogue().endDialogue();
 					player.getInventory().removeItem(new Item(GREEN_DYE));
-					player.dyeGhostsAhoyFlag("skull", "green");
+					player.getQuestVars().dyeGhostsAhoyFlag("skull", "green");
 					player.setTempInteger(0);
 					return true;
 				}
@@ -1776,21 +1776,21 @@ public class GhostsAhoy implements Quest {
 				player.getDialogue().sendGiveItemNpc("You show the Old Man the model ship.", new Item(MODEL_SHIP_SILK));
 				return true;
 			    case 6:
-				if(player.getTopHalfFlag().equals(player.getDesiredTopHalfFlag()) && player.getBottomHalfFlag().equals(player.getDesiredBottomHalfFlag()) && player.getSkullFlag().equals(player.getDesiredSkullFlag()) ) {
+				if(player.getQuestVars().getTopHalfFlag().equals(player.getQuestVars().getDesiredTopHalfFlag()) && player.getQuestVars().getBottomHalfFlag().equals(player.getQuestVars().getDesiredBottomHalfFlag()) && player.getQuestVars().getSkullFlag().equals(player.getQuestVars().getDesiredSkullFlag()) ) {
 				    player.getDialogue().sendNpcChat("My word - so it is!!! I never thought I would", "see it again!! Where did you get it from?", HAPPY);
 				    return true;
 				}
-				else if(!player.getTopHalfFlag().equals(player.getDesiredTopHalfFlag())) {
+				else if(!player.getQuestVars().getTopHalfFlag().equals(player.getQuestVars().getDesiredTopHalfFlag())) {
 				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the top of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
 				}
-				else if(!player.getBottomHalfFlag().equals(player.getDesiredBottomHalfFlag())) {
+				else if(!player.getQuestVars().getBottomHalfFlag().equals(player.getQuestVars().getDesiredBottomHalfFlag())) {
 				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the bottom of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
 				}
-				else if(!player.getSkullFlag().equals(player.getDesiredSkullFlag())) {
+				else if(!player.getQuestVars().getSkullFlag().equals(player.getQuestVars().getDesiredSkullFlag())) {
 				    player.getDialogue().sendNpcChat("Hmmm, it looks similar, but the skull of the", "flag is the wrong color, that surely isn't my", "model ship.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
@@ -2686,12 +2686,12 @@ public class GhostsAhoy implements Quest {
 	    case ROBIN:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
-			if(!player.getInventory().ownsItem(SIGNED_OAK_BOW) && !player.getRuneDrawWins()[0] && (player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT || player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT_2) ) {
+			if(!player.getInventory().ownsItem(SIGNED_OAK_BOW) && !player.getQuestVars().getRuneDrawWins()[0] && (player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT || player.getQuestStage(24) == ITEMS_FOR_ENCHANTMENT_2) ) {
 			    player.getDialogue().sendPlayerChat("Would you sign an oak longbow for me?", CONTENT);
 			    return true;
 			}
-			else if(player.getRuneDrawWins()[0] && !player.getRuneDrawWins()[1]) {
-			    if(player.justWonRuneDraw()) {
+			else if(player.getQuestVars().getRuneDrawWins()[0] && !player.getQuestVars().getRuneDrawWins()[1]) {
+			    if(player.getQuestVars().justWonRuneDraw()) {
 				player.getDialogue().sendPlayerChat("So are you going to pay up then?", "You still owe me 25 gold coins.", CONTENT);
 				player.getDialogue().setNextChatId(15);
 				return true;
@@ -2702,8 +2702,8 @@ public class GhostsAhoy implements Quest {
 				return true;
 			    }
 			}
-			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && !player.getRuneDrawWins()[2]) {
-			    if(player.justWonRuneDraw()) {
+			else if(player.getQuestVars().getRuneDrawWins()[0] && player.getQuestVars().getRuneDrawWins()[1] && !player.getQuestVars().getRuneDrawWins()[2]) {
+			    if(player.getQuestVars().justWonRuneDraw()) {
 				player.getDialogue().sendPlayerChat("So are you going to pay up this time?", "You still owe me 75 gold coins!", ANNOYED);
 				player.getDialogue().setNextChatId(20);
 				return true;
@@ -2714,7 +2714,7 @@ public class GhostsAhoy implements Quest {
 				return true;
 			    }
 			}
-			else if(player.getRuneDrawWins()[0] && player.getRuneDrawWins()[1] && player.getRuneDrawWins()[2]) {
+			else if(player.getQuestVars().getRuneDrawWins()[0] && player.getQuestVars().getRuneDrawWins()[1] && player.getQuestVars().getRuneDrawWins()[2]) {
 			    player.getDialogue().sendPlayerChat("I've had enough of you not paying up - you owe me", "100 gold now. I'm going to tell the ghosts what you're", "doing.", ANGRY_1);
 			    player.getDialogue().setNextChatId(25);
 			    return true;
@@ -2859,9 +2859,9 @@ public class GhostsAhoy implements Quest {
 			    player.getDialogue().sendGiveItemNpc("Robin signs the oak longbow for you.", new Item(OAK_LONGBOW));
 			    player.getDialogue().endDialogue();
 			    player.getInventory().replaceItemWithItem(new Item(OAK_LONGBOW), new Item(SIGNED_OAK_BOW));
-			    player.setRuneDrawWins(0, false);
-			    player.setRuneDrawWins(1, false);
-			    player.setRuneDrawWins(2, false);
+			    player.getQuestVars().setRuneDrawWins(0, false);
+			    player.getQuestVars().setRuneDrawWins(1, false);
+			    player.getQuestVars().setRuneDrawWins(2, false);
 			    return true;
 			}
 			else {

@@ -466,22 +466,22 @@ public class PiratesTreasure implements Quest {
 	switch(object) {
 	    case BANANA_CRATE:
 		if (!player.onApeAtoll()) {
-		    if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() < 9) {
+		    if (item == BANANA && player.getQuestVars().getBananaCrate() && player.getQuestVars().getBananaCrateCount() < 9) {
 			player.getActionSender().sendMessage("You load the banana into the crate.");
 			player.getInventory().removeItem(new Item(BANANA));
 			player.getUpdateFlags().sendAnimation(832);
-			player.setBananaCrateCount(player.getBananaCrateCount() + 1);
+			player.getQuestVars().setBananaCrateCount(player.getQuestVars().getBananaCrateCount() + 1);
 			return true;
-		    } else if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 9) {
+		    } else if (item == BANANA && player.getQuestVars().getBananaCrate() && player.getQuestVars().getBananaCrateCount() == 9) {
 			player.getActionSender().sendMessage("You load the last banana, the crate is full. Better go tell Luthas.");
 			player.getInventory().removeItem(new Item(BANANA));
 			player.getUpdateFlags().sendAnimation(832);
-			player.setBananaCrateCount(10);
+			player.getQuestVars().setBananaCrateCount(10);
 			return true;
-		    } else if (item == BANANA && player.getBananaCrate() && player.getBananaCrateCount() == 10) {
+		    } else if (item == BANANA && player.getQuestVars().getBananaCrate() && player.getQuestVars().getBananaCrateCount() == 10) {
 			player.getActionSender().sendMessage("The crate is full. Go tell Luthas.");
 			return true;
-		    } else if (item == KARAMJAN_RUM && player.getBananaCrate() && player.getQuestStage(20) == 1) {
+		    } else if (item == KARAMJAN_RUM && player.getQuestVars().getBananaCrate() && player.getQuestStage(20) == 1) {
 			player.getDialogue().sendGiveItemNpc("You stash the rum in the crate.", new Item(KARAMJAN_RUM));
 			player.getInventory().removeItem(new Item(KARAMJAN_RUM));
 			player.getUpdateFlags().sendAnimation(832);
@@ -528,12 +528,12 @@ public class PiratesTreasure implements Quest {
 		return true;
 	    case BANANA_CRATE:
 		if (!player.onApeAtoll()) {
-		    if (player.getBananaCrate()) {
-			if (player.getBananaCrateCount() == 1) {
+		    if (player.getQuestVars().getBananaCrate()) {
+			if (player.getQuestVars().getBananaCrateCount() == 1) {
 			    player.getActionSender().sendMessage("You have loaded a single banana.");
 			    return true;
 			} else {
-			    player.getActionSender().sendMessage("You have loaded " + player.getBananaCrateCount() + " bananas.");
+			    player.getActionSender().sendMessage("You have loaded " + player.getQuestVars().getBananaCrateCount() + " bananas.");
 			    return true;
 			}
 		    } else {
@@ -715,7 +715,7 @@ public class PiratesTreasure implements Quest {
 	    }
 	    return false;
 	    case LUTHAS:
-		switch(player.getBananaCrateCount()) {
+		switch(player.getQuestVars().getBananaCrateCount()) {
 		    case 0: //tfw no bananas
 		    case 1:
 		    case 2:
@@ -728,7 +728,7 @@ public class PiratesTreasure implements Quest {
 		    case 9:
 			switch (player.getDialogue().getChatId()) {
 			    case 1:
-				if(!player.getBananaCrate()) {
+				if(!player.getQuestVars().getBananaCrate()) {
 				    player.getDialogue().sendNpcChat("Hello, I'm Luthas - I run the plantation here.", CONTENT);
 				    return true;
 				}
@@ -752,7 +752,7 @@ public class PiratesTreasure implements Quest {
 			    case 6:
 				player.getDialogue().sendPlayerChat("Thank you!", HAPPY);
 				player.getDialogue().endDialogue();
-				player.setBananaCrate(true);
+				player.getQuestVars().setBananaCrate(true);
 				return true;
 			}
 		    return false;
@@ -768,8 +768,8 @@ public class PiratesTreasure implements Quest {
 				player.getDialogue().sendGiveItemNpc("Luthas hands you 30 gold.", new Item(995));
 				player.getDialogue().endDialogue();
 				player.getInventory().addItem(new Item(995, 30));
-				player.setBananaCrate(false);
-				player.setBananaCrateCount(0);
+				player.getQuestVars().setBananaCrate(false);
+				player.getQuestVars().setBananaCrateCount(0);
 				if(player.getQuestStage(20) == 2) {
 				    player.setQuestStage(20, 3);
 				}

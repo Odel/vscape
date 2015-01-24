@@ -896,12 +896,12 @@ public class TreeGnomeVillage implements Quest {
                                 player.getDialogue().sendPlayerChat("What?", CONTENT);
                                 return true;
                             case 11:
-				if(player.getBallistaIndex() == -1) {
+				if(player.getQuestVars().getBallistaIndex() == -1) {
 				    int ballistaIndex = Misc.randomMinusOne(crazyRants.length);
 				    player.getDialogue().sendNpcChat(crazyRants[ballistaIndex] + ", ha ha ha.", LAUGHING);
-				    player.setBallistaIndex(ballistaIndex);
+				    player.getQuestVars().setBallistaIndex(ballistaIndex);
 				} else {
-				    player.getDialogue().sendNpcChat(crazyRants[player.getBallistaIndex()] + ", ha ha ha.", LAUGHING);
+				    player.getDialogue().sendNpcChat(crazyRants[player.getQuestVars().getBallistaIndex()] + ", ha ha ha.", LAUGHING);
 				}
 				return true;
                             case 12:
@@ -1051,7 +1051,7 @@ public class TreeGnomeVillage implements Quest {
                         player.getDialogue().sendOption("0001", "0002", "0003", "0004");
                         return true;
                     case 4:
-			if (player.getBallistaIndex() == (optionId - 1) || (player.getBallistaIndex() == 4 && optionId == 4)) {
+			if (player.getQuestVars().getBallistaIndex() == (optionId - 1) || (player.getQuestVars().getBallistaIndex() == 4 && optionId == 4)) {
 			    player.getDialogue().sendStatement("The huge spear files through the air and screams down directly into", "the Khazard Stronghold. A deafening crash echoes over the battlefield", "as most of the fort is reduced to rubble.");
 			    player.getActionSender().animateObject(2508, 3210, 0, 2328);
 			    return true;

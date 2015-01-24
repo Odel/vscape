@@ -463,7 +463,7 @@ public class HorrorFromTheDeep implements Quest {
     }
     
     public static boolean allItemsInDoor(final Player player) {
-	return player.hasPlacedAirRune() && player.hasPlacedFireRune() && player.hasPlacedEarthRune() && player.hasPlacedWaterRune() && player.hasPlacedSword() && player.hasPlacedArrow();
+	return player.getQuestVars().hasPlacedAirRune() && player.getQuestVars().hasPlacedFireRune() && player.getQuestVars().hasPlacedEarthRune() && player.getQuestVars().hasPlacedWaterRune() && player.getQuestVars().hasPlacedSword() && player.getQuestVars().hasPlacedArrow();
     }
     
     public boolean itemHandling(final Player player, int itemId) {
@@ -509,7 +509,7 @@ public class HorrorFromTheDeep implements Quest {
 				}
 			    case FIRE_RUNE:
 				player.getInventory().removeItem(new Item(FIRE_RUNE, 1));
-				player.setPlacedFireRune(true);
+				player.getQuestVars().setPlacedFireRune(true);
 				player.getActionSender().sendMessage("You place the fire rune into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");
@@ -518,7 +518,7 @@ public class HorrorFromTheDeep implements Quest {
 				return true;
 			    case WATER_RUNE:
 				player.getInventory().removeItem(new Item(WATER_RUNE, 1));
-				player.setPlacedWaterRune(true);
+				player.getQuestVars().setPlacedWaterRune(true);
 				player.getActionSender().sendMessage("You place the water rune into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");
@@ -527,7 +527,7 @@ public class HorrorFromTheDeep implements Quest {
 				return true;
 			    case EARTH_RUNE:
 				player.getInventory().removeItem(new Item(EARTH_RUNE, 1));
-				player.setPlacedEarthRune(true);
+				player.getQuestVars().setPlacedEarthRune(true);
 				player.getActionSender().sendMessage("You place the earth rune into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");
@@ -536,7 +536,7 @@ public class HorrorFromTheDeep implements Quest {
 				return true;
 			    case AIR_RUNE:
 				player.getInventory().removeItem(new Item(AIR_RUNE, 1));
-				player.setPlacedAirRune(true);
+				player.getQuestVars().setPlacedAirRune(true);
 				player.getActionSender().sendMessage("You place the air rune into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");
@@ -1076,7 +1076,7 @@ public class HorrorFromTheDeep implements Quest {
 			    case 1:
 				Item item = new Item(player.getTempInteger());
 				player.getInventory().removeItem(item);
-				player.setPlacedArrow(true);
+				player.getQuestVars().setPlacedArrow(true);
 				player.getActionSender().sendMessage("You place the " + item.getDefinition().getName() + " into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");
@@ -1104,7 +1104,7 @@ public class HorrorFromTheDeep implements Quest {
 			    case 1:
 				Item item = new Item(player.getTempInteger());
 				player.getInventory().removeItem(item);
-				player.setPlacedSword(true);
+				player.getQuestVars().setPlacedSword(true);
 				player.getActionSender().sendMessage("You place the " + item.getDefinition().getName() + " into the slot in the door.");
 				if (allItemsInDoor(player)) {
 				    player.getActionSender().sendMessage("You hear the sound of something moving into place in the wall.");

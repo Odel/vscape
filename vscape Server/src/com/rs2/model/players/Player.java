@@ -65,7 +65,6 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
-import static com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.DUNGEON;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
@@ -108,7 +107,6 @@ import com.rs2.model.content.skills.prayer.Prayer.PrayerData;
 import com.rs2.model.content.skills.runecrafting.Pouches;
 import com.rs2.model.content.skills.runecrafting.Tiaras;
 import com.rs2.model.content.skills.slayer.Slayer;
-import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.tutorialisland.NewComersSide;
 import com.rs2.model.content.tutorialisland.StagesLoader;
 import com.rs2.model.ground.GroundItem;
@@ -147,6 +145,7 @@ import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.SantaEncounter;
 import com.rs2.model.content.randomevents.FreakyForester;
@@ -155,7 +154,6 @@ import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.Puzzle;
-import com.rs2.util.clip.Region;
 
 /**
  * Represents a logged-in player.
@@ -203,10 +201,7 @@ public class Player extends Entity {
 	private FreakyForester freakyForester = new FreakyForester(this);
 	private Pillory pillory = new Pillory(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
-	private boolean[] runeDrawWins = {false, false, false};
-	private boolean justWonRuneDraw = false;
 	private boolean wyvernWarned = false;
-	private boolean shotGrip = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
@@ -260,6 +255,7 @@ public class Player extends Entity {
 	private Pets pets = new Pets(this);
 	private Cat cat = new Cat(this);
 	private MonkeyMadnessVars MMVars = new MonkeyMadnessVars(this);
+	private QuestVariables questVars = new QuestVariables(this);
 	private InterfaceClickHandler randomInterfaceClick = new InterfaceClickHandler(this);
 	private DialogueManager dialogue = new DialogueManager(this);
 	private BankPin bankPin = new BankPin(this);
@@ -278,7 +274,6 @@ public class Player extends Entity {
 	public boolean trackerGnome1 = false;
 	public boolean trackerGnome2 = false;
 	public boolean trackerGnome3 = false;
-	private int ballistaIndex = -1;
 	private int clickX = -1;
 	private int clickY = -1;
 	private int clickZ = -1;
@@ -303,19 +298,6 @@ public class Player extends Entity {
 	private int currentOptionId;
 	private int optionClickId;
 	private int currentGloryId;
-	public int comboLockLetter1 = 1;
-	public int comboLockLetter2 = 1;
-	public int comboLockLetter3 = 1;
-	public int comboLockLetter4 = 1;
-	public boolean foxRight = true;
-	public boolean chickenRight = true;
-	public boolean grainRight = true;
-	public boolean foxLeft = false;
-	public boolean chickenLeft = false;
-	public boolean grainLeft = false;
-	public boolean receivedPacket = false;
-	private boolean gazeOfSaradomin = false;
-	public String templeKnightRiddleAnswer = "NULL";
 	private int returnCode = Constants.LOGIN_RESPONSE_OK;
 	private TradeStage tradeStage = TradeStage.WAITING;
 	private int[] pendingItems = new int[Inventory.SIZE];
@@ -354,26 +336,11 @@ public class Player extends Entity {
 	private boolean musicAuto = true;
 	private int effectVolume = 0;
 	private int questPoints = 0;
-	private boolean canHaveGodCape = true; //cadillac
+	private boolean canHaveGodCape = true;
 	private boolean specialAttackActive = false;
-	private boolean usedFreeGauntletsCharge = false;
-	private boolean chronozonWind = false;
-	private boolean chronozonWater = false;
-	private boolean chronozonEarth = false;
-	private boolean chronozonFire = false;
-	private boolean northLever = false;
-	private boolean northRoomLever = false;
-	private boolean southLever = false;
-	private boolean placedFireRune = false;
-	private boolean placedAirRune = false;
-	private boolean placedEarthRune = false;
-	private boolean placedWaterRune = false;
-	private boolean placedSword = false;
-	private boolean placedArrow = false;
+	
 	private int godBook = 0;
 	private int lostGodBook = 0;
-	private int railingsFixed = 0;
-	private ArrayList<Integer> railings = new ArrayList<>();
 	private double specialDamage = 1, specialAccuracy = 1;
 	private int specialAmount = 100;
 	private int ringOfRecoilLife = 40;
@@ -469,10 +436,6 @@ public class Player extends Entity {
 	public int challengeScroll;
 	public int skillAnswer;
 	public int pcSkillPoints;
-	public boolean waterfallOption1 = false;
-        public boolean waterfallOption2 = false;
-        public boolean waterfallOption3 = false;
-        public boolean waterfallPillars[][] = {{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false},{false,false,false}};
 	private int tempInteger;
 	public boolean isCrossingObstacle = false;
 	public int currentSong;
@@ -498,32 +461,12 @@ public class Player extends Entity {
 	private int saradominCasts = 0;
 	private int guthixCasts = 0;
 	private int mageArenaStage = 0;
-	private boolean phoenixGang = false;
-	private boolean blackArmGang = false;
-	private boolean melzarsDoor = false;
-	private boolean shipyardGate = false;
-	private boolean tTwig = false;
-	private boolean uTwig = false;
-	private boolean zTwig = false;
-	private boolean oTwig = false;
-	private boolean bananaCrate = false;
-	private boolean snailSlime = false;
-	private boolean idPapers = false;
-	private int bananaCrateCount = 0;
 	private int[] degradeableHits = new int[26];
 	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
 	private ArrayList<BoneBurying.Bone> bonesInBin = new ArrayList<BoneBurying.Bone>();
 	private boolean bonesGrinded = false;
 	private boolean secondTryAtBin = false;
 	private int ectoWorshipCount = 0;
-	private String topHalfOfGhostsAhoyFlag = "undyed";
-	private String bottomHalfOfGhostsAhoyFlag = "undyed";
-	private String skullOfGhostsAhoyFlag = "undyed";
-	private String desiredTopHalfOfGhostsAhoyFlag = "black";
-	private String desiredBottomHalfOfGhostsAhoyFlag = "black";
-	private String desiredSkullOfGhostsAhoyFlag = "black";
-	private boolean lobsterSpawned = false;
-	private boolean petitionSigned = false;
 	private Canoe canoe = new Canoe(this);
     private String currentChannel = null;
     private boolean homeTeleporting = false;
@@ -1248,9 +1191,9 @@ public class Player extends Entity {
 		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
 		    this.setPcPoints(0, this);
 		}
-		if((this.getBananaCrate() == true && this.getBananaCrateCount() > 10) || this.getBananaCrateCount() > 10 || this.getBananaCrateCount() < 0) {
-		    this.setBananaCrate(false);
-		    this.setBananaCrateCount(0);
+		if((questVars.getBananaCrate() == true && questVars.getBananaCrateCount() > 10) || questVars.getBananaCrateCount() > 10 || questVars.getBananaCrateCount() < 0) {
+		    questVars.setBananaCrate(false);
+		    questVars.setBananaCrateCount(0);
 		}
 		int master = this.getSlayer().slayerMaster;
 		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
@@ -1896,35 +1839,14 @@ public class Player extends Entity {
 	public GhostsAhoyPetition getPetition() {
 		return petition;
 	}
-	
-	public boolean[] getRuneDrawWins() {
-		return runeDrawWins;
-	}
-	
-	public void setRuneDrawWins(int slot, boolean bool) {
-	    this.runeDrawWins[slot] = bool;
-	}
+
 	public boolean wyvernWarned() {
 	    return this.wyvernWarned;
 	}
 	public void setWyvernWarned(boolean bool) {
 	    this.wyvernWarned = bool;
 	}
-	public boolean hasShotGrip() {
-	    return this.shotGrip;
-	}
-	public void setShotGrip(boolean bool) {
-	    this.shotGrip = bool;
-	}
-	public boolean justWonRuneDraw() {
-		return justWonRuneDraw;
-	}
-	
-	public void setJustWonRuneDraw(boolean bool) {
-	    this.justWonRuneDraw = bool;
-	}
-
-    public Slayer getSlayer() {
+	public Slayer getSlayer() {
 		return slayer;
 	}
 
@@ -2186,7 +2108,11 @@ public class Player extends Entity {
 	public MonkeyMadnessVars getMMVars() {
 		return MMVars;
 	}
-
+	
+	public QuestVariables getQuestVars() {
+		return questVars;
+	}
+	
 	public void setPrivateMessaging(PrivateMessaging privateMessaging) {
 		this.privateMessaging = privateMessaging;
 	}
@@ -2454,88 +2380,6 @@ public class Player extends Entity {
 	    this.tokenTime = set;
 	}
 	
-	public boolean isPhoenixGang() {
-	    return phoenixGang;
-	}
-	public void joinPhoenixGang(boolean bool) {
-	    if(this.isBlackArmGang()) this.phoenixGang = false;
-	    else this.phoenixGang = bool;
-	}
-	
-	public boolean isBlackArmGang() {
-	    return blackArmGang;
-	}
-	public void joinBlackArmGang(boolean bool) {
-	    if(this.isPhoenixGang()) this.blackArmGang = false;
-	    else this.blackArmGang = bool;
-	}
-	public boolean hasPlacedOTwig() {
-	    return oTwig;
-	}
-	public void setPlacedOTwig(boolean bool) {
-	    this.oTwig = bool;
-	}
-	public boolean hasPlacedZTwig() {
-	    return zTwig;
-	}
-	public void setPlacedZTwig(boolean bool) {
-	    this.zTwig = bool;
-	}
-	public boolean hasPlacedUTwig() {
-	    return uTwig;
-	}
-	public void setPlacedUTwig(boolean bool) {
-	    this.uTwig = bool;
-	}
-	public boolean hasPlacedTTwig() {
-	    return tTwig;
-	}
-	public void setPlacedTTwig(boolean bool) {
-	    this.tTwig = bool;
-	}
-	public boolean getShipyardGateOpen() {
-	    return shipyardGate;
-	}
-	public void setShipyardGateOpen(boolean bool) {
-	    this.shipyardGate = bool;
-	}
-	public boolean getMelzarsDoorUnlock() {
-	    return melzarsDoor;
-	}
-	
-	public void setMelzarsDoorUnlock(boolean bool) {
-	    this.melzarsDoor = bool;
-	}
-	public boolean givenIdPapers() {
-	    return idPapers;
-	}
-	
-	public void setGivenIdPapers(boolean bool) {
-	    this.idPapers = bool;
-	}
-	public boolean givenSnailSlime() {
-	    return snailSlime;
-	}
-	
-	public void setGivenSnailSlime(boolean bool) {
-	    this.snailSlime = bool;
-	}
-	public boolean getBananaCrate() {
-	    return bananaCrate;
-	}
-	
-	public void setBananaCrate(boolean bool) {
-	    this.bananaCrate = bool;
-	}
-	
-	public int getBananaCrateCount() {
-	    return bananaCrateCount;
-	}
-	
-	public void setBananaCrateCount(int count) {
-	    this.bananaCrateCount = count;
-	}
-	
 	public int getFightCavesWave() {
 	    return fightCavesWave;
 	}
@@ -2570,152 +2414,6 @@ public class Player extends Entity {
 	public Ectofuntus getEctofuntus() {
 	    return this.ectofuntus;
 	}
-	public String getTopHalfFlag() {
-	    return topHalfOfGhostsAhoyFlag;
-	}
-	public String getBottomHalfFlag() {
-	    return bottomHalfOfGhostsAhoyFlag;
-	}
-	public String getSkullFlag() {
-	    return skullOfGhostsAhoyFlag;
-	}
-	public String getDesiredTopHalfFlag() {
-	    return desiredTopHalfOfGhostsAhoyFlag;
-	}
-	public String getDesiredBottomHalfFlag() {
-	    return desiredBottomHalfOfGhostsAhoyFlag;
-	}
-	public String getDesiredSkullFlag() {
-	    return desiredSkullOfGhostsAhoyFlag;
-	}
-	public boolean lobsterSpawnedAndDead() {
-	    return lobsterSpawned;
-	}
-	public void setLobsterSpawnedAndDead(boolean bool) {
-	    this.lobsterSpawned = bool;
-	}
-	public boolean petitionSigned() {
-	    return petitionSigned;
-	}
-	public void setPetitionSigned(boolean bool) {
-	    this.petitionSigned = bool;
-	}
-	public void dyeGhostsAhoyFlag(String part, String color) {
-	    if(color == null || color.length() > 30) return;
-	    switch(part) {
-		case "topHalf":
-		case "top":
-		    this.topHalfOfGhostsAhoyFlag = color;
-		    return;
-		case "bottomHalf":
-		case "bottom":
-		    this.bottomHalfOfGhostsAhoyFlag = color;
-		    return;
-		case "skull":
-		    this.skullOfGhostsAhoyFlag = color;
-		    return;	
-	    }
-	}
-	public void setDesiredGhostsAhoyFlag(String part, String color) {
-	    if(color == null || color.length() > 30) return;
-	    switch(part) {
-		case "topHalf":
-		case "top":
-		    this.desiredTopHalfOfGhostsAhoyFlag = color;
-		    return;
-		case "bottomHalf":
-		case "bottom":
-		    this.desiredBottomHalfOfGhostsAhoyFlag = color;
-		    return;
-		case "skull":
-		    this.desiredSkullOfGhostsAhoyFlag = color;
-		    return;	
-	    }
-	}
-	public boolean usedFreeGauntletsCharge() {
-	    return usedFreeGauntletsCharge;
-	}
-	public void setHasUsedFreeGauntletsCharge(boolean bool) {
-	    this.usedFreeGauntletsCharge = bool;
-	}
-	public boolean hasHitChronozonWind() {
-	    return chronozonWind;
-	}
-	public void setHitChronozonWind(boolean bool) {
-	    this.chronozonWind = bool;
-	}
-	public boolean hasHitChronozonWater() {
-	    return chronozonWater;
-	}
-	public void setHitChronozonWater(boolean bool) {
-	    this.chronozonWater = bool;
-	}
-	public boolean hasHitChronozonEarth() {
-	    return chronozonEarth;
-	}
-	public void setHitChronozonEarth(boolean bool) {
-	    this.chronozonEarth = bool;
-	}
-	public boolean hasHitChronozonFire() {
-	    return chronozonFire;
-	}
-	public void setHitChronozonFire(boolean bool) {
-	    this.chronozonFire = bool;
-	}
-	public boolean northPerfectGoldMineLever() {
-	    return northLever;
-	}
-	public void setNorthPerfectGoldMineLever(boolean bool) {
-	    this.northLever = bool;
-	}
-	public boolean southPerfectGoldMineLever() {
-	    return southLever;
-	}
-	public void setSouthPerfectGoldMineLever(boolean bool) {
-	    this.southLever = bool;
-	}
-	public boolean northRoomPerfectGoldMineLever() {
-	    return northRoomLever;
-	}
-	public void setNorthRoomPerfectGoldMineLever(boolean bool) {
-	    this.northRoomLever = bool;
-	}
-	public boolean hasPlacedFireRune() {
-	    return placedFireRune;
-	}
-	public void setPlacedFireRune(boolean bool) {
-	    placedFireRune = bool;
-	}
-	public boolean hasPlacedWaterRune() {
-	    return placedWaterRune;
-	}
-	public void setPlacedWaterRune(boolean bool) {
-	    placedWaterRune = bool;
-	}
-	public boolean hasPlacedEarthRune() {
-	    return placedEarthRune;
-	}
-	public void setPlacedEarthRune(boolean bool) {
-	    placedEarthRune = bool;
-	}
-	public boolean hasPlacedAirRune() {
-	    return placedAirRune;
-	}
-	public void setPlacedAirRune(boolean bool) {
-	    placedAirRune = bool;
-	}
-	public boolean hasPlacedSword() {
-	    return placedSword;
-	}
-	public void setPlacedSword(boolean bool) {
-	    placedSword = bool;
-	}
-	public boolean hasPlacedArrow() {
-	    return placedArrow;
-	}
-	public void setPlacedArrow(boolean bool) {
-	    placedArrow= bool;
-	}
 	public int getGodBook() {
 	    return godBook;
 	}
@@ -2727,18 +2425,6 @@ public class Player extends Entity {
 	}
 	public void setLostGodBook(int set) {
 	    this.lostGodBook = set;
-	}
-	public int getRailingsFixed() {
-	    return this.railingsFixed;
-	}
-	public void setRailingsFixed(int set) {
-	    this.railingsFixed = set;
-	}
-	public void addRailingsFixed(int fixed) {
-	    railings.add(fixed);
-	}
-	public ArrayList<Integer> getRailingsArray() {
-	    return this.railings;
 	}
 	public DwarfMultiCannon getMultiCannon(){
 		return dwarfMultiCannon;
@@ -3037,14 +2723,6 @@ public class Player extends Entity {
 
 	public void setEffectVolume(int effectVolume) {
 		this.effectVolume = effectVolume;
-	}
-	
-	public int getBallistaIndex() {
-	    return this.ballistaIndex;
-	}
-	
-	public void setBallistaIndex(int set) {
-	    this.ballistaIndex = set;
 	}
 	
 	public boolean getCanHaveGodCape() {
@@ -3363,14 +3041,6 @@ public class Player extends Entity {
 	}
 	public void setVoidMace(boolean voidMace) {
 		this.voidMace = voidMace;
-	}
-	
-	public boolean isGazeOfSaradomin() {
-	    return this.gazeOfSaradomin;
-	}
-	
-	public void setGazeOfSaradomin(boolean set) {
-	    this.gazeOfSaradomin = set;
 	}
 	
 	public boolean wearingCwBracelet(){
@@ -4165,6 +3835,9 @@ public class Player extends Entity {
 	}
 
 	public boolean npcCanAttack(Npc npc) {
+		if (npc.getNpcId() == 1052) {
+		    return npc.getCombatingEntity() == null;
+		}
 		if (npc.isAttacking() || !npc.getDefinition().isAttackable()) {
 			return false;
 		}
@@ -4260,6 +3933,9 @@ public class Player extends Entity {
 				}
 				if (npc.getTransformTimer() < 1 && npc.isTransformOnAggression() > 0) {
 					npc.sendTransform(npc.isTransformOnAggression(), 999999);
+				}
+				if (npc.getNpcId() == 1052) {
+					npc.getUpdateFlags().setForceChatMessage("OOooooohhh");
 				}
 				CombatManager.attack(npc, this);
 				return;
@@ -4998,7 +4674,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 12389); //mountain daughter
 		getActionSender().sendString("", 13974); //mourning's end pt 1
 		getActionSender().sendString("", 7370); //murder mystery
-		getActionSender().sendString("", 8137); //nature spirit
+		getActionSender().sendString("@red@Nature Spirit", 8137); //nature spirit
 		getActionSender().sendString("", 7371); //observatory quest
 		getActionSender().sendString("", 12345); //one small favour
 		getActionSender().sendString("", 7372); //plague city
