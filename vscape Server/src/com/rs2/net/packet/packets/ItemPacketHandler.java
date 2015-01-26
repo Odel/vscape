@@ -21,6 +21,7 @@ import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -1132,6 +1133,9 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	Pouches.checkEssencePouch(player, item.getId());
 	switch (itemId) {
+	    case NatureSpirit.SILVER_SICKLE_B:
+		NatureSpirit.handleDruidicSpell(player, true);
+		return;
 	    case 4566: // rubber chicken
 	    	player.getUpdateFlags().sendAnimation(1835);
 		return;
@@ -1391,6 +1395,9 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    case 4566: // rubber chicken
 		player.getUpdateFlags().sendAnimation(1835);
+		return;
+	    case NatureSpirit.SILVER_SICKLE_B:
+		NatureSpirit.handleDruidicSpell(player, true);
 		return;
 	    case 3840:
 	    case 3842:

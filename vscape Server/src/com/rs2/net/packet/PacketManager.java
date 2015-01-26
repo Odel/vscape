@@ -120,6 +120,8 @@ public class PacketManager {
 		packets[230] = silent; // added this one
 		packets[36] = silent; // was constant for tele
 		packets[95] = silent;
+		packets[183] = object;
+		packets[228] = object; //183 && 228 are stones in nature grotto
 		
 		int count = 0;
 		for (PacketHandler packet : packets) {

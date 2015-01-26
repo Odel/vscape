@@ -8,7 +8,6 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.AnimalMagnetism;
 import com.rs2.model.content.quests.BlackKnightsFortress;
-import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GoblinDiplomacy;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
@@ -18,9 +17,6 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
@@ -128,7 +124,7 @@ public final class PlayerUpdating {
 		if(player.inGoblinVillage() && player.getQuestStage(19) < 4) {
 		    ArrayList<Npc> goblins = GoblinDiplomacy.getGreenGoblin();
 		    Npc green = goblins.get(Misc.randomMinusOne(goblins.size()));
-		    for(Npc npc : World.getNpcs()) {
+		    for(Npc npc : player.getNpcs()) {
 			if(npc == null) continue;
 			if(npc.getNpcId() == GoblinDiplomacy.RED_GOBLIN && !npc.isAttacking() 
 			    && Misc.goodDistance(npc.getPosition().clone(), green.getPosition().clone(), 4)) {

@@ -24,6 +24,7 @@ import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.Quest;
@@ -1779,6 +1780,10 @@ public class WalkToActionHandler {
 					return;
 				}
 				if(TreeGnomeVillage.doObjectSecondClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if(NatureSpirit.doObjectSecondClick(player, id, x, y)) {
 					this.stop();
 					return;
 				}

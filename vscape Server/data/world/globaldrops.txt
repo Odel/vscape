@@ -1,5 +1,7 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+2957:1:3443:9741:1:30 //druid pouch nature spirit
+2957:1:3443:9741:0:30 //druid pouch nature spirit
 2964:1:3437:3337:0:10 //washing bowl nature spirit
 2876:1:2508:2980:0:60 //chompy meat
 2876:1:2512:2978:0:60 //chompy meat

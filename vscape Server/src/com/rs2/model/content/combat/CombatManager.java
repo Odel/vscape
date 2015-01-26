@@ -26,6 +26,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.RecruitmentDrive;
@@ -447,6 +448,7 @@ public class CombatManager extends Tick {
 			TreeGnomeVillage.handleDeath((Player) killer, npc);
 			RecruitmentDrive.handleDeath((Player) killer, npc);
 			MonkeyMadness.handleDeath((Player) killer, npc);
+			NatureSpirit.handleDeath((Player) killer, npc);
 			((Player) killer).getFreakyForester().handleDrops(npc);
 			if(((Player) killer).getSpawnedNpc() != null) {
 			    ((Player) killer).setSpawnedNpc(null);

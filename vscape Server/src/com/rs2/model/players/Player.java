@@ -68,6 +68,7 @@ import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
+import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.RandomEvent;
@@ -831,6 +832,9 @@ public class Player extends Entity {
 		    actionSender.sendEnergy();
 		}
 		getDesertHeat().CheckDesertHeat();
+		if(inMortMyreSwamp() && Misc.random(40) == 13) {
+		    NatureSpirit.handleSwampRot(this);
+		}
 		if(timeOutCheck()) {
 		    disconnect();
 		}
@@ -1276,8 +1280,13 @@ public class Player extends Entity {
 		World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
 	    }
 	}
-	CommandHandler.appendToMacList(this, this.getMacAddress());
+	    CommandHandler.appendToMacList(this, this.getMacAddress());
 	//	getCat().initChecks();
+	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
+	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
+	    getActionSender().sendMessage("We are currently in the middle of finding a new server home for /v/scape. Please");
+	    getActionSender().sendMessage("excuse any lag or disconnects! We are working on finding a stable and secure server.");
+	    //getActionSender().sendMessage("Feel like reimbursing Odel for server costs?  Go to odelvidyascape.blogspot.com", true);
 	}
 	
 	public boolean beginLogin() throws Exception {

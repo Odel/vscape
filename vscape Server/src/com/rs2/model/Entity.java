@@ -258,7 +258,11 @@ public abstract class Entity {
 	public boolean inGoblinVillage() {
 		return Area(2949, 2964, 3478, 3514);
 	}
-
+	
+	public boolean inMortMyreSwamp() {
+		return Area(3400, 3520, 3326, 3459);
+	}
+	
 	public boolean inWild() {
 		return Area(2942, 3391, 3520, 4000) || Area(2942, 3391, 9919, 10365);
 	}

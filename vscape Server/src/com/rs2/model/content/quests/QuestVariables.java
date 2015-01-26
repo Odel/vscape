@@ -64,7 +64,14 @@ public class QuestVariables {
     public boolean receivedPacket = false;
     private boolean gazeOfSaradomin = false;
     public String templeKnightRiddleAnswer = "NULL";
-
+    public boolean fillimanOption1 = false;
+    public boolean fillimanOption2 = false;
+    public boolean fillimanOption3 = false;
+    public boolean showedFillimanFungus = false;
+    public boolean natureSpiritFungusPlaced = false;
+    public boolean natureSpiritSpellPlaced = false;
+    private int ghastsSlain = 0;
+    
     public QuestVariables(final Player player) {
 	this.player = player;
     }
@@ -417,5 +424,13 @@ public class QuestVariables {
 
     public void setGazeOfSaradomin(boolean set) {
 	this.gazeOfSaradomin = set;
+    }
+    
+    public int getGhastsSlain() {
+	return this.ghastsSlain;
+    }
+    
+    public void setGhastsSlain(int set) {
+	this.ghastsSlain = set;
     }
 }

@@ -57,6 +57,7 @@ public class ObjectPacketHandler implements PacketHandler {
 		case ITEM_ON_OBJECT:
 			handleItemOnObject(player, packet);
 			break;
+		case 228:
 		case FIRST_CLICK:
 			handleFirstClick(player, packet);
 			break;
@@ -211,6 +212,21 @@ public class ObjectPacketHandler implements PacketHandler {
 			player.setQuestStage(13, 10);
 			return;
 		    }
+		    return;
+		}
+		if(player.getClickId() == 3464 && player.getClickX() == 18317 && Misc.goodDistance(player.getPosition(), new Position(3439, 3336, 0), 3)) { //filliman's stones
+		    player.walkTo(new Position(3439, 3336, 0), true);
+		    Dialogues.sendDialogue(player, 35270, 1, 0);
+		    return;
+		}
+		if(player.getClickId() == 3463 && player.getClickX() == 18573 && Misc.goodDistance(player.getPosition(), new Position(3440, 3335, 0), 3)) { //filliman's stones
+		    player.walkTo(new Position(3440, 3335, 0), true);
+		    Dialogues.sendDialogue(player, 35280, 1, 0);
+		    return;
+		}
+		if(player.getClickId() == 3464 && player.getClickX() == 18829 && Misc.goodDistance(player.getPosition(), new Position(3441, 3336, 0), 3)) { //filliman's stones
+		    player.walkTo(new Position(3441, 3336, 0), true);
+		    Dialogues.sendDialogue(player, 35290, 1, 0);
 		    return;
 		}
 		if(player.getClickId() == 2401) { //black arm open cupboard
