@@ -332,10 +332,10 @@ public class NatureSpirit implements Quest {
 		player.getActionSender().sendString("@str@" + "I have slain all 3 Ghasts! I should return to the", 8176);
 		player.getActionSender().sendString("@str@" + "Nature spirit.", 8177);
 
-		player.getActionSender().sendString("I helped Filliman Tarlock turn his grotto into an Altar", 8177);
-		player.getActionSender().sendString("to Nature. I may use it to my benefit.", 8178);
+		player.getActionSender().sendString("I helped Filliman Tarlock turn his grotto into an Altar", 8179);
+		player.getActionSender().sendString("to Nature. I may use it to my benefit.", 8180);
 		
-		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8180);
+		player.getActionSender().sendString("@red@" + "You have completed this quest!", 8182);
 		break;
 	    default:
 		player.getActionSender().sendString("You can begin this quest by talking to @dre@Drezel @bla@at", 8147); //default quest log to begin quest
@@ -410,7 +410,7 @@ public class NatureSpirit implements Quest {
 	    player.getActionSender().sendMessage("The aura of Filliman's camp protects you from the swamp.");
 	} else if(player.getInventory().playerHasItem(SILVER_SICKLE_B) || player.getEquipment().getId(Constants.WEAPON) == SILVER_SICKLE_B) {
 	    player.getUpdateFlags().sendGraphic(264);
-	    player.getActionSender().sendMessage("Your blessed sickle prevents the swamp from decaying you.", true);
+	    player.getActionSender().sendMessage("Your blessed sickle prevents the swamp from decaying you.");
 	} else {
 	    player.getUpdateFlags().sendGraphic(267);
 	    player.getActionSender().sendMessage("The swamp decays you.", true);
@@ -460,11 +460,11 @@ public class NatureSpirit implements Quest {
 		if (Misc.random(3) == 1) {
 		    player.getInventory().replaceItemWithItem(new Item(player.getTempInteger()), new Item(ROTTEN_FOOD));
 		    if (f.getNewItemId() != -1) {
-			player.getActionSender().sendMessage("You feel something attacing your backpack, and smell a terrible stench.");
+			player.getActionSender().sendMessage("You feel something attacking your backpack, and smell a terrible stench.");
 			player.getInventory().addItemOrDrop(new Item(f.getNewItemId()));
 		    }
 		} else {
-		    player.getActionSender().sendMessage("An attacking Ghast just misses you.", true);
+		    player.getActionSender().sendMessage("An attacking Ghast just misses you.");
 		}
 	    } else {
 		player.hit(Misc.random(2), HitType.NORMAL);
@@ -491,6 +491,10 @@ public class NatureSpirit implements Quest {
 	Position[] positionsToCheck = {new Position(x + 1, y), new Position(x - 1, y), new Position(x, y + 1), new Position(x, y - 1), new Position(x + 1, y + 1), new Position(x + 1, y - 1), new Position(x - 1, y + 1), new Position(x - 1, y - 1)};
 	for(Position p : positionsToCheck) {
 	    CacheObject g = ObjectLoader.object("Rotting log", p.getX(), p.getY(), 0);
+	    GameObject o = ObjectHandler.getInstance().getObject(p.getX(), p.getY(), 0);
+	    if(o != null && o.getDef().getId() == 3509) {
+		continue;
+	    }
 	    if(g != null && g.getDef().getId() == 3508) {
 		return g;
 	    }
@@ -504,6 +508,10 @@ public class NatureSpirit implements Quest {
 	Position[] positionsToCheck = {new Position(x + 1, y), new Position(x - 1, y), new Position(x, y + 1), new Position(x, y - 1), new Position(x + 1, y + 1), new Position(x + 1, y - 1), new Position(x - 1, y + 1), new Position(x - 1, y - 1)};
 	for(Position p : positionsToCheck) {
 	    CacheObject g = ObjectLoader.object("Rotting branch", p.getX(), p.getY(), 0);
+	    GameObject o = ObjectHandler.getInstance().getObject(p.getX(), p.getY(), 0);
+	    if(o != null && o.getDef().getId() == 3511) {
+		continue;
+	    }
 	    if(g != null && g.getDef().getId() == 3510) {
 		return g;
 	    }
@@ -517,6 +525,10 @@ public class NatureSpirit implements Quest {
 	Position[] positionsToCheck = {new Position(x + 1, y), new Position(x - 1, y), new Position(x, y + 1), new Position(x, y - 1), new Position(x + 1, y + 1), new Position(x + 1, y - 1), new Position(x - 1, y + 1), new Position(x - 1, y - 1)};
 	for(Position p : positionsToCheck) {
 	    CacheObject g = ObjectLoader.object("A small bush", p.getX(), p.getY(), 0);
+	    GameObject o = ObjectHandler.getInstance().getObject(p.getX(), p.getY(), 0);
+	    if(o != null && o.getDef().getId() == 3513) {
+		continue;
+	    }
 	    if(g != null && g.getDef().getId() == 3512) {
 		return g;
 	    }
@@ -545,7 +557,8 @@ public class NatureSpirit implements Quest {
 		player.getActionSender().createStillGfx(263, x - 1, y + 1, 0, 5);
 		player.getActionSender().createStillGfx(263, x - 1, y - 1, 0, 5);
 		if (!player.inMortMyreSwamp()) {
-		    player.getActionSender().sendMessage("This spell is only effective in the Mort Myre swamp.");
+		    player.getActionSender().sendMessage("This spell is only effective in the Mort Myre swamp.", true);
+		    b.stop();
 		    return;
 		} else {
 		    player.getActionSender().sendMessage("You cast the spell in the swamp.", true);
@@ -564,6 +577,7 @@ public class NatureSpirit implements Quest {
 			public void stop() {
 			    ObjectHandler.getInstance().removeObject(log.getLocation().getX(), log.getLocation().getY(), 0, 10);
 			    new GameObject(3509, log.getLocation().getX(), log.getLocation().getY(), 0, log.getRotation(), 10, 0, 999999);
+			    ObjectHandler.getInstance().removeClip(log.getLocation().getX(), log.getLocation().getY(), 0, 10, 0);
 			}
 		    }, 3);
 		}
@@ -578,6 +592,7 @@ public class NatureSpirit implements Quest {
 			public void stop() {
 			    ObjectHandler.getInstance().removeObject(branch.getLocation().getX(), branch.getLocation().getY(), 0, 10);
 			    new GameObject(3511, branch.getLocation().getX(), branch.getLocation().getY(), 0, branch.getRotation(), 10, 0, 999999);
+			    ObjectHandler.getInstance().removeClip(branch.getLocation().getX(), branch.getLocation().getY(), 0, 10, 0);
 			}
 		    }, 3);
 		}
@@ -598,8 +613,14 @@ public class NatureSpirit implements Quest {
 		if (log == null && branch == null && bush == null) {
 		    player.getActionSender().sendMessage("There is no suitable material to be affected in this area.", true);
 		} else {
-		    if (!isSickle && log != null) {
-			player.getInventory().replaceItemWithItem(new Item(DRUIDIC_SPELL), new Item(USED_SPELL));
+		    if (!isSickle) {
+			if (player.getQuestStage(37) < BLESSED_SICKLE_GET) {
+			    if (log != null) {
+				player.getInventory().replaceItemWithItem(new Item(DRUIDIC_SPELL), new Item(USED_SPELL));
+			    }
+			} else {
+			    player.getInventory().replaceItemWithItem(new Item(DRUIDIC_SPELL), new Item(USED_SPELL));
+			}
 		    }
 		}
 		b.stop();
@@ -627,8 +648,9 @@ public class NatureSpirit implements Quest {
 	    }
 	}
     }
-    public boolean itemHandling(final Player player, int itemId) {
+    public boolean itemHandling(final Player player, final int itemId) {
 	switch(itemId) {
+	    case DRUID_POUCH:
 	    case DRUID_POUCH_EMPTY:
 		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -645,8 +667,12 @@ public class NatureSpirit implements Quest {
 			}
 			if (!toAdd.isEmpty()) {
 			    int count = 0;
-			    player.getInventory().replaceItemWithItem(new Item(DRUID_POUCH_EMPTY), new Item(DRUID_POUCH));
-			    player.getInventory().removeItem(toAdd.get(0));
+			    if(itemId == DRUID_POUCH_EMPTY) {
+				player.getInventory().removeItem(toAdd.get(0));
+ 				player.getInventory().replaceItemWithItem(new Item(DRUID_POUCH_EMPTY), new Item(DRUID_POUCH));
+			    } else {
+				player.getInventory().replaceItemWithItem(toAdd.get(0), new Item(DRUID_POUCH));
+			    }
 			    toAdd.remove(0);
 			    count++;
 			    if (!toAdd.isEmpty()) {
@@ -661,6 +687,9 @@ public class NatureSpirit implements Quest {
 			    } else {
 				player.getActionSender().sendMessage("You add " + count + " natures harvests to your druid pouch.");
 			    }
+			    b.stop();
+			} else {
+			    player.getActionSender().sendMessage("You have no suitable items to add to the pouch.");
 			    b.stop();
 			}
 		    }
@@ -798,7 +827,7 @@ public class NatureSpirit implements Quest {
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch (object) {
 	    case 3517: //Search outside grotto
-		player.getActionSender().sendMessage("It looks like a tree on a large rock with roots trailing to the ground.");
+		player.getActionSender().sendMessage("It looks like a tree on a large rock with roots trailing to the ground.", true);
 		return true;
 	    case 3520: //Search inside grotto
 		Dialogues.startDialogue(player, player.getQuestStage(37) == ENTER_GROTTO ? FILLIMAN_TARLOCK : NATURE_SPIRIT);
@@ -806,7 +835,7 @@ public class NatureSpirit implements Quest {
 	    case 3525:
 	    case 3526: //Grotto exit
 		player.fadeTeleport(new Position(3440, 3337, 0));
-		player.getActionSender().sendMessage("You prepare to exit the grotto.", true);
+		player.getActionSender().sendMessage("You prepare to exit the grotto.");
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -815,7 +844,7 @@ public class NatureSpirit implements Quest {
 
 			@Override
 			public void stop() {
-			    player.getActionSender().sendMessage("You crawl back out of the grotto.", true);
+			    player.getActionSender().sendMessage("You crawl back out of the grotto.");
 			}
 		    }, 4);
 		return true;
@@ -826,7 +855,7 @@ public class NatureSpirit implements Quest {
 		    Dialogues.startDialogue(player, FILLIMAN_TARLOCK);
 		} else {
 		    player.fadeTeleport(player.getQuestStage(37) < QUEST_COMPLETE ? new Position(3442, 9734, 0) : new Position(3442, 9734, 1));
-		    player.getActionSender().sendMessage("You prepare to enter the grotto.", true);
+		    player.getActionSender().sendMessage("You prepare to enter the grotto.");
 		    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -836,9 +865,9 @@ public class NatureSpirit implements Quest {
 			@Override
 			public void stop() {
 			    if(player.getQuestStage(37) == QUEST_COMPLETE) {
-				player.getActionSender().sendMessage("You enter the beautiful Altar to Nature.", true);
+				player.getActionSender().sendMessage("You enter the beautiful Altar to Nature.");
 			    } else {
-				player.getActionSender().sendMessage("You see a beautifully tended small grotto area.", true);
+				player.getActionSender().sendMessage("You see a beautifully tended small grotto area.");
 			    }
 			}
 		    }, 4);
@@ -853,7 +882,7 @@ public class NatureSpirit implements Quest {
 		if(player.getPosition().getY() >= 3458) {
 		    player.getActionSender().sendMessage("You walk into the gloomy atmosphere of Mort Myre.", true);
 		} else {
-		    player.getActionSender().sendMessage("Ulizius gives you a wink and a nod as you pass through the gate.");
+		    player.getActionSender().sendMessage("Ulizius gives you a wink and a nod as you pass through the gate.", true);
 		}
 		player.getActionSender().walkThroughDoubleDoor(3506, 3507, 3444, 3458, 3443, 3458, 0);
 		player.getActionSender().walkTo(0, player.getPosition().getY() < 3458 ? 1 : -1, true);
@@ -875,7 +904,6 @@ public class NatureSpirit implements Quest {
 			final CacheObject g = ObjectLoader.object(x, y, 0);
 			if (g != null) {
 			    ObjectHandler.getInstance().removeObject(x, y, 0, 10);
-			    ObjectHandler.getInstance().removeClip(x, y, 0, 10, 0);
 			    new GameObject(3512, x, y, 0, g.getRotation(), 10, 0, 999999);
 			}
 			b.stop();
@@ -897,8 +925,8 @@ public class NatureSpirit implements Quest {
 			final CacheObject g = ObjectLoader.object(x, y, 0);
 			if (g != null) {
 			    ObjectHandler.getInstance().removeObject(x, y, 0, 10);
-			    ObjectHandler.getInstance().removeClip(x, y, 0, 10, 0);
 			    new GameObject(3510, x, y, 0, g.getRotation(), 10, 0, 999999);
+			    ObjectHandler.getInstance().removeClip(x, y, 0, 10, 0);
 			}
 			b.stop();
 		    }
@@ -919,8 +947,8 @@ public class NatureSpirit implements Quest {
 			final CacheObject g = ObjectLoader.object(x, y, 0);
 			if (g != null) {
 			    ObjectHandler.getInstance().removeObject(x, y, 0, 10);
-			    ObjectHandler.getInstance().removeClip(x, y, 0, 10, 0);
 			    new GameObject(3508, x, y, 0, g.getRotation(), 10, 0, 999999);
+			    ObjectHandler.getInstance().removeClip(x, y, 0, 10, 0);
 			}
 			b.stop();
 		    }
@@ -931,7 +959,7 @@ public class NatureSpirit implements Quest {
 		}, 1);
 		return true;
 	    case 3517: //Search outside grotto
-		if(!player.getInventory().playerHasItem(JOURNAL)) {
+		if(!player.getInventory().playerHasItem(JOURNAL) && player.getQuestStage(37) < SOMETHING_FROM_NATURE) {
 		    player.getDialogue().sendStatement("You search the strange rock. You find a knot and", "inside of it you discover a small tome. The words on", "the front are a bit vague, but you make out the words", "'Tarlock' and 'journal'.");
 		    player.getInventory().addItem(new Item(JOURNAL));
 		    return true;
@@ -1039,7 +1067,7 @@ public class NatureSpirit implements Quest {
 				return true;
 			    case 2:
 				d.sendNpcChat("Before I can make this grotto into an Altar of Nature,", "I need to be sure that the Ghasts will be kept at bay.", "Go forth into Mort Myre and slay three Ghasts. You'll", "be releasing their souls from Mort Myre.", CONTENT);
-				if(player.getInventory().playerHasItem(DRUID_POUCH)) {
+				if(player.getInventory().playerHasItem(DRUID_POUCH_EMPTY) || player.getInventory().playerHasItem(DRUID_POUCH)) {
 				    d.endDialogue();
 				}
 				return true;
@@ -1111,7 +1139,7 @@ public class NatureSpirit implements Quest {
 				d.setNextChatId(4);
 				return true;
 			    case 8:
-				d.sendNpcChat("The holiness of the sickle will cause the undead Ghast", "to become rooted in the physical world, and able to be", "attacked. It will also help their poor souls rest.", CONTENT);
+				d.sendNpcChat("The holiness of the sickle will be used to cause the Ghast", "to become rooted in the physical world, and able to be", "attacked. It will also help their poor souls rest.", CONTENT);
 				d.setNextChatId(4);
 				return true;
 			    case 10:
@@ -1493,7 +1521,7 @@ public class NatureSpirit implements Quest {
 				d.sendNpcChat("It's all coming back to me now. It looks like I came to", "a violent and bitter end but that's not important now. I", "just have to figure out what I am going to do now?", CONTENT);
 				return true;
 			    case 25:
-				d.sendOption("Being dead, what options do you think you have?", "So, what's your plan?", "Well, good luck with that.", "How can I help?");
+				d.sendOption("Being dead, what options do you think you have?", "So, what's your plan?", "Well, good luck with that.", "How can I help?", "Ok, thanks.");
 				return true;
 			    case 26:
 				switch(optionId) {
@@ -1511,6 +1539,10 @@ public class NatureSpirit implements Quest {
 				    case 4:
 					d.sendPlayerChat("How can I help?", CONTENT);
 					d.setNextChatId(30);
+					return true;
+				    case 5:
+					d.sendPlayerChat("Ok, thanks.", CONTENT);
+					d.endDialogue();
 					return true;
 				}
 			    case 27:

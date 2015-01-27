@@ -887,7 +887,7 @@ public class GhostsAhoy implements Quest {
 			return true;
 		    }
 		    else {
-			player.getActionSender().sendMessage("The guards give you a wink and a nod as you pass through the barrier.");
+			player.getActionSender().sendMessage("The guards give you a wink and a nod as you pass through the barrier.", true);
 			if (player.getPosition().getY() > 3500) {
 			    player.getActionSender().walkTo(0, player.getPosition().getY() < 3508 ? 1 : -2, true);
 			    return true;

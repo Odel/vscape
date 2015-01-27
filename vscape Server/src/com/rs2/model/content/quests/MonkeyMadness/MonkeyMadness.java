@@ -889,7 +889,7 @@ public class MonkeyMadness implements Quest {
 	    case BAMBOO_GATE_LEFT:
 	    case BAMBOO_GATE_RIGHT:
 		player.setStopPacket(true);
-		player.getActionSender().sendMessage("The guards give you a wink and a nod as you pass through the gate.");
+		player.getActionSender().sendMessage("The monkey guards give you a wink and a nod as you pass through the gate.", true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {

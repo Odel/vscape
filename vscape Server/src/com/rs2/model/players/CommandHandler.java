@@ -518,7 +518,7 @@ public class CommandHandler {
 				if(!sender.getBankManager().tabButtons(i)) {
 				    sender.getBankManager().addTabs(i);
 				}
-				sender.getBankManager().add(item, i);
+				sender.getBankManager().tabContainer(i).add(item);
 			    }
 			}
 		    } else {
@@ -541,7 +541,7 @@ public class CommandHandler {
 		    }
 		    sender.getInventory().refresh();
 		}
-		if(keyword.equals("emptybank")) {
+		if(keyword.equals("emptybank") || keyword.equals("clearbank")) {
 		    for(int i = 0; i < 9; i++) {
 			sender.getBankManager().tabContainer(i).clear();
 			sender.getBankManager().refreshTabContainer();
@@ -605,6 +605,23 @@ public class CommandHandler {
 			}
 		    }
 		    sender.getActionSender().sendMessage("Player offline or not found.", true);
+		}
+		else if (keyword.equals("forcefrogall") || keyword.equals("frogall")) {
+		    sender.getActionSender().sendMessage("You have frogged all players.", true);
+		    for (Player player : World.getPlayers()) {
+			if (player == null) {
+			    continue;
+			} else {
+			    player.transformNpc = 1829;
+			    player.setStandAnim(1796);
+			    player.setWalkAnim(1797);
+			    player.setRunAnim(1797);
+			    player.setAppearanceUpdateRequired(true);
+			    player.getUpdateFlags().setForceChatMessage("Ribbit");
+			    player.getActionSender().sendMessage("You have been frogged! Good luck croaking in hell!", true);
+			    return;
+			}
+		    }
 		}
 		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
 			if(sender.inMiniGameArea() || sender.inWild())
