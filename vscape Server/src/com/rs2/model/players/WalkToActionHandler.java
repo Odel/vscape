@@ -255,6 +255,10 @@ public class WalkToActionHandler {
 					player.fadeTeleport(new Position(2580, 9575, 0));
 					this.stop();
 					return;
+				    } else if(id == 3521) { //Altar to nature / nature altar
+					Prayer.rechargePrayerGuild(player);
+					this.stop();
+					return; 
 				    } else {
 					Prayer.rechargePrayer(player);
 					this.stop();
