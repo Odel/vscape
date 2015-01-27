@@ -146,12 +146,12 @@ public class Skill {
 		return total;
 	}
 
-	public int getTotalXp() {
-		int total = 0;
-		for (int i = 0; i < SKILL_NAME.length; i++) {
-			total += getExp()[i];
+	public long getTotalXp() {
+		long totalxp = 0;
+		for (double xp : getExp()) {
+			totalxp += xp;
 		}
-		return total;
+		return totalxp;
 	}
 
 	public void addExp(int skill, double xp) {

@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.rs2.Constants;
+import com.rs2.model.content.skills.Skill;
 //import java.security.MessageDigest;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
@@ -32,7 +33,7 @@ public class SQL {
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				con = DriverManager.getConnection(Constants.GAME_DB_URL,Constants.GAME_DB_USER,Constants.GAME_DB_PASS);
-				stmt = con.createStatement();
+				stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -92,13 +93,28 @@ public class SQL {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static boolean saveHighScore(Player player) {
 		try {
-			//query("DELETE FROM `skills` WHERE playerName = '"+player.getUsername()+"';");
-			query("DELETE FROM `skillsoverall` WHERE username = '"+player.getUsername()+"';");
-			//query("INSERT INTO `skills` (`playerName`,`Attacklvl`,`Attackxp`,`Defencelvl`,`Defencexp`,`Strengthlvl`,`Strengthxp`,`Hitpointslvl`,`Hitpointsxp`,`Rangelvl`,`Rangexp`,`Prayerlvl`,`Prayerxp`,`Magiclvl`,`Magicxp`,`Cookinglvl`,`Cookingxp`,`Woodcuttinglvl`,`Woodcuttingxp`,`Fletchinglvl`,`Fletchingxp`,`Fishinglvl`,`Fishingxp`,`Firemakinglvl`,`Firemakingxp`,`Craftinglvl`,`Craftingxp`,`Smithinglvl`,`Smithingxp`,`Mininglvl`,`Miningxp`,`Herblorelvl`,`Herblorexp`,`Agilitylvl`,`Agilityxp`,`Thievinglvl`,`Thievingxp`,`Slayerlvl`,`Slayerxp`,`Farminglvl`,`Farmingxp`,`Runecraftlvl`,`Runecraftxp`) VALUES ('"+player.getUsername()+"',"+player.getSkill().getLevel()[Skill.ATTACK]+","+player.getSkill().getExp()[Skill.ATTACK]+","+player.getSkill().getLevel()[Skill.DEFENCE]+","+player.getSkill().getExp()[Skill.DEFENCE]+","+player.getSkill().getLevel()[Skill.STRENGTH]+","+player.getSkill().getExp()[Skill.STRENGTH]+","+player.getSkill().getLevel()[Skill.HITPOINTS]+","+player.getSkill().getExp()[Skill.HITPOINTS]+","+player.getSkill().getLevel()[Skill.RANGED]+","+player.getSkill().getExp()[Skill.RANGED]+","+player.getSkill().getLevel()[Skill.PRAYER]+","+player.getSkill().getExp()[Skill.PRAYER]+","+player.getSkill().getLevel()[Skill.MAGIC]+","+player.getSkill().getExp()[Skill.MAGIC]+","+player.getSkill().getLevel()[Skill.COOKING]+","+player.getSkill().getExp()[Skill.COOKING]+","+player.getSkill().getLevel()[Skill.WOODCUTTING]+","+player.getSkill().getExp()[Skill.WOODCUTTING]+","+player.getSkill().getLevel()[Skill.FLETCHING]+","+player.getSkill().getExp()[Skill.FLETCHING]+","+player.getSkill().getLevel()[Skill.FISHING]+","+player.getSkill().getExp()[Skill.FISHING]+","+player.getSkill().getLevel()[Skill.FIREMAKING]+","+player.getSkill().getExp()[Skill.FIREMAKING]+","+player.getSkill().getLevel()[Skill.CRAFTING]+","+player.getSkill().getExp()[Skill.CRAFTING]+","+player.getSkill().getLevel()[Skill.SMITHING]+","+player.getSkill().getExp()[Skill.SMITHING]+","+player.getSkill().getLevel()[Skill.MINING]+","+player.getSkill().getExp()[Skill.MINING]+","+player.getSkill().getLevel()[Skill.HERBLORE]+","+player.getSkill().getExp()[Skill.HERBLORE]+","+player.getSkill().getLevel()[Skill.AGILITY]+","+player.getSkill().getExp()[Skill.AGILITY]+","+player.getSkill().getLevel()[Skill.THIEVING]+","+player.getSkill().getExp()[Skill.THIEVING]+","+player.getSkill().getLevel()[Skill.SLAYER]+","+player.getSkill().getExp()[Skill.SLAYER]+","+player.getSkill().getLevel()[Skill.FARMING]+","+player.getSkill().getExp()[Skill.FARMING]+","+player.getSkill().getLevel()[Skill.RUNECRAFTING]+","+player.getSkill().getExp()[Skill.RUNECRAFTING]+");");
-			query("INSERT INTO `skillsoverall` (`username`,`totalxp`,`totallevel`) VALUES ('"+player.getUsername()+"',"+(player.getSkill().getTotalXp())+","+(player.getSkill().getTotalLevel())+");");
+			ResultSet rs = query("SELECT * FROM highscores WHERE username='"+player.getUsername()+"' LIMIT 1");
+			if (!rs.next()) {
+				rs.moveToInsertRow(); // Moves cursor to insert row.
+				rs.updateString("username", player.getUsername());
+				rs.updateInt("rights", player.getStaffRights());
+				rs.updateLong("overall_xp", player.getSkill().getTotalXp());
+				for (int i = 0; i < Skill.SKILL_NAME.length; i++) {
+					rs.updateInt(""+Skill.SKILL_NAME[i].toLowerCase()+"_xp", (int)player.getSkill().getExp()[i]);
+				}
+				rs.insertRow(); // inserts the new row
+			} else {
+				rs.updateString("username", player.getUsername());
+				rs.updateInt("rights", player.getStaffRights());
+				rs.updateLong("overall_xp", player.getSkill().getTotalXp());
+				for (int i = 0; i < Skill.SKILL_NAME.length; i++) {
+					rs.updateInt(""+Skill.SKILL_NAME[i].toLowerCase()+"_xp", (int)player.getSkill().getExp()[i]);
+				}
+				rs.updateRow(); // updates an existing row
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -109,7 +125,7 @@ public class SQL {
 	public static void cleanHighScores(){
 		System.out.println("Erasing highscore entries");
 		try {
-			query("TRUNCATE TABLE `skillsoverall`");
+			query("TRUNCATE TABLE `highscores`");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -144,7 +160,7 @@ public class SQL {
 				            	continue;
 				            }
 				            int leveltotal = 0;
-				            int xptotal = 0;
+				            long xptotal = 0;
 				            if(skills != null && skills.size() > 0){
 					    		for (int i = 0; i < 22; i++) {
 					    			JsonObject levelObj = skills.get(i).getAsJsonObject();
@@ -159,21 +175,39 @@ public class SQL {
 				    			if(Constants.SQL_TYPE == 2)
 				    			{
 				    				PreparedStatement del;
-				    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
+				    				del = con.prepareStatement("DELETE FROM `highscores` WHERE username = ?;");
 				    				del.setString(1, sname);
 				    				del.executeUpdate();
 				    			}
-				    			PreparedStatement upd = con.prepareStatement("INSERT INTO `skillsoverall` (`username`,`totallevel`,`totalxp`) VALUES (?,?,?);");
-				    			upd.setString(1, sname);
-				    			upd.setInt(2, leveltotal);
-				    			upd.setInt(3, xptotal);
-				    			upd.executeUpdate();				    			
+				    			ResultSet rs = query("SELECT * FROM highscores WHERE username='"+sname+"' LIMIT 1");
+				    			if (!rs.next()) {
+				    				rs.moveToInsertRow(); // Moves cursor to insert row.
+				    				rs.updateString("username", sname);
+				    				rs.updateInt("rights", characterObj.get("rights").getAsInt());
+				    				rs.updateLong("overall_xp", xptotal);
+				    				for (int i = 0; i < skills.size()-1; i++) {
+						    			JsonObject levelObj = skills.get(i).getAsJsonObject();
+						    			int exp = levelObj.get("xp").getAsInt();
+				    					rs.updateInt(""+Skill.SKILL_NAME[i].toLowerCase()+"_xp", exp);
+				    				}
+				    				rs.insertRow(); // inserts the new row
+				    			} else {
+				    				rs.updateString("username", sname);
+				    				rs.updateInt("rights", characterObj.get("rights").getAsInt());
+				    				rs.updateLong("overall_xp", xptotal);
+				    				for (int i = 0; i < skills.size()-1; i++) {
+						    			JsonObject levelObj = skills.get(i).getAsJsonObject();
+						    			int exp = levelObj.get("xp").getAsInt();
+				    					rs.updateInt(""+Skill.SKILL_NAME[i].toLowerCase()+"_xp", exp);
+				    				}
+				    				rs.updateRow(); // updates an existing row
+				    			}	    			
 				    		} catch (Exception e) {
 				    			e.printStackTrace();
 				    		}
 				        }
 					}
-				}else{
+				}/*else{
 					if (file.getName().endsWith(".dat")) {
 						count++;
 						//System.out.println(file.getName());
@@ -245,7 +279,7 @@ public class SQL {
 			    			if(Constants.SQL_TYPE == 2)
 			    			{
 			    				PreparedStatement del;
-			    				del = con.prepareStatement("DELETE FROM `skillsoverall` WHERE username = ?;");
+			    				del = con.prepareStatement("DELETE FROM `highscores` WHERE username = ?;");
 			    				del.setString(1, sname);
 			    				del.executeUpdate();
 			    			}
@@ -262,6 +296,7 @@ public class SQL {
 			    		}
 	                } 
 				}
+			}*/
 			}
 		}catch(Exception e) {
 		}
