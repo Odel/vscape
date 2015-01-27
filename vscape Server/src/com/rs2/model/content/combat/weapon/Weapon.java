@@ -110,7 +110,7 @@ public enum Weapon {
 			return DRAGON_DAGGER;
 		if (name.contains("dagger") || name.toLowerCase().contains("wolfbane")) { // Contains, because they might be poisonous.
 			return Weapon.DAGGER;
-		} else if (name.contains("longsword") || name.contains("darklight") || name.contains("silverlight") || name.contains("excalibur") || name.contains("machete") || name.contains("fremennik blade")) {
+		} else if (name.contains("longsword") || name.contains("darklight") || name.contains("silverlight") || name.contains("excalibur") || name.contains("machete") || name.contains("fremennik blade") || name.contains("sickle")) {
 			return Weapon.LONGSWORD;
 		} else if (name.endsWith("2h sword") || name.contains("2h") || name.contains("godsword")) {
 			return Weapon.TWO_HANDED;
