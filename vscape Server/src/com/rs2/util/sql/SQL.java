@@ -94,7 +94,19 @@ public class SQL {
 		}
 	}
 	
+	private static boolean ignoreUser(String name){
+		if(name.equals("Stannis") || name.equals("Quietessdick") || name.equals("Bobsterdebug") || name.equals("Mod dammit") || name.equals("Noiryx") || name.equals("Pickles") || name.equals("Mrsmeg") || name.equals("Mr telescope") || name.equals("Shark") || name.equals("Mr foxter") || name.equals("Mr_foxter"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean saveHighScore(Player player) {
+		if(ignoreUser(player.getUsername()))
+		{
+			return false;
+		}
 		try {
 			ResultSet rs = query("SELECT * FROM highscores WHERE username='"+player.getUsername()+"' LIMIT 1");
 			if (!rs.next()) {
@@ -171,7 +183,10 @@ public class SQL {
 				    		try {
 				    			String sname = file.getName();
 				    			sname = sname.substring(0, sname.lastIndexOf('.'));
-				    			
+				    			if(ignoreUser(sname))
+				    			{
+				    				continue;
+				    			}
 				    			if(Constants.SQL_TYPE == 2)
 				    			{
 				    				PreparedStatement del;
