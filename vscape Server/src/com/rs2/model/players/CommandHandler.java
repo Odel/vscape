@@ -104,7 +104,7 @@ public class CommandHandler {
 	        if(Constants.SQL_ENABLED)
 	        {
 			try {
-				ResultSet rs = SQL.query("SELECT * FROM `skillsoverall` ORDER BY totallevel DESC LIMIT 50;");
+				ResultSet rs = SQL.query("SELECT * FROM `highscores` ORDER BY overall_xp DESC LIMIT 50;");
 				sender.getActionSender().sendInterface(8134);
 				ClearNotes(sender);
 				sender.getActionSender().sendString("@dre@-=The /v/scape no-life elite=-", 8144);
@@ -112,13 +112,15 @@ public class CommandHandler {
 				int counter = 1;
 				while ( rs.next() ) {
 					String  name = rs.getString("username");
-					if( !name.equals("Quietessdick")  && !name.equals("Bobsterdebug") && !name.equals("Mod dammit") && !name.equals("Noiryx") && !name.equals("Pickles") && !name.equals("Mrsmeg")  && !name.equals("Mr telescope") && !name.equals("Shark") && !name.equals("Mr foxter") && !name.equals("Mr_foxter"))
-					{
-						int lv  = rs.getInt("totallevel");
-						sender.getActionSender().sendString(counter + ".  " + name + " - level " + lv, line);
-						counter++;
-						line++;
+					long exp = rs.getLong("overall_xp");
+					int lv = 0;
+					for (int i = 0; i < Skill.SKILL_NAME.length; i++) {
+						int skillxp = rs.getInt(""+Skill.SKILL_NAME[i].toLowerCase()+"_xp");
+						lv += sender.getSkill().getLevelForXP((double) skillxp);
 					}
+					sender.getActionSender().sendString(counter + ". @dbl@" + name + "@bla@ - EXP @dre@"+ Misc.formatNumber(exp) + "@bla@ - level @dre@" + Misc.formatNumber(lv), line);
+					counter++;
+					line++;
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
