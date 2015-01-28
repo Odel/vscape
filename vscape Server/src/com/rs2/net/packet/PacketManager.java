@@ -233,16 +233,15 @@ public class PacketManager {
                 //if logged out, don't read any data
                 if (player.getLoginStage().compareTo(LoginStages.LOGGING_OUT) >= 0)
                     break;
-
-				if (loops++ >= 25) {
-					//System.out.println("Player " + player + " disconnected for spamming packets");
-					player.disconnect();
-					break;
-				}
-
 				// Handle login if we need to.
 				if (player.getLoginStage().compareTo(LoginStages.LOGGED_IN) < 0) {
 					player.getLogin().handleLogin(player, player.getInData());
+					break;
+				}
+				
+				if (loops++ >= 25) {
+					System.out.println(player.getUsername() + " disconnected for spamming packets.");
+					player.disconnect();
 					break;
 				}
 
