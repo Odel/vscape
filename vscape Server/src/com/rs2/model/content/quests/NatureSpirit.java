@@ -547,15 +547,16 @@ public class NatureSpirit implements Quest {
 	    public void execute(CycleEventContainer b) {
 		int x = player.getPosition().getX();
 		int y = player.getPosition().getY();
+		int z = player.getPosition().getZ();
 		player.getUpdateFlags().sendAnimation(811);
-		player.getActionSender().createStillGfx(263, x + 1, y, 0, 5);
-		player.getActionSender().createStillGfx(263, x - 1, y, 0, 5);
-		player.getActionSender().createStillGfx(263, x, y + 1, 0, 5);
-		player.getActionSender().createStillGfx(263, x, y - 1, 0, 5);
-		player.getActionSender().createStillGfx(263, x + 1, y + 1, 0, 5);
-		player.getActionSender().createStillGfx(263, x + 1, y - 1, 0, 5);
-		player.getActionSender().createStillGfx(263, x - 1, y + 1, 0, 5);
-		player.getActionSender().createStillGfx(263, x - 1, y - 1, 0, 5);
+		player.getActionSender().createStillGfx(263, x + 1, y, z, 5);
+		player.getActionSender().createStillGfx(263, x - 1, y, z, 5);
+		player.getActionSender().createStillGfx(263, x, y + 1, z, 5);
+		player.getActionSender().createStillGfx(263, x, y - 1, z, 5);
+		player.getActionSender().createStillGfx(263, x + 1, y + 1, z, 5);
+		player.getActionSender().createStillGfx(263, x + 1, y - 1, z, 5);
+		player.getActionSender().createStillGfx(263, x - 1, y + 1, z, 5);
+		player.getActionSender().createStillGfx(263, x - 1, y - 1, z, 5);
 		if (!player.inMortMyreSwamp()) {
 		    player.getActionSender().sendMessage("This spell is only effective in the Mort Myre swamp.", true);
 		    b.stop();

@@ -621,9 +621,23 @@ public class CommandHandler {
 			    player.setAppearanceUpdateRequired(true);
 			    player.getUpdateFlags().setForceChatMessage("Ribbit");
 			    player.getActionSender().sendMessage("You have been frogged! Good luck croaking in hell!", true);
-			    return;
 			}
 		    }
+		}
+		else if (keyword.equals("configtest")) {
+		    CycleEventHandler.getInstance().addEvent(sender, new CycleEvent() {
+			int count = 0;
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			sender.getActionSender().sendConfig(count, 1);
+			sender.getActionSender().sendMessage("#" + count);
+			count++;
+		    }
+
+		    @Override
+		    public void stop() {
+		    }
+		}, 1);
 		}
 		else if (keyword.equals("rnpc") || keyword.equals("randomnpc")) {
 			if(sender.inMiniGameArea() || sender.inWild())
