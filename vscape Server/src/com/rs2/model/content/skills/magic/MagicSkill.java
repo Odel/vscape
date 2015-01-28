@@ -510,6 +510,9 @@ public abstract class MagicSkill extends CycleEvent {
 			return true;
 		}
 		switch (buttonId) {
+			case 94047: //Autocast defense mode
+			    player.getActionSender().sendMessage("This combat method is not available at the moment.", true);
+			    return true;
 			case 1093 :
 				Item weapon = player.getEquipment().getItemContainer().get(Constants.WEAPON);
 				if (player.getMagicBookType() == SpellBook.ANCIENT) {

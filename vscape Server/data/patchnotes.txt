@@ -1,3 +1,9 @@
+@dre@=January 28th=
+@blu@-Nature Spirit
+-New server and higher stability (TYB ODEL)
+-Hiscores reformat to show total exp.
+-Enfeeble rune cost fixed.
+
 @dre@=January 22nd=
 -Ape Atoll guards no longer overzealous.
 -Bug fix with ranged and enchanted bolts.
