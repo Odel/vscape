@@ -291,10 +291,10 @@ public class ShopManager {
 				price = Math.round(price);
 			}
 			String currencyName = ItemManager.getInstance().getItemName(shop.getCurrency());
-			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + Misc.formatNumber(price) + " " + currencyName + ".");
+			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + Misc.formatNumber(price) + " " + currencyName + ".", true);
 		} else {
 			int price = getSpecialShopPrice(player, shop, id);
-			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + price + " " + getCurrencyName(shop) + ".");
+			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + price + " " + getCurrencyName(shop) + ".", true);
 		}
 	}
 

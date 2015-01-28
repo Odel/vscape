@@ -42,8 +42,8 @@ public class MageRewardHandling {
 	    return;
 	}
 	//int price = item.getPrice();
-	player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + item.getTelePoints() + " Telekinetic, " + item.getAlchPoints() + " Alchemist, " + item.getEnchantPoints() + " Enchanting,");
-	player.getActionSender().sendMessage("and " + item.getGraveyardPoints() + " Graveyard Pizazz Point(s).");
+	player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": currently costs " + item.getTelePoints() + " Telekinetic, " + item.getAlchPoints() + " Alchemist, " + item.getEnchantPoints() + " Enchanting,", true);
+	player.getActionSender().sendMessage("and " + item.getGraveyardPoints() + " Graveyard Pizazz Point(s).", true);
     }
 
     public static void buyItem(Player player, int slot, int shopItem) {
