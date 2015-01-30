@@ -67,6 +67,10 @@ public class Doors {
 		{
 			return false;
 		}
+		if((id == 2307 || id == 2308) && x >= 2997 && x <= 2998 && y == 3931)
+		{
+			return false;
+		}
 		if((id == 52 || id == 53) && x >= 2649 && x <= 2650 && y == 3470)
 		{
 			return false;
