@@ -82,6 +82,7 @@ import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.players.item.functions.Casket;
 import com.rs2.model.players.item.functions.Nests;
+import com.rs2.model.players.item.functions.Toys;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -955,6 +956,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (player.getMultiCannon().itemFirstClick(itemId, player.getSlot())) {
+	    return;
+	}
+	if (Toys.itemFirstClick(player, itemId, player.getSlot())) {
 	    return;
 	}
 	for (Quest q : QuestHandler.getQuests()) {
