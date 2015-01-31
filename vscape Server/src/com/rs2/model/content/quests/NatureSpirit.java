@@ -1288,7 +1288,7 @@ public class NatureSpirit implements Quest {
 				    d.sendNpcChat("Ahhrs OOooh ArhhhhAHHhhh...", DISTRESSED);
 				    d.endDialogue();
 				} else {
-				    if (player.getInventory().playerHasItem(MORT_MYRE_FUNGUS)) {
+				    if (!player.getQuestVars().showedFillimanFungus) {
 					d.sendNpcChat("Did you manage to get something from nature?", CONTENT);
 					d.setNextChatId(5);
 				    } else if (player.getQuestVars().showedFillimanFungus) {
@@ -1310,7 +1310,12 @@ public class NatureSpirit implements Quest {
 				d.endDialogue();
 				return true;
 			    case 5:
-				d.sendGiveItemNpc("You show the fungus to Filliman.", new Item(MORT_MYRE_FUNGUS));
+				if(player.getInventory().playerHasItem(MORT_MYRE_FUNGUS)) {
+				    d.sendGiveItemNpc("You show the fungus to Filliman.", new Item(MORT_MYRE_FUNGUS));
+				} else {
+				    d.sendPlayerChat("I'm afraid not...", SAD);
+				    d.endDialogue();
+				}
 				player.getQuestVars().showedFillimanFungus = true;
 				return true;
 			    case 6:

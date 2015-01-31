@@ -4548,10 +4548,11 @@ public class MonkeyMadness implements Quest {
 		}
 		switch (player.getQuestStage(36)) {
 		    case INTO_THE_CAGE:
+		    case THE_GREAT_ESCAPE:
 			switch (d.getChatId()) {
 			    case 1:
 				if (player.getInventory().ownsItem(MONKEY_ITEM)) {
-				    d.sendNpcChat("Are we leaving soon?", CONTENT);
+				    d.sendNpcChat("AAH AAH!", ANGRY_2);
 				    d.endDialogue();
 				} else {
 				    d.sendPlayerChat("Hello there, little monkey.", CONTENT);
@@ -4637,8 +4638,6 @@ public class MonkeyMadness implements Quest {
 				    }
 				}, 6);
 			}
-			return false;
-		    case THE_GREAT_ESCAPE:
 			return false;
 		}
 		return false;

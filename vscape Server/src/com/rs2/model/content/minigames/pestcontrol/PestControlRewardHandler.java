@@ -116,8 +116,10 @@ public class PestControlRewardHandler {
 
 	if (amount >= 100) {
 	    return finalRewardAmount * amount * 1.1;
+	} else if (amount >= 10) {
+		return finalRewardAmount * amount * (1 + ((amount / 10) / 100d));
 	} else {
-	    return finalRewardAmount * amount * 1.1;
+	    return finalRewardAmount * amount;
 	}
     }
 
