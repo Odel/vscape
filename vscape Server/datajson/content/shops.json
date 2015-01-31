@@ -8730,7 +8730,7 @@
     "currencyType": "ITEM",
     "currency": 995
   },
-	{
+  {
     "shopId": 203,
     "name": "Tutab's Magical Market",
     "items": [
@@ -8765,6 +8765,35 @@
 	  {
         "id": 4023,
         "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 204,
+    "name": "Diango's Toy Store",
+    "items": [
+      {
+        "id": 2520,
+        "count": 5
+      },
+	  {
+        "id": 2522,
+        "count": 5
+      },
+	  {
+        "id": 2524,
+        "count": 5
+      },
+	  {
+        "id": 2526,
+        "count": 5
+      },
+	  {
+        "id": 4613,
+        "count": 250
       }
     ],
     "isGeneralStore": false,
