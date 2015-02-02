@@ -3885,6 +3885,12 @@ public class Player extends Entity {
 			return;
 		}
 		for (Npc npc : getNpcs()) {
+			if (npc == null) {
+				continue;
+			}
+			if (npc.isDead()) {
+				continue;
+			}
 			if (npc.getPlayerOwner() != null) {
 				continue;
 			}

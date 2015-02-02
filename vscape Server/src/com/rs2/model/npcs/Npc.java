@@ -330,6 +330,10 @@ public class Npc extends Entity {
 	}
 
 	public Player getPlayerOwner() {
+		if(ownerIndex < 0 || ownerIndex > World.getPlayers().length)
+		{
+			return null;
+		}
 		return World.getPlayers()[ownerIndex];
 	}
 
