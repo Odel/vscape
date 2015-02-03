@@ -1186,7 +1186,7 @@ public class MonkeyMadness implements Quest {
 				break;
 			    case 5:
 				d.setLastNpcTalk(FOREMAN);
-				d.sendNpcChat("Those are all men with children to feed. Fafmished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
+				d.sendNpcChat("Those are all men with children to feed. Famished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
 				break;
 			    case 6:
 				d.sendNpcChat("If something isn't done soon there'll be revolt. And I", "won't be able to stop it.", CONTENT);
