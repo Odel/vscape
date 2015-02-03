@@ -1375,8 +1375,8 @@ public class SkillGuides {
 			menuLine("63", "Restore(s) (Snapdragon + Red Spiders' eggs)", 3026, 15);
 			menuLine("66", "Super Defence (Cadantine + White berries)", 163, 16);
 			menuLine("68", "Antidote(+) (C. Milk + Toadflax + Yew roots)", 5945, 17);
-			menuLine("69", "Ranging potion (Dwarf weed + Wine of Zamorak)", 169, 18);
-			menuLine("72", "Antifire potion (Lantadyme + Blue dragon scale)", 2454, 19);
+			menuLine("69", "Antifire potion (Lantadyme + Blue dragon scale)", 2454, 18);
+			menuLine("72", "Ranging potion (Dwarf weed + Wine of Zamorak)", 169, 19);
 			menuLine("73", "Weapon(+) (C.Milk + Cactus spine + R.Spiders' egg)", 5937, 20);
 			menuLine("76", "Magic potion (Lantadyme + Potato cactus)", 3042, 21);
 			menuLine("78", "Zamorak brew (Torstol + Jangerberries)", 189, 22);
