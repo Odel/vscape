@@ -1073,7 +1073,8 @@ public class PestControl {
 					if (player.getPcDamage() >= 50) {
 						player.addPcPoints(5, player);
 						if (player.getPcDamage() >= 150) {
-						    double pointstold = 5 + (Math.floor((player.getPcDamage() -50) / 100d));
+						    double dpoints = 5 + (Math.floor((player.getPcDamage() -50) / 100d));
+						    int pointstold = (int) dpoints;
 						    player.addPcPoints((int) Math.floor((player.getPcDamage() - 50) / 100d), player);
 						    player.getActionSender().sendMessage("@blu@You did " + player.getPcDamage() + " damage and recived " + pointstold + " points.");
 						}
