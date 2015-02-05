@@ -1,5 +1,11 @@
 package com.rs2.model;
 
+/**
+ * Manages a palette of map regions for use in the constructed map region
+ * packet.
+ * @author Graham
+ *
+ */
 public class Palette {
 	/**
 	 * Normal direction.
