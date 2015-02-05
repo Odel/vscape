@@ -230,9 +230,11 @@ public class PacketManager {
 			player.getInData().flip();
 			int loops = 0;
 			while (player.getInData().hasRemaining()) {
-                //if logged out, don't read any data
-                if (player.getLoginStage().compareTo(LoginStages.LOGGING_OUT) >= 0)
-                    break;
+				/*
+				//if logged out, don't read any data
+				if (player.getLoginStage().compareTo(LoginStages.LOGGING_OUT) >= 0)
+				    break;
+				    */
 				// Handle login if we need to.
 				if (player.getLoginStage().compareTo(LoginStages.LOGGED_IN) < 0) {
 					player.getLogin().handleLogin(player, player.getInData());
@@ -276,7 +278,7 @@ public class PacketManager {
 					player.getInData().compact();
 					return;
 				}
-                if (!player.isLoggedIn())
+                if (!player.isLoggedIn() || player.getLoginStage().compareTo(LoginStages.LOGGING_OUT) >= 0)
                     break;
 			}
 
