@@ -582,6 +582,18 @@ public class PiratesTreasure implements Quest {
 		return false;
 	    case STORE_CRATE:
 		switch(player.getQuestStage(20)) {
+		    case 5:
+			if (!player.getInventory().ownsItem(KARAMJAN_RUM)) {
+			    if (player.getInventory().canAddItem(new Item(KARAMJAN_RUM))) {
+				player.getDialogue().sendGiveItemNpc("You find the rum in the crate.", new Item(KARAMJAN_RUM));
+				player.getInventory().addItem(new Item(KARAMJAN_RUM));
+				return true;
+			    } else {
+				player.getActionSender().sendMessage("Your inventory is full.");
+				return true;
+			    }
+			}
+		    return false;
 		    case 4:
 			if(player.getInventory().canAddItem(new Item(KARAMJAN_RUM))) {
 			    player.getDialogue().sendGiveItemNpc("You find the rum in the crate.", new Item(KARAMJAN_RUM));
@@ -590,8 +602,8 @@ public class PiratesTreasure implements Quest {
 			}
 			else {
 			    player.getActionSender().sendMessage("Your inventory is full.");
-			    return true;
 			}
+		    return true;
 			
 		}
 	    return false;
