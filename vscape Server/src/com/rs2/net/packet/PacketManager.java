@@ -151,37 +151,19 @@ public class PacketManager {
         {
             try 
             {
-    			if(!(packetHandler instanceof DefaultPacketHandler) && packet.getOpcode() != 202) {
+    			/*if(!(packetHandler instanceof DefaultPacketHandler) && packet.getOpcode() != 202) {
     				
-    			}
-			if(player.inTempleKnightsTraining() && player.getQuestStage(35) == 5) {
-			    player.getQuestVars().receivedPacket = true;
-			}
+    			}*/
+				if(player.inTempleKnightsTraining() && player.getQuestStage(35) == 5) {
+				    player.getQuestVars().receivedPacket = true;
+				}
                 packetHandler.handlePacket(player, packet);
                 player.getTimeoutStopwatch().reset();
             } catch(Exception e) {
-                e.printStackTrace();
+    			e.printStackTrace();
+    			player.disconnect();
             }
         }
-		/*if (packetHandler == null) {
-			if (Constants.SERVER_DEBUG) {
-				System.out.println("Unhandled packet opcode = " + packet.getOpcode() + " length = " + packet.getPacketLength());
-			}
-			//player.disconnect();
-			return;
-		}
-		if (packet.getOpcode() <= 0) {
-			return;
-		}
-		try {
-			if(!(packetHandler instanceof DefaultPacketHandler) && packet.getOpcode() != 202) {
-			
-			}
-			packetHandler.handlePacket(player, packet);
-		} catch (Exception e) {
-			e.printStackTrace();
-			player.disconnect();
-		}*/
 	}
 
 	public static final void flushOutBuffer(Player player) {
@@ -285,7 +267,7 @@ public class PacketManager {
 			// Clear everything for the next read.
 			player.getInData().clear();
 		} catch (Exception ex) {
-			//ex.printStackTrace();
+			ex.printStackTrace();
 			player.disconnect();
 		}
 	}
