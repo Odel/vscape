@@ -1223,7 +1223,7 @@ public class Equipment {
 				return;
 			case 10440:
 			case 10442:
-			case 10446:
+			case 10444:
 			case 10470:
 			case 10472:
 			case 10474: //stoles and croziers
