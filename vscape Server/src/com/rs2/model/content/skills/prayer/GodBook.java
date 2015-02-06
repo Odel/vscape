@@ -1,5 +1,6 @@
 package com.rs2.model.content.skills.prayer;
 
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -11,6 +12,11 @@ public class GodBook {
     public static final int SARA_BOOK = 3840;
     public static final int ZAMORAK_BOOK = 3842;
     public static final int GUTHIX_BOOK = 3844;
+    
+    public static final int UNBLESSED_HOLY_SYMBOL = 1716;
+    public static final int HOLY_SYMBOL = 1718;
+    public static final int UNPOWERED_UNHOLY_SYMBOL = 1722;
+    public static final int UNHOLY_SYMBOL = 1724;
 	
 	public static final double[][] Book = {
 		{3839, 3827, 3828, 3829, 3830, 3840},//Saradomin
@@ -71,6 +77,56 @@ public class GodBook {
 			}
 		}
 		return false;
+	}
+	
+	public static boolean blessSymbol(final Player player, int firstItem, int secondItem) {
+	    if (firstItem == GUTHIX_BOOK || firstItem == SARA_BOOK) {
+		if (secondItem == UNBLESSED_HOLY_SYMBOL) {
+		    if (player.getSkill().getLevel()[Skill.PRAYER] >= 50) {
+			player.setStopPacket(true);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+			    @Override
+			    public void stop() {
+				player.getInventory().replaceItemWithItem(new Item(UNBLESSED_HOLY_SYMBOL), new Item(HOLY_SYMBOL));
+				player.getActionSender().sendMessage("You bless the holy symbol.");
+				player.setStopPacket(false);
+			    }
+			}, 1);
+			return true;
+		    } else {
+			player.getDialogue().sendStatement("You need level 50 Prayer to bless holy symbols.");
+			return true;
+		    }
+		}
+	    }
+	    if (firstItem == GUTHIX_BOOK || firstItem == ZAMORAK_BOOK) {
+		if (secondItem == UNPOWERED_UNHOLY_SYMBOL) {
+		    if (player.getSkill().getLevel()[Skill.PRAYER] >= 50) {
+			player.setStopPacket(true);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				b.stop();
+			    }
+			    @Override
+			    public void stop() {
+				player.getInventory().replaceItemWithItem(new Item(UNPOWERED_UNHOLY_SYMBOL), new Item(UNHOLY_SYMBOL));
+				player.getActionSender().sendMessage("You power the unholy symbol.");
+				player.setStopPacket(false);
+			    }
+			}, 1);
+			return true;
+		    } else {
+			player.getDialogue().sendStatement("You need level 50 Prayer to power unholy symbols.");
+			return true;
+		    }
+		}
+	    }
+	    return false;
 	}
 	
 	public static void preachGodBook(final Player player, final int book) {

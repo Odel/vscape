@@ -1071,14 +1071,18 @@ public class PestControl {
 				if (gameWon) {
 					player.getActionSender().sendMessage("@blu@Game won!");
 					if (player.getPcDamage() >= 50) {
+					    int totalReward = 5;
 						player.addPcPoints(5, player);
 						if (player.getPcDamage() >= 150) {
-						    player.addPcPoints((int) Math.floor((player.getPcDamage() - 50) / 100d), player);
+						    int bonusReward = (int) Math.floor((player.getPcDamage() - 50) / 100d);
+						    player.addPcPoints(bonusReward, player);
+						    totalReward += bonusReward;
 						}
-				    }
-				    int reward = player.getCombatLevel() * 10;
-				    player.getInventory().addItem(new Item(995, reward));
-				}else{
+						player.getActionSender().sendMessage("@blu@You did " + player.getPcDamage() + " damage and recieved " + totalReward + " commendation points.");
+					}
+				    int coinReward = player.getCombatLevel() * 10;
+				    player.getInventory().addItem(new Item(995, coinReward));
+				} else {
 					 player.getActionSender().sendMessage("@red@Game lost.");
 				}
 				leaveGame(player, false);
