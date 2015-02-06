@@ -5,13 +5,19 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.content.skills.Skill;
 
 public class GodBook {
 	
     public static final int SARA_BOOK = 3840;
     public static final int ZAMORAK_BOOK = 3842;
     public static final int GUTHIX_BOOK = 3844;
-	
+/*
+    public static final int UNPHOLY_SYMBOL = 1716;
+    public static final int CHARG_HOLY_SYMBOL = 1718;
+    public static final int UNPUNHOLY_SYMBOL = 1722;
+    public static final int UNHOLY_SYMBOL = 1724;
+*/	
 	public static final double[][] Book = {
 		{3839, 3827, 3828, 3829, 3830, 3840},//Saradomin
 		{3841, 3831, 3832, 3833, 3834, 3842}, //Zamarok
@@ -72,7 +78,44 @@ public class GodBook {
 		}
 		return false;
 	}
+			
+	public static boolean blessSymbol(Player player, Item useItem, Item withItem, int slot, int slotUsed)
+	{
+		int UNPHOLY_SYMBOL = 1716;
+		int CHARG_HOLY_SYMBOL = 1718;
+		int UNPUNHOLY_SYMBOL = 1722;
+		int UNHOLY_SYMBOL = 1724;
 	
+		int item = useItem.getId();
+		int usedItem = withItem.getId();
+		int level = player.getSkill().getLevel()[Skill.PRAYER];
+		if (item == GUTHIX_BOOK || item == SARA_BOOK) {
+			if ( usedItem == UNPHOLY_SYMBOL & level >= 50) {
+				player.getInventory().removeItem(new Item(UNPHOLY_SYMBOL));
+				player.getInventory().addItem(new Item(CHARG_HOLY_SYMBOL));
+				return true;
+			}
+			else
+			{
+				player.getActionSender().sendMessage("You need to be level 50 to bless holy symbols");
+				return true;
+			}
+		}
+		if (item == GUTHIX_BOOK || item == ZAMORAK_BOOK) {
+			if ( usedItem == UNPUNHOLY_SYMBOL & level >= 50) {
+				player.getInventory().removeItem(new Item(UNPUNHOLY_SYMBOL));
+				player.getInventory().addItem(new Item(UNHOLY_SYMBOL));
+				return true;
+			}
+			else
+			{
+				player.getActionSender().sendMessage("You need to be level 50 to bless unholy symbols");
+                                return true;
+			}
+		}
+		return true;
+	}
+		
 	public static void preachGodBook(final Player player, final int book) {
 		player.setStopPacket(true);
 		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
