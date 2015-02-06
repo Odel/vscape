@@ -7,6 +7,10 @@ import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
@@ -313,10 +317,22 @@ public class Following {
 			}
 		}
 		if (moveX != 0 || moveY != 0) {
-			if (!Misc.goodDistance(npc.getPosition(), npc.getSpawnPosition(), Constants.NPC_FOLLOW_DISTANCE)) {
+			if (!Misc.goodDistance(npc.getPosition(), npc.getSpawnPosition(), Constants.NPC_FOLLOW_DISTANCE) && !exceptions(npc)) {
 				CombatManager.resetCombat(npc);
 				npc.resetActions();
 				npc.walkTo(npc.getSpawnPosition().getX(), npc.getSpawnPosition().getY(), true);
+				npc.walkingBackToSpawn = true;
+				final Npc finalNpc = npc;
+				CycleEventHandler.getInstance().addEvent(finalNpc, new CycleEvent() {
+				    @Override
+				    public void execute(CycleEventContainer b) {
+					b.stop();
+				    }
+				    @Override
+				    public void stop() {
+					finalNpc.walkingBackToSpawn = false;
+				    }
+				}, 10);
 				return;
 			}
 			npc.walkTo(npc.getPosition().getX() + moveX, npc.getPosition().getY() + moveY, true);
@@ -325,5 +341,12 @@ public class Following {
 
 	public static boolean standingDiagonal(Position pos1, Position pos2) {
 		return pos1.getX() != pos2.getX() && pos1.getY() != pos2.getY();
+	}
+	
+	public static boolean exceptions(Npc npc) {
+	    if(npc.getNpcId() >= 2881 && npc.getNpcId() <= 2883) {
+		return true; //Dag kings
+	    }
+	    return false;
 	}
 }

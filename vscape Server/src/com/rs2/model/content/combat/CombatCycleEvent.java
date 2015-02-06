@@ -103,7 +103,19 @@ public class CombatCycleEvent extends CycleEvent {
 			    }
 			}
 			if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
+			    if(((Npc)victim).walkingBackToSpawn) {
+				CombatManager.resetCombat(attacker);
+				attacker.getMovementHandler().reset();
+				return;
+			    }
+			    
 			    if(((Npc)victim).getNpcId() == 1052) {
+				return;
+			    }
+			}
+			if(attacker != null && victim != null && attacker.isNpc() && victim.isPlayer()) {
+			    if(((Npc)attacker).getDefinition().getName().equals("Spinolyp") && !Misc.goodDistance(attacker.getPosition(), victim.getPosition(), 7)) {
+				CombatManager.resetCombat(attacker);
 				return;
 			    }
 			}

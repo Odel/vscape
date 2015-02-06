@@ -50,6 +50,7 @@ public class Npc extends Entity {
 	private boolean pet = false;
 	private int ownerIndex;
 	private int hpRenewalTimer;
+	public boolean walkingBackToSpawn = false;
 
 	private NpcCombatDef npcCombatDef;
 

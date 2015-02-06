@@ -317,7 +317,8 @@ end
 class Spinolyp < NpcCombatDef
     def attackScripts attacker, victim
         return [
-			BasicAttack.magicAttack(attacker, victim, Spell::SPINOLYP)
+			BasicAttack.magicAttack(attacker, victim, Spell::SPINOLYP),
+			BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 11, 8, 2868, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)	
 		];
     end
 end

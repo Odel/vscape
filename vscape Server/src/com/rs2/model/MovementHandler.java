@@ -8,7 +8,6 @@ import java.util.List;
 import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
-import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
@@ -209,6 +208,9 @@ public class MovementHandler {
 	public void finish() {
 		if (waypoints.size() > 0)
 			waypoints.removeFirst();
+		if(this.entity.isNpc() && ((Npc)entity).walkingBackToSpawn) {
+		    ((Npc)entity).walkingBackToSpawn = false;
+		}
 
 	}
 
@@ -423,7 +425,7 @@ public class MovementHandler {
 			if(n.getNpcId() == 1472) {
 			    return false;
 			}
-			if(n.isPet() || Barrows.inBarrowsCrypts(n)) {
+			if(Entity.antiStackExceptions(n)) {
 			    return false;
 			}
 			if (n.walkIntoNpc(x, y)) {
