@@ -8,7 +8,6 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.functions.Doors;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -21,6 +20,10 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 	private static final Random r = new Random();
 
 	public static void pickLock(final Player player, final Position position, final int objectId, int level, final double xp, final int destX, final int destY) {
+		if(player.stopPlayerPacket()) {
+		    return;
+		}
+		player.setStopPacket(true);
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
@@ -35,7 +38,6 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 		}
 		player.getUpdateFlags().sendAnimation(2246);
 		player.getActionSender().sendMessage("You attempt to pick the lock...");
-		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -59,10 +61,13 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 				player.resetAnimation();
 			}
 		}, 4);
-
 	}
 
 	public static void pickTrap(final Player player, final int objectId, final int objectX, final int objectY, int level, final double xp, final Item[] rewards, final int respawn) {
+		if(player.stopPlayerPacket()) {
+		    return;
+		}
+		player.setStopPacket(true);
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
@@ -71,35 +76,46 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			player.getActionSender().sendMessage("Your thieving level is not high enough to disarm traps.");
 			return;
 		}
-		player.getUpdateFlags().sendAnimation(2246);
-		player.getActionSender().sendMessage("You attempt to disarm the traps...");
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			@Override
-			public void execute(CycleEventContainer container) {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			player.getUpdateFlags().sendAnimation(2246);
+			player.getActionSender().sendMessage("You attempt to disarm the traps...");
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer container) {
 				if (r.nextInt(30) < 5) {
-					player.getActionSender().sendMessage("But fail to disarm it, and get hit by the traps.");
-					int numb = r.nextInt(1);
-					player.hit(Misc.random(10), numb == 1 ? HitType.POISON : HitType.NORMAL);
-					if (numb == 1)
-						player.getUpdateFlags().sendGraphic(184);
-					container.stop();
-					return;
+				    player.getActionSender().sendMessage("But fail to disarm it, and get hit by the traps.");
+				    int numb = r.nextInt(1);
+				    player.hit(Misc.random(10), numb == 1 ? HitType.POISON : HitType.NORMAL);
+				    if (numb == 1) {
+					player.getUpdateFlags().sendGraphic(184);
+				    }
+				    container.stop();
+				    return;
 				}
 				player.getActionSender().sendMessage("And manage to disarm it.");
 				player.getSkill().addExp(Skill.THIEVING, xp);
-				for (Item item : rewards)
-					player.getInventory().addItem(item);
+				for (Item item : rewards) {
+				    player.getInventory().addItem(item);
+				}
 				new GameObject(2588, objectX, objectY, player.getPosition().getZ(), SkillHandler.getFace(objectId, objectX, objectY, player.getPosition().getZ()), 10, objectId, respawn);
 				container.stop();
-			}
+			    }
 
-			@Override
-			public void stop() {
+			    @Override
+			    public void stop() {
 				player.setStopPacket(false);
 				player.resetAnimation();
-			}
-		}, 3);
-
+			    }
+			}, 3);
+		    }
+		}, 1);
 	}
 
 	public static boolean handleObjectClick2(final Player player, int objectId, int objectX, int objectY) {
@@ -156,46 +172,38 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			return true;
 		case 2566: //level 13 chest
 			if (objectX == 2673 && objectY == 3307) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[]{new Item(995, 10)}, 11);
 			} else if (objectX == 2630 && objectY == 3655) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 13, 8, new Item[]{new Item(995, 10)}, 11);
 			}
 			return true;
 		    case 2567: //level 28 nat chest
 			if (objectX == 2671 && objectY == 3301) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 28, 25, new Item[]{new Item(995, 3), new Item(561)}, 13);
 			}
 			return true;
 		    case 2568: //level 43 chest
 			if (objectX == 2671 && objectY == 3299) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 43, 125, new Item[]{new Item(995, 50)}, 88);
 			}
 			return true;
 		    case 2573: //level 47 hemenster chest & relleka
 			if (objectX == 2639 && objectY == 3424) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[]{new Item(41, 5)}, 100);
 			} else if (objectX == 2650 && objectY == 3659) {
-			    player.setStopPacket(true);
+			    
 			    pickTrap(player, objectId, objectX, objectY, 47, 150, new Item[]{new Item(995, 75)}, 100);
 			}
 			return true;
 		    case 2569: //level 59 chaos druid tower chests
 			if (objectX == 2586 && objectY == 9737) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[]{new Item(995, 500), new Item(565, 2)}, 216);
 			} else if (objectX == 2586 && objectY == 9734) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 59, 250, new Item[]{new Item(995, 500), new Item(565, 2)}, 216);
 			}
 			return true;
 		    case 2570: //level 72 king lathas chest
 			if (objectX == 2588 && objectY == 3291) {
-			    player.setStopPacket(true);
 			    pickTrap(player, objectId, objectX, objectY, 72, 500, new Item[]{new Item(995, 1000), new Item(383), new Item(449), new Item(1623)}, 192);
 			}
 			return true;
