@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.3";
+	private final static String CLIENT_VERSION = "3.4b";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -1294,7 +1294,7 @@ public class Client extends RSApplet {
 			yPos += 16;
 		}
 	}
-
+	
 	private void buildInterfaceMenu(int i, RSInterface class9, int k, int l, int i1, int j1) {
 		if (class9 == null)
 			class9 = RSInterface.interfaceCache[21356];
@@ -4511,6 +4511,9 @@ public class Client extends RSApplet {
 			if (RSInterface.interfaceCache[k].parentID == backDialogID)
 				atInventoryInterfaceType = 3;
 		}
+		if (l == 1010) {
+			minimapInt1 = (int) 20D;
+		}
 		if(l == 1008) {
 			globalMode = 2;
 			inputTaken = true;
@@ -5729,6 +5732,43 @@ public class Client extends RSApplet {
 		}
 	}
 
+	private void buildGlobalChat(int j) {
+		int l = 0;
+		for (int i1 = 0; i1 < 500; i1++) {
+			if (chatMessages[i1] == null)
+				continue;
+			if (chatTypeView != 9)
+				continue;
+			int j1 = chatTypes[i1];
+			String s = chatNames[i1];
+			int k1 = (70 - l * 14 + 42) + chatScrollPos + 4 + 5;
+			if (k1 < -23)
+				break;
+			if (s != null && s.startsWith("@cr1@"))
+				s = s.substring(5);
+			if (s != null && s.startsWith("@cr2@"))
+				s = s.substring(5);
+			if (s != null && s.startsWith("@cr3@"))
+				s = s.substring(5);
+			if (j1 == 9 && (globalMode == 0 || globalMode == 1)) {
+				if (j > k1 - 14 && j <= k1 && !s.equals(myPlayer.name)) {
+					if (myPrivilege >= 1) {
+						menuActionName[menuActionRow] = "Report abuse @whi@" + s;
+						menuActionID[menuActionRow] = 606;
+						menuActionRow++;
+					}
+					menuActionName[menuActionRow] = "Add ignore @whi@" + s;
+					menuActionID[menuActionRow] = 42;
+					menuActionRow++;
+					menuActionName[menuActionRow] = "Add friend @whi@" + s;
+					menuActionID[menuActionRow] = 337;
+					menuActionRow++;
+				}
+				l++;
+			}
+		}
+	}
+	
 	private void buildFriendChat(int j) {
 		int l = 0;
 		for (int i1 = 0; i1 < 500; i1++) {
@@ -5839,6 +5879,7 @@ public class Client extends RSApplet {
 				break;
 			}
 			if (chatTypeView == 9) {
+				buildGlobalChat(j);
 				break;
 			}
 			if (s != null && s.startsWith("@cr1@")) {
@@ -5850,8 +5891,9 @@ public class Client extends RSApplet {
 			if (s != null && s.startsWith("@cr3@")) {
 				s = s.substring(5);
 			}
-			if (j1 == 0)
+			if (j1 == 0){
 				l++;
+			}
 			if ((j1 == 1 || j1 == 2) && (j1 == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(s))) {
 				if (j > k1 - 14 && j <= k1 && !s.equals(myPlayer.name)) {
 					if (myPrivilege >= 1) {
@@ -5898,6 +5940,22 @@ public class Client extends RSApplet {
 				if (j > k1 - 14 && j <= k1) {
 					menuActionName[menuActionRow] = "Accept challenge @whi@" + s;
 					menuActionID[menuActionRow] = 6;
+					menuActionRow++;
+				}
+				l++;
+			}
+			if (j1 == 9 && globalMode == 0) {
+				if (j > k1 - 14 && j <= k1  && !s.equals(myPlayer.name)) {
+					if (myPrivilege >= 1) {
+						menuActionName[menuActionRow] = "Report abuse @whi@" + s;
+						menuActionID[menuActionRow] = 606;
+						menuActionRow++;
+					}
+					menuActionName[menuActionRow] = "Add ignore @whi@" + s;
+					menuActionID[menuActionRow] = 42;
+					menuActionRow++;
+					menuActionName[menuActionRow] = "Add friend @whi@" + s;
+					menuActionID[menuActionRow] = 337;
 					menuActionRow++;
 				}
 				l++;
@@ -6832,6 +6890,17 @@ public class Client extends RSApplet {
 			markMinimap(sprite, k, j);
 		}
 	}
+	
+	public void rightClickMapArea() {
+		if (super.mouseX >= clientWidth - (clientSize == 0 ? 225 : 215)
+				&& super.mouseX <= clientWidth - (clientSize == 0 ? 185 : 172)
+				&& super.mouseY > (clientSize == 0 ? 0 : 0)
+				&& super.mouseY < (clientSize == 0 ? 38 : 38)) {
+			menuActionName[1] = "Face north";
+			menuActionID[1] = 1010;
+			menuActionRow = 2;
+		}
+	}
 
 	private void rightClickChatButtons() {
 		int y = 0;
@@ -7020,8 +7089,8 @@ public class Client extends RSApplet {
 		}
 		if (super.mouseX > 0 && super.mouseY > clientHeight - 165 && super.mouseX < 519 && super.mouseY < clientHeight)
 			rightClickChatButtons();
-		if (super.mouseX > clientWidth - 249 && super.mouseY < 168)
-			rightClickChatButtons();
+		else if (super.mouseX > clientWidth - 249 && super.mouseY < 168)
+			rightClickMapArea();
 		boolean flag = false;
 		while (!flag) {
 			flag = true;
