@@ -56,6 +56,7 @@ public abstract class Entity {
 	private boolean dontWalk = false;
 	private boolean dontFollow = false;
 	private boolean dontAttack = false;
+	private boolean failedCriticalRequirement = false;
 
 	private int transformOnAggression;
 	private int hitType;
@@ -1125,5 +1126,13 @@ public abstract class Entity {
 	 */
 	public boolean isDontAttack() {
 		return dontAttack;
+	}
+	
+	public void setFailedCriticalRequirement(boolean set) {
+	    this.failedCriticalRequirement = set;
+	}
+	
+	public boolean failedCriticalRequirement() {
+	    return this.failedCriticalRequirement;
 	}
 }

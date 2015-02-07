@@ -9,6 +9,8 @@ import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.skills.Skill;
+import static com.rs2.model.content.skills.magic.MagicSkill.changeToComboRuneRequirement;
+import static com.rs2.model.content.skills.magic.MagicSkill.failRequirement;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
@@ -132,7 +134,12 @@ public class SpellAttack extends BasicAttack {
 	setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
 	setGraphic(spell.getGraphic());
 	setAttackDelay(5);
-	Item[] runesRequired = spell.getRunesRequired();
+	Item[] runesRequired;
+	if (getAttacker().isPlayer() && failRequirement((Player) getAttacker(), spell)) {
+	    runesRequired = changeToComboRuneRequirement((Player) getAttacker(), spell);
+	} else {
+	    runesRequired = spell.getRunesRequired();
+	}
 	int staffRequired = -1;
 	
 		if(getAttacker().isPlayer()) {
@@ -155,13 +162,13 @@ public class SpellAttack extends BasicAttack {
 		Requirement[] requirements = new Requirement[reqs];
 		int i = 0;
 		if (runesRequired != null) {
-			for (; i < runesRequired.length; i++) {
-				requirements[i] = new RuneRequirement(runesRequired[i].getId(), runesRequired[i].getCount()) {
-					@Override
-					public String getFailMessage() {
-						return "You do not have the runes required!";
-					}
-				};
+			for (Item rune : runesRequired) {
+			    requirements[i++] = new RuneRequirement(rune.getId(), rune.getCount()) {
+				@Override
+				public String getFailMessage() {
+				    return SpellAttack.FAILED_REQUIRED_RUNES;
+				}
+			    };
 			}
 		}
 		requirements[i++] = new SkillLevelRequirement(Skill.MAGIC, spell.getLevelRequired()) {
@@ -238,6 +245,8 @@ public class SpellAttack extends BasicAttack {
 	public void failedRequirement() {
 		if (getAttacker().isPlayer()) {
 			Player player = (Player) getAttacker();
+			CombatManager.resetCombat(player);
+			player.getMovementHandler().reset();
 			if (player.getCastedSpell() == spell)
 				player.setCastedSpell(null);
 			else if (player.getAutoSpell() == spell)

@@ -103,6 +103,12 @@ public class CombatCycleEvent extends CycleEvent {
 			    }
 			}
 			if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
+			    if(attacker.failedCriticalRequirement()) {
+				attacker.setFailedCriticalRequirement(false);
+				CombatManager.resetCombat(attacker);
+				attacker.getMovementHandler().reset();
+				return;
+			    }
 			    if(((Npc)victim).walkingBackToSpawn) {
 				CombatManager.resetCombat(attacker);
 				attacker.getMovementHandler().reset();

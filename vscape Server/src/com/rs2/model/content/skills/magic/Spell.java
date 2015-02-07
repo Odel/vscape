@@ -83,8 +83,8 @@ public enum Spell {
 	ENFEEBLE(73, 729, Graphic.highGraphic(170), 89, new Item[]{new Item(Runes.EARTH, 8), new Item(Runes.WATER, 8), new Item(Runes.SOUL, 1)}, magicHit(-1, magicProjectile(171), Graphic.highGraphic(172)), true, new StatEffect(Skill.STRENGTH, .1), null),
 	STUN(80, 729, Graphic.highGraphic(173), 90, new Item[]{new Item(Runes.EARTH, 12), new Item(Runes.WATER, 12), new Item(Runes.SOUL, 1)}, magicHit(-1, magicProjectile(174), Graphic.highGraphic(107)), true, new StatEffect(Skill.ATTACK, .1), null),
 	BIND(20, 711, Graphic.highGraphic(177), 30, new Item[]{new Item(Runes.EARTH, 3), new Item(Runes.WATER, 3), new Item(Runes.NATURE, 2)}, magicHit(-1, magicProjectile(178), Graphic.highGraphic(181)), true, new BindingEffect(8), null),
-	SNARE(50, 711, Graphic.highGraphic(177), 60, new Item[]{new Item(Runes.EARTH, 4), new Item(Runes.WATER, 4), new Item(Runes.NATURE, 2)}, magicHit(2, magicProjectile(178), Graphic.highGraphic(180)), true, new BindingEffect(17), null),
-	ENTANGLE(79, 711, Graphic.highGraphic(177), 90, new Item[]{new Item(Runes.EARTH, 5), new Item(Runes.WATER, 5), new Item(Runes.NATURE, 2)}, magicHit(5, magicProjectile(178), Graphic.highGraphic(179)), true, new BindingEffect(25), null),
+	SNARE(50, 711, Graphic.highGraphic(177), 60, new Item[]{new Item(Runes.EARTH, 4), new Item(Runes.WATER, 4), new Item(Runes.NATURE, 3)}, magicHit(2, magicProjectile(178), Graphic.highGraphic(180)), true, new BindingEffect(17), null),
+	ENTANGLE(79, 711, Graphic.highGraphic(177), 90, new Item[]{new Item(Runes.EARTH, 5), new Item(Runes.WATER, 5), new Item(Runes.NATURE, 4)}, magicHit(5, magicProjectile(178), Graphic.highGraphic(179)), true, new BindingEffect(25), null),
 	
 	CRUMBLE_UNDEAD(39, 724, Graphic.highGraphic(146), 24.5, new Item[]{new Item(Runes.AIR, 2), new Item(Runes.EARTH, 2), new Item(Runes.CHAOS, 1)}, magicHit(15, magicProjectile(146), Graphic.highGraphic(147)), true),
 	MAGIC_DART(50, 1576, Graphic.highGraphic(327), 30, new Item[]{new Item(Runes.DEATH, 1), new Item(Runes.MIND, 4)}, magicHit(10, magicProjectile(328), Graphic.highGraphic(329)), true),

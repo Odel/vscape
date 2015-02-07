@@ -1325,6 +1325,14 @@ public class CommandHandler {
 			sender.getInventory().addItem(new Item(1381, 1));
 			sender.getInventory().addItem(new Item(4675, 1));
 		}
+		else if (keyword.equals("comborunes")) {
+		    for (int i = 0; i < 566 - 558 + 1; i++) {
+				sender.getInventory().addItem(new Item(558 + i, 1000));
+			}
+		    for (int j = 0; j < 6; j++) {
+			sender.getInventory().addItem(new Item(4694 + j, 1000));
+		    }
+		}
 		else if (keyword.equals("tabs") || keyword.equals("teleports")) {
 		    for(int i = 0; i < 8012 - 8007 + 1; i++) {
 		    	sender.getInventory().addItem(new Item(8007 + i, 100));
