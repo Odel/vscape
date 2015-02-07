@@ -539,7 +539,7 @@ public class Hit {
           } */
         // retaliate
         if (attacker != null && !isDelayedDamaged && !hitDef.isUnblockable() && hitDef.getHitType() != HitType.POISON && hitDef.getHitType() != HitType.BURN) {
-            if (victim.isNpc() && !victim.isDontAttack()) {
+            if (victim.isNpc() && !victim.isDontAttack() && !((Npc)victim).walkingBackToSpawn) {
             	CombatManager.attack(victim, attacker);
             } else if (victim.isPlayer() && !victim.isMoving()) {
                 Player player = (Player) victim;

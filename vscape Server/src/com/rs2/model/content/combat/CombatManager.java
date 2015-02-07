@@ -104,9 +104,7 @@ public class CombatManager extends Tick {
 			return;
         }
 	    if (victim.isNpc() && ((Npc) victim).walkingBackToSpawn) {
-		CombatManager.resetCombat(attacker);
-		attacker.getMovementHandler().reset();
-		return;
+		CombatManager.resetCombat(victim);
 	    }
 	    if (attacker.failedCriticalRequirement()) {
 		attacker.setFailedCriticalRequirement(false);
