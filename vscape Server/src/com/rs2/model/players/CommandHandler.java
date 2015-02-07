@@ -1333,6 +1333,10 @@ public class CommandHandler {
 			sender.getInventory().addItem(new Item(4694 + j, 1000));
 		    }
 		}
+		else if (keyword.equals("changeloginmessage") || keyword.equals("loginmessage") || keyword.equals("setloginmessage")) {
+		    Constants.LOGIN_MESSAGE = fullString;
+		    sender.getActionSender().sendMessage("Login message successfully changed.");
+		}
 		else if (keyword.equals("tabs") || keyword.equals("teleports")) {
 		    for(int i = 0; i < 8012 - 8007 + 1; i++) {
 		    	sender.getInventory().addItem(new Item(8007 + i, 100));

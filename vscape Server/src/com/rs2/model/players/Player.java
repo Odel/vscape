@@ -1284,8 +1284,7 @@ public class Player extends Entity {
 	//	getCat().initChecks();
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
-	    getActionSender().sendMessage("We are currently in the middle of finding a new server home for /v/scape. Please");
-	    getActionSender().sendMessage("excuse any lag or disconnects! We are working on finding a stable and secure server.");
+	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
 	    //getActionSender().sendMessage("Feel like reimbursing Odel for server costs?  Go to odelvidyascape.blogspot.com", true);
 	}
 	

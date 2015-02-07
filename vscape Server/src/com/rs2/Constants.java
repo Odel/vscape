@@ -34,6 +34,8 @@ public class Constants {
 	public static final String FORUM_DB_URL = "";
 	public static final String FORUM_DB_USER = "admin06_b00mah3";
 	public static final String FORUM_DB_PASS = "O1xS?rx%qEGS";
+	
+	public static String LOGIN_MESSAGE = "Enjoy your daily grind.";
 
 	public static boolean SQL_ENABLED = true;
 	public static int SQL_TYPE = 1;  //Defines what sql system to use: 1 is mysql and 2 is sqlite
