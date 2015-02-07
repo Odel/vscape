@@ -1,3 +1,17 @@
+@dre@=February 6th=
+-Django's toy shop now open.
+-PC damage done / points won message.
+-Wilderness agility course gate req fix.
+-Godbook recovery on death fix.
+-Certain items not protecting on death fix.
+-Quest bug fixes.
+-Pickpocketing 0 of an item bug fixed.
+-Dagannoth Kings encounter fixed.
+-Npc walkback / combat loop fixed.
+-Rellekka sand pit fixed.
+-Fire Battlestaff crafting exp fixed.
+-Combination runes fixed.
+
 @dre@=January 28th=
 @blu@-Nature Spirit
 -New server and higher stability (TYB ODEL)
