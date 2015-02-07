@@ -396,6 +396,10 @@ public class ShopManager {
 		//List<Shop> list = (List<Shop>) XStreamUtil.getxStream().fromXML(new FileInputStream("./data/content/shops.xml"));
 		FileReader reader = new FileReader("./datajson/content/shops.json");
 		try{
+			if(shops != null && shops.size() > 0)
+			{
+				shops.clear();
+			}
 			List<Shop> list = new Gson().fromJson(reader, new TypeToken<List<Shop>>(){}.getType());
 	        for (Shop shop : list) {
 				Container stock = new Container(Type.ALWAYS_STACK, SIZE);
@@ -411,7 +415,7 @@ public class ShopManager {
 				shop.setCurrentStock(currentStock);
 			}
 	        reader.close();
-			System.out.println("Loaded " + list.size() + " shop definitions json.");
+			System.out.println("Loaded " + shops.size() + " shop definitions json.");
 		} catch (IOException e) {
 			reader.close();
 			System.out.println("failed to load shop definitions json.");

@@ -31,6 +31,9 @@ public class NpcDropController {
 		FileReader rareReader = new FileReader("./datajson/npcs/rareDrops.json");
 		try
 		{	
+			if(rareTable != null){
+				rareTable = null;
+			}
 			rareTable = new Gson().fromJson(rareReader, new TypeToken<NpcDropController>(){}.getType());
 			rareReader.close();
 			System.out.println("Loaded " + rareTable.drops.length + " rare drops.");
@@ -42,6 +45,10 @@ public class NpcDropController {
 		FileReader reader = new FileReader("./datajson/npcs/npcDrops.json");
 		try
 		{	
+			if(dropControllers != null && dropControllers.size() > 0){
+				dropControllers.clear();
+				dropControllers = null;
+			}
 			List<NpcDropController> list = new Gson().fromJson(reader, new TypeToken<List<NpcDropController>>(){}.getType());
 			dropControllers = new HashMap<Integer, NpcDropController>();
 			for (NpcDropController npcDrop : list) {

@@ -43,6 +43,7 @@ import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -54,6 +55,7 @@ import com.rs2.util.NameUtil;
 import com.rs2.util.PlayerSave;
 import com.rs2.util.ShutdownWorldProcess;
 import com.rs2.util.sql.SQL;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -1822,6 +1824,43 @@ public class CommandHandler {
         		SQL.cleanHighScores();
         		SQL.initHighScores();
         	}
+        }
+        else if(keyword.equals("reloaddrops"))
+        {
+        	try{
+        		NpcDropController.init();
+        		Npc.loadNpcDrops();
+        		sender.getActionSender().sendMessage("Npc drops were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Npc drops.", true);
+    		}
+        }
+        else if(keyword.equals("reloaditems"))
+        {
+        	try{
+        		ItemDefinition.init();
+        		sender.getActionSender().sendMessage("Item Definitions were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Item Definitions.", true);
+    		}
+        }
+        else if(keyword.equals("reloadnpcdefs"))
+        {
+        	try{
+        		NpcDefinition.init();
+        		sender.getActionSender().sendMessage("Npc Definitions were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Npc Definitions.", true);
+    		}
+        }
+        else if(keyword.equals("reloadshops"))
+        {
+        	try{
+        		ShopManager.loadShops();
+        		sender.getActionSender().sendMessage("Shops were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Shops.", true);
+    		}
         }
 	}
 	
