@@ -151,10 +151,14 @@ public class ThieveNpcs {
 					    player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(specialLoot.getId()).getName().toLowerCase() + ".");
 					}
 					else {
-                                            player.getInventory().addItem(new Item(loot.getId(), loot.getCount() * multiple(player, thieveNpc.getLevelReq())));
+					    int count = loot.getCount();
+					    if(count == 0) {
+						count = 1;
+					    }
+                                            player.getInventory().addItem(new Item(loot.getId(), count * multiple(player, thieveNpc.getLevelReq())));
 					    player.getActionSender().sendMessage("You steal some " + ItemDefinition.forId(loot.getId()).getName().toLowerCase() + ".");
 					}
-                    player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
+					player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
 				} else {
 					npc.getUpdateFlags().sendForceMessage("What do you think you're doing?");
 					npc.getUpdateFlags().sendAnimation(401);

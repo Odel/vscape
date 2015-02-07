@@ -539,7 +539,7 @@ public class Hit {
           } */
         // retaliate
         if (attacker != null && !isDelayedDamaged && !hitDef.isUnblockable() && hitDef.getHitType() != HitType.POISON && hitDef.getHitType() != HitType.BURN) {
-            if (victim.isNpc() && !victim.isDontAttack()) {
+            if (victim.isNpc() && !victim.isDontAttack() && !((Npc)victim).walkingBackToSpawn) {
             	CombatManager.attack(victim, attacker);
             } else if (victim.isPlayer() && !victim.isMoving()) {
                 Player player = (Player) victim;
@@ -587,6 +587,9 @@ public class Hit {
 			}
     		}
         }
+	if(victim != null && attacker != null && attacker.isNpc() && victim.isPlayer() && ((Npc)attacker).getDefinition().getName().equals("Spinolyp") && hitDef.getEffects() != null && !hitDef.getEffects().isEmpty() && hitDef.getEffects().get(0) != null && hitDef.getEffects().get(0).equals(new StatEffect(5, 0)) && damage > 0) {
+	    ((Player)victim).getActionSender().statEdit(5, -1, false);
+	}
         if (victim != null && victim.isPlayer() && !((Player)victim).getMMVars().inProcessOfBeingJailed) {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();

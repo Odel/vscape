@@ -103,7 +103,19 @@ public class CombatCycleEvent extends CycleEvent {
 			    }
 			}
 			if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
+			    if(attacker.failedCriticalRequirement()) {
+				attacker.setFailedCriticalRequirement(false);
+				CombatManager.resetCombat(attacker);
+				attacker.getMovementHandler().reset();
+				return;
+			    }
 			    if(((Npc)victim).getNpcId() == 1052) {
+				return;
+			    }
+			}
+			if(attacker != null && victim != null && attacker.isNpc() && victim.isPlayer()) {
+			    if(((Npc)attacker).getDefinition().getName().equals("Spinolyp") && !Misc.goodDistance(attacker.getPosition(), victim.getPosition(), 7)) {
+				CombatManager.resetCombat(attacker);
 				return;
 			    }
 			}
@@ -236,6 +248,9 @@ public class CombatCycleEvent extends CycleEvent {
 	public static void startCombat(Entity attacker, Entity victim) {
 	    if ((attacker.isNpc() && ((Npc) attacker).getNpcId() == 1472 && victim.isNpc()) || (attacker.isNpc() && ((Npc)attacker).getNpcId() >= 1442 && ((Npc)attacker).getNpcId() <= 1446)) {
 		return;
+	    }
+	    if (victim != null && victim.isNpc() && ((Npc) victim).walkingBackToSpawn) {
+		CombatManager.resetCombat(victim);
 	    }
 	    CombatCycleEvent combatEvent = new CombatCycleEvent(attacker, victim);
 	    attacker.setCombatingEntity(victim);

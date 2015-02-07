@@ -103,6 +103,15 @@ public class CombatManager extends Tick {
         if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
 			return;
         }
+	    if (victim.isNpc() && ((Npc) victim).walkingBackToSpawn) {
+		CombatManager.resetCombat(victim);
+	    }
+	    if (attacker.failedCriticalRequirement()) {
+		attacker.setFailedCriticalRequirement(false);
+		CombatManager.resetCombat(attacker);
+		attacker.getMovementHandler().reset();
+		return;
+	    }
         if (victim.getMaxHp() < 1 || (victim.isNpc() && (((Npc) victim).getNpcId() == 411 || TalkToEvent.isTalkToNpc(((Npc) victim).getNpcId()) || ((Npc) victim).getNpcId() == 3782 || ((Npc) victim).getNpcId() == AnimalMagnetism.UNDEAD_TREE || PestControl.isShieldedPortal((Npc)victim)) ) ) {
         	if (attacker.isPlayer()) {
         		((Player) attacker).getActionSender().sendMessage("You cannot attack this npc.");
@@ -146,6 +155,7 @@ public class CombatManager extends Tick {
 				return;
 			}
 		}
+		
         List<AttackUsableResponse> attacks = new LinkedList<AttackUsableResponse>();
         int distance = Misc.getDistance(attacker.getPosition(), victim.getPosition());
         attacker.fillUsableAttacks(attacks, victim, distance);

@@ -1284,8 +1284,7 @@ public class Player extends Entity {
 	//	getCat().initChecks();
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
-	    getActionSender().sendMessage("We are currently in the middle of finding a new server home for /v/scape. Please");
-	    getActionSender().sendMessage("excuse any lag or disconnects! We are working on finding a stable and secure server.");
+	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
 	    //getActionSender().sendMessage("Feel like reimbursing Odel for server costs?  Go to odelvidyascape.blogspot.com", true);
 	}
 	
@@ -3423,16 +3422,17 @@ public class Player extends Entity {
 		System.arraycopy(equipment.getItemContainer().getItems(), 0, items, 0, equipment.getItemContainer().getItems().length);
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
 		ArrayList<Item> keptItems = getItemsKeptOnDeath(items);
+		ArrayList<Item> alwaysProtect = new ArrayList<>();
 		List<Item> allItems = new ArrayList<Item>(Arrays.asList(items));
 		for(int i = 0; i < Pets.PET_IDS.length; i++) {
 		    if(inventory.playerHasItem(new Item(Pets.PET_IDS[i][0])) )
-				keptItems.add(new Item(Pets.PET_IDS[i][0]));
+				alwaysProtect.add(new Item(Pets.PET_IDS[i][0]));
 		}
 		if(inventory.playerHasItem(FightCaves.FIRE_CAPE) || equipment.getId(Constants.CAPE) == FightCaves.FIRE_CAPE) {
-		    keptItems.add(new Item(FightCaves.FIRE_CAPE));
+		    alwaysProtect.add(new Item(FightCaves.FIRE_CAPE));
 		}
 		if(inventory.playerHasItem(7462) || equipment.getId(Constants.HANDS) == 7462) {
-		    keptItems.add(new Item(7462));
+		    alwaysProtect.add(new Item(7462));
 		}
 		for (Item kept : keptItems) {
 			if (kept == null)
@@ -3453,15 +3453,13 @@ public class Player extends Entity {
 		inventory.getItemContainer().clear();
 		for (Item kept : keptItems)
 			inventory.addItem(kept);
+		for (Item protect : alwaysProtect)
+			inventory.addItem(protect);
 		for (Item dropped : allItems) {
 			if (dropped == null)
 				continue;
-			for(int i = 0; i < Pets.PET_IDS.length; i++) {
-			    if(dropped.getId() == Pets.PET_IDS[i][0])
-				inventory.addItem(dropped);
-			}
-			if(dropped.getId() == this.getGodBook()) {
-			    this.setLostGodBook(this.getGodBook());
+			if(dropped.getId() >= 3839 && dropped.getId() <= 3844) {
+			    this.setLostGodBook(dropped.getId());
 			}
 			if(Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
 				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
@@ -3514,12 +3512,11 @@ public class Player extends Entity {
 		if (spell == null) {
 			getActionSender().resetAutoCastInterface();
 			this.autoCasting = false;
-		} 
-		else if(hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
+		} else if (hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
 		    	getActionSender().sendSidebarInterface(0, 3796);
 			getActionSender().updateAutoCastInterface(spell);
 			this.autoCasting = true;
-		}else {
+		} else {
 			getActionSender().sendSidebarInterface(0, 328);
 			getActionSender().updateAutoCastInterface(spell);
 			this.autoCasting = true;

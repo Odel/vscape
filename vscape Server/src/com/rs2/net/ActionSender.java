@@ -4,6 +4,8 @@ import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
+import com.rs2.model.Palette;
+import com.rs2.model.Palette.PaletteTile;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.skills.magic.Spell;
@@ -576,6 +578,29 @@ public class ActionSender {
 		out.writeShort(player.getPosition().getRegionX() + 6,
 				StreamBuffer.ValueType.A);
 		out.writeShort(player.getPosition().getRegionY() + 6);
+		player.send(out.getBuffer());
+		return this;
+	}
+	
+	public ActionSender sendCopyMapRegion(Palette palette) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(2048);
+		out.writeVariableShortPacketHeader(player.getEncryptor(), 241);
+		out.writeShort(player.getPosition().getRegionY() + 6, StreamBuffer.ValueType.A);
+		out.setAccessType(StreamBuffer.AccessType.BIT_ACCESS);
+		for(int z = 0; z < 4; z++) {
+			for(int x = 0; x < 13; x++) {
+				for(int y = 0; y < 13; y++) {
+					PaletteTile tile = palette.getTile(x, y, z);
+					out.writeBits(1, tile != null ? 1 : 0);
+					if(tile != null) {
+						out.writeBits(26, tile.getX() << 14 | tile.getY() << 3 | tile.getZ() << 24 | tile.getRotation() << 1);
+					}
+				}
+			}
+		}
+		out.setAccessType(StreamBuffer.AccessType.BYTE_ACCESS);
+		out.writeShort(player.getPosition().getRegionX() + 6);
+		out.finishVariableShortPacketHeader();
 		player.send(out.getBuffer());
 		return this;
 	}

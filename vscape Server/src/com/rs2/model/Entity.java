@@ -56,6 +56,7 @@ public abstract class Entity {
 	private boolean dontWalk = false;
 	private boolean dontFollow = false;
 	private boolean dontAttack = false;
+	private boolean failedCriticalRequirement = false;
 
 	private int transformOnAggression;
 	private int hitType;
@@ -954,18 +955,30 @@ public abstract class Entity {
 	public Entity getTradingEntity() {
 		return tradingEntity;
 	}
+	
+	public static boolean antiStackExceptions(Npc npcLead) {
+	    if(npcLead.isPet() || Barrows.inBarrowsCrypts(npcLead) || npcLead.getNpcId() == 1472 || (npcLead.getNpcId() >= 2881 && npcLead.getNpcId() <= 2883)) {
+		return true;
+	    }
+	    return false;
+	}
+	
 	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
-	    if (leader != null && leader.isNpc() && !((Npc)leader).isPet() && !Barrows.inBarrowsCrypts(leader) && ((Npc) leader).getNpcId() != 1472) {
-		for (Npc npc : World.getNpcs()) {
-		    if (npc == null || npc.isPet()) {
-			continue;
-		    }
-		    if ((npc.getPosition().getX() == endX && npc.getPosition().getY() == endY)) {
-			return false;
+	    if (leader != null && leader.isNpc()) {
+		Npc npcLead = (Npc)leader;
+		if (antiStackExceptions(npcLead)) {
+		    
+		} else {
+		    for (Npc npc : World.getNpcs()) {
+			if (npc == null || npc.isPet()) {
+			    continue;
+			}
+			if ((npc.getPosition().getX() == endX && npc.getPosition().getY() == endY)) {
+			    return false;
+			}
 		    }
 		}
 	    }
-		
 		return this.isNpc() ? Region.canMoveNpc(startX, startY, endX, endY, height, xLength, yLength) : Region.canMove(startX, startY, endX, endY, height, xLength, yLength);
 	}
 	public boolean canMove(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
@@ -1113,5 +1126,13 @@ public abstract class Entity {
 	 */
 	public boolean isDontAttack() {
 		return dontAttack;
+	}
+	
+	public void setFailedCriticalRequirement(boolean set) {
+	    this.failedCriticalRequirement = set;
+	}
+	
+	public boolean failedCriticalRequirement() {
+	    return this.failedCriticalRequirement;
 	}
 }

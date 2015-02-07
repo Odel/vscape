@@ -84325,13 +84325,6 @@
           1
         ],
         "chance": 6
-      },
-      {
-        "id": 1079,
-        "count": [
-          1
-        ],
-        "chance": 1
       }
     ]
   },
@@ -155500,13 +155493,6 @@
         "chance": 5
       },
       {
-        "id": 6526,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
         "id": 557,
         "count": [
           11,
@@ -183762,21 +183748,21 @@
         "count": [
           1
         ],
-        "chance": 4
+        "chance": 7
       },
       {
         "id": 6739,
         "count": [
           1
         ],
-        "chance": 8
+        "chance": 9
       },
       {
         "id": 6733,
         "count": [
           1
         ],
-        "chance": 4
+        "chance": 7
       },
       {
         "id": 6133,
@@ -183880,7 +183866,7 @@
         "count": [
           1
         ],
-        "chance": 8
+        "chance": 9
       },
       {
         "id": 3755,
@@ -183894,7 +183880,14 @@
         "count": [
           1
         ],
-        "chance": 4
+        "chance": 7
+      },
+      {
+        "id": 6562,
+        "count": [
+          1
+        ],
+        "chance": 7
       },
       {
         "id": 6139,
@@ -184005,21 +183998,21 @@
         "count": [
           1
         ],
-        "chance": 8
+        "chance": 9
       },
       {
         "id": 6737,
         "count": [
           1
         ],
-        "chance": 4
+        "chance": 7
       },
       {
         "id": 6735,
         "count": [
           1
         ],
-        "chance": 4
+        "chance": 7
       },
       {
         "id": 6129,

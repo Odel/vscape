@@ -377,6 +377,9 @@ public class ItemPacketHandler implements PacketHandler {
 	if (BasicCraft.handleItemOnItem(player, firstItem, secondItem)) {
 	    return;
 	}
+	if (GodBook.blessSymbol(player, firstItem, secondItem)) {
+	    return;
+	}
 	if ((firstItem == GlassMaking.GLASSBLOWING_PIPE && secondItem == GlassMaking.MOLTEN_GLASS) || (secondItem == GlassMaking.GLASSBLOWING_PIPE && firstItem == GlassMaking.MOLTEN_GLASS)) {
 	    Menus.sendSkillMenu(player, "glassMaking");
 	    return;

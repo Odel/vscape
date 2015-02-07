@@ -106,7 +106,7 @@ public class BasicCraft {
 			player.getInventory().removeItem(new Item(itemUsed));
 			player.getInventory().removeItem(new Item(withItem));
 			player.getInventory().addItem(new Item(1393));
-			player.getSkill().addExp(Skill.CRAFTING, 100);
+			player.getSkill().addExp(Skill.CRAFTING, 125);
             return true;
 		}
 		if ((itemUsed == 571 && withItem == 1391) || (withItem == 571 && itemUsed == 1391)) // water
