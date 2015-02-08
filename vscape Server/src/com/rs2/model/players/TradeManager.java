@@ -6,6 +6,7 @@ import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.util.LogHandler;
 import com.rs2.util.NameUtil;
+import com.rs2.util.PlayerSave;
 
 public class TradeManager {
 
@@ -231,6 +232,8 @@ public class TradeManager {
 			otherPlayer.getActionSender().removeInterfaces();
 			player.setTradingEntity(null);
 	        otherPlayer.setTradingEntity(null);
+	        PlayerSave.save(player);
+	        PlayerSave.save(otherPlayer);
 		}
 	}
 

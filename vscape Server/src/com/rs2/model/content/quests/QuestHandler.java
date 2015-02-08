@@ -143,6 +143,7 @@ public class QuestHandler {
         }
         resetInterface(player);
         quest.completeQuest(player);
+        PlayerSave.save(player);
     }
 
     public static boolean handleQuestButtons(Player player, int button) {
