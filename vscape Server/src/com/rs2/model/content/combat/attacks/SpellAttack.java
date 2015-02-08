@@ -45,7 +45,7 @@ public class SpellAttack extends BasicAttack {
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
 			}
-			if (getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 1052) {
+		if (getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 1052) {
 				((Player) getAttacker()).getActionSender().sendMessage("You cannot cast a spell on this npc.");
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
@@ -162,13 +162,13 @@ public class SpellAttack extends BasicAttack {
 		Requirement[] requirements = new Requirement[reqs];
 		int i = 0;
 		if (runesRequired != null) {
-			for (Item rune : runesRequired) {
-			    requirements[i++] = new RuneRequirement(rune.getId(), rune.getCount()) {
-				@Override
-				public String getFailMessage() {
-				    return SpellAttack.FAILED_REQUIRED_RUNES;
-				}
-			    };
+			for (; i < runesRequired.length; i++) {
+				requirements[i] = new RuneRequirement(runesRequired[i].getId(), runesRequired[i].getCount()) {
+					@Override
+					public String getFailMessage() {
+						return "You do not have the runes required!";
+					}
+				};
 			}
 		}
 		requirements[i++] = new SkillLevelRequirement(Skill.MAGIC, spell.getLevelRequired()) {

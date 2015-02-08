@@ -76,6 +76,10 @@ public abstract class MagicSkill extends CycleEvent {
 	    return itemId >= 554 && itemId <= 557;
 	}
 	
+	public static boolean isCombinationRune(int itemId) {
+	    return itemId >= 4694 && itemId <= 4699;
+	}
+	
 	public static boolean failRequirement(Player player, Spell spell) {
 	    for(Item rune : spell.getRunesRequired()) {
 		if(isElementalRune(rune.getId()) && !player.getInventory().playerHasItem(new Item(rune.getId(), rune.getCount()))) {
@@ -193,13 +197,13 @@ public abstract class MagicSkill extends CycleEvent {
 		    noCount.remove(noCount.indexOf((554)));
 		}
 	    }
-	    boolean containsElemental = false;
+	    boolean containsCombination = false;
 	    for(Item i : newRunes) {
-		if(isElementalRune(i.getId())) {
-		    containsElemental = true;
+		if(isCombinationRune(i.getId())) {
+		    containsCombination = true;
 		}
 	    }
-	    if(containsElemental) {
+	    if(containsCombination) {
 		Item[] toReturn = new Item[newRunes.size()];
 		for(int i = 0; i < newRunes.size(); i++) {
 		    toReturn[i] = newRunes.get(i);
