@@ -16,6 +16,7 @@ import java.util.zip.GZIPOutputStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rs2.Constants;
+import com.rs2.GlobalVariables;
 import com.rs2.Server;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
@@ -26,7 +27,9 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.Tick;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -49,6 +52,39 @@ public class PlayerSave {
 	
 	public static boolean hasNewFormat (final Player player){
 		return new File(directoryNew + player.getUsername() + ".gz").exists();
+	}
+	
+	public static final int SAVE_INTERVAL = 30; // in minutes
+	
+	public static void saveCycle() {
+		World.submit(new Tick(SAVE_INTERVAL * 100) {
+		    @Override public void execute() {
+		    	if(Constants.SYSTEM_UPDATE)
+		    	{
+		    		stop();
+		    		return;
+		    	}
+                if(World.getPlayers() == null || World.getPlayers().length <= 0)
+                {
+                	return;
+                }
+	            synchronized (World.getPlayers()) {
+	                final Player[] players = World.getPlayers();
+	                for (Player p : players) {
+	                    if (p != null && p.getIndex() != -1 && !p.getLoginStage().equals(LoginStages.LOGGING_OUT)) {
+	                        try {
+	                            PlayerSave.save(p);
+	                        } catch (Exception e) {
+	                            e.printStackTrace();
+	                        }
+	                    }
+	                }
+	            }
+	            World.messageToStaff("@dre@Auto-Saved Players.");
+				System.out.println("Auto-Saved Players.");
+		    }
+	    });
+	
 	}
 	
 	public static void saveJson(final Player player) {
@@ -646,6 +682,7 @@ public class PlayerSave {
     	}
 	}//try now kk
 
+    
 	public static void saveAllPlayers() {
         synchronized (World.getPlayers()) {
             final Player[] players = World.getPlayers();

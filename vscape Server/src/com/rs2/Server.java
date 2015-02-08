@@ -228,6 +228,8 @@ public class Server implements Runnable {
 			ApeAtollNpcs.init();
 
             HighscoresManager.load();
+            
+            PlayerSave.saveCycle();
 
 			// Start up and get a'rollin!
 			startup();
