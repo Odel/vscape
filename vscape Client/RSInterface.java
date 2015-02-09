@@ -1082,7 +1082,7 @@ public final class RSInterface {
     }
 	
 	public static void skillTab(TextDrawingArea[] tda) {
-		int[] buttons = { 8654, 8655, 8656, 8657, 8658, 8659, 8660, 8861, 8662, 8663, 8664, 8665, 8666, 8667, 8668, 8669, 8670, 8671, 8672, 12162, 13928 };
+		int[] buttons = { 8654, 8655, 8656, 8657, 8658, 8659, 8660, 8661, 8662, 8663, 8664, 8665, 8666, 8667, 8668, 8669, 8670, 8671, 8672, 12162, 13928 };
 		int[][] hoverCoords = { { 4, 4 }, { 66, 4 }, { 128, 4 }, 
 								{ 4, 32 }, { 66, 32 }, { 128, 32 }, 
 								{ 4, 60 }, { 66, 60 }, { 128, 60 },
@@ -1103,7 +1103,7 @@ public final class RSInterface {
 			addHoverBox(30000+i, 10000 + i, true);
 			skillTab.setChild((children.length)+i, 30000+i, hoverCoords[i][0], hoverCoords[i][1]);
 		}
-		for (int i = 0; i < skillTab.children.length; i++) {
+		for (int i = 0; i < children.length; i++) {
 			for (int x = 0; x < buttons.length; x++) {
 				if(buttons[x] == skillTab.children[i])
 				{
