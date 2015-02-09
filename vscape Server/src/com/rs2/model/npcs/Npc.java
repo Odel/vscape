@@ -504,12 +504,21 @@ public class Npc extends Entity {
 		}
 		for (Item item : drops.getDrops()) {
 		    if (item != null) {
-			String itemName = item.getDefinition().getName().toLowerCase();
-			if (killer.isPlayer() && (itemName.contains("clue") || ((Player) killer).hasPouchDrop(item.getId()))) {
-			    return;
-			}
-			GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
-			GroundItemManager.getManager().dropItem(drop);
+				String itemName = item.getDefinition().getName().toLowerCase();
+				if (killer.isPlayer() && (itemName.contains("clue") || ((Player) killer).hasPouchDrop(item.getId()))) {
+				    return;
+				}
+				if(item.getCount() > 1 && !item.getDefinition().isNoted() && !item.getDefinition().isStackable())
+				{
+					for(int i = 0; i < item.getCount(); i++)
+					{
+						GroundItem drop = new GroundItem(new Item(item.getId(), 1), this, killer, getDeathPosition());
+						GroundItemManager.getManager().dropItem(drop);
+					}
+				}else{
+					GroundItem drop = new GroundItem(new Item(item.getId(), item.getCount() < 1 ? 1 : item.getCount()), this, killer, getDeathPosition());
+					GroundItemManager.getManager().dropItem(drop);
+				}
 		    }
 		}
 		if (killer.isPlayer()) {
