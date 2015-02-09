@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.4c";
+	private final static String CLIENT_VERSION = "3.4e";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -6264,7 +6264,7 @@ public class Client extends RSApplet {
 		int[] stuff = {0,3,14,2,16,13,1,15,10,4,17,7,5,12,11,6,9,8,20,18,19};
 		message += TextClass.fixName(Skills.skillNames[stuff[level]])+": " + currentStats[stuff[level]]+"/"+maxStats[stuff[level]] + "\\n";
 		message += "Current XP: " + currentExp[stuff[level]] + "\\n";
-		if(currentStats[stuff[level]] < 99) {
+		if(maxStats[stuff[level]] < 99) {
 			message += "Next level: "+ getXPForLevel(maxStats[stuff[level]]+1) + "\\n";
 			message += "Remainder: "+ (getXPForLevel(maxStats[stuff[level]]+1)-currentExp[stuff[level]]);
 		}else{
@@ -9442,14 +9442,18 @@ public class Client extends RSApplet {
 						xPos = k2 + 5;
 					if (xPos + boxWidth > k + class9.width)
 						xPos = (k + class9.width) - boxWidth;
-					if (yPos + boxHeight > l + class9.height)
-						yPos = (l2 - boxHeight);
+					/*if (yPos + boxHeight > l + class9.height)
+						yPos = (l2 - boxHeight);*/
+                    if (yPos + boxHeight > l + class9.height) {
+                        yPos = (l + class9.height) - boxHeight;
+                    }
 					if(class9_1.inventoryHover){
-						if(xPos + boxWidth + k > 280){
-							xPos = 280 - boxWidth-k;
+						int yOffset = (clientWidth >= smallTabs ? clientHeight - 37 : clientHeight - 73);
+						if(xPos + boxWidth + k > (clientSize == 0 ? 280 : (clientWidth + k))){
+							xPos = (clientSize == 0 ? 280 : (clientWidth + k)) - boxWidth-k;
 						}
-						if(yPos + boxHeight + l > 330 ){
-							yPos = 330 - boxHeight - l;
+						if(yPos + boxHeight + l > (clientSize == 0 ? 330 : (yOffset + l)-10)){
+							yPos = (clientSize == 0 ? 330 : (yOffset + l)-10) - boxHeight - l;
 						}
 					}
 					DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0,
