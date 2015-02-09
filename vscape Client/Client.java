@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.4b";
+	private final static String CLIENT_VERSION = "3.4c";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
@@ -1307,8 +1307,8 @@ public class Client extends RSApplet {
 			int i2 = class9.childX[l1] + i;
 			int j2 = (class9.childY[l1] + l) - j1;
 			RSInterface class9_1 = RSInterface.interfaceCache[class9.children[l1]];
-			i2 += class9_1.anInt263;
-			j2 += class9_1.anInt265;
+			i2 += class9_1.posX;
+			j2 += class9_1.posY;
 			if ((class9_1.hoverType >= 0 || class9_1.anInt216 != 0) && k >= i2 && i1 >= j2 && k < i2 + class9_1.width && i1 < j2 + class9_1.height)
 				if (class9_1.hoverType >= 0)
 					anInt886 = class9_1.hoverType;
@@ -5892,7 +5892,9 @@ public class Client extends RSApplet {
 				s = s.substring(5);
 			}
 			if (j1 == 0){
-				l++;
+				if(gameMode == 0 || (gameMode == 1 && chatFiltered[i1])){
+					l++;
+				}
 			}
 			if ((j1 == 1 || j1 == 2) && (j1 == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(s))) {
 				if (j > k1 - 14 && j <= k1 && !s.equals(myPlayer.name)) {
@@ -6237,6 +6239,43 @@ public class Client extends RSApplet {
 			}
 			class9.message = "Do this from the 'account management' area on our front webpage";
 		}
+		if(j >= 10000 && j <= 10020){
+			j -= 10000;
+			class9.message = setSkillHover(j);
+			return;
+		}
+	}
+	
+	public int getXPForLevel(int level) {
+		int points = 0;
+		int output = 0;
+		for (int lvl = 1; lvl <= level; lvl++) {
+			points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
+			if (lvl >= level) {
+				return output;
+			}
+			output = (int)Math.floor(points / 4);
+		}
+		return 0;
+	}
+
+	public String setSkillHover(int level){
+		String message = "";
+		int[] stuff = {0,3,14,2,16,13,1,15,10,4,17,7,5,12,11,6,9,8,20,18,19};
+		message += TextClass.fixName(Skills.skillNames[stuff[level]])+": " + currentStats[stuff[level]]+"/"+maxStats[stuff[level]] + "\\n";
+		message += "Current XP: " + currentExp[stuff[level]] + "\\n";
+		if(currentStats[stuff[level]] < 99) {
+			message += "Next level: "+ getXPForLevel(maxStats[stuff[level]]+1) + "\\n";
+			message += "Remainder: "+ (getXPForLevel(maxStats[stuff[level]]+1)-currentExp[stuff[level]]);
+		}else{
+			if(currentExp[stuff[level]] < 200000000){
+				message += "Remainder: "+ (200000000-currentExp[stuff[level]]) + "\\n";
+			}else{
+				message += "Max EXP Reached\\n";
+			}
+			message += "Max Level Reached";
+		}
+		return message;
 	}
 
 	private void drawSplitPrivateChat()
@@ -9078,8 +9117,8 @@ public class Client extends RSApplet {
 			int k2 = class9.childX[j2] + k;
 			int l2 = (class9.childY[j2] + l) - j;
 			RSInterface class9_1 = RSInterface.interfaceCache[class9.children[j2]];
-			k2 += class9_1.anInt263;
-			l2 += class9_1.anInt265;
+			k2 += class9_1.posX;
+			l2 += class9_1.posY;
 			if(class9_1.contentType > 0)
 				drawFriendsListOrWelcomeScreen(class9_1);
 			if(class9_1.type == 0) {
@@ -9405,6 +9444,14 @@ public class Client extends RSApplet {
 						xPos = (k + class9.width) - boxWidth;
 					if (yPos + boxHeight > l + class9.height)
 						yPos = (l2 - boxHeight);
+					if(class9_1.inventoryHover){
+						if(xPos + boxWidth + k > 280){
+							xPos = 280 - boxWidth-k;
+						}
+						if(yPos + boxHeight + l > 330 ){
+							yPos = 330 - boxHeight - l;
+						}
+					}
 					DrawingArea.drawPixels(boxHeight, yPos, xPos, 0xFFFFA0,
 							boxWidth);
 					DrawingArea.fillPixels(xPos, boxWidth, boxHeight, 0, yPos);
@@ -12231,8 +12278,8 @@ public class Client extends RSApplet {
 				int l10 = inStream.method437();
 				int i16 = inStream.method434();
 				RSInterface class9_5 = RSInterface.interfaceCache[i16];
-				class9_5.anInt263 = k2;
-				class9_5.anInt265 = l10;
+				class9_5.posX = k2;
+				class9_5.posY = l10;
 				pktType = -1;
 				return true;
 

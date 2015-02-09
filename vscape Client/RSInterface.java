@@ -215,6 +215,7 @@ public final class RSInterface {
 		aClass44 = streamLoader;
 		optionsTab(textDrawingAreas);
 		bank(textDrawingAreas);
+		skillTab(textDrawingAreas);
 		aMRUNodes_238 = null;
 	}
 
@@ -822,9 +823,9 @@ public final class RSInterface {
 	public Sprite sprite2;
 	public int scrollMax;
 	public int type;
-	public int anInt263;
+	public int posX;
 	private static final MRUNodes aMRUNodes_264 = new MRUNodes(30);
-	public int anInt265;
+	public int posY;
 	public boolean isMouseoverTriggered;
 	public int height;
 	public boolean textShadow;
@@ -1066,5 +1067,50 @@ public final class RSInterface {
 		bankInter.width = 10;
 		bankInter.invSpritePadX = 12;
 		bankInter.height = 35;
+	}
+	
+	public boolean inventoryHover;
+	
+	public static void addHoverBox(int i, int CT, boolean inventory) {
+        RSInterface hover = addTabInterface(i);
+        hover.type = 8;
+        hover.contentType = CT;
+        hover.message = "";
+        hover.height = 27;
+        hover.width = 60;
+        hover.inventoryHover = inventory;
+    }
+	
+	public static void skillTab(TextDrawingArea[] tda) {
+		int[] buttons = { 8654, 8655, 8656, 8657, 8658, 8659, 8660, 8861, 8662, 8663, 8664, 8665, 8666, 8667, 8668, 8669, 8670, 8671, 8672, 12162, 13928 };
+		int[][] hoverCoords = { { 4, 4 }, { 66, 4 }, { 128, 4 }, 
+								{ 4, 32 }, { 66, 32 }, { 128, 32 }, 
+								{ 4, 60 }, { 66, 60 }, { 128, 60 },
+								{ 4, 88 }, { 66, 88 }, { 128, 88 },
+								{ 4, 120 }, { 66, 120 }, { 128, 120 }, 
+								{ 4, 144 }, { 66, 144 }, { 128, 144 },
+								{ 4, 178 }, { 66, 178 }, { 128, 178 }};
+		
+    	RSInterface skillTab = interfaceCache[3917];
+    	int[] children = skillTab.children;
+    	int[] childrenX = skillTab.childX;
+    	int[] childrenY = skillTab.childY;
+    	skillTab.totalChildren(skillTab.children.length + 21);
+    	for (int i = 0; i < children.length; i++) {
+			skillTab.setChild(i, children[i], childrenX[i], childrenY[i]);
+    	}
+		for (int i = 0; i < 21; i++) {
+			addHoverBox(30000+i, 10000 + i, true);
+			skillTab.setChild((children.length)+i, 30000+i, hoverCoords[i][0], hoverCoords[i][1]);
+		}
+		for (int i = 0; i < skillTab.children.length; i++) {
+			for (int x = 0; x < buttons.length; x++) {
+				if(buttons[x] == skillTab.children[i])
+				{
+					RSInterface skill = interfaceCache[buttons[x]];
+					skill.hoverType = 30000 + x;
+				}
+			}
+		}
 	}
 }
