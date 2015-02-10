@@ -82,7 +82,7 @@ public class GodBook {
 	public static boolean blessSymbol(final Player player, int firstItem, int secondItem) {
 	    if (firstItem == GUTHIX_BOOK || firstItem == SARA_BOOK) {
 		if (secondItem == UNBLESSED_HOLY_SYMBOL) {
-		    if (player.getSkill().getLevel()[Skill.PRAYER] >= 50) {
+		    if (player.getSkill().getPlayerLevel(Skill.PRAYER) >= 50) {
 			player.setStopPacket(true);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			    @Override
@@ -105,7 +105,7 @@ public class GodBook {
 	    }
 	    if (firstItem == GUTHIX_BOOK || firstItem == ZAMORAK_BOOK) {
 		if (secondItem == UNPOWERED_UNHOLY_SYMBOL) {
-		    if (player.getSkill().getLevel()[Skill.PRAYER] >= 50) {
+		    if (player.getSkill().getPlayerLevel(Skill.PRAYER) >= 50) {
 			player.setStopPacket(true);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			    @Override
