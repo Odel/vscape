@@ -58,6 +58,10 @@ public class PlayerSaveParser {
 	            }
 	            player.setPassword(password);
 	            player.setStaffRights(characterObj.get("rights").getAsInt());
+	            if(characterObj.get("lastseen") != null)
+	            {
+	            	player.setTimeLoggedOut(characterObj.get("lastseen").getAsString());
+	            }
                 player.setMuteExpire(characterObj.get("muteExpire").getAsLong());
                 player.setBanExpire(characterObj.get("banExpire").getAsLong());
                 if(characterObj.get("inJail") != null)

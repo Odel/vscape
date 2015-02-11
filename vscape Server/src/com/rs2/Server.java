@@ -31,12 +31,15 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.util.clip.Region;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -104,6 +107,26 @@ public class Server implements Runnable {
         //PlayerCleaner.start();
         //System.exit(0);
 
+		/*
+		String dateStart = "03/11/14 09:29";
+		String dateStop = GlobalVariables.datetime.format(new Date());
+		    
+	    Date d1 = null;
+	    Date d2 = null;
+	    try {
+	        d1 = GlobalVariables.datetime.parse(dateStart);
+	        d2 = GlobalVariables.datetime.parse(dateStop);
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+        
+	    long diff = d2.getTime() - d1.getTime();
+	    long diffMinutes = diff / (60 * 1000) % 60;
+	    long diffHours = diff / (60 * 60 * 1000);
+	    
+	    System.out.println("Time in minutes: " + diffMinutes + " minutes.");
+	    System.out.println("Time in hours: " + diffHours + " hours.");*/
+	    
         if (host.equals("127.0.0.1")) {
             System.out.println("Starting live server!");
             Constants.DEVELOPER_MODE = false;
@@ -330,6 +353,10 @@ public class Server implements Runnable {
 			try {
 				player.finishLogin();
 				player.setLoginStage(LoginStages.LOGGED_IN);
+	            if(player.getMinLoggedOut() > 0)
+	            {
+	            	player.ageCrops(player.getMinLoggedOut());
+	            }
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Error, infinite DC loop for this player");

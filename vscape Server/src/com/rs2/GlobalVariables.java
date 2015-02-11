@@ -1,6 +1,8 @@
 package com.rs2;
 
 import com.rs2.model.tick.TickTimer;
+
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class GlobalVariables {
@@ -16,6 +18,8 @@ public class GlobalVariables {
 	public static String[] degradeInfo = null;
 	public static String[] npcDump = null;
 	public static String[] itemDump = null;
+	
+    public static SimpleDateFormat datetime = new SimpleDateFormat("MM/dd/yy HH:mm");
 	
 	public static HashMap<Integer, String> ALPHABET = new HashMap<>();
 	// public static long leverTimer[] = new long[LeverHandler.lever.length];

@@ -46,7 +46,7 @@ public class Compost {
 
 	public static final int SUPER_COMPOST = 6034;
 
-	public static final int ROTTE_TOMATO = 2518;
+	public static final int ROTTEN_TOMATO = 2518;
 
 	public static final int TOMATO = 1982;
 
@@ -409,7 +409,7 @@ public class Compost {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
-		final int finalItem = compostBins[index] == 150 ? COMPOST : compostBins[index] == 250 ? SUPER_COMPOST : ROTTE_TOMATO;
+		final int finalItem = compostBins[index] == 150 ? COMPOST : compostBins[index] == 250 ? SUPER_COMPOST : ROTTEN_TOMATO;
 
 		final int task = player.getTask();
 		player.getUpdateFlags().sendAnimation(832, 0);

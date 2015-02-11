@@ -1,6 +1,7 @@
 package com.rs2.util;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -8,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.rs2.GlobalVariables;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
@@ -26,6 +28,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("rights", player.getStaffRights());
 		characterObj.addProperty("mac", player.getMacAddress());
 		characterObj.addProperty("host", player.getHost());
+		characterObj.addProperty("lastseen", GlobalVariables.datetime.format(new Date()));
 		characterObj.addProperty("muteExpire", player.getMuteExpire());
 		characterObj.addProperty("banExpire", player.getBanExpire());
 		characterObj.addProperty("inJail", player.getInJail());

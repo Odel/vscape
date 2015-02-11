@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -478,6 +480,8 @@ public class Player extends Entity {
     private int castleWarsTeam = -1;
     
     private boolean ironman = false;
+    
+    private int minloggedout = 0;
     
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -4808,4 +4812,47 @@ public class Player extends Entity {
 			}
 		}
 	}
+
+	public void setTimeLoggedOut(String asString) {
+		String dateStop = GlobalVariables.datetime.format(new Date());
+	    Date d1 = null;
+	    Date d2 = null;
+	    try {
+	        d1 = GlobalVariables.datetime.parse(asString);
+	        d2 = GlobalVariables.datetime.parse(dateStop);
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+	    long diff = d2.getTime() - d1.getTime();
+	    long diffMinutes = diff / (60 * 1000) % 60;
+	    long diffHours = diff / (60 * 60 * 1000);
+	    
+	    //System.out.println("Time in minutes: " + diffMinutes + " minutes.");
+	    //System.out.println("Time in hours: " + diffHours + " hours.");
+	    
+	    minloggedout = (int) diffMinutes;
+	}
+	
+	public int getMinLoggedOut()
+	{
+		return minloggedout;
+	}
+	
+	public void ageCrops(int mintoage)
+	{
+		System.out.println("Aging crops " + mintoage + "min");
+		for(int k = 0; k <= (mintoage*2); k++)
+		{
+			getAllotment().processGrowth();
+			getFlowers().processGrowth();
+			getHerbs().processGrowth();
+			getHops().processGrowth();
+			getBushes().processGrowth();
+			getTrees().processGrowth();
+			getFruitTrees().processGrowth();
+			getSpecialPlantOne().doCalculations();
+			getSpecialPlantTwo().doCalculations();
+		}
+	}
+
 }
