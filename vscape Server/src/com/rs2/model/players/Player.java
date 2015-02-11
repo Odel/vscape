@@ -4845,6 +4845,10 @@ public class Player extends Entity {
 	public void ageCrops(int mintoage)
 	{
 		System.out.println("Aging crops " + mintoage + "min");
+		if(mintoage > 960)
+		{
+			mintoage = 960;
+		}
 		for(int k = 0; k <= (mintoage*2); k++)
 		{
 			getAllotment().processGrowth();
