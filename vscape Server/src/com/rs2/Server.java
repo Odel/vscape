@@ -333,10 +333,6 @@ public class Server implements Runnable {
 			try {
 				player.finishLogin();
 				player.setLoginStage(LoginStages.LOGGED_IN);
-	            if(player.getMinLoggedOut() > 0)
-	            {
-	            	player.ageCrops(player.getMinLoggedOut());
-	            }
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Error, infinite DC loop for this player");

@@ -1289,8 +1289,12 @@ public class Player extends Entity {
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
-	    //getActionSender().sendMessage("Feel like reimbursing Odel for server costs?  Go to odelvidyascape.blogspot.com", true);
-	}
+	    
+        if(getMinLoggedOut() > 0)
+        {
+        	ageCrops(getMinLoggedOut());
+        }	
+    }
 	
 	public boolean beginLogin() throws Exception {
 		// check login status before sql
