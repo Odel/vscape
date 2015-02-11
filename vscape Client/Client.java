@@ -1439,6 +1439,9 @@ public class Client extends RSApplet {
 													menuActionName[menuActionRow] = "Drop @lre@" + itemDef.name;
 													menuActionID[menuActionRow] = 847;
 													menuActionCmd1[menuActionRow] = itemDef.id;
+													if(itemDef.id == 1971)
+													{
+														menuActionName[menuActionRow] = "Remove @lre@" + itemDef.name;													}
 													menuActionCmd2[menuActionRow] = k2;
 													menuActionCmd3[menuActionRow] = class9_1.id;
 													menuActionRow++;
@@ -5285,6 +5288,10 @@ public class Client extends RSApplet {
 								menuActionName[menuActionRow] = "Take @lre@" + itemDef.name;
 								menuActionID[menuActionRow] = 234;
 								menuActionCmd1[menuActionRow] = item.ID;
+								if(item.ID == 1971)
+								{
+									menuActionName[menuActionRow] = "Remove @lre@" + itemDef.name;
+								}
 								menuActionCmd2[menuActionRow] = i1;
 								menuActionCmd3[menuActionRow] = j1;
 								menuActionRow++;
