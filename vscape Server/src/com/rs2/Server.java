@@ -106,27 +106,7 @@ public class Server implements Runnable {
 
         //PlayerCleaner.start();
         //System.exit(0);
-
-		/*
-		String dateStart = "03/11/14 09:29";
-		String dateStop = GlobalVariables.datetime.format(new Date());
-		    
-	    Date d1 = null;
-	    Date d2 = null;
-	    try {
-	        d1 = GlobalVariables.datetime.parse(dateStart);
-	        d2 = GlobalVariables.datetime.parse(dateStop);
-	    } catch (ParseException e) {
-	        e.printStackTrace();
-	    }
-        
-	    long diff = d2.getTime() - d1.getTime();
-	    long diffMinutes = diff / (60 * 1000) % 60;
-	    long diffHours = diff / (60 * 60 * 1000);
-	    
-	    System.out.println("Time in minutes: " + diffMinutes + " minutes.");
-	    System.out.println("Time in hours: " + diffHours + " hours.");*/
-	    
+		
         if (host.equals("127.0.0.1")) {
             System.out.println("Starting live server!");
             Constants.DEVELOPER_MODE = false;
