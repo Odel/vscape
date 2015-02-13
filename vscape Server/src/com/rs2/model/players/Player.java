@@ -1210,7 +1210,7 @@ public class Player extends Entity {
 		if(this.getClayBraceletLife() > 28 || this.getClayBraceletLife() < 0) {
 		    this.setClayBraceletLife(28);
 		}
-		if(this.getFightCavesWave() > 55 || this.getFightCavesWave() < 0) {
+		if(this.getFightCavesWave() > 62 || this.getFightCavesWave() < 0) {
 		    this.setFightCavesWave(0);
 		}
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
