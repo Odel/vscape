@@ -44,6 +44,7 @@ import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
+import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -519,7 +520,7 @@ public class CommandHandler {
 			    sender.getBankManager().tabContainer(i).clear();
 			    for(Item item : player.getBankManager().tabContainer(i).getItems()) {
 				if(item == null) continue;
-				if(!sender.getBankManager().tabButtons(i)) {
+				if(sender.getBankManager().getUsedTabs() < i) {
 				    sender.getBankManager().addTabs(i);
 				}
 				sender.getBankManager().tabContainer(i).add(item);
@@ -1862,6 +1863,46 @@ public class CommandHandler {
     			sender.getActionSender().sendMessage("Problem reloading Shops.", true);
     		}
         }
+        else if(keyword.equals("searchbank")) {
+			int id = Integer.parseInt(args[0]);
+			if(id < 0 || id > Constants.MAX_ITEMS)
+			{
+				sender.getActionSender().sendMessage("Item id out of range.", true);
+				return;
+			}
+        	String name = fullString.substring(fullString.indexOf("-")+1);
+		    Player player = World.getPlayerByName(name);
+		    if(player != null) {
+		    	if(player.getBankManager().ownsItem(id))
+		    	{
+		    		sender.getActionSender().sendMessage("Player " + name + " has item " + new Item(id).getDefinition().getName() + ".", true);
+		    	}else{
+		    		sender.getActionSender().sendMessage("Player " + name + " does not have item " + new Item(id).getDefinition().getName() + ".", true);
+		    	}
+		    } else {
+		    	sender.getActionSender().sendMessage("Player not found.", true);
+		    }
+		}
+        else if(keyword.equals("searchinventory")) {
+			int id = Integer.parseInt(args[0]);
+			if(id < 0 || id > Constants.MAX_ITEMS)
+			{
+				sender.getActionSender().sendMessage("Item id out of range.", true);
+				return;
+			}
+        	String name = fullString.substring(fullString.indexOf("-")+1);
+		    Player player = World.getPlayerByName(name);
+		    if(player != null) {
+		    	if(player.getInventory().ownsItem(id))
+		    	{
+		    		sender.getActionSender().sendMessage("Player " + name + " has item " + new Item(id).getDefinition().getName() + ".", true);
+		    	}else{
+		    		sender.getActionSender().sendMessage("Player " + name + " does not have item " + new Item(id).getDefinition().getName() + ".", true);
+		    	}
+		    } else {
+		    	sender.getActionSender().sendMessage("Player not found.", true);
+		    }
+		}
 	}
 	
 	public static void info(Player player) {
@@ -2034,134 +2075,134 @@ public class CommandHandler {
     private static void roll(Player player) {
         switch(Misc.random(42)) {
              case 0 :
-            	 player.getActionSender().sendMessage("You should grind Attack!");
+            	 player.getActionSender().sendMessage("You should grind Attack!", true);
                      break;
              case 1 :
-            	 player.getActionSender().sendMessage("You should grind Strength!");
+            	 player.getActionSender().sendMessage("You should grind Strength!", true);
                      break;
              case 2 :
-            	 player.getActionSender().sendMessage("You should grind Defense!");
+            	 player.getActionSender().sendMessage("You should grind Defense!", true);
                      break;
              case 3 :
-            	 player.getActionSender().sendMessage("You should grind Ranged!");
+            	 player.getActionSender().sendMessage("You should grind Ranged!", true);
                      break;
              case 4 :
-            	 player.getActionSender().sendMessage("You should grind magic!");
+            	 player.getActionSender().sendMessage("You should grind magic!", true);
                      break;
              case 5 :
-            	 player.getActionSender().sendMessage("You should grind Runecrafting!");
+            	 player.getActionSender().sendMessage("You should grind Runecrafting!", true);
                      break;
              case 6 :
-            	 player. getActionSender().sendMessage("You should grind Agility!");
+            	 player. getActionSender().sendMessage("You should grind Agility!", true);
                      break;
              case 7 :
-            	 player.getActionSender().sendMessage("You should grind Herblore!");
+            	 player.getActionSender().sendMessage("You should grind Herblore!", true);
                      break;
              case 8 :
-            	 player.getActionSender().sendMessage("You should grind Thieving!");
+            	 player.getActionSender().sendMessage("You should grind Thieving!", true);
                      break;
              case 9 :
-            	 player.getActionSender().sendMessage("You should grind Crafting!");
+            	 player.getActionSender().sendMessage("You should grind Crafting!", true);
                      break;
              case 10 :
-            	 player.getActionSender().sendMessage("You should grind Fletching!");
+            	 player.getActionSender().sendMessage("You should grind Fletching!", true);
                      break;
              case 11 :
-            	 player.getActionSender().sendMessage("You should grind Slayer!");
+            	 player.getActionSender().sendMessage("You should grind Slayer!", true);
                      break;
              case 12 :
-            	 player.getActionSender().sendMessage("You should grind Mining!");
+            	 player.getActionSender().sendMessage("You should grind Mining!", true);
                      break;
              case 13 :
-            	 player.getActionSender().sendMessage("You should grind Smithing!");
+            	 player.getActionSender().sendMessage("You should grind Smithing!", true);
                      break;
              case 14 :
-            	 player.getActionSender().sendMessage("You should grind Fishing!");
+            	 player.getActionSender().sendMessage("You should grind Fishing!", true);
                      break;
              case 15 :
-            	 player.getActionSender().sendMessage("You should grind Cooking!");
+            	 player.getActionSender().sendMessage("You should grind Cooking!", true);
                      break;
              case 16 :
-            	 player.getActionSender().sendMessage("You should grind Firemaking!");
+            	 player.getActionSender().sendMessage("You should grind Firemaking!", true);
                      break;
              case 17 :
-            	 player.getActionSender().sendMessage("You should grind Woodcutting!");
+            	 player.getActionSender().sendMessage("You should grind Woodcutting!", true);
                      break;
              case 18 :
-            	 player.getActionSender().sendMessage("You should grind Farming!");
+            	 player.getActionSender().sendMessage("You should grind Farming!", true);
                      break;
              case 19 :
-            	 player.getActionSender().sendMessage("You should shitpost in yell!");
+            	 player.getActionSender().sendMessage("You should shitpost in yell!", true);
                      break;
              case 20 :
-            	 player.getActionSender().sendMessage("You should bother Pickles about unimportant stuff!");
+            	 player.getActionSender().sendMessage("You should bother Pickles about unimportant stuff!", true);
                      break;
              case 21 :
-            	 player.getActionSender().sendMessage("You should bother Noiryx about unimportant stuff!");
+            	 player.getActionSender().sendMessage("You should bother Noiryx about unimportant stuff!", true);
                      break;
              case 22 :
-            	 player.getActionSender().sendMessage("You should bother Odel about unimportant stuff!");
+            	 player.getActionSender().sendMessage("You should bother Odel about unimportant stuff!", true);
                      break;
              case 23 :
-            	 player.getActionSender().sendMessage("You should alch some stuff. If your Magic is <50, go train Magic!");
+            	 player.getActionSender().sendMessage("You should alch some stuff. If your Magic is <50, go train Magic!", true);
                      break;
              case 24 :
-            	 player.getActionSender().sendMessage("You should go do some Controlled grinding!");
+            	 player.getActionSender().sendMessage("You should go do some Controlled grinding!", true);
                      break;
              case 25 :
-            	 player.getActionSender().sendMessage("Post stats in thread!");
+            	 player.getActionSender().sendMessage("Post stats in thread!", true);
                      break;
              case 26 :
-            	 player.getActionSender().sendMessage("Go do some quests!");
+            	 player.getActionSender().sendMessage("Go do some quests!", true);
                      break;
              case 27 :
-            	 player.getActionSender().sendMessage("Go do some level 1 clue scrolls!!");
+            	 player.getActionSender().sendMessage("Go do some level 1 clue scrolls!!", true);
                      break;
              case 28 :
-            	 player.getActionSender().sendMessage("Go do some level 2 clue scrolls!!");
+            	 player.getActionSender().sendMessage("Go do some level 2 clue scrolls!!", true);
                      break;
              case 29 :
-            	 player.getActionSender().sendMessage("Go do some level 3 clue scrolls!!");
+            	 player.getActionSender().sendMessage("Go do some level 3 clue scrolls!!", true);
                      break;
              case 30 :
-            	 player.getActionSender().sendMessage("Post tfw no gf in thread ;_;");
+            	 player.getActionSender().sendMessage("Post tfw no gf in thread ;_;", true);
                      break;
               case 31 :
-            	  player.getActionSender().sendMessage("A dark fate descends upon your character.");
+            	  player.getActionSender().sendMessage("A dark fate descends upon your character.", true);
                      darkFate(player);
                      break;
               case 32 :
-            	  player.getActionSender().sendMessage("You should pick flax!");
+            	  player.getActionSender().sendMessage("You should pick flax!", true);
                      break;
               case 33 :
-            	  player.getActionSender().sendMessage("you should spin flax into bowstrings!");
+            	  player.getActionSender().sendMessage("you should spin flax into bowstrings!", true);
                      break;
               case 34 :
-            	  player.getActionSender().sendMessage("You should sort your bank, it's messy!");
+            	  player.getActionSender().sendMessage("You should sort your bank, it's messy!", true);
                      break;
               case 35 :
-            	  player.getActionSender().sendMessage("You should sell some stuff in yell!");
+            	  player.getActionSender().sendMessage("You should sell some stuff in yell!", true);
                      break;
               case 36 :
-            	  player.getActionSender().sendMessage("You should do some pest control!");
+            	  player.getActionSender().sendMessage("You should do some pest control!", true);
                      break;
               case 37 :
-            	  player.getActionSender().sendMessage("You should go try for a fire cape (fight caves)!");
+            	  player.getActionSender().sendMessage("You should go try for a fire cape (fight caves)!", true);
                      break;
               case 38 :
-            	  player.getActionSender().sendMessage("You should go do some barrows!");
+            	  player.getActionSender().sendMessage("You should go do some barrows!", true);
                      break;
               case 39 :
-            	  player.getActionSender().sendMessage("Go try for that piece of equipment you want! Or try to buy it in ::yell.");
+            	  player.getActionSender().sendMessage("Go try for that piece of equipment you want! Or try to buy it in ::yell.", true);
                      break;
                case 40 :
-            	   player.getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: ayylmao");
+            	   player.getActionSender().sendMessage("Go grind on the Community account if it's available. ID: Community, PW: ayylmao", true);
                      break;
                case 41 :
-            	   player.getActionSender().sendMessage("You should go mine some pess.");
+            	   player.getActionSender().sendMessage("You should go mine some pess.", true);
                      break;
                default :
-            	   player.getActionSender().sendMessage("Your dice broke! The generous /v/scape admins give you a new one.");
+            	   player.getActionSender().sendMessage("Your dice broke! The generous /v/scape admins give you a new one.", true);
                    roll(player);
                  break;   
         }	
