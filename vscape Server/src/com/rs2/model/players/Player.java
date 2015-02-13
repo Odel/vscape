@@ -284,6 +284,7 @@ public class Player extends Entity {
 	private int clickItemId = -1;
 	private int interfaceId = -1;
 	private int slot = -1;
+	private boolean equipmentOperate = false;
 	private int npcClickIndex;
 	private boolean withdrawAsNote;
 	private int enterXId;
@@ -4419,14 +4420,22 @@ public class Player extends Entity {
 	public void setSlot(int slot) {
 		this.slot = slot;
 	}
-
+	
 	/**
 	 * @return the slot
 	 */
 	public int getSlot() {
 		return slot;
 	}
-
+	
+	public void setEquipmentOperate(boolean val) {
+		equipmentOperate = val;
+	}
+	
+	public boolean getEquipmentOperate() {
+		return equipmentOperate;
+	}
+	
 	/**
 	 * @param brimhavenDungeonOpen the brimhavenDungeonOpen to set
 	 */

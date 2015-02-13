@@ -25,18 +25,15 @@ public class JewelleryTeleport {
 	}
 
 	public static void replaceItem(Player player) {
-	/*	if (player.getInventory().removeItem(new Item(player.getClickItem()))) {
-			int item = findNextJewellery(player.getClickItem());
-			if (item > 0) {
-				player.getInventory().addItem(new Item(item));
-			}
-		}*/
-		if (player.getSlot() < 15 && player.getEquipment().getId(player.getSlot()) == player.getClickItem()){
-			int item = findNextJewellery(player.getClickItem());
-			if (item > 0) {
-				player.getEquipment().replaceEquipment(item, player.getSlot());
-			}else{
-				player.getEquipment().removeAmount(player.getSlot(), 1);
+		if(player.getEquipmentOperate()) {
+			if(player.getEquipment().getId(player.getSlot()) == player.getClickItem())
+			{
+				int item = findNextJewellery(player.getClickItem());
+				if (item > 0) {
+					player.getEquipment().replaceEquipment(item, player.getSlot());
+				}else{
+					player.getEquipment().removeAmount(player.getSlot(), 1);
+				}
 			}
 		}else{
 			if (player.getInventory().removeItem(new Item(player.getClickItem()))) {
@@ -46,6 +43,7 @@ public class JewelleryTeleport {
 				}
 			}
 		}
+		player.setEquipmentOperate(false);
 	}
 
 	public static void teleport(Player player, Position position) {
@@ -55,10 +53,12 @@ public class JewelleryTeleport {
 		{
 			return;
 		}*/
-		if (player.getSlot() < 15 && player.getEquipment().getId(player.getSlot()) != player.getClickItem() && !player.getInventory().playerHasItem(player.getClickItem())) {
+		if ((player.getEquipmentOperate() && player.getEquipment().getId(player.getSlot()) != player.getClickItem()) || (!player.getEquipmentOperate() && !player.getInventory().playerHasItem(player.getClickItem()))) {
+			player.setEquipmentOperate(false);
 			return;
 		}
 		if (!player.getTeleportation().attemptTeleportJewellery(position)) {
+			player.setEquipmentOperate(false);
 			return;
 		}
 		replaceItem(player);

@@ -676,6 +676,7 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (interfaceID == 1688) {
 	    player.getEquipment().unequip(player.getSlot());
+	    player.setEquipmentOperate(false);
 	} else if (interfaceID == 5064 || interfaceID == 7423) {
 		player.getBankManager().bankItem(player.getSlot(), itemId, 1);
 	} else if (interfaceID == 5382) {
@@ -1317,6 +1318,7 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	player.getEquipment().equip(player.getSlot());
+	player.setEquipmentOperate(false);
     }
 
     private void handleCastedSpellOnItem(Player player, Packet packet) {
@@ -1404,19 +1406,19 @@ public class ItemPacketHandler implements PacketHandler {
 		player.getUpdateFlags().sendAnimation(1835);
 		return;
 	    case NatureSpirit.SILVER_SICKLE_B:
-		NatureSpirit.handleDruidicSpell(player, true);
+	    	NatureSpirit.handleDruidicSpell(player, true);
 		return;
 	    case 3840:
 	    case 3842:
 	    case 3844: //god books
-		GodBook.preachGodBook(player, itemId);
+	    	GodBook.preachGodBook(player, itemId);
 		return;
 	    case 2568: // RING OF FORGING CHARGE CHECK
-		player.getActionSender().sendMessage("You have " + player.getRingOfForgingLife() + " Ring of Forging charge(s) remaining.");
-		return;
+	    	player.getActionSender().sendMessage("You have " + player.getRingOfForgingLife() + " Ring of Forging charge(s) remaining.");
+    	return;
 	    case 11074: // BRACELET OF CLAY CHARGE CHECK
-		player.getActionSender().sendMessage("You have " + player.getClayBraceletLife() + " Bracelet of Clay charge(s) remaining.");
-		return;
+	    	player.getActionSender().sendMessage("You have " + player.getClayBraceletLife() + " Bracelet of Clay charge(s) remaining.");
+    	return;
 	    case 2552: // ring of duelling
 	    case 2554:
 	    case 2556:
@@ -1425,19 +1427,22 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 2562:
 	    case 2564:
 	    case 2566:
-		Dialogues.startDialogue(player, 10004);
+	    	player.setEquipmentOperate(true);
+	    	Dialogues.startDialogue(player, 10004);
 		break;
 	    case 1712: // glory
 	    case 1710:
 	    case 1708:
 	    case 1706:
-		Dialogues.startDialogue(player, 10003);
+	    	player.setEquipmentOperate(true);
+	    	Dialogues.startDialogue(player, 10003);
 		break;
 	    case 11105: // glory
 	    case 11107:
 	    case 11109:
 	    case 11111:
-		Dialogues.startDialogue(player, 10015);
+	    	player.setEquipmentOperate(true);
+	    	Dialogues.startDialogue(player, 10015);
 		break;
 	    case 3853:
 	    case 3855:
@@ -1447,13 +1452,15 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 3863:
 	    case 3865:
 	    case 3867:
-		Dialogues.startDialogue(player, 10002);
+	    	player.setEquipmentOperate(true);
+	    	Dialogues.startDialogue(player, 10002);
 		break;
 	    case 11118: // glory
 	    case 11120:
 	    case 11122:
 	    case 11124:
-		Dialogues.startDialogue(player, 10014);
+	    	player.setEquipmentOperate(true);
+	    	Dialogues.startDialogue(player, 10014);
 		break;
 	}
     }
