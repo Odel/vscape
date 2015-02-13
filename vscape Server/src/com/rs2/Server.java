@@ -393,7 +393,7 @@ public class Server implements Runnable {
 	private void sleep() {
 		try {
 			long sleepTime = cycleRate - cycleTimer.elapsed();
-            boolean sleep = sleepTime > 0 && sleepTime <= 600;
+            boolean sleep = sleepTime > 0 && sleepTime < 600;
             for (int i = 0; i < PacketManager.SIZE; i++) {
                 Benchmark b = PacketManager.packetBenchmarks[i];
                 if (!sleep && b.getTime() > 0)
@@ -410,11 +410,11 @@ public class Server implements Runnable {
 				/*if (cycle > 999) {
 					initiateRestart();
 				}*/
-				System.out.println("[WARNING]: Server load: " + cycle + "%!");
+				System.out.println("[WARNING]: Server Overload: " + cycle + "%!");
                 Benchmarks.printAll();
                 Benchmarks.resetAll();
-                for (int i = 0; i < 5; i++)
-                    System.out.println("");
+              /*  for (int i = 0; i < 5; i++)
+                    System.out.println("");*/
 			}
 		} catch (Exception ex) {
             ex.printStackTrace();
