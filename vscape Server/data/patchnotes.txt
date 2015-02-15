@@ -1,3 +1,10 @@
+@dre@=February 15th=
+-Crops now age while logged out.
+-Your progress will now save from time
+to time without logging out
+-A dc when teleporting has been fixed.
+-Other changes :^)
+
 @dre@=February 6th=
 -Django's toy shop now open.
 -PC damage done / points won message.
