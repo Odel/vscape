@@ -4224,17 +4224,17 @@ public class Client extends RSApplet {
 			if (flag8) {
 
 				switch (k) {
-				case 24149:
+			/*	case 15201: //equipment interface
+					openInterfaceID = 15106;
+					break;*/
+				case 36004:
 					toggleSize(0);
 					break;
-				case 24150:
+				case 36005:
 					toggleSize(1);
 					break;
-				case 24151: 
+				case 36006: 
 					toggleSize(2);
-					break;
-				case 19156: 
-					roofsToggled = !roofsToggled;
 					break;
 				/*case 21341:
 					sendFrame248(21172, 3213);
@@ -5566,22 +5566,40 @@ public class Client extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
-					if (inputString.equalsIgnoreCase("::toggleroofs")){
+					String s = inputString.toLowerCase();
+					if (s.equals("::toggleroofs")){
 						roofsToggled = !roofsToggled;
 					}
 					if (myPrivilege == 2) {
-						if (inputString.equalsIgnoreCase("::dumpclip"))
+						if (inputString.equals("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
-						if (inputString.equalsIgnoreCase("::regular"))
+
+						if (inputString.equals("::regular"))
 							toggleSize(0);
-						if (inputString.equalsIgnoreCase("::resize"))
+						if (inputString.equals("::resize"))
 							toggleSize(1);
-						if (inputString.equalsIgnoreCase("::fullscreen"))
+						if (inputString.equals("::fullscreen"))
 							toggleSize(2);
-						if (inputString.equalsIgnoreCase("::fps"))
-							fpsOn = !fpsOn;
-						if (inputString.equalsIgnoreCase("::data"))
-							clientData = !clientData;
+						
+						if (inputString.equals("::fpson"))
+							fpsOn = true;
+						if (inputString.equals("::fpsoff"))
+							fpsOn = false;
+						if (inputString.equals("::dataon"))
+							clientData = true;
+						if (inputString.equals("::dataoff"))
+							clientData = false;
+						if (inputString.equals("::debug"))
+							clientDebug = !clientDebug;
+						if (inputString.equals("::noclip")) {
+							for (int k1 = 0; k1 < 4; k1++) {
+								for (int i2 = 1; i2 < 103; i2++) {
+									for (int k2 = 1; k2 < 103; k2++)
+										aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
+
+								}
+							}
+						}
 					}
 					if (inputString.startsWith("/"))
 						inputString = "::" + inputString;
@@ -5590,62 +5608,62 @@ public class Client extends RSApplet {
 						stream.writeWordBigEndian(inputString.length() - 1);
 						stream.writeString(inputString.substring(2));
 					} else {
-						String s = inputString.toLowerCase();
+						String textColorMod = inputString.toLowerCase();
 						int j2 = 0;
-						if (s.startsWith("yellow:")) {
+						if (textColorMod.startsWith("yellow:")) {
 							j2 = 0;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("red:")) {
+						} else if (textColorMod.startsWith("red:")) {
 							j2 = 1;
 							inputString = inputString.substring(4);
-						} else if (s.startsWith("green:")) {
+						} else if (textColorMod.startsWith("green:")) {
 							j2 = 2;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("cyan:")) {
+						} else if (textColorMod.startsWith("cyan:")) {
 							j2 = 3;
 							inputString = inputString.substring(5);
-						} else if (s.startsWith("purple:")) {
+						} else if (textColorMod.startsWith("purple:")) {
 							j2 = 4;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("white:")) {
+						} else if (textColorMod.startsWith("white:")) {
 							j2 = 5;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("flash1:")) {
+						} else if (textColorMod.startsWith("flash1:")) {
 							j2 = 6;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("flash2:")) {
+						} else if (textColorMod.startsWith("flash2:")) {
 							j2 = 7;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("flash3:")) {
+						} else if (textColorMod.startsWith("flash3:")) {
 							j2 = 8;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("glow1:")) {
+						} else if (textColorMod.startsWith("glow1:")) {
 							j2 = 9;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("glow2:")) {
+						} else if (textColorMod.startsWith("glow2:")) {
 							j2 = 10;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("glow3:")) {
+						} else if (textColorMod.startsWith("glow3:")) {
 							j2 = 11;
 							inputString = inputString.substring(6);
-						}else if (s.startsWith(">")) {
+						}else if (textColorMod.startsWith(">")) {
 							j2 = 2;
 						}
 						s = inputString.toLowerCase();
 						int i3 = 0;
-						if (s.startsWith("wave:")) {
+						if (textColorMod.startsWith("wave:")) {
 							i3 = 1;
 							inputString = inputString.substring(5);
-						} else if (s.startsWith("wave2:")) {
+						} else if (textColorMod.startsWith("wave2:")) {
 							i3 = 2;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("shake:")) {
+						} else if (textColorMod.startsWith("shake:")) {
 							i3 = 3;
 							inputString = inputString.substring(6);
-						} else if (s.startsWith("scroll:")) {
+						} else if (textColorMod.startsWith("scroll:")) {
 							i3 = 4;
 							inputString = inputString.substring(7);
-						} else if (s.startsWith("slide:")) {
+						} else if (textColorMod.startsWith("slide:")) {
 							i3 = 5;
 							inputString = inputString.substring(6);
 						} 
