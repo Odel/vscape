@@ -3460,7 +3460,7 @@ public class Player extends Entity {
 		}
 		equipment.getItemContainer().clear();
 		inventory.getItemContainer().clear();
-		GroundItemManager.getManager().dropItem(526, 1, this, getDeathPosition());
+		GroundItemManager.getManager().dropItem(new GroundItem(new Item(526, 1), this, getDeathPosition()));
 		for (Item kept : keptItems)
 			inventory.addItem(kept);
 		for (Item protect : alwaysProtect)
