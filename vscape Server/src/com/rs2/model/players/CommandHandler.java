@@ -701,7 +701,7 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("togglecw")) {
 		    Constants.CASTLEWARS_ENABLED = !Constants.CASTLEWARS_ENABLED;
-        	sender.getActionSender().sendMessage("Casltewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."), true);
+        	sender.getActionSender().sendMessage("Castlewars is now "+(Constants.CASTLEWARS_ENABLED ? "enabled." : "disabled."), true);
 		}	
 		if(keyword.equals("smite")) {
 			String name = fullString;

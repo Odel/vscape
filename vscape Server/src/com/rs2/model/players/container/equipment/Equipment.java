@@ -1594,8 +1594,11 @@ public class Equipment {
 					strengthLevelReq = 30;
 				}
 			}
-			if (itemName.contains("body") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("shield") || itemName.contains("boots")) {
+			if (itemName.contains("body") || itemName.contains("shield") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("boots")) {
 				defenceLevelReq = 60;
+			}
+			if (itemName.contains("ragonfire")) //This overwrites the Shield from 3 lines previous
+				defenceLevelReq = 75;
 			}
 			return;
 		}
