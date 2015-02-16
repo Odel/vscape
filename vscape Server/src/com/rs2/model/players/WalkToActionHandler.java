@@ -2370,7 +2370,7 @@ public class WalkToActionHandler {
 				case 836: //SHANTAY Buy pass
 					Item SHANTAY_PASS = new Item(1854);
 					int SHANTAY_PASS_PRICE = SHANTAY_PASS.getDefinition().getPrice();
-					if(player.getInventory().getItemContainer().freeSlots() < 0) {
+					if(player.getInventory().getItemContainer().freeSlots() <= 0) {
 						player.getActionSender().sendMessage("Your inventory is full.");
 						break;
 					}
