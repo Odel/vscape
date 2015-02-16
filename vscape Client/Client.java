@@ -5566,7 +5566,8 @@ public class Client extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
-					if (inputString.equals("::toggleroofs")){
+					String s = inputString.toLowerCase();
+					if (s.equals("::toggleroofs")){
 						roofsToggled = !roofsToggled;
 					}
 					if (myPrivilege == 2) {
