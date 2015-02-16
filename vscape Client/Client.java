@@ -4224,17 +4224,17 @@ public class Client extends RSApplet {
 			if (flag8) {
 
 				switch (k) {
-			/*	case 15201: //equipment interface
-					openInterfaceID = 15106;
-					break;*/
-				case 36004:
+				case 24149:
 					toggleSize(0);
 					break;
-				case 36005:
+				case 24150:
 					toggleSize(1);
 					break;
-				case 36006: 
+				case 24151: 
 					toggleSize(2);
+					break;
+				case 19156: 
+					roofsToggled = !roofsToggled;
 					break;
 				/*case 21341:
 					sendFrame248(21172, 3213);
@@ -5566,40 +5566,22 @@ public class Client extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
-					String s = inputString.toLowerCase();
-					if (s.equals("::toggleroofs")){
+					if (inputString.equalsIgnoreCase("::toggleroofs")){
 						roofsToggled = !roofsToggled;
 					}
 					if (myPrivilege == 2) {
-						if (inputString.equals("::dumpclip"))
+						if (inputString.equalsIgnoreCase("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
-
-						if (inputString.equals("::regular"))
+						if (inputString.equalsIgnoreCase("::regular"))
 							toggleSize(0);
-						if (inputString.equals("::resize"))
+						if (inputString.equalsIgnoreCase("::resize"))
 							toggleSize(1);
-						if (inputString.equals("::fullscreen"))
+						if (inputString.equalsIgnoreCase("::fullscreen"))
 							toggleSize(2);
-						
-						if (inputString.equals("::fpson"))
-							fpsOn = true;
-						if (inputString.equals("::fpsoff"))
-							fpsOn = false;
-						if (inputString.equals("::dataon"))
-							clientData = true;
-						if (inputString.equals("::dataoff"))
-							clientData = false;
-						if (inputString.equals("::debug"))
-							clientDebug = !clientDebug;
-						if (inputString.equals("::noclip")) {
-							for (int k1 = 0; k1 < 4; k1++) {
-								for (int i2 = 1; i2 < 103; i2++) {
-									for (int k2 = 1; k2 < 103; k2++)
-										aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
-
-								}
-							}
-						}
+						if (inputString.equalsIgnoreCase("::fps"))
+							fpsOn = !fpsOn;
+						if (inputString.equalsIgnoreCase("::data"))
+							clientData = !clientData;
 					}
 					if (inputString.startsWith("/"))
 						inputString = "::" + inputString;

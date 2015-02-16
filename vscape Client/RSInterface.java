@@ -953,12 +953,15 @@ public final class RSInterface {
 	
 	public static void optionsTab(TextDrawingArea[] tda) {
 		   RSInterface tab = interfaceCache[904];
-		   addButton(36004, 1, "Options/SPRITE", "Fixed");
-		   addButton(36005, 2, "Options/SPRITE", "Resizable");
-		   addButton(36006, 3, "Options/SPRITE", "Fullscreen");
-		   tab.setChild(39, 36004, 10, 8);
-		   tab.setChild(40, 36005, 70, 8);
-		   tab.setChild(41, 36006, 130, 8);
+		   addButton(24149, 1, "Options/SPRITE", "Fixed");
+		   addButton(24150, 2, "Options/SPRITE", "Resizable");
+		   addButton(24151, 3, "Options/SPRITE", "Fullscreen");
+		   tab.setChild(39, 24149, 10, 8);
+		   tab.setChild(40, 24150, 70, 8);
+		   tab.setChild(41, 24151, 130, 8);
+		   tab = interfaceCache[19156];
+		   tab.atActionType = 1;
+		   tab.tooltip = "Toggle roofs";
 	}
 	
 	public static void addBankItem(int index)
