@@ -473,7 +473,7 @@ public class CombatManager extends Tick {
 		}
 	    if (died != null && died.isNpc()) {
     		final Npc npc = (Npc) died;
-		if ( npc.getNpcId() == 1158 && firstTime ) { // kq
+		if (npc.getNpcId() == 1158 && firstTime ) { // kq
 		    if (World.npcAmount(1160) == 0) {
 			Npc newQueen = new Npc(1160);
 			newQueen.setSpawnPosition(died.getPosition().clone());

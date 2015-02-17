@@ -701,13 +701,45 @@ public class Hit {
 			    damage = 0;
 			}
                 }
-		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1158 ) {
-		    if( hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2881) { //Supreme
+		    if(hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+			if(Misc.random(2) == 1) {
+			    damage = 0;
+			} else {
+			    damage /= 10;
+			}
+		    }
+		}
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2882) { //Prime
+		    if(hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+			if(Misc.random(2) == 1) {
+			    damage = 0;
+			} else {
+			    damage /= 10;
+			}
+		    }
+		}
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2882) { //Rex
+		    if(hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
+			if(Misc.random(2) == 1) {
+			    damage = 0;
+			} else {
+			    damage /= 10;
+			}
+		    }
+		}
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1158) {
+		    if(hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
 			damage = 0;
 		}
-		else if (getAttacker() != null && getAttacker().isPlayer() && ((Player)attacker).getStaffRights() < 1 && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1160 ) {
-		    if( hitDef.getAttackStyle().getAttackType() == AttackType.MELEE)
-			damage = 0;
+		else if (getAttacker() != null && getAttacker().isPlayer() && ((Player)attacker).getStaffRights() < 1 && getVictim().isNpc() && ((Npc)victim).getNpcId() == 1160) {
+		    if(hitDef.getAttackStyle().getAttackType() == AttackType.MELEE) {
+			if(((Player)attacker).getEquipment().fullVerac() && Misc.random(100) > 50) {
+			    //do nothing what a madman
+			} else {
+			    damage = 0;
+			}
+		    }
 		}
             }
         }

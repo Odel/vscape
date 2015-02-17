@@ -3427,17 +3427,17 @@ public class Player extends Entity {
 		System.arraycopy(equipment.getItemContainer().getItems(), 0, items, 0, equipment.getItemContainer().getItems().length);
 		System.arraycopy(inventory.getItemContainer().getItems(), 0, items, equipment.getItemContainer().getItems().length, inventory.getItemContainer().getItems().length);
 		ArrayList<Item> keptItems = getItemsKeptOnDeath(items);
-		ArrayList<Item> alwaysProtect = new ArrayList<>();
+		ArrayList<Integer> alwaysProtect = new ArrayList<>();
 		List<Item> allItems = new ArrayList<Item>(Arrays.asList(items));
 		for(int i = 0; i < Pets.PET_IDS.length; i++) {
 		    if(inventory.playerHasItem(new Item(Pets.PET_IDS[i][0])) )
-				alwaysProtect.add(new Item(Pets.PET_IDS[i][0]));
+				alwaysProtect.add(Pets.PET_IDS[i][0]);
 		}
 		if(inventory.playerHasItem(FightCaves.FIRE_CAPE) || equipment.getId(Constants.CAPE) == FightCaves.FIRE_CAPE) {
-		    alwaysProtect.add(new Item(FightCaves.FIRE_CAPE));
+		    alwaysProtect.add(FightCaves.FIRE_CAPE);
 		}
 		if(inventory.playerHasItem(7462) || equipment.getId(Constants.HANDS) == 7462) {
-		    alwaysProtect.add(new Item(7462));
+		    alwaysProtect.add(7462);
 		}
 		for (Item kept : keptItems) {
 			if (kept == null)
@@ -3459,10 +3459,22 @@ public class Player extends Entity {
 		GroundItemManager.getManager().dropItem(new GroundItem(new Item(526, 1), this, getDeathPosition()));
 		for (Item kept : keptItems)
 			inventory.addItem(kept);
-		for (Item protect : alwaysProtect)
-			inventory.addItem(protect);
+		for (int i : alwaysProtect) {
+		    boolean alreadyKept = false;
+		    for(Item kept : keptItems) {
+			if(kept.getId() == i) {
+			    alreadyKept = true;
+			}
+		    }
+		    if(!alreadyKept) {
+			inventory.addItem(new Item(i));
+		    }
+			
+		}
 		for (Item dropped : allItems) {
 			if (dropped == null)
+				continue;
+			if (alwaysProtect.contains(dropped.getId()))
 				continue;
 			if(dropped.getId() >= 3839 && dropped.getId() <= 3844) {
 			    this.setLostGodBook(dropped.getId());
@@ -3931,6 +3943,9 @@ public class Player extends Entity {
 			}
 			if (!npcCanAttack(npc)) {
 				continue;
+			}
+			if (Misc.goodDistance(npc.getPosition(), getPosition(), 7) && npc.getNpcId() >= 2881 && npc.getNpcId() <= 2883 && npc.getCombatingEntity() == null) {
+			    CombatManager.attack(npc, this);
 			}
 			if (Misc.goodDistance(npc.getSpawnPosition(), getPosition(), npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890 ? 1 : 4)) {
 			//if (npc.getWalkableArea().contains(getPosition().getX(), getPosition().getY())) {

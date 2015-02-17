@@ -344,7 +344,8 @@ class KalphiteQueenFirstForm < NpcCombatDef
     def attackScripts attacker, victim
         return [
 		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::SLASH, 31, 5, 6241),
-                    BasicAttack.magicAttack(attacker, victim, Spell::KQ1)
+                    BasicAttack.magicAttack(attacker, victim, Spell::KQ1),
+		    BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 31, 8, 6240, Graphic.new(-1, 0), Graphic.new(-1, 0), 289, ProjectileTrajectory.KNIFE)
 		];
     end
 end
@@ -352,8 +353,9 @@ end
 class KalphiteQueenSecondForm < NpcCombatDef
     def attackScripts attacker, victim
         return [
+		    BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MELEE_ACCURATE, AttackStyle::Bonus::STAB, 31, 5, 6235),
                     BasicAttack.magicAttack(attacker, victim, Spell::KQ2),
-                    BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 31, 8, 6235, Graphic.new(-1, 0), Graphic.new(-1, 0), 294, ProjectileTrajectory.KNIFE)
+                    BasicAttack.projectileAttack(attacker, victim, AttackType::RANGED, AttackStyle::Mode::LONGRANGE, 31, 8, 6234, Graphic.new(-1, 0), Graphic.new(-1, 0), 289, ProjectileTrajectory.KNIFE)
 		];
     end
 end

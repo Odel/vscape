@@ -113,12 +113,6 @@ public class CombatCycleEvent extends CycleEvent {
 				return;
 			    }
 			}
-			if(attacker != null && victim != null && attacker.isNpc() && victim.isPlayer()) {
-			    if(((Npc)attacker).getDefinition().getName().equals("Spinolyp") && !Misc.goodDistance(attacker.getPosition(), victim.getPosition(), 7)) {
-				CombatManager.resetCombat(attacker);
-				return;
-			    }
-			}
 			/* ORDER IS SUPER IMPORTANT HERE, DON'T ADD ANYTHING AFTER */
 			int distance = Misc.getDistance(attacker.getPosition(), victim.getPosition());
 			List<AttackUsableResponse> attacksInDistance = new LinkedList<AttackUsableResponse>();

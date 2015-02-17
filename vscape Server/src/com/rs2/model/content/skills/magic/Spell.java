@@ -144,7 +144,7 @@ public enum Spell {
 	TORCHER(3880, magicHit(5, magicProjectile(660), Graphic.highGraphic(101)), true),
 	CHAOSMAIN(3146, magicHit(26, magicProjectile(Runes.EARTH), Graphic.highGraphic(Runes.AIR)), true),
 	CHAOSDISARM(3146, magicHit(0, magicProjectile(551), Graphic.highGraphic(550)), true, new UnequipEffect()),
-	KQ1(0, 6240, new Graphic(278, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
+	KQ1(6225, magicHit(31, magicProjectile(280), Graphic.highGraphic(281)), true),
 	KQ2(0, 6234, new Graphic(279, 0), 0, null, magicHit(31, magicProjectile(500), Graphic.highGraphic(163)), true),
 	KOLODION1(62, 711, Graphic.highGraphic(158), 36, new Item[]{new Item(Runes.AIR, 5), new Item(Runes.BLOOD)}, magicHit(17, magicProjectile(159), Graphic.highGraphic(160)), true),
 	KOLODION2(65, 132, Graphic.highGraphic(161), 37.5, new Item[]{new Item(Runes.AIR, 5), new Item(Runes.BLOOD), new Item(Runes.WATER, 7)}, magicHit(20, magicProjectile(162), Graphic.highGraphic(163)), true),
