@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.projectile.ProjectileDef;
 import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.skills.Skill;
+import static com.rs2.model.players.CommandHandler.forceSpacePositions;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -150,6 +151,15 @@ public class DuelMainData {
 	}
 
 	public void sendIntoDuel() {
+	    if(!Misc.goodDistance(player.getPosition(), opponent.getPosition(), 1)) {
+		player.getDuelInterfaces().resetDuelRules();
+		player.getDuelInteraction().endDuelInteraction(false);
+		opponent.getDuelInterfaces().resetDuelRules();
+		opponent.getDuelInteraction().endDuelInteraction(false);
+		player.teleport(forceSpacePositions[Misc.randomMinusOne(forceSpacePositions.length)]);
+		opponent.teleport(forceSpacePositions[Misc.randomMinusOne(forceSpacePositions.length)]);
+		return;
+	    }
 		final int randomNumber = Misc.random(2);
 		player.resetEffects();
 		opponent.resetEffects();

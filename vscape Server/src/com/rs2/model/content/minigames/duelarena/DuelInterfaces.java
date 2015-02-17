@@ -165,7 +165,7 @@ public class DuelInterfaces {
 
 	}
 
-	public void resetDuelRules() {
+public void resetDuelRules() {
 		/*
 		 * Resets the actual buttons first.
 		 */
