@@ -155,7 +155,13 @@ public class CombatManager extends Tick {
 				return;
 			}
 		}
-		
+		if(attacker.isPlayer() && victim.isNpc()) {
+		    Npc npc = (Npc)victim;
+		    Player player = (Player)attacker;
+		    if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046 && player.getEquipment().getId(Constants.WEAPON) != PriestInPeril.WOLFBANE) {
+			npc.sendTransform(npc.getNpcId() - 20, 500);
+		    }
+		}
         List<AttackUsableResponse> attacks = new LinkedList<AttackUsableResponse>();
         int distance = Misc.getDistance(attacker.getPosition(), victim.getPosition());
         attacker.fillUsableAttacks(attacks, victim, distance);
@@ -482,7 +488,7 @@ public class CombatManager extends Tick {
 		    World.unregister(npc);
 		    return;
 		}
-		else if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046) {
+		else if(npc.getNpcId() >= 6026 && npc.getNpcId() <= 6045) {
 		    npc.setTransformUpdate(true);
 		}
 		else if(npc.getNpcId() == 742 && killer.isPlayer()) {

@@ -228,9 +228,6 @@ public class NpcPacketHandler implements PacketHandler {
 			return;
 		}
 		if (npc.getDefinition().isAttackable()) {
-		    if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046 && player.getEquipment().getId(Constants.WEAPON) != PriestInPeril.WOLFBANE) {
-			npc.sendTransform(npc.getNpcId() - 20, 100000);
-		    }
 		    if(npc.getNpcId() == HeroesQuest.GRIP) {
 			HeroesQuest.handleShootGrip(player, npc);
 			return;
