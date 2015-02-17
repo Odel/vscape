@@ -12,7 +12,6 @@ import com.rs2.util.Misc;
  * this template use File | Settings | File Templates.
  */
 public class SandwichLady implements InterfaceClickEvent {
-
 	private int randomNumber;
 
 	public SandwichLady(boolean generateRandom) {
@@ -89,8 +88,14 @@ public class SandwichLady implements InterfaceClickEvent {
 		return new String[]{"Hope that fills you up!!", "Let's see how you like this!", "I'm sorry, this wasn't the treat I offered you!"};
 	}
 
+	@Override
 	public int getRandomNumber() {
 		return this.randomNumber;
+	}
+	
+	@Override
+	public void setRandomNumber() {
+		this.randomNumber = Misc.random(6);
 	}
 
 	@Override

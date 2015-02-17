@@ -20,6 +20,10 @@ public interface InterfaceClickEvent {
 	public ArrayList<Integer> buttonsDisplayed();
 
 	public int numberOfStages();
+	
+	public int getRandomNumber();
+	
+	public void setRandomNumber();
 
 	public String[] cycleMessages();
 

@@ -15,6 +15,10 @@ public class RandomEvent {
 		final Npc npc = new Npc(npcId);
 		NpcLoader.spawnNpc(player, npc, false, false);
 		npc.getUpdateFlags().sendForceMessage(player.getRandomInterfaceClick().getEvents(npcId).cycleMessages()[0].replaceAll("%", Misc.formatPlayerName(player.getUsername())));
+		if(npcId == 3117) {
+		    player.getRandomInterfaceClick().getEvents(npcId).setRandomNumber();
+		    player.getRandomInterfaceClick().randomNumber = player.getRandomInterfaceClick().getEvents(3117).getRandomNumber();
+		}
 		player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 100 << 16);
 		player.getRandomInterfaceClick().sendCycleAdvertisement(npc);
 		player.setSpawnedNpc(npc);

@@ -2654,13 +2654,16 @@ public class Dialogues {
 			    }
 			break;
 			case 3117 : //sandwich lady
-			    SandwichLady lady = new SandwichLady(true);
 			    switch (player.getDialogue().getChatId()) {
 				case 1:
-				    player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + lady.stringSent()[0] + " on me.", HAPPY);
-				    player.getRandomInterfaceClick().randomNumber = lady.getRandomNumber();
+				    player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + player.getRandomInterfaceClick().getEvents(3117).stringSent()[0] + " on me.", HAPPY);
 				    return true;
 				case 2:
+				    for (Npc npc : player.getNpcs()) {
+					if (npc != null && npc.getNpcId() == 3117 && npc.getPlayerOwner().equals(player)) {
+					    player.setSpawnedNpc(npc);
+					}
+				    }
 				    player.getRandomInterfaceClick().openInterface(3117);
 				    //player.getRandomInterfaceClick().sendModelsRotation(3117);
 				    player.getDialogue().dontCloseInterface();

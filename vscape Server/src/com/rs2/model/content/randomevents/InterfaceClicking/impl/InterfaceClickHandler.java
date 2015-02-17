@@ -36,7 +36,7 @@ public class InterfaceClickHandler {
 	}
 
 	static {
-		events.put(new SandwichLady(false).npcId(), new SandwichLady(true));
+		events.put(3117, new SandwichLady(true));
 	}
 
 	public void sendEventRandomly() {
@@ -55,7 +55,7 @@ public class InterfaceClickHandler {
 					container.stop();
 					return;
 				}
-				if (player.getRandomInterfaceClick().completed || !npc.isVisible()) {
+				if (player.getRandomInterfaceClick().completed || !npc.isVisible() || player.getSpawnedNpc() == null) {
 					container.stop();
 					return;
 				}
@@ -93,13 +93,14 @@ public class InterfaceClickHandler {
 			interfaceClickEvent.handleSuccess(player);
 			npc.getUpdateFlags().sendForceMessage(interfaceClickEvent.goodByeMessage()[0]);
 			npc.getUpdateFlags().sendAnimation(EventsConstants.GOOD_BYE_EMOTE);
-			player.getRandomInterfaceClick().completed = true;
 			player.getInventory().addItem(interfaceClickEvent.rewards()[randomNumber]);
-			player.setSpawnedNpc(null);
-			RandomEvent.resetEvents(player);
 		} else {
+		    if(npc != null && Misc.goodDistance(player.getPosition(), npc.getPosition(), 7)) {
 			npc.sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), interfaceClickEvent.goodByeMessage()[1], false);
+		    }
 		}
+		RandomEvent.resetEvents(player);
+		player.getRandomInterfaceClick().completed = true;
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -109,8 +110,10 @@ public class InterfaceClickHandler {
 			@Override
 			public void stop() {
 				NpcLoader.destroyNpc(npc);
+				player.setSpawnedNpc(null);
 			}
 		}, 5);
+		
 
 	}
 
