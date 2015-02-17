@@ -72,6 +72,7 @@ public enum SpecialType {
 					return true;
 				}
 			};
+			CombatManager.attack(victim, attacker);
 			return weaponAttack;
 		}
 	},
