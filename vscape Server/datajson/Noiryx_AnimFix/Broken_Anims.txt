@@ -1,27 +1,9 @@
-all skeletons start here ;_;
-90-94 fixed
-459 bork - working as intended ;) ;) ;); );) ;) (no seriously i can't find the anims)
-1471 fixed
-1575 fixed
-1973 fixed
-2036 fixed (but is invisible)
-2037 fixed 
-2715 fixed (but is invisible)
-(more to do)
-skeletons end here
-
-** Wizards can't get fixed because their attack isn't magic/melee mix yet **
--Use npc-combat.rb and just assign the npcs the spells to use / a hardcoded melee
-saradomin wizard (punches you with dagger)
-zammy wizard ^same
-
 some guards (goblin village?)
 
 some slayer monsters
 
-Saradomin Spiritual Mage - 6257
-Zamorak Spiritual Mage - 6221
-
+1931 bandits
+1600 cave crawler
 
 -ask in yell or thread, some are missing-
 
