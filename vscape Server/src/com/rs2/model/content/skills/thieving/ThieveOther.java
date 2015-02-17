@@ -23,7 +23,6 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 		if(player.stopPlayerPacket()) {
 		    return;
 		}
-		player.setStopPacket(true);
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
