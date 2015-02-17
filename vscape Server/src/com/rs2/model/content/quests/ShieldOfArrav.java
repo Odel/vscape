@@ -819,7 +819,7 @@ public class ShieldOfArrav implements Quest {
 					player.getDialogue().setNextChatId(20);
 					return true;
 				    }
-				} else if (player.getQuestStage(13) >= 4 && player.getQuestStage(13) < 12 && !player.getInventory().ownsItem(759)) {
+				} else if (player.getQuestStage(13) >= 4 && !player.getInventory().ownsItem(759)) {
 				    player.getDialogue().sendNpcChat("Don't lose the key this time.", ANGRY_1);
 				    player.getDialogue().endDialogue();
 				    player.getInventory().addItemOrDrop(new Item(759));
