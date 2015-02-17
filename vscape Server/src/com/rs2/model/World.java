@@ -364,6 +364,16 @@ public class World {
 		}
 		return amount;
 	}
+	
+	public static int npcAmount(int id) {
+		int amount = 0;
+		for (Npc npc : npcs) {
+			if (npc != null && npc.getNpcId() == id) {
+				amount++;
+			}
+		}
+		return amount;
+	}
 
 	public static Player getPlayerByName(String name) {
 		return getPlayerByName(NameUtil.nameToLong(name));
