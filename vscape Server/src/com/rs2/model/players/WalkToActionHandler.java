@@ -102,7 +102,6 @@ import java.util.Random;
 public class WalkToActionHandler {
 
 	private static Actions actions = Actions.OBJECT_FIRST_CLICK;
-	private int test;
 	
 	public static void doActions(Player player) {
 		switch (actions) {
@@ -1159,6 +1158,9 @@ public class WalkToActionHandler {
 					if (x == 2444 && y == 3414) {
 						player.teleport(new Position(2445, 3416, 1));
 					}
+					if(x == 2475 && y == 3400) {
+					    Ladders.climbLadder(player, new Position(2475, 3399, 1));
+					}
 					break;
 				case 1744: // gnome tree stairs
 					if (x == 2445 && y == 3434) {
@@ -1166,6 +1168,9 @@ public class WalkToActionHandler {
 					}
 					if (x == 2445 && y == 3415) {
 						player.teleport(new Position(2445, 3413, 0));
+					}
+					if(x == 2475 && y == 3400) {
+					    player.teleport(new Position(2474, 3400, 0));
 					}
 					break;
 				case 10640: //altar for skull

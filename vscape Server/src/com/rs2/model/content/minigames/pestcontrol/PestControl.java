@@ -1026,7 +1026,7 @@ public class PestControl {
     public static void sendGameMessage(String msg) {
 		for (Player player : new ArrayList<Player>(gamePlayers)) {
 		    if (player != null) {
-		    	player.getActionSender().sendMessage(msg);
+		    	player.getActionSender().sendMessage(msg, true);
 		    }
 		}
     }
@@ -1052,9 +1052,9 @@ public class PestControl {
 				player.teleport(MinigameAreas.randomPosition(LANDING_AREA));
 				gamePlayers.add(player);
 				if (!picklesTime) {
-				    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!");
+				    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun!", true);
 				} else {
-				    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun?");
+				    player.getActionSender().sendMessage("@blu@The Pest Control Game has begun?", true);
 				}
 		    }
 		} catch (Exception ex) {
@@ -1069,7 +1069,7 @@ public class PestControl {
 				continue;
 			if (player.inPestControlGameArea()) {
 				if (gameWon) {
-					player.getActionSender().sendMessage("@blu@Game won!");
+					player.getActionSender().sendMessage("@blu@Game won!", true);
 					if (player.getPcDamage() >= 50) {
 					    int totalReward = 5;
 						player.addPcPoints(5, player);
@@ -1078,12 +1078,12 @@ public class PestControl {
 						    player.addPcPoints(bonusReward, player);
 						    totalReward += bonusReward;
 						}
-						player.getActionSender().sendMessage("@blu@You did " + player.getPcDamage() + " damage and recieved " + totalReward + " commendation points.");
+						player.getActionSender().sendMessage("@blu@You did " + player.getPcDamage() + " damage and recieved " + totalReward + " commendation points.", true);
 					}
 				    int coinReward = player.getCombatLevel() * 10;
 				    player.getInventory().addItem(new Item(995, coinReward));
 				} else {
-					 player.getActionSender().sendMessage("@red@Game lost.");
+					 player.getActionSender().sendMessage("@red@Game lost.", true);
 				}
 				leaveGame(player, false);
 			}
@@ -1138,10 +1138,10 @@ public class PestControl {
 		    		ProcessLogic();
 		    	}
 		    	lobbyPlayers.add(player);
-		    	player.getActionSender().sendMessage("You have joined the Pest Control lobby.");
+		    	player.getActionSender().sendMessage("You have joined the Pest Control lobby.", true);
 		    	player.teleport(MinigameAreas.randomPosition(LOBBY_AREA));
 		    } else {
-		    	player.getActionSender().sendMessage("@dre@You're already in the Pest Control lobby.");
+		    	player.getActionSender().sendMessage("@dre@You're already in the Pest Control lobby.", true);
 		    }
 		}
     }
@@ -1206,7 +1206,7 @@ public class PestControl {
 			}
 		    }, 2);
 		} else {
-		    player.getActionSender().sendMessage("You need some logs to fix this barricade.");
+		    player.getActionSender().sendMessage("You need some logs to fix this barricade.", true);
 		}
 	    return true;
 	}
@@ -1218,7 +1218,7 @@ public class PestControl {
 	    case 14315: //gangplank
 		if (x == 2658 && y == 2639) {
 		    if (player.getInventory().playerHasItem(1511)) {
-			player.getActionSender().sendMessage("You cannot take your own logs into the game area.");
+			player.getActionSender().sendMessage("You cannot take your own logs into the game area.", true);
 			return true;
 		    }
 		    if (!player.inPestControlLobbyArea()) {
