@@ -180,7 +180,7 @@ public class AgilityCourses {
 				}
 				return true;
 			case 2283:
-				if(x == 3005 && y == 3952){
+				if(x == 3005 && y == 3952 && player.getPosition().getY() < 3954){
 					Agility.swingRope(player, x, 3958, 49, 20);
 					if(getCourseStage(2) == 1) 
 						setCourseStage(2,2);
