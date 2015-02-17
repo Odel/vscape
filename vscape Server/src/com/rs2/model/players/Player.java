@@ -780,13 +780,9 @@ public class Player extends Entity {
 		npc.setCombatDelay(5);
 		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
 	    }
-	    else if(attacker != null && attacker.isPlayer()) {
-		attacker.setCombatingEntity(null);
-		attacker.getMovementHandler().reset();
-	    }
         }
         RandomEvent.resetEvents(this);
-		setLogoutTimer(System.currentTimeMillis() + 1000); //originally 600000
+		setLogoutTimer(System.currentTimeMillis() + (this.inWild() ? 600000 : 1000)); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
