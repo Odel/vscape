@@ -55,10 +55,9 @@ public class GlassMaking {
 		}
 		player.getUpdateFlags().sendAnimation(FURNACE);
 		player.getActionSender().sendMessage("You place your bucket into the furnace, and get some molten glass.");
-		player.getInventory().removeItem(new Item(BUCKET_OF_SAND));
-		player.getInventory().removeItem(new Item(SODA_ASH));
-		player.getInventory().addItem(new Item(BUCKET));
-		player.getInventory().addItem(new Item(MOLTEN_GLASS));
+		player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_SAND), new Item(BUCKET));
+		player.getInventory().replaceItemWithItem(new Item(SODA_ASH),new Item(MOLTEN_GLASS));
+		player.getSkill().addExp(Skill.CRAFTING, 20);
 	}
 	public static enum GlassMake {
 		VIAL(44210, 1775, 1781, 229, 1, 33, 35), VIAL5(44209, 1775, 1781, 229, 5, 33, 35), VIAL10(44208, 1775, 1781, 229, 10, 33, 35), VIALX(44207, 1775, 1781, 229, 0, 33, 35), ORB(48108, 1775, 1781, 567, 1, 46, 52.5), ORB5(48107, 1775, 1781, 567, 5, 46, 52.5), ORB10(48106, 1775, 1781, 567, 10, 46, 52.5), ORBX(44211, 1775, 1781, 567, 0, 46, 52.5), BEER(48112, 1775, 1781, 1919, 1, 1, 17.5), BEER5(48111, 1775, 1781, 1919, 5, 1, 17.5), BEER10(48110, 1775, 1781, 1919, 10, 1, 17.5), BEERX(48109, 1775, 1781, 1919, 0, 1, 17.5), CANDLE(48116, 1775, 1781, 4527, 1, 4, 19), CANDLE5(48115, 1775, 1781, 4527, 5, 4, 19), CANDLE10(48114, 1775, 1781, 4527, 10, 4, 19), CANDLEX(48113, 1775, 1781, 4527, 0, 4, 19), OIL_LAMP(48120, 1775, 1781, 4522, 1, 12, 25), OIL_LAMP5(48119, 1775, 1781, 4522, 5, 12, 25), OIL_LAMP10(48118, 1775, 1781, 4522, 10, 12, 25), OIL_LAMPX(48117, 1775, 1781, 4522, 0, 12, 25), FISHBOWL(24059, 1775, 1781, 6667, 1, 42, 42.5), FISHBOWL5(24058, 1775, 1781, 6667, 5, 42, 42.5), FISHBOWL10(
