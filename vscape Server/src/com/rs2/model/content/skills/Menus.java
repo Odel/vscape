@@ -18,7 +18,7 @@ public class Menus {
 		} else if (type == "silverCrafting") {
 			display4Item(player, 1714, 2961, 5525, 1720, "Unstrung symbol", "Silver sickle", "Tiara", "Unstrung Emblem");
 		} else if (type == "spinning") {
-			display3Item(player, 1737, 1779, 6051, "Wool", "Flax", "Magic tree");
+			display4Item(player, 1737, 1779, 9436, 6051, "Wool", "Flax", "Sinew", "Magic tree");
 		} else if (type == "glassMaking") {
 			player.getActionSender().sendInterface(11462);
 		} else if (type == "normalLeather") {

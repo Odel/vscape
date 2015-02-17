@@ -50,11 +50,7 @@ public class GemCutting {
 						return;
 					}
 					boolean shouldCrush = (Misc.random(CRUSH_CHANCE) == 0 && gem.isCrushable());
-					if (player.getInventory().removeItemSlot(new Item(itemId), slot)) {
-						player.getInventory().addItemToSlot(new Item(shouldCrush ? CRUSHED_GEM : gem.getGemId()), slot);
-					} else if (player.getInventory().removeItem(new Item(itemId))) {
-						player.getInventory().addItem(new Item(shouldCrush ? CRUSHED_GEM : gem.getGemId()));
-					}
+					player.getInventory().replaceItemWithItem(new Item(itemId), new Item(shouldCrush ? CRUSHED_GEM : gem.getGemId()));
 					if(shouldCrush) { player.getActionSender().sendMessage("You accidentally crush the gem."); }
 					player.getSkill().addExp(Skill.CRAFTING, shouldCrush ? 5 : gem.getExperience());
 					container.stop();

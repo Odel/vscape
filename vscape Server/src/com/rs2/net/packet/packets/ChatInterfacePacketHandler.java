@@ -1,6 +1,5 @@
 package com.rs2.net.packet.packets;
 
-import com.rs2.Constants;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.quests.DwarfCannon;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
@@ -122,8 +121,11 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			    player.getDialogue().sendPlayerChat(amount + " please.", Dialogues.HAPPY);
 			}
 			return;
-		} else if (player.getEnterXInterfaceId() == 53150) {
+		} else if (player.getEnterXInterfaceId() == 53150 || player.getEnterXInterfaceId() == 34167) {
 			Cooking.handleCookingTick(player, amount);
+			return;
+		} else if (player.getEnterXInterfaceId() == 34171 && (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange"))) {
+			Cooking.handleSinewTick(player, amount);
 			return;
 		}
 		else if (player.getEnterXInterfaceId() == 3823) {

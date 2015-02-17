@@ -9,6 +9,7 @@ import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.objects.GameObjectDef;
@@ -171,21 +172,25 @@ public class Cooking {
 		player.setOldObject(objectId);
 		final CacheObject obj = ObjectLoader.object(objectId, objectX, objectY, player.getPosition().getZ());
 		final GameObjectDef def = SkillHandler.getObject(objectId, objectX, objectY, player.getPosition().getZ());
-        if (obj != null || def != null) {
+		if (obj != null || def != null) {
 			String name = GameObjectData.forId(obj != null ? obj.getDef().getId() : def.getId()).getName().toLowerCase();
 			if (name.equalsIgnoreCase("fire") || name.equalsIgnoreCase("fireplace")) {
 				player.setNewSkillTask();
 				player.setStatedInterface("cookFire");
-                firePosition = new Position(objectX,  objectY, player.getPosition().getZ());
+				firePosition = new Position(objectX,  objectY, player.getPosition().getZ());
 				player.setTempInteger(item);
 				if (player.getNewComersSide().isInTutorialIslandStage() || player.getInventory().getItemAmount(item) == 1) {
 					handleCookingTick(player, 1);
 					return true;
 				}
 				Item itemDef = new Item(item);
-				player.getActionSender().sendItemOnInterface(13716, 200, item);
-				player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);
-				player.getActionSender().sendChatInterface(1743);
+				if(item == 2132 || item == 2136) {
+				    Menus.display2Item(player, item == 2132 ? 2132 : 2136, 9436, item == 2132 ? "Raw Beef" : "Bear Meat", "Sinew");
+				} else {
+				    player.getActionSender().sendItemOnInterface(13716, 200, item);
+				    player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);
+				    player.getActionSender().sendChatInterface(1743);
+				}
 				return true;
 			}
 			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot")) {
@@ -198,9 +203,13 @@ public class Cooking {
 					return true;
 				}
 				Item itemDef = new Item(item);
-				player.getActionSender().sendItemOnInterface(13716, 200, item);
-				player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);
-				player.getActionSender().sendChatInterface(1743);
+				if(item == 2132 || item == 2136) {
+				    Menus.display2Item(player, 2142, 9436, "Cooked Meat", "Sinew");
+				} else {
+				    player.getActionSender().sendItemOnInterface(13716, 200, item);
+				    player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);
+				    player.getActionSender().sendChatInterface(1743);
+				}
 				return true;
 			}
 		}
@@ -228,6 +237,48 @@ public class Cooking {
                 	}
                 }
 				handleCooking(player);
+				cookAmount--;
+				container.setTick(4);
+			}
+
+			@Override
+			public void stop() {
+				player.resetAnimation();
+			}
+		});
+		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+
+	}
+	
+	public static void handleSinewTick(final Player player, final int amount) {
+		final int task = player.getTask();
+		player.getMovementHandler().reset();
+		player.getActionSender().removeInterfaces();
+		player.setSkilling(new CycleEvent() {
+			int cookAmount = amount;
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (!player.checkNewSkillTask() || !player.checkTask(task) || !player.getInventory().getItemContainer().contains(player.getTempInteger()) || cookAmount == 0) {
+					player.setTempInteger(0);
+					container.stop();
+					return;
+				}
+
+                if(player.getStatedInterface().equals("cookFire")){
+                	if (!SkillHandler.checkObject(player.getOldObject(), player.getCooking().firePosition.getX(), player.getCooking().firePosition.getY(), player.getCooking().firePosition.getZ())) {
+                		container.stop();
+                        return;
+                	}
+                }
+				player.getActionSender().removeInterfaces();
+				player.getInventory().replaceItemWithItem(new Item(player.getTempInteger()), new Item(9436));
+				player.getSkill().addExp(Skill.COOKING, 3);
+				if (player.getStatedInterface().equals("cookFire"))
+				    player.getUpdateFlags().sendAnimation(897);
+				else if (player.getStatedInterface().equals("cookRange"))
+				    player.getUpdateFlags().sendAnimation(883);
+				player.getActionSender().sendSound(357, 0, 0);
+				player.getActionSender().sendMessage("You roast the meat and extract the sinew.");
 				cookAmount--;
 				container.setTick(4);
 			}
@@ -321,6 +372,20 @@ public class Cooking {
 
 	public static boolean handleButtons(Player player, int buttonId) {
 		switch (buttonId) {
+			case 34170:
+			case 34169:
+			case 34168: //Cook beef / bear meat
+			    if (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange")) {
+				handleCookingTick(player, buttonId == 34170 ? 1 : buttonId == 34169 ? 5 : 10);
+				return true;
+			    }
+			case 34174:
+			case 34173:
+			case 34172: //Sinew
+			    if (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange")) {
+				handleSinewTick(player, buttonId == 34174 ? 1 : buttonId == 34173 ? 5 : 10);
+				return true;
+			    }
 			case 53152:// cook 1
 				handleCookingTick(player, 1);
 				return true;

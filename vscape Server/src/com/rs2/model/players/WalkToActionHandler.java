@@ -2,7 +2,6 @@ package com.rs2.model.players;
 
 import com.rs2.Constants;
 import com.rs2.cache.object.GameObjectData;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
@@ -2610,6 +2609,11 @@ public class WalkToActionHandler {
 						CrystalChest.openCrystalChest(player);
 					}
 					break;
+				case 2644: //Spinning wheel
+				    if (item == 1737 || item == 1779 || item == 9436 || item == 6051) {
+					Menus.sendSkillMenu(player, "spinning");
+					break;
+				    }
 				case 733: // slash web
 					Webs.slashWeb(player, x, y, item);
 					break;
