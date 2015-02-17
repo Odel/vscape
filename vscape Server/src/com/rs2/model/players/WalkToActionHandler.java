@@ -450,6 +450,10 @@ public class WalkToActionHandler {
 						player.getActionSender().sendMessage("The gate is locked.");
 					}
 					break;
+				case 10638: //Entrana altar
+				    Prayer.rechargePrayer(player);
+				    this.stop();
+				    return;
 				case 377:
 				    if(player.getInventory().playerHasItem(993) && Misc.goodDistance(player.getPosition(), new Position(2561, 9507, 0), 2)) {
 					 player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
