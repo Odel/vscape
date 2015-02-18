@@ -1,3 +1,21 @@
+@dre@=February 17th=
+-Dagannoth Kings aggro range increased,
+Prime's attack has AOE / splash damage,
+all Kings have proper defenses.
+-Shantay pass w/ full inventory fixed.
+-Rockshell alch values.
+-Spin Wheel in Gnome Stronghold accessible.
+-Molten Glass creation grants exp now.
+-Sandwich lady bug fixes.
+-Entrana Altar able to be prayed at.
+-Sinister Key drop rate increased.
+-Picklock doors fix.
+-Sinew can be created and is required for
+stringing a crossbow.
+-Antifire / Range potion level req fix.
+-Kalphite Queen proper combat script.
+-Make X on dairy churn fixed.
+
 @dre@=February 15th=
 -Crops now age while logged out.
 -Your progress will now save from time
