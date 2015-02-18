@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
+import com.rs2.model.Position;
 import com.rs2.model.UpdateFlags;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.AttackType;
@@ -716,6 +717,14 @@ public class Hit {
 			    damage = 0;
 			} else {
 			    damage /= 10;
+			}
+		    }
+		}
+		else if (getAttacker() != null && getVictim().isPlayer() && getAttacker().isNpc() && ((Npc)attacker).getNpcId() == 2882) {
+		    Position p = victim.getPosition();
+		    for(Player player : World.getPlayers()) {
+			if(player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+			    player.hit(Misc.random(61), HitType.NORMAL);
 			}
 		    }
 		}
