@@ -13,6 +13,7 @@ import com.rs2.model.content.skills.Crafting.Weaving;
 import com.rs2.model.content.skills.Fletching.HandleLogCutting;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.Cooking;
+import com.rs2.model.content.skills.cooking.DairyChurn;
 import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
@@ -127,6 +128,20 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		} else if (player.getEnterXInterfaceId() == 34171 && (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange"))) {
 			Cooking.handleSinewTick(player, amount);
 			return;
+		} else if (player.getEnterXInterfaceId() == 34182 || player.getEnterXInterfaceId() == 34186 || player.getEnterXInterfaceId() == 34190) {
+		    if(player.getStatedInterface().equals("dairyChurn"))
+		{
+			final DairyChurn.ChurnData churnData = DairyChurn.ChurnData.forId(player.getEnterXInterfaceId());
+			if(churnData != null)
+			{
+				if(amount == 0)
+				{
+					amount = 1;
+				}
+				player.setNewSkillTask();
+				DairyChurn.churnItem(player,churnData,amount);
+			}
+		}
 		}
 		else if (player.getEnterXInterfaceId() == 3823) {
 			ShopManager.sellItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);

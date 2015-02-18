@@ -18,13 +18,16 @@ public class DairyChurn {
 	public static enum ChurnData {
 		CREAM1(34185, 1927, 2130, 1, 21, 18), 
 		CREAM5(34184, 1927, 2130, 5, 21, 18), 
-		CREAM10(34183, 1927, 2130, 10, 21, 18), 
+		CREAM10(34183, 1927, 2130, 10, 21, 18),
+		CREAM_X(34182, 1927, 2130, -1, 21, 18),
 		BUTTER1(34189, 1927, 6697, 1, 38, 40),
 		BUTTER5(34188, 1927, 6697, 5, 38, 40),
 		BUTTER10(34187, 1927, 6697, 10, 38, 40),
-		CHEESE1(34193, 6697, 1985, 1, 48, 64),
+		BUTTER_X(34186, 1927, 6697, 10, 38, 40),
+		CHEESE1(34193, 6697, 1985, -1, 48, 64),
 		CHEESE5(34192, 6697, 1985, 5, 48, 64),
-		CHEESE10(34191, 6697, 1985, 10, 48, 64);
+		CHEESE10(34191, 6697, 1985, 10, 48, 64),
+		CHEESE_X(34190, 6697, 1985, -1, 48, 64);
 
 		private int buttonId;
 		private int item;
@@ -69,6 +72,10 @@ public class DairyChurn {
 		public double getExperience() {
 			return experience;
 		}
+		
+		public int getAmount() {
+			return amount;
+		}
 
 	}
 
@@ -78,8 +85,11 @@ public class DairyChurn {
 			return;
 		}
 		if (!player.getInventory().getItemContainer().contains(churnData.getItem())) {
-			player.getDialogue().sendStatement("You need a " + new Item(churnData.getItem()).getDefinition().getName().toLowerCase() + " to make this");
+			player.getDialogue().sendStatement("You need a " + new Item(churnData.getItem()).getDefinition().getName().toLowerCase() + " to make this.");
 			return;
+		}
+		if(amount == -1) {
+		    return;
 		}
 		player.getActionSender().removeInterfaces();
 		final int task = player.getTask();
@@ -114,7 +124,7 @@ public class DairyChurn {
 	}
 	
 	public static boolean handleButtons(Player player, int buttonId, int amount) {
-		if(player.getStatedInterface() == "dairyChurn")
+		if(player.getStatedInterface().equals("dairyChurn"))
 		{
 			final ChurnData churnData = ChurnData.forId(buttonId);
 			if(churnData != null)
