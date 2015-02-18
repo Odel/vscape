@@ -1272,6 +1272,10 @@ public class Equipment {
 			case 7382: //blue (t) and (g) chap
 			    rangeLevelReq = 50;
 			    return;
+			case 11283:
+			case 11284: //DFS
+			    defenceLevelReq = 75;
+			    return;
 			case 1135: //green dhide body
 				rangeLevelReq = 40;
 				defenceLevelReq = 40;
@@ -1596,9 +1600,6 @@ public class Equipment {
 			}
 			if (itemName.contains("body") || itemName.contains("shield") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("boots")) {
 				defenceLevelReq = 60;
-			}
-			if (itemName.contains("ragonfire")) { //This overwrites the Shield from 3 lines previous
-				defenceLevelReq = 75;
 			}
 			return;
 		}
