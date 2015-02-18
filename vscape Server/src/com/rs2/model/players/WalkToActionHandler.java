@@ -1164,6 +1164,15 @@ public class WalkToActionHandler {
 					if(x == 2475 && y == 3400) {
 					    Ladders.climbLadder(player, new Position(2475, 3399, 1));
 					}
+					if(x == 2488 && y == 3407) {
+					    Ladders.climbLadder(player, new Position(2489, 3409, 1));
+					}
+					if(x == 2485 && y == 3402) {
+					    Ladders.climbLadder(player, new Position(2485, 3401, 1));
+					}
+					if(x == 2479 && y == 3408) {
+					    Ladders.climbLadder(player, new Position(2479, 3407, 1));
+					}
 					break;
 				case 1744: // gnome tree stairs
 					if (x == 2445 && y == 3434) {
@@ -1172,8 +1181,17 @@ public class WalkToActionHandler {
 					if (x == 2445 && y == 3415) {
 						player.teleport(new Position(2445, 3413, 0));
 					}
-					if(x == 2475 && y == 3400) {
-					    player.teleport(new Position(2474, 3400, 0));
+					if (x == 2475 && y == 3400) {
+						player.teleport(new Position(2474, 3400, 0));
+					}
+					if (x == 2489 && y == 3408) {
+						player.teleport(new Position(2490, 3408, 0));
+					}
+					if (x == 2485 && y == 3402) {
+						player.teleport(new Position(2484, 3402, 0));
+					}
+					if (x == 2479 && y == 3408) {
+						player.teleport(new Position(2478, 3408, 0));
 					}
 					break;
 				case 10640: //altar for skull
