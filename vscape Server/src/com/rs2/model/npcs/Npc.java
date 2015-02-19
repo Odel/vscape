@@ -227,9 +227,13 @@ public class Npc extends Entity {
 	 * Makes walkable npcs walk, then updates it's position.
 	 */
 	public void npcRandomWalk() {
-		if (this == null || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
+		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
 			return;
 		if (isDontWalk() || ApeAtollNpcData.forNpcId(this.getNpcId()) != null) {
+			return;
+		}
+		if(!playerNearby())
+		{
 			return;
 		}
 		if (getWalkType() == WalkType.STAND) {
@@ -240,6 +244,25 @@ public class Npc extends Entity {
 			Position position = new Position(x+x1, y+y1, getPosition().getZ());
 			walkTo(position, true);
 		}
+	}
+	
+	public boolean playerNearby() {
+        synchronized (World.getPlayers()) {
+        	if(World.getPlayers().length <= 0)
+        	{
+        		return false;
+        	}
+        	final Player[] players = World.getPlayers();
+            for (Player p : players) {
+	            if (p == null)
+	            	continue;
+	            
+	            if(isVisible() && getPosition().isViewableFrom(p.getPosition()) && getPosition().getZ() == p.getPosition().getZ()){
+	            	return true;
+	            }
+	        }
+        }
+        return false;
 	}
 
 	public void ownerCheck() {
