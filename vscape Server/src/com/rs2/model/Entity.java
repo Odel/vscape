@@ -129,9 +129,11 @@ public abstract class Entity {
 	}
 
 	public void expireHitRecords() {
-		for (Iterator<HitRecord> hitRecordIterator = hitRecordQueue.iterator(); hitRecordIterator.hasNext();) {
-			if (hitRecordIterator.next().expired())
-				hitRecordIterator.remove();
+		if(hitRecordQueue.size() > 0){
+			for (Iterator<HitRecord> hitRecordIterator = hitRecordQueue.iterator(); hitRecordIterator.hasNext();) {
+				if (hitRecordIterator.next().expired())
+					hitRecordIterator.remove();
+			}
 		}
 	}
 

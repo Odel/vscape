@@ -122,11 +122,13 @@ public class Npc extends Entity {
 	}
 
 	public void restoreHp() {
-		if (hpRenewalTimer < 1 && !isDead()) {
-			heal(1);
-			hpRenewalTimer = 100;
-		} else {
-			hpRenewalTimer--;
+		if(getCurrentHp() < getMaxHp()) {
+			if (hpRenewalTimer < 1 && !isDead()) {
+				heal(1);
+				hpRenewalTimer = 100;
+			} else {
+				hpRenewalTimer--;
+			}
 		}
 	}
 
@@ -228,9 +230,13 @@ public class Npc extends Entity {
 	 * Makes walkable npcs walk, then updates it's position.
 	 */
 	public void npcRandomWalk() {
-		if (this == null || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
+		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
 			return;
 		if (isDontWalk() || ApeAtollNpcData.forNpcId(this.getNpcId()) != null) {
+			return;
+		}
+		if(!playerNearby())
+		{
 			return;
 		}
 		if (getWalkType() == WalkType.STAND) {
@@ -246,12 +252,32 @@ public class Npc extends Entity {
 	public boolean canHaveInteractingEntity() {
 	    return !this.isBoothBanker() && this.npcId != HorrorFromTheDeep.SITTING_JOSSIK && this.npcId != 1423 && this.npcId != 1424 && this.npcId != 1577;
 	}
+
+	public boolean playerNearby() {
+        synchronized (World.getPlayers()) {
+        	if(World.getPlayers().length <= 0)
+        	{
+        		return false;
+        	}
+        	final Player[] players = World.getPlayers();
+            for (Player p : players) {
+	            if (p == null)
+	            	continue;
+	            
+	            if(isVisible() && getPosition().isViewableFrom(p.getPosition()) && getPosition().getZ() == p.getPosition().getZ()){
+	            	return true;
+	            }
+	        }
+        }
+        return false;
+	}
+
 	public void ownerCheck() {
 		if (getPlayerIndex() > 0) {
 			if(this.getNpcId() == 1472) {
 			    return;
 			}
-			if (!this.isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
+			if (!isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
 				NpcLoader.destroyNpc(this);
 			}
 			return;
@@ -584,10 +610,13 @@ public class Npc extends Entity {
 	}
 
 	public void handleTransformTick() {
-		if (getTransformTimer() > 0 && getTransformTimer() < 999999) {
-			setTransformTimer(getTransformTimer() - 1);
-			if (getTransformTimer() < 1) {
-				sendTransform(getOriginalNpcId(), 0);
+		if(getNpcId() != getOriginalNpcId())
+		{
+			if (getTransformTimer() > 0 && getTransformTimer() < 999999) {
+				setTransformTimer(getTransformTimer() - 1);
+				if (getTransformTimer() < 1) {
+					sendTransform(getOriginalNpcId(), 0);
+				}
 			}
 		}
 	}
