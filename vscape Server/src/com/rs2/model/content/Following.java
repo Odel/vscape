@@ -112,7 +112,7 @@ public class Following {
 		((Player) leader).getPets().getPet().setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
 		return;
 	    } 
-	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() == npc){
+	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() != null &&  ((Player)leader).getCat().catNpc().equals(npc)){
     		Player player = ((Player)leader);
 	    	if(!Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)){
 	    		int catId = npc.getNpcId();
