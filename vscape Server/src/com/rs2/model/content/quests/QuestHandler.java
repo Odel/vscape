@@ -254,7 +254,7 @@ public class QuestHandler {
 			showInterface(player,quests[37]);
         		return true;
 		case 46131: //In Search of the Myreque
-			showInterface(player,quests[38]);
+			//showInterface(player,quests[38]);
         		return true;
         }
         return false;
