@@ -833,7 +833,7 @@ public class Player extends Entity {
 		    actionSender.sendEnergy();
 		}
 		getDesertHeat().CheckDesertHeat();
-		if(inMortMyreSwamp() && Misc.random(40) == 13) {
+		if(inMortMyreSwamp() && Misc.random(50) == 1) {
 		    NatureSpirit.handleSwampRot(this);
 		}
 		if(timeOutCheck()) {
@@ -4704,7 +4704,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 7364); //holy grail
 		getActionSender().sendString("@red@Horror From The Deep", 10135); //horror from the deep
 		getActionSender().sendString("", 4508); //Icthlarin's Little Helper 
-		getActionSender().sendString("", 11907); //in search of the myreque
+		getActionSender().sendString("@red@In Search of the Myreque", 11907); //in search of the myreque
 		getActionSender().sendString("", 7365); //jungle potion
 		getActionSender().sendString("", 7366);  //legends quest
 		getActionSender().sendString("@red@Lost City", 7367); //lost city

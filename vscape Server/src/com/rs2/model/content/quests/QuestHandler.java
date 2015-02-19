@@ -142,6 +142,7 @@ public class QuestHandler {
             return;
         }
         resetInterface(player);
+	player.getActionSender().sendItemOnInterface(12145, 250, -1);
         quest.completeQuest(player);
         PlayerSave.save(player);
     }
@@ -253,8 +254,11 @@ public class QuestHandler {
 		case 43124: //Monkey Madness
 			showInterface(player,quests[36]);
         		return true;
-		case 31201:
-			showInterface(player,quests[37]); //Nature Spirit
+		case 31201: //Nature Spirit
+			showInterface(player,quests[37]);
+        		return true;
+		case 46131: //In Search of the Myreque
+			showInterface(player,quests[38]);
         		return true;
         }
         return false;
