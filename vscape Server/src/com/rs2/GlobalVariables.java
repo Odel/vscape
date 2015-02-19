@@ -4,8 +4,10 @@ import com.rs2.model.objects.GameObject;
 import com.rs2.model.tick.TickTimer;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class GlobalVariables {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")))){
+		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/bannedmacs.txt")))){
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				if(!bannedMacs.contains(line.trim()))
@@ -84,10 +86,40 @@ public class GlobalVariables {
 		System.out.println("Loaded " + bannedMacs.size() + " Banned MAC addresses");
 	}
 	
+	public static void banIp(String ip)
+	{
+		if(!bannedIps.contains(ip.trim()))
+		{
+			bannedIps.add(ip.trim());
+			try(BufferedWriter bw = new BufferedWriter(new FileWriter("data/bannedips.txt", true))){
+				bw.write(ip.trim());
+				bw.newLine();
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public static String[] getBannedIps() {
 		return bannedIps.toArray(new String[bannedIps.size()]);
 	}
 	
+	public static void banMac(String mac)
+	{
+		if(!bannedMacs.contains(mac.trim()))
+		{
+			bannedMacs.add(mac.trim());
+			try(BufferedWriter bw = new BufferedWriter(new FileWriter("data/bannedmacs.txt", true))){
+				bw.write(mac.trim());
+				bw.newLine();
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	public static String[] getBannedMacs() {
 		return bannedMacs.toArray(new String[bannedMacs.size()]);
 	}

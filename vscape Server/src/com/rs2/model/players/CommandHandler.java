@@ -2503,16 +2503,7 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("Player is already MAC banned.", true);
 			return;
 		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream("./data/bannedmacs.txt", true));
-			out.write(player.getMacAddress()+"\n");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		GlobalVariables.banMac(player.getMacAddress().trim());
 		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s MAC address.", true);
 		player.disconnect();
 	}
@@ -2528,17 +2519,7 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("Player is already IP banned.", true);
 			return;
 		}
-		try {
-			OutputStreamWriter out = new OutputStreamWriter(
-					new FileOutputStream("./data/bannedips.txt", true));
-			out.write(player.getHost()+"\n");
-			out.flush();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		GlobalVariables.banIp(player.getHost().trim());
 		sender.getActionSender().sendMessage("Banned " + player.getUsername() + "'s ip address.", true);
 		player.disconnect();
 	}
