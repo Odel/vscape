@@ -179,7 +179,7 @@ public class Server implements Runnable {
             GlobalVariables.degradeInfo = Misc.loadDegradeInfo();
             GlobalVariables.npcDump = Misc.getNpcDump();
             GlobalVariables.itemDump = Misc.getItemDump();
-	    Misc.initAlphabet();
+            Misc.initAlphabet();
 
 
 			// load all xstream related files.
@@ -233,6 +233,8 @@ public class Server implements Runnable {
             HighscoresManager.load();
             
             PlayerSave.saveCycle();
+            
+            GlobalVariables.loadBans();
 
 			// Start up and get a'rollin!
 			startup();

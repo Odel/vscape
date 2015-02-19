@@ -1,11 +1,5 @@
 package com.rs2.model.players;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
@@ -853,85 +847,6 @@ public class Player extends Entity {
 	 */
 	public void appendPlayerPosition(int xModifier, int yModifier) {
 		getPosition().move(xModifier, yModifier);
-	}
-
-	/**
-	 * get players by host
-	 * 
-	 * 
-	 */
-/*	public void checkHosts()
-	{
-    	List<String> Hosts = new ArrayList();
-    	for (Player player : World.getPlayers()) {
-    		if(player != null)
-			{	
-    			if(!Hosts.contains(player.getHost()))
-    			{
-    				Hosts.add(player.getHost());
-    			}
-			}
-    	}
-    	List<Player[]> playersWithHost = new ArrayList();
-    	for (String validHost : Hosts) {
-    		playersWithHost.add(getPlayersByIp(validHost));
-    	}
-		getActionSender().sendInterface(8134);
-		ClearNotes();
-		int line = 8145;
-		for (String validHost : Hosts) {
-			getActionSender().sendString("@dbl@"+validHost, line);
-			line++;
-			for (Player[] players : playersWithHost) {
-				line++;
-				for (Player player : players) {
-					if(player != null)
-					{	
-						getActionSender().sendString(player.getUsername(), line);
-						line++;
-					}
-				}
-			}
-			line++;
-		}
-	}
-	
-	public Player[] getPlayersByIp(String ip)
-	{
-    	List<Player> playerWithHost = new ArrayList(); 
-    	for (Player player : World.getPlayers()) {
-    		if(player != null)
-			{	
-    			if(player.getHost().equals(ip))
-    			{
-    				playerWithHost.add(player);
-    			}
-			}
-    	}
-    	Player[] playerHosts = new Player[playerWithHost.size()];
-    	int index = 0;
-    	for (Player player : playerWithHost) {
-    		playerHosts[index] = player;
-    		index++;
-    	}
-		return playerHosts;
-	}
-	*/
-	
-	@SuppressWarnings("unused")
-	private void writeNpc(Npc npc) {
-		String filePath = "./data/npcs/spawn-config.cfg";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.newLine();
-				out.write("spawn = "+npc.getNpcId()+"	"+npc.getPosition().getX()+"	"+npc.getPosition().getY()+"	"+npc.getPosition().getZ()+"	1	"+npc.getDefinition().getName());
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void fadeTeleport(final Position position) {
@@ -3748,21 +3663,6 @@ public class Player extends Entity {
 		CONNECTED, LOGGING_IN, AWAITING_LOGIN_COMPLETE, LOGGED_IN, LOGGING_OUT, LOGGED_OUT
 	}
 
-	public void appendToBugList(String bug) {
-		String filePath = "./data/bugs.txt";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.write("Bug reported by " + getUsername() + " about : " + bug);
-				out.newLine();
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void appendToAutoSpawn(NpcDefinition npc) {
 		//int randNum = Misc.random(4) + 2;
 		/*
@@ -4196,60 +4096,30 @@ public class Player extends Entity {
     
     public boolean isIpBanned() 
     {
-        File file = new File("./data/bannedips.txt");
         if(getHost().length() <= 0)
         {
         	return false;
         }
-        if (!file.exists()) {
-            return false;
-        }
-        try {
-        	String CurrentLine;
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            while ((CurrentLine = br.readLine()) != null) 
-            {
-            	if(CurrentLine.length() > 0)
-            	{
-					if(CurrentLine.trim().contentEquals(getHost()))
-					{
-						br.close();
-						return true;
-					}
-            	}
-			}
-			br.close();
-        } catch (IOException e) {
-        	return false;
-	    }
-        return false;
+    	for(String ip : GlobalVariables.getBannedIps()){
+    		if(ip.contentEquals(getHost())){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     public boolean isMacBanned() 
     {
-        File file = new File("./data/bannedmacs.txt");
-        if (!file.exists()) {
-            return false;
-        }
-        try {
-        	String CurrentLine;
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            while ((CurrentLine = br.readLine()) != null) 
-            {
-            	if(CurrentLine.length() > 0)
-            	{
-					if(CurrentLine.trim().contentEquals(getMacAddress()))
-					{
-						br.close();
-						return true;
-					}
-            	}
-			}
-			br.close();
-        } catch (IOException e) {
+        if(getMacAddress().length() <= 0)
+        {
         	return false;
-	    }
-        return false;
+        }
+    	for(String mac : GlobalVariables.getBannedMacs()){
+    		if(mac.contentEquals(getMacAddress())){
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
 	/**
@@ -4775,9 +4645,7 @@ public class Player extends Entity {
     public boolean getHideYell(){
     	return hideYell;
     }
-    public String getCurrentchannel(){
-    	return currentChannel;
-    }
+
     public boolean getHideColors()
     {
     	return hideColors;
@@ -4795,35 +4663,6 @@ public class Player extends Entity {
 			}
 		}
 	}
- 
-		public String getClanChannel(){
-			return currentChannel;
-		}
-        public void setClanChannel(String channel) {
-		String inChannel = channel;
-                
-                    for(int i = 0; i < Constants.bad.length; i++){
-			if(channel.toLowerCase().contains(Constants.bad[i])){
-				getActionSender().sendMessage("You are trying to make a channel you shouldn't make!");
-				return;
-			}
-		}
-                                
-                                if(currentChannel == null){
-				getActionSender().sendMessage(
-						"You have joined " + channel +".");
-                                currentChannel = channel;
-                                }else{
-                                getActionSender().sendMessage(
-						"You are already in " + currentChannel + "!");
-                                }
-			}
-	
-        public void leaveClanChannel(){
-           getActionSender().sendMessage("You have left " + currentChannel + ".");
-           currentChannel = null;
-        }
-
         
 	public void setHideColors(boolean hide, boolean msg) {
 		hideColors = hide;

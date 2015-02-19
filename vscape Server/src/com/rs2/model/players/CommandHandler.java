@@ -37,14 +37,12 @@ import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
-import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -1105,23 +1103,21 @@ public class CommandHandler {
 				sender.getActionSender().sendMessage("Cannot find player: "+name, true);
 			    return;
 			}
-			BufferedWriter file = null;
-			try {
-			    file = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+"dump.txt"));
+			try(BufferedWriter file = new BufferedWriter(new FileWriter("./data/characters/"+player.getUsername()+"dump.txt"))){
 			    for(int i = 0; i < 21; i++) {
-				file.write(Skill.SKILL_NAME[i] + " lvl = ", 0, Skill.SKILL_NAME[i].length() + 7);
-				file.write(Integer.toString(player.getSkill().getLevel()[i]), 0, Integer.toString(player.getSkill().getLevel()[i]).length());
-				file.newLine();
-				file.write("Exp = ", 0, 6);
-				file.write(Integer.toString((int)player.getSkill().getExp()[i]), 0, Integer.toString((int)player.getSkill().getExp()[i]).length());
-				file.newLine();
-				file.newLine();
+					file.write(Skill.SKILL_NAME[i] + " lvl = ", 0, Skill.SKILL_NAME[i].length() + 7);
+					file.write(Integer.toString(player.getSkill().getLevel()[i]), 0, Integer.toString(player.getSkill().getLevel()[i]).length());
+					file.newLine();
+					file.write("Exp = ", 0, 6);
+					file.write(Integer.toString((int)player.getSkill().getExp()[i]), 0, Integer.toString((int)player.getSkill().getExp()[i]).length());
+					file.newLine();
+					file.newLine();
 			    }
 			    file.newLine();
+			    file.flush();
 			    file.close();
 			    sender.getActionSender().sendMessage("Dumping complete.", true);
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				sender.getActionSender().sendMessage("Error dumping player information.", true);
 			}
 		}
@@ -1683,11 +1679,11 @@ public class CommandHandler {
 		else if (keyword.equals("barrowsreward")) {
 		    int amount = Integer.parseInt(args[0]);
 		    for(int i = 0; i < amount; i++) {
-			sender.setKillCount(14);
-			for(int i2 = 0; i < sender.getBarrowsNpcDead().length; i++) {
-			    sender.setBarrowsNpcDead(i, true);
-			}
-			sender.getBarrows().getReward(sender);
+				sender.setKillCount(14);
+				for(int i2 = 0; i < sender.getBarrowsNpcDead().length; i++) {
+				    sender.setBarrowsNpcDead(i, true);
+				}
+				sender.getBarrows().getReward(sender);
 		    }
 		    sender.getActionSender().sendMessage("Sending " +amount+ " rewards based on all brothers dead and 14 kc.", true);
 		}
@@ -1971,8 +1967,7 @@ public class CommandHandler {
 	public static ArrayList<String> macExists(String MAC) {
 		ArrayList<String> matching = new ArrayList<>();
 		int q = 0;
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")));
+		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")))){
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				if(line.contains(MAC) && q < 20) {
@@ -1992,20 +1987,17 @@ public class CommandHandler {
 		if(!matching.isEmpty()) {
 		    player.getActionSender().sendMessage("Parsing complete. Atleast " + (matching.size() - 1) + " matches logged. Check matchmacs.txt", true);
 		    String filePath = "./data/matchmacs.txt";
-		    try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
+		    try(BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))){
 			    String names = "";
 			    for(String entry : matching) {
-				names = names.concat(entry.substring(entry.indexOf(":") + 2) + ", ");
+			    	names = names.concat(entry.substring(entry.indexOf(":") + 2) + ", ");
 			    }
 				out.write("MAC: " + MAC + " Usernames: " + names);
 				out.newLine();
-			} finally {
+				out.flush();
 				out.close();
-			}
 		    } catch (IOException e) {
-			e.printStackTrace();
+				e.printStackTrace();
 		    }
 		} else {
 		    player.getActionSender().sendMessage("Parsing complete. No logged matches.", true);
@@ -2014,8 +2006,7 @@ public class CommandHandler {
 	
 	public static void appendToMacList(Player player, String MAC) {
 		boolean match = false;
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")));
+		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")))){
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				if(line.contains(MAC) && line.contains(player.getUsername())) {
@@ -2027,49 +2018,40 @@ public class CommandHandler {
 			e.printStackTrace();
 		}
 		if(!match) {
-		String filePath = "./data/macs.txt";
-		    try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
+			String filePath = "./data/macs.txt";
+			try(BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))){
 				out.write("MAC: " + MAC + " Username: " + player.getUsername());
 				out.newLine();
-			} finally {
+				out.flush();
 				out.close();
-			}
 		    } catch (IOException e) {
-			e.printStackTrace();
+		    	e.printStackTrace();
 		    }
 		}
 	}
 
 	public static void appendToBugList(Player player, String bug) {
 		String filePath = "./data/bugs.txt";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.write("Bug reported by " + player.getUsername() + " about : " + bug);
-				out.newLine();
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		try(BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))){
+			out.write("Bug reported by " + player.getUsername() + " about : " + bug);
+			out.newLine();
+			out.flush();
+			out.close();
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
 	}
 
-			public static void appendToReportList(Player player, String bug) {
+	public static void appendToReportList(Player player, String bug) {
 		String filePath = "./data/reports.txt";
-		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
-			try {
-				out.write("Report/ticket by " + player.getUsername() + " about : " + bug);
-				out.newLine();
-			} finally {
-				out.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		try(BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))){
+			out.write("Report/ticket by " + player.getUsername() + " about : " + bug);
+			out.newLine();
+			out.flush();
+			out.close();
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
 	}
 
     private static void roll(Player player) {

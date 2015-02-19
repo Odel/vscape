@@ -20,26 +20,19 @@ public class LogHandler {
 	
 	private static DateFormat df = new SimpleDateFormat();
 	
-	static BufferedWriter yellLogWriter = null;
-
 	public static void logShop(Player player, String shopName, String transactionType, Item item, int cost, String currency)
 	{
-		try {
-			BufferedWriter shopLogWriter = new BufferedWriter(new FileWriter(LogDirectory + ShopDirectory + shopName + ".txt", true));
-			try {
-				int itemId = item.getDefinition().getId();
-				String itemName = item.getDefinition().getName();
-				int count = item.getCount();
-				shopLogWriter.write("[" + df.format(new Date()) + "]["+player.getUsername()+"]"+transactionType+": ["+itemId+"]"+itemName+" Amount: "+count+" for "+cost+" "+currency);
-				shopLogWriter.newLine();
-			} catch(IOException ioexception) {
-				shopLogWriter.close();
-			} finally {
-				shopLogWriter.close();
-			}
-		} catch(IOException ioexception) {
+		 try(BufferedWriter shopLogWriter = new BufferedWriter(new FileWriter(LogDirectory + ShopDirectory + shopName + ".txt", true))){
+			int itemId = item.getDefinition().getId();
+			String itemName = item.getDefinition().getName();
+			int count = item.getCount();
+			shopLogWriter.write("[" + df.format(new Date()) + "]["+player.getUsername()+"]"+transactionType+": ["+itemId+"]"+itemName+" Amount: "+count+" for "+cost+" "+currency);
+			shopLogWriter.newLine();
+			shopLogWriter.flush();
+			shopLogWriter.close();
+		 } catch(IOException ioexception) {
 			System.out.println("error writing shop log file.");
-		}
+		 }
 	}
 	
 	public static void logTrade(Player player1, Player player2, Item items)
@@ -56,12 +49,7 @@ public class LogHandler {
 				tradeLogWriter = new BufferedWriter(new FileWriter(LogDirectory + TradeDirectory + player2.getUsername() + "&" + player1.getUsername() + ".txt", true));
 			}
 			try {
-				//int itemId = item.getDefinition().getId();
-				//String itemName = item.getDefinition().getName();
-				//int count = item.getCount();
 				tradeLogWriter.write("[" + df.format(new Date()) + "] "+player1.getUsername()+ " traded " + player2.getUsername() + " " + items.getCount() + " of #" + items.getId() + "");
-				//System.out.println(items.toString());
-				
 				tradeLogWriter.newLine();
 			} catch(IOException ioexception) {
 				tradeLogWriter.close();
@@ -75,36 +63,26 @@ public class LogHandler {
 	
 	public static void logYell(String name, String msg)
 	{
-		try {
-			yellLogWriter = new BufferedWriter(new FileWriter(LogDirectory + "yell.txt", true));
-			try {
-				String time = Format.format(new Date());
-				yellLogWriter.write("["+time+"] "+name + ": " + msg);	
-				yellLogWriter.newLine();
-			} catch(IOException ioexception) {
-				yellLogWriter.close();
-			} finally {
-				yellLogWriter.close();
-			}
-		} catch(IOException ioexception) {
+		 try(BufferedWriter yellLogWriter = new BufferedWriter(new FileWriter(LogDirectory  + "yell.txt", true))){
+			String time = Format.format(new Date());
+			yellLogWriter.write("["+time+"] "+name + ": " + msg);	
+			yellLogWriter.newLine();
+			yellLogWriter.flush();
+			yellLogWriter.close();
+		 } catch(IOException ioexception) {
 			System.out.println("error writing yell log file.");
-		}
+		 }
 	}
 	
 	public static void LogCommand(String name, String msg)
 	{
-		try {
-			BufferedWriter logWriter = new BufferedWriter(new FileWriter(LogDirectory + "commands.txt", true));
-			try {
-				logWriter.write("[" + df.format(new Date()) + "] "+ name + " used ::" + msg);
-				logWriter.newLine();
-			} catch(IOException ioexception) {
-				logWriter.close();
-			} finally {
-				logWriter.close();
-			}
-		} catch(IOException ioexception) {
-			System.out.println("error writing command log file.");
-		}
+		 try(BufferedWriter commandLog = new BufferedWriter(new FileWriter(LogDirectory  + "commands.txt", true))){
+			 commandLog.write("[" + df.format(new Date()) + "] "+ name + " used ::" + msg);
+			 commandLog.newLine();
+			 commandLog.flush();
+			 commandLog.close();
+		 } catch(IOException ioexception) {
+			 System.out.println("error writing command log file.");
+	     }
 	}
 }

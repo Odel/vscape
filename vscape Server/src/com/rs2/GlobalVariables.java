@@ -1,8 +1,14 @@
 package com.rs2;
 
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.tick.TickTimer;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GlobalVariables {
@@ -50,4 +56,39 @@ public class GlobalVariables {
 		GlobalVariables.grainBin = grainBin;
 	}
 
+	private static ArrayList<String> bannedIps = new ArrayList<String>();
+	private static ArrayList<String> bannedMacs = new ArrayList<String>();
+	
+	public static void loadBans(){
+		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/bannedips.txt")))){
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				if(!bannedIps.contains(line.trim()))
+					bannedIps.add(line.trim());
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/macs.txt")))){
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				if(!bannedMacs.contains(line.trim()))
+					bannedMacs.add(line.trim());
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Loaded " + bannedIps.size() + " Banned IP addresses");
+		System.out.println("Loaded " + bannedMacs.size() + " Banned MAC addresses");
+	}
+	
+	public static String[] getBannedIps() {
+		return bannedIps.toArray(new String[bannedIps.size()]);
+	}
+	
+	public static String[] getBannedMacs() {
+		return bannedMacs.toArray(new String[bannedMacs.size()]);
+	}
 }
