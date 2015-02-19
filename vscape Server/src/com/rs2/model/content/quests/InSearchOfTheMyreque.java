@@ -128,16 +128,36 @@ public class InSearchOfTheMyreque implements Quest {
 		//Change
 		player.getActionSender().sendString("Vanstrom Clause asked me to take some weapons to", 8149);
 		player.getActionSender().sendString("a group called the 'Myreque': ", 8150);
-		player.getActionSender().sendString(player.getInventory().playerHasItem(STEEL_LONGSWORD) ? "@str@" : "@blu@" + "1 x Steel longsword", 8151);
-		player.getActionSender().sendString(player.getInventory().playerHasItem(STEEL_SWORD) ? "@str@" : "@blu@" + "2 x Steel shortsword", 8152);
-		player.getActionSender().sendString(player.getInventory().playerHasItem(STEEL_DAGGER) ? "@str@" : "@blu@" + "1 x Steel dagger", 8153);
-		player.getActionSender().sendString(player.getInventory().playerHasItem(STEEL_MACE) ? "@str@" : "@blu@" + "1 x Steel mace", 8154);
-		player.getActionSender().sendString(player.getInventory().playerHasItem(STEEL_WARHAMMER) ? "@str@" : "@blu@" + "1 x Steel warhammer", 8155);
+		player.getActionSender().sendString("" + (player.getInventory().playerHasItem(STEEL_LONGSWORD) ? "@str@" : "@blu@") + "1 x Steel longsword", 8151);
+		player.getActionSender().sendString("" + (player.getInventory().playerHasItem(STEEL_SWORD) ? "@str@" : "@blu@") + "2 x Steel shortsword", 8152);
+		player.getActionSender().sendString("" + (player.getInventory().playerHasItem(STEEL_DAGGER) ? "@str@" : "@blu@") + "1 x Steel dagger", 8153);
+		player.getActionSender().sendString("" + (player.getInventory().playerHasItem(STEEL_MACE) ? "@str@" : "@blu@") + "1 x Steel mace", 8154);
+		player.getActionSender().sendString("" + (player.getInventory().playerHasItem(STEEL_WARHAMMER) ? "@str@" : "@blu@") + "1 x Steel warhammer", 8155);
 		if(allWeapons(player)) {
 		    player.getActionSender().sendString("I have all the weapons Vanstrom asked me to get.", 8156);
 		}
 		player.getActionSender().sendString("Vanstrom said the boatman in Mort'ton should be", 8157);
 		player.getActionSender().sendString("able to help me find the 'Myreque'.", 8158);
+		break;
+	    case POUCH_FOR_RIDE:
+		player.getActionSender().sendString("@str@" + "Talk to Vanstrom Clause in the Canifis bar to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "Vanstrom Clause asked me to take some weapons to", 8149);
+		player.getActionSender().sendString("@str@" + "a group called the 'Myreque'.", 8150);
+		
+		player.getActionSender().sendString("The boatman in Mort'ton agreed to let me take his", 8152);
+		player.getActionSender().sendString("boat back through Mort Myre. His condition is that", 8153);
+		player.getActionSender().sendString("I need defence against the Ghasts. I should fill my", 8154);
+		player.getActionSender().sendString("Druid Pouch to convince him, 5 charges should do.", 8155);
+		break;
+	    case BOARD_BOAT:
+		player.getActionSender().sendString("@str@" + "Talk to Vanstrom Clause in the Canifis bar to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "Vanstrom Clause asked me to take some weapons to", 8149);
+		player.getActionSender().sendString("@str@" + "a group called the 'Myreque'.", 8150);
+		
+		player.getActionSender().sendString("The boatman in Mort'ton agreed to let me take his", 8152);
+		player.getActionSender().sendString("boat back through Mort Myre after giving him 3", 8153);
+		player.getActionSender().sendString("wooden planks. He said to go north and look for", 8154);
+		player.getActionSender().sendString("an 'unusual tree'.", 8155);
 		break;
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "", 8147);
@@ -244,7 +264,7 @@ public class InSearchOfTheMyreque implements Quest {
     public boolean doObjectClicking(final Player player, int object, int x, int y) {
 	switch (object) {
 	    case SWAMP_BOAT:
-		Dialogues.startDialogue(player, 157600);
+		Dialogues.startDialogue(player, 156700);
 		return true;
 	    case SWAMP_BOAT_ABANDONED:
 		if(!QuestHandler.questCompleted(player, 37)) {
@@ -253,11 +273,11 @@ public class InSearchOfTheMyreque implements Quest {
 		    return true;
 		}
 		player.setStopPacket(true);
+		player.getActionSender().sendMessage("You carefully climb into the boat...");
+		player.fadeTeleport(new Position(3521, 3285, 0));
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
-			player.getActionSender().sendMessage("You carefully climb into the boat...");
-			player.fadeTeleport(new Position(3521, 3285, 0));
 			b.stop();
 		    }
 
@@ -301,8 +321,8 @@ public class InSearchOfTheMyreque implements Quest {
 	    case 156700: //Swamp boat travel
 		switch (d.getChatId()) {
 		    case 1:
+			d.setLastNpcTalk(CYREG_PADDLEHORN);
 			if (player.getQuestStage(38) >= BOARD_BOAT) {
-			    d.setLastNpcTalk(CYREG_PADDLEHORN);
 			    d.sendNpcChat("That'll be 10 coins please.", CONTENT);
 			} else {
 			    d.sendNpcChat("Woah ho ho, not so fast there. Who said you", "could just climb aboard my boat?", ANGRY_1);
@@ -400,11 +420,14 @@ public class InSearchOfTheMyreque implements Quest {
 				if(allWeapons(player)) {
 				    d.sendPlayerChat("Hello there, I have some weapons for you to give to", "the 'Myreque'.", CONTENT);
 				} else {
-				    
+				    d.sendPlayerChat("Hello there, I was wondering what you know about", "the 'Myreque'?", CONTENT);
 				}
 				return true;
 			    case 3:
 				d.sendNpcChat("Hmm, I don't know what you're talking about.", CONTENT);
+				if(!allWeapons(player)) {
+				    d.endDialogue();
+				}
 				return true;
 			    case 4:
 				d.sendPlayerChat("Come on, I know you're in cahoots with them, just take", "these weapons to them.", ANGRY_1);
@@ -473,6 +496,7 @@ public class InSearchOfTheMyreque implements Quest {
 			switch (d.getChatId()) {
 			    case 1:
 				d.sendOption("What do I have to do again?", "What weapons do I need to get again?", "Where do I need to take the weapons again?", "Nevermind.");
+				d.setNextChatId(20);
 				return true;
 			    case 20:
 				switch(optionId) {
@@ -521,7 +545,7 @@ public class InSearchOfTheMyreque implements Quest {
 				}
 				return true;
 			    case 2:
-				d.sendPlayerChat("Quite well thanks for asking, how about you?", CONTENT);
+				d.sendPlayerChat("Quite well, thanks for asking, how about you?", CONTENT);
 				return true;
 			    case 3:
 				d.sendNpcChat("Hmm, well, I am a little concerned about some friends", "of mine, they're in dire need of some assistance, but", "I'm at a loss as to how I can help them.", CONTENT);

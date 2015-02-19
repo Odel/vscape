@@ -61,7 +61,8 @@ public class QuestHandler {
 	new ChristmasEvent(),
 	new RecruitmentDrive(),
 	new MonkeyMadness(),
-	new NatureSpirit()
+	new NatureSpirit(),
+	new InSearchOfTheMyreque()
     };
     
     public static void init() {
@@ -111,11 +112,6 @@ public class QuestHandler {
     public static void startQuest(Player player, int questID) {
         Quest quest = quests[questID];
         if (quest == null) {
-            return;
-        }
-        if (!quest.canDoQuest(player)) {
-            player.getActionSender().removeInterfaces();
-            player.getActionSender().sendMessage("You can't do this quest yet.");
             return;
         }
         if (player.getQuestStage(quest.getQuestID()) == 0) {

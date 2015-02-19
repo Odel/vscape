@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatScript;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.ApeAtollNpcData;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
@@ -241,7 +242,10 @@ public class Npc extends Entity {
 			walkTo(position, true);
 		}
 	}
-
+	
+	public boolean canHaveInteractingEntity() {
+	    return !this.isBoothBanker() && this.npcId != HorrorFromTheDeep.SITTING_JOSSIK && this.npcId != 1423 && this.npcId != 1424 && this.npcId != 1577;
+	}
 	public void ownerCheck() {
 		if (getPlayerIndex() > 0) {
 			if(this.getNpcId() == 1472) {

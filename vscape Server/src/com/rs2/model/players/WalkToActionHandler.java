@@ -21,6 +21,7 @@ import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
+import com.rs2.model.content.quests.InSearchOfTheMyreque;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.NatureSpirit;
@@ -1817,6 +1818,10 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(InSearchOfTheMyreque.doObjectSecondClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				if(player.getMultiCannon().objectSecondClick(id, x, y, z)) {
 					this.stop();
 				    return;
@@ -2069,8 +2074,7 @@ public class WalkToActionHandler {
 			player.getActionSender().sendMessage("This npc is not interested in talking with you right now.");
 			return;
 		}
-		int id = npc.getNpcId();
-		if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
+		if(npc.canHaveInteractingEntity()) {
 		    npc.setInteractingEntity(player);
 		}
 		World.submit(new Tick(1, true) {
@@ -2113,7 +2117,7 @@ public class WalkToActionHandler {
 				}
 				Following.resetFollow(player);
 				int id = npc.getNpcId();
-				if(!npc.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424) {
+				if(npc.canHaveInteractingEntity()) {
 				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				}
 				player.setInteractingEntity(npc);
@@ -2955,12 +2959,15 @@ public class WalkToActionHandler {
 		{
 			return true;
 		}
-		if(def.getId() == 1729 && Misc.goodDistance(player.getPosition(), def.getPosition(), 4)) {
+		if(def.getId() == 1729) {
+		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 4))
 			return true;
 		}
-		if(def.getId() == 2290 && Misc.goodDistance(player.getPosition(), def.getPosition(), 3)) {
+		if(def.getId() == 2290) {
+		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 3))
 			return true;
 		}
+		
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
 		boolean canInteract = Misc.checkClip(player.getPosition(), objectPos, false);
 		Rangable.addObject(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType(), true);
