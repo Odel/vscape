@@ -121,11 +121,13 @@ public class Npc extends Entity {
 	}
 
 	public void restoreHp() {
-		if (hpRenewalTimer < 1 && !isDead()) {
-			heal(1);
-			hpRenewalTimer = 100;
-		} else {
-			hpRenewalTimer--;
+		if(getCurrentHp() < getMaxHp()) {
+			if (hpRenewalTimer < 1 && !isDead()) {
+				heal(1);
+				hpRenewalTimer = 100;
+			} else {
+				hpRenewalTimer--;
+			}
 		}
 	}
 
@@ -270,7 +272,7 @@ public class Npc extends Entity {
 			if(this.getNpcId() == 1472) {
 			    return;
 			}
-			if (!this.isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
+			if (!isDead() && (getPlayerOwner() == null || !Misc.goodDistance(getPosition(), getPlayerOwner().getPosition(), 15))) {
 				NpcLoader.destroyNpc(this);
 			}
 			return;
@@ -603,10 +605,13 @@ public class Npc extends Entity {
 	}
 
 	public void handleTransformTick() {
-		if (getTransformTimer() > 0 && getTransformTimer() < 999999) {
-			setTransformTimer(getTransformTimer() - 1);
-			if (getTransformTimer() < 1) {
-				sendTransform(getOriginalNpcId(), 0);
+		if(getNpcId() != getOriginalNpcId())
+		{
+			if (getTransformTimer() > 0 && getTransformTimer() < 999999) {
+				setTransformTimer(getTransformTimer() - 1);
+				if (getTransformTimer() < 1) {
+					sendTransform(getOriginalNpcId(), 0);
+				}
 			}
 		}
 	}
