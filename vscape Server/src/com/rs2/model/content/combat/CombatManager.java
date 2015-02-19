@@ -911,6 +911,9 @@ public class CombatManager extends Tick {
 	 * Resets anything needed after the end of combat.
 	 */
 	public static void resetCombat(Entity entity) {
+		if(entity == null) {
+		    return;
+		}
 		if (entity.isPlayer()) {
 			((Player) entity).setCastedSpell(null);
 		}
@@ -920,9 +923,7 @@ public class CombatManager extends Tick {
 		entity.getUpdateFlags().faceEntity(-1);
 		if(entity.isNpc() && ((Npc)entity).getNpcId() == 1460) {
 		    ((Npc)entity).setFollowingEntity(null);
-		    ClippedPathFinder.getPathFinder().findRoute(entity, ((Npc)entity).getSpawnPosition().getX(), ((Npc)entity).getSpawnPosition().getY(), true, 0, 0);
-		    //((Npc)entity).walkTo(((Npc)entity).getSpawnPosition(), true);
-		    
+		    ((Npc)entity).walkTo(((Npc)entity).getSpawnPosition(), true);
 		}
 		Following.resetFollow(entity);
 	}

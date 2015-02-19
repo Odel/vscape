@@ -89,7 +89,7 @@ public class Following {
             	stepAway();
             	return;
             }
-	    if( npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() == npc 
+	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() != null && ((Player) leader).getPets().getPet().equals(npc) 
 		&& !Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8) ) {
 		    int petId = npc.getNpcId();
 		    npc.teleport(new Position(npc.getPosition().getX(), 10000, npc.getPosition().getZ()+1));
@@ -107,12 +107,12 @@ public class Following {
 		    newnpc.setCombatDelay(100000000);
 		    return; 
 	    }
-	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() == npc 
+	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() != null && ((Player) leader).getPets().getPet().equals(npc) 
 		&& !Misc.goodDistance(npc.getSpawnPosition(), npc.getPosition(), 8) ) {
 		((Player) leader).getPets().getPet().setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
 		return;
 	    } 
-	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() != null &&  ((Player)leader).getCat().catNpc().equals(npc)){
+	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() != null && ((Player)leader).getCat().catNpc().equals(npc)){
     		Player player = ((Player)leader);
 	    	if(!Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)){
 	    		int catId = npc.getNpcId();
@@ -217,7 +217,7 @@ public class Following {
 		{
 			return true;
 		}
-		if(victim.isNpc() && ((Npc)victim).getNpcId() == 1457 && Misc.goodDistance(attacker.getPosition(), victim.getPosition(), distance) && Misc.checkClip(attacker.getPosition(), victim.getPosition(), false)) {
+		if(attacker != null && victim != null && victim.isNpc() && ((Npc)victim).getNpcId() == 1457 && Misc.goodDistance(attacker.getPosition(), victim.getPosition(), distance) && Misc.checkClip(attacker.getPosition(), victim.getPosition(), false)) {
 			return true;
 		}
 		return Misc.checkClip(attacker.getPosition(), victim.getPosition(), distance < 2);

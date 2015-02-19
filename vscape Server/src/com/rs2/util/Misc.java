@@ -127,7 +127,7 @@ public class Misc {
 	}
 
 	public static boolean checkClip(Position pos1, Position pos2, int sizeX, int sizeY) {
-		return Region.canMove(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), pos1.getZ(), sizeX, sizeY);
+		return Region.canMoveNpc(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), pos1.getZ(), sizeX, sizeY);
 	}
 	
 	public static boolean checkClip(Position first, Position second, boolean melee) {

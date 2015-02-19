@@ -108,6 +108,7 @@ public class ApeAtollNpcs {
 	    npc.setSpawnPosition(this.spawnPosition);
 	    npc.setWalkType(Npc.WalkType.STAND);
 	    npc.setNeedsRespawn(false);
+	    npc.setFollowingEntity(null);
 	    World.register(npc);
 	}
 
