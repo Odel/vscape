@@ -15,10 +15,9 @@ public class WitchsPotion implements Quest {
     public static final int QUEST_COMPLETE = 3;
 
     public int dialogueStage = 0;
-    private int reward[][] = {};
 
     private int expReward[][] = {
-	{Skill.MAGIC, 325} // skill ID, exp amount
+    		{Skill.MAGIC, 325} // skill ID, exp amount
     };
 
     private static final int questPointReward = 1;

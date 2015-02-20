@@ -2,7 +2,6 @@ package com.rs2.model.content.skills.agility;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.Player;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;

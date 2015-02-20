@@ -14,7 +14,6 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
-import com.rs2.model.content.randomevents.InterfaceClicking.impl.SandwichLady;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.farming.Farmers;
 import com.rs2.model.content.skills.magic.Teleportation;

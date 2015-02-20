@@ -494,16 +494,16 @@ public class ShieldOfArrav implements Quest {
 	return x >= 2;
     }
     public static void handleDrops(Player player, Npc npc) {
-	if (npc.getNpcId() == 645 && player.getQuestStage(13) == 3) {
-	    GroundItem drop = new GroundItem(new Item(761), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
-	    GroundItemManager.getManager().dropItem(drop);
-	}
-	else if (npc.getNpcId() == 643) {
-	    GroundItem drop = new GroundItem(new Item(767), player, new Position(npc.getPosition().getX(), npc.getPosition().getY(), 1));
-	    GroundItemManager.getManager().dropItem(drop);
-	    GroundItem drop2 = new GroundItem(new Item(767), player, new Position(npc.getPosition().getX(), npc.getPosition().getY(), 1));
-	    GroundItemManager.getManager().dropItem(drop);
-	}
+		if (npc.getNpcId() == 645 && player.getQuestStage(13) == 3) {
+		    GroundItem drop = new GroundItem(new Item(761), player, new Position(npc.getPosition().getX(), npc.getPosition().getY()));
+		    GroundItemManager.getManager().dropItem(drop);
+		}
+		else if (npc.getNpcId() == 643) {
+		    GroundItem drop = new GroundItem(new Item(767), player, new Position(npc.getPosition().getX(), npc.getPosition().getY(), 1));
+		    GroundItemManager.getManager().dropItem(drop);
+		 //   GroundItem drop2 = new GroundItem(new Item(767), player, new Position(npc.getPosition().getX(), npc.getPosition().getY(), 1));
+		    GroundItemManager.getManager().dropItem(drop);
+		}
     }
     
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {

@@ -7,9 +7,6 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class Puzzle {

@@ -194,7 +194,6 @@ public class CbowFletching {
 				player.getUpdateFlags().sendAnimation(STRING_BOW);
 				player.getActionSender().sendSound(2606, 0, 0);
 				String item1Name = new Item(unstrungData.getItem1()).getDefinition().getName();
-				String item2Name = new Item(unstrungData.getItem2()).getDefinition().getName();
 				String finalName = new Item(unstrungData.getFinalItem()).getDefinition().getName();
 				player.getActionSender().sendMessage("You add a string to the "+item1Name+".");
 				player.getInventory().removeItem(new Item(unstrungData.getItem1()));

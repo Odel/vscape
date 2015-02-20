@@ -1,11 +1,9 @@
 package com.rs2.model.content.quests.MonkeyMadness;
 
 import com.rs2.model.Position;
-import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.Puzzle;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
 import java.util.ArrayList;
 
 public class MonkeyMadnessVars {

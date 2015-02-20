@@ -9,7 +9,6 @@ import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
-import com.rs2.util.Misc;
 import java.util.Random;
 
 public class MixingRunes {

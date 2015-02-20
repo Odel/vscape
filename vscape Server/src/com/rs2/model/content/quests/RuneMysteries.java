@@ -26,12 +26,7 @@ public class RuneMysteries implements Quest {
     public static final int QUEST_COMPLETE = 7;
 
     public int dialogueStage = 0;
-    private int reward[][] = {
-	{995, 180}, //itemID, amount
-    };
-
-    private int expReward[][] = {};
-
+    
     private static final int questPointReward = 1;
 
     public int getQuestID() {

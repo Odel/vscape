@@ -1,11 +1,13 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.model.players.Player;
+
 import java.util.ArrayList;
 
 public class QuestVariables {
 
-    private final Player player;
+    @SuppressWarnings("unused")
+	private final Player player;
 
     public boolean waterfallOption1 = false;
     public boolean waterfallOption2 = false;

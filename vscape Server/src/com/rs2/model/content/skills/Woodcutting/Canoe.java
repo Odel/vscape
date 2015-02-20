@@ -153,6 +153,12 @@ public class Canoe {
 						return false;
 					}
 					break;
+				case STABLEDUGOUT:
+					break;
+				case WAKA:
+					break;
+				default:
+					break;
 	       	}
 	        SetCanoeObject(null);
 	        SetCanoeType(null);

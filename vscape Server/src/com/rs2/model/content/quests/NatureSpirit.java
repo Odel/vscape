@@ -387,10 +387,9 @@ public class NatureSpirit implements Quest {
 	return questPointReward;
     }
 
-    public void showInterface(Player player) {
-	String prefix = "";
-	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
-	player.getActionSender().sendString(getQuestName(), 8144);
+    public void showInterface(Player player){
+        player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+        player.getActionSender().sendString(getQuestName(), 8144);
     }
 
     public void dialogue(Player player, Npc npc) {
@@ -1153,7 +1152,6 @@ public class NatureSpirit implements Quest {
 				player.setStopPacket(true);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				    int count = 0;
-				    boolean success = false;
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					if (count == 1) {
@@ -1233,7 +1231,6 @@ public class NatureSpirit implements Quest {
 				player.setStopPacket(true);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				    int count = 0;
-				    boolean success = false;
 				    @Override
 				    public void execute(CycleEventContainer b) {
 					if (count == 1) {

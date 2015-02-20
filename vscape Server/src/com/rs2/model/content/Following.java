@@ -7,7 +7,6 @@ import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;

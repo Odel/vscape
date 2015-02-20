@@ -9,6 +9,7 @@ public class CameraAnglePacketHandler implements PacketHandler {
 
 	public static final int CAMERA_ANGLE = 86;
 
+	@SuppressWarnings("unused")
 	@Override
 	public void handlePacket(Player player, Packet packet) {
 		int a = packet.getIn().readShort();

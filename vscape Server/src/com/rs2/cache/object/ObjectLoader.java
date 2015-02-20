@@ -16,7 +16,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.quests.ChristmasEvent;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.players.GlobalObjectHandler;
 /*import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.GlobalObjectHandler;*/

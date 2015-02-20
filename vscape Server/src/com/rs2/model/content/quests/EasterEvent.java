@@ -9,11 +9,6 @@ public class EasterEvent implements Quest {
     public static final int EVENT_COMPLETE = 10;
     
     public int dialogueStage = 0;
-    private int reward[][] = {
-    };
-    
-    private int expReward[][] = {
-    };
     
     private static final int questPointReward = 0;
 

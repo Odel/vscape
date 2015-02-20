@@ -1,6 +1,5 @@
 package com.rs2.model.players.item.functions;
 
-import com.rs2.model.Position;
 import com.rs2.model.content.Emotes.EMOTE;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;

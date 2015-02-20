@@ -273,7 +273,6 @@ public class AgilityCourses {
 					    player.getUpdateFlags().setUpdateRequired(true);
 					    player.getUpdateFlags().sendAnimation(3487, 0);
 					    CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-						int count = 0;
 						@Override
 						public void execute(CycleEventContainer b) {
 						    b.stop();

@@ -18,14 +18,19 @@ public class PrivateMessaging {
 	}
 
 	public void refresh(boolean logout) {
-		for (int i = 0; i < player.getFriends().length; i ++) {
+		for (int i = 0; i < player.getFriends().length; i++) {
 			if (player.getFriends()[i] == 0) {
+				continue;
+			}
+			if (player.getFriends() == null) {
+				continue;
+			}
+			if (player == null) {
 				continue;
 			}
 			player.getActionSender().sendFriendList(player.getFriends()[i], checkOnlineStatus(player.getFriends()[i]));
 		}
-		
-        long name = player.getUsernameAsLong();
+		long name = player.getUsernameAsLong();
 		int world = logout ? 0 : checkOnlineStatus(name);
 		for (Player players : World.getPlayers()) {
 			if (players == null)

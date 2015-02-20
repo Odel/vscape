@@ -1,6 +1,5 @@
 package com.rs2;
 
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.tick.TickTimer;
 
 import java.io.BufferedReader;

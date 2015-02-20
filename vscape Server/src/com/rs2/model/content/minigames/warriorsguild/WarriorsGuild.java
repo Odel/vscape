@@ -1,7 +1,6 @@
 package com.rs2.model.content.minigames.warriorsguild;
 
 import com.rs2.Constants;
-import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.Position;
 import com.rs2.model.World;
@@ -13,16 +12,14 @@ import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.Tick;
-import com.rs2.task.TaskScheduler;
-import com.rs2.task.Task;
 import com.rs2.util.Misc;
 
 public class WarriorsGuild {
 	private static final Position ENTRANCE = new Position(2605,3153,0);
 	private static final Position EXIT = new Position(2607,3151,0);
 	public static final Position DC_EXIT = new Position(2610, 3148, 0);
-	private static final MinigameAreas.Area NORTH_CAGES = new MinigameAreas.Area(new Position(2614, 3158, 0), new Position(2616, 3170, 0));
-	private static final MinigameAreas.Area WEST_CAGES = new MinigameAreas.Area(new Position(2586, 3142, 0), new Position(2601, 3144, 0));
+	//private static final MinigameAreas.Area NORTH_CAGES = new MinigameAreas.Area(new Position(2614, 3158, 0), new Position(2616, 3170, 0));
+	//private static final MinigameAreas.Area WEST_CAGES = new MinigameAreas.Area(new Position(2586, 3142, 0), new Position(2601, 3144, 0));
 
 	private static void execute(final Player player) {
 		World.submit(new Tick(13) {

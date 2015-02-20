@@ -1,7 +1,6 @@
 package com.rs2.util.sql;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -146,7 +145,6 @@ public class SQL {
 	public static void initHighScores(){
 		createConnection();
 		System.out.println("Updating all highscore entries from save files, this may take a while...");
-		int count = 0;
 		try {
 			File folder = new File(PlayerSave.directoryOld);
 			if(PlayerSave.useNewFormat){
@@ -171,12 +169,12 @@ public class SQL {
 				            {
 				            	continue;
 				            }
-				            int leveltotal = 0;
+				         //   int leveltotal = 0;
 				            long xptotal = 0;
 				            if(skills != null && skills.size() > 0){
 					    		for (int i = 0; i < 22; i++) {
 					    			JsonObject levelObj = skills.get(i).getAsJsonObject();
-					    			leveltotal += levelObj.get("lvl").getAsInt();
+					    	//		leveltotal += levelObj.get("lvl").getAsInt();
 					    			xptotal += levelObj.get("xp").getAsInt();
 					    		}
 				            }

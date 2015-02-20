@@ -52,8 +52,6 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
-import com.rs2.util.clip.ClippedPathFinder;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -452,7 +450,7 @@ public class CombatManager extends Tick {
 	    		final Npc npc = (Npc) died;
 			ClueScroll.handleAttackerDeath((Player)killer, npc);
 			((Player) killer).getSlayer().handleNpcDeath(npc);
-			((Player) killer).getBarrows().handleDeath(((Player)killer), npc);
+			((Player) killer).getBarrows().handleDeath(npc);
 			WarriorsGuild.dropDefender((Player) killer, npc);
 			ShieldOfArrav.handleDrops((Player) killer, npc);
 			DragonSlayer.handleDrops((Player) killer, npc);

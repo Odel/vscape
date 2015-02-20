@@ -20,7 +20,6 @@ import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.pestcontrol.*;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
-import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.InSearchOfTheMyreque;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
@@ -875,8 +874,8 @@ public class WalkToActionHandler {
 					@Override
 					public void execute(CycleEventContainer b) {
 					    player.getActionSender().walkTo(0, player.getPosition().getY() < 3492 ? 2 : -2, true);
-					    GameObject o = new GameObject(1970, 2466, 3492, 0, 2, 10, 1968, 1);
-					    GameObject ob = new GameObject(1969, 2464, 3492, 0, 0, 10, 1967, 1);
+					    new GameObject(1970, 2466, 3492, 0, 2, 10, 1968, 1);
+					    new GameObject(1969, 2464, 3492, 0, 0, 10, 1967, 1);
 					    b.stop();
 					}
 
@@ -2078,7 +2077,6 @@ public class WalkToActionHandler {
 		    npc.setInteractingEntity(player);
 		}
 		World.submit(new Tick(1, true) {
-			int count = 0;
 			@Override
 			public void execute() {
 				if (player == null || !player.checkTask(task) || npc.isDead()) {
@@ -2116,7 +2114,7 @@ public class WalkToActionHandler {
 				    }
 				}
 				Following.resetFollow(player);
-				int id = npc.getNpcId();
+				npc.getNpcId();
 				if(npc.canHaveInteractingEntity()) {
 				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				}

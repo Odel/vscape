@@ -24,12 +24,10 @@ import com.rs2.model.tick.Tick;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.packet.PacketManager;
 import com.rs2.task.TaskScheduler;
-import com.rs2.task.Task;
 import com.rs2.util.*;
 import com.rs2.util.clip.ObjectDef;
 import com.rs2.util.clip.Rangable;
 import com.rs2.util.clip.Region;
-import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 
 import java.io.*;
@@ -38,8 +36,6 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -192,7 +188,7 @@ public class Server implements Runnable {
             RSInterface.load();
 
 			// Load plugins
-			PluginManager.loadPlugins();
+			//PluginManager.loadPlugins();
 
 			// Load regions
 			ObjectDef.loadConfig();
@@ -248,14 +244,9 @@ public class Server implements Runnable {
 					ex.printStackTrace();
 				}
 			}
-			scheduler.schedule(new Task() {
+		/*	scheduler.schedule(new Task() {
 				@Override
 				protected void execute() {
-					if (Thread.interrupted()) {
-						PlayerSave.saveAllPlayers();
-						stop();
-						return;
-					}
 					try {
 						cycle();
 					} catch (Exception ex) {
@@ -264,11 +255,11 @@ public class Server implements Runnable {
 						stop();
 					}
 				}
-			});
+			});*/
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		PluginManager.close();
+		//PluginManager.close();
 	}
 
 	/**
@@ -363,7 +354,7 @@ public class Server implements Runnable {
 
 		// Next, perform game processing.
 		try {
-			PluginManager.tick();
+			//PluginManager.tick();
 			World.process();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -380,11 +371,13 @@ public class Server implements Runnable {
             }
         }
         b.stop();
-        if(infoDisplayCounter == 0)
-        {System.out.println("[ENGINE]: Server load: " + cycle + "% with " + World.playerAmount() + " players");
-        infoDisplayCounter = 300;}
-        else
-        {infoDisplayCounter--;}
+        b.reset();
+        if(infoDisplayCounter == 0){
+        	System.out.println("[ENGINE]: Server load: " + cycle + "% with " + World.playerAmount() + " players");
+        	infoDisplayCounter = 300;
+    	}else{
+        	infoDisplayCounter--;
+    	}
 	}
 
 	/**
@@ -403,6 +396,7 @@ public class Server implements Runnable {
                 b.reset();
             }
 			if (sleep) {
+				cycle = 0;
                 Benchmarks.resetAll();
 				//System.out.println("[ENGINE]: Sleeping for " + sleepTime + "ms");
 				Thread.sleep(sleepTime);

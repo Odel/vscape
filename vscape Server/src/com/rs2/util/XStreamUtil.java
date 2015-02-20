@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.rs2.cache.object.GameObjectData;
-import com.rs2.model.Area.AreaDefinition;
 import com.rs2.model.content.consumables.PotionLoader;
 import com.rs2.model.content.consumables.PotionLoader.PotionDefinition;
 import com.rs2.model.npcs.Npc;

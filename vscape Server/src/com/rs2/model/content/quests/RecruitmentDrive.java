@@ -16,8 +16,10 @@ import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.World;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.content.dialogue.DialogueManager;
+
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
+
 import com.rs2.util.Misc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.ObjectHandler;
@@ -262,7 +264,6 @@ public class RecruitmentDrive implements Quest {
     }
 
     public void showInterface(Player player){
-    	String prefix = "";
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
@@ -328,42 +329,43 @@ public class RecruitmentDrive implements Quest {
 	}, 5);
     }
     
-    public static void enterThirdRoom(final Player player) {
-	boolean occupied = false;
-	for(Player p : World.getPlayers()) {
-	    if(p == null) {
-		continue;
-	    }
-	    if(p.getPosition().getZ() == player.getIndex() * 4) {
-		occupied = true;
-	    }
-	}
-	if(!occupied) {
-	    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 4));
-	} else {
-	    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 16));
-	}
-	int z = player.getPosition().getZ();
-	NpcLoader.spawnNpc(SIR_SPISHYUS, 2488, 4973, z, true, true);
-	CacheObject chicken = ObjectLoader.object(2487, 4974, 0);
-	ObjectHandler.getInstance().removeObject(2487, 4974, z, 10);
-	GameObject o = new GameObject(CHICKEN_OBJ, chicken.getLocation().getX(), chicken.getLocation().getY(), z, chicken.getRotation(), chicken.getType(), 0, 999999, false);
-	CacheObject grain = ObjectLoader.object(2486, 4974, 0);
-	ObjectHandler.getInstance().removeObject(2486, 4974, z, 10);
-	GameObject o2 = new GameObject(GRAIN_OBJ, grain.getLocation().getX(), grain.getLocation().getY(), z, grain.getRotation(), grain.getType(), 0, 999999, false);
-	CacheObject fox = ObjectLoader.object(2485, 4974, 0);
-	ObjectHandler.getInstance().removeObject(2485, 4974, z, 10);
-	GameObject o3 = new GameObject(FOX_OBJ, fox.getLocation().getX(), fox.getLocation().getY(), z, fox.getRotation(), fox.getType(), 0, 999999, false);
-	GameObject o4 = new GameObject(7286, 2483, 4972, z, 0, 10, 0, 999999, false);
-	GameObject o5 = new GameObject(7287, 2477, 4972, z, 0, 10, 0, 999999, false);
-	GameObject o6 = new GameObject(7274, 2477, 4972, z, 2, 0, 0, 999999, false);
-	CacheObject exit = ObjectLoader.object(2487, 4974, 0);
-	GameObject o7 = new GameObject(EXIT_PORTAL_3, exit.getLocation().getX(), exit.getLocation().getY(), z, exit.getRotation(), exit.getType(), 0, 999999, false);
-	CacheObject portal = ObjectLoader.object(2487, 4974, 0);
-	GameObject o8 = new GameObject(THIRD_ROOM_PORTAL, portal.getLocation().getX(), portal.getLocation().getY(), z, portal.getRotation(), portal.getType(), 0, 999999, false);
-	ObjectHandler.getInstance().removeObject(2473, 4970, z, 10);
-	ObjectHandler.getInstance().removeObject(2474, 4970, z, 10);
-	ObjectHandler.getInstance().removeObject(2475, 4970, z, 10);
+    @SuppressWarnings("unused")
+	public static void enterThirdRoom(final Player player) {
+		boolean occupied = false;
+		for(Player p : World.getPlayers()) {
+		    if(p == null) {
+			continue;
+		    }
+		    if(p.getPosition().getZ() == player.getIndex() * 4) {
+			occupied = true;
+		    }
+		}
+		if(!occupied) {
+		    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 4));
+		} else {
+		    player.teleport(THIRD_ROOM.modifyZ(player.getIndex() * 16));
+		}
+		int z = player.getPosition().getZ();
+		NpcLoader.spawnNpc(SIR_SPISHYUS, 2488, 4973, z, true, true);
+		CacheObject chicken = ObjectLoader.object(2487, 4974, 0);
+		ObjectHandler.getInstance().removeObject(2487, 4974, z, 10);
+		GameObject o = new GameObject(CHICKEN_OBJ, chicken.getLocation().getX(), chicken.getLocation().getY(), z, chicken.getRotation(), chicken.getType(), 0, 999999, false);
+		CacheObject grain = ObjectLoader.object(2486, 4974, 0);
+		ObjectHandler.getInstance().removeObject(2486, 4974, z, 10);
+		GameObject o2 = new GameObject(GRAIN_OBJ, grain.getLocation().getX(), grain.getLocation().getY(), z, grain.getRotation(), grain.getType(), 0, 999999, false);
+		CacheObject fox = ObjectLoader.object(2485, 4974, 0);
+		ObjectHandler.getInstance().removeObject(2485, 4974, z, 10);
+		GameObject o3 = new GameObject(FOX_OBJ, fox.getLocation().getX(), fox.getLocation().getY(), z, fox.getRotation(), fox.getType(), 0, 999999, false);
+		GameObject o4 = new GameObject(7286, 2483, 4972, z, 0, 10, 0, 999999, false);
+		GameObject o5 = new GameObject(7287, 2477, 4972, z, 0, 10, 0, 999999, false);
+		GameObject o6 = new GameObject(7274, 2477, 4972, z, 2, 0, 0, 999999, false);
+		CacheObject exit = ObjectLoader.object(2487, 4974, 0);
+		GameObject o7 = new GameObject(EXIT_PORTAL_3, exit.getLocation().getX(), exit.getLocation().getY(), z, exit.getRotation(), exit.getType(), 0, 999999, false);
+		CacheObject portal = ObjectLoader.object(2487, 4974, 0);
+		GameObject o8 = new GameObject(THIRD_ROOM_PORTAL, portal.getLocation().getX(), portal.getLocation().getY(), z, portal.getRotation(), portal.getType(), 0, 999999, false);
+		ObjectHandler.getInstance().removeObject(2473, 4970, z, 10);
+		ObjectHandler.getInstance().removeObject(2474, 4970, z, 10);
+		ObjectHandler.getInstance().removeObject(2475, 4970, z, 10);
     }
     
     public static void openComboLockInterface(final Player player) {

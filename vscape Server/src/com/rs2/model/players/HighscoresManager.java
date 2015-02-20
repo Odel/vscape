@@ -147,6 +147,7 @@ public class HighscoresManager implements Runnable {
 	 * The main method that is called upon logout
      * @param player the player
      */
+	@SuppressWarnings("unused")
 	public void savePlayer(final Player player) {
         if (!running)
             return;

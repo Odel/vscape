@@ -460,19 +460,19 @@ public class Barrows {
 	}
     }
 
-    public static void handleDeath(Player player, Npc npc) {
-	BarrowsBrother brother = BarrowsBrother.forNpcId(npc.getNpcId());
-	if (brother != null) {
-	    player.setBarrowsNpcDead(brother.index, true);
-	    if (player.getSpawnedNpc() == npc) {
-		player.setSpawnedNpc(null);
-	    }
-	    player.setKillCount(player.getKillCount() + 1);
-	}
-	if (monsterDeath(player, npc)) {
-	    player.setKillCount(player.getKillCount() + 1);
-	}
-	player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
+    public void handleDeath(Npc npc) {
+		BarrowsBrother brother = BarrowsBrother.forNpcId(npc.getNpcId());
+		if (brother != null) {
+		    player.setBarrowsNpcDead(brother.index, true);
+		    if (player.getSpawnedNpc() == npc) {
+		    	player.setSpawnedNpc(null);
+		    }
+		    player.setKillCount(player.getKillCount() + 1);
+		}
+		if (monsterDeath(player, npc)) {
+		    player.setKillCount(player.getKillCount() + 1);
+		}
+		player.getActionSender().sendString("Kill count: " + player.getKillCount(), 4536);
     }
 
     public static boolean monsterDeath(Player player, Npc npc) {

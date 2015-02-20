@@ -11,6 +11,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+
 import java.util.Random;
 
 
@@ -22,12 +23,13 @@ public class BarbarianSpirits {
     private static final int PEACEFUL_LEAVING_ANIM = 6724;
     private static final int ANGRY_APPEARING_ANIM = 6725;
     
-    private final Player player;
+    @SuppressWarnings("unused")
+	private final Player player;
     private Npc spiritSummoned;
     
     public BarbarianSpirits(final Player player) {
-	this.player = player;
-	this.spiritSummoned = null;
+    	this.player = player;
+    	this.spiritSummoned = null;
     }
     
     public enum BarbarianSpiritData {

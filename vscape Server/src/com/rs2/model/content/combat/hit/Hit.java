@@ -20,7 +20,6 @@ import static com.rs2.model.content.combat.attacks.SpellAttack.getMultiAncients;
 import com.rs2.model.content.combat.effect.Effect;
 import com.rs2.model.content.combat.effect.EffectTick;
 import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.effect.impl.StatEffect;
 import com.rs2.model.content.combat.effect.impl.StunEffect;
 import com.rs2.model.content.combat.projectile.Projectile;
@@ -258,7 +257,7 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() 
 		&& victim.isNpc() && ((Npc)victim).getNpcId() >= 1351 && ((Npc)victim).getNpcId() < 1357 ) {
-		    Player player = (Player)attacker;
+		 //   Player player = (Player)attacker;
 		    switch(((Npc)victim).getTransformId()) {
 			case HorrorFromTheDeep.WHITE_MOTHER:
 			    if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && HorrorFromTheDeep.isAirSpell(hitDef.getHitGraphic().getId())) {
@@ -306,7 +305,7 @@ public class Hit {
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
 		    Player player = (Player)attacker;
-		    Npc npc = (Npc)victim;
+		   // Npc npc = (Npc)victim;
 		    if(player.getEquipment().getId(Constants.AMULET) == 11128 && player.getEquipment().getItemContainer().get(Constants.WEAPON) != null) {
 			int id = player.getEquipment().getId(Constants.WEAPON);
 			if(id >= 6522 && id < 6529) {
@@ -336,7 +335,8 @@ public class Hit {
 			    final HitDef hitDefMulti = hitDef.clone().randomizeDamage();
 			    if (getVictim().goodDistanceEntity(npcs, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
 				CycleEventHandler.getInstance().addEvent((Player) attacker, new CycleEvent() {
-				    @Override
+				    @SuppressWarnings({ "rawtypes", "unchecked" })
+					@Override
 				    public void execute(CycleEventContainer b) {
 					Hit hit = new Hit(getAttacker(), npcs, hitDefMulti);
 					List<Hit> hitList = new LinkedList<Hit>();
@@ -389,27 +389,28 @@ public class Hit {
 				final HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
 				if (getVictim().goodDistanceEntity(players, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
 				    CycleEventHandler.getInstance().addEvent((Player) attacker, new CycleEvent() {
+					@SuppressWarnings({ "rawtypes", "unchecked" })
 					@Override
 					public void execute(CycleEventContainer b) {
 					    Hit hit = new Hit(getAttacker(), players, hitDefMulti);
 					    List<Hit> hitList = new LinkedList<Hit>();
 					    hitList.add(hit);
 					    if (spell.getRequiredEffect() != null) {
-						EffectTick t = spell.getRequiredEffect().generateTick(attacker, players);
-						if (t != null) {
-						    players.addEffect(t);
-						    World.getTickManager().submit(t);
-						}
-						spell.getRequiredEffect().onInit(hit, t);
+							EffectTick t = spell.getRequiredEffect().generateTick(attacker, players);
+							if (t != null) {
+							    players.addEffect(t);
+							    World.getTickManager().submit(t);
+							}
+							spell.getRequiredEffect().onInit(hit, t);
 					    }
 
 					    if (spell.getAdditionalEffect() != null) {
-						EffectTick t2 = spell.getAdditionalEffect().generateTick(attacker, players);
-						if (t2 != null) {
-						    players.addEffect(t2);
-						    World.getTickManager().submit(t2);
-						}
-						spell.getAdditionalEffect().onInit(hit, t2);
+							EffectTick t2 = spell.getAdditionalEffect().generateTick(attacker, players);
+							if (t2 != null) {
+							    players.addEffect(t2);
+							    World.getTickManager().submit(t2);
+							}
+							spell.getAdditionalEffect().onInit(hit, t2);
 					    }
 					    hit.execute(hitList);
 					    players.hit(Misc.random(hitDefMulti.getDamage()), HitType.NORMAL);

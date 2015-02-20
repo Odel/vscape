@@ -308,10 +308,10 @@ public class Player extends Entity {
 	private boolean killedTreeSpirit;
 	private boolean resetbank;
 	public SantaEncounter santaEncounter = new SantaEncounter(this);
-	public static boolean snowballsReady = false;
-	public static boolean snowballsTimerRunning = false;
-	public static boolean encounterRunning = false;
-	public static boolean skillCapeBoost = false;
+	public boolean snowballsReady = false;
+	public boolean snowballsTimerRunning = false;
+	public boolean encounterRunning = false;
+	public boolean skillCapeBoost = false;
 	private boolean killedJungleDemon;
 	private int prayerIcon = -1;
 	private int skullIcon = -1;
@@ -450,7 +450,7 @@ public class Player extends Entity {
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
 
-	private int drunkTimer;
+	private int drunkTimer = 0;
 	private boolean isDrunk;
 	
 	private int pcDamage = 0;
@@ -460,10 +460,10 @@ public class Player extends Entity {
 	private int guthixCasts = 0;
 	private int mageArenaStage = 0;
 	private int[] degradeableHits = new int[26];
-	private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
+	//private ArrayList<BoneBurying.Bone> bonesGround = new ArrayList<BoneBurying.Bone>();
 	private ArrayList<BoneBurying.Bone> bonesInBin = new ArrayList<BoneBurying.Bone>();
-	private boolean bonesGrinded = false;
-	private boolean secondTryAtBin = false;
+	//private boolean bonesGrinded = false;
+//	private boolean secondTryAtBin = false;
 	private int ectoWorshipCount = 0;
 	private Canoe canoe = new Canoe(this);
     private String currentChannel = null;
@@ -471,11 +471,8 @@ public class Player extends Entity {
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
     private boolean inJail = false;
     private DesertHeat desertHeat = new DesertHeat(this);
-    
     private int castleWarsTeam = -1;
-    
     private boolean ironman = false;
-    
     private int minloggedout = 0;
     
 	public void resetAnimation() {
@@ -2190,7 +2187,7 @@ public class Player extends Entity {
 		isDrunk = state;
 		if(isDrunk)
 		{
-			drunkTimer = time;
+			setDrunkTimer(time);
 			setStandAnim(3040);
 			setWalkAnim(2769);
 			setRunAnim(2769);
@@ -4689,7 +4686,7 @@ public class Player extends Entity {
 	    }
 	    long diff = d2.getTime() - d1.getTime();
 	    long diffMinutes = diff / (60 * 1000) % 60;
-	    long diffHours = diff / (60 * 60 * 1000);
+	  //  long diffHours = diff / (60 * 60 * 1000);
 	    
 	    //System.out.println("Time in minutes: " + diffMinutes + " minutes.");
 	    //System.out.println("Time in hours: " + diffHours + " hours.");
@@ -4721,6 +4718,22 @@ public class Player extends Entity {
 			getSpecialPlantOne().doCalculations();
 			getSpecialPlantTwo().doCalculations();
 		}
+	}
+
+	public int getDrunkTimer() {
+		return drunkTimer;
+	}
+
+	public void setDrunkTimer(int drunkTimer) {
+		this.drunkTimer = drunkTimer;
+	}
+
+	public int getInnoculationBraceletLife() {
+		return innoculationBraceletLife;
+	}
+
+	public void setInnoculationBraceletLife(int innoculationBraceletLife) {
+		this.innoculationBraceletLife = innoculationBraceletLife;
 	}
 
 }

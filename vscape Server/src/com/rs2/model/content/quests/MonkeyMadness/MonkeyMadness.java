@@ -616,9 +616,8 @@ public class MonkeyMadness implements Quest {
     }
 
     public void showInterface(Player player) {
-	String prefix = "";
-	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
-	player.getActionSender().sendString(getQuestName(), 8144);
+    	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
+    	player.getActionSender().sendString(getQuestName(), 8144);
     }
 
     public void dialogue(Player player, Npc npc) {
@@ -894,9 +893,12 @@ public class MonkeyMadness implements Quest {
 		    @Override
 		    public void execute(CycleEventContainer b) {
 			player.getActionSender().walkTo(0, player.getPosition().getY() < 2766 ? 2 : -2, true);
-			GameObject o = new GameObject(4790, 2722, 2766, 0, 2, 10, -1, 1);
+			/*GameObject o = new GameObject(4790, 2722, 2766, 0, 2, 10, -1, 1);
 			GameObject ob = new GameObject(Constants.EMPTY_OBJECT, 2721, 2766, 0, 2, 10, 4788, 1);
-			GameObject oc = new GameObject(4789, 2719, 2766, 0, 0, 10, 4787, 1);
+			GameObject oc = new GameObject(4789, 2719, 2766, 0, 0, 10, 4787, 1); */
+			new GameObject(4790, 2722, 2766, 0, 2, 10, -1, 1);
+			new GameObject(Constants.EMPTY_OBJECT, 2721, 2766, 0, 2, 10, 4788, 1);
+			new GameObject(4789, 2719, 2766, 0, 0, 10, 4787, 1);
 			b.stop();
 		    }
 

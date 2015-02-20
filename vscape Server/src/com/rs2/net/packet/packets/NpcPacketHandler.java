@@ -9,7 +9,6 @@ import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.GhostsAhoyPetition;
 import com.rs2.model.content.quests.HeroesQuest;
-import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.TheGrandTree;
 import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.quests.WaterfallQuest;

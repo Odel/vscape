@@ -16,7 +16,6 @@ import java.util.zip.GZIPOutputStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rs2.Constants;
-import com.rs2.GlobalVariables;
 import com.rs2.Server;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
@@ -570,6 +569,7 @@ public class PlayerSave {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	public static int loadQuests(Player player) throws IOException {
     	if(!useNewFormat || (useNewFormat && !hasNewFormat(player)))
     	{

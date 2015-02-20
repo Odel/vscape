@@ -95,7 +95,6 @@ public class MacheteCrafting {
 						return;
 					}
 					String item1 = new Item(macheteData.getGemId()).getDefinition().getName().toLowerCase();
-					String item2 = new Item(macheteData.getMacheteId()).getDefinition().getName().toLowerCase();
 					player.getInventory().removeItem(new Item(MACHETE, 1));
 					if (player.getInventory().removeItemSlot(new Item(itemId), slot)) {
 						player.getInventory().removeItem(new Item(itemId, macheteData.getGemsRequired()-1));

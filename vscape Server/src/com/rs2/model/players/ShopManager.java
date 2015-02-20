@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.players.container.Container;
@@ -226,6 +227,7 @@ public class ShopManager {
 			pricePerItem[i-1] = itemPrice;
 		}
 		int itemsAboveZero = 0;
+		@SuppressWarnings("unused")
 		int itemsZero = 0;
 		for(int i = 0; i < amount; i++)
 		{

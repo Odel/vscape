@@ -26,12 +26,8 @@ public class RomeoAndJuliet implements Quest {
                 COMPLETE = 8;
                
     public static int dialogueStage = 0, questStage = 0;
-    private int reward[][] = {
-    };
-    private int expReward[][] = {
-    };
-       
-        private static final int questPointReward = 5;
+
+    private static final int questPointReward = 5;
  
     public int getQuestID() {
         return 16;

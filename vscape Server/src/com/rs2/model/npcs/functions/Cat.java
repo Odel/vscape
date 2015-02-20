@@ -15,13 +15,13 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class Cat {
-	
+/*	
 	private final int[] catItems = {
 		1555,1556,1557,1558,1559,1560,
 		1561,1562,1563,1564,1565,1566,
 		1567,1568,1569,1570,1571,1572
 	};
-	
+*/	
 	private final int[] validFood = {
 		315,317,319,321,325,327,329,331,
 		333,335,337,338,339,341,345,347,
@@ -468,6 +468,6 @@ public class Cat {
 	private boolean hungry = false;
 	private boolean hungerMessage = false, hungerMessage2 = false;
 	private int attentionTime = 0;
-	private final int maxAttentionTime = 20;
+	//private final int maxAttentionTime = 20;
 	private int ratsCaught = 0;
 }

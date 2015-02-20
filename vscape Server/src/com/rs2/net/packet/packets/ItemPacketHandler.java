@@ -11,7 +11,6 @@ import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
-import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.DemonSlayer;

@@ -18,7 +18,6 @@ import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.PLAIN_EVIL;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.dialogue.Dialogues.sendDialogue;
 import static com.rs2.model.content.dialogue.Dialogues.startDialogue;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;

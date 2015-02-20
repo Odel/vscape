@@ -28,7 +28,7 @@ import com.rs2.util.Misc;
 
 public class ApeAtoll {
 
-    private static final int[] MAIN_COORDS = {2755, 2784};
+    //private static final int[] MAIN_COORDS = {2755, 2784};
 
     public static final int PYRE_TRAPDOOR = 4879;
     public static final int PYRE_TRAPDOOR_OPEN = 4880;
