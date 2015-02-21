@@ -717,7 +717,7 @@ public class MonkeyMadness implements Quest {
     
     public static void spawnFinalFightNpcs(final Player player, final int z) {
 	for(FinalFightNpcs n : FinalFightNpcs.values()) {
-	    player.getMMVars().getFinalFightNpcs().add(n.spawnNpc(z, player));
+	    player.getMMVars().getFinalFightNpcs().add(ApeAtollNpcs.spawnFinalFightNpc(n, z, player));
 	    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, n.getPosition(), 0);
 	}   
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
