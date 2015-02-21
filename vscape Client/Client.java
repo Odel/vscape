@@ -14,10 +14,13 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.4e";
+	private final static String CLIENT_VERSION = "3.5";
 	
 	public final static boolean DevMode = true;
 	public final static boolean MusicEnabled = true;
+	
+	//MAKE FALSE WHEN BUILDING LIVE CLIENTS
+	public final static boolean CACHE_DEV_BRANCH = true;
 	
 	public static int REGULAR_WIDTH = 765, REGULAR_HEIGHT = 503;
 	
@@ -322,73 +325,73 @@ public class Client extends RSApplet {
 		int textColor[] = { 65280, 0xffff00, 0xff0000, 65535 };
 		switch(cButtonCPos) {
 		case 0:
-			cacheSprite[1].drawSprite(5, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(5, y + 142);
 			break;
 		case 1:
-			cacheSprite[1].drawSprite(71, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(71, y + 142);
 			break;
 		case 2:
-			cacheSprite[1].drawSprite(137, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(137, y + 142);
 			break;
 		case 3:
-			cacheSprite[1].drawSprite(203, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(203, y + 142);
 			break;
 		case 4:
-			cacheSprite[1].drawSprite(269, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(269, y + 142);
 			break;
 		case 5:
-			cacheSprite[1].drawSprite(335, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(335, y + 142);
 			break;
 		case 6:
-			cacheSprite[1].drawSprite(401, y + 142);
+			SpriteLoader.getSprite("chat", 1).drawSprite(401, y + 142);
 			break;
 		}
 		if(cButtonHPos == cButtonCPos) {
 			switch(cButtonHPos) {
 			case 0:
-				cacheSprite[2].drawSprite(5, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(5, y + 142);
 				break;
 			case 1:
-				cacheSprite[2].drawSprite(71, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(71, y + 142);
 				break;
 			case 2:
-				cacheSprite[2].drawSprite(137, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(137, y + 142);
 				break;
 			case 3:
-				cacheSprite[2].drawSprite(203, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(203, y + 142);
 				break;
 			case 4:
-				cacheSprite[2].drawSprite(269, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(269, y + 142);
 				break;
 			case 5:
-				cacheSprite[2].drawSprite(335, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(335, y + 142);
 				break;
 			case 6:
-				cacheSprite[2].drawSprite(401, y + 142);
+				SpriteLoader.getSprite("chat", 2).drawSprite(401, y + 142);
 				break;
 			}
 		} else {
 			switch(cButtonHPos) {
 			case 0:
-				cacheSprite[0].drawSprite(5, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(5, y + 142);
 				break;
 			case 1:
-				cacheSprite[0].drawSprite(71, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(71, y + 142);
 				break;
 			case 2:
-				cacheSprite[0].drawSprite(137, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(137, y + 142);
 				break;
 			case 3:
-				cacheSprite[0].drawSprite(203, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(203, y + 142);
 				break;
 			case 4:
-				cacheSprite[0].drawSprite(269, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(269, y + 142);
 				break;
 			case 5:
-				cacheSprite[0].drawSprite(335, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(335, y + 142);
 				break;
 			case 6:
-				cacheSprite[0].drawSprite(401, y + 142);
+				SpriteLoader.getSprite("chat", 0).drawSprite(401, y + 142);
 				break;
 			}
 		}
@@ -396,13 +399,13 @@ public class Client extends RSApplet {
 		smallText.method389(true, 86, 0xffffff, "Game", clientSize == 0 ? 152 : clientHeight - 12);
 		smallText.method389(true, 150, 0xffffff, "Public", clientSize == 0 ? 152 : clientHeight - 12);
 		smallText.method389(true, 212, 0xffffff, "Private", clientSize == 0 ? 152 : clientHeight - 12);
-		smallText.method389(true, 286, 0xffffff, "Duel", clientSize == 0 ? 152 : clientHeight - 12);
+		smallText.method389(true, 286, 0xffffff, "Clan", clientSize == 0 ? 152 : clientHeight - 12);
 		smallText.method389(true, 349, 0xffffff, "Trade", clientSize == 0 ? 152 : clientHeight - 12);
 		smallText.method389(true, 411, 0xffffff, "Global", clientSize == 0 ? 152 : clientHeight - 12);
 		smallText.method382(gameTextColor[gameMode], 100, gameText[gameMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[publicChatMode], 164, text[publicChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[privateChatMode], 230, text[privateChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
-		smallText.method382(textColor[duelMode], 296, text[duelMode], clientSize == 0 ? 163 : clientHeight - 1, true);
+		smallText.method382(textColor[clanChatMode], 296, text[clanChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[tradeMode], 362, text[tradeMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(globalTextColor[globalMode], 428, globalText[globalMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 	}
@@ -414,7 +417,7 @@ public class Client extends RSApplet {
 			aRSImageProducer_1166.initDrawingArea();
 		
 		if (clientSize == 0){
-			cacheSprite[25].drawSprite(0, y);
+			SpriteLoader.getSprite("chat", 4).drawSprite(0, y);
 			mascotChat.draw24BitSprite(7, y+6);
 		}
 		
@@ -422,13 +425,13 @@ public class Client extends RSApplet {
 			y = clientHeight - 165;
 		 
 		if (clientSize != 0 && showChat) {
-			cacheSprite[30].drawSprite(0, y - 1);
+			SpriteLoader.getSprite("chat", 5).drawSprite(0, y - 1);
 			DrawingArea.method335(0xccbb9a, y + 6, 506, 129, 200, 7);
 			mascotChat.draw24BitSprite(7, y+6);
 		}
 		
 		if(clientSize != 0) {
-			cacheSprite[31].drawSprite(0, clientHeight - 22);
+			SpriteLoader.getSprite("chat", 6).drawSprite(0, clientHeight - 22);
 		}
 		
 		if (clientSize == 0) {
@@ -656,7 +659,6 @@ public class Client extends RSApplet {
 						}
 					}
 					
-					// CHANGE TO PACKET (CASE 216)
 					if (chatType == 9 && (globalMode == 0 || globalMode == 1)) {
 						if (chatTypeView == 9  || (chatTypeView == 0 && globalMode == 0)) {
 							int xPos = 8;
@@ -684,45 +686,48 @@ public class Client extends RSApplet {
 						}
 					}
 					
-					/*if (chatType == 16) {
-						int j2 = 40;
-						int clanNameWidth = textDrawingArea.getTextWidth(clanname);
-						if (chatTypeView == 11 || chatTypeView == 0) {
-							if (yPos > y && yPos < y + 210)
-								switch (chatRights[k]) {
-								case 1:
-									j2 += clanNameWidth;
-									modIcons[0].drawBackground(j2 - 18,yPos - 12);
-									j2 += 14;
-									break;
-
-								case 2:
-									j2 += clanNameWidth;
-									modIcons[1].drawBackground(j2 - 18,yPos - 12);
-									j2 += 14;
-									break;
-
-								case 3:
-									j2 += clanNameWidth;
-									modIcons[1].drawBackground(j2 - 18,yPos - 12);
-									j2 += 14;
-									break;
-
-								default:
-									j2 += clanNameWidth;
-									break;
-								}
-							textDrawingArea.method385(0, "[", yPos, 8);
-							textDrawingArea.method385(255, "" + clanname + "",yPos, 14);
-							textDrawingArea.method385(0, "]", yPos,clanNameWidth + 14);
-
-							textDrawingArea.method385(0, chatNames[k] + ":",yPos, j2 - 17); // j2
-							j2 += textDrawingArea.getTextWidth(chatNames[k]) + 7;
-							textDrawingArea.method385(0x800000,chatMessages[k], yPos, j2 - 16);// j2
-							amountOfMessages++;
-							//j77++;
+					if (chatType == 16) {
+						if(chatTypeView == 16 || (chatTypeView == 0 && clanChatMode == 0))
+						{
+							int j2 = 40;
+							int clanNameWidth = textDrawingArea.getTextWidth(clanname);
+							if (chatTypeView == 11 || chatTypeView == 0) {
+								if (yPos > y && yPos < y + 210)
+									switch (chatRights[k]) {
+									case 1:
+										j2 += clanNameWidth;
+										modIcons[0].drawBackground(j2 - 18,yPos - 12);
+										j2 += 14;
+										break;
+	
+									case 2:
+										j2 += clanNameWidth;
+										modIcons[1].drawBackground(j2 - 18,yPos - 12);
+										j2 += 14;
+										break;
+	
+									case 3:
+										j2 += clanNameWidth;
+										modIcons[1].drawBackground(j2 - 18,yPos - 12);
+										j2 += 14;
+										break;
+	
+									default:
+										j2 += clanNameWidth;
+										break;
+									}
+								textDrawingArea.method385(0, "[", yPos, 8);
+								textDrawingArea.method385(255, "" + clanname + "",yPos, 14);
+								textDrawingArea.method385(0, "]", yPos,clanNameWidth + 14);
+	
+								textDrawingArea.method385(0, chatNames[k] + ":",yPos, j2 - 17); // j2
+								j2 += textDrawingArea.getTextWidth(chatNames[k]) + 7;
+								textDrawingArea.method385(0x800000,chatMessages[k], yPos, j2 - 16);// j2
+								amountOfMessages++;
+								//j77++;
+							}
 						}
-					}*/
+					}
 				}
 			DrawingArea.defaultDrawingAreaSize();
 			chatScrollMax = amountOfMessages * 14 + 7 + 5;
@@ -2195,9 +2200,6 @@ public class Client extends RSApplet {
 
 	public void drawSideIcons() {
 		if (clientSize == 0) {
-			int[] id = {
-					9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22	
-			};
 			int[] tab = {
 					0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13	
 			};
@@ -2209,16 +2211,11 @@ public class Client extends RSApplet {
 			};
 			for (int i = 0; i < 14; i++) {
 				if (tabInterfaceIDs[tab[i]] != -1) {
-					if (id[i] != -1) {
-						cacheSprite[id[i]].drawSprite(positionX[i], positionY[i]);
-					}
+					SpriteLoader.getSprite("sideicons", i).drawSprite(positionX[i], positionY[i]);
 				}
 			}
 		} else if (clientSize != 0) {
 			if(clientWidth < smallTabs) {
-				int[] id = {
-						9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22	
-				};
 				int[] tab = {
 						0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13	
 				};
@@ -2232,15 +2229,11 @@ public class Client extends RSApplet {
 				};
 				for (int i = 0; i < 14; i++) {
 					if (tabInterfaceIDs[tab[i]] != -1) {
-						if (id[i] != -1) {
-							cacheSprite[id[i]].drawSprite(clientWidth - positionX[i], clientHeight - positionY[i]);
-						}
+						SpriteLoader.getSprite("sideicons", i).drawSprite(clientWidth - positionX[i], clientHeight - positionY[i]);
+
 					}
 				}
 			} else if(clientWidth >= smallTabs) {
-				int[] id = {
-						9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22	
-				};
 				int[] tab = {
 						0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13	
 				};
@@ -2254,9 +2247,7 @@ public class Client extends RSApplet {
 				};
 				for (int i = 0; i < 14; i++) {
 					if (tabInterfaceIDs[tab[i]] != -1) {
-						if (id[i] != -1) {
-							cacheSprite[id[i]].drawSprite(clientWidth - positionX[i], clientHeight - positionY[i]);
-						}
+						SpriteLoader.getSprite("sideicons", i).drawSprite(clientWidth - positionX[i], clientHeight - positionY[i]);
 					}
 				}
 			}
@@ -2268,46 +2259,46 @@ public class Client extends RSApplet {
 			if(tabInterfaceIDs[tabID] != -1) {
 				switch(tabID) {
 				case 0:
-					cacheSprite[4].drawSprite(6, 0);
+					SpriteLoader.getSprite("tabs", 0).drawSprite(6, 0);
 					break;
 				case 1:
-					cacheSprite[8].drawSprite(44, 0);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(44, 0);
 					break;
 				case 2:
-					cacheSprite[8].drawSprite(77, 0);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(77, 0);
 					break;
 				case 3:
-					cacheSprite[8].drawSprite(110, 0);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(110, 0);
 					break;
 				case 4:
-					cacheSprite[8].drawSprite(143, 0);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(143, 0);
 					break;
 				case 5:
-					cacheSprite[8].drawSprite(176, 0);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(176, 0);
 					break;
 				case 6:
-					cacheSprite[5].drawSprite(209, 0);
+					SpriteLoader.getSprite("tabs", 1).drawSprite(209, 0);
 					break;
 				case 7:
-					cacheSprite[6].drawSprite(6, 298);
+					SpriteLoader.getSprite("tabs", 2).drawSprite(6, 298);
 					break;
 				case 8:
-					cacheSprite[8].drawSprite(44, 298);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(44, 298);
 					break;
 				case 9:
-					cacheSprite[8].drawSprite(77, 298);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(77, 298);
 					break;
 				case 10:
-					cacheSprite[8].drawSprite(110, 298);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(110, 298);
 					break;
 				case 11:
-					cacheSprite[8].drawSprite(143, 298);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(143, 298);
 					break;
 				case 12:
-					cacheSprite[8].drawSprite(176, 298);
+					SpriteLoader.getSprite("tabs", 4).drawSprite(176, 298);
 					break;
 				case 13:
-					cacheSprite[7].drawSprite(209, 298);
+					SpriteLoader.getSprite("tabs", 3).drawSprite(209, 298);
 					break;
 				}
 			}
@@ -2319,46 +2310,46 @@ public class Client extends RSApplet {
 					}
 					switch(tabID) {
 					case 0:
-						cacheSprite[4].drawSprite(clientWidth - 241, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 0).drawSprite(clientWidth - 241, clientHeight - 73);
 						break;
 					case 1:
-						cacheSprite[8].drawSprite(clientWidth - 202, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 202, clientHeight - 73);
 						break;
 					case 2:
-						cacheSprite[8].drawSprite(clientWidth - 170, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 170, clientHeight - 73);
 						break;
 					case 3:
-						cacheSprite[8].drawSprite(clientWidth - 138, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 138, clientHeight - 73);
 						break;
 					case 4:
-						cacheSprite[8].drawSprite(clientWidth - 104, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 104, clientHeight - 73);
 						break;
 					case 5:
-						cacheSprite[8].drawSprite(clientWidth - 71, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 71, clientHeight - 73);
 						break;
 					case 6:
-						cacheSprite[5].drawSprite(clientWidth - 38, clientHeight - 73);
+						SpriteLoader.getSprite("tabs", 1).drawSprite(clientWidth - 38, clientHeight - 73);
 						break;
 					case 7:
-						cacheSprite[6].drawSprite(clientWidth - 241, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 2).drawSprite(clientWidth - 241, clientHeight - 37);
 						break;
 					case 8:
-						cacheSprite[8].drawSprite(clientWidth - 202, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 202, clientHeight - 37);
 						break;
 					case 9:
-						cacheSprite[8].drawSprite(clientWidth - 170, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 170, clientHeight - 37);
 						break;
 					case 10:
-						cacheSprite[8].drawSprite(clientWidth - 138, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 138, clientHeight - 37);
 						break;
 					case 11:
-						cacheSprite[8].drawSprite(clientWidth - 104, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 104, clientHeight - 37);
 						break;
 					case 12:
-						cacheSprite[8].drawSprite(clientWidth - 71, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 71, clientHeight - 37);
 						break;
 					case 13:
-						cacheSprite[7].drawSprite(clientWidth - 38, clientHeight - 37);
+						SpriteLoader.getSprite("tabs", 3).drawSprite(clientWidth - 38, clientHeight - 37);
 						break;
 					}
 				}
@@ -2369,46 +2360,46 @@ public class Client extends RSApplet {
 					}
 					switch(tabID) {
 					case 0:
-						cacheSprite[8].drawSprite(clientWidth - 462, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 462, clientHeight - 36);
 						break;
 					case 1:
-						cacheSprite[8].drawSprite(clientWidth - 429, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 429, clientHeight - 36);
 						break;
 					case 2:
-						cacheSprite[8].drawSprite(clientWidth - 396, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 396, clientHeight - 36);
 						break;
 					case 3:
-						cacheSprite[8].drawSprite(clientWidth - 363, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 363, clientHeight - 36);
 						break;
 					case 4:
-						cacheSprite[8].drawSprite(clientWidth - 330, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 330, clientHeight - 36);
 						break;
 					case 5:
-						cacheSprite[8].drawSprite(clientWidth - 297, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 297, clientHeight - 36);
 						break;
 					case 6:
-						cacheSprite[8].drawSprite(clientWidth - 264, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 264, clientHeight - 36);
 						break;
 					case 7:
-						cacheSprite[8].drawSprite(clientWidth - 231, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 231, clientHeight - 36);
 						break;
 					case 8:
-						cacheSprite[8].drawSprite(clientWidth - 198, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 198, clientHeight - 36);
 						break;
 					case 9:
-						cacheSprite[8].drawSprite(clientWidth - 165, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 165, clientHeight - 36);
 						break;
 					case 10:
-						cacheSprite[8].drawSprite(clientWidth - 132, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 132, clientHeight - 36);
 						break;
 					case 11:
-						cacheSprite[8].drawSprite(clientWidth - 99, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 99, clientHeight - 36);
 						break;
 					case 12:
-						cacheSprite[8].drawSprite(clientWidth - 66, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 66, clientHeight - 36);
 						break;
 					case 13:
-						cacheSprite[8].drawSprite(clientWidth - 33, clientHeight - 36);
+						SpriteLoader.getSprite("tabs", 4).drawSprite(clientWidth - 33, clientHeight - 36);
 						break;
 					}
 				}
@@ -2421,25 +2412,25 @@ public class Client extends RSApplet {
 			aRSImageProducer_1163.initDrawingArea();
 		}
 		if(clientSize == 0) {
-			cacheSprite[23].drawSprite(0, 0);
+			SpriteLoader.getSprite("tabs", 5).drawSprite(0, 0);
 			mascotInv.draw24BitSprite(30, 37);
 		}
 		Texture.anIntArray1472 = anIntArray1181;
 		int y = clientWidth >= smallTabs ? 37 : 74;
 		if(clientSize != 0) {
 			if(clientWidth >= smallTabs) {
-				cacheSprite[27].drawSprite(clientWidth - 461, clientHeight - 36);
+				SpriteLoader.getSprite("tabs", 6).drawSprite(clientWidth - 461, clientHeight - 36);
 			} else {
-				cacheSprite[28].drawSprite(clientWidth - 241, clientHeight - 73);
+				SpriteLoader.getSprite("tabs", 7).drawSprite(clientWidth - 241, clientHeight - 73);
 			}
 		}	
 		if (showTab) {
 			if(clientWidth >= smallTabs) {
-				cacheSprite[29].drawSprite(clientWidth - 204, clientHeight - 310);
+				SpriteLoader.getSprite("tabs", 8).drawSprite(clientWidth - 204, clientHeight - 310);
 				DrawingArea.method335(0x50463C, clientHeight - 303, 190, 260, 100, clientWidth - 197);
 				mascotInv.draw24BitSprite(clientWidth - 198, clientHeight - 303);
 			} else {
-				cacheSprite[29].drawSprite(clientWidth - 222, clientHeight - 346);
+				SpriteLoader.getSprite("tabs", 8).drawSprite(clientWidth - 222, clientHeight - 346);
 				DrawingArea.method335(0x50463C, clientHeight - 339, 190, 260, 100, clientWidth - 216);
 				mascotInv.draw24BitSprite(clientWidth - 216, clientHeight - 339);
 			}
@@ -4639,17 +4630,17 @@ public class Client extends RSApplet {
 			inputTaken = true;
 		}
 		if (l == 983) {
-			duelMode = 2;
+			clanChatMode = 2;
 			inputTaken = true;
 			saveChatSettings();
 		}
 		if (l == 982) {
-			duelMode = 1;
+			clanChatMode = 1;
 			inputTaken = true;
 			saveChatSettings();
 		}
 		if (l == 981) {
-			duelMode = 0;
+			clanChatMode = 0;
 			inputTaken = true;
 			saveChatSettings();
 		}
@@ -5360,7 +5351,6 @@ public class Client extends RSApplet {
 		background = null;
 		mascotInv = null;
 		mascotChat = null;
-		cacheSprite = null;
 		mapBack = null;
 		sideIcons = null;
 		compass = null;
@@ -5824,7 +5814,7 @@ public class Client extends RSApplet {
 				}
 				l++;
 			}
-			if (chatTypeView == 4 && j1 == 8 && (duelMode == 0 || duelMode == 1 && isFriendOrSelf(s))) {
+			if (chatTypeView == 4 && j1 == 8 && (tradeMode == 0 || tradeMode == 1 && isFriendOrSelf(s))) {
 				if (j > k1 - 14 && j <= k1) {
 					menuActionName[menuActionRow] = "Accept challenge @whi@" + s;
 					menuActionID[menuActionRow] = 6;
@@ -6234,6 +6224,70 @@ public class Client extends RSApplet {
 			class9.message = setSkillHover(j);
 			return;
 		}
+		if (j == 20000) {
+			int i1 = clanCount;
+			if (anInt900 != 2)
+				i1 = 0;
+			class9.scrollMax = i1 * 15 + 20;
+			if (class9.scrollMax <= class9.height)
+				class9.scrollMax = class9.height + 1;
+			return;
+		}
+		if (j >= 20001 && j <= 20101) {
+			int k = clanCount;
+			int pos = j - 20001;
+			RSInterface chatIcon = RSInterface.interfaceCache[class9.id-101];
+			if (pos >= k) {
+				chatIcon.sprite1 = chatIcon.sprite2 = null;
+				class9.message = "";
+				class9.atActionType = 0;
+				return;
+			} else {
+				String chatMember = clanList[pos];
+				if(chatMember.length() > 0){
+					byte ccByte = 0;
+					if(chatMember.startsWith("@cc1@"))
+					{
+						chatMember = chatMember.substring(5);
+						ccByte = 1;
+					}
+					if(chatMember.startsWith("@cc2@"))
+					{
+						chatMember = chatMember.substring(5);
+						ccByte = 2;
+					}
+					if(chatMember.startsWith("@cc3@"))
+					{
+						chatMember = chatMember.substring(5);
+						ccByte = 3;
+					}
+					chatMember = TextClass.fixName(chatMember);
+					if(ccByte == 0)
+					{
+						chatIcon.sprite1 = chatIcon.sprite2 = null;
+						if(isFriendOrSelf(chatMember) && !chatMember.equals(myPlayer.name))
+						{
+							chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 0);
+						}
+					}
+					if(ccByte == 1)
+					{
+						chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 1);
+					}
+					if(ccByte == 2)
+					{
+						chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 3);
+					}
+					if(ccByte == 3)
+					{
+						chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 2);
+					}
+					class9.message = chatMember;
+					class9.atActionType = 1;
+				}
+				return;
+			}
+		}
 	}
 	
 	public int getXPForLevel(int level) {
@@ -6422,6 +6476,12 @@ public class Client extends RSApplet {
 					tabID = 6;
 					tabAreaAltered = true;
 				}
+				if(super.saveClickX >= 524 && super.saveClickX <= 561 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[7] != -1)
+				{
+					needDrawTabArea = true;
+					tabID = 7;
+					tabAreaAltered = true;
+				}
 				if(super.saveClickX >= 562 && super.saveClickX <= 594 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[8] != -1)
 				{
 					needDrawTabArea = true;
@@ -6563,6 +6623,21 @@ public class Client extends RSApplet {
 							showTab = true;
 						}
 						tabID = tab[6];
+						needDrawTabArea = true;
+						tabAreaAltered = true;
+
+					}
+					if (super.saveClickX >= clientWidth - 241
+							&& super.saveClickX <= clientWidth - 204
+							&& super.saveClickY >= clientHeight - 37
+							&& super.saveClickY < clientHeight - 0
+							&& tabInterfaceIDs[7] != -1) {
+						if (tabID == tab[7]) {
+							showTab = !showTab;
+						} else {
+							showTab = true;
+						}
+						tabID = tab[7];
 						needDrawTabArea = true;
 						tabAreaAltered = true;
 
@@ -6891,7 +6966,7 @@ public class Client extends RSApplet {
 		aRSImageProducer_1166 = new RSImageProducer(516, 165, getGameComponent());//chat back
 		aRSImageProducer_1164 = new RSImageProducer(249, 168, getGameComponent());//mapback
 		DrawingArea.setAllPixelsToZero();
-		cacheSprite[24].drawSprite(0, 0);
+		SpriteLoader.getSprite("map", 0).drawSprite(0, 0);
 		aRSImageProducer_1163 = new RSImageProducer(250, 335, getGameComponent());//inventory
 		aRSImageProducer_1165 = new RSImageProducer(512, 334, getGameComponent());//gamescreen
 		DrawingArea.setAllPixelsToZero();
@@ -6973,13 +7048,13 @@ public class Client extends RSApplet {
 			menuActionID[4] = 989;
 			menuActionRow = 5;
 		} else if(super.mouseX >= 269 && super.mouseX <= 325 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
-			menuActionName[1] = "Off duel";
+			menuActionName[1] = "Off clan";
 			menuActionID[1] = 983;
-			menuActionName[2] = "Friends duel";
+			menuActionName[2] = "Friends clan";
 			menuActionID[2] = 982;
-			menuActionName[3] = "On duel";
+			menuActionName[3] = "On clan";
 			menuActionID[3] = 981;
-			menuActionName[4] = "View duel";
+			menuActionName[4] = "View clan";
 			menuActionID[4] = 980;
 			menuActionRow = 5;
 		} else if(super.mouseX >= 335 && super.mouseX <= 391 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
@@ -7303,6 +7378,7 @@ public class Client extends RSApplet {
 				anInt900 = 0;
 				friendsCount = 0;
 				ignoreCount = 0;
+				clanCount = 0;
 				dialogID = -1;
 				backDialogID = -1;
 				openInterfaceID = -1;
@@ -8094,7 +8170,6 @@ public class Client extends RSApplet {
 			this.mediaStreamLoader = streamLoader_2;
 			try {
 				SpriteLoader.loadSprites(streamLoader_2);
-				cacheSprite = SpriteLoader.sprites;
 			} catch (Exception e) {
 				System.out.println("Unable to load sprite cache.");
 			}
@@ -8953,6 +9028,19 @@ public class Client extends RSApplet {
 			return false;
 		}
 	}
+	
+	private boolean buildClanChatMenu(RSInterface class9) {
+		int i = class9.contentType;
+		if (i >= 20001 && i <= 20101) {
+			int pos = i - 20001;
+			menuActionName[menuActionRow] = "Kick @whi@" + clanList[pos];
+			menuActionID[menuActionRow] = -1;
+			menuActionRow++;
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	private void method104() {
 		Animable_Sub3 class30_sub2_sub4_sub3 = (Animable_Sub3) aClass19_1056.reverseGetFirst();
@@ -8987,7 +9075,7 @@ public class Client extends RSApplet {
 				int tabs = Integer.parseInt(RSInterface.interfaceCache[50022].message);//# of tabs used
 				int tab = Integer.parseInt(RSInterface.interfaceCache[50023].message);//current tab selected
 				for (int i = 0; i <= tabs; i++) {
-					RSInterface.interfaceCache[50003+i].sprite1 = cacheSprite[71];
+					RSInterface.interfaceCache[50003+i].sprite1 = SpriteLoader.getSprite("bank", 14);
 					RSInterface.interfaceCache[50003+i].tooltip = "Click here to select tab " + (int)(i+1);
 				}
 				for (int i = tabs+1; i <= 8; i++) {
@@ -8995,14 +9083,14 @@ public class Client extends RSApplet {
 					RSInterface.interfaceCache[50002+i].tooltip = "";
 				}
 				if(tabs != 8) {
-					RSInterface.interfaceCache[50003+tabs].sprite1 = cacheSprite[72];
+					RSInterface.interfaceCache[50003+tabs].sprite1 = SpriteLoader.getSprite("bank", 15);
 					RSInterface.interfaceCache[50003+tabs].tooltip = "Drag an item here to create a new tab";
 				}
 				if(tab > 0) {
-					RSInterface.interfaceCache[50002+tab].sprite1 = cacheSprite[70];
-					RSInterface.interfaceCache[50002].sprite1 = cacheSprite[69];
+					RSInterface.interfaceCache[50002+tab].sprite1 = SpriteLoader.getSprite("bank", 13);
+					RSInterface.interfaceCache[50002].sprite1 = SpriteLoader.getSprite("bank", 12);
 				} else {
-					RSInterface.interfaceCache[50002].sprite1 = cacheSprite[68];
+					RSInterface.interfaceCache[50002].sprite1 = SpriteLoader.getSprite("bank", 11);
 					//TODO: Highlight first item
 				}
 				RSInterface.interfaceCache[50021].message = "0";
@@ -10679,10 +10767,10 @@ public class Client extends RSApplet {
 				if(abyte0[i5] == 0)
 					ai[i5] = 0;*/
 			if(clientSize == 0) {
-				cacheSprite[32].drawSprite(0, 0);
+				SpriteLoader.getSprite("map", 2).drawSprite(0, 0);
 			}
 			if(clientSize != 0) {
-				cacheSprite[34].drawSprite(clientWidth - 238, 3);
+				SpriteLoader.getSprite("map", 4).drawSprite(clientWidth - 238, 3);
 			}
 			compass.method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 4 : 4 + 3), (clientSize == 0 ? 34 - 5 : clientWidth + 34 - 5 - 238), 33, 25);
 			drawOrbs();
@@ -10788,15 +10876,15 @@ public class Client extends RSApplet {
 		}
 		
 		if(clientSize != 0) {
-			cacheSprite[33].drawSprite(clientWidth - 238, 3);
+			SpriteLoader.getSprite("map", 3).drawSprite(clientWidth - 238, 3);
 			compass.method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, (clientSize == 0 ? 4 : 4 + 3), (clientSize == 0 ? 34 - 5 : clientWidth + 34 - 5 - 238), 33, 25);
 		}
 
 		DrawingArea.drawPixels(3, (clientSize == 0 ? 9 : 12) + 74, (clientSize == 0 ? 130 - 5 : clientWidth + 130 - 5 - 238), 0xffffff, 3);
 		
 		if (clientSize == 0) {
-			cacheSprite[24].drawSprite(0, 0);
-			cacheSprite[26].method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, 4, 29, 33, 25);
+			SpriteLoader.getSprite("map", 0).drawSprite(0, 0);
+			SpriteLoader.getSprite("map", 1).method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, 4, 29, 33, 25);
 		}
 		
 		drawOrbs();
@@ -10857,9 +10945,9 @@ public class Client extends RSApplet {
             double percent = (prayer / 100D);
 	        int x = (clientSize == 0 ? 190 : clientWidth - 260);
 	        int y = (clientSize == 0 ? 45 : 75);
-			cacheSprite[(clientSize == 0 ? 54 : 53)].drawSprite(x, y);
-			cacheSprite[50].drawSprite(x+(clientSize == 0 ? 3 : 27), y+3);
-			Sprite orbFill = cacheSprite[56];
+			SpriteLoader.getSprite("orbs", (clientSize == 0 ? 5 : 4)).drawSprite(x, y);
+			SpriteLoader.getSprite("orbs", 1).drawSprite(x+(clientSize == 0 ? 3 : 27), y+3);
+			Sprite orbFill = SpriteLoader.getSprite("orbs", 7);
 			int depleteFill = 27 - (int)(27 * percent);
 			orbFill.myHeight = depleteFill;
 			orbFill.height = depleteFill;
@@ -10874,7 +10962,7 @@ public class Client extends RSApplet {
 			else
 				colour = 0xf50d0d;
 			smallText.method382(colour, x+(clientSize == 0 ? 41 : 14), currentPP+"", y+26, true);
-			cacheSprite[52].drawSprite(x+(clientSize == 0 ? 7 : 30), y+7);
+			SpriteLoader.getSprite("orbs", 3).drawSprite(x+(clientSize == 0 ? 7 : 30), y+7);
 		} catch (Exception e) { }
 	}
 	
@@ -10887,9 +10975,9 @@ public class Client extends RSApplet {
             double percent = (health / 100D);
 	        int x = (clientSize == 0 ? 180 : clientWidth - 250);
 	        int y = (clientSize == 0 ? 10 : 40);
-			cacheSprite[(clientSize == 0 ? 54 : 53)].drawSprite(x, y);
-			cacheSprite[49].drawSprite(x+(clientSize == 0 ? 3 : 27), y+3);
-			Sprite orbFill = cacheSprite[56];
+			SpriteLoader.getSprite("orbs", (clientSize == 0 ? 5 : 4)).drawSprite(x, y);
+			SpriteLoader.getSprite("orbs", 0).drawSprite(x+(clientSize == 0 ? 3 : 27), y+3);
+			Sprite orbFill = SpriteLoader.getSprite("orbs", 7);
 			int depleteFill = 27 - (int)(27 * percent);
 			orbFill.myHeight = depleteFill;
 			orbFill.height = depleteFill;
@@ -10904,7 +10992,7 @@ public class Client extends RSApplet {
 			else
 				colour = 0xf50d0d;
 			smallText.method382(colour, x+(clientSize == 0 ? 41 : 14), currentHP+"", y+26, true);
-			cacheSprite[51].drawSprite(x+(clientSize == 0 ? 10 : 33), y+10);
+			SpriteLoader.getSprite("orbs", 2).drawSprite(x+(clientSize == 0 ? 10 : 33), y+10);
 		} catch (Exception e) { }
 	}
 
@@ -11179,7 +11267,7 @@ public class Client extends RSApplet {
 		out.writeInt(gameMode);
 		out.writeInt(publicChatMode);
 		out.writeInt(privateChatMode);
-		out.writeInt(duelMode);
+		out.writeInt(clanChatMode);
 		out.writeInt(tradeMode);
 		out.writeInt(globalMode);
 		out.flush();
@@ -11193,7 +11281,7 @@ public class Client extends RSApplet {
 		gameMode = in.readInt();
 		publicChatMode = in.readInt();
 		privateChatMode = in.readInt();
-		duelMode = in.readInt();
+		clanChatMode = in.readInt();
 		tradeMode = in.readInt();
 		globalMode = in.readInt();
 		in.close();
@@ -11208,20 +11296,20 @@ public class Client extends RSApplet {
 			
 	    	if (MusicEnabled) {
 			    if (loginMusicEnabled) {
-				cacheSprite[47].drawSprite(clientWidth - 52, 10);
+			    	SpriteLoader.getSprite("login", 6).drawSprite(clientWidth - 52, 10);
 			    } else {
-				cacheSprite[48].drawSprite(clientWidth - 52, 10);
+			    	SpriteLoader.getSprite("login", 7).drawSprite(clientWidth - 52, 10);
 			    }
 			}
-			cacheSprite[35].drawARGBSprite(centerX - 145, centerY - 135);
+	    	SpriteLoader.getSprite("login", 0).drawARGBSprite(centerX - 145, centerY - 135);
 			if (mouseInRegion(centerX - 110, centerY - 64, centerX + 115, centerY - 38)) {
-			    cacheSprite[36].drawSprite(centerX - 110, centerY - 64);
+				SpriteLoader.getSprite("login", 1).drawSprite(centerX - 110, centerY - 64);
 			}
 			if (mouseInRegion(centerX - 110, centerY - 19, centerX + 115, centerY + 8)) {
-			    cacheSprite[36].drawSprite(centerX - 110, centerY - 17);
+				SpriteLoader.getSprite("login", 1).drawSprite(centerX - 110, centerY - 17);
 			}
 			if (mouseInRegion(centerX - 90, centerY + 38, centerX + 99, centerY + 64)) {
-			    cacheSprite[37].drawSprite(centerX - 90, centerY + 39);
+				SpriteLoader.getSprite("login", 2).drawSprite(centerX - 90, centerY + 39);
 			}
 			TextDrawingArea textDrawingArea = aTextDrawingArea_1271;
 			chatTextDrawingArea.method389(true, centerX - 105, 0xf3b13f, myUsername + ((loginScreenCursorPos == 0) & (loopCycle % 40 < 20) ? "|" : ""), centerY - 43);
@@ -11230,11 +11318,11 @@ public class Client extends RSApplet {
 			chatTextDrawingArea.method389(true, centerX - (textDrawingArea.getTextWidth(loginMessage2) / 2) - (loginMessage2.length() > 25 ? 16 : loginMessage2.length() > 20 ? 14 : loginMessage2.length() > 15 ? 12 : 10), 0xf3b13f, loginMessage2, centerY + 113);
 	
 			if (rememberMe) {
-			    cacheSprite[39].drawSprite(centerX - 108, centerY + 12);
+				SpriteLoader.getSprite("login", 4).drawSprite(centerX - 108, centerY + 12);
 			} else {
-			    cacheSprite[38].drawSprite(centerX - 108, centerY + 12);
+				SpriteLoader.getSprite("login", 3).drawSprite(centerX - 108, centerY + 12);
 			    if (mouseInRegion(centerX - 108, centerY + 12, centerX - 80, centerY + 24)) {
-			    	cacheSprite[40].drawSprite(centerX - 108, centerY + 12);
+			    	SpriteLoader.getSprite("login", 5).drawSprite(centerX - 108, centerY + 12);
 			    }
 			}
 			chatTextDrawingArea.method389(true, centerX - 92, 0xf3b13f, "Remember Me", centerY + 24);
@@ -11676,11 +11764,11 @@ public class Client extends RSApplet {
         			rememberMe = true;
         		}
         	}
-            if (super.clickMode3 == 1 && clickInRegion(centerX - 100, centerY - 64, centerX + (cacheSprite[36].myWidth / 2), centerY - 38))
+            if (super.clickMode3 == 1 && clickInRegion(centerX - 100, centerY - 64, centerX + (SpriteLoader.getSprite("login", 1).myWidth / 2), centerY - 38))
             	loginScreenCursorPos = 0;
-            if (super.clickMode3 == 1 && clickInRegion(centerX - 100, centerY - 19, centerX + (cacheSprite[36].myWidth / 2), centerY + 7))
+            if (super.clickMode3 == 1 && clickInRegion(centerX - 100, centerY - 19, centerX + (SpriteLoader.getSprite("login", 1).myWidth / 2), centerY + 7))
                 loginScreenCursorPos = 1;
-            if (super.clickMode3 == 1 && clickInRegion(centerX - 80, centerY + 38, centerX + (cacheSprite[37].myWidth / 2), centerY + 64)) {
+            if (super.clickMode3 == 1 && clickInRegion(centerX - 80, centerY + 38, centerX + (SpriteLoader.getSprite("login", 2).myWidth / 2), centerY + 64)) {
                 if (myUsername.length() > 0 && myPassword.length() > 0) {
                     loginFailures = 0;
                     login(myUsername, myPassword, false);
@@ -12097,23 +12185,20 @@ public class Client extends RSApplet {
 				pktType = -1;
 				return true;
 
-				/* Clan chat packet */
-	/*		case 217:
+			/* Clan chat packet */
+			case 216 :
 				try {
-					name = inStream.readString();
-					message = inStream.readString();
+					String name = inStream.readString();
+					String message = inStream.readString();
 					clanname = inStream.readString();
 					rights = inStream.readUnsignedWord();
-					// message = TextInput.processText(message);
-					// message = Censor.doCensor(message);
-					System.out.println(clanname);
-					pushMessage(message, 16, name);
+					pushMessage(message, 16, TextClass.fixName(name));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				pktType = -1;
 				return true;
-				*/
+				
 			case 217:
 				try {
 					globalPrefix = inStream.readString();
@@ -12857,13 +12942,19 @@ public class Client extends RSApplet {
 				try {
 					String text = inStream.readString();
 					int frame = inStream.method435();
-					if (text.startsWith("www.")) {
+				/*	if (text.startsWith("www.")) {
 						launchURL(text);
-					}
+					}*/
 					//updateStrings(text, frame);
 					sendFrame126(text, frame);
-					if (frame >= 18144 && frame <= 18244) {
-						clanList[frame - 18144] = text;
+					if (frame >= 25122 && frame <= 25222) {
+						clanCount = 0;
+						clanList[frame - 25122] = text;
+						for (int cl = 0; cl < clanList.length; cl++) {
+							if (clanList[cl] == null || clanList[cl].length() <= 0)
+								continue;
+							clanCount += 1;
+						}
 					}
 				} catch (Exception e) {
 				}
@@ -13444,7 +13535,6 @@ public class Client extends RSApplet {
 	public int globalMode;
 	public int gameMode;
 	public int autoCastId = 0;
-	public Sprite[] cacheSprite;
 	private Sprite background;
 	public Sprite mascotInv;
 	public Sprite mascotChat;
@@ -13519,6 +13609,7 @@ public class Client extends RSApplet {
 	private int anInt896;
 	private int anInt897;
 	private int friendsCount;
+	private int clanCount;
 	private int anInt900;
 	private int[][] anIntArrayArray901;
 	private byte[] aByteArray912;

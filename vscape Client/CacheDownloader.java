@@ -34,7 +34,7 @@ public class CacheDownloader {
         private String fileToExtract = getCacheDir() + getArchivedName();
 
         public CacheDownloader(Client client) {
-                this.client = client;
+            this.client = client;
         }
 
         private void drawLoadingText(String text) {
@@ -53,11 +53,23 @@ public class CacheDownloader {
         }
 
         private String getCacheLink() {
-                return cacheLink;
+            if(Client.CACHE_DEV_BRANCH)
+            {
+            	cacheLink = "https://dl.dropboxusercontent.com/u/31306161/vscape/dev/cache.zip";
+            }
+            return cacheLink;
+        }
+        
+        private String getVersionLink() {
+            if(Client.CACHE_DEV_BRANCH)
+            {
+            	versionURL = "https://dl.dropboxusercontent.com/u/31306161/vscape/dev/cacheVersion_dev.dat";
+            }
+            return versionURL;
         }
 
         private int getCacheRemoteVersion() throws IOException {
-        	BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(versionURL).openStream()));    
+        	BufferedReader cacheVerReader = new BufferedReader(new InputStreamReader(new URL(getVersionLink()).openStream()));    
     		String line;
     		try {
     			if((line = cacheVerReader.readLine()) != null) {

@@ -8,24 +8,14 @@ import javax.sound.sampled.*;
 
 public final class Signlink implements Runnable {
 
-	private final static String cacheName = "/.vscape2/";
+	private static String cacheName = "/.vscape2/";
 
 	public static String findcachedir()
     {
-        boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
-        if(exists)
-        {
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
-        } else
-        {
-            File f = new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString());
-            f.mkdir();
-            return (new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString();
-        }
-    }
-
-    public static final String findcachedir2()
-    {
+		if(Client.CACHE_DEV_BRANCH)
+		{
+			cacheName = "/.vscape2_dev/";
+		}
         boolean exists = (new File((new StringBuilder(String.valueOf(System.getProperty("user.home")))).append(cacheName).toString())).exists();
         if(exists)
         {
