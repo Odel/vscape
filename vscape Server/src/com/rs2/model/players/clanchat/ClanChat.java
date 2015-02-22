@@ -159,6 +159,15 @@ public class ClanChat {
 	{
 		if(usersInChat() >= MAX_CONCURRENT)
 		{
+			player.setClanChat(null);
+			player.getActionSender().sendInterfaceHidden(0, 25005);
+			player.getActionSender().sendInterfaceHidden(1, 25015);
+			player.getActionSender().sendString("Talking in: Not in chat", 25002);
+			player.getActionSender().sendString("Owner: None", 25003);
+			for(int i = 0; i < 100; i++)
+			{
+				player.getActionSender().sendString("", 25122 + i);
+			}
 			player.getActionSender().sendMessage("The channel you tried to join is currently full.", true);
 			return;
 		}
