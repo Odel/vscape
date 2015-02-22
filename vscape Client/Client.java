@@ -7064,7 +7064,7 @@ public class Client extends RSApplet {
 		} else if(super.mouseX >= 269 && super.mouseX <= 325 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
 			menuActionName[1] = "Off clan";
 			menuActionID[1] = 983;
-			menuActionName[2] = "Friends clan";
+			menuActionName[2] = "Hidden clan";
 			menuActionID[2] = 982;
 			menuActionName[3] = "On clan";
 			menuActionID[3] = 981;
@@ -7082,13 +7082,13 @@ public class Client extends RSApplet {
 			menuActionID[4] = 984;
 			menuActionRow = 5;
 		} else if(super.mouseX >= 401 && super.mouseX <= 457 && super.mouseY >= y + 482 && super.mouseY <= y + 503) {
-			menuActionName[1] = "Off Global";
+			menuActionName[1] = "Off global";
 			menuActionID[1] = 1008;
-			menuActionName[2] = "Hide In Public";
+			menuActionName[2] = "Hidden global";
 			menuActionID[2] = 1007;
-			menuActionName[3] = "On Global";
+			menuActionName[3] = "On global";
 			menuActionID[3] = 1006;
-			menuActionName[4] = "View Global";
+			menuActionName[4] = "View global";
 			menuActionID[4] = 1005;
 			menuActionRow = 5;
 		}
