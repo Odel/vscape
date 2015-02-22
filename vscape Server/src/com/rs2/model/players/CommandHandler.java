@@ -86,14 +86,34 @@ public class CommandHandler {
 	}
 	
 
-	public static void playerCommands(Player sender, String keyword, String[] args, String fullString) {
-		if (keyword.equals("clearfriends")) {
+	public static void playerCommands(final Player sender, final String keyword, final String[] args, final String fullString) {
+		if (keyword.equals("sit")) {
+			sender.setStandAnim(4855);
+			sender.setAppearanceUpdateRequired(true);
+			final int task = sender.getTask();
+			sender.setSkilling(new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (!sender.checkTask(task)) {
+						container.stop();
+						return;
+					}
+				}
+				@Override
+				public void stop() {
+					sender.setStandAnim(-1);
+					sender.setAppearanceUpdateRequired(true);
+				}
+			});
+	        CycleEventHandler.getInstance().addEvent(sender, sender.getSkilling(), 1);
+		}
+		else if (keyword.equals("clearfriends")) {
 			sender.setFriends(new long[200]);
 			sender.setIgnores(new long[100]);
 			sender.getPrivateMessaging().refresh(false);
 			sender.disconnect();
 		}
-		if (keyword.equals("outfit")) {
+		else if (keyword.equals("outfit")) {
 		    if(sender.getQuestStage(35) > 0 && sender.getQuestStage(35) < RecruitmentDrive.QUEST_COMPLETE) {
 			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.", true);
 		    } else {
@@ -292,6 +312,7 @@ public class CommandHandler {
 			sender.setStandAnim(3535);
 			sender.setRunAnim(3537);
 			sender.setWalkAnim(3538);
+			sender.setAppearanceUpdateRequired(true);
 		}
 		else if(keyword.equals("pc")) {
 			World.messageToPc(sender, fullString);
@@ -658,11 +679,11 @@ public class CommandHandler {
 			}
 			sender.getInventory().removeItem(new Item(995, 1000));
 			sender.transformNpc = npcId;
-			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
 			sender.setStandAnim(def.getStandAnim());
 			sender.setWalkAnim(def.getWalkAnim());
 			sender.setRunAnim(def.getWalkAnim());
+			sender.setAppearanceUpdateRequired(true);
 			if(sender.getStaffRights() > 1) {
 			    sender.getActionSender().sendMessage("NPC #" + npcId, true);
 			}
@@ -1184,7 +1205,6 @@ public class CommandHandler {
 				player = sender;
 			}
 			player.transformNpc = npcId;
-			player.setAppearanceUpdateRequired(true);
 			player.setSize(new Npc(npcId).getDefinition().getSize());
 			NpcDefinition def = NpcDefinition.forId(npcId);
 			if(def != null)
@@ -1198,6 +1218,7 @@ public class CommandHandler {
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 			}
+			player.setAppearanceUpdateRequired(true);
 			sender.getActionSender().sendMessage("NPC #" + npcId, true);
 		}
 		else if (keyword.equals("pet")) {
