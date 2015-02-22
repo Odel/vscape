@@ -1,6 +1,7 @@
 package com.rs2.model.content.quests;
 
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
@@ -10,6 +11,9 @@ import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.objects.GameObject;
+import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
@@ -23,6 +27,7 @@ public class InSearchOfTheMyreque implements Quest {
     public static final int QUEST_STARTED = 1;
     public static final int POUCH_FOR_RIDE = 2;
     public static final int BOARD_BOAT = 3;
+    public static final int DOORS_UNLOCKED = 4;
     public static final int QUEST_COMPLETE = 15;
 
     //Items
@@ -32,9 +37,20 @@ public class InSearchOfTheMyreque implements Quest {
     public static final int STEEL_MACE = 1424;
     public static final int STEEL_WARHAMMER = 1339;
     public static final int PLANK = 960;
+    public static final int STEEL_NAILS = 1539;
+    public static final int HAMMER = 2347;
     
     //Positions
-    public static final Position POSITION = new Position(0, 0, 0);
+    public static final Position BOATMAN_POS = new Position(3521, 3285, 0);
+    public static final Position HIDEOUT_ENTRANCE = new Position(3505, 9832, 0);
+    public static final Position HIDEOUT_EXIT = new Position(3491, 9824, 0);
+    public static final Position UNDERGROUND_ENTRANCE = new Position(3500, 9811, 0);
+    public static final Position CAVE_1_EXIT = new Position(3481, 9824, 0); //3467 9820
+    public static final Position CAVE_1_ENTRANCE = new Position(3466, 9820, 0); //3480 9824
+    public static final Position CAVE_2_EXIT = new Position(3488, 9815, 0); //3476 9806
+    public static final Position CAVE_2_ENTRANCE = new Position(3475, 9806, 0); //3488 9814
+    public static final Position CAVE_3_EXIT = new Position(3492, 9809, 0); //3478 9799
+    public static final Position CAVE_3_ENTRANCE = new Position(3477, 9799, 0); //3492 9808
 
     //Interfaces
     public static final int INTERFACE = -1;
@@ -57,8 +73,16 @@ public class InSearchOfTheMyreque implements Quest {
     public static final int VANSTROM_CLAUSE_3 = 1581;
     
     //Objects
+    public static final int CAVE_ENTRANCE = 5046;
+    public static final int WOODEN_DOORS_1 = 5060;
+    public static final int WOODEN_DOORS_2 = 5061;
+    public static final int ROPE_BRIDGE = 5002;
+    public static final int BROKEN_ROPE_BRIDGE = 5003;
+    public static final int TREE = 5005;
     public static final int SWAMP_BOAT = 6969;
     public static final int SWAMP_BOAT_ABANDONED = 6970;
+    public static final int WALL = 5052;
+    public static final int STALAGMITE = 5050;
     
     public int dialogueStage = 0;
 
@@ -159,6 +183,20 @@ public class InSearchOfTheMyreque implements Quest {
 		player.getActionSender().sendString("wooden planks. He said to go north and look for", 8154);
 		player.getActionSender().sendString("an 'unusual tree'.", 8155);
 		break;
+	    case DOORS_UNLOCKED:
+		player.getActionSender().sendString("@str@" + "Talk to Vanstrom Clause in the Canifis bar to begin.", 8147);
+		player.getActionSender().sendString("@str@" + "Vanstrom Clause asked me to take some weapons to", 8149);
+		player.getActionSender().sendString("@str@" + "a group called the 'Myreque'.", 8150);
+		player.getActionSender().sendString("@str@" + "The boatman in Mort'ton agreed to let me take his", 8152);
+		player.getActionSender().sendString("@str@" + "boat back through Mort Myre after giving him 3", 8153);
+		player.getActionSender().sendString("@str@" + "wooden planks. He said to go north and look for", 8154);
+		player.getActionSender().sendString("@str@" + "an 'unusual tree'.", 8155);
+		
+		player.getActionSender().sendString("I found a man named Curpile Fyod outside the", 8157);
+		player.getActionSender().sendString("strange tree the boatman mentioned. I answered", 8158);
+		player.getActionSender().sendString("his questions and he unlocked the doors to a", 8159);
+		player.getActionSender().sendString("mysterious underground entrance behind the tree.", 8160);
+		break;
 	    case QUEST_COMPLETE:
 		player.getActionSender().sendString("@str@" + "", 8147);
 		//Change
@@ -238,6 +276,28 @@ public class InSearchOfTheMyreque implements Quest {
 	return i.playerHasItem(STEEL_LONGSWORD) && i.playerHasItem(STEEL_SWORD, 2) && i.playerHasItem(STEEL_DAGGER) && i.playerHasItem(STEEL_MACE) && i.playerHasItem(STEEL_WARHAMMER);
     }
     
+    public static int bridgeIndexForPos(int y) {
+	switch(y) {
+	    case 3428:
+		return 1;
+	    case 3429:
+		return 2;
+	    case 3430:
+		return 3;
+	}
+	return 0;
+    }
+    
+    public static void spawnBridgeObjects(int z, boolean destroyOnly) {
+	/*int x = 3502;
+	for(int y = 3428; y < 3430; y++) {
+	    ObjectHandler.getInstance().removeObject(x, y, z, 22);
+	    if(!destroyOnly)
+		new GameObject(5002, x, y, z, 1, 22, 0, 999999, true);
+	}
+	*/
+    }
+    
     public boolean itemHandling(final Player player, int itemId) {
 	switch(itemId) {
 	    
@@ -261,8 +321,78 @@ public class InSearchOfTheMyreque implements Quest {
 	return false;
     }
 
-    public boolean doObjectClicking(final Player player, int object, int x, int y) {
+    public boolean doObjectClicking(final Player player, int object, final int x, final int y) {
 	switch (object) {
+	    case CAVE_ENTRANCE:
+		if(x == 3467 && y == 9820) {
+		    player.fadeTeleport(CAVE_1_EXIT);
+		} else if (x == 3480 && y == 9824) {
+		    player.fadeTeleport(CAVE_1_ENTRANCE);
+		} else if (x == 3476 && y == 9806) {
+		    player.fadeTeleport(CAVE_2_EXIT);
+		} else if (x == 3488 && y == 9814) {
+		    player.fadeTeleport(CAVE_2_ENTRANCE);
+		} else if (x == 3478 && y == 9799) {
+		    player.fadeTeleport(CAVE_3_EXIT);
+		} else if (x == 3492 && y == 9808) {
+		    player.fadeTeleport(CAVE_3_ENTRANCE);
+		}
+		return true;
+	    case WOODEN_DOORS_1:
+	    case WOODEN_DOORS_2:
+		if(player.getQuestStage(38) >= DOORS_UNLOCKED) {
+		    player.fadeTeleport(UNDERGROUND_ENTRANCE);
+		} else {
+		    player.getActionSender().sendMessage("These doors are locked.");
+		}
+		return true;
+	    case BROKEN_ROPE_BRIDGE:
+		if(player.getInventory().playerHasItem(PLANK) && player.getInventory().playerHasItem(STEEL_NAILS, 75) && player.getInventory().playerHasItem(HAMMER)) {
+		    if(bridgeIndexForPos(y) != 0) {
+			player.getQuestVars().setMortMyreBridgeFixed(bridgeIndexForPos(y), true);
+			player.getUpdateFlags().sendAnimation(898);
+			player.getInventory().removeItem(new Item(PLANK));
+			player.getInventory().removeItem(new Item(STEEL_NAILS, 75));
+			player.setStopPacket(true);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			    int count = 0;
+			    @Override
+			    public void execute(CycleEventContainer b) {
+				ObjectHandler.getInstance().removeObject(x, y, player.getPosition().getZ(), 22);
+				new GameObject(5002, x, y, player.getPosition().getZ(), 1, 22, 0, 999999, true);
+				if(count == 1) {
+				    b.stop();
+				}
+				count++;
+			    }
+			    @Override
+			    public void stop() {
+				player.setStopPacket(false);
+				player.getActionSender().walkTo(0, y - player.getPosition().getY(), true);
+			    }
+			}, 1);
+		    }
+		} else {
+		    player.getDialogue().sendStatement("You need a wooden plank, 75 steel nails and a hammer to fix this.");
+		}
+		return true;
+	    case ROPE_BRIDGE:
+		if(bridgeIndexForPos(y) != 0 && !player.getQuestVars().getMortMyreBridgeFixed(bridgeIndexForPos(y))) {
+		    ObjectHandler.getInstance().removeObject(x, y, player.getPosition().getZ(), 22);
+		    new GameObject(5003, x, y, player.getPosition().getZ(), 1, 22, 0, 999999, true);
+		    player.getDialogue().sendStatement("This bridge looks pretty old. The wooden boards break apart beneath", "your feet.");
+		} else {
+		    player.getActionSender().walkTo(0, y - player.getPosition().getY(), true);
+		}
+		return true;
+	    case TREE:
+		if(player.getPosition().getY() >= 3427 && player.getPosition().getY() <= 3430) {
+		    player.getActionSender().sendMessage("You are already on the bridge!", true);
+		} else {
+		    Ladders.climbLadder(player, new Position(3502, player.getPosition().getY() < 3428 ? player.getPosition().getY() + 2 : player.getPosition().getY() - 2, player.getIndex() * 4));
+		    spawnBridgeObjects(player.getIndex() * 4, false);
+		}
+		return true;
 	    case SWAMP_BOAT:
 		Dialogues.startDialogue(player, 156700);
 		return true;
@@ -274,7 +404,7 @@ public class InSearchOfTheMyreque implements Quest {
 		}
 		player.setStopPacket(true);
 		player.getActionSender().sendMessage("You carefully climb into the boat...");
-		player.fadeTeleport(new Position(3521, 3285, 0));
+		player.fadeTeleport(BOATMAN_POS);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
@@ -295,6 +425,10 @@ public class InSearchOfTheMyreque implements Quest {
 
     public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 	switch (object) {
+	    case TREE:
+		Ladders.climbLadder(player, new Position(3502, player.getPosition().getY() < 3428 ? player.getPosition().getY() - 2 : player.getPosition().getY() + 2, 0));
+		spawnBridgeObjects(player.getIndex() * 4, true);
+		return true;
 	    case SWAMP_BOAT:
 		if (player.getQuestStage(38) >= BOARD_BOAT) {
 		    if (player.getInventory().playerHasItem(995, 10)) {
@@ -358,6 +492,153 @@ public class InSearchOfTheMyreque implements Quest {
 			return true;
 		}
 		return false;
+	    case CURPILE_FYOD:
+		switch (player.getQuestStage(this.getQuestID())) {
+		    case BOARD_BOAT:
+			switch (d.getChatId()) {
+			    case 1:
+				d.sendNpcChat("Hey... what're you doin' here?", CONTENT);
+				return true;
+			    case 2:
+				if(allWeapons(player)) {
+				    d.sendPlayerChat("I've come to help the Myreque, I've brought weapons.", CONTENT);
+				} else {
+				    d.sendPlayerChat("Just looking around for the rest of the", "weapons I'm supposed to have...", SAD);
+				    d.endDialogue();
+				}
+				return true;
+			    case 3:
+				d.sendNpcChat("Ok, I see ya got da weapons... but how'd I know", "you're not gonna use 'em against my friends?", CONTENT);
+				return true;
+			    case 4:
+				d.sendPlayerChat("But I just want to help deliver these weapons.", CONTENT);
+				return true;
+			    case 5:
+				d.sendNpcChat("Well, dat's as maybe, and I'm not doubtin' your", "sincerity here, you seems all sincered up to me... it's", "choking me up right here, you're making me cry... but", "hey, I's godda do my job or da kids don't get fed! Ok,", CONTENT);
+				return true;
+			    case 6:
+				d.sendNpcChat("so say I asks you a few questions and you were to", "answer them all correct and so on, well that'd make me", "believe you's... I'd get to feeling that you was the", "real deal an all. How's dat sound?", CONTENT);
+				return true;
+			    case 7:
+				d.sendPlayerChat("Sounds fine to me... go ahead, shoot!", CONTENT);
+				return true;
+			    case 8:
+				d.sendNpcChat("Hey... don't tempt me! You's dicing wiv death here", "my friend!", CONTENT);
+				return true;
+			    case 9:
+				d.sendNpcChat("Ok, first question. Who is da leader of the", "Myreque?", CONTENT);
+				return true;
+			    case 10:
+				d.sendOption("Sani Piliu", "Ivan Strom", "Veliaf Hurtz", "Redigad Ponfit", "Don't know!");
+				return true;
+			    case 11:
+				switch(optionId) {
+				    case 1:
+					d.sendPlayerChat("Sani Piliu.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 2:
+					d.sendPlayerChat("Ivan Strom.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 3:
+					d.sendPlayerChat("Veliaf Hurtz.", CONTENT);
+					return true;
+				    case 4:
+					d.sendPlayerChat("Redigad Ponfit.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 5:
+					d.sendPlayerChat("I guess I don't know...", SAD);
+					d.endDialogue();
+					return true;
+				}
+			    case 12:
+				d.sendNpcChat("Ok, interesting answer. First question answered.", CONTENT);
+				return true;
+			    case 13:
+				d.sendNpcChat("Ok, second question. What is the boatman's name?", CONTENT);
+				return true;
+			    case 14:
+				d.sendOption("Geof Paddleman", "Cyreg Paddlebone", "Gyrec Paddlehorn", "Cyreg Paddlehorn", "I don't know!");
+				return true;
+			    case 15:
+				switch(optionId) {
+				    case 1:
+					d.sendPlayerChat("Geof Paddleman.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 2:
+					d.sendPlayerChat("Cyreg Paddlebone.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 3:
+					d.sendPlayerChat("Gyrec Paddlehorn.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 4:
+					d.sendPlayerChat("Cyreg Pattlehorn.", CONTENT);
+					return true;
+				    case 5:
+					d.sendPlayerChat("I guess I don't know...", SAD);
+					d.endDialogue();
+					return true;
+				}
+			    case 16:
+				d.sendNpcChat("An interesting response. Second question answered.", CONTENT);
+				return true;
+			    case 17:
+				d.sendNpcChat("Ok, third and final question. What does", "'Myreque' mean?", CONTENT);
+				return true;
+			    case 18:
+				d.sendOption("Myre Protection", "Myre What", "Safe in Myre", "Hidden in Myre", "I don't know!");
+				return true;
+			    case 19:
+				switch(optionId) {
+				    case 1:
+					d.sendPlayerChat("Myre Protection.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 2:
+					d.sendPlayerChat("Myre What.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 3:
+					d.sendPlayerChat("Safe in Myre.", CONTENT);
+					d.setNextChatId(30);
+					return true;
+				    case 4:
+					d.sendPlayerChat("Hidden in Myre.", CONTENT);
+					return true;
+				    case 5:
+					d.sendPlayerChat("I guess I don't know...", SAD);
+					d.endDialogue();
+					return true;
+				}
+			    case 20:
+				d.sendNpcChat("Hmm... a calculated retort. Third question answered.", CONTENT);
+				return true;
+			    case 21:
+				d.sendNpcChat("Ok, I believes ya... you can go on.", CONTENT);
+				return true;
+			    case 22:
+				d.sendPlayerChat("What's the combination to the door?", CONTENT);
+				return true;
+			    case 23:
+				d.sendNpcChat("Oh, there isn't one. I'll unlock it for you.", CONTENT);
+				d.endDialogue();
+				player.setQuestStage(38, DOORS_UNLOCKED);
+				return true;
+			    case 30:
+				d.endDialogue();
+				player.getActionSender().removeInterfaces();
+				World.getNpcs()[World.getNpcIndex(CURPILE_FYOD)].getUpdateFlags().setForceChatMessage("That's'a wrong answer! You're no friend!");
+				player.fadeTeleport(BOATMAN_POS);
+				return true;
+			}
+		    return false;
+		}
+	    return false;
 	    case CYREG_PADDLEHORN:
 		switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 		    case BOARD_BOAT:

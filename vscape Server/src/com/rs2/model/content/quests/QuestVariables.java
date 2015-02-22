@@ -73,6 +73,9 @@ public class QuestVariables {
     public boolean natureSpiritFungusPlaced = false;
     public boolean natureSpiritSpellPlaced = false;
     private int ghastsSlain = 0;
+    private boolean firstMortMyreBridgeFixed = false;
+    private boolean secondMortMyreBridgeFixed = false;
+    private boolean thirdMortMyreBridgeFixed = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -435,4 +438,30 @@ public class QuestVariables {
     public void setGhastsSlain(int set) {
 	this.ghastsSlain = set;
     }
+    
+    public void setMortMyreBridgeFixed(int number, boolean set) {
+	switch(number) {
+	    case 1:
+		this.firstMortMyreBridgeFixed = set;
+		return;
+	    case 2:
+		this.secondMortMyreBridgeFixed = set;
+		return;
+	    case 3:
+		this.thirdMortMyreBridgeFixed = set;
+		return;
+	}
+    }
+    public boolean getMortMyreBridgeFixed(int number) {
+	switch(number) {
+	    case 1:
+		return this.firstMortMyreBridgeFixed;
+	    case 2:
+		return this.secondMortMyreBridgeFixed;
+	    case 3:
+		return this.thirdMortMyreBridgeFixed;
+	}
+	return false;
+    }
+    
 }

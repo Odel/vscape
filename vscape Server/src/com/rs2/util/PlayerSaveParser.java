@@ -429,6 +429,15 @@ public class PlayerSaveParser {
 				if(questVars.get("gazeOfSaradomin") != null) {
 					player.getQuestVars().setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
 				}
+				if(questVars.get("1stMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(1, questVars.get("1stMortMyreBridge").getAsBoolean());
+				}
+				if(questVars.get("2ndMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(2, questVars.get("2ndMortMyreBridge").getAsBoolean());
+				}
+				if(questVars.get("3rdMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(3, questVars.get("3rdMortMyreBridge").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

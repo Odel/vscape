@@ -141,7 +141,7 @@ public class WalkToActionHandler {
 		final int id = player.getClickId();
 		final int x = player.getClickX();
 		final int y = player.getClickY();
-		final int z = player.getClickZ();
+		final int z = player.getClickZ()%4;
 		final String objectName = GameObjectData.forId(id) != null ? GameObjectData.forId(id).getName().toLowerCase() : "";
 		final int task = player.getTask();
 		World.submit(new Tick(1, true) {
@@ -156,7 +156,7 @@ public class WalkToActionHandler {
 				}
 				GameObjectDef def = SkillHandler.getObject(id, x, y, z);
 				if (def == null) { // Server.npcHandler.getNpcByLoc(Location.create(x,
-					if (id == 2142 || id == 2297 || id == 4879 || (id >= 7272 && id <= 7287)  || id == 4766 || id == 3522 || id == 4880 || id == 4881 || id == 5015 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3931 || id == 3932 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank") || (id >= 14227 && id <= 14231)) { //exceptions
+					if (id == 2142 || id == 2297 || id == 4879 || (id >= 7272 && id <= 7287)  || id == 4766 || id == 5002 || id == 3522 || id == 4880 || id == 4881 || id == 5015 || id == 2311 || id == 2294 || id == 2295 || id == 2296 || id == 2022 || id == 9293  || id == 9328 || id == 2834 || id == 9330 || id == 9322 || id == 9324 || id == 2332 || id == 3931 || id == 3932 || id == 3933 || (id == 3203 || id == 4616 || id == 4615) || (id == 2213 && x == 3513) || (id == 356 && y == 3507) || GameObjectData.forId(id).getName().toLowerCase().contains("gangplank") || (id >= 14227 && id <= 14231)) { //exceptions
 						def = new GameObjectDef(id, 10, 0, new Position(x, y, z));
 					} else if (id == 4381 || id == 4382 || id == 4385 || id == 4386) { //exceptions
 						def = new GameObjectDef(id, 11, 0, new Position(x, y, z));
@@ -1740,7 +1740,7 @@ public class WalkToActionHandler {
 		final int id = player.getClickId();
 		final int x = player.getClickX();
 		final int y = player.getClickY();
-		final int z = player.getClickZ();
+		final int z = player.getClickZ()%4;
 		final int task = player.getTask();
 		World.submit(new Tick(1, true) {
 			@Override
@@ -1919,7 +1919,7 @@ public class WalkToActionHandler {
 		final int id = player.getClickId();
 		final int x = player.getClickX();
 		final int y = player.getClickY();
-		final int z = player.getClickZ();
+		final int z = player.getClickZ()%4;
 		final int task = player.getTask();
 
 		World.submit(new Tick(1, true) {
@@ -2001,7 +2001,7 @@ public class WalkToActionHandler {
 		final int id = player.getClickId();
 		final int x = player.getClickX();
 		final int y = player.getClickY();
-		final int z = player.getClickZ();
+		final int z = player.getClickZ()%4;
 		final int task = player.getTask();
 		World.submit(new Tick(1, true) {
 			@Override
@@ -2965,9 +2965,12 @@ public class WalkToActionHandler {
 		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 3))
 			return true;
 		}
-		
+		if(def.getId() == 5002) {
+		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 1))
+			return true;
+		}
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
-		boolean canInteract = Misc.checkClip(player.getPosition(), objectPos, false);
+		boolean canInteract = Misc.checkClip(player.getPosition().clone().modifyZ(player.getPosition().getZ()%4), objectPos, false);
 		Rangable.addObject(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType(), true);
 		return canInteract;
 	}

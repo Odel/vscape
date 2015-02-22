@@ -596,6 +596,14 @@ public class Hit {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();
         }
+	if (attacker != null && victim.isPlayer() && attacker.isNpc() && ((Npc) attacker).getNpcId() == 2882) {
+	    Position p = victim.getPosition();
+	    for (Player player : World.getPlayers()) {
+		if (player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+		    player.hit(Misc.random(61), HitType.NORMAL);
+		}
+	    }
+	}
 	if (attacker != null && attacker.isNpc() && victim != null && victim.isPlayer() && ((Npc)attacker).getNpcId() == NatureSpirit.GHAST) {
 	    NatureSpirit.handleSpoilFood((Npc)attacker, (Player)victim);
 	}
@@ -721,15 +729,7 @@ public class Hit {
 			}
 		    }
 		}
-		else if (getAttacker() != null && getVictim().isPlayer() && getAttacker().isNpc() && ((Npc)attacker).getNpcId() == 2882) {
-		    Position p = victim.getPosition();
-		    for(Player player : World.getPlayers()) {
-			if(player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
-			    player.hit(Misc.random(61), HitType.NORMAL);
-			}
-		    }
-		}
-		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2882) { //Rex
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2883) { //Rex
 		    if(hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
 			if(Misc.random(2) == 1) {
 			    damage = 0;
