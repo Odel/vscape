@@ -113,6 +113,8 @@ import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.npcs.functions.Cat;
 import com.rs2.model.players.bank.BankManager;
+import com.rs2.model.players.clanchat.ClanChat;
+import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.container.equipment.Equipment;
@@ -408,7 +410,7 @@ public class Player extends Entity {
 	{"Getting Started", 0, 2, 1}};
 	public int[] questStage = new int[0];
 	
-	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
+	private int[] sidebarInterfaceId = { 2423, 3917, 638, 3213, 1644, 5608, 0, 25000, 5065,
             5715, 2449, 904, 147, 962 };
 
 	// Public ints
@@ -474,6 +476,8 @@ public class Player extends Entity {
     private int castleWarsTeam = -1;
     private boolean ironman = false;
     private int minloggedout = 0;
+    
+    private ClanChat currentClanChat;
     
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -623,6 +627,10 @@ public class Player extends Entity {
 		{
 			SQL.saveHighScore(this);
 		}
+        if(getClanChat() != null)
+        {
+        	getClanChat().leaveChat(this, true);
+        }
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this, true);
@@ -729,6 +737,10 @@ public class Player extends Entity {
     public void disconnect() {
         if (loginStage.compareTo(LoginStages.LOGGED_IN) > 0)
             return;
+        if(getClanChat() != null)
+        {
+        	getClanChat().leaveChat(this, true);
+        }
         if(inPestControlLobbyArea())
         {
         	PestControl.leaveLobby(this, true);
@@ -1179,30 +1191,47 @@ public class Player extends Entity {
         {
         	Castlewars.LeaveGame(this, false, 0);
         }
-	if(this.inTempleKnightsTraining()) {
-	    this.getActionSender().sendMapState(2);
-	}
-	if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
-	    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
-	}
-	if(this.getGraveyardFruitDeposited() > 15) {
-	    this.setGraveyardFruitDeposited(15);
-	}
-	for(Player player : World.getPlayers()) {
-	    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
-		World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
-	    }
-	}
+		if(this.inTempleKnightsTraining()) {
+		    this.getActionSender().sendMapState(2);
+		}
+		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
+		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
+		}
+		if(this.getGraveyardFruitDeposited() > 15) {
+		    this.setGraveyardFruitDeposited(15);
+		}
+		for(Player player : World.getPlayers()) {
+		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
+			World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
+		    }
+		}
 	    CommandHandler.appendToMacList(this, this.getMacAddress());
-	//	getCat().initChecks();
+
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
 	    
         if(getMinLoggedOut() > 0)
         {
-        	ageCrops(getMinLoggedOut());
+       // 	ageCrops(getMinLoggedOut());
         }	
+        
+		getActionSender().sendInterfaceHidden(0, 25005);
+		getActionSender().sendInterfaceHidden(1, 25015);
+		getActionSender().sendString("Talking in: Not in chat", 25002);
+		getActionSender().sendString("Owner: None", 25003);
+		for(int i = 0; i < 100; i++)
+		{
+			getActionSender().sendString("", 25122 + i);
+		}
+        if(getClanChat() != null)
+        {
+        	if(getClanChat().owner > 0) {
+        		ClanChatHandler.joinClanChat(this, getClanChat().owner);
+        	}else{
+        		setClanChat(null);
+        	}
+        }
     }
 	
 	public boolean beginLogin() throws Exception {
@@ -4734,6 +4763,14 @@ public class Player extends Entity {
 
 	public void setInnoculationBraceletLife(int innoculationBraceletLife) {
 		this.innoculationBraceletLife = innoculationBraceletLife;
+	}
+
+	public ClanChat getClanChat() {
+		return currentClanChat;
+	}
+
+	public void setClanChat(ClanChat currentClanChat) {
+		this.currentClanChat = currentClanChat;
 	}
 
 }

@@ -33,6 +33,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		characterObj.addProperty("banExpire", player.getBanExpire());
 		characterObj.addProperty("inJail", player.getInJail());
 		characterObj.addProperty("isIronman", player.isIronman());
+		characterObj.addProperty("clanChat", player.getClanChat() != null ? player.getClanChat().owner : 0);
 		JsonObject positionObj = new JsonObject();
 		positionObj.addProperty("x", player.getPosition().getX());
 		positionObj.addProperty("y", player.getPosition().getY());

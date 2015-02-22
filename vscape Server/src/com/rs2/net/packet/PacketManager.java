@@ -13,6 +13,7 @@ import com.rs2.net.packet.packets.ButtonPacketHandler;
 import com.rs2.net.packet.packets.CameraAnglePacketHandler;
 import com.rs2.net.packet.packets.ChatInterfacePacketHandler;
 import com.rs2.net.packet.packets.ChatPacketHandler;
+import com.rs2.net.packet.packets.ClanChatPacketHandler;
 import com.rs2.net.packet.packets.CloseInterfacePacketHandler;
 import com.rs2.net.packet.packets.CommandPacketHandler;
 import com.rs2.net.packet.packets.DefaultPacketHandler;
@@ -47,6 +48,7 @@ public class PacketManager {
 	private static PrivateMessagingPacketHandler pm = new PrivateMessagingPacketHandler();
 	private static NpcPacketHandler npc = new NpcPacketHandler();
 	private static PlayerOptionPacketHandler playerOption = new PlayerOptionPacketHandler();
+	private static ClanChatPacketHandler cc = new ClanChatPacketHandler();
 
 	public static void loadPackets() {
 		System.out.println("Loading packets...");
@@ -109,6 +111,8 @@ public class PacketManager {
 		packets[NpcPacketHandler.ITEM_ON_NPC] = npc;
 		packets[NpcPacketHandler.EXAMINE_NPC] = npc;
 		packets[FlashingSideIcon.FLASH_ICON] = new FlashingSideIcon();
+		packets[ClanChatPacketHandler.JOIN_CLAN_CHAT] = cc;
+		packets[ClanChatPacketHandler.ACTION_CLAN_CHAT] = cc;
 		packets[0] = silent;
 		packets[241] = silent;
 		packets[86] = silent;

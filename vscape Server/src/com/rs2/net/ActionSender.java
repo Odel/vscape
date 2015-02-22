@@ -62,7 +62,7 @@ public class ActionSender {
 	}
 
 	public void sendSideBarInterfaces() {
-		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
+		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 0, 25000, 5065,
 				5715, 2449, 904, 147, 962 };
 		for (int i = 0; i < sidebars.length; i++) {
 			sendSidebarInterface(i, sidebars[i]);
@@ -73,7 +73,7 @@ public class ActionSender {
 	}
 
 	public void enableSideBarInterfaces(int[] listSideBar) {
-		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 1151, -1, 5065,
+		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 1151, 25000, 5065,
 				5715, 2449, 904, 147, 962 };
 		for (int i = 0; i < listSideBar.length; i++) {
 			sendSidebarInterface(listSideBar[i], sidebars[listSideBar[i]]);
@@ -834,6 +834,19 @@ public class ActionSender {
 		return this;
 	}
 	
+	public ActionSender sendClanChat(String clanname, String name, String message, int rights) {
+		int packetLength = clanname.length() + name.length() + message.length();
+		StreamBuffer.OutBuffer out = StreamBuffer
+				.newOutBuffer(packetLength + 6);
+		out.writeVariablePacketHeader(player.getEncryptor(), 216);
+		out.writeString(clanname);
+		out.writeString(name);
+		out.writeString(message);
+		out.writeByte(rights);
+		out.finishVariablePacketHeader();
+		player.send(out.getBuffer());
+		return this;
+	}
 	
 
 	public ActionSender sendInterfaceAnimation(int intefaceChildId, int animId) {

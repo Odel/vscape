@@ -50,7 +50,7 @@ public class Constants {
 	public static final byte WORLD_NUMBER = (byte)1;
     public static boolean RSA_CHECK = true;
     public static boolean SYSTEM_UPDATE = false;
-	public static int CLIENT_VERSION = 319;
+	public static int CLIENT_VERSION = 320;
 	public static final String TEST_VERSION = "1.4";
    	public static final double EXP_RATE = 2.25;
    	
@@ -184,7 +184,7 @@ public class Constants {
 			0, 0, 0, 0, 0, 8, 4, 0, 0, 2, // 30
 			2, 6, 0, 6, 0, -1, 0, 0, 0, 0, // 40
 			0, 0, 0, 12, 0, 0, 0, 8, 8, 12, // 50
-			8, 8, 0, 0, 0, 0, 0, 0, 0, 0, // 60
+			8, 10, 0, 0, 0, 0, 0, 0, 0, 0, // 60
 			6, 0, 2, 2, 8, 6, 0, -1, 0, 6, // 70
 			0, 0, 0, 0, 0, 1, 4, 6, 0, 0, // 80
 			0, 0, 0, 0, 0, 3, 0, 0, -1, 0, // 90
@@ -210,7 +210,7 @@ public class Constants {
     public static final int[][][] APPEARANCE_RANGES = new int[][][] { { { 18, 26, 36, 0, 33, 42, 10 }, { 25, 31, 40, 8, 34, 43, 17 } }, { { 56, 61, 70, 45, 67, 79, -1 }, { 60, 65, 77, 54, 68, 80, -1 } } };
 
     public static final String[] colorStrings = {"@red@","@gre@","@blu@","@yel@","@cya@","@mag@","@whi@","@bla@","@lre@","@dre@","@dbl@","@or1@","@or2@","@or3@","@gr1@","@gr2@","@gr3@","@str@","@end@"};
-	public static final String[] bad = {":chalreq:", ":tradereq:", ":duelreq:", ":yell:"};
+	public static final String[] bad = {":chalreq:", ":tradereq:", ":duelreq:", ":yell:", "#url#"};
 	public static final String[] bannedChars = {"!","$","%","^","&","*","+","=","@",":",";","~","#","<",">",",",".","?","\\","/","`","|","[","]","{","}","(",")","-","'","\""};
 	
     public static final int SKILL_ATTACK = 0, SKILL_DEFENCE = 1,

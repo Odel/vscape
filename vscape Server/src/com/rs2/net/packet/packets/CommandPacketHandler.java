@@ -24,6 +24,14 @@ public class CommandPacketHandler implements PacketHandler {
 	private void handleCommand(Player player, Packet packet) {
 		try {
 			String command = packet.getIn().readString();
+			if(command.startsWith("/"))
+			{
+		        if(player.getClanChat() != null)
+		        {
+		        	player.getClanChat().sendClanMessage(player, command.substring(command.indexOf("/")+1));
+		        }
+				return;
+			}
 			String[] split = command.split(" ");
 			String keyword = split[0].toLowerCase();
 			CommandHandler.handleCommands(player, keyword, Arrays.copyOfRange(split, 1, split.length), command.substring(command.indexOf(" ") + 1));

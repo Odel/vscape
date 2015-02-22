@@ -24,6 +24,7 @@ import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.bank.BankManager;
+import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
@@ -68,9 +69,12 @@ public class PlayerSaveParser {
                 {
                 	player.setInJail(characterObj.get("inJail").getAsBoolean());
                 }
-		if(characterObj.get("isIronman") != null) {
-			player.setIronman(characterObj.get("isIronman").getAsBoolean());
-		}
+				if(characterObj.get("isIronman") != null) {
+					player.setIronman(characterObj.get("isIronman").getAsBoolean());
+				}
+				if(characterObj.get("clanChat") != null) {
+					player.setClanChat(ClanChatHandler.getClanChat(characterObj.get("clanChat").getAsLong()));
+				}
 	            JsonObject position = characterObj.getAsJsonObject("position");
 	            if(position != null){
 	            player.getPosition().setX(position.get("x") != null ? position.get("x").getAsInt() : Constants.START_X);

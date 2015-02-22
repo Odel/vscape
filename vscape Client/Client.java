@@ -405,7 +405,7 @@ public class Client extends RSApplet {
 		smallText.method382(gameTextColor[gameMode], 100, gameText[gameMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[publicChatMode], 164, text[publicChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[privateChatMode], 230, text[privateChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
-		smallText.method382(textColor[clanChatMode], 296, text[clanChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
+		smallText.method382(globalTextColor[clanChatMode], 296, globalText[clanChatMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(textColor[tradeMode], 362, text[tradeMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 		smallText.method382(globalTextColor[globalMode], 428, globalText[globalMode], clientSize == 0 ? 163 : clientHeight - 1, true);
 	}
@@ -638,7 +638,7 @@ public class Client extends RSApplet {
 							amountOfMessages++;
 							//j77++;
 						}
-						if (chatType == 11 && (clanChatMode == 0)) {
+					/*	if (chatType == 11 && (clanChatMode == 0)) {
 							if (chatTypeView == 11) {
 								if (yPos > y && yPos < y + 210)
 									if (clientSize != 0)
@@ -656,7 +656,7 @@ public class Client extends RSApplet {
 										textDrawingArea.method385(0x7e3200,chatMessages[k]+ " @blu@" + s1,yPos, 11);
 								amountOfMessages++;
 							}
-						}
+						}*/
 					}
 					
 					if (chatType == 9 && (globalMode == 0 || globalMode == 1)) {
@@ -667,65 +667,52 @@ public class Client extends RSApplet {
 							if (byte0 == 1) {
 								modIcons[0].drawBackground(xPos + 1,
 										yPos - 12);
-								xPos += 14;
+								xPos += 16;
 							} else if (byte0 == 2) {
 								modIcons[1].drawBackground(xPos + 1,
 										yPos - 12);
-								xPos += 14;
+								xPos += 16;
 							} else if (byte0 == 3) {
 								modIcons[2].drawBackground(xPos + 1,
 										yPos - 12);
-								xPos += 14;
+								xPos += 16;
 							}
 							textDrawingArea.method385(0, s1 + ":", yPos,
 									xPos);
-							xPos += textDrawingArea.getTextWidth(s1) + 8;
+							xPos += textDrawingArea.getTextWidth(s1) + 5;
 							textDrawingArea.method389(false, xPos, 0x7e3200,
 									chatMessages[k], yPos);
 								amountOfMessages++;
 						}
 					}
 					
-					if (chatType == 16) {
-						if(chatTypeView == 16 || (chatTypeView == 0 && clanChatMode == 0))
-						{
-							int j2 = 40;
-							int clanNameWidth = textDrawingArea.getTextWidth(clanname);
-							if (chatTypeView == 11 || chatTypeView == 0) {
-								if (yPos > y && yPos < y + 210)
-									switch (chatRights[k]) {
-									case 1:
-										j2 += clanNameWidth;
-										modIcons[0].drawBackground(j2 - 18,yPos - 12);
-										j2 += 14;
-										break;
-	
-									case 2:
-										j2 += clanNameWidth;
-										modIcons[1].drawBackground(j2 - 18,yPos - 12);
-										j2 += 14;
-										break;
-	
-									case 3:
-										j2 += clanNameWidth;
-										modIcons[1].drawBackground(j2 - 18,yPos - 12);
-										j2 += 14;
-										break;
-	
-									default:
-										j2 += clanNameWidth;
-										break;
-									}
-								textDrawingArea.method385(0, "[", yPos, 8);
-								textDrawingArea.method385(255, "" + clanname + "",yPos, 14);
-								textDrawingArea.method385(0, "]", yPos,clanNameWidth + 14);
-	
-								textDrawingArea.method385(0, chatNames[k] + ":",yPos, j2 - 17); // j2
-								j2 += textDrawingArea.getTextWidth(chatNames[k]) + 7;
-								textDrawingArea.method385(0x800000,chatMessages[k], yPos, j2 - 16);// j2
-								amountOfMessages++;
-								//j77++;
+					if (chatType == 16 && (clanChatMode == 0 || clanChatMode == 1)) {
+						if (chatTypeView == 16 || (chatTypeView == 0 && clanChatMode == 0)) {
+							String clanName = clanChatNames[k];
+							int xPos = 8;
+							textDrawingArea.method385(0, "[", yPos, xPos);
+							xPos += 6;
+							textDrawingArea.method385(255, clanName, yPos, xPos);
+							xPos +=  textDrawingArea.getTextWidth(clanName);
+							textDrawingArea.method385(0, "]", yPos, xPos);
+							xPos += 6;
+							if (byte0 == 1) {
+								modIcons[0].drawBackground(xPos + 1,
+										yPos - 12);
+								xPos += 16;
+							} else if (byte0 == 2) {
+								modIcons[1].drawBackground(xPos + 1,
+										yPos - 12);
+								xPos += 16;
+							} else if (byte0 == 3) {
+								modIcons[2].drawBackground(xPos + 1,
+										yPos - 12);
+								xPos += 16;
 							}
+							textDrawingArea.method385(0, s1 + ":", yPos, xPos);
+							xPos += textDrawingArea.getTextWidth(s1) + 5;
+							textDrawingArea.method385(0x800000, chatMessages[k], yPos, xPos);
+							amountOfMessages++;
 						}
 					}
 				}
@@ -1330,7 +1317,9 @@ public class Client extends RSApplet {
 				if (class9_1.atActionType == 1 && k >= i2 && i1 >= j2 && k < i2 + class9_1.width && i1 < j2 + class9_1.height) {
 					boolean flag = false;
 					if (class9_1.contentType != 0)
-						flag = buildFriendsListMenu(class9_1);
+					{
+						flag = buildFriendsListMenu(class9_1) || buildClanChatMenu(class9_1);
+					}
 					if (!flag) {
 						menuActionName[menuActionRow] = class9_1.tooltip;
 						menuActionID[menuActionRow] = 315;
@@ -1766,19 +1755,19 @@ public class Client extends RSApplet {
 				}
 			} else if(super.saveClickX >= 269 && super.saveClickX <= 325 && super.saveClickY >= y + 482 && super.saveClickY <= y + 505) {
 				if (clientSize != 0) {
-					if (channel != 4 && clientSize != 0) {
+					if (channel != 16 && clientSize != 0) {
 						cButtonCPos = 4;
-						chatTypeView = 4;
+						chatTypeView = 16;
 						inputTaken = true;
-						channel = 4;
+						channel = 16;
 					} else {
 						showChat = showChat ? false : true;
 					}
 				} else {
 					cButtonCPos = 4;
-					chatTypeView = 4;
+					chatTypeView = 16;
 					inputTaken = true;
-					channel = 4;
+					channel = 16;
 				}
 			} else if(super.saveClickX >= 335 && super.saveClickX <= 391 && super.saveClickY >= y + 482 && super.saveClickY <= y + 505) {
 				if (clientSize != 0) {
@@ -4333,6 +4322,19 @@ public class Client extends RSApplet {
 					delIgnore(l3);
 			}
 		}
+		if (l == 1500 || l == 1501 || l == 1502) {
+			String s = menuActionName[i];
+			int k1 = s.indexOf("@whi@");
+			if (k1 != -1) {
+				long l3 = TextClass.longForName(s.substring(k1 + 5).trim());
+				if (l == 1500)
+					clanChatUserAction(l3, 0);
+				if (l == 1501)
+					clanChatUserAction(l3, 1);
+				if (l == 1502)
+					clanChatUserAction(l3, 2);
+			}
+		}
 		if (l == 53) {
 			stream.createFrame(135);
 			stream.method431(j);
@@ -4535,10 +4537,6 @@ public class Client extends RSApplet {
 				tabAreaAltered = true;
 			}
 		}
-		if (l == 1003) {
-			clanChatMode = 2;
-			inputTaken = true;
-		}
 		if (l == 1002) {
 			gameMode = 2;
 			inputTaken = true;
@@ -4646,7 +4644,7 @@ public class Client extends RSApplet {
 		}
 		if (l == 980) {
 			cButtonCPos = 6;
-			chatTypeView = 4;
+			chatTypeView = 16;
 			inputTaken = true;
 		}
 		if (l == 493) {
@@ -5488,7 +5486,7 @@ public class Client extends RSApplet {
 					}
 					if (friendsListAction == 6) {
 						long l3 = TextClass.longForName(promptInput);
-						chatJoin(l3);
+						clanChatJoin(l3);
 					}
 				}
 			} else if (inputDialogState == 1) {
@@ -5862,6 +5860,13 @@ public class Client extends RSApplet {
 				buildGlobalChat(j);
 				break;
 			}
+			if(chatTypeView == 16)
+			{
+				if(clanChatMode == 0 || clanChatMode == 1){
+					l++;
+				}
+				break;
+			}
 			if (s != null && s.startsWith("@cr1@")) {
 				s = s.substring(5);
 			}
@@ -5941,6 +5946,11 @@ public class Client extends RSApplet {
 					menuActionRow++;
 				}
 				l++;
+			}
+			if (j1 == 16){
+				if(clanChatMode == 0){
+					l++;
+				}
 			}
 		}
 	}
@@ -6240,6 +6250,7 @@ public class Client extends RSApplet {
 			if (pos >= k) {
 				chatIcon.sprite1 = chatIcon.sprite2 = null;
 				class9.message = "";
+				class9.width = 0;
 				class9.atActionType = 0;
 				return;
 			} else {
@@ -6265,7 +6276,7 @@ public class Client extends RSApplet {
 					if(ccByte == 0)
 					{
 						chatIcon.sprite1 = chatIcon.sprite2 = null;
-						if(isFriendOrSelf(chatMember) && !chatMember.equals(myPlayer.name))
+						if(isFriendOrSelf(chatMember) && !chatMember.equalsIgnoreCase(myPlayer.name))
 						{
 							chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 0);
 						}
@@ -6283,6 +6294,7 @@ public class Client extends RSApplet {
 						chatIcon.sprite1 = chatIcon.sprite2 = SpriteLoader.getSprite("clanchat", 2);
 					}
 					class9.message = chatMember;
+					class9.width = class9.textDrawingAreas.getTextWidth(chatMember);
 					class9.atActionType = 1;
 				}
 				return;
@@ -6414,12 +6426,14 @@ public class Client extends RSApplet {
 			chatMessages[j] = chatMessages[j - 1];
 			chatRights[j] = chatRights[j - 1];
 			chatFiltered[j] = chatFiltered[j - 1];
+			clanChatNames[j] = clanChatNames[j - 1];
 		}
 		chatTypes[0] = i;
 		chatNames[0] = s1;
 		chatMessages[0] = s;
 		chatRights[0] = rights;
 		chatFiltered[0] = isFiltered;
+		clanChatNames[0] = clanname;
 	}
 
 	public static void setTab(int id) {
@@ -7276,7 +7290,7 @@ public class Client extends RSApplet {
 					aStream_847.writeWordBigEndian(16);
 				aStream_847.writeWordBigEndian(stream.currentOffset + 36 + 1 + 1 + 2);
 				aStream_847.writeWordBigEndian(255);
-				aStream_847.writeWord(319);
+				aStream_847.writeWord(320);
 				aStream_847.writeWordBigEndian(lowMem ? 1 : 0);
 				
 				String macaddress = getMac();
@@ -8267,7 +8281,7 @@ public class Client extends RSApplet {
 			mapDotPlayer = new Sprite(streamLoader_2, "mapdots", 2);
 			mapDotFriend = new Sprite(streamLoader_2, "mapdots", 3);
 			mapDotTeam = new Sprite(streamLoader_2, "mapdots", 4);
-			mapDotClan = new Sprite(streamLoader_2, "mapdots", 5);
+			mapDotClan = SpriteLoader.getSprite("clanchat", 7);
 			scrollBar1 = new Sprite(streamLoader_2, "scrollbar", 0);
 			scrollBar2 = new Sprite(streamLoader_2, "scrollbar", 1);
 			for (int l4 = 0; l4 < 2; l4++)
@@ -9033,13 +9047,27 @@ public class Client extends RSApplet {
 		int i = class9.contentType;
 		if (i >= 20001 && i <= 20101) {
 			int pos = i - 20001;
-			menuActionName[menuActionRow] = "Kick @whi@" + clanList[pos];
-			menuActionID[menuActionRow] = -1;
-			menuActionRow++;
-			return true;
-		} else {
-			return false;
-		}
+			String chatMember = clanList[pos]; 
+			if(chatMember != null && chatMember.length() > 0)
+			{
+				if(chatMember.startsWith("@cc1@") || chatMember.startsWith("@cc2@") || chatMember.startsWith("@cc3@"))
+				{
+					chatMember = chatMember.substring(5);
+				}
+				chatMember = TextClass.fixName(chatMember);
+				menuActionName[menuActionRow] = "Ban @whi@" + chatMember;
+				menuActionID[menuActionRow] = 1502;
+				menuActionRow++;
+				menuActionName[menuActionRow] = "Demote @whi@" + chatMember;
+				menuActionID[menuActionRow] = 1501;
+				menuActionRow++;
+				menuActionName[menuActionRow] = "Promote @whi@" + chatMember;
+				menuActionID[menuActionRow] = 1500;
+				menuActionRow++;
+				return true;
+			}
+		} 
+		return false;
 	}
 
 	private void method104() {
@@ -10524,7 +10552,6 @@ public class Client extends RSApplet {
 					stream.writeQWord(l);
 					return;
 				}
-
 			return;
 		} catch (RuntimeException runtimeexception) {
 			Signlink.reporterror("47229, " + 3 + ", " + l + ", " + runtimeexception.toString());
@@ -10532,7 +10559,7 @@ public class Client extends RSApplet {
 		throw new RuntimeException();
 	}
 
-	private void chatJoin(long l) {
+	private void clanChatJoin(long l) {
 		try {
 			if (l == 0L)
 				return;
@@ -10543,7 +10570,22 @@ public class Client extends RSApplet {
 			Signlink.reporterror("47229, " + 3 + ", " + l + ", " + runtimeexception.toString());
 		}
 		throw new RuntimeException();
-
+	}
+	
+	private void clanChatUserAction(long l, int action) {
+		try {
+			if (l == 0L)
+				return;
+			if(action < 0)
+				return;
+			stream.createFrame(61);
+			stream.writeQWord(l);
+			stream.writeWord(action);
+			return;
+		} catch (RuntimeException runtimeexception) {
+			Signlink.reporterror("47229, " + 3 + ", " + l + ", " + runtimeexception.toString());
+		}
+		throw new RuntimeException();
 	}
 
 	public String getParameter(String s) {
@@ -10820,7 +10862,12 @@ public class Client extends RSApplet {
 				for (int j3 = 0; j3 < clanList.length; j3++) {
 					if (clanList[j3] == null)
 						continue;
-					if (!clanList[j3].equalsIgnoreCase(player.name))
+					String chatMember = clanList[j3];
+					if(chatMember.startsWith("@cc1@") || chatMember.startsWith("@cc2@") || chatMember.startsWith("@cc3@"))
+					{
+						chatMember = chatMember.substring(5);
+					}
+					if (!chatMember.equalsIgnoreCase(player.name))
 						continue;
 					flag3 = true;
 					break;
@@ -12188,11 +12235,16 @@ public class Client extends RSApplet {
 			/* Clan chat packet */
 			case 216 :
 				try {
+					clanname = inStream.readString();
 					String name = inStream.readString();
 					String message = inStream.readString();
-					clanname = inStream.readString();
-					rights = inStream.readUnsignedWord();
-					pushMessage(message, 16, TextClass.fixName(name));
+					rights = inStream.readUnsignedByte();
+					if (rights == 2 || rights == 3)
+						pushMessage(message, 16, "@cr2@" + TextClass.fixName(name));
+					else if (rights == 1)
+						pushMessage(message, 16, "@cr1@" + TextClass.fixName(name));
+					else
+						pushMessage(message, 16, TextClass.fixName(name));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -13397,6 +13449,7 @@ public class Client extends RSApplet {
 		chatTypes = new int[500];
 		chatNames = new String[500];
 		chatMessages = new String[500];
+		clanChatNames = new String[500];
 		sideIcons = new Sprite[15];
 		aBoolean954 = true;
 		friendsListAsLongs = new long[200];
@@ -13636,6 +13689,7 @@ public class Client extends RSApplet {
 	private final int[] chatTypes;
 	private final String[] chatNames;
 	private final String[] chatMessages;
+	private final String[] clanChatNames;
 	private int anInt945;
 	private WorldController worldController;
 	private Sprite[] sideIcons;

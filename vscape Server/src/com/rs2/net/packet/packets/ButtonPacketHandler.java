@@ -377,6 +377,12 @@ public class ButtonPacketHandler implements PacketHandler {
 				}
 				//player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
+			case 97184 :
+				if(player.getClanChat() != null)
+				{
+					player.getClanChat().leaveChat(player, false);
+				}
+				return;
 		}
 		if (QuestHandler.handleQuestButtons(player, buttonId))
 		{

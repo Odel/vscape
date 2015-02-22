@@ -18,6 +18,7 @@ import com.rs2.model.players.GlobalGroundItem;
 import com.rs2.model.players.HighscoresManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.LoginStages;
+import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.Tick;
@@ -231,6 +232,8 @@ public class Server implements Runnable {
             PlayerSave.saveCycle();
             
             GlobalVariables.loadBans();
+            
+            ClanChatHandler.loadClans();
 
 			// Start up and get a'rollin!
 			startup();

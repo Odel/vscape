@@ -87,7 +87,13 @@ public class CommandHandler {
 	
 
 	public static void playerCommands(final Player sender, final String keyword, final String[] args, final String fullString) {
-		if (keyword.equals("sit")) {
+		if (keyword.equals("renameclan")) {
+	        if(sender.getClanChat() != null)
+	        {
+	        	sender.getClanChat().renameClan(sender, fullString);
+	        }
+		}
+		else if (keyword.equals("sit")) {
 			sender.setStandAnim(4855);
 			sender.setAppearanceUpdateRequired(true);
 			final int task = sender.getTask();
