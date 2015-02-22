@@ -410,6 +410,8 @@ public class ClanChat {
 	    			}
 	        	}
 	        }
+		} catch(IOException e) {
+			System.out.println("Failed to decompress clan file");
 		}
 	}
 	
