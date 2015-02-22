@@ -2543,7 +2543,7 @@ public class Dialogues {
 						Abyss.teleportToAbyss(player, npc);
 						break;
 					case 5 :
-						ShopManager.openShop(player, 10);
+						ShopManager.openShop(player, 27);
 						player.getDialogue().dontCloseInterface();
 						break;
 					case 6 :
