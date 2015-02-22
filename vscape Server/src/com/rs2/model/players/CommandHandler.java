@@ -2348,7 +2348,7 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev", true);
 			return;
 		}
-		String rightType = args[0];
+		String rightType = args[0].toLowerCase();
 	    String name = fullString.substring(fullString.indexOf("-")+1);
 	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 	    final Player player = World.getPlayerByName(nameLong);
@@ -2362,7 +2362,14 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("Player is banned", true);
 			return;
 		}
-		int rightLevel = 0;
+		if(rightType == null)
+			return;
+		if(!rightType.equalsIgnoreCase("player") && !rightType.equalsIgnoreCase("mod") 
+			&& !rightType.equalsIgnoreCase("admin") && !rightType.equalsIgnoreCase("dev")){
+			sender.getActionSender().sendMessage("Not a valid right type.", true);
+			return;
+		}
+		int rightLevel = player.getStaffRights();
         switch (rightType) {
 	        case "player":
 	        	rightLevel = 0;
@@ -2377,7 +2384,6 @@ public class CommandHandler {
 	        	rightLevel = 3;
 			break;
         }
-        
 		String playerName = NameUtil.formatName(player.getUsername());
         if(player.getStaffRights() != rightLevel)
         {
