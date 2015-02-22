@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.rs2.Constants;
 import com.rs2.Server;
 import com.rs2.cache.region.RegionManager;
@@ -254,9 +255,10 @@ public class World {
 		for (int i = 1; i < npcs.length; i++) {
 			if (npcs[i] == null) {
 				npcs[i] = npc;
+				NpcDefinition definition = World.getDefinitions()[npc.getNpcId()];
 				npc.setIndex(i);
 				npc.setFaceIndex(i);
-				npc.setSize(World.getDefinitions()[npc.getNpcId()].getSize());
+				npc.setSize(definition.getSize());
 				for (int id : Npc.npcsTransformOnAggression) {
 					if (id == npc.getNpcId()) {
 						if (npc.getNpcId() >= 1024 && npc.getNpcId() <= 1029) {
@@ -267,24 +269,9 @@ public class World {
 						break;
 					}
 				}
-				for (int id : Npc.npcsDontWalk) {
-					if (id == npc.getNpcId()) {
-						npc.setDontWalk(true);
-						break;
-					}
-				}
-				for (int id : Npc.npcsDontFollow) {
-					if (id == npc.getNpcId()) {
-						npc.setDontFollow(true);
-						break;
-					}
-				}
-				for (int id : Npc.npcsDontAttack) {
-					if (id == npc.getNpcId()) {
-						npc.setDontAttack(true);
-						break;
-					}
-				}
+				npc.setDontWalk(!definition.canWalk());
+				npc.setDontFollow(!definition.canFollow());
+				npc.setDontAttack(!definition.canAttackBack());
 				return;
 			}
 		}
