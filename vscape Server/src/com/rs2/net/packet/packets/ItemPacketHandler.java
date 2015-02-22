@@ -1055,6 +1055,19 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 10592:
 		player.getPets().registerPet(10592, 5428);
 		return;
+	    case 2005: //Burnt Stew
+		 if (player.getInventory().removeItemSlot(item, player.getSlot()))  {
+			player.getActionSender().sendMessage("You empty the burnt stew");
+			player.getInventory().addItemToSlot(new Item(1923), player.getSlot());
+		}
+		return;
+	    case 2013: //Burnt Curry
+		if (player.getInventory().removeItemSlot(item, player.getSlot()))  {
+                        player.getActionSender().sendMessage("You empty the burnt curry");
+                        player.getInventory().addItemToSlot(new Item(1923), player.getSlot());
+                }
+                return;
+
 	    case 952: //spade
 		player.getUpdateFlags().sendAnimation(830);
 		player.getActionSender().sendMessage("You dig into the ground...");
