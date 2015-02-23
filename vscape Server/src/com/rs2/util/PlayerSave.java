@@ -30,6 +30,8 @@ import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.Tick;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
+import com.rs2.task.Task;
+import com.rs2.task.TaskScheduler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.magic.Spell;
@@ -56,7 +58,7 @@ public class PlayerSave {
 	public static final int SAVE_INTERVAL = 30; // in minutes
 	
 	public static void saveCycle() {
-		World.submit(new Tick(SAVE_INTERVAL * 100) {
+		new TaskScheduler().schedule(new Task(SAVE_INTERVAL * 100) {
 		    @Override public void execute() {
 		    	if(Constants.SYSTEM_UPDATE)
 		    	{
