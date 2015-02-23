@@ -24,6 +24,7 @@ import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.Tick;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.packet.PacketManager;
+import com.rs2.task.Task;
 import com.rs2.task.TaskScheduler;
 import com.rs2.util.*;
 import com.rs2.util.clip.ObjectDef;
@@ -56,11 +57,8 @@ public class Server implements Runnable {
 	private final int cycleRate;
 	private long cycle;
 	private int infoDisplayCounter = 10;
-
 	private static long minutesCounter;
-
-    public static GroupMiniGame castleWarsGroup = new GroupMiniGame(new CastleWarsCounter());
-    
+	
 	private Selector selector;
 	private InetSocketAddress address;
 	private ServerSocketChannel serverChannel;
@@ -238,7 +236,7 @@ public class Server implements Runnable {
 			// Start up and get a'rollin!
 			startup();
 			System.out.println("Online!");
-			while (!Thread.interrupted()) {
+		/*	while (!Thread.interrupted()) {
 				try {
 					cycle();
 					sleep();
@@ -246,8 +244,8 @@ public class Server implements Runnable {
 					PlayerSave.saveAllPlayers();
 					ex.printStackTrace();
 				}
-			}
-		/*	scheduler.schedule(new Task() {
+			}*/
+			scheduler.schedule(new Task() {
 				@Override
 				protected void execute() {
 					try {
@@ -258,7 +256,7 @@ public class Server implements Runnable {
 						stop();
 					}
 				}
-			});*/
+			});
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -287,7 +285,7 @@ public class Server implements Runnable {
 		}
 
 		// Finally, initialize whatever else we need.
-		cycleTimer = new Misc.Stopwatch();
+		//cycleTimer = new Misc.Stopwatch();
 	}
 
 	/**
@@ -374,13 +372,13 @@ public class Server implements Runnable {
             }
         }
         b.stop();
-        b.reset();
-        if(infoDisplayCounter == 0){
+        Benchmarks.resetAll();
+      /*  if(infoDisplayCounter == 0){
         	System.out.println("[ENGINE]: Server load: " + cycle + "% with " + World.playerAmount() + " players");
         	infoDisplayCounter = 300;
     	}else{
         	infoDisplayCounter--;
-    	}
+    	}*/
 	}
 
 	/**
