@@ -390,7 +390,20 @@ public class Cat {
 	}
 	
 	public boolean hasCat(){
-		return catItemId != 0;
+		if(catItemId > 0){
+			if(cat != null && cat.getPlayerOwner() != null && cat.getPlayerOwner() == player)
+			{
+				return true;
+			}else{
+				if(player.getInventory().ownsItem(catItemId) || player.getBankManager().ownsItem(catItemId))
+				{
+					return true;
+				}else{
+					catItemId = 0;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void setCatItem(int itemId)
