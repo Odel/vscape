@@ -17,19 +17,22 @@ public class ClanChatHandler {
 	
 	public static void loadClans() {
 		File[] listOfFiles = new File(clanMainDir).listFiles();
-		for (File file : listOfFiles) {
-			if (file.getName().endsWith(".gz")) {
-				String fileName = file.getName().replace(".gz", "");
-    			if(clanChats.get(NameUtil.nameToLong(fileName)) == null)
-    			{
-    				ClanChat newChat = new ClanChat(NameUtil.nameToLong(fileName));
-    				try {
-						newChat.Load(clanMainDir + fileName + ".gz");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-    				clanChats.put(NameUtil.nameToLong(fileName), newChat);
-    			}
+		if(listOfFiles != null && listOfFiles.length > 0)
+		{
+			for (File file : listOfFiles) {
+				if (file.getName().endsWith(".gz")) {
+					String fileName = file.getName().replace(".gz", "");
+	    			if(clanChats.get(NameUtil.nameToLong(fileName)) == null)
+	    			{
+	    				ClanChat newChat = new ClanChat(NameUtil.nameToLong(fileName));
+	    				try {
+							newChat.Load(clanMainDir + fileName + ".gz");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+	    				clanChats.put(NameUtil.nameToLong(fileName), newChat);
+	    			}
+				}
 			}
 		}
 		System.out.println("Loaded " + clanChats.size() + " Clan Chats");
