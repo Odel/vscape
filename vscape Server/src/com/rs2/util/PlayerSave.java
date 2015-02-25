@@ -843,7 +843,7 @@ public class PlayerSave {
 	            player.setFriendsConverted(true);
 	            for (int i = 0; i < player.getIgnores().length; i++) {
 					long ignoreLong = load.readLong();
-					if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
+					if(ignoreLong < 0L || ignoreLong >= 0x7dcff8986ea31000L)
 						continue;
 					if(!player.getIgnoresConverted()){
 						ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignoreLong));
