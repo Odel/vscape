@@ -61,6 +61,8 @@ public class GlobalVariables {
 	private static ArrayList<String> bannedMacs = new ArrayList<String>();
 	
 	public static void loadBans(){
+		bannedIps.clear();
+		bannedMacs.clear();
 		try(BufferedReader br = new BufferedReader(new FileReader(new File("data/bannedips.txt")))){
 			String line = null;
 			while ((line = br.readLine()) != null) {
@@ -100,8 +102,32 @@ public class GlobalVariables {
 			}
 		}
 	}
-	public static String[] getBannedIps() {
-		return bannedIps.toArray(new String[bannedIps.size()]);
+
+	public static void unbanIp(String ip)
+	{
+		if(bannedIps.contains(ip.trim()))
+		{
+			bannedIps.remove(ip.trim());
+			try(BufferedWriter bw = new BufferedWriter(new FileWriter("data/bannedips.txt", false))){
+				for(String ipA : bannedMacs)
+				{
+					bw.write(ipA.trim());
+					bw.newLine();
+				}
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static boolean isIpBanned(String ip){
+		if(bannedIps == null || bannedIps.size() <= 0)
+		{
+			return false;
+		}
+		return bannedIps.contains(ip.trim());
 	}
 	
 	public static void banMac(String mac)
@@ -119,7 +145,31 @@ public class GlobalVariables {
 			}
 		}
 	}
-	public static String[] getBannedMacs() {
-		return bannedMacs.toArray(new String[bannedMacs.size()]);
+	
+	public static void unbanMac(String mac)
+	{
+		if(bannedMacs.contains(mac.trim()))
+		{
+			bannedMacs.remove(mac.trim());
+			try(BufferedWriter bw = new BufferedWriter(new FileWriter("data/bannedmacs.txt", false))){
+				for(String macA : bannedMacs)
+				{
+					bw.write(macA.trim());
+					bw.newLine();
+				}
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static boolean isMacBanned(String mac){
+		if(bannedMacs == null || bannedMacs.size() <= 0)
+		{
+			return false;
+		}
+		return bannedMacs.contains(mac.trim());
 	}
 }

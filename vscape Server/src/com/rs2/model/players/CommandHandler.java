@@ -1793,11 +1793,30 @@ public class CommandHandler {
 		else if (keyword.equals("banip")) {
         	BanIpAddress(sender, fullString);
         } 
+		else if (keyword.equals("unbanip")) {
+			String ip = fullString;
+			if(GlobalVariables.isIpBanned(ip)){
+				GlobalVariables.unbanIp(ip);
+				sender.getActionSender().sendMessage("Unbanned IP Address "+ip+".", true);
+			}else{
+				sender.getActionSender().sendMessage("The IP Address "+ip+" is not banned.", true);
+			}
+        } 
 		else if (keyword.equals("banmac")) {
         	BanMacAddress(sender, fullString);
         } 
-		else if (keyword.equals("checkips")) {
-        //	checkHosts();
+		else if (keyword.equals("unbanmac")) {
+			String mac = fullString;
+			if(GlobalVariables.isMacBanned(mac)){
+				GlobalVariables.unbanMac(mac);
+				sender.getActionSender().sendMessage("Unbanned Mac Address "+mac+".", true);
+			}else{
+				sender.getActionSender().sendMessage("The Mac Address "+mac+" is not banned.", true);
+			}
+        } 
+		else if (keyword.equals("reloadbans")) {
+			GlobalVariables.loadBans();
+			sender.getActionSender().sendMessage("Reloaded IP & MAC Bans", true);
         } 
 		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);

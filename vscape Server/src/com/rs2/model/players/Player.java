@@ -4126,12 +4126,7 @@ public class Player extends Entity {
         {
         	return false;
         }
-    	for(String ip : GlobalVariables.getBannedIps()){
-    		if(ip.contentEquals(getHost())){
-    			return true;
-    		}
-    	}
-    	return false;
+    	return GlobalVariables.isIpBanned(getHost());
     }
     
     public boolean isMacBanned() 
@@ -4140,12 +4135,7 @@ public class Player extends Entity {
         {
         	return false;
         }
-    	for(String mac : GlobalVariables.getBannedMacs()){
-    		if(mac.contentEquals(getMacAddress())){
-    			return true;
-    		}
-    	}
-    	return false;
+    	return GlobalVariables.isMacBanned(getMacAddress());
     }
 
 	/**
