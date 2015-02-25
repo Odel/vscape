@@ -1549,6 +1549,21 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 10016 : //nature amulet
+				switch(player.getDialogue().getChatId()) {
+				case  1 :
+					player.getDialogue().sendOption("Cabbage Port", "Do Nothing");
+					return true;
+				case  2 :
+					switch(optionId) {
+					case 1:
+						player.getUpdateFlags().sendAnimation(714);
+                				player.getUpdateFlags().sendHighGraphic(301);
+						player.getTeleportation().attemptTeleport(Teleportation.CABBAGE_PATCH);
+						break;
+					}
+				}
+				break;
 			case 10004 : //ring of duel
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -1599,6 +1614,19 @@ public class Dialogues {
 						break;
 				}
 				break;
+			/**case 510 : //hajedy
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getInventory().playerHasItem(new Item(431))) {
+								player.setStatedInterface("glider");
+								player.getActionSender().sendInterface(802);
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
+			*/
 			case 510 : //hajedy
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -4598,18 +4626,6 @@ public class Dialogues {
 						return true;
 					//question 2
 					case 15:
-						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
-						return true;
-					case 16:
-						player.getDialogue().sendPlayerChat("What is your name?", Dialogues.CONTENT);
-						return true;
-					case 17:
-						player.getDialogue().sendNpcChat("Mumblemumblemumble...", Dialogues.CONTENT);
-						return true;
-					case 18:
-						player.getDialogue().sendPlayerChat("What was that?", Dialogues.CONTENT);
-						return true;
-					case 19:
 						player.getDialogue().sendNpcChat("My name is Edward Cranium", Dialogues.CONTENT);
 						return true;
 					case 20:

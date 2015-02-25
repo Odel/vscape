@@ -477,10 +477,10 @@ public class Allotments {
 		player.getInventory().removeItem(new Item(itemId));
 		player.getInventory().addItem(new Item(itemId == 5333 ? itemId - 2 : itemId - 1));
 
-		if (!player.getInventory().getItemContainer().contains(FarmingConstants.RAKE)) {
+		/**if (!player.getInventory().getItemContainer().contains(FarmingConstants.RAKE)) {
 			player.getDialogue().sendStatement("You need a seed dibber to plant seed here.");
 			return true;
-		}
+		}**/
 		player.getActionSender().sendMessage("You water the patch.");
 		player.getUpdateFlags().sendAnimation(FarmingConstants.WATERING_CAN_ANIM);
 
