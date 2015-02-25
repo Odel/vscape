@@ -1125,8 +1125,7 @@ public class ItemPacketHandler implements PacketHandler {
 			player.getUpdateFlags().setForceChatMessage("Alas!");
 		return;
 	    case 6040:// ammy of nature
-		player.getActionSender().sendMessage("You clicked on it");
-		Dialogues.startDialogue(player, 10016);
+				Dialogues.startDialogue(player, 10016);
 		return;
 	}
 
