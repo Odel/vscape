@@ -254,7 +254,7 @@ public class PlayerSaveParser {
 						if(i >= friends.size())
 							break;
 						long friendLong = friends.get(i).getAsLong();
-						if(friendLong < 0L || friendLong >= 0x5b5b57f8a98a5dd1L)
+						if(friendLong < 0L || friendLong >= 0x7dcff8986ea31000L)
 							continue;
 						if(!player.getFriendsConverted()){
 							friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friends.get(i).getAsLong()));
@@ -275,7 +275,7 @@ public class PlayerSaveParser {
 						if(i >= ignores.size())
 							break;
 						long ignoreLong = ignores.get(i).getAsLong();
-						if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
+						if(ignoreLong < 0L || ignoreLong >= 0x7dcff8986ea31000L)
 							continue;
 						if(!player.getIgnoresConverted()){
 							ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignores.get(i).getAsLong()));

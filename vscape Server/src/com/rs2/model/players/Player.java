@@ -1259,7 +1259,7 @@ public class Player extends Entity {
 				return false;
 			}
 		}
-		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x5b5b57f8a98a5dd1L)
+		if (getUsernameAsLong() <= 0L || getUsernameAsLong() >= 0x7dcff8986ea31000L)
 		{
 			return false;
 		}

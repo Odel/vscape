@@ -833,7 +833,7 @@ public class PlayerSave {
                 }
 	            for (int i = 0; i < player.getFriends().length; i++) {
 					long friendLong = load.readLong();
-					if(friendLong < 0L || friendLong >= 0x5b5b57f8a98a5dd1L)
+					if(friendLong < 0L || friendLong >= 0x7dcff8986ea31000L)
 						continue;
 					if(!player.getFriendsConverted()){
 						friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friendLong));

@@ -22,7 +22,7 @@ final class TextClass {
 
 	public static String nameForLong(long l) {
 		try {
-			if (l <= 0L || l >= 0x5b5b57f8a98a5dd1L)
+			if (l <= 0L || l >= 0x7dcff8986ea31000L)
 				return "invalid_name";
 			if (l % 38L == 0L)
 				return "invalid_name";
