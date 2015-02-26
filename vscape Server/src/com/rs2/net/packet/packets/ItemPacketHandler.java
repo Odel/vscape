@@ -489,28 +489,35 @@ public class ItemPacketHandler implements PacketHandler {
 	player.setClickZ(player.getPosition().getZ());
 	packet.getIn().readShort();
 	player.setClickX(packet.getIn().readShort());
-	if (itemInInven != 590) {
-	    return;
-	}
-	final int task = player.getTask();
-	player.setSkilling(new CycleEvent() {
-	    @Override
-	    public void execute(CycleEventContainer container) {
-		if (!player.checkTask(task)) {
-		    container.stop();
+	switch(itemInInven) {
+	    default:
 		    return;
-		}
-		if (player.getPosition().getX() == player.getClickX() && player.getPosition().getY() == player.getClickY()) {
-		    player.getFiremaking().attemptFire(player.getClickId(), 0, true, player.getClickX(), player.getClickY(), player.getPosition().getZ());
-		    container.stop();
-		}
-	    }
+	    case 590: //Tinderbox
+		    final int task = player.getTask();
+		    player.setSkilling(new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer container) {
+				    if (!player.checkTask(task)) {
+					    container.stop();
+					    return;
+				    }
+				    if (player.getPosition().getX() == player.getClickX() && player.getPosition().getY() == player.getClickY()) {
+					    player.getFiremaking().attemptFire(player.getClickId(), 0, true, player.getClickX(), player.getClickY(), player.getPosition().getZ());
+					    container.stop();
+				    }
+			    }
 
-	    @Override
-	    public void stop() {
-	    }
-	});
-	CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+			    @Override
+			    public void stop() {
+			    }
+		    });
+		    CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+		    break;
+		
+	    case 1929: //Watchtower
+		    break;
+	}
+	
     }
 
     private void handlePickupItem(Player player, Packet packet) {
@@ -1125,7 +1132,7 @@ public class ItemPacketHandler implements PacketHandler {
 			player.getUpdateFlags().setForceChatMessage("Alas!");
 		return;
 	    case 6040:// ammy of nature
-				Dialogues.startDialogue(player, 10016);
+		Dialogues.startDialogue(player, 10016);
 		return;
 	}
 
