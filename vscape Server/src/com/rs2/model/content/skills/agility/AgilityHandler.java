@@ -188,7 +188,7 @@ public class AgilityHandler {
         player.setRunAnim(-1);
         player.setWalkAnim(-1);
         player.setAppearanceUpdateRequired(true);
-        player.getMovementPaused().reset();
+        player.getMovementHandler().reset();
 	}
 	
 	private static MovementLock getLock(final Player player, final int anim, final double EXP){
@@ -215,7 +215,7 @@ public class AgilityHandler {
                 player.setRunAnim(-1);
                 player.setWalkAnim(-1);
                 player.setAppearanceUpdateRequired(true);
-                player.getMovementPaused().reset();
+                player.getMovementHandler().reset();
 				if(EXP > 0){
 					player.getSkill().addExp(Skill.AGILITY, EXP);
 				}

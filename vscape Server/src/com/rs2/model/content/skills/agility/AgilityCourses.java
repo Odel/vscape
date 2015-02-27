@@ -122,9 +122,11 @@ public class AgilityCourses {
 				}
 			return true;
 			case 2284: // barb net 1
-				Agility.climbNet(player, x-1, y, 1, 1, 8.2);
-				if(getCourseStage(1) == 2) 
-					setCourseStage(1,3);
+				if(player.getPosition().getX() > x) {
+					Agility.climbNet(player, x-1, y, 1, 1, 8.2);
+					if(getCourseStage(1) == 2) 
+						setCourseStage(1,3);
+				}
 			return true;
 			case 2302: // barb ledge 1
 				if(player.getPosition().getY() == y && player.getPosition().getX() > x) {
