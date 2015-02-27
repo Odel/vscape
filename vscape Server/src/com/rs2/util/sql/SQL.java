@@ -94,7 +94,7 @@ public class SQL {
 	}
 	
 	private static boolean ignoreUser(String name){
-		if(name.equals("Stannis") || name.equals("Quietessdick") || name.equals("Bobsterdebug") || name.equals("Mod dammit") || name.equals("Noiryx") || name.equals("Pickles") || name.equals("Mrsmeg") || name.equals("Mr telescope") || name.equals("Shark") || name.equals("Mr foxter") || name.equals("Mr_foxter"))
+		if(name.equals("Stannis") || name.equals("Lord dio") || name.equals("Quietessdick") || name.equals("Bobsterdebug") || name.equals("Mod dammit") || name.equals("Noiryx") || name.equals("Pickles") || name.equals("Mrsmeg") || name.equals("Mr telescope") || name.equals("Shark") || name.equals("Mr foxter") || name.equals("Mr_foxter"))
 		{
 			return true;
 		}
