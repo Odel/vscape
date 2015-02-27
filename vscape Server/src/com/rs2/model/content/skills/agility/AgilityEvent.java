@@ -19,7 +19,7 @@ public abstract class AgilityEvent {
 	public void failure()
 	{
 		failCalled = true;
-	};
+	}
 	
 	public abstract void levelRequirement();
 }
