@@ -108,14 +108,18 @@ public class AgilityCourses {
 			case 2282: // barb swing 1
 				if(player.getPosition().getY() > y) {
 					player.getActionSender().animateObject(x, y, 0, 751);
-					Agility.swingRope(player, x, 3549, 1, 22);
-					setCourseStage(1,1);
+					if(AgilityHandler.swingRope(player, new Position(x,3549,0), new Position(2550,9950,0), 22, 35, true, 2, 5)){
+						setCourseStage(1,1);
+					}
 				}
 			return true;
 			case 2294: // barb log 1
-				Agility.crossLog(player, 2541, y, 11, 1, 13.7);
-				if(getCourseStage(1) == 1) 
-					setCourseStage(1,2);
+				if(player.getPosition().getY() == y) {
+					if(AgilityHandler.crossLog(player, new Position(2541,y,0), new Position(2550,3547,0), 13.7, 35, true, 7, 3)){
+						if(getCourseStage(1) == 1) 
+							setCourseStage(1,2);
+					}
+				}
 			return true;
 			case 2284: // barb net 1
 				Agility.climbNet(player, x-1, y, 1, 1, 8.2);
@@ -123,9 +127,12 @@ public class AgilityCourses {
 					setCourseStage(1,3);
 			return true;
 			case 2302: // barb ledge 1
-				Agility.crossLedge(player, 2532, y, 3, 3, 1, 22);
-				if(getCourseStage(1) == 3) 
-					setCourseStage(1,4);
+				if(player.getPosition().getY() == y && player.getPosition().getX() > x) {
+					if(AgilityHandler.crossLedge(player, 3, new Position(2532, y, 1), new Position(2532, 3546, 1), new Position(2534,3545,0), 22, 35, true, 4, 5)){
+						if(getCourseStage(1) == 3) 
+							setCourseStage(1,4);
+					}
+				}
 			return true;
 			case 3205: // barb ladder 1
 			    if(player.getPosition().getX() == 2532) {

@@ -79,6 +79,14 @@ public class MovementHandler {
 	public void stopMovement() {
 		reset();
 	}
+	
+	public void setMovementLock(MovementLock lock){
+		movementLock = lock;
+	}
+	
+	public MovementLock getMovementLock(){
+		return movementLock;
+	}
 
 	public void lock(MovementLock lock) {
 		if (lock == null) {
