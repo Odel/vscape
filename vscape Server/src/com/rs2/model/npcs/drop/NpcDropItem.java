@@ -1,6 +1,7 @@
 package com.rs2.model.npcs.drop;
 
 import com.rs2.model.players.item.Item;
+import com.rs2.util.Misc;
 
 /**
  * Represents a single npc drop.
@@ -37,7 +38,18 @@ public class NpcDropItem {
 	 * @return An item, with a random amount and the id of this class.
 	 */
 	public Item getItem() {
-		return new Item(id, 1);
+		Item toReturn = new Item(this.getId(), 1);
+		if (this.getCount().length == 1) {
+			toReturn = new Item(this.getId(), this.getCount()[0]);
+		} else if (this.getCount().length == 2) {
+			toReturn = new Item(this.getId(), Misc.random(this.getCount()[1] - this.getCount()[0]) + this.getCount()[0]);
+		} else {
+			toReturn = new Item(this.getId(), this.getCount()[Misc.randomMinusOne(this.getCount().length)]);
+		}
+		if (this.getId() >= 1438 && this.getId() <= 1462 && !toReturn.getDefinition().isNoted()) { //Talismans never giving more than one unnoted
+			toReturn = new Item(this.getId(), 1);
+		}
+		return toReturn;
 	}
 
 	/**
