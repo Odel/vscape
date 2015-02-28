@@ -61,11 +61,11 @@ public class RandomHandler {
 			@Override
 			public void stop() {
 			}
-		}, 1000);
+		}, 3600);
 	}
 	
 	public void spawnEvent() {
-		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle) {
+		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle || (player.onApeAtoll() && player.getMMVars().isMonkey())) {
 			return;
 		}
 		int random = Misc.random(6);
