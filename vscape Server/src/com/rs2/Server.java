@@ -6,8 +6,6 @@ import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.minigames.GroupMiniGame;
-import com.rs2.model.content.minigames.groupminigames.CastleWarsCounter;
 import com.rs2.model.content.minigames.magetrainingarena.*;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.QuestHandler;

@@ -29,7 +29,6 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.SpellBook;
@@ -510,23 +509,7 @@ public class CommandHandler {
 				if (player == null)
 					continue;
 				if (player.getUsername().equalsIgnoreCase(fullString)) {
-					    switch(Misc.random(3)) {
-						case 0 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
-						    break;
-						case 1 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.GENIE);
-						    break;
-						case 2 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.JEKYLL);
-						    break;
-						//case 3 :
-						    //TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.RICK);
-						    //break;
-						case 3 :
-						    player.getRandomInterfaceClick().sendEventRandomly();
-						    break;
-					    }
+					player.getRandomHandler().spawnEvent();
 					return;
 				}
 			}
@@ -1119,9 +1102,6 @@ public class CommandHandler {
 		    }
 		    player.setUsername(newName);
 		    sender.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .", true);
-		}
-		else if (keyword.equals("forester")) {
-			sender.getRandomHandler().getFreakyForester().spawnForester();
 		}
 		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
 		    String name = fullString;

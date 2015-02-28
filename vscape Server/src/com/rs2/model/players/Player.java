@@ -66,9 +66,7 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.RandomHandler;
-import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillResources;
@@ -253,7 +251,6 @@ public class Player extends Entity {
 	private Cat cat = new Cat(this);
 	private MonkeyMadnessVars MMVars = new MonkeyMadnessVars(this);
 	private QuestVariables questVars = new QuestVariables(this);
-	private InterfaceClickHandler randomInterfaceClick = new InterfaceClickHandler(this);
 	private DialogueManager dialogue = new DialogueManager(this);
 	private BankPin bankPin = new BankPin(this);
 	private Login login = new Login();
@@ -781,7 +778,10 @@ public class Player extends Entity {
 		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
 	    }
         }
-        RandomEvent.resetEvents(this);
+        if(getRandomHandler().getCurrentEvent() != null)
+        {
+        	getRandomHandler().destroyEvent();
+        }
 		setLogoutTimer(System.currentTimeMillis() + (this.inWild() ? 600000 : 1000)); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -2030,10 +2030,6 @@ public class Player extends Entity {
 
 	public Fishing getFishing() {
 		return fishing;
-	}
-
-	public InterfaceClickHandler getRandomInterfaceClick() {
-		return randomInterfaceClick;
 	}
 
 	public SkillResources getSkillResources() {

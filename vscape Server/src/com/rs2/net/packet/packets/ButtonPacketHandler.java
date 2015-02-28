@@ -517,8 +517,11 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getSkillGuide().skillGuidesButton(buttonId)) {
 			return;
 		}
-		if (player.getRandomInterfaceClick().handleButtonClicking(buttonId)) {
-			return;
+		if (player.getRandomHandler().getCurrentEvent() != null) {
+			if(player.getRandomHandler().getCurrentEvent().handleButtons(buttonId))
+			{
+				return;
+			}
 		}
 		if (Sextant.handleSextantButtons(player, buttonId)) {
 			return;

@@ -28,7 +28,6 @@ import com.rs2.model.players.bank.BankManager;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.tick.Tick;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
 import com.rs2.task.Task;
 import com.rs2.task.TaskScheduler;

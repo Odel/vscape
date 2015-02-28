@@ -12,7 +12,6 @@ import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.farming.Farmers;
@@ -40,7 +39,7 @@ import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.randomevents.FreakyForester;
+import com.rs2.model.content.randomevents.impl.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
@@ -149,6 +148,11 @@ public class Dialogues {
 		}
 		if(MageTrainingDialogue.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
+		}
+		if(player.getRandomHandler().getCurrentEvent() != null) {
+			if(player.getRandomHandler().getCurrentEvent().sendDialogue(id, chatId, optionId, npcChatId)) {
+				return true;
+			}
 		}
 		switch(id) {
 			case 1 : //Man
@@ -2678,23 +2682,6 @@ public class Dialogues {
 				    player.getDialogue().sendNpcChat("You can leave using that portal over there.", "Thank you again.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
-			    }
-			break;
-			case 3117 : //sandwich lady
-			    switch (player.getDialogue().getChatId()) {
-				case 1:
-				    player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + player.getRandomInterfaceClick().getEvents(3117).stringSent()[0] + " on me.", HAPPY);
-				    return true;
-				case 2:
-				    for (Npc npc : player.getNpcs()) {
-					if (npc != null && npc.getNpcId() == 3117 && npc.getPlayerOwner().equals(player)) {
-					    player.setSpawnedNpc(npc);
-					}
-				    }
-				    player.getRandomInterfaceClick().openInterface(3117);
-				    //player.getRandomInterfaceClick().sendModelsRotation(3117);
-				    player.getDialogue().dontCloseInterface();
-				    break;
 			    }
 			break;
 			case 1595 : //saniboch
