@@ -76,6 +76,7 @@ public class QuestVariables {
     private boolean firstMortMyreBridgeFixed = false;
     private boolean secondMortMyreBridgeFixed = false;
     private boolean thirdMortMyreBridgeFixed = false;
+    public boolean[] myrequeTalkedToBools = {false, false, false, false, false};
     
     public QuestVariables(final Player player) {
 	this.player = player;

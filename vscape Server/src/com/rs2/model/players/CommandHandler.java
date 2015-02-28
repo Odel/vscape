@@ -1997,19 +1997,20 @@ public class CommandHandler {
 	//clear note interface
 	public static void ClearNotes(Player player)
 	{
-		if(player.getInterface() == 8134)
-		{
 			int line = 8144;
 			for (int i = 0; i < 120; i++) {
 				if(line > 8195 && line < 12174)
 				{
 					line = 12174;
 				}
+				if(line > 12223) {
+					return;
+				}
 				player.getActionSender().sendString("",line);
 				line++;
 			}
-		}
 	}
+	
 	public static ArrayList<String> macExists(String MAC) {
 		ArrayList<String> matching = new ArrayList<>();
 		int q = 0;

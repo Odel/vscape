@@ -1250,6 +1250,9 @@ public class WalkToActionHandler {
 				case GhostsAhoy.TRAPDOOR:
 					TrapDoor.handleTrapdoor(player, id, 5268, def);
 					break;
+				case InSearchOfTheMyreque.TRAPDOOR:
+					TrapDoor.handleTrapdoor(player, id, 6435, def);
+					break;
 				case 1570: // climb down trapdoor
 				case 5947: // climb into lumby swamp
 				case 6435: // climb down trapdoor

@@ -727,14 +727,36 @@ public class ActionSender {
 	}
 
 	public ActionSender sendString(String message, int interfaceId) {
-		StreamBuffer.OutBuffer out = StreamBuffer
-				.newOutBuffer(message.length() + 6);
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
 		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
 		out.writeString(message);
 		out.writeShort(interfaceId, StreamBuffer.ValueType.A);
 		out.finishVariableShortPacketHeader();
 		player.send(out.getBuffer());
 		return this;
+	}
+	
+	public void sendQuestLogString(String message, int logIndex, int questIndex, int strikeStage) {
+		if(player.getQuestStage(questIndex) < strikeStage) {
+		    return;
+		} else if(player.getQuestStage(questIndex) > strikeStage) {
+		    message = "@str@" + message;
+		}
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
+		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
+		out.writeString(message);
+		out.writeShort(logIndex + 8146, StreamBuffer.ValueType.A);
+		out.finishVariableShortPacketHeader();
+		player.send(out.getBuffer());
+	}
+	
+	public void sendQuestLogString(String message, int logIndex) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
+		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
+		out.writeString(message);
+		out.writeShort(logIndex + 8146, StreamBuffer.ValueType.A);
+		out.finishVariableShortPacketHeader();
+		player.send(out.getBuffer());
 	}
 
 	public ActionSender sendFriendList(long name, int world) {

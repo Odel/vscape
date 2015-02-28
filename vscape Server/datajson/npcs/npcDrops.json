@@ -89902,6 +89902,26 @@
     ]
   },
   {
+    "npcId": 1575,
+    "rareTableAccess": false,
+    "drops": [
+      {
+	   "id": 532,
+        "count": [
+          4
+        ],
+        "chance": 1
+      },
+      {
+	   "id": 1619,
+        "count": [
+          2
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
     "npcId": 1582,
     "rareTableAccess": false,
     "drops": [

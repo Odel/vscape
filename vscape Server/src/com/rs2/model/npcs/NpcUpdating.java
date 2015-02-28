@@ -84,7 +84,11 @@ public class NpcUpdating {
 		out.writeBits(5, delta.getY());
 		out.writeBits(5, delta.getX());
 		out.writeBits(1, 0);
-		out.writeBits(14, npc.getNpcId());
+		if(npc.getNpcId() == 1577 && player.getQuestStage(38) > 6) {
+			out.writeBits(14, 1576); //Vanstrom Clause -> Stranger
+		} else {
+			out.writeBits(14, npc.getNpcId());
+		}
 		out.writeBit(true);
 	}
 
