@@ -193,7 +193,7 @@ public class Cooking {
 				}
 				return true;
 			}
-			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot")) {
+			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot") || name.equalsIgnoreCase("sulphur vent")) {
 				player.setNewSkillTask();
 				player.setStatedInterface("cookRange");
 				player.setTempInteger(item);
