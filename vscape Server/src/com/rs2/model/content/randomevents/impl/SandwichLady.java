@@ -70,7 +70,7 @@ public class SandwichLady implements RandomEvent {
 			int cycles = 0;
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (complete || player.getRandomEventNpc() == null || !player.getRandomEventNpc().isVisible()) {
+				if (complete || player.getRandomEventNpc() == null || !player.getRandomEventNpc().isVisible() || player.getRandomEventNpc().getNpcId() != sandwichLadyID) {
 					container.stop();
 					return;
 				}
@@ -94,7 +94,6 @@ public class SandwichLady implements RandomEvent {
 		player.getRandomHandler().setCurrentEvent(null);
 		player.getRandomHandler().destroyEventNpc();
 		player.setStatedInterface("");
-		complete = false;
 	}
 	
 	@Override
@@ -108,7 +107,7 @@ public class SandwichLady implements RandomEvent {
 		if(player.getStatedInterface().equals("SandwichLady"))
 		{
 			Reward rew = Reward.forButtonId(buttonID);
-			if(rew != null)
+			if(rew != null && !complete)
 			{
 				if(rew.getBtnId() != reward.getBtnId())
 				{
@@ -129,7 +128,7 @@ public class SandwichLady implements RandomEvent {
 		{
 			case sandwichLadyID :
 				final Npc npc = World.getNpcs()[player.getNpcClickIndex()];
-				if(npc != null && !player.getRandomEventNpc().equals(npc))
+				if(npc != null && !player.getRandomEventNpc().equals(npc) || complete)
 				{
 					return false;
 				}

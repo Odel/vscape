@@ -2,6 +2,7 @@ package com.rs2.model.content.randomevents;
 
 import com.rs2.model.content.randomevents.TalkToEvent.TalkToNpc;
 import com.rs2.model.content.randomevents.impl.FreakyForester;
+import com.rs2.model.content.randomevents.impl.MimeEvent;
 import com.rs2.model.content.randomevents.impl.Pillory;
 import com.rs2.model.content.randomevents.impl.RandomEvent;
 import com.rs2.model.content.randomevents.impl.SandwichLady;
@@ -18,6 +19,7 @@ public class RandomHandler {
 	private SandwichLady sandwichLady;
 	private FreakyForester freakyForester;
 	private Pillory pillory;
+	private MimeEvent mimeEvent;
 	
 	private Player player;
 	public RandomHandler(final Player player)
@@ -27,6 +29,7 @@ public class RandomHandler {
 		sandwichLady = new SandwichLady(player);
 		freakyForester = new FreakyForester(player);
 		pillory = new Pillory(player);
+		mimeEvent = new MimeEvent(player);
 	}
 	
 	public SandwichLady getSandwichLady() {
@@ -39,6 +42,10 @@ public class RandomHandler {
 	
 	public Pillory getPillory() {
 		return pillory;
+	}
+	
+	public MimeEvent getMimeEvent() {
+		return mimeEvent;
 	}
 	
 	private RandomEvent currentEvent;

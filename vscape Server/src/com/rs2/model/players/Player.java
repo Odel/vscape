@@ -470,8 +470,8 @@ public class Player extends Entity {
     private int castleWarsTeam = -1;
     private boolean ironman = false;
     private int minloggedout = 0;
-    
     private ClanChat currentClanChat;
+    private boolean movementDisabled = false;
     
 	public void resetAnimation() {
 		getUpdateFlags().sendAnimation(-1);
@@ -4750,6 +4750,14 @@ public class Player extends Entity {
 
 	public RandomHandler getRandomHandler() {
 		return randomHandler;
+	}
+	
+	public void setMovementDisabled(boolean state){
+		movementDisabled = state;
+	}
+	
+	public boolean getMovementDisabled(){
+		return movementDisabled;
 	}
 
 }

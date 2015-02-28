@@ -24,6 +24,9 @@ public class WalkPacketHandler implements PacketHandler {
 		if (player.isDead() || player.stopPlayerPacket()) {
 			return;
 		}
+		if (player.getMovementDisabled()) {
+			return;
+		}
 		if (player.isFrozen()) {
 			player.getActionSender().sendMessage("A magical force stops you from moving.");
 			return;
