@@ -1660,42 +1660,42 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 207,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 201,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 199,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 209,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 217,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 2485,
@@ -1741,28 +1741,28 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 557,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 554,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 558,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 995,
@@ -1786,7 +1786,7 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 2
       }
     ]
   },
