@@ -341,11 +341,14 @@ public class Slayer { // todo fungicide
 		} else if (!npcName.contains(slayerTask)) {
 			return;
 		}
-		if (taskAmount == 1) {
+		if (taskAmount == 0) {
 			resetSlayerTask();
 			return;
 		} else {
 			taskAmount--;
+			if(taskAmount%10 == 0 && player.getEquipment().getId(Constants.HANDS) >= 11118 && player.getEquipment().getId(Constants.HANDS) <= 11126) {
+				player.getActionSender().sendMessage("You still need to kill " + taskAmount + " monsters to complete your current Slayer assignment.");
+			}
 			player.getSkill().addExp(Skill.SLAYER, npc.getDefinition().getHitpoints());
 			return;
 		}

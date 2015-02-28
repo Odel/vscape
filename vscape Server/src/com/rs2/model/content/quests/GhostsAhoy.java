@@ -187,6 +187,8 @@ public class GhostsAhoy implements Quest {
     public static final int SLIME = 5461;
     public static final int SLIME_2 = 5462;
     
+    public static final String[] GHOST_VILLAGER_SAYINGS = {"What a beautiful day for spooking.", "Well... atleast I'm not a skeleton...", "We all have pain, we all have sorrow...", "I used to be a trumpet player before I died, you know.", "OoooOOOOOooooOOOoo!", "Go away mortal, I'm very busy."};
+    
     public int dialogueStage = 0;
     
     private int reward[][] = {
@@ -1187,6 +1189,12 @@ public class GhostsAhoy implements Quest {
     
     public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 	switch(id) {
+		case GhostsAhoyPetition.GHOST_VILLAGER:
+			if(player.getQuestStage(this.getQuestID()) > ITEMS_FOR_ENCHANTMENT_2) {
+				player.getDialogue().sendNpcChat(GHOST_VILLAGER_SAYINGS[Misc.randomMinusOne(GHOST_VILLAGER_SAYINGS.length)], CONTENT);
+				player.getDialogue().endDialogue();
+				return true;
+			}
 	    case 1686: //ghost disciple
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
