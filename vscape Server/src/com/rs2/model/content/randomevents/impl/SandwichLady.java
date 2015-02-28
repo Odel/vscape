@@ -58,9 +58,11 @@ public class SandwichLady implements RandomEvent {
 	}
 	private final static int sandwichLadyID = 3117;
 	private Reward reward = Reward.REDBERRYPIE;
+	private boolean complete = false;
 
 	@Override
 	public void spawnEvent() {
+		complete = false;
 		player.getRandomHandler().spawnEventNpc(sandwichLadyID);
 		reward = Reward.values()[Misc.random(Reward.values().length-1)];
 		player.getRandomEventNpc().getUpdateFlags().sendForceMessage(cycleMessages()[0].replaceAll("%", player.getUsername()));
@@ -68,7 +70,7 @@ public class SandwichLady implements RandomEvent {
 			int cycles = 0;
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (player.getRandomEventNpc() == null || !player.getRandomEventNpc().isVisible()) {
+				if (complete || player.getRandomEventNpc() == null || !player.getRandomEventNpc().isVisible()) {
 					container.stop();
 					return;
 				}
@@ -92,6 +94,7 @@ public class SandwichLady implements RandomEvent {
 		player.getRandomHandler().setCurrentEvent(null);
 		player.getRandomHandler().destroyEventNpc();
 		player.setStatedInterface("");
+		complete = false;
 	}
 	
 	@Override
@@ -151,6 +154,7 @@ public class SandwichLady implements RandomEvent {
 			player.getRandomEventNpc().getUpdateFlags().sendForceMessage("Hope that fills you up!!");
 			player.getRandomEventNpc().getUpdateFlags().sendAnimation(EventsConstants.GOOD_BYE_EMOTE);
 			player.getInventory().addItem(new Item(reward.getItemId(), 1));
+			complete = true;
 		} else {
 		    if(player.getRandomEventNpc() != null && Misc.goodDistance(player.getPosition(), player.getRandomEventNpc().getPosition(), 7)) {
 		    	player.getRandomEventNpc().sendPlayerAway(player, 402, 2304, EventsConstants.remoteLocations[randNum].getX(), EventsConstants.remoteLocations[randNum].getY(), EventsConstants.remoteLocations[randNum].getZ(), "Let's see how you like this!", false);

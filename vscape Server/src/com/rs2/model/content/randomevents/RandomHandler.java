@@ -68,7 +68,7 @@ public class RandomHandler {
 		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle) {
 			return;
 		}
-		int random = Misc.random(100);
+		int random = Misc.random(6);
 		switch(random) {
 			case 0 : //Wasp
 				player.getPjTimer().setWaitDuration(0);
