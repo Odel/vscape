@@ -1,5 +1,6 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+759:1:3237:9761:0:30 //phoenix weapons key
 2957:1:3443:9741:1:30 //druid pouch nature spirit
 2957:1:3443:9741:0:30 //druid pouch nature spirit
 2964:1:3437:3337:0:10 //washing bowl nature spirit
