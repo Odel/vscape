@@ -14,6 +14,7 @@ import com.rs2.model.content.skills.Fletching.HandleLogCutting;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.cooking.Cooking;
 import com.rs2.model.content.skills.cooking.DairyChurn;
+import com.rs2.model.content.skills.cooking.FillHandler;
 import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.skills.smithing.Smelting;
 import com.rs2.model.content.treasuretrails.ChallengeScrolls;
@@ -148,13 +149,16 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			return;
 		}
 		else if (player.getEnterXInterfaceId() == 6212) {
-		    if(player.getStatedInterface().equals("Ectoplasm")) {
-			Ectofuntus.handleFillTick(player, amount);
-			return;
-		    } else if(player.getStatedInterface().equals("cannonball")) {
-			DwarfCannon.craftCannonBall(player, amount);
-			return;
-		    }
+			if (player.getStatedInterface().equals("Ectoplasm")) {
+				Ectofuntus.handleFillTick(player, amount);
+				return;
+			} else if (player.getStatedInterface().equals("cannonball")) {
+				DwarfCannon.craftCannonBall(player, amount);
+				return;
+			} else if (player.getStatedInterface().equals("fillWater")) {
+				FillHandler.handleFillTick(player, amount);
+				return;
+			}
 		}
 		else if (player.getEnterXInterfaceId() == 7777) {
 		    if(player.getStatedInterface().equals("cannonball")) {
