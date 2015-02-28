@@ -2646,7 +2646,7 @@ public class Dialogues {
 				}
 				break;
 			case FreakyForester.FREAKY_FORESTER : //lel
-			    FreakyForester forester = player.getFreakyForester();
+			    FreakyForester forester = player.getRandomHandler().getFreakyForester();
 			    switch (player.getDialogue().getChatId()) {
 				case 1:
 				    if(!forester.isActive()) {
@@ -4136,7 +4136,7 @@ public class Dialogues {
 						player.getInventory().addItemOrDrop(new Item(1971));
 						player.getInventory().addItemOrDrop(new Item(1917));
 						player.getDialogue().sendGiveItemNpc("The dwarf gives you beer and a kebab.", "", new Item(1971), new Item(1917));
-						RandomEvent.destroyEventNpc(player);
+						player.getRandomHandler().destroyEventNpc();
 						player.getDialogue().endDialogue();
 						return true;
 				}
@@ -4149,7 +4149,7 @@ public class Dialogues {
 					case 2 :
 						player.getInventory().addItemOrDrop(new Item(2528));
 						player.getDialogue().sendGiveItemNpc("The genie gives you a lamp.", new Item(2528));
-						RandomEvent.destroyEventNpc(player);
+						player.getRandomHandler().destroyEventNpc();
 						player.getDialogue().endDialogue();
 						return true;
 				}
@@ -4201,7 +4201,7 @@ public class Dialogues {
 					player.getInventory().addItemOrDrop(reward);
 					player.getDialogue().sendGiveItemNpc("Jekyll hands you "+reward.getDefinition().getName().toLowerCase()+".", reward);
 					player.setRandomHerb(null);
-					RandomEvent.destroyEventNpc(player);
+					player.getRandomHandler().destroyEventNpc();
 					player.getDialogue().endDialogue();
 					return true;
 				}

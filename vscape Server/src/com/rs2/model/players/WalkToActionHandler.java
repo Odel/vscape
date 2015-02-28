@@ -517,7 +517,7 @@ public class WalkToActionHandler {
 					}
 					break;*/
 				case 6836 :
-						player.getPillory().openInterface();
+						player.getRandomHandler().getPillory().openInterface();
 					break;
 				case 2303: //Yanille dungeon balancing ledge
 				    Agility.crossLedge(player, 2580, player.getPosition().getY() < 9520 ? 9520 : 9512, player.getPosition().getY() < 9520 ? 3 : 1, 10, 40, 25);
@@ -609,7 +609,7 @@ public class WalkToActionHandler {
 				    }
 				case 8972: //freaky forester portal
 				    if(x == 2611 && y == 4776) {
-					FreakyForester forester = player.getFreakyForester();
+					FreakyForester forester = player.getRandomHandler().getFreakyForester();
 					if(forester.isActive()) {
 					    player.getDialogue().sendNpcChat("Hey! D-don't leave yet! I still need", "your help with this pheasant...", Dialogues.SAD);
 					    break;

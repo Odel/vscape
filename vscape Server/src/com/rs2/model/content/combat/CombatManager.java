@@ -133,7 +133,7 @@ public class CombatManager extends Tick {
 	            CombatManager.resetCombat(attacker);
 	            return;
 		}
-		if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
+		if(attacker.isPlayer() && !(((Player) attacker).getRandomHandler().getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
 		    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
 		    return;
 		}
@@ -465,7 +465,7 @@ public class CombatManager extends Tick {
 			MonkeyMadness.handleDeath((Player) killer, npc);
 			NatureSpirit.handleDeath((Player) killer, npc);
 			InSearchOfTheMyreque.handleDeath((Player) killer, npc);
-			((Player) killer).getFreakyForester().handleDrops(npc);
+			((Player) killer).getRandomHandler().getFreakyForester().handleDrops(npc);
 			if(((Player) killer).getSpawnedNpc() != null) {
 			    ((Player) killer).setSpawnedNpc(null);
 			}

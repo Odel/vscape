@@ -399,7 +399,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getPrayer().setPrayers(buttonId)) {
 			return;
 		}
-		if (player.getPillory().handleButton(buttonId)) {
+		if (player.getRandomHandler().getPillory().handleButton(buttonId)) {
 			return;
 		}
 		/**

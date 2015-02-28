@@ -746,7 +746,7 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
-		    	player.getPillory().JailPlayer();
+		    	player.getRandomHandler().getPillory().JailPlayer();
 		    	sender.getActionSender().sendMessage("Jailed "+ name, true);
 		    }else{
 		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
@@ -760,7 +760,7 @@ public class CommandHandler {
 		    if(player != null) {
 		    	if(!player.getInJail())
 		    		return;
-		    	player.getPillory().UnJailPlayer();
+		    	player.getRandomHandler().getPillory().UnJailPlayer();
 		    	sender.getActionSender().sendMessage("UnJailed "+ name, true);
 		    }else{
 		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
@@ -1121,7 +1121,7 @@ public class CommandHandler {
 		    sender.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .", true);
 		}
 		else if (keyword.equals("forester")) {
-			sender.getFreakyForester().spawnForester();
+			sender.getRandomHandler().getFreakyForester().spawnForester();
 		}
 		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
 		    String name = fullString;

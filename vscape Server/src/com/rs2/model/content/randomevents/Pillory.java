@@ -56,7 +56,7 @@ public class Pillory {
 		    			player.teleport(getRandomJail());
 		    			player.setInJail(true);
 		    			player.setStopPacket(false);
-		    			NpcLoader.destroyNpc(npc);
+		    			player.getRandomHandler().destroyEventNpc();
 					    container.stop();
 				    return;
 		    	}

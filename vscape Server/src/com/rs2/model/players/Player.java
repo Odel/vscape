@@ -66,8 +66,8 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.randomevents.Pillory;
 import com.rs2.model.content.randomevents.RandomEvent;
+import com.rs2.model.content.randomevents.RandomHandler;
 import com.rs2.model.content.randomevents.InterfaceClicking.impl.InterfaceClickHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
@@ -147,7 +147,6 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.SantaEncounter;
-import com.rs2.model.content.randomevents.FreakyForester;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -197,9 +196,8 @@ public class Player extends Entity {
 	private MithrilSeeds seeds = new MithrilSeeds(this);
 	private Barrows barrows = new Barrows(this);
 	private BarbarianSpirits barbarianSpirits = new BarbarianSpirits(this);
-	private FreakyForester freakyForester = new FreakyForester(this);
-	private Pillory pillory = new Pillory(this);
 	private GhostsAhoyPetition petition = new GhostsAhoyPetition(this);
+	private RandomHandler randomHandler = new RandomHandler(this);
 	private boolean wyvernWarned = false;
 	private Slayer slayer = new Slayer(this);
 	private NewComersSide newComersSide = new NewComersSide(this);
@@ -468,7 +466,6 @@ public class Player extends Entity {
 //	private boolean secondTryAtBin = false;
 	private int ectoWorshipCount = 0;
 	private Canoe canoe = new Canoe(this);
-    private String currentChannel = null;
     private boolean homeTeleporting = false;
     private DwarfMultiCannon dwarfMultiCannon = new DwarfMultiCannon(this);
     private boolean inJail = false;
@@ -1110,7 +1107,7 @@ public class Player extends Entity {
 		    this.getActionSender().sendUpdateServer(GlobalVariables.getServerUpdateTimer().ticksRemaining());
 		}*/
 		setLogoutTimer(System.currentTimeMillis() + 600000);
-		RandomEvent.startRandomEvent(this);
+		getRandomHandler().process();
 		setAppearanceUpdateRequired(true);
 	//	QuestHandler.initPlayer(this);
 		QuestHandler.initQuestLog(this);
@@ -1781,15 +1778,7 @@ public class Player extends Entity {
 	public BarbarianSpirits getBarbarianSpirits() {
 		return barbarianSpirits;
 	}
-	
-	public FreakyForester getFreakyForester() {
-		return freakyForester;
-	}
-	
-	public Pillory getPillory() {
-		return pillory;
-	}
-	
+
 	public GhostsAhoyPetition getPetition() {
 		return petition;
 	}
@@ -4761,6 +4750,10 @@ public class Player extends Entity {
 
 	public void setClanChat(ClanChat currentClanChat) {
 		this.currentClanChat = currentClanChat;
+	}
+
+	public RandomHandler getRandomHandler() {
+		return randomHandler;
 	}
 
 }

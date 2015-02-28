@@ -170,8 +170,8 @@ public class ThieveNpcs {
 					player.getStunTimer().setWaitDuration(thieveNpc.getStunTime());
 					player.getStunTimer().reset();
 				}
-				if (player.getPillory().doJailEvent()) {
-					player.getPillory().JailPlayer();
+				if (player.getRandomHandler().getPillory().doJailEvent()) {
+					player.getRandomHandler().getPillory().JailPlayer();
 				}
 				container.stop();
 			}
