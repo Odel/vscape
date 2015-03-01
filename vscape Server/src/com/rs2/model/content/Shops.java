@@ -52,6 +52,12 @@ public class Shops {
 	
 			case 570:
 				return 13;
+				
+			case 569:
+				return 14;
+				
+			case 572:
+				return 15;
 	
 			case 563:
 				return 16;
