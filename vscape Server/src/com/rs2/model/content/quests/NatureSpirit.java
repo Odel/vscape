@@ -405,17 +405,20 @@ public class NatureSpirit implements Quest {
     }
     
     public static void handleSwampRot(final Player player) {
-	if(player.Area(3434, 3449, 3331, 3344)) {
-	    player.getActionSender().sendMessage("The aura of Filliman's camp protects you from the swamp.");
-	} else if(player.getInventory().playerHasItem(SILVER_SICKLE_B) || player.getEquipment().getId(Constants.WEAPON) == SILVER_SICKLE_B) {
-	    player.getUpdateFlags().sendGraphic(264);
-	    player.getActionSender().sendMessage("Your blessed sickle prevents the swamp from decaying you.");
-	} else {
-	    player.getUpdateFlags().sendGraphic(267);
-	    player.getActionSender().sendMessage("The swamp decays you.", true);
-	    player.hit(Misc.random(4), HitType.NORMAL);
+		if (player.Area(3434, 3449, 3331, 3344)) {
+			player.getActionSender().sendMessage("The aura of Filliman's camp protects you from the swamp.");
+		} else if (player.getInventory().playerHasItem(SILVER_SICKLE_B) || player.getEquipment().getId(Constants.WEAPON) == SILVER_SICKLE_B) {
+			player.getUpdateFlags().sendGraphic(264);
+			player.getActionSender().sendMessage("Your blessed sickle prevents the swamp from decaying you.");
+		} else {
+			if (player.getPosition().getZ() == 0 && !Misc.goodDistance(player.getPosition(), new Position(3508, 3439, 0), 7)) { //Near Curpile Fyod dialogue for Myreque
+				player.getUpdateFlags().sendGraphic(267);
+				player.getActionSender().sendMessage("The swamp decays you.", true);
+				player.hit(Misc.random(4), HitType.NORMAL);
+			}
+		}
 	}
-    }
+    
     public static Food.FoodData findSpoilableFood(final Player player) {
 	for(Item i : player.getInventory().getItemContainer().toArray()) {
 		if(i == null) {

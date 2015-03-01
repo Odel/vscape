@@ -3,6 +3,7 @@ package com.rs2.model.content.quests;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
@@ -19,7 +20,6 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.objects.functions.TrapDoor;
 import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
@@ -163,6 +163,7 @@ public class InSearchOfTheMyreque implements Quest {
 		int lastIndex = 0;
 		switch(questStage) {
 			case QUEST_STARTED:
+			case POUCH_FOR_RIDE:
 				lastIndex = 4;
 				break;
 			case BOARD_BOAT:
@@ -208,18 +209,18 @@ public class InSearchOfTheMyreque implements Quest {
 			default:
 				break;
 			case 0:
-				a.sendQuestLogString("Talk to @dre@Vanstrom Clause @bla@in the @dre@Canifis Bar @bla@to begin.", 1, this.getQuestID(), 99);
-				a.sendQuestLogString("@dre@Requirements:", 2, this.getQuestID(), 99);
-				a.sendQuestLogString("" + (QuestHandler.questCompleted(player, 37) ? "@str@" : "@dbl@") + "-Nature Spirit.", 4, this.getQuestID(), 99);
-				a.sendQuestLogString("@dbl@-Ability to defeat a level 97 foe.", 5, this.getQuestID(), 99);
-				a.sendQuestLogString("" + (player.getSkill().getLevel()[Skill.AGILITY] >= 25 ? "@str@" : "@dbl@") + "-25 Agility.", 6, this.getQuestID(), 99);
+				a.sendQuestLogString("Talk to @dre@Vanstrom Clause @bla@in the @dre@Canifis Bar @bla@to begin.", 1);
+				a.sendQuestLogString("@dre@Requirements:", 3);
+				a.sendQuestLogString("" + (QuestHandler.questCompleted(player, 37) ? "@str@" : "@dbl@") + "-Nature Spirit.", 4);
+				a.sendQuestLogString("@dbl@-Ability to defeat a level 97 foe.", 5);
+				a.sendQuestLogString("" + (player.getSkill().getLevel()[Skill.AGILITY] >= 25 ? "@str@" : "@dbl@") + "-25 Agility.", 6);
 				break;
 			case QUEST_STARTED:
-				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_LONGSWORD) ? "@str@" : "@blu@") + "1 x Steel longsword", lastIndex + 1);
-				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_SWORD) ? "@str@" : "@blu@") + "2 x Steel shortsword", lastIndex + 2);
-				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_DAGGER) ? "@str@" : "@blu@") + "1 x Steel dagger", lastIndex + 3);
-				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_MACE) ? "@str@" : "@blu@") + "1 x Steel mace", lastIndex + 4);
-				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_WARHAMMER) ? "@str@" : "@blu@") + "1 x Steel warhammer", lastIndex + 5);
+				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_LONGSWORD) ? "@str@" : "@dbl@") + "1 x Steel longsword", lastIndex + 1);
+				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_SWORD) ? "@str@" : "@dbl@") + "2 x Steel shortsword", lastIndex + 2);
+				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_DAGGER) ? "@str@" : "@dbl@") + "1 x Steel dagger", lastIndex + 3);
+				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_MACE) ? "@str@" : "@dbl@") + "1 x Steel mace", lastIndex + 4);
+				a.sendQuestLogString("" + (player.getInventory().playerHasItem(STEEL_WARHAMMER) ? "@str@" : "@dbl@") + "1 x Steel warhammer", lastIndex + 5);
 				if (allWeapons(player)) {
 					a.sendQuestLogString("I have all the weapons Vanstrom asked me to get.", lastIndex + 6);
 				}
@@ -229,7 +230,7 @@ public class InSearchOfTheMyreque implements Quest {
 			case POUCH_FOR_RIDE:
 				a.sendQuestLogString("The boatman in Mort'ton agreed to let me take his", lastIndex + 1);
 				a.sendQuestLogString("boat back through Mort Myre. His condition is that", lastIndex + 2);
-				a.sendQuestLogString("I need defence against the Ghasts. I should fill my", lastIndex + 3);
+				a.sendQuestLogString("I need defense against the Ghasts. I should fill my", lastIndex + 3);
 				a.sendQuestLogString("Druid Pouch to convince him, 5 charges should do.", lastIndex + 4);
 				break;
 			case TALK_TO_MYREQUE:
@@ -239,7 +240,7 @@ public class InSearchOfTheMyreque implements Quest {
 				a.sendQuestLogString("I need to help defeat the beast Vanstrom sent!", lastIndex + 1);
 				break;
 			case FIGHT_WON:
-				a.sendQuestLogString("I should talk to Veliaf and see what Vanstrom", lastIndex + 1);
+				a.sendQuestLogString("I should talk to Veliaf and then see what Vanstrom", lastIndex + 1);
 				a.sendQuestLogString("has to say for himself.", lastIndex + 2);
 				break;
 			case QUEST_COMPLETE:
@@ -320,6 +321,12 @@ public class InSearchOfTheMyreque implements Quest {
 	}
 
 	public static void startEncounter(final Player player) {
+		player.getActionSender().sendMapState(2);
+		player.getInventory().removeItem(new Item(STEEL_DAGGER));
+		player.getInventory().removeItem(new Item(STEEL_LONGSWORD));
+		player.getInventory().removeItem(new Item(STEEL_MACE));
+		player.getInventory().removeItem(new Item(STEEL_WARHAMMER));
+		player.getInventory().removeItem(new Item(STEEL_SWORD, 2));
 		final DialogueManager d = player.getDialogue();
 		Npc SANI = null;
 		Npc HAROLD = null;
@@ -408,6 +415,7 @@ public class InSearchOfTheMyreque implements Quest {
 
 			@Override
 			public void stop() {
+				player.getActionSender().sendMapState(0);
 				player.setStopPacket(false);
 			}
 		}, 8);
@@ -841,7 +849,13 @@ public class InSearchOfTheMyreque implements Quest {
 					return false;
 					case TALKED_TO_MYREQUE:
 						if(player.getPosition().getZ() == 1) {
-							startEncounter(player);
+							if (allWeapons(player)) {
+								d.sendNpcChat("These weapons look great! Many thanks.", CONTENT);
+								startEncounter(player);
+							} else {
+								d.sendNpcChat("Hm, you seem to be missing a few weapons you", "said you had for us.", CONTENT);
+								d.endDialogue();
+							}
 							return true;
 						}
 						return false;
@@ -867,7 +881,7 @@ public class InSearchOfTheMyreque implements Quest {
 									player.setQuestStage(this.getQuestID(), TALKED_TO_MYREQUE);
 									startEncounter(player);
 								} else {
-									d.sendNpcChat("Hm, you seem to be missing a few weapons.", CONTENT);
+									d.sendNpcChat("Hm, you seem to be missing a few weapons you", "said you had for us.", CONTENT);
 									d.endDialogue();
 								}
 								return true;
@@ -1035,9 +1049,29 @@ public class InSearchOfTheMyreque implements Quest {
 								return true;
 							case 30:
 								d.endDialogue();
+								player.setStopPacket(true);
 								player.getActionSender().removeInterfaces();
-								World.getNpcs()[World.getNpcIndex(CURPILE_FYOD)].getUpdateFlags().setForceChatMessage("That's'a wrong answer! You're no friend!");
-								player.fadeTeleport(BOATMAN_POS);
+								final Npc curpile = World.getNpcs()[World.getNpcIndex(CURPILE_FYOD)];
+								curpile.getUpdateFlags().setForceChatMessage("That's'a wrong answer! You're no friend!");
+								curpile.setFollowingEntity(player);
+								curpile.getUpdateFlags().sendAnimation(451);
+								player.getUpdateFlags().sendGraphic(254, 100 << 16);
+								player.getUpdateFlags().sendAnimation(836);
+								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+									@Override
+									public void execute(CycleEventContainer b) {
+										b.stop();
+									}
+
+									@Override
+									public void stop() {
+										player.getActionSender().sendMessage("Oh dear, you are dead?");
+										player.fadeTeleport(BOATMAN_POS);
+										curpile.setFollowingEntity(null);
+										Following.resetFollow(curpile);
+										player.setStopPacket(false);
+									}
+								}, 4);
 								return true;
 						}
 						return false;
@@ -1059,7 +1093,7 @@ public class InSearchOfTheMyreque implements Quest {
 								if (player.getInventory().playerHasItem(NatureSpirit.DRUID_POUCH, 5)) {
 									d.sendGiveItemNpc("You show the boatman your druid pouch.", new Item(NatureSpirit.DRUID_POUCH_EMPTY));
 								} else {
-									d.sendNpcChat("You can use my boat to find the Myreque. You'll", "be going through Mort Myre though so I won't be", "letting you go unless you've some defence against the", "Ghasts.", CONTENT);
+									d.sendNpcChat("You can use my boat to find the Myreque. You'll", "be going through Mort Myre though so I won't be", "letting you go unless you've some defense against the", "Ghasts.", CONTENT);
 									d.endDialogue();
 								}
 								return true;
@@ -1148,7 +1182,7 @@ public class InSearchOfTheMyreque implements Quest {
 								d.sendPlayerChat("If you don't tell me, their deaths are on your head!", CONTENT);
 								return true;
 							case 15:
-								d.sendNpcChat("There's death a plenty in this forsaken place... what do I", "care that some fool hardy vigilantes decided to go it", "alone against the drakans? Stupidity of youth is to", "blame, I shan't carry it on my shoulders!", CONTENT);
+								d.sendNpcChat("There's death a plenty in this forsaken place... what do I", "care that some fool hardy vigilantes decided to go it", "alone against the Drakans? Stupidity of youth is to", "blame, I shan't carry it on my shoulders!", CONTENT);
 								return true;
 							case 16:
 								d.sendPlayerChat("What kind of man are you to say you don't care?", ANGRY_1);
@@ -1163,7 +1197,7 @@ public class InSearchOfTheMyreque implements Quest {
 								d.sendPlayerChat("But will you help me? Will you take me to them?", CONTENT);
 								return true;
 							case 20:
-								d.sendNpcChat("No, I won't take you, but you can use my boat. You'll", "be going through Mort Myre though so I won't be", "letting you go unless you've some defence against the", "Ghasts.", CONTENT);
+								d.sendNpcChat("No, I won't take you, but you can use my boat. You'll", "be going through Mort Myre though so I won't be", "letting you go unless you've some defense against the", "Ghasts.", CONTENT);
 								if (player.getInventory().playerHasItem(NatureSpirit.DRUID_POUCH, 5)) {
 									d.setNextChatId(1);
 								} else {
@@ -1212,7 +1246,7 @@ public class InSearchOfTheMyreque implements Quest {
 					case QUEST_STARTED:
 						switch (d.getChatId()) {
 							case 1:
-								d.sendOption("What do I have to do again?", "What weapons do I need to get again?", "Where do I need to take the weapons again?", "Nevermind.");
+								d.sendOption("What do I have to do again?", "What weapons do I need to get again?", "Where do I need to take the weapons again?", "Never mind.");
 								d.setNextChatId(20);
 								return true;
 							case 20:
@@ -1230,7 +1264,7 @@ public class InSearchOfTheMyreque implements Quest {
 										d.setNextChatId(24);
 										return true;
 									case 4:
-										d.sendPlayerChat("Nevermind.", CONTENT);
+										d.sendPlayerChat("Never mind.", CONTENT);
 										d.endDialogue();
 										return true;
 								}
@@ -1242,7 +1276,7 @@ public class InSearchOfTheMyreque implements Quest {
 								d.setNextChatId(1);
 								return true;
 							case 23:
-								d.sendNpcChat("Steel I believe. All six Myreque require steel weapons. I", "would suggest a longsword, two shortswords, a", "dagger, a mace and a warhammer.", CONTENT);
+								d.sendNpcChat("Steel I believe. All six Myreque require steel weapons. I", "would suggest a longsword, two short swords, a", "dagger, a mace and a warhammer.", CONTENT);
 								d.setNextChatId(1);
 								return true;
 							case 24:

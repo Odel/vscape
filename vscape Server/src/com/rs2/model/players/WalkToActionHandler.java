@@ -173,8 +173,9 @@ public class WalkToActionHandler {
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
 				
 				if(id != 1729 && id != 2290) {
-				    if (objectPosition == null)
+				    if (objectPosition == null) {
 					return;
+				    }
 				}
 				if(id != 1729 && id != 2290) {
 				    if (!canInteractWithObject(player, objectPosition, def)) {
@@ -2966,16 +2967,16 @@ public class WalkToActionHandler {
 			return true;
 		}
 		if(def.getId() == 1729) {
-		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 4))
-			return true;
+			return Misc.goodDistance(player.getPosition(), def.getPosition(), 4);
 		}
 		if(def.getId() == 2290) {
-		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 3))
-			return true;
+			return Misc.goodDistance(player.getPosition(), def.getPosition(), 3);
+		}
+		if(def.getId() == 5061 || def.getId() == 5060) {
+			return Misc.goodDistance(player.getPosition(), objectPos, 2);
 		}
 		if(def.getId() == 5002) {
-		    if(Misc.goodDistance(player.getPosition(), def.getPosition(), 1))
-			return true;
+		    return Misc.goodDistance(player.getPosition().clone().modifyZ(player.getPosition().getZ()%4), def.getPosition(), 1);
 		}
 		Rangable.removeObjectAndClip(def.getId(), def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), def.getFace(), def.getType());
 		boolean canInteract = Misc.checkClip(player.getPosition().clone().modifyZ(player.getPosition().getZ()%4), objectPos, false);

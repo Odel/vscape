@@ -470,6 +470,7 @@ public class Player extends Entity {
     private int castleWarsTeam = -1;
     private boolean ironman = false;
     private int minloggedout = 0;
+    
     private ClanChat currentClanChat;
     private boolean movementDisabled = false;
     
@@ -833,7 +834,7 @@ public class Player extends Entity {
 		    actionSender.sendEnergy();
 		}
 		getDesertHeat().CheckDesertHeat();
-		if(inMortMyreSwamp() && Misc.random(50) == 1) {
+		if(inMortMyreSwamp() && Misc.random(150) == 1) {
 		    NatureSpirit.handleSwampRot(this);
 		}
 		if(timeOutCheck()) {
