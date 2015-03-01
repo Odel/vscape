@@ -4180,7 +4180,7 @@
         "count": 10
       }
     ],
-    "isGeneralStore": false,
+    "isGeneralStore": true,
     "currencyType": "ITEM",
     "currency": 995
   },

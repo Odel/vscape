@@ -607,6 +607,11 @@ public class WalkToActionHandler {
 					player.teleport(new Position(2636, 9517, 0));
 					break;
 				    }
+				case 3205: //ladder down
+					if(x == 2766 && y == 3121) {
+						Ladders.climbLadder(player, new Position(2767, 3121, 0)); //General store karamja
+						break;
+					}
 				case 8972: //freaky forester portal
 				    if(x == 2611 && y == 4776) {
 					FreakyForester forester = player.getRandomHandler().getFreakyForester();

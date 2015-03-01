@@ -141,8 +141,9 @@ public class AgilityCourses {
 				Ladders.climbLadder(player, new Position(2532, 3546, 0));
 				if(getCourseStage(1) == 4) 
 					setCourseStage(1,5);
+				return true;
 			    }
-			return true;
+			return false;
 			case 1948: // walls
 				//1
 				if(player.getPosition().getX() < x)
