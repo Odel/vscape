@@ -90,9 +90,9 @@ public class AgilityCourses {
 						player.getDialogue().sendStatement("You have completed the course.");
 						setCourseStage(0,0);
 					}else if(getCourseStage(0) == 7) {
-						double bonusXp = (39d*Constants.EXP_RATE);
+						double bonusXp = (39d);
 						Agility.crawlPipe(player, x, 3437, 7, 1, (7.5+bonusXp));
-						player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+bonusXp+" bonus experience!" );
+						player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+(bonusXp * Constants.EXP_RATE)+" bonus experience!" );
 						setCourseStage(0,0);
 					}
 				}
@@ -167,9 +167,9 @@ public class AgilityCourses {
 							player.getDialogue().sendStatement("You have completed the course.");
 							setCourseStage(1,0);
 						}else if(getCourseStage(1) == 8) {
-							double bonusXp = (139.5d*Constants.EXP_RATE);
+							double bonusXp = (139.5d);
 							Agility.climbOver(player, 2543, y, 1, (13.7+bonusXp));
-							player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+bonusXp+" bonus experience!" );
+							player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+(bonusXp * Constants.EXP_RATE)+" bonus experience!" );
 							setCourseStage(1,0);
 						}
 					}
@@ -220,9 +220,9 @@ public class AgilityCourses {
 						player.getDialogue().sendStatement("You have completed the course.");
 						setCourseStage(2,0);
 					}else if(getCourseStage(2) == 5) {
-						double bonusXp = (499d*Constants.EXP_RATE);
+						double bonusXp = (499d);
 						Agility.crossObstacle(player, x, 3933, 844, 7, 1, bonusXp);
-						player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+bonusXp+" bonus experience!" );
+						player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+(bonusXp * Constants.EXP_RATE)+" bonus experience!" );
 						setCourseStage(2,0);
 					}
 				}
@@ -372,8 +372,9 @@ public class AgilityCourses {
 								if(getCourseStage(3) == 5)
 									setCourseStage(3, 6);
 								if(getCourseStage(3) == 6) {
-									double bonusXp = (200d*Constants.EXP_RATE);
-									player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+bonusXp+" bonus experience!" );
+									double bonusXp = (200d);
+									player.getSkill().addExp(Skill.AGILITY, bonusXp);
+									player.getDialogue().sendStatement("You have completed the course.","You were rewarded "+(bonusXp * Constants.EXP_RATE)+" bonus experience!" );
 									setCourseStage(3,0);
 								} else {
 									player.getDialogue().sendStatement("You have completed the course.");

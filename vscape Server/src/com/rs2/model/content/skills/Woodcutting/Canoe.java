@@ -77,22 +77,24 @@ public class Canoe {
 	}
 	
 	public enum CanoeData {
-		LOG("Log", 71028, 12147, 12, false),
-		DUGOUT("Dugout", 71029, 12148, 27, false),
-		STABLEDUGOUT("Stable Dugout", 71030, 12149, 42, false),
-		WAKA("Waka", 71031, 12150, 57, true);
+		LOG("Log", 71028, 12147, 12, 30.0, false),
+		DUGOUT("Dugout", 71029, 12148, 27, 60.0, false),
+		STABLEDUGOUT("Stable Dugout", 71030, 12149, 42, 90.0, false),
+		WAKA("Waka", 71031, 12150, 57, 150.0, true);
 		
 		private String name;
 		private int buttonID;
 		private int objectID;
 		private int level;
+		private double xp;
 		private boolean canWilderness;
 	
-		CanoeData(String name, int buttonID, int objectID, int level, boolean canWilderness) {
+		CanoeData(String name, int buttonID, int objectID, int level, double xp, boolean canWilderness) {
 			this.name = name;
 			this.buttonID = buttonID;
 			this.objectID = objectID;
 			this.level = level;
+			this.xp = xp;
 			this.canWilderness = canWilderness;
 		}
 		
@@ -250,6 +252,7 @@ public class Canoe {
 						if (Misc.random(100) <= 100) 
 						{
 							player.getActionSender().sendMessage("You craft the tree into a " + canoe.name);
+							player.getSkill().addExp(Skill.WOODCUTTING, canoe.xp);
 							CanoeStationData curCanoeStation = getCanoeStation();
 							int face = SkillHandler.getFace(curCanoeStation.stationID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ());
 							SetCanoeObject(new GameObject(canoe.objectID, curCanoeStation.x, curCanoeStation.y, player.getPosition().getZ(), face, 10, curCanoeStation.stationID, 10));
