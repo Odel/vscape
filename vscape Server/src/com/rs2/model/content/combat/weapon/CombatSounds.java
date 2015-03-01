@@ -1,6 +1,7 @@
 package com.rs2.model.content.combat.weapon;
 
 import com.rs2.Constants;
+import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.Player;
@@ -45,7 +46,7 @@ public class CombatSounds {
 			return 1062;
 		} else if (weaponName.contains("guthan")) {
 			return 1061;
-		} else if (weaponName.contains("verec")) {
+		} else if (weaponName.contains("verac")) {
 			return 1059;
 		} else if (weaponName.contains("granite maul")) {
 			return 1079;
@@ -151,4 +152,151 @@ public class CombatSounds {
 		player.getActionSender().sendSound(soundId,0,0);
 	}
 	
+	
+	public void spellSound(Spell spell, boolean cast)
+	{
+		int soundId = 0;
+		switch(spell)
+		{
+		case BIND:
+			break;
+		case BLOOD_BARRAGE:
+			break;
+		case BLOOD_BLITZ:
+			break;
+		case BLOOD_BURST:
+			break;
+		case BLOOD_RUSH:
+			break;
+		case CLAWS_OF_GUTHIX:
+			break;
+		case CLAWS_OF_GUTHIX_BATTLE:
+			break;
+		case CONFUSE:
+			soundId = cast ? 99 : 100;
+			break;
+		case CRUMBLE_UNDEAD:
+			break;
+		case CURSE:
+			break;
+		case EARTH_BLAST:
+			soundId = cast ? 1007 : 1005;
+			break;
+		case EARTH_BOLT:
+			soundId = cast ? 1003 : 1006;
+			break;
+		case EARTH_STRIKE:
+			soundId = cast ? 1002 : 1004;
+			break;
+		case EARTH_WAVE:
+			soundId = cast ? 1009 : 1008;
+			break;
+		case ENFEEBLE:
+			break;
+		case ENTANGLE:
+			soundId = cast ? 1012 : 1013;
+			break;
+		case FIRE_BLAST:
+			soundId = cast ? 1020 : 1019;
+			break;
+		case FIRE_BOLT:
+			soundId = cast ? 1015 : 1016;
+			break;
+		case FIRE_BOLT_ZAMORAK:
+			break;
+		case FIRE_STRIKE:
+			soundId = cast ? 1017 : 1018;
+			break;
+		case FIRE_WAVE:
+			soundId = cast ? 1014 : 1021;
+			break;
+		case FLAMES_OF_ZAMORAK:
+			break;
+		case GHORROCK:
+			break;
+		case IBAN_BLAST:
+			break;
+		case ICE_BARRAGE:
+			soundId = cast ? 1111 : 1125;
+			break;
+		case ICE_BLITZ:
+			soundId = cast ? 1111 : 1110;
+			break;
+		case ICE_BURST:
+			soundId = cast ? 1111 : 1126;
+			break;
+		case ICE_RUSH:
+			soundId = cast ? 1111 : 1110;
+			break;
+		case MAGIC_DART:
+			break;
+		case MITHRIL_SPELL:
+			break;
+		case NECROMANCER:
+			break;
+		case PADDEWWA:
+			break;
+		case SARADOMIN_STRIKE:
+			break;
+		case SENNTISTEN:
+			break;
+		case SHADOW_BARRAGE:
+			break;
+		case SHADOW_BLITZ:
+			break;
+		case SHADOW_BURST:
+			break;
+		case SHADOW_RUSH:
+			break;
+		case SMOKE_BARRAGE:
+			break;
+		case SMOKE_BLITZ:
+			break;
+		case SMOKE_BURST:
+			break;
+		case SMOKE_RUSH:
+			break;
+		case SNARE:
+			soundId = cast ? 1010 : 1011;
+			break;
+		case STUN:
+			break;
+		case TELEBLOCK:
+			break;
+		case TELEGRAB:
+			break;
+		case VULNERABILITY:
+			break;
+		case WATER_BLAST:
+			soundId = cast ? 1026 : 1027;
+			break;
+		case WATER_BOLT:
+			soundId = cast ? 1024 : 1025;
+			break;
+		case WATER_STRIKE:
+			soundId = cast ? 1023 : 1022;
+			break;
+		case WATER_WAVE:
+			soundId = cast ? 1028 : 1029;
+			break;
+		case WEAKEN:
+			break;
+		case WIND_BLAST:
+			soundId = cast ? 1034 : 1033;
+			break;
+		case WIND_BOLT:
+			soundId = cast ? 1031 : 1033;
+			break;
+		case WIND_STRIKE:
+			soundId = cast ? 1030 : 1032;
+			break;
+		case WIND_WAVE:
+			soundId = cast ? 1031 : 1033;
+			break;
+		}
+		if(soundId > 0)
+		{
+			player.getActionSender().sendSound(soundId,0,0);
+		}
+	}
 }
