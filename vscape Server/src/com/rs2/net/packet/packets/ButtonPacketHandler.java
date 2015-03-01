@@ -492,11 +492,15 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
-		if(player.isInCutscene()) {
-		    player.getActionSender().sendMessage("You can't logout during a cutscene!");
-		    return;
-		}
-		if(player.inMageTrainingArena())
+                if (player.inRandomEvent()) {
+                    player.getActionSender().sendMessage("You can't logout in a random event area!");
+                    return;
+                }
+				if(player.isInCutscene()) {
+				    player.getActionSender().sendMessage("You can't logout during a cutscene!");
+				    return;
+				}
+				if(player.inMageTrainingArena())
                 {
                     player.getActionSender().sendMessage("You can't logout while in the Mage Training Arena!");
                     return;

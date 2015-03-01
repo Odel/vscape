@@ -1229,6 +1229,10 @@ public class Player extends Entity {
         		setClanChat(null);
         	}
         }
+        if(inRandomEvent())
+        {
+        	teleport(getLastPosition());
+        }
     }
 	
 	public boolean beginLogin() throws Exception {

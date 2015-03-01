@@ -75,7 +75,7 @@ public class RandomHandler {
 		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle || (player.onApeAtoll() && player.getMMVars().isMonkey())) {
 			return;
 		}
-		int random = Misc.random(6);
+		int random = Misc.random(7);
 		switch(random) {
 			case 0 : //Wasp
 				player.getPjTimer().setWaitDuration(0);
@@ -97,6 +97,10 @@ public class RandomHandler {
 			case 5:
 				getSandwichLady().spawnEvent();
 				setCurrentEvent(sandwichLady);
+				break;
+			case 6:
+				getMimeEvent().spawnEvent();
+				setCurrentEvent(mimeEvent);
 				break;
 			//case 5 :
 				//TalkToEvent.spawnNpc(player, TalkToNpc.RICK);
