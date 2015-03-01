@@ -411,7 +411,7 @@ public class NatureSpirit implements Quest {
 			player.getUpdateFlags().sendGraphic(264);
 			player.getActionSender().sendMessage("Your blessed sickle prevents the swamp from decaying you.");
 		} else {
-			if (player.getPosition().getZ() == 0 && !Misc.goodDistance(player.getPosition(), new Position(3508, 3439, 0), 7)) { //Near Curpile Fyod dialogue for Myreque
+			if (player.getPosition().getZ() == 0 && !Misc.goodDistance(player.getPosition(), new Position(3508, 3439, 0), 7) && !player.isInCutscene()) { //Near Curpile Fyod dialogue for Myreque
 				player.getUpdateFlags().sendGraphic(267);
 				player.getActionSender().sendMessage("The swamp decays you.", true);
 				player.hit(Misc.random(4), HitType.NORMAL);

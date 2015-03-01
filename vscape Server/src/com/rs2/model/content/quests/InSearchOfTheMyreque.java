@@ -66,7 +66,8 @@ public class InSearchOfTheMyreque implements Quest {
 	public static final Position TRAPDOOR_ENTRANCE = new Position(3494, 3465, 0);
 
 	//Interfaces
-	public static final int INTERFACE = -1;
+	public static final int SWAMP_BOAT_MAP = 11898;
+	public static final int BOAT_CHILD_ID = 11901;
 
 	//Npcs
 	public static final int CYREG_PADDLEHORN = 1567;
@@ -319,6 +320,33 @@ public class InSearchOfTheMyreque implements Quest {
 	public static void spawnBridgeObjects(int z, boolean destroyOnly) {
 
 	}
+	
+	public static void sailSwampBoat(final Player player, final boolean toMortton) {
+		player.setStopPacket(true);
+		player.setInCutscene(true);
+		player.getActionSender().sendInterface(SWAMP_BOAT_MAP);
+		player.getActionSender().sendInterfaceAnimation(BOAT_CHILD_ID, toMortton ? 1492 : 1491);
+		player.getActionSender().sendMapState(2);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    @Override
+		    public void execute(CycleEventContainer b) {
+			b.stop();
+		    }
+
+		    @Override
+		    public void stop() {
+			player.teleport(toMortton ? BOATMAN_POS : new Position(3499, 3380, 0));
+			player.getActionSender().sendInterfaceAnimation(BOAT_CHILD_ID, -1);
+			player.getActionSender().sendMapState(0);
+			player.setStopPacket(false);
+			player.setInCutscene(false);
+			if(toMortton) {
+				player.getDialogue().sendStatement("You arrive in Mort'ton.");
+				player.getDialogue().endDialogue();
+			}
+		    }
+		}, 19);
+	}
 
 	public static void startEncounter(final Player player) {
 		player.getActionSender().sendMapState(2);
@@ -388,16 +416,18 @@ public class InSearchOfTheMyreque implements Quest {
 						break;
 					case 7:
 						vanstrom.sendTransform(VANSTROM_CLAUSE_2, 100);
+						vanstrom.getUpdateFlags().sendAnimation(1499);
 						d.setLastNpcTalk(VANSTROM_CLAUSE_2);
 						d.sendNpcChat("And.. now I'm going to finish the rest of them off...", LAUGHING);
 						break;
 					case 8:
+						vanstrom.getUpdateFlags().sendAnimation(1500);
+						vanstrom.sendTransform(VANSTROM_CLAUSE_3, 999999);
 						d.setLastNpcTalk(VANSTROM_CLAUSE_2);
 						d.sendNpcChat("With my little pet!", "Ha ha ha ha ha!", LAUGHING);
 						break;
 					case 9:
 						player.getActionSender().removeInterfaces();
-						vanstrom.sendTransform(MIST, 999999);
 						vanstrom.walkTo(HIDEOUT_ENTRANCE.clone().modifyZ(1), true);
 						break;
 					case 10:
@@ -564,24 +594,9 @@ public class InSearchOfTheMyreque implements Quest {
 				if (!QuestHandler.questCompleted(player, 37)) {
 					player.getDialogue().sendStatement("You must complete Nature Spirit to use this.");
 					player.getDialogue().endDialogue();
-					return true;
+				} else {
+					sailSwampBoat(player, true);
 				}
-				player.setStopPacket(true);
-				player.getActionSender().sendMessage("You carefully climb into the boat...");
-				player.fadeTeleport(BOATMAN_POS);
-				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					@Override
-					public void execute(CycleEventContainer b) {
-						b.stop();
-					}
-
-					@Override
-					public void stop() {
-						player.setStopPacket(false);
-						player.getDialogue().sendStatement("You arrive in Mort'ton.");
-						player.getDialogue().endDialogue();
-					}
-				}, 5);
 				return true;
 		}
 		return false;
@@ -617,7 +632,7 @@ public class InSearchOfTheMyreque implements Quest {
 				if (player.getQuestStage(38) >= BOARD_BOAT) {
 					if (player.getInventory().playerHasItem(995, 10)) {
 						player.getInventory().removeItem(new Item(995, 10));
-						player.fadeTeleport(new Position(3499, 3380, 0));
+						sailSwampBoat(player, false);
 					} else {
 						player.getDialogue().setLastNpcTalk(CYREG_PADDLEHORN);
 						player.getDialogue().sendNpcChat("You'll need 10 gold to ride.", "Come back when you have the money.", CONTENT);
@@ -677,7 +692,8 @@ public class InSearchOfTheMyreque implements Quest {
 					case 5:
 						d.endDialogue();
 						player.getInventory().removeItem(new Item(995, 10));
-						player.fadeTeleport(new Position(3499, 3380, 0));
+						sailSwampBoat(player, false);
+						//player.fadeTeleport(new Position(3499, 3380, 0));
 						return true;
 				}
 				return false;
@@ -1078,6 +1094,56 @@ public class InSearchOfTheMyreque implements Quest {
 				}
 				return false;
 			case CYREG_PADDLEHORN:
+				if(player.getQuestStage(this.getQuestID()) > BOARD_BOAT) {
+					switch (d.getChatId()) {
+						case 1:
+							d.sendNpcChat("Hello again! Would you like to take", "my boat up the swamp?", HAPPY);
+							return true;
+						case 2:
+							d.sendOption("Sure.", "No thanks.");
+							return true;
+						case 3:
+							switch(optionId) {
+								case 1:
+									d.sendPlayerChat("Sure.", CONTENT);
+									return true;
+								case 2:
+									d.sendPlayerChat("No thanks.", CONTENT);
+									d.endDialogue();
+									return true;
+							}
+						case 4:
+							d.sendNpcChat("That'll be 10 coins please.", CONTENT);
+							return true;
+						case 5:
+							d.sendOption("Ok. (10 gold)", "Oh. No thanks.");
+							return true;
+						case 6:
+							switch (optionId) {
+								case 1:
+									if (player.getInventory().playerHasItem(995, 10)) {
+										d.sendPlayerChat("Here you are.", CONTENT);
+									} else {
+										d.sendPlayerChat("Oh, I don't have the coin...", SAD);
+										d.endDialogue();
+									}
+									return true;
+								case 2:
+									d.sendPlayerChat("Oh. No thanks.", CONTENT);
+									d.endDialogue();
+									return true;
+							}
+						case 7:
+							d.sendNpcChat("Climb aboard then.", CONTENT);
+							return true;
+						case 8:
+							d.endDialogue();
+							player.getInventory().removeItem(new Item(995, 10));
+							sailSwampBoat(player, false);
+							return true;
+					}
+					return false;
+				}
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case BOARD_BOAT:
 						switch (d.getChatId()) {
