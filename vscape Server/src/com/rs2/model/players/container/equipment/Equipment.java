@@ -1443,7 +1443,7 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("black") && !itemName.contains("d'hide")) 
+		if (itemName.contains("black") && !itemName.contains("d'hide") && !itemName.contains("ele'")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
