@@ -235,7 +235,11 @@ public class ButtonPacketHandler implements PacketHandler {
 				}
 				return;
 			case 89061 :	
+			case 93209 :
+			case 93217 :
 			case 93225 :
+			case 93233 :
+			case 93240 :
 			case 93202 :
 			case 94051 :
 				if(player.shouldAutoRetaliate())
