@@ -1,3 +1,19 @@
+@dre@=March 1st=
+@blu@-Clan Chat
+@blu@-In Search of the Myreque
+@blu@-Mime random
+-Can empty burnt stews and curry.
+-Blue dragon scale respawn timer lowered.
+-Some slayer monster animation fixes.
+-Alch values for items missing them.
+-Combat Bracelet updates you on Slayer task.
+-Well (Edgeville) & fountain (Zanaris) fix.
+-Sulphur vents can be used to cook on.
+-Jiminua's jungle store / ladder fix.
+-Canoe's give proper experience.
+-Course completion exp bonus for Ape Atoll.
+-No longer need seed dibber w/ watering can.
+
 @dre@=February 17th=
 -Dagannoth Kings aggro range increased,
 Prime's attack has AOE / splash damage,
