@@ -49,8 +49,11 @@ public class MimeEvent implements RandomEvent {
 	private int currentStage = 0;
 	private int correct = 0;
 	
+	private boolean myTurn = false;
+	
 	@Override
 	public void spawnEvent() {
+		myTurn = false;
 		currentStage = 0;
 		correct = 0;
 		player.getRandomHandler().spawnEventNpc(mysteriousOldManId);
@@ -63,7 +66,6 @@ public class MimeEvent implements RandomEvent {
 		    public void execute(CycleEventContainer container) {
 		    	switch (cycle) {
 		    		case 0:
-		    			player.setStopPacket(true);
 		    			player.getRandomEventNpc().getUpdateFlags().sendForceMessage("Come with me "+name+"!");
 		    		break;
 		    		case 2:
@@ -78,7 +80,7 @@ public class MimeEvent implements RandomEvent {
 		    			mime.teleport(new Position(2011,4762,player.getIndex()*4));
 		    			mime.setFollowingEntity(null);
 		    			mime.setFace(3);
-		    			Dialogues.startDialogue(player, 1);
+		    			Dialogues.startDialogue(player, mysteriousOldManId);
 					    container.stop();
 				    return;
 		    	}
@@ -105,32 +107,35 @@ public class MimeEvent implements RandomEvent {
 
 	@Override
 	public boolean handleButtons(int buttonID) {
-		switch(buttonID)
+		if(myTurn)
 		{
-			case 25147 :
-				performEmotePlayer(MimeEmote.THINK);
-			return true;
-			case 25148 :
-				performEmotePlayer(MimeEmote.LAUGH);
-			return true;
-			case 25150 :
-				performEmotePlayer(MimeEmote.CLIMBROPE);
-			return true;
-			case 25153 :
-				performEmotePlayer(MimeEmote.GLASSBOX);
-			return true;
-			case 25146 :
-				performEmotePlayer(MimeEmote.CRY);
-			return true;
-			case 25149 :
-				performEmotePlayer(MimeEmote.DANCE);
-			return true;
-			case 25151 :
-				performEmotePlayer(MimeEmote.LEAN);
-			return true;
-			case 25152 :
-				performEmotePlayer(MimeEmote.GLASSWALL);
-			return true;
+			switch(buttonID)
+			{
+				case 25147 :
+					performEmotePlayer(MimeEmote.THINK);
+				return true;
+				case 25148 :
+					performEmotePlayer(MimeEmote.LAUGH);
+				return true;
+				case 25150 :
+					performEmotePlayer(MimeEmote.CLIMBROPE);
+				return true;
+				case 25153 :
+					performEmotePlayer(MimeEmote.GLASSBOX);
+				return true;
+				case 25146 :
+					performEmotePlayer(MimeEmote.CRY);
+				return true;
+				case 25149 :
+					performEmotePlayer(MimeEmote.DANCE);
+				return true;
+				case 25151 :
+					performEmotePlayer(MimeEmote.LEAN);
+				return true;
+				case 25152 :
+					performEmotePlayer(MimeEmote.GLASSWALL);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -139,15 +144,16 @@ public class MimeEvent implements RandomEvent {
 	public boolean sendDialogue(int id, int chatId, int optionId, int npcChatId) {
 		switch(id)
 		{
-			case 1 :
+			case mysteriousOldManId :
 			    switch (player.getDialogue().getChatId()) {
 					case 1:
-						player.getDialogue().sendStatement("You need to copy the mime's performance, then you'll return", "to where you were.");
-				    return true;
+						player.getDialogue().sendNpcChat("You need to copy the mime's performance,", "then you'll return to where you were.", Dialogues.CONTENT);
+						player.getDialogue().setNextChatId(2);
+					return true;
 					case 2:
-						performEmoteMime();
 						player.getDialogue().endDialogue();
-				    break;
+						performEmoteMime();
+					return false;
 			    }
 			break;
 		}
@@ -197,6 +203,7 @@ public class MimeEvent implements RandomEvent {
 	public void performEmotePlayer(final MimeEmote emote) {
 		if(player != null)
 		{
+			myTurn = false;
 			player.getActionSender().removeInterfaces();
 			player.getUpdateFlags().sendAnimation(emote.anim);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -283,6 +290,7 @@ public class MimeEvent implements RandomEvent {
 	    			    	}
 	    	    			mime.getUpdateFlags().sendAnimation(858);
 	    	    			player.getActionSender().sendChatInterface(6543);
+	    	    			myTurn = true;
 	    			    	container.stop();
 	    			    }
 	    		
