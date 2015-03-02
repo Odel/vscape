@@ -288,18 +288,6 @@ public class InSearchOfTheMyreque implements Quest {
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 
-	public void dialogue(Player player, Npc npc) {
-		//Don't even need this anymore really
-	}
-
-	public int getDialogueStage(Player player) {
-		return dialogueStage;
-	}
-
-	public void setDialogueStage(int in) {
-		dialogueStage = in;
-	}
-
 	public static boolean allWeapons(Player player) {
 		Inventory i = player.getInventory();
 		return i.playerHasItem(STEEL_LONGSWORD) && i.playerHasItem(STEEL_SWORD, 2) && i.playerHasItem(STEEL_DAGGER) && i.playerHasItem(STEEL_MACE) && i.playerHasItem(STEEL_WARHAMMER);
@@ -475,7 +463,7 @@ public class InSearchOfTheMyreque implements Quest {
 		return false;
 	}
 	
-	public static void handleDeath(final Player player, final Npc died) {
+	public void handleDeath(final Player player, final Npc died) {
 		if(died.getNpcId() == SKELETON_HELLHOUND && player.getQuestStage(38) == TALKED_TO_MYREQUE) {
 			player.setQuestStage(38, FIGHT_WON);
 		}
@@ -626,7 +614,7 @@ public class InSearchOfTheMyreque implements Quest {
 		return false;
 	}
 
-	public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 		switch (object) {
 			case STALAGMITE:
 				if (player.getSkill().getLevel()[Skill.AGILITY] < 25) {

@@ -268,18 +268,6 @@ public class RecruitmentDrive implements Quest {
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
     
-    public void dialogue(Player player, Npc npc){
-    	Dialogues.startDialogue(player, SIR_AMIK_VARZE);
-    }
-    
-    public int getDialogueStage(Player player){
-    	return dialogueStage;
-    }
-    
-    public void setDialogueStage(int in){
-    	dialogueStage = in;
-    }
-    
     public static void enterTrainingGrounds(final Player player) {
 	player.fadeTeleport(FIRST_ROOM);
 	player.getQuestVars().templeKnightRiddleAnswer = RIDDLE_ANSWERS[Misc.randomMinusOne(RIDDLE_ANSWERS.length)];
@@ -388,7 +376,7 @@ public class RecruitmentDrive implements Quest {
 	return concat.equals(player.getQuestVars().templeKnightRiddleAnswer);
     }
     
-    public static void handleDeath(final Player player, Npc npc) {
+    public void handleDeath(final Player player, Npc npc) {
       if(npc.getNpcId() == SIR_LEYE) {
 	  player.getDialogue().setLastNpcTalk(SIR_KUAM_FERENTSE);
 	  player.getDialogue().sendNpcChat("Well done. You may advance to your next task.", CONTENT);
@@ -709,7 +697,7 @@ public class RecruitmentDrive implements Quest {
 	    Dialogues.startDialogue(player, SIR_SPISHYUS);
 	}
     }
-    public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+    public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 	switch (object) {
             
 	}

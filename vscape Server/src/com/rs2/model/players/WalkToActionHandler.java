@@ -1781,9 +1781,11 @@ public class WalkToActionHandler {
 				Position loc = new Position(player.getClickX(), player.getClickY(), z);
 				if (object != null)
 					player.getUpdateFlags().sendFaceToDirection(loc.getActualLocation(object.getBiggestSize()));
-				if (PriestInPeril.doObjectSecondClicking(player, id, x, y)) {
-				    this.stop();
-				    return;
+				for (Quest q : QuestHandler.getQuests()) {
+					if (q.doObjectSecondClick(player, id, x, y)) {
+						this.stop();
+						return;
+					}
 				}
 				if (ThieveOther.handleObjectClick2(player, id, x, y)) {
 					this.stop();
@@ -1803,30 +1805,6 @@ public class WalkToActionHandler {
 					return;
 				}
 				if (PickableObjects.pickObject(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(MerlinsCrystal.doObjectSecondClick(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(GhostsAhoy.doObjectSecondClick(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(HeroesQuest.doObjectSecondClick(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(TreeGnomeVillage.doObjectSecondClick(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(NatureSpirit.doObjectSecondClick(player, id, x, y)) {
-					this.stop();
-					return;
-				}
-				if(InSearchOfTheMyreque.doObjectSecondClick(player, id, x, y)) {
 					this.stop();
 					return;
 				}

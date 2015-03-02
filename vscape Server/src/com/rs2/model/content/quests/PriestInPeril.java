@@ -323,20 +323,8 @@ public class PriestInPeril implements Quest {
 	    player.getActionSender().sendString("-Ability to defeat a level 30 enemy", 8150);
 	    player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     }
-    
-    public void dialogue(Player player, Npc npc){
-    	Dialogues.startDialogue(player, KING_ROALD);
-    }
-    
-    public int getDialogueStage(Player player){
-    	return dialogueStage;
-    }
-    
-    public void setDialogueStage(int in){
-    	dialogueStage = in;
-    }
 
-    public static void handleDeath(final Player player, Npc npc) {
+    public void handleDeath(final Player player, Npc npc) {
 	if(npc.getNpcId() == TEMPLE_GUARDIAN && player.getQuestStage(23) == 2) {
 	    player.setQuestStage(23, 3);
 	    player.getDialogue().sendPlayerChat("Well, that wasn't quite the dog I was imagining. Oh well.", CONTENT);
@@ -483,7 +471,7 @@ public class PriestInPeril implements Quest {
 	return false;
     }
     
-     public static boolean doObjectSecondClicking(final Player player, int object, int x, int y) {
+     public boolean doObjectSecondClick(final Player player, int object, int x, int y) {
 	switch(object) {
 	    case TEMPLE_DOOR_1:
 	    case TEMPLE_DOOR_2:

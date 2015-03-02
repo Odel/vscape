@@ -391,18 +391,6 @@ public class NatureSpirit implements Quest {
         player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
         player.getActionSender().sendString(getQuestName(), 8144);
     }
-
-    public void dialogue(Player player, Npc npc) {
-	//Don't even need this anymore really
-    }
-
-    public int getDialogueStage(Player player) {
-	return dialogueStage;
-    }
-
-    public void setDialogueStage(int in) {
-	dialogueStage = in;
-    }
     
     public static void handleSwampRot(final Player player) {
 		if (player.Area(3434, 3449, 3331, 3344)) {
@@ -635,8 +623,8 @@ public class NatureSpirit implements Quest {
 	    }
 	}, 2);
     }
-    
-    public static void handleDeath(final Player player, final Npc died) {
+
+    public void handleDeath(final Player player, final Npc died) {
 	if(died.getNpcId() == GHAST_ATTACKABLE) {
 	    if(player.getQuestStage(37) == BLESSED_SICKLE_GET) {
 		player.getQuestVars().setGhastsSlain(player.getQuestVars().getGhastsSlain() + 1);
@@ -894,7 +882,7 @@ public class NatureSpirit implements Quest {
 	return false;
     }
 
-    public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+    public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 	switch (object) {
 	    case 3513: //golden pear bush
 		player.setStopPacket(true);

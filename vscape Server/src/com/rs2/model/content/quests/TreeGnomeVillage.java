@@ -240,19 +240,7 @@ public class TreeGnomeVillage implements Quest {
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
     
-    public void dialogue(Player player, Npc npc){
-    	Dialogues.startDialogue(player, KING_BOLREN);
-    }
-    
-    public int getDialogueStage(Player player){
-    	return dialogueStage;
-    }
-    
-    public void setDialogueStage(int in){
-    	dialogueStage = in;
-    }
-    
-    public static void handleDeath(final Player player, Npc npc) {
+    public void handleDeath(final Player player, Npc npc) {
         if (npc.getNpcId() == KHAZARD_WARLORD && (player.getQuestStage(33) == ARE_YOU_FUCKING_KIDDING_ME || player.getQuestStage(33) == KICK_WARLORDS_ASS)) {
 	    if(player.getQuestStage(33) == ARE_YOU_FUCKING_KIDDING_ME) {
 		player.setQuestStage(33, KICK_WARLORDS_ASS);
@@ -359,7 +347,7 @@ public class TreeGnomeVillage implements Quest {
 	return false;
     }
     
-    public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+    public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 	switch (object) {
             case BALLISTA:
                 Dialogues.startDialogue(player, 1953852996);

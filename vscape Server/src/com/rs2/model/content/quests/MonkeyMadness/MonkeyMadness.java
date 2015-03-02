@@ -619,18 +619,6 @@ public class MonkeyMadness implements Quest {
     	player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
     	player.getActionSender().sendString(getQuestName(), 8144);
     }
-
-    public void dialogue(Player player, Npc npc) {
-	//Don't even need this anymore really
-    }
-
-    public int getDialogueStage(Player player) {
-	return dialogueStage;
-    }
-
-    public void setDialogueStage(int in) {
-	dialogueStage = in;
-    }
     
     public static void deleteMonkey(final Player player, int location) {
 	switch(location) {
@@ -782,7 +770,7 @@ public class MonkeyMadness implements Quest {
 	player.getMMVars().getFinalFightNpcs().clear();
     }
     
-    public static void handleDeath(final Player player, Npc npc) {
+    public void handleDeath(final Player player, Npc npc) {
 	if(npc.getNpcId() == 1472 && player.getQuestStage(36) == NEW_MEMEBER) {
 	    player.setQuestStage(36, FUCK_THE_DEMON);
 	    for(Npc n : player.getMMVars().getFinalFightNpcs()) {
@@ -1123,7 +1111,7 @@ public class MonkeyMadness implements Quest {
 	return false;
     }
 
-    public static boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+    public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 	switch (object) {
 
 	}
