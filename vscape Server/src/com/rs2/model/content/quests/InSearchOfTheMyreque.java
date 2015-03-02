@@ -447,6 +447,7 @@ public class InSearchOfTheMyreque implements Quest {
 			public void stop() {
 				player.getActionSender().sendMapState(0);
 				player.setStopPacket(false);
+				player.setInCutscene(false);
 			}
 		}, 8);
 	}
