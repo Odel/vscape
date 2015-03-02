@@ -64,8 +64,9 @@ public class FillHandler
 		final CacheObject obj = ObjectLoader.object(objectId, objectX, objectY, player.getPosition().getZ());
 		final GameObjectDef def = SkillHandler.getObject(objectId, objectX, objectY, player.getPosition().getZ());
         if (obj != null || def != null) {
-			String name = GameObjectData.forId(obj != null ? obj.getDef().getId() : def.getId()).getName().toLowerCase();
-			if (name.equalsIgnoreCase("fountain") || name.equalsIgnoreCase("sink") || name.equalsIgnoreCase("tap") || name.equalsIgnoreCase("waterpump") || name.equalsIgnoreCase("well") || name.equalsIgnoreCase("fairy fountain")) {
+		int id = obj != null ? obj.getDef().getId() : def.getId();
+			String name = GameObjectData.forId(id).getName().toLowerCase();
+			if (name.equalsIgnoreCase("fountain") || name.equalsIgnoreCase("sink") || name.equalsIgnoreCase("tap") || name.equalsIgnoreCase("waterpump") || (name.equalsIgnoreCase("well") && id == 884) || name.equalsIgnoreCase("fairy fountain")) {
 				player.setNewSkillTask();
 				player.setTempInteger(item);
 				player.setStatedInterface("fillWater");
