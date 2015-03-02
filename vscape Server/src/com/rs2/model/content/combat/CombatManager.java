@@ -99,7 +99,10 @@ public class CombatManager extends Tick {
 				return;
 	        }
 		}
-        if(victim.isNpc() && (!((Npc)victim).isVisible() || victim.isDead() || ((Npc)victim).isDontAttack())) {
+		if(attacker.isNpc() && ((Npc)attacker).isDontAttack()) {
+			return;
+		}
+        if(victim.isNpc() && (!((Npc)victim).isVisible() || victim.isDead())) {
 			return;
         }
 	    if (victim.isNpc() && ((Npc) victim).walkingBackToSpawn) {
