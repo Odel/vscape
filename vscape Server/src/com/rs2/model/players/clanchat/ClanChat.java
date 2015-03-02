@@ -324,7 +324,7 @@ public class ClanChat {
 			banner.getActionSender().sendMessage("This user is already banned.", true);
 			return;
 		}
-		if(bcm.rank < tscm.rank && targetPlayer.getStaffRights() >= 2)
+		if(targetPlayer.getStaffRights() >= 2)
 		{	
 			banner.getActionSender().sendMessage("You don't have permission to ban this user.", true);
 			return;

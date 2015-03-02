@@ -243,7 +243,7 @@ public class AgilityHandler {
 			event.success();
 			
 			int weight = (int)player.getWeight();
-			int weightModifier = (100 / (weight+1));
+			int weightModifier = (200 / (weight+1));
 			if(!SkillHandler.skillCheck(agilityLevel, requiredLevel, weightModifier))
 			{
 				successful = false;
