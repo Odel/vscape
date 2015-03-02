@@ -481,10 +481,10 @@ public class Hit {
 				if (getAttacker() != null && getAttacker().isPlayer()){
 					Player player = (Player) getAttacker();
 					player.getCombatSounds().spellSound(spell, false);
-					if(getVictim() != null && getVictim().isPlayer())
-					{
-						((Player) getVictim()).getCombatSounds().spellSound(spell, false);
-					}
+				}
+				if (getVictim() != null && getVictim().isPlayer()) {
+					Player player = (Player) getVictim();
+					player.getCombatSounds().spellSound(spell, false);
 				}
 			}
 		}else{
@@ -508,7 +508,7 @@ public class Hit {
 	      		att.getCombatSounds().damageSound();
 	      	 }
 	       }
-	       if (getVictim().isPlayer()) {
+	       if (getVictim() != null && getVictim().isPlayer()) {
 	           Player player = (Player) getVictim();
 		       	 if(hitType == HitType.MISS){
 		    		 player.getCombatSounds().blockSound(player);

@@ -208,6 +208,10 @@ public class SpellAttack extends BasicAttack {
 				((Player) getVictim()).getCombatSounds().spellSound(spell, true);
 			}
         }
+		if(getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()){
+            Player player = (Player) getVictim();
+            player.getCombatSounds().spellSound(spell, true);
+        }
         /*if (spell == Spell.ICE_BARRAGE) {
             if (getVictim().getMovementHandler().getWaypoints().size() > 0) {
                 Tick t = new Tick(1) {
