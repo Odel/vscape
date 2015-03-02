@@ -13,6 +13,7 @@
 -Canoe's give proper experience.
 -Course completion exp bonus for Ape Atoll.
 -No longer need seed dibber w/ watering can.
+-Degradables tell you hits left on operate.
 
 @dre@=February 17th=
 -Dagannoth Kings aggro range increased,

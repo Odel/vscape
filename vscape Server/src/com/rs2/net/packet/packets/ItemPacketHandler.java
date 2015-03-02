@@ -1398,6 +1398,26 @@ public class ItemPacketHandler implements PacketHandler {
 		return;
 	    }
 	}
+	if(Constants.DEGRADING_ENABLED) {
+		    Item item = new Item(itemId);
+		    Degradeables d = Degradeables.getDegradeableItem(item);
+		    if (d != null) {
+			if (d.getOriginalId() == itemId) {
+			    if (player.getDegradeableHits()[d.getPlayerArraySlot()] <= 0) {
+				player.setDegradeableHits(d.getPlayerArraySlot(), 0);
+				player.getActionSender().sendMessage("Your " + item.getDefinition().getName().toLowerCase() + " will degrade and become untradeable upon combat.", true);
+			    }
+			}
+			int count = 1;
+			for (int i : d.getIterableDegradedIds(!item.getDefinition().getName().toLowerCase().contains("crystal"))) {
+			    if (item.getId() == i) {
+				int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+				player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * count) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.", true);
+			    }
+			    count++;
+			}
+		}
+	}
 	switch (itemId) {
 	    case 11283:
 		if(player.dfsTimer) {

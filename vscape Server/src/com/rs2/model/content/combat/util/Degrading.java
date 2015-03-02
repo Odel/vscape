@@ -42,6 +42,7 @@ public class Degrading {
 	    if (equipped.getId() == item.getOriginalId() && player.getDegradeableHits()[item.getPlayerArraySlot()] == 0) {
 		player.getActionSender().sendMessage("Your " + equipped.getDefinition().getName().toLowerCase() + " has degraded.");
 		player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(item.getFirstDegradeId()));
+		player.getEquipment().refresh();
 		player.setDegradeableHits(item.getPlayerArraySlot(), player.getDegradeableHits()[item.getPlayerArraySlot()] + 1);
 		return;
 	    }
@@ -59,8 +60,12 @@ public class Degrading {
 			    GroundItem dropItem = new GroundItem(new Item(item.getBrokenId()), player, player.getPosition().clone());
 			    GroundItemManager.getManager().dropItem(dropItem);
 			}
-			player.getEquipment().unequip(item.getEquipSlot());
-			player.getInventory().removeItem(equipped);
+			if (player.getInventory().canAddItem(equipped)) {
+				player.getEquipment().unequip(item.getEquipSlot());
+				player.getInventory().removeItem(equipped);
+			} else {
+				player.getEquipment().getItemContainer().set(item.getEquipSlot(), new Item(-1));
+			}
 			player.getEquipment().refresh();
 			player.setAppearanceUpdateRequired(true);
 			return;
