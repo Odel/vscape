@@ -58,6 +58,7 @@ public class MimeEvent implements RandomEvent {
 		correct = 0;
 		player.getRandomHandler().spawnEventNpc(mysteriousOldManId);
 		player.setStopPacket(true);
+		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 		player.setMovementDisabled(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    int cycle = 0;
@@ -187,6 +188,7 @@ public class MimeEvent implements RandomEvent {
 	
 	public void handleReward(){
 		destroyEvent();
+		player.getAttributes().put("canTakeDamage", Boolean.TRUE);
 		player.getActionSender().sendSideBarInterfaces();
 		player.getEquipment().sendWeaponInterface();
 		player.teleport(player.getLastPosition());
