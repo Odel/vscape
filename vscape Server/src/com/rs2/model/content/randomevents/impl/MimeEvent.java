@@ -188,6 +188,7 @@ public class MimeEvent implements RandomEvent {
 	public void handleReward(){
 		destroyEvent();
 		player.getActionSender().sendSideBarInterfaces();
+		player.getEquipment().sendWeaponInterface();
 		player.teleport(player.getLastPosition());
 		if(correct >= 4)
 		{
