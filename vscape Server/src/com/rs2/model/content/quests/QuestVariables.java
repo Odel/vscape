@@ -77,6 +77,8 @@ public class QuestVariables {
     private boolean secondMortMyreBridgeFixed = false;
     private boolean thirdMortMyreBridgeFixed = false;
     public boolean[] myrequeTalkedToBools = {false, false, false, false, false};
+    public int plagueCitySoilSoftened = 0;
+    public boolean triedPipeGrill = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;

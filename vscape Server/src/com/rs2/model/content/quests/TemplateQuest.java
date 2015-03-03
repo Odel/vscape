@@ -90,8 +90,8 @@ public class TemplateQuest implements Quest {
 		switch(questStage) { 
 			/**The last index of the text sent for that quest stage which persists
 			through the entire quest, striked or not (i.e, shit sent below)
-			Remember if there is no new persistant entry for that stage, stack the case with
-			the last case that started the newest persistant entry, to keep lastIndex correct **/
+			Remember if there is no new persistent entry for that stage, stack the case with
+			the last case that started the newest persistent entry, to keep lastIndex correct **/
 			case QUEST_STARTED:
 				lastIndex = 4;
 				break;

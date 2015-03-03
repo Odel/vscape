@@ -66,6 +66,7 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.PlagueCity;
 import com.rs2.model.content.randomevents.RandomHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
@@ -1198,6 +1199,9 @@ public class Player extends Entity {
 		if(this.getGraveyardFruitDeposited() > 15) {
 		    this.setGraveyardFruitDeposited(15);
 		}
+		if(this.Area(2504, 2534, 9732, 9782, 0)) {
+			PlagueCity.assessGrateStatus(this);
+		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
 			World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
@@ -1230,7 +1234,7 @@ public class Player extends Entity {
         		setClanChat(null);
         	}
         }
-        if(inRandomEvent())
+	if(inRandomEvent())
         {
         	teleport(getLastPosition());
         }
@@ -4594,7 +4598,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Nature Spirit", 8137); //nature spirit
 		getActionSender().sendString("", 7371); //observatory quest
 		getActionSender().sendString("", 12345); //one small favour
-		getActionSender().sendString("", 7372); //plague city
+		getActionSender().sendString("@red@Plague City", 7372); //plague city
 		getActionSender().sendString("@red@Priest in Peril", 8115); //priest in peril
 		// unknown id
 		getActionSender().sendString("", 8576); //regicide

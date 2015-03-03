@@ -1,5 +1,14 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+2126:1:2634:3497:0:15 //dwellberries mcgrugors
+2126:1:2645:3498:0:15 //dwellberries mcgrugors
+2126:1:2638:3479:0:15 //dwellberries mcgrugors
+2126:1:2664:3476:0:15 //dwellberries mcgrugors
+2126:1:2667:3494:0:15 //dwellberries mcgrugors
+2126:1:2669:3501:0:15 //dwellberries mcgrugors
+2126:1:2675:3505:0:15 //dwellberries mcgrugors
+1925:1:2564:3332:0:30 //bucket ardougne / edmond
+952:1:2566:3330:0:30 //spade ardougne / edmond
 759:1:3237:9761:0:30 //phoenix weapons key
 2957:1:3443:9741:1:30 //druid pouch nature spirit
 2957:1:3443:9741:0:30 //druid pouch nature spirit

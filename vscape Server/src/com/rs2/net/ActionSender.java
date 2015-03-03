@@ -452,9 +452,10 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
-
-	public ActionSender sendObject(int id, int x, int y, int h, int face,
-			int type) {
+	public ActionSender sendObject(int id, int x, int y, int h, int face, int type) {
+		if(id == 11422 && player.getQuestStage(39) >= 5) {
+			return this;
+		}
 		sendCoords(new Position(x, y, h));
 		sendObjectType(face, type);
 		if (id != -1) {

@@ -22,6 +22,7 @@ import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.PlagueCity;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.RecruitmentDrive;
@@ -1106,6 +1107,12 @@ public class ItemPacketHandler implements PacketHandler {
 			    player.getInventory().addItem(new Item(GhostsAhoy.BOOK_OF_HARICANTO));
 			    container.stop();
 			    return;
+			}
+			if (player.getPosition().getX() == 2566 && player.getPosition().getY() <= 3333 && player.getPosition().getY() >= 3331 && player.getQuestStage(39) >= 4) {
+				player.getActionSender().sendMessage("Suddenly it crumbles away!");
+				PlagueCity.handleGardenDig(player);
+				container.stop();
+				return;
 			}
 			if (!MapScrolls.digClue(player) && !DiggingScrolls.digClue(player) && !CoordinateScrolls.digClue(player) && !Barrows.digCrypt(player)) {
 			    player.getActionSender().sendMessage("but do not find anything.");
