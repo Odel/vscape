@@ -100,6 +100,7 @@ public class PlagueCity implements Quest {
 	public static final int SPOOKY_STAIRS_DOWN = 2522;
 	public static final int SPOOKY_STAIRS_UP = 2523;
 	public static final int BARREL = 2530;
+	public static final int NURSE_CUPBOARD = 2062;
 	public static final int REHNISON_STAIRS_UP = 2539;
 	public static final int REHNISON_STAIRS_DOWN = 2540;
 	public static final int PIPE_GRILL = 11422;
@@ -609,6 +610,16 @@ public class PlagueCity implements Quest {
 					return true;
 				}
 				return false;
+			case NURSE_CUPBOARD:
+				if (x == 2517 && y == 3276) {
+					if(!player.getInventory().ownsItem(430)) {
+						player.getActionSender().sendMessage("You find a doctor's gown inside the cupboard.");
+						player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+						player.getInventory().addItemOrDrop(new Item(430));
+						return true;
+					}
+				}
+				return false;
 			case SPOOKY_STAIRS_UP:
 				if (x == 2536 && y == 9671) {
 					player.teleport(UP_FROM_ELENA);
@@ -953,9 +964,14 @@ public class PlagueCity implements Quest {
 					case MAKE_HANGOVER_CURE:
 						switch (d.getChatId()) {
 							case 1:
-								d.sendNpcChat("Uurgh! My head still hurts too much to think straight.", "Oh for one of Trudi's hangover cures!", DISTRESSED);
-								if(!player.getInventory().playerHasItem(HANGOVER_CURE)) {
-									d.endDialogue();
+								if (player.getQuestVars().healedHangover) {
+									d.sendNpcChat("Ooh, that's much better! Thanks, that's the clearest my", "head has felt in a month. Ah now, what was it you", "wanted me to do for you?", CONTENT);
+									d.setNextChatId(5);
+								} else {
+									d.sendNpcChat("Uurgh! My head still hurts too much to think straight.", "Oh for one of Trudi's hangover cures!", DISTRESSED);
+									if (!player.getInventory().playerHasItem(HANGOVER_CURE)) {
+										d.endDialogue();
+									}
 								}
 								return true;
 							case 2:
@@ -964,6 +980,7 @@ public class PlagueCity implements Quest {
 							case 3:
 								d.sendGiveItemNpc("You give Bravek the hangover cure. Bravek gulps down", "the foul-looking liquid.", new Item(HANGOVER_CURE));
 								player.getInventory().removeItem(new Item(HANGOVER_CURE));
+								player.getQuestVars().healedHangover = true;
 								World.getNpcs()[World.getNpcIndex(BRAVEK)].getUpdateFlags().setForceChatMessage("Grruurgh!");
 								return true;
 							case 4:
@@ -1544,6 +1561,7 @@ public class PlagueCity implements Quest {
 								if (!player.getQuestVars().canTeleportArdougne() && !player.getInventory().ownsItem(MAGIC_SCROLL)) {
 									if (player.getInventory().canAddItem(new Item(MAGIC_SCROLL))) {
 										d.sendGiveItemNpc("Edmond hands you another Magic Scroll.", new Item(MAGIC_SCROLL));
+										player.getInventory().addItem(new Item(MAGIC_SCROLL));
 									} else {
 										d.sendNpcChat("Oh, you don't have room for the scroll! Make", "some room so I can give it to you.", CONTENT);
 									}
@@ -1655,7 +1673,7 @@ public class PlagueCity implements Quest {
 								}
 								return true;
 							case 3:
-								d.sendNpcChat("Take them to my wife Alrena, she's close by", "here somewhere.", CONTENT);
+								d.sendNpcChat("Take them to my wife Alrena, she's inside", "the house.", CONTENT);
 								d.endDialogue();
 								return true;
 						}
@@ -1683,7 +1701,7 @@ public class PlagueCity implements Quest {
 									d.endDialogue();
 								return true;
 							case 7:
-								d.sendNpcChat("Elena's a missionary and a healer. Three weeks ago she", "managed to cross the Ardougne wall... No one's allowed", "to cross the wall in case they spread the plague. But", "after hearing the scream of suffering she felt she had", SAD);
+								d.sendNpcChat("Elena's a missionary and a healer. Three weeks ago she", "managed to cross the Ardougne wall... No one's allowed", "to cross the wall in case they spread the plague. But", "after hearing the screams of suffering she felt she had", SAD);
 								return true;
 							case 8:
 								d.sendNpcChat("to help. She said she'd be gone for a few days but we've", "heard nothing since.", SAD);

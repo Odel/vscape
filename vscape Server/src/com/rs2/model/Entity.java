@@ -378,7 +378,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inWestArdougne() {
-		return Area(2459, 2557, 3279, 3335, 0);
+		return Area(2459, 2557, 3279, 3335) || Area(2509, 2557, 3264, 3335);
 	}
 	
 	public boolean inFightCaves() {
