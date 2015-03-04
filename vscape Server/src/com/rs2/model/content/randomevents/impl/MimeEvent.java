@@ -85,6 +85,7 @@ public class MimeEvent implements RandomEvent {
 				    break;
 		    		case 3:
 		    			player.setStopPacket(false);
+		    			player.getActionSender().animateObject(2007, 4761, 1, 1135);
 		    			Dialogues.startDialogue(player, mysteriousOldManId);
 					    container.stop();
 				    return;
@@ -164,7 +165,7 @@ public class MimeEvent implements RandomEvent {
 					return true;
 					case 2:
 						player.getDialogue().endDialogue();
-						performEmoteMime();
+						performEmoteMime(true);
 					return false;
 			    }
 			break;
@@ -247,7 +248,7 @@ public class MimeEvent implements RandomEvent {
 	    			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 	    			    @Override
 	    			    public void execute(CycleEventContainer container) {
-	    	    			performEmoteMime();
+	    	    			performEmoteMime(false);
 	    			    	container.stop();
 	    			    }
 	    		
@@ -265,11 +266,15 @@ public class MimeEvent implements RandomEvent {
 		}
 	}
 	
-	public void performEmoteMime() {
+	public void performEmoteMime(boolean firstTime) {
 		if(mime != null)
 		{
 			emoteToDo = MimeEmote.values()[Misc.random(MimeEmote.values().length-1)];
 			mime.setFace(3);
+			if(!firstTime){
+				player.getActionSender().animateObject(2007, 4761, 1, 1135);
+				player.getActionSender().animateObject(2010, 4761, 1, 1136);
+			}
 			CycleEventHandler.getInstance().addEvent(mime, new CycleEvent() {
 			    @Override
 			    public void execute(CycleEventContainer container) {
@@ -298,6 +303,8 @@ public class MimeEvent implements RandomEvent {
 	    			    		container.stop();
 	    			    		return;
 	    			    	}
+			    			player.getActionSender().animateObject(2007, 4761, 1, 1136);
+			    			player.getActionSender().animateObject(2010, 4761, 1, 1135);
 	    	    			mime.getUpdateFlags().sendAnimation(858);
 	    	    			player.getActionSender().sendChatInterface(6543);
 	    	    			myTurn = true;
