@@ -2,9 +2,13 @@ package com.rs2.model.content.quests;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
+import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
+import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.skills.Skill;
@@ -28,7 +32,14 @@ public class PlagueCity implements Quest {
 	public static final int SOFTEN_SOIL = 3;
 	public static final int DIG = 4;
 	public static final int GRILL_PULLED = 5;
-	public static final int QUEST_COMPLETE = 15;
+	public static final int DELIVER_BOOK = 6;
+	public static final int BOOK_RETURNED = 7;
+	public static final int FIND_BUILDING = 8;
+	public static final int TALK_TO_BRAVEK = 9;
+	public static final int MAKE_HANGOVER_CURE = 10;
+	public static final int WARRANT_GET = 11;
+	public static final int GET_REWARD = 12;
+	public static final int QUEST_COMPLETE = 13;
 
 	//Items
 	public static final int DWELLBERRIES = 2126;
@@ -42,18 +53,20 @@ public class PlagueCity implements Quest {
 	public static final int SCRUFFY_NOTE = 1508;
 	public static final int BOOK = 1509;
 	public static final int ELENAS_PICTURE = 1510;
-	public static final int BUCKET_OF_MILK = 1927;
 	public static final int BUCKET_OF_WATER = 1929;
-	public static final int CHOCOLATE_DUST = 1975;
+	public static final int CHOCOLATE_MILK = 1977;
 	public static final int SNAPE_GRASS = 231;
 
 	//Positions
 	public static final Position INTO_SEWERS = new Position(2518, 9760, 0);
 	public static final Position OUT_OF_SEWERS = new Position(2566, 3331, 0);
 	public static final Position OUT_OF_PIPE = new Position(2529, 3304, 0);
-
+	public static final Position DOWN_FROM_MANHOLE = new Position(2514, 9739, 0);
+	public static final Position UP_FROM_ELENA = new Position(2536, 3271, 0);
+	public static final Position DOWN_TO_ELENA = new Position(2537, 9670, 0);
+	
 	//Interfaces
-	public static final int INTERFACE = -1;
+	public static final int HANGOVER_CURE_INTERFACE = 1136;
 
 	//Npcs
 	public static final int ALRENA = 710;
@@ -61,7 +74,7 @@ public class PlagueCity implements Quest {
 	public static final int CARLA = 712;
 	public static final int CLERK = 713;
 	public static final int EDMOND = 714;
-	//public static final int NULL = 715;
+	public static final int ELENA = 715;
 	public static final int HEAD_MOURNER = 716;
 	public static final int MOURNER_1 = 717;
 	public static final int MOURNER_2 = 718;
@@ -77,11 +90,23 @@ public class PlagueCity implements Quest {
 	public static final int MUD_PATCH = 2531;
 	public static final int MUD_PILE = 2533;
 	public static final int PIPE = 2542;
+	public static final int MANHOLE = 2544;
+	public static final int RESTRICTED_DOOR = 2535;
+	public static final int CUPBOARD = 2524;
+	public static final int ELENAS_DOOR = 2526;
+	public static final int BRAVEKS_DOOR = 2528;
+	public static final int REHNISON_DOOR = 2537;
+	public static final int SPOOKY_STAIRS_DOWN = 2522;
+	public static final int SPOOKY_STAIRS_UP = 2523;
+	public static final int BARREL = 2530;
+	public static final int REHNISON_STAIRS_UP = 2539;
+	public static final int REHNISON_STAIRS_DOWN = 2540;
 	public static final int PIPE_GRILL = 11422;
 
 	public int dialogueStage = 0;
 
 	private int reward[][] = { //{itemId, count},
+		{MAGIC_SCROLL, 1}
 	};
 
 	private int expReward[][] = { //{skillId, exp},
@@ -106,12 +131,22 @@ public class PlagueCity implements Quest {
 		return false;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
+		for (final int[] expRewards : expReward) {
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+					b.stop();
+				}
+
+				@Override
+				public void stop() {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}, 4);
 		}
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
@@ -155,9 +190,27 @@ public class PlagueCity implements Quest {
 			case GRILL_PULLED:
 				lastIndex = 14;
 				break;
-			case QUEST_COMPLETE:
-				lastIndex = 26;
+			case DELIVER_BOOK:
+				lastIndex = 18;
 				break;
+			case BOOK_RETURNED:
+				lastIndex = 20;
+				break;
+			case FIND_BUILDING:
+				lastIndex = 23;
+				break;
+			case TALK_TO_BRAVEK:
+			case MAKE_HANGOVER_CURE:
+				lastIndex = 25;
+				break;
+			case WARRANT_GET:
+				lastIndex = 28;
+				break;
+			case GET_REWARD:
+			case QUEST_COMPLETE:	
+				lastIndex = 31;
+				break;
+			
 		}
 		lastIndex++;
 		
@@ -174,7 +227,18 @@ public class PlagueCity implements Quest {
 		a.sendQuestLogString("With Edmond's help I was able to pull the grill off", 12, this.getQuestID(), GRILL_PULLED);
 		a.sendQuestLogString("the pipe leading into West Ardougne. I can use this", 13, this.getQuestID(), GRILL_PULLED);
 		a.sendQuestLogString("pipe to go in and out of that part of the city.", 14, this.getQuestID(), GRILL_PULLED);
-
+		a.sendQuestLogString("I spoke with Jethick in West Ardougne, he told me", 16, this.getQuestID(), DELIVER_BOOK);
+		a.sendQuestLogString("Elena was staying with a family nearby, and gave me", 17, this.getQuestID(), DELIVER_BOOK);
+		a.sendQuestLogString("a book to deliver to said family. They live to the north.", 18, this.getQuestID(), DELIVER_BOOK);
+		a.sendQuestLogString("I returned the book to the Rehnison family.", 20, this.getQuestID(), BOOK_RETURNED);
+		a.sendQuestLogString("Milli Rehnison told me of a kidnapping! It seems", 22, this.getQuestID(), FIND_BUILDING);
+		a.sendQuestLogString("a group of men kidnapped Elena.", 23, this.getQuestID(), FIND_BUILDING);
+		a.sendQuestLogString("I found the house where Elena is supposedly being kept.", 25, this.getQuestID(), TALK_TO_BRAVEK);
+		a.sendQuestLogString("Bravek gave me a warrant to search the house after I", 27, this.getQuestID(), WARRANT_GET);
+		a.sendQuestLogString("helped cure his hangover with a strange recipe.", 28, this.getQuestID(), WARRANT_GET);
+		a.sendQuestLogString("I did it! I saved Elena from danger! I should go back", 30, this.getQuestID(), GET_REWARD);
+		a.sendQuestLogString("to her father and claim my reward.", 31, this.getQuestID(), GET_REWARD);
+		
 		switch (questStage) { //Quest stages where you send additional information that is not stored
 			//or striked out past that stage.
 			default:
@@ -201,6 +265,28 @@ public class PlagueCity implements Quest {
 			case GRILL_PULLED:
 				a.sendQuestLogString("Edmond told me to seek out Jethick and give him", lastIndex + 1);
 				a.sendQuestLogString("his regards once I enter West Ardougne.", lastIndex + 2);
+				break;
+			case BOOK_RETURNED:
+				a.sendQuestLogString("I should ask them about Elena, I'm sure they know", lastIndex + 1);
+				a.sendQuestLogString("where she may be.", lastIndex + 2);
+				break;
+			case FIND_BUILDING:
+				a.sendQuestLogString("Milli said the building is to the southeast,", lastIndex + 1);
+				a.sendQuestLogString("and that it has been cordoned off.", lastIndex + 2);
+				break;
+			case TALK_TO_BRAVEK:
+				a.sendQuestLogString("The mourner outside the house told me it has", lastIndex + 1);
+				a.sendQuestLogString("been hit with the plague and I'm not allowed to", lastIndex + 2);
+				a.sendQuestLogString("enter. He said I need permission from Bravek or", lastIndex + 3);
+				a.sendQuestLogString("the head mourner to enter.", lastIndex + 4);
+				break;
+			case MAKE_HANGOVER_CURE:
+				a.sendQuestLogString("Bravek will talk about permission to enter, but", lastIndex + 1);
+				a.sendQuestLogString("he's a bit... hungover. He gave me a recipe for a", lastIndex + 2);
+				a.sendQuestLogString("hangover cure, I should make this cure for him.", lastIndex + 3);
+				break;
+			case WARRANT_GET:
+				a.sendQuestLogString("I should use this warrant to find and rescue Elena.", lastIndex + 1);
 				break;
 			case QUEST_COMPLETE:
 				//Same here, first line after the last entry that persists for the whole quest
@@ -246,10 +332,23 @@ public class PlagueCity implements Quest {
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 	
-	public static void assessGrateStatus(final Player player) {
+	public static void assessPipeGrill(final Player player) {
+		ObjectHandler.getInstance().removeObject(2514, 9739, 0, 4);
 		new GameObject(Constants.EMPTY_OBJECT, 2514, 9739, 0, 3, 4, 11422, 999999);
 		ObjectHandler.getInstance().removeObject(2514, 9739, 0, 4);
 		new GameObject(11422, 2514, 9739, 0, 3, 4, 0, 999999);
+	}
+	
+	public static void readHangoverCure(final Player player) {
+		ActionSender a = player.getActionSender();
+		player.setStatedInterface("hangoverCure");
+		a.sendInterface(HANGOVER_CURE_INTERFACE);
+		a.sendString("@bla@Got a bncket of nnilk", 1142);
+		a.sendString("@bla@Tlen qrind sorne lhoculate", 1143);
+		a.sendString("@bla@vnith a pestal and rnortar", 1144);
+		a.sendString("@bla@ald the grourd dlocolate to tho milt", 1145);
+		a.sendString("@bla@fnnales add scme snapa grasz", 1146);
+		a.sendMessage("Your guess is the recipe really says something different.");
 	}
 	
 	public static void handleGardenDig(final Player player) {
@@ -263,20 +362,22 @@ public class PlagueCity implements Quest {
 
 			@Override
 			public void stop() {
-				player.setStopPacket(true);
-				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					@Override
-					public void execute(CycleEventContainer b) {
-						b.stop();
-					}
-
-					@Override
-					public void stop() {
-						player.setStopPacket(false);
-						player.getDialogue().sendStatement("You fall through...", "...you land in the sewer.", "Edmond follows you down the hole.");
-						assessGrateStatus(player);
-					}
-				}, 5);
+				assessPipeGrill(player);
+				player.setStopPacket(false);
+				if (player.getQuestStage(39) < PlagueCity.GRILL_PULLED) {
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.getDialogue().sendStatement("You fall through...", "...you land in the sewer.", "Edmond follows you down the hole.");
+						}
+					}, 5);
+				}
 			}
 		}, 1);
 	}
@@ -306,7 +407,7 @@ public class PlagueCity implements Quest {
 						d.sendStatement("You hear a faint popping noise from Edmond's spine.");
 						break;
 					case 4:
-						d.sendPlayerChat("Come one Edmond, we're almost there!", Dialogues.ANGRY_1);
+						d.sendPlayerChat("Come on Edmond, we're almost there!", Dialogues.ANGRY_1);
 						break;
 					case 5:
 						d.sendStatement("The bolts on the grate begin to come loose.");
@@ -326,7 +427,7 @@ public class PlagueCity implements Quest {
 						d.sendStatement("The grill pops off the face of the pipe and onto the floor.");
 						break;
 					case 10:
-						d.sendPlayerChat("I knew you had it in your Edmond. Excellent", "work. Although... I would go home and rest up if I were", "you, those popping noises didn't sound healthy.", CONTENT);
+						d.sendPlayerChat("I knew you had it in you Edmond. Excellent", "work. Although... I would go home and rest up if I were", "you, those popping noises didn't sound healthy.", CONTENT);
 						break;
 					case 11:
 						d.sendStatement("It takes Edmond a second to catch his breath.");
@@ -350,33 +451,55 @@ public class PlagueCity implements Quest {
 				player.setStopPacket(false);
 				player.setInCutscene(false);
 				player.setQuestStage(39, GRILL_PULLED);
-				PlagueCity.assessGrateStatus(player);
+				PlagueCity.assessPipeGrill(player);
 				player.getActionSender().sendWalkableInterface(-1);
 				player.getActionSender().sendMapState(0);
 			}
-		}, 7);
+		}, 8);
 	}
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
-
+			case SCRUFFY_NOTE:
+				readHangoverCure(player);
+				return true;
 		}
 		return false;
 	}
 
 	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
+		if((firstItem == SNAPE_GRASS && secondItem == CHOCOLATE_MILK) || (firstItem == CHOCOLATE_MILK && secondItem == SNAPE_GRASS)) {
+			if(player.getQuestStage(39) >= MAKE_HANGOVER_CURE) {
+				player.getDialogue().sendGiveItemNpc("You mix the snape grass into the bucket.", new Item(HANGOVER_CURE));
+				player.getDialogue().endDialogue();
+				player.getInventory().replaceItemWithItem(new Item(CHOCOLATE_MILK), new Item(HANGOVER_CURE));
+				player.getInventory().removeItem(new Item(firstItem));
+			} else {
+				player.getDialogue().sendStatement("You see no reason to do that at the moment.");
+				player.getDialogue().endDialogue();
+			}
+			return true;
+		}
 		return false;
 	}
 
 	public boolean doItemOnObject(final Player player, int object, int item) {
 		switch(object) {
+			case ELENAS_DOOR:
+				if(item == SMALL_KEY) {
+					if(player.getPosition().getX() < 2540) {
+						player.getDialogue().sendStatement("You unlock the door and walk through.");
+						player.getDialogue().endDialogue();
+						player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+						player.getActionSender().walkTo(1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+					} else {
+						player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+						player.getActionSender().walkTo(-1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+					}
+					return true;
+				}
 			case PIPE_GRILL:
 				if (item == ROPE) {
-					if(player.getEquipment().getId(Constants.HAT) != GAS_MASK) {
-						player.getDialogue().sendPlayerChat("Hmm, I should probably be wearing my gas mask before", "I attempt this.", CONTENT);
-						player.getDialogue().endDialogue();
-						return true;
-					}
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						int count = 0;
 
@@ -445,6 +568,10 @@ public class PlagueCity implements Quest {
 	}
 
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		if(itemId == HANGOVER_CURE && npc.getNpcId() == BRAVEK) {
+			Dialogues.startDialogue(player, BRAVEK);
+			return true;
+		}
 		return false;
 	}
 
@@ -454,43 +581,140 @@ public class PlagueCity implements Quest {
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
-			case PIPE:
-				if (player.getEquipment().getId(Constants.HAT) != GAS_MASK) {
-					player.getDialogue().sendPlayerChat("Hmm, I should probably be wearing my gas mask before", "I attempt this.", CONTENT);
-					player.getDialogue().endDialogue();
+			case ELENAS_DOOR:
+				if (player.getPosition().getX() < 2540) {
+					if (player.getInventory().playerHasItem(SMALL_KEY)) {
+						player.getDialogue().sendStatement("You unlock the door and walk through.");
+						player.getDialogue().endDialogue();
+						player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+						player.getActionSender().walkTo(1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+					} else {
+						player.getActionSender().sendMessage("The door is locked.");
+					}
+				} else {
+					player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+					player.getActionSender().walkTo(-1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+				}
+			return true;
+			case CUPBOARD:
+				if(x == 2574 && y == 3334 && player.getQuestStage(this.getQuestID()) >= MASK_GET) {
+					Dialogues.startDialogue(player, CUPBOARD+10000);
 					return true;
 				}
+			return false;
+			case SPOOKY_STAIRS_UP:
+				player.teleport(UP_FROM_ELENA);
+				return true;
+			case SPOOKY_STAIRS_DOWN:
+				player.teleport(DOWN_TO_ELENA);
+				return true;
+			case BARREL:
+				if(x == 2534 && y == 3268 && !player.getInventory().playerHasItem(SMALL_KEY)) {
+					player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+					player.getInventory().addItem(new Item(SMALL_KEY));
+					player.getActionSender().sendMessage("You find a small key in the barrel.");
+					return true;
+				}
+			return false;
+			case BRAVEKS_DOOR:
+				if (player.getPosition().getX() < 2530) {
+					if (player.getQuestVars().allowedToSeeBravek || player.getQuestStage(this.getQuestID()) >= MAKE_HANGOVER_CURE) {
+						player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
+						player.getActionSender().walkTo(1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
+					} else {
+						player.getDialogue().setLastNpcTalk(CLERK);
+						player.getDialogue().sendNpcChat("Mr. Bravek is quite busy, perhaps I can be", "of assistance.", CONTENT);
+						player.getDialogue().endDialogue();
+					}
+				} else {
+					player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
+					player.getActionSender().walkTo(-1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
+				}
+				return true;
+			case RESTRICTED_DOOR:
+				if(player.getPosition().getY() >= y) {
+					Dialogues.startDialogue(player, RESTRICTED_DOOR + 10000);
+				} else {
+					player.getActionSender().walkThroughDoor(RESTRICTED_DOOR, x, y, 0);
+					player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, 1, true);
+				}
+				return true;
+			case REHNISON_DOOR:
+				if(player.getPosition().getY() < 3329) {
+					if(player.getQuestStage(39) <= DELIVER_BOOK) {
+						Dialogues.startDialogue(player, REHNISON_DOOR + 10000);
+					} else {
+						player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
+						player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, 1, true);
+					}
+				} else {
+					player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
+					player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, -1, true);
+				}
+				return true;
+			case REHNISON_STAIRS_UP:
+				player.teleport(new Position(2527, 3331, 1));
+				return true;
+			case REHNISON_STAIRS_DOWN:
+				player.teleport(new Position(2528, 3331, 0));
+				return true;
+			case MANHOLE:
+				Ladders.climbLadderDown(player, DOWN_FROM_MANHOLE);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					int count = 0;
 					@Override
 					public void execute(CycleEventContainer b) {
-						count++;
-						player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
-						player.getUpdateFlags().setFaceToDirection(true);
-						player.getUpdateFlags().setUpdateRequired(true);
-						if(player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
-							player.getUpdateFlags().sendAnimation(3195, 10);
-							b.stop();
-						}
-						if(count >= 5) {
-							b.stop();
-						}
+						b.stop();
 					}
 
 					@Override
 					public void stop() {
-						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-							@Override
-							public void execute(CycleEventContainer b) {
+						PlagueCity.assessPipeGrill(player);
+						player.getActionSender().sendMessage("You climb down through the manhole.");
+					}
+				}, 3);
+				return true;
+			case PIPE:
+				if (player.getQuestStage(this.getQuestID()) < GRILL_PULLED) {
+					player.getDialogue().sendStatement("There is a large metal grill blocking the way.");
+					player.getDialogue().endDialogue();
+				} else if (player.getEquipment().getId(Constants.HAT) != GAS_MASK) {
+					player.getDialogue().sendPlayerChat("Hmm, I should probably be wearing my gas mask before", "I climb through this pipe.", CONTENT);
+					player.getDialogue().endDialogue();
+				} else {
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
+							player.getUpdateFlags().setFaceToDirection(true);
+							player.getUpdateFlags().setUpdateRequired(true);
+							if (player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
+								player.getUpdateFlags().sendAnimation(3195, 10);
 								b.stop();
 							}
-							@Override
-							public void stop() {
-								player.teleport(OUT_OF_PIPE);
+							if (count >= 5) {
+								b.stop();
 							}
-						}, 2);
-					}
-				}, 1);
+						}
+
+						@Override
+						public void stop() {
+							CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+								@Override
+								public void execute(CycleEventContainer b) {
+									b.stop();
+								}
+
+								@Override
+								public void stop() {
+									player.teleport(OUT_OF_PIPE);
+								}
+							}, 2);
+						}
+					}, 1);
+				}
 				return true;
 			case PIPE_GRILL:
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -542,8 +766,606 @@ public class PlagueCity implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case ELENA:
+				switch (player.getQuestStage(this.getQuestID())) {
+					case GET_REWARD:
+						d.sendNpcChat("Go and see my father, I'll make sure he adequately", "rewards you. I'll catch up with you later.", CONTENT);
+						d.endDialogue();
+						return true;
+					case WARRANT_GET:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi, you're free to go! Your kidnappers don't seem to be", "about right now.", CONTENT);
+								return true;
+							case 2:
+								d.sendNpcChat("Thank you, being kidnapped was so inconvenient. I was", "on my way back to East Ardougne with some samples,", "I want to see if I can diagnose a cure for this plague.", CONTENT);
+								return true;
+							case 3:
+								d.sendPlayerChat("Well, you can leave via the manhole near the gate.", CONTENT);
+								return true;
+							case 4:
+								d.sendNpcChat("Go and see my father, I'll make sure he adequately", "rewards you. I'll catch up with you later.", CONTENT);
+								d.endDialogue();
+								player.setQuestStage(this.getQuestID(), GET_REWARD);
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case CUPBOARD + 10000:
+				switch(d.getChatId()) {
+					case 1:
+						d.sendStatement("You open the cupboard and find a spare gas mask inside.", "Take it?");
+						return true;
+					case 2:
+						d.sendOption("Yes.", "No.");
+						return true;
+					case 3:
+						switch(optionId) {
+							case 1:
+								if(player.getInventory().ownsItem(GAS_MASK)) {
+									d.sendPlayerChat("I still have this gas mask, I probably", "shouldn't take Elena's extra.", CONTENT);
+									
+								} else {
+									d.sendGiveItemNpc("You take the spare gas mask.", new Item(GAS_MASK));
+									player.getInventory().addItem(new Item(GAS_MASK));
+								}
+								d.endDialogue();
+								return true;
+							case 2:
+								d.sendStatement("You close the cupboard.");
+								d.endDialogue();
+								return true;
+						}
+				}
+			return false;
+			case BRAVEK:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					default:
+						d.sendNpcChat("My head hurts! I'll speak to you another day...", ANGRY_1);
+						d.endDialogue();
+						return true;
+					case WARRANT_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if(player.getInventory().ownsItem(WARRANT)) {
+									d.sendNpcChat("Good luck with finding Elena adventurer.", CONTENT);
+								} else {
+									d.sendGiveItemNpc("Bravek hands you a warrant.", new Item(WARRANT));
+									player.getInventory().addItemOrDrop(new Item(WARRANT));
+								}
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case MAKE_HANGOVER_CURE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Uurgh! My head still hurts too much to think straight.", "Oh for one of Trudi's hangover cures!", DISTRESSED);
+								if(!player.getInventory().playerHasItem(HANGOVER_CURE)) {
+									d.endDialogue();
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("Try this.", CONTENT);
+								return true;
+							case 3:
+								d.sendGiveItemNpc("You give Bravek the hangover cure. Bravek gulps down", "the foul-looking liquid.", new Item(HANGOVER_CURE));
+								player.getInventory().removeItem(new Item(HANGOVER_CURE));
+								World.getNpcs()[World.getNpcIndex(BRAVEK)].getUpdateFlags().setForceChatMessage("Grruurgh!");
+								return true;
+							case 4:
+								d.sendNpcChat("Ooh, that's much better! Thanks, that's the clearest my", "head has felt in a month. Ah now, what was it you", "wanted me to do for you?", CONTENT);
+								return true;
+							case 5:
+								d.sendPlayerChat("I need to rescue a kidnap victim called Elena. She's", "being held in a plague house, I need permission to", "enter.", CONTENT);
+								return true;
+							case 6:
+								d.sendNpcChat("Well, the mourners deal with that sort of thing...", CONTENT);
+								return true;
+							case 7:
+								d.sendPlayerChat("They won't listen to me! They say I'm some", "sort of pheasant or something!", ANGRY_1);
+								return true;
+							case 8:
+								d.sendNpcChat("Hmmmm, well I guess they're not taking the issue of a", "kidnapping seriously enough. They do go a bit far", "sometimes. I've heard of Elena, she has helped us a lot...", "Ok, I'll give you this warrant to enter the house.", CONTENT);
+								return true;
+							case 9:
+								d.sendGiveItemNpc("Bravek hands you a warrant.", new Item(WARRANT));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(WARRANT));
+								player.setQuestStage(this.getQuestID(), WARRANT_GET);
+								return true;
+						}
+					return false;
+					case TALK_TO_BRAVEK:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("My head hurts! I'll speak to you another day...", ANGRY_1);
+								return true;
+							case 2:
+								d.sendOption("This is really important though!", "Ok, goodbye.");
+								return true;
+							case 3:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								if(optionId == 2) {
+									d.endDialogue();
+								}
+								return true;
+							case 4:
+								d.sendNpcChat("I can't possibly speak to you with my head spinning like", "this... I went a bit heavy on the drink again last night.", "Curse my herbalist, she made the best hangover cures.", "Darn inconvenient of her catching the plague.", ANGRY_1);
+								return true;
+							case 5:
+								d.sendOption("Ok, goodbye.", "You shouldn't drink so much then!", "Do you know what's in the cure?");
+								return true;
+							case 6:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								switch(optionId) {
+									case 1:
+										d.endDialogue();
+										break;
+									case 3:
+										d.setNextChatId(10);
+										break;
+								}
+								return true;
+							case 7:
+								d.sendNpcChat("HAH! You think anything keeps this town running", "except for the sweet, sweet nectar of liquor? Think", "again adventurer!", Dialogues.LAUGHING);
+								d.setNextChatId(5);
+								return true;
+							case 10:
+								d.sendNpcChat("Hmmm, let me think... Ouch! Thinking isn't clever. Ah", "here, she did scribble it down for me.", ANGRY_1);
+								return true;
+							case 11:
+								d.sendGiveItemNpc("Bravek hands you a tatty piece of paper.", new Item(SCRUFFY_NOTE));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(SCRUFFY_NOTE));
+								player.setQuestStage(this.getQuestID(), MAKE_HANGOVER_CURE);
+								return true;
+						}
+					return false;
+				}
+			case CLERK:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					default:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Hello, wecome to the Civic Office of West Ardougne.", "How can I help you?", CONTENT);
+								return true;
+							case 2:
+								d.sendPlayerChat("I'm just looking, thanks.", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case TALK_TO_BRAVEK:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Hello, wecome to the Civic Office of West Ardougne.", "How can I help you?", CONTENT);
+								return true;
+							case 2:
+								d.sendOption("I need permission to enter a plague house.", "Who is through that door?", "I'm just looking thanks.");
+								return true;
+							case 3:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								switch(optionId) {
+									case 1:
+										d.setNextChatId(5);
+										break;
+									case 3:
+										d.endDialogue();
+										break;
+								}
+								return true;
+							case 4:
+								d.sendNpcChat("Bravek the city warder who is in charge of overseeing", "this administration of West Ardougne, possessing a", "higher authority than the Head Mourner.", CONTENT);
+								d.setNextChatId(2);
+								return true;
+							case 5:
+								d.sendNpcChat("Rather you than me! The mourners normally deal with", "that stuff, you should speak to them. Their headquarters", "are right near the city gate.", CONTENT);
+								return true;
+							case 6:
+								d.sendOption("I'll try asking them then.", "Surely you don't let them run everything for you?", "This is urgent though!");
+								return true;
+							case 7:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								switch(optionId) {
+									case 1:
+										d.endDialogue();
+										break;
+									case 3:
+										d.setNextChatId(10);
+										break;
+								}
+								return true;
+							case 8:
+								d.sendNpcChat("Well, that's a matter for Bravek, sir. Bravek", "and this administration hold higher authority than", "the mourners, but Bravek usually delegates all tasks", "related to the plague to them, as he doesn't", CONTENT);
+								return true;
+							case 9:
+								d.sendNpcChat("believe the plague is as harmful as the mourners", "say it is.", CONTENT);
+								d.setNextChatId(6);
+								return true;
+							case 10:
+								d.sendPlayerChat("Someone's been kipnapped and is being held", "in a plague house!", DISTRESSED);
+								return true;
+							case 11:
+								d.sendNpcChat("I'll see what I can do I suppose.", CONTENT);
+								return true;
+							case 12:
+								d.sendNpcChat("Mr. Bravek, there's a man here who really needs to", "speak to you.", CONTENT);
+								return true;
+							case 13:
+								d.setLastNpcTalk(BRAVEK);
+								d.sendNpcChat("I suppose they can come in then. If they keep it short.", CONTENT);
+								d.endDialogue();
+								player.getQuestVars().allowedToSeeBravek = true;
+								return true;
+						}
+					return false;
+				}
+			case RESTRICTED_DOOR + 10000:
+				int mourner = (player.getPosition().getX() < 2536 ? MOURNER_3 : MOURNER_2);
+				int otherMourner = (mourner == MOURNER_3 ? MOURNER_2 : MOURNER_3);
+				d.setLastNpcTalk(mourner);
+				switch(player.getQuestStage(this.getQuestID())) {
+					default:
+						d.sendNpcChat("I'd stand away from there. That black cross means that", "house has been touched by the plague.", CONTENT);
+						d.endDialogue();
+						return true;
+					case WARRANT_GET:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("I'd stand away from there. That black cross means that", "house has been touched by the plague.", CONTENT);
+								if(!player.getInventory().playerHasItem(WARRANT)) {
+									d.endDialogue();
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("I have a warrant from Bravek to enter here.", CONTENT);
+								return true;
+							case 3:
+								d.sendNpcChat("This is highly irregular. Please wait...", CONTENT);
+								return true;
+							case 4:
+								player.getActionSender().removeInterfaces();
+								Npc mourner1 = World.getNpcs()[World.getNpcIndex(mourner)];
+								Npc mourner2 = World.getNpcs()[World.getNpcIndex(otherMourner)];
+								mourner1.getUpdateFlags().setFace(mourner2.getPosition());
+								mourner1.getUpdateFlags().setFaceToDirection(true);
+								mourner1.getMovementHandler().setCanWalk(false);
+								mourner1.getUpdateFlags().setForceChatMessage("We got someone here with a warrant from Bravek. What do?");
+								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+									@Override
+									public void execute(CycleEventContainer b) {
+										b.stop();
+									}
+									@Override
+									public void stop() {
+										Dialogues.sendDialogue(player, RESTRICTED_DOOR+10000, 5, 0);
+									}
+								}, 3);
+								return true;
+							case 5:
+								d.sendStatement("You wait until the mourner's back is turned and sneak into the", "building.");
+								d.endDialogue();
+								final int mourner_f = mourner;
+								final Position toEval = mourner == MOURNER_3 ? new Position(2533, 3272, 0) : new Position(2540, 3273, 0);
+								if(player.getPosition().equals(toEval)) {
+									player.getActionSender().walkThroughDoor(RESTRICTED_DOOR, toEval.getX(), toEval.getY(), 0);
+									player.getActionSender().walkTo(player.getPosition().getX() == toEval.getX() ? 0 : player.getPosition().getX() < toEval.getX() ? 1 : -1, -1, true);
+								} else {
+									CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+										int count = 0;
+										@Override
+										public void execute(CycleEventContainer b) {
+											count++;
+											player.walkTo(toEval, true);
+											if (player.getPosition().equals(toEval)) {
+												player.getActionSender().walkThroughDoor(RESTRICTED_DOOR, toEval.getX(), toEval.getY(), 0);
+												player.getActionSender().walkTo(player.getPosition().getX() == toEval.getX() ? 0 : player.getPosition().getX() < toEval.getX() ? 1 : -1, -1, true);
+											}
+											if(count >= 3) {
+												b.stop();
+											}
+										}
+										@Override
+										public void stop() {
+											Npc mourner1 = World.getNpcs()[World.getNpcIndex(mourner_f)];
+											mourner1.getUpdateFlags().setFaceToDirection(false);
+											mourner1.getMovementHandler().setCanWalk(true);
+										}
+									}, 1);
+								}
+								return true;		
+						}
+					return false;
+					case FIND_BUILDING:
+						switch (d.getChatId()) {
+							case 1:
+								player.getDialogue().sendStatement("The door won't open.", "You notice a black cross on the door.");
+								return true;
+							case 2:
+								d.sendNpcChat("I'd stand away from there. That black cross means that", "house has been touched by the plague.", CONTENT);
+								return true;
+							case 3:
+								d.sendOption("But I think a kidnap victim is in here.", "Thanks for the warning.");
+								return true;
+							case 4:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								if (optionId == 2) {
+									d.endDialogue();
+								}
+								return true;
+							case 5:
+								d.sendNpcChat("Sounds unlikely, even kidnappers wouldn't go in there.", "Even if someone is in there, they're probably dead by", "now.", CONTENT);
+								return true;
+							case 6:
+								d.sendOption("Good point.", "I want to check anyway.");
+								return true;
+							case 7:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								if (optionId == 1) {
+									d.endDialogue();
+								}
+								return true;
+							case 8:
+								d.sendNpcChat("You don't have clearance to go in there.", CONTENT);
+								return true;
+							case 9:
+								d.sendPlayerChat("How do I get clearance?", CONTENT);
+								return true;
+							case 10:
+								d.sendNpcChat("Well you'd need to apply to the head mourner,", "or I suppose Bravek the city warder.", CONTENT);
+								return true;
+							case 11:
+								d.sendNpcChat("I wouldn't get your hopes up though.", CONTENT);
+								d.endDialogue();
+								player.setQuestStage(this.getQuestID(), TALK_TO_BRAVEK);
+								return true;
+						}
+						return false;
+				}
+			case TED_REHNISON:
+			case MARTHA_REHNISON:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case FIND_BUILDING:
+					case TALK_TO_BRAVEK:
+					case MAKE_HANGOVER_CURE:
+					case WARRANT_GET:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Any luck finding Elena yet?", CONTENT);
+								return true;
+							case 2:
+								d.sendPlayerChat("Not yet...", SAD);
+								return true;
+							case 3:
+								d.sendNpcChat("I wish you luck, she did a lot for us.", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case BOOK_RETURNED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi, I hear a woman called Elena is staying here.", CONTENT);
+								return true;
+							case 2:
+								d.sendNpcChat("Yes, she was staying here, but slightly over a week ago", "she was getting ready to go back. However, she never", "managed to leave. My daughter Milli was playing near", "the west wall when she says some shadowy figures jump", DISTRESSED);
+								return true;
+							case 3:
+								d.sendNpcChat("out and grab her. Milli is upstairs if you wish to speak", "to her.", DISTRESSED);
+								d.endDialogue();
+								player.getQuestVars().talkedToParents = true;
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case BILLY_REHNISON:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case BOOK_RETURNED:
+						player.getActionSender().sendMessage("Billy isn't interested in talking.");
+						return true;
+				}
+			return false;
+			case MILLI_REHNISON:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case FIND_BUILDING:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Which building was it again?", CONTENT);
+								return true;
+							case 2:
+								d.sendNpcChat("It was the boarded up building with no windows in the", "south east corner...", SAD);
+								return true;
+							case 3:
+								d.sendPlayerChat("Alright, thanks.", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case BOOK_RETURNED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello.", CONTENT);
+								if(!player.getQuestVars().talkedToParents) {
+									d.endDialogue();
+									player.getActionSender().sendMessage("Milli ignores you.");
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("Your parents say you saw what happened to Elena...", CONTENT);
+								return true;
+							case 3:
+								d.sendNpcChat("*sniff* Yes, I was near the south east corner when I", "saw Elena walking by. I was about to run to greet her", "when some men jumped out. They shoved a sack over", "her head and dragged her into a building.", Dialogues.NEAR_TEARS);
+								return true;
+							case 4:
+								d.sendPlayerChat("Which building?", CONTENT);
+								return true;
+							case 5:
+								d.sendNpcChat("It was the boarded up building with no windows in the", "south east corner...", SAD);
+								return true;
+							case 6:
+								d.sendPlayerChat("Alright, thanks.", CONTENT);
+								d.endDialogue();
+								player.setQuestStage(39, FIND_BUILDING);
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case REHNISON_DOOR + 10000:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case BOOK_RETURNED:
+						switch (d.getChatId()) {
+							case 6:
+								d.setLastNpcTalk(TED_REHNISON);
+								d.sendNpcChat("Thanks, I've been missing that.", CONTENT);
+								d.endDialogue();
+								return true;	
+						}
+					return false;
+					case DELIVER_BOOK:
+						switch (d.getChatId()) {
+							case 1:
+								d.setLastNpcTalk(TED_REHNISON);
+								d.sendNpcChat("Go away. We don't want any.", ANGRY_1);
+								return true;
+							case 2:
+								if(player.getInventory().playerHasItem(BOOK)) {
+									d.sendPlayerChat("I'm a friend of Jethick's, I have come to return a book", "he borrowed.", CONTENT);
+								} else {
+									d.sendPlayerChat("I, er... forgot your book, hold on...", DISTRESSED);
+									d.endDialogue();
+								}
+								return true;
+							case 3:
+								d.setLastNpcTalk(TED_REHNISON);
+								d.sendNpcChat("Oh... Why didn't you say, come in then.", HAPPY);
+								return true;
+							case 4:
+								if(player.getPosition().equals(new Position(2531, 3328, 0))) {
+									player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
+									player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, 1, true);
+									Dialogues.sendDialogue(player, REHNISON_DOOR + 10000, 5, 0);
+								} else {
+									CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+										int count = 0;
+										@Override
+										public void execute(CycleEventContainer b) {
+											count++;
+											player.walkTo(new Position(2531, 3328, 0), true);
+											if (player.getPosition().equals(new Position(2531, 3328, 0))) {
+												player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
+												player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : 1, 1, true);
+												Dialogues.sendDialogue(player, REHNISON_DOOR + 10000, 5, 0);
+											}
+											if(count >= 3) {
+												b.stop();
+											}
+										}
+										@Override
+										public void stop() {
+										}
+									}, 1);
+								}
+								return true;
+							case 5:
+								d.sendGiveItemNpc("You hand the book to Ted as you enter.", new Item(BOOK));
+								player.getInventory().removeItem(new Item(BOOK));
+								player.setQuestStage(this.getQuestID(), BOOK_RETURNED);
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case JETHICK:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case DELIVER_BOOK:
+						switch (d.getChatId()) {
+							case 1:
+								if(player.getInventory().playerHasItem(BOOK)) {
+									d.sendPlayerChat("Where do the Rehnisons live again?", CONTENT);
+									d.setNextChatId(5);
+								} else {
+									d.sendPlayerChat("I erm, lost that book.", SAD);
+								}
+								return true;
+							case 2:
+								d.sendNpcChat("Clumsy, clumsy. I found it lying around in the", "dirt. Thanks for that. Here it is again...", ANGRY_1);
+								return true;
+							case 3:
+								d.sendGiveItemNpc("Jethick gives you a book.", new Item(BOOK));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(BOOK));
+								return true;
+							case 5:
+								d.sendNpcChat("They live in the small timbered building at the far", "north side of town. Do hurry!", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case GRILL_PULLED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Hello, I don't recognize you. We don't get many", "newcomers around here.", CONTENT);
+								return true;
+							case 2:
+								d.sendPlayerChat("Hi, I'm looking for a woman from East Ardougne", "named Elena.", CONTENT);
+								return true;
+							case 3:
+								d.sendNpcChat("East Ardougnian women are easier to find in East", "Ardougne. Not many would come to West Ardougne to", "find one. Although the name is familiar, what does she", "look like?", CONTENT);
+								return true;
+							case 4:
+								if(player.getInventory().playerHasItem(ELENAS_PICTURE)) {
+									d.sendGiveItemNpc("You show Jethick the picture.", new Item(ELENAS_PICTURE));
+								} else {
+									d.sendPlayerChat("Um... brown hair... in her twenties...", CONTENT);
+									d.setNextChatId(10);
+								}
+								return true;
+							case 5:
+								d.sendNpcChat("She came over here to help to aid plague victims. I", "think she is staying over with the Rehnison family. They", "live in the small timbered building at the far north side", "of town. I've not seen her around here in a while.", CONTENT);
+								return true;
+							case 6:
+								d.sendNpcChat("I don't suppose you could run me a little errand while", "you're over there? I borrowed this book from them, can", "you return it?", CONTENT);
+								return true;
+							case 7:
+								d.sendOption("Yes, I'll return it for you.", "No, I don't have time for that.");
+								return true;
+							case 8:
+								d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
+								if(optionId == 2) {
+									d.endDialogue();
+								}
+								return true;
+							case 9:
+								d.sendGiveItemNpc("Jethick gives you a book.", new Item(BOOK));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(BOOK));
+								player.setQuestStage(this.getQuestID(), DELIVER_BOOK);
+								return true;
+							case 10:
+								d.sendNpcChat("Hmmm, that doesn't narrow it down a huge amount...", "I'll need to know more than that, or see a picture?", CONTENT);
+								d.endDialogue();
+								return true;	
+						}
+					return false;
+				}
+			return false;
 			case ALRENA:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case DIG:
+					case GRILL_PULLED:
+					case DELIVER_BOOK:
+					case BOOK_RETURNED:
+					case FIND_BUILDING:
+					case TALK_TO_BRAVEK:
+					case MAKE_HANGOVER_CURE:
+					case WARRANT_GET:
+						d.sendNpcChat("Oh, do hurry and find Elena! I fear she", "is in great danger!", SAD);
+						d.endDialogue();
+						return true;
 					case MASK_GET:
 						switch (d.getChatId()) {
 							case 1:
@@ -604,6 +1426,33 @@ public class PlagueCity implements Quest {
 			return false;
 			case EDMOND:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case GET_REWARD:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Thank you, thank you! Elena beat you back by", "minutes. Now I said I'd give you a reward. What can", "I give you as a reward I wonder? Here, take this magic", "scroll, I have little use for it but it may help you.", HAPPY);
+								return true;
+							case 2:
+								if(player.getInventory().canAddItem(new Item(MAGIC_SCROLL))) {
+									d.dontCloseInterface();
+									QuestHandler.completeQuest(player, this.getQuestID());
+								} else {
+									d.sendNpcChat("Oh, you don't have room for the scroll! Make", "some room so I can give it to you.", CONTENT);
+									d.endDialogue();
+									
+								}
+							return true;
+						}
+					return false;
+					case GRILL_PULLED:
+					case DELIVER_BOOK:
+					case BOOK_RETURNED:
+					case FIND_BUILDING:
+					case TALK_TO_BRAVEK:
+					case MAKE_HANGOVER_CURE:
+					case WARRANT_GET:
+						d.sendNpcChat("Oh, do hurry and find Elena! I fear she", "is in great danger!", SAD);
+						d.endDialogue();
+						return true;
 					case DIG:
 						switch (d.getChatId()) {
 							case 1:

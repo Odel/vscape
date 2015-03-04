@@ -33,6 +33,26 @@ public class Ladders {
 			}
 		}, 2);
 	}
+	
+	public static void climbLadderDown(final Player player, final Position pos) {
+		player.setStopPacket(true);
+		player.getUpdateFlags().sendAnimation(827);
+		player.getActionSender().removeInterfaces();
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (player.getPosition() != pos) {
+					player.teleport(pos);
+				}
+				player.getUpdateFlags().sendAnimation(65535);
+				container.stop();
+			}
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+			}
+		}, 2);
+	}
 
 	public static void checkClimbLadder(Player player, String method) {
 		GameObjectDef def = SkillHandler.getObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ());

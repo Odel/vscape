@@ -79,6 +79,8 @@ public class QuestVariables {
     public boolean[] myrequeTalkedToBools = {false, false, false, false, false};
     public int plagueCitySoilSoftened = 0;
     public boolean triedPipeGrill = false;
+    public boolean talkedToParents = false;
+    public boolean allowedToSeeBravek = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;

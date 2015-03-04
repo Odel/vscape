@@ -539,6 +539,14 @@ public class DialogueManager {
 		player.getActionSender().sendItemOnInterface(6236, 170, item2.getId());
 		player.getActionSender().sendChatInterface(6231);
 	}
+	
+	public void sendGiveItemNpc(String text1, String text2, Item item1) {
+		player.getActionSender().sendString(text1, 6232);
+		player.getActionSender().sendString(text2, 6233);
+		player.getActionSender().sendItemOnInterface(6236, 170, item1.getId());
+		player.getActionSender().sendItemOnInterface(6235, 170, -1);
+		player.getActionSender().sendChatInterface(6231);
+	}
 
 	public void sendGiveItemNpc(String text, Item item) {
 		player.getActionSender().sendString(text, 308);

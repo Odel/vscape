@@ -226,7 +226,7 @@ public class FamilyCrest implements Quest {
 				player.getActionSender().sendString("Johnathon has been trying to defeat Chronozon, a nasty", 8161);
 				player.getActionSender().sendString("demon in the Wilderness part of Edgeville dungeon, by the", 8162);
 				player.getActionSender().sendString("earth obelisk. He said I need to cast all four elemental", 8163);
-				player.getActionSender().sendString("blast spells on the demon in order for it die.", 8164);
+				player.getActionSender().sendString("blast spells on the demon in order for it to die.", 8164);
 				player.getActionSender().sendString("Chronozon took his crest piece, so I'll get it back for him.", 8165);
 				break;
 			case CREST_GET:

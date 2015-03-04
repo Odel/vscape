@@ -1421,11 +1421,17 @@ public class WalkToActionHandler {
 				case 2148:// wizard tower ladder to sedridor
 					Ladders.climbLadder(player, new Position(3105, 3162, 0));
 					break;
-				case 881: // open manhold
+				case 881: // open manhole
 					TrapDoor.handleTrapdoor(player, id, 882, def);
 					break;
-				case 883: // close manhold
+				case 883: // close manhole
 					TrapDoor.handleTrapdoor(player, id, 881, def);
+					break;
+				case 2545: // open manhole west ard
+					TrapDoor.handleTrapdoor(player, id, 2544, def);
+					break;
+				case 2543: // close manhole west ard
+					TrapDoor.handleTrapdoor(player, id, 2545, def);
 					break;
 				case 2112: // Mining guild door entrance
 					if (player.getPosition().getY() > 9756) {

@@ -1200,7 +1200,7 @@ public class Player extends Entity {
 		    this.setGraveyardFruitDeposited(15);
 		}
 		if(this.Area(2504, 2534, 9732, 9782, 0)) {
-			PlagueCity.assessGrateStatus(this);
+			PlagueCity.assessPipeGrill(this);
 		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {

@@ -23,6 +23,10 @@ public class TrapDoor {
 						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
 						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY() + 1, def.getPosition().getZ(), type);
 						new GameObject(881, def.getPosition().getX(), def.getPosition().getY() + 1, def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
+					} else if (originalId == 2545) {
+						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
+						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY() + 1, def.getPosition().getZ(), type);
+						new GameObject(2543, def.getPosition().getX(), def.getPosition().getY() + 1, def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
 					} else {
 						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
 						//ObjectHandler.getInstance().removeObject(originalId, def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
@@ -32,8 +36,12 @@ public class TrapDoor {
 						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
 						new GameObject(883, def.getPosition().getX(), def.getPosition().getY() - 1, def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
 						new GameObject(882, def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
+					} else if (originalId == 2543) {
+						ObjectHandler.getInstance().removeObject(def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), type);
+						new GameObject(2545, def.getPosition().getX(), def.getPosition().getY() - 1, def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
+						new GameObject(2544, def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), face, type, Constants.EMPTY_OBJECT, 999999, true);
 					} else {
-					    if(originalId != 883)
+					    if(originalId != 883 && originalId != 2545)
 						new GameObject(newId, def.getPosition().getX(), def.getPosition().getY(), def.getPosition().getZ(), face, type, originalId, 999999, true);
 					}
 				container.stop();
