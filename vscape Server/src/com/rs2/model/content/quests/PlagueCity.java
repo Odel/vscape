@@ -504,7 +504,7 @@ public class PlagueCity implements Quest {
 					return true;
 				}
 			case PIPE_GRILL:
-				if (item == ROPE) {
+				if (item == ROPE && player.getQuestStage(39) == DIG) {
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						int count = 0;
 
@@ -534,6 +534,9 @@ public class PlagueCity implements Quest {
 						}
 					}, 1);
 					return true;
+				} else {
+					assessPipeGrill(player);
+					return false;
 				}
 			case MUD_PATCH:
 				if(item == BUCKET_OF_WATER) {
@@ -714,6 +717,17 @@ public class PlagueCity implements Quest {
 					public void stop() {
 						PlagueCity.assessPipeGrill(player);
 						player.getActionSender().sendMessage("You climb down through the manhole.");
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+
+							@Override
+							public void stop() {
+								PlagueCity.assessPipeGrill(player);
+							}
+						}, 3);
 					}
 				}, 3);
 				return true;
@@ -761,34 +775,38 @@ public class PlagueCity implements Quest {
 				}
 				return true;
 			case PIPE_GRILL:
-				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					int count = 0;
-
-					@Override
-					public void execute(CycleEventContainer b) {
-						count++;
-						player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
-						player.getUpdateFlags().setFaceToDirection(true);
-						player.getUpdateFlags().setUpdateRequired(true);
-						if (player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
-							player.getUpdateFlags().sendAnimation(3192, 10);
-							b.stop();
+				if (player.getQuestStage(39) == DIG) {
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
+							player.getUpdateFlags().setFaceToDirection(true);
+							player.getUpdateFlags().setUpdateRequired(true);
+							if (player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
+								player.getUpdateFlags().sendAnimation(3192, 10);
+								b.stop();
+							}
+							if (count >= 5) {
+								b.stop();
+							}
 						}
-						if (count >= 5) {
-							b.stop();
-						}
-					}
 
-					@Override
-					public void stop() {
-						player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
-						player.getUpdateFlags().setFaceToDirection(true);
-						player.getUpdateFlags().setUpdateRequired(true);
-					}
-				}, 1);
-				player.getDialogue().sendStatement("The grill is too secure.", "You can't pull it off alone.");
-				player.getQuestVars().triedPipeGrill = true;
-				return true;
+						@Override
+						public void stop() {
+							player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
+							player.getUpdateFlags().setFaceToDirection(true);
+							player.getUpdateFlags().setUpdateRequired(true);
+						}
+					}, 1);
+					player.getDialogue().sendStatement("The grill is too secure.", "You can't pull it off alone.");
+					player.getQuestVars().triedPipeGrill = true;
+					return true;
+				} else {
+					assessPipeGrill(player);
+					return false;
+				}
 			case MUD_PILE:
 				Ladders.climbLadder(player, OUT_OF_SEWERS);
 				player.getActionSender().sendMessage("You push yourself through the dirt as you climb...");
