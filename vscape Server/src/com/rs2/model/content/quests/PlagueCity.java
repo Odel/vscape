@@ -375,10 +375,22 @@ public class PlagueCity implements Quest {
 						}
 						@Override
 						public void stop() {
+							assessPipeGrill(player);
 							player.setStopPacket(false);
 							player.getDialogue().sendStatement("You fall through...", "...you land in the sewer.", "Edmond follows you down the hole.");
 						}
 					}, 5);
+				} else {
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							PlagueCity.assessPipeGrill(player);
+						}
+					}, 3);
 				}
 			}
 		}, 1);
