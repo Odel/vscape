@@ -72930,24 +72930,81 @@
     "npcId": 1153,
     "rareTableAccess": true,
     "drops": [
+	  {
+        "id": 995,
+        "count": [
+          1,
+          77
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1279,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 826,
+        "count": [
+          5
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1207,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1823,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 199,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 201,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 203,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
       {
         "id": 555,
         "count": [
-          2,
-          4
+          2
         ],
         "chance": 3
       },
       {
         "id": 554,
         "count": [
-          27
+          7
         ],
         "chance": 3
       },
       {
         "id": 559,
         "count": [
+          2,
           6
         ],
         "chance": 3
@@ -72976,48 +73033,12 @@
       {
         "id": 563,
         "count": [
-          2,
-          3
+          2
         ],
         "chance": 3
-      },
-      {
-        "id": 565,
-        "count": [
-          1
-        ],
-        "chance": 6
       },
       {
         "id": 1131,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1279,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 826,
-        "count": [
-          5
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1203,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1207,
         "count": [
           1
         ],
@@ -73028,49 +73049,14 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 1295,
         "count": [
           1
         ],
-        "chance": 6
-      },
-      {
-        "id": 1181,
-        "count": [
-          1
-        ],
         "chance": 3
-      },
-      {
-        "id": 1213,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 199,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 201,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 203,
-        "count": [
-          1
-        ],
-        "chance": 2
       },
       {
         "id": 205,
@@ -73093,417 +73079,102 @@
         ],
         "chance": 3
       },
+	  {
+        "id": 560,
+        "count": [
+          3
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 563,
+        "count": [
+          2
+        ],
+        "chance": 3
+      },
       {
         "id": 211,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 213,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 215,
         "count": [
           1
         ],
-        "chance": 6
-      },
-      {
-        "id": 2485,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 217,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          1000
-        ],
-        "chance": 2
-      },
-      {
-        "id": 1823,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          50
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 985,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1623,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1179,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1440,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1442,
-        "count": [
-          1
-        ],
-        "chance": 3
+        "chance": 4
       },
       {
         "id": 1452,
         "count": [
           1
         ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          5
-        ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 1462,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          31
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      }
     ]
   },
   {
     "npcId": 1154,
     "rareTableAccess": true,
     "drops": [
+	  {
+        "id": 995,
+        "count": [
+          10,
+          40,
+          120,
+          200,
+          450
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 205,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
       {
         "id": 1157,
         "count": [
           1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 554,
+        "count": [
+          6,
+          7,
+          30,
+          60
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 556,
+        "count": [
+          15,
+          27,
+          29
         ],
         "chance": 2
       },
@@ -73528,6 +73199,28 @@
         ],
         "chance": 3
       },
+	  {
+        "id": 3139,
+        "count": [
+          1,
+          2
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 379,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1832,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },	  
       {
         "id": 1207,
         "count": [
@@ -73550,42 +73243,11 @@
         "chance": 3
       },
       {
-        "id": 1213,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1211,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1113,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
         "id": 555,
         "count": [
           2
         ],
         "chance": 3
-      },
-      {
-        "id": 554,
-        "count": [
-          6,
-          7,
-          30,
-          60
-        ],
-        "chance": 2
       },
       {
         "id": 559,
@@ -73618,18 +73280,17 @@
         "chance": 3
       },
       {
-        "id": 561,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
         "id": 563,
         "count": [
           1,
           3
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1131,
+        "count": [
+          1
         ],
         "chance": 3
       },
@@ -73638,426 +73299,107 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 201,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 199,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 207,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 213,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 211,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 2485,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          10,
-          40,
-          120,
-          200,
-          450
-        ],
-        "chance": 2
-      },
-      {
-        "id": 379,
+	  {
+        "id": 1213,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
       {
-        "id": 1823,
+        "id": 1211,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
       {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          50
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
+        "id": 1113,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
-      {
-        "id": 985,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1623,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1179,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1440,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1442,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1452,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
+	  {
         "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1462,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
         "count": [
           1,
           6
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
+	  {
+        "id": 1357,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
+	  {
+        "id": 1145,
         "count": [
-          1,
-          31
+          1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
+	  {
+        "id": 1161,
         "count": [
-          100
+          1
         ],
-        "chance": 6
-      }
+        "chance": 4
+      },
+	  {
+        "id": 1211,
+        "count": [
+          1
+        ],
+        "chance": 4
+       },
     ]
   },
   {
@@ -74065,32 +73407,12 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 1197,
+        "id": 995,
         "count": [
-          1
+          28,
+          132
         ],
-        "chance": 3
-      },
-      {
-        "id": 1113,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1127,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1185,
-        "count": [
-          1
-        ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 1353,
@@ -74127,94 +73449,7 @@
         ],
         "chance": 2
       },
-      {
-        "id": 1211,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1319,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1373,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 556,
-        "count": [
-          50
-        ],
-        "chance": 3
-      },
-      {
-        "id": 565,
-        "count": [
-          7
-        ],
-        "chance": 3
-      },
-      {
-        "id": 554,
-        "count": [
-          37
-        ],
-        "chance": 3
-      },
-      {
-        "id": 563,
-        "count": [
-          3,
-          45
-        ],
-        "chance": 3
-      },
-      {
-        "id": 560,
-        "count": [
-          45
-        ],
-        "chance": 3
-      },
-      {
-        "id": 562,
-        "count": [
-          10
-        ],
-        "chance": 3
-      },
-      {
-        "id": 564,
-        "count": [
-          2
-        ],
-        "chance": 3
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 3
-      },
-      {
-        "id": 829,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
+	  {
         "id": 199,
         "count": [
           1
@@ -74241,6 +73476,105 @@
           1
         ],
         "chance": 2
+      },
+      {
+        "id": 1211,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1319,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1373,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1197,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 556,
+        "count": [
+          50
+        ],
+        "chance": 3
+      },
+      {
+        "id": 565,
+        "count": [
+          7,
+          12,
+          13,
+          19
+        ],
+        "chance": 3
+      },
+      {
+        "id": 554,
+        "count": [
+          37
+        ],
+        "chance": 3
+      },
+      {
+        "id": 563,
+        "count": [
+          3,
+          45
+        ],
+        "chance": 3
+      },
+      {
+        "id": 560,
+        "count": [
+          18,
+          28,
+          45
+        ],
+        "chance": 3
+      },
+      {
+        "id": 562,
+        "count": [
+          10
+        ],
+        "chance": 3
+      },
+      {
+        "id": 564,
+        "count": [
+          2
+        ],
+        "chance": 3
+      },
+      {
+        "id": 892,
+        "count": [
+          42,
+          150
+        ],
+        "chance": 3
+      },
+      {
+        "id": 829,
+        "count": [
+          1,
+		  20
+        ],
+        "chance": 3
       },
       {
         "id": 211,
@@ -74271,31 +73605,10 @@
         "chance": 3
       },
       {
-        "id": 2485,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          28,
-          100
-        ],
-        "chance": 2
-      },
-      {
         "id": 379,
         "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 985,
-        "count": [
-          1
+          1,
+		  2
         ],
         "chance": 3
       },
@@ -74306,381 +73619,171 @@
         ],
         "chance": 3
       },
-      {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          50
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
+	  {
+        "id": 145,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 985,
+	  {
+        "id": 157,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1623,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1179,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
+	  {
+        "id": 163,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1440,
+	  {
+        "id": 1331,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1442,
+	  {
+        "id": 1213,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },  
+	  {
+        "id": 1183,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1452,
+	  {
+        "id": 1147,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1462,
+	  {
+        "id": 1113,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
+        "id": 1127,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 5
       },
       {
-        "id": 995,
+        "id": 1185,
         "count": [
-          1,
-          31
+          1
         ],
-        "chance": 6
+        "chance": 5
       },
-      {
-        "id": 995,
+	  {
+        "id": 1289,
         "count": [
-          100
+          1
         ],
-        "chance": 6
-      }
+        "chance": 4
+      },
+	  {
+        "id": 2485,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
     ]
   },
   {
     "npcId": 1156,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
+	  {
+        "id": 995,
+        "count": [
+          1,
+          77
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1279,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 826,
+        "count": [
+          5
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1207,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 1823,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 199,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 201,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
+      {
+        "id": 203,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
       {
         "id": 555,
         "count": [
-          2,
-          4
+          2
         ],
         "chance": 3
       },
       {
         "id": 554,
         "count": [
-          27
+          7
         ],
         "chance": 3
       },
       {
         "id": 559,
         "count": [
+          2,
           6
         ],
         "chance": 3
@@ -74709,48 +73812,12 @@
       {
         "id": 563,
         "count": [
-          2,
-          3
+          2
         ],
         "chance": 3
-      },
-      {
-        "id": 565,
-        "count": [
-          1
-        ],
-        "chance": 6
       },
       {
         "id": 1131,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1279,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 826,
-        "count": [
-          5
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1203,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1207,
         "count": [
           1
         ],
@@ -74761,49 +73828,14 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 3
       },
       {
         "id": 1295,
         "count": [
           1
         ],
-        "chance": 6
-      },
-      {
-        "id": 1181,
-        "count": [
-          1
-        ],
         "chance": 3
-      },
-      {
-        "id": 1213,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 199,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 201,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 203,
-        "count": [
-          1
-        ],
-        "chance": 2
       },
       {
         "id": 205,
@@ -74826,407 +73858,55 @@
         ],
         "chance": 3
       },
+	  {
+        "id": 560,
+        "count": [
+          3
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 563,
+        "count": [
+          2
+        ],
+        "chance": 3
+      },
       {
         "id": 211,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 213,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 215,
         "count": [
           1
         ],
-        "chance": 6
-      },
-      {
-        "id": 2485,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 217,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          1000
-        ],
-        "chance": 2
-      },
-      {
-        "id": 1823,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          50
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 985,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1623,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1179,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1440,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1442,
-        "count": [
-          1
-        ],
-        "chance": 3
+        "chance": 4
       },
       {
         "id": 1452,
         "count": [
           1
         ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          5
-        ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 1462,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          31
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      }
     ]
   },
   {
@@ -75234,32 +73914,12 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 1197,
+        "id": 995,
         "count": [
-          1
+          28,
+          132
         ],
-        "chance": 3
-      },
-      {
-        "id": 1113,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1127,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1185,
-        "count": [
-          1
-        ],
-        "chance": 6
+        "chance": 2
       },
       {
         "id": 1353,
@@ -75296,94 +73956,7 @@
         ],
         "chance": 2
       },
-      {
-        "id": 1211,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1319,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1373,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 556,
-        "count": [
-          50
-        ],
-        "chance": 3
-      },
-      {
-        "id": 565,
-        "count": [
-          7
-        ],
-        "chance": 3
-      },
-      {
-        "id": 554,
-        "count": [
-          37
-        ],
-        "chance": 3
-      },
-      {
-        "id": 563,
-        "count": [
-          3,
-          45
-        ],
-        "chance": 3
-      },
-      {
-        "id": 560,
-        "count": [
-          45
-        ],
-        "chance": 3
-      },
-      {
-        "id": 562,
-        "count": [
-          10
-        ],
-        "chance": 3
-      },
-      {
-        "id": 564,
-        "count": [
-          2
-        ],
-        "chance": 3
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 3
-      },
-      {
-        "id": 829,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
+	  {
         "id": 199,
         "count": [
           1
@@ -75410,6 +73983,105 @@
           1
         ],
         "chance": 2
+      },
+      {
+        "id": 1211,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1319,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 1373,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1197,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+      {
+        "id": 556,
+        "count": [
+          50
+        ],
+        "chance": 3
+      },
+      {
+        "id": 565,
+        "count": [
+          7,
+          12,
+          13,
+          19
+        ],
+        "chance": 3
+      },
+      {
+        "id": 554,
+        "count": [
+          37
+        ],
+        "chance": 3
+      },
+      {
+        "id": 563,
+        "count": [
+          3,
+          45
+        ],
+        "chance": 3
+      },
+      {
+        "id": 560,
+        "count": [
+          18,
+          28,
+          45
+        ],
+        "chance": 3
+      },
+      {
+        "id": 562,
+        "count": [
+          10
+        ],
+        "chance": 3
+      },
+      {
+        "id": 564,
+        "count": [
+          2
+        ],
+        "chance": 3
+      },
+      {
+        "id": 892,
+        "count": [
+          42,
+          150
+        ],
+        "chance": 3
+      },
+      {
+        "id": 829,
+        "count": [
+          1,
+          20
+        ],
+        "chance": 3
       },
       {
         "id": 211,
@@ -75440,31 +74112,10 @@
         "chance": 3
       },
       {
-        "id": 2485,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          28,
-          100
-        ],
-        "chance": 2
-      },
-      {
         "id": 379,
         "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 985,
-        "count": [
-          1
+          1,
+          2
         ],
         "chance": 3
       },
@@ -75475,357 +74126,90 @@
         ],
         "chance": 3
       },
-      {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          50
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
+	  {
+        "id": 145,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 985,
+	  {
+        "id": 157,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1623,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1179,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
+	  {
+        "id": 163,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1440,
+	  {
+        "id": 1331,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1442,
+	  {
+        "id": 1213,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },  
+	  {
+        "id": 1183,
         "count": [
           1
         ],
         "chance": 3
       },
-      {
-        "id": 1452,
+	  {
+        "id": 1147,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1462,
+	  {
+        "id": 1113,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
+        "id": 1127,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 5
       },
       {
-        "id": 995,
+        "id": 1185,
         "count": [
-          1,
-          31
+          1
         ],
-        "chance": 6
+        "chance": 5
       },
-      {
-        "id": 995,
+	  {
+        "id": 1289,
         "count": [
-          100
+          1
         ],
-        "chance": 6
-      }
+        "chance": 4
+      },
+	  {
+        "id": 2485,
+        "count": [
+          1
+        ],
+        "chance": 4
+      },
     ]
   },
   {
@@ -228888,12 +227272,49 @@
   },
   {
     "npcId": 3589,
-    "rareTableAccess": false,
+    "rareTableAccess": true,
     "drops": [
+	  {
+        "id": 995,
+        "count": [
+          10,
+          40,
+          120,
+          200,
+          450
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 205,
+        "count": [
+          1
+        ],
+        "chance": 2
+      },
       {
         "id": 1157,
         "count": [
           1
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 554,
+        "count": [
+          6,
+          7,
+          30,
+          60
+        ],
+        "chance": 2
+      },
+	  {
+        "id": 556,
+        "count": [
+          15,
+          27,
+          29
         ],
         "chance": 2
       },
@@ -228918,6 +227339,28 @@
         ],
         "chance": 3
       },
+	  {
+        "id": 3139,
+        "count": [
+          1,
+          2
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 379,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1832,
+        "count": [
+          1
+        ],
+        "chance": 3
+      },	  
       {
         "id": 1207,
         "count": [
@@ -228940,42 +227383,11 @@
         "chance": 3
       },
       {
-        "id": 1213,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1211,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1113,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
         "id": 555,
         "count": [
           2
         ],
         "chance": 3
-      },
-      {
-        "id": 554,
-        "count": [
-          6,
-          7,
-          30,
-          60
-        ],
-        "chance": 2
       },
       {
         "id": 559,
@@ -229008,18 +227420,17 @@
         "chance": 3
       },
       {
-        "id": 561,
-        "count": [
-          1,
-          6
-        ],
-        "chance": 6
-      },
-      {
         "id": 563,
         "count": [
           1,
           3
+        ],
+        "chance": 3
+      },
+	  {
+        "id": 1131,
+        "count": [
+          1
         ],
         "chance": 3
       },
@@ -229028,425 +227439,106 @@
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 201,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 199,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 207,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 213,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 211,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
       {
         "id": 2485,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          10,
-          40,
-          120,
-          200,
-          450
-        ],
-        "chance": 2
-      },
-      {
-        "id": 379,
+	  {
+        "id": 1213,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
       {
-        "id": 1823,
+        "id": 1211,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
       {
-        "id": 995,
-        "count": [
-          250,
-          381,
-          450,
-          100,
-          100,
-          100
-        ],
-        "chance": 2
-      },
-      {
-        "id": 987,
+        "id": 1113,
         "count": [
           1
         ],
-        "chance": 3
+        "chance": 4
       },
-      {
-        "id": 985,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1617,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1631,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1615,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 830,
-        "count": [
-          5
-        ],
-        "chance": 6
-      },
-      {
-        "id": 829,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1247,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1249,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 2366,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 892,
-        "count": [
-          4,
-          8,
-          12
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          200
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1444,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1440,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1442,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 1452,
-        "count": [
-          1
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
+	  {
         "id": 561,
-        "count": [
-          6,
-          3
-        ],
-        "chance": 6
-      },
-      {
-        "id": 566,
-        "count": [
-          20
-        ],
-        "chance": 6
-      },
-      {
-        "id": 560,
-        "count": [
-          50,
-          121
-        ],
-        "chance": 6
-      },
-      {
-        "id": 565,
-        "count": [
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 1462,
-        "count": [
-          1
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          125,
-          250,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          500
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          150,
-          800
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          100
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50,
-          150
-        ],
-        "chance": 6
-      },
-      {
-        "id": 995,
-        "count": [
-          33
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          25,
-          250
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          30,
-          120
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          10,
-          100
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          250
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5321,
-        "count": [
-          3
-        ],
-        "chance": 3
-      },
-      {
-        "id": 995,
-        "count": [
-          1,
-          50
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5316,
         "count": [
           1,
           6
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
-        "count": [
-          10
-        ],
-        "chance": 6
-      },
-      {
-        "id": 5300,
+	  {
+        "id": 1357,
         "count": [
           1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
+	  {
+        "id": 1145,
         "count": [
-          1,
-          31
+          1
         ],
-        "chance": 6
+        "chance": 4
       },
-      {
-        "id": 995,
+	  {
+        "id": 1161,
         "count": [
-          100
+          1
         ],
-        "chance": 6
+        "chance": 4
+      },
+	  {
+        "id": 1211,
+        "count": [
+          1
+        ],
+        "chance": 4
       }
     ]
   },
