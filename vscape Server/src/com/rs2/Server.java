@@ -6,15 +6,19 @@ import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.magetrainingarena.*;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.fishing.FishingSpots;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.players.GlobalGroundItem;
 import com.rs2.model.players.HighscoresManager;
 import com.rs2.model.players.Player;
+import com.rs2.model.players.ShopManager;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.item.ItemDefinition;
@@ -175,6 +179,12 @@ public class Server implements Runnable {
             Misc.initAlphabet();
 
 
+    		//AreaDefinition.init();
+            ItemDefinition.init();
+    		NpcDropController.init();
+    		NpcDefinition.init();
+    		ShopManager.loadShops();
+    		Food.init();
 			// load all xstream related files.
 			XStreamUtil.loadAllFiles();
 

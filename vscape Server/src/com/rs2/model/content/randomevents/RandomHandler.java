@@ -72,7 +72,7 @@ public class RandomHandler {
 	}
 	
 	public void spawnEvent() {
-		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.getInJail() || player.isCrossingObstacle || (player.onApeAtoll() && player.getMMVars().isMonkey())) {
+		if (player.getRandomEventNpc() != null || player.cantTeleport() || player.isInCutscene() || player.getInJail() || player.isCrossingObstacle || (player.onApeAtoll() && player.getMMVars().isMonkey())) {
 			return;
 		}
 		int random = Misc.random(7);

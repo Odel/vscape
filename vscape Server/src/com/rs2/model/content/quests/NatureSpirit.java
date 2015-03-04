@@ -8,14 +8,17 @@ import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.consumables.Food;
+import com.rs2.model.content.consumables.Food.FoodDef;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.ground.GroundItem;
@@ -30,6 +33,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+
 import java.util.ArrayList;
 
 public class NatureSpirit implements Quest {
@@ -407,25 +411,23 @@ public class NatureSpirit implements Quest {
 		}
 	}
 
-	public static Food.FoodData findSpoilableFood(final Player player) {
+	public static FoodDef findSpoilableFood(final Player player) {
 		for (Item i : player.getInventory().getItemContainer().toArray()) {
 			if (i == null) {
 				continue;
 			}
-			for (Food.FoodData f : Food.FoodData.values()) {
-				for (int id : f.getFoodId()) {
-					if (id == i.getId()) {
-						player.setTempInteger(id);
-						return f;
-					}
-				}
+			FoodDef food = Food.forId(i.getId());
+			if(food != null)
+			{
+				player.setTempInteger(i.getId());
+				return food;
 			}
 		}
 		return null;
 	}
 
 	public static void handleSpoilFood(final Npc npc, final Player player) {
-		Food.FoodData f = findSpoilableFood(player);
+		FoodDef f = findSpoilableFood(player);
 		if (player.getInventory().playerHasItem(new Item(DRUID_POUCH))) {
 			if (player.getInventory().getItemAmount(DRUID_POUCH) == 1) {
 				player.getInventory().replaceItemWithItem(new Item(DRUID_POUCH), new Item(DRUID_POUCH_EMPTY));
@@ -449,9 +451,10 @@ public class NatureSpirit implements Quest {
 				}
 				if (Misc.random(3) == 1) {
 					player.getInventory().replaceItemWithItem(new Item(player.getTempInteger()), new Item(ROTTEN_FOOD));
-					if (f.getNewItemId() != -1) {
-						player.getActionSender().sendMessage("You feel something attacking your backpack, and smell a terrible stench.");
-						player.getInventory().addItemOrDrop(new Item(f.getNewItemId()));
+					player.getActionSender().sendMessage("You feel something attacking your backpack, and smell a terrible stench.");
+					int container = f.getContainer();
+					if (container != -1) {
+						player.getInventory().addItemOrDrop(new Item(container, 1));
 					}
 				} else {
 					player.getActionSender().sendMessage("An attacking Ghast just misses you.");

@@ -6,7 +6,8 @@ import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.consumables.Food.FoodData;
+import com.rs2.model.content.consumables.Food;
+import com.rs2.model.content.consumables.Food.FoodDef;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBattlements;
@@ -288,7 +289,7 @@ public class Castlewars {
 		{
 			if(item == null)
 				continue;
-			FoodData food = FoodData.forId(item.getId());
+			FoodDef food = Food.forId(item.getId());
 			if(food != null)
 			{
 				hasFood = true;

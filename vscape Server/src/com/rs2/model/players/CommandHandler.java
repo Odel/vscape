@@ -19,6 +19,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -1891,6 +1892,15 @@ public class CommandHandler {
         		sender.getActionSender().sendMessage("Shops were reloaded.", true);
         	} catch (Exception e) {
     			sender.getActionSender().sendMessage("Problem reloading Shops.", true);
+    		}
+        }
+        else if(keyword.equals("reloadfood"))
+        {
+        	try{
+        		Food.init();
+        		sender.getActionSender().sendMessage("Food defs were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Food defs.", true);
     		}
         }
         else if(keyword.equals("searchbank")) {
