@@ -81,6 +81,7 @@ public class QuestVariables {
     public boolean triedPipeGrill = false;
     public boolean talkedToParents = false;
     public boolean allowedToSeeBravek = false;
+    private boolean canTeleportArdougne = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -467,6 +468,14 @@ public class QuestVariables {
 		return this.thirdMortMyreBridgeFixed;
 	}
 	return false;
+    }
+    
+    public boolean canTeleportArdougne() {
+	    return this.canTeleportArdougne;
+    }
+    
+    public void setCanTeleportArdougne(boolean set) {
+	    this.canTeleportArdougne = set;
     }
     
 }

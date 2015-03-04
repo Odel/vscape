@@ -1,5 +1,6 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+1984:1:2535:3333:0:15 //rotten apple west ard
 2126:1:2634:3497:0:15 //dwellberries mcgrugors
 2126:1:2645:3498:0:15 //dwellberries mcgrugors
 2126:1:2638:3479:0:15 //dwellberries mcgrugors

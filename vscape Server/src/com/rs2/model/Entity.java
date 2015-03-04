@@ -377,6 +377,10 @@ public abstract class Entity {
 		return Area(3224, 3231, 3367, 3372);
 	}
 	
+	public boolean inWestArdougne() {
+		return Area(2459, 2557, 3279, 3335, 0);
+	}
+	
 	public boolean inFightCaves() {
 		return FightCaves.inFightCaves(this);
 	}

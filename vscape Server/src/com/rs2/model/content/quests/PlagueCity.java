@@ -13,6 +13,7 @@ import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.ObjectHandler;
@@ -460,6 +461,9 @@ public class PlagueCity implements Quest {
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
+			case MAGIC_SCROLL:
+				Dialogues.startDialogue(player, MAGIC_SCROLL + 10000);
+				return true;
 			case SCRUFFY_NOTE:
 				readHangoverCure(player);
 				return true;
@@ -582,82 +586,111 @@ public class PlagueCity implements Quest {
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
 			case ELENAS_DOOR:
-				if (player.getPosition().getX() < 2540) {
-					if (player.getInventory().playerHasItem(SMALL_KEY)) {
-						player.getDialogue().sendStatement("You unlock the door and walk through.");
-						player.getDialogue().endDialogue();
-						player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
-						player.getActionSender().walkTo(1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+				if (x == 2539 && y == 9672) {
+					if (player.getPosition().getX() < 2540) {
+						if (player.getInventory().playerHasItem(SMALL_KEY)) {
+							player.getDialogue().sendStatement("You unlock the door and walk through.");
+							player.getDialogue().endDialogue();
+							player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+							player.getActionSender().walkTo(1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
+						} else {
+							player.getActionSender().sendMessage("The door is locked.");
+						}
 					} else {
-						player.getActionSender().sendMessage("The door is locked.");
+						player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
+						player.getActionSender().walkTo(-1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
 					}
-				} else {
-					player.getActionSender().walkThroughDoor(ELENAS_DOOR, 2539, 9672, 0);
-					player.getActionSender().walkTo(-1, player.getPosition().getY() == 9672 ? 0 : player.getPosition().getY() < 9672 ? 1 : -1, true);
-				}
-			return true;
-			case CUPBOARD:
-				if(x == 2574 && y == 3334 && player.getQuestStage(this.getQuestID()) >= MASK_GET) {
-					Dialogues.startDialogue(player, CUPBOARD+10000);
 					return true;
 				}
-			return false;
+				return false;
+			case CUPBOARD:
+				if (x == 2574 && y == 3334 && player.getQuestStage(this.getQuestID()) >= MASK_GET) {
+					Dialogues.startDialogue(player, CUPBOARD + 10000);
+					return true;
+				}
+				return false;
 			case SPOOKY_STAIRS_UP:
-				player.teleport(UP_FROM_ELENA);
-				return true;
+				if (x == 2536 && y == 9671) {
+					player.teleport(UP_FROM_ELENA);
+					return true;
+				}
+				return false;
 			case SPOOKY_STAIRS_DOWN:
-				player.teleport(DOWN_TO_ELENA);
-				return true;
+				if (x == 2536 && y == 3268) {
+					player.teleport(DOWN_TO_ELENA);
+					return true;
+				}
+				return false;
 			case BARREL:
-				if(x == 2534 && y == 3268 && !player.getInventory().playerHasItem(SMALL_KEY)) {
+				if (x == 2534 && y == 3268 && !player.getInventory().playerHasItem(SMALL_KEY)) {
 					player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
 					player.getInventory().addItem(new Item(SMALL_KEY));
 					player.getActionSender().sendMessage("You find a small key in the barrel.");
 					return true;
 				}
-			return false;
+				return false;
 			case BRAVEKS_DOOR:
-				if (player.getPosition().getX() < 2530) {
-					if (player.getQuestVars().allowedToSeeBravek || player.getQuestStage(this.getQuestID()) >= MAKE_HANGOVER_CURE) {
-						player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
-						player.getActionSender().walkTo(1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
+				if (x == 2530 && y == 3314) {
+					if (player.getPosition().getX() < 2530) {
+						if (player.getQuestVars().allowedToSeeBravek || player.getQuestStage(this.getQuestID()) >= MAKE_HANGOVER_CURE) {
+							player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
+							player.getActionSender().walkTo(1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
+						} else {
+							player.getDialogue().setLastNpcTalk(CLERK);
+							player.getDialogue().sendNpcChat("Mr. Bravek is quite busy, perhaps I can be", "of assistance.", CONTENT);
+							player.getDialogue().endDialogue();
+						}
 					} else {
-						player.getDialogue().setLastNpcTalk(CLERK);
-						player.getDialogue().sendNpcChat("Mr. Bravek is quite busy, perhaps I can be", "of assistance.", CONTENT);
-						player.getDialogue().endDialogue();
+						player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
+						player.getActionSender().walkTo(-1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
 					}
-				} else {
-					player.getActionSender().walkThroughDoor(BRAVEKS_DOOR, 2530, 3314, 0);
-					player.getActionSender().walkTo(-1, player.getPosition().getY() == 3314 ? 0 : player.getPosition().getY() < 3314 ? 1 : -1, true);
+					return true;
 				}
-				return true;
+				return false;
 			case RESTRICTED_DOOR:
-				if(player.getPosition().getY() >= y) {
-					Dialogues.startDialogue(player, RESTRICTED_DOOR + 10000);
-				} else {
-					player.getActionSender().walkThroughDoor(RESTRICTED_DOOR, x, y, 0);
-					player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, 1, true);
+				if ((x == 2533 && y == 3272) || (x == 2540 && y == 3273)) {
+					if (player.getEquipment().getId(Constants.HAT) != GAS_MASK) {
+						player.getDialogue().sendPlayerChat("Hmm, I should probably be wearing my gas mask before", "I try entering here.", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					}
+					if (player.getPosition().getY() >= y) {
+						Dialogues.startDialogue(player, RESTRICTED_DOOR + 10000);
+					} else {
+						player.getActionSender().walkThroughDoor(RESTRICTED_DOOR, x, y, 0);
+						player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, 1, true);
+					}
+					return true;
 				}
-				return true;
+				return false;
 			case REHNISON_DOOR:
-				if(player.getPosition().getY() < 3329) {
-					if(player.getQuestStage(39) <= DELIVER_BOOK) {
-						Dialogues.startDialogue(player, REHNISON_DOOR + 10000);
+				if (x == 2531 && y == 3328) {
+					if (player.getPosition().getY() < 3329) {
+						if (player.getQuestStage(39) <= DELIVER_BOOK) {
+							Dialogues.startDialogue(player, REHNISON_DOOR + 10000);
+						} else {
+							player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
+							player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, 1, true);
+						}
 					} else {
 						player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
-						player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, 1, true);
+						player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, -1, true);
 					}
-				} else {
-					player.getActionSender().walkThroughDoor(REHNISON_DOOR, 2531, 3328, 0);
-					player.getActionSender().walkTo(player.getPosition().getX() == 2531 ? 0 : player.getPosition().getX() < 2531 ? 1 : -1, -1, true);
+					return true;
 				}
-				return true;
+				return false;
 			case REHNISON_STAIRS_UP:
-				player.teleport(new Position(2527, 3331, 1));
-				return true;
+				if (x == 2527 && y == 3332) {
+					player.teleport(new Position(2527, 3331, 1));
+					return true;
+				}
+				return false;
 			case REHNISON_STAIRS_DOWN:
-				player.teleport(new Position(2528, 3331, 0));
-				return true;
+				if (x == 2527 && y == 3332) {
+					player.teleport(new Position(2528, 3331, 0));
+					return true;
+				}
+				return false;
 			case MANHOLE:
 				Ladders.climbLadderDown(player, DOWN_FROM_MANHOLE);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -719,17 +752,18 @@ public class PlagueCity implements Quest {
 			case PIPE_GRILL:
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					int count = 0;
+
 					@Override
 					public void execute(CycleEventContainer b) {
 						count++;
 						player.getUpdateFlags().sendFaceToDirection(new Position(2514, 9738, 0));
 						player.getUpdateFlags().setFaceToDirection(true);
 						player.getUpdateFlags().setUpdateRequired(true);
-						if(player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
+						if (player.getPosition().getX() == 2514 && player.getPosition().getY() == 9739) {
 							player.getUpdateFlags().sendAnimation(3192, 10);
 							b.stop();
 						}
-						if(count >= 5) {
+						if (count >= 5) {
 							b.stop();
 						}
 					}
@@ -765,7 +799,85 @@ public class PlagueCity implements Quest {
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
+		if(id < 6391 && NpcDefinition.forId(id) != null && NpcDefinition.forId(id).getName().toLowerCase().contains("mourner")) {
+			d.sendNpcChat("Get out of my way, peasant.", ANGRY_1);
+			d.endDialogue();
+			return true;
+		}
 		switch (id) { //Npc ID
+			case MAGIC_SCROLL + 10000:
+				switch(d.getChatId()) {
+					case 1:
+						d.sendGiveItemNpc("You memorize what is written on the scroll.", new Item(MAGIC_SCROLL));
+						player.getQuestVars().setCanTeleportArdougne(true);
+						player.getInventory().removeItem(new Item(MAGIC_SCROLL));
+						player.getActionSender().sendMessage("The scroll crumbles to dust.");
+						return true;
+					case 2:
+						d.sendStatement("You can now cast the Ardougne Teleport spell provided you have the", "required runes and magic level.");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case 785:
+			case 786:
+			case 787: //Civilians
+				switch(d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Damned rats, they'll be the end of us all", "I know it.", ANGRY_1);
+						return true;
+					case 2:
+						d.sendPlayerChat("They're just rats.", CONTENT);
+						return true;
+					case 3:
+						d.sendNpcChat("Rats that carry this disastrous plague!", ANGRY_1);
+						return true;
+					case 4:
+						d.sendPlayerChat("Well, sorry about that. Wish I could help.", CONTENT);
+						return true;
+					case 5:
+						d.sendNpcChat("Say, maybe you can help, you look like", "an outsider to me. You wouldn't happen to have a full", "grown cat would you?", CONTENT);
+						return true;
+					case 6:
+						if(player.getCat().hasCat() && player.getCat().getGrowthStage() > 1) {
+							d.sendPlayerChat("I do, actually... Why?", CONTENT);
+						} else {
+							d.sendPlayerChat("Er, I don't have one, sorry.", CONTENT);
+							d.endDialogue();
+						}
+						return true;
+					case 7:
+						d.sendNpcChat("Tell you what, here's what I'm thinking:", "Cats love rats, right? If you were to", "sell me your cat for say... 100 Death Runes, I could", "use it to help kill off these rats!", CONTENT);
+						return true;
+					case 8:
+						d.sendNpcChat("So, what do you say? A fair trade?", "Your cat for 100 Death Runes?", CONTENT);
+						return true;
+					case 9:
+						d.sendOption("Yes. (This is irreversible, you will lose your cat.)", "No, thank you.");
+						return true;
+					case 10:
+						switch(optionId) {
+							case 1:
+								if(player.getInventory().playerHasItem(player.getCat().getCatItem())) {
+									d.sendPlayerChat("Yes, I'll do it.", CONTENT);
+								} else {
+									d.sendPlayerChat("I don't seem to have my cat with me.", CONTENT);
+									d.endDialogue();
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat(d.tempStrings[1], CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					case 11:
+						d.sendGiveItemNpc("You exchange your cat for Death Runes.", "", new Item(player.getCat().getCatItem()), new Item(560));
+						d.endDialogue();
+						player.getInventory().replaceItemWithItem(new Item(player.getCat().getCatItem()), new Item(560, 100));
+						player.getCat().resetCat();
+						return true;
+				}
+			return false;
 			case ELENA:
 				switch (player.getQuestStage(this.getQuestID())) {
 					case GET_REWARD:
@@ -1426,6 +1538,22 @@ public class PlagueCity implements Quest {
 			return false;
 			case EDMOND:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case QUEST_COMPLETE:
+						switch (d.getChatId()) {
+							case 1:
+								if (!player.getQuestVars().canTeleportArdougne() && !player.getInventory().ownsItem(MAGIC_SCROLL)) {
+									if (player.getInventory().canAddItem(new Item(MAGIC_SCROLL))) {
+										d.sendGiveItemNpc("Edmond hands you another Magic Scroll.", new Item(MAGIC_SCROLL));
+									} else {
+										d.sendNpcChat("Oh, you don't have room for the scroll! Make", "some room so I can give it to you.", CONTENT);
+									}
+								} else {
+									d.sendNpcChat("Oh, thank you again adventurer! It is so", "good to see Elena home and safe again.", HAPPY);
+								}
+								d.endDialogue();
+								return true;
+						}
+						return false;
 					case GET_REWARD:
 						switch (d.getChatId()) {
 							case 1:
@@ -1600,14 +1728,6 @@ public class PlagueCity implements Quest {
 								d.sendPlayerChat("Thanks.", CONTENT);
 								d.endDialogue();
 								QuestHandler.startQuest(player, this.getQuestID());
-								return true;
-						}
-						return false;
-					case QUEST_COMPLETE:
-						switch (d.getChatId()) {
-							case 1:
-								d.sendNpcChat("Thank you again!", Dialogues.HAPPY);
-								d.endDialogue();
 								return true;
 						}
 						return false;

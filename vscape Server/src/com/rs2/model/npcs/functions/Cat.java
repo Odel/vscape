@@ -347,6 +347,17 @@ public class Cat {
 			}
 		}
 	}
+	
+	public void resetCat() {
+		cat = null;
+		catActive = false;
+		ResetHunger();
+		catItemId = 0;
+		growthStage = 0;
+		growthTime = 0;
+		attentionTime = 0;
+		ratsCaught = 0;
+	}
 
 	public void ResetHunger(){
 		hungerTime = 0;

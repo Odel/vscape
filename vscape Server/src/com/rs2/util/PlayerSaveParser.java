@@ -442,6 +442,9 @@ public class PlayerSaveParser {
 				if(questVars.get("3rdMortMyreBridge") != null) {
 					player.getQuestVars().setMortMyreBridgeFixed(3, questVars.get("3rdMortMyreBridge").getAsBoolean());
 				}
+				if(questVars.get("canTeleArdy") != null) {
+					player.getQuestVars().setCanTeleportArdougne(questVars.get("canTeleArdy").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

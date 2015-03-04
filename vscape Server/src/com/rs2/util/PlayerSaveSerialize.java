@@ -272,6 +272,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("1stMortMyreBridge", player.getQuestVars().getMortMyreBridgeFixed(1));
 		questVarsObj.addProperty("2ndMortMyreBridge", player.getQuestVars().getMortMyreBridgeFixed(2));
 		questVarsObj.addProperty("3rdMortMyreBridge", player.getQuestVars().getMortMyreBridgeFixed(3));
+		questVarsObj.addProperty("canTeleArdy", player.getQuestVars().canTeleportArdougne());
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {

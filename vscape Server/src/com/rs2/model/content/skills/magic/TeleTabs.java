@@ -48,6 +48,11 @@ public class TeleTabs {
 			if (!player.getInventory().playerHasItem(item)) {
 				return false;
 			}
+			if(tab == TabletData.ARDOUGNE && !player.getQuestVars().canTeleportArdougne()) {
+				player.getDialogue().sendStatement("You must complete Plague City to use this.");
+				player.getDialogue().endDialogue();
+				return true;
+			} 
 			if (!player.getTeleportation().attemptTeleportTablet(new Position(tab.posX,tab.posY,0))) {
 				return true;
 			}
