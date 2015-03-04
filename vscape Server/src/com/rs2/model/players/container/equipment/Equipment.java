@@ -266,7 +266,7 @@ public class Equipment {
 			if ((item.getId() == 1171 && player.getEquipment().getItemContainer().contains(1277) || (item.getId() == 1277 && player.getEquipment().getItemContainer().contains(1171))))
 				player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
 		}
-		if(equipSlot == Constants.HAT && player.getEquipment().getId(Constants.HAT) == PlagueCity.GAS_MASK) {
+		if(equipSlot == Constants.HAT && player.getEquipment().getId(Constants.HAT) == PlagueCity.GAS_MASK && player.inWestArdougne()) {
 			player.getDialogue().sendPlayerChat("I don't really want to die from the plague.", "I should keep this mask on my head.", Dialogues.CONTENT);
 			player.getDialogue().endDialogue();
 			return;
