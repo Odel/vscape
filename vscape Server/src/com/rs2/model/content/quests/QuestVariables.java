@@ -81,6 +81,7 @@ public class QuestVariables {
     public boolean triedPipeGrill = false;
     public boolean talkedToParents = false;
     public boolean allowedToSeeBravek = false;
+    public boolean healedHangover = false;
     private boolean canTeleportArdougne = false;
     
     public QuestVariables(final Player player) {
