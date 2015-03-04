@@ -72,7 +72,6 @@ public class MimeEvent implements RandomEvent {
 		    			player.getRandomEventNpc().getUpdateFlags().sendForceMessage("Come with me "+name+"!");
 		    		break;
 		    		case 2:
-		    			player.setStopPacket(false);
 		    			player.teleport(new Position(2008,4762,player.getIndex()*4));
 		    			player.getUpdateFlags().sendFaceToDirection(new Position(2008,4761,player.getIndex()*4));
 		    			player.getActionSender().hideAllSideBars();
@@ -83,6 +82,9 @@ public class MimeEvent implements RandomEvent {
 		    			mime.teleport(new Position(2011,4762,player.getIndex()*4));
 		    			mime.setFollowingEntity(null);
 		    			mime.setFace(3);
+				    break;
+		    		case 3:
+		    			player.setStopPacket(false);
 		    			Dialogues.startDialogue(player, mysteriousOldManId);
 					    container.stop();
 				    return;
