@@ -57,6 +57,7 @@ public class MimeEvent implements RandomEvent {
 		currentStage = 0;
 		correct = 0;
 		player.setStopPacket(true);
+		player.getMovementHandler().reset();
 		player.getMovementHandler().resetOnWalkPacket();
 		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
 		player.getRandomHandler().spawnEventNpc(mysteriousOldManId);
