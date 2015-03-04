@@ -56,9 +56,10 @@ public class MimeEvent implements RandomEvent {
 		myTurn = false;
 		currentStage = 0;
 		correct = 0;
-		player.getRandomHandler().spawnEventNpc(mysteriousOldManId);
 		player.setStopPacket(true);
+		player.getMovementHandler().resetOnWalkPacket();
 		player.getAttributes().put("canTakeDamage", Boolean.FALSE);
+		player.getRandomHandler().spawnEventNpc(mysteriousOldManId);
 		player.setMovementDisabled(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    int cycle = 0;
@@ -95,11 +96,18 @@ public class MimeEvent implements RandomEvent {
 	}
 
 	@Override
-	public void destroyEvent() {
+	public void destroyEvent(boolean logout) {
 		player.getRandomHandler().setCurrentEvent(null);
 		player.getRandomHandler().destroyEventNpc();
-		player.setMovementDisabled(false);
 		mime = null;
+		player.setMovementDisabled(false);
+		if(!logout)
+		{
+			player.getAttributes().put("canTakeDamage", Boolean.TRUE);
+			player.getActionSender().sendSideBarInterfaces();
+			player.getEquipment().sendWeaponInterface();
+			player.teleport(player.getLastPosition());
+		}
 	}
 
 	@Override
@@ -187,11 +195,7 @@ public class MimeEvent implements RandomEvent {
 	}
 	
 	public void handleReward(){
-		destroyEvent();
-		player.getAttributes().put("canTakeDamage", Boolean.TRUE);
-		player.getActionSender().sendSideBarInterfaces();
-		player.getEquipment().sendWeaponInterface();
-		player.teleport(player.getLastPosition());
+		destroyEvent(false);
 		if(correct >= 4)
 		{
 			int itemReward = getItemReward();

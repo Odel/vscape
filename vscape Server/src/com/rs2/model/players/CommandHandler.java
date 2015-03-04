@@ -1932,6 +1932,19 @@ public class CommandHandler {
 		    } else {
 		    	sender.getActionSender().sendMessage("Player not found.", true);
 		    }
+		}else if(keyword.equals("destroyrandom")) {
+			Player player = World.getPlayerByName(fullString);
+		    if(player != null) {
+		    	if(player.getRandomHandler().getCurrentEvent() != null)
+		    	{
+		    		player.getRandomHandler().destroyEvent(false);
+		    		sender.getActionSender().sendMessage("Destroyed random event for player "+player.getUsername(), true);
+			    } else {
+			    	sender.getActionSender().sendMessage("Player does not have a random event active.", true);
+			    }
+		    } else {
+		    	sender.getActionSender().sendMessage("Player not found.", true);
+		    }
 		}
 	}
 	

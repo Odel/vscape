@@ -328,6 +328,8 @@ public class MovementHandler {
 			Player player = (Player) entity;
 			player.getAttributes().put("isBanking", Boolean.FALSE);
 			player.getAttributes().put("isShopping", Boolean.FALSE);
+			player.getAttributes().put("smithing", Boolean.FALSE);
+			player.getAttributes().put("smelting", Boolean.FALSE);
 			TradeManager.declineTrade(player);
 			if (!player.getNewComersSide().isInTutorialIslandStage())
 				player.getActionSender().removeInterfaces();

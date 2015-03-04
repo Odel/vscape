@@ -125,10 +125,10 @@ public class RandomHandler {
 		}
 	}
 	
-	public void destroyEvent() {
+	public void destroyEvent(boolean logout) {
 		if(getCurrentEvent() != null)
 		{
-			getCurrentEvent().destroyEvent();
+			getCurrentEvent().destroyEvent(logout);
 			setCurrentEvent(null);
 		}
 	}

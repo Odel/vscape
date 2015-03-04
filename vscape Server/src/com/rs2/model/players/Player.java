@@ -782,14 +782,14 @@ public class Player extends Entity {
         }
         if(getRandomHandler().getCurrentEvent() != null)
         {
-        	getRandomHandler().destroyEvent();
+        	getRandomHandler().destroyEvent(true);
         }
 		setLogoutTimer(System.currentTimeMillis() + (this.inWild() ? 600000 : 1000)); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
         key.cancel();
         try {
-	    socketChannel.close();
+        	socketChannel.close();
             HostGateway.exit(host);
         } catch (Exception ex) {
 	    System.out.println("error disconnecting player");
