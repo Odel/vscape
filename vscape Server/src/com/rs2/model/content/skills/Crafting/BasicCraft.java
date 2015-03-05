@@ -99,7 +99,7 @@ public class BasicCraft {
 				return true;
 			}
 			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 62) {
-				player.getActionSender().sendMessage("You need a crafting level of 54 to do this.");
+				player.getActionSender().sendMessage("You need a crafting level of 62 to do this.");
 				return true;
 			}
 			player.getActionSender().sendMessage("You attach the orb with the battlestaff.");
@@ -116,7 +116,7 @@ public class BasicCraft {
 				return true;
 			}
 			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 54) {
-				player.getDialogue().sendStatement("You need a crafting level of 58 to do this.");
+				player.getDialogue().sendStatement("You need a crafting level of 54 to do this.");
 				return true;
 			}
 			player.getActionSender().sendMessage("You attach the orb with the battlestaff.");
@@ -133,7 +133,7 @@ public class BasicCraft {
 				return true;
 			}
 			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 66) {
-				player.getDialogue().sendStatement("You need a crafting level of 62 to do this.");
+				player.getDialogue().sendStatement("You need a crafting level of 66 to do this.");
 				return true;
 			}
 			player.getActionSender().sendMessage("You attach the orb with the battlestaff.");
