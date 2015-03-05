@@ -216,6 +216,7 @@ public final class RSInterface {
 		optionsTab(textDrawingAreas);
 		bank(textDrawingAreas);
 		skillTab(textDrawingAreas);
+		clanChatTab(textDrawingAreas);
 		aMRUNodes_238 = null;
 	}
 
@@ -235,7 +236,7 @@ public final class RSInterface {
 		tab.tooltip = tooltip;
 	}
 	
-	public static void addButton(int id, int sprite, String tooltip) {
+	public static void addButton(int id, String archive, int sprite, String tooltip) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
 		tab.id = id;
 		tab.parentID = id;
@@ -244,8 +245,8 @@ public final class RSInterface {
 		tab.contentType = 0;
 		tab.aByte254 = (byte) 0;
 		tab.hoverType = 52;
-		tab.sprite1 = SpriteLoader.sprites[sprite];
-		tab.sprite2 = SpriteLoader.sprites[sprite];
+		tab.sprite1 = SpriteLoader.getSprite(archive, sprite);
+		tab.sprite2 = SpriteLoader.getSprite(archive, sprite);
 		tab.width = tab.sprite1.myWidth;
 		tab.height = tab.sprite2.myHeight;
 		tab.tooltip = tooltip;
@@ -478,7 +479,7 @@ public final class RSInterface {
 		Tab.tooltip = tT;
 	}
 	
-	public static void addConfigButton(int ID, int pID, int bID, int bID2, int width, int height, String tT, int configID, int aT, int configFrame) {
+	public static void addConfigButton(int ID, int pID, String archive, int bID, String archive2, int bID2, int width, int height, String tT, int configID, int aT, int configFrame) {
 		RSInterface Tab = addTabInterface(ID);
 		Tab.parentID = pID;
 		Tab.id = ID;
@@ -497,8 +498,8 @@ public final class RSInterface {
 		Tab.valueIndexArray[0][0] = 5;
 		Tab.valueIndexArray[0][1] = configFrame;
 		Tab.valueIndexArray[0][2] = 0;
-		Tab.sprite1 = SpriteLoader.sprites[bID];
-		Tab.sprite2 = SpriteLoader.sprites[bID2];
+		Tab.sprite1 = SpriteLoader.getSprite(archive, bID);
+		Tab.sprite2 = SpriteLoader.getSprite(archive2, bID2);
 		Tab.tooltip = tT;
 	}
 
@@ -517,7 +518,7 @@ public final class RSInterface {
 		tab.height = 334;
 	}
 
-	public static void addSprite(int id, int spriteId) {
+	public static void addSprite(int id, String archive, int spriteId) {
 		RSInterface tab = interfaceCache[id] = new RSInterface();
 		tab.id = id;
 		tab.parentID = id;
@@ -526,13 +527,13 @@ public final class RSInterface {
 		tab.contentType = 0;
 		tab.aByte254 = (byte) 0;
 		tab.hoverType = 52;
-		tab.sprite1 = SpriteLoader.sprites[spriteId];
-		tab.sprite2 = SpriteLoader.sprites[spriteId];
+		tab.sprite1 = SpriteLoader.getSprite(archive, spriteId);
+		tab.sprite2 = SpriteLoader.getSprite(archive, spriteId);
 		tab.width = 512;
 		tab.height = 334;
 	}
 	
-	public static void addHoverButton(int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
+	/*public static void addHoverButton(int i, String imageName, int j, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
 		// button
 		RSInterface tab = addTabInterface(i);
 		tab.id = i;
@@ -547,8 +548,8 @@ public final class RSInterface {
 		tab.width = width;
 		tab.height = height;
 		tab.tooltip = text;
-	}
-
+	}*/
+/*
 	public static void addHoveredButton(int i, String imageName, int j, int w, int h, int IMAGEID) {// hoverable
 		// button
 		RSInterface tab = addTabInterface(i);
@@ -566,7 +567,7 @@ public final class RSInterface {
 		tab.totalChildren(1);
 		tab.child(0, IMAGEID, 0, 0);
 	}
-
+*/
 	public static void addHoverImage(int i, int j, int k, String name) {
 		RSInterface tab = addTabInterface(i);
 		tab.id = i;
@@ -582,7 +583,7 @@ public final class RSInterface {
 		tab.sprite2 = imageLoader(k, name);
 	}
 
-	public static void addHoverButton(int i, int sprite, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
+	public static void addHoverButton(int i, String archive, int sprite, int width, int height, String text, int contentType, int hoverOver, int aT) {// hoverable
 		// button
 		RSInterface tab = addTabInterface(i);
 		tab.id = i;
@@ -592,14 +593,14 @@ public final class RSInterface {
 		tab.contentType = contentType;
 		tab.aByte254 = 0;
 		tab.hoverType = hoverOver;
-		tab.sprite1 = SpriteLoader.sprites[sprite];
-		tab.sprite2 = SpriteLoader.sprites[sprite];
+		tab.sprite1 = SpriteLoader.getSprite(archive, sprite);
+		tab.sprite2 = SpriteLoader.getSprite(archive, sprite);
 		tab.width = width;
 		tab.height = height;
 		tab.tooltip = text;
 	}
 
-	public static void addHoveredButton(int i, int sprite, int w, int h, int IMAGEID) {// hoverable
+	public static void addHoveredButton(int i, String archive, int sprite, int w, int h, int IMAGEID) {// hoverable
 		// button
 		RSInterface tab = addTabInterface(i);
 		tab.parentID = i;
@@ -612,12 +613,12 @@ public final class RSInterface {
 		tab.aByte254 = 0;
 		tab.hoverType = -1;
 		tab.scrollMax = 0;
-		addHoverImage(IMAGEID, sprite, sprite);
+		addHoverImage(IMAGEID, archive, sprite, archive, sprite);
 		tab.totalChildren(1);
 		tab.child(0, IMAGEID, 0, 0);
 	}
 
-	public static void addHoverImage(int i, int j, int k) {
+	public static void addHoverImage(int i, String archive, int j, String archive2, int k) {
 		RSInterface tab = addTabInterface(i);
 		tab.id = i;
 		tab.parentID = i;
@@ -628,8 +629,8 @@ public final class RSInterface {
 		tab.height = 334;
 		tab.aByte254 = 0;
 		tab.hoverType = 52;
-		tab.sprite1 = SpriteLoader.sprites[j];
-		tab.sprite2 = SpriteLoader.sprites[k];
+		tab.sprite1 = SpriteLoader.getSprite(archive, j);
+		tab.sprite2 = SpriteLoader.getSprite(archive2, k);
 	}
 	
 	public static void addTransparentSprite(int id, int spriteId, String spriteName) {
@@ -1005,39 +1006,39 @@ public final class RSInterface {
 	public static void bank(TextDrawingArea[] tda) {
 		RSInterface bankInter = addTabInterface(5292);
 	    setChildren(28, bankInter);
-		addSprite(5293, 57); // window
+		addSprite(5293, "bank", 0); // window
 		bankInter.setChild(0, 5293, 13, 13);
-		addHoverButton(5384, 58, 17, 17, "Close Window", 0, 5380, 3);
-		addHoveredButton(5380, 59, 17, 17, 5379);
+		addHoverButton(5384, "bank", 1, 17, 17, "Close Window", 0, 5380, 3);
+		addHoveredButton(5380, "bank", 2, 17, 17, 5379);
 		bankInter.setChild(1, 5384, 476, 16);
 		bankInter.setChild(2, 5380, 476, 16);
-		addConfigButton(8131, 5292, 62, 63, 35, 25, "Swap/Insert", 1, 4, 304);// SWAP/INSERT
+		addConfigButton(8131, 5292, "bank", 5, "bank", 6, 35, 25, "Swap/Insert", 1, 4, 304);// SWAP/INSERT
 		bankInter.setChild(3, 8131, 25, 285);
-		addConfigButton(5386, 5292, 64, 65, 35, 25, "Withdraw Mode", 1, 4, 115);// Withdraw mode
+		addConfigButton(5386, 5292, "bank", 7, "bank", 8, 35, 25, "Withdraw Mode", 1, 4, 115);// Withdraw mode
 		bankInter.setChild(4, 5386, 65, 285);
-		addHoverButton(50000, 66, 35, 25, "Deposit All", 0, 50001, 1);
-		addHoveredButton(50001, 67, 35, 25, 49999);
+		addHoverButton(50000, "bank", 9, 35, 25, "Deposit All", 0, 50001, 1);
+		addHoveredButton(50001, "bank", 10, 35, 25, 49999);
 		bankInter.setChild(5, 50000, 455, 285);
 		bankInter.setChild(6, 50001, 455, 285);
 		bankInter.setChild(7, 5383, 170, 15);
 		bankInter.setChild(8, 5385, -4, 74);
-		addButton(50002, 68, "Click here to view the full contents of your bank");
+		addButton(50002, "bank", 11, "Click here to view the full contents of your bank");
 		bankInter.setChild(9, 50002, 22, 36);
-		addButton(50003, 72, "Drag an item here to create a new tab");
+		addButton(50003, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(10, 50003, 70, 36);
-		addButton(50004, 72, "Drag an item here to create a new tab");
+		addButton(50004, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(11, 50004, 118, 36);
-		addButton(50005, 72, "Drag an item here to create a new tab");
+		addButton(50005, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(12, 50005, 166, 36);
-		addButton(50006, 72, "Drag an item here to create a new tab");
+		addButton(50006, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(13, 50006, 214, 36);
-		addButton(50007, 72, "Drag an item here to create a new tab");
+		addButton(50007, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(14, 50007, 262, 36);
-		addButton(50008, 72, "Drag an item here to create a new tab");
+		addButton(50008, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(15, 50008, 310, 36);
-		addButton(50009, 72, "Drag an item here to create a new tab");
+		addButton(50009, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(16, 50009, 358, 36);
-		addButton(50010, 72, "Drag an item here to create a new tab");
+		addButton(50010, "bank", 15, "Drag an item here to create a new tab");
 		bankInter.setChild(17, 50010, 406, 36);
 		addText(50011, "0", tda, 0, 0xB4965A, true, false);
 		bankInter.setChild(18, 50011, 473, 42);
@@ -1115,5 +1116,87 @@ public final class RSInterface {
 				}
 			}
 		}
+	}
+	
+	public static void clanChatTab(TextDrawingArea[] tda) {
+		RSInterface clanChat = addTabInterface(25000);
+	    setChildren(8, clanChat);
+	    addText(25001, "Clan Chat", tda, 1, 0xff9b00, true, true);
+	    addText(25002, "Talking in: Not in chat", tda, 0, 0xff9b00, true, true);
+	    addText(25003, "Owner: None", tda, 0, 0xff9b00, true, true);
+	    addSprite(25004, "clanchat", 4);
+	    RSInterface joinBtn = addTabInterface(25005);
+	    setChildren(3, joinBtn);
+		addHoverButton(25006, "clanchat", 5, 72, 32, "Join Chat", 550, 25007, 1);
+		addHoveredButton(25007, "clanchat", 6, 72, 32, 25008);
+		addText(25009, "Join Chat", tda, 0, 0xff9b00, true, true);
+		joinBtn.child(0, 25006, 0, 0);
+		joinBtn.child(1, 25007, 0, 0);
+		joinBtn.child(2, 25009, 36, 11);
+	    RSInterface setupBtn = addTabInterface(25010);
+	    setChildren(3, setupBtn);
+	    addHoverButton(25011, "clanchat", 5, 72, 32, "Clan Setup", -1, 25012, 5);
+		addHoveredButton(25012, "clanchat", 6, 72, 32, 25013);
+		addText(25014, "Clan Setup", tda, 0, 0xff9b00, true, true);
+		setupBtn.child(0, 25011, 0, 0);
+		setupBtn.child(1, 25012, 0, 0);
+		setupBtn.child(2, 25014, 36, 11);
+	    RSInterface leaveBtn = addTabInterface(25015);
+	    setChildren(3, leaveBtn);
+		addHoverButton(25016, "clanchat", 5, 72, 32, "Leave Chat", -1, 25017, 1);
+		addHoveredButton(25017, "clanchat", 6, 72, 32, 25018);
+		addText(25019, "Leave Chat", tda, 0, 0xff9b00, true, true);
+		leaveBtn.child(0, 25016, 0, 0);
+		leaveBtn.child(1, 25017, 0, 0);
+		leaveBtn.child(2, 25019, 36, 11);
+		leaveBtn.isMouseoverTriggered = true;
+	    clanChat.child(0, 25001, 95, 3);
+	    clanChat.child(1, 25002, 95, 25);
+	    clanChat.child(2, 25003, 95, 40);
+	    clanChat.child(3, 25004, 0, 60);
+	    clanChat.child(4, 25005, 15, 226);
+	    clanChat.child(5, 25010, 103, 226);
+	    clanChat.child(6, 25015, 15, 226);
+	    clanChat.child(7, 25020, 0, 62);
+        /* Text area */
+        RSInterface list = addTabInterface(25020);
+        list.contentType = 20000;
+        list.totalChildren(200);
+        for(int i = 0; i < 100; i++) {
+        	int id = 25021 + i;
+        	addSprite(id, "clanchat", 0);
+        }
+        for(int i = 0; i < 100; i++)
+        {
+        	int id = 25021 + i;
+            list.children[i] = id;
+            list.childX[i] = 5;
+        	if(i == 0){
+        		list.childY[0] = 2;
+        	}else{
+        		list.childY[i] = list.childY[i - 1] + 14;
+        	}
+        }
+        for(int i = 0; i < 100; i++) {
+        	int id = 25122 + i;
+        	addText(id, "", tda, 0, 0xffffff, false, true);
+        }
+        for(int i = 100; i < 200; i++)
+        {
+        	int id = 25122 + (i - 100);
+            list.children[i] = id;
+            list.childX[i] = 17;
+        	if(i == 100){
+        		list.childY[100] = 2;
+        	}else{
+        		list.childY[i] = list.childY[i - 1] + 14;
+        	}
+        }
+        list.height = 158; list.width = 174;
+        list.scrollMax = 1405;
+        for(int i = 25122; i < 25222; i++) {
+        	list = interfaceCache[i];
+            list.contentType = 20001 + (i - 25122);
+        }
 	}
 }

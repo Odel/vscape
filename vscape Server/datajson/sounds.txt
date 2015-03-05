@@ -1,0 +1,637 @@
+These are my found lists:
+190 - entangle
+191 - entangle splash
+192 - something splash?
+193 - 192 succeed
+194 - another succeed of 192
+200 - telekenitic grab
+201 - some kind of teleport
+202 - teleport
+203 - some enchant
+204 - superheat?
+205 - another enchant
+206 - faster 205
+207 - another enchant
+208 - 3 stutters then enchant
+209 - 2 stutters then enchant
+210 - 208 then fire sound
+211 - 208 then bouncey sound?
+212 - another enchant
+213 - nice sound then fire
+214 - 213 but kind of teleport sound
+215 - 214
+216 - 214 then fire
+217 - superheat
+218 - superheat failure?
+219 - teleother?
+220 - entangle?
+221 - failure of some sort
+222 - cool sound
+223 - high alch :D
+224 - low alch :D
+225 - enfeeble?
+226 - failure
+227 - kawa
+228 - fall on something hot?
+229 - sharp sound
+230 - equip something?? :O!
+231 - down sound then fire
+232 - spade
+233 - bang
+234 - pop
+235 - cooking
+236 - birds
+237 - water?
+238 - bang
+239 - water then ahh?
+240 - fire
+241 - bubbles
+242 - more bubbles
+243 - 
+2500 - home tele
+1080 - whip attack sound
+1081 - whip special sound
+367 - some kind of bow fire
+463 - armour block
+436 - inproved refexes
+434 - superhuman str
+433 - protect item
+437 - 0 prayer
+435 - pray off
+438 - protect from magic
+439 - steel skin
+440 - incredible reflexes
+441 - ultimate str
+442 - pray fill
+443 - some pray thing idk what one
+444 - protect from range
+445 - pray maybe?
+446 - chick skin
+447 - not high enuf pray
+448 - clarity of thought
+449 - rock skin
+450 - burst of str
+451 - mage boost
+452 - snowball throw
+455 - cross wildy ditch
+069 - hitted
+070 - npc man ded
+071 - npc girl ded
+072 - hitted
+sound 161 : strike cast
+sound 240 : cooking i think
+sound 223: alching - high
+sound 224 : alching - low
+sound 370 : arrow
+sound 816 : getting hit
+sound 818: getting hit (female)
+and so on till 823 lol
+sound 986 : blood burst? I think
+sound 1057 : verac flail
+sound 1079 : g maul
+sound 1080 : whip
+sound 1081 : whip SPEC
+sound :1110 :ice blitz. //edit or maybe cast i didnt look my friend told me
+sound: 1111 : ice cast//same thing as above
+sound 1125: ice barrage :D
+sound 1126: ice burst :D
+sound 811 : fm
+sound 793 : dds stab
+sound 791 : shield block
+
+380 -- bury bones
+
+385 -- drag dagger spec
+
+386 -- range special
+
+387 -- mace spec
+
+388 -- drag spear spec
+
+389 -- drag battle axe spec
+
+390 -- d long spec
+
+
+Mining
+
+429
+431
+432
+
+Prayer
+
+433-444, 451 and stuff few more
+
+458 - stunned
+
+smithing
+
+463
+464
+468
+469
+
+woodcutting
+
+471
+472
+473
+
+405 - like 413 are when you wield wepons weither its long sword wepon arrows platelegs body so on
+
+200 - 229 mage stuff mage on items teleports
+
+396 - scimmy
+398 : lunge
+
+-ID----Preview (What it do, *Name*)
+-Monster Sound-
+001----Rat getting hitted.
+002----Rat getting hitted Again.
+003----Cow Getting Hit.
+004----Cow.
+005----Cow.
+006----*Unknow*
+007----*Unknow*
+008----*Unknow*
+009----*Unknow*
+015----Dieing Rat.
+024----Chicken.
+025----Chicken.
+026----Chicken.
+027----Chicken.
+028----*Unknow*
+029----*Unknow*
+030----*Unknow*
+031----*Unknow*
+032----*Unknow*
+033----*Unknow*
+034----*Unknow* 
+035----*Unknow*
+036----*Unknow*
+037----*Unknow*
+038----*Unknow*
+039----*Unknow*
+040----*Unknow*
+041----*Unknow* 
+905----Dwarf Dieing
+-Il stop whit those monster sound for now... Il finish those latter.-
+
+-Magic Sound-
+1125---Ice Barrage Sound
+986----Blood Blitz Sound
+1110---Ice Blitz Sound
+202----Normal Teleport
+203----Enchanting
+224----Low Alchemie
+223----High Alch
+
+-Weapon Sound-
+396----Scimitar Slash.
+398----Sword Stab
+793----DDS Stab
+1057---Dharok Greataxe Slash
+1062---Torags Hammer Attack
+1061---Guthan WarSpear Attack 1
+1059---Verac Flail Attack
+370----Arrows Fire
+1079---Granite Maul Attack
+1080---Whip Slash
+-Il stop whit weapon sound, continue latter(V2 contain more)-
+
+-Special Sound-
+385----DDs Special
+390----Dlong Special
+1081---Whip Special
+386----Msb&Mlb Special
+389----Dbaxe Spec
+388----Dspear Spec
+
+
+-Players & Monster Contact, etc-
+816----Get Hitted
+791----Block Hit
+
+-Misc, Skill, etc-
+471----Woodcutting Begin
+472----Cuting tree
+473----Tree falling
+380----Bone burying
+352----Smelting
+379----Fishing
+240----Cooking Food
+375----Fletching
+
+1 - small rat getting hit
+2 - small rat getting hit?
+3 - cow Dieing
+4 - cow getting hit
+5 - cow attacking
+6 - some sqeeky npc getting attacked
+7 - some sqeeky npc getting killed
+8 - some sqeeky npc attacking
+9 - Imp dieing
+10 - imp attacking
+11 - imp being hit
+12 - Bear/something attacking
+13 - bear/something Dieing
+14 - bear/something being hit
+15 - Big rat dieing
+16 - big rat being hit
+17 - big rat attacking
+18 - bear being hit
+19 - bear dieing
+20 - bear attacking
+21 - bird dieing?
+22 - bird being hit
+23 - bird attacking
+24 - chicken being hit
+25 - chicken dieing
+26 - chicken attacking
+27 - cow moooooing
+28 - not 100% sure
+29 - not 100% sure
+30 - not 100% sure
+31 - not 100% sure
+32 - not 100% sure
+33 - not 100% sure
+34 - wolf being attacked
+35 - wolf dieing
+36 - wolf attacking
+
+
+
+1000 - Audbury teleport hit
+1001 - Audbury Teleport travel
+1002 - Earth strike cast + travel
+1003 - Earth bolt cast + travel
+1004 - Earth strike hit
+1005 - Earth blast hit
+1006 - earth bolt hit
+1007 - Earth blast cast + travel
+1008 - Earth wave hit?????
+1009 - Earth wave cast + travel
+1010 - Snare cast + travel (im not familiar with sound)
+1011 - Snare hit? im not 100% sure
+1012 - Entangle cast + travel
+1013 - Entangle hit
+1014 - Fire wave cast + travel
+1015 - fire bolt cast + travel
+1016 - fire bolt hit
+1017 - fire strike cast + travel 
+1018 - fire strike hit
+1019 - fire blast hit
+1020 - fire blast cast + travel
+1021 - fire wave hit
+1022 - water strike hit
+1023 - water strike cast + travel
+1024 - water bolt cast + travel
+1025 - water bolt hit
+1026 - water blast cast + travel
+1027 - water blast hit
+1028 - water wave cast + travel
+1029 - water wave hit
+1030 - wind bolt cast
+1031 - wind bolt cast + travel
+1032 - wind bolt hit
+1033 - wind blast hit
+1034 - wind blast cast + travel
+1035 - explosion of somesort?
+1036 - something gone off/sounds abit like prayer running out
+1037 - Cannon?
+1038 - Snake noise then, earth strike, then a uuuh noise?
+1039 - snake noise
+1040 - something knocked down
+1041 - Tried, their is nothing.
+1042 - Obtained fished/something bobing up, then fire, getting louder
+1043 - Something hits you?
+1044 - half of a earth strike or something?
+1045 - squeeeky noise
+1046 - sounds like a leaver dropping somehting
+1047 - swipe/ancients?
+1048 - machine gun then tele :P (ancients tele?)
+1049 - Squirting charge?
+1050 - twinkle?
+1051 - Skeleton dieing
+1052 - Hammer / clashing (whip block acording to thedragon on runeserver)
+1053 - Fire/burning
+1054 - Wind breese
+1055 - something dropping?
+1056 - clash again
+1057 - Dh Axe
+1058 - Dh axe again?
+1059 - Veracs flail
+1060 - Some weapon (maybe flail)
+1061 - Guthan Spear
+1062 - Torags hammers
+1063 - a flail again?
+1064 - some sort of dagger?
+1065 - some sort of maul
+1066 - clanging noise from armour
+1067 - some sort of 2hnder
+1068 - clanging noise from armour
+1069 - hit with hammer once
+1070 - ghost/npc hit?
+1071 - Guthan getting hit
+1072 - Barrow getting attacked?
+1073 - Guthan attacking
+1074 - Verac attacking?
+1075 - Verac getting hit?
+1076 - torag attacking
+1077 - Torag getting hit
+1078 - Barrow dieing
+1079 - Maul attack
+1080 - Whip attack
+1081 - Whip Spec
+1082 - Maul spec?
+1083 - Ghostly noise :S
+1084 - Ghost / something going online
+1085 - Something being hit/ghost ????
+1086 - Snake / ghost
+1087 - Snake / ghost
+1088 - Mouse?
+1099 - Npc being hit :S
+1100 - Loosing something/magic :S
+1101 - Not 100% sure
+1102 - Skelenton dieing (patting at start?)
+1103 - 1102 but no skelly
+1104 - Digging?
+1105 - 1102 but no patting
+1106 - Something dropping
+1107 - not 100% sure
+1108 - similar to one before
+1109 - Similar to one before ^
+1110 - Ice blitz hit
+1111 - Ice blitz cast
+1112 - Ice rush?
+1113 - Some spell cast + travel :S
+1114 - Shadow burst or rush ?
+1115 - Shadow burst or rush ?
+1116 - sounds shadowy
+1117 - sounds same as above but louder
+1118 - same as above, but MUCH louder
+1119 - sea waves? (some barrage)
+1120 - not 100% sure
+1121 - not 100% sure
+1122 - not 100% sure
+1123 - not 100% sure
+1124 - Not 100% sure
+1125 - Ice barrage hit
+1126 - Ice Burst 
+1127 - something bobbing up in water?
+1128 - throwen projectile hit something then falls?
+1129 - NOTHING TRY IF YOU WANT THEIR IS NOTHING (NOT FOR ME ANYWAY)
+1130 - not 100% sure
+1131 - Something bobbing up
+1132 - Not 100% sure 
+1133 - Not 100% sure
+1134 - Not 100% sure
+1135 - Not 100% sure
+1136 - Not 100% sure
+1137 - Not 100% sure
+1138 - Not 100% sure
+1139 - Not 100% sure
+1140 - Not 100% sure
+1141 - Not 100% sure
+1142 - Not 100% sure
+1143 - Not 100% sure
+1144 - Bats?
+1145 - Not 100% sure
+1146 - Not 100% sure
+1147 - Not 100% sure
+1148 - Not 100% sure
+1149 - Not 100% sure
+1150 - Not 100% sure
+1151 - Not 100% sure
+1152 - Cat??????
+1153 - Not 100% sure
+1154 - Not 100% sure
+1155 - Not 100% sure
+1156 - Not 100% sure
+1157 - Not 100% sure
+1158 - Not 100% sure
+1159 - Swarm?
+1160 - Not 100% sure
+1161 - Not 100% sure
+1162 - Not 100% sure
+1163 - Not 100% sure
+1164 - Not 100% sure
+1165 - Not 100% sure
+1166 - Not 100% sure
+1167 - Not 100% sure
+1168 - Not 100% sure
+1169 - Not 100% sure
+1170 - Not 100% sure
+1171 - Not 100% sure
+-------------------------------------------------------------------
+1 magic? not usefull
+2 goblins making sound then dieing?
+3 weird sound then goblins?
+4 goblins?
+5 goblins dieing?
+6 high sound
+7 goblins?
+10 cutting a gem or something
+12 mining?
+13 mining or maybe a blocked attack
+15 block attack with something metal?/smithing
+16 smithing something on a anvil
+17...18... - smithing
+23 blocked attack?
+24 some attack?
+25 blocked attack?
+27 mining?
+29 blocked attack?
+31 block?
+32 block?
+37 picklocking a chest or something THIEF
+41 fart and then BOOOM! LOOOL
+42 looks like something with WOODCUTTING
+46 something magic? not rly usefull
+48 looks like something unlocking, not sure
+49 something magic? not rly usefull
+50 unlocking something
+52 unlocking something
+53 magic? doesnt sound usefull
+54 looks like 53 but louder
+60 unlock smth
+61 squeecky stair/floor ?
+62 unlock smth
+65 filling something with water ?
+67 some gate that opens?
+68 block?
+70 some gate making a sound, looks like i heard it on real rs before CLOSING the gate														/* Sound list 100% by NoobScape of rune-server.org */
+71 same as 70 but OPENING the gate
+81 a door
+82 weird sound o.O not really usefull
+83 same as 82 but backwards
+84 a gate
+88 Woodcutting ?
+89 somethign with woodcutting ?
+90 Woodcutting ?
+97 HIGH ALCHEMY MAGIC
+98 LOW ALCHEMY MAGIC 
+99 Confuse/Curse/Weaken CASTING MAGIC
+100 Confuse/Curse/Weaken ON TARGET MAGIC
+101 something with 99/100
+109 fail when maging
+111 ??? looks like water ?
+114 some enchanting spell or bonus to bananas or something, not sure wich one!
+116 looks like 115
+117 115 again
+118 115 again
+119 looks like 99 etc
+120 looks like 99 etc again
+121 looks like 99 etc AGAIN
+122 ??? mutated strikes?
+123 ??? mutated strikes?
+124 ??? mutated strikes?
+125 looks like 99 etc again...
+126 looks like 99 again omg
+127 99 ffs stop it :(
+128 casting stikes etc
+129 strike etc on target
+130 casting a strik etc																																	/* Sound list 100% by NoobScape of rune-server.org */
+131 strik etc on target
+132 casting  a strike etc
+133 strike etc on target
+134 casting something again
+135 that but on the target
+136 some encahnt spell?
+137 some enchant spell?
+138 some enchant spell? 
+139 some ench spell?
+140 some ench spell?
+141 some ench spell 2x
+142 some ench spell?
+143 some ench spell weird one
+144 some ench spell?
+145 some ench spell werid one
+146 some ench spell?
+147 some ench spell???
+149 148 but failing it
+150 something with 148 & failing
+151 BINDING!!
+152 Binding on target!!
+153 BIND TARGET
+155 casting a BLAST or something												/* DO NOT LEECH U NUB */
+156 blast on target
+157 casting a BLASt again
+158 blast on target
+159 RETRIBUTION??? not sure
+160 casting a bolt?
+161 bolg on traget
+162 casting a strike?
+163 that on the target
+165 some spell cant fnid name
+166 looks like 165
+167 looks like 165 i think its a curse?
+168 FREEZING ANCIENTS
+169 FREEZING
+170 FREEZING
+171 FREEZING
+172 not sure???
+173 FREEZING
+175 ??? LOUD sound 
+186 Entangle/snare or something?																									
+190 a spell on a target idk wihc one
+191 some spell that fails on a target
+192 some enchant or somehitng????,
+195 OLD TELEPORT idk if theres a new one?
+196 ??? nothing heard :s
+197 ?? looks like teleporting or smth
+199 ??? enchanting smth?
+200 teleport
+201 teleport arived
+202 some curse??
+204 some very high annoying tone sound
+206 lol wtf? 
+207 water blast
+208 water blast hit
+209 water bolt
+210 water bolt hit
+211 water strike
+212 water strike hit
+213 water wave
+214 water wave hit
+215 weaken
+216 air blast
+217 air blast hit
+218 air bolt
+219 air bolt hit
+220 air strike
+221 air strike hit
+222 air wave
+223 air wave hit
+227 spell splash
+229 casting a spell again..
+250 some attack?
+251 some monster scream?
+252 some monster scream?
+253 some monster scream?
+254 some attack?
+305 - lesser demon hit, different???
+400 - lesser demon hit
+404 lesser demon defence
+403 lesser demon death
+505 female death
+506 female defence
+511 npc hits you with no armour
+512 male death
+513 male defence
+516 YOU get hit
+517 ""
+518 You hit another player - no armour
+519 "" - but i think they hit you
+524 bears attack
+525 chicken attack
+530 you block with shield
+534 imp attack
+535 imp death
+536 imp defence
+537 spider attack
+538 spider death
+539 spider defence
+544 wolf attack
+545 wolf defence
+546 wolf defence 2
+558 smithing
+1753 - Construction sound?
+1754 - get hit, weird??
+2393 - eating sound
+2401 - potion drinking
+2500+ - weapon attacking sounds
+2577 - cooking
+2582 - picking up items
+2586 - crafting gems
+2599 - lighting fire
+2594 - lighting fire - succeed
+2606 - stringing bow
+2609 - filling something with water
+2644 - setting net trap
+2646 - setting bird trap
+2652 - catching a salamander
+2659/2661 - no more ores left in this rock kinda thing
+2662 - turning on prayers
+2663 - turning off prayers
+2672 - running out of prayer points
+2673 - somthing todo with prayer
+2693/2695/2700 - ranging with arrows
+2720 - ABYSSAL WHIP!!!
+2725 - smelting in a furnace
+2727 - fail at pickpocketing(stun)
+2734 - woodcutting tree cut down
+2738 - bury bones
+2739 - drop item
+2746-2755 - armour blocking sounds
+3770 - hammering anvil
+1270/2655 Level up lamp's
+2240+ Equiping armour
+3610 Snake death
+3609 Snake attack
+3611 - scorpion attack
+3612 - scorpion defence
+4500 - destroy item
+4580 Drink potion

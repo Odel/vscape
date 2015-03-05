@@ -41,6 +41,7 @@ public class Teleportation {
 	public static final Position CRAFTING_GUILD = new Position(2933, 3292);
 	public static final Position COOKING_GUILD = new Position(3143, 3442);
 	
+	public static final Position CABBAGE_PATCH = new Position(3053, 3291);	
 	public int x, y, height, teleTimer;
 
 	public boolean canTeleport() {

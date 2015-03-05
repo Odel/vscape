@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.rs2.cache.object.GameObjectData;
+import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.PotionLoader;
 import com.rs2.model.content.consumables.PotionLoader.PotionDefinition;
 import com.rs2.model.npcs.Npc;
@@ -37,26 +38,13 @@ public class XStreamUtil {
 	}
 
 	static {
-		xStream.alias("dropController", NpcDropController.class);
-		xStream.alias("npcDrop", NpcDropItem.class);
 		xStream.alias("objectDefinition", GameObjectData.class);
-	//	xStream.alias("AreaDefinition", AreaDefinition.class);
-		xStream.alias("itemDefinition", ItemDefinition.class);
-		xStream.alias("npc", Npc.class);
-		xStream.alias("npcDefinition", NpcDefinition.class);
-		xStream.alias("item", Item.class);
-		xStream.alias("shop", ShopManager.Shop.class);
 		xStream.alias("potiondef", PotionDefinition.class);
 		xStream.alias("object", GlobalObject.class);
 	}
 
 	public static void loadAllFiles() throws FileNotFoundException, IOException {
 		//NpcLoader.loadSpawns();
-		//AreaDefinition.init();
-        ItemDefinition.init();
-		NpcDropController.init();
-		NpcDefinition.init();
-		ShopManager.loadShops();
 		PotionLoader.loadPotionDefinitions();
 		GlobalObjectHandler.loadObjects();
 	}

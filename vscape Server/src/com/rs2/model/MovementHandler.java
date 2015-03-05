@@ -79,6 +79,14 @@ public class MovementHandler {
 	public void stopMovement() {
 		reset();
 	}
+	
+	public void setMovementLock(MovementLock lock){
+		movementLock = lock;
+	}
+	
+	public MovementLock getMovementLock(){
+		return movementLock;
+	}
 
 	public void lock(MovementLock lock) {
 		if (lock == null) {
@@ -320,6 +328,8 @@ public class MovementHandler {
 			Player player = (Player) entity;
 			player.getAttributes().put("isBanking", Boolean.FALSE);
 			player.getAttributes().put("isShopping", Boolean.FALSE);
+			player.getAttributes().put("smithing", Boolean.FALSE);
+			player.getAttributes().put("smelting", Boolean.FALSE);
 			TradeManager.declineTrade(player);
 			if (!player.getNewComersSide().isInTutorialIslandStage())
 				player.getActionSender().removeInterfaces();

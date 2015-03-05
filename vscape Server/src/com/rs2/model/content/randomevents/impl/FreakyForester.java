@@ -1,7 +1,8 @@
-package com.rs2.model.content.randomevents;
+package com.rs2.model.content.randomevents.impl;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
@@ -12,6 +13,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+
 import java.util.Random;
 
 public class FreakyForester {

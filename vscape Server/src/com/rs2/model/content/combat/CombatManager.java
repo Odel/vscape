@@ -25,14 +25,10 @@ import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
-import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
-import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PriestInPeril;
+import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.quests.ShieldOfArrav;
-import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.quests.VampireSlayer;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
@@ -98,7 +94,10 @@ public class CombatManager extends Tick {
 				return;
 	        }
 		}
-        if((victim.isNpc() && !((Npc)victim).isVisible()) || victim.isDead()) {
+		if(attacker.isNpc() && ((Npc)attacker).isDontAttack()) {
+			return;
+		}
+        if(victim.isNpc() && (!((Npc)victim).isVisible() || victim.isDead())) {
 			return;
         }
 	    if (victim.isNpc() && ((Npc) victim).walkingBackToSpawn) {
@@ -132,7 +131,7 @@ public class CombatManager extends Tick {
 	            CombatManager.resetCombat(attacker);
 	            return;
 		}
-		if(attacker.isPlayer() && !(((Player) attacker).getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
+		if(attacker.isPlayer() && !(((Player) attacker).getRandomHandler().getFreakyForester().isActive()) && victim.isNpc() && ((Npc)victim).getDefinition().getName().toLowerCase().equals("pheasant")) {
 		    ((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack these poor birds like that.", Dialogues.SAD);
 		    return;
 		}
@@ -245,11 +244,11 @@ public class CombatManager extends Tick {
 			Player player = (Player) died;
 			player.setStopPacket(true);
 		}
-		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == 757 && VampireSlayer.handleDeath((Player) killer, (Npc)died)) {
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == 757 && VampireSlayer.handleCountDeath((Player) killer, (Npc)died)) {
 		    died.setDead(false);
 		    return;
 		}
-		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == FamilyCrest.CHRONOZON && FamilyCrest.handleDeath((Player) killer, (Npc)died)) {
+		if(died.isNpc() && killer != null && killer.isPlayer() && ((Npc)died).getNpcId() == FamilyCrest.CHRONOZON && FamilyCrest.handleChronozonDeath((Player) killer, (Npc)died)) {
 		    died.setDead(false);
 		    return;
 		}
@@ -454,16 +453,13 @@ public class CombatManager extends Tick {
 			WarriorsGuild.dropDefender((Player) killer, npc);
 			ShieldOfArrav.handleDrops((Player) killer, npc);
 			DragonSlayer.handleDrops((Player) killer, npc);
-			PriestInPeril.handleDeath((Player) killer, npc);
 			PriestInPeril.handleDrops((Player) killer, npc);
 			HeroesQuest.handleGripDeath((Player)killer, npc);
 			FamilyCrest.handleDrops((Player) killer, npc);
-			TheGrandTree.handleDeath((Player) killer, npc);
-			TreeGnomeVillage.handleDeath((Player) killer, npc);
-			RecruitmentDrive.handleDeath((Player) killer, npc);
-			MonkeyMadness.handleDeath((Player) killer, npc);
-			NatureSpirit.handleDeath((Player) killer, npc);
-			((Player) killer).getFreakyForester().handleDrops(npc);
+			((Player) killer).getRandomHandler().getFreakyForester().handleDrops(npc);
+			for(Quest q : QuestHandler.getQuests()) {
+				q.handleDeath((Player) killer, npc);
+			}
 			if(((Player) killer).getSpawnedNpc() != null) {
 			    ((Player) killer).setSpawnedNpc(null);
 			}

@@ -22,6 +22,7 @@ import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
+import com.rs2.model.content.quests.PlagueCity;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.RecruitmentDrive;
@@ -489,28 +490,35 @@ public class ItemPacketHandler implements PacketHandler {
 	player.setClickZ(player.getPosition().getZ());
 	packet.getIn().readShort();
 	player.setClickX(packet.getIn().readShort());
-	if (itemInInven != 590) {
-	    return;
-	}
-	final int task = player.getTask();
-	player.setSkilling(new CycleEvent() {
-	    @Override
-	    public void execute(CycleEventContainer container) {
-		if (!player.checkTask(task)) {
-		    container.stop();
+	switch(itemInInven) {
+	    default:
 		    return;
-		}
-		if (player.getPosition().getX() == player.getClickX() && player.getPosition().getY() == player.getClickY()) {
-		    player.getFiremaking().attemptFire(player.getClickId(), 0, true, player.getClickX(), player.getClickY(), player.getPosition().getZ());
-		    container.stop();
-		}
-	    }
+	    case 590: //Tinderbox
+		    final int task = player.getTask();
+		    player.setSkilling(new CycleEvent() {
+			    @Override
+			    public void execute(CycleEventContainer container) {
+				    if (!player.checkTask(task)) {
+					    container.stop();
+					    return;
+				    }
+				    if (player.getPosition().getX() == player.getClickX() && player.getPosition().getY() == player.getClickY()) {
+					    player.getFiremaking().attemptFire(player.getClickId(), 0, true, player.getClickX(), player.getClickY(), player.getPosition().getZ());
+					    container.stop();
+				    }
+			    }
 
-	    @Override
-	    public void stop() {
-	    }
-	});
-	CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+			    @Override
+			    public void stop() {
+			    }
+		    });
+		    CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+		    break;
+		
+	    case 1929: //Watchtower
+		    break;
+	}
+	
     }
 
     private void handlePickupItem(Player player, Packet packet) {
@@ -1055,6 +1063,19 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 10592:
 		player.getPets().registerPet(10592, 5428);
 		return;
+	    case 2005: //Burnt Stew
+		 if (player.getInventory().removeItemSlot(item, player.getSlot()))  {
+			player.getActionSender().sendMessage("You empty the burnt stew");
+			player.getInventory().addItemToSlot(new Item(1923), player.getSlot());
+		}
+		return;
+	    case 2013: //Burnt Curry
+		if (player.getInventory().removeItemSlot(item, player.getSlot()))  {
+                        player.getActionSender().sendMessage("You empty the burnt curry");
+                        player.getInventory().addItemToSlot(new Item(1923), player.getSlot());
+                }
+                return;
+
 	    case 952: //spade
 		player.getUpdateFlags().sendAnimation(830);
 		player.getActionSender().sendMessage("You dig into the ground...");
@@ -1087,6 +1108,12 @@ public class ItemPacketHandler implements PacketHandler {
 			    container.stop();
 			    return;
 			}
+			if (player.getPosition().getX() == 2566 && player.getPosition().getY() <= 3333 && player.getPosition().getY() >= 3331 && player.getQuestStage(39) >= 4) {
+				player.getActionSender().sendMessage("Suddenly it crumbles away!");
+				PlagueCity.handleGardenDig(player);
+				container.stop();
+				return;
+			}
 			if (!MapScrolls.digClue(player) && !DiggingScrolls.digClue(player) && !CoordinateScrolls.digClue(player) && !Barrows.digCrypt(player)) {
 			    player.getActionSender().sendMessage("but do not find anything.");
 			    container.stop();
@@ -1110,6 +1137,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    case 6722:
 	    	player.getUpdateFlags().sendAnimation(2840);
 			player.getUpdateFlags().setForceChatMessage("Alas!");
+		return;
+	    case 6040:// ammy of nature
+		Dialogues.startDialogue(player, 10016);
 		return;
 	}
 
@@ -1374,6 +1404,26 @@ public class ItemPacketHandler implements PacketHandler {
 		player.getActionSender().sendMessage("You must wait a minute in between stat boosts!");
 		return;
 	    }
+	}
+	if(Constants.DEGRADING_ENABLED) {
+		    Item item = new Item(itemId);
+		    Degradeables d = Degradeables.getDegradeableItem(item);
+		    if (d != null) {
+			if (d.getOriginalId() == itemId) {
+			    if (player.getDegradeableHits()[d.getPlayerArraySlot()] <= 0) {
+				player.setDegradeableHits(d.getPlayerArraySlot(), 0);
+				player.getActionSender().sendMessage("Your " + item.getDefinition().getName().toLowerCase() + " will degrade and become untradeable upon combat.", true);
+			    }
+			}
+			int count = 1;
+			for (int i : d.getIterableDegradedIds(!item.getDefinition().getName().toLowerCase().contains("crystal"))) {
+			    if (item.getId() == i) {
+				int hitCount = player.getDegradeableHits()[Degradeables.getDegradeableItem(item).getPlayerArraySlot()];
+				player.getActionSender().sendMessage("You have " + ((Degradeables.DEGRADE_HITS * count) - hitCount) + " hits on your " + item.getDefinition().getName().toLowerCase() + " until the next degrade.", true);
+			    }
+			    count++;
+			}
+		}
 	}
 	switch (itemId) {
 	    case 11283:

@@ -1,0 +1,490 @@
+[
+  {
+    "_comment": "ONE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 1,
+    "items": [
+      1971,
+      319,
+      1965,
+      1967,
+      2128,
+      1957,
+      1942,
+      2130,
+      2162
+    ]
+  },
+  {
+    "_comment": "TWO HP HEAL",
+    "type": "DEFAULT",
+    "heal": 2,
+    "items": [
+      1963,
+      1985,
+      2126,
+      247,
+      2120,
+      2122,
+      2124,
+      2108,
+      2110,
+      2112,
+      7072,
+      1969,
+      1982,
+      10962,
+      2116,
+      2118,
+      2102,
+      2104,
+      2106,
+      2152,
+      4517
+    ]
+  },
+  {
+    "_comment": "THREE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 3,
+    "items": [
+      2142,
+      4293,
+      2140,
+      4291,
+      1973,
+      3151,
+      315,
+      1861,
+      5984
+    ]
+  },
+  {
+    "_comment": "FOUR HP HEAL",
+    "type": "DEFAULT",
+    "heal": 4,
+    "items": [
+      6701,
+      325,
+      403,
+      1977,
+      4012
+    ]
+  },
+  {
+    "_comment": "FIVE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 5,
+    "items": [
+      2309,
+      7062,
+      3228,
+      347,
+      7082,
+      7084,
+      7078,
+      4014,
+      5504,
+      5988
+    ]
+  },
+  {
+    "_comment": "SIX HP HEAL",
+    "type": "DEFAULT",
+    "heal": 6,
+    "items": [
+      355,
+      6961,
+      6962,
+      6965
+    ]
+  },
+  {
+    "_comment": "SEVEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 7,
+    "items": [
+      2213,
+      2209,
+      2239,
+      339,
+      7223,
+      333
+    ]
+  },
+  {
+    "_comment": "EIGHT HP HEAL",
+    "type": "DEFAULT",
+    "heal": 8,
+    "items": [
+      7064,
+      5972,
+      6883,
+      351,
+      2217,
+      2244,
+      2205,
+      2237
+    ]
+  },
+  {
+    "_comment": "NINE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 9,
+    "items": [
+      329
+    ]
+  },
+  {
+    "_comment": "TEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 10,
+    "items": [
+      2878,
+      7228,
+      361
+    ]
+  },
+  {
+    "_comment": "ELEVEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 11,
+    "items": [
+      2259,
+      2149,
+      2277,
+      7066,
+      2255,
+      2281,
+      2253
+    ]
+  },
+  {
+    "_comment": "TWELVE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 12,
+    "items": [
+      379,
+      739,
+      2195,
+      2191
+    ]
+  },
+  {
+    "_comment": "THIRTEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 13,
+    "items": [
+      365
+    ]
+  },
+  {
+    "_comment": "FOURTEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 14,
+    "items": [
+      373,
+      2345,
+      6703,
+      7054
+    ]
+  },
+  {
+    "_comment": "FIFTHTEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 15,
+    "items": [
+      2185,
+      2187
+    ]
+  },
+  {
+    "_comment": "SIXTEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 16,
+    "items": [
+      7056,
+      6705,
+      7946
+    ]
+  },
+  {
+    "_comment": "EIGHTEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 18,
+    "items": [
+      3144,
+      3147
+    ]
+  },
+  {
+    "_comment": "NINETEEN HP HEAL",
+    "type": "DEFAULT",
+    "heal": 19,
+    "items": [
+      1883,
+      1885
+    ]
+  },
+  {
+    "_comment": "TWENTY HP HEAL",
+    "type": "DEFAULT",
+    "heal": 20,
+    "items": [
+      7058,
+      385
+    ]
+  },
+  {
+    "_comment": "TWENTY ONE HP HEAL",
+    "type": "DEFAULT",
+    "heal": 21,
+    "items": [
+      397
+    ]
+  },
+  {
+    "_comment": "TWENTY TWO HP HEAL",
+    "type": "DEFAULT",
+    "heal": 22,
+    "items": [
+      391,
+      7060
+    ]
+  },
+  {
+    "_comment": "SWEETS",
+    "type": "DEFAULT",
+    "heal": 2,
+    "items": [
+      4558,
+      4559,
+      4560,
+      4561,
+      4562,
+      4563,
+      4564
+    ]
+  },
+  {
+    "_comment": "REDBERRY PIE",
+    "type": "STAGES",
+    "heal": 5,
+    "items": [
+      2325,
+      2333,
+      2313
+    ]
+  },
+  {
+    "_comment": "MEAT PIE",
+    "type": "STAGES",
+    "heal": 6,
+    "items": [
+      2327,
+      2331,
+      2313
+    ]
+  },
+  {
+    "_comment": "FISH PIE",
+    "type": "STAGES",
+    "heal": 6,
+    "items": [
+      7188,
+      7190,
+      2313
+    ]
+  },
+  {
+    "_comment": "GARDEN PIE",
+    "type": "STAGES",
+    "heal": 6,
+    "items": [
+      7178,
+      7180,
+      2313
+    ]
+  },
+  {
+    "_comment": "APPLE PIE",
+    "type": "STAGES",
+    "heal": 7,
+    "items": [
+      2323,
+      2335,
+      2313
+    ]
+  },
+  {
+    "_comment": "ADMIRAL PIE",
+    "type": "STAGES",
+    "heal": 8,
+    "items": [
+      7198,
+      7200,
+      2313
+    ]
+  },
+  {
+    "_comment": "SUMMER PIE",
+    "type": "STAGES",
+    "heal": 8,
+    "items": [
+      7218,
+      7220,
+      2313
+    ]
+  },
+  {
+    "_comment": "WILD PIE",
+    "type": "STAGES",
+    "heal": 8,
+    "items": [
+      7208,
+      7210,
+      2313
+    ]
+  },
+  {
+    "_comment": "PLAIN PIZZA",
+    "type": "STAGES",
+    "heal": 7,
+    "items": [
+      2289,
+      2291
+    ]
+  },
+  {
+    "_comment": "MEAT PIZZA",
+    "type": "STAGES",
+    "heal": 8,
+    "items": [
+      2293,
+      2295
+    ]
+  },
+  {
+    "_comment": "ANCHOVY PIZZA",
+    "type": "STAGES",
+    "heal": 9,
+    "items": [
+      2297,
+      2299
+    ]
+  },
+  {
+    "_comment": "PINEAPPLE PIZZA",
+    "type": "STAGES",
+    "heal": 9,
+    "items": [
+      2301,
+      2303
+    ]
+  },
+  {
+    "_comment": "PLAIN CAKE",
+    "type": "STAGES",
+    "heal": 4,
+    "items": [
+      1891,
+      1893,
+      1895
+    ]
+  },
+  {
+    "_comment": "CHOCOLATE CAKE",
+    "type": "STAGES",
+    "heal": 5,
+    "items": [
+      1897,
+      1899,
+      1901
+    ]
+  },
+  {
+    "_comment": "STEW",
+    "type": "STAGES",
+    "heal": 11,
+    "items": [
+      2003,
+      1923
+    ]
+  },
+  {
+    "_comment": "BANANA STEW",
+    "type": "STAGES",
+    "heal": 11,
+    "items": [
+      4016,
+      1923
+    ]
+  },
+  {
+    "_comment": "CURRY",
+    "type": "STAGES",
+    "heal": 19,
+    "items": [
+      2011,
+      1923
+    ]
+  },
+  {
+    "_comment": "TUNA CORN",
+    "type": "STAGES",
+    "heal": 13,
+    "items": [
+      7068,
+      1923
+    ]
+  },
+  {
+    "_comment": "TUNA BOWL",
+    "type": "STAGES",
+    "heal": 7,
+    "items": [
+      7086,
+      1923
+    ]
+  },
+  {
+    "_comment": "CORN BOWL",
+    "type": "STAGES",
+    "heal": 7,
+    "items": [
+      7088,
+      1923
+    ]
+  },
+  {
+    "_comment": "CHOCO MILK",
+    "type": "STAGES",
+    "heal": 4,
+    "items": [
+      1977,
+      1925
+    ]
+  },
+  {
+    "_comment": "JUG OF WINE",
+    "type": "STAGES",
+    "heal": 11,
+    "items": [
+      1993,
+      1935
+    ]
+  },
+  {
+    "_comment": "EASTER EGGS",
+    "type": "DEFAULT",
+    "heal": 10,
+    "items": [
+      7928,
+      7929,
+      7930,
+      7931,
+      7932,
+      7933
+    ]
+  }
+]

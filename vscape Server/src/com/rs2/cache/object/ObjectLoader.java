@@ -139,6 +139,9 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		ObjectHandler.getInstance().removeClip(3356, 9628, 2, 22, 0);
 		ObjectHandler.getInstance().removeClip(3356, 9648, 2, 22, 0);
 		ObjectHandler.getInstance().removeClip(3373, 9628, 2, 22, 0); //MTA alchemist playground
+		
+		ObjectHandler.getInstance().removeClip(2559, 3267, 0, 10, 0);
+		ObjectHandler.getInstance().removeClip(2559, 3268, 0, 10, 0);
 	}
 	
 	public static void addNecessaryClipping() {

@@ -88,14 +88,17 @@ public abstract class BasicAttack extends AttackScript {
 				animation = new Npc(player.transformNpc).getDefinition().getAttackAnim();
 			}
 		}
-		if(getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()){
-            Player player = (Player) getVictim();
-            player.getCombatSounds().npcAttackSound(((Npc) getAttacker()));
-        }
 		if (animation != -1)
 			getAttacker().getUpdateFlags().sendAnimation(animation);
 		if (hits != null) {
 			for (HitDef hitDef : getHits()) {
+				if(hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() != AttackType.MAGIC)
+				{
+					if(getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()){
+			            Player player = (Player) getVictim();
+			            player.getCombatSounds().npcAttackSound(((Npc) getAttacker()));
+			        }
+				}
 				if (getAttacker().isNpc() && ((Npc)getAttacker()).getDefinition().isPoisonous() && Misc.random(3) == 0) {
 					hitDef.addEffect(new PoisonEffect(6.0));
 				}

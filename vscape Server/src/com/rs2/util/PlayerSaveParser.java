@@ -24,6 +24,7 @@ import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.players.Player.BankOptions;
 import com.rs2.model.players.bank.BankManager;
+import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 
@@ -68,9 +69,12 @@ public class PlayerSaveParser {
                 {
                 	player.setInJail(characterObj.get("inJail").getAsBoolean());
                 }
-		if(characterObj.get("isIronman") != null) {
-			player.setIronman(characterObj.get("isIronman").getAsBoolean());
-		}
+				if(characterObj.get("isIronman") != null) {
+					player.setIronman(characterObj.get("isIronman").getAsBoolean());
+				}
+				if(characterObj.get("clanChat") != null) {
+					player.setClanChat(ClanChatHandler.getClanChat(characterObj.get("clanChat").getAsLong()));
+				}
 	            JsonObject position = characterObj.getAsJsonObject("position");
 	            if(position != null){
 	            player.getPosition().setX(position.get("x") != null ? position.get("x").getAsInt() : Constants.START_X);
@@ -250,7 +254,7 @@ public class PlayerSaveParser {
 						if(i >= friends.size())
 							break;
 						long friendLong = friends.get(i).getAsLong();
-						if(friendLong < 0L || friendLong >= 0x5b5b57f8a98a5dd1L)
+						if(friendLong < 0L || friendLong >= 0x7dcff8986ea31000L)
 							continue;
 						if(!player.getFriendsConverted()){
 							friendLong = NameUtil.nameToLong(NameUtil.longToNameOld(friends.get(i).getAsLong()));
@@ -271,7 +275,7 @@ public class PlayerSaveParser {
 						if(i >= ignores.size())
 							break;
 						long ignoreLong = ignores.get(i).getAsLong();
-						if(ignoreLong < 0L || ignoreLong >= 0x5b5b57f8a98a5dd1L)
+						if(ignoreLong < 0L || ignoreLong >= 0x7dcff8986ea31000L)
 							continue;
 						if(!player.getIgnoresConverted()){
 							ignoreLong = NameUtil.nameToLong(NameUtil.longToNameOld(ignores.get(i).getAsLong()));
@@ -428,6 +432,18 @@ public class PlayerSaveParser {
 		            	}
 				if(questVars.get("gazeOfSaradomin") != null) {
 					player.getQuestVars().setGazeOfSaradomin(questVars.get("gazeOfSaradomin").getAsBoolean());
+				}
+				if(questVars.get("1stMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(1, questVars.get("1stMortMyreBridge").getAsBoolean());
+				}
+				if(questVars.get("2ndMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(2, questVars.get("2ndMortMyreBridge").getAsBoolean());
+				}
+				if(questVars.get("3rdMortMyreBridge") != null) {
+					player.getQuestVars().setMortMyreBridgeFixed(3, questVars.get("3rdMortMyreBridge").getAsBoolean());
+				}
+				if(questVars.get("canTeleArdy") != null) {
+					player.getQuestVars().setCanTeleportArdougne(questVars.get("canTeleArdy").getAsBoolean());
 				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");

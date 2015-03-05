@@ -347,6 +347,17 @@ public class Cat {
 			}
 		}
 	}
+	
+	public void resetCat() {
+		cat = null;
+		catActive = false;
+		ResetHunger();
+		catItemId = 0;
+		growthStage = 0;
+		growthTime = 0;
+		attentionTime = 0;
+		ratsCaught = 0;
+	}
 
 	public void ResetHunger(){
 		hungerTime = 0;
@@ -390,7 +401,20 @@ public class Cat {
 	}
 	
 	public boolean hasCat(){
-		return catItemId != 0;
+		if(catItemId > 0){
+			if(cat != null && cat.getPlayerOwner() != null && cat.getPlayerOwner() == player)
+			{
+				return true;
+			}else{
+				if(player.getInventory().ownsItem(catItemId) || player.getBankManager().ownsItem(catItemId))
+				{
+					return true;
+				}else{
+					catItemId = 0;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void setCatItem(int itemId)

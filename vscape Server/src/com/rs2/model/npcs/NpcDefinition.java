@@ -70,43 +70,6 @@ public class NpcDefinition {
 		}
 	}
 
-	public static class NPCINFO {
-		private final String name;
-		private final int level;
-		private final boolean aggressive;
-		private final boolean retreats;
-		private final boolean poisonous;
-
-		public NPCINFO(String name, int level, boolean aggressive, boolean retreats, boolean poisonous) {
-			this.name = name;
-			this.level = level;
-			this.aggressive = aggressive;
-			this.retreats = retreats;
-			this.poisonous = poisonous;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public int getLevel() {
-			return level;
-		}
-
-		public boolean isAggressive() {
-			return aggressive;
-		}
-
-		public boolean isRetreats() {
-			return retreats;
-		}
-
-		public boolean isPoisonous() {
-			return poisonous;
-		}
-
-	}
-
 	public static NpcDefinition forName(String name) {
 		for (NpcDefinition d : World.getDefinitions()) {
 			if (d.getName().toLowerCase().equalsIgnoreCase(name.toLowerCase())) {
@@ -128,8 +91,11 @@ public class NpcDefinition {
 	private String name, examine;
 	private int respawn = 0, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 4000, attackAnim = 422, standAnim = 808, walkAnim = 819, defenceAnim = 404, deathAnim = 2304, attackBonus = 20, defenceMelee = 20, defenceRange = 20, defenceMage = 20;
 
+	private boolean canWalk = true;
+	private boolean canFollow = true;
 	private boolean attackable = false;
 	private boolean aggressive = false;
+	private boolean canAttackBack = true;
 	private boolean retreats = false;
 	private boolean poisonous = false;
 	private boolean poisonImmune = false;
@@ -213,5 +179,16 @@ public class NpcDefinition {
 	public boolean isAttackable() {
 		return attackable;
 	}
+	
+	public boolean canAttackBack() {
+		return canAttackBack;
+	}
 
+	public boolean canWalk() {
+		return canWalk;
+	}
+	
+	public boolean canFollow() {
+		return canFollow;
+	}
 }

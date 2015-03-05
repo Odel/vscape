@@ -73,11 +73,24 @@ public class QuestVariables {
     public boolean natureSpiritFungusPlaced = false;
     public boolean natureSpiritSpellPlaced = false;
     private int ghastsSlain = 0;
+<<<<<<< HEAD
     public boolean blackCogPlaced = false;
     public boolean blueCogPlaced = false;
     public boolean redCogPlaced = false;
     public boolean whiteCogPlaced = false;
     public boolean blackCogQuenched = false;
+=======
+    private boolean firstMortMyreBridgeFixed = false;
+    private boolean secondMortMyreBridgeFixed = false;
+    private boolean thirdMortMyreBridgeFixed = false;
+    public boolean[] myrequeTalkedToBools = {false, false, false, false, false};
+    public int plagueCitySoilSoftened = 0;
+    public boolean triedPipeGrill = false;
+    public boolean talkedToParents = false;
+    public boolean allowedToSeeBravek = false;
+    public boolean healedHangover = false;
+    private boolean canTeleportArdougne = false;
+>>>>>>> upstream/master
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -441,6 +454,7 @@ public class QuestVariables {
 	this.ghastsSlain = set;
     }
     
+<<<<<<< HEAD
     public boolean getBlueCogPlaced() {
     	return this.blueCogPlaced;
     }
@@ -478,4 +492,39 @@ public class QuestVariables {
     public void setBlackCogQuenched(boolean set) {
     	this.blackCogQuenched = set;
     }
+=======
+    public void setMortMyreBridgeFixed(int number, boolean set) {
+	switch(number) {
+	    case 1:
+		this.firstMortMyreBridgeFixed = set;
+		return;
+	    case 2:
+		this.secondMortMyreBridgeFixed = set;
+		return;
+	    case 3:
+		this.thirdMortMyreBridgeFixed = set;
+		return;
+	}
+    }
+    public boolean getMortMyreBridgeFixed(int number) {
+	switch(number) {
+	    case 1:
+		return this.firstMortMyreBridgeFixed;
+	    case 2:
+		return this.secondMortMyreBridgeFixed;
+	    case 3:
+		return this.thirdMortMyreBridgeFixed;
+	}
+	return false;
+    }
+    
+    public boolean canTeleportArdougne() {
+	    return this.canTeleportArdougne;
+    }
+    
+    public void setCanTeleportArdougne(boolean set) {
+	    this.canTeleportArdougne = set;
+    }
+    
+>>>>>>> upstream/master
 }

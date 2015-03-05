@@ -4,6 +4,18 @@
 23:1:2583:9613:0:5 //red cog clock tower
 22:1:2573:9633:0:5 //blue cog clock tower
 24:1:2564:9662:0:5 //rat poison clock tower
+1984:1:2535:3333:0:15 //rotten apple west ard
+2126:1:2634:3497:0:15 //dwellberries mcgrugors
+2126:1:2645:3498:0:15 //dwellberries mcgrugors
+2126:1:2638:3479:0:15 //dwellberries mcgrugors
+2126:1:2664:3476:0:15 //dwellberries mcgrugors
+2126:1:2667:3494:0:15 //dwellberries mcgrugors
+2126:1:2669:3501:0:15 //dwellberries mcgrugors
+2126:1:2675:3505:0:15 //dwellberries mcgrugors
+1510:1:2576:3334:0:10 //elenas picture
+1925:1:2564:3332:0:30 //bucket ardougne / edmond
+952:1:2566:3330:0:30 //spade ardougne / edmond
+759:1:3237:9761:0:30 //phoenix weapons key
 2957:1:3443:9741:1:30 //druid pouch nature spirit
 2957:1:3443:9741:0:30 //druid pouch nature spirit
 2964:1:3437:3337:0:10 //washing bowl nature spirit
@@ -70,10 +82,10 @@
 753:1:3278:3371:0:10
 753:1:3273:3375:0:10
 753:1:3272:3374:0:10 //end cadava
-243:1:2903:9810:0:80
-243:1:2899:9806:0:80
-243:1:2910:9811:0:80
-243:1:2892:9800:0:80
+243:1:2903:9810:0:15
+243:1:2899:9806:0:15
+243:1:2910:9811:0:15
+243:1:2892:9800:0:15
 542:1:3059:3488:1:60
 544:1:3059:3487:1:60
 590:1:2431:3072:0:60

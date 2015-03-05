@@ -19,6 +19,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -29,7 +30,6 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.magic.SpellBook;
@@ -86,14 +86,40 @@ public class CommandHandler {
 	}
 	
 
-	public static void playerCommands(Player sender, String keyword, String[] args, String fullString) {
-		if (keyword.equals("clearfriends")) {
+	public static void playerCommands(final Player sender, final String keyword, final String[] args, final String fullString) {
+		if (keyword.equals("renameclan")) {
+	        if(sender.getClanChat() != null)
+	        {
+	        	sender.getClanChat().renameClan(sender, fullString);
+	        }
+		}
+		else if (keyword.equals("sit")) {
+			sender.setStandAnim(4855);
+			sender.setAppearanceUpdateRequired(true);
+			final int task = sender.getTask();
+			sender.setSkilling(new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (!sender.checkTask(task)) {
+						container.stop();
+						return;
+					}
+				}
+				@Override
+				public void stop() {
+					sender.setStandAnim(-1);
+					sender.setAppearanceUpdateRequired(true);
+				}
+			});
+	        CycleEventHandler.getInstance().addEvent(sender, sender.getSkilling(), 1);
+		}
+		else if (keyword.equals("clearfriends")) {
 			sender.setFriends(new long[200]);
 			sender.setIgnores(new long[100]);
 			sender.getPrivateMessaging().refresh(false);
 			sender.disconnect();
 		}
-		if (keyword.equals("outfit")) {
+		else if (keyword.equals("outfit")) {
 		    if(sender.getQuestStage(35) > 0 && sender.getQuestStage(35) < RecruitmentDrive.QUEST_COMPLETE) {
 			sender.getActionSender().sendMessage("You cannot use ::outfit during Recruitment Drive.", true);
 		    } else {
@@ -292,6 +318,7 @@ public class CommandHandler {
 			sender.setStandAnim(3535);
 			sender.setRunAnim(3537);
 			sender.setWalkAnim(3538);
+			sender.setAppearanceUpdateRequired(true);
 		}
 		else if(keyword.equals("pc")) {
 			World.messageToPc(sender, fullString);
@@ -466,6 +493,14 @@ public class CommandHandler {
 					break;
 			}
 		}
+		if (keyword.equals("mime")) {
+			sender.getRandomHandler().getMimeEvent().spawnEvent();
+			sender.getRandomHandler().setCurrentEvent(sender.getRandomHandler().getMimeEvent());
+		}
+		if (keyword.equals("sandwitch")) {
+			sender.getRandomHandler().getSandwichLady().spawnEvent();
+			sender.getRandomHandler().setCurrentEvent(sender.getRandomHandler().getSandwichLady());
+		}
 		/*if (keyword.equals("highscoresinit"))
 		{
 			SQL.initHighScores();
@@ -483,23 +518,7 @@ public class CommandHandler {
 				if (player == null)
 					continue;
 				if (player.getUsername().equalsIgnoreCase(fullString)) {
-					    switch(Misc.random(3)) {
-						case 0 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.DRUNKEN_DWARF);
-						    break;
-						case 1 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.GENIE);
-						    break;
-						case 2 :
-						    TalkToEvent.spawnNpc(player, TalkToEvent.TalkToNpc.JEKYLL);
-						    break;
-						//case 3 :
-						    //TalkToEvent.spawnNpc(this, TalkToEvent.TalkToNpc.RICK);
-						    //break;
-						case 3 :
-						    player.getRandomInterfaceClick().sendEventRandomly();
-						    break;
-					    }
+					player.getRandomHandler().spawnEvent();
 					return;
 				}
 			}
@@ -658,11 +677,11 @@ public class CommandHandler {
 			}
 			sender.getInventory().removeItem(new Item(995, 1000));
 			sender.transformNpc = npcId;
-			sender.setAppearanceUpdateRequired(true);
 			sender.setSize(new Npc(npcId).getDefinition().getSize());
 			sender.setStandAnim(def.getStandAnim());
 			sender.setWalkAnim(def.getWalkAnim());
 			sender.setRunAnim(def.getWalkAnim());
+			sender.setAppearanceUpdateRequired(true);
 			if(sender.getStaffRights() > 1) {
 			    sender.getActionSender().sendMessage("NPC #" + npcId, true);
 			}
@@ -719,7 +738,7 @@ public class CommandHandler {
 		    long nameLong = NameUtil.nameToLong(name);
 		    Player player = World.getPlayerByName(nameLong);
 		    if(player != null) {
-		    	player.getPillory().JailPlayer();
+		    	player.getRandomHandler().getPillory().JailPlayer();
 		    	sender.getActionSender().sendMessage("Jailed "+ name, true);
 		    }else{
 		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
@@ -733,7 +752,7 @@ public class CommandHandler {
 		    if(player != null) {
 		    	if(!player.getInJail())
 		    		return;
-		    	player.getPillory().UnJailPlayer();
+		    	player.getRandomHandler().getPillory().UnJailPlayer();
 		    	sender.getActionSender().sendMessage("UnJailed "+ name, true);
 		    }else{
 		    	sender.getActionSender().sendMessage("Could not find player "+name, true);
@@ -1093,9 +1112,6 @@ public class CommandHandler {
 		    player.setUsername(newName);
 		    sender.getActionSender().sendMessage("Set " + name +"'s username to: " + newName + " .", true);
 		}
-		else if (keyword.equals("forester")) {
-			sender.getFreakyForester().spawnForester();
-		}
 		else if (keyword.equals("playerdump") || keyword.equals("dump")) {
 		    String name = fullString;
 		    Player player = World.getPlayerByName(name);
@@ -1184,7 +1200,6 @@ public class CommandHandler {
 				player = sender;
 			}
 			player.transformNpc = npcId;
-			player.setAppearanceUpdateRequired(true);
 			player.setSize(new Npc(npcId).getDefinition().getSize());
 			NpcDefinition def = NpcDefinition.forId(npcId);
 			if(def != null)
@@ -1198,6 +1213,7 @@ public class CommandHandler {
 				player.setRunAnim(-1);
 				player.setWalkAnim(-1);
 			}
+			player.setAppearanceUpdateRequired(true);
 			sender.getActionSender().sendMessage("NPC #" + npcId, true);
 		}
 		else if (keyword.equals("pet")) {
@@ -1766,11 +1782,30 @@ public class CommandHandler {
 		else if (keyword.equals("banip")) {
         	BanIpAddress(sender, fullString);
         } 
+		else if (keyword.equals("unbanip")) {
+			String ip = fullString;
+			if(GlobalVariables.isIpBanned(ip)){
+				GlobalVariables.unbanIp(ip);
+				sender.getActionSender().sendMessage("Unbanned IP Address "+ip+".", true);
+			}else{
+				sender.getActionSender().sendMessage("The IP Address "+ip+" is not banned.", true);
+			}
+        } 
 		else if (keyword.equals("banmac")) {
         	BanMacAddress(sender, fullString);
         } 
-		else if (keyword.equals("checkips")) {
-        //	checkHosts();
+		else if (keyword.equals("unbanmac")) {
+			String mac = fullString;
+			if(GlobalVariables.isMacBanned(mac)){
+				GlobalVariables.unbanMac(mac);
+				sender.getActionSender().sendMessage("Unbanned Mac Address "+mac+".", true);
+			}else{
+				sender.getActionSender().sendMessage("The Mac Address "+mac+" is not banned.", true);
+			}
+        } 
+		else if (keyword.equals("reloadbans")) {
+			GlobalVariables.loadBans();
+			sender.getActionSender().sendMessage("Reloaded IP & MAC Bans", true);
         } 
 		else if (keyword.equals("update") ) {
         	final int seconds = Integer.parseInt(args[0]);
@@ -1859,6 +1894,15 @@ public class CommandHandler {
     			sender.getActionSender().sendMessage("Problem reloading Shops.", true);
     		}
         }
+        else if(keyword.equals("reloadfood"))
+        {
+        	try{
+        		Food.init();
+        		sender.getActionSender().sendMessage("Food defs were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Food defs.", true);
+    		}
+        }
         else if(keyword.equals("searchbank")) {
 			int id = Integer.parseInt(args[0]);
 			if(id < 0 || id > Constants.MAX_ITEMS)
@@ -1895,6 +1939,19 @@ public class CommandHandler {
 		    	}else{
 		    		sender.getActionSender().sendMessage("Player " + name + " does not have item " + new Item(id).getDefinition().getName() + ".", true);
 		    	}
+		    } else {
+		    	sender.getActionSender().sendMessage("Player not found.", true);
+		    }
+		}else if(keyword.equals("destroyrandom")) {
+			Player player = World.getPlayerByName(fullString);
+		    if(player != null) {
+		    	if(player.getRandomHandler().getCurrentEvent() != null)
+		    	{
+		    		player.getRandomHandler().destroyEvent(false);
+		    		sender.getActionSender().sendMessage("Destroyed random event for player "+player.getUsername(), true);
+			    } else {
+			    	sender.getActionSender().sendMessage("Player does not have a random event active.", true);
+			    }
 		    } else {
 		    	sender.getActionSender().sendMessage("Player not found.", true);
 		    }
@@ -1951,19 +2008,20 @@ public class CommandHandler {
 	//clear note interface
 	public static void ClearNotes(Player player)
 	{
-		if(player.getInterface() == 8134)
-		{
 			int line = 8144;
 			for (int i = 0; i < 120; i++) {
 				if(line > 8195 && line < 12174)
 				{
 					line = 12174;
 				}
+				if(line > 12223) {
+					return;
+				}
 				player.getActionSender().sendString("",line);
 				line++;
 			}
-		}
 	}
+	
 	public static ArrayList<String> macExists(String MAC) {
 		ArrayList<String> matching = new ArrayList<>();
 		int q = 0;
@@ -2327,7 +2385,7 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("rightType ex: player, mod, admin, dev", true);
 			return;
 		}
-		String rightType = args[0];
+		String rightType = args[0].toLowerCase();
 	    String name = fullString.substring(fullString.indexOf("-")+1);
 	    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 	    final Player player = World.getPlayerByName(nameLong);
@@ -2341,7 +2399,14 @@ public class CommandHandler {
 			sender.getActionSender().sendMessage("Player is banned", true);
 			return;
 		}
-		int rightLevel = 0;
+		if(rightType == null)
+			return;
+		if(!rightType.equalsIgnoreCase("player") && !rightType.equalsIgnoreCase("mod") 
+			&& !rightType.equalsIgnoreCase("admin") && !rightType.equalsIgnoreCase("dev")){
+			sender.getActionSender().sendMessage("Not a valid right type.", true);
+			return;
+		}
+		int rightLevel = player.getStaffRights();
         switch (rightType) {
 	        case "player":
 	        	rightLevel = 0;
@@ -2356,7 +2421,6 @@ public class CommandHandler {
 	        	rightLevel = 3;
 			break;
         }
-        
 		String playerName = NameUtil.formatName(player.getUsername());
         if(player.getStaffRights() != rightLevel)
         {

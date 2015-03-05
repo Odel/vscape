@@ -235,7 +235,11 @@ public class ButtonPacketHandler implements PacketHandler {
 				}
 				return;
 			case 89061 :	
+			case 93209 :
+			case 93217 :
 			case 93225 :
+			case 93233 :
+			case 93240 :
 			case 93202 :
 			case 94051 :
 				if(player.shouldAutoRetaliate())
@@ -377,6 +381,12 @@ public class ButtonPacketHandler implements PacketHandler {
 				}
 				//player.setBankOptions(BankOptions.INSERT_ITEM);
 				return;
+			case 97184 :
+				if(player.getClanChat() != null)
+				{
+					player.getClanChat().leaveChat(player, false);
+				}
+				return;
 		}
 		if (QuestHandler.handleQuestButtons(player, buttonId))
 		{
@@ -393,7 +403,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getPrayer().setPrayers(buttonId)) {
 			return;
 		}
-		if (player.getPillory().handleButton(buttonId)) {
+		if (player.getRandomHandler().getPillory().handleButton(buttonId)) {
 			return;
 		}
 		/**
@@ -486,11 +496,15 @@ public class ButtonPacketHandler implements PacketHandler {
                     player.getActionSender().sendMessage("You can't logout while in Castle wars!");
                     return;
                 }
-		if(player.isInCutscene()) {
-		    player.getActionSender().sendMessage("You can't logout during a cutscene!");
-		    return;
-		}
-		if(player.inMageTrainingArena())
+              /*  if (player.inRandomEvent()) {
+                    player.getActionSender().sendMessage("You can't logout in a random event area!");
+                    return;
+                }*/
+				if(player.isInCutscene()) {
+				    player.getActionSender().sendMessage("You can't logout during a cutscene!");
+				    return;
+				}
+				if(player.inMageTrainingArena())
                 {
                     player.getActionSender().sendMessage("You can't logout while in the Mage Training Arena!");
                     return;
@@ -511,8 +525,11 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (player.getSkillGuide().skillGuidesButton(buttonId)) {
 			return;
 		}
-		if (player.getRandomInterfaceClick().handleButtonClicking(buttonId)) {
-			return;
+		if (player.getRandomHandler().getCurrentEvent() != null) {
+			if(player.getRandomHandler().getCurrentEvent().handleButtons(buttonId))
+			{
+				return;
+			}
 		}
 		if (Sextant.handleSextantButtons(player, buttonId)) {
 			return;

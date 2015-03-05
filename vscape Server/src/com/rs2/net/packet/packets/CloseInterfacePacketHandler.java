@@ -30,6 +30,11 @@ public class CloseInterfacePacketHandler implements PacketHandler {
 			player.getActionSender().sendString("", i);
 		    }
 		}
+		if(player.getStatedInterface().equals("hangoverCure")) {
+			for(int i = 1142; i < 1146; i++) {
+				player.getActionSender().sendString("", i);
+			}
+		}
 		player.setStatedInterface("");
 		if (player.getNewComersSide().isInTutorialIslandStage())
 			player.getActionSender().removeInterfaces();

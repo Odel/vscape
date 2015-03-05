@@ -149,8 +149,8 @@ public class ThieveStalls {
 				player.getSkill().addExp(Skill.THIEVING, stall.getXp());
 				int face = SkillHandler.getFace(objectId, objectX, objectY, player.getPosition().getZ());
 				new GameObject(emptyId(objectId), objectX, objectY, player.getPosition().getZ(), face, 10, objectId, stall.getRespawnTime());
-				if (player.getPillory().doJailEvent()) {
-					player.getPillory().JailPlayer();
+				if (player.getRandomHandler().getPillory().doJailEvent()) {
+					player.getRandomHandler().getPillory().JailPlayer();
 				}
 				container.stop();
 			}

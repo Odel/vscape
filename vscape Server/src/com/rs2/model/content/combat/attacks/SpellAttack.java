@@ -202,6 +202,15 @@ public class SpellAttack extends BasicAttack {
                 player.setCastedSpell(null);
                 container.stop();
             }
+			player.getCombatSounds().spellSound(spell, true);
+			if(getVictim() != null && getVictim().isPlayer())
+			{
+				((Player) getVictim()).getCombatSounds().spellSound(spell, true);
+			}
+        }
+		if(getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()){
+            Player player = (Player) getVictim();
+            player.getCombatSounds().spellSound(spell, true);
         }
         /*if (spell == Spell.ICE_BARRAGE) {
             if (getVictim().getMovementHandler().getWaypoints().size() > 0) {
@@ -278,5 +287,17 @@ public class SpellAttack extends BasicAttack {
 	   else if(gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic()) return Spell.SMOKE_BARRAGE;
 	   else if(gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic()) return Spell.SMOKE_BURST;
 	   else return null;
+	}
+	
+	public static Spell getSpellForHitGfx(Graphic gfx) {
+		for(Spell spell : Spell.values())
+		{
+			if(spell.getHitDef() == null || spell.getHitDef().getHitGraphic() == null)
+				continue;
+			if(gfx == spell.getHitDef().getHitGraphic()){
+				return spell;
+			}
+		}
+		return null;
 	}
 }

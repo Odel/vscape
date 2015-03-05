@@ -9,6 +9,7 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.weapon.Weapon;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
@@ -16,6 +17,7 @@ import com.rs2.model.content.quests.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.PlagueCity;
 import com.rs2.model.content.quests.RecruitmentDrive;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillCapeHandler;
@@ -48,8 +50,8 @@ public class Equipment {
 
 	private Player player;
 
-	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torags body", "dharoks body", "guthans body", "initiate hauberk"};
-	private static String[] hideHairAndBeard = {"spiny helmet", "initiate sallet", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm", "h'ween mask"};
+	private static String[] hideArms = {"robe", "top", "blouse", "shirt", "platebody", "brassard", "dragon chainbody", "rock-shell plate", "spined body", "zamorak d'hide", "guthix d'hide", "saradomin d'hide", "lunar torso", "snakeskin body", "torags body", "dharoks body", "guthans body", "initiate hauberk", "doctors' gown"};
+	private static String[] hideHairAndBeard = {"spiny helmet", "initiate sallet", "full helm", "saradomin full", "veracs helm", "guthans helm", "torags helm", "saradomin helm", "spined helm", "lunar helm", "h'ween mask", "gas mask"};
 	private static String[] hideHair = {"cowl", "camel", "bandana", "decorative helm", "med helm", "coif", "hood", "bandanna", "berserker helm", "archer helm", "farseer helm", "warrior helm", "skeletal", "dharoks helm", "mask", "rock-shell helm", "void melee helm", "void mage helm", "void ranger helm", "3rd age mage hat"};
 	private static String[] hideBeard = {"facemask", "mime mask"};
 
@@ -263,6 +265,11 @@ public class Equipment {
 		if (player.getNewComersSide().getTutorialIslandStage() == 42) {
 			if ((item.getId() == 1171 && player.getEquipment().getItemContainer().contains(1277) || (item.getId() == 1277 && player.getEquipment().getItemContainer().contains(1171))))
 				player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
+		}
+		if(equipSlot == Constants.HAT && player.getEquipment().getId(Constants.HAT) == PlagueCity.GAS_MASK && player.inWestArdougne()) {
+			player.getDialogue().sendPlayerChat("I don't really want to die from the plague.", "I should keep this mask on my head.", Dialogues.CONTENT);
+			player.getDialogue().endDialogue();
+			return;
 		}
 		if (item.getId() == 772 && !player.hasKilledTreeSpirit()) {
 			player.getDialogue().sendStatement("You need to kill the tree spirit in Entrana to weild this.");
@@ -497,6 +504,11 @@ public class Equipment {
 		    		return;
 		    	}
 			}
+		}
+		if(item.getId() == PlagueCity.GAS_MASK && player.inWestArdougne()) {
+			player.getDialogue().sendPlayerChat("I don't really want to die from the plague.", "I should keep this on my head.", Dialogues.CONTENT);
+			player.getDialogue().endDialogue();
+			return;
 		}
         if (player.getInventory().getItemContainer().freeSlot() == -1) {
             player.getActionSender().sendMessage("Not enough space in your inventory.", true);
@@ -1443,7 +1455,7 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("black") && !itemName.contains("d'hide")) 
+		if (itemName.contains("black") && !itemName.contains("d'hide") && !itemName.contains("ele'")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {

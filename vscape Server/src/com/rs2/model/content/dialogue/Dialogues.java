@@ -12,7 +12,6 @@ import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.randomevents.RandomEvent;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.farming.Farmers;
@@ -40,7 +39,7 @@ import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.randomevents.FreakyForester;
+import com.rs2.model.content.randomevents.impl.FreakyForester;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
@@ -149,6 +148,11 @@ public class Dialogues {
 		}
 		if(MageTrainingDialogue.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
+		}
+		if(player.getRandomHandler().getCurrentEvent() != null) {
+			if(player.getRandomHandler().getCurrentEvent().sendDialogue(id, chatId, optionId, npcChatId)) {
+				return true;
+			}
 		}
 		switch(id) {
 			case 1 : //Man
@@ -1549,6 +1553,21 @@ public class Dialogues {
 						break;
 				}
 				break;
+			case 10016 : //nature amulet
+				switch(player.getDialogue().getChatId()) {
+				case  1 :
+					player.getDialogue().sendOption("Cabbage Port", "Do Nothing");
+					return true;
+				case  2 :
+					switch(optionId) {
+					case 1:
+						player.getUpdateFlags().sendAnimation(714);
+                				player.getUpdateFlags().sendHighGraphic(301);
+						player.getTeleportation().attemptTeleport(Teleportation.CABBAGE_PATCH);
+						break;
+					}
+				}
+				break;
 			case 10004 : //ring of duel
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -1599,6 +1618,19 @@ public class Dialogues {
 						break;
 				}
 				break;
+			/**case 510 : //hajedy
+				switch(player.getDialogue().getChatId()) {
+					case 1 :
+					    if(player.getInventory().playerHasItem(new Item(431))) {
+								player.setStatedInterface("glider");
+								player.getActionSender().sendInterface(802);
+								player.getDialogue().dontCloseInterface();
+								break;
+						}
+						break;
+				}
+				break;
+			*/
 			case 510 : //hajedy
 				switch(player.getDialogue().getChatId()) {
 					case 1 :
@@ -2543,7 +2575,7 @@ public class Dialogues {
 						Abyss.teleportToAbyss(player, npc);
 						break;
 					case 5 :
-						ShopManager.openShop(player, 10);
+						ShopManager.openShop(player, 27);
 						player.getDialogue().dontCloseInterface();
 						break;
 					case 6 :
@@ -2618,7 +2650,7 @@ public class Dialogues {
 				}
 				break;
 			case FreakyForester.FREAKY_FORESTER : //lel
-			    FreakyForester forester = player.getFreakyForester();
+			    FreakyForester forester = player.getRandomHandler().getFreakyForester();
 			    switch (player.getDialogue().getChatId()) {
 				case 1:
 				    if(!forester.isActive()) {
@@ -2650,23 +2682,6 @@ public class Dialogues {
 				    player.getDialogue().sendNpcChat("You can leave using that portal over there.", "Thank you again.", CONTENT);
 				    player.getDialogue().endDialogue();
 				    return true;
-			    }
-			break;
-			case 3117 : //sandwich lady
-			    switch (player.getDialogue().getChatId()) {
-				case 1:
-				    player.getDialogue().sendNpcChat("You look hungry to me. I tell you what - ", "have a " + player.getRandomInterfaceClick().getEvents(3117).stringSent()[0] + " on me.", HAPPY);
-				    return true;
-				case 2:
-				    for (Npc npc : player.getNpcs()) {
-					if (npc != null && npc.getNpcId() == 3117 && npc.getPlayerOwner().equals(player)) {
-					    player.setSpawnedNpc(npc);
-					}
-				    }
-				    player.getRandomInterfaceClick().openInterface(3117);
-				    //player.getRandomInterfaceClick().sendModelsRotation(3117);
-				    player.getDialogue().dontCloseInterface();
-				    break;
 			    }
 			break;
 			case 1595 : //saniboch
@@ -4108,7 +4123,7 @@ public class Dialogues {
 						player.getInventory().addItemOrDrop(new Item(1971));
 						player.getInventory().addItemOrDrop(new Item(1917));
 						player.getDialogue().sendGiveItemNpc("The dwarf gives you beer and a kebab.", "", new Item(1971), new Item(1917));
-						RandomEvent.destroyEventNpc(player);
+						player.getRandomHandler().destroyEventNpc();
 						player.getDialogue().endDialogue();
 						return true;
 				}
@@ -4121,7 +4136,7 @@ public class Dialogues {
 					case 2 :
 						player.getInventory().addItemOrDrop(new Item(2528));
 						player.getDialogue().sendGiveItemNpc("The genie gives you a lamp.", new Item(2528));
-						RandomEvent.destroyEventNpc(player);
+						player.getRandomHandler().destroyEventNpc();
 						player.getDialogue().endDialogue();
 						return true;
 				}
@@ -4173,7 +4188,7 @@ public class Dialogues {
 					player.getInventory().addItemOrDrop(reward);
 					player.getDialogue().sendGiveItemNpc("Jekyll hands you "+reward.getDefinition().getName().toLowerCase()+".", reward);
 					player.setRandomHerb(null);
-					RandomEvent.destroyEventNpc(player);
+					player.getRandomHandler().destroyEventNpc();
 					player.getDialogue().endDialogue();
 					return true;
 				}
@@ -4598,18 +4613,6 @@ public class Dialogues {
 						return true;
 					//question 2
 					case 15:
-						player.getDialogue().sendNpcChat("What?", Dialogues.CONTENT);
-						return true;
-					case 16:
-						player.getDialogue().sendPlayerChat("What is your name?", Dialogues.CONTENT);
-						return true;
-					case 17:
-						player.getDialogue().sendNpcChat("Mumblemumblemumble...", Dialogues.CONTENT);
-						return true;
-					case 18:
-						player.getDialogue().sendPlayerChat("What was that?", Dialogues.CONTENT);
-						return true;
-					case 19:
 						player.getDialogue().sendNpcChat("My name is Edward Cranium", Dialogues.CONTENT);
 						return true;
 					case 20:

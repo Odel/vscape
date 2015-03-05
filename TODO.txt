@@ -1,7 +1,25 @@
+(Antiquated shit)
 -Gnome tree stronghold cave doesn't work
 -Wizards from level 3 clues, proper attacks (poison / spells);
--Dead herb inspection (stage 3) gives a null exception?
 -Gnome gianna store / all the gnome cooking battas
 -Zogre coffin picklocks south of castlewars
 -Rantz ogre bow shop and other ogre shit
-kek
+
+QUESTS LEFT UNTIL RFD:
+(In no particular order)
+-Fishing Contest
+-Big Chompy Bird Hunting
+-Legends Quest
+-Underground Pass
+-Biohazard
+-Murder Mystery
+-Witch's House
+-Shadow of the Storm
+-The Golem
+-Shilo Village
+-Desert Treasure
+-Digsite
+-Temple of Ikov
+-Tourist Trap
+-Troll Stronghold
+-Death Plateau

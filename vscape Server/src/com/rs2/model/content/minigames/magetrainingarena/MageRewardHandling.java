@@ -74,14 +74,14 @@ public class MageRewardHandling {
 	if(shopItem == 6926) {
 	    player.getActionSender().sendMessage("You have unlocked the spell Bones to Peaches.");
 	    player.setBonesToPeachesEnabled(true);
-	} else if (shopItem == 6910 && !player.getInventory().ownsItem(6908)) {
-	    player.getActionSender().sendMessage("You need to own the Beginner wand in order to purchase this.");
+	} else if (shopItem == 6910 && !player.getInventory().playerHasItem(6908)) {
+	    player.getActionSender().sendMessage("You need to have the Beginner wand in order to purchase this.");
 	    return;
-	} else if (shopItem == 6912 && !player.getInventory().ownsItem(6910)) {
-	    player.getActionSender().sendMessage("You need to own the Apprentice wand in order to purchase this.");
+	} else if (shopItem == 6912 && !player.getInventory().playerHasItem(6910)) {
+	    player.getActionSender().sendMessage("You need to have the Apprentice wand in order to purchase this.");
 	    return;
-	} else if (shopItem == 6914 && !player.getInventory().ownsItem(6912)) {
-	    player.getActionSender().sendMessage("You need to own the Teacher wand in order to purchase this.");
+	} else if (shopItem == 6914 && !player.getInventory().playerHasItem(6912)) {
+	    player.getActionSender().sendMessage("You need to have the Teacher wand in order to purchase this.");
 	    return;
 	}
 	int freeSpace = inventory.freeSlots();
@@ -91,6 +91,13 @@ public class MageRewardHandling {
 	}
 	if(shopItem != 6926) {
 	    player.getInventory().addItem(new Item(shopItem, 1));
+	}
+	if(shopItem == 6910) {
+		player.getInventory().removeItem(new Item(6908, 1));
+	} else if(shopItem == 6912) {
+		player.getInventory().removeItem(new Item(6910, 1));
+	} else if(shopItem == 6914) {
+		player.getInventory().removeItem(new Item(6912, 1));
 	}
 	stock.set(slot, new Item(shopItem, item.getCount() - 1));
 	player.getInventory().refresh(3823);

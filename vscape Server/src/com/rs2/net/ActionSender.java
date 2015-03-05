@@ -62,7 +62,7 @@ public class ActionSender {
 	}
 
 	public void sendSideBarInterfaces() {
-		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 0, -1, 5065,
+		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 0, 25000, 5065,
 				5715, 2449, 904, 147, 962 };
 		for (int i = 0; i < sidebars.length; i++) {
 			sendSidebarInterface(i, sidebars[i]);
@@ -73,7 +73,7 @@ public class ActionSender {
 	}
 
 	public void enableSideBarInterfaces(int[] listSideBar) {
-		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 1151, -1, 5065,
+		int[] sidebars = { 2423, 3917, 638, 3213, 1644, 5608, 1151, 25000, 5065,
 				5715, 2449, 904, 147, 962 };
 		for (int i = 0; i < listSideBar.length; i++) {
 			sendSidebarInterface(listSideBar[i], sidebars[listSideBar[i]]);
@@ -452,9 +452,10 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
-
-	public ActionSender sendObject(int id, int x, int y, int h, int face,
-			int type) {
+	public ActionSender sendObject(int id, int x, int y, int h, int face, int type) {
+		if(id == 11422 && player.getQuestStage(39) >= 5) {
+			return this;
+		}
 		sendCoords(new Position(x, y, h));
 		sendObjectType(face, type);
 		if (id != -1) {
@@ -727,14 +728,36 @@ public class ActionSender {
 	}
 
 	public ActionSender sendString(String message, int interfaceId) {
-		StreamBuffer.OutBuffer out = StreamBuffer
-				.newOutBuffer(message.length() + 6);
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
 		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
 		out.writeString(message);
 		out.writeShort(interfaceId, StreamBuffer.ValueType.A);
 		out.finishVariableShortPacketHeader();
 		player.send(out.getBuffer());
 		return this;
+	}
+	
+	public void sendQuestLogString(String message, int logIndex, int questIndex, int strikeStage) {
+		if(player.getQuestStage(questIndex) < strikeStage) {
+		    return;
+		} else if(player.getQuestStage(questIndex) > strikeStage) {
+		    message = "@str@" + message;
+		}
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
+		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
+		out.writeString(message);
+		out.writeShort(logIndex + 8146, StreamBuffer.ValueType.A);
+		out.finishVariableShortPacketHeader();
+		player.send(out.getBuffer());
+	}
+	
+	public void sendQuestLogString(String message, int logIndex) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
+		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);
+		out.writeString(message);
+		out.writeShort(logIndex + 8146, StreamBuffer.ValueType.A);
+		out.finishVariableShortPacketHeader();
+		player.send(out.getBuffer());
 	}
 
 	public ActionSender sendFriendList(long name, int world) {
@@ -834,6 +857,19 @@ public class ActionSender {
 		return this;
 	}
 	
+	public ActionSender sendClanChat(String clanname, String name, String message, int rights) {
+		int packetLength = clanname.length() + name.length() + message.length();
+		StreamBuffer.OutBuffer out = StreamBuffer
+				.newOutBuffer(packetLength + 6);
+		out.writeVariablePacketHeader(player.getEncryptor(), 216);
+		out.writeString(clanname);
+		out.writeString(name);
+		out.writeString(message);
+		out.writeByte(rights);
+		out.finishVariablePacketHeader();
+		player.send(out.getBuffer());
+		return this;
+	}
 	
 
 	public ActionSender sendInterfaceAnimation(int intefaceChildId, int animId) {

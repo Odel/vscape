@@ -163,13 +163,7 @@ public class NpcDropController {
 			length--;
 		}
 		if (drop != null) {
-			if (drop.getCount().length == 1) {
-				dropItem = new Item(drop.getId(), drop.getCount()[0]);
-			} else if (drop.getCount().length == 2) {
-				dropItem = new Item(drop.getId(), Misc.random(drop.getCount()[1] - drop.getCount()[0]) + drop.getCount()[0]);
-			} else {
-				dropItem = new Item(drop.getId(), drop.getCount()[Misc.randomMinusOne(drop.getCount().length)]);
-			}
+			dropItem = drop.getItem();
 		}
 		Item[] toReturn = new Item[length];
 		int index = 0;

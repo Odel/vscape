@@ -37,7 +37,6 @@ public class ApeAtollNpcs {
     private static int patrollingGuard = 1;
 
     public enum ApeAtollNpcData {
-	
 	MONKEYS_AUNT(monkeyAunt, new Position(2736, 2787, 0), new Position(2737, 2790, 0), new Position(2736, 2794, 0), new Position(2739, 2794, 0), new Position(2742, 2794), new Position(0, 0, 0), new Position(0, 0, 0), true),
 	PRISON_GUARD_1(monkeyGuard_1, new Position(2768, 2804, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false),
 	PRISON_GUARD_2(monkeyGuard_2, new Position(2767, 2802, 0), new Position(2768, 2798, 0), new Position(2771, 2798, 0), new Position(2770, 2802, 0), new Position(2773, 2801, 0), new Position(2772, 2796, 0), new Position(2769, 2796, 0), false);
@@ -82,6 +81,14 @@ public class ApeAtollNpcs {
 	public Npc getNpc() {
 	    return this.npc;
 	}
+	
+	public Position getSpawnPosition() {
+	    return this.spawnPosition;
+	}
+	
+	public Position getSecondPosition() {
+	    return this.second;
+	}
 
 	public Position walkPosForCount(int count) {
 	    switch (count) {
@@ -102,105 +109,107 @@ public class ApeAtollNpcs {
 	    }
 	    return null;
 	}
+    }
+    
+    public static void spawnApeAtollNpc(final ApeAtollNpcData a) {
+	final Npc npc = a.getNpc();
+	npc.setPosition(new Position(a.getSpawnPosition().getX(), a.getSecondPosition() == null ? a.getSpawnPosition().getY() : a.getSpawnPosition().getY() - 1, a.getSpawnPosition().getZ()));
+	npc.setSpawnPosition(a.getSpawnPosition());
+	npc.setWalkType(Npc.WalkType.STAND);
+	npc.setNeedsRespawn(false);
+	npc.setFollowingEntity(null);
+	World.register(npc);
+    }
+    
+    public static void startBasicWalkCycle(final ApeAtollNpcData a) {
+	final Npc npc = a.getNpc();
+	CycleEventHandler.getInstance().addEvent(a.getNpc(), new CycleEvent() {
+	    int count = 1;
+	    boolean reverse = false;
 
-	public void spawnNpc() {
-	    npc.setPosition(new Position(spawnPosition.getX(), this.second == null ? spawnPosition.getY() : spawnPosition.getY() - 1, spawnPosition.getZ()));
-	    npc.setSpawnPosition(this.spawnPosition);
-	    npc.setWalkType(Npc.WalkType.STAND);
-	    npc.setNeedsRespawn(false);
-	    npc.setFollowingEntity(null);
-	    World.register(npc);
-	}
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		int max = a.basicCycle ? 4 : 6;
+		if (count == max || count == -1) {
+		    reverse = !reverse;
+		}
+		if (a.walkPosForCount(count) != null) {
+		    Position pos = a.walkPosForCount(count);
+		    npc.setSpawnPosition(pos);
+		    npc.setWalkType(Npc.WalkType.WALK);
+		    npc.walkTo(pos, true);
+		    npc.getUpdateFlags().sendFaceToDirection(pos);
+		    npc.getUpdateFlags().setFaceToDirection(true);
+		}
+		count = reverse ? count - 1 : count + 1;
+	    }
 
-	public void startBasicWalkCycle() {
-	    final ApeAtollNpcData a = this;
-	    CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
-		int count = 1;
-		boolean reverse = false;
+	    @Override
+	    public void stop() {
+	    }
+	}, 12);
+    }
 
-		@Override
-		public void execute(CycleEventContainer b) {
-		    int max = a.basicCycle ? 4 : 6;
-		    if (count == max || count == -1) {
-			reverse = !reverse;
+    public static void startGuardWalkCycle(final ApeAtollNpcData a) {
+	final Npc npc = a.getNpc();
+	CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
+	    int count = 1;
+	    int patrolCount = 0;
+	    boolean reverse = false;
+
+	    @Override
+	    public void execute(CycleEventContainer b) {
+		if (count == 6 || count == -1) {
+		    patrolCount++;
+		    if (patrolCount == 4) {
+			b.stop();
 		    }
-		    if (a.walkPosForCount(count) != null) {
-			Position pos = a.walkPosForCount(count);
-			npc.setSpawnPosition(pos);
-			npc.setWalkType(Npc.WalkType.WALK);
+		    reverse = !reverse;
+		}
+		if (a.walkPosForCount(count) != null) {
+		    Position pos = a.walkPosForCount(count);
+		    npc.setSpawnPosition(pos);
+		    npc.setWalkType(Npc.WalkType.WALK);
+		    if (count == 4 && reverse) {
+			npc.walkTo(new Position(pos.getX() - 1, pos.getY() + 1, 0), true);
+		    } else if (count == 3 && reverse) {
+			npc.walkTo(new Position(pos.getX(), pos.getY() - 1, 0), true);
+		    } else if (count == 2 && reverse) {
+			npc.walkTo(new Position(pos.getX() - 1, pos.getY(), 0), true);
+		    } else if (count == 0) {
+			if (!reverse) {
+			    count++;
+			}
+		    } else {
 			npc.walkTo(pos, true);
-			npc.getUpdateFlags().sendFaceToDirection(pos);
-			npc.getUpdateFlags().setFaceToDirection(true);
 		    }
-		    count = reverse ? count - 1 : count + 1;
+		    npc.getUpdateFlags().setFace(pos);
+		    npc.getUpdateFlags().setEntityFaceUpdate(true);
 		}
+		count = reverse ? count - 1 : count + 1;
+	    }
 
-		@Override
-		public void stop() {
+	    @Override
+	    public void stop() {
+		npc.walkTo(a.walkPosForCount(0), true);
+		if (a.equals(ApeAtollNpcData.PRISON_GUARD_1)) {
+		    startGuardWalkCycle(ApeAtollNpcData.PRISON_GUARD_2);
+		    patrollingGuard = 2;
+		} else if (a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
+		    startGuardWalkCycle(ApeAtollNpcData.PRISON_GUARD_1);
+		    patrollingGuard = 1;
 		}
-	    }, 12);
-	}
-	public void startGuardWalkCycle() {
-	    final ApeAtollNpcData a = this;
-	    CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
-		int count = 1;
-		int patrolCount = 0;
-		boolean reverse = false;
-
-		@Override
-		public void execute(CycleEventContainer b) {
-		    if (count == 6 || count == -1) {
-			patrolCount++;
-			if(patrolCount == 4) {
-			    b.stop();
-			}
-			reverse = !reverse;
-		    }
-		    if (a.walkPosForCount(count) != null) {
-			Position pos = a.walkPosForCount(count);
-			npc.setSpawnPosition(pos);
-			npc.setWalkType(Npc.WalkType.WALK);
-			if(count == 4 && reverse) {
-			    npc.walkTo(new Position(pos.getX() - 1, pos.getY() + 1, 0), true);
-			} else if(count == 3 && reverse) {
-			    npc.walkTo(new Position(pos.getX(), pos.getY() - 1, 0), true);
-			} else if(count == 2 && reverse) {
-			    npc.walkTo(new Position(pos.getX() - 1, pos.getY(), 0), true);
-			} else if (count == 0) {
-			    if(!reverse) {
-				count++;
-			    }
-			} else {
-			    npc.walkTo(pos, true);
-			}
-			npc.getUpdateFlags().setFace(pos);
-			npc.getUpdateFlags().setEntityFaceUpdate(true);
-		    }
-		    count = reverse ? count - 1 : count + 1;
-		}
-
-		@Override
-		public void stop() {
-		    npc.walkTo(a.walkPosForCount(0), true);
-		    if(a.equals(ApeAtollNpcData.PRISON_GUARD_1)) {
-			ApeAtollNpcData.PRISON_GUARD_2.startGuardWalkCycle();
-			patrollingGuard = 2;
-		    } else if(a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
-			ApeAtollNpcData.PRISON_GUARD_1.startGuardWalkCycle();
-			patrollingGuard = 1;
-		    }
-		}
-	    }, 8);
-	}
+	    }
+	}, 8);
     }
     
     public static void init() {
 	for (ApeAtollNpcData a : ApeAtollNpcData.values()) {
-	    a.spawnNpc();
+	    spawnApeAtollNpc(a);
 	    if(a.equals(ApeAtollNpcData.PRISON_GUARD_1)) {
-		a.startGuardWalkCycle();
+		startGuardWalkCycle(a);
 	    } else if(!a.equals(ApeAtollNpcData.PRISON_GUARD_2)) {
-		a.startBasicWalkCycle();
+		startBasicWalkCycle(a);
 	    }
 	}
     }
@@ -224,22 +233,26 @@ public class ApeAtollNpcs {
 	    this.spawnPos = spawnPos;
 	}
 	
-	public Npc spawnNpc(int z, Player player) {
-	    Npc npc = new Npc(id);
-	    npc.setPosition(this.spawnPos.modifyZ(z));
-	    npc.setSpawnPosition(this.spawnPos.modifyZ(z));
-	    npc.setWalkType(Npc.WalkType.WALK);
-	    npc.setMaxWalk(new Position(spawnPos.getX() + 15, spawnPos.getY() + 15, z));
-	    npc.setMinWalk(new Position(spawnPos.getX() - 15, spawnPos.getY() - 15, z));
-	    npc.setNeedsRespawn(false);
-	    World.register(npc);
-	    return npc;
+	public int getId() {
+	    return this.id;
 	}
 	
 	public Position getPosition() {
 	    return this.spawnPos;
 	}
     }
+    
+    public static Npc spawnFinalFightNpc(final FinalFightNpcs f, int z, Player player) {
+	    Npc npc = new Npc(f.getId());
+	    npc.setPosition(f.getPosition().modifyZ(z));
+	    npc.setSpawnPosition(f.getPosition().modifyZ(z));
+	    npc.setWalkType(Npc.WalkType.WALK);
+	    npc.setMaxWalk(new Position(f.getPosition().getX() + 15, f.getPosition().getY() + 15, z));
+	    npc.setMinWalk(new Position(f.getPosition().getX() - 15, f.getPosition().getY() - 15, z));
+	    npc.setNeedsRespawn(false);
+	    World.register(npc);
+	    return npc;
+	}
     
     public static void startJailCheck(final Player player) {
 	CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {

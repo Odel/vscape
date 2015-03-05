@@ -1,6 +1,7 @@
-package com.rs2.model.content.randomevents;
+package com.rs2.model.content.randomevents.impl;
 
 import com.rs2.model.Position;
+import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -56,7 +57,7 @@ public class Pillory {
 		    			player.teleport(getRandomJail());
 		    			player.setInJail(true);
 		    			player.setStopPacket(false);
-		    			NpcLoader.destroyNpc(npc);
+		    			player.getRandomHandler().destroyEventNpc();
 					    container.stop();
 				    return;
 		    	}

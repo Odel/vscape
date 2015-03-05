@@ -63,7 +63,12 @@ public class QuestHandler {
 	new MonkeyMadness(),
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
+<<<<<<< HEAD
     	new ClockTower()
+=======
+	new PlagueCity(),
+	//new Biohazard()
+>>>>>>> upstream/master
     };
     
     public static void init() {
@@ -95,6 +100,7 @@ public class QuestHandler {
     }
     
     public static void initQuestLog(Player player){
+	CommandHandler.ClearNotes(player);
         player.sendQuestTab();
         for(Quest q : quests)
         {
@@ -255,7 +261,13 @@ public class QuestHandler {
 			showInterface(player,quests[37]);
         		return true;
 		case 46131: //In Search of the Myreque
-			//showInterface(player,quests[38]);
+			showInterface(player,quests[38]);
+        		return true;
+		case 28204: //Plague City
+			showInterface(player,quests[39]);
+        		return true;
+		case 28184: //Biohazard
+			//showInterface(player,quests[40]);
         		return true;
 		case 28185: //Clock Tower
 			showInterface(player,quests[39]);

@@ -38,6 +38,9 @@ public class Rangable {
 	private void removeClip(int x, int y, int height, int shift) {
 		int regionAbsX = (id >> 8) * 64;
 		int regionAbsY = (id & 0xff) * 64;
+		if(height > 3) {
+		    height = height%4;
+		}
 		if (clips == null) {
 			return;
 		}
@@ -50,6 +53,9 @@ public class Rangable {
 	private int getClip(int x, int y, int height) {
 		int regionAbsX = (id >> 8) * 64;
 		int regionAbsY = (id & 0xff) * 64;
+		if(height > 3) {
+		    height = height%4;
+		}
 		if (clips[height] == null) {
 			return 0;
 		}

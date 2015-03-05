@@ -193,7 +193,7 @@ public class Cooking {
 				}
 				return true;
 			}
-			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot")) {
+			if (name.equalsIgnoreCase("clay oven") ||  name.equalsIgnoreCase("stove") || name.equalsIgnoreCase("range") || name.equalsIgnoreCase("cooking range") || name.equalsIgnoreCase("cooking pot") || name.equalsIgnoreCase("sulphur vent")) {
 				player.setNewSkillTask();
 				player.setStatedInterface("cookRange");
 				player.setTempInteger(item);
@@ -376,16 +376,18 @@ public class Cooking {
 			case 34169:
 			case 34168: //Cook beef / bear meat
 			    if (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange")) {
-				handleCookingTick(player, buttonId == 34170 ? 1 : buttonId == 34169 ? 5 : 10);
-				return true;
+			    	handleCookingTick(player, buttonId == 34170 ? 1 : buttonId == 34169 ? 5 : 10);
+					return true;
 			    }
+			    return false;
 			case 34174:
 			case 34173:
 			case 34172: //Sinew
 			    if (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange")) {
-				handleSinewTick(player, buttonId == 34174 ? 1 : buttonId == 34173 ? 5 : 10);
-				return true;
+			    	handleSinewTick(player, buttonId == 34174 ? 1 : buttonId == 34173 ? 5 : 10);
+					return true;
 			    }
+			    return false;
 			case 53152:// cook 1
 				handleCookingTick(player, 1);
 				return true;

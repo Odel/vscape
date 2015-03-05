@@ -473,34 +473,50 @@ public class Hit {
 			flags.setHitType2(hitType.toInteger());
 		} else flags.queueDamage(damage, hitType.toInteger());
 		
-        if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
-       	 Player player = (Player) getAttacker();
-       	 Npc npc = (Npc) getVictim();
-       	 if (npc.getPosition().isViewableFrom(player.getPosition())) {
-	       	 if(hitType == HitType.MISS){
-	       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
-	       	 }else{
-	       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
+		if(hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
+		{
+			Spell spell = SpellAttack.getSpellForHitGfx(hitDef.getHitGraphic());
+			if(spell != null)
+			{
+				if (getAttacker() != null && getAttacker().isPlayer()){
+					Player player = (Player) getAttacker();
+					player.getCombatSounds().spellSound(spell, false);
+				}
+				if (getVictim() != null && getVictim().isPlayer()) {
+					Player player = (Player) getVictim();
+					player.getCombatSounds().spellSound(spell, false);
+				}
+			}
+		}else{
+	        if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
+	       	 Player player = (Player) getAttacker();
+	       	 Npc npc = (Npc) getVictim();
+	       	 if (npc.getPosition().isViewableFrom(player.getPosition())) {
+		       	 if(hitType == HitType.MISS){
+		       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
+		       	 }else{
+		       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
+		       	 }
 	       	 }
-       	 }
-       }
-       if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
-      	 Player att = (Player) getAttacker();
-      	 Player vic = (Player) getVictim();
-      	 if(hitType == HitType.MISS){
-      		att.getCombatSounds().blockSound(vic);
-      	 }else{
-      		att.getCombatSounds().damageSound();
-      	 }
-       }
-       if (getVictim().isPlayer()) {
-           Player player = (Player) getVictim();
-	       	 if(hitType == HitType.MISS){
-	    		 player.getCombatSounds().blockSound(player);
-	    	 }else{
-	    		 player.getCombatSounds().damageSound();
-	    	 }
-       }
+	       }
+	       if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
+	      	 Player att = (Player) getAttacker();
+	      	 Player vic = (Player) getVictim();
+	      	 if(hitType == HitType.MISS){
+	      		att.getCombatSounds().blockSound(vic);
+	      	 }else{
+	      		att.getCombatSounds().damageSound();
+	      	 }
+	       }
+	       if (getVictim() != null && getVictim().isPlayer()) {
+	           Player player = (Player) getVictim();
+		       	 if(hitType == HitType.MISS){
+		    		 player.getCombatSounds().blockSound(player);
+		    	 }else{
+		    		 player.getCombatSounds().damageSound();
+		    	 }
+	       }
+		}
     }
 
     @SuppressWarnings("rawtypes")
@@ -596,6 +612,14 @@ public class Hit {
             Player player = (Player) victim;
             player.getActionSender().removeInterfaces();
         }
+	if (attacker != null && victim.isPlayer() && attacker.isNpc() && ((Npc) attacker).getNpcId() == 2882) {
+	    Position p = victim.getPosition();
+	    for (Player player : World.getPlayers()) {
+		if (player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+		    player.hit(Misc.random(61), HitType.NORMAL);
+		}
+	    }
+	}
 	if (attacker != null && attacker.isNpc() && victim != null && victim.isPlayer() && ((Npc)attacker).getNpcId() == NatureSpirit.GHAST) {
 	    NatureSpirit.handleSpoilFood((Npc)attacker, (Player)victim);
 	}
@@ -721,15 +745,7 @@ public class Hit {
 			}
 		    }
 		}
-		else if (getAttacker() != null && getVictim().isPlayer() && getAttacker().isNpc() && ((Npc)attacker).getNpcId() == 2882) {
-		    Position p = victim.getPosition();
-		    for(Player player : World.getPlayers()) {
-			if(player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
-			    player.hit(Misc.random(61), HitType.NORMAL);
-			}
-		    }
-		}
-		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2882) { //Rex
+		else if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)victim).getNpcId() == 2883) { //Rex
 		    if(hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
 			if(Misc.random(2) == 1) {
 			    damage = 0;

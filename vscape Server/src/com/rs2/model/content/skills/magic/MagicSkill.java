@@ -518,7 +518,13 @@ public abstract class MagicSkill extends CycleEvent {
 					case CAMELOT :
 						return player.getTeleportation().attemptTeleport(new Position(Constants.CAMELOT_X + Misc.random(1), Constants.CAMELOT_Y + Misc.random(1), 0));
 					case ARDOUGNE :
-						return player.getTeleportation().attemptTeleport(new Position(Constants.ARDOUGNE_X + Misc.random(1), Constants.ARDOUGNE_Y + Misc.random(1), 0));
+						if(player.getQuestVars().canTeleportArdougne()) {
+							return player.getTeleportation().attemptTeleport(new Position(Constants.ARDOUGNE_X + Misc.random(1), Constants.ARDOUGNE_Y + Misc.random(1), 0));
+						} else {
+							player.getDialogue().sendStatement("You must complete Plague City to use this.");
+							player.getDialogue().endDialogue();
+							return false;
+						}
 					case WATCHTOWER :
 						return player.getTeleportation().attemptTeleport(new Position(Constants.WATCH_TOWER_X + Misc.random(1), Constants.WATCH_TOWER_Y + Misc.random(1), 0));
 					case TROLLHEIM :

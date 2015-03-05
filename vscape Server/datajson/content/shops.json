@@ -547,7 +547,7 @@
       },
       {
         "id": 442,
-        "count": 0
+        "count": 10
       },
       {
         "id": 2355,
@@ -4180,7 +4180,7 @@
         "count": 10
       }
     ],
-    "isGeneralStore": false,
+    "isGeneralStore": true,
     "currencyType": "ITEM",
     "currency": 995
   },
@@ -8797,6 +8797,67 @@
       }
     ],
     "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
+  },
+  {
+    "shopId": 205,
+    "name": "West Ardougne General Store",
+    "items": [
+      {
+        "id": 1931,
+        "count": 3
+      },
+	  {
+        "id": 954,
+        "count": 3
+      },
+	  {
+        "id": 1265,
+        "count": 2
+      },
+	  {
+        "id": 1925,
+        "count": 2
+      },
+	  {
+        "id": 590,
+        "count": 2
+      },
+	  {
+        "id": 2347,
+        "count": 3
+      },
+	  {
+        "id": 1061,
+        "count": 2
+      },
+	  {
+        "id": 839,
+        "count": 2
+      },
+	  {
+        "id": 882,
+        "count": 750
+      },
+	  {
+        "id": 329,
+        "count": 10
+      },
+	  {
+        "id": 2327,
+        "count": 10
+      },
+	  {
+        "id": 2309,
+        "count": 3
+      },
+	  {
+        "id": 2142,
+        "count": 3
+      }
+    ],
+    "isGeneralStore": true,
     "currencyType": "ITEM",
     "currency": 995
   }
