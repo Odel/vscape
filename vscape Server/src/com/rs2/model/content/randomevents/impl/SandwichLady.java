@@ -175,4 +175,10 @@ public class SandwichLady implements RandomEvent {
 		return new String[]{"Hello %, I would like to offer you a treat!", "You'd better start showing some manners, %!", "Well, I've never been so insulted!!", "Fine, ignore me, you will regret it!"};
 	}
 
+	@Override
+	public boolean doObjectClicking(int object, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

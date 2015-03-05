@@ -219,6 +219,12 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+				if(player.getRandomHandler().getCurrentEvent() != null) {
+					if(player.getRandomHandler().getCurrentEvent().doObjectClicking(id, x, y, z)) {
+						this.stop();
+						return;
+					}
+				}
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
 					return;
@@ -614,22 +620,15 @@ public class WalkToActionHandler {
 						break;
 					}
 				case 8972: //freaky forester portal
-				    if(x == 2611 && y == 4776) {
-					FreakyForester forester = player.getRandomHandler().getFreakyForester();
-					if(forester.isActive()) {
-					    player.getDialogue().sendNpcChat("Hey! D-don't leave yet! I still need", "your help with this pheasant...", Dialogues.SAD);
-					    break;
-					}
-					else {
-					    for(Item item : player.getInventory().getItemContainer().getItems()) {
-						if(item == null) continue;
-						if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
-						if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
+					if(x == 2611 && y == 4776 && player.getRandomHandler().getCurrentEvent() != player.getRandomHandler().getFreakyForester()) {
+						for(Item item : player.getInventory().getItemContainer().getItems()) {
+							if(item == null) continue;
+							if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
+							if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
 					    }
-					    player.teleport(forester.getOldPos());
-					    break;
+						player.teleport(player.getLastPosition());
+						break;
 					}
-				    }
 				case 5097:
 				case 5094: //north brimhaven dungeon stairs
 					Dialogues.startDialogue(player, 2725);

@@ -2649,41 +2649,6 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case FreakyForester.FREAKY_FORESTER : //lel
-			    FreakyForester forester = player.getRandomHandler().getFreakyForester();
-			    switch (player.getDialogue().getChatId()) {
-				case 1:
-				    if(!forester.isActive()) {
-					player.getDialogue().sendNpcChat("You can leave using that portal over there.", CONTENT);
-					player.getDialogue().endDialogue();
-					return true;
-				    }
-				    else if (player.getInventory().playerHasItem(6178) && forester.isActive()) {
-					player.getDialogue().sendNpcChat("That's it! That's the right pheasant! Thank", "you so much " + player.getUsername() + "! Here's a little", "something in exchange for helping me.", CONTENT);
-					return true;
-				    } else {
-					if (forester.getTails() == 1) {
-					    player.getDialogue().sendNpcChat("Shhhh! Quiet! I need you to help me kill", "the pheasant with 1 tail! Bring me the", "raw pheasant it drops and I'll reward you.", CONTENT);
-					    player.getDialogue().endDialogue();
-					    return true;
-					} else {
-					    player.getDialogue().sendNpcChat("Shhhh! Quiet! I need you to help me kill", "the pheasant with " + forester.getTails() + " tails! Bring me the", "raw pheasant it drops and I'll reward you.", CONTENT);
-					    player.getDialogue().endDialogue();
-					    return true;
-					}
-				    }
-				case 2:
-				    Item reward = forester.getRandomPieceLeft();
-				    player.getDialogue().sendGiveItemNpc("The Forester hands you your reward.", reward);
-				    player.getInventory().replaceItemWithItem(new Item(6178), reward);
-				    forester.setInactive();
-				    return true;
-				case 3:
-				    player.getDialogue().sendNpcChat("You can leave using that portal over there.", "Thank you again.", CONTENT);
-				    player.getDialogue().endDialogue();
-				    return true;
-			    }
-			break;
 			case 1595 : //saniboch
 				switch(player.getDialogue().getChatId()) {
 					case 1 :

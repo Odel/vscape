@@ -1234,7 +1234,7 @@ public class Player extends Entity {
         		setClanChat(null);
         	}
         }
-	if(inRandomEvent())
+        if(inMimeEvent())
         {
         	teleport(getLastPosition());
         }

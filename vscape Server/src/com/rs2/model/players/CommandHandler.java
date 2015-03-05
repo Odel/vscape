@@ -493,14 +493,6 @@ public class CommandHandler {
 					break;
 			}
 		}
-		if (keyword.equals("mime")) {
-			sender.getRandomHandler().getMimeEvent().spawnEvent();
-			sender.getRandomHandler().setCurrentEvent(sender.getRandomHandler().getMimeEvent());
-		}
-		if (keyword.equals("sandwitch")) {
-			sender.getRandomHandler().getSandwichLady().spawnEvent();
-			sender.getRandomHandler().setCurrentEvent(sender.getRandomHandler().getSandwichLady());
-		}
 		/*if (keyword.equals("highscoresinit"))
 		{
 			SQL.initHighScores();

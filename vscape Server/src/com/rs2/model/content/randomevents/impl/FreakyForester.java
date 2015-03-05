@@ -1,12 +1,12 @@
 package com.rs2.model.content.randomevents.impl;
 
+import java.util.ArrayList;
+
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -14,140 +14,189 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
-import java.util.Random;
 
-public class FreakyForester {
-    public Player player;
-    public int tails;
-    public boolean active = false;
-    public Position oldPos = new Position(3222, 3218, 0);
-    
-    public static final int FREAKY_FORESTER = 2458;
-    public static final int HAT = 6182;
-    public static final int TOP = 6180;
-    public static final int LEGS = 6181;
-    public static final int[] CLOTHES = {6182, 6180, 6181};
-    
-    public FreakyForester(Player eventee) {
-	this.player = eventee;
-    }
-    
-    public int getTails() {
-	return this.tails;
-    }
-    
-    public boolean isActive() {
-	return this.active;
-    }
-    
-    public void setInactive() {
-	this.active = false;
-    }
-    
-    public Position getOldPos() {
-	return this.oldPos;
-    }
-    
-    public Item getRandomPieceLeft() {
-	if(!player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(CLOTHES[Misc.random(2)]);
-	}
-	else if(player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(50 >= new Random().nextDouble() * 100 ? TOP : LEGS);
-	}
-	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(50 >= new Random().nextDouble() * 100 ? HAT : LEGS);
-	}
-	else if(!player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
-	    return new Item(50 >= new Random().nextDouble() * 100 ? HAT : TOP);
-	}
-	else if(player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && !player.getInventory().ownsItem(LEGS)) {
-	    return new Item(LEGS);
-	}
-	else if(player.getInventory().ownsItem(HAT) && !player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
-	    return new Item(TOP);
-	}
-	else if(!player.getInventory().ownsItem(HAT) && player.getInventory().ownsItem(TOP) && player.getInventory().ownsItem(LEGS)) {
-	    return new Item(HAT);
-	}
-	else {
-	    return new Item(995, 1250);
-	}
-    }
-    private int getNpcIdForTails() {
-	switch(this.tails) {
-	    case 1:
-		return 2459;
-	    case 2:
-		return 2460;
-	    case 3:
-		return 2461;
-	    case 4:
-		return 2462;
-	}
-	return 0;
-    }
-    public void spawnForester() {
-	this.tails = Misc.randomMinusOne(4) + 1;
-	this.active = true;
-	this.oldPos = player.getPosition().clone();
-	final Npc npc = new Npc(FREAKY_FORESTER);
-	NpcLoader.spawnNpc(player, npc, false, false);
-	player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 100 << 16);
-	player.setSpawnedNpc(npc);
-	cycleEvent(npc, player, new String[]{"Hello 1! I need your help!", "Quickly, come with me 1!"}, 0);
-    }
-    
-    public void cycleEvent(final Npc npc, final Player player, final String[] chat, final int transformId) {
-	CycleEventHandler.getInstance().addEvent(npc, new CycleEvent() {
-	    int cycle = 0;
-	    String name = Misc.formatPlayerName(player.getUsername());
+public class FreakyForester implements RandomEvent {
 
-	    @Override
-	    public void execute(CycleEventContainer container) {
-		if (cycle <= 3 ) {
-		    switch (cycle) {
-			case 0:
-			    npc.getUpdateFlags().sendForceMessage(chat[0].replaceAll("1", name));
-			    break;
-			case 3:
-			    npc.getUpdateFlags().sendForceMessage(chat[1].replaceAll("1", name));
-			    break;
+	private final static int foresterId = 2458;
+	public static final int[] CLOTHES = {6182, 6180, 6181};
+	
+	public boolean complete = false;
+	public int tails = 1;
+			
+	private Player player;
+	public FreakyForester(final Player player)
+	{
+		this.player = player;
+	}
+	
+	@Override
+	public void spawnEvent() {
+		complete = false;
+		tails = Misc.random(1, 4);
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
+		player.getMovementHandler().resetOnWalkPacket();
+		player.getRandomHandler().spawnEventNpc(foresterId);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+		    int cycle = 0;
+		    final String name = Misc.formatPlayerName(player.getUsername());
+		    @Override
+		    public void execute(CycleEventContainer container) {
+		    	switch (cycle) {
+		    		case 0:
+		    			player.getRandomEventNpc().getUpdateFlags().sendForceMessage("Hello "+name+"! I need your help!");
+		    		break;
+		    		case 2:
+		    			player.getRandomEventNpc().getUpdateFlags().sendForceMessage("Quickly, come with me "+name+"!");
+		    		break;
+		    		case 4:
+		    			player.getRandomHandler().destroyEventNpc();
+		    			player.teleport(new Position(2601, 4776, 0));
+		    			player.setStopPacket(false);
+		    			Dialogues.startDialogue(player, foresterId);
+					    container.stop();
+				    return;
+		    	}
+		    	cycle++;
 		    }
-		    cycle++;
-		} else {
-		    NpcLoader.destroyNpc(npc);
-		    player.getActionSender().sendStillGraphic(EventsConstants.RANDOM_EVENT_GRAPHIC, npc.getPosition(), 100 << 16);
-		    player.teleport(new Position(2601, 4776, 0));
-		    Dialogues.startDialogue(player, FREAKY_FORESTER);
-		    container.stop();
+	
+		    @Override
+		    public void stop() {
+		    }
+		}, 1);
+	}
+
+	@Override
+	public void destroyEvent(boolean logout) {
+		player.getRandomHandler().setCurrentEvent(null);
+		complete = false;
+		if(!logout)
+		{
+			for(Item item : player.getInventory().getItemContainer().getItems()) {
+				if(item == null) continue;
+				if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
+				if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
+		    }
+			player.teleport(player.getLastPosition());
+		}
+	}
+
+	@Override
+	public void showInterface() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean handleButtons(int buttonID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean sendDialogue(int id, int chatId, int optionId, int npcChatId) {
+		switch(id) {
+			case foresterId :
+			    switch (player.getDialogue().getChatId()) {
+			    	case 1 :
+			    		if(complete) {
+							player.getDialogue().sendNpcChat("You can leave using that portal over there.", Dialogues.CONTENT);
+							player.getDialogue().endDialogue();
+							return true;
+			    		} else {
+			    			if (player.getInventory().playerHasItem(6178)) {
+								player.getDialogue().sendNpcChat("That's it! That's the right pheasant! Thank", "you so much " + player.getUsername() + "! Here's a little", "something in exchange for helping me.", Dialogues.CONTENT);
+			    				return true;
+			    			} else {
+							    player.getDialogue().sendNpcChat("Shhhh! Quiet! I need you to help me kill", "the pheasant with " + tails + " "+(tails == 1 ? "tail" : "tails")+"! Bring me the", "raw pheasant it drops and I'll reward you.", Dialogues.CONTENT);
+							    player.getDialogue().endDialogue();
+							    return true;
+			    			}
+			    		}
+			    	case 2 :
+			    		Item reward = getReward();
+					    player.getDialogue().sendGiveItemNpc("The Forester hands you your reward.", reward);
+					    player.getInventory().replaceItemWithItem(new Item(6178), reward);
+					    complete = true;
+		    		return true;
+			    	case 3:
+					    player.getDialogue().sendNpcChat("You can leave using that portal over there.", "Thank you again.", Dialogues.CONTENT);
+					    player.getDialogue().endDialogue();
+				    return true;
+			    }
+			break;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean doObjectClicking(int object, int x, int y, int z) {
+		switch(object)
+		{
+			case 8972: //freaky forester portal
+				if(x == 2611 && y == 4776) {
+					if(!complete)
+					{
+					    player.getDialogue().sendNpcChat("Hey! D-don't leave yet! I still need", "your help with this pheasant...", Dialogues.SAD);
+					    return true;
+					} else {
+						destroyEvent(false);
+					    return true;
+					}
+				}
+			return false;
+		}
+		return false;
+	}
+	
+	public void handleDrops(Npc npc) {
+		if(complete || player.getRandomHandler().getCurrentEvent() != player.getRandomHandler().getFreakyForester()) {
 		    return;
 		}
-	    }
-
-	    @Override
-	    public void stop() {
-	    }
-	}, 1);
-    }
-    
-    public void handleDrops(Npc npc) {
-	if(!this.active) {
-	    return;
-	}
-	if(npc.getNpcId() == getNpcIdForTails()) {
-	    GroundItem drop = new GroundItem(new Item(6178), player, npc.getPosition().clone()); //good pheasant
-	    GroundItemManager.getManager().dropItem(drop);
-	}
-	else {
-	    switch(npc.getNpcId()) {
-		case 2459:
-		case 2460:
-		case 2461:
-		case 2462:
-		    GroundItem drop = new GroundItem(new Item(6179), player, npc.getPosition().clone()); //bad pheasant
+		if(npc.getNpcId() == getNpcIdForTails()) {
+		    GroundItem drop = new GroundItem(new Item(6178), player, npc.getPosition().clone());
 		    GroundItemManager.getManager().dropItem(drop);
-	    }
+		} else {
+		    switch(npc.getNpcId()) {
+				case 2459:
+				case 2460:
+				case 2461:
+				case 2462:
+					GroundItem drop = new GroundItem(new Item(6179), player, npc.getPosition().clone()); //bad pheasant
+					GroundItemManager.getManager().dropItem(drop);
+			    break;
+		    }
+		}
 	}
+	
+    private int getNpcIdForTails() {
+		switch(tails) {
+		    case 1:
+			return 2459;
+		    case 2:
+			return 2460;
+		    case 3:
+			return 2461;
+		    case 4:
+			return 2462;
+		}
+		return 0;
     }
+	
+	private Item getReward() {
+		int reward = 995;
+		ArrayList<Integer> possibleRewards = new ArrayList<Integer>();
+		for(int rew : CLOTHES)
+		{
+			if(!player.getInventory().ownsItem(rew))
+			{
+				possibleRewards.add(rew);
+			}
+		}
+		if(possibleRewards.size() > 0)
+		{
+			reward = possibleRewards.get(Misc.random(possibleRewards.size()-1));
+		}
+		return new Item(reward, (reward == 995 ? 1250 : 1));
+	}
 }

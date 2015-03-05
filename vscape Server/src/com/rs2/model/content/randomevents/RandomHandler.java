@@ -92,7 +92,8 @@ public class RandomHandler {
 				TalkToEvent.spawnNpc(player, TalkToNpc.JEKYLL);
 				break;
 			case 4:
-				getFreakyForester().spawnForester();
+				getFreakyForester().spawnEvent();
+				setCurrentEvent(freakyForester);
 				break;
 			case 5:
 				getSandwichLady().spawnEvent();
