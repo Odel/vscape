@@ -162,11 +162,6 @@ public class SandwichLady implements RandomEvent {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if(player.getRandomEventNpc() == null || !player.getRandomEventNpc().isVisible() || player.getRandomEventNpc().getNpcId() != sandwichLadyID)
-				{
-					container.stop();
-					return;
-				}
 				destroyEvent(false);
 				container.stop();
 			}
