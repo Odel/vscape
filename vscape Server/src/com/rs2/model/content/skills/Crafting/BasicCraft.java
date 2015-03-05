@@ -123,7 +123,7 @@ public class BasicCraft {
 			player.getInventory().removeItem(new Item(itemUsed));
 			player.getInventory().removeItem(new Item(withItem));
 			player.getInventory().addItem(new Item(1395));
-			player.getSkill().addExp(Skill.CRAFTING, 112.5);
+			player.getSkill().addExp(Skill.CRAFTING, 100);
             return true;
 		}
 		if ((itemUsed == 573 && withItem == 1391) || (withItem == 573 && itemUsed == 1391)) // air
@@ -132,7 +132,7 @@ public class BasicCraft {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;
 			}
-			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 62) {
+			if (player.getSkill().getPlayerLevel(Skill.CRAFTING) < 66) {
 				player.getDialogue().sendStatement("You need a crafting level of 62 to do this.");
 				return true;
 			}
@@ -140,7 +140,7 @@ public class BasicCraft {
 			player.getInventory().removeItem(new Item(itemUsed));
 			player.getInventory().removeItem(new Item(withItem));
 			player.getInventory().addItem(new Item(1397));
-			player.getSkill().addExp(Skill.CRAFTING, 125);
+			player.getSkill().addExp(Skill.CRAFTING, 137.5);
             return true;
 		}
 		if ((itemUsed == 575 && withItem == 1391) || (withItem == 575 && itemUsed == 1391)) // Earth
@@ -157,7 +157,7 @@ public class BasicCraft {
 			player.getInventory().removeItem(new Item(itemUsed));
 			player.getInventory().removeItem(new Item(withItem));
 			player.getInventory().addItem(new Item(1399));
-			player.getSkill().addExp(Skill.CRAFTING, 137.5);
+			player.getSkill().addExp(Skill.CRAFTING, 112.5);
             return true;
 		}
 		/* coloring capes */
