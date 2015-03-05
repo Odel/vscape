@@ -3,6 +3,7 @@ package com.rs2.model.content.quests;
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -11,15 +12,28 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 
-public class TemplateQuest implements Quest {
+public class Biohazard implements Quest {
 
-	public static final int questIndex = -1; //Used in player's quest log interface, id is in Player.java, Change
+	public static final int questIndex = 7352;
 	//Quest stages
 	public static final int QUEST_STARTED = 1;
 	public static final int QUEST_COMPLETE = 2;
 
 	//Items
-	public static final int ITEM = -1;
+	public static final int ETHENEA = 415;
+	public static final int LIQUID_HONEY = 416;
+	public static final int SULFURIC_BROLINE = 417;
+	public static final int PLAGUE_SAMPLE = 418;
+	public static final int TOUCH_PAPER = 419;
+	public static final int DISTILLATOR = 420;
+	public static final int LATHAS_AMULET = 421;
+	public static final int BIRD_FEED = 422;
+	public static final int KEY = 423;
+	public static final int PIGEON_CAGE_FULL = 424;
+	public static final int PIGEON_CAGE_EMPTY = 425;
+	public static final int PRIEST_GOWN_TOP = 426;
+	public static final int PRIEST_GOWN_BOTTOM = 428;
+	public static final int DOCTORS_GOWN = 430;
 
 	//Positions
 	public static final Position POSITION = new Position(0, 0, 0);
@@ -28,29 +42,46 @@ public class TemplateQuest implements Quest {
 	public static final int INTERFACE = -1;
 
 	//Npcs
-	public static final int NPC = -1;
+	public static final int ELENA = 3209;
+	public static final int KING_LATHAS = 364;
+	public static final int JERICO = 366;
+	public static final int CHEMIST = 367;
+	public static final int GUARD = 368;
+	public static final int NURSE_SARAH = 373;
+	public static final int DA_VINCI = 336;
+	public static final int CHANCY = 338;
+	public static final int HOPS_DRINKING = 340;
+	public static final int HOPS = 341;
+	public static final int GUIDORS_WIFE = 342;
+	public static final int GUIDOR = 343;
+	public static final int GUARD_1 = 344;
+	public static final int GUARD_2 = 345;
+	public static final int GUARD_3 = 346;
+	public static final int KILRON = 349;
+	public static final int OMART = 350;
 
 	//Objects
-	public static final int OBJECT = -1;
+	public static final int ELENAS_DOOR = 2054;
 
 	private int reward[][] = { //{itemId, count},
 	};
 
 	private int expReward[][] = { //{skillId, exp},
+		{Skill.THIEVING, 1250}
 	};
 
-	private static final int questPointReward = 1; //Change
+	private static final int questPointReward = 3; //Change
 
 	public int getQuestID() { //Change
-		return -1;
+		return 40;
 	}
 
 	public String getQuestName() { //Change
-		return "Template";
+		return "Biohazard";
 	}
 
 	public String getQuestSaveName() { //Change
-		return "Template";
+		return "biohazard";
 	}
 
 	public boolean canDoQuest(final Player player) {
@@ -81,11 +112,11 @@ public class TemplateQuest implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, ITEM); //zoom, then itemId
+		player.getActionSender().sendItemOnInterface(12145, 250, DISTILLATOR); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
-		player.getActionSender().sendString("1 Quest Point", 12150);
-		player.getActionSender().sendString("", 12151);
+		player.getActionSender().sendString("3 Quest Points", 12150);
+		player.getActionSender().sendString("2812.5 Thieving XP", 12151);
 		player.getActionSender().sendString("", 12152);
 		player.getActionSender().sendString("", 12153);
 		player.getActionSender().sendString("", 12154);
@@ -99,12 +130,8 @@ public class TemplateQuest implements Quest {
 		int questStage = player.getQuestStage(getQuestID());
 		int lastIndex = 0;
 		switch(questStage) { 
-			/**The last index of the text sent for that quest stage which persists
-			through the entire quest, striked or not (i.e, shit sent below)
-			Remember if there is no new persistent entry for that stage, stack the case with
-			the last case that started the newest persistent entry, to keep lastIndex correct **/
 			case QUEST_STARTED:
-				lastIndex = 4;
+				lastIndex = 5;
 				break;
 			case QUEST_COMPLETE:
 				lastIndex = 26;
@@ -112,28 +139,24 @@ public class TemplateQuest implements Quest {
 		}
 		lastIndex++;
 		
-		//Quest log entries that persist past each stage, line which to send (1 = first, etc)
-		//And the quest stage which it first appears, after that stage it'll @str@, strikethrough
 		ActionSender a = player.getActionSender();
-		a.sendQuestLogString("Talk to ______ in the ______ to begin.", 1, this.getQuestID(), 0);
-		a.sendQuestLogString("____ told me to do ______", 3, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("I should do this.", 4, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("Talk to Elena in East Ardougne to begin.", 1, this.getQuestID(), 0);
+		a.sendQuestLogString("Elena told me to talk to her father's old friend", 3, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("Jerico in order to try and gain access to West", 4, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("Ardougne again", 5, this.getQuestID(), QUEST_STARTED);
 		
-		switch (questStage) { //Quest stages where you send additional information that is not stored
-			//or striked out past that stage.
+		switch (questStage) {
 			default:
 				break;
 			case 0:
-				//Not started quest journal shit, no need to use lastIndex
-				a.sendQuestLogString("Talk to @dre@____ @bla@in the @dre@______ @bla@to begin.", 1);
+				a.sendQuestLogString("Talk to @dre@Elena @bla@in @dre@East Ardougne @bla@to begin.", 1);
 				a.sendQuestLogString("@dre@Requirements:", 3);
+				a.sendQuestLogString((QuestHandler.questCompleted(player, 39) ? "@str@" : "@dbl@") + "Plague City", 4);
 				break;
 			case QUEST_STARTED:
-				//Last index + index of new information (1 = first, etc)
 				a.sendQuestLogString("Additional information", lastIndex + 1);
 				break;
 			case QUEST_COMPLETE:
-				//Same here, first line after the last entry that persists for the whole quest
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
 				break;
 		}
@@ -200,8 +223,13 @@ public class TemplateQuest implements Quest {
 	}
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
+		int pX = player.getPosition().getX();
+		int pY = player.getPosition().getY();
 		switch (object) {
-			case OBJECT:
+			case ELENAS_DOOR:
+				player.getActionSender().walkThroughDoor(object, x, y, 0);
+				player.getActionSender().walkTo(pX == x ? 0 : pX < x ? 1 : -1, pY < 3339 ? 1 : -1, true);
+				player.reloadRegion();
 				return true;
 		}
 		return false;
@@ -221,7 +249,7 @@ public class TemplateQuest implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
-			case NPC:
+			case ELENA:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case QUEST_COMPLETE:
 						switch (d.getChatId()) {

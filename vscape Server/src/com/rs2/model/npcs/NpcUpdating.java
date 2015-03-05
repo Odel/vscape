@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.players.Player;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
@@ -79,6 +80,9 @@ public class NpcUpdating {
 	}
 
 	public static void addNewNpc(StreamBuffer.OutBuffer out, Player player, Npc npc) {
+		if(npc.getNpcId() == 3209 && !QuestHandler.questCompleted(player, 39)) {
+			return;
+		}
 		out.writeBits(14, npc.getIndex());
 		Position delta = Misc.delta(player.getPosition(), npc.getPosition());
 		out.writeBits(5, delta.getY());
