@@ -63,12 +63,9 @@ public class QuestHandler {
 	new MonkeyMadness(),
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
-<<<<<<< HEAD
-    	new ClockTower()
-=======
+    new ClockTower(),
 	new PlagueCity(),
 	//new Biohazard()
->>>>>>> upstream/master
     };
     
     public static void init() {

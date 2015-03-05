@@ -193,22 +193,15 @@ public class ClockTower implements Quest{
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 
-	@Override
-	public void dialogue(Player player, Npc npc) {
-		// TODO Do i need this? Pickles seems to think no, check more of the other quests
-		
-	}
+	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+		switch (object) {
 
-	@Override
-	public int getDialogueStage(Player player) {
-		// TODO Auto-generated method stub
-		return dialogueStage;
+		}
+		return false;
 	}
+	
+	public void handleDeath(final Player player, final Npc died) {
 
-	@Override
-	public void setDialogueStage(int i) {
-		dialogueStage = i;
-		
 	}
 
 	@Override

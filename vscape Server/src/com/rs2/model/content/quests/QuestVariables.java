@@ -73,13 +73,11 @@ public class QuestVariables {
     public boolean natureSpiritFungusPlaced = false;
     public boolean natureSpiritSpellPlaced = false;
     private int ghastsSlain = 0;
-<<<<<<< HEAD
     public boolean blackCogPlaced = false;
     public boolean blueCogPlaced = false;
     public boolean redCogPlaced = false;
     public boolean whiteCogPlaced = false;
     public boolean blackCogQuenched = false;
-=======
     private boolean firstMortMyreBridgeFixed = false;
     private boolean secondMortMyreBridgeFixed = false;
     private boolean thirdMortMyreBridgeFixed = false;
@@ -90,7 +88,6 @@ public class QuestVariables {
     public boolean allowedToSeeBravek = false;
     public boolean healedHangover = false;
     private boolean canTeleportArdougne = false;
->>>>>>> upstream/master
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -454,7 +451,6 @@ public class QuestVariables {
 	this.ghastsSlain = set;
     }
     
-<<<<<<< HEAD
     public boolean getBlueCogPlaced() {
     	return this.blueCogPlaced;
     }
@@ -492,7 +488,7 @@ public class QuestVariables {
     public void setBlackCogQuenched(boolean set) {
     	this.blackCogQuenched = set;
     }
-=======
+
     public void setMortMyreBridgeFixed(int number, boolean set) {
 	switch(number) {
 	    case 1:
@@ -526,5 +522,4 @@ public class QuestVariables {
 	    this.canTeleportArdougne = set;
     }
     
->>>>>>> upstream/master
 }
