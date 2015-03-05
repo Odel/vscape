@@ -1,5 +1,9 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+21:1:2613:9639:0:5 //black cog clock tower
+23:1:2583:9613:0:5 //red cog clock tower
+22:1:2573:9633:0:5 //blue cog clock tower
+24:1:2564:9662:0:5 //rat poison clock tower
 2957:1:3443:9741:1:30 //druid pouch nature spirit
 2957:1:3443:9741:0:30 //druid pouch nature spirit
 2964:1:3437:3337:0:10 //washing bowl nature spirit

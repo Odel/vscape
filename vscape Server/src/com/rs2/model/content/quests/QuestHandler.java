@@ -62,7 +62,8 @@ public class QuestHandler {
 	new RecruitmentDrive(),
 	new MonkeyMadness(),
 	new NatureSpirit(),
-	new InSearchOfTheMyreque()
+	new InSearchOfTheMyreque(),
+    	new ClockTower()
     };
     
     public static void init() {
@@ -256,6 +257,9 @@ public class QuestHandler {
 		case 46131: //In Search of the Myreque
 			//showInterface(player,quests[38]);
         		return true;
+		case 28185: //Clock Tower
+			showInterface(player,quests[39]);
+			return true;
         }
         return false;
     }

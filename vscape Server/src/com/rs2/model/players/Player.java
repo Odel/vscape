@@ -4629,7 +4629,7 @@ public class Player extends Entity {
 		getActionSender().sendString("", 6987);//a fairy tale pt 1
 		getActionSender().sendString("", 16149); //enakhra's lament
 		getActionSender().sendString("", 15841); //devious minds
-		getActionSender().sendString("", 7353); //clock tower
+		getActionSender().sendString("@red@Clock Tower", 7353); //clock tower
 		getActionSender().sendString("", 682); //members quests lel
 		getActionSender().sendString("Animal Magnetism", 12772); //the quest formerly known as Between a rock...
 		getActionSender().sendString("", 673); //big chompy bird hunting

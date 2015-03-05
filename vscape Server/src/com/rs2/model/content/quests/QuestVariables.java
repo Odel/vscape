@@ -73,6 +73,11 @@ public class QuestVariables {
     public boolean natureSpiritFungusPlaced = false;
     public boolean natureSpiritSpellPlaced = false;
     private int ghastsSlain = 0;
+    public boolean blackCogPlaced = false;
+    public boolean blueCogPlaced = false;
+    public boolean redCogPlaced = false;
+    public boolean whiteCogPlaced = false;
+    public boolean blackCogQuenched = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -434,5 +439,43 @@ public class QuestVariables {
     
     public void setGhastsSlain(int set) {
 	this.ghastsSlain = set;
+    }
+    
+    public boolean getBlueCogPlaced() {
+    	return this.blueCogPlaced;
+    }
+    
+    public void setBlueCogPlaced(boolean set) {
+    	this.blueCogPlaced = set;
+    }
+    
+    public boolean getBlackCogPlaced() {
+    	return this.blackCogPlaced;
+    }
+    
+    public void setBlackCogPlaced(boolean set) {
+    	this.blackCogPlaced = set;
+    }
+    public boolean getRedCogPlaced() {
+    	return this.redCogPlaced;
+    }
+    
+    public void setRedCogPlaced(boolean set) {
+    	this.redCogPlaced = set;
+    }
+    public boolean getWhiteCogPlaced() {
+    	return this.whiteCogPlaced;
+    }
+    
+    public void setWhiteCogPlaced(boolean set) {
+    	this.whiteCogPlaced = set;
+    }
+    
+    public boolean getBlackCogQuenched() {
+    	return this.blackCogQuenched;
+    }
+    
+    public void setBlackCogQuenched(boolean set) {
+    	this.blackCogQuenched = set;
     }
 }
