@@ -83,6 +83,8 @@ public class QuestVariables {
     public boolean allowedToSeeBravek = false;
     public boolean healedHangover = false;
     private boolean canTeleportArdougne = false;
+    public boolean watchtowerDistracted = false;
+    public boolean birdSeedThrown = false;
     
     public QuestVariables(final Player player) {
 	this.player = player;

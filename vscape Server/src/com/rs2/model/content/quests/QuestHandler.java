@@ -64,7 +64,7 @@ public class QuestHandler {
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
 	new PlagueCity(),
-	//new Biohazard()
+	new Biohazard()
     };
     
     public static void init() {
@@ -263,7 +263,7 @@ public class QuestHandler {
 			showInterface(player,quests[39]);
         		return true;
 		case 28184: //Biohazard
-			//showInterface(player,quests[40]);
+			showInterface(player,quests[40]);
         		return true;
         }
         return false;

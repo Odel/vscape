@@ -718,6 +718,11 @@ public class PlagueCity implements Quest {
 				}
 				return false;
 			case MANHOLE:
+				if(player.getQuestStage(40) > 0) {
+					player.getDialogue().sendPlayerChat("Hmm, looks like they've buried this pipe in rubble.", "I'll have to use Kilron and Omart to get back", "across the wall.");
+					player.getDialogue().endDialogue();
+					return true;
+				}
 				Ladders.climbLadderDown(player, DOWN_FROM_MANHOLE);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					@Override
@@ -744,6 +749,11 @@ public class PlagueCity implements Quest {
 				}, 3);
 				return true;
 			case PIPE:
+				if(player.getQuestStage(40) > 0) {
+					player.getDialogue().sendStatement("The pipe has been blocked from the surface.", "You'll have to find another way in.");
+					player.getDialogue().endDialogue();
+					return true;
+				}
 				if (player.getQuestStage(this.getQuestID()) < GRILL_PULLED) {
 					player.getDialogue().sendStatement("There is a large metal grill blocking the way.");
 					player.getDialogue().endDialogue();
