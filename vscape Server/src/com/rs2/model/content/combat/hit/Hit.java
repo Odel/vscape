@@ -32,6 +32,7 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.AnimalMagnetism;
+import com.rs2.model.content.quests.Biohazard;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.FamilyCrest;
 import com.rs2.model.content.quests.GoblinDiplomacy;
@@ -233,6 +234,13 @@ public class Hit {
 				if(playerA.wearingCwBracelet() && playerV.carryingCwBanner()){
 					 damage *= 1.2;
 				}
+			}
+		}
+		if(victim != null && victim.isPlayer() && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
+			Player player = (Player)victim;
+			if(player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+				player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+				player.getActionSender().sendMessage("The fragile plague sample breaks upon you being hit!");
 			}
 		}
 		if(attacker != null && victim != null && attacker.isPlayer()) {

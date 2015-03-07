@@ -445,6 +445,15 @@ public class PlayerSaveParser {
 				if(questVars.get("canTeleArdy") != null) {
 					player.getQuestVars().setCanTeleportArdougne(questVars.get("canTeleArdy").getAsBoolean());
 				}
+				if(questVars.get("vialChancy") != null) {
+					player.getQuestVars().setVialGivenToChancy(questVars.get("vialChancy").getAsInt());
+				}
+				if(questVars.get("vialDaVinci") != null) {
+					player.getQuestVars().setVialGivenToDaVinci(questVars.get("vialDaVinci").getAsInt());
+				}
+				if(questVars.get("vialHops") != null) {
+					player.getQuestVars().setVialGivenToHops(questVars.get("vialHops").getAsInt());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

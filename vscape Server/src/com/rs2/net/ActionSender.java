@@ -456,6 +456,9 @@ public class ActionSender {
 		if(id == 11422 && player.getQuestStage(39) >= 5) {
 			return this;
 		}
+		/*if(id == 2065 && player.getQuestStage(39) < 4) {
+			return this;
+		}*/
 		sendCoords(new Position(x, y, h));
 		sendObjectType(face, type);
 		if (id != -1) {
@@ -1218,6 +1221,16 @@ public class ActionSender {
 		new GameObject(Constants.EMPTY_OBJECT, x2, y2, z, g2.getRotation(), 0,
 				id2, 3, false);
 	}
+	
+	public void walkThroughGateEW(final int id1, final int id2, final int x1, final int y1, final int x2, final int y2, final int h) {
+		final CacheObject g = ObjectLoader.object(id1, x1, y1, h);
+		final CacheObject g2 = ObjectLoader.object(id2, x2, y2, h);
+		final int z = player.getPosition().getZ();
+		new GameObject(id1, x1 - 2, y1 - 1, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+		new GameObject(id2, x2 - 1, y2, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+		new GameObject(Constants.EMPTY_OBJECT, x1, y1, z, g2.getRotation(), 0, id1, 3, false);
+		new GameObject(Constants.EMPTY_OBJECT, x2, y2, z, g2.getRotation(), 0, id2, 3, false);
+	}
 
 	public void walkThroughDoor2(final int id1, final int id2, final int x1,
 			final int y1, final int x2, final int y2, final int h) {
@@ -1266,8 +1279,7 @@ public class ActionSender {
 	public void walkThroughDoor(final int id1, final int x1, final int y1,
 			final int h) {
 		final CacheObject g = ObjectLoader.object(id1, x1, y1, h);
-		new GameObject(id1, x1, y1, h, g.getRotation() - 1, 0, id1, 2,
-				g.getRotation(), x1, y1, false);
+		new GameObject(id1, x1, y1, h, g.getRotation() - 1, 0, id1, 2, g.getRotation(), x1, y1, false);
 	}
 	public void walkThroughDoor(final int id1, final int x1, final int y1,
 			final int h, final int type, final int face) {

@@ -85,6 +85,9 @@ public class QuestVariables {
     private boolean canTeleportArdougne = false;
     public boolean watchtowerDistracted = false;
     public boolean birdSeedThrown = false;
+    private int vialGivenToChancy = 0;
+    private int vialGivenToDaVinci = 0;
+    private int vialGivenToHops = 0;
     
     public QuestVariables(final Player player) {
 	this.player = player;
@@ -479,6 +482,30 @@ public class QuestVariables {
     
     public void setCanTeleportArdougne(boolean set) {
 	    this.canTeleportArdougne = set;
+    }
+    
+    public void setVialGivenToChancy(int set) {
+	    this.vialGivenToChancy = set;
+    }
+    
+    public void setVialGivenToDaVinci(int set) {
+	    this.vialGivenToDaVinci = set;
+    }
+    
+    public void setVialGivenToHops(int set) {
+	    this.vialGivenToHops = set;
+    }
+    
+    public int getVialGivenToChancy() {
+	    return this.vialGivenToChancy;
+    }
+    
+    public int getVialGivenToDaVinci() {
+	    return this.vialGivenToDaVinci;
+    }
+    
+    public int getVialGivenToHops() {
+	    return this.vialGivenToHops;
     }
     
 }

@@ -282,21 +282,23 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	
 	if (item.getDefinition().isUntradable() || item.getId() == 763 || item.getId() == 765 || item.getId() == 769 || item.getId() == 288 || item.getId() == 10498 || item.getId() == 10499) {
-	    if (Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
-		String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
-		for (String[] element : info) {
-		    player.getActionSender().sendString(element[0], Integer.parseInt(element[1]));
+		if (item.getId() != 415 && item.getId() != 416 && item.getId() != 417) {
+			if (Degradeables.notDroppable(Degradeables.getDegradeableItem(item), item)) {
+				String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make it break completely.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
+				for (String[] element : info) {
+					player.getActionSender().sendString(element[0], Integer.parseInt(element[1]));
+				}
+			} else {
+				String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make you lose it forever.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
+				for (String[] element : info) {
+					player.getActionSender().sendString(element[0], Integer.parseInt(element[1]));
+				}
+			}
+			player.getActionSender().sendUpdateItem(item, 0, 14171, 1);
+			player.setDestroyItem(item);
+			player.getActionSender().sendChatInterface(14170);
+			return;
 		}
-	    } else {
-		String[][] info = {{"Are you sure you want to drop this item?", "14174"}, {"Yes.", "14175"}, {"No.", "14176"}, {"", "14177"}, {"Dropping this item will make you lose it forever.", "14182"}, {"", "14183"}, {item.getDefinition().getName(), "14184"}};
-		for (String[] element : info) {
-		    player.getActionSender().sendString(element[0], Integer.parseInt(element[1]));
-		}
-	    }
-	    player.getActionSender().sendUpdateItem(item, 0, 14171, 1);
-	    player.setDestroyItem(item);
-	    player.getActionSender().sendChatInterface(14170);
-	    return;
 	}
 	if (player.getInventory().getItemContainer().contains(item.getId())) {
 	    player.getActionSender().sendSound(376, 1, 0);

@@ -1,15 +1,19 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
+import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
@@ -29,12 +33,17 @@ public class Biohazard implements Quest {
 	public static final int DISTRACT_WATCHTOWER = 3;
 	public static final int OVER_WALL = 4;
 	public static final int STEW_POISONED = 5;
-	public static final int QUEST_COMPLETE = 20;
+	public static final int DISTILLATOR_GET = 6;
+	public static final int NEED_TOUCH_PAPER = 7;
+	public static final int TOUCH_PAPER_GET = 8;
+	public static final int EXPERIMENT_SUCCESS = 9;
+	public static final int TALK_TO_LATHAS = 10;
+	public static final int QUEST_COMPLETE = 11;
 
 	//Items
 	public static final int ETHENEA = 415;
 	public static final int LIQUID_HONEY = 416;
-	public static final int SULFURIC_BROLINE = 417;
+	public static final int SULPHURIC_BROLINE = 417;
 	public static final int PLAGUE_SAMPLE = 418;
 	public static final int TOUCH_PAPER = 419;
 	public static final int DISTILLATOR = 420;
@@ -46,6 +55,7 @@ public class Biohazard implements Quest {
 	public static final int PRIEST_GOWN_TOP = 426;
 	public static final int PRIEST_GOWN_BOTTOM = 428;
 	public static final int DOCTORS_GOWN = 430;
+	public static final int ROTTEN_APPLE = 1984;
 
 	//Positions
 	public static final Position POSITION = new Position(0, 0, 0);
@@ -62,8 +72,8 @@ public class Biohazard implements Quest {
 	public static final int NURSE_SARAH = 373;
 	public static final int DA_VINCI = 336;
 	public static final int CHANCY = 338;
-	public static final int HOPS_DRINKING = 340;
-	public static final int HOPS = 341;
+	public static final int HOPS = 340;
+	public static final int HOPS_VARROCK = 341;
 	public static final int GUIDORS_WIFE = 342;
 	public static final int GUIDOR = 343;
 	public static final int GUARD_1 = 344;
@@ -79,6 +89,13 @@ public class Biohazard implements Quest {
 	public static final int WATCHTOWER = 2067;
 	public static final int ROPE_LADDER = 2065;
 	public static final int MOURNER_DOOR = 2036;
+	public static final int MOURNER_FENCE = 2068;
+	public static final int MOURNER_GATE_1 = 2058;
+	public static final int MOURNER_GATE_2 = 2060;
+	public static final int CRATE = 2064;
+	public static final int CAULDRON = 2043;
+	public static final int GATE = 2050;
+	public static final int GUIDORS_DOOR = 2032;
 
 	private int reward[][] = { //{itemId, count},
 	};
@@ -159,6 +176,12 @@ public class Biohazard implements Quest {
 			case OVER_WALL:
 				lastIndex = 14;
 				break;
+			case STEW_POISONED:
+				lastIndex = 18;
+				break;
+			case DISTILLATOR_GET:
+				lastIndex = 20;
+				break;
 			case QUEST_COMPLETE:
 				lastIndex = 26;
 				break;
@@ -176,6 +199,15 @@ public class Biohazard implements Quest {
 		a.sendQuestLogString("mourners at the nearby watchtower distracted.", 11, this.getQuestID(), DISTRACT_WATCHTOWER);
 		a.sendQuestLogString("I managed to get over the West Ardougne wall with", 13, this.getQuestID(), OVER_WALL);
 		a.sendQuestLogString("Omart's help.", 14, this.getQuestID(), OVER_WALL);
+		a.sendQuestLogString("I snuck in the back of the mourner's main building", 16, this.getQuestID(), STEW_POISONED);
+		a.sendQuestLogString("and poisoned their stew with a rotten apple. This", 17, this.getQuestID(), STEW_POISONED);
+		a.sendQuestLogString("should allow me to pretend to be a doctor to get in.", 18, this.getQuestID(), STEW_POISONED);
+		a.sendQuestLogString("I found Elena's distillator.", 20, this.getQuestID(), DISTILLATOR_GET);
+		a.sendQuestLogString("Elena's test on the plague sample seemed to fail.", 22, this.getQuestID(), NEED_TOUCH_PAPER);
+		a.sendQuestLogString("She has asked me to help her make it work, starting", 23, this.getQuestID(), NEED_TOUCH_PAPER);
+		a.sendQuestLogString("by getting another piece of 'touch paper' from the", 24, this.getQuestID(), NEED_TOUCH_PAPER);
+		a.sendQuestLogString("Chemist in Rimmington.", 25, this.getQuestID(), NEED_TOUCH_PAPER);
+		
 		switch (questStage) {
 			default:
 				break;
@@ -192,6 +224,15 @@ public class Biohazard implements Quest {
 				a.sendQuestLogString("I should investigate and find where", lastIndex + 1);
 				a.sendQuestLogString("the mourners took Elena's distillator. I imagine it's", lastIndex + 2);
 				a.sendQuestLogString("in the locked building where they all gather.", lastIndex + 3);
+				break;
+			case DISTILLATOR_GET:
+				a.sendQuestLogString("I should return the distillator to Elena and", lastIndex + 1);
+				a.sendQuestLogString("see what she'd have me do next.", lastIndex + 2);
+				break;
+			case NEED_TOUCH_PAPER:
+				a.sendQuestLogString("Elena mentioned that the plague sample is very", lastIndex + 1);
+				a.sendQuestLogString("fragile. I should avoid any form of teleport", lastIndex + 2);
+				a.sendQuestLogString("and combat.", lastIndex + 3);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -328,6 +369,28 @@ public class Biohazard implements Quest {
 
 	public boolean doItemOnObject(final Player player, int object, int item) {
 		switch(object) {
+			case CAULDRON:
+				if(item == ROTTEN_APPLE && player.getQuestStage(this.getQuestID()) == OVER_WALL) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You place the rotten apple in the cauldron...");
+					player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+					player.getInventory().removeItem(new Item(ROTTEN_APPLE));
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.setQuestStage(40, STEW_POISONED);
+							player.getActionSender().sendMessage("and it quickly dissolves in the stew.");
+						}
+					}, 4);
+					return true;
+				}
+			return false;
 			case WATCHTOWER:
 				if(item == BIRD_FEED && player.getQuestStage(this.getQuestID()) == DISTRACT_WATCHTOWER) {
 					player.getActionSender().sendMessage("You steathily throw a handful of feed onto the watchtower.");
@@ -352,15 +415,110 @@ public class Biohazard implements Quest {
 		int pX = player.getPosition().getX();
 		int pY = player.getPosition().getY();
 		switch (object) {
-			case MOURNER_DOOR:
-				if (x == 2551 && y == 3320) {
-					if (player.getQuestStage(40) < STEW_POISONED) {
-						player.getDialogue().setLastNpcTalk(369);
-						player.getDialogue().sendNpcChat("Sorry, no one is allowed in at this point in time.");
-						player.getDialogue().endDialogue();
-						
+			case GUIDORS_DOOR:
+				if(x == 3282 && y == 3382) {
+					if(pX < 3283) {
+						if(player.getEquipment().getId(Constants.CHEST) == PRIEST_GOWN_TOP && player.getEquipment().getId(Constants.LEGS) == PRIEST_GOWN_BOTTOM) {
+							player.getActionSender().sendMessage("Guidor's wife allows you to go in.");
+							player.getActionSender().walkThroughDoor(object, x, y, 0);
+							player.getActionSender().walkTo(1, pY == y ? 0 : pY < y ? 1 : -1, true);
+						} else {
+							Dialogues.startDialogue(player, GUIDORS_WIFE);
+						}
 					} else {
-
+						player.getActionSender().walkThroughDoor(object, x, y, 0);
+						player.getActionSender().walkTo(-1, pY == y ? 0 : pY < y ? 1 : -1, true);
+					}
+					return true;
+				}
+			return false;
+			case GATE:
+			case GATE + 1:
+				if((x == 3264 && y == 3405) || (x == 3264 && y == 3406)) {
+					if(pX < 3264) {
+						Dialogues.startDialogue(player, GATE+10000);
+					} else {
+						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0);
+						player.getActionSender().walkTo(-1, 0, true);	
+					}
+					return true;
+				}
+			return false;
+			case CRATE:
+				if(x == 2554 && y == 3327) {
+					player.getActionSender().sendMessage("You search the crate...");
+					player.getUpdateFlags().sendAnimation(832);
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if (!player.getInventory().ownsItem(DISTILLATOR)) {
+								player.getActionSender().sendMessage("and find Elena's distillator.");
+								player.getInventory().addItemOrDrop(new Item(DISTILLATOR));
+								if(player.getQuestStage(40) == STEW_POISONED) {
+									player.setQuestStage(40, DISTILLATOR_GET);
+								}
+							} else {
+								player.getActionSender().sendMessage("You find nothing of interest.");
+							}
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					return true;
+				}
+			return false;
+			case MOURNER_GATE_1:
+			case MOURNER_GATE_2:
+				if(x == 2551 && (y == 3326 || y == 3325)) {
+					if(pX < 2552) {
+						if(player.getInventory().playerHasItem(KEY)) {
+							player.getInventory().removeItem(new Item(KEY));
+							player.getActionSender().sendMessage("You unlock the gates and walk through them.");
+							player.getActionSender().walkThroughDoubleDoor(MOURNER_GATE_1, MOURNER_GATE_2, 2551, 3326, 2551, 3325, 1);
+							player.getActionSender().walkTo(1, 0, true);
+						} else {
+							player.getDialogue().sendStatement("These gates are locked firmly.");
+						}
+					} else {
+						player.getActionSender().walkThroughDoubleDoor(MOURNER_GATE_1, MOURNER_GATE_2, 2551, 3326, 2551, 3325, 1);
+						player.getActionSender().walkTo(-1, 0, true);
+					}
+					return true;
+				}
+			return false;
+			case MOURNER_FENCE:
+				if(x == 2541 && y == 3331) {
+					if (player.getPosition().getX() < 2542) {
+						Agility.crossObstacle(player, 2542, 3331, 756, 2, 0, 0);
+						player.getActionSender().sendMessage("You squeeze through the fence.");
+					} else {
+						Agility.crossObstacle(player, 2541, 3331, 754, 2, 0, 0);
+						player.getActionSender().sendMessage("You squeeze through the fence.");
+					}
+					return true;
+				}
+				return false;
+			case MOURNER_DOOR:
+				if (x == 2551 && y == 3328) {
+					player.getActionSender().sendMessage("This door is locked.");
+					return true;
+				}
+				if (x == 2551 && y == 3320) {
+					if (player.getPosition().getY() < 3321) {
+						if (player.getQuestStage(40) < STEW_POISONED) {
+							player.getDialogue().setLastNpcTalk(357);
+							player.getDialogue().sendNpcChat("Sorry, no one is allowed in at this point in time.");
+							player.getDialogue().endDialogue();
+						} else {
+							Dialogues.startDialogue(player, MOURNER_DOOR + 10000);
+						}
+					} else {
+						player.getActionSender().walkThroughDoor(MOURNER_DOOR, 2551, 3320, 0);
+						player.getActionSender().walkTo(player.getPosition().getX() == 2551 ? 0 : player.getPosition().getX() < 2551 ? 1 : -1, -1, true);
 					}
 					return true;
 				}
@@ -419,8 +577,825 @@ public class Biohazard implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case KING_LATHAS:
+				switch (player.getQuestStage(40)) {
+					case TALK_TO_LATHAS:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("I assume that you are the King of East Ardougne?");
+								return true;
+							case 2:
+								d.sendNpcChat("You assume correctly, but where do you get such", "impertinence.", ANGRY_1);
+								return true;
+							case 3:
+								d.sendPlayerChat("I get it from finding out that the plague is a hoax.");
+								return true;
+							case 4:
+								d.sendNpcChat("A hoax? I've never heard such a ridiculous thing...", ANGRY_1);
+								return true;
+							case 5:
+								d.sendPlayerChat("I have evidence, from Guidor of Varrock.");
+								return true;
+							case 6:
+								d.sendNpcChat("Ah... I see. Well, then you are right about the plague.", "But I did it for the good of my people.");
+								return true;
+							case 7:
+								d.sendPlayerChat("When is it ever good to lie to people like that?");
+								return true;
+							case 8:
+								d.sendNpcChat("When it protects them from a far greater danger, a", "fear too big to fathom.");
+								return true;
+							case 9:
+								d.sendOption("I don't understand...", "Well I've wasted enough of my time here.");
+								return true;
+							case 10:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.endDialogue();
+								return true;
+							case 11:
+								d.sendNpcChat("Their King, Tyras, journeyed out to the West on a", "voyage of discovery. But he was captured by the Dark", "Lord.");
+								return true;
+							case 12:
+								d.sendNpcChat("The Dark Lord agreed to spare his life, but only on", "one condition... That he would drink from the Chalice of", "Eternity.");
+								return true;
+							case 13:
+								d.sendPlayerChat("So what happened?");
+								return true;
+							case 14:
+								d.sendNpcChat("The chalice corrupted him. He joined forces with the", "Dark Lord, the embodiment of pure evil, banished all", "those years ago...", SAD);
+								return true;
+							case 15:
+								d.sendNpcChat("And so I erected this wall, not just to protect my", "people, but to protect all the people of /v/scape.");
+								return true;
+							case 16:
+								d.sendNpcChat("Now, with the King of West Ardougne, the Dark Lord", "has an ally on the inside.");
+								return true;
+							case 17:
+								d.sendNpcChat("So, I'm sorry that I lied about the plague. I just hope", "that you can understand my reasons.");
+								return true;
+							case 18:
+								d.sendPlayerChat("Well, at least I know now.", "But what can we do about it?");
+								return true;
+							case 19:
+								d.sendNpcChat("Nothing at the moment, I'm waiting for my scouts to", "come back. They will tell us how we can get through", "the mountains.");
+								return true;
+							case 20:
+								d.sendNpcChat("When this happens, can I count on your support?");
+								return true;
+							case 21:
+								d.sendPlayerChat("Absolutely!");
+								return true;
+							case 22:
+								d.sendNpcChat("Thank the gods! I give you permission to use my", "trainng area.");
+								return true;
+							case 23:
+								d.sendNpcChat("It's located just to the north west of Ardougne, there", "you can prepare for the challenge ahead.");
+								return true;
+							case 24:
+								d.sendPlayerChat("Ok. There's just one thing I don't understand, how", "do you know so much about King Tyras?");
+								return true;
+							case 25:
+								d.sendNpcChat("How could I not? He was my brother.");
+								return true;
+							case 26:
+								d.dontCloseInterface();
+								QuestHandler.completeQuest(player, 40);
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case GUIDOR:
+				switch (d.getChatId()) {
+					case 1:
+						if(player.getQuestStage(40) == EXPERIMENT_SUCCESS) {
+							d.sendPlayerChat("What should I do?");
+							d.setNextChatId(25);
+						} else {
+							d.sendPlayerChat("Hello, you must be Guidor. I understand that you are", "unwell.");
+						}
+						return true;
+					case 2:
+						d.sendNpcChat("Is my wife asking priests to visit me now? I'm a man", "of science for god's sake.", ANGRY_1);
+						return true;
+					case 3:
+						d.sendNpcChat("Ever since she heard rumors of a plague carrier", "travelling from Ardougne she's kept me under house", "arrest.");
+						if(player.getQuestStage(40) < TOUCH_PAPER_GET)
+							d.endDialogue();
+						return true;
+					case 4:
+						d.sendNpcChat("Of course she means well, and I am quite frail now...", "So what brings you here?");
+						return true;
+					case 5:
+						d.sendOption("I've come to ask your assistance in stopping a plague.", "I was just going to bless your room and I've done that now.");
+						return true;
+					case 6:
+						d.sendPlayerChat(d.tempStrings[optionId - 1]);
+						if(optionId == 2)
+							d.endDialogue();
+						return true;
+					case 7:
+						d.sendNpcChat("So you're the plague carrier!", DISTRESSED);
+						return true;
+					case 8:
+						d.sendPlayerChat("I've been sent by your old pupil Elena, she's trying", "to halt the virus.");
+						return true;
+					case 9:
+						d.sendNpcChat("Elena, eh?");
+						return true;
+					case 10:
+						d.sendPlayerChat("Yes, she wants you to analyze it. You might be the", "only one who can help.");
+						return true;
+					case 11:
+						d.sendNpcChat("Right then, sounds like we'd better get to work!");
+						return true;
+					case 12:
+						if(player.getInventory().playerHasItem(PLAGUE_SAMPLE)) {
+							d.sendPlayerChat("I have the plague sample.");
+						} else {
+							d.sendPlayerChat("Well, we could, but it seems I've forgotten", "the plague sample. I'll have to come back.");
+							d.endDialogue();
+						}
+						return true;
+					case 13:
+						d.sendNpcChat("Now I'll be needing some liquid honey, some sulphuric", "broline, and then...");
+						return true;
+					case 14:
+						d.sendPlayerChat("...some ethenea?");
+						return true;
+					case 15:
+						d.sendNpcChat("Indeed!");
+						return true;
+					case 16:
+						if(player.getInventory().playerHasItem(ETHENEA) && !player.getInventory().playerHasItem(LIQUID_HONEY) && player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+							if(player.getInventory().playerHasItem(TOUCH_PAPER)) {
+								d.sendNpcChat("Now I'll just apply these to the sample and... I don't", "get it... the touch paper has remained the same.");
+								player.getInventory().removeItem(new Item(ETHENEA));
+								player.getInventory().removeItem(new Item(LIQUID_HONEY));
+								player.getInventory().removeItem(new Item(SULPHURIC_BROLINE));
+								player.getInventory().removeItem(new Item(PLAGUE_SAMPLE));
+								player.getInventory().removeItem(new Item(TOUCH_PAPER));
+								player.setQuestStage(40, EXPERIMENT_SUCCESS);
+							} else {
+								d.sendNpcChat("Oh, well, you have the chemicals... but", "you're missing the touch paper! I need it", "to determine the result of the test. You can get", "some from Rimmington's chemist.");
+								d.endDialogue();
+							}
+						} else {
+							d.sendNpcChat("Oh, you don't seem to have all the chemicals", "needed, please come back when you do.");
+							d.endDialogue();
+						}
+						return true;
+					case 17:
+						d.sendPlayerChat("That's why Elena wanted you to do it, because she", "wasn't sure what was happening.");
+						return true;
+					case 18:
+						d.sendNpcChat("Well that's just it, nothing has happened.");
+						return true;
+					case 19:
+						d.sendNpcChat("I don't know what this sample is, but it certainly isn't", "toxic.");
+						return true;
+					case 20:
+						d.sendPlayerChat("So what about the plague?");
+						return true;
+					case 21:
+						d.sendNpcChat("Don't you understand? There is no plague!", ANGRY_1);
+						return true;
+					case 22:
+						d.sendNpcChat("I'm very sorry, I can see that you've worked very", "hard for this... but it seems that someone has been", "lying to you.");
+						return true;
+					case 23:
+						d.sendNpcChat("The only question is...", "...why?");
+						d.endDialogue();
+						return true;
+					case 25:
+						d.sendNpcChat("I suggest you return to Elena, see what", "is really going behind all this 'plague'", "nonsense. Best of luck adventurer.");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case GUIDORS_WIFE:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Oh, my poor husband! I just know he's", "been exposed to this plague they say is", "being carried around!", SAD);
+						return true;
+					case 2:
+						d.sendPlayerChat("What?");
+						return true;
+					case 3:
+						d.sendNpcChat("He's been infected by the plague! I'm", "waiting for the priest to get here, only he", "can enter that room!", SAD);
+						return true;
+					case 4:
+						d.sendPlayerChat("So, your husband does have the plague?", "Is he sick?");
+						return true;
+					case 5:
+						d.sendNpcChat("Well, not quite... But surely he will", "get it! All he does it talk about it, and", "when I heard there was someone in the area", "carrying the plague, I locked him up!", SAD);
+						return true;
+					case 6:
+						d.sendPlayerChat("Sounds a bit fanatical to me. Whatever, I'll", "leave you to it.");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case GATE + 10000:
+				d.setLastNpcTalk(368);
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Halt. I need to conduct a search on you. There have", "been reports of someone bringing a virus into Varrock.");
+						return true;
+					case 2:
+						d.sendStatement("The guard searches you.");
+						return true;
+					case 3:
+						if (!player.getInventory().playerHasItem(ETHENEA) && !player.getInventory().playerHasItem(LIQUID_HONEY) && !player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+							d.sendNpcChat("You may now pass.");
+							
+						} else {
+							d.sendNpcChat("You have dangerous chemicals in your backpack.", "Chemicals related directly to plague testing.", "I'll be taking these off your hands.");
+							d.endDialogue();
+							if(player.getInventory().playerHasItem(ETHENEA))
+								player.getInventory().removeItem(new Item(ETHENEA));
+							if(player.getInventory().playerHasItem(LIQUID_HONEY))
+								player.getInventory().removeItem(new Item(LIQUID_HONEY));
+							if(player.getInventory().playerHasItem(SULPHURIC_BROLINE))
+								player.getInventory().removeItem(new Item(SULPHURIC_BROLINE));
+						}
+						return true;
+					case 4:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0);
+						player.getActionSender().walkTo(1, 0, true);
+						return true;
+				}
+			return false;
+			case HOPS_VARROCK:
+				switch (player.getQuestStage(40)) {
+					case TOUCH_PAPER_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if (player.getQuestVars().getVialGivenToHops() != 0) {
+									d.sendPlayerChat("Hello, how was your journey?");
+									d.setNextChatId(7);
+								} else {
+									d.sendPlayerChat("Hello, how was your journey?");
+									d.setNextChatId(20);
+								}
+							case 7:
+								if(player.getQuestVars().getVialGivenToHops() == 3) {
+									d.sendNpcChat("Pretty thirst-inducing actually...");
+								} else {
+									d.sendNpcChat("About that... You see, the chemical you handed me", "ended up being very thirst quenching. The", "journey was long and the thirst was so bad, I", "opened up the vial and drank it....", SAD);
+									d.endDialogue();
+									player.getQuestVars().setVialGivenToHops(0);
+								}
+								return true;
+							case 8:
+								d.sendPlayerChat("Please tell me you haven't drunk the contents...");
+								return true;
+							case 9:
+								d.sendNpcChat("Oh the gods no! What do you take me for!", ANGRY_1);
+								return true;
+							case 10:
+								d.sendNpcChat("Here's your vial anyway.");
+								return true;
+							case 11:
+								if(player.getInventory().canAddItem(new Item(SULPHURIC_BROLINE))) {
+									d.sendGiveItemNpc("Hops hands you the sulphuric broline.", new Item(SULPHURIC_BROLINE));
+									player.getInventory().addItem(new Item(SULPHURIC_BROLINE));
+									player.getQuestVars().setVialGivenToHops(0);
+								} else {
+									d.sendNpcChat("You don't seem to have the inventory space.", "Come back when you do, I'll still have", "this here sulphur stuff.");
+									d.endDialogue();
+								}
+								return true;
+							case 12:
+								d.sendNpcChat("Next time give me something more palatable... I couldn't", "even try to drink that substance without getting", "sick to my stomach...", SAD);
+								return true;
+							case 13:
+								d.sendPlayerChat("That was the idea.");
+								d.endDialogue();
+								return true;
+							case 20:
+								d.sendNpcChat("Eh? What journey?");
+								return true;
+							case 21:
+								d.sendPlayerChat("Er, did I not give you a vial earlier near", "Rimmington?");
+								return true;
+							case 22:
+								d.sendNpcChat("I certainly don't remember anything like that.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case HOPS:
+				switch (player.getQuestStage(40)) {
+					case TOUCH_PAPER_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if(player.getQuestVars().getVialGivenToHops() == 0) {
+									d.sendPlayerChat("Hi, I've got something for you to take to Varrock.");
+								} else {
+									d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+									d.endDialogue();
+								}	
+								return true;
+							case 2:
+								d.sendNpcChat("Sounds like pretty thirsty work.");
+								return true;
+							case 3:
+								d.sendPlayerChat("Well, there's an Inn in Varrock if you're desperate.");
+								return true;
+							case 4:
+								d.sendNpcChat("Don't worry, I'm a pretty resourceful fellow you know.");
+								return true;
+							case 5:
+								d.sendOption("Here's the vial of ethenea.", "Here's the vial of liquid honey.", "Here's the vial of sulphuric broline.");
+								return true;
+							case 6:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								player.setTempInteger(optionId);
+								return true;
+							case 7:
+								switch(player.getTempInteger()) {
+									case 1:
+										if(player.getInventory().playerHasItem(ETHENEA)) {
+											d.sendGiveItemNpc("You hand the vial to Hops.", new Item(ETHENEA));
+											player.getInventory().removeItem(new Item(ETHENEA));
+											player.getQuestVars().setVialGivenToHops(1);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 2:
+										if(player.getInventory().playerHasItem(LIQUID_HONEY)) {
+											d.sendGiveItemNpc("You hand the vial to Hops.", new Item(LIQUID_HONEY));
+											player.getInventory().removeItem(new Item(LIQUID_HONEY));
+											player.getQuestVars().setVialGivenToHops(2);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 3:
+										if(player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+											d.sendGiveItemNpc("You hand the vial to Hops.", new Item(SULPHURIC_BROLINE));
+											player.getInventory().removeItem(new Item(SULPHURIC_BROLINE));
+											player.getQuestVars().setVialGivenToHops(3);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+								}
+							case 8:
+								d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+								d.endDialogue();
+								return true;
+								
+								
+						}
+					return false;
+				}
+			return false;
+			case DA_VINCI:
+				switch (player.getQuestStage(40)) {
+					case TOUCH_PAPER_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if (player.getPosition().getX() > 3200) {
+									if (player.getQuestVars().getVialGivenToDaVinci() != 0) {
+										d.sendNpcChat("Hello again. I hope your journey was as pleasant", "as mine.");
+										d.setNextChatId(10);
+									} else {
+										d.sendPlayerChat("Hi, thanks for doing that.");
+										d.setNextChatId(20);
+									}
+								} else {
+									if (player.getQuestVars().getVialGivenToDaVinci() == 0) {
+										d.sendPlayerChat("Hello, I hear you're an errand boy for the chemist.");
+									} else {
+										d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+										d.endDialogue();
+									}
+								}
+								return true;
+							case 2:
+								d.sendNpcChat("Well that's my job yes. But I don't necessarily define", "my identity in such black and white terms.");
+								return true;
+							case 3:
+								d.sendPlayerChat("Good for you. Now can you take a vial to Varrock for", "me?");
+								return true;
+							case 4:
+								d.sendNpcChat("Go on then.");
+								return true;
+							case 5:
+								d.sendOption("Here's the vial of ethenea.", "Here's the vial of liquid honey.", "Here's the vial of sulphuric broline.");
+								return true;
+							case 6:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								player.setTempInteger(optionId);
+								return true;
+							case 7:
+								switch(player.getTempInteger()) {
+									case 1:
+										if(player.getInventory().playerHasItem(ETHENEA)) {
+											d.sendGiveItemNpc("You hand the vial to Da Vinci.", new Item(ETHENEA));
+											player.getInventory().removeItem(new Item(ETHENEA));
+											player.getQuestVars().setVialGivenToDaVinci(1);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 2:
+										if(player.getInventory().playerHasItem(LIQUID_HONEY)) {
+											d.sendGiveItemNpc("You hand the vial to Da Vinci.", new Item(LIQUID_HONEY));
+											player.getInventory().removeItem(new Item(LIQUID_HONEY));
+											player.getQuestVars().setVialGivenToDaVinci(2);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 3:
+										if(player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+											d.sendGiveItemNpc("You hand the vial to Da Vinci.", new Item(SULPHURIC_BROLINE));
+											player.getInventory().removeItem(new Item(SULPHURIC_BROLINE));
+											player.getQuestVars().setVialGivenToDaVinci(3);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+								}
+							case 8:
+								d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+								d.endDialogue();
+								return true;
+							case 10:
+								d.sendPlayerChat("I suppose the weather is quite nice.");
+								return true;
+							case 11:
+								d.sendNpcChat("That it is.");
+								return true;
+							case 12:
+								d.sendPlayerChat("Thanks, you've been a big help.");
+								return true;
+							case 13:
+								if(player.getQuestVars().getVialGivenToDaVinci() == 1) {
+									d.sendNpcChat("No problem.");
+								} else {
+									d.sendNpcChat("About that... You see, the chemical you handed me", "ended up being very colorful. I might have er, used it", "all to paint with. You'll have to find someone else", "to transport that chemical. It's far too artsy!");
+									d.endDialogue();
+									player.getQuestVars().setVialGivenToDaVinci(0);
+								}
+								return true;
+							case 14:
+								if(player.getInventory().canAddItem(new Item(ETHENEA))) {
+									d.sendGiveItemNpc("Da Vinci hands you the ethenea", new Item(ETHENEA));
+									d.endDialogue();
+									player.getInventory().addItem(new Item(ETHENEA));
+									player.getQuestVars().setVialGivenToDaVinci(0);
+								} else {
+									d.sendNpcChat("You don't seem to have the inventory space.", "Come back when you do, I'll still have", "this here ethenea stuff.");
+									d.endDialogue();
+								}
+								return true;
+							case 20:
+								d.sendNpcChat("Eh? Doing what?");
+								return true;
+							case 21:
+								d.sendPlayerChat("Er, did I not give you a vial earlier near", "Rimmington?");
+								return true;
+							case 22:
+								d.sendNpcChat("I certainly don't remember anything like that.");
+								d.endDialogue();
+								return true;
+								
+						}
+					return false;
+				}
+			return false;
+			case CHANCY:
+				switch (player.getQuestStage(40)) {
+					case TOUCH_PAPER_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if (player.getPosition().getX() > 3200) {
+									if (player.getQuestVars().getVialGivenToChancy() != 0) {
+										d.sendPlayerChat("Hi, thanks for doing that.");
+										d.setNextChatId(10);
+									} else {
+										d.sendPlayerChat("Hi, thanks for doing that.");
+										d.setNextChatId(20);
+									}
+								} else {
+									if (player.getQuestVars().getVialGivenToChancy() == 0) {
+										d.sendPlayerChat("Hello, I've got a vial for you to take to Varrock.");
+									} else {
+										d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+										d.endDialogue();
+									}
+								}
+								return true;
+							case 2:
+								d.sendNpcChat("Tssch... that chemist asks for a lot for the wages he", "pays.");
+								return true;
+							case 3:
+								d.sendPlayerChat("Maybe you should ask him for more money.");
+								return true;
+							case 4:
+								d.sendNpcChat("Nah... I just use my initiative here and there.");
+								return true;
+							case 5:
+								d.sendOption("Here's the vial of ethenea.", "Here's the vial of liquid honey.", "Here's the vial of sulphuric broline.");
+								return true;
+							case 6:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								player.setTempInteger(optionId);
+								return true;
+							case 7:
+								switch(player.getTempInteger()) {
+									case 1:
+										if(player.getInventory().playerHasItem(ETHENEA)) {
+											d.sendGiveItemNpc("You hand the vial to Chancy.", new Item(ETHENEA));
+											player.getInventory().removeItem(new Item(ETHENEA));
+											player.getQuestVars().setVialGivenToChancy(1);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 2:
+										if(player.getInventory().playerHasItem(LIQUID_HONEY)) {
+											d.sendGiveItemNpc("You hand the vial to Chancy.", new Item(LIQUID_HONEY));
+											player.getInventory().removeItem(new Item(LIQUID_HONEY));
+											player.getQuestVars().setVialGivenToChancy(2);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 3:
+										if(player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+											d.sendGiveItemNpc("You hand the vial to Chancy.", new Item(SULPHURIC_BROLINE));
+											player.getInventory().removeItem(new Item(SULPHURIC_BROLINE));
+											player.getQuestVars().setVialGivenToChancy(3);
+										} else {
+											d.sendPlayerChat("Er, hold on, I don't seem to have the vial", "with me.", SAD);
+											d.endDialogue();
+										}
+										return true;
+								}
+							case 8:
+								d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
+								d.endDialogue();
+								return true;
+							case 10:
+								if(player.getQuestVars().getVialGivenToChancy() == 2) {
+									d.sendNpcChat("No problem.");
+								} else {
+									d.sendNpcChat("About that... You see, the chemical you handed me", "ended up being very valuable. I might have er, gambled", "it away. I'm sorry. You'll have to get another I'm", "afraid.");
+									d.endDialogue();
+									player.getQuestVars().setVialGivenToChancy(0);
+								}
+								return true;
+							case 11:
+								if(player.getInventory().canAddItem(new Item(LIQUID_HONEY))) {
+									d.sendGiveItemNpc("Chancy hands you the liquid honey.", new Item(LIQUID_HONEY));
+									player.getInventory().addItem(new Item(LIQUID_HONEY));
+									player.getQuestVars().setVialGivenToChancy(0);
+								} else {
+									d.sendNpcChat("You don't seem to have the inventory space.", "Come back when you do, I'll still have", "this here honey stuff.");
+									d.endDialogue();
+									return true;
+								}
+							case 12:
+								d.sendNpcChat("Next time give me something more valuable... I couldn't", "get anything for this on the black market.", SAD);
+								return true;
+							case 13:
+								d.sendPlayerChat("That was the idea.");
+								d.endDialogue();
+								return true;
+							case 20:
+								d.sendNpcChat("Eh? Doing what?");
+								return true;
+							case 21:
+								d.sendPlayerChat("Er, did I not give you a vial earlier near", "Rimmington?");
+								return true;
+							case 22:
+								d.sendNpcChat("I certainly don't remember anything like that.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case CHEMIST:
+				switch (player.getQuestStage(40)) {
+					case TOUCH_PAPER_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if(!player.getInventory().ownsItem(TOUCH_PAPER)) {
+									d.sendGiveItemNpc("The chemist gives you some touch paper.", new Item(TOUCH_PAPER));
+									d.endDialogue();
+									player.getInventory().addItemOrDrop(new Item(TOUCH_PAPER));
+								} else {
+									d.sendPlayerChat("What do I need to know again, about the", "vials?");
+								}
+								return true;
+							case 2:
+								d.sendNpcChat("They're doing spot checks in Varrock because", "of a rumor that someone is carrying a sample of", "the plague. It's a pharmaceutical disaster!", DISTRESSED);
+								return true;
+							case 3:
+								d.sendPlayerChat("Ah, that's right...", "So am I going to be ok carrying these three", "vials with me?");
+								return true;
+							case 4:
+								d.sendNpcChat("With touch paper as well? You're asking for trouble.", "You'd better use my errand boys, outside. Give them", "a vial each.");
+								return true;
+							case 5:
+								d.sendNpcChat("They're not the most reliable people in the world. One's", "a painter, one's a gambler, and one's a drunk. Still if", "you pay peanuts you'll get monkeys, right?");
+								return true;
+							case 6:
+								d.sendNpcChat("It's better than entering Varrock with half a laboratory", "in your napsack.");
+								return true;
+							case 7:
+								d.sendPlayerChat("Ok, thanks for you help.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case NEED_TOUCH_PAPER:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Sorry, I'm afraid we're just closing now. You'll have to", "come back another time.");
+								return true;
+							case 2:
+								d.sendOption("This can't wait, I'm carrying a plague sample.", "It's ok, I'm Elena's friend.");
+								return true;
+							case 3:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 1)
+									d.setNextChatId(20);
+								return true;
+							case 4:
+								d.sendNpcChat("Oh, well that's different then. Must be pretty important", "to come all this way.");
+								return true;
+							case 5:
+								d.sendNpcChat("How's everyone doing there anyway? Wasn't there", "some plague scare?");
+								return true;
+							case 6:
+								d.sendOption("I need some more touch paper for this plague sample.", "I just need some touch paper for a guy called Guidor.");
+								return true;
+							case 7:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 1)
+									d.setNextChatId(20);
+								return true;
+							case 8:
+								d.sendNpcChat("Guidor? This one's on me then... the poor guy. Sorry", "for the interrogation.");
+								return true;
+							case 9:
+								d.sendNpcChat("It's just that there've been rumors of a man travelling", "with the plague on him.");
+								return true;
+							case 10:
+								d.sendNpcChat("They're even doing spot checks in Varrock! It's a", "pharmaceutical disaster!", DISTRESSED);
+								return true;
+							case 11:
+								d.sendPlayerChat("Oh, right... so am I going to be ok carrying these three", "vials with me?");
+								return true;
+							case 12:
+								d.sendNpcChat("With touch paper as well? You're asking for trouble.", "You'd better use my errand boys, outside. Give them", "a vial each.");
+								return true;
+							case 13:
+								d.sendNpcChat("They're not the most reliable people in the world. One's", "a painter, one's a gambler, and one's a drunk. Still if", "you pay peanuts you'll get monkeys, right?");
+								return true;
+							case 14:
+								d.sendNpcChat("It's better than entering Varrock with half a laboratory", "in your napsack.");
+								return true;
+							case 15:
+								d.sendPlayerChat("Ok, thanks for you help. I know Elena appreciates it.");
+								return true;
+							case 16:
+								d.sendNpcChat("Yes, well don't stand around here gassing. You'd better", "hurry if you want to see Guidor... He won't be around", "for much longer.");
+								return true;
+							case 17:
+								d.sendGiveItemNpc("The chemist gives you some touch paper.", new Item(TOUCH_PAPER));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(TOUCH_PAPER));
+								player.setQuestStage(40, TOUCH_PAPER_GET);
+								return true;
+							case 20:
+								if(player.getInventory().playerHasItem(PLAGUE_SAMPLE)) {
+									d.sendNpcChat("Plague sample?! What? Give that to me right now!", ANGRY_1);
+									d.endDialogue();
+									player.getInventory().removeItem(new Item(PLAGUE_SAMPLE));
+								} else {
+									d.sendNpcChat("What are you talking about? You're not", "carrying a plague sample? Are you trying to", "make a fool out of me?!", ANGRY_1);
+									d.endDialogue();
+								}
+								return true;
+						}
+					return false;
+				}
+			return false;
+			case NURSE_SARAH:
+				switch (player.getQuestStage(40)) {
+					default:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello nurse.");
+								return true;
+							case 2:
+								d.sendNpcChat("Oh, hello there.");
+								return true;
+							case 3:
+								d.sendNpcChat("I'm afraid I can't stop and talk, there are", "many plague victims that need my attention.", SAD);
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case STEW_POISONED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello nurse.");
+								return true;
+							case 2:
+								d.sendNpcChat("Oh, hello there.");
+								return true;
+							case 3:
+								d.sendNpcChat("I'm afraid I can't stop and talk, a group of mourners", "have become ill with food poisoning. I need to go over", "and see what I can do.");
+								return true;
+							case 4:
+								d.sendPlayerChat("Hmmm, strange that!", Dialogues.EVIL_LAUGH_SHORT);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+				}
+			case MOURNER_DOOR + 10000:
+				d.setLastNpcTalk(357);
+				switch (player.getQuestStage(this.getQuestID())) {
+					case STEW_POISONED:
+						switch (d.getChatId()) {
+							case 1:
+								if(player.getEquipment().getId(Constants.CHEST) == DOCTORS_GOWN) {
+									d.sendNpcChat("In you go doc.");
+									d.setNextChatId(5);
+								} else {
+									d.sendNpcChat("Stay away from there.");
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("Why?");
+								return true;
+							case 3:
+								d.sendNpcChat("Several mourners are ill with food poisoning, we're", "waiting for a doctor.");
+								d.endDialogue();
+								return true;
+							case 5:
+								d.endDialogue();
+								player.getActionSender().removeInterfaces();
+								player.setStopPacket(true);
+								if (player.getPosition().equals(new Position(2551, 3320, 0))) {
+									player.getActionSender().walkThroughDoor(MOURNER_DOOR, 2551, 3320, 0);
+									player.getActionSender().walkTo(player.getPosition().getX() == 2551 ? 0 : player.getPosition().getX() < 2551 ? 1 : -1, 1, true);
+								} else {
+									CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+										int count = 0;
+										@Override
+										public void execute(CycleEventContainer b) {
+											count++;
+											player.walkTo(new Position(2551, 3320, 0), true);
+											if (player.getPosition().equals(new Position(2551, 3320, 0))) {
+												player.getActionSender().walkThroughDoor(MOURNER_DOOR, 2551, 3320, 0);
+												player.getActionSender().walkTo(player.getPosition().getX() == 2551 ? 0 : player.getPosition().getX() < 2551 ? 1 : -1, 1, true);
+											}
+											if (count >= 3) {
+												b.stop();
+											}
+										}
+
+										@Override
+										public void stop() {
+											player.setStopPacket(false);
+										}
+									}, 1);
+								}
+								return true;
+						}
+					return false;
+				}
+			return false;
 			case KILRON:
 				switch (player.getQuestStage(this.getQuestID())) {
+					case NEED_TOUCH_PAPER:
+					case DISTILLATOR_GET:
+					case STEW_POISONED:
 					case OVER_WALL:
 						switch (d.getChatId()) {
 							case 1:
@@ -484,6 +1459,9 @@ public class Biohazard implements Quest {
 				}
 			case OMART:
 				switch (player.getQuestStage(this.getQuestID())) {
+					case NEED_TOUCH_PAPER:
+					case DISTILLATOR_GET:
+					case STEW_POISONED:
 					case OVER_WALL:
 						switch(d.getChatId()) {
 							case 1:
@@ -726,7 +1704,183 @@ public class Biohazard implements Quest {
 				}
 			return false;
 			case ELENA:
-				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stagec
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case EXPERIMENT_SUCCESS:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("You're back! So what did Guidor say?");
+								return true;
+							case 2:
+								d.sendPlayerChat("Nothing.");
+								return true;
+							case 3:
+								d.sendNpcChat("What?");
+								return true;
+							case 4:
+								d.sendPlayerChat("He said that there is no plague.");
+								return true;
+							case 5:
+								d.sendNpcChat("So what, this thing has all been a big hoax?", DISTRESSED);
+								return true;
+							case 6:
+								d.sendPlayerChat("Or maybe we're about to uncover something huge.");
+								return true;
+							case 7:
+								d.sendNpcChat("Then I think this thing may be bigger than both of us.");
+								return true;
+							case 8:
+								d.sendPlayerChat("What do you mean?");
+							case 9:
+								d.sendNpcChat("I mean you need to go right to the top... You need to", "see the King of East Ardougne!");
+								d.endDialogue();
+								player.setQuestStage(40, TALK_TO_LATHAS);
+								return true;
+						}
+					return false;
+					case NEED_TOUCH_PAPER:
+						switch (d.getChatId()) {
+							case 1:
+								if (player.getInventory().ownsItem(PLAGUE_SAMPLE)) {
+									if (player.getInventory().ownsItem(ETHENEA) && player.getInventory().ownsItem(LIQUID_HONEY) && player.getInventory().ownsItem(SULPHURIC_BROLINE)) {
+										d.sendNpcChat("First, you'll need some more touch paper. Go and", "see the chemist in Rimmington.");
+										d.setNextChatId(12);
+									} else {
+										d.sendPlayerChat("I, er, lost some of the vials...", SAD);
+									}
+								} else {
+									d.sendGiveItemNpc("Elena hands you a sample of the plague.", new Item(PLAGUE_SAMPLE));
+									d.endDialogue();
+									player.getInventory().addItemOrDrop(new Item(PLAGUE_SAMPLE));
+								}
+								return true;
+							case 2:
+								d.sendNpcChat("Sigh... I knew this was bound to happen.", "Not to worry, I have replacements.");
+								return true;
+							case 3:
+								d.sendNpcChat("Which vial do you need?");
+								return true;
+							case 4:
+								d.sendOption("The ethenea.", "The liquid honey.", "The sulphuric broline.");
+								return true;
+							case 5:
+								switch(optionId) {
+									case 1:
+										if(!player.getInventory().ownsItem(ETHENEA)) {
+											d.sendPlayerChat("Hold on, maybe I don't need a replacement", "ethenea, let me look through my items again.");
+											d.endDialogue();
+										} else {
+											d.sendPlayerChat(d.tempStrings[0]);
+										}
+										return true;
+									case 2:
+										if(!player.getInventory().ownsItem(LIQUID_HONEY)) {
+											d.sendPlayerChat("Hold on, maybe I don't need a replacement of", "the honey, let me look through my items again.");
+											d.endDialogue();
+										} else {
+											d.sendPlayerChat(d.tempStrings[1]);
+											d.setNextChatId(7);
+										}
+										return true;
+									case 3:
+										if(!player.getInventory().ownsItem(SULPHURIC_BROLINE)) {
+											d.sendPlayerChat("Hold on, maybe I don't need a replacement of", "the sulphuric broline, let me look through", "my items again.");
+											d.endDialogue();
+										} else {
+											d.sendPlayerChat(d.tempStrings[1]);
+											d.setNextChatId(8);
+										}
+										return true;
+								}
+							case 6:
+								d.sendGiveItemNpc("Elena hands you a vial of ethenea.", new Item(ETHENEA));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(ETHENEA));
+								return true;
+							case 7:
+								d.sendGiveItemNpc("Elena hands you a vial of liquid honey.", new Item(LIQUID_HONEY));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(LIQUID_HONEY));
+								return true;
+							case 8:
+								d.sendGiveItemNpc("Elena hands you a vial of sulphuric broline.", new Item(SULPHURIC_BROLINE));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(SULPHURIC_BROLINE));
+								return true;
+							case 11:
+								d.sendNpcChat("But first you'll need some more touch paper. Go and", "see the chemist in Rimmington.");
+								return true;
+							case 12:
+								d.sendNpcChat("Just don't get into any fights, and be careful who you", "speak to.");
+								return true;
+							case 13:
+								d.sendNpcChat("Those vials are fragile, and plague carriers don't tend", "to be too popular.");
+								d.endDialogue();
+								return true;
+						}
+						return false;
+					case DISTILLATOR_GET:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("So, have you managed to retrieve my distillator?");
+								return true;
+							case 2:
+								if(player.getInventory().playerHasItem(DISTILLATOR)) {
+									d.sendPlayerChat("Yes, here it is!");
+								} else {
+									d.sendPlayerChat("Not yet I'm afraid...", SAD);
+									d.endDialogue();
+								}
+								return true;
+							case 3:
+								d.sendNpcChat("You have? That's great! Now can you pass me those", "reaction agents please?", HAPPY);
+								return true;
+							case 4:
+								d.sendPlayerChat("Those look pretty fancy.");
+								return true;
+							case 5:
+								d.sendNpcChat("Well, yes and no. The liquid honey isn't worth much,", "but the others are. Especially this colorless ethenea. Be", "careful with the sulphuric broline, it's highly poisonous.");
+								return true;
+							case 6:
+								d.sendPlayerChat("You're not kidding, I can smell it from here!");
+								return true;
+							case 7:
+								d.sendStatement("You hand Elena the distillator and an assortment of vials.", "Elena puts the agents through the distillator.");
+								return true;
+							case 8:
+								d.sendNpcChat("I don't understand... the touch paper hasn't changed", "color at all...", DISTRESSED);
+								return true;
+							case 9:
+								d.sendNpcChat("You'll need to go and see my old mentor Guidor. He", "lives in Varrock. Take these vials and this sample to", "him.");
+								return true;
+							case 10:
+								if(player.getInventory().getItemContainer().freeSlots() >= 3) {
+									d.sendGiveItemNpc("Elena gives you three vials and a sample", "in a tin container.", new Item(ETHENEA), new Item(PLAGUE_SAMPLE));
+									player.getInventory().replaceItemWithItem(new Item(DISTILLATOR), new Item(PLAGUE_SAMPLE));
+									player.getInventory().addItem(new Item(ETHENEA));
+									player.getInventory().addItem(new Item(LIQUID_HONEY));
+									player.getInventory().addItem(new Item(SULPHURIC_BROLINE));
+									player.setQuestStage(40, NEED_TOUCH_PAPER);
+								} else {
+									d.sendNpcChat("Oh, you don't have room for the vials. Make", "room for 3 items and come back to me.");
+									d.endDialogue();
+								}
+								return true;
+						}
+					return false;
+					case TALKED_TO_JERICO:;
+					case DISTRACT_WATCHTOWER:
+					case OVER_WALL:
+					case STEW_POISONED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("So, have you managed to retrieve my distillator?");
+								return true;
+							case 2:
+								d.sendPlayerChat("Not yet I'm afraid...", SAD);
+								d.endDialogue();
+								return true;
+						}
+					return false;
 					case QUEST_STARTED:
 						switch (d.getChatId()) {
 							case 1:
