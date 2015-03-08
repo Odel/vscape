@@ -128,7 +128,7 @@ public class Cat {
 	}
 	
 	public boolean registerCat(int itemID) {
-		if(!hasCat() || cat != null)
+		if(catItemId <= 0 || cat != null)
 			return false;
 		if(itemID != catItemId)
 			return false;
@@ -406,7 +406,7 @@ public class Cat {
 			{
 				return true;
 			}else{
-				if(player.getInventory().ownsItem(catItemId) || player.getBankManager().ownsItem(catItemId))
+				if(player.getInventory().ownsItem(catItemId))
 				{
 					return true;
 				}else{
