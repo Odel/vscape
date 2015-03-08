@@ -95,6 +95,8 @@ public class Biohazard implements Quest {
 	public static final int CAULDRON = 2043;
 	public static final int GATE = 2050;
 	public static final int GUIDORS_DOOR = 2032;
+	public static final int ARDOUGNE_DOOR_LEFT = 8738;
+	public static final int ARDOUGNE_DOOR_RIGHT = 8739;
 
 	private int reward[][] = { //{itemId, count},
 	};
@@ -445,6 +447,22 @@ public class Biohazard implements Quest {
 		int pX = player.getPosition().getX();
 		int pY = player.getPosition().getY();
 		switch (object) {
+			case ARDOUGNE_DOOR_LEFT:
+			case ARDOUGNE_DOOR_RIGHT:
+				if (QuestHandler.questCompleted(player, 40)) {
+					player.getActionSender().sendMessage("You pull on the large wooden doors...");
+					new GameObject(ARDOUGNE_DOOR_LEFT, 2557, 3299, 0, 3, 10, ARDOUGNE_DOOR_RIGHT, 3, false).addOriginalFace(2);
+					new GameObject(ARDOUGNE_DOOR_RIGHT, 2557, 3300, 0, 1, 10, ARDOUGNE_DOOR_LEFT, 3, false).addOriginalFace(2);
+					new GameObject(ARDOUGNE_DOOR_RIGHT, 2558, 3299, 0, 3, 10, ARDOUGNE_DOOR_LEFT, 3, false).addOriginalFace(0);
+					new GameObject(ARDOUGNE_DOOR_LEFT, 2558, 3300, 0, 1, 10, ARDOUGNE_DOOR_RIGHT, 3, false).addOriginalFace(0);
+					player.getActionSender().walkTo(pX > 2558 ? -3 : 3, 0, true);
+					player.getActionSender().sendMessage("...You open them and walk through.");
+				} else {
+					player.getDialogue().setLastNpcTalk(348);
+					player.getDialogue().sendNpcChat("Oi! Get away from there!", ANGRY_1);
+					player.getDialogue().endDialogue();
+				}
+				return true;
 			case GUIDORS_DOOR:
 				if(x == 3282 && y == 3382) {
 					if(pX < 3283) {
@@ -1481,6 +1499,9 @@ public class Biohazard implements Quest {
 			return false;
 			case KILRON:
 				switch (player.getQuestStage(this.getQuestID())) {
+					case TALK_TO_LATHAS:
+					case EXPERIMENT_SUCCESS:
+					case TOUCH_PAPER_GET:
 					case NEED_TOUCH_PAPER:
 					case DISTILLATOR_GET:
 					case STEW_POISONED:
@@ -1498,22 +1519,27 @@ public class Biohazard implements Quest {
 									d.endDialogue();
 								return true;
 							case 4:
-								player.getActionSender().removeInterfaces();
-								player.getActionSender().sendMessage("Kilron calls to his associate.");
-								World.getNpcs()[World.getNpcIndex(KILRON)].getUpdateFlags().sendFaceToDirection(new Position(2559, 3266, 0));
-								player.setStopPacket(true);
-								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-									@Override
-									public void execute(CycleEventContainer b) {
-										b.stop();
-									}
+								if (player.getEquipment().getId(Constants.HAT) != PlagueCity.GAS_MASK && player.getQuestStage(40) < EXPERIMENT_SUCCESS) {
+									d.sendNpcChat("You should probably wear your gas mask", "before we let you over, adventurer.");
+									d.endDialogue();
+								} else {
+									player.getActionSender().removeInterfaces();
+									player.getActionSender().sendMessage("Kilron calls to his associate.");
+									World.getNpcs()[World.getNpcIndex(KILRON)].getUpdateFlags().sendFaceToDirection(new Position(2559, 3266, 0));
+									player.setStopPacket(true);
+									CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+										@Override
+										public void execute(CycleEventContainer b) {
+											b.stop();
+										}
 
-									@Override
-									public void stop() {
-										player.setStopPacket(false);
-										Dialogues.sendDialogue(player, KILRON, 5, 0);
-									}
-								}, 5);
+										@Override
+										public void stop() {
+											player.setStopPacket(false);
+											Dialogues.sendDialogue(player, KILRON, 5, 0);
+										}
+									}, 5);
+								}
 								return true;
 							case 5:
 								d.sendNpcChat("Omart!");
@@ -1547,6 +1573,9 @@ public class Biohazard implements Quest {
 				}
 			case OMART:
 				switch (player.getQuestStage(this.getQuestID())) {
+					case TALK_TO_LATHAS:
+					case EXPERIMENT_SUCCESS:
+					case TOUCH_PAPER_GET:
 					case NEED_TOUCH_PAPER:
 					case DISTILLATOR_GET:
 					case STEW_POISONED:
@@ -1564,22 +1593,27 @@ public class Biohazard implements Quest {
 									d.endDialogue();
 								return true;
 							case 4:
-								player.getActionSender().removeInterfaces();
-								player.getActionSender().sendMessage("Omart calls to his associate.");
-								World.getNpcs()[World.getNpcIndex(OMART)].getUpdateFlags().sendFaceToDirection(new Position(2556, 3266, 0));
-								player.setStopPacket(true);
-								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-									@Override
-									public void execute(CycleEventContainer b) {
-										b.stop();
-									}
+								if (player.getEquipment().getId(Constants.HAT) != PlagueCity.GAS_MASK && player.getQuestStage(40) < EXPERIMENT_SUCCESS) {
+									d.sendNpcChat("You should probably wear your gas mask", "before we let you over, adventurer.");
+									d.endDialogue();
+								} else {
+									player.getActionSender().removeInterfaces();
+									player.getActionSender().sendMessage("Omart calls to his associate.");
+									World.getNpcs()[World.getNpcIndex(OMART)].getUpdateFlags().sendFaceToDirection(new Position(2556, 3266, 0));
+									player.setStopPacket(true);
+									CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+										@Override
+										public void execute(CycleEventContainer b) {
+											b.stop();
+										}
 
-									@Override
-									public void stop() {
-										player.setStopPacket(false);
-										Dialogues.sendDialogue(player, OMART, 5, 0);
-									}
-								}, 5);
+										@Override
+										public void stop() {
+											player.setStopPacket(false);
+											Dialogues.sendDialogue(player, OMART, 5, 0);
+										}
+									}, 5);
+								}
 								return true;
 							case 5:
 								d.sendNpcChat("Kilron!");
