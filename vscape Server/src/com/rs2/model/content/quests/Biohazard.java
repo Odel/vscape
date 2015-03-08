@@ -47,7 +47,6 @@ public class Biohazard implements Quest {
 	public static final int PLAGUE_SAMPLE = 418;
 	public static final int TOUCH_PAPER = 419;
 	public static final int DISTILLATOR = 420;
-	public static final int LATHAS_AMULET = 421;
 	public static final int BIRD_FEED = 422;
 	public static final int KEY = 423;
 	public static final int PIGEON_CAGE_FULL = 424;
@@ -182,8 +181,17 @@ public class Biohazard implements Quest {
 			case DISTILLATOR_GET:
 				lastIndex = 20;
 				break;
+			case NEED_TOUCH_PAPER:
+				lastIndex = 25;
+				break;
+			case TOUCH_PAPER_GET:
+				lastIndex = 29;
+				break;
+			case EXPERIMENT_SUCCESS:
+				lastIndex = 33;
+				break;
 			case QUEST_COMPLETE:
-				lastIndex = 26;
+				lastIndex = 35;
 				break;
 		}
 		lastIndex++;
@@ -207,7 +215,13 @@ public class Biohazard implements Quest {
 		a.sendQuestLogString("She has asked me to help her make it work, starting", 23, this.getQuestID(), NEED_TOUCH_PAPER);
 		a.sendQuestLogString("by getting another piece of 'touch paper' from the", 24, this.getQuestID(), NEED_TOUCH_PAPER);
 		a.sendQuestLogString("Chemist in Rimmington.", 25, this.getQuestID(), NEED_TOUCH_PAPER);
-		
+		a.sendQuestLogString("I got the touch paper from the chemist. I need", 27, this.getQuestID(), TOUCH_PAPER_GET);
+		a.sendQuestLogString("to deliver it, the plague sample, and the vials", 28, this.getQuestID(), TOUCH_PAPER_GET);
+		a.sendQuestLogString("to Guidor in East Varrock.", 29, this.getQuestID(), TOUCH_PAPER_GET);
+		a.sendQuestLogString("I finally met with Guidor, and he did the experiment.", 31, this.getQuestID(), EXPERIMENT_SUCCESS);
+		a.sendQuestLogString("He says the plague sample is fraudulous, as if there", 32, this.getQuestID(), EXPERIMENT_SUCCESS);
+		a.sendQuestLogString("was never any plague!", 33, this.getQuestID(), EXPERIMENT_SUCCESS);
+		a.sendQuestLogString("Elena told me to go see King Lathas.", 35, this.getQuestID(), TALK_TO_LATHAS);
 		switch (questStage) {
 			default:
 				break;
@@ -234,8 +248,19 @@ public class Biohazard implements Quest {
 				a.sendQuestLogString("fragile. I should avoid any form of teleport", lastIndex + 2);
 				a.sendQuestLogString("and combat.", lastIndex + 3);
 				break;
+			case TOUCH_PAPER_GET:
+				a.sendQuestLogString("The chemist mentioned the guards are doing spot", lastIndex + 1);
+				a.sendQuestLogString("checks at the gate into East Varrock, I need to", lastIndex + 2);
+				a.sendQuestLogString("give the vials to the chemist's apprentices or", lastIndex + 3);
+				a.sendQuestLogString("find some other way to smuggle them in.", lastIndex + 4);
+				break;
+			case EXPERIMENT_SUCCESS:
+				a.sendQuestLogString("I should return to Elena and ask her about this.", lastIndex + 1);
+				break;
 			case QUEST_COMPLETE:
-				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
+				a.sendQuestLogString("That plague was a hoax! King Lathas sealed off", lastIndex + 1);
+				a.sendQuestLogString("West Ardougne to protect us from an evil unknown...", lastIndex + 2);
+				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 4);
 				break;
 		}
 	}
@@ -354,6 +379,11 @@ public class Biohazard implements Quest {
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
+			case ROTTEN_APPLE:
+				player.getInventory().removeItem(new Item(ROTTEN_APPLE));
+				player.getUpdateFlags().setForceChatMessage("Yuck!");
+				player.getActionSender().sendMessage("It's rotten, you spit it out.");
+				return true;
 			case PIGEON_CAGE_FULL:
 				if(releasePigeons(player)) {
 					player.getInventory().replaceItemWithItem(new Item(PIGEON_CAGE_FULL), new Item(PIGEON_CAGE_EMPTY));
@@ -647,7 +677,7 @@ public class Biohazard implements Quest {
 								d.sendPlayerChat("Absolutely!");
 								return true;
 							case 22:
-								d.sendNpcChat("Thank the gods! I give you permission to use my", "trainng area.");
+								d.sendNpcChat("Thank the gods! I give you permission to use my", "training area.");
 								return true;
 							case 23:
 								d.sendNpcChat("It's located just to the north west of Ardougne, there", "you can prepare for the challenge ahead.");
@@ -691,9 +721,12 @@ public class Biohazard implements Quest {
 						d.sendOption("I've come to ask your assistance in stopping a plague.", "I was just going to bless your room and I've done that now.");
 						return true;
 					case 6:
-						d.sendPlayerChat(d.tempStrings[optionId - 1]);
-						if(optionId == 2)
+						if(optionId == 1) {
+							d.sendPlayerChat(d.tempStrings[optionId - 1]);
+						} else {
+							d.sendPlayerChat("I was just going to bless your room,", "and I've done that now.");
 							d.endDialogue();
+						}
 						return true;
 					case 7:
 						d.sendNpcChat("So you're the plague carrier!", DISTRESSED);
@@ -728,7 +761,7 @@ public class Biohazard implements Quest {
 						d.sendNpcChat("Indeed!");
 						return true;
 					case 16:
-						if(player.getInventory().playerHasItem(ETHENEA) && !player.getInventory().playerHasItem(LIQUID_HONEY) && player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
+						if(player.getInventory().playerHasItem(ETHENEA) && player.getInventory().playerHasItem(LIQUID_HONEY) && player.getInventory().playerHasItem(SULPHURIC_BROLINE)) {
 							if(player.getInventory().playerHasItem(TOUCH_PAPER)) {
 								d.sendNpcChat("Now I'll just apply these to the sample and... I don't", "get it... the touch paper has remained the same.");
 								player.getInventory().removeItem(new Item(ETHENEA));
@@ -777,7 +810,12 @@ public class Biohazard implements Quest {
 			case GUIDORS_WIFE:
 				switch (d.getChatId()) {
 					case 1:
-						d.sendNpcChat("Oh, my poor husband! I just know he's", "been exposed to this plague they say is", "being carried around!", SAD);
+						if(player.getEquipment().getId(Constants.CHEST) == PRIEST_GOWN_TOP && player.getEquipment().getId(Constants.LEGS) == PRIEST_GOWN_BOTTOM) {
+							d.sendNpcChat("Oh, thank heavens you are here! Go", "on in and see my husband! Quickly!", DISTRESSED);
+							d.endDialogue();
+						} else {
+							d.sendNpcChat("Oh, my poor husband! I just know he's", "been exposed to this plague they say is", "being carried around!", SAD);
+						}
 						return true;
 					case 2:
 						d.sendPlayerChat("What?");
@@ -841,6 +879,7 @@ public class Biohazard implements Quest {
 									d.sendPlayerChat("Hello, how was your journey?");
 									d.setNextChatId(20);
 								}
+							return true;
 							case 7:
 								if(player.getQuestVars().getVialGivenToHops() == 3) {
 									d.sendNpcChat("Pretty thirst-inducing actually...");
@@ -898,8 +937,8 @@ public class Biohazard implements Quest {
 								if(player.getQuestVars().getVialGivenToHops() == 0) {
 									d.sendPlayerChat("Hi, I've got something for you to take to Varrock.");
 								} else {
-									d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
-									d.endDialogue();
+									d.sendOption("Could I have that vial I gave you back?", "I'll see you later in the Dancing Donkey Inn.");
+									d.setNextChatId(10);
 								}	
 								return true;
 							case 2:
@@ -955,6 +994,22 @@ public class Biohazard implements Quest {
 								d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
 								d.endDialogue();
 								return true;
+							case 10:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.endDialogue();
+								return true;
+							case 11:
+								d.sendNpcChat("Sure.");
+								return true;
+							case 12:
+								int vial = player.getQuestVars().getVialGivenToHops();
+								int vialItem = vial == 1 ? ETHENEA : vial == 2 ? LIQUID_HONEY : SULPHURIC_BROLINE;
+								d.sendGiveItemNpc("Hops hands you the vial back.", new Item(vialItem));
+								d.endDialogue();
+								player.getQuestVars().setVialGivenToHops(0);
+								player.getInventory().addItemOrDrop(new Item(vialItem));
+								return true;
 								
 								
 						}
@@ -978,8 +1033,8 @@ public class Biohazard implements Quest {
 									if (player.getQuestVars().getVialGivenToDaVinci() == 0) {
 										d.sendPlayerChat("Hello, I hear you're an errand boy for the chemist.");
 									} else {
-										d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
-										d.endDialogue();
+										d.sendOption("Could I have that vial I gave you back?", "I'll see you later in the Dancing Donkey Inn.");
+										d.setNextChatId(25);
 									}
 								}
 								return true;
@@ -1056,7 +1111,7 @@ public class Biohazard implements Quest {
 								return true;
 							case 14:
 								if(player.getInventory().canAddItem(new Item(ETHENEA))) {
-									d.sendGiveItemNpc("Da Vinci hands you the ethenea", new Item(ETHENEA));
+									d.sendGiveItemNpc("Da Vinci hands you the ethenea.", new Item(ETHENEA));
 									d.endDialogue();
 									player.getInventory().addItem(new Item(ETHENEA));
 									player.getQuestVars().setVialGivenToDaVinci(0);
@@ -1074,6 +1129,22 @@ public class Biohazard implements Quest {
 							case 22:
 								d.sendNpcChat("I certainly don't remember anything like that.");
 								d.endDialogue();
+								return true;
+							case 25:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.endDialogue();
+								return true;
+							case 26:
+								d.sendNpcChat("Sure.");
+								return true;
+							case 27:
+								int vial = player.getQuestVars().getVialGivenToDaVinci();
+								int vialItem = vial == 1 ? ETHENEA : vial == 2 ? LIQUID_HONEY : SULPHURIC_BROLINE;
+								d.sendGiveItemNpc("Da Vinci hands you the vial back.", new Item(vialItem));
+								d.endDialogue();
+								player.getQuestVars().setVialGivenToDaVinci(0);
+								player.getInventory().addItemOrDrop(new Item(vialItem));
 								return true;
 								
 						}
@@ -1097,8 +1168,8 @@ public class Biohazard implements Quest {
 									if (player.getQuestVars().getVialGivenToChancy() == 0) {
 										d.sendPlayerChat("Hello, I've got a vial for you to take to Varrock.");
 									} else {
-										d.sendPlayerChat("Right. I'll see you later in the Dancing Donkey Inn.");
-										d.endDialogue();
+										d.sendOption("Could I have that vial I gave you back?", "I'll see you later in the Dancing Donkey Inn.");
+										d.setNextChatId(25);
 									}
 								}
 								return true;
@@ -1172,8 +1243,9 @@ public class Biohazard implements Quest {
 								} else {
 									d.sendNpcChat("You don't seem to have the inventory space.", "Come back when you do, I'll still have", "this here honey stuff.");
 									d.endDialogue();
-									return true;
+									
 								}
+								return true;
 							case 12:
 								d.sendNpcChat("Next time give me something more valuable... I couldn't", "get anything for this on the black market.", SAD);
 								return true;
@@ -1190,6 +1262,22 @@ public class Biohazard implements Quest {
 							case 22:
 								d.sendNpcChat("I certainly don't remember anything like that.");
 								d.endDialogue();
+								return true;
+							case 25:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.endDialogue();
+								return true;
+							case 26:
+								d.sendNpcChat("Sure.");
+								return true;
+							case 27:
+								int vial = player.getQuestVars().getVialGivenToChancy();
+								int vialItem = vial == 1 ? ETHENEA : vial == 2 ? LIQUID_HONEY : SULPHURIC_BROLINE;
+								d.sendGiveItemNpc("Chancy hands you the vial back.", new Item(vialItem));
+								d.endDialogue();
+								player.getQuestVars().setVialGivenToChancy(0);
+								player.getInventory().addItemOrDrop(new Item(vialItem));
 								return true;
 						}
 					return false;
@@ -1224,7 +1312,7 @@ public class Biohazard implements Quest {
 								d.sendNpcChat("It's better than entering Varrock with half a laboratory", "in your napsack.");
 								return true;
 							case 7:
-								d.sendPlayerChat("Ok, thanks for you help.");
+								d.sendPlayerChat("Ok, thanks for your help.");
 								d.endDialogue();
 								return true;
 						}
@@ -1278,7 +1366,7 @@ public class Biohazard implements Quest {
 								d.sendNpcChat("It's better than entering Varrock with half a laboratory", "in your napsack.");
 								return true;
 							case 15:
-								d.sendPlayerChat("Ok, thanks for you help. I know Elena appreciates it.");
+								d.sendPlayerChat("Ok, thanks for your help. I know Elena appreciates it.");
 								return true;
 							case 16:
 								d.sendNpcChat("Yes, well don't stand around here gassing. You'd better", "hurry if you want to see Guidor... He won't be around", "for much longer.");
@@ -1730,6 +1818,7 @@ public class Biohazard implements Quest {
 								return true;
 							case 8:
 								d.sendPlayerChat("What do you mean?");
+								return true;
 							case 9:
 								d.sendNpcChat("I mean you need to go right to the top... You need to", "see the King of East Ardougne!");
 								d.endDialogue();
@@ -1737,6 +1826,7 @@ public class Biohazard implements Quest {
 								return true;
 						}
 					return false;
+					case TOUCH_PAPER_GET:
 					case NEED_TOUCH_PAPER:
 						switch (d.getChatId()) {
 							case 1:
@@ -1765,7 +1855,7 @@ public class Biohazard implements Quest {
 							case 5:
 								switch(optionId) {
 									case 1:
-										if(!player.getInventory().ownsItem(ETHENEA)) {
+										if(player.getInventory().ownsItem(ETHENEA)) {
 											d.sendPlayerChat("Hold on, maybe I don't need a replacement", "ethenea, let me look through my items again.");
 											d.endDialogue();
 										} else {
@@ -1773,7 +1863,7 @@ public class Biohazard implements Quest {
 										}
 										return true;
 									case 2:
-										if(!player.getInventory().ownsItem(LIQUID_HONEY)) {
+										if(player.getInventory().ownsItem(LIQUID_HONEY)) {
 											d.sendPlayerChat("Hold on, maybe I don't need a replacement of", "the honey, let me look through my items again.");
 											d.endDialogue();
 										} else {
@@ -1782,7 +1872,7 @@ public class Biohazard implements Quest {
 										}
 										return true;
 									case 3:
-										if(!player.getInventory().ownsItem(SULPHURIC_BROLINE)) {
+										if(player.getInventory().ownsItem(SULPHURIC_BROLINE)) {
 											d.sendPlayerChat("Hold on, maybe I don't need a replacement of", "the sulphuric broline, let me look through", "my items again.");
 											d.endDialogue();
 										} else {
@@ -1813,7 +1903,7 @@ public class Biohazard implements Quest {
 								d.sendNpcChat("Just don't get into any fights, and be careful who you", "speak to.");
 								return true;
 							case 13:
-								d.sendNpcChat("Those vials are fragile, and plague carriers don't tend", "to be too popular.");
+								d.sendNpcChat("The plague sample is fragile, and plague carriers", "don't tend to be too popular.");
 								d.endDialogue();
 								return true;
 						}
