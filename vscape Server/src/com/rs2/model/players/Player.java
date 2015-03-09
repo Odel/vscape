@@ -67,6 +67,7 @@ import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadnessVars;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PlagueCity;
+import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.randomevents.RandomHandler;
 import com.rs2.model.content.skills.ItemOnItemHandling;
 import com.rs2.model.content.skills.Skill;
@@ -780,10 +781,11 @@ public class Player extends Entity {
 		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
 	    }
         }
-        if(getRandomHandler().getCurrentEvent() != null)
-        {
-        	getRandomHandler().destroyEvent(true);
-        }
+		if (getRandomEventNpc() != null && !getRandomEventNpc().isDead()) {
+			NpcLoader.destroyNpc(getRandomEventNpc());
+			setRandomEventNpc(null);
+			setSpawnedNpc(null);
+		}
 		setLogoutTimer(System.currentTimeMillis() + (this.inWild() ? 600000 : 1000)); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
