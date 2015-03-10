@@ -64,7 +64,8 @@ public class QuestHandler {
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
 	new PlagueCity(),
-	new Biohazard()
+	new Biohazard(),
+	new JunglePotion()
     };
     
     public static void init() {
@@ -265,6 +266,9 @@ public class QuestHandler {
 		case 28184: //Biohazard
 			showInterface(player,quests[40]);
         		return true;
+		case 28197: //Jungle Potion
+			showInterface(player,quests[41]);
+        		return true;
         }
         return false;
     }
@@ -286,6 +290,15 @@ public class QuestHandler {
         for (int i = 0; i < QUEST_IDS.length; i++) {
             player.getActionSender().sendString("", QUEST_IDS[i]);
         }
+    }
+    
+    public static int getQuestId(final String name) {
+	    for(Quest q : QuestHandler.getQuests()) {
+		    if(q != null && q.getQuestName().equals(name)) {
+			    return q.getQuestID();
+		    }
+	    }
+	    return 0;
     }
 
 }
