@@ -40,7 +40,7 @@ public class ThieveNpcs {
 		PALADIN(new String[] { "paladin" }, 70, 151.75, new Item[] { new Item(995, 80), new Item(562, 2) }, 5, 3),
 		GNOME(new String[] { "gnome", "gnome woman", "gnome child" }, 75, 198.5, new Item[] { new Item(995, 300), new Item(557), new Item(444), new Item(569), new Item(2150), new Item(2162) }, 5, 1),
 		HERO(new String[] { "hero" }, 80, 273.3, new Item[] { new Item(995, 300), new Item(560, 2), new Item(565), new Item(569), new Item(1617), new Item(444), new Item(1993) }, 6, 4),
-		ELF(new String[] { "elf" }, 85, 353, new Item[] { new Item(995, 300), new Item(569), new Item(444), new Item(1601), new Item(560, 2), new Item(1993), new Item(237), new Item(581), new Item(561, 3) }, 6, 5);
+		ELF(new String[] { "goreu", "ysgawyn", "arvel", "mawrth", "kelyn" }, 85, 353, new Item[] { new Item(995, 380), new Item(569), new Item(444), new Item(1601), new Item(560, 2), new Item(1993), new Item(237), new Item(561, 3) }, 6, 5);
 
 		private String[] npcId;
 		private int levelReq;
@@ -161,7 +161,7 @@ public class ThieveNpcs {
 					player.getSkill().addExp(Skill.THIEVING, thieveNpc.getExperience());
 				} else {
 					npc.getUpdateFlags().sendForceMessage("What do you think you're doing?");
-					npc.getUpdateFlags().sendAnimation(401);
+					npc.getUpdateFlags().sendAnimation(thieveNpc.equals(ThieveNpcs.ThieveNpc.ELF) ? 395 : thieveNpc.equals(ThieveNpcs.ThieveNpc.GNOME) ? 192 : 401);
 					npc.setInteractingEntity(player);
 					player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
 					player.getActionSender().sendMessage("You fail to pick the " + npcName + "'s pocket.");

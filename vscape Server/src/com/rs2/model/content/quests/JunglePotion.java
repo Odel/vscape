@@ -632,7 +632,7 @@ public class JunglePotion implements Quest {
 					case QUEST_COMPLETE:
 						switch (d.getChatId()) {
 							case 1:
-								d.sendNpcChat("I can see forever.", Dialogues.HAPPY);
+								d.sendNpcChat("I can see for miles.", Dialogues.HAPPY);
 								d.endDialogue();
 								return true;
 						}
