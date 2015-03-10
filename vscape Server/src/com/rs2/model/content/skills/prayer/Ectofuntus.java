@@ -118,6 +118,9 @@ public class Ectofuntus {
 		if (player.getStatedInterface().equals("Ectoplasm")) {
 		    handleFillTick(player, 1);
 		    return true;
+		} else if (player.getStatedInterface().equals("ectoLoading")) {
+			handleLoadTick(player, 1);
+			return true;
 		} else {
 		    return false;
 		}
@@ -125,6 +128,9 @@ public class Ectofuntus {
 		if (player.getStatedInterface().equals("Ectoplasm")) {
 		    handleFillTick(player, 5);
 		    return true;
+		} else if (player.getStatedInterface().equals("ectoLoading")) {
+			handleLoadTick(player, 5);
+			return true;
 		} else {
 		    return false;
 		}
@@ -134,6 +140,9 @@ public class Ectofuntus {
 		if (player.getStatedInterface().equals("Ectoplasm")) {
 		    handleFillTick(player, 28);
 		    return true;
+		} else if (player.getStatedInterface().equals("ectoLoading")) {
+			handleLoadTick(player, 28);
+			return true;
 		} else {
 		    return false;
 		}
@@ -167,6 +176,34 @@ public class Ectofuntus {
 	});
 	CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
     }
+    
+    public static void handleLoadTick(final Player player, final int amount) {
+	final int task = player.getTask();
+	final int item = player.getEctofuntus().boneType.boneId;
+	player.getMovementHandler().reset();
+	player.setNewSkillTask();
+	player.getActionSender().removeInterfaces();
+	player.setSkilling(new CycleEvent() {
+	    int loadAmount = amount;
+
+	    @Override
+	    public void execute(CycleEventContainer container) {
+		if (!player.checkNewSkillTask() || !player.checkTask(task) || !player.getInventory().getItemContainer().contains(item) || loadAmount == 0) {
+		    container.stop();
+		    return;
+		}
+		player.getEctofuntus().handleLoad();
+		loadAmount--;
+		container.setTick(2);
+	    }
+
+	    @Override
+	    public void stop() {
+		player.resetAnimation();
+	    }
+	});
+	CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
+    }
 
     public static void handleFill(final Player player) {
 	if (!player.getInventory().getItemContainer().contains(BUCKET)) {
@@ -176,6 +213,16 @@ public class Ectofuntus {
 	player.getUpdateFlags().sendAnimation(827);
 	player.getInventory().replaceItemWithItem(new Item(BUCKET), new Item(BUCKET_OF_SLIME));
 	player.getActionSender().sendMessage("You fill the bucket with Ectoplasm.");
+    }
+    
+    public void handleLoad() {
+	    if(boneType == null) {
+		    return;
+	    }
+	    player.getActionSender().sendMessage("You add some " + new Item(boneType.boneId).getDefinition().getName() + " to the loader.");
+	    player.getInventory().removeItem(new Item(boneType.boneId));
+	    getBonesInLoader().add(boneType);
+	    player.getUpdateFlags().sendAnimation(1649);
     }
 
     public static boolean hasBonemeal(final Player player) {

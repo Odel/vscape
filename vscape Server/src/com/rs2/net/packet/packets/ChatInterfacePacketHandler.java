@@ -152,6 +152,9 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			if (player.getStatedInterface().equals("Ectoplasm")) {
 				Ectofuntus.handleFillTick(player, amount);
 				return;
+			} else if (player.getStatedInterface().equals("ectoLoading")) {
+				Ectofuntus.handleLoadTick(player, amount);
+				return;
 			} else if (player.getStatedInterface().equals("cannonball")) {
 				DwarfCannon.craftCannonBall(player, amount);
 				return;

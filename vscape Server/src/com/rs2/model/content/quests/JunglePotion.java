@@ -379,7 +379,7 @@ public class JunglePotion implements Quest {
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
-		switch (WITCHDOCTA) { //Npc ID
+		switch (id) { //Npc ID
 			case WITCHDOCTA:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case 0:
