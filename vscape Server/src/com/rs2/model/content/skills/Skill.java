@@ -51,6 +51,81 @@ public class Skill {
 			}
 		}
 	}
+        
+        //Takes a skillname and converts it into the integer counterpart
+        public static int skillnameConversion(String s){
+            String skill = s.toLowerCase();
+            switch(skill){
+                case "attack":
+                case "atk":
+                case "att":
+                    return 0;
+                case "defence":
+                case "def":
+                    return 1;
+                case "strength":
+                case "str":
+                    return 2;
+                case "hitpoints":
+                case "hp":
+                    return 3;
+                case "ranged":
+                case "range":
+                    return 4;
+                case "prayer":
+                    return 5;
+                case "magic":
+                case "mage":
+                case "magicks":
+                    return 6;
+                case "cooking":
+                case "cook":
+                    return 7;
+                case "woodcutting":
+                case "wcing":
+                case "wc":
+                    return 8;
+                case "fletching":
+                case "fletch":
+                    return 9;
+                case "fishing":
+                case "fish":
+                    return 10;
+                case "firemaking":
+                case "fming":
+                case "fm":
+                    return 11;
+                case "crafting":
+                case "craft":
+                    return 12;
+                case "smithing":
+                case "smith":
+                    return 13;
+                case "mining":
+                case "mine":
+                    return 14;
+                case "herblore":
+                case "herb":
+                    return 15;
+                case "agility":
+                    return 16;
+                case "thieving":
+                case "thief":
+                    return 17;
+                case "slayer":
+                case "slay":
+                    return 18;
+                case "farming":
+                case "farm":
+                    return 19;
+                case "runecrafting":
+                case "rcing":
+                case "rc":
+                    return 20;
+                default:
+                    return -1;
+            }
+        }
 
 	public void skillTick() {
 		if (skillRenewalTimer <= 0) {
@@ -342,5 +417,7 @@ public class Skill {
 		}
 		return false;
 	}
+        
+        
 
 }
