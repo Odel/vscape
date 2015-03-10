@@ -969,7 +969,17 @@ public class CommandHandler {
 		}
 		
 		if(keyword.equals("subtractexp")) {
-		    final int skill = Integer.parseInt(args[0]);
+		    int tskill; 
+                    try{
+                        tskill = Integer.parseInt(args[0]);
+                    }
+                    catch(NumberFormatException nfe){
+                        tskill = Skill.skillnameConversion(args[0]);
+                    }
+                    final int skill = tskill;
+                    if(skill < 0 || skill > 20){
+                        sender.getActionSender().sendMessage("Enter a valid skill name or id.");
+                    }
 		    final int exp = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -982,7 +992,18 @@ public class CommandHandler {
 		    }
 		}
 		if(keyword.equals("addexp")) {
-		    final int skill = Integer.parseInt(args[0]);
+                    //Modify this line to allow for conversion between skillname and integer value.
+		    int tskill; 
+                    try{
+                        tskill = Integer.parseInt(args[0]);
+                    }
+                    catch(NumberFormatException nfe){
+                        tskill = Skill.skillnameConversion(args[0]);
+                    }
+                    final int skill = tskill;
+                    if(skill < 0 || skill > 20){
+                        sender.getActionSender().sendMessage("Enter a valid skill name or id.");
+                    }
 		    final int exp = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
