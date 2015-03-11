@@ -203,7 +203,7 @@ public class MimeEvent implements RandomEvent {
 		if(correct >= 4)
 		{
 			int itemReward = getItemReward();
-			Item item = new Item(itemReward, itemReward == 995 ? 2000 : 1);
+			Item item = new Item(itemReward, itemReward == 995 ? 1250 : 1);
 			player.getInventory().addItemOrDrop(item);
 			player.getDialogue().sendGiveItemNpc("Your performance was great, The mime has rewarded you.", item);
 		}else{
@@ -323,6 +323,12 @@ public class MimeEvent implements RandomEvent {
 			    }
 			}, emoteToDo.duration + 2);
 		}
+	}
+
+	@Override
+	public boolean doObjectClicking(int object, int x, int y, int z) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

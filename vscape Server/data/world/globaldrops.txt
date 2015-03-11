@@ -5,6 +5,14 @@
 22:1:2573:9633:0:5 //blue cog clock tower
 20:1:2577:9655:0:5 //white cog clock tower
 24:1:2564:9662:0:5 //rat poison clock tower
+3109:1:2893:3565:0:10 //burthorpe balls
+3110:1:2893:3564:0:10 //burthorpe balls
+3112:1:2893:3563:0:10 //burthorpe balls
+3113:1:2893:3562:0:10 //burthorpe balls
+3111:1:2893:3561:0:10 //burthorpe balls
+424:1:2618:3325:0:10 //pigeon cage
+424:1:2618:3324:0:10 //pigeon cage
+424:1:2618:3323:0:10 //pigeon cage
 1984:1:2535:3333:0:15 //rotten apple west ard
 2126:1:2634:3497:0:15 //dwellberries mcgrugors
 2126:1:2645:3498:0:15 //dwellberries mcgrugors

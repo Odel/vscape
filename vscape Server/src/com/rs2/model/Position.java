@@ -99,8 +99,8 @@ public class Position {
 	 *            the amount of Y coordinates
 	 */
 	public void move(int amountX, int amountY) {
-		setLastX(getX());
-		setLastY(getY());
+	//	setLastX(getX());
+	//	setLastY(getY());
 		setX(getX() + amountX);
 		setY(getY() + amountY);
 	}

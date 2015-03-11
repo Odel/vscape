@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.GhostsAhoy;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
@@ -12,6 +12,8 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
@@ -656,24 +658,15 @@ public class GhostsAhoy implements Quest {
 					player.getActionSender().sendMessage("You can only process one type of bone at a time. Empty the bin if need be.");
 					return true;
 				}
-				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					@Override
-					public void execute(CycleEventContainer b) {
-						if (player.getEctofuntus().boneType == null) {
-							player.getEctofuntus().boneType = Ectofuntus.BonemealData.forBoneId(item);
-						}
-						player.getActionSender().sendMessage("You add some " + new Item(bone.boneId).getDefinition().getName() + " to the loader.");
-						player.getInventory().removeItem(new Item(bone.boneId));
-						player.getEctofuntus().getBonesInLoader().add(bone);
-						player.getUpdateFlags().sendAnimation(1649);
-						b.stop();
-					}
-
-					@Override
-					public void stop() {
-						player.setStopPacket(false);
-					}
-				}, 1);
+				if (player.getEctofuntus().boneType == null) {
+					player.getEctofuntus().boneType = Ectofuntus.BonemealData.forBoneId(item);
+				}
+				if(player.getInventory().getItemAmount(item) > 1) {
+					player.setStatedInterface("ectoLoading");
+					Menus.display1Item(player, item, new Item(item).getDefinition().getName());
+				} else {
+					player.getEctofuntus().handleLoad();
+				}
 				return true;
 		}
 		return false;

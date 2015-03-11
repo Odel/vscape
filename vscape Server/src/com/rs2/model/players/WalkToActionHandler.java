@@ -18,14 +18,11 @@ import com.rs2.model.content.minigames.duelarena.GlobalDuelRecorder;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.InSearchOfTheMyreque;
-import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
-import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
@@ -85,9 +82,7 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.quests.TreeGnomeVillage;
 import com.rs2.model.content.randomevents.SpawnEvent;
-import com.rs2.model.content.randomevents.impl.FreakyForester;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
@@ -218,6 +213,12 @@ public class WalkToActionHandler {
 				if(ApeAtoll.doObjectFirstClick(player, id, x, y)) {
 					this.stop();
 					return;
+				}
+				if(player.getRandomHandler().getCurrentEvent() != null) {
+					if(player.getRandomHandler().getCurrentEvent().doObjectClicking(id, x, y, z)) {
+						this.stop();
+						return;
+					}
 				}
 				if (ObeliskTick.clickObelisk(id)) {
 					this.stop();
@@ -614,22 +615,15 @@ public class WalkToActionHandler {
 						break;
 					}
 				case 8972: //freaky forester portal
-				    if(x == 2611 && y == 4776) {
-					FreakyForester forester = player.getRandomHandler().getFreakyForester();
-					if(forester.isActive()) {
-					    player.getDialogue().sendNpcChat("Hey! D-don't leave yet! I still need", "your help with this pheasant...", Dialogues.SAD);
-					    break;
-					}
-					else {
-					    for(Item item : player.getInventory().getItemContainer().getItems()) {
-						if(item == null) continue;
-						if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
-						if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
+					if(x == 2611 && y == 4776 && player.getRandomHandler().getCurrentEvent() != player.getRandomHandler().getFreakyForester()) {
+						for(Item item : player.getInventory().getItemContainer().getItems()) {
+							if(item == null) continue;
+							if(item.getId() == 6179) player.getInventory().removeItem(new Item(6179));
+							if(item.getId() == 6178) player.getInventory().removeItem(new Item(6178));
 					    }
-					    player.teleport(forester.getOldPos());
-					    break;
+						player.teleport(player.getLastPosition());
+						break;
 					}
-				    }
 				case 5097:
 				case 5094: //north brimhaven dungeon stairs
 					Dialogues.startDialogue(player, 2725);

@@ -561,7 +561,16 @@ public abstract class MagicSkill extends CycleEvent {
 		};
 		magicSkill.initialize();
 	}
-
+	
+	public static boolean telegrabExceptions(final Player player, final int itemId, final Position itemPos) {
+		if(player.Area(3264, 3274, 3404, 3407) && itemId >= 415 && itemId <= 417 && Misc.goodDistance(player.getPosition(), itemPos, 10))
+			return true; //Vials for Biohazard quest, over east varrock fence
+		if(itemPos.Area(3187, 3196, 9818, 9824, itemPos.getX(), itemPos.getY()) && (player.getPosition().equals(new Position(3191, 9825, 0)) || player.getPosition().equals(new Position(3192, 9825, 0))))
+			return true; //Items in west varrock bank vault
+		
+		return false;
+	}
+	
 	public static void spellOnGroundItem(final Player player, final Spell spell, final int itemId, final Position itemPos) {
 		final int task = player.getTask();
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -583,7 +592,11 @@ public abstract class MagicSkill extends CycleEvent {
 						    return;
 						}
 						if ((!Misc.checkClip(player.getPosition(), itemPos, false) || !Misc.goodDistance(player.getPosition(), itemPos, 10)) && !player.inTelekineticTheatre()) {
-							return;
+							if(MagicSkill.telegrabExceptions(player, itemId, itemPos)) {
+								
+							} else {
+								return;
+							}
 						}
 						if (player.getPosition().equals(itemPos)) {
 							player.getFollowing().stepAway();

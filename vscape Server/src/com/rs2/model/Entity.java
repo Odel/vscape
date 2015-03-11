@@ -311,7 +311,11 @@ public abstract class Entity {
 	}
 
 	public boolean inRandomEvent() {
-		return Area(2587, 2619, 4760, 4785) || Area(2005, 2013, 4761, 4764);
+		return Area(2587, 2619, 4760, 4785) || inMimeEvent();
+	}
+	
+	public boolean inMimeEvent() {
+		return Area(2005, 2013, 4761, 4764);
 	}
 
 	public boolean inBank() {

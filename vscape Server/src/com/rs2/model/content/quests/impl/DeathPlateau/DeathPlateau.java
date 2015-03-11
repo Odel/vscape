@@ -1,8 +1,10 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.DeathPlateau;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -12,76 +14,76 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 
-public class Biohazard implements Quest {
+public class DeathPlateau implements Quest {
 
-	public static final int questIndex = 7352;
+	public static final int questIndex = 8438; //Used in player's quest log interface, id is in Player.java, Change
 	//Quest stages
 	public static final int QUEST_STARTED = 1;
 	public static final int QUEST_COMPLETE = 2;
 
 	//Items
-	public static final int ETHENEA = 415;
-	public static final int LIQUID_HONEY = 416;
-	public static final int SULFURIC_BROLINE = 417;
-	public static final int PLAGUE_SAMPLE = 418;
-	public static final int TOUCH_PAPER = 419;
-	public static final int DISTILLATOR = 420;
-	public static final int LATHAS_AMULET = 421;
-	public static final int BIRD_FEED = 422;
-	public static final int KEY = 423;
-	public static final int PIGEON_CAGE_FULL = 424;
-	public static final int PIGEON_CAGE_EMPTY = 425;
-	public static final int PRIEST_GOWN_TOP = 426;
-	public static final int PRIEST_GOWN_BOTTOM = 428;
-	public static final int DOCTORS_GOWN = 430;
+	public static final int STEEL_CLAWS = 3097;
+	public static final int COMBINATION = 3102;
+	public static final int IOU = 3103;
+	public static final int SECRET_WAY_MAP = 3104;
+	public static final int CLIMBING_BOOTS = 3105;
+	public static final int SPIKED_BOOTS = 3107;
+	public static final int RED_BALL = 3109;
+	public static final int BLUE_BALL = 3110;
+	public static final int YELLOW_BALL = 3111;
+	public static final int PURPLE_BALL = 3112;
+	public static final int GREEN_BALL = 3113;
+	public static final int CERTIFICATE = 3114;
 
 	//Positions
 	public static final Position POSITION = new Position(0, 0, 0);
 
 	//Interfaces
-	public static final int INTERFACE = -1;
+	public static final int DICE_INTERFACE = 6675;
 
 	//Npcs
-	public static final int ELENA = 3209;
-	public static final int KING_LATHAS = 364;
-	public static final int JERICO = 366;
-	public static final int CHEMIST = 367;
-	public static final int GUARD = 368;
-	public static final int NURSE_SARAH = 373;
-	public static final int DA_VINCI = 336;
-	public static final int CHANCY = 338;
-	public static final int HOPS_DRINKING = 340;
-	public static final int HOPS = 341;
-	public static final int GUIDORS_WIFE = 342;
-	public static final int GUIDOR = 343;
-	public static final int GUARD_1 = 344;
-	public static final int GUARD_2 = 345;
-	public static final int GUARD_3 = 346;
-	public static final int KILRON = 349;
-	public static final int OMART = 350;
+	public static final int DENULTH = 1060;
+	public static final int SERGEANT_1 = 1061;
+	public static final int SERGEANT_2 = 1062;
+	public static final int SOLDIER_1 = 1063;
+	public static final int SOLDIER_2 = 1064;
+	public static final int SOLDIER_3 = 1065;
+	public static final int SOLDIER_4 = 1066;
+	public static final int SOLDIER_5 = 1067;
+	public static final int SOLDIER_6 = 1068;
+	public static final int SOLDIER_INJURED = 1069;
+	public static final int SABA = 1070;
+	public static final int TENZING = 1071;
+	public static final int EADBURG = 1072;
+	public static final int HAROLD = 1078;
+	public static final int TOSTIG = 1079;
+	public static final int EOHRIC = 1080;
+	public static final int SERVANT = 1081;
+	public static final int DUNSTAN = 1082;
 
 	//Objects
-	public static final int ELENAS_DOOR = 2054;
+	public static final int OBJECT = -1;
 
 	private int reward[][] = { //{itemId, count},
+		{STEEL_CLAWS, 1}
 	};
 
 	private int expReward[][] = { //{skillId, exp},
-		{Skill.THIEVING, 1250}
+		{Skill.ATTACK, 3000}
 	};
 
-	private static final int questPointReward = 3; //Change
+	private static final int questPointReward = 1; //Change
 
 	public int getQuestID() { //Change
-		return 40;
+		return 42;
 	}
 
 	public String getQuestName() { //Change
-		return "Biohazard";
+		return "Death Plateau";
 	}
 
 	public String getQuestSaveName() { //Change
-		return "biohazard";
+		return "deathplat";
 	}
 
 	public boolean canDoQuest(final Player player) {
@@ -112,13 +114,13 @@ public class Biohazard implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, DISTILLATOR); //zoom, then itemId
+		player.getActionSender().sendItemOnInterface(12145, 250, STEEL_CLAWS); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
-		player.getActionSender().sendString("3 Quest Points", 12150);
-		player.getActionSender().sendString("2812.5 Thieving XP", 12151);
-		player.getActionSender().sendString("", 12152);
-		player.getActionSender().sendString("", 12153);
+		player.getActionSender().sendString("1 Quest Point", 12150);
+		player.getActionSender().sendString("6750 Attack XP", 12151);
+		player.getActionSender().sendString("Steel claws", 12152);
+		player.getActionSender().sendString("Ability to make claws", 12153);
 		player.getActionSender().sendString("", 12154);
 		player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
 		player.getActionSender().sendString(" ", 12147);
@@ -130,8 +132,12 @@ public class Biohazard implements Quest {
 		int questStage = player.getQuestStage(getQuestID());
 		int lastIndex = 0;
 		switch(questStage) { 
+			/**The last index of the text sent for that quest stage which persists
+			through the entire quest, striked or not (i.e, shit sent below)
+			Remember if there is no new persistent entry for that stage, stack the case with
+			the last case that started the newest persistent entry, to keep lastIndex correct **/
 			case QUEST_STARTED:
-				lastIndex = 5;
+				lastIndex = 4;
 				break;
 			case QUEST_COMPLETE:
 				lastIndex = 26;
@@ -139,24 +145,27 @@ public class Biohazard implements Quest {
 		}
 		lastIndex++;
 		
+		//Quest log entries that persist past each stage, line which to send (1 = first, etc)
+		//And the quest stage which it first appears, after that stage it'll @str@, strikethrough
 		ActionSender a = player.getActionSender();
-		a.sendQuestLogString("Talk to Elena in East Ardougne to begin.", 1, this.getQuestID(), 0);
-		a.sendQuestLogString("Elena told me to talk to her father's old friend", 3, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("Jerico in order to try and gain access to West", 4, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("Ardougne again", 5, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("Talk to Denulth in Burthorpe to begin.", 1, this.getQuestID(), 0);
+		a.sendQuestLogString("____ told me to do ______", 3, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("I should do this.", 4, this.getQuestID(), QUEST_STARTED);
 		
-		switch (questStage) {
+		switch (questStage) { //Quest stages where you send additional information that is not stored
+			//or striked out past that stage.
 			default:
 				break;
 			case 0:
-				a.sendQuestLogString("Talk to @dre@Elena @bla@in @dre@East Ardougne @bla@to begin.", 1);
-				a.sendQuestLogString("@dre@Requirements:", 3);
-				a.sendQuestLogString((QuestHandler.questCompleted(player, 39) ? "@str@" : "@dbl@") + "Plague City", 4);
+				//Not started quest journal shit, no need to use lastIndex
+				a.sendQuestLogString("Talk to @dre@Denulth @bla@in @dre@Burthorpe @bla@to begin.", 1);
 				break;
 			case QUEST_STARTED:
+				//Last index + index of new information (1 = first, etc)
 				a.sendQuestLogString("Additional information", lastIndex + 1);
 				break;
 			case QUEST_COMPLETE:
+				//Same here, first line after the last entry that persists for the whole quest
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
 				break;
 		}
@@ -223,13 +232,8 @@ public class Biohazard implements Quest {
 	}
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
-		int pX = player.getPosition().getX();
-		int pY = player.getPosition().getY();
 		switch (object) {
-			case ELENAS_DOOR:
-				player.getActionSender().walkThroughDoor(object, x, y, 0);
-				player.getActionSender().walkTo(pX == x ? 0 : pX < x ? 1 : -1, pY < 3339 ? 1 : -1, true);
-				player.reloadRegion();
+			case OBJECT:
 				return true;
 		}
 		return false;
@@ -249,7 +253,7 @@ public class Biohazard implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
-			case ELENA:
+			case DENULTH:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case QUEST_COMPLETE:
 						switch (d.getChatId()) {

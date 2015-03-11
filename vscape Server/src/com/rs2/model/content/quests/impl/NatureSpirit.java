@@ -18,6 +18,7 @@ import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.agility.Agility;

@@ -58,8 +58,8 @@ import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.ChristmasEvent;
-import com.rs2.model.content.quests.GhostsAhoyPetition;
+import com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoyPetition;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
@@ -145,7 +145,7 @@ import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.RecruitmentDrive;
-import com.rs2.model.content.quests.SantaEncounter;
+import com.rs2.model.content.quests.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -780,10 +780,11 @@ public class Player extends Entity {
 		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
 	    }
         }
-        if(getRandomHandler().getCurrentEvent() != null)
-        {
-        	getRandomHandler().destroyEvent(true);
-        }
+		if (getRandomEventNpc() != null && !getRandomEventNpc().isDead()) {
+			NpcLoader.destroyNpc(getRandomEventNpc());
+			setRandomEventNpc(null);
+			setSpawnedNpc(null);
+		}
 		setLogoutTimer(System.currentTimeMillis() + (this.inWild() ? 600000 : 1000)); //originally 600000
         setLoginStage(LoginStages.LOGGING_OUT);
         key.attach(null);
@@ -1234,7 +1235,7 @@ public class Player extends Entity {
         		setClanChat(null);
         	}
         }
-	if(inRandomEvent())
+        if(inMimeEvent())
         {
         	teleport(getLastPosition());
         }

@@ -2,6 +2,7 @@ package com.rs2.model.content.skills.magic;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.quests.Biohazard;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -88,6 +89,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
 			player.getInventory().removeItem(new Item(4033));
 		}
+		if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+			player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+			player.getActionSender().sendMessage("The fragile plague sample breaks upon teleportation!");
+		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), player.getMagicBookType() == SpellBook.MODERN);
 		return true;
 	}
@@ -103,6 +108,10 @@ public class Teleportation {
 		if (player.getQuestStage(36) >= 14 && player.getInventory().playerHasItem(4033)) {
 			player.getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
 			player.getInventory().removeItem(new Item(4033));
+		}
+		if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+			player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+			player.getActionSender().sendMessage("The fragile plague sample breaks upon teleportation!");
 		}
 		player.getUpdateFlags().sendAnimation(714);
 		player.getUpdateFlags().sendHighGraphic(301);
@@ -137,6 +146,10 @@ public class Teleportation {
 			player.getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
 			player.getInventory().removeItem(new Item(4033));
 		}
+		if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+			player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+			player.getActionSender().sendMessage("The fragile plague sample breaks upon teleportation!");
+		}
 		teleport(pos.getX(), pos.getY(), pos.getZ(), false);
 		return true;
 	}
@@ -156,6 +169,10 @@ public class Teleportation {
 		if (player.getQuestStage(36) >= 14 && player.getInventory().playerHasItem(4033)) {
 			player.getActionSender().sendMessage("Your monkey flees your backpack in panic after teleporting!");
 			player.getInventory().removeItem(new Item(4033));
+		}
+		if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+			player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+			player.getActionSender().sendMessage("The fragile plague sample breaks upon teleportation!");
 		}
 	    teleportHome(pos.getX(), pos.getY(), pos.getZ());
 	}
