@@ -73,6 +73,14 @@ public class QuestVariables {
     public boolean natureSpiritFungusPlaced = false;
     public boolean natureSpiritSpellPlaced = false;
     private int ghastsSlain = 0;
+    private boolean blackCogPlaced = false;
+    private boolean blueCogPlaced = false;
+    private boolean redCogPlaced = false;
+    private boolean whiteCogPlaced = false;
+    private boolean blackCogQuenched = false;
+    public boolean ClockTowerGateOne = false;
+    public boolean ClockTowerGateTwo = false;
+    public boolean RatsPoisoned = false;
     private boolean firstMortMyreBridgeFixed = false;
     private boolean secondMortMyreBridgeFixed = false;
     private boolean thirdMortMyreBridgeFixed = false;
@@ -451,6 +459,44 @@ public class QuestVariables {
 	this.ghastsSlain = set;
     }
     
+    public boolean getBlueCogPlaced() {
+    	return this.blueCogPlaced;
+    }
+    
+    public void setBlueCogPlaced(boolean set) {
+    	this.blueCogPlaced = set;
+    }
+    
+    public boolean getBlackCogPlaced() {
+    	return this.blackCogPlaced;
+    }
+    
+    public void setBlackCogPlaced(boolean set) {
+    	this.blackCogPlaced = set;
+    }
+    public boolean getRedCogPlaced() {
+    	return this.redCogPlaced;
+    }
+    
+    public void setRedCogPlaced(boolean set) {
+    	this.redCogPlaced = set;
+    }
+    public boolean getWhiteCogPlaced() {
+    	return this.whiteCogPlaced;
+    }
+    
+    public void setWhiteCogPlaced(boolean set) {
+    	this.whiteCogPlaced = set;
+    }
+    
+    public boolean getBlackCogQuenched() {
+    	return this.blackCogQuenched;
+    }
+    
+    public void setBlackCogQuenched(boolean set) {
+    	this.blackCogQuenched = set;
+    }
+
     public void setMortMyreBridgeFixed(int number, boolean set) {
 	switch(number) {
 	    case 1:

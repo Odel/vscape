@@ -66,6 +66,7 @@ public class QuestHandler {
 	new MonkeyMadness(),
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
+    new ClockTower(),
 	new PlagueCity(),
 	new Biohazard(),
 	new JunglePotion()
@@ -276,6 +277,9 @@ public class QuestHandler {
 		case 32246: //Death Plateau
 			//showInterface(player,quests[42]);
         		return true;
+		case 28185: //Clock Tower
+			showInterface(player,quests[39]);
+			return true;
         }
         return false;
     }
