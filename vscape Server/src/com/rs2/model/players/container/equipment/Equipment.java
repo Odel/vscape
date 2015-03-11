@@ -13,7 +13,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.quests.DragonSlayer;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.LostCity;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;

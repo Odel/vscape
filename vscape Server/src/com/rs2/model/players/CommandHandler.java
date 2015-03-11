@@ -23,7 +23,7 @@ import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.Quest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -1154,14 +1154,6 @@ public class CommandHandler {
 			//bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 			sender.getBankManager().add(new Item(PiratesTreasure.CLEANING_CLOTH));
 		 //   PiratesTreasure.dumpAllPoisonedItems(this);
-		}
-		else if (keyword.equals("dyedump")) {
-			sender.getInventory().addItem(new Item(GhostsAhoy.RED_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.YELLOW_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.BLUE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.ORANGE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.PURPLE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.GREEN_DYE));
 		}
 		else if (keyword.equals("enchantdump")) {
 			sender.getBankManager().add(new Item(8016, 100));

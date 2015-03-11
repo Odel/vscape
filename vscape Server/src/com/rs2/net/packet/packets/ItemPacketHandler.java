@@ -15,7 +15,7 @@ import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
 import com.rs2.model.content.quests.DemonSlayer;
 import com.rs2.model.content.quests.DwarfCannon;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;

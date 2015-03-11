@@ -9,8 +9,9 @@ import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.GhostsAhoy.BLACK_INTERFACE_TEXT;
-import static com.rs2.model.content.quests.GhostsAhoy.STRING_ON_BLACK;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
+import static com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy.BLACK_INTERFACE_TEXT;
+import static com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy.STRING_ON_BLACK;
 
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

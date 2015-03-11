@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.GhostsAhoy;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
@@ -12,6 +12,8 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;

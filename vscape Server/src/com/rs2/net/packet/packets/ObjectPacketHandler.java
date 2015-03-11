@@ -5,7 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.HorrorFromTheDeep;
 import com.rs2.model.content.quests.PriestInPeril;
 import com.rs2.model.content.quests.QuestHandler;

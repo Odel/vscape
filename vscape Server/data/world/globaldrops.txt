@@ -1,5 +1,10 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+3109:1:2893:3565:0:10 //burthorpe balls
+3110:1:2893:3564:0:10 //burthorpe balls
+3112:1:2893:3563:0:10 //burthorpe balls
+3113:1:2893:3562:0:10 //burthorpe balls
+3111:1:2893:3561:0:10 //burthorpe balls
 424:1:2618:3325:0:10 //pigeon cage
 424:1:2618:3324:0:10 //pigeon cage
 424:1:2618:3323:0:10 //pigeon cage
