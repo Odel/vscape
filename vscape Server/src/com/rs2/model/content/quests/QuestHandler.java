@@ -1,5 +1,8 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.DeathPlateau.DeathPlateau;
+import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
 import java.io.IOException;
 
@@ -66,6 +69,7 @@ public class QuestHandler {
 	new PlagueCity(),
 	new Biohazard(),
 	new JunglePotion()
+	//new DeathPlateau()
     };
     
     public static void init() {
@@ -268,6 +272,9 @@ public class QuestHandler {
         		return true;
 		case 28197: //Jungle Potion
 			showInterface(player,quests[41]);
+        		return true;
+		case 32246: //Death Plateau
+			//showInterface(player,quests[42]);
         		return true;
         }
         return false;
