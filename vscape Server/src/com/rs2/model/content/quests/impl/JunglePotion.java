@@ -1,15 +1,15 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.objects.functions.Ladders;

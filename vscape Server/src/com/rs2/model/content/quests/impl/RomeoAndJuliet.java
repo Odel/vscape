@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.World;
 import static com.rs2.model.content.dialogue.Dialogues.CALM;
@@ -13,6 +13,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.content.combat.CombatManager;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
+import com.rs2.model.content.quests.QuestHandler;
 
 public class RomeoAndJuliet implements Quest {
 

@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests.MonkeyMadness;
+package com.rs2.model.content.quests.impl.MonkeyMadness;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.treasuretrails.Puzzle;

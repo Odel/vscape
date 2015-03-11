@@ -1,15 +1,15 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.GlobalVariables;
 import com.rs2.model.Position;
-import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;

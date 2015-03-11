@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
@@ -14,6 +14,7 @@ import static com.rs2.model.content.dialogue.Dialogues.EVIL;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;

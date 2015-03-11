@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
@@ -10,6 +10,7 @@ import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;

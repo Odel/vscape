@@ -1,7 +1,7 @@
 package com.rs2.model.content.skills.smithing;
 
 import com.rs2.Constants;
-import com.rs2.model.content.quests.FamilyCrest;
+import com.rs2.model.content.quests.impl.FamilyCrest;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.players.Player;

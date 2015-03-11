@@ -1,8 +1,9 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.*;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;

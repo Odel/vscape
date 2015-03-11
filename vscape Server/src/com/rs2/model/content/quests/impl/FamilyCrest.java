@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.CombatManager;
@@ -9,7 +9,9 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
-import static com.rs2.model.content.quests.ErnestTheChicken.PULL_LEVER_ANIM;
+
+import com.rs2.model.content.quests.QuestHandler;
+import static com.rs2.model.content.quests.impl.ErnestTheChicken.PULL_LEVER_ANIM;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

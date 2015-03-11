@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.quests.NatureSpirit;
+import com.rs2.model.content.quests.impl.NatureSpirit;
 import com.rs2.model.content.skills.farming.FarmingConstants;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;

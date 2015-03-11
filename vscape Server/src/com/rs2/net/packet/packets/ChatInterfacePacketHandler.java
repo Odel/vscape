@@ -1,7 +1,7 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.quests.DwarfCannon;
+import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;

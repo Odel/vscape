@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests.MonkeyMadness;
+package com.rs2.model.content.quests.impl.MonkeyMadness;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
@@ -23,10 +23,11 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll.GreeGreeData;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs.FinalFightNpcs;
-import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll.GreeGreeData;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs.FinalFightNpcs;
+
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.util.Misc;

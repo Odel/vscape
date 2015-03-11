@@ -1,10 +1,9 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
@@ -17,6 +16,8 @@ import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import static com.rs2.model.content.dialogue.Dialogues.VERY_SAD;
 import static com.rs2.model.content.dialogue.Dialogues.checkTrim;
 import static com.rs2.model.content.dialogue.Dialogues.trimCape;
+
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

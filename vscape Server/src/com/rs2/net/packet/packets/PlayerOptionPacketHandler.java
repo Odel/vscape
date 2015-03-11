@@ -7,7 +7,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.Snowball;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.minigames.gnomeball.GnomeBall;
-import com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.Player;

@@ -10,8 +10,9 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.rs2.GlobalVariables;
-import com.rs2.model.content.quests.Quest;
+
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.Player;

@@ -1,8 +1,9 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import static com.rs2.model.content.dialogue.Dialogues.*;
 
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

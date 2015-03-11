@@ -37,9 +37,9 @@ import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
-import com.rs2.model.content.quests.Quest;
-import com.rs2.model.content.quests.TheGrandTree;
-import com.rs2.model.content.randomevents.impl.FreakyForester;
+import com.rs2.model.content.quests.impl.Quest;
+
+import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;

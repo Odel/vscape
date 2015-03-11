@@ -1,9 +1,11 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
+
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

@@ -1,17 +1,17 @@
-package com.rs2.model.content.quests.ChristmasEvent;
+package com.rs2.model.content.quests.impl.ChristmasEvent;
 
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ENCOUNTER;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ICE_FIEND;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ICE_GIANT;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ICE_SPIDER;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ICE_TROLL;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.ICE_WOLF;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.LIGHT_CREATURE;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.SANTA;
-import static com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent.SNOWY_JAIL;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ENCOUNTER;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ICE_FIEND;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ICE_GIANT;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ICE_SPIDER;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ICE_TROLL;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.ICE_WOLF;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.LIGHT_CREATURE;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.SANTA;
+import static com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent.SNOWY_JAIL;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;

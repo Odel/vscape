@@ -23,12 +23,13 @@ import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
-import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
-import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
+import com.rs2.model.content.quests.impl.PiratesTreasure;
+
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
-import com.rs2.model.content.quests.RecruitmentDrive;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.impl.Quest;
+import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;

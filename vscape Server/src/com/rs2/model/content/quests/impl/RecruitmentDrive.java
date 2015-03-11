@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.GlobalVariables;
@@ -19,6 +19,7 @@ import com.rs2.model.content.dialogue.DialogueManager;
 
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
+import com.rs2.model.content.quests.QuestHandler;
 
 import com.rs2.util.Misc;
 import com.rs2.model.npcs.NpcLoader;

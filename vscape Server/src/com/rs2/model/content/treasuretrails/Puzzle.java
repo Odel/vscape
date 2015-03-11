@@ -3,7 +3,7 @@ package com.rs2.model.content.treasuretrails;
 import java.util.ArrayList;
 
 import com.rs2.model.Position;
-import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;

@@ -17,8 +17,9 @@ import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.quests.Quest;
+
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.content.skills.prayer.Ectofuntus;
 import com.rs2.model.content.treasuretrails.ClueScroll;

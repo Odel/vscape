@@ -1,19 +1,16 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.model.content.quests.ChristmasEvent.ChristmasEvent;
-import com.rs2.model.content.quests.DeathPlateau.DeathPlateau;
-import com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy;
-import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.impl.*;
+import com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
+import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
 import java.io.IOException;
 
 import com.rs2.model.players.CommandHandler;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
-/**
- * @date 1-jun-2011
- * @author Satan666
- */
 public class QuestHandler {
 
     public static final int[] QUEST_IDS = {
@@ -68,8 +65,8 @@ public class QuestHandler {
 	new InSearchOfTheMyreque(),
 	new PlagueCity(),
 	new Biohazard(),
-	new JunglePotion()
-	//new DeathPlateau()
+	new JunglePotion(),
+	new DeathPlateau()
     };
     
     public static void init() {
@@ -274,7 +271,7 @@ public class QuestHandler {
 			showInterface(player,quests[41]);
         		return true;
 		case 32246: //Death Plateau
-			//showInterface(player,quests[42]);
+			showInterface(player,quests[42]);
         		return true;
         }
         return false;

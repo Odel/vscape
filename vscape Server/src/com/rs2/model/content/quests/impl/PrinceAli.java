@@ -1,10 +1,9 @@
-package com.rs2.model.content.quests;
+package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
 import static com.rs2.model.content.dialogue.Dialogues.ANNOYED;
@@ -17,7 +16,7 @@ import static com.rs2.model.content.dialogue.Dialogues.NEAR_TEARS_2;
 import static com.rs2.model.content.dialogue.Dialogues.PLAIN_EVIL;
 import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import static com.rs2.model.content.dialogue.Dialogues.startDialogue;
-import com.rs2.model.content.quests.Quest;
+
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

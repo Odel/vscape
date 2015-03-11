@@ -1,8 +1,8 @@
-package com.rs2.model.content.quests.GhostsAhoy;
+package com.rs2.model.content.quests.impl.GhostsAhoy;
 
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
-import static com.rs2.model.content.quests.GhostsAhoy.GhostsAhoy.PETITION;
+import static com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy.PETITION;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.util.Misc;

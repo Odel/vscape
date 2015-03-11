@@ -1,4 +1,4 @@
-package com.rs2.model.content.quests.MonkeyMadness;
+package com.rs2.model.content.quests.impl.MonkeyMadness;
 
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;

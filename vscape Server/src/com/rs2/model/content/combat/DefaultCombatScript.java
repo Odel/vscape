@@ -5,7 +5,7 @@ import com.rs2.model.Entity;
 import com.rs2.model.content.combat.attacks.SpellAttack;
 import com.rs2.model.content.combat.attacks.WeaponAttack;
 import com.rs2.model.content.combat.special.SpecialType;
-import com.rs2.model.content.quests.PriestInPeril;
+import com.rs2.model.content.quests.impl.PriestInPeril;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;

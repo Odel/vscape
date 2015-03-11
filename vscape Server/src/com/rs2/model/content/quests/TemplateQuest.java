@@ -3,6 +3,7 @@ package com.rs2.model.content.quests;
 import com.rs2.model.Position;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;

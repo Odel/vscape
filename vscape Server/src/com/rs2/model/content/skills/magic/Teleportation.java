@@ -2,7 +2,7 @@ package com.rs2.model.content.skills.magic;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
-import com.rs2.model.content.quests.Biohazard;
+import com.rs2.model.content.quests.impl.Biohazard;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;

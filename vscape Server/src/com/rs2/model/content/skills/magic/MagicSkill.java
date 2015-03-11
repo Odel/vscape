@@ -14,7 +14,7 @@ import com.rs2.model.content.minigames.magetrainingarena.AlchemistPlayground;
 import com.rs2.model.content.minigames.magetrainingarena.EnchantingChamber;
 import com.rs2.model.content.minigames.magetrainingarena.MageGameConstants;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
-import com.rs2.model.content.quests.FamilyCrest;
+import com.rs2.model.content.quests.impl.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
