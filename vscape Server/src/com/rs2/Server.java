@@ -96,8 +96,8 @@ public class Server implements Runnable {
 		String host = "0.0.0.0";//args[0];
 		int port = 43594;
 		int cycleRate = 600;
-		Constants.DEVELOPER_MODE = false;
-		Constants.SERVER_DEBUG = false;
+		Constants.DEVELOPER_MODE = true;
+		Constants.SERVER_DEBUG = true;
 		Constants.UNLIMITED_RUN = true;
 		Constants.SQL_ENABLED = true;
 

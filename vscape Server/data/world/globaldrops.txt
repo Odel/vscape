@@ -3,6 +3,7 @@
 21:1:2613:9639:0:5 //black cog clock tower
 23:1:2583:9613:0:5 //red cog clock tower
 22:1:2573:9633:0:5 //blue cog clock tower
+20:1:2577:9655:0:5 //white cog clock tower
 24:1:2564:9662:0:5 //rat poison clock tower
 1984:1:2535:3333:0:15 //rotten apple west ard
 2126:1:2634:3497:0:15 //dwellberries mcgrugors

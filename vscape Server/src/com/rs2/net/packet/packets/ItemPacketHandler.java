@@ -20,6 +20,7 @@ import com.rs2.model.content.quests.HeroesQuest;
 import com.rs2.model.content.quests.MerlinsCrystal;
 import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.ClockTower;
 import com.rs2.model.content.quests.NatureSpirit;
 import com.rs2.model.content.quests.PiratesTreasure;
 import com.rs2.model.content.quests.PlagueCity;
@@ -515,9 +516,10 @@ public class ItemPacketHandler implements PacketHandler {
 		    CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
 		    break;
 		
-	    case 1929: //Watchtower
+	    case 1929: //ClockTower
+	    	ClockTower.itemOnGroundItemHandling(player, player.getClickId());
 		    break;
-	}
+		}
 	
     }
 
@@ -548,6 +550,9 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
 	    return;
+	}
+	if(ClockTower.itemPickupHandling(player, player.getClickId()))	{
+		return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
 	    ItemManager.getInstance().pickupItem(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()));

@@ -964,7 +964,7 @@ public abstract class Entity {
 	
 	public static boolean antiStackExceptions(Npc npcLead) {
 		int id = npcLead.getNpcId();
-		return npcLead.isPet() || Barrows.inBarrowsCrypts(npcLead) || id == 1472 || (id >= 2881 && id <= 2883 || id == 1578);
+		return npcLead.isPet() || Barrows.inBarrowsCrypts(npcLead) || id == 1472 || (id >= 2881 && id <= 2883 || id == 1578 || id == 224);
 	}
 	
 	public boolean canMove(Entity leader, int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
