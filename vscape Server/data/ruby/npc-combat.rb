@@ -420,6 +420,14 @@ class JungleDemon < NpcCombatDef
     end
 end
 
+class InfernalMage < NpcCombatDef
+	def attackScripts attacker, victim
+		return [
+			BasicAttack.magicAttack(attacker, victim, Spell::INFERNAL_MAGE_SPELL)
+		];
+	end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
@@ -464,3 +472,4 @@ NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())
 NpcCombatDef.add([3068, 3069, 3070, 3071], SkeletalWyvern.new())
 NpcCombatDef.add([1456, 1457, 1458], MonkeyArcher.new())
 NpcCombatDef.add([1472], JungleDemon.new())
+NpcCombatDef.add([1643], InfernalMage.new())

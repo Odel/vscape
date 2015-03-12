@@ -1,16 +1,16 @@
 package com.rs2.model.content.quests;
 
-import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.impl.*;
+import com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
+import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
 import java.io.IOException;
 
 import com.rs2.model.players.CommandHandler;
 import com.rs2.model.players.Player;
 import com.rs2.util.PlayerSave;
 
-/**
- * @date 1-jun-2011
- * @author Satan666
- */
 public class QuestHandler {
 
     public static final int[] QUEST_IDS = {
@@ -64,7 +64,9 @@ public class QuestHandler {
 	new NatureSpirit(),
 	new InSearchOfTheMyreque(),
 	new PlagueCity(),
-	new Biohazard()
+	new Biohazard(),
+	new JunglePotion(),
+	new ClockTower()
     };
     
     public static void init() {
@@ -265,6 +267,15 @@ public class QuestHandler {
 		case 28184: //Biohazard
 			showInterface(player,quests[40]);
         		return true;
+		case 28197: //Jungle Potion
+			showInterface(player,quests[41]);
+        		return true;
+		case 28185: //Clock Tower
+			showInterface(player,quests[42]);
+			return true;
+		case 32246: //Death Plateau
+			//showInterface(player,quests[43]);
+        		return true;
         }
         return false;
     }
@@ -286,6 +297,15 @@ public class QuestHandler {
         for (int i = 0; i < QUEST_IDS.length; i++) {
             player.getActionSender().sendString("", QUEST_IDS[i]);
         }
+    }
+    
+    public static int getQuestId(final String name) {
+	    for(Quest q : QuestHandler.getQuests()) {
+		    if(q != null && q.getQuestName().equals(name)) {
+			    return q.getQuestID();
+		    }
+	    }
+	    return 0;
     }
 
 }

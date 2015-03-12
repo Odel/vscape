@@ -23,12 +23,13 @@ import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
+import com.rs2.model.content.quests.impl.PiratesTreasure;
+
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
-import com.rs2.model.content.quests.RecruitmentDrive;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.impl.Quest;
+import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
@@ -972,7 +973,17 @@ public class CommandHandler {
 		}
 		
 		if(keyword.equals("subtractexp")) {
-		    final int skill = Integer.parseInt(args[0]);
+		    int tskill; 
+                    try{
+                        tskill = Integer.parseInt(args[0]);
+                    }
+                    catch(NumberFormatException nfe){
+                        tskill = Skill.skillnameConversion(args[0]);
+                    }
+                    final int skill = tskill;
+                    if(skill < 0 || skill > 20){
+                        sender.getActionSender().sendMessage("Enter a valid skill name or id.");
+                    }
 		    final int exp = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -985,7 +996,18 @@ public class CommandHandler {
 		    }
 		}
 		if(keyword.equals("addexp")) {
-		    final int skill = Integer.parseInt(args[0]);
+                    //Modify this line to allow for conversion between skillname and integer value.
+		    int tskill; 
+                    try{
+                        tskill = Integer.parseInt(args[0]);
+                    }
+                    catch(NumberFormatException nfe){
+                        tskill = Skill.skillnameConversion(args[0]);
+                    }
+                    final int skill = tskill;
+                    if(skill < 0 || skill > 20){
+                        sender.getActionSender().sendMessage("Enter a valid skill name or id.");
+                    }
 		    final int exp = Integer.parseInt(args[1]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
@@ -1136,14 +1158,6 @@ public class CommandHandler {
 			//bank.add(new Item(PiratesTreasure.CLEANING_CLOTH), 25);
 			sender.getBankManager().add(new Item(PiratesTreasure.CLEANING_CLOTH));
 		 //   PiratesTreasure.dumpAllPoisonedItems(this);
-		}
-		else if (keyword.equals("dyedump")) {
-			sender.getInventory().addItem(new Item(GhostsAhoy.RED_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.YELLOW_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.BLUE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.ORANGE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.PURPLE_DYE));
-			sender.getInventory().addItem(new Item(GhostsAhoy.GREEN_DYE));
 		}
 		else if (keyword.equals("enchantdump")) {
 			sender.getBankManager().add(new Item(8016, 100));

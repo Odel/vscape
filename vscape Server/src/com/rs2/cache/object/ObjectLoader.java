@@ -14,11 +14,6 @@ import com.rs2.cache.obj.ObjectDefinitionListener;
 import com.rs2.cache.region.Regions;
 import com.rs2.model.Position;
 import com.rs2.model.World;
-import com.rs2.model.content.quests.ChristmasEvent;
-import com.rs2.model.objects.GameObject;
-/*import com.rs2.model.objects.GameObject;
-import com.rs2.model.objects.GameObjectDef;
-import com.rs2.model.players.GlobalObjectHandler;*/
 import com.rs2.model.players.ObjectHandler;
 
 /**
@@ -168,6 +163,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 	}
 	
 	public static void addObjects() {
+		/*
 	    if(ChristmasEvent.CHRISTMAS_ENABLED) {
 		//ObjectHandler.getInstance().placeObject(new GameObject(10659, 3195, 3437, 0, 0, 10, 0, 999999, true), true);
 		//ObjectHandler.getInstance().placeObject(new GameObject(10665, 3194, 3440, 0, 1, 10, 0, 999999, true), true);
@@ -205,6 +201,7 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		new GameObject(210, 2852, 3784, 0, 0, 10, 0, 999999, true);
 		new GameObject(210, 2851, 3784, 0, 0, 10, 0, 999999, true);
 	    }
+			*/
 	}
 
 	@Override

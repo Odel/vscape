@@ -1,7 +1,7 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.model.content.dialogue.Dialogues;
-import com.rs2.model.content.quests.DwarfCannon;
+import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
@@ -151,6 +151,9 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		else if (player.getEnterXInterfaceId() == 6212) {
 			if (player.getStatedInterface().equals("Ectoplasm")) {
 				Ectofuntus.handleFillTick(player, amount);
+				return;
+			} else if (player.getStatedInterface().equals("ectoLoading")) {
+				Ectofuntus.handleLoadTick(player, amount);
 				return;
 			} else if (player.getStatedInterface().equals("cannonball")) {
 				DwarfCannon.craftCannonBall(player, amount);

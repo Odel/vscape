@@ -1,6 +1,6 @@
 package com.rs2.model.content;
 
-import com.rs2.model.content.quests.DwarfCannon;
+import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;

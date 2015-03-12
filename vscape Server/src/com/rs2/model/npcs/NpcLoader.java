@@ -13,7 +13,7 @@ import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtollNpcs;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;

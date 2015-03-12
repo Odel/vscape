@@ -4,8 +4,8 @@ import com.rs2.Constants;
 import com.rs2.model.players.Player;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.pestcontrol.*;
-import com.rs2.model.content.quests.ChristmasEvent;
-import com.rs2.model.content.quests.GhostsAhoy;
+import com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
 
 /**
  * By Mikey` of Rune-Server

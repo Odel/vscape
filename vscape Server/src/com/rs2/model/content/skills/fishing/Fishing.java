@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
-import com.rs2.model.content.quests.HeroesQuest;
+import com.rs2.model.content.quests.impl.HeroesQuest;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;

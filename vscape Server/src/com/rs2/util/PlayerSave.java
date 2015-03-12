@@ -31,8 +31,9 @@ import com.rs2.model.players.item.Item;
 import com.rs2.net.packet.packets.AppearancePacketHandler;
 import com.rs2.task.Task;
 import com.rs2.task.TaskScheduler;
-import com.rs2.model.content.quests.Quest;
+
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.magic.Spell;
 /**
  * Static utility methods for saving and loading players.

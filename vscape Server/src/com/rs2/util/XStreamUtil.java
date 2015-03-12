@@ -4,18 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.rs2.cache.object.GameObjectData;
-import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.PotionLoader;
 import com.rs2.model.content.consumables.PotionLoader.PotionDefinition;
-import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcDefinition;
-import com.rs2.model.npcs.drop.NpcDropController;
-import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.players.GlobalObject;
 import com.rs2.model.players.GlobalObjectHandler;
-import com.rs2.model.players.ShopManager;
-import com.rs2.model.players.item.Item;
-import com.rs2.model.players.item.ItemDefinition;
 import com.thoughtworks.xstream.XStream;
 
 /**

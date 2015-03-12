@@ -10,8 +10,9 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.rs2.GlobalVariables;
-import com.rs2.model.content.quests.Quest;
+
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.Player;
@@ -276,6 +277,10 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("vialChancy", player.getQuestVars().getVialGivenToChancy());
 		questVarsObj.addProperty("vialDaVinci", player.getQuestVars().getVialGivenToDaVinci());
 		questVarsObj.addProperty("vialHops", player.getQuestVars().getVialGivenToHops());
+		questVarsObj.addProperty("blackCog", player.getQuestVars().getBlackCogPlaced());
+		questVarsObj.addProperty("redCog", player.getQuestVars().getRedCogPlaced());
+		questVarsObj.addProperty("blueCog", player.getQuestVars().getBlueCogPlaced());
+		questVarsObj.addProperty("whiteCog", player.getQuestVars().getWhiteCogPlaced());
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {

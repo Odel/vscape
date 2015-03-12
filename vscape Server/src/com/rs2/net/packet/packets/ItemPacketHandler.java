@@ -13,20 +13,22 @@ import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
 import com.rs2.model.content.minigames.magetrainingarena.MageRewardHandling;
 import com.rs2.model.content.minigames.magetrainingarena.TelekineticTheatre;
-import com.rs2.model.content.quests.DemonSlayer;
-import com.rs2.model.content.quests.DwarfCannon;
-import com.rs2.model.content.quests.GhostsAhoy;
-import com.rs2.model.content.quests.HeroesQuest;
-import com.rs2.model.content.quests.MerlinsCrystal;
-import com.rs2.model.content.quests.MonkeyMadness.ApeAtoll;
-import com.rs2.model.content.quests.MonkeyMadness.MonkeyMadness;
-import com.rs2.model.content.quests.NatureSpirit;
-import com.rs2.model.content.quests.PiratesTreasure;
-import com.rs2.model.content.quests.PlagueCity;
-import com.rs2.model.content.quests.Quest;
+import com.rs2.model.content.quests.impl.DemonSlayer;
+import com.rs2.model.content.quests.impl.DwarfCannon;
+import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
+import com.rs2.model.content.quests.impl.HeroesQuest;
+import com.rs2.model.content.quests.impl.MerlinsCrystal;
+import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
+import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.impl.NatureSpirit;
+import com.rs2.model.content.quests.impl.PiratesTreasure;
+import com.rs2.model.content.quests.impl.PlagueCity;
+
 import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.RecruitmentDrive;
-import com.rs2.model.content.quests.TheGrandTree;
+import com.rs2.model.content.quests.impl.ClockTower;
+import com.rs2.model.content.quests.impl.Quest;
+import com.rs2.model.content.quests.impl.RecruitmentDrive;
+import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
 import com.rs2.model.content.skills.Crafting.BasicCraft;
@@ -517,8 +519,8 @@ public class ItemPacketHandler implements PacketHandler {
 		    CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
 		    break;
 		
-	    case 1929: //Watchtower
-		    break;
+	    case 1929: //ClockTower
+		ClockTower.itemOnGroundItemHandling(player, player.getClickId());
 	}
 	
     }
@@ -549,6 +551,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
+	    return;
+	}
+	if (ClockTower.itemPickupHandling(player, player.getClickId())) {
 	    return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {

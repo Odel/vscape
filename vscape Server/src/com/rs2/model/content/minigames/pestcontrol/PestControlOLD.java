@@ -10,7 +10,7 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
-import com.rs2.model.content.quests.TheGrandTree;
+import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
