@@ -2,6 +2,8 @@ package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
 import com.rs2.model.Position;
+import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.players.Player;
@@ -17,9 +19,10 @@ import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import static com.rs2.model.content.dialogue.Dialogues.LAUGHING;
 import com.rs2.model.content.quests.QuestHandler;
 import static com.rs2.model.content.quests.impl.ErnestTheChicken.PULL_LEVER_ANIM;
+import com.rs2.util.Misc;
+import java.util.ArrayList;
 
 public class ClockTower implements Quest {
-
 	public static final int questIndex = 7353;
 
 	public static final int QUEST_STARTED = 1;
@@ -48,9 +51,7 @@ public class ClockTower implements Quest {
 	public static final int RAT = 224;
 
 	//Positions
-	public static final Position FOOD_TROUGH_POSITION1 = new Position(2587, 9655, 0);
-	public static final Position FOOD_TROUGH_POSITION2 = new Position(2586, 9655, 0);
-	public static final Position FOOD_TROUGH_POSITION3 = new Position(2585, 9655, 0);
+	public static final Position[] FOOD_TROUGH_POSITIONS = {new Position(2587, 9655, 0),  new Position(2586, 9655, 0), new Position(2585, 9655, 0)};
 	public static final Position RAT_DOOR_POSITION = new Position(2579, 9656, 0);
 
 	public static final int questPointReward = 1;
@@ -80,7 +81,7 @@ public class ClockTower implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(995, 200, 617);
+		player.getActionSender().sendItemOnInterface(12145, 250, 617);
 		player.getActionSender().sendString("You have completed" + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are awarded:", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);
@@ -101,35 +102,34 @@ public class ClockTower implements Quest {
 				break;
 			case CLOCK_FIXED:
 			case QUEST_COMPLETE:
-				lastIndex = 11;
+				lastIndex = 12;
 				break;
 		}
 		lastIndex++;
 
 		ActionSender a = player.getActionSender();
-		a.sendQuestLogString("I can start this quest by talking to @red@Brother Kojo @bla@at the", 1, this.getQuestID(), 0);
-		a.sendQuestLogString("@red@Clock Tower @bla@which is located @red@South @bla@of @red@Ardougne", 2, this.getQuestID(), 0);
-		a.sendQuestLogString("To repair the clock i need to find the four coloured cogs", 4, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("and place them on the four correctly coloured spindles", 5, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString((cogPlaced(player.getQuestVars().getBlackCogPlaced()) ? "@str@" : "") + "Black cog still needs to be placed on it's spindle", 6, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString((cogPlaced(player.getQuestVars().getBlueCogPlaced()) ? "@str@" : "") + "Blue cog still needs to be placed on it's spindle", 7, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString((cogPlaced(player.getQuestVars().getRedCogPlaced()) ? "@str@" : "") + "Red cog still needs to be placed on it's spindle", 8, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString((cogPlaced(player.getQuestVars().getWhiteCogPlaced()) ? "@str@" : "") + "White cog still needs to be placed on it's spindle", 9, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("I should talk to Brother Kojo now the clock is fixed.", 11, this.getQuestID(), CLOCK_FIXED);
+		a.sendQuestLogString("I can start this quest by talking to Brother Kojo at the", 1, this.getQuestID(), 0);
+		a.sendQuestLogString("Clock Tower which is located South of Ardougne.", 2, this.getQuestID(), 0);
+		a.sendQuestLogString("To repair the clock I need to find the four colored cogs", 4, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("and place them on the four correctly colored spindles.", 5, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString((player.getQuestVars().getBlackCogPlaced() ? "@str@" : "@dbl@") + "The black cog needs to be placed on it's spindle.", 7, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString((player.getQuestVars().getBlueCogPlaced() ? "@str@" : "@dbl@") + "The blue cog needs to be placed on it's spindle.", 8, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString((player.getQuestVars().getRedCogPlaced() ? "@str@" : "@dbl@") + "The red cog needs to be placed on it's spindle.", 9, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString((player.getQuestVars().getWhiteCogPlaced() ? "@str@" : "@dbl@") + "The white cog needs to be placed on it's spindle.", 10, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("I should talk to Brother Kojo now that the clock is fixed.", 12, this.getQuestID(), CLOCK_FIXED);
 
 		switch (questStage) {
+			default:
+				break;
+			case 0:
+				a.sendQuestLogString("I can start this quest by talking to @dre@Brother Kojo @bla@at the", 1);
+				a.sendQuestLogString("@dre@Clock Tower @bla@which is located @dre@South @bla@of @dre@Ardougne.", 2);
+				break;
 			case QUEST_COMPLETE:
-				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex);
+				a.sendQuestLogString("@dre@" + "You have completed this quest!", lastIndex);
 				a.sendQuestLogString("", lastIndex + 1);
 				break;
 		}
-	}
-
-	public boolean cogPlaced(boolean Cog) {
-		if (Cog) {
-			return true;
-		}
-		return false;
 	}
 
 	public static boolean cogInInventory(final Player player) {
@@ -142,18 +142,18 @@ public class ClockTower implements Quest {
 				if (itemId == BLACK_COG) {
 					if (player.getEquipment().getId(Constants.HANDS) == ICE_GLOVES) {
 						return false;
-					} else if (player.getQuestVars().getBlackCogQuenched()) {
-						player.getQuestVars().setBlackCogQuenched(false);
+					} else if (player.getQuestVars().blackCogQuenched) {
+						player.getQuestVars().blackCogQuenched = false;
 						return false;
 					} else {
-						player.getDialogue().sendPlayerChat("I think i'll burn my hands getting that!", CONTENT);
+						player.getDialogue().sendPlayerChat("I think I'll burn my hands getting that!");
 						return true;
 					}
 				} else {
 					return false;
 				}
 			}
-			player.getDialogue().sendPlayerChat("It's to heavy for me to pick up at the moment", CONTENT);
+			player.getDialogue().sendPlayerChat("It's to heavy for me to pick up at the moment.");
 			return true;
 		}
 		return false;
@@ -188,7 +188,7 @@ public class ClockTower implements Quest {
 	@Override
 	public void sendQuestTabStatus(Player player) {
 		int questStage = player.getQuestStage(getQuestID());
-		String Color = "@red@";
+		String Color = "@dre@";
 		if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
 			Color = "@yel@";
 		} else if (questStage == QUEST_COMPLETE) {
@@ -219,9 +219,8 @@ public class ClockTower implements Quest {
 
 	public static boolean itemOnGroundItemHandling(Player player, int itemId) {
 		if (itemId == BLACK_COG) {
-			player.getQuestVars().setBlackCogQuenched(true);
-			player.getInventory().removeItem(new Item(BUCKET_OF_WATER));
-			player.getInventory().addItem(new Item(BUCKET));
+			player.getQuestVars().blackCogQuenched = true;
+			player.getInventory().replaceItemWithItem(new Item(BUCKET_OF_WATER), new Item(BUCKET));
 			return true;
 		}
 		return false;
@@ -233,112 +232,144 @@ public class ClockTower implements Quest {
 	}
 
 	public void spindlesFilled(Player player) {
-		if (cogPlaced(player.getQuestVars().getBlackCogPlaced()) && cogPlaced(player.getQuestVars().getRedCogPlaced()) && cogPlaced(player.getQuestVars().getBlueCogPlaced()) && cogPlaced(player.getQuestVars().getWhiteCogPlaced()) && player.getQuestStage(this.getQuestID()) < CLOCK_FIXED) {
-			player.setQuestStage(39, CLOCK_FIXED);
+		if (player.getQuestVars().getBlackCogPlaced() && player.getQuestVars().getRedCogPlaced() && player.getQuestVars().getBlueCogPlaced() && player.getQuestVars().getWhiteCogPlaced() && player.getQuestStage(this.getQuestID()) < CLOCK_FIXED) {
+			player.setQuestStage(42, CLOCK_FIXED);
 		}
+	}
+	
+	public static boolean cogOnSpindleHandling(Player player, int object, int item) {
+		if (checkIfCog(item)) {
+			switch (item) {
+				case BLACK_COG:
+					if (object != BLACK_SPINDLE) {
+						return false;
+					}
+					player.getQuestVars().setBlackCogPlaced(true);
+					player.getInventory().removeItem(new Item(BLACK_COG));
+					return true;
+				case BLUE_COG:
+					if (object != BLUE_SPINDLE) {
+						return false;
+					}
+					player.getQuestVars().setBlueCogPlaced(true);
+					player.getInventory().removeItem(new Item(BLUE_COG));
+					return true;
+				case RED_COG:
+					if (object != RED_SPINDLE) {
+						return false;
+					}
+					player.getQuestVars().setRedCogPlaced(true);
+					player.getInventory().removeItem(new Item(RED_COG));
+					return true;
+				case WHITE_COG:
+					if (object != WHITE_SPINDLE) {
+						return false;
+					}
+					player.getQuestVars().setWhiteCogPlaced(true);
+					player.getInventory().removeItem(new Item(WHITE_COG));
+					return true;
+
+			}
+		}
+		return false;
+	}
+	
+	public static void handlePoisoningRats(final Player player) {
+		player.setStopPacket(true);
+		player.getActionSender().sendMessage("You carefully pour the poison into the food trough...");
+		player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
+		player.getInventory().removeItem(new Item(RAT_POISON));
+		ArrayList<Npc> ratsArray = new ArrayList<>();
+		for (Npc npc : player.getNpcs()) {
+			if (npc != null && npc.getNpcId() == RAT) {
+				ratsArray.add(npc);
+			}
+		}
+		if (ratsArray.isEmpty()) {
+			player.setStopPacket(false);
+			return;
+		}
+		int numRats = 0;
+		final ArrayList<Npc> finalRatsArray = ratsArray;
+		for (final Npc rat : finalRatsArray) {
+			if (numRats++ == 4) {
+				rat.setTransformId(4936);
+			}
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+					b.stop();
+				}
+
+				@Override
+				public void stop() {
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						int count_2 = 0;
+						boolean flag = false;
+						boolean unfreezeFlag = false;
+
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							for (Position p : FOOD_TROUGH_POSITIONS) {
+								if (rat.getPosition().equals(p)) {
+									flag = true;
+								}
+							}
+							if (!flag) {
+								rat.walkTo(FOOD_TROUGH_POSITIONS[Misc.randomMinusOne(FOOD_TROUGH_POSITIONS.length)], true);
+							} else {
+								if (rat.getPosition().equals(RAT_DOOR_POSITION)) {
+									b.stop();
+								} else {
+									if (count_2++ == 2) {
+										rat.walkTo(RAT_DOOR_POSITION, true);
+									}
+								}
+							}
+							if (count == 20) {
+								unfreezeFlag = true;
+								b.stop();
+							}
+						}
+
+						@Override
+						public void stop() {
+							if (rat.getTransformId() == 4936) {
+								finalRatsArray.clear();
+								unfreezeFlag = true;
+							}
+							CombatManager.startDeath(rat);
+							if (unfreezeFlag) {
+								player.setStopPacket(false);
+							}
+						}
+					}, 1);
+
+				}
+			}, numRats + 1);
+		}
+		ratsArray.clear();
+		player.getQuestVars().ratsPoisoned = true;
 	}
 
 	public boolean doItemOnObject(final Player player, int object, int item) {
 		switch (object) {
 			case BLACK_SPINDLE:
-				if (item == BLACK_COG) {
-					player.getQuestVars().setBlackCogPlaced(true);
-					player.getActionSender().sendMessage("The cog slides onto the spindle and locks in place.");
-					player.getInventory().removeItem(new Item(BLACK_COG));
-					spindlesFilled(player);
-					return true;
-				}
-				return false;
 			case BLUE_SPINDLE:
-				if (item == BLUE_COG) {
-					player.getQuestVars().setBlueCogPlaced(true);
-					player.getActionSender().sendMessage("The cog slides onto the spindle and locks in place.");
-					player.getInventory().removeItem(new Item(BLUE_COG));
-					spindlesFilled(player);
-					return true;
-				}
-				return false;
 			case RED_SPINDLE:
-				if (item == RED_COG) {
-					player.getQuestVars().setRedCogPlaced(true);
-					player.getActionSender().sendMessage("The cog slides onto the spindle and locks in place.");
-					player.getInventory().removeItem(new Item(RED_COG));
-					spindlesFilled(player);
-					return true;
-				}
-				return false;
 			case WHITE_SPINDLE:
-				if (item == WHITE_COG) {
-					player.getQuestVars().setWhiteCogPlaced(true);
+				if(cogOnSpindleHandling(player, object, item)) {
+					player.getUpdateFlags().sendAnimation(TheGrandTree.PLACE_ANIM);
 					player.getActionSender().sendMessage("The cog slides onto the spindle and locks in place.");
-					player.getInventory().removeItem(new Item(WHITE_COG));
 					spindlesFilled(player);
 					return true;
 				}
 				return false;
 			case FOOD_TROUGH:
 				if (item == RAT_POISON) {
-					player.setStopPacket(true);
-					int numRats = 0;
-					for (final Npc rat : player.getNpcs()) {
-						if (rat != null && rat.getNpcId() == RAT) {
-							numRats++;
-							CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-								int count = 0;
-								int count1 = 0;
-								boolean flag = false;
-								boolean unfreezeFlag = false;
-
-								@Override
-								public void execute(CycleEventContainer b) {
-									count++;
-									if (!flag) {
-										if (rat.getPosition().equals(FOOD_TROUGH_POSITION1) || rat.getPosition().equals(FOOD_TROUGH_POSITION2) || rat.getPosition().equals(FOOD_TROUGH_POSITION3)) {
-											flag = true;
-										} else {
-											rat.walkTo(FOOD_TROUGH_POSITION1, true);
-										}
-									} else {
-										if (rat.getPosition().equals(RAT_DOOR_POSITION)) {
-											b.stop();
-										} else {
-											rat.walkTo(RAT_DOOR_POSITION, true);
-										}
-									}
-									if (count == 20) {
-										unfreezeFlag = true;
-										b.stop();
-									}
-								}
-
-								@Override
-								public void stop() {
-									for (Npc rat : player.getNpcs()) {
-										if (rat.getNpcId() == RAT) {
-											count1++;
-										}
-									}
-									if (count1 == 1) {
-										unfreezeFlag = true;
-									}
-									NpcLoader.destroyNpc(rat);
-									System.out.println(unfreezeFlag);
-									if (unfreezeFlag) {
-										player.setStopPacket(false);
-									}
-								}
-							}, 1);
-						}
-					}
-					for (int i = 0; i <= numRats; i++) {
-						if (i == numRats) {
-							spawnRatCycle(player, 30, true);
-						} else {
-							spawnRatCycle(player, 30, false);
-						}
-					}
-					player.getQuestVars().RatsPoisoned = true;
-					player.getInventory().removeItem(new Item(RAT_POISON));
+					handlePoisoningRats(player);
 					return true;
 				}
 				return false;
@@ -361,12 +392,7 @@ public class ClockTower implements Quest {
 
 			@Override
 			public void stop() {
-				if (lastRat) {
-					NpcLoader.newWanderNPC(RAT, 2582, 9656, 0);
-					//rat.setTransformId(4936)   ---- 
-				} else {
-					NpcLoader.newWanderNPC(RAT, 2582, 9656, 0);
-				}
+				NpcLoader.newWanderNPC(RAT, 2582, 9656, 0);
 			}
 		}, 1);
 	}
@@ -374,32 +400,32 @@ public class ClockTower implements Quest {
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
 			case 1586:
-				if (x == 0 && y == 0) {
+				if (x == 2575 && y == 9631) {
 					player.getActionSender().walkTo(player.getPosition().getX() < 2576 ? 1 : -1, 0, true);
 					player.getActionSender().walkThroughDoor(object, x, y, 0);
 					return true;
 				}
 				return false;
 			case 33:
-				if (x == 0 && y == 0) {
+				if (x == 2591 && y == 9661) {
 					player.getActionSender().sendMessage("You pull the lever.");
-					player.getQuestVars().ClockTowerGateOne = true;
+					player.getQuestVars().clockTowerGateOne = true;
 					player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 					return true;
 				}
 				return false;
 			case 34:
-				if (x == 0 && y == 0) {
+				if (x == 2593 && y == 9661) {
 					player.getActionSender().sendMessage("You pull the lever.");
-					player.getQuestVars().ClockTowerGateTwo = true;
+					player.getQuestVars().clockTowerGateTwo = true;
 					player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 					return true;
 				}
 				return false;
 			case 37:
-				if (x == 0 && y == 0) {
+				if (x == 2595 && y == 9657) {
 					if (player.getPosition().getX() > 2595) {
-						if (player.getQuestVars().ClockTowerGateOne && player.getQuestVars().ClockTowerGateTwo) {
+						if (player.getQuestVars().clockTowerGateOne && player.getQuestVars().clockTowerGateTwo) {
 							player.getActionSender().walkTo(player.getPosition().getX() < 2596 ? 1 : -1, 0, true);
 							player.getActionSender().walkThroughDoor(object, x, y, 0);
 							boolean spawnRats = true;
@@ -422,9 +448,9 @@ public class ClockTower implements Quest {
 				}
 				return false;
 			case 39:
-				if (x == 0 && y == 0) {
+				if (x == 2579 && y == 9656) {
 					if (player.getPosition().getX() > 2578) {
-						if (player.getQuestVars().RatsPoisoned) {
+						if (player.getQuestVars().ratsPoisoned) {
 							player.getDialogue().sendStatement("The death throes of the rats seem to have shaken the door loose of", "its hinges. You pick it up and go through.");
 							player.getActionSender().walkTo(player.getPosition().getX() < 2579 ? 1 : -1, 0, true);
 							player.getActionSender().walkThroughDoor(object, x, y, 0);
@@ -454,97 +480,108 @@ public class ClockTower implements Quest {
 	}
 
 	public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+		DialogueManager d = player.getDialogue();
 		switch (id) {
 			case BROTHER_KOJO:
 				switch (player.getQuestStage(this.getQuestID())) {
 					case 0:
-						switch (player.getDialogue().getChatId()) {
+						switch (d.getChatId()) {
 							case 1:
-								player.getDialogue().sendPlayerChat("Hello monk.", CONTENT);
+								d.sendPlayerChat("Hello monk.");
 								return true;
 							case 2:
-								player.getDialogue().sendNpcChat("Hello adventurer. My name is Brother Kojo.", "Do you happen to know the time?", CONTENT);
+								d.sendNpcChat("Hello adventurer. My name is Brother Kojo.", "Do you happen to know the time?");
 								return true;
 							case 3:
-								player.getDialogue().sendPlayerChat("No, sorry, i don't.", HAPPY);
+								d.sendPlayerChat("No, sorry, I don't.", HAPPY);
 								return true;
 							case 4:
-								player.getDialogue().sendNpcChat("Exactly! This clock tower has recently broken down,", "and without it nobody can tell the correct time.", "I must fix it before the town people become too angry!", DISTRESSED);
+								d.sendNpcChat("Exactly! This clock tower has recently broken down,", "and without it nobody can tell the correct time.", "I must fix it before the town people become too angry!", DISTRESSED);
 								return true;
 							case 5:
-								player.getDialogue().sendNpcChat("I don't suppose you could assist me in the repairs?", "I'll pay you for your help.", DISTRESSED);
+								d.sendNpcChat("I don't suppose you could assist me in the repairs?", "I'll pay you for your help.");
 								return true;
 							case 6:
-								player.getDialogue().sendOption("OK old monk, what can i do?", "How much reward are we talking?", "Not now old monk.");
+								d.sendOption("Ok old monk, what can I do?", "How much reward are we talking?", "Not now old monk.");
 								return true;
 							case 7:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
 								switch (optionId) {
-									case 1:
-										player.getDialogue().sendPlayerChat("Sure i'd be happy to help, what can i do?", CONTENT);
-										player.getDialogue().setNextChatId(8);
-										return true;
 									case 2:
-										player.getDialogue().sendPlayerChat("How much reward are we talking?", CONTENT);
-										player.getDialogue().setNextChatId(10);
-										return true;
+										d.setNextChatId(10);
+										break;
 									case 3:
-										player.getDialogue().sendPlayerChat("Not now old monk.", CONTENT);
-										player.getDialogue().setNextChatId(12);
-										return true;
+										d.setNextChatId(12);
+										break;
 								}
+								return true;
 							case 8:
-								player.getDialogue().sendNpcChat("Oh, thank you kind sir!", "In the cellar below, you'll find four cogs, they're too heavy", "for me, but you should be able to carry them one at a time.", CONTENT);
+								d.sendNpcChat("Oh, thank you kind sir!", "In the cellar below, you'll find four cogs, they're too heavy", "for me, but you should be able to carry them one at a time.");
 								return true;
 							case 9:
-								player.getDialogue().sendNpcChat("I know one goes on each floor...", "but I can't exactly remember which goes where specifically.", "Oh well, I'm sure you can figure it out fairly easily.", CONTENT);
-								player.getDialogue().endDialogue();
-								QuestHandler.startQuest(player, 39);
+								d.sendNpcChat("I know one goes on each floor...", "but I can't exactly remember which goes where specifically.", "Oh well, I'm sure you can figure it out fairly easily.");
+								d.endDialogue();
+								QuestHandler.startQuest(player, 42);
 								return true;
 							case 10:
-								player.getDialogue().sendNpcChat("Well, i'm only a monk so i'm not exactly rich,", "but i assure you i will give you a fair reward for", "the time spent assisting me in repairing the clock.", CONTENT);
+								d.sendNpcChat("Well, I'm only a monk so I'm not exactly rich,", "but I assure you I will give you a fair reward for", "the time spent assisting me in repairing the clock.");
 								return true;
 							case 11:
-								player.getDialogue().sendNpcChat("So how about it?", CONTENT);
-								player.getDialogue().setDialogueId(6); //TODO figure out a way to go back
+								d.sendNpcChat("So how about it?");
+								d.setDialogueId(6); //TODO figure out a way to go back
 								return true;
 							case 12:
-								player.getDialogue().sendNpcChat("Ok then, come back and let me know", "when you change your mind.", DISTRESSED);
-								player.getDialogue().endDialogue();
+								d.sendNpcChat("Ok then, come back and let me know", "when you change your mind.", DISTRESSED);
+								d.endDialogue();
 								return true;
 						}
 					case QUEST_STARTED:
-						switch (player.getDialogue().getChatId()) {
+						switch (d.getChatId()) {
 							case 1:
-								player.getDialogue().sendNpcChat("Have you replaced all the cogs yet?", DISTRESSED);
+								d.sendNpcChat("Have you replaced all the cogs yet?", DISTRESSED);
 								return true;
 							case 2:
-								player.getDialogue().sendPlayerChat("Not yet, i'm still working on it.", CONTENT);
-								player.getDialogue().endDialogue();
-								return true;
-						}
-					case CLOCK_FIXED:
-						switch (player.getDialogue().getChatId()) {
-							case 1:
-								player.getDialogue().sendPlayerChat("I have replaced all the cogs!", CONTENT);
-								return true;
-							case 2:
-								player.getDialogue().sendNpcChat("Really...? Wait, Listen! Well done, well done! Yes yes", "yes, you've done it! You ARE clever!", "The townsfolk will be able to know the correct time now!", HAPPY);
+								d.sendOption("Not yet, I'm still working on it.", "Where are these cogs again?");
 								return true;
 							case 3:
-								player.getDialogue().sendNpcChat("Thank you so much for all of your help!", "And as promised, here is your reward!", HAPPY);
-								player.getDialogue().endDialogue();
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 1)
+									d.endDialogue();
+								return true;
+							case 4:
+								d.sendNpcChat("In the cellar below, you'll find four cogs, they're too heavy", "for me, but you should be able to carry them one at a time.");
+								return true;
+							case 5:
+								d.sendNpcChat("I know one goes on each floor...", "but I can't exactly remember which goes where specifically.", "Oh well, I'm sure you can figure it out fairly easily.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case CLOCK_FIXED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("I have replaced all the cogs!");
+								return true;
+							case 2:
+								d.sendNpcChat("Really...? Wait, Listen! Well done, well done! Yes yes", "yes, you've done it! You ARE clever!", "The townsfolk will be able to know the correct time now!", HAPPY);
+								return true;
+							case 3:
+								d.sendNpcChat("Thank you so much for all of your help!", "And as promised, here is your reward!", HAPPY);
+								return true;
+							case 4:
+								d.dontCloseInterface();
 								QuestHandler.completeQuest(player, this.getQuestID());
 								return true;
 						}
-						return true;
+						return false;
 					case QUEST_COMPLETE:
-						switch (player.getDialogue().getChatId()) {
+						switch (d.getChatId()) {
 							case 1:
-								player.getDialogue().sendNpcChat("Thanks to you the clock is working smoothly!", HAPPY);
+								d.sendNpcChat("Thanks to you the clock is working smoothly!", HAPPY);
 								return true;
 							case 2:
-								player.getDialogue().sendPlayerChat("No problem, happy to help anytime.", LAUGHING);
-								player.getDialogue().endDialogue();
+								d.sendPlayerChat("No problem, happy to help any... -time-!", LAUGHING);
+								d.endDialogue();
 								return true;
 						}
 						return false;
