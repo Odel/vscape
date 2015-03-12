@@ -156,6 +156,7 @@ public enum Spell {
 	JUNGLE_DEMON_BLAST_2(69, magicHit(32, magicProjectile(162), Graphic.highGraphic(163)), true),
 	JUNGLE_DEMON_BLAST_3(69, magicHit(32, magicProjectile(165), Graphic.highGraphic(166)), true),
 	JUNGLE_DEMON_BLAST_4(69, magicHit(32, magicProjectile(156), Graphic.highGraphic(157)), true),
+	INFERNAL_MAGE_SPELL(59, 711, Graphic.highGraphic(129), 0, new Item[]{}, magicHit(8, magicProjectile(130), Graphic.highGraphic(131)), true),
 	/*End*/;
 
 	private int levelRequired, animation;
