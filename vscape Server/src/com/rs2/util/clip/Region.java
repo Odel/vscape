@@ -701,6 +701,7 @@ public class Region {
 			}
 			bufferlength += readByte;
 		} while (true);
+		gzip.close();
 		byte[] inflated = new byte[bufferlength];
 		System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
 		buffer = inflated;
