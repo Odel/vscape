@@ -572,6 +572,8 @@ public class CombatManager extends Tick {
 			int respawnTimer = npc.getRespawnTimer();
 			if(npc.getNpcId() == 1158)
 			    respawnTimer = 300;
+			else if(npc.getNpcId() == 224)
+			    respawnTimer = 30;
 			else if(npc.getNpcId() == 2881 || npc.getNpcId() == 2882 || npc.getNpcId() == 2883)
 			    respawnTimer = 60;
 			else if(npc.getNpcId() == 916) // joe

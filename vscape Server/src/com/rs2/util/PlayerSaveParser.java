@@ -455,6 +455,18 @@ public class PlayerSaveParser {
 				if(questVars.get("vialHops") != null) {
 					player.getQuestVars().setVialGivenToHops(questVars.get("vialHops").getAsInt());
 				}
+				if(questVars.get("blackCog") != null) {
+					player.getQuestVars().setBlackCogPlaced(questVars.get("blackCog").getAsBoolean());
+				}
+				if(questVars.get("redCog") != null) {
+					player.getQuestVars().setRedCogPlaced(questVars.get("redCog").getAsBoolean());
+				}
+				if(questVars.get("blueCog") != null) {
+					player.getQuestVars().setBlueCogPlaced(questVars.get("blueCog").getAsBoolean());
+				}
+				if(questVars.get("whiteCog") != null) {
+					player.getQuestVars().setWhiteCogPlaced(questVars.get("whiteCog").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

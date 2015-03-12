@@ -66,7 +66,7 @@ public class QuestHandler {
 	new PlagueCity(),
 	new Biohazard(),
 	new JunglePotion(),
-	new DeathPlateau()
+	new ClockTower()
     };
     
     public static void init() {
@@ -270,8 +270,11 @@ public class QuestHandler {
 		case 28197: //Jungle Potion
 			showInterface(player,quests[41]);
         		return true;
-		case 32246: //Death Plateau
+		case 28185: //Clock Tower
 			showInterface(player,quests[42]);
+			return true;
+		case 32246: //Death Plateau
+			//showInterface(player,quests[43]);
         		return true;
         }
         return false;

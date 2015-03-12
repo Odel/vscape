@@ -25,6 +25,7 @@ import com.rs2.model.content.quests.impl.PiratesTreasure;
 import com.rs2.model.content.quests.impl.PlagueCity;
 
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.ClockTower;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.TheGrandTree;
@@ -518,8 +519,8 @@ public class ItemPacketHandler implements PacketHandler {
 		    CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 1);
 		    break;
 		
-	    case 1929: //Watchtower
-		    break;
+	    case 1929: //ClockTower
+		ClockTower.itemOnGroundItemHandling(player, player.getClickId());
 	}
 	
     }
@@ -550,6 +551,9 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	if (DwarfCannon.itemPickupHandling(player, player.getClickId())) {
+	    return;
+	}
+	if (ClockTower.itemPickupHandling(player, player.getClickId())) {
 	    return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
