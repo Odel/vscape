@@ -27,10 +27,10 @@ class MonkOfZamorak < NpcCombatDef
     end
 end
 
-class BloodVeld < NpcCombatDef
+class Bloodveld < NpcCombatDef
     def attackScripts attacker, victim
         return [
-                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 5, 6, 1552),
+                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 5, 5, 1552),
 	];
     end
 end
@@ -428,6 +428,30 @@ class InfernalMage < NpcCombatDef
 	end
 end
 
+class Pyrefiend < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 4, 5, 1582),
+	];
+    end
+end
+
+class Jelly < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 7, 5, 1586),
+	];
+    end
+end
+
+class Banshee < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+                BasicAttack.meleeAttack(attacker, victim, AttackStyle::Mode::MAGIC, AttackStyle::Bonus::SLASH, 3, 5, 1523),
+	];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
@@ -465,7 +489,7 @@ NpcCombatDef.add([907], KolodionFirstForm.new())
 NpcCombatDef.add([908], KolodionSecondForm.new())
 NpcCombatDef.add([910], KolodionFourthForm.new())
 NpcCombatDef.add([1046], MonkOfZamorak.new())
-NpcCombatDef.add([1618], BloodVeld.new())
+NpcCombatDef.add([1618], Bloodveld.new())
 NpcCombatDef.add([1351, 1352, 1353, 1354, 1355, 1356], DagannothMother.new())
 NpcCombatDef.add([1341, 1342, 1343], WeakDagannothMelee.new())
 NpcCombatDef.add([1338, 1339, 1340], WeakDagannothRange.new())
@@ -473,3 +497,6 @@ NpcCombatDef.add([3068, 3069, 3070, 3071], SkeletalWyvern.new())
 NpcCombatDef.add([1456, 1457, 1458], MonkeyArcher.new())
 NpcCombatDef.add([1472], JungleDemon.new())
 NpcCombatDef.add([1643], InfernalMage.new())
+NpcCombatDef.add([1633], Pyrefiend.new())
+NpcCombatDef.add([1640], Jelly.new())
+NpcCombatDef.add([1612], Banshee.new())
