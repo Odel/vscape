@@ -393,7 +393,9 @@
     "button": 35012
   },
   {
-    "regions": [],
+    "regions": [
+	  11165
+	],
     "name": "Cave of Beasts",
     "song": 357,
     "frame": 12390,
@@ -869,7 +871,9 @@
     "button": 16231
   },
   {
-    "regions": [],
+    "regions": [
+	  11676
+	],
     "name": "Expedition",
     "song": 153,
     "frame": 4437,
@@ -1443,8 +1447,7 @@
   },
   {
     "regions": [
-      11319,
-      11677
+      11319
     ],
     "name": "Kingdom",
     "song": 9,
@@ -1482,7 +1485,9 @@
     "button": 63020
   },
   {
-    "regions": [],
+    "regions": [
+	  11423
+	],
     "name": "Land of the Dwarves",
     "song": 396,
     "frame": 13576,
@@ -1606,7 +1611,9 @@
     "button": 17012
   },
   {
-    "regions": [],
+    "regions": [
+	  11677
+	],
     "name": "Mad Eadgar",
     "song": 264,
     "frame": 189,
@@ -1667,14 +1674,19 @@
     "button": 43129
   },
   {
-    "regions": [],
+    "regions": [
+	  11421,
+	  11166
+	],
     "name": "Marzipan",
     "song": 261,
     "frame": 190,
     "button": 190
   },
   {
-    "regions": [],
+    "regions": [
+	  10908
+	],
     "name": "Masquerade",
     "song": 340,
     "frame": 12047,
@@ -2554,7 +2566,9 @@
     "button": 43132
   },
   {
-    "regions": [],
+    "regions": [
+	  11679
+	],
     "name": "Tale of Keldagrim",
     "song": 395,
     "frame": 13575,
@@ -2690,7 +2704,9 @@
     "button": 55106
   },
   {
-    "regions": [],
+    "regions": [
+	  10652
+	],
     "name": "The Navigator",
     "song": 316,
     "frame": 10114,
@@ -2731,7 +2747,9 @@
     "button": 17053
   },
   {
-    "regions": [],
+    "regions": [
+	  11164
+	],
     "name": "The Slayer",
     "song": 341,
     "frame": 12049,
@@ -2779,7 +2797,9 @@
     "button": 32240
   },
   {
-    "regions": [],
+    "regions": [
+	  11422
+	],
     "name": "Time to Mine",
     "song": 369,
     "frame": 12808,
@@ -3034,7 +3054,9 @@
     "button": 17073
   },
   {
-    "regions": [],
+    "regions": [
+	  10653
+	],
     "name": "Warrior",
     "song": 295,
     "frame": 10113,
