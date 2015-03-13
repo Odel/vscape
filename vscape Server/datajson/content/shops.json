@@ -8860,5 +8860,26 @@
     "isGeneralStore": true,
     "currencyType": "ITEM",
     "currency": 995
+  },
+  {
+    "shopId": 206,
+    "name": "Burthorpe Pub",
+    "items": [
+      {
+        "id": 1905,
+        "count": 12
+      },
+	  {
+        "id": 1907,
+        "count": 12
+      },
+	  {
+        "id": 1913,
+        "count": 12
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]

@@ -1237,7 +1237,11 @@ public class CommandHandler {
 			{
 				player.setStandAnim(def.getStandAnim());
 				player.setWalkAnim(def.getWalkAnim());
-				player.setRunAnim(def.getWalkAnim());
+				if(def.getWalkAnim() == 819) {
+					player.setRunAnim(-1);
+				} else {
+					player.setRunAnim(def.getWalkAnim());
+				}
 			}
 			if(npcId <= 0) {
 				player.setStandAnim(-1);

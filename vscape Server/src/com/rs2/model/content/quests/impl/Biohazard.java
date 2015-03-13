@@ -488,7 +488,7 @@ public class Biohazard implements Quest {
 					if(pX < 3264) {
 						Dialogues.startDialogue(player, GATE+10000);
 					} else {
-						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0);
+						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0, true);
 						player.getActionSender().walkTo(-1, 0, true);	
 					}
 					return true;
@@ -882,7 +882,7 @@ public class Biohazard implements Quest {
 					case 4:
 						d.endDialogue();
 						player.getActionSender().removeInterfaces();
-						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0);
+						player.getActionSender().walkThroughGateEW(GATE + 1, GATE, 3264, 3406, 3264, 3405, 0, true);
 						player.getActionSender().walkTo(1, 0, true);
 						return true;
 				}

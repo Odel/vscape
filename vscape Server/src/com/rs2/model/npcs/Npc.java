@@ -246,7 +246,7 @@ public class Npc extends Entity {
 	public boolean canHaveInteractingEntity() {
 		int id = this.npcId;
 		return !this.isBoothBanker() && id != HorrorFromTheDeep.SITTING_JOSSIK && id != 1423 && id != 1424 && id != 1577
-			&& id < 1066 && id > 1068 && id != 1063 && id != 1064 && id != 1061;
+			&& id < 1066 && id > 1068 && id != 1063 && id != 1064 && id != 1061 && id != 1069;
 	}
 
 	public boolean playerNearby() {
