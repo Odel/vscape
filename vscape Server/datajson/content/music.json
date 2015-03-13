@@ -1324,7 +1324,9 @@
     "button": 16252
   },
   {
-    "regions": [],
+    "regions": [
+      9808
+    ],
     "name": "In the Pits",
     "song": 469,
     "frame": 2803,
@@ -2901,7 +2903,9 @@
     "button": 29037
   },
   {
-    "regions": [],
+    "regions": [
+      9551
+    ],
     "name": "TzHaar!",
     "song": 473,
     "frame": 6013,

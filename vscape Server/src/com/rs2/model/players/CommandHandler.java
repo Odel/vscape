@@ -25,7 +25,6 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.impl.PiratesTreasure;
-
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.impl.Quest;
@@ -44,6 +43,7 @@ import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
+import com.rs2.model.region.music.MusicLoader;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -1928,6 +1928,15 @@ public class CommandHandler {
         		sender.getActionSender().sendMessage("Food defs were reloaded.", true);
         	} catch (Exception e) {
     			sender.getActionSender().sendMessage("Problem reloading Food defs.", true);
+    		}
+        }
+        else if(keyword.equals("reloadmusic"))
+        {
+        	try{
+        		MusicLoader.Load();
+        		sender.getActionSender().sendMessage("Music defs were reloaded.", true);
+        	} catch (Exception e) {
+    			sender.getActionSender().sendMessage("Problem reloading Music defs.", true);
     		}
         }
         else if(keyword.equals("searchbank")) {
