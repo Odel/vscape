@@ -807,7 +807,6 @@ public class CommandHandler {
 	        	}
 		    	player.getActionSender().sendSong(id);
 		    	sender.getActionSender().sendMessage("Forced music for player " + player.getUsername(), true);
-		    	player.getMusicManager().currentSong = id;
 		    }
 		}
 		if (keyword.equals("objectanim")) {

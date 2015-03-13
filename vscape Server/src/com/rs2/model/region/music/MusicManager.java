@@ -9,9 +9,7 @@ public class MusicManager {
 	public MusicManager(Player player) {
 		this.player = player;
 	}
-	
-	public int currentSong = 0;
-	
+
 	public void Init(){
 		player.getActionSender().sendConfig(18, player.getMusicAuto() ? 1 : 0);
 		player.getActionSender().sendString("AUTO", 4439);
@@ -35,10 +33,9 @@ public class MusicManager {
 			System.out.println("Music isn't added into this region yet! Region = "+ player.getPosition().getRegionId());
 			return;
 		}
-		if(music.getSong() == currentSong)
+		if(music.getSong() == player.currentSong)
 			return;
-		currentSong = music.getSong();
-		player.getActionSender().sendSong(currentSong);
+		player.getActionSender().sendSong(music.getSong());
 		player.getActionSender().sendString(music.getName(), 4439);
 	}
 	
@@ -52,7 +49,6 @@ public class MusicManager {
         		player.setMusicAuto(false);
         		player.getActionSender().sendConfig(18, player.getMusicAuto() ? 1 : 0);
         	}
-    		currentSong = music.getSong();
     		player.getActionSender().sendSong(music.getSong());
     		player.getActionSender().sendString(music.getName(), 4439);
     		return true;
