@@ -7,6 +7,8 @@ import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
+import com.rs2.model.Position;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.ObjectHandler;
@@ -264,6 +266,47 @@ public class Doors {
 			public void stop() {
 			}
 		}, 2);
+	}
+	
+	public static void passThroughDialogueDoor(final Player player, final int object, final int obX, final int obY, final int travelTo, final Position toBe, final boolean isNS) {
+		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
+		player.setStopPacket(true);
+		if (player.getPosition().equals(toBe)) {
+			player.getActionSender().walkThroughDoor(object, obX, obY, player.getPosition().getZ());
+			if(isNS) {
+				player.getActionSender().walkTo(pX == obX ? 0 : pX < obX ? 1 : -1, travelTo, true);
+			} else {
+				player.getActionSender().walkTo(travelTo, pY == obY ? 0 : pY < obX ? 1 : -1, true);
+			}
+			player.setStopPacket(false);
+		} else {
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				int count = 0;
+				@Override
+				public void execute(CycleEventContainer b) {
+					int pX = player.getPosition().getX(), pY = player.getPosition().getY();
+					count++;
+					if (player.getPosition().equals(toBe)) {
+						player.getActionSender().walkThroughDoor(object, obX, obY, player.getPosition().getZ());
+						if (isNS) {
+							player.getActionSender().walkTo(pX == obX ? 0 : pX < obX ? 1 : -1, travelTo, true);
+						} else {
+							player.getActionSender().walkTo(travelTo, pY == obY ? 0 : pY < obX ? 1 : -1, true);
+						}
+					} else {
+						player.walkTo(toBe, true);
+					}
+					if (count >= 3) {
+						b.stop();
+					}
+				}
+
+				@Override
+				public void stop() {
+					player.setStopPacket(false);
+				}
+			}, 1);
+		}
 	}
 
 	private boolean alreadyOpen(int id) {

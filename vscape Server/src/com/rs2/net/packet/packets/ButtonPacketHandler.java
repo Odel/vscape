@@ -577,7 +577,10 @@ public class ButtonPacketHandler implements PacketHandler {
 		if (DwarfCannon.buttonHandling(player, buttonId)) {
 			return;
 		}
-		if(RecruitmentDrive.buttonHandling(player, buttonId)) {
+		if (RecruitmentDrive.buttonHandling(player, buttonId)) {
+			return;
+		}
+		if (player.getDice().buttonHandling(player, buttonId)) {
 			return;
 		}
 		if (Spinning.spin(player, buttonId, 0)) {

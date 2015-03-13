@@ -1,6 +1,7 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
 import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
@@ -100,6 +101,10 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			return;
 		} else if (player.getEnterXInterfaceId() == 207) {
 			ChallengeScrolls.handleAnswer(player, amount, player.challengeScroll);
+			return;
+		} else if (player.getEnterXInterfaceId() == 347400) {
+			player.getDice().setBet(amount);
+			Dialogues.sendDialogue(player, DeathPlateau.HAROLD, 17, 0);
 			return;
 		} else if (player.getEnterXInterfaceId() == 208) {
 			if(amount <= 0) {

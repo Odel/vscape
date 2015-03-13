@@ -146,6 +146,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
+import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -191,6 +192,7 @@ public class Player extends Entity {
 	private Skill skill = new Skill(this);
 	private ActionSender actionSender = new ActionSender(this);
 	private RuneDraw runeDraw = new RuneDraw(this);
+	private GamblingDice gamblingDice = new GamblingDice(this);
 	private Puzzle puzzle = new Puzzle(this);
 	private MithrilSeeds seeds = new MithrilSeeds(this);
 	private Barrows barrows = new Barrows(this);
@@ -1771,6 +1773,10 @@ public class Player extends Entity {
 	
 	public RuneDraw getRuneDraw() {
 		return runeDraw;
+	}
+	
+	public GamblingDice getDice() {
+		return gamblingDice;
 	}
 	
 	public Puzzle getPuzzle() {

@@ -1,5 +1,6 @@
 package com.rs2.net.packet.packets;
 
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
 import com.rs2.net.packet.Packet;
@@ -30,10 +31,21 @@ public class CloseInterfacePacketHandler implements PacketHandler {
 			player.getActionSender().sendString("", i);
 		    }
 		}
-		if(player.getStatedInterface().equals("hangoverCure")) {
+		if(player.getStatedInterface().equals("hangoverCure") || player.getStatedInterface().equals("combinationBalls")) {
 			for(int i = 1142; i < 1146; i++) {
 				player.getActionSender().sendString("", i);
 			}
+		}
+		if(player.getStatedInterface().equals("gamblingDice")) {
+			player.getDice().quitGameInterface();
+			Dialogues.sendDialogue(player, 1078, 20, 0);
+		}
+		if(player.getStatedInterface().equals("gamblingDice2")) {
+			player.getDice().quitGameInterface();
+			Dialogues.sendDialogue(player, 1078, 43, 0);
+		}
+		if(player.getStatedInterface().equals("gamblingDiceTie")) {
+			player.getDice().quitGameInterface();
 		}
 		player.setStatedInterface("");
 		if (player.getNewComersSide().isInTutorialIslandStage())
