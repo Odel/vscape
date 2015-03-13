@@ -1237,7 +1237,7 @@ public class PestControl {
 	return false;
     }
 
-    private static int playersInLobby() {
+    public static int playersInLobby() {
 	for(Player p : lobbyPlayers) {
 	    if(p == null) lobbyPlayers.remove(p);
 	    else if(!p.inPestControlLobbyArea()) lobbyPlayers.remove(p);

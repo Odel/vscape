@@ -327,6 +327,9 @@ public class CommandHandler {
 		else if(keyword.equals("pcactive")) {
 		    if(PestControl.gameActive())
 		    	sender.getActionSender().sendMessage("There is an active Pest Control game with " +PestControl.playersInGame() + " players playing.", true);
+		    else if(PestControl.playersInLobby() > 0) {
+			sender.getActionSender().sendMessage("There are " +PestControl.playersInLobby() + " player(s) waiting in the boat");
+			}
 		    else {
 		    	sender.getActionSender().sendMessage("Pest Control is not running at the moment.", true);
 		    }

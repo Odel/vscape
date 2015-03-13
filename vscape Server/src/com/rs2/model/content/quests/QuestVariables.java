@@ -96,6 +96,11 @@ public class QuestVariables {
 	public boolean clockTowerGateOne = false;
 	public boolean clockTowerGateTwo = false;
 	public boolean ratsPoisoned = false;
+	public boolean spokenToHarold = false;
+	public boolean givenHaroldAle = false;
+	public boolean givenHaroldSpecial = false;
+	public int moneyWonFromHarold = 0;
+	public boolean[] ballBools = {false, false, false, false, false};
 
 	public QuestVariables(final Player player) {
 		this.player = player;

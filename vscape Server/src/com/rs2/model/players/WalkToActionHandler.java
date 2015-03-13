@@ -716,7 +716,34 @@ public class WalkToActionHandler {
 				    }
 				    break;
 				case 4624 : // burthorpe staircase
-					player.teleport(new Position(2208, 4938));
+					if(x == 2899 && y == 3566) {
+						player.teleport(new Position(2206, 4934, 1));
+					}
+					break;
+				case 4620: //burthorpe games staircase down
+					if(x == 2207 && y == 4935) {
+						player.teleport(new Position(2207, 4938, 0));
+					}
+					break;
+				case 4622 : // games room staircase
+					if(x == 2207 && y == 4935) {
+						player.teleport(new Position(2207, 4934, 1));
+					}
+					break;
+				case 4627: //games room stairs up to castle
+					if(x == 2205 && y == 4935) {
+						player.teleport(new Position(2899, 3565, 0));
+					}
+					break;
+				case 4626: //burthorpe castle stairs up
+					if(x == 2897 && y == 3566) {
+						player.teleport(new Position(2898, 3569, 1));
+					}
+					break;
+				case 4625: //burthorpe castle stairs down
+					if(x == 2897 && y == 3567) {
+						player.teleport(new Position(2897, 3565, 0));
+					}
 					break;
 				case 5959 : // magebank lever
 					if(!player.isTeleblocked()){
@@ -844,9 +871,6 @@ public class WalkToActionHandler {
                                 case 2797: //Watchtower second floor down
                                         Ladders.climbLadder(player, new Position(2549, 3112, 1));
                                         break;
-				case 4622 : // games room staircase
-					player.teleport(new Position(2899, 3565));
-					break;
 				case 2834 : // battlements
 					/*if(player.getPosition().getX() ==  2566) {
 					    //player.getUpdateFlags().sendAnimation(839);

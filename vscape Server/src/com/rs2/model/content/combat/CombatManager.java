@@ -858,7 +858,7 @@ public class CombatManager extends Tick {
         //if (victim.isNpc())
         //    return victim.getBonus(attackStyle.getBonus().toInteger() + AttackStyle.Bonus.values().length);
 		double effectiveDefence = getEffectiveDefence(victim, attackStyle);
-		if(victim.isPlayer() && attackStyle.getAttackType() != AttackType.MAGIC) {
+		if(victim.isPlayer() && attackStyle.getAttackType() != AttackType.MAGIC && attackStyle.getMode() != AttackStyle.Mode.MAGIC) {
 		   effectiveDefence += victim.getBonus(attackStyle.getBonus().toInteger() + AttackStyle.Bonus.values().length); 
 		}
 		int styleBonusDefence = 0;
@@ -868,13 +868,18 @@ public class CombatManager extends Tick {
 				int level = pVictim.getSkill().getLevel()[Skill.MAGIC];
 				effectiveDefence = (int) (Math.floor(level * 0.125) + Math.floor(effectiveDefence * 0.875));
 				styleBonusDefence = 19;
+			} else if (attackStyle.getAttackType() == AttackType.MELEE && attackStyle.getMode() == AttackStyle.Mode.MAGIC){
+				int magicLevel = pVictim.getSkill().getLevel()[Skill.MAGIC];
+				int defenseLevel = pVictim.getSkill().getLevel()[Skill.DEFENCE];
+				effectiveDefence = (int) (Math.floor(magicLevel * 0.0875) + Math.floor(defenseLevel * 0.0375) + Math.floor(effectiveDefence * 0.875));
+				styleBonusDefence = 64;
 			} else {
 				AttackStyle defenceStyle = pVictim.getEquippedWeapon().getWeaponInterface().getAttackStyles()[pVictim.getFightMode()];
-				if (defenceStyle.getMode() == AttackStyle.Mode.DEFENSIVE || defenceStyle.getMode() == AttackStyle.Mode.LONGRANGE)
-					styleBonusDefence += 3;
-				else if (defenceStyle.getMode() == AttackStyle.Mode.CONTROLLED)
-					styleBonusDefence += 1;
-			}
+					if (defenceStyle.getMode() == AttackStyle.Mode.DEFENSIVE || defenceStyle.getMode() == AttackStyle.Mode.LONGRANGE)
+						styleBonusDefence += 3;
+					else if (defenceStyle.getMode() == AttackStyle.Mode.CONTROLLED)
+						styleBonusDefence += 1;
+				}
 		}
 		effectiveDefence *= (1 + (styleBonusDefence) / 64);
 		if (hitDef.getSpecialEffect() == 11) { //verac effect
