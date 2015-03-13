@@ -25,6 +25,7 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.impl.PiratesTreasure;
+
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.impl.Quest;
@@ -790,6 +791,9 @@ public class CommandHandler {
 		if (keyword.equals("music")) {
 			final int id = Integer.parseInt(args[0]);
 			sender.getActionSender().sendSong(id);
+		}
+		if (keyword.equals("myregion")) {
+			System.out.println("" + sender.getCurrentRegion().getRegionId());
 		}
 		if (keyword.equals("forcemusic")) {
 			final int id = Integer.parseInt(args[0]);
@@ -1930,7 +1934,7 @@ public class CommandHandler {
     			sender.getActionSender().sendMessage("Problem reloading Food defs.", true);
     		}
         }
-        else if(keyword.equals("reloadmusic"))
+	else if(keyword.equals("reloadmusic"))
         {
         	try{
         		MusicLoader.Load();
