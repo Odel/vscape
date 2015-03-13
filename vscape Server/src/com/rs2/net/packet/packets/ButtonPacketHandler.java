@@ -392,7 +392,7 @@ public class ButtonPacketHandler implements PacketHandler {
 		{
 			return;
 		}
-		if(player.getMusicPlayer().handleButton(buttonId))
+		if(player.getMusicManager().handleButton(buttonId))
 			return;
 		if (MagicSkill.clickingToAutoCast(player, buttonId))
 			return;

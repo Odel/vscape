@@ -251,6 +251,13 @@ public class Position {
 	public int getRegionY() {
 		return (y >> 3) - 6;
 	}
+	
+	public int getRegionId() {
+		int regionX = x >> 3;
+		int regionY = y >> 3;
+		return (regionX / 8 << 8) + (regionY / 8);
+	}
+	
 
 	/**
 	 * Gets the local X coordinate relative to the base Position.

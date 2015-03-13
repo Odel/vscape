@@ -1,0 +1,3186 @@
+[
+  {
+    "regions": [
+      10645,
+      10644
+    ],
+    "name": "7th realm",
+    "song": 363,
+    "frame": 11941,
+    "button": 46165
+  },
+  {
+    "regions": [
+      12854
+    ],
+    "name": "Adventure",
+    "song": 177,
+    "frame": 4287,
+    "button": 16191
+  },
+  {
+    "regions": [
+      13105,
+      13361
+    ],
+    "name": "Al Kharid",
+    "song": 50,
+    "frame": 4288,
+    "button": 16192
+  },
+  {
+    "regions": [
+      12086
+    ],
+    "name": "Alone",
+    "song": 102,
+    "frame": 4289,
+    "button": 16193
+  },
+  {
+    "regions": [
+      11310
+    ],
+    "name": "Ambient Jungle",
+    "song": 90,
+    "frame": 4290,
+    "button": 16194
+  },
+  {
+    "regions": [
+      10795
+    ],
+    "name": "Anywhere",
+    "song": 305,
+    "frame": 11134,
+    "button": 43126
+  },
+  {
+    "regions": [
+      13106,
+      13617
+    ],
+    "name": "Arabian",
+    "song": 36,
+    "frame": 4291,
+    "button": 16195
+  },
+  {
+    "regions": [
+      13107
+    ],
+    "name": "Arabian 2",
+    "song": 123,
+    "frame": 4292,
+    "button": 16196
+  },
+  {
+    "regions": [
+      12848
+    ],
+    "name": "Arabian 3",
+    "song": 124,
+    "frame": 4293,
+    "button": 16197
+  },
+  {
+    "regions": [],
+    "name": "Arabique",
+    "song": 19,
+    "frame": 4294,
+    "button": 16198
+  },
+  {
+    "regions": [
+      12088
+    ],
+    "name": "Army Of Darkness",
+    "song": 160,
+    "frame": 4295,
+    "button": 16199
+  },
+  {
+    "regions": [
+      11572
+    ],
+    "name": "Arrival",
+    "song": 186,
+    "frame": 4296,
+    "button": 16200
+  },
+  {
+    "regions": [
+      8010
+    ],
+    "name": "Artistry",
+    "song": 247,
+    "frame": 8935,
+    "button": 34231
+  },
+  {
+    "regions": [
+      10034
+    ],
+    "name": "Attack 1",
+    "song": 24,
+    "frame": 4297,
+    "button": 16201
+  },
+  {
+    "regions": [
+      9822,
+      11414
+    ],
+    "name": "Attack 2",
+    "song": 25,
+    "frame": 4298,
+    "button": 16202
+  },
+  {
+    "regions": [
+      12192
+    ],
+    "name": "Attack 3",
+    "song": 26,
+    "frame": 4299,
+    "button": 16203
+  },
+  {
+    "regions": [
+      10289
+    ],
+    "name": "Attack 4",
+    "song": 27,
+    "frame": 4300,
+    "button": 16204
+  },
+  {
+    "regions": [
+      9033,
+      10905
+    ],
+    "name": "Attack 5",
+    "song": 28,
+    "frame": 4301,
+    "button": 16205
+  },
+  {
+    "regions": [],
+    "name": "Attack 6",
+    "song": 29,
+    "frame": 4302,
+    "button": 16206
+  },
+  {
+    "regions": [
+      11825
+    ],
+    "name": "Attention",
+    "song": 180,
+    "frame": 4303,
+    "button": 16207
+  },
+  {
+    "regions": [
+      12851
+    ],
+    "name": "Autumn Voyage",
+    "song": 2,
+    "frame": 4304,
+    "button": 16208
+  },
+  {
+    "regions": [],
+    "name": "Aye Car Rum Ba",
+    "song": 497,
+    "frame": 14872,
+    "button": 58024
+  },
+  {
+    "regions": [],
+    "name": "Aztec",
+    "song": 248,
+    "frame": 664,
+    "button": 2152
+  },
+  {
+    "regions": [
+      11060,
+      11316
+    ],
+    "name": "Background",
+    "song": 324,
+    "frame": 8971,
+    "button": 35011
+  },
+  {
+    "regions": [
+      10290
+    ],
+    "name": "Ballad Of Enchantment",
+    "song": 152,
+    "frame": 4306,
+    "button": 16210
+  },
+  {
+    "regions": [
+      12590
+    ],
+    "name": "Bandit Camp",
+    "song": 263,
+    "frame": 7454,
+    "button": 29030
+  },
+  {
+    "regions": [
+      12341
+    ],
+    "name": "Barbarianism",
+    "song": 141,
+    "frame": 4864,
+    "button": 19000
+  },
+  {
+    "regions": [],
+    "name": "Barking Mad",
+    "song": 345,
+    "frame": 12128,
+    "button": 47096
+  },
+  {
+    "regions": [
+      10547
+    ],
+    "name": "Baroque",
+    "song": 99,
+    "frame": 4307,
+    "button": 16211
+  },
+  {
+    "regions": [],
+    "name": "Beyond",
+    "song": 100,
+    "frame": 4308,
+    "button": 16212
+  },
+  {
+    "regions": [
+      10032
+    ],
+    "name": "Big Chords",
+    "song": 83,
+    "frame": 4309,
+    "button": 16213
+  },
+  {
+    "regions": [],
+    "name": "Blistering Barnacles",
+    "song": 498,
+    "frame": 14871,
+    "button": 58023
+  },
+  {
+    "regions": [],
+    "name": "Body Parts",
+    "song": 342,
+    "frame": 12127,
+    "button": 47095
+  },
+  {
+    "regions": [
+      13619
+    ],
+    "name": "Bone Dance",
+    "song": 154,
+    "frame": 8968,
+    "button": 35008
+  },
+  {
+    "regions": [],
+    "name": "Bone Dry",
+    "song": 266,
+    "frame": 12844,
+    "button": 50044
+  },
+  {
+    "regions": [
+      12593
+    ],
+    "name": "Book Of Spells",
+    "song": 64,
+    "frame": 4310,
+    "button": 16214
+  },
+  {
+    "regions": [
+      10809,
+      10810
+    ],
+    "name": "Borderland",
+    "song": 291,
+    "frame": 10111,
+    "button": 39127
+  },
+  {
+    "regions": [
+      9010
+    ],
+    "name": "Breeze",
+    "song": 132,
+    "frame": 8565,
+    "button": 33117
+  },
+  {
+    "regions": [],
+    "name": "Brew Hoo Hoo!",
+    "song": 471,
+    "frame": 14242,
+    "button": 55162
+  },
+  {
+    "regions": [],
+    "name": "Bubble and Squeak",
+    "song": 489,
+    "frame": 15494,
+    "button": 60134
+  },
+  {
+    "regions": [],
+    "name": "Cabin Fever",
+    "song": 545,
+    "frame": 17508,
+    "button": 68100
+  },
+  {
+    "regions": [
+      11062,
+      11063
+    ],
+    "name": "Camelot",
+    "song": 104,
+    "frame": 4311,
+    "button": 16215
+  },
+  {
+    "regions": [
+      9520
+    ],
+    "name": "Castlewars",
+    "song": 314,
+    "frame": 11476,
+    "button": 44212
+  },
+  {
+    "regions": [],
+    "name": "Catch me if you can",
+    "song": 481,
+    "frame": 15493,
+    "button": 60133
+  },
+  {
+    "regions": [],
+    "name": "Cave Background",
+    "song": 325,
+    "frame": 8972,
+    "button": 35012
+  },
+  {
+    "regions": [],
+    "name": "Cave of Beasts",
+    "song": 357,
+    "frame": 12390,
+    "button": 48102
+  },
+  {
+    "regions": [],
+    "name": "Cave of the Goblins",
+    "song": 389,
+    "frame": 12584,
+    "button": 49040
+  },
+  {
+    "regions": [],
+    "name": "Cavern",
+    "song": 68,
+    "frame": 4313,
+    "button": 16217
+  },
+  {
+    "regions": [],
+    "name": "Cellar Song",
+    "song": 330,
+    "frame": 8980,
+    "button": 35020
+  },
+  {
+    "regions": [],
+    "name": "Chain Of Command",
+    "song": 63,
+    "frame": 4314,
+    "button": 16218
+  },
+  {
+    "regions": [],
+    "name": "Chamber",
+    "song": 282,
+    "frame": 11484,
+    "button": 44220
+  },
+  {
+    "regions": [],
+    "name": "Chef Surprise",
+    "song": 583,
+    "frame": 246,
+    "button": 246
+  },
+  {
+    "regions": [],
+    "name": "Chickened Out",
+    "song": 575,
+    "frame": 18302,
+    "button": 71126
+  },
+  {
+    "regions": [
+      10542
+    ],
+    "name": "Chompy Hunt",
+    "song": 71,
+    "frame": 674,
+    "button": 2162
+  },
+  {
+    "regions": [
+      12843,
+      12844,
+      13099
+    ],
+    "name": "City of the Dead",
+    "song": 383,
+    "frame": 12849,
+    "button": 50049
+  },
+  {
+    "regions": [],
+    "name": "Claustrophobia",
+    "song": 373,
+    "frame": 12810,
+    "button": 50010
+  },
+  {
+    "regions": [
+      12602
+    ],
+    "name": "Close Quarters",
+    "song": 67,
+    "frame": 6944,
+    "button": 27032
+  },
+  {
+    "regions": [],
+    "name": "Competition",
+    "song": 269,
+    "frame": 10983,
+    "button": 42231
+  },
+  {
+    "regions": [],
+    "name": "Complication",
+    "song": 142,
+    "frame": 4870,
+    "button": 19006
+  },
+  {
+    "regions": [
+      11576
+    ],
+    "name": "Contest",
+    "song": 258,
+    "frame": 8436,
+    "button": 32244
+  },
+  {
+    "regions": [],
+    "name": "Corporal Punishment",
+    "song": 418,
+    "frame": 6151,
+    "button": 24007
+  },
+  {
+    "regions": [],
+    "name": "Courage",
+    "song": 178,
+    "frame": 4880,
+    "button": 19016
+  },
+  {
+    "regions": [
+      9011,
+      9012
+    ],
+    "name": "Crystal Castle",
+    "song": 259,
+    "frame": 8567,
+    "button": 33119
+  },
+  {
+    "regions": [],
+    "name": "Crystal Cave",
+    "song": 181,
+    "frame": 4315,
+    "button": 16219
+  },
+  {
+    "regions": [
+      12855
+    ],
+    "name": "Crystal Sword",
+    "song": 169,
+    "frame": 4316,
+    "button": 16220
+  },
+  {
+    "regions": [],
+    "name": "Cursed",
+    "song": 59,
+    "frame": 677,
+    "button": 2165
+  },
+  {
+    "regions": [],
+    "name": "Dagannoth Dawn",
+    "song": 198,
+    "frame": 13385,
+    "button": 52073
+  },
+  {
+    "regions": [
+      14131
+    ],
+    "name": "Dance of the Undead",
+    "song": 380,
+    "frame": 13352,
+    "button": 52040
+  },
+  {
+    "regions": [
+      12343,
+      13115,
+      13371
+    ],
+    "name": "Dangerous",
+    "song": 182,
+    "frame": 4317,
+    "button": 16221
+  },
+  {
+    "regions": [],
+    "name": "Dangerous Road",
+    "song": 336,
+    "frame": 10128,
+    "button": 39144
+  },
+  {
+    "regions": [],
+    "name": "Dangerous Way",
+    "song": 381,
+    "frame": 13353,
+    "button": 52041
+  },
+  {
+    "regions": [
+      13113,
+      13369
+    ],
+    "name": "Dark",
+    "song": 326,
+    "frame": 8973,
+    "button": 35013
+  },
+  {
+    "regions": [],
+    "name": "Davy Jones' Locker",
+    "song": 576,
+    "frame": 18275,
+    "button": 71099
+  },
+  {
+    "regions": [
+      12601
+    ],
+    "name": "Dead Can Dance",
+    "song": 476,
+    "frame": 14453,
+    "button": 56117
+  },
+  {
+    "regions": [
+      13621
+    ],
+    "name": "Dead Quiet",
+    "song": 84,
+    "frame": 8142,
+    "button": 31206
+  },
+  {
+    "regions": [
+      14134,
+      14390
+    ],
+    "name": "Deadlands",
+    "song": 288,
+    "frame": 8936,
+    "button": 34232
+  },
+  {
+    "regions": [],
+    "name": "Deep Down",
+    "song": 278,
+    "frame": 11483,
+    "button": 44219
+  },
+  {
+    "regions": [
+      11835,
+      11836
+    ],
+    "name": "Deep Wildy",
+    "song": 37,
+    "frame": 4319,
+    "button": 16223
+  },
+  {
+    "regions": [
+      13614,
+      13615
+    ],
+    "name": "Desert Heat",
+    "song": 465,
+    "frame": 5996,
+    "button": 23108
+  },
+  {
+    "regions": [
+      13102,
+      13103,
+      13359
+    ],
+    "name": "Desert Voyage",
+    "song": 174,
+    "frame": 4320,
+    "button": 16224
+  },
+  {
+    "regions": [],
+    "name": "Diango's Little Helpers",
+    "song": 532,
+    "frame": 15842,
+    "button": 61226
+  },
+  {
+    "regions": [
+      13873,
+      13874,
+      14129,
+      14130
+    ],
+    "name": "Distant Land",
+    "song": 501,
+    "frame": 3320,
+    "button": 12248
+  },
+  {
+    "regions": [
+      12598
+    ],
+    "name": "Doorways",
+    "song": 56,
+    "frame": 4321,
+    "button": 16225
+  },
+  {
+    "regions": [],
+    "name": "Down Below",
+    "song": 361,
+    "frame": 12848,
+    "button": 50048
+  },
+  {
+    "regions": [],
+    "name": "Down To Earth",
+    "song": 143,
+    "frame": 4879,
+    "button": 19015
+  },
+  {
+    "regions": [],
+    "name": "Dragontooth Island",
+    "song": 358,
+    "frame": 12289,
+    "button": 48001
+  },
+  {
+    "regions": [
+      12594
+    ],
+    "name": "Dream",
+    "song": 327,
+    "frame": 8974,
+    "button": 35014
+  },
+  {
+    "regions": [
+      13362
+    ],
+    "name": "Duel Arena",
+    "song": 47,
+    "frame": 6298,
+    "button": 24154
+  },
+  {
+    "regions": [],
+    "name": "Dunjun",
+    "song": 173,
+    "frame": 4323,
+    "button": 16227
+  },
+  {
+    "regions": [
+      13358
+    ],
+    "name": "Dynasty",
+    "song": 351,
+    "frame": 12835,
+    "button": 50035
+  },
+  {
+    "regions": [
+      13104,
+      13360
+    ],
+    "name": "Egypt",
+    "song": 69,
+    "frame": 4324,
+    "button": 16228
+  },
+  {
+    "regions": [
+      9265,
+      9266
+    ],
+    "name": "Elven Mist",
+    "song": 252,
+    "frame": 8575,
+    "button": 33127
+  },
+  {
+    "regions": [
+      10033
+    ],
+    "name": "Emotion",
+    "song": 148,
+    "frame": 4325,
+    "button": 16229
+  },
+  {
+    "regions": [
+      11570
+    ],
+    "name": "Emperor",
+    "song": 138,
+    "frame": 4441,
+    "button": 17089
+  },
+  {
+    "regions": [],
+    "name": "Escape",
+    "song": 17,
+    "frame": 6943,
+    "button": 27031
+  },
+  {
+    "regions": [
+      10300
+    ],
+    "name": "Etceteria",
+    "song": 285,
+    "frame": 11108,
+    "button": 43100
+  },
+  {
+    "regions": [
+      13373
+    ],
+    "name": "Everlasting Fire",
+    "song": 586,
+    "frame": 18784,
+    "button": 73096
+  },
+  {
+    "regions": [
+      8755
+    ],
+    "name": "Everywhere",
+    "song": 268,
+    "frame": 8572,
+    "button": 33124
+  },
+  {
+    "regions": [],
+    "name": "Evil Bob's Island",
+    "song": 411,
+    "frame": 14243,
+    "button": 55163
+  },
+  {
+    "regions": [
+      12852,
+      12605
+    ],
+    "name": "Expanse",
+    "song": 106,
+    "frame": 4326,
+    "button": 16230
+  },
+  {
+    "regions": [
+      9777
+    ],
+    "name": "Expecting",
+    "song": 41,
+    "frame": 4327,
+    "button": 16231
+  },
+  {
+    "regions": [],
+    "name": "Expedition",
+    "song": 153,
+    "frame": 4437,
+    "button": 17085
+  },
+  {
+    "regions": [],
+    "name": "Exposed",
+    "song": 270,
+    "frame": 8568,
+    "button": 33120
+  },
+  {
+    "regions": [],
+    "name": "Faerie",
+    "song": 118,
+    "frame": 4328,
+    "button": 16232
+  },
+  {
+    "regions": [
+      12856,
+      13112
+    ],
+    "name": "Faithless",
+    "song": 337,
+    "frame": 10129,
+    "button": 39145
+  },
+  {
+    "regions": [
+      11828
+    ],
+    "name": "Fanfare",
+    "song": 72,
+    "frame": 4329,
+    "button": 16233
+  },
+  {
+    "regions": [
+      11823
+    ],
+    "name": "Fanfare 2",
+    "song": 166,
+    "frame": 4330,
+    "button": 16234
+  },
+  {
+    "regions": [],
+    "name": "Fanfare 3",
+    "song": 167,
+    "frame": 4331,
+    "button": 16235
+  },
+  {
+    "regions": [],
+    "name": "Fangs for the Memory",
+    "song": 504,
+    "frame": 18516,
+    "button": 72084
+  },
+  {
+    "regions": [],
+    "name": "Far Away",
+    "song": 372,
+    "frame": 7030,
+    "button": 27118
+  },
+  {
+    "regions": [],
+    "name": "Fear and Loathing",
+    "song": 602,
+    "frame": 15070,
+    "button": 58222
+  },
+  {
+    "regions": [
+      13879,
+      14135
+    ],
+    "name": "Fenkenstrain's Refrain",
+    "song": 344,
+    "frame": 12126,
+    "button": 47094
+  },
+  {
+    "regions": [],
+    "name": "Fight or Flight",
+    "song": 375,
+    "frame": 7044,
+    "button": 27132
+  },
+  {
+    "regions": [],
+    "name": "Find My Way",
+    "song": 312,
+    "frame": 11142,
+    "button": 43134
+  },
+  {
+    "regions": [],
+    "name": "Fire and Brimstone",
+    "song": 463,
+    "frame": 2802,
+    "button": 10242
+  },
+  {
+    "regions": [
+      11317
+    ],
+    "name": "Fishing",
+    "song": 119,
+    "frame": 4332,
+    "button": 16236
+  },
+  {
+    "regions": [
+      12595
+    ],
+    "name": "Flute Salad",
+    "song": 163,
+    "frame": 4333,
+    "button": 16237
+  },
+  {
+    "regions": [
+      13111,
+      13367
+    ],
+    "name": "Forbidden",
+    "song": 121,
+    "frame": 676,
+    "button": 2164
+  },
+  {
+    "regions": [
+      9009
+    ],
+    "name": "Forest",
+    "song": 251,
+    "frame": 8574,
+    "button": 33126
+  },
+  {
+    "regions": [
+      12342
+    ],
+    "name": "Forever",
+    "song": 98,
+    "frame": 4334,
+    "button": 16238
+  },
+  {
+    "regions": [],
+    "name": "Forgettable Melody",
+    "song": 436,
+    "frame": 14167,
+    "button": 55087
+  },
+  {
+    "regions": [],
+    "name": "Forgotten",
+    "song": 378,
+    "frame": 12842,
+    "button": 50042
+  },
+  {
+    "regions": [],
+    "name": "Frogland",
+    "song": 409,
+    "frame": 14189,
+    "button": 55109
+  },
+  {
+    "regions": [
+      11323,
+      11579
+    ],
+    "name": "Frostbite",
+    "song": 294,
+    "frame": 12847,
+    "button": 50047
+  },
+  {
+    "regions": [
+      11059
+    ],
+    "name": "Fruits de Mer",
+    "song": 347,
+    "frame": 11107,
+    "button": 43099
+  },
+  {
+    "regions": [],
+    "name": "Funny Bunnies",
+    "song": 603,
+    "frame": 18685,
+    "button": 72253
+  },
+  {
+    "regions": [
+      10031,
+      12090
+    ],
+    "name": "Gaol",
+    "song": 159,
+    "frame": 4335,
+    "button": 16239
+  },
+  {
+    "regions": [
+      12853
+    ],
+    "name": "Garden",
+    "song": 125,
+    "frame": 4336,
+    "button": 16240
+  },
+  {
+    "regions": [
+      9782,
+      9783
+    ],
+    "name": "Gnome King",
+    "song": 22,
+    "frame": 4337,
+    "button": 16241
+  },
+  {
+    "regions": [
+      12085
+    ],
+    "name": "Gnome Theme",
+    "song": 310,
+    "frame": 4338,
+    "button": 16242
+  },
+  {
+    "regions": [
+      9781
+    ],
+    "name": "Gnome Village",
+    "song": 33,
+    "frame": 4339,
+    "button": 16243
+  },
+  {
+    "regions": [
+      9269,
+      9525
+    ],
+    "name": "Gnome Village 2",
+    "song": 101,
+    "frame": 4340,
+    "button": 16244
+  },
+  {
+    "regions": [
+      11830
+    ],
+    "name": "Gnome",
+    "song": 313,
+    "frame": 4341,
+    "button": 16245
+  },
+  {
+    "regions": [
+      9526,
+      9527
+    ],
+    "name": "Gnomeball",
+    "song": 112,
+    "frame": 4342,
+    "button": 16246
+  },
+  {
+    "regions": [],
+    "name": "Goblin Game",
+    "song": 346,
+    "frame": 11106,
+    "button": 43098
+  },
+  {
+    "regions": [],
+    "name": "Golden Touch",
+    "song": 535,
+    "frame": 15888,
+    "button": 62016
+  },
+  {
+    "regions": [
+      12596
+    ],
+    "name": "Greatness",
+    "song": 116,
+    "frame": 4343,
+    "button": 16247
+  },
+  {
+    "regions": [],
+    "name": "Grip of the Talon",
+    "song": 520,
+    "frame": 15350,
+    "button": 59246
+  },
+  {
+    "regions": [],
+    "name": "Grotto",
+    "song": 246,
+    "frame": 8138,
+    "button": 31202
+  },
+  {
+    "regions": [],
+    "name": "Ground Scape",
+    "song": 466,
+    "frame": 13972,
+    "button": 54148
+  },
+  {
+    "regions": [
+      10286
+    ],
+    "name": "Grumpy",
+    "song": 128,
+    "frame": 675,
+    "button": 2163
+  },
+  {
+    "regions": [
+      12850
+    ],
+    "name": "Harmony",
+    "song": 76,
+    "frame": 4344,
+    "button": 16248
+  },
+  {
+    "regions": [],
+    "name": "Harmony 2",
+    "song": 46,
+    "frame": 6843,
+    "button": 26187
+  },
+  {
+    "regions": [],
+    "name": "Haunted Mine",
+    "song": 277,
+    "frame": 11481,
+    "button": 44217
+  },
+  {
+    "regions": [],
+    "name": "Have A Blast",
+    "song": 434,
+    "frame": 14602,
+    "button": 57010
+  },
+  {
+    "regions": [],
+    "name": "Heart and Mind",
+    "song": 190,
+    "frame": 6945,
+    "button": 27033
+  },
+  {
+    "regions": [
+      11066,
+      11067
+    ],
+    "name": "Hells Bells",
+    "song": 4,
+    "frame": 11881,
+    "button": 46105
+  },
+  {
+    "regions": [],
+    "name": "Hermit",
+    "song": 97,
+    "frame": 8434,
+    "button": 32242
+  },
+  {
+    "regions": [
+      11057
+    ],
+    "name": "High Seas",
+    "song": 55,
+    "frame": 4345,
+    "button": 16249
+  },
+  {
+    "regions": [
+      11573
+    ],
+    "name": "Horizon",
+    "song": 18,
+    "frame": 4346,
+    "button": 16250
+  },
+  {
+    "regions": [],
+    "name": "Hypnotized",
+    "song": 384,
+    "frame": 4506,
+    "button": 17154
+  },
+  {
+    "regions": [],
+    "name": "Iban",
+    "song": 1,
+    "frame": 4347,
+    "button": 16251
+  },
+  {
+    "regions": [
+      11318
+    ],
+    "name": "Ice Melody",
+    "song": 87,
+    "frame": 961,
+    "button": 3193
+  },
+  {
+    "regions": [],
+    "name": "In Between",
+    "song": 370,
+    "frame": 12809,
+    "button": 50009
+  },
+  {
+    "regions": [],
+    "name": "In the Brine",
+    "song": 530,
+    "frame": 17509,
+    "button": 68101
+  },
+  {
+    "regions": [],
+    "name": "In the Clink",
+    "song": 511,
+    "frame": 16146,
+    "button": 63018
+  },
+  {
+    "regions": [
+      10287
+    ],
+    "name": "In the Manor",
+    "song": 188,
+    "frame": 4348,
+    "button": 16252
+  },
+  {
+    "regions": [],
+    "name": "In the Pits",
+    "song": 469,
+    "frame": 2803,
+    "button": 10243
+  },
+  {
+    "regions": [],
+    "name": "Incantation",
+    "song": 519,
+    "frame": 15355,
+    "button": 59251
+  },
+  {
+    "regions": [],
+    "name": "Insect Queen",
+    "song": 260,
+    "frame": 1739,
+    "button": 6203
+  },
+  {
+    "regions": [
+      12087
+    ],
+    "name": "Inspiration",
+    "song": 96,
+    "frame": 4349,
+    "button": 16253
+  },
+  {
+    "regions": [],
+    "name": "Into the Abyss",
+    "song": 412,
+    "frame": 13712,
+    "button": 53144
+  },
+  {
+    "regions": [],
+    "name": "Intrepid",
+    "song": 95,
+    "frame": 4350,
+    "button": 16254
+  },
+  {
+    "regions": [
+      10794,
+      11050
+    ],
+    "name": "Island Life",
+    "song": 306,
+    "frame": 11138,
+    "button": 43130
+  },
+  {
+    "regions": [
+      11058
+    ],
+    "name": "Jolly-R",
+    "song": 6,
+    "frame": 4351,
+    "button": 16255
+  },
+  {
+    "regions": [
+      11313,
+      11309
+    ],
+    "name": "Jungle Island",
+    "song": 172,
+    "frame": 4352,
+    "button": 17000
+  },
+  {
+    "regions": [
+      11568
+    ],
+    "name": "Jungle Troubles",
+    "song": 479,
+    "frame": 14603,
+    "button": 57011
+  },
+  {
+    "regions": [
+      11054
+    ],
+    "name": "Jungly 1",
+    "song": 114,
+    "frame": 4353,
+    "button": 17001
+  },
+  {
+    "regions": [
+      10802
+    ],
+    "name": "Jungly 2",
+    "song": 115,
+    "frame": 4354,
+    "button": 17002
+  },
+  {
+    "regions": [
+      11055
+    ],
+    "name": "Jungly 3",
+    "song": 117,
+    "frame": 4355,
+    "button": 17003
+  },
+  {
+    "regions": [],
+    "name": "Karamja Jam",
+    "song": 362,
+    "frame": 11939,
+    "button": 46163
+  },
+  {
+    "regions": [
+      11319
+    ],
+    "name": "Kingdom",
+    "song": 9,
+    "frame": 8435,
+    "button": 32243
+  },
+  {
+    "regions": [
+      10291
+    ],
+    "name": "Knightly",
+    "song": 191,
+    "frame": 4356,
+    "button": 17004
+  },
+  {
+    "regions": [],
+    "name": "La Mort",
+    "song": 134,
+    "frame": 6026,
+    "button": 23138
+  },
+  {
+    "regions": [],
+    "name": "Lair",
+    "song": 287,
+    "frame": 8967,
+    "button": 35007
+  },
+  {
+    "regions": [],
+    "name": "Lament",
+    "song": 542,
+    "frame": 16148,
+    "button": 63020
+  },
+  {
+    "regions": [],
+    "name": "Land of the Dwarves",
+    "song": 396,
+    "frame": 13576,
+    "button": 53008
+  },
+  {
+    "regions": [
+      10801
+    ],
+    "name": "Landlubber",
+    "song": 164,
+    "frame": 1883,
+    "button": 7091
+  },
+  {
+    "regions": [],
+    "name": "Last Stand",
+    "song": 546,
+    "frame": 247,
+    "button": 247
+  },
+  {
+    "regions": [
+      10549
+    ],
+    "name": "Lasting",
+    "song": 60,
+    "frame": 4357,
+    "button": 17005
+  },
+  {
+    "regions": [
+      10808,
+      11064
+    ],
+    "name": "Legend",
+    "song": 293,
+    "frame": 7452,
+    "button": 29028
+  },
+  {
+    "regions": [
+      10039,
+      12089
+    ],
+    "name": "Legion",
+    "song": 66,
+    "frame": 4358,
+    "button": 17006
+  },
+  {
+    "regions": [
+      10040
+    ],
+    "name": "Lighthouse",
+    "song": 320,
+    "frame": 10131,
+    "button": 39147
+  },
+  {
+    "regions": [
+      12599
+    ],
+    "name": "Lightness",
+    "song": 113,
+    "frame": 4359,
+    "button": 17007
+  },
+  {
+    "regions": [
+      11061
+    ],
+    "name": "Lightwalk",
+    "song": 74,
+    "frame": 4360,
+    "button": 17008
+  },
+  {
+    "regions": [],
+    "name": "Lonesome",
+    "song": 168,
+    "frame": 6185,
+    "button": 24041
+  },
+  {
+    "regions": [
+      10544
+    ],
+    "name": "Long Ago",
+    "song": 161,
+    "frame": 4361,
+    "button": 17009
+  },
+  {
+    "regions": [
+      11826
+    ],
+    "name": "Long Way Home",
+    "song": 12,
+    "frame": 4362,
+    "button": 17010
+  },
+  {
+    "regions": [
+      9008,
+      9264
+    ],
+    "name": "Lost Soul",
+    "song": 253,
+    "frame": 8569,
+    "button": 33121
+  },
+  {
+    "regions": [
+      10551,
+      13365
+    ],
+    "name": "Lullaby",
+    "song": 20,
+    "frame": 4364,
+    "button": 17012
+  },
+  {
+    "regions": [],
+    "name": "Mad Eadgar",
+    "song": 264,
+    "frame": 189,
+    "button": 189
+  },
+  {
+    "regions": [
+      12349
+    ],
+    "name": "Mage Arena",
+    "song": 13,
+    "frame": 4365,
+    "button": 17013
+  },
+  {
+    "regions": [
+      10288
+    ],
+    "name": "Magic Dance",
+    "song": 185,
+    "frame": 4366,
+    "button": 17014
+  },
+  {
+    "regions": [
+      10805
+    ],
+    "name": "Magical Journey",
+    "song": 184,
+    "frame": 4367,
+    "button": 17015
+  },
+  {
+    "regions": [
+      9273
+    ],
+    "name": "Making Waves",
+    "song": 544,
+    "frame": 248,
+    "button": 248
+  },
+  {
+    "regions": [
+      10036
+    ],
+    "name": "March",
+    "song": 328,
+    "frame": 8975,
+    "button": 35015
+  },
+  {
+    "regions": [
+      11562
+    ],
+    "name": "Marooned",
+    "song": 304,
+    "frame": 11137,
+    "button": 43129
+  },
+  {
+    "regions": [],
+    "name": "Marzipan",
+    "song": 261,
+    "frame": 190,
+    "button": 190
+  },
+  {
+    "regions": [],
+    "name": "Masquerade",
+    "song": 340,
+    "frame": 12047,
+    "button": 47015
+  },
+  {
+    "regions": [],
+    "name": "Mastermindless",
+    "song": 577,
+    "frame": 18304,
+    "button": 71128
+  },
+  {
+    "regions": [],
+    "name": "Mausoleum",
+    "song": 156,
+    "frame": 8116,
+    "button": 31180
+  },
+  {
+    "regions": [
+      13109
+    ],
+    "name": "Medieval",
+    "song": 157,
+    "frame": 4368,
+    "button": 17016
+  },
+  {
+    "regions": [
+      10293
+    ],
+    "name": "Mellow",
+    "song": 193,
+    "frame": 4369,
+    "button": 17017
+  },
+  {
+    "regions": [
+      9776
+    ],
+    "name": "Melodrama",
+    "song": 317,
+    "frame": 11477,
+    "button": 44213
+  },
+  {
+    "regions": [
+      8753
+    ],
+    "name": "Meridian",
+    "song": 254,
+    "frame": 8570,
+    "button": 33122
+  },
+  {
+    "regions": [],
+    "name": "Method of Madness",
+    "song": 600,
+    "frame": 15074,
+    "button": 58226
+  },
+  {
+    "regions": [
+      11571
+    ],
+    "name": "Miles Away",
+    "song": 107,
+    "frame": 4370,
+    "button": 17018
+  },
+  {
+    "regions": [],
+    "name": "Mind over Matter",
+    "song": 534,
+    "frame": 15889,
+    "button": 62017
+  },
+  {
+    "regions": [],
+    "name": "Miracle Dance",
+    "song": 65,
+    "frame": 4371,
+    "button": 17019
+  },
+  {
+    "regions": [],
+    "name": "Mirage",
+    "song": 388,
+    "frame": 4507,
+    "button": 17155
+  },
+  {
+    "regions": [
+      10044
+    ],
+    "name": "Miscellania",
+    "song": 284,
+    "frame": 11109,
+    "button": 43101
+  },
+  {
+    "regions": [
+      10807
+    ],
+    "name": "Monarch Waltz",
+    "song": 21,
+    "frame": 4372,
+    "button": 17020
+  },
+  {
+    "regions": [
+      11051
+    ],
+    "name": "Monkey Madness",
+    "song": 303,
+    "frame": 11136,
+    "button": 43128
+  },
+  {
+    "regions": [],
+    "name": "Monster Melee",
+    "song": 343,
+    "frame": 12336,
+    "button": 48048
+  },
+  {
+    "regions": [
+      9523,
+      9779,
+      12600
+    ],
+    "name": "Moody",
+    "song": 10,
+    "frame": 4373,
+    "button": 17021
+  },
+  {
+    "regions": [
+      13622
+    ],
+    "name": "Morytania",
+    "song": 48,
+    "frame": 8117,
+    "button": 31181
+  },
+  {
+    "regions": [
+      11824
+    ],
+    "name": "Mudskipper Melody",
+    "song": 515,
+    "frame": 15293,
+    "button": 59189
+  },
+  {
+    "regions": [],
+    "name": "Narnode's Theme",
+    "song": 348,
+    "frame": 11133,
+    "button": 43125
+  },
+  {
+    "regions": [
+      13620
+    ],
+    "name": "Natural",
+    "song": 245,
+    "frame": 8139,
+    "button": 31203
+  },
+  {
+    "regions": [
+      9780
+    ],
+    "name": "Neverland",
+    "song": 155,
+    "frame": 4374,
+    "button": 17022
+  },
+  {
+    "regions": [
+      12079,
+      12080,
+      12335,
+      12336,
+      12592
+    ],
+    "name": "Newbie Melody",
+    "song": 62,
+    "frame": 4375,
+    "button": 17023
+  },
+  {
+    "regions": [
+      11827,
+      12861
+    ],
+    "name": "Nightfall",
+    "song": 127,
+    "frame": 4376,
+    "button": 17024
+  },
+  {
+    "regions": [],
+    "name": "No Way Out",
+    "song": 594,
+    "frame": 15077,
+    "button": 58229
+  },
+  {
+    "regions": [
+      11056
+    ],
+    "name": "Nomad",
+    "song": 58,
+    "frame": 1893,
+    "button": 7101
+  },
+  {
+    "regions": [
+      10536
+    ],
+    "name": "Null and Void",
+    "song": 587,
+    "frame": 18466,
+    "button": 72034
+  },
+  {
+    "regions": [],
+    "name": "Oriental",
+    "song": 103,
+    "frame": 4377,
+    "button": 17025
+  },
+  {
+    "regions": [],
+    "name": "Out of the Deep",
+    "song": 322,
+    "frame": 10132,
+    "button": 39148
+  },
+  {
+    "regions": [
+      13613
+    ],
+    "name": "Over to Nardah",
+    "song": 447,
+    "frame": 15590,
+    "button": 60230
+  },
+  {
+    "regions": [
+      9267
+    ],
+    "name": "Overpass",
+    "song": 256,
+    "frame": 8573,
+    "button": 33125
+  },
+  {
+    "regions": [
+      10806
+    ],
+    "name": "Overture",
+    "song": 7,
+    "frame": 4378,
+    "button": 17026
+  },
+  {
+    "regions": [
+      13110,
+      13366
+    ],
+    "name": "Parade",
+    "song": 93,
+    "frame": 4379,
+    "button": 17027
+  },
+  {
+    "regions": [],
+    "name": "Path of Peril",
+    "song": 393,
+    "frame": 12845,
+    "button": 50045
+  },
+  {
+    "regions": [],
+    "name": "Pathways",
+    "song": 364,
+    "frame": 11940,
+    "button": 46164
+  },
+  {
+    "regions": [
+      10537
+    ],
+    "name": "Pest Control",
+    "song": 588,
+    "frame": 18690,
+    "button": 73002
+  },
+  {
+    "regions": [
+      13356
+    ],
+    "name": "Pharaoh's Tomb",
+    "song": 505,
+    "frame": 16147,
+    "button": 63019
+  },
+  {
+    "regions": [],
+    "name": "Phasmatys",
+    "song": 354,
+    "frame": 12287,
+    "button": 47255
+  },
+  {
+    "regions": [],
+    "name": "Pheasant Peasant",
+    "song": 419,
+    "frame": 14188,
+    "button": 55108
+  },
+  {
+    "regions": [
+      12093
+    ],
+    "name": "Pirates of Peril",
+    "song": 334,
+    "frame": 10127,
+    "button": 39143
+  },
+  {
+    "regions": [
+      11575
+    ],
+    "name": "Principality",
+    "song": 149,
+    "frame": 8433,
+    "button": 32241
+  },
+  {
+    "regions": [],
+    "name": "Quest",
+    "song": 158,
+    "frame": 4380,
+    "button": 17028
+  },
+  {
+    "regions": [],
+    "name": "The Quizmaster",
+    "song": 413,
+    "frame": 14190,
+    "button": 55110
+  },
+  {
+    "regions": [],
+    "name": "Rat Hunt",
+    "song": 491,
+    "frame": 15497,
+    "button": 60137
+  },
+  {
+    "regions": [],
+    "name": "Rat a Tat Tat",
+    "song": 482,
+    "frame": 15496,
+    "button": 60136
+  },
+  {
+    "regions": [],
+    "name": "Ready for Battle",
+    "song": 318,
+    "frame": 11478,
+    "button": 44214
+  },
+  {
+    "regions": [
+      13117
+    ],
+    "name": "Regal",
+    "song": 329,
+    "frame": 8976,
+    "button": 35016
+  },
+  {
+    "regions": [
+      11565,
+      11821
+    ],
+    "name": "Reggae",
+    "song": 78,
+    "frame": 4382,
+    "button": 17030
+  },
+  {
+    "regions": [
+      11567
+    ],
+    "name": "Reggae 2",
+    "song": 89,
+    "frame": 4383,
+    "button": 17031
+  },
+  {
+    "regions": [
+      10297,
+      10553,
+      10554
+    ],
+    "name": "Rellekka",
+    "song": 289,
+    "frame": 10112,
+    "button": 39128
+  },
+  {
+    "regions": [],
+    "name": "Right on Track",
+    "song": 44,
+    "frame": 14168,
+    "button": 55088
+  },
+  {
+    "regions": [],
+    "name": "Righteousness",
+    "song": 262,
+    "frame": 192,
+    "button": 192
+  },
+  {
+    "regions": [],
+    "name": "Riverside",
+    "song": 91,
+    "frame": 4384,
+    "button": 17032
+  },
+  {
+    "regions": [],
+    "name": "The Rogues Den",
+    "song": 402,
+    "frame": 13779,
+    "button": 53211
+  },
+  {
+    "regions": [],
+    "name": "Roll the Bones",
+    "song": 533,
+    "frame": 15890,
+    "button": 62018
+  },
+  {
+    "regions": [
+      11068
+    ],
+    "name": "Romancing the Crone",
+    "song": 335,
+    "frame": 11882,
+    "button": 46106
+  },
+  {
+    "regions": [
+      9263,
+      9519
+    ],
+    "name": "Romper Chomper",
+    "song": 390,
+    "frame": 13359,
+    "button": 52047
+  },
+  {
+    "regions": [],
+    "name": "Royale",
+    "song": 53,
+    "frame": 4385,
+    "button": 17033
+  },
+  {
+    "regions": [],
+    "name": "Rune Essence",
+    "song": 57,
+    "frame": 4386,
+    "button": 17034
+  },
+  {
+    "regions": [
+      10035
+    ],
+    "name": "Sad Meadow",
+    "song": 5,
+    "frame": 4387,
+    "button": 17035
+  },
+  {
+    "regions": [
+      10296,
+      10552
+    ],
+    "name": "Saga",
+    "song": 290,
+    "frame": 7451,
+    "button": 29027
+  },
+  {
+    "regions": [],
+    "name": "Sarcophagus",
+    "song": 359,
+    "frame": 12846,
+    "button": 50046
+  },
+  {
+    "regions": [],
+    "name": "Sarim's Vermin",
+    "song": 490,
+    "frame": 15498,
+    "button": 60138
+  },
+  {
+    "regions": [],
+    "name": "Scape Cave",
+    "song": 144,
+    "frame": 4388,
+    "button": 17036
+  },
+  {
+    "regions": [],
+    "name": "Scape Main",
+    "song": 16,
+    "frame": 4389,
+    "button": 17037
+  },
+  {
+    "regions": [],
+    "name": "Scape Original",
+    "song": 400,
+    "frame": 12840,
+    "button": 50040
+  },
+  {
+    "regions": [
+      13116,
+      13372
+    ],
+    "name": "Scape Sad",
+    "song": 331,
+    "frame": 8977,
+    "button": 35017
+  },
+  {
+    "regions": [],
+    "name": "Scape Santa",
+    "song": 547,
+    "frame": 11880,
+    "button": 46104
+  },
+  {
+    "regions": [],
+    "name": "Scape Scared",
+    "song": 321,
+    "frame": 10126,
+    "button": 39142
+  },
+  {
+    "regions": [
+      11829
+    ],
+    "name": "Scape Soft",
+    "song": 54,
+    "frame": 5988,
+    "button": 23100
+  },
+  {
+    "regions": [
+      12857,
+      12604,
+      12860
+    ],
+    "name": "Scape Wild",
+    "song": 332,
+    "frame": 8978,
+    "button": 35018
+  },
+  {
+    "regions": [
+      12589,
+      12845,
+      13101
+    ],
+    "name": "Scarab",
+    "song": 352,
+    "frame": 12850,
+    "button": 50050
+  },
+  {
+    "regions": [
+      11569
+    ],
+    "name": "Sea Shanty",
+    "song": 92,
+    "frame": 4392,
+    "button": 17040
+  },
+  {
+    "regions": [
+      12082
+    ],
+    "name": "Sea Shanty 2",
+    "song": 35,
+    "frame": 4393,
+    "button": 17041
+  },
+  {
+    "regions": [
+      9522,
+      9778
+    ],
+    "name": "Serenade",
+    "song": 110,
+    "frame": 4394,
+    "button": 17042
+  },
+  {
+    "regions": [
+      11837
+    ],
+    "name": "Serene",
+    "song": 52,
+    "frame": 4395,
+    "button": 17043
+  },
+  {
+    "regions": [
+      11065
+    ],
+    "name": "Settlement",
+    "song": 356,
+    "frame": 12391,
+    "button": 48103
+  },
+  {
+    "regions": [
+      13618,
+      13875
+    ],
+    "name": "Shadowland",
+    "song": 286,
+    "frame": 8970,
+    "button": 35010
+  },
+  {
+    "regions": [
+      13363
+    ],
+    "name": "Shine",
+    "song": 122,
+    "frame": 4396,
+    "button": 17044
+  },
+  {
+    "regions": [
+      12858
+    ],
+    "name": "Shining",
+    "song": 120,
+    "frame": 5990,
+    "button": 23102
+  },
+  {
+    "regions": [
+      14391
+    ],
+    "name": "Shipwrecked",
+    "song": 353,
+    "frame": 12286,
+    "button": 47254
+  },
+  {
+    "regions": [],
+    "name": "Showdown",
+    "song": 311,
+    "frame": 11141,
+    "button": 43133
+  },
+  {
+    "regions": [
+      11321,
+      11577
+    ],
+    "name": "Sojourn",
+    "song": 257,
+    "frame": 188,
+    "button": 188
+  },
+  {
+    "regions": [
+      9774,
+      10030
+    ],
+    "name": "Soundscape",
+    "song": 80,
+    "frame": 4397,
+    "button": 17045
+  },
+  {
+    "regions": [
+      13100
+    ],
+    "name": "Sphinx",
+    "song": 387,
+    "frame": 12851,
+    "button": 50051
+  },
+  {
+    "regions": [
+      12597
+    ],
+    "name": "Spirit",
+    "song": 175,
+    "frame": 4398,
+    "button": 17046
+  },
+  {
+    "regions": [],
+    "name": "Spirits of the Elid",
+    "song": 462,
+    "frame": 15591,
+    "button": 60231
+  },
+  {
+    "regions": [
+      11574
+    ],
+    "name": "Splendour",
+    "song": 77,
+    "frame": 4399,
+    "button": 17047
+  },
+  {
+    "regions": [
+      12340
+    ],
+    "name": "Spooky",
+    "song": 333,
+    "frame": 8979,
+    "button": 35019
+  },
+  {
+    "regions": [],
+    "name": "Spooky 2",
+    "song": 11,
+    "frame": 11482,
+    "button": 44218
+  },
+  {
+    "regions": [
+      11053
+    ],
+    "name": "Spooky Jungle",
+    "song": 129,
+    "frame": 4401,
+    "button": 17049
+  },
+  {
+    "regions": [
+      13876
+    ],
+    "name": "Stagnant",
+    "song": 241,
+    "frame": 8141,
+    "button": 31205
+  },
+  {
+    "regions": [],
+    "name": "Starlight",
+    "song": 108,
+    "frame": 4402,
+    "button": 17050
+  },
+  {
+    "regions": [
+      12339
+    ],
+    "name": "Start",
+    "song": 151,
+    "frame": 4434,
+    "button": 17082
+  },
+  {
+    "regions": [
+      13108
+    ],
+    "name": "Still Night",
+    "song": 111,
+    "frame": 4403,
+    "button": 17051
+  },
+  {
+    "regions": [],
+    "name": "Stillness",
+    "song": 319,
+    "frame": 11906,
+    "button": 46130
+  },
+  {
+    "regions": [],
+    "name": "Storm Brew",
+    "song": 568,
+    "frame": 17524,
+    "button": 68116
+  },
+  {
+    "regions": [
+      11322,
+      11578
+    ],
+    "name": "Stranded",
+    "song": 292,
+    "frame": 11883,
+    "button": 46107
+  },
+  {
+    "regions": [],
+    "name": "Strange Place",
+    "song": 470,
+    "frame": 15234,
+    "button": 59130
+  },
+  {
+    "regions": [],
+    "name": "Stratosphere",
+    "song": 243,
+    "frame": 7460,
+    "button": 29036
+  },
+  {
+    "regions": [],
+    "name": "Subterranea",
+    "song": 517,
+    "frame": 15180,
+    "button": 59076
+  },
+  {
+    "regions": [
+      12846,
+      13357
+    ],
+    "name": "Sunburn",
+    "song": 267,
+    "frame": 7453,
+    "button": 29029
+  },
+  {
+    "regions": [],
+    "name": "Superstition",
+    "song": 265,
+    "frame": 4881,
+    "button": 19017
+  },
+  {
+    "regions": [],
+    "name": "Suspicious",
+    "song": 308,
+    "frame": 11140,
+    "button": 43132
+  },
+  {
+    "regions": [],
+    "name": "Tale of Keldagrim",
+    "song": 395,
+    "frame": 13575,
+    "button": 53007
+  },
+  {
+    "regions": [
+      10550
+    ],
+    "name": "Talking Forest",
+    "song": 140,
+    "frame": 4435,
+    "button": 17083
+  },
+  {
+    "regions": [],
+    "name": "Tears of Guthix",
+    "song": 397,
+    "frame": 3276,
+    "button": 12204
+  },
+  {
+    "regions": [],
+    "name": "Technology",
+    "song": 296,
+    "frame": 11135,
+    "button": 43127
+  },
+  {
+    "regions": [],
+    "name": "Temple",
+    "song": 307,
+    "frame": 11139,
+    "button": 43131
+  },
+  {
+    "regions": [],
+    "name": "Temple of Light",
+    "song": 376,
+    "frame": 6025,
+    "button": 23137
+  },
+  {
+    "regions": [],
+    "name": "The Cellar Dwellers",
+    "song": 478,
+    "frame": 14455,
+    "button": 56119
+  },
+  {
+    "regions": [],
+    "name": "The Chosen",
+    "song": 425,
+    "frame": 13900,
+    "button": 54076
+  },
+  {
+    "regions": [
+      12591,
+      12847
+    ],
+    "name": "The Desert",
+    "song": 79,
+    "frame": 4404,
+    "button": 17052
+  },
+  {
+    "regions": [
+      10042
+    ],
+    "name": "The Desolate Isle",
+    "song": 461,
+    "frame": 11095,
+    "button": 43087
+  },
+  {
+    "regions": [],
+    "name": "The Enchanter",
+    "song": 541,
+    "frame": 15887,
+    "button": 62015
+  },
+  {
+    "regions": [],
+    "name": "The Far Side",
+    "song": 403,
+    "frame": 13780,
+    "button": 53212
+  },
+  {
+    "regions": [],
+    "name": "The Genie",
+    "song": 464,
+    "frame": 5997,
+    "button": 23109
+  },
+  {
+    "regions": [
+      13616,
+      13872
+    ],
+    "name": "The Golem",
+    "song": 377,
+    "frame": 12841,
+    "button": 50041
+  },
+  {
+    "regions": [],
+    "name": "The Lost Melody",
+    "song": 407,
+    "frame": 13360,
+    "button": 52048
+  },
+  {
+    "regions": [],
+    "name": "The Lost Tribe",
+    "song": 420,
+    "frame": 13361,
+    "button": 52049
+  },
+  {
+    "regions": [],
+    "name": "The Mad Mole",
+    "song": 573,
+    "frame": 18175,
+    "button": 70255
+  },
+  {
+    "regions": [],
+    "name": "The Monsters Below",
+    "song": 448,
+    "frame": 14186,
+    "button": 55106
+  },
+  {
+    "regions": [],
+    "name": "The Navigator",
+    "song": 316,
+    "frame": 10114,
+    "button": 39130
+  },
+  {
+    "regions": [],
+    "name": "The Noble Rodent",
+    "song": 485,
+    "frame": 15495,
+    "button": 60135
+  },
+  {
+    "regions": [
+      14646,
+      14647
+    ],
+    "name": "The Other Side",
+    "song": 355,
+    "frame": 12288,
+    "button": 48000
+  },
+  {
+    "regions": [],
+    "name": "The Power of Tears",
+    "song": 398,
+    "frame": 3277,
+    "button": 12205
+  },
+  {
+    "regions": [
+      11314,
+      11315
+    ],
+    "name": "The Shadow",
+    "song": 170,
+    "frame": 4405,
+    "button": 17053
+  },
+  {
+    "regions": [],
+    "name": "The Slayer",
+    "song": 341,
+    "frame": 12049,
+    "button": 47017
+  },
+  {
+    "regions": [
+      13623
+    ],
+    "name": "The Terrible Tower",
+    "song": 339,
+    "frame": 12048,
+    "button": 47016
+  },
+  {
+    "regions": [
+      10292
+    ],
+    "name": "The Tower",
+    "song": 133,
+    "frame": 4406,
+    "button": 17054
+  },
+  {
+    "regions": [
+      10294
+    ],
+    "name": "Theme",
+    "song": 109,
+    "frame": 4436,
+    "button": 17084
+  },
+  {
+    "regions": [],
+    "name": "Throne of the Demon",
+    "song": 379,
+    "frame": 12843,
+    "button": 50043
+  },
+  {
+    "regions": [],
+    "name": "Time Out",
+    "song": 242,
+    "frame": 8432,
+    "button": 32240
+  },
+  {
+    "regions": [],
+    "name": "Time to Mine",
+    "song": 369,
+    "frame": 12808,
+    "button": 50008
+  },
+  {
+    "regions": [],
+    "name": "Tiptoe",
+    "song": 338,
+    "frame": 10133,
+    "button": 39149
+  },
+  {
+    "regions": [],
+    "name": "Title Fight",
+    "song": 525,
+    "frame": 15826,
+    "button": 61210
+  },
+  {
+    "regions": [
+      12081
+    ],
+    "name": "Tomorrow",
+    "song": 105,
+    "frame": 6297,
+    "button": 24153
+  },
+  {
+    "regions": [],
+    "name": "Too Many Cooks...",
+    "song": 582,
+    "frame": 18305,
+    "button": 71129
+  },
+  {
+    "regions": [],
+    "name": "Trawler",
+    "song": 38,
+    "frame": 4407,
+    "button": 17055
+  },
+  {
+    "regions": [],
+    "name": "Trawler Minor",
+    "song": 51,
+    "frame": 4408,
+    "button": 17056
+  },
+  {
+    "regions": [
+      9268,
+      9524
+    ],
+    "name": "Tree Spirits",
+    "song": 130,
+    "frame": 4409,
+    "button": 17057
+  },
+  {
+    "regions": [
+      11320
+    ],
+    "name": "Tremble",
+    "song": 187,
+    "frame": 8437,
+    "button": 32245
+  },
+  {
+    "regions": [
+      11311
+    ],
+    "name": "Tribal",
+    "song": 165,
+    "frame": 4411,
+    "button": 17059
+  },
+  {
+    "regions": [
+      11566,
+      11822
+    ],
+    "name": "Tribal 2",
+    "song": 94,
+    "frame": 4412,
+    "button": 17060
+  },
+  {
+    "regions": [
+      11312
+    ],
+    "name": "Tribal Background",
+    "song": 162,
+    "frame": 4410,
+    "button": 17058
+  },
+  {
+    "regions": [
+      10804
+    ],
+    "name": "Trinity",
+    "song": 192,
+    "frame": 4413,
+    "button": 17061
+  },
+  {
+    "regions": [
+      11833
+    ],
+    "name": "Troubled",
+    "song": 183,
+    "frame": 4414,
+    "button": 17062
+  },
+  {
+    "regions": [],
+    "name": "Twilight",
+    "song": 88,
+    "frame": 7461,
+    "button": 29037
+  },
+  {
+    "regions": [],
+    "name": "TzHaar!",
+    "song": 473,
+    "frame": 6013,
+    "button": 23125
+  },
+  {
+    "regions": [
+      12345
+    ],
+    "name": "Undercurrent",
+    "song": 176,
+    "frame": 1890,
+    "button": 7098
+  },
+  {
+    "regions": [
+      13368
+    ],
+    "name": "Underground",
+    "song": 179,
+    "frame": 4415,
+    "button": 17063
+  },
+  {
+    "regions": [],
+    "name": "Underground Pass",
+    "song": 323,
+    "frame": 7382,
+    "button": 28214
+  },
+  {
+    "regions": [],
+    "name": "Understanding",
+    "song": 131,
+    "frame": 678,
+    "button": 2166
+  },
+  {
+    "regions": [
+      12338
+    ],
+    "name": "Unknown Land",
+    "song": 3,
+    "frame": 4418,
+    "button": 17066
+  },
+  {
+    "regions": [
+      10545,
+      10546
+    ],
+    "name": "Upcoming",
+    "song": 70,
+    "frame": 4420,
+    "button": 17068
+  },
+  {
+    "regions": [
+      13364
+    ],
+    "name": "Venture",
+    "song": 75,
+    "frame": 4421,
+    "button": 17069
+  },
+  {
+    "regions": [],
+    "name": "Venture 2",
+    "song": 45,
+    "frame": 6867,
+    "button": 26211
+  },
+  {
+    "regions": [],
+    "name": "Victory is Mine",
+    "song": 528,
+    "frame": 15829,
+    "button": 61213
+  },
+  {
+    "regions": [
+      13878
+    ],
+    "name": "Village",
+    "song": 61,
+    "frame": 8118,
+    "button": 31182
+  },
+  {
+    "regions": [
+      12337
+    ],
+    "name": "Vision",
+    "song": 85,
+    "frame": 4422,
+    "button": 17070
+  },
+  {
+    "regions": [],
+    "name": "Voodoo Cult",
+    "song": 30,
+    "frame": 4423,
+    "button": 17071
+  },
+  {
+    "regions": [
+      10038
+    ],
+    "name": "Voyage",
+    "song": 32,
+    "frame": 4424,
+    "button": 17072
+  },
+  {
+    "regions": [
+      12083
+    ],
+    "name": "Wander",
+    "song": 49,
+    "frame": 4425,
+    "button": 17073
+  },
+  {
+    "regions": [],
+    "name": "Warrior",
+    "song": 295,
+    "frame": 10113,
+    "button": 39129
+  },
+  {
+    "regions": [
+      10037
+    ],
+    "name": "Waterfall",
+    "song": 82,
+    "frame": 4426,
+    "button": 17074
+  },
+  {
+    "regions": [
+      13877,
+      14133
+    ],
+    "name": "Waterlogged",
+    "song": 244,
+    "frame": 8140,
+    "button": 31204
+  },
+  {
+    "regions": [],
+    "name": "Wayward",
+    "song": 394,
+    "frame": 13354,
+    "button": 52042
+  },
+  {
+    "regions": [],
+    "name": "Well of Voyage",
+    "song": 271,
+    "frame": 8566,
+    "button": 33118
+  },
+  {
+    "regions": [
+      12092,
+      12348
+    ],
+    "name": "Wild Side",
+    "song": 475,
+    "frame": 14454,
+    "button": 56118
+  },
+  {
+    "regions": [
+      11832,
+      12346
+    ],
+    "name": "Wilderness",
+    "song": 435,
+    "frame": 13713,
+    "button": 53145
+  },
+  {
+    "regions": [
+      12091,
+      12347
+    ],
+    "name": "Wilderness 2",
+    "song": 42,
+    "frame": 4427,
+    "button": 17075
+  },
+  {
+    "regions": [
+      11834
+    ],
+    "name": "Wilderness 3",
+    "song": 43,
+    "frame": 4428,
+    "button": 17076
+  },
+  {
+    "regions": [
+      12344
+    ],
+    "name": "Wildwood",
+    "song": 8,
+    "frame": 6983,
+    "button": 27071
+  },
+  {
+    "regions": [
+      13114,
+      13370
+    ],
+    "name": "Witching",
+    "song": 14,
+    "frame": 4430,
+    "button": 17078
+  },
+  {
+    "regions": [],
+    "name": "Woe of the Wyvern",
+    "song": 529,
+    "frame": 15830,
+    "button": 61214
+  },
+  {
+    "regions": [
+      12603,
+      12859
+    ],
+    "name": "Wolf Mountain",
+    "song": 449,
+    "frame": 6842,
+    "button": 26186
+  },
+  {
+    "regions": [
+      11831
+    ],
+    "name": "Wonder",
+    "song": 34,
+    "frame": 4431,
+    "button": 17079
+  },
+  {
+    "regions": [
+      10548
+    ],
+    "name": "Wonderous",
+    "song": 81,
+    "frame": 4432,
+    "button": 17080
+  },
+  {
+    "regions": [
+      8754
+    ],
+    "name": "Woodland",
+    "song": 255,
+    "frame": 8571,
+    "button": 33123
+  },
+  {
+    "regions": [
+      12084
+    ],
+    "name": "Workshop",
+    "song": 15,
+    "frame": 4433,
+    "button": 17081
+  },
+  {
+    "regions": [],
+    "name": "Wrath and Ruin",
+    "song": 565,
+    "frame": 15081,
+    "button": 58233
+  },
+  {
+    "regions": [],
+    "name": "Xenophobe",
+    "song": 524,
+    "frame": 15346,
+    "button": 59242
+  },
+  {
+    "regions": [
+      12849
+    ],
+    "name": "Yesteryear",
+    "song": 145,
+    "frame": 5989,
+    "button": 23101
+  },
+  {
+    "regions": [],
+    "name": "Zealot",
+    "song": 146,
+    "frame": 1898,
+    "button": 7106
+  },
+  {
+    "regions": [
+      9775
+    ],
+    "name": "Zogre Dance",
+    "song": 392,
+    "frame": 13355,
+    "button": 52043
+  }
+]

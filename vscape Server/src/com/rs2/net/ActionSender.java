@@ -730,6 +730,15 @@ public class ActionSender {
 		return this;
 	}
 
+	public ActionSender sendStringColor(int interfaceId, int color) {
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(6);
+		out.writeHeader(player.getEncryptor(), 122);
+		out.writeShort(interfaceId, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
+		out.writeShort(color, StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
+		player.send(out.getBuffer());
+		return this;
+	}
+	
 	public ActionSender sendString(String message, int interfaceId) {
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(message.length() + 6);
 		out.writeVariableShortPacketHeader(player.getEncryptor(), 126);

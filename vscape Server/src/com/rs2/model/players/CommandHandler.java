@@ -788,6 +788,25 @@ public class CommandHandler {
 			final int id = Integer.parseInt(args[0]);
 			sender.getActionSender().sendSong(id);
 		}
+		if (keyword.equals("forcemusic")) {
+			final int id = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    if(player != null)
+		    {
+				player.setMusicVolume(0);
+				player.getActionSender().sendConfig(168, player.getMusicVolume());
+	        	if(player.getMusicAuto())
+	        	{
+	        		player.setMusicAuto(false);
+	        		player.getActionSender().sendConfig(18, player.getMusicAuto() ? 1 : 0);
+	        	}
+		    	player.getActionSender().sendSong(id);
+		    	sender.getActionSender().sendMessage("Forced music for player " + player.getUsername(), true);
+		    	player.getMusicManager().currentSong = id;
+		    }
+		}
 		if (keyword.equals("objectanim")) {
 		    sender.getActionSender().animateObject(Integer.parseInt(args[0]), Integer.parseInt(args[1]), sender.getPosition().getZ(), Integer.parseInt(args[2]));
 		}

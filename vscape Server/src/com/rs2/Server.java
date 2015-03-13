@@ -24,6 +24,7 @@ import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.clanchat.ClanChatHandler;
 import com.rs2.model.players.item.ItemDefinition;
 import com.rs2.model.players.item.ItemManager;
+import com.rs2.model.region.music.MusicLoader;
 import com.rs2.model.tick.Tick;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.packet.PacketManager;
@@ -242,6 +243,8 @@ public class Server implements Runnable {
             GlobalVariables.loadBans();
             
             ClanChatHandler.loadClans();
+            
+            MusicLoader.Load();
 
 			// Start up and get a'rollin!
 			startup();

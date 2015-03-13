@@ -125,8 +125,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.tick.Tick;
-import com.rs2.model.region.music.RegionMusic;
-import com.rs2.model.region.music.MusicPlayer;
+import com.rs2.model.region.music.MusicManager;
 import com.rs2.net.ActionSender;
 import com.rs2.net.DedicatedReactor;
 import com.rs2.net.ISAACCipher;
@@ -202,8 +201,7 @@ public class Player extends Entity {
 	private NewComersSide newComersSide = new NewComersSide(this);
 	private PlayerInteraction playerInteraction = new PlayerInteraction(this);
 	private AgilityCourses agilityCourse = new AgilityCourses(this);
-	private RegionMusic regionMusic = new RegionMusic(this);
-	private MusicPlayer musicPlayer = new MusicPlayer(this);
+	private MusicManager musicManager = new MusicManager(this);
 	private CombatSounds combatSounds = new CombatSounds(this);
 	private DuelMainData duelMainData = new DuelMainData(this);
 	private AlchemistPlayground alchemistPlayground = new AlchemistPlayground(this);
@@ -982,7 +980,7 @@ public class Player extends Entity {
 		//GlobalObjectHandler.createGlobalObject();
 		GroundItemManager.getManager().refreshLandscapeDisplay(this);
 		Npc.reloadTransformedNpcs(this);
-		getRegionMusic().playMusic(); 
+		getMusicManager().playRegionMusic();
 	}
 	
     public void demoDelayedTask() {
@@ -1239,6 +1237,7 @@ public class Player extends Entity {
         {
         	teleport(getLastPosition());
         }
+        getMusicManager().Init();
     }
 	
 	public boolean beginLogin() throws Exception {
@@ -1910,12 +1909,8 @@ public class Player extends Entity {
 		return agilityCourse;
 	}
 	
-	public RegionMusic getRegionMusic() {
-		return regionMusic;
-	}
-	
-	public MusicPlayer getMusicPlayer() {
-		return musicPlayer;
+	public MusicManager getMusicManager() {
+		return musicManager;
 	}
 	
 	public CombatSounds getCombatSounds() {

@@ -5,13 +5,42 @@ package com.rs2.model.region.music;
  * this template use File | Settings | File Templates.
  */
 public class Music {
-	public Music(int music, int swX, int swY, int neX, int neY) {
-		this.music = music;
-		this.swX = swX;
-		this.swY = swY;
-		this.neX = neX;
-		this.neY = neY;
+	
+	public Music(int[] regions, String name, int song, int frame, int button) {
+		this.regions = regions;
+		this.name = name;
+		this.song = song;
+		this.frame = frame;
+		this.button = button;
+	}
+	
+	private final int[] regions;
+	
+	private final String name;
+	
+	private final int song;
+	
+	private final int frame;
+	
+	private final int button;
+	
+	public int[] getRegions() {
+		return regions;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public int getSong() {
+		return song;
+	}
+	
+	public int getFrame() {
+		return frame;
 	}
 
-	public int music, swX, swY, neX, neY;
+	public int getButton() {
+		return button;
+	}
 }
