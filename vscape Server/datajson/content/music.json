@@ -257,7 +257,11 @@
     "button": 16211
   },
   {
-    "regions": [],
+    "regions": [
+      11418,
+      11419,
+      11675
+    ],
     "name": "Beyond",
     "song": 100,
     "frame": 4308,
@@ -378,7 +382,11 @@
     "button": 60133
   },
   {
-    "regions": [],
+    "regions": [
+      11929,
+      12184,
+      12185
+    ],
     "name": "Cave Background",
     "song": 325,
     "frame": 8972,
@@ -406,7 +414,9 @@
     "button": 16217
   },
   {
-    "regions": [],
+    "regions": [
+      12697
+    ],
     "name": "Cellar Song",
     "song": 330,
     "frame": 8980,
@@ -507,7 +517,10 @@
     "button": 24007
   },
   {
-    "regions": [],
+    "regions": [
+      11673,
+      11674
+    ],
     "name": "Courage",
     "song": 178,
     "frame": 4880,
@@ -738,7 +751,10 @@
     "button": 24154
   },
   {
-    "regions": [],
+    "regions": [
+      11672,
+      11928
+    ],
     "name": "Dunjun",
     "song": 173,
     "frame": 4323,
@@ -835,7 +851,8 @@
   {
     "regions": [
       12852,
-      12605
+      12605,
+      12952
     ],
     "name": "Expanse",
     "song": 106,
@@ -1859,7 +1876,9 @@
     "button": 17024
   },
   {
-    "regions": [],
+    "regions": [
+      13209
+    ],
     "name": "No Way Out",
     "song": 594,
     "frame": 15077,
@@ -2127,7 +2146,9 @@
     "button": 52047
   },
   {
-    "regions": [],
+    "regions": [
+      11671
+    ],
     "name": "Royale",
     "song": 53,
     "frame": 4385,
@@ -2174,7 +2195,15 @@
     "button": 60138
   },
   {
-    "regions": [],
+    "regions": [
+      12441,
+      12442,
+      12443,
+      12444,
+      12698,
+      12954,
+      13210
+    ],
     "name": "Scape Cave",
     "song": 144,
     "frame": 4388,
@@ -2754,7 +2783,9 @@
     "button": 50008
   },
   {
-    "regions": [],
+    "regions": [
+      12440
+    ],
     "name": "Tiptoe",
     "song": 338,
     "frame": 10133,
@@ -2887,6 +2918,8 @@
   },
   {
     "regions": [
+      11416,
+      11417,
       13368
     ],
     "name": "Underground",
@@ -2944,7 +2977,9 @@
     "button": 26211
   },
   {
-    "regions": [],
+    "regions": [
+      12696
+    ],
     "name": "Victory is Mine",
     "song": 528,
     "frame": 15829,
