@@ -30,7 +30,7 @@ public class MusicManager {
 		Music music = MusicLoader.forRegion(regionId);
 		if(music == null)
 		{
-			System.out.println("Music isn't added into this region yet! Region = "+ player.getPosition().getRegionId());
+			//System.out.println("Music isn't added into this region yet! Region = "+ player.getPosition().getRegionId());
 			return;
 		}
 		if(music.getSong() == player.currentSong)
