@@ -101,6 +101,7 @@ public class QuestVariables {
 	public boolean givenHaroldSpecial = false;
 	public int moneyWonFromHarold = 0;
 	public boolean[] ballBools = {false, false, false, false, false};
+	public boolean toldPathIsSafe = false;
 
 	public QuestVariables(final Player player) {
 		this.player = player;

@@ -363,6 +363,26 @@ public class DeathPlateau implements Quest {
 		player.getInventory().removeItem(new Item(BREAD, 10));
 		player.getInventory().removeItem(new Item(TROUT, 10));
 	}
+	
+	public static void tellPlayerPathIsSafe(final Player player) {
+		player.getQuestVars().toldPathIsSafe = true;
+		player.getMovementHandler().reset();
+		player.setStopPacket(true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				player.getDialogue().sendPlayerChat("I think this is far enough, I can see Death Plateau and", "it looks like the trolls haven't found the path. I'd better", "go and tell Denulth.");
+				player.getDialogue().endDialogue();
+				player.setQuestStage(43, 13);
+				player.setStopPacket(false);
+			}
+		}, 2);
+	}
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {

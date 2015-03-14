@@ -8,6 +8,7 @@ import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.quests.impl.AnimalMagnetism;
 import com.rs2.model.content.quests.impl.BlackKnightsFortress;
+import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
 import com.rs2.model.content.quests.impl.DemonSlayer;
 import com.rs2.model.content.quests.impl.GoblinDiplomacy;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
@@ -17,6 +18,9 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
@@ -97,26 +101,12 @@ public final class PlayerUpdating {
 		if(BlackKnightsFortress.attackPlayer(player)) {
 		    BlackKnightsFortress.attackPlayer(player, true);
 		}
-		if(player.getQuestStage(43) == 12 && player.getPosition().getY() == 3609 && player.getPosition().getX() >= 2862) {
-			player.getDialogue().sendPlayerChat("I think this is far enough, I can see Death Plateau and", "it looks like the trolls haven't found the path. I'd better", "go and tell Denulth.");
-			player.getDialogue().endDialogue();
-			player.setQuestStage(43, 13);
+		if(player.getQuestStage(43) == 12 && player.getPosition().getY() == 3609 && player.getPosition().getX() >= 2865 && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
+			if(!player.getQuestVars().toldPathIsSafe) {
+				DeathPlateau.tellPlayerPathIsSafe(player);
+			}
+			
 		}
-		/*if(ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470) && !player.christmasUpdated && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
-		    player.christmasUpdated = true;
-		    final Player finalPlayer = player;
-		    CycleEventHandler.getInstance().addEvent(finalPlayer, new CycleEvent() {
-			@Override
-			public void execute(CycleEventContainer b) {
-			    b.stop();
-			}
-
-			@Override
-			public void stop() {
-			    finalPlayer.reloadRegion();
-			}
-		    }, 2);
-		}*/
 		if(player.getPosition().getY() > 3312 && player.getPosition().getY() < 3400 && player.getPosition().getX() > 3068 && player.getPosition().getX() < 3145) {
 		    for(Npc npc : World.getNpcs()) {
 			if(npc == null || npc.getNpcId() != AnimalMagnetism.UNDEAD_TREE) continue;
