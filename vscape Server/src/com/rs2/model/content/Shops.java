@@ -515,6 +515,8 @@ public class Shops {
 				return 204;
 			case 971:
 				return 205;
+			case 1079:
+				return 206;
                        /* case 961:
                             if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
                                 return 179;

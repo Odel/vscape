@@ -17,7 +17,7 @@ public class Client extends RSApplet {
 	private final static String CLIENT_VERSION = "3.5";
 	
 	public final static boolean DevMode = true;
-	public final static boolean MusicEnabled = true;
+	public final static boolean Muted = false;
 	
 	//MAKE FALSE WHEN BUILDING LIVE CLIENTS
 	public final static boolean CACHE_DEV_BRANCH = true;
@@ -1823,113 +1823,96 @@ public class Client extends RSApplet {
 
 	private void method33(int i) {
 		try {
-			int j = Varp.cache[i].anInt709;
-			if (j == 0)
+			int action = Varp.cache[i].anInt709;
+			if (action == 0)
 				return;
-			int k = variousSettings[i];
-			if (j == 1) {
-				if (k == 1)
+			int config = variousSettings[i];
+			if (action == 1) {
+				if (config == 1)
 					chosenBrightness = 0.90000000000000002D;
-				if (k == 2)
+				if (config == 2)
 					chosenBrightness = 0.80000000000000004D;
-				if (k == 3)
+				if (config == 3)
 					chosenBrightness = 0.69999999999999996D;
-				if (k == 4)
+				if (config == 4)
 					chosenBrightness = 0.59999999999999998D;
 				
 				Texture.method372(chosenBrightness);
 				ItemDef.mruNodes1.unlinkAll();
 				welcomeScreenRaised = true;
 			}
-			if (j == 3) {
-			    if (MusicEnabled) {
-				boolean flag = musicEnabled;
-				if (k == 0) {
-				    musicVolume = 200;
-				    musicEnabled = true;
+			if (action == 3) {
+				if (!Muted) {
+					boolean flag1 = musicEnabled;
+					if (config == 0) {
+						if (!musicEnabled) {
+							previousSong = 0;
+						}
+						setMidiVolume(256);
+						musicEnabled = true;
+					}
+					if (config == 1) {
+						setMidiVolume(192);
+						musicEnabled = true;
+					}
+					if (config == 2) {
+						setMidiVolume(128);
+						musicEnabled = true;
+					}
+					if (config == 3) {
+						setMidiVolume(64);
+						musicEnabled = true;
+					}
+					if (config == 4) {
+						musicEnabled = false;
+					}
+					if (musicEnabled != flag1 && !lowMem) {
+						if (musicEnabled) {
+							nextSong = currentSong;
+							songChanging = true;
+							onDemandFetcher.method558(2, nextSong);
+						} else {
+							stopMidi();
+						}
+						previousSong = 0;
+					}
 				}
-				if (k == 1) {
-				    musicVolume = 150;
-				    musicEnabled = true;
-				}
-				if (k == 2) {
-				    musicVolume = 100;
-				    musicEnabled = true;
-				}
-				if (k == 3) {
-				    musicVolume = 50;
-				    musicEnabled = true;
-				}
-				if (k == 4) {
-				    musicVolume = 0;
-				    musicEnabled = false;
-				}
-				adjustVolume(musicEnabled, musicVolume);
-				if (musicEnabled != flag && !lowMem) {
-				    if (musicEnabled) {
-					nextSong = currentSong;
-					songChanging = true;
-					onDemandFetcher.method558(2, nextSong);
-				    } else {
-					stopMidi();
-				    }
-				    previousSong = 0;
-				}
-			    }
 			}
 
-			if (j == 4) {
-			    if(MusicEnabled) {
-				SoundPlayer.setVolume(k);
-				if (k == 0) {
-					aBoolean848 = true;
-					setWaveVolume(0);
-				}
-				if (k == 1) {
-					aBoolean848 = true;
-					setWaveVolume(-400);
-				}
-				if (k == 2) {
-					aBoolean848 = true;
-					setWaveVolume(-800);
-				}
-				if (k == 3) {
-					aBoolean848 = true;
-					setWaveVolume(-1200);
-				}
-				if (k == 4) {
-					aBoolean848 = false;
-				}
-				/*if (k == 0) {
-					aBoolean848 = true;
-					setWaveVolume(0);
-				}
-				if (k == 1) {
-					aBoolean848 = true;
-					setWaveVolume(-400);
-				}
-				if (k == 2) {
-					aBoolean848 = true;
-					setWaveVolume(-800);
-				}
-				if (k == 3) {
-					aBoolean848 = true;
-					setWaveVolume(-1200);
-				}
-				if (k == 4)
-					aBoolean848 = false;*/
+			if (action == 4) {
+			    if(Muted) {
+					SoundPlayer.setVolume(config);
+					if (config == 0) {
+						aBoolean848 = true;
+						setWaveVolume(0);
+					}
+					if (config == 1) {
+						aBoolean848 = true;
+						setWaveVolume(-400);
+					}
+					if (config == 2) {
+						aBoolean848 = true;
+						setWaveVolume(-800);
+					}
+					if (config == 3) {
+						aBoolean848 = true;
+						setWaveVolume(-1200);
+					}
+					if (config == 4) {
+						aBoolean848 = false;
+					}
 				}
 			}
-			if (j == 5)
-				anInt1253 = k;
-			if (j == 6)
-				anInt1249 = k;
-			if (j == 8) {
-				splitPrivateChat = k;
+			if (action == 5)
+				anInt1253 = config;
+			if (action == 6)
+				anInt1249 = config;
+			if (action == 8) {
+				splitPrivateChat = config;
 				inputTaken = true;
 			}
-			if (j == 9)
-				anInt913 = k;
+			if (action == 9)
+				anInt913 = config;
 		} catch (Exception e) {
 		}
 	}
@@ -2781,8 +2764,8 @@ public class Client extends RSApplet {
 		currentSong = -1;
 		nextSong = 0;
 		previousSong = 0;
-		if(loginMusicEnabled && MusicEnabled){
-			musicVolume = 200;
+		if(loginMusicEnabled && !Muted){
+			musicVolume = 256;
 			onDemandFetcher.method558(2, nextSong);
 		}
 		saveChatSettings();
@@ -3428,6 +3411,47 @@ public class Client extends RSApplet {
 		Signlink.saveMidi(abyte0, abyte0.length);
 	}
 	
+	public void setMidiVolume(int vol) {
+		if(!Muted) {
+			musicVolume = vol;
+			if (midiPlayer == null) {
+				return;
+			}
+			if (midiPlayer.playing()) {
+				midiPlayer.setVolume(0, musicVolume);
+			}
+		}
+	}
+
+	public void playMidi(boolean changing, byte abyte0[]) {
+		if(!Muted) {
+			boolean quickSong = (previousSong > 0 ? true : false);
+	
+			if (midiPlayer == null) {
+				System.out.println("Midi player is null");
+				return;
+			}
+	
+			if (midiPlayer.playing() && !quickSong) {
+				midiPlayer.play(abyte0, true, musicVolume);
+			} else {
+				midiPlayer.play(abyte0, false, musicVolume);
+			}
+		}
+	}
+	
+	private void stopMidi() {
+		if(!Muted) {
+			if (midiPlayer != null) {
+				midiPlayer.stop();
+			} else {
+				System.out.println("Midi player is null!");
+			}
+			//currentSong = -1;
+		}
+	}
+
+	
 	private void processOnDemandQueue() {
 		do {
 			OnDemandData onDemandData;
@@ -3442,8 +3466,8 @@ public class Client extends RSApplet {
 				}
 				if(onDemandData.dataType == 1 && onDemandData.buffer != null)
 					Class36.load(onDemandData.buffer, onDemandData.ID);
-				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null && MusicEnabled){
-					MidiPlayer.getSingleton().play(onDemandData.buffer,songChanging,musicVolume);
+				if (onDemandData.dataType == 2 && onDemandData.ID == nextSong && onDemandData.buffer != null && !Muted){
+					playMidi(songChanging, onDemandData.buffer);
 					//saveMidi(songChanging, onDemandData.buffer);
 				}
 				if(onDemandData.dataType == 3 && loadingStage == 1)
@@ -8077,7 +8101,7 @@ public class Client extends RSApplet {
 				soundDelay[index]--;
 			}*/
 		}
-		if(MusicEnabled) {
+		if(!Muted) {
 		    if (previousSong > 0) {
 			previousSong -= 20;
 			if (previousSong < 0) {
@@ -8202,7 +8226,7 @@ public class Client extends RSApplet {
 			onDemandFetcher = new OnDemandFetcher();
 			onDemandFetcher.start(streamLoader_6, this);
 			Model.method459(onDemandFetcher.getModelCount(), onDemandFetcher);
-			if(!lowMem && loginMusicEnabled && MusicEnabled)
+			if(!lowMem && loginMusicEnabled && !Muted)
 			{
 				nextSong = 0;
 				try
@@ -10594,57 +10618,6 @@ public class Client extends RSApplet {
 		else
 			return super.getParameter(s);
 	}
-/*
-	private void adjustVolume(boolean flag, int i) {
-		Signlink.midiVolume = i;
-		if (flag)
-			Signlink.midi = "voladjust";
-	}*/
-	
-	public void playSong(int id) {
-	    if(MusicEnabled) {
-		if (currentSong != id) {
-			nextSong = id;
-			songChanging = true;
-			onDemandFetcher.method558(2, nextSong);
-			currentSong = id;
-		}
-	    }
-	}
-/*
-	public void stopMidi() {
-		Signlink.music.stop();
-		Signlink.midifade = 0;
-		Signlink.midi = "stop";
-	}
-	*/
-	private void stopMidi()
-	{
-	    if(MusicEnabled) {
-		MidiPlayer.getSingleton().stop();
-		Signlink.midifade = 0;
-		Signlink.midi = "stop";
-	    }
-	}
-
-/*	private void adjustVolume(boolean updateMidi, int volume) {
-		Signlink.setVolume(volume);
-		if (updateMidi) {
-			Signlink.midi = "voladjust";
-		}
-	}*/
-	
-	private void adjustVolume(boolean flag, int i)
-	{
-	    if(MusicEnabled) {
-		MidiPlayer.getSingleton().setVolume(0, i);
-		Signlink.midiVolume = i;
-		if(flag){
-			Signlink.midi = "voladjust";
-		}
-	    }
-	}
-
 
 	private int extractInterfaceValues(RSInterface class9, int j) {
 		if (class9.valueIndexArray == null || j >= class9.valueIndexArray.length)
@@ -11341,7 +11314,7 @@ public class Client extends RSApplet {
 	    	if(background != null)
 	    		background.drawARGBSprite((clientWidth / 2) - (background.myWidth / 2), (clientHeight / 2) - (background.myHeight / 2));
 			
-	    	if (MusicEnabled) {
+	    	if (!Muted) {
 			    if (loginMusicEnabled) {
 			    	SpriteLoader.getSprite("login", 6).drawSprite(clientWidth - 52, 10);
 			    } else {
@@ -11770,13 +11743,13 @@ public class Client extends RSApplet {
         int x1 = centerX - (messageWidth / 2);
         int y1 = centerY - (messageHeight / 2);
         if (super.clickMode3 == 1 && clickInRegion(clientWidth - 52, 10, clientWidth - 10, 52)) { //login music box sprite
-	    if(MusicEnabled) {
+	    if(!Muted) {
 		   if (loginMusicEnabled) {
 			   loginMusicEnabled = false;
 		       stopMidi();
 		   } else if (!loginMusicEnabled) {
 			   loginMusicEnabled = true;
-		       musicVolume = 200;
+		       musicVolume = 256;
 		       nextSong = 0;
 		       try {
 		           nextSong = Integer.parseInt(getParameter("music"));
@@ -12374,21 +12347,21 @@ public class Client extends RSApplet {
 				if (songID == 65535) {
 					songID = -1;
 				}
-				if(MusicEnabled) {
+				if(!Muted) {
 				    if (songID != currentSong && musicEnabled && !lowMem && previousSong == 0) {
 						nextSong = songID;
 						songChanging = true;
 						onDemandFetcher.method558(2, nextSong);
 				    }
+				    currentSong = songID;
 				}
-				currentSong = songID;
 				pktType = -1;
 				return true;
 				
 			case 121:
 				int songId = inStream.method436();
 				int songDelay = inStream.method435();
-				if(MusicEnabled) {
+				if(!Muted) {
 				    if (musicEnabled && !lowMem) {
 						nextSong = songId;
 						songChanging = false;
@@ -13390,6 +13363,11 @@ public class Client extends RSApplet {
 	}
 
 	public Client() {
+		try {
+			midiPlayer = new MidiPlayer();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		fullscreenInterfaceID = -1;
 		this.toggleSize(0);
 		chatRights = new int[500];
@@ -13960,7 +13938,8 @@ public class Client extends RSApplet {
 	private static int anInt1226;
 	private int nextSong;
 	private boolean songChanging;
-	private int musicVolume = 200;
+	private int musicVolume = 256;
+	MidiPlayer midiPlayer;
 	private final int[] anIntArray1229;
 	private Class11[] aClass11Array1230;
 	public static int anIntArray1232[];

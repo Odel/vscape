@@ -1231,12 +1231,17 @@ public class ActionSender {
 				id2, 3, false);
 	}
 	
-	public void walkThroughGateEW(final int id1, final int id2, final int x1, final int y1, final int x2, final int y2, final int h) {
+	public void walkThroughGateEW(final int id1, final int id2, final int x1, final int y1, final int x2, final int y2, final int h, boolean westOpening) {
 		final CacheObject g = ObjectLoader.object(id1, x1, y1, h);
 		final CacheObject g2 = ObjectLoader.object(id2, x2, y2, h);
 		final int z = player.getPosition().getZ();
-		new GameObject(id1, x1 - 2, y1 - 1, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
-		new GameObject(id2, x2 - 1, y2, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+		if(westOpening) {
+			new GameObject(id1, x1 - 2, y1 - 1, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+			new GameObject(id2, x2 - 1, y2, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+		} else {
+			new GameObject(id1, x1 + 2, y1 - 1, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+			new GameObject(id2, x2 + 1, y2, z, 3, 0, Constants.EMPTY_OBJECT, 3, false);
+		}
 		new GameObject(Constants.EMPTY_OBJECT, x1, y1, z, g2.getRotation(), 0, id1, 3, false);
 		new GameObject(Constants.EMPTY_OBJECT, x2, y2, z, g2.getRotation(), 0, id2, 3, false);
 	}

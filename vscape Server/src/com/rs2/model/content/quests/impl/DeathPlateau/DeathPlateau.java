@@ -358,6 +358,11 @@ public class DeathPlateau implements Quest {
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		switch (object) {
+			case 3725: //tenzing's gate
+			case 3726:
+				player.getActionSender().walkThroughGateEW(3725, 3726, 2824, 3555, 2824, 3554, 0, false);
+				player.getActionSender().walkTo(player.getPosition().getX() > 2824 ? -1 : 1, 0, true);
+				return true;
 			case CAVE_ENTRANCE:
 				player.fadeTeleport(new Position(2893, 10074, 0));
 				return true;
