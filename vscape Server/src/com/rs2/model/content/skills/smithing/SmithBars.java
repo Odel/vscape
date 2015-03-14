@@ -3,6 +3,7 @@ package com.rs2.model.content.skills.smithing;
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.players.Player;
@@ -178,6 +179,10 @@ public class SmithBars {
 				//TutorialIsland.sendStartInfo(player);
 			} else {
 				player.getActionSender().removeInterfaces();
+			}
+			if(itemName.contains("claws") && !QuestHandler.questCompleted(player, 43)) {
+				player.getDialogue().sendStatement("You must complete Death Plateau to smith this.");
+				return;
 			}
 			final int task = player.getTask();
 			player.getUpdateFlags().sendAnimation(898);

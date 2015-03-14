@@ -41,7 +41,7 @@ public class DeathPlateau implements Quest {
 	public static final int SPIKE_THE_BOOTS = 11;
 	public static final int TEST_ROUTE = 12;
 	public static final int TELL_DENULTH = 13;
-	public static final int QUEST_COMPLETE = 20;
+	public static final int QUEST_COMPLETE = 14;
 
 	//Items
 	public static final int STEEL_CLAWS = 3097;
@@ -196,8 +196,8 @@ public class DeathPlateau implements Quest {
 		a.sendQuestLogString("resident trolls.", 5, this.getQuestID(), QUEST_STARTED);
 		a.sendQuestLogString("I talked to Eohric, he told me that Harold is staying", 7, this.getQuestID(), TALKED_TO_EOHRIC);
 		a.sendQuestLogString("at the local pub, the Toad and Chicken.", 8, this.getQuestID(), TALKED_TO_EOHRIC);
-		a.sendQuestLogString("Well, Harold told me he lost the combination, and then", 10, this.getQuestID(), IOU_GET);
-		a.sendQuestLogString("we gambled and he ended up far too drunk. He eventually lost", 11, this.getQuestID(), IOU_GET);
+		a.sendQuestLogString("Well, Harold told me he lost the combination, and then we", 10, this.getQuestID(), IOU_GET);
+		a.sendQuestLogString("gambled and he ended up very drunk. He eventually lost", 11, this.getQuestID(), IOU_GET);
 		a.sendQuestLogString("enough money to me that he wrote me an IOU note. Hmm...", 12, this.getQuestID(), IOU_GET);
 		a.sendQuestLogString("The IOU note was really the combination to the equipment!", 14, this.getQuestID(), COMBINATION_GET);
 		a.sendQuestLogString("I managed to unlock the equipment storage room.", 16, this.getQuestID(), DOOR_UNLOCKED);
@@ -206,7 +206,7 @@ public class DeathPlateau implements Quest {
 		a.sendQuestLogString("I found the Sherpa! He lives to the west of Burthorpe.", 21, this.getQuestID(), SUPPLIES_FOR_SHERPA);
 		a.sendQuestLogString("I got Dunstan's son into the Imperial Guard, he'll spike", 23, this.getQuestID(), SPIKE_THE_BOOTS);
 		a.sendQuestLogString("climbing boots for me at the cost of one Iron bar.", 24, this.getQuestID(), SPIKE_THE_BOOTS);
-		a.sendQuestLogString("Tenzing gave me the map for the secret way to Death Plateau.", 26, this.getQuestID(), TEST_ROUTE);
+		a.sendQuestLogString("Tenzing gave me the map of the way to Death Plateau.", 26, this.getQuestID(), TEST_ROUTE);
 		a.sendQuestLogString("I tested the route, it seems safe! I should tell Denulth.", 28, this.getQuestID(), TELL_DENULTH);
 		switch (questStage) {
 			default:
@@ -260,7 +260,8 @@ public class DeathPlateau implements Quest {
 				a.sendQuestLogString((player.getInventory().playerHasItem(SPIKED_BOOTS) ? "@str@" : "@dbl@") + "-Have Dunstan put spikes back on his climbing boots.", lastIndex + 6);
 				break;
 			case TEST_ROUTE:
-				a.sendQuestLogString("I should follow the map and find out if it's safe.", lastIndex + 1);
+				a.sendQuestLogString("I should follow the route and find out if it's safe.", lastIndex + 1);
+				a.sendQuestLogString("The route apparently just extends north of his house.", lastIndex + 2);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -1073,6 +1074,14 @@ public class DeathPlateau implements Quest {
 				return true;
 			case HAROLD:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case QUEST_COMPLETE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Ow... my head...", SAD);
+								d.endDialogue();
+								return true;
+						}
+					return false;
 					case IOU_GET:
 					case COMBINATION_GET:
 					case DOOR_UNLOCKED:
@@ -1547,7 +1556,7 @@ public class DeathPlateau implements Quest {
 								d.sendNpcChat("I have heard of Dunstan's son, he is a very promising", "young man. For the sake of your mission we can make", "an exception!");
 								return true;
 							case 11:
-								d.sendGiveItemNpc("Denulth gives you a certificate.", new Item(CERTIFICATE));
+								d.sendGiveItemNpc("Denulth shows you a certificate.", new Item(CERTIFICATE));
 								return true;
 							case 12:
 								d.sendNpcChat("This certificate proves that we have accepted Dunstan's", "son for training in the Imperial Guard!");
@@ -1676,9 +1685,12 @@ public class DeathPlateau implements Quest {
 								QuestHandler.startQuest(player, this.getQuestID());
 								return true;
 							case 25:
-								
-								
-								
+								d.sendNpcChat("This is the training grounds for the Imperial Guard!");
+								return true;
+							case 26:
+								d.sendNpcChat("Here we train our soldiers to ward off the", "threat of trolls from the north.");
+								d.setNextChatId(2);
+								return true;
 						}
 					return false;
 					case QUEST_COMPLETE:
