@@ -25,7 +25,6 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.impl.PiratesTreasure;
-
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.impl.Quest;
@@ -44,6 +43,7 @@ import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.players.item.ItemDefinition;
+import com.rs2.model.region.music.Music;
 import com.rs2.model.region.music.MusicLoader;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
@@ -797,7 +797,12 @@ public class CommandHandler {
 			sender.getActionSender().sendSong(id);
 		}
 		if (keyword.equals("myregion")) {
-			System.out.println("" + sender.getCurrentRegion().getRegionId());
+			int regionId = sender.getPosition().getRegionId();
+			Music music = MusicLoader.forRegion(regionId);
+			sender.getDialogue().sendStatement(sender.getPosition().toString(),
+											   "Region #" + regionId,
+											   "Music - " + (music == null ? "No Music Set" : music.getName()));
+			sender.getDialogue().endDialogue();
 		}
 		if (keyword.equals("forcemusic")) {
 			final int id = Integer.parseInt(args[0]);
