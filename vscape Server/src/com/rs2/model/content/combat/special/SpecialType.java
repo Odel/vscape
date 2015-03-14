@@ -676,7 +676,7 @@ public enum SpecialType {
                             n.walkTo(new Position(n.getPosition().getX() + x2, n.getPosition().getY() + y2), false);
                         }
                     }
-                    victim.getStunTimer().setWaitDuration(10);
+                    victim.getStunTimer().setWaitDuration(6);
                     victim.getStunTimer().reset();
                     break;
                 case 6 : // d2h
