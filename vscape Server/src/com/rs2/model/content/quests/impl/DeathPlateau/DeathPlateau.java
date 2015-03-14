@@ -1224,6 +1224,10 @@ public class DeathPlateau implements Quest {
 									d.sendGiveItemNpc("You give Harold a Blurberry Special.", new Item(2064));
 									player.getInventory().removeItem(new Item(2064));
 									player.getQuestVars().givenHaroldSpecial = true;
+								} else if(player.getInventory().playerHasItem(2028)) {
+									d.sendGiveItemNpc("You give Harold a pre-made Blurberry Special.", new Item(2028));
+									player.getInventory().removeItem(new Item(2028));
+									player.getQuestVars().givenHaroldSpecial = true;
 								} else {
 									d.sendPlayerChat("Er, nope. I don't. Sorry.");
 									d.endDialogue();

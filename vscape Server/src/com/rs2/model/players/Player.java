@@ -146,6 +146,7 @@ import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
+import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -228,6 +229,7 @@ public class Player extends Entity {
 	private ItemOnItemHandling itemOnItem = new ItemOnItemHandling(this);
 	private SkillGuides skillGuides = new SkillGuides(this);
 	private Food food = new Food(this);
+	private GnomeCooking gnomeCooking = new GnomeCooking(this);
 	private Potion potion = new Potion(this);
 	private MineOre mining = new MineOre(this);
 	private Cooking cooking = new Cooking(this);
@@ -1965,6 +1967,10 @@ public class Player extends Entity {
 
 	public Food getFood() {
 		return food;
+	}
+	
+	public GnomeCooking getGnomeCooking() {
+		return gnomeCooking;
 	}
 
 	public Potion getPotion() {

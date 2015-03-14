@@ -384,6 +384,9 @@ public class ItemPacketHandler implements PacketHandler {
 	if (GodBook.blessSymbol(player, firstItem, secondItem)) {
 	    return;
 	}
+	if (player.getGnomeCooking().itemOnItemHandling(firstItem, secondItem, itemFirstClickSlot, itemSecondClickSlot)) {
+		return;
+	}
 	if ((firstItem == GlassMaking.GLASSBLOWING_PIPE && secondItem == GlassMaking.MOLTEN_GLASS) || (secondItem == GlassMaking.GLASSBLOWING_PIPE && firstItem == GlassMaking.MOLTEN_GLASS)) {
 	    Menus.sendSkillMenu(player, "glassMaking");
 	    return;
@@ -899,6 +902,9 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (QuestHandler.getQuests()[26].itemHandling(player, itemId)) { //Horror from the deep
 	    return;
+	}
+	if (player.getGnomeCooking().itemHandling(itemId)) {
+		return;
 	}
 	if (itemId == 6885) { //Mage Training hat
 	    Dialogues.startDialogue(player, 3096);

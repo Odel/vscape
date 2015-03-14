@@ -482,7 +482,6 @@ public class Shops {
 			case 1680://crystal
 				return 171;
 			case 1921:
-			case 849:
 			case 736:
 			case 734:
 			case 1700: //ghost innkeeper
@@ -517,6 +516,8 @@ public class Shops {
 				return 205;
 			case 1079:
 				return 206;
+			case 849:
+				return 207;
                        /* case 961:
                             if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
                                 return 179;

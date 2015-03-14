@@ -8881,5 +8881,42 @@
     "isGeneralStore": false,
     "currencyType": "ITEM",
     "currency": 995
+  },
+  {
+    "shopId": 207,
+    "name": "Blurberry's Bar",
+    "items": [
+      {
+        "id": 2028,
+        "count": 10
+      },
+	  {
+        "id": 2030,
+        "count": 10
+      },
+	  {
+        "id": 2032,
+        "count": 10
+      },
+	  {
+        "id": 2034,
+        "count": 10
+      },
+	  {
+        "id": 2036,
+        "count": 10
+      },
+	  {
+        "id": 2038,
+        "count": 10
+      },
+	  {
+        "id": 2040,
+        "count": 10
+      }
+    ],
+    "isGeneralStore": false,
+    "currencyType": "ITEM",
+    "currency": 995
   }
 ]

@@ -1,5 +1,6 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+2028:1:2972:2972:0:30 //premade blurberry gandius
 1919:1:2907:3538:0:10 //beer glass burthorpe
 1905:1:2906:3538:0:10 //asgnarnian ale burthorpe
 3109:1:2893:3565:0:10 //burthorpe balls

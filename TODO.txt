@@ -21,4 +21,3 @@ QUESTS LEFT UNTIL RFD:
 -Temple of Ikov
 -Tourist Trap
 -Troll Stronghold
--Death Plateau
