@@ -23,6 +23,7 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import com.rs2.util.clip.ClippedPathFinder;
 
 /**
  * A non-player-character.
@@ -224,22 +225,35 @@ public class Npc extends Entity {
 	 * Makes walkable npcs walk, then updates it's position.
 	 */
 	public void npcRandomWalk() {
-		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
+		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null || this.isMoving())
 			return;
 		if (isDontWalk() || ApeAtollNpcData.forNpcId(this.getNpcId()) != null) {
 			return;
 		}
-		if(!playerNearby())
+		if(!playerNearby() && npcId != 1091)
 		{
 			return;
 		}
 		if (getWalkType() == WalkType.STAND) {
 			getUpdateFlags().sendFaceToDirection(getFacingDirection(getPosition(), getFace()));
-		} else if (!isFrozen() && !isStunned() && Misc.random(9) == 0) {
+		} else if (!isFrozen() && !isStunned() && Misc.random(npcId == 1091 ? 5 : 9) == 0) {
 			int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
+			if(npcId == 1091) {
+				x = getPosition().getX() - 8;
+				y = getPosition().getY() - 8;
+				width = 16;
+				length = 16;
+			}
 			int x1 = Misc.getRandom().nextInt(width), y1 = Misc.getRandom().nextInt(length);
 			Position position = new Position(x+x1, y+y1, getPosition().getZ());
-			walkTo(position, true);
+			if(npcId == 1091) {
+				this.setSpawnPosition(position);
+			}
+			if(npcId == 1091) {
+				ClippedPathFinder.getPathFinder().findRoute(this, position.getX(), position.getY(), true, 0, 0);
+			} else {
+				walkTo(position, true);
+			}
 		}
 	}
 	

@@ -695,6 +695,10 @@ public class CommandHandler {
 		    	sender.getActionSender().sendMessage("Could not find player.", true);
 		    }
 		}
+		else if (keyword.equals("teletobob")) {
+			Position p = World.getNpcs()[World.getNpcIndex(1091)].getPosition();
+			sender.teleport(p);
+		}
 		else if (keyword.equals("teletoclue")) {
 			try {
 				final int id = Integer.parseInt(args[0]);

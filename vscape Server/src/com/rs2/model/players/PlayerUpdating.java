@@ -76,7 +76,7 @@ public final class PlayerUpdating {
 		if (player.getUpdateFlags().isUpdateRequired()) {
 			PlayerUpdating.updateState(player, block, false, true);
 		}
-		if (player.inDarkWizardCircle() && player.getQuestStage(17) == 5 && !DemonSlayer.delrithSpawned()) {
+		if (player.getQuestStage(17) == 5 && player.inDarkWizardCircle() && !DemonSlayer.delrithSpawned()) {
 		    DemonSlayer.spawnDelrith(player);
 		    for(Npc npc : World.getNpcs()) {
 			if(npc == null) continue;
@@ -96,6 +96,11 @@ public final class PlayerUpdating {
 		}
 		if(BlackKnightsFortress.attackPlayer(player)) {
 		    BlackKnightsFortress.attackPlayer(player, true);
+		}
+		if(player.getQuestStage(43) == 12 && player.getPosition().getY() == 3609 && player.getPosition().getX() >= 2862) {
+			player.getDialogue().sendPlayerChat("I think this is far enough, I can see Death Plateau and", "it looks like the trolls haven't found the path. I'd better", "go and tell Denulth.");
+			player.getDialogue().endDialogue();
+			player.setQuestStage(43, 13);
 		}
 		/*if(ChristmasEvent.CHRISTMAS_ENABLED && player.Area(3175, 3235, 3410, 3470) && !player.christmasUpdated && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
 		    player.christmasUpdated = true;

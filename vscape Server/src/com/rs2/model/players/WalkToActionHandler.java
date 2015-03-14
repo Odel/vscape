@@ -2210,6 +2210,7 @@ public class WalkToActionHandler {
 					case 4446 : //fairy bankers
 					case 1702: //ghost banker
 					case 3046: //Nardah banker
+					case 2271: //Rogues den banker
 						npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 						player.setInteractingEntity(npc);
 						player.getUpdateFlags().faceEntity(npc.getFaceIndex());
@@ -2299,6 +2300,7 @@ public class WalkToActionHandler {
 				case 2619:
 				case 1702: //ghost banker
 				case 3046: //Nardah banker
+				case 2271: //Rogues den banker
 					npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 					player.setInteractingEntity(npc);
 					player.getUpdateFlags().faceEntity(npc.getFaceIndex());

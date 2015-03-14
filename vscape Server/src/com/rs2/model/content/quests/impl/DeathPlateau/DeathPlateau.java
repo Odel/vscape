@@ -35,6 +35,12 @@ public class DeathPlateau implements Quest {
 	public static final int COMBINATION_GET = 5;
 	public static final int DOOR_UNLOCKED = 6;
 	public static final int FIND_SHERPA = 7;
+	public static final int SUPPLIES_FOR_SHERPA = 8;
+	public static final int SON_INTO_ARMY = 9;
+	public static final int CERTIFICATE_GET = 10;
+	public static final int SPIKE_THE_BOOTS = 11;
+	public static final int TEST_ROUTE = 12;
+	public static final int TELL_DENULTH = 13;
 	public static final int QUEST_COMPLETE = 20;
 
 	//Items
@@ -50,6 +56,8 @@ public class DeathPlateau implements Quest {
 	public static final int PURPLE_BALL = 3112;
 	public static final int GREEN_BALL = 3113;
 	public static final int CERTIFICATE = 3114;
+	public static final int BREAD = 2309;
+	public static final int TROUT = 333;
 
 	//Positions
 	public static final Position POSITION = new Position(0, 0, 0);
@@ -73,11 +81,12 @@ public class DeathPlateau implements Quest {
 	//Objects
 	public static final int HAROLDS_DOOR = 3747;
 	public static final int EQUIPMENT_DOOR = 3743;
+	public static final int TENZINGS_DOOR = 3745;
+	public static final int TENZINGS_STILE = 3730;
 	public static final int CAVE_ENTRANCE = 3735;
 	public static final int CAVE_EXIT = 3760;
 
 	private int reward[][] = { //{itemId, count},
-		{STEEL_CLAWS, 1}
 	};
 
 	private int expReward[][] = { //{skillId, exp},
@@ -163,8 +172,19 @@ public class DeathPlateau implements Quest {
 			case FIND_SHERPA:
 				lastIndex = 19;
 				break;
-			case QUEST_COMPLETE:
+			case SUPPLIES_FOR_SHERPA:
+			case SON_INTO_ARMY:
+			case CERTIFICATE_GET:
+				lastIndex = 21;
+				break;
+			case SPIKE_THE_BOOTS:
+				lastIndex = 24;
+				break;
+			case TEST_ROUTE:
 				lastIndex = 26;
+				break;
+			case QUEST_COMPLETE:
+				lastIndex = 28;
 				break;
 		}
 		lastIndex++;
@@ -183,6 +203,11 @@ public class DeathPlateau implements Quest {
 		a.sendQuestLogString("I managed to unlock the equipment storage room.", 16, this.getQuestID(), DOOR_UNLOCKED);
 		a.sendQuestLogString("I found a hermit named Saba, he talked of an old Sherpa", 18, this.getQuestID(), FIND_SHERPA);
 		a.sendQuestLogString("that used to take humans on travels around Death Plateau.", 19, this.getQuestID(), FIND_SHERPA);
+		a.sendQuestLogString("I found the Sherpa! He lives to the west of Burthorpe.", 21, this.getQuestID(), SUPPLIES_FOR_SHERPA);
+		a.sendQuestLogString("I got Dunstan's son into the Imperial Guard, he'll spike", 23, this.getQuestID(), SPIKE_THE_BOOTS);
+		a.sendQuestLogString("climbing boots for me at the cost of one Iron bar.", 24, this.getQuestID(), SPIKE_THE_BOOTS);
+		a.sendQuestLogString("Tenzing gave me the map for the secret way to Death Plateau.", 26, this.getQuestID(), TEST_ROUTE);
+		a.sendQuestLogString("I tested the route, it seems safe! I should tell Denulth.", 28, this.getQuestID(), TELL_DENULTH);
 		switch (questStage) {
 			default:
 				break;
@@ -213,6 +238,29 @@ public class DeathPlateau implements Quest {
 			case FIND_SHERPA:
 				a.sendQuestLogString("Saba said the Sherpa should still live around here.", lastIndex + 1);
 				a.sendQuestLogString("I'm sure if I look hard enough I can find him.", lastIndex + 2);
+				break;
+			case SUPPLIES_FOR_SHERPA:
+			case SON_INTO_ARMY:
+			case CERTIFICATE_GET:
+				a.sendQuestLogString("Tenzing can help me to Death Plateau but needs me", lastIndex + 1);
+				a.sendQuestLogString("to do a few things for him first:", lastIndex + 2);
+				a.sendQuestLogString((player.getInventory().playerHasItem(BREAD, 10) ? "@str@" : "@dbl@") + "-Gather 10 loaves of bread.", lastIndex + 4);
+				a.sendQuestLogString((player.getInventory().playerHasItem(TROUT, 10) ? "@str@" : "@dbl@") + "-Gather 10 cooked trout.", lastIndex + 5);
+				a.sendQuestLogString((player.getInventory().playerHasItem(SPIKED_BOOTS) ? "@str@" : "@dbl@") + "-Have Dunstan put spikes back on his climbing boots.", lastIndex + 6);
+				a.sendQuestLogString("Dunstan wants me to get his son into the army for him.", lastIndex + 8, this.getQuestID(), SON_INTO_ARMY);
+				a.sendQuestLogString("Then he'll put spikes on the climbing boots at the cost", lastIndex + 9, this.getQuestID(), SON_INTO_ARMY);
+				a.sendQuestLogString("of one iron bar.", lastIndex + 10, this.getQuestID(), SON_INTO_ARMY);
+				a.sendQuestLogString("I just need to show Dunstan this Imperial Guard certificate.", lastIndex + 12, this.getQuestID(), CERTIFICATE_GET);
+				break;
+			case SPIKE_THE_BOOTS:
+				a.sendQuestLogString("Tenzing can help me to Death Plateau but needs me", lastIndex + 1);
+				a.sendQuestLogString("to do a few things for him first:", lastIndex + 2);
+				a.sendQuestLogString((player.getInventory().playerHasItem(BREAD, 10) ? "@str@" : "@dbl@") + "-Gather 10 loaves of bread.", lastIndex + 4);
+				a.sendQuestLogString((player.getInventory().playerHasItem(TROUT, 10) ? "@str@" : "@dbl@") + "-Gather 10 cooked trout.", lastIndex + 5);
+				a.sendQuestLogString((player.getInventory().playerHasItem(SPIKED_BOOTS) ? "@str@" : "@dbl@") + "-Have Dunstan put spikes back on his climbing boots.", lastIndex + 6);
+				break;
+			case TEST_ROUTE:
+				a.sendQuestLogString("I should follow the map and find out if it's safe.", lastIndex + 1);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -305,6 +353,16 @@ public class DeathPlateau implements Quest {
 		}
 		return toReturn;
 	}
+	
+	public static boolean hasSuppliesForSherpa(final Player player) {
+		return player.getInventory().playerHasItem(BREAD, 10) && player.getInventory().playerHasItem(TROUT, 10) && player.getInventory().playerHasItem(SPIKED_BOOTS);
+	}
+	
+	public static void removeSuppliesForSherpa(final Player player) {
+		player.getInventory().removeItem(new Item(SPIKED_BOOTS));
+		player.getInventory().removeItem(new Item(BREAD, 10));
+		player.getInventory().removeItem(new Item(TROUT, 10));
+	}
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
@@ -358,6 +416,60 @@ public class DeathPlateau implements Quest {
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		switch (object) {
+			case 7257: //Rogues den trapdoor down
+				if (x == 2905 && y == 3537) {
+					player.fadeTeleport(new Position(3061, 4985, 1));
+					return true;
+				}
+				return false;
+			case 7258: //Rogues den exit
+				if(x == 3061 && y == 4986) {
+					player.fadeTeleport(new Position(2906, 3537, 0));
+					return true;
+				}
+				return false;
+			case TENZINGS_STILE:
+				if(x == 2817 && y == 3562) {
+					if(player.getQuestStage(this.getQuestID()) >= TEST_ROUTE) {
+						final Position toBe = new Position(2817, player.getPosition().getY() < 3564 ? 3564 : 3561, 0);
+						final int toWalk = player.getPosition().getY() < 3564 ? 1 : -1;
+						player.getUpdateFlags().sendFaceToDirection(toBe);
+						player.getUpdateFlags().setFaceToDirection(true);
+						player.getUpdateFlags().setUpdateRequired(true);
+						player.setStopPacket(true);
+						player.getActionSender().walkTo(pX == x ? 0 : pX < x ? 1 : -1, toWalk, true);
+						player.getUpdateFlags().sendAnimation(839);
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+
+							@Override
+							public void stop() {
+								player.teleport(toBe);
+								player.setStopPacket(false);
+							}
+						}, 3);
+					} else {
+						player.getDialogue().setLastNpcTalk(TENZING);
+						player.getDialogue().sendNpcChat("Hey! Get away from there! It's not safe up", "that way if you don't know what you're doing!");
+						player.getDialogue().endDialogue();
+					}
+					return true;
+				}
+			return false;
+			case TENZINGS_DOOR:
+				if (x == 2822 && y == 3555) {
+					if (pX > 2822 && player.getQuestStage(this.getQuestID()) <= FIND_SHERPA) {
+						Dialogues.startDialogue(player, TENZINGS_DOOR + 10000);
+					} else {
+						player.getActionSender().walkThroughDoor(object, x, y, 0);
+						player.getActionSender().walkTo(pX > 2822 ? -1 : 1, pY == y ? 0 : pY < y ? 1 : -1, true);
+					}
+					return true;
+				}
+				return false;
 			case 3725: //tenzing's gate
 			case 3726:
 				player.getActionSender().walkThroughGateEW(3725, 3726, 2824, 3555, 2824, 3554, 0, false);
@@ -415,6 +527,390 @@ public class DeathPlateau implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case DUNSTAN:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					default:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hi! How can I help?");
+								return true;
+							case 3:
+								d.sendPlayerChat("Just looking around, thanks.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case QUEST_COMPLETE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hi! How can I help?");
+								return true;
+							case 3:
+								if(player.getInventory().playerHasItem(CLIMBING_BOOTS) && player.getInventory().playerHasItem(2351)) {
+									d.sendPlayerChat("I'd like you to spike some climbing boots for me.");
+								} else {
+									d.sendPlayerChat("Just looking around, thanks.");
+									d.endDialogue();
+								}
+								return true;
+							case 4:
+								d.sendNpcChat("Sure thing adventurer. Thank you again for", "helping my son.", HAPPY);
+								return true;
+							case 5:
+								d.sendGiveItemNpc("", "You give Dunstan an Iron bar and the boots.", new Item(2351), new Item(CLIMBING_BOOTS));
+								player.getInventory().replaceItemWithItem(new Item(CLIMBING_BOOTS), new Item(SPIKED_BOOTS));
+								player.getInventory().removeItem(new Item(2351));
+								return true;
+							case 6:
+								d.sendPlayerChat("Thank you!");
+								return true;
+							case 7:
+								d.sendNpcChat("No problem.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case SPIKE_THE_BOOTS:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Now to keep my end of the bargain. Give me the boots", "and an Iron bar and I'll put on the spikes.");
+								if(!player.getInventory().playerHasItem(2351) || !player.getInventory().playerHasItem(CLIMBING_BOOTS)) {
+									d.endDialogue();
+								}
+								return true;
+							case 2:
+								d.sendGiveItemNpc("", "You give Dunstan an Iron bar and the boots.", new Item(2351), new Item(CLIMBING_BOOTS));
+								player.getInventory().replaceItemWithItem(new Item(CLIMBING_BOOTS), new Item(SPIKED_BOOTS));
+								player.getInventory().removeItem(new Item(2351));
+								return true;
+							case 3:
+								d.sendPlayerChat("Thank you!");
+								return true;
+							case 4:
+								d.sendNpcChat("No problem.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case CERTIFICATE_GET:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi!");
+								return true;
+							case 2:
+								d.sendNpcChat("Have you managed to get my son signed up for the", "Imperial Guard?");
+								return true;
+							case 3:
+								if(!player.getInventory().playerHasItem(CERTIFICATE)) {
+									d.sendPlayerChat("Er, yes, I did. But I seem to have forgotten the", "certificate as proof. I'll be right back.", DISTRESSED);
+									d.endDialogue();
+								} else {
+									d.sendGiveItemNpc("You give Dunstan the certificate.", new Item(CERTIFICATE));
+									d.setNextChatId(1);
+									player.getInventory().removeItem(new Item(CERTIFICATE));
+									player.setQuestStage(this.getQuestID(), SPIKE_THE_BOOTS);
+								}
+								return true;
+						}
+					return false;
+					case SON_INTO_ARMY:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Have you managed to get my son signed up for the", "Imperial Guard?");
+								return true;
+							case 2:
+								d.sendPlayerChat("Not yet.");
+								return true;
+						}
+					return false;
+					case SUPPLIES_FOR_SHERPA:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hi!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hi! How can I help?");
+								return true;
+							case 3:
+								if(player.getInventory().playerHasItem(CLIMBING_BOOTS)) {
+									d.sendPlayerChat("Tenzing has asked me to bring you his climbing boots,", "he needs to have spikes put on them.");
+								} else {
+									d.sendPlayerChat("Just looking around, thanks.");
+									d.endDialogue();
+								}
+								return true;
+							case 4:
+								d.sendNpcChat("He does, does he? Well I won't do it till he pays for the", "last set I made for him!", ANGRY_1);
+								return true;
+							case 5:
+								d.sendPlayerChat("This is really important!", SAD);
+								return true;
+							case 6:
+								d.sendNpcChat("How so?");
+								return true;
+							case 7:
+								d.sendPlayerChat("Well, I need the Sherpa to show me a secret way up", "Death Plateau so that the Imperial Guard can destroy", "the troll camp! He won't help me till I've got the spikes!", DISTRESSED);
+								return true;
+							case 8:
+								d.sendNpcChat("Hmm. That's different!");
+								return true;
+							case 9:
+								d.sendNpcChat("Tell you what, I'll make them for you on one condition.");
+								return true;
+							case 10:
+								d.sendPlayerChat("*sigh* What's the condition?");
+								return true;
+							case 11:
+								d.sendNpcChat("My son has just turned 16 and I'd very much like him", "to join the Imperial Guard. The Prince's elite forces", "are invite only so it's very unlikely he'll get in. If you", "can arrange that you have a deal!");
+								return true;
+							case 12:
+								d.sendPlayerChat("That won't be a problem as I'm helping out the", "Imperial Guard!", HAPPY);
+								return true;
+							case 13:
+								d.sendNpcChat("Excellent! You'll need to bring an Iron bar for the", "spikes!");
+								d.endDialogue();
+								player.setQuestStage(this.getQuestID(), SON_INTO_ARMY);
+								return true;
+						}
+					return false;
+				}
+			case TENZING:
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case QUEST_COMPLETE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Hello again!");
+								return true;
+							case 2:
+								d.sendOption("Hello.", "Could I have a pair of climbing boots for myself?");
+								return true;
+							case 3:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.setNextChatId(10);
+								return true;
+							case 4:
+								d.sendNpcChat("It's good to see you again. Be careful for trolls", "if you're headed that way, I hate trolls!");
+								return true;
+							case 5:
+								d.sendPlayerChat("Will do.");
+								d.endDialogue();
+								return true;
+							case 10:
+								d.sendNpcChat("Sure, but there's a price! 12 gold is all I ask.");
+								return true;
+							case 11:
+								d.sendOption("Yes. (12 Gold)", "No thanks.");
+								return true;
+							case 12:
+								switch(optionId) {
+									case 1:
+										if(player.getInventory().playerHasItem(995, 12)) {
+											d.sendGiveItemNpc("You exchange the gold for the boots.", new Item(995, 12), new Item(CLIMBING_BOOTS));
+											player.getInventory().replaceItemWithItem(new Item(995, 12), new Item(CLIMBING_BOOTS));
+										} else {
+											d.sendPlayerChat("Oh, I apparently don't have that kind", "of money.", SAD);
+											
+										}
+										d.endDialogue();
+										return true;
+									case 2:
+										d.sendPlayerChat("No thanks.");
+										d.endDialogue();
+										return true;
+								}
+								
+						}
+					return false;
+					case TEST_ROUTE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Thank you very much traveller. I'm now ready for the", "winter!");
+								return true;
+							case 2:
+								d.sendPlayerChat("You said you would show me the secret way to", "Death Plateau?");
+								return true;
+							case 3:
+								d.sendNpcChat("Yes, of course! I drew up a map in case I ever needed", "to use it again.");
+								if(player.getInventory().ownsItem(SECRET_WAY_MAP)) {
+									d.endDialogue();
+								}
+								return true;
+							case 4:
+								d.sendGiveItemNpc("Tenzing gives you a map of the route.", new Item(SECRET_WAY_MAP));
+								player.getInventory().addItemOrDrop(new Item(SECRET_WAY_MAP));
+								return true;
+							case 5:
+								d.sendNpcChat("I don't think the trolls have found the secret way yet,", "if they had I would've been attacked by now.");
+								return true;
+							case 6:
+								d.sendPlayerChat("Ok, thanks, but I think I'd better check the path. I don't", "want to send the Imperial Guards to their death!");
+								return true;
+							case 7:
+								d.sendNpcChat("You are wise for one so young.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case SPIKE_THE_BOOTS:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello!");
+								return true;
+							case 2:
+								d.sendNpcChat("Have you brought me the items I asked for?");
+								return true;
+							case 3:
+								if(!player.getInventory().ownsItem(CLIMBING_BOOTS) && !player.getInventory().ownsItem(SPIKED_BOOTS)) {
+									d.sendPlayerChat("I, er, lost your climbing boots...", SAD);
+									d.setNextChatId(5);
+									return true;
+								}
+								if(hasSuppliesForSherpa(player)) {
+									d.sendGiveItemNpc("You give Tenzing the spiked boots.", new Item(SPIKED_BOOTS));
+								} else {
+									d.sendPlayerChat("I'm afraid not...", SAD);
+									d.endDialogue();
+								}
+								return true;
+							case 4:
+								d.sendGiveItemNpc("You give Tenzing the loaves of bread and the cooked", "trout.", new Item(TROUT), new Item(BREAD));
+								d.setNextChatId(1);
+								removeSuppliesForSherpa(player);
+								player.setQuestStage(this.getQuestID(), TEST_ROUTE);
+								return true;
+							case 5:
+								d.sendGiveItemNpc("Tenzing gives you another pair of boots.", new Item(CLIMBING_BOOTS));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(CLIMBING_BOOTS));
+								return true;
+						}
+					return false;
+					case CERTIFICATE_GET:
+					case SON_INTO_ARMY:
+					case SUPPLIES_FOR_SHERPA:
+						switch (d.getChatId()) {
+							case 1:
+								if(!player.getInventory().ownsItem(CLIMBING_BOOTS) && !player.getInventory().ownsItem(SPIKED_BOOTS)) {
+									d.sendGiveItemNpc("Tenzing gives you his climbing boots.", new Item(CLIMBING_BOOTS));
+									d.endDialogue();
+									player.getInventory().addItemOrDrop(new Item(CLIMBING_BOOTS));
+								} else {
+									d.sendNpcChat("Have you brought me the items I asked for?");
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("Not yet. Sorry.");
+								return true;
+						}
+					return false;
+					case FIND_SHERPA:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hello. How can I help?");
+								return true;
+							case 3:
+								d.sendPlayerChat("I'm helping the Imperial Guard. They need to find a", "way to sneak up Death Plateau to destroy the troll", "camp! Saba seemed to think you'd be able to help.");
+								return true;
+							case 4:
+								d.sendNpcChat("Ah... Saba is still alive and kicking?");
+								return true;
+							case 5:
+								d.sendPlayerChat("Yeh, he seemed very bitter.");
+								return true;
+							case 6:
+								d.sendNpcChat("That's Saba alright!", LAUGHING);
+								return true;
+							case 7:
+								d.sendNpcChat("I do know of a secret way up to Death Plateau, the", "Imperial Guard would be able to use it at night and not", "be seen until it was too late!");
+								return true;
+							case 8:
+								d.sendNpcChat("I'd be happy to show you it if you do something for me", "first.");
+								return true;
+							case 9:
+								d.sendPlayerChat("Name it.");
+								return true;
+							case 10:
+								d.sendNpcChat("I don't get into town much and I'm getting low", "on supplies. I need ten loaves of bread and ten cooked", "trout, that should see me through the winter.");
+								return true;
+							case 11:
+								d.sendPlayerChat("Anything else?");
+								return true;
+							case 12:
+								d.sendNpcChat("Yes. My climbing boots need to have new spikes, so can", "you take them to Dunstan in Burthorpe? He always", "puts my spikes on for me.");
+								return true;
+							case 13:
+								d.sendOption("Ok, I'll get those for you.", "I'll find the secret way for myself.");
+								return true;
+							case 14:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 2)
+									d.endDialogue();
+								return true;
+							case 15:
+								d.sendNpcChat("Thank you traveller!", HAPPY);
+								return true;
+							case 16:
+								d.sendGiveItemNpc("Tenzing gives you his climbing boots.", new Item(CLIMBING_BOOTS));
+								d.endDialogue();
+								player.getInventory().addItemOrDrop(new Item(CLIMBING_BOOTS));
+								player.setQuestStage(this.getQuestID(), SUPPLIES_FOR_SHERPA);
+								return true;
+								
+						}
+					return false;
+				}
+			return false;
+			case TENZINGS_DOOR + 10000:
+				d.setLastNpcTalk(TENZING);
+				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					default:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendStatement("You knock on the door.");
+								return true;
+							case 2:
+								d.sendNpcChat("No milk today! Thank you!", ANGRY_1);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+						/*
+						Doors.passThroughDialogueDoor(player, HAROLDS_DOOR, 2906, 3543, -1, new Position(2906, 3543, 1), true);
+						return true;
+							*/
+					case FIND_SHERPA:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendStatement("You knock on the door.");
+								return true;
+							case 2:
+								d.sendNpcChat("No milk today! Thank you!", ANGRY_1);
+								return true;
+							case 3:
+								d.sendPlayerChat("I'm not the milkman, I need your help!");
+								return true;
+							case 4:
+								d.sendNpcChat("Oh... Ok. You'd better come in then.");
+								return true;
+							case 5:
+								d.endDialogue();
+								player.getActionSender().removeInterfaces();
+								Doors.passThroughDialogueDoor(player, TENZINGS_DOOR, 2822, 3555, -1, new Position(2823, 3555, 0), false);
+								return true;
+								
+						}
+					return false;
+				}
 			case SABA:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case FIND_SHERPA:
@@ -559,6 +1055,13 @@ public class DeathPlateau implements Quest {
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case IOU_GET:
 					case COMBINATION_GET:
+					case DOOR_UNLOCKED:
+					case FIND_SHERPA:
+					case SUPPLIES_FOR_SHERPA:
+					case SON_INTO_ARMY:
+					case CERTIFICATE_GET:
+					case SPIKE_THE_BOOTS:
+					case TEST_ROUTE:
 						switch (d.getChatId()) {
 							case 1:
 								if(player.getQuestVars().givenHaroldSpecial) {
@@ -904,7 +1407,139 @@ public class DeathPlateau implements Quest {
 				}
 			case DENULTH:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case TELL_DENULTH:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hello citizen, have you found that way up Death", "Plateau yet?");
+								return true;
+							case 3:
+								d.sendPlayerChat("Yes! There is a path that runs from a Sherpa's hut", "around the back of Death Plateau. The trolls haven't", "found it yet. The Sherpa made a map I can give you.");
+								return true;
+							case 4:
+								if(player.getInventory().playerHasItem(SECRET_WAY_MAP)) {
+									d.sendGiveItemNpc("You show Denulth the map of the secret way.", new Item(SECRET_WAY_MAP));
+								} else {
+									d.sendPlayerChat("Er, I don't seem to have the map however.", "I'll go get another.");
+									d.endDialogue();
+								}
+								return true;
+							case 5:
+								d.sendNpcChat("Excellent, this looks perfect. They will never see us", "coming", HAPPY);
+								return true;
+							case 6:
+								d.sendNpcChat("Have you managed to open the equipment room?");
+								return true;
+							case 7:
+								if(player.getInventory().playerHasItem(IOU) || player.getInventory().playerHasItem(COMBINATION)) {
+									d.sendPlayerChat("Yes! The door is open and here is the combination.");
+								} else {
+									d.sendPlayerChat("Er, yes... But I don't have the combination.", "I'll go get it again.");
+									d.endDialogue();
+								}
+								return true;
+							case 8:
+								d.sendGiveItemNpc("You show Denulth the combination to the equipment", "room.", new Item(COMBINATION));
+								return true;
+							case 9:
+								d.sendNpcChat("Well done citizen! We will reward you by training you", "in attack!", HAPPY);
+								return true;
+							case 10:
+								d.sendNpcChat("I shall present you some steel fighting claws. In", "addition I shall show you the knowledge of creating", "the fighting claws for yourself.");
+								return true;
+							case 11:
+								d.sendNpcChat("You are now an honorary member of the Imperial", "Guard!", HAPPY);
+								return true;
+							case 12:
+								d.dontCloseInterface();
+								player.getInventory().removeItem(new Item(IOU));
+								player.getInventory().removeItem(new Item(COMBINATION));
+								player.getInventory().replaceItemWithItem(new Item(SECRET_WAY_MAP), new Item(STEEL_CLAWS));
+								QuestHandler.completeQuest(player, this.getQuestID());
+								return true;
+								
+						}
+					return false;
+					case SPIKE_THE_BOOTS:
+					case TEST_ROUTE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hello citizen, have you found that way up Death", "Plateau yet?");
+								return true;
+							case 3:
+								d.sendPlayerChat("Almost.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
+					case CERTIFICATE_GET:
+						switch (d.getChatId()) {
+							case 1:
+								if(!player.getInventory().ownsItem(CERTIFICATE)) {
+									d.sendGiveItemNpc("Denulth gives you a certificate.", new Item(CERTIFICATE));
+									player.getInventory().addItemOrDrop(new Item(CERTIFICATE));
+								} else {
+									d.sendNpcChat("Go give Dunstan my regards.");	
+								}
+								d.endDialogue();
+								return true;		
+						}
+					return false;
+					case SON_INTO_ARMY:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello!");
+								return true;
+							case 2:
+								d.sendNpcChat("Hello citizen, have you found that way up Death", "Plateau yet?");
+								return true;
+							case 3:
+								d.sendPlayerChat("Yes there is another way up Death Plateau!");
+								return true;
+							case 4:
+								d.sendNpcChat("We are saved!");
+								return true;
+							case 5:
+								d.sendPlayerChat("There's one thing...");
+								return true;
+							case 6:
+								d.sendNpcChat("And what is that citizen?");
+								return true;
+							case 7:
+								d.sendPlayerChat("There is a Sherpa who will only show me the secret", "way if I first get some spikes for his climbing boots.", "The smith will only do this for me if you sign up his", "son for the Imperial Guard!");
+								return true;
+							case 8:
+								d.sendNpcChat("Hmm... this is very irregular.");
+								return true;
+							case 9:
+								d.sendPlayerChat("Will you not do this?", DISTRESSED);
+								return true;
+							case 10:
+								d.sendNpcChat("I have heard of Dunstan's son, he is a very promising", "young man. For the sake of your mission we can make", "an exception!");
+								return true;
+							case 11:
+								d.sendGiveItemNpc("Denulth gives you a certificate.", new Item(CERTIFICATE));
+								return true;
+							case 12:
+								d.sendNpcChat("This certificate proves that we have accepted Dunstan's", "son for training in the Imperial Guard!");
+								return true;
+							case 13:
+								d.sendPlayerChat("Thank you Denulth, I shall be back shortly!");
+								d.endDialogue();
+								player.setQuestStage(this.getQuestID(), CERTIFICATE_GET);
+								player.getInventory().addItemOrDrop(new Item(CERTIFICATE));
+								return true;
+								
+						}
+					return false;
 					case DOOR_UNLOCKED:
+					case FIND_SHERPA:
+					case SUPPLIES_FOR_SHERPA:
 						switch (d.getChatId()) {
 							case 1:
 								d.sendNpcChat("Did you get into the equipment room yet?");
