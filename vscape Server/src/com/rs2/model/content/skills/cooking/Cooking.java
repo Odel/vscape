@@ -33,8 +33,10 @@ public class Cooking {
 
 	public static enum CookingItems { // raw cooked burnt level exp burn
 										// stoplevel burnstoplevelwith
-		SEA_WEED(401, 1781, 1781, 1, 0, 0, 0, true), 
-		KELP(7516, 1781, 1781, 1, 0, 0, 0, true),
+		SEA_WEED(401, 1781, 1781, 1, 0, 1, 1, true), 
+		KELP(7516, 1781, 1781, 1, 0, 1, 1, true),
+		CHOC_SATURDAY(9572, 2074, 2074, 1, 0, 1, 1, false),
+		DRUNK_DRAGON(9576, 2092, 2092, 1, 0, 1, 1, false), 
 		BEEF_MEAT(2132, 2142, 2146, 1, 30.0, 7, 7, true), 
 		RAT_MEAT(2134, 2142, 2146, 1, 30.0, 7, 7, true), 
 		BEAR_MEAT(2136, 2142, 2146, 1, 30.0, 7, 7, true), 

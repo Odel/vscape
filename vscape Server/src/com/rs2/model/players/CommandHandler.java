@@ -32,6 +32,7 @@ import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.randomevents.SpawnEvent.RandomNpc;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.treasuretrails.SearchScrolls;
@@ -1800,6 +1801,20 @@ public class CommandHandler {
 		}
 		else if (keyword.equals("resetinterface")) {
 		    sender.getActionSender().removeInterfaces();
+		}
+		else if (keyword.equals("dumpcocktail")) {
+			int index = Integer.parseInt(args[0]);
+			int ingredients = Integer.parseInt(args[1]);
+			GnomeCooking.CocktailData c = GnomeCooking.CocktailData.values()[index];
+			if(ingredients == 1) {
+				for(int[] i : c.getBasicIngredients()) {
+					sender.getInventory().addItem(new Item(i[0], i[1]));
+				}
+			} else {	
+				for(int[] i : c.getSecondaryIngredients()) {
+					sender.getInventory().addItem(new Item(i[0], i[1]));
+				}
+			}
 		}
 		else if (keyword.equals("unmute")) {
             Player player = World.getPlayerByName(fullString);
