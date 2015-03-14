@@ -1085,7 +1085,7 @@ public class WalkToActionHandler {
 					Ladders.climbLadder(player, new Position(1912, 4367, 0));
 					break;
 				case 10230:
-					Ladders.climbLadder(player, new Position(2899, 4449, 0));
+					Ladders.climbLadder(player, new Position(2900, 4449, 0));
 					break;
 				case 9398: // deposit box
 					player.getBankManager().openDepositBox();
@@ -1286,6 +1286,7 @@ public class WalkToActionHandler {
 				case 9472: // climb down port sarim dungeon
 				case 1759: // taverly dungeon entrance
 				case 11867: // dwarven mine entrance
+				case 14758: // wilderness agility spike room
 					Ladders.climbLadder(player, new Position(player.getPosition().getX(), player.getPosition().getY() + 6400));
 					break;
 				case 1755: // exit stairs
@@ -1755,6 +1756,28 @@ public class WalkToActionHandler {
 						player.getActionSender().walkThroughDoubleDoor(2307, 2308, 2998, 3931, 2997, 3931, 0);
 						player.getActionSender().walkTo(0, player.getPosition().getY()+1 > y ? -1 : 1, true);
 					}
+					break;
+				case 245:
+					if (x == 3019 && y == 3959 || x == 3017 && y == 3959) {
+						Ladders.checkClimbStaircase(player, 0, 2, "up");
+					}
+					if (x == 3046 && y == 3227 || x == 3046 && y == 3231) {
+						Ladders.checkClimbStaircase(player, 2, 0, "up");
+					}
+					break;
+				case 246:
+					if (x == 3019 && y == 3959 || x == 3017 && y == 3959) {
+						Ladders.checkClimbStaircaseBackwards(player, 0, 2, "down");
+					}
+					if (x == 3046 && y == 3227 || x == 3046 && y == 3231) {
+						Ladders.checkClimbStaircaseBackwards(player, 2, 0, "down");
+					}
+					break;
+				case 272:
+					Ladders.checkClimbLadder(player, "up");
+					break;
+				case 273:
+					Ladders.checkClimbLadder(player, "down");
 					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");

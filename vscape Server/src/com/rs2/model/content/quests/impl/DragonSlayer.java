@@ -700,7 +700,7 @@ public class DragonSlayer implements Quest {
 					Ladders.climbLadder(player, new Position(3048, 3208, 1));
 					return true;
 				}
-				return true;
+				return false;
 		}
 		return false;
 	}
