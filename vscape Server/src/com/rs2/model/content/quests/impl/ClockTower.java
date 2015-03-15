@@ -188,7 +188,7 @@ public class ClockTower implements Quest {
 	@Override
 	public void sendQuestTabStatus(Player player) {
 		int questStage = player.getQuestStage(getQuestID());
-		String Color = "@dre@";
+		String Color = "@red@";
 		if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
 			Color = "@yel@";
 		} else if (questStage == QUEST_COMPLETE) {

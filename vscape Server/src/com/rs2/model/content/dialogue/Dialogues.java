@@ -265,6 +265,9 @@ public class Dialogues {
 						return true;
 				}
 				break;
+			case 1091:
+				player.setFollowingEntity(World.getNpcs()[World.getNpcIndex(1091)]);
+				return true;
 			case 159: //gnome child
 				switch(player.getDialogue().getChatId()) {
 				    case 1:
