@@ -53,6 +53,10 @@ public class ClockTower implements Quest {
 	//Positions
 	public static final Position[] FOOD_TROUGH_POSITIONS = {new Position(2587, 9655, 0),  new Position(2586, 9655, 0), new Position(2585, 9655, 0)};
 	public static final Position RAT_DOOR_POSITION = new Position(2579, 9656, 0);
+	
+	private int reward[][] = { //{itemId, count},
+		{995, 1125}
+	};
 
 	public static final int questPointReward = 1;
 
@@ -73,6 +77,9 @@ public class ClockTower implements Quest {
 	}
 
 	public void getReward(Player player) {
+		for (int[] rewards : reward) {
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
+		}
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 
