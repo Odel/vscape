@@ -38,7 +38,7 @@ public class BurthorpeCampHandler {
 	public static void loadPhrases() throws IOException {
 		String[] read = new String[23];
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("src/com/rs2/model/content/quests/impl/DeathPlateau/LatinPhrases.txt")));
+			BufferedReader br = new BufferedReader(new FileReader(new File("data/npcs/LatinPhrases.txt")));
 			String line = null;
 			int q = 0;
 			while (((line = br.readLine()) != null) && (q < 23)) {

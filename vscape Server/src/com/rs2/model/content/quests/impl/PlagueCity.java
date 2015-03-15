@@ -851,7 +851,7 @@ public class PlagueCity implements Quest {
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
-		if(id < 6391 && NpcDefinition.forId(id) != null && NpcDefinition.forId(id).getName().toLowerCase().contains("mourner")) {
+		if(id > 0 && id < 6391 && NpcDefinition.forId(id) != null && NpcDefinition.forId(id).getName().toLowerCase().contains("mourner")) {
 			d.sendNpcChat("Get out of my way, peasant.", ANGRY_1);
 			d.endDialogue();
 			return true;
