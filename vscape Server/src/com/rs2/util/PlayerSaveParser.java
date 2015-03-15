@@ -86,9 +86,9 @@ public class PlayerSaveParser {
 	            }
 	            JsonObject positionLast = characterObj.getAsJsonObject("lastPosition");
 	            if(positionLast != null){
-	            player.getPosition().setLastX(positionLast.get("x") != null ? positionLast.get("x").getAsInt() : Constants.START_X);
-	            player.getPosition().setLastY(positionLast.get("y") != null ? positionLast.get("y").getAsInt() : Constants.START_Y);
-	            player.getPosition().setLastZ(positionLast.get("z") != null ? positionLast.get("z").getAsInt() : Constants.START_Z);
+	            	player.getLastPosition().setX(positionLast.get("x") != null ? positionLast.get("x").getAsInt() : Constants.START_X);
+	            	player.getLastPosition().setY(positionLast.get("y") != null ? positionLast.get("y").getAsInt() : Constants.START_Y);
+	            	player.getLastPosition().setZ(positionLast.get("z") != null ? positionLast.get("z").getAsInt() : Constants.START_Z);
 	            }
 	            JsonObject appearance = characterObj.getAsJsonObject("appearance");
 	            if(appearance != null) {

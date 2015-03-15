@@ -520,6 +520,7 @@ public class Player extends Entity {
 			host = socketChannel.socket().getInetAddress().getHostAddress();
 		}
 		setPosition(new Position(Constants.START_X, Constants.START_Y, Constants.START_Z));
+		setLastPosition(new Position(Constants.START_X, Constants.START_Y, Constants.START_Z));
 		initAttributes();
 
 		// Set the default appearance.

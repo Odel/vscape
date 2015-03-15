@@ -41,9 +41,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		positionObj.addProperty("z", player.getPosition().getZ());
 		characterObj.add("position", positionObj);
 		JsonObject positionLastObj = new JsonObject();
-		positionLastObj.addProperty("x", player.getPosition().getLastX());
-		positionLastObj.addProperty("y", player.getPosition().getLastY());
-		positionLastObj.addProperty("z", player.getPosition().getLastZ());
+		positionLastObj.addProperty("x", player.getLastPosition().getX());
+		positionLastObj.addProperty("y", player.getLastPosition().getY());
+		positionLastObj.addProperty("z", player.getLastPosition().getZ());
 		characterObj.add("lastPosition", positionLastObj);
 		JsonObject appearanceObj = new JsonObject();
 		appearanceObj.addProperty("gender", player.getGender());
