@@ -39,6 +39,7 @@ import com.rs2.model.content.treasuretrails.SearchScrolls;
 import com.rs2.model.content.treasuretrails.CoordinateScrolls.CoordinateData;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.npcs.drop.NpcDropController;
 import com.rs2.model.npcs.drop.NpcDropItem;
 import com.rs2.model.objects.GameObject;
@@ -699,6 +700,12 @@ public class CommandHandler {
 		else if (keyword.equals("teletobob")) {
 			Position p = World.getNpcs()[World.getNpcIndex(1091)].getPosition();
 			sender.teleport(p);
+		}
+		else if (keyword.equals("bringbob")) {
+			Position p = sender.getPosition();
+			Npc bob = World.getNpcs()[World.getNpcIndex(1091)];
+			NpcLoader.destroyNpc(bob);
+			NpcLoader.newNPC(1091, p.getX(), p.getY(), p.getZ(), 1);
 		}
 		else if (keyword.equals("teletoclue")) {
 			try {
