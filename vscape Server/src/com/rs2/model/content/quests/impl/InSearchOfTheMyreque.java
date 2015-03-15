@@ -477,6 +477,7 @@ public class InSearchOfTheMyreque implements Quest {
 					player.fadeTeleport(new Position(3477, 9845, 0));
 					return true;
 				}
+			return false;
 			case LADDER:
 				Ladders.climbLadder(player, TRAPDOOR_ENTRANCE);
 				player.getActionSender().sendMessage("You emerge to the south of the 'Hair of the Dog' tavern in Canifis.", true);
@@ -486,6 +487,7 @@ public class InSearchOfTheMyreque implements Quest {
 					player.getActionSender().sendMessage("This ladder is broken.", true);
 					return true;
 				}
+			return false;
 			case WALL:
 				if(player.getQuestStage(38) >= FIGHT_WON) {
 					player.getActionSender().sendMessage("You walk through.", true);

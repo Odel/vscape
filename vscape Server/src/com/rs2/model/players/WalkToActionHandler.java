@@ -522,6 +522,30 @@ public class WalkToActionHandler {
 				case 6836 :
 						player.getRandomHandler().getPillory().openInterface();
 					break;
+				case 7527:
+					if(x == 3063 && y == 3282) {
+						final Position toBe = new Position(3063, player.getPosition().getY() < 3283 ? 3284 : 3281, 0);
+						final int toWalk = player.getPosition().getY() < 3283 ? 1 : -1;
+						player.getUpdateFlags().sendFaceToDirection(toBe);
+						player.getUpdateFlags().setFaceToDirection(true);
+						player.getUpdateFlags().setUpdateRequired(true);
+						player.setStopPacket(true);
+						player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, toWalk, true);
+						player.getUpdateFlags().sendAnimation(839);
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+
+							@Override
+							public void stop() {
+								player.teleport(toBe);
+								player.setStopPacket(false);
+							}
+						}, 3);
+					}
+				break;
 				case 2303: //Yanille dungeon balancing ledge
 				    Agility.crossLedge(player, 2580, player.getPosition().getY() < 9520 ? 9520 : 9512, player.getPosition().getY() < 9520 ? 3 : 1, 10, 40, 25);
 				    break;

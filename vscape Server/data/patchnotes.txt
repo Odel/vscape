@@ -1,3 +1,24 @@
+@dre@=March 14th=
+-@blu@Full music system:
+a.)All overworld music working.
+b.)Music player now working.
+-@blu@Biohazard
+-@blu@Death Plateau
+-@blu@Jungle Potion
+-@blu@Clocktower
+-Can now "load x" bones on the Ecto grinder.
+-Burthorpe populated, as well as the Rogues
+Den "lobby" being open. (Bank + fire)
+-Pickpocketable elves in Lletya.
+-Battestaff crafting exp / req fix.
+-Buying a new cat is fixed.
+-Magic melee form of combat added. Slayer
+npcs have it primarily for testing.
+-All gnome cocktails can now be made.
+-West Ardougne -> Gnome battlefield pathing
+issue fixed.
+
+
 @dre@=March 4th=
 @blu@Plague City
 -Mime event fixes.
