@@ -1000,6 +1000,7 @@ public class Player extends Entity {
 }
 	public void movePlayer(Position position) {
 		Position lastPosition = getPosition().clone();
+		setLastPosition(getPosition().clone());
 		getPosition().setAs(position);
 		getPosition().setLastX(lastPosition.getX());
 		getPosition().setLastY(lastPosition.getY());

@@ -107,6 +107,7 @@ public abstract class Entity {
 	private Map<String, Object> attributes = new HashMap<String, Object>();
 
 	private Position position;
+	private Position lastPosition;
 	private UpdateFlags updateFlags = new UpdateFlags(this);
 
 	public abstract void reset();
@@ -505,8 +506,12 @@ public abstract class Entity {
 		return position;
 	}
 	
+	public void setLastPosition(Position lastPosition) {
+		this.lastPosition = lastPosition;
+	}
+	
 	public Position getLastPosition() {
-		return new Position(getPosition().getLastX(), getPosition().getLastY(), getPosition().getLastZ());
+		return lastPosition;
 	}
 
 	public void setUpdateFlags(UpdateFlags updateFlags) {
