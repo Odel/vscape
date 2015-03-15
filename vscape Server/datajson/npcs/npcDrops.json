@@ -52335,7 +52335,20 @@
       }
     ]
   },
-   {
+  {
+    "npcId": 1060,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+	]
+  },
+  {
     "npcId": 1065,
     "rareTableAccess": true,
     "drops": [
@@ -53031,6 +53044,84 @@
     ]
   },
   {
+    "npcId": 1081,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 1084,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 1085,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 1087,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 1088,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
+    "npcId": 1089,
+    "rareTableAccess": false,
+    "drops": [
+      {
+        "id": 526,
+        "count": [
+          1
+        ],
+        "chance": 1
+      }
+    ]
+  },
+  {
     "npcId": 1086,
     "rareTableAccess": false,
     "drops": [
@@ -53245,146 +53336,6 @@
           1
         ],
         "chance": 6
-      }
-    ]
-  },
-  {
-    "npcId": 1087,
-    "rareTableAccess": false,
-    "drops": [
-      {
-        "id": 526,
-        "count": [
-          1
-        ],
-        "chance": 1
-      },
-      {
-        "id": 562,
-        "count": [
-          2
-        ],
-        "chance": 2
-      },
-      {
-        "id": 554,
-        "count": [
-          6
-        ],
-        "chance": 2
-      },
-      {
-        "id": 199,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 201,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 203,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 207,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 209,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 211,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 215,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 217,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 877,
-        "count": [
-          3,
-          12
-        ],
-        "chance": 2
-      },
-      {
-        "id": 882,
-        "count": [
-          7
-        ],
-        "chance": 2
-      },
-      {
-        "id": 1203,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 995,
-        "count": [
-          3
-        ],
-        "chance": 2
-      },
-      {
-        "id": 1965,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 436,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 313,
-        "count": [
-          1
-        ],
-        "chance": 2
-      },
-      {
-        "id": 7767,
-        "count": [
-          1
-        ],
-        "chance": 2
       }
     ]
   },
