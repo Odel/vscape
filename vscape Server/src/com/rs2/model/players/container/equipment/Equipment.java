@@ -1600,7 +1600,7 @@ public class Equipment {
 			}
 			return;
 		}
-		if (itemName.contains("dragon") || itemName.contains("drag") && !itemName.contains("anti")) 
+		if ((itemName.contains("dragon") || itemName.contains("drag")) && !itemName.contains("anti")) 
 		{
 			if(itemName.contains("dagger") || itemName.contains("axe") || itemName.contains("mace") || itemName.contains("claws") || itemName.contains("sword") || 
 			   itemName.contains("scim") || itemName.contains("spear") || itemName.contains("hammer") || itemName.contains("halberd")) {
