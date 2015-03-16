@@ -2745,6 +2745,10 @@ public class Client extends RSApplet {
 				socketStream.close();
 		} catch (Exception _ex) {
 		}
+		
+		if(xpDropList != null)
+			xpDropList.clear();
+		
 		toggleSize(0);
 		resetFade();
 		socketStream = null;
@@ -5338,6 +5342,8 @@ public class Client extends RSApplet {
 		resetFade();
 		if (mouseDetection != null)
 			mouseDetection.running = false;
+		if(xpDropList != null)
+			xpDropList.clear();
 		mouseDetection = null;
 		onDemandFetcher.disable();
 		onDemandFetcher = null;
@@ -5375,6 +5381,7 @@ public class Client extends RSApplet {
 		mascotChat = null;
 		mapBack = null;
 		sideIcons = null;
+		statIcons = null;
 		compass = null;
 		hitMarks = null;
 		headIcons = null;
@@ -5581,7 +5588,15 @@ public class Client extends RSApplet {
 					if (inputString.equalsIgnoreCase("::toggleroofs")){
 						roofsToggled = !roofsToggled;
 					}
-					if (myPrivilege == 2) {
+					if (inputString.equalsIgnoreCase("::xpdrop")){
+						xpDropEnabled = !xpDropEnabled;
+						if(!xpDropEnabled)
+						{
+							if(xpDropList != null)
+								xpDropList.clear();
+						}
+					}
+					if (myPrivilege >= 2) {
 						if (inputString.equalsIgnoreCase("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
 						if (inputString.equalsIgnoreCase("::regular"))
@@ -8200,6 +8215,7 @@ public class Client extends RSApplet {
 			aTextDrawingArea_1271 = new TextDrawingArea(false, "p12_full", titleStreamLoader);
 			chatTextDrawingArea = new TextDrawingArea(false, "b12_full", titleStreamLoader);
 			TextDrawingArea aTextDrawingArea_1273 = new TextDrawingArea(true, "q8_full", titleStreamLoader);
+			newSmallFont = new RSFont(false, "p11_full", titleStreamLoader);
 			drawLogo();
 			loadTitleScreen();
 			StreamLoader streamLoader = streamLoaderForName(2, "config", "config", expectedCRCs[2], 30);
@@ -8265,6 +8281,12 @@ public class Client extends RSApplet {
 			mapBack = new Background(streamLoader_2, "mapback", 0);
 			for (int j3 = 0; j3 <= 14; j3++)
 				sideIcons[j3] = new Sprite(streamLoader_2, "sideicons", j3);
+			
+			for (int j3 = 0; j3 <= 17; j3++)
+				statIcons[j3] = new Sprite(streamLoader_2, "staticons", j3);
+			for (int j3 = 0; j3 <= 2; j3++)
+				statIcons[18+j3] = new Sprite(streamLoader_2, "staticons2", j3);
+			
 			compass = new Sprite(streamLoader_2, "compass", 0);
 			mapEdge = new Sprite(streamLoader_2, "mapedge", 0);
 			mapEdge.method345();
@@ -10194,6 +10216,86 @@ public class Client extends RSApplet {
 				stream.createFrame(148);
 			}
 		}
+		if(xpDropEnabled && xpDropList != null && xpDropList.size() > 0) {
+			drawDropXp();
+		}
+	}
+	
+	/**
+	 * XP Drop
+	 * EXP Drop
+	 */
+	
+	java.util.List<int[]> xpDropList;
+	private int[] xpDropSkillSprites = { 0, 2, 1, 6, 3, 4, 5, 15, 17, 11, 14, 16, 10, 13, 12, 8, 7, 9, 19, 20, 18 };
+	private int baseXPDx;
+	private int baseXPDy;
+	private int tXPDy;
+	private boolean xpDropEnabled = false;
+
+	private void drawDropXp()
+	{
+		try {
+			baseXPDx = clientWidth - 250;
+			baseXPDy = (clientHeight / 2) - 150;
+			tXPDy = clientHeight - 180;
+			if(baseXPDy <= 0) { baseXPDy = 0; }
+			for(int i = 0; i < xpDropList.size(); i++)
+			{
+				int[] xpDrop = xpDropList.get(i);
+				if(xpDrop == null)
+					continue;
+				int skill = xpDrop[0];
+				int xp = xpDrop[1];
+				int dropY = xpDrop[2] += (tXPDy < baseXPDy ? -1 : 1);
+				int currentY = baseXPDy + dropY;
+				if(i+1 < xpDropList.size())
+				{
+					int[] xpDropLast = xpDropList.get(i+1);
+					if(xpDropLast != null)
+					{
+						if(Math.abs((baseXPDy + xpDropLast[2]) - currentY) < 32)
+						{
+							xpDrop[2] = xpDropLast[2] + 32;
+							dropY = xpDrop[2];
+							currentY = baseXPDy + dropY;
+						}
+					}
+				}
+				int distance = Math.abs(currentY - tXPDy);
+				if(distance <= 2)
+				{
+					xpDropList.remove(i);
+					continue;
+				}
+				Sprite statSprite = statIcons[xpDropSkillSprites[skill]];
+				int alpha = (distance >= 255 ? 255 : distance);
+				int textWidth = newSmallFont.getTextWidth("+" + xp);
+				int myXpos = baseXPDx;
+				if(statSprite != null)
+				{
+					if(myXpos + statSprite.myWidth + textWidth > baseXPDx)
+					{
+						myXpos = myXpos - (statSprite.myWidth + textWidth + 12);
+					}
+					statSprite.drawTransparentSprite(myXpos, currentY, alpha);
+					newSmallFont.drawBasicString("<trans="+alpha+">+" + xp + "</tans>", (myXpos+statSprite.myWidth+4), currentY+16, 0xffffff, 0x000000);
+				}else{
+					if(myXpos + textWidth > baseXPDx)
+					{
+						myXpos = myXpos - (textWidth + 12);
+					}
+					newSmallFont.drawBasicString("<trans="+alpha+">+" + xp + "</tans>", myXpos, currentY+16, 0xffffff, 0x000000);
+				}
+			}
+		} catch (Exception _ex) {
+		}
+	}
+	
+	private void addDropXp(int skill, int xp)
+	{
+		if(xpDropList != null)
+			xpDropList.add(new int[] { skill, xp, 0});
 	}
 	
 	private void addIgnore(long l) {
@@ -12297,6 +12399,17 @@ public class Client extends RSApplet {
 				int k1 = inStream.readUnsignedByte();
 				int i10 = inStream.method439();
 				int l15 = inStream.readUnsignedByte();
+				if(xpDropEnabled)
+				{
+					if(k1 >= 0 && currentExp[k1] >= 0 && i10 > currentExp[k1])
+					{
+						int difference = Math.abs(i10-currentExp[k1]);
+						if(difference > 0)
+						{
+							addDropXp(k1, difference);
+						}
+					}
+				}
 				currentExp[k1] = i10;
 				currentStats[k1] = l15;
 				maxStats[k1] = 1;
@@ -13365,6 +13478,7 @@ public class Client extends RSApplet {
 	public Client() {
 		try {
 			midiPlayer = new MidiPlayer();
+			xpDropList = new java.util.ArrayList<int[]>();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -13429,6 +13543,7 @@ public class Client extends RSApplet {
 		chatMessages = new String[500];
 		clanChatNames = new String[500];
 		sideIcons = new Sprite[15];
+		statIcons = new Sprite[22];
 		aBoolean954 = true;
 		friendsListAsLongs = new long[200];
 		currentSong = -1;
@@ -13671,6 +13786,7 @@ public class Client extends RSApplet {
 	private int anInt945;
 	private WorldController worldController;
 	private Sprite[] sideIcons;
+	private Sprite[] statIcons;
 	private int menuScreenArea;
 	private int menuOffsetX;
 	private int menuOffsetY;
@@ -13981,6 +14097,7 @@ public class Client extends RSApplet {
 	private TextDrawingArea smallText;
 	private TextDrawingArea aTextDrawingArea_1271;
 	private TextDrawingArea chatTextDrawingArea;
+	private RSFont newSmallFont;//, newNormalFont, newRegularFont, newBoldFont, bold, fancy, regular, small;
 	private int anInt1275;
 	private int backDialogID;
 	private int anInt1278;
