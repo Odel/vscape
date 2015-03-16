@@ -14,6 +14,9 @@ import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
+import com.rs2.cache.object.ObjectLoader;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.model.UpdateFlags;
 
 public class ThieveOther {// todo hit method for poison chest and chest and doors
 
@@ -66,7 +69,6 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 		if(player.stopPlayerPacket()) {
 		    return;
 		}
-		player.setStopPacket(true);
 		if (!Constants.THIEVING_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");
 			return;
@@ -75,6 +77,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			player.getActionSender().sendMessage("Your thieving level is not high enough to disarm traps.");
 			return;
 		}
+		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 		    @Override
 		    public void execute(CycleEventContainer b) {
@@ -117,6 +120,60 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 		}, 1);
 	}
 
+	public static void crackSafe(final Player player, final int objectId, final int objectX, final int objectY, int level, final double xp, final int respawn) {
+        if(player.stopPlayerPacket()) {
+            return;
+        }
+        if (objectY == 4977){
+	        player.getUpdateFlags().sendFaceToDirection(new Position (objectX, objectY - 1, 1));
+	        player.getUpdateFlags().setFaceToDirection(true);
+        } else {
+            player.getUpdateFlags().sendFaceToDirection(new Position (objectX, objectY + 1, 1));
+            player.getUpdateFlags().setFaceToDirection(true);
+        }
+        if (!Constants.THIEVING_ENABLED) {
+            player.getActionSender().sendMessage("This skill is currently disabled.");
+            return;
+        }
+        if (player.getSkill().getLevel()[Skill.THIEVING] < level) {
+            player.getActionSender().sendMessage("Your Thieving level is not high enough to crack the safe.");
+            return; 
+        }
+        player.setStopPacket(true);
+        player.getUpdateFlags().sendAnimation(2248);
+
+        CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer b) {
+            player.getUpdateFlags().sendAnimation(2248);
+            player.getActionSender().sendMessage("You start cracking the safe.");
+            b.stop();
+            }
+
+            @Override
+            public void stop() {
+            CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+                @Override
+                public void execute(CycleEventContainer container) {
+                		boolean openSafe = getSafeReward(player, xp, level);
+                		if (openSafe) {
+	                    	final CacheObject o = ObjectLoader.object(7236, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+	                    	if(o != null) {
+	                    		new GameObject(7238, player.getPosition().getX(), player.getPosition().getY(), 1, o.getRotation(), 4, 7236, respawn, false);
+	                    	}
+                		}
+                        container.stop();
+                        return;
+                }
+            @Override
+            public void stop() {
+            	player.setStopPacket(false);
+            	};
+            }, 3); 
+            }
+        }, 2);
+    }
+
 	public static boolean handleObjectClick2(final Player player, int objectId, int objectX, int objectY) {
 		int x = player.getPosition().getX();
 		int y = player.getPosition().getY();
@@ -133,7 +190,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			else
 				pickLock(player, new Position(objectX, objectY), objectId, 13, 15, -1, 0);
 			return true;
-                case 2554:
+		case 2554:
 			if (x == 2565 && y == 3356)
 				pickLock(player, new Position(objectX, objectY), objectId, 45, 35, -1, 0);
 			else
@@ -206,7 +263,70 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 			    pickTrap(player, objectId, objectX, objectY, 72, 500, new Item[]{new Item(995, 1000), new Item(383), new Item(449), new Item(1623)}, 192);
 			}
 			return true;
-                }
+			}
 		return false;
 	}
+	
+	public static boolean handleObjectClick(final Player player, int objectId, int objectX, int objectY) {
+		int x = player.getPosition().getX();
+		int y = player.getPosition().getY();
+		switch (objectId) {
+			case 7236: //wall safe in rogue's den
+				crackSafe(player, objectId, objectX, objectY, 50, 70, 10);
+		    return true;
+		}
+		return false;
+	}
+	
+	public static boolean getSafeReward (final Player player, final double xp, int level) {
+		int bonusChance = 0;
+        if (player.getPosition().getY() == 4977){
+	        player.getUpdateFlags().sendFaceToDirection(new Position (player.getPosition().getX(), player.getPosition().getY() - 1, 1));
+	        player.getUpdateFlags().setFaceToDirection(true);
+        } else {
+            player.getUpdateFlags().sendFaceToDirection(new Position (player.getPosition().getX(), player.getPosition().getY() + 1, 1));
+            player.getUpdateFlags().setFaceToDirection(true);
+        }
+    	if(player.getInventory().playerHasItem(5560)) {
+        	bonusChance = 10;
+        }
+        if(Misc.random(player.getSkill().getLevel()[Skill.THIEVING]) + bonusChance > Misc.random(level)){
+        	int randomChance = Misc.random(99);
+        	Item randomLoot;
+            player.getActionSender().sendMessage("You get some loot.");
+            player.getUpdateFlags().sendAnimation(2246);
+            player.getSkill().addExp(Skill.THIEVING, xp);
+            if(randomChance >= 59){
+            	randomLoot = new Item(995, 20);
+            } else if (randomChance >= 24){
+            	randomLoot = new Item(995, 40);
+            } else if (randomChance >= 14){
+            	randomLoot = new Item(1623, 1);
+            } else if (randomChance >= 5){
+            	randomLoot = new Item(1621, 1);
+            } else if (randomChance > 1){
+            	randomLoot = new Item(1619, 1);
+            } else {
+            	randomLoot = new Item(1617, 1);
+            }
+            player.getInventory().addItem(randomLoot);
+            return true;
+        } else {
+        	int damageDealt = Misc.random(5) + 1;
+            player.getActionSender().sendMessage("You slip and trigger a trap.");
+            player.getUpdateFlags().sendAnimation(1114);
+            if (player.getSkill().getLevel()[Skill.AGILITY] >= 99){
+            	damageDealt -= 3;
+            } else if (player.getSkill().getLevel()[Skill.AGILITY] >= 75){
+            	damageDealt -= 2;
+            } else if (player.getSkill().getLevel()[Skill.AGILITY] >= 50){
+            	damageDealt -= 1;
+            }
+            if (damageDealt < 0)
+            	damageDealt = 0;
+			player.hit(damageDealt, HitType.NORMAL);
+			return false;
+        }
+	}
 }
+

@@ -4,6 +4,7 @@ import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.ShopManager;
+import com.rs2.model.content.skills.Skill;
 
 /**
  * Created by IntelliJ IDEA. User: vayken Date: 5/16/12 Time: 1:16 AM To change
@@ -518,6 +519,12 @@ public class Shops {
 				return 206;
 			case 849:
 				return 207;
+			case 2270:
+				if(player.getSkill().getPlayerLevel(Skill.AGILITY) >= 50 && player.getSkill().getPlayerLevel(Skill.THIEVING) >= 50 || player.getSkill().getPlayerLevel(Skill.THIEVING) == 99) {
+					return 109;
+				} else {
+					player.getActionSender().sendMessage("You need a Thieving and Agility level of 50 to shop from this store.");
+				}
                        /* case 961:
                             if(player.getSkill().getLevel()[Skill.HITPOINTS] == 99) //Surgeon
                                 return 179;
