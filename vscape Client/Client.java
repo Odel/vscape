@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.5";
+	private final static String CLIENT_VERSION = "3.6";
 	
 	public final static boolean DevMode = true;
 	public final static boolean Muted = false;
@@ -10237,7 +10237,7 @@ public class Client extends RSApplet {
 	{
 		try {
 			baseXPDx = clientWidth - 250;
-			baseXPDy = (clientHeight / 2) - 150;
+			baseXPDy = (clientHeight / 2) - 180;
 			tXPDy = clientHeight - 180;
 			if(baseXPDy <= 0) { baseXPDy = 0; }
 			for(int i = 0; i < xpDropList.size(); i++)
