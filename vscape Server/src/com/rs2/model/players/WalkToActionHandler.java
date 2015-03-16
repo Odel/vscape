@@ -363,6 +363,10 @@ public class WalkToActionHandler {
 						return;
 					}
 				}
+				if (ThieveOther.handleObjectClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
 				/*if (objectName.contains("gate") && id != 2882 && id != 2883 && id != 2623) {
 					// Gates.handleGate(id, x, y, z);
 					final int face = SkillHandler.getFace(id, x, y, z);
