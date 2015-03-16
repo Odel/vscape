@@ -520,7 +520,7 @@ public class Shops {
 			case 849:
 				return 207;
 			case 2270:
-				if(player.getSkill().getPlayerLevel(Skill.AGILITY) >= 50 && player.getSkill().getPlayerLevel(Skill.THIEVING) == 50 || player.getSkill().getPlayerLevel(Skill.THIEVING) == 99) {
+				if(player.getSkill().getPlayerLevel(Skill.AGILITY) >= 50 && player.getSkill().getPlayerLevel(Skill.THIEVING) >= 50 || player.getSkill().getPlayerLevel(Skill.THIEVING) == 99) {
 					return 109;
 				} else {
 					player.getActionSender().sendMessage("You need a Thieving and Agility level of 50 to shop from this store.");
