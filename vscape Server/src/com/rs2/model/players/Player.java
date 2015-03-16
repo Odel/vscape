@@ -1248,6 +1248,9 @@ public class Player extends Entity {
 	
 	public boolean beginLogin() throws Exception {
 		// check login status before sql
+		if(this.getCurrentHp() <= 0) {
+			return false;
+		}
 		if (checkLoginStatus())  {
 			QuestHandler.initPlayer(this);
 			PlayerSave.load(this);
@@ -3346,6 +3349,7 @@ public class Player extends Entity {
 
 	@Override
 	public void dropItems(Entity killer) {
+		boolean noDropItems = false;
 		if(Constants.DDOS_PROTECT_MODE) {
 			return;
 		}
@@ -3355,15 +3359,9 @@ public class Player extends Entity {
 		if (inCwGame() || this.Area(2754, 2814, 3833, 3873)) {
 			return; //prevents the dropping of items
 		}
-		if (killer == null) {
-			killer = this;
+		if(killer == null && this.getTimeoutStopwatch().elapsed() < 5000) {
+			noDropItems = true;
 		}
-		if (killer.isNpc() ) {
-			killer = this;
-		}
-	/*	if (!killer.isPlayer()) {
-			killer = this;
-		}*/
 		if(!this.inWild() && getLoginStage() != LoginStages.LOGGED_IN)
 		{
 			return;
@@ -3401,7 +3399,10 @@ public class Player extends Entity {
 		}
 		equipment.getItemContainer().clear();
 		inventory.getItemContainer().clear();
-		GroundItemManager.getManager().dropItem(new GroundItem(new Item(526, 1), this, getDeathPosition()));
+		if(killer == null) {
+			killer = this;
+		}
+		GroundItemManager.getManager().dropItem(new GroundItem(new Item(526, 1), this, killer, getDeathPosition()));
 		for (Item kept : keptItems)
 			inventory.addItem(kept);
 		for (int i : alwaysProtect) {
@@ -3416,29 +3417,32 @@ public class Player extends Entity {
 		    }
 			
 		}
-		for (Item dropped : allItems) {
-			if (dropped == null)
-				continue;
-			if (alwaysProtect.contains(dropped.getId()))
-				continue;
-			if(dropped.getId() >= 3839 && dropped.getId() <= 3844) {
-			    this.setLostGodBook(dropped.getId());
-			}
-			if(Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
-				GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
-				setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
-			}
-			else if (!dropped.getDefinition().isUntradable()) {
-				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
-				GroundItemManager.getManager().dropItem(item);
-			} else {
-			    if(dropped.getId() == 11283) {
-				GroundItem item = new GroundItem(new Item(11284, dropped.getCount()), this, getDeathPosition());
-				GroundItemManager.getManager().dropItem(item);
-			    } else {
-				GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
-				GroundItemManager.getManager().dropItem(item);
-			    }
+		if (!noDropItems) {
+			for (Item dropped : allItems) {
+				if (dropped == null) {
+					continue;
+				}
+				if (alwaysProtect.contains(dropped.getId())) {
+					continue;
+				}
+				if (dropped.getId() >= 3839 && dropped.getId() <= 3844) {
+					this.setLostGodBook(dropped.getId());
+				}
+				if (Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
+					setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
+				} else if (!dropped.getDefinition().isUntradable()) {
+					GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
+					GroundItemManager.getManager().dropItem(item);
+				} else {
+					if (dropped.getId() == 11283) {
+						GroundItem item = new GroundItem(new Item(11284, dropped.getCount()), this, getDeathPosition());
+						GroundItemManager.getManager().dropItem(item);
+					} else {
+						GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, getDeathPosition());
+						GroundItemManager.getManager().dropItem(item);
+					}
+				}
 			}
 		}
 		equipment.refresh();

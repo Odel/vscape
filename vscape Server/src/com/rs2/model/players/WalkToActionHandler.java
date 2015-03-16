@@ -83,6 +83,7 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.TheGrandTree;
+import com.rs2.model.content.quests.impl.UndergroundPass.UndergroundPass;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -212,6 +213,10 @@ public class WalkToActionHandler {
 				    }
 				}
 				if(ApeAtoll.doObjectFirstClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if(UndergroundPass.handleObstacleClicking(player, id, x, y)) {
 					this.stop();
 					return;
 				}
@@ -3018,7 +3023,7 @@ public class WalkToActionHandler {
 		{
 			return true;
 		}
-		if(def.getId() == 1729) {
+		if(def.getId() == 1729 || def.getId() == 3213 || def.getId() == 3214) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 4);
 		}
 		if(def.getId() == 2290) {

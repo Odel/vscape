@@ -5,6 +5,7 @@ import com.rs2.model.content.quests.impl.ChristmasEvent.ChristmasEvent;
 import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
 import com.rs2.model.content.quests.impl.GhostsAhoy.GhostsAhoy;
 import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
+import com.rs2.model.content.quests.impl.UndergroundPass.UndergroundPass;
 import java.io.IOException;
 
 import com.rs2.model.players.CommandHandler;
@@ -67,7 +68,8 @@ public class QuestHandler {
 	new Biohazard(),
 	new JunglePotion(),
 	new ClockTower(),
-	new DeathPlateau()
+	new DeathPlateau(),
+	new UndergroundPass()
     };
     
     public static void init() {
@@ -276,6 +278,9 @@ public class QuestHandler {
 			return true;
 		case 32246: //Death Plateau
 			showInterface(player,quests[43]);
+        		return true;
+		case 38199:
+			//showInterface(player,quests[44]);
         		return true;
         }
         return false;
