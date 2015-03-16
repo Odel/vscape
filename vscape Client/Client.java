@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings("serial")
 public class Client extends RSApplet {
 	
-	private final static String CLIENT_VERSION = "3.6";
+	private final static String CLIENT_VERSION = "3.6b";
 	
 	public final static boolean DevMode = true;
 	public final static boolean Muted = false;
@@ -1880,7 +1880,7 @@ public class Client extends RSApplet {
 			}
 
 			if (action == 4) {
-			    if(Muted) {
+			    if(!Muted) {
 					SoundPlayer.setVolume(config);
 					if (config == 0) {
 						aBoolean848 = true;
