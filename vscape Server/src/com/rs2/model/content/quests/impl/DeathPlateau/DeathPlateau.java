@@ -1091,6 +1091,7 @@ public class DeathPlateau implements Quest {
 					case CERTIFICATE_GET:
 					case SPIKE_THE_BOOTS:
 					case TEST_ROUTE:
+					case TELL_DENULTH:
 						switch (d.getChatId()) {
 							case 1:
 								if(player.getQuestVars().givenHaroldSpecial) {

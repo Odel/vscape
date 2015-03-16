@@ -3364,7 +3364,7 @@ public class Player extends Entity {
 	/*	if (!killer.isPlayer()) {
 			killer = this;
 		}*/
-		if(getLoginStage() != LoginStages.LOGGED_IN)
+		if(!this.inWild() && getLoginStage() != LoginStages.LOGGED_IN)
 		{
 			return;
 		}

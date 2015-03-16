@@ -631,6 +631,25 @@ public class HeroesQuest implements Quest {
 			case MASTER_FISHER:
 			case HARRY:
 				switch (player.getQuestStage(27)) {
+					case QUEST_COMPLETE:
+						switch (player.getDialogue().getChatId()) {
+							case 1:
+								if(!player.getInventory().ownsItem(OILY_FISHING_ROD)) {
+									player.getDialogue().sendPlayerChat("Hi, I seem to have lost my oily fishing rod.", "I made one with your blamish snail slime.");
+									return true;
+								} else {
+									return false;
+								}
+							case 2:
+								player.getDialogue().sendNpcChat("Well, here's some more slime!", Dialogues.LAUGHING);
+								return true;
+							case 3:
+								player.getDialogue().sendGiveItemNpc("You get handed a strange slimy bottle.", new Item(BLAMISH_SNAIL_SLIME));
+								player.getDialogue().endDialogue();
+								player.getInventory().addItemOrDrop(new Item(BLAMISH_SNAIL_SLIME));
+								return true;
+						}
+					return false;
 					case QUEST_STARTED:
 					case CANDLESTICKS_GOTTEN:
 					case ARMBAND_GOTTEN:
