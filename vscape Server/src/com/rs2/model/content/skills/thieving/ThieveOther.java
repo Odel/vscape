@@ -120,7 +120,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
 		}, 1);
 	}
 
-	public static void crackSafe(final Player player, final int objectId, final int objectX, final int objectY, int level, final double xp, final int respawn) {
+	public static void crackSafe(final Player player, final int objectId, final int objectX, final int objectY, final int level, final double xp, final int respawn) {
         if(player.stopPlayerPacket()) {
             return;
         }
