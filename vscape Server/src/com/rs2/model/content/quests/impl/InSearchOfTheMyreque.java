@@ -371,7 +371,7 @@ public class InSearchOfTheMyreque implements Quest {
 				switch (count) {
 					case 1:
 						d.setLastNpcTalk(VELIAF_HURTZ);
-						d.sendNpcChat("Hey, what's that mist coming in through the door!", "TEAM WE HAVE A VAMPIRE IN THE ROOM!", DISTRESSED);
+						d.sendTimedNpcChat("Hey, what's that mist coming in through the door!", "TEAM WE HAVE A VAMPIRE IN THE ROOM!", DISTRESSED);
 						break;
 					case 2:
 						player.getActionSender().removeInterfaces();
@@ -383,23 +383,23 @@ public class InSearchOfTheMyreque implements Quest {
 					case 3:
 						vanstrom.sendTransform(VANSTROM_CLAUSE_1, 100);
 						d.setLastNpcTalk(VANSTROM_CLAUSE_1);
-						d.sendNpcChat("Ha... ha... ha... you took me straight to them!", EVIL);
+						d.sendTimedNpcChat("Ha... ha... ha... you took me straight to them!", EVIL);
 						break;
 					case 4:
 						d.setLastNpcTalk(VANSTROM_CLAUSE_1);
-						d.sendNpcChat("The little dears are going to wonder which side you're", "on!", EVIL);
+						d.sendTimedNpcChat("The little dears are going to wonder which side you're", "on!", EVIL);
 						sani.walkTo(new Position(3508, 9837, 1), true);
 						harold.walkTo(new Position(3504, 9837, 1), true);
 						break;
 					case 5:
 						d.setLastNpcTalk(SANI_PILIU);
-						d.sendNpcChat("It's Vanstrom... we're dead...", SAD);
+						d.sendTimedNpcChat("It's Vanstrom... we're dead...", SAD);
 						sani.walkTo(new Position(3508, 9837, 1), true);
 						harold.walkTo(new Position(3504, 9837, 1), true);
 						break;
 					case 6:
 						d.setLastNpcTalk(VANSTROM_CLAUSE_1);
-						d.sendNpcChat("Quite right! Sorry Harold, you die as well!", EVIL);
+						d.sendTimedNpcChat("Quite right! Sorry Harold, you die as well!", EVIL);
 						CombatManager.startDeath(sani);
 						CombatManager.startDeath(harold);
 						break;
@@ -407,13 +407,13 @@ public class InSearchOfTheMyreque implements Quest {
 						vanstrom.sendTransform(VANSTROM_CLAUSE_2, 100);
 						vanstrom.getUpdateFlags().sendAnimation(1499);
 						d.setLastNpcTalk(VANSTROM_CLAUSE_2);
-						d.sendNpcChat("And.. now I'm going to finish the rest of them off...", LAUGHING);
+						d.sendTimedNpcChat("And.. now I'm going to finish the rest of them off...", LAUGHING);
 						break;
 					case 8:
 						vanstrom.getUpdateFlags().sendAnimation(1500);
 						vanstrom.sendTransform(VANSTROM_CLAUSE_3, 999999);
 						d.setLastNpcTalk(VANSTROM_CLAUSE_2);
-						d.sendNpcChat("With my little pet!", "Ha ha ha ha ha!", LAUGHING);
+						d.sendTimedNpcChat("With my little pet!", "Ha ha ha ha ha!", LAUGHING);
 						break;
 					case 9:
 						player.getActionSender().removeInterfaces();

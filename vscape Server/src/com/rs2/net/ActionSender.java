@@ -134,6 +134,7 @@ public class ActionSender {
 		sendConfig(427, player.isAcceptingAid() ? 1 : 0);// acceptAid
 		sendConfig(115, player.isWithdrawAsNote() ? 1 : 0); // withdrawItemAsNote
 		sendConfig(304,player.getBankOptions().equals(BankOptions.SWAP_ITEM) ? 0 : 1);// swapItem
+		sendConfig(667, (player.getQuestStage(39) >= 5 ? 36 : 0));
 		return this;
 	}
 
@@ -454,12 +455,6 @@ public class ActionSender {
 		return this;
 	}
 	public ActionSender sendObject(int id, int x, int y, int h, int face, int type) {
-		if(id == 11422 && player.getQuestStage(39) >= 5) {
-			return this;
-		}
-		/*if(id == 2065 && player.getQuestStage(39) < 4) {
-			return this;
-		}*/
 		sendCoords(new Position(x, y, h));
 		sendObjectType(face, type);
 		if (id != -1) {

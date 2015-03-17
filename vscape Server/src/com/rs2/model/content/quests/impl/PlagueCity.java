@@ -105,6 +105,7 @@ public class PlagueCity implements Quest {
 	public static final int REHNISON_STAIRS_UP = 2539;
 	public static final int REHNISON_STAIRS_DOWN = 2540;
 	public static final int PIPE_GRILL = 11422;
+	public static final int DUG_HOLE = 2532;
 
 	public int dialogueStage = 0;
 
@@ -336,10 +337,8 @@ public class PlagueCity implements Quest {
 	}
 	
 	public static void assessPipeGrill(final Player player) {
-		ObjectHandler.getInstance().removeObject(2514, 9739, 0, 4);
-		new GameObject(Constants.EMPTY_OBJECT, 2514, 9739, 0, 3, 4, 11422, 999999);
-		ObjectHandler.getInstance().removeObject(2514, 9739, 0, 4);
-		new GameObject(11422, 2514, 9739, 0, 3, 4, 0, 999999);
+		if(player.getQuestStage(39) >= GRILL_PULLED)
+			player.getActionSender().sendConfig(667, 36);
 	}
 	
 	public static void readHangoverCure(final Player player) {
@@ -355,11 +354,12 @@ public class PlagueCity implements Quest {
 	}
 	
 	public static void handleGardenDig(final Player player) {
+		player.getActionSender().sendConfig(667, (player.getQuestStage(39) >= 5 ? 32 : 0) + 4);
 		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
-				player.teleport(INTO_SEWERS);
+				player.fadeTeleport(INTO_SEWERS);
 				b.stop();
 			}
 
@@ -412,44 +412,44 @@ public class PlagueCity implements Quest {
 				count++;
 				switch(count) {
 					case 1:
-						d.sendPlayerChat("1... 2... 3... Pull!", CONTENT);
+						d.sendTimedPlayerChat("1... 2... 3... Pull!", CONTENT);
 						break;
 					case 2:
 						d.setLastNpcTalk(EDMOND);
-						d.sendNpcChat("I don't know if my back is suited for this...", "Urghhh...", Dialogues.DISTRESSED);
+						d.sendTimedNpcChat("I don't know if my back is suited for this...", "Urghhh...", Dialogues.DISTRESSED);
 						break;
 					case 3:
-						d.sendStatement("You hear a faint popping noise from Edmond's spine.");
+						d.sendTimedStatement("You hear a faint popping noise from Edmond's spine.");
 						break;
 					case 4:
-						d.sendPlayerChat("Come on Edmond, we're almost there!", Dialogues.ANGRY_1);
+						d.sendTimedPlayerChat("Come on Edmond, we're almost there!", Dialogues.ANGRY_1);
 						break;
 					case 5:
-						d.sendStatement("The bolts on the grate begin to come loose.");
+						d.sendTimedStatement("The bolts on the grate begin to come loose.");
 						break;
 					case 6:
 						d.setLastNpcTalk(EDMOND);
-						d.sendNpcChat("I can't go on boy, I've got nothing left...", SAD);
+						d.sendTimedNpcChat("I can't go on boy, I've got nothing left...", SAD);
 						break;
 					case 7:
-						d.sendPlayerChat("Damnit! Don't quit on me now old man!", Dialogues.ANGRY_2);
+						d.sendTimedPlayerChat("Damnit! Don't quit on me now old man!", Dialogues.ANGRY_2);
 						break;
 					case 8:
 						d.setLastNpcTalk(EDMOND);
-						d.sendNpcChat("You're right, this is my daughter we're talking", "about! Here we go...", "Arghhhh!", Dialogues.ANGRY_1);
+						d.sendTimedNpcChat("You're right, this is my daughter we're talking", "about! Here we go...", "Arghhhh!", Dialogues.ANGRY_1);
 						break;
 					case 9:
-						d.sendStatement("The grill pops off the face of the pipe and onto the floor.");
+						d.sendTimedStatement("The grill pops off the face of the pipe and onto the floor.");
 						break;
 					case 10:
-						d.sendPlayerChat("I knew you had it in you Edmond. Excellent", "work. Although... I would go home and rest up if I were", "you, those popping noises didn't sound healthy.", CONTENT);
+						d.sendTimedPlayerChat("I knew you had it in you Edmond. Excellent", "work. Although... I would go home and rest up if I were", "you, those popping noises didn't sound healthy.", CONTENT);
 						break;
 					case 11:
-						d.sendStatement("It takes Edmond a second to catch his breath.");
+						d.sendTimedStatement("It takes Edmond a second to catch his breath.");
 						break;
 					case 12:
 						d.setLastNpcTalk(EDMOND);
-						d.sendNpcChat("Once you're in the city look for a man called", "Jethick, he's an old friend and should help you.", "Send him my regards, I haven't seen him since", "before Elena was born.", CONTENT);
+						d.sendTimedNpcChat("Once you're in the city look for a man called", "Jethick, he's an old friend and should help you.", "Send him my regards, I haven't seen him since", "before Elena was born.", CONTENT);
 						break;
 					case 13:
 						d.sendPlayerChat("Alright, thanks I will.", CONTENT);
@@ -602,6 +602,9 @@ public class PlagueCity implements Quest {
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case DUG_HOLE:
+				handleGardenDig(player);
+				return true;
 			case ELENAS_DOOR:
 				if (x == 2539 && y == 9672) {
 					if (player.getPosition().getX() < 2540) {

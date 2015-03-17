@@ -1121,7 +1121,7 @@ public class ItemPacketHandler implements PacketHandler {
 			    container.stop();
 			    return;
 			}
-			if (player.getPosition().getX() == 2566 && player.getPosition().getY() <= 3333 && player.getPosition().getY() >= 3331 && player.getQuestStage(39) >= 4) {
+			if (player.getPosition().getX() == 2566 && player.getPosition().getY() <= 3333 && player.getPosition().getY() >= 3331 && (player.getQuestStage(39) == 4 || player.getQuestStage(39) == 5)) {
 				player.getActionSender().sendMessage("Suddenly it crumbles away!");
 				PlagueCity.handleGardenDig(player);
 				container.stop();

@@ -428,6 +428,17 @@ public class DialogueManager {
 	 * Timed NPC dialogue. These NPC dialogues have no close/click options, so
 	 * should only be used with a timer.
 	 */
+	public void sendTimedNpcChat(String line1, int emotion) {
+		int id = getLastNpcTalk() < 0 || getLastNpcTalk() > Constants.MAX_NPC_ID ? 0 : getLastNpcTalk();
+		NpcDefinition def = World.getDefinitions()[id];
+		String npcName = def.getName();
+		player.getActionSender().sendInterfaceAnimation(12379, emotion);
+		player.getActionSender().sendString(npcName, 12380);
+		player.getActionSender().sendString(line1, 12381);
+		player.getActionSender().sendNPCDialogueHead(id, 12379);
+		player.getActionSender().sendChatInterface(12378);
+	}
+	
 	public void sendTimedNpcChat(String line1, String line2, int emotion) {
 		int id = getLastNpcTalk() < 0 || getLastNpcTalk() > Constants.MAX_NPC_ID ? 0 : getLastNpcTalk();
 		NpcDefinition def = World.getDefinitions()[id];

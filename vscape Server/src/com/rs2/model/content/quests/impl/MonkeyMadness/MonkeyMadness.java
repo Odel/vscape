@@ -1163,56 +1163,56 @@ public class MonkeyMadness implements Quest {
 						switch (count) {
 							case 1:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("The workers are getting restless, Caranock.", CONTENT);
+								d.sendTimedNpcChat("The workers are getting restless, Caranock.", CONTENT);
 								break;
 							case 2:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("I know...", CONTENT);
+								d.sendTimedNpcChat("I know...", CONTENT);
 								break;
 							case 3:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("All this talk of Glough being replaced doesn't bode well", "for... how shall I put this... their morale.", CONTENT);
+								d.sendTimedNpcChat("All this talk of Glough being replaced doesn't bode well", "for... how shall I put this... their morale.", CONTENT);
 								break;
 							case 4:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Look, I know.", CONTENT);
+								d.sendTimedNpcChat("Look, I know.", CONTENT);
 								break;
 							case 5:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("Those are all men with children to feed. Famished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
+								d.sendTimedNpcChat("Those are all men with children to feed. Famished", "families. Worried wives. All of us rely on this shipyard.", CONTENT);
 								break;
 							case 6:
-								d.sendNpcChat("If something isn't done soon there'll be revolt. And I", "won't be able to stop it.", CONTENT);
+								d.sendTimedNpcChat("If something isn't done soon there'll be revolt. And I", "won't be able to stop it.", CONTENT);
 								break;
 							case 7:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Stop worrying. I'm working on something.", CONTENT);
+								d.sendTimedNpcChat("Stop worrying. I'm working on something.", CONTENT);
 								break;
 							case 8:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("What something? You're always working on something.", "all we ever hear is bad news.", CONTENT);
+								d.sendTimedNpcChat("What something? You're always working on something.", "all we ever hear is bad news.", CONTENT);
 								break;
 							case 9:
-								d.sendNpcChat("First, Glough disappears. Then news of a missing squad", "of the Royal Guard in our area. And what about that", "human sent by the king?", CONTENT);
+								d.sendTimedNpcChat("First, Glough disappears. Then news of a missing squad", "of the Royal Guard in our area. And what about that", "human sent by the king?", CONTENT);
 								break;
 							case 10:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("The human means nothing. If it becomes too much", "trouble, I will simply have it... removed. In the", "meantime, let it continue to search for that blasted 10th", "Squad.", CONTENT);
+								d.sendTimedNpcChat("The human means nothing. If it becomes too much", "trouble, I will simply have it... removed. In the", "meantime, let it continue to search for that blasted 10th", "Squad.", CONTENT);
 								break;
 							case 11:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("I am still worried. What am I meant to tell the men?", CONTENT);
+								d.sendTimedNpcChat("I am still worried. What am I meant to tell the men?", CONTENT);
 								break;
 							case 12:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Stop worrying. I'm working on something, Glough left", "a few of his agents in the Gnome airforce.", CONTENT);
+								d.sendTimedNpcChat("Stop worrying. I'm working on something, Glough left", "a few of his agents in the Gnome airforce.", CONTENT);
 								break;
 							case 13:
-								d.sendNpcChat("For now tell your men to continue work on the", "battleships. Give me some time.", CONTENT);
+								d.sendTimedNpcChat("For now tell your men to continue work on the", "battleships. Give me some time.", CONTENT);
 								break;
 							case 14:
 								d.setLastNpcTalk(FOREMAN);
-								d.sendNpcChat("I hope you're right, Caranock, for your sake. My sake.", "For all of our sakes...", CONTENT);
+								d.sendTimedNpcChat("I hope you're right, Caranock, for your sake. My sake.", "For all of our sakes...", CONTENT);
 								break;
 							case 15:
 								b.stop();
@@ -1261,78 +1261,78 @@ public class MonkeyMadness implements Quest {
 						switch (count) {
 							case 1:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("It is good of you to meet with me, Waydar.", CONTENT);
+								d.sendTimedNpcChat("It is good of you to meet with me, Waydar.", CONTENT);
 								break;
 							case 2:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("It is good to see you again, Caranock. It is a strange", "island these monkeys inhabit.", CONTENT);
+								d.sendTimedNpcChat("It is good to see you again, Caranock. It is a strange", "island these monkeys inhabit.", CONTENT);
 								break;
 							case 3:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Well observed. How have you been keeping yourself", "occupied?", CONTENT);
+								d.sendTimedNpcChat("Well observed. How have you been keeping yourself", "occupied?", CONTENT);
 								break;
 							case 4:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("I am now a Flight Commander. My duties include", "testing Glough's prototype military glider.", CONTENT);
+								d.sendTimedNpcChat("I am now a Flight Commander. My duties include", "testing Glough's prototype military glider.", CONTENT);
 								break;
 							case 5:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("My my. How things have changed somewhat since", "Glough's time... Now, what of the human?", CONTENT);
+								d.sendTimedNpcChat("My my. How things have changed somewhat since", "Glough's time... Now, what of the human?", CONTENT);
 								break;
 							case 6:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("The human? Just somebody Narnode appears to have", "taken a fancy to. It is hard to tell why. I suspect the", "human was involved with Glough's fall from grace.", CONTENT);
+								d.sendTimedNpcChat("The human? Just somebody Narnode appears to have", "taken a fancy to. It is hard to tell why. I suspect the", "human was involved with Glough's fall from grace.", CONTENT);
 								break;
 							case 7:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("You may be right. Never mind, there are greater", "matters afoot. With Glough gone, it falls to us to", "continue with his plans.", CONTENT);
+								d.sendTimedNpcChat("You may be right. Never mind, there are greater", "matters afoot. With Glough gone, it falls to us to", "continue with his plans.", CONTENT);
 								break;
 							case 8:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Also, the shipyard workers are becoming restless.", CONTENT);
+								d.sendTimedNpcChat("Also, the shipyard workers are becoming restless.", CONTENT);
 								break;
 							case 9:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("I see. What do you have in mind?", CONTENT);
+								d.sendTimedNpcChat("I see. What do you have in mind?", CONTENT);
 								break;
 							case 10:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Money for me, Waydar, and promotion for you. As", "you know the 10th Squad of the Royal Guard are", "slightly worse for wear on this island.", CONTENT);
+								d.sendTimedNpcChat("Money for me, Waydar, and promotion for you. As", "you know the 10th Squad of the Royal Guard are", "slightly worse for wear on this island.", CONTENT);
 								break;
 							case 11:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("This I know. But I don't see how it leads to money or", "a promotion.", CONTENT);
+								d.sendTimedNpcChat("This I know. But I don't see how it leads to money or", "a promotion.", CONTENT);
 								break;
 							case 12:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("What if they were to die? An entire squad of the Royal", "Guard goes missing in the jungle of Karamja... We", "could blame it on the human.", CONTENT);
+								d.sendTimedNpcChat("What if they were to die? An entire squad of the Royal", "Guard goes missing in the jungle of Karamja... We", "could blame it on the human.", CONTENT);
 								break;
 							case 13:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("Narnode would be furious.", CONTENT);
+								d.sendTimedNpcChat("Narnode would be furious.", CONTENT);
 								break;
 							case 14:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Precisely. He might even order an invasion. At the", "very least he'll step up the defense. More orders for me,", "promotion for you.", CONTENT);
+								d.sendTimedNpcChat("Precisely. He might even order an invasion. At the", "very least he'll step up the defense. More orders for me,", "promotion for you.", CONTENT);
 								break;
 							case 15:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("Very clever. It might also serve us well to remind", "Narnode of Bolren's situation.", CONTENT);
+								d.sendTimedNpcChat("Very clever. It might also serve us well to remind", "Narnode of Bolren's situation.", CONTENT);
 							case 16:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Ah yes, all that trouble with the Khazard. Last I heard,", "Bolren had retrieved the orbs of protection. Apparently", "some human lent their assistance.", CONTENT);
+								d.sendTimedNpcChat("Ah yes, all that trouble with the Khazard. Last I heard,", "Bolren had retrieved the orbs of protection. Apparently", "some human lent their assistance.", CONTENT);
 								break;
 							case 17:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("Really? Typical meddling human behavior.", "Nevertheless, it will stoke fires of worry. After all, the", "battle still continues.", CONTENT);
+								d.sendTimedNpcChat("Really? Typical meddling human behavior.", "Nevertheless, it will stoke fires of worry. After all, the", "battle still continues.", CONTENT);
 								break;
 							case 18:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("I agree. Anyhow, we don't want your human", "wondering as to your whereabouts. When the time is", "right, don't hesitate to... dispose of it.", CONTENT);
+								d.sendTimedNpcChat("I agree. Anyhow, we don't want your human", "wondering as to your whereabouts. When the time is", "right, don't hesitate to... dispose of it.", CONTENT);
 								break;
 							case 19:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("Understood. Military gliders are after all, an untested", "form of transport...", CONTENT);
+								d.sendTimedNpcChat("Understood. Military gliders are after all, an untested", "form of transport...", CONTENT);
 								break;
 							case 20:
 								b.stop();
@@ -1381,102 +1381,102 @@ public class MonkeyMadness implements Quest {
 						switch (count) {
 							case 1:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Good evening, Awowogei.", CONTENT);
+								d.sendTimedNpcChat("Good evening, Awowogei.", CONTENT);
 								break;
 							case 2:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("It is always dark here, Gnome. Why have you asked", "to see me in private?", CONTENT);
+								d.sendTimedNpcChat("It is always dark here, Gnome. Why have you asked", "to see me in private?", CONTENT);
 								break;
 							case 3:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("Caranock and I have a suggestion to make.", CONTENT);
+								d.sendTimedNpcChat("Caranock and I have a suggestion to make.", CONTENT);
 								break;
 							case 4:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Then be quick about it.", CONTENT);
+								d.sendTimedNpcChat("Then be quick about it.", CONTENT);
 								break;
 							case 5:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("The foot soldiers of the Royal Guard in your jail...", CONTENT);
+								d.sendTimedNpcChat("The foot soldiers of the Royal Guard in your jail...", CONTENT);
 								break;
 							case 6:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Would it not be easier if they were somehow just to...", "die?", CONTENT);
+								d.sendTimedNpcChat("Would it not be easier if they were somehow just to...", "die?", CONTENT);
 								break;
 							case 7:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Why would I want to do that? Your king would", "declare war on my island.", CONTENT);
+								d.sendTimedNpcChat("Why would I want to do that? Your king would", "declare war on my island.", CONTENT);
 								break;
 							case 8:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("I can assure you he will not. We will lay the blame", "at the humans' feet.", CONTENT);
+								d.sendTimedNpcChat("I can assure you he will not. We will lay the blame", "at the humans' feet.", CONTENT);
 								break;
 							case 9:
-								d.sendNpcChat("Narnode will indeed declare war, not against you,", "but against humankind.", CONTENT);
+								d.sendTimedNpcChat("Narnode will indeed declare war, not against you,", "but against humankind.", CONTENT);
 								break;
 							case 10:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("You are of course welcome to your share of the profits.", CONTENT);
+								d.sendTimedNpcChat("You are of course welcome to your share of the profits.", CONTENT);
 								break;
 							case 11:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Intriguing. I have recently secured an alliance with", "the northern monkeys, which may prove useful.", CONTENT);
+								d.sendTimedNpcChat("Intriguing. I have recently secured an alliance with", "the northern monkeys, which may prove useful.", CONTENT);
 								break;
 							case 12:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("What would you have me do?", CONTENT);
+								d.sendTimedNpcChat("What would you have me do?", CONTENT);
 								break;
 							case 13:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Kill the foot soldiers and the rest of the 10th Squad. My", "superior has sent you a few tricks which may prove", "useful.", CONTENT);
+								d.sendTimedNpcChat("Kill the foot soldiers and the rest of the 10th Squad. My", "superior has sent you a few tricks which may prove", "useful.", CONTENT);
 								break;
 							case 14:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Such as?", CONTENT);
+								d.sendTimedNpcChat("Such as?", CONTENT);
 								break;
 							case 15:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("High magic: the ability to summon the entire 10th Squad", "to a single location... and-", CONTENT);
+								d.sendTimedNpcChat("High magic: the ability to summon the entire 10th Squad", "to a single location... and-", CONTENT);
 								break;
 							case 16:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Even those who escaped?", CONTENT);
+								d.sendTimedNpcChat("Even those who escaped?", CONTENT);
 								break;
 							case 17:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Yes. And of course you will also receive access to one", "of his 'pets'.", CONTENT);
+								d.sendTimedNpcChat("Yes. And of course you will also receive access to one", "of his 'pets'.", CONTENT);
 								break;
 							case 18:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("You must be careful with these, as you have only one", "use of each. Ensure you set your trap well, none", "must survive lest they spread the truth.", CONTENT);
+								d.sendTimedNpcChat("You must be careful with these, as you have only one", "use of each. Ensure you set your trap well, none", "must survive lest they spread the truth.", CONTENT);
 								break;
 							case 19:
 								d.setLastNpcTalk(WAYDAR);
-								d.sendNpcChat("What of my human?", CONTENT);
+								d.sendTimedNpcChat("What of my human?", CONTENT);
 								break;
 							case 20:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("What human?", CONTENT);
+								d.sendTimedNpcChat("What human?", CONTENT);
 								break;
 							case 21:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Ignore him. My colleague's official mission was to look", "after a human in the area, but don't worry, it is", "probably dead already.", CONTENT);
+								d.sendTimedNpcChat("Ignore him. My colleague's official mission was to look", "after a human in the area, but don't worry, it is", "probably dead already.", CONTENT);
 								break;
 							case 22:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("I should hope so, for both of your sakes.", CONTENT);
+								d.sendTimedNpcChat("I should hope so, for both of your sakes.", CONTENT);
 								break;
 							case 23:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("Very well. I shall let you know when I have dealt", "with the Royal Guard.", CONTENT);
+								d.sendTimedNpcChat("Very well. I shall let you know when I have dealt", "with the Royal Guard.", CONTENT);
 								break;
 							case 24:
 								d.setLastNpcTalk(GLO_CARANOCK);
-								d.sendNpcChat("Good luck, Awowogei.", CONTENT);
+								d.sendTimedNpcChat("Good luck, Awowogei.", CONTENT);
 								break;
 							case 25:
 								d.setLastNpcTalk(AWOWOGEI);
-								d.sendNpcChat("With access to one of Glough's 'pets' I don't think I'll", "need it...", CONTENT);
+								d.sendTimedNpcChat("With access to one of Glough's 'pets' I don't think I'll", "need it...", CONTENT);
 								break;
 							case 26:
 								b.stop();
