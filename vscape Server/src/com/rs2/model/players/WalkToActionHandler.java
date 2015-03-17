@@ -333,7 +333,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(player.getCanoe().canoeStation(id) || player.getCanoe().useCanoe(id, x,y,z))
+				if(player.getCanoe().objectClick(id, x, y, z))
 				{
 					this.stop();
 					return;

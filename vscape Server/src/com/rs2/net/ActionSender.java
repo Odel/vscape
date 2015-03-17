@@ -109,6 +109,7 @@ public class ActionSender {
         }
 		player.getPrivateMessaging().sendPMOnLogin();
 		sendIgnoreList(player.getIgnores());
+		sendConfig(674, 0);
 		//QPEdit(player.getQuestPoints());
 		return this;
 	}
