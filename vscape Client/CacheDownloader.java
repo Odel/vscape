@@ -240,7 +240,7 @@ public class CacheDownloader {
                 }
                 zin.close();
 
-                (new File(fileToExtract)).delete();
+                deleteZIP(new File(fileToExtract));
                 
             } catch(Exception e) {
                 e.printStackTrace();
@@ -260,4 +260,24 @@ public class CacheDownloader {
                 }
                 out.close();
         }
+        
+    	private void deleteZIP(File f) {
+    		String fileName = f.getName();
+    		if (!f.exists())
+    			throw new IllegalArgumentException("Cache Delete: no such file or directory: " + fileName);
+
+    		if (!f.canWrite())
+    			throw new IllegalArgumentException("Cache Delete: write protected: " + fileName);
+
+    		if (f.isDirectory()) {
+    			String[] files = f.list();
+    			if (files.length > 0)
+    				throw new IllegalArgumentException("Cache Delete: directory not empty: " + fileName);
+    		}
+    		
+    		boolean success = f.delete();
+    		if (!success)
+    			throw new IllegalArgumentException("Cache Delete: deletion failed");
+
+    	}
 }
