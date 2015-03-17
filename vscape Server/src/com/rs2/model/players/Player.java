@@ -617,6 +617,7 @@ public class Player extends Entity {
                 getPrivateMessaging().refresh(false);
                 WalkInterfaces.addWalkableInterfaces(player);
                 getActionSender().sendEnergy();
+                getMusicManager().Init();
             }
         });
     }
@@ -1243,7 +1244,6 @@ public class Player extends Entity {
         {
         	teleport(getLastPosition());
         }
-        getMusicManager().Init();
     }
 	
 	public boolean beginLogin() throws Exception {
