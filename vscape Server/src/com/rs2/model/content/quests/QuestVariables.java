@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.model.content.quests.impl.ErnestTheChicken;
 import com.rs2.model.players.Player;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class QuestVariables {
 	public boolean waterfallPillars[][] = {{false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}, {false, false, false}};
 	private boolean phoenixGang = false;
 	private boolean blackArmGang = false;
+	private boolean[] ernestLevers = new boolean[6];
+	private boolean[] ernestDoors = new boolean[9];
 	private boolean melzarsDoor = false;
 	private boolean shipyardGate = false;
 	private boolean tTwig = false;
@@ -129,6 +132,25 @@ public class QuestVariables {
 		} else {
 			this.blackArmGang = bool;
 		}
+	}
+	
+	public void setErnestLevers(int slot, boolean bool) {
+		this.ernestLevers[slot] = bool;
+		ErnestTheChicken.assessLeverConfig(player);
+	}
+
+	public boolean[] getErnestLevers() {
+		return ernestLevers;
+	}
+	
+	public void setErnestDoors(int slot, boolean bool) {
+		this.ernestDoors[slot] = bool;
+		if(bool)
+			ErnestTheChicken.assessDoorConfig(player);
+	}
+
+	public boolean[] getErnestDoors() {
+		return ernestDoors;
 	}
 
 	public boolean hasPlacedOTwig() {

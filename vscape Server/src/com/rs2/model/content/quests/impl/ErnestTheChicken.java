@@ -1,5 +1,7 @@
 package com.rs2.model.content.quests.impl;
 
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -15,10 +17,12 @@ import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -246,12 +250,21 @@ public class ErnestTheChicken implements Quest {
 	}
 
 	public static void resetLevers(final Player player) {
-		player.setErnestLevers(0, false); //A
-		player.setErnestLevers(1, false); //B
-		player.setErnestLevers(2, false); //C
-		player.setErnestLevers(3, false); //D
-		player.setErnestLevers(4, false); //E
-		player.setErnestLevers(5, false); //F
+		player.getQuestVars().setErnestLevers(0, false); //A
+		player.getQuestVars().setErnestLevers(1, false); //B
+		player.getQuestVars().setErnestLevers(2, false); //C
+		player.getQuestVars().setErnestLevers(3, false); //D
+		player.getQuestVars().setErnestLevers(4, false); //E
+		player.getQuestVars().setErnestLevers(5, false); //F
+		resetDoors(player);
+		assessLeverConfig(player);
+		assessDoorConfig(player);
+	}
+	
+	public static void resetDoors(final Player player) {
+		for(int i = 0; i < 9; i++) {
+			player.getQuestVars().setErnestDoors(i, false);
+		}
 	}
 
 	public static boolean hasItems(final Player player) {
@@ -280,6 +293,26 @@ public class ErnestTheChicken implements Quest {
 				NpcLoader.destroyNpc(npc);
 			}
 		}
+	}
+	
+	public static void assessDoorConfig(final Player player) {
+		int toSend = 0, i = 0;
+		for(boolean b : player.getQuestVars().getErnestDoors()) {
+			if(b)
+				toSend += (1 << i);
+			i++;
+		}
+		player.getActionSender().sendConfig(668, toSend);
+	}
+	
+	public static void assessLeverConfig(final Player player) {
+		int toSend = 0, i = 0;
+		for(boolean b : player.getQuestVars().getErnestLevers()) {
+			if(b)
+				toSend += (2 << i);
+			i++;
+		}
+		player.getActionSender().sendConfig(33, toSend);
 	}
 
 	public boolean itemHandling(Player player, int itemId) {
@@ -332,40 +365,71 @@ public class ErnestTheChicken implements Quest {
 	}
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
+		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		switch (object) {
+			case 137:
+			case 138:
+			case 139:
+			case 140:
+			case 141:
+			case 142:
+			case 143:
+			case 144:
+			case 145: //doors
+				if (pY > 9700 && pY < 9800) {
+						if (object >= 143 && object <= 145) {
+							int modifier = pY < y ? 2 : -1;
+							player.getActionSender().sendMessage("You slowly walk through the door...");
+							player.fadeTeleport(new Position(x, pY + modifier, 0));
+						} else {
+							int modifier = pX < x ? 2 : -1;
+							player.getActionSender().sendMessage("You slowly walk through the door...");
+							player.fadeTeleport(new Position(y + modifier, pY, 0));
+						}
+					return true;
+				}
+				return false;
 			case 146: //0 A
 				if (x == LEVER_A[X] && y == LEVER_A[Y]) {
-					if (!player.getErnestLevers()[0]) {
+					if (!player.getQuestVars().getErnestLevers()[0]) {
 						player.getActionSender().sendMessage("You pull Lever A.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(0, true);
+						player.getQuestVars().setErnestLevers(0, true);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever A.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(0, false);
+						player.getQuestVars().setErnestLevers(0, false);
 						return true;
 					}
 				}
 				return false;
 			case 147: //1 B
 				if (x == LEVER_B[X] && y == LEVER_B[Y]) {
-					if (player.getErnestLevers()[0] && !player.getErnestLevers()[1] && !player.getErnestLevers()[3]) {
+					if (player.getQuestVars().getErnestLevers()[0] && !player.getQuestVars().getErnestLevers()[1] && !player.getQuestVars().getErnestLevers()[3]) {
 						player.getActionSender().sendMessage("You pull Lever B.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(1, true);
-						player.fadeTeleport(ROOM_5);
+						player.getQuestVars().setErnestLevers(1, true);
+						resetDoors(player);
+						player.getQuestVars().setErnestDoors(7, true);
+						//player.fadeTeleport(ROOM_5);
 						return true;
-					} else if (!player.getErnestLevers()[0] && player.getErnestLevers()[1] && player.getErnestLevers()[3]) {
+					} else if (!player.getQuestVars().getErnestLevers()[0] && player.getQuestVars().getErnestLevers()[1] && player.getQuestVars().getErnestLevers()[3]) {
 						player.getActionSender().sendMessage("You pull Lever B.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(1, false);
-						player.fadeTeleport(ROOM_1);
+						player.getQuestVars().setErnestLevers(1, false);
+						resetDoors(player);
+						player.getQuestVars().setErnestDoors(3, true);
+						player.getQuestVars().setErnestDoors(8, true);
+						player.getQuestVars().setErnestDoors(6, true);
+						
+						//player.fadeTeleport(ROOM_1);
+						assessDoorConfig(player);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever B.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(MANOR);
+						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -373,16 +437,19 @@ public class ErnestTheChicken implements Quest {
 				return false;
 			case 148: //2 C
 				if (x == LEVER_C[X] && y == LEVER_C[Y]) {
-					if (player.getErnestLevers()[5]) {
+					if (player.getQuestVars().getErnestLevers()[5]) {
 						player.getActionSender().sendMessage("You pull Lever C.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(2, true);
-						player.fadeTeleport(ROOM_1);
+						player.getQuestVars().setErnestLevers(2, true);
+						//player.fadeTeleport(ROOM_1);
+						resetDoors(player);
+						player.getQuestVars().setErnestDoors(1, true);
+						player.getQuestVars().setErnestDoors(0, true);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever C.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(MANOR);
+						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -390,16 +457,19 @@ public class ErnestTheChicken implements Quest {
 				return false;
 			case 149: //3 D
 				if (x == LEVER_D[X] && y == LEVER_D[Y]) {
-					if (player.getErnestLevers()[0] && player.getErnestLevers()[1]) {
+					if (player.getQuestVars().getErnestLevers()[0] && player.getQuestVars().getErnestLevers()[1]) {
 						player.getActionSender().sendMessage("You pull Lever D.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(3, true);
-						player.fadeTeleport(MAIN_ROOM);
+						player.getQuestVars().setErnestLevers(3, true);
+						resetDoors(player);
+						player.getQuestVars().setErnestDoors(2, true);
+						player.getQuestVars().setErnestDoors(8, true);
+						//player.fadeTeleport(MAIN_ROOM);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever D.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(MANOR);
+						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -407,22 +477,32 @@ public class ErnestTheChicken implements Quest {
 				return false;
 			case 150: //4 E
 				if (x == LEVER_E[X] && y == LEVER_E[Y]) {
-					if (player.getErnestLevers()[5] && !player.getErnestLevers()[2]) {
+					if (!player.getQuestVars().getErnestLevers()[2]) {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(ROOM_5);
-						player.setErnestLevers(4, true);
+						//player.fadeTeleport(ROOM_5);
+						player.getQuestVars().setErnestLevers(4, true);
+						resetDoors(player);
+						if (player.getQuestVars().getErnestLevers()[5]) {
+							player.getQuestVars().setErnestDoors(1, true);
+							player.getQuestVars().setErnestDoors(0, true);
+						}
 						return true;
-					} else if (player.getErnestLevers()[2]) {
+					} else if (player.getQuestVars().getErnestLevers()[2]) {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(OIL_CAN_ROOM);
-						resetLevers(player);
+						//player.fadeTeleport(OIL_CAN_ROOM);
+						resetDoors(player);
+						player.getQuestVars().setErnestDoors(5, true);
+						player.getQuestVars().setErnestDoors(1, true);
+						player.getQuestVars().setErnestDoors(8, true);
+						player.getQuestVars().setErnestDoors(4, true);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(MANOR);
+						player.getQuestVars().setErnestLevers(4, true);
+						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -430,15 +510,27 @@ public class ErnestTheChicken implements Quest {
 				return false;
 			case 151: //5 F
 				if (x == LEVER_F[X] && y == LEVER_F[Y]) {
-					if (!player.getErnestLevers()[0] && !player.getErnestLevers()[1] && player.getErnestLevers()[3]) {
+					if (!player.getQuestVars().getErnestLevers()[0] && !player.getQuestVars().getErnestLevers()[1] && player.getQuestVars().getErnestLevers()[3]) {
 						player.getActionSender().sendMessage("You pull Lever F.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.setErnestLevers(5, true);
+						player.getQuestVars().setErnestLevers(5, true);
+						return true;
+					} else if (!player.getQuestVars().getErnestLevers()[2]) {
+						player.getActionSender().sendMessage("You pull Lever F.");
+						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
+						//player.fadeTeleport(ROOM_5);
+						player.getQuestVars().setErnestLevers(5, true);
+						resetDoors(player);
+						if (player.getQuestVars().getErnestLevers()[4]) {
+							player.getQuestVars().setErnestDoors(1, true);
+							player.getQuestVars().setErnestDoors(0, true);
+						}
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever F.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						player.fadeTeleport(MANOR);
+						player.getQuestVars().setErnestLevers(5, true);
+						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}

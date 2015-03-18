@@ -3036,7 +3036,7 @@ public class WalkToActionHandler {
 		if(def.getId() == 5061 || def.getId() == 5060) {
 			return Misc.goodDistance(player.getPosition(), objectPos, 2);
 		}
-		if(def.getId() == 5003) {
+		if(def.getId() == 5003 || (def.getId() >= 137 && def.getId() <= 145)) {
 			return Misc.goodDistance(player.getPosition(), new Position(objectPos.getX(), objectPos.getY(), player.getPosition().getZ()), 1);
 		}
 		if(def.getId() == 5002) {

@@ -317,7 +317,6 @@ public class Player extends Entity {
 	private int skullIcon = -1;
 	private int serverPoints = 0;
 	private boolean[] isUsingPrayer = new boolean[24];
-	private boolean[] ernestLevers = new boolean[6];
 	private boolean hurkotsSpawned = false;
 	private int prayerDrainTimer = 6;
 	private SpellBook magicBookType = SpellBook.MODERN;
@@ -617,7 +616,7 @@ public class Player extends Entity {
                 getPrivateMessaging().refresh(false);
                 WalkInterfaces.addWalkableInterfaces(player);
                 getActionSender().sendEnergy();
-                getMusicManager().Init();
+		getMusicManager().Init();
             }
         });
     }
@@ -2545,14 +2544,6 @@ public class Player extends Entity {
 
 	public boolean[] getIsUsingPrayer() {
 		return isUsingPrayer;
-	}
-	
-	public void setErnestLevers(int slot, boolean bool) {
-		this.ernestLevers[slot] = bool;
-	}
-
-	public boolean[] getErnestLevers() {
-		return ernestLevers;
 	}
 	
 	public void setHurkotsSpawned(boolean bool) {
