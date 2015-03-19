@@ -1236,12 +1236,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.setDfsCharges(0);
 	    return;
 	}
-	for (int[] element : Pouches.POUCHES) {
-	    if (item.getId() == element[0]) {
-		Pouches.emptyEssencePouch(player, item.getId());
-		return;
-	    }
-	}
 	switch (item.getId()) {
 	    case 4006: //monkey dentures
 		player.getActionSender().sendMessage("You hear a quiet chattering coming from the dentures.");
@@ -1340,6 +1334,12 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (ApeAtoll.handleGreeGreeEquip(player, itemId)) {
 	    return;
+	}
+	for (int[] element : Pouches.POUCHES) {
+	    if (itemId== element[0]) {
+	    	Pouches.emptyEssencePouch(player, itemId);
+	    	return;
+	    }
 	}
 	if (itemId == 11664) {
 	    if (player.hasFullVoidRange() && player.getSkill().getLevel()[4] <= player.getSkill().getPlayerLevel(4)) {
