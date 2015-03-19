@@ -226,6 +226,8 @@ public abstract class BasicAttack extends AttackScript {
 				if(attackerFinal.isNpc() && ((Npc)attackerFinal).getNpcId() >= 1351 && ((Npc)attackerFinal).getNpcId() < 1357) {
 				    return 5;
 				}
+				if (attackerFinal.isNpc() && ((Npc)attackerFinal).getNpcId() == 1604)
+					return 6;
 				if (mode == AttackStyle.Mode.DRAGONFIRE)
 					return 1;
 				if (mode == AttackStyle.Mode.DRAGONFIRE_FAR)

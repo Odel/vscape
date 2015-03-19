@@ -15,6 +15,7 @@ public class ProjectileTrajectory {
 	public static ProjectileTrajectory JAD_SPELL = new ProjectileTrajectory(50, 35, 100, 26, 15);
 	public static ProjectileTrajectory JAD_RANGE = new ProjectileTrajectory(55, 45, 1000, 1000, 15);
 	public static ProjectileTrajectory FISHING_EXPLOSION = new ProjectileTrajectory(50, 6, 45, 0, 15);
+	public static ProjectileTrajectory SPECTRE_ATTACK = new ProjectileTrajectory(30, 3, 60, 35, 5);
 	// hitDelayMilli = (delay*18)+
 	// the max delay (100) takes 1800 milliseconds to fire
 	// at max slowness (100) and min distance (1) it takes 1800 milliseconds
