@@ -452,6 +452,14 @@ class Banshee < NpcCombatDef
     end
 end
 
+class AberrantSpectre < NpcCombatDef
+    def attackScripts attacker, victim
+        return [
+				BasicAttack.projectileAttack(attacker, victim, AttackType::MAGIC, AttackStyle::Mode::MAGIC, 10, 5, 1507, Graphic.new(-1, 0), Graphic.new(336, 500), 335, ProjectileTrajectory.SPECTRE_ATTACK)
+	];
+    end
+end
+
 NpcCombatDef.add([2025], Ahrims.new())
 NpcCombatDef.add([2028], Karil.new())
 NpcCombatDef.add([2746], YtHurkot.new()) #.bonusDef(1000, 1000, 1000, 1000, 600)
@@ -500,3 +508,4 @@ NpcCombatDef.add([1643], InfernalMage.new())
 NpcCombatDef.add([1633], Pyrefiend.new())
 NpcCombatDef.add([1640], Jelly.new())
 NpcCombatDef.add([1612], Banshee.new())
+NpcCombatDef.add([1604], AberrantSpectre.new())
