@@ -346,7 +346,7 @@ public class Slayer { // todo fungicide
 			return;
 		} else {
 			taskAmount--;
-			if(taskAmount%10 == 0 && player.getEquipment().getId(Constants.HANDS) >= 11118 && player.getEquipment().getId(Constants.HANDS) <= 11126) {
+			if(taskAmount > 1 && taskAmount%10 == 0 && player.getEquipment().getId(Constants.HANDS) >= 11118 && player.getEquipment().getId(Constants.HANDS) <= 11126) {
 				player.getActionSender().sendMessage("You still need to kill " + taskAmount + " monsters to complete your current Slayer assignment.");
 			}
 			player.getSkill().addExp(Skill.SLAYER, npc.getDefinition().getHitpoints());
@@ -432,7 +432,8 @@ public class Slayer { // todo fungicide
 		if (!Misc.goodDistance(player.getPosition().getX(), player.getPosition().getY(), objectX, objectY, 7))
 			return false;
 		if (spawnedSlayerNpc) {
-			player.getActionSender().sendMessage("I think i should kill Mogre if i want to try this again.");
+			//wat
+			//player.getActionSender().sendMessage("I think I should kill Mogre if I want to try this again.");
 			return false;
 		}
 		switch (objectId) {
