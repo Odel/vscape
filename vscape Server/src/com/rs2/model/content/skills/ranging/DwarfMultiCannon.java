@@ -353,7 +353,9 @@ public class DwarfMultiCannon {
 		hitDef.setDamageDelay(calculateHitDelay(getCannonPosOffset(), victim.getPosition(), CANNON_PROJECTILE));
 		Hit hit = new Hit(attacker, victim, hitDef);
 		hit.initialize();
-		player.getSkill().addExp(Skill.RANGED,  hitDef.getDamage());
+		if(hitDef.getDamage() > 0) {
+			player.getSkill().addExp(Skill.RANGED,  hitDef.getDamage());
+		}
 		setAmmo(getAmmo() - 1);
 		if(getAmmo() <= 0)
 		{
