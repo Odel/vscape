@@ -83,7 +83,7 @@ import com.rs2.util.clip.Rangable;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.TheGrandTree;
-import com.rs2.model.content.quests.impl.UndergroundPass.UndergroundPass;
+import com.rs2.model.content.quests.impl.UndergroundPass.PassObjectHandling;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -169,7 +169,7 @@ public class WalkToActionHandler {
 				Position objectPosition;
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
 				
-				if(id != 1729 && id != 2290) {
+				if(id != 1729 && id != 2290 && id != 3340) {
 				    if (objectPosition == null) {
 					return;
 				    }
@@ -216,7 +216,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				if(UndergroundPass.handleObstacleClicking(player, id, x, y)) {
+				if(PassObjectHandling.doObstacleClicking(player, id, x, y)) {
 					this.stop();
 					return;
 				}
@@ -3028,7 +3028,7 @@ public class WalkToActionHandler {
 	return false;
     }
 	private static boolean canInteractWithObject(Player player, Position objectPos, GameObjectDef def) {
-		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782 || (def.getId() >= 7272 && def.getId() <= 7287) || def.getId() == 4765 || def.getId() == 4766)
+		if(def.getId() == 2638 || def.getId() == 2142 || def.getId() == 3340 || def.getId() == 4446 || def.getId() == 4447 || def.getId() == 5015 || def.getId() == 10782 || (def.getId() >= 7272 && def.getId() <= 7287) || def.getId() == 4765 || def.getId() == 4766)
 		{
 			return true;
 		}

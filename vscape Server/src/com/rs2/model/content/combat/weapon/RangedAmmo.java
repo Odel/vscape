@@ -20,8 +20,8 @@ public enum RangedAmmo {
 
 	BRONZE_BRUTAL(15, 24, 11), IRON_BRUTAL(9, 18, 13), STEEL_BRUTAL(11, 20, 19), MITHRIL_BRUTAL(12, 21, 34), ADAMANT_BRUTAL(13, 22, 45), RUNE_BRUTAL(15, 24, 60),
 
-	BRONZE_FIRE_ARROW(17, 26, 7), IRON_FIRE_ARROW(17, 26, 10), STEEL_FIRE_ARROW(17, 26, 16), MITHRIL_FIRE_ARROW(17, 26, 22), ADAMANT_FIRE_ARROW(17, 26, 31), RUNE_FIRE_ARROW(17, 26, 49),
-
+	BRONZE_FIRE_ARROWS(17, 26, 7), IRON_FIRE_ARROWS(17, 26, 10), STEEL_FIRE_ARROWS(17, 26, 16), MITHRIL_FIRE_ARROWS(17, 26, 22), ADAMANT_FIRE_ARROWS(17, 26, 31), RUNE_FIRE_ARROWS(17, 26, 49),
+	
 	OGRE_ARROW(242, 243, 22),
 
 	BROAD_ARROW(326, 325, 28),
@@ -54,7 +54,7 @@ public enum RangedAmmo {
 	TOKTZ(442, -1, 49);
 
 	static RangedAmmo[] BOLT_AMMO = {BARBED_BOLTS, BRONZE_BOLTS, BLURITE_BOLTS, IRON_BOLTS, STEEL_BOLTS, BLACK_BOLTS, MITHRIL_BOLTS, ADAMANT_BOLTS, RUNITE_BOLTS, OPAL_BOLTS, JADE_BOLTS, PEARL_BOLTS, TOPAZ_BOLTS, SAPPHIRE_BOLTS, EMERALD_BOLTS, RUBY_BOLTS, DIAMOND_BOLTS, DRAGON_BOLTS, ONYX_BOLTS};
-	static RangedAmmo[] ARROW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW};
+	static RangedAmmo[] ARROW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW, BRONZE_FIRE_ARROWS, IRON_FIRE_ARROWS, STEEL_FIRE_ARROWS, MITHRIL_FIRE_ARROWS, ADAMANT_FIRE_ARROWS, RUNE_FIRE_ARROWS};
 	static RangedAmmo[] DARK_BOW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW};
 	static RangedAmmo[] KNIFE_AMMO = {BRONZE_KNIFE, IRON_KNIFE, STEEL_KNIFE, BLACK_KNIFE, MITHRIL_KNIFE, ADAMANT_KNIFE, RUNE_KNIFE};
 	static RangedAmmo[] DART_AMMO = {BRONZE_DART, IRON_DART, STEEL_DART, BLACK_DART, MITHRIL_DART, ADAMANT_DART, RUNE_DART, DRAGON_DART};
@@ -129,6 +129,12 @@ public enum RangedAmmo {
 		String ammoName = ItemDefinition.forId(ammoItem.getId()).getName().toLowerCase().replaceAll(" ", "_");
 		RangedAmmo[] rangedAmmos = ammoType.getRangedAmmos();
 		for (RangedAmmo ammo : rangedAmmos) {
+			if(ammoName.contains("fire")) {
+				if(ammoItem.getId() == 598 || (ammoItem.getId()&1) == 0) {
+					player.getDialogue().sendPlayerChat("These arrows are useless to fire without actually", "being on fire themselves.");
+					return null;
+				}
+			}
 			if (ammoName.contains(ammo.name().toLowerCase())) {
 				if (equipmentSlot != Constants.WEAPON) {
 					Item weaponItem = player.getEquipment().getItemContainer().get(Constants.WEAPON);

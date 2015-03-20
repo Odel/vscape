@@ -1,9 +1,16 @@
 package com.rs2.model.content.quests.impl.UndergroundPass;
 
+import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.ObjectLoader;
+import com.rs2.model.Graphic;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.combat.weapon.RangedAmmo;
+import com.rs2.model.content.combat.weapon.RangedAmmoType;
+import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.quests.QuestHandler;
@@ -12,6 +19,7 @@ import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -19,6 +27,8 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
+import com.rs2.util.clip.ClippedPathFinder;
+import static org.jruby.ext.bigdecimal.RubyBigDecimal.mode;
 
 public class UndergroundPass implements Quest {
 
@@ -76,6 +86,7 @@ public class UndergroundPass implements Quest {
 	//Objects
 	public static final int PASS_ENTRANCE = 3213;
 	public static final int PASS_EXIT = 3214;
+	public static final int GUIDE_ROPE = 3340;
 
 	private int reward[][] = { //{itemId, count},
 	};
@@ -225,6 +236,17 @@ public class UndergroundPass implements Quest {
 	}
 
 	public boolean doItemOnObject(final Player player, int object, int item) {
+		switch(object) {
+			case 2275: //rock swing
+			case 2276:
+				if(item == 954) { //rope
+					player.getUpdateFlags().sendAnimation(775);
+					player.getActionSender().sendMessage("You tie your rope to the rock...");
+					new GameObject(2274, 2460, 9699, 0, 3, 10, -1, 6, false);
+					return true;
+				}
+			return false;
+		}
 		return false;
 	}
 
@@ -236,42 +258,26 @@ public class UndergroundPass implements Quest {
 		return false;
 	}
 	
-	private static void handleObstacleFailure(final Player player, final int object, final int x, final int y) { 
-		switch(object) {
-			case 3309: //rockslide
-				player.getUpdateFlags().sendAnimation(846);
-				player.hit(Misc.random(3), HitType.NORMAL);
-				return;
-		}
-	}
-	
-	public static boolean handleObstacleClicking(final Player player, final int object, final int x, final int y) {
-		int level = player.getSkill().getPlayerLevel(Skill.AGILITY);
-		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
-		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
-		switch(object) {
-			case 3309: //rockslide
-				if(pY > 9700) {
-					int levelReq = level - 90;
-					if(SkillHandler.skillCheck(level, levelReq < 1 ? 1 : levelReq, 0)) {
-						if(o != null) {
-							if(o.getRotation() == 1 || o.getRotation() == 3) {
-								Agility.climbOver(player, pX > x ? x - 1 : x + 1, y, 1, 0);
-							} else {
-								Agility.climbOver(player, x, pY > y ? y - 1 : y + 1, 1, 0);
-							}
-						}
-					} else {
-						handleObstacleFailure(player, object, x, y);
-					}
+	public boolean doObjectClicking(final Player player, int object, int x, int y) {
+		switch (object) {
+			case 3241: //lever
+				if (x == 2436 && y == 9716) {
+					player.setStopPacket(true);
+					player.getUpdateFlags().sendAnimation(832);
+					player.getActionSender().sendMessage("The bridge falls.");
+					player.getActionSender().sendObject(3240, 2443, 9716, 0, 3, 10);
+					ClippedPathFinder.getPathFinder().findRoute(player, 2442, 9716, true, 0, 0);
+					PassObjectHandling.crossOverBridge(player);
 					return true;
 				}
 				return false;
-		}
-		return false;
-	}
-	public boolean doObjectClicking(final Player player, int object, int x, int y) {
-		switch (object) {
+			case GUIDE_ROPE:
+				if (player.getPosition().getY() < 9718) {
+					player.getActionSender().sendMessage("You can't get a clear shot from here.");
+				} else {
+					PassObjectHandling.shootBridgeRope(player, x, y);
+				}
+				return true;
 			case 3295:
 				if(x == 2480 && y == 9721) {
 					player.getActionSender().sendInterface(3023);
