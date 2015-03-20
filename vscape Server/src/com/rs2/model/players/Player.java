@@ -693,8 +693,8 @@ public class Player extends Entity {
             b.stop();
             b = Benchmarks.getBenchmark("cannonUnregister");
             b.start();
-			if (getMultiCannon() != null && getMultiCannon().hasCannon()) {
-				getMultiCannon().pickupCannon();
+			if (getMultiCannon().hasCannon()) {
+				getMultiCannon().pickupCannon(true);
 			}
             b.stop();
             b = Benchmarks.getBenchmark("unlockMovement");

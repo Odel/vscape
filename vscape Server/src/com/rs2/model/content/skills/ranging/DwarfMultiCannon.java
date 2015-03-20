@@ -23,19 +23,26 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class DwarfMultiCannon {
-
-	private final int BASE_ITEM = 6;
-	private final int CANNON_BALL = 2;
-	private final ProjectileDef CANNON_PROJECTILE = new ProjectileDef(53, ProjectileTrajectory.DART);
-	private final int MAX_DAMAGE = 30;
-	private final int MAX_RANGE = 5;
-	private final int MIN_BUILD_DISTANCE = 10;
-    
-    private final static int[] IGNORE = {
-    	1266,
-    	1268
-    };
 	
+	public class Cannon {
+		public long owner;
+		public GameObject cannonObject;
+		
+		public Cannon(long owner, GameObject cannonObject)
+		{
+			this.owner = owner;
+			this.cannonObject = cannonObject;
+		}
+	}
+
+	private final static int BASE_ITEM = 6;
+	private final static int CANNON_BALL = 2;
+	private final static ProjectileDef CANNON_PROJECTILE = new ProjectileDef(53, ProjectileTrajectory.DART);
+	private final static int MAX_DAMAGE = 30;
+	private final static int MAX_RANGE = 5;
+	private final static int MIN_BUILD_DISTANCE = 10;
+    private final static int[] IGNORE_NPC = { 1266, 1268 };
+
 	private Player player;
 
 	public DwarfMultiCannon(Player player) {
@@ -64,15 +71,15 @@ public class DwarfMultiCannon {
 			return;
 		}
 		
-		final Position pos = player.getPosition();
-		if(!canBuild(pos))
+		final Position setupPos = player.getPosition().clone();
+		if(!canBuild(setupPos))
 		{
 			return;
 		}
 		player.setStopPacket(true);
 		player.getMovementHandler().reset();
 		setHasCannon(true);
-		setCannonPos(new Position(pos.getX(),pos.getY(),pos.getZ()));
+		setCannonPos(new Position(setupPos.getX(),setupPos.getY(),setupPos.getZ()));
 		setInMulti(player.inMulti());
 		player.getUpdateFlags().sendFaceToDirection(getCannonPosOffset());
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -89,27 +96,27 @@ public class DwarfMultiCannon {
 				    case 1:
 				    	inv.removeItem(new Item(6,1));
 						SetCannonObject(new GameObject(7, cannonPos.getX(), cannonPos.getY(), cannonPos.getZ(), -1, 10, -1, 99999));
-						World.registerCannon(getCannonObject());
+						World.registerCannon(player.getUsernameAsLong(), getCannonObject());
 					break;
 				    case 2:
 				    	if(isCannonObj(cannonObj)){
 				    		inv.removeItem(new Item(8,1));
 				    		SetCannonObject(new GameObject(8, cannonPos.getX(), cannonPos.getY(), cannonPos.getZ(), -1, 10, -1, 99999));
-							World.registerCannon(getCannonObject());
+							World.registerCannon(player.getUsernameAsLong(), getCannonObject());
 				    	}
 					break;
 				    case 3:
 				    	if(isCannonObj(cannonObj)){
 				    		inv.removeItem(new Item(10,1));
 				    		SetCannonObject(new GameObject(9, cannonPos.getX(), cannonPos.getY(), cannonPos.getZ(), -1, 10, -1, 99999));
-							World.registerCannon(getCannonObject());
+							World.registerCannon(player.getUsernameAsLong(), getCannonObject());
 				    	}
 					break;
 				    case 4:
 				    	if(isCannonObj(cannonObj)){
 				    		inv.removeItem(new Item(12,1));
 				    		SetCannonObject(new GameObject(6, cannonPos.getX(), cannonPos.getY(), cannonPos.getZ(), -1, 10, -1, 99999));
-							World.registerCannon(getCannonObject());
+							World.registerCannon(player.getUsernameAsLong(), getCannonObject());
 							processCannonLife();
 				    	}
 				    	container.stop();
@@ -125,53 +132,57 @@ public class DwarfMultiCannon {
 		}, 2);
 	}
 	
-	public void pickupCannon(int x, int y, int z)
+	public void pickupCannon(int x, int y, int z, boolean logout)
 	{
 		if(!checkCannonOwner(x, y, z)){
 			return;
 		}
 		switch (getCannonStage()) {
 			case 1:
-			    if(player.getInventory().canAddItem(new Item(6,1))) {
-				player.getInventory().addItem(new Item(6,1));
+				if(player.getInventory().getItemContainer().emptySlots() >= 1) {
+			    	player.getInventory().addItemOrBank(new Item(6,1));
 			    } else {
-				player.getActionSender().sendMessage("You do not have room in your inventory.");
-				return;
+			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
+			    	if(!logout)
+			    		return;
 			    }
 				break;
 			case 2:
 			    if(player.getInventory().getItemContainer().emptySlots() >= 2) {
-				player.getInventory().addItemOrBank(new Item(6,1));
-				player.getInventory().addItemOrBank(new Item(8,1));
+			    	player.getInventory().addItemOrBank(new Item(6,1));
+					player.getInventory().addItemOrBank(new Item(8,1));
 			    } else {
-				player.getActionSender().sendMessage("You do not have room in your inventory.");
-				return;
+			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
+			    	if(!logout)
+			    		return;
 			    }
 				break;
 			case 3:
 			    if(player.getInventory().getItemContainer().emptySlots() >= 3) {
-				player.getInventory().addItemOrBank(new Item(6,1));
-				player.getInventory().addItemOrBank(new Item(8,1));
-				player.getInventory().addItemOrBank(new Item(10,1));
+			    	player.getInventory().addItemOrBank(new Item(6,1));
+					player.getInventory().addItemOrBank(new Item(8,1));
+					player.getInventory().addItemOrBank(new Item(10,1));
 			    } else {
-				player.getActionSender().sendMessage("You do not have room in your inventory.");
-				return;
+			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
+			    	if(!logout)
+			    		return;
 			    }
 				break;
 			case 4:
 			    if(player.getInventory().getItemContainer().emptySlots() >= 4) {
-				player.getInventory().addItemOrBank(new Item(6,1));
-				player.getInventory().addItemOrBank(new Item(8,1));
-				player.getInventory().addItemOrBank(new Item(10,1));
-				player.getInventory().addItemOrBank(new Item(12,1));
+					player.getInventory().addItemOrBank(new Item(6,1));
+					player.getInventory().addItemOrBank(new Item(8,1));
+					player.getInventory().addItemOrBank(new Item(10,1));
+					player.getInventory().addItemOrBank(new Item(12,1));
 			    } else {
-				player.getActionSender().sendMessage("You do not have room in your inventory.");
-				return;
+			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
+			    	if(!logout)
+			    		return;
 			    }
 				break;
 		}
 		if(getAmmo() > 0){
-			player.getInventory().addItemOrDrop(new Item(CANNON_BALL, getAmmo()));
+			player.getInventory().addItemOrBank(new Item(CANNON_BALL, getAmmo()));
 		}
 		player.getUpdateFlags().sendAnimation(827);
 		removeCannonObj(getCannonObject());
@@ -186,16 +197,16 @@ public class DwarfMultiCannon {
 		currentLife = 0;
 	}
 	
-	public void pickupCannon()
+	public void pickupCannon(boolean logout)
 	{
-		pickupCannon(getCannonPos().getX(), getCannonPos().getY(), getCannonPos().getZ());
+		pickupCannon(getCannonPos().getX(), getCannonPos().getY(), getCannonPos().getZ(), logout);
 	}
 	
 	private void removeCannonObj(GameObject cannonObj)
 	{
 		if(isCannonObj(cannonObj)) {
 			if (getCannonObject() == cannonObj){
-				World.unregisterCannon(getCannonObject());
+				World.unregisterCannon(player.getUsernameAsLong(), getCannonObject());
 				ObjectHandler.getInstance().removeObject(cannonObj.getDef().getPosition().getX(), cannonObj.getDef().getPosition().getY(), cannonObj.getDef().getPosition().getZ(), cannonObj.getDef().getType());
 			}
 		}
@@ -388,7 +399,7 @@ public class DwarfMultiCannon {
 			if(npc.getDefinition() == null)
 				continue;
 			boolean IgnoredNpc = false;
-			for (int id : IGNORE){
+			for (int id : IGNORE_NPC){
 				if(id == npc.getDefinition().getId()){
 					IgnoredNpc = true;
 					break;
@@ -568,7 +579,7 @@ public class DwarfMultiCannon {
 			case 7:
 			case 8:
 			case 9:
-				pickupCannon(x, y, z);
+				pickupCannon(x, y, z, false);
 			return true;
 			case 6:
 				processCannon(x, y, z);
@@ -582,7 +593,7 @@ public class DwarfMultiCannon {
 		switch(object)
 		{
 			case 6:
-				pickupCannon(x, y, z);
+				pickupCannon(x, y, z, false);
 			return true;
 		}
 		return false;
