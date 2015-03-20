@@ -49,7 +49,7 @@ public class DoubleDoors {
 		if (!objectName.contains("fence") && !objectName.contains("gate") && !objectName.contains("door") || objectName.contains("trapdoor") || objectName.contains("tree")) {
 			return false;
 		}
-		if (id == 3507 || id == 3506 || id == 2882 || id == 2883 || id == 1589 || id == 1590 || id == 190 || id == 1600 || id == 1601) {
+		if ( id == 10527 || id == 10529 || id == 3507 || id == 3506 || id == 2882 || id == 2883 || id == 1589 || id == 1590 || id == 190 || id == 1600 || id == 1601) {
 			return false;
 		}
 		if((id == 2307 || id == 2308) && x >= 2997 && x <= 2998 && y == 3931)

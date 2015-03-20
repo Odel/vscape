@@ -1812,6 +1812,11 @@ public class WalkToActionHandler {
 				case 273:
 					Ladders.checkClimbLadder(player, "down");
 					break;
+				case 10527:
+				case 10529:
+					player.getActionSender().walkThroughDoubleDoor(10527, 10529, 3426, 3555, 3427, 3555, 1);
+					player.getActionSender().walkTo(0, player.getPosition().getY() < 3556 ? 1 : -1, true);
+					break;
 				default:
 					player.getActionSender().sendMessage("Nothing interesting happens.");
 					break;
