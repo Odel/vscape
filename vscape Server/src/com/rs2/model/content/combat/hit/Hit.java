@@ -912,23 +912,31 @@ public class Hit {
         if (getAttacker().isNpc() && getVictim().isPlayer()) { // slayer npc effects
             if (!((Player) getVictim()).getSlayer().hasSlayerRequirement((Npc) getAttacker())) {
                 String name = ((Npc) getAttacker()).getDefinition().getName().toLowerCase();
-                if (name.equalsIgnoreCase("banshee")) {
+                hitDef.setUnblockable(true);          
+                switch(name){
+                case "banshee": 
                 	damage = 8;
-                	hitDef.addEffects(new Effect[]{new StatEffect(Skill.ATTACK, 1), new StatEffect(Skill.STRENGTH, 1), new StatEffect(Skill.DEFENCE, 1), new StatEffect(Skill.RANGED, 1), new StatEffect(Skill.MAGIC, 1)});
-                } else if (name.equalsIgnoreCase("cockatrice")) {
-                	damage = 11;
-                	hitDef.addEffects(new Effect[]{new StatEffect(Skill.ATTACK, 3), new StatEffect(Skill.STRENGTH, 3), new StatEffect(Skill.DEFENCE, 3), new StatEffect(Skill.RANGED, 3), new StatEffect(Skill.MAGIC, 3), new StatEffect(Skill.AGILITY, 3)});
-                } else if (name.equalsIgnoreCase("basilik")) {
-                	damage = 12;
-                	hitDef.addEffects(new Effect[]{new StatEffect(Skill.ATTACK, 3), new StatEffect(Skill.STRENGTH, 3), new StatEffect(Skill.DEFENCE, 3), new StatEffect(Skill.RANGED, 3), new StatEffect(Skill.MAGIC, 3)});
-                } else if (name.equalsIgnoreCase("wall beast")) {
-                	damage = 18;
+                	statLowering(-0.1, -0.2);
+                	break;
+            	case "cockatrice": 
+            		damage = 11;
+                	statLowering(-0.5, -0.75);
+                	break;
+            	case "basilisk":
+            		damage = 12;
+                	statLowering(-0.5, -0.75);
+                	break;
+            	case "wall beast": 
+            		damage = 18;
                 	hitDef.addEffect(new StunEffect(5)).setVictimAnimation(734);
-                } else if (name.equalsIgnoreCase("aberrant spectre")) {
-                	damage = 14;
-                	hitDef.addEffects(new Effect[]{new StatEffect(Skill.ATTACK, 5), new StatEffect(Skill.STRENGTH, 5), new StatEffect(Skill.DEFENCE, 5), new StatEffect(Skill.RANGED, 5), new StatEffect(Skill.MAGIC, 5)});
-                } else if (name.equalsIgnoreCase("dust devil")) {
-                	damage = 14;
+                	break;
+            	case "aberrant spectre":
+            		damage = 14;
+                	statLowering(-0.4, -0.8);
+                	break;
+            	case "dust devil":
+            		damage = 14;
+            		break;
                 }
             }
         }
@@ -988,5 +996,13 @@ public class Hit {
             }
         }
     }
-
+    private void statLowering(double statLow, double statHigh) {
+    	Player o = (Player) getVictim();
+    	int[] loweredStatHigh = {Skill.ATTACK, Skill.STRENGTH, Skill.RANGED, Skill.MAGIC};
+    	int[] loweredStatLow = {Skill.AGILITY, Skill.PRAYER, Skill.DEFENCE};
+    	for (int i = 0; i < loweredStatLow.length; i++)
+    		o.getActionSender().statEdit(loweredStatLow[i], (int) ((o.getSkill().getLevel()[loweredStatLow[i]]) * statLow), false);
+    	for (int i = 0; i < loweredStatHigh.length; i++)
+    		o.getActionSender().statEdit(loweredStatHigh[i], (int) ((o.getSkill().getLevel()[loweredStatHigh[i]]) * statHigh), false);
+    }
 }
