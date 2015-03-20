@@ -142,9 +142,13 @@ public class DwarfMultiCannon {
 				if(player.getInventory().getItemContainer().emptySlots() >= 1) {
 			    	player.getInventory().addItemOrBank(new Item(6,1));
 			    } else {
-			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    	if(!logout)
+			    	{
+				    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    		return;
+			    	}else{
+						player.getInventory().addItemOrBank(new Item(6,1));
+			    	}
 			    }
 				break;
 			case 2:
@@ -152,9 +156,14 @@ public class DwarfMultiCannon {
 			    	player.getInventory().addItemOrBank(new Item(6,1));
 					player.getInventory().addItemOrBank(new Item(8,1));
 			    } else {
-			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    	if(!logout)
+			    	{
+				    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    		return;
+			    	}else{
+						player.getInventory().addItemOrBank(new Item(6,1));
+						player.getInventory().addItemOrBank(new Item(8,1));
+			    	}
 			    }
 				break;
 			case 3:
@@ -162,10 +171,16 @@ public class DwarfMultiCannon {
 			    	player.getInventory().addItemOrBank(new Item(6,1));
 					player.getInventory().addItemOrBank(new Item(8,1));
 					player.getInventory().addItemOrBank(new Item(10,1));
-			    } else {
-			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
+			    } else {			    	
 			    	if(!logout)
+			    	{
+				    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    		return;
+			    	}else{
+						player.getInventory().addItemOrBank(new Item(6,1));
+						player.getInventory().addItemOrBank(new Item(8,1));
+						player.getInventory().addItemOrBank(new Item(10,1));
+			    	}
 			    }
 				break;
 			case 4:
@@ -175,9 +190,16 @@ public class DwarfMultiCannon {
 					player.getInventory().addItemOrBank(new Item(10,1));
 					player.getInventory().addItemOrBank(new Item(12,1));
 			    } else {
-			    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    	if(!logout)
+			    	{
+				    	player.getActionSender().sendMessage("You do not have room in your inventory.");
 			    		return;
+			    	}else{
+						player.getInventory().addItemOrBank(new Item(6,1));
+						player.getInventory().addItemOrBank(new Item(8,1));
+						player.getInventory().addItemOrBank(new Item(10,1));
+						player.getInventory().addItemOrBank(new Item(12,1));
+			    	}
 			    }
 				break;
 		}
