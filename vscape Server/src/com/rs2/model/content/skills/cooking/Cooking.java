@@ -181,13 +181,13 @@ public class Cooking {
 				player.setStatedInterface("cookFire");
 				firePosition = new Position(objectX,  objectY, player.getPosition().getZ());
 				player.setTempInteger(item);
-				if (player.getNewComersSide().isInTutorialIslandStage() || player.getInventory().getItemAmount(item) == 1) {
+				if (player.getNewComersSide().isInTutorialIslandStage() || (player.getInventory().getItemAmount(item) == 1 && item != 2132)) {
 					handleCookingTick(player, 1);
 					return true;
 				}
 				Item itemDef = new Item(item);
 				if(item == 2132 || item == 2136) {
-				    Menus.display2Item(player, item == 2132 ? 2132 : 2136, 9436, item == 2132 ? "Raw Beef" : "Bear Meat", "Sinew");
+				    Menus.display2Item(player, item == 2132 ? 2132 : 2136, 9436, item == 2132 ? "Raw Beef" : "Raw Bear Meat", "Sinew");
 				} else {
 				    player.getActionSender().sendItemOnInterface(13716, 200, item);
 				    player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);
@@ -199,14 +199,14 @@ public class Cooking {
 				player.setNewSkillTask();
 				player.setStatedInterface("cookRange");
 				player.setTempInteger(item);
-				if (player.getNewComersSide().isInTutorialIslandStage() || player.getInventory().getItemAmount(item) == 1) {
+				if (player.getNewComersSide().isInTutorialIslandStage() || (player.getInventory().getItemAmount(item) == 1 && item != 2132)) {
 					handleCookingTick(player, 1);
 					player.getUpdateFlags().sendFaceToDirection(new Position(player.getPosition().getX(), player.getPosition().getY() - 1));
 					return true;
 				}
 				Item itemDef = new Item(item);
 				if(item == 2132 || item == 2136) {
-				    Menus.display2Item(player, 2142, 9436, "Cooked Meat", "Sinew");
+				    Menus.display2Item(player, item == 2132 ? 2132 : 2136, 9436, item == 2132 ? "Raw Beef" : "Raw Bear Meat", "Sinew");
 				} else {
 				    player.getActionSender().sendItemOnInterface(13716, 200, item);
 				    player.getActionSender().sendString("" + itemDef.getDefinition().getName() + "", 13717);

@@ -128,7 +128,7 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 			    player.getDialogue().sendPlayerChat(amount + " please.", Dialogues.HAPPY);
 			}
 			return;
-		} else if (player.getEnterXInterfaceId() == 53150 || player.getEnterXInterfaceId() == 34167) {
+		} else if ((player.getEnterXInterfaceId() == 53150 || player.getEnterXInterfaceId() == 34167) && (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange"))) {
 			Cooking.handleCookingTick(player, amount);
 			return;
 		} else if (player.getEnterXInterfaceId() == 34171 && (player.getStatedInterface().equals("cookFire") || player.getStatedInterface().equals("cookRange"))) {
