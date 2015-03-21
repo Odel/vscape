@@ -3333,7 +3333,9 @@ public class Player extends Entity {
 		for (Item item : items) {
 			if (item == null)
 				continue;
-			if (!item.getDefinition().isUntradable())
+			if (Degradeables.getDegradeableItem(item) != null)
+				allItems.add(new Item(item.getId()));
+			else if (!item.getDefinition().isUntradable())
 				allItems.add(new Item(item.getId()));
 		}
 		ArrayList<Item> keptItems = new ArrayList<Item>();
@@ -3428,7 +3430,7 @@ public class Player extends Entity {
 					this.setLostGodBook(dropped.getId());
 				}
 				if (Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
-					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), this, killer, getDeathPosition()));
 					setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
 				} else if (!dropped.getDefinition().isUntradable()) {
 					GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());
