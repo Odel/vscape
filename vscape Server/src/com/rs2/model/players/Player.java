@@ -146,6 +146,7 @@ import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
+import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
@@ -1206,6 +1207,13 @@ public class Player extends Entity {
 		}
 		if(this.Area(2504, 2534, 9732, 9782, 0)) {
 			PlagueCity.assessPipeGrill(this);
+		}
+		if(getQuestVars().getGridStart().getX() == 0 && getQuestVars().getGridStart().getY() == 0
+			&& getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
+			GridMazeHandler.generatePositions(this);
+		}
+		if(this.Area(2465, 2482, 9671, 9688)) {
+			GridMazeHandler.startGridCheck(this);
 		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {

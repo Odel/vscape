@@ -11,6 +11,7 @@ import com.rs2.model.content.minigames.magetrainingarena.*;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.DeathPlateau.BurthorpeCampHandler;
+import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.fishing.FishingSpots;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
@@ -227,6 +228,9 @@ public class Server implements Runnable {
 			 EnchantingChamber.loadEnchantingChamber();
 			 CreatureGraveyard.loadCreatureGraveyard();
 			 TelekineticTheatre.loadTelekineticTheatre();
+			 
+			 //Underground pass shite
+			 GridMazeHandler.initSquares();
 			// spawning world fishing spots
 			FishingSpots.spawnFishingSpots();
 			

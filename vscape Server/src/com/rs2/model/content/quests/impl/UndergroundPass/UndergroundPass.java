@@ -240,9 +240,7 @@ public class UndergroundPass implements Quest {
 			case 2275: //rock swing
 			case 2276:
 				if(item == 954) { //rope
-					player.getUpdateFlags().sendAnimation(775);
-					player.getActionSender().sendMessage("You tie your rope to the rock...");
-					new GameObject(2274, 2460, 9699, 0, 3, 10, -1, 6, false);
+					PassObjectHandling.handleRopeSwing(player, object);
 					return true;
 				}
 			return false;
@@ -260,14 +258,12 @@ public class UndergroundPass implements Quest {
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case 2274: //rope swing
+				PassObjectHandling.handleRopeSwing(player, object);
+				return true;
 			case 3241: //lever
 				if (x == 2436 && y == 9716) {
-					player.setStopPacket(true);
-					player.getUpdateFlags().sendAnimation(832);
-					player.getActionSender().sendMessage("The bridge falls.");
-					player.getActionSender().sendObject(3240, 2443, 9716, 0, 3, 10);
-					ClippedPathFinder.getPathFinder().findRoute(player, 2442, 9716, true, 0, 0);
-					PassObjectHandling.crossOverBridge(player);
+					PassObjectHandling.returnOverBridge(player);
 					return true;
 				}
 				return false;

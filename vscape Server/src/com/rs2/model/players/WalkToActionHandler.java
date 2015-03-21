@@ -133,6 +133,18 @@ public class WalkToActionHandler {
 			break;
 		}
 	}
+	
+	private static boolean objectExceptions(final int id, final int x, final int y) {
+		switch(id) {
+			case 1729:
+			case 2290:
+			case 3340:
+				return true;
+			case 2274:
+				return x == 2461 && y == 9692;
+		}
+		return false;
+	}
 
 	public static void doObjectFirstClick(final Player player) {
 		final int id = player.getClickId();
@@ -169,12 +181,12 @@ public class WalkToActionHandler {
 				Position objectPosition;
 				objectPosition = Misc.goodDistanceObject(def.getPosition().getX(), def.getPosition().getY(), player.getPosition().getX(), player.getPosition().getY(), object.getSizeX(def.getFace()), object.getSizeY(def.getFace()), z);
 				
-				if(id != 1729 && id != 2290 && id != 3340) {
+				if(!objectExceptions(id, x, y)) {
 				    if (objectPosition == null) {
 					return;
 				    }
 				}
-				if(id != 1729 && id != 2290) {
+				if(!objectExceptions(id, x, y)) {
 				    if (!canInteractWithObject(player, objectPosition, def)) {
 					stop();
 					return;
