@@ -231,7 +231,7 @@ public abstract class BasicAttack extends AttackScript {
 				if (mode == AttackStyle.Mode.DRAGONFIRE)
 					return 1;
 				if (mode == AttackStyle.Mode.DRAGONFIRE_FAR)
-					return 3;
+					return 10;
 				if (attackType == AttackType.MAGIC || mode == AttackStyle.Mode.MELEE_FAR)
 					return 10;
 				return mode == AttackStyle.Mode.LONGRANGE ? 10 : 8;
