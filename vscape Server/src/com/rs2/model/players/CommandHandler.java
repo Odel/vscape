@@ -355,33 +355,14 @@ public class CommandHandler {
 		    sender.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + ".", true); //Minus one for the easter event's class
 		}
 		else if (keyword.equals("meme")) {
+			String[] memeSayings = {"Dank memes", "Latent is a gril", "Ay Lamo", "tfw no gf", "Panic?", "Nothing interesting happens.", "The world is so vast.", "How Can Mirrors Be Real If Our Eyes Aren't Real?", "All we are is leaves in the wind.", "Ribbet", "Coolcucumber is a gril", ":v)", "I'd give anything to be in Sandy Marsh right now...", ":^O", "Where is Bigguy?", "Make x when?", "Griefers! Griefers everywhere!", "Xiah is a gril", "Selling weeds 420 ea", ":^)"};
 			sender.transformNpc = 159;
 			sender.setAppearanceUpdateRequired(true);
 			NpcDefinition def = NpcDefinition.forId(159);
 			sender.setStandAnim(def.getStandAnim());
                         sender.setWalkAnim(def.getWalkAnim());
 			sender.setRunAnim(def.getWalkAnim());
-			switch(Misc.random(5)) {
-			case 0:
-				sender.getUpdateFlags().setForceChatMessage("Dank memes");
-				break;
-			case 1:
-				sender.getUpdateFlags().setForceChatMessage("Latent is a gril");
-				break;
-			case 2:
-				sender.getUpdateFlags().setForceChatMessage("Ay Lamo");
-                                break;
-			case 3:
-				sender.getUpdateFlags().setForceChatMessage("tfw no gf");
-                                break;
-			case 4:
-				sender.getUpdateFlags().setForceChatMessage("Panic?");
-                                break;
-			case 5:
-				sender.getUpdateFlags().setForceChatMessage("Nothing interesing happens.");
-                                break;
-
-			}
+			sender.getUpdateFlags().setForceChatMessage(memeSayings[Misc.randomMinusOne(memeSayings.length)]);
 		}		
 	}
 	
