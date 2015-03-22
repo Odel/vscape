@@ -555,7 +555,10 @@
     "button": 16220
   },
   {
-    "regions": [],
+    "regions": [
+      9623,
+      9879
+    ],
     "name": "Cursed",
     "song": 59,
     "frame": 677,
@@ -863,7 +866,8 @@
   },
   {
     "regions": [
-      9777
+      9777,
+      9878
     ],
     "name": "Expecting",
     "song": 41,
@@ -2953,7 +2957,10 @@
     "button": 17063
   },
   {
-    "regions": [],
+    "regions": [
+      9621,
+      9622
+    ],
     "name": "Underground Pass",
     "song": 323,
     "frame": 7382,
@@ -3089,7 +3096,9 @@
     "button": 52042
   },
   {
-    "regions": [],
+    "regions": [
+      9366
+    ],
     "name": "Well of Voyage",
     "song": 271,
     "frame": 8566,
