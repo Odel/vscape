@@ -68,7 +68,7 @@ public class Constants {
 	public static final int MAX_NPC_ID = 6391;
 	public static final int NPC_WALK_DISTANCE = 2;
 	public static final int NPC_FOLLOW_DISTANCE = 10;
-	public static final int MAX_ITEMS = 11790;
+	public static final int MAX_ITEMS = 11792;
 	public static final int MAX_ITEM_COUNT = Integer.MAX_VALUE;
 	public static final int MAX_PLAYERS_AMOUNT = 1000;
 	public static final int LOGIN_RESPONSE_OK = 2;
