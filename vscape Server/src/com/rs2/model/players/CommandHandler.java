@@ -354,6 +354,35 @@ public class CommandHandler {
 		    }
 		    sender.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + ".", true); //Minus one for the easter event's class
 		}
+		else if (keyword.equals("meme")) {
+			sender.transformNpc = 159;
+			sender.setAppearanceUpdateRequired(true);
+			NpcDefinition def = NpcDefinition.forId(159);
+			sender.setStandAnim(def.getStandAnim());
+                        sender.setWalkAnim(def.getWalkAnim());
+			sender.setRunAnim(def.getWalkAnim());
+			switch(Misc.random(5)) {
+			case 0:
+				sender.getUpdateFlags().setForceChatMessage("Dank memes");
+				break;
+			case 1:
+				sender.getUpdateFlags().setForceChatMessage("Latent is a gril");
+				break;
+			case 2:
+				sender.getUpdateFlags().setForceChatMessage("Ay Lamo");
+                                break;
+			case 3:
+				sender.getUpdateFlags().setForceChatMessage("tfw no gf");
+                                break;
+			case 4:
+				sender.getUpdateFlags().setForceChatMessage("Panic?");
+                                break;
+			case 5:
+				sender.getUpdateFlags().setForceChatMessage("Nothing interesing happens.");
+                                break;
+
+			}
+		}		
 	}
 	
 	public static void modCommands(final Player sender, String keyword, String[] args, String fullString) {
