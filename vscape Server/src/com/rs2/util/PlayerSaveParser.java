@@ -192,6 +192,8 @@ public class PlayerSaveParser {
 						player.setReceivedMasks(itemData.get("recieveMasks").getAsBoolean());
 					if(itemData.get("hasZombieHead") != null)
 						player.setHasZombieHead(itemData.get("hasZombieHead").getAsBoolean());
+					if(itemData.get("receivedDank") != null)
+						player.setReceivedDank(itemData.get("receivedDank").getAsBoolean());
     			}
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){

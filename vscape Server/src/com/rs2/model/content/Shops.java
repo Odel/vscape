@@ -240,7 +240,7 @@ public class Shops {
 			case 2344:
 				return 74;
 	
-			case 305:
+			case 600:
 				return 75;
 	
 			case 2157:

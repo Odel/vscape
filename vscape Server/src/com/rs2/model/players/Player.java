@@ -147,6 +147,7 @@ import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
 import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
+import com.rs2.model.content.quests.impl.UndergroundPass.PassObjectHandling;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
@@ -446,6 +447,7 @@ public class Player extends Entity {
     private int dfsCharges = 0;
     private boolean receivedMasks = false;
     private boolean hasZombieHead = false;
+    private boolean receivedDank = false;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -1214,6 +1216,9 @@ public class Player extends Entity {
 		}
 		if(this.Area(2465, 2482, 9671, 9688)) {
 			GridMazeHandler.startGridCheck(this);
+		}
+		if(this.Area(2378, 2465, 9665, 9700)) {
+			PassObjectHandling.startTrapCycle(this);
 		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
@@ -4534,6 +4539,14 @@ public class Player extends Entity {
 	public boolean getHasZombieHead()
 	{
 		return hasZombieHead;
+	}
+	
+	public void setReceivedDank(boolean set) {
+		this.receivedDank = set;
+	}
+	
+	public boolean hasReceivedDank() {
+		return this.receivedDank;
 	}
 	
 	/**

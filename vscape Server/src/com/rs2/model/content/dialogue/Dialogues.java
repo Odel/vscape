@@ -270,6 +270,42 @@ public class Dialogues {
 				return true;
 			case 159: //gnome child
 				switch(player.getDialogue().getChatId()) {
+					case 1:
+						player.getDialogue().sendPlayerChat("Hey little fella, what's the latest?");
+						return true;
+					case 2:
+						if(!player.hasReceivedDank()) {
+							player.getDialogue().sendNpcChat("How Can Paper Be Real If Trees Aren't Real?");
+						} else {
+							player.getDialogue().sendNpcChat("Aquatic Amphibians!", HAPPY);
+							player.getDialogue().setNextChatId(6);
+						}
+						return true;
+					case 3:
+						player.getDialogue().sendGiveItemNpc("The gnome child hands you a strange paper mask.", new Item(-1), new Item(11791));
+						player.getInventory().addItemOrDrop(new Item(11791));
+						player.setReceivedDank(true);
+						return true;
+					case 4:
+						player.getDialogue().sendPlayerChat("Er, thank you?");
+						return true;
+					case 5:
+						player.getDialogue().sendNpcChat("With great power comes great responsibility.", HAPPY);
+						player.getDialogue().endDialogue();
+						player.setMusicVolume(0);
+						player.getActionSender().sendConfig(168, player.getMusicVolume());
+						if (player.getMusicAuto()) {
+							player.setMusicAuto(false);
+							player.getActionSender().sendConfig(18, player.getMusicAuto() ? 1 : 0);
+						}
+						player.getActionSender().sendSong(646);
+						return true;
+					case 6:
+						player.getDialogue().sendGiveItemNpc("The gnome child hands you a burger?", new Item(10962));
+						player.getDialogue().endDialogue();
+						player.getInventory().addItem(new Item(10962));
+						return true;
+					/*
 				    case 1:
 					player.getDialogue().sendPlayerChat("Can you give me some advice, little gnome child?", CONTENT);
 					return true;
@@ -280,6 +316,7 @@ public class Dialogues {
 					player.getDialogue().sendPlayerChat("Thank you.", HAPPY);
 					player.getDialogue().endDialogue();
 					return true;
+					*/
 				}
 			return false;
 			case 543 : //Karim
@@ -4253,6 +4290,21 @@ public class Dialogues {
 			 break;	 
 			// Diango the special item guy
 			case 970:
+				if(!player.getInventory().ownsItem(11791) && player.hasReceivedDank()) {
+					switch(player.getDialogue().getChatId()) {
+						case 1:
+							player.getDialogue().sendNpcChat("Hello, What can I do for you?", CONTENT);
+							return true;
+						case 2:
+							player.getDialogue().sendPlayerChat("I've lost this mask a special friend gave", "to me... Would you happen to have another?", SAD);
+							return true;
+						case 3:
+							player.getDialogue().sendNpcChat("Well played friend, I know who your special", "guy is! Here you go.", CONTENT);
+							player.getDialogue().endDialogue();
+							player.getInventory().addItemOrDrop(new Item(11791));
+							return true;
+					}
+				}
 				if(!player.hasItem(7927) && QuestHandler.questCompleted(player, 7))
 				{
 					switch(player.getDialogue().getChatId())
