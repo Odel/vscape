@@ -108,6 +108,7 @@ public class QuestVariables {
 	public boolean toldPathIsSafe = false;
 	private Position gridStart = new Position(0, 0, 0);
 	private Position gridMiddle = new Position(0, 0, 0);
+	public boolean immuneToTraps = false;
 
 	public QuestVariables(final Player player) {
 		this.player = player;

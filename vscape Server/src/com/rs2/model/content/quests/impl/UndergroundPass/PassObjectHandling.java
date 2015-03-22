@@ -19,12 +19,49 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
+	//player.getActionSender().animateObject(2465, 9674), 0, 1, 10, 459); //spikes
+	
+	public static void handlePortcullis(final Player player) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
+		player.setStopPacket(true);
+		player.getActionSender().sendMessage("The portcullis opens.");
+		for(int i = 0; i < 4; i++)
+			player.getActionSender().animateObject(2465, 9674 + (i*2), 0, 1, 10, 455);
+		player.walkTo(new Position(2466, 9677, 0), true);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int count = 0;
+			@Override
+			public void execute(CycleEventContainer b) {
+				count++;
+				if(count == 1) {
+					player.getActionSender().walkTo(-2, 0, true);
+				} else {
+					b.stop();
+				}
+			}
+
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+				player.getActionSender().sendMessage("The portcullis closes.");
+				for(int i = 0; i < 4; i++)
+					player.getActionSender().animateObject(2465, 9674 + (i*2), 0, 1, 10, 454);
+			}
+		}, 3);
+	}
+	
 	
 	public static void handleRopeSwing(final Player player, int object) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
 		if (object == 2275 || object == 2276) {
 			player.setStopPacket(true);
 			player.getUpdateFlags().sendAnimation(775);
@@ -116,6 +153,9 @@ public class PassObjectHandling {
 	}
 	
 	public static void sinkInSwamp(final Player player) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
 		player.setStopPacket(true);
 		player.getMovementHandler().reset();
 		player.getActionSender().sendMessage("You feel yourself being dragged below...");
@@ -143,6 +183,9 @@ public class PassObjectHandling {
 	}
 	
 	public static void returnOverBridge(final Player player) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
 		player.setStopPacket(true);
 		player.getUpdateFlags().sendAnimation(832);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -167,6 +210,9 @@ public class PassObjectHandling {
 	}
 	
 	public static void shootBridgeRope(final Player player, int x, int y) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
 		Weapon weapon = player.getEquippedWeapon();
 		if (weapon != null) {
 			if (weapon.getAmmoType() == null) {
@@ -186,6 +232,7 @@ public class PassObjectHandling {
 					return;
 				}
 			}
+			player.setStopPacket(true);
 			int animation = weapon.getAttackAnimations()[0];
 			Graphic startGfx = ammo.getGraphicId() != -1 ? new Graphic(ammo.getGraphicId(), weapon.getAmmoType().getGraphicHeight()) : null;
 			player.getUpdateFlags().sendFaceToDirection(new Position(x, y, 0));
@@ -232,6 +279,9 @@ public class PassObjectHandling {
 	}
 
 	public static boolean doObstacleClicking(final Player player, final int object, final int x, final int y) {
+		if(player.stopPlayerPacket()) {
+			return false;
+		}
 		int level = player.getSkill().getPlayerLevel(Skill.AGILITY);
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
@@ -327,4 +377,141 @@ public class PassObjectHandling {
 			}
 		}, 5);
 	}
+	
+	public static void startTrapCycle(final Player player) {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int pX, pY;
+			int trapReset = 0;
+			int count = 0;
+			@Override
+			public void execute(CycleEventContainer b) {
+				pX = player.getPosition().getX();
+				pY = player.getPosition().getY();
+				if(trapReset < count) {
+					count = 0;
+					trapReset = 0;
+				}
+				if(count > 0)
+					count++;
+				if(!player.Area(2378, 2465, 9665, 9700)) {
+					b.stop();
+				} else {
+					if((((pX == 2443 || pX == 2440) && pY == 9677) || ((pX == 2435 || pX == 2432 || pX == 2430) && pY == 9676)) && count == 0) {
+						if(pY == 9676)
+							pY = 9675;
+						player.getActionSender().animateObject(pX, pY, 0, pY == 9675 ? 1 : 3, 10, 459);
+						player.getUpdateFlags().setForceChatMessage("Ouch!");
+						player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+						player.hit(Misc.random(3) + 5, HitType.NORMAL);
+						trapReset = 3;
+						count++;
+					}
+				}
+				
+				//player.getActionSender().animateObject(2380, 9667, 0, 458); //swing
+				//player.getActionSender().animateObject(2380, 9667, 0, 457); //dismantle
+			}
+
+			@Override
+			public void stop() {
+			}
+		}, 1);
+	}
+	
+	public static void handleDisarmTrap(final Player player, final int object, final int anim, final Position toTravel) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
+		player.getQuestVars().immuneToTraps = true;
+		switch(object) {
+			case 3231: //flat rock w/ plank
+				final int x = player.getClickX(), y = player.getClickY();
+				final CacheObject o = ObjectLoader.object("Flat rock", x, y, 0);
+				player.getUpdateFlags().sendAnimation(anim);
+				if(o != null) {
+					int face = 2;
+					CacheObject check = ObjectLoader.object(3232, x, y + 1);
+					if(check != null)
+						face = 1;
+					player.setStopPacket(true);
+					player.getActionSender().sendObject(-1, x, y, 0, o.getRotation(), 10);
+					new GameObject(3231, player.getClickX(), player.getClickY(), 0, face, 22, -1, 3, true);
+					player.getActionSender().sendMessage("You place the plank across the flat rock...");
+					final int faceCheck = face;
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							if(count == 1) {
+								player.getActionSender().sendMessage("...and quickly walk over.");
+								player.getActionSender().walkTo(faceCheck == 2 ? 0 : (player.getPosition().getY() <= x ? 2 : -2), faceCheck == 2 ? (player.getPosition().getY() < y ? 2 : -2) : 0, true);
+							} else {
+								b.stop();
+							}
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.getQuestVars().immuneToTraps = false;
+							player.getActionSender().sendObject(3230, x, y, 0, o.getRotation(), 10);
+						}
+					}, 2);
+				}
+			break;
+		}
+	
+	}
+	
+	public static void readTablets(final Player player, int id) {
+		ActionSender a = player.getActionSender();
+		a.sendInterface(3023);
+		for (int i = 0; i < 11; i++) {
+			a.sendString("", 3026 + i);
+		}
+		switch(id) {
+			case 3295:
+				a.sendString("All those who thirst for knowledge,", 3026);
+				a.sendString("Bow down to the lord.", 3027);
+				a.sendString("All you that crave eternal life,", 3028);
+				a.sendString("Come and meet your god.", 3029);
+				a.sendString("For no man nor beast", 3030);
+				a.sendString("can cast a spell", 3031);
+				a.sendString("against the wake of eternal hell.", 3032);
+				break;
+			case 3296:
+				a.sendString("Most men do live in fear of death", 3026);
+				a.sendString("that it might steal their soul.", 3027);
+				a.sendString("Some work and pray,", 3028);
+				a.sendString("to shield their life", 3029);
+				a.sendString("from the ravages of the cold", 3030);
+				a.sendString("But only those who embrace the end", 3031);
+				a.sendString("can truly make their life extend.", 3032);
+				a.sendString("And when all hope begins to fade", 3033);
+				a.sendString("look above and use nature", 3034);
+				a.sendString("as your aid.", 3035);
+				break;
+			case 3297:
+				a.sendString("And now our god has given us", 3026);
+				a.sendString("one who is from our own.", 3027);
+				a.sendString("A saviour who once sat upon", 3028);
+				a.sendString("his father's glorious throne.", 3029);
+				a.sendString("It is in your name that we", 3030);
+				a.sendString("will lead the attack,", 3031);
+				a.sendString("Iban, Son of Zamorak!", 3032);
+				break;
+			case 3298:
+				a.sendString("Here lies the sacred well,", 3026);
+				a.sendString("entrance to Iban's hell.", 3027);
+				a.sendString("He blesses all his disciples keen.", 3028);
+				a.sendString("'We bathe in pure evil' they yell.", 3029);
+				a.sendString("The force of darkness is strong,", 3030);
+				a.sendString("the wait for morning forever long.", 3031);
+				a.sendString("If a light should break the night", 3032);
+				a.sendString("the dark will rise to win the fight.", 3033);
+				break;
+		}
+	}
+	
 }

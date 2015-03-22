@@ -2,6 +2,8 @@ package com.rs2.net.packet.packets;
 
 import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -179,8 +181,12 @@ public class ObjectPacketHandler implements PacketHandler {
 		player.setClickId(packet.getIn().readShort());
 		player.setClickY(packet.getIn().readShort(StreamBuffer.ValueType.A));
 		player.setClickZ(player.getPosition().getZ());
+		CacheObject o = ObjectLoader.object(player.getClickId(), player.getClickX(), player.getClickY(), player.getClickZ());
 		if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)
-			System.out.println("first click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY() + " type " + SkillHandler.getType(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ()));
+			if(o != null)
+				System.out.println("first click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY() + " face " + o.getRotation() + " type " + SkillHandler.getType(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ()));
+			else 
+				System.out.println("first click id = " + player.getClickId() + " x = " + player.getClickX() + " y = " + player.getClickY() + " type " + SkillHandler.getType(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ()));
 		//if (!SkillHandler.checkObject(player.getClickId(), player.getClickX(), player.getClickY(), player.getPosition().getZ())) { // Server.npcHandler.getNpcByLoc(Location.create(x,
 		//	return;
 		//}

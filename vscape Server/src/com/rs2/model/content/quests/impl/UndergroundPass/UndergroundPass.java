@@ -38,7 +38,29 @@ public class UndergroundPass implements Quest {
 	public static final int QUEST_COMPLETE = 2;
 
 	//Items
-	public static final int ITEM = -1;
+	public static final int ROCK = 1480;
+	public static final int ORB_OF_LIGHT = 1481;
+	public static final int ORB_OF_LIGHT_2 = 1482;
+	public static final int ORB_OF_LIGHT_3 = 1483;
+	public static final int ORB_OF_LIGHT_4 = 1484;
+	public static final int DAMP_CLOTH = 1485;
+	public static final int PIECE_OF_RAILING = 1486;
+	public static final int UNICORN_HORN = 1487;
+	public static final int PALADINS_BADGE = 1488;
+	public static final int PALADINS_BADGE_2 = 1489;
+	public static final int PALADINS_BADGE_3 = 1490;
+	public static final int WITCHS_CAT = 1491;
+	public static final int DOLL_OF_IBAN = 1492;
+	public static final int OLD_JOURNAL = 1493;
+	public static final int HISTORY_OF_IBAN = 1494;
+	public static final int KLANKS_GAUNTLETS = 1495;
+	public static final int IBANS_DOVE = 1496;
+	public static final int AMULET_OF_OTHANIAN = 1497;
+	public static final int AMULET_OF_DOOMION = 1498;
+	public static final int AMULET_OF_HOLTHION = 1499;
+	public static final int IBANS_SHADOW = 1500;
+	public static final int DWARF_BREW = 1501;
+	public static final int IBANS_ASHES = 1502;
 
 	//Positions
 	//KALRAG new Position(2357, 9911, 0)
@@ -62,7 +84,7 @@ public class UndergroundPass implements Quest {
 	public static final int SIR_HARRY = 990;
 	public static final int HALF_SOULLESS = 991;
 	public static final int KARDIA = 992;
-	public static final int WITCHS_CAT = 993;
+	public static final int WITCHS_CAT_ITEM = 993;
 	public static final int NILOOF = 994;
 	public static final int KLANK = 995;
 	public static final int KAMEN = 996;
@@ -138,7 +160,7 @@ public class UndergroundPass implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, ITEM); //zoom, then itemId
+		player.getActionSender().sendItemOnInterface(12145, 250, DOLL_OF_IBAN); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("5 Quest Points", 12150);
@@ -237,6 +259,12 @@ public class UndergroundPass implements Quest {
 
 	public boolean doItemOnObject(final Player player, int object, int item) {
 		switch(object) {
+			case 3230: //flat rock trap
+				if(item == 960) { //plank
+					PassObjectHandling.handleDisarmTrap(player, 3231, 827, null);
+					return true;
+				}
+			return false;
 			case 2275: //rock swing
 			case 2276:
 				if(item == 954) { //rope
@@ -261,6 +289,12 @@ public class UndergroundPass implements Quest {
 			case 2274: //rope swing
 				PassObjectHandling.handleRopeSwing(player, object);
 				return true;
+			case 3337:
+				if(x == 2466 && y == 9672) {
+					PassObjectHandling.handlePortcullis(player);
+					return true;
+				}
+				return false;
 			case 3241: //lever
 				if (x == 2436 && y == 9716) {
 					PassObjectHandling.returnOverBridge(player);
@@ -275,20 +309,11 @@ public class UndergroundPass implements Quest {
 				}
 				return true;
 			case 3295:
-				if(x == 2480 && y == 9721) {
-					player.getActionSender().sendInterface(3023);
-					for (int i = 0; i < 11; i++) {
-						player.getActionSender().sendString("", 3026 + i);
-					}
-					player.getActionSender().sendString("All those who thirst for knowledge,", 3026);
-					player.getActionSender().sendString("Bow down to the lord.", 3027);
-					player.getActionSender().sendString("All you that crave eternal life,", 3028);
-					player.getActionSender().sendString("Come and meet your god.", 3029);
-					player.getActionSender().sendString("For no man nor beast", 3030);
-					player.getActionSender().sendString("can cast a spell", 3031);
-					player.getActionSender().sendString("against the wake of eternal hell.", 3032);
-					return true;
-				}
+			case 3296:
+			case 3297:
+			case 3298:
+				PassObjectHandling.readTablets(player, object);
+				return true;
 			case PASS_ENTRANCE:
 				if(x == 2433 && y == 3313) {
 					player.getUpdateFlags().sendAnimation(844);

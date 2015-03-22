@@ -1,6 +1,11 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
-960:1:2435:9726:0:10 //UPass plank
+1481:1:2416:9698:0:20 //UPass orb(s) of light
+1482:1:2385:9685:0:20 //UPass orb(s) of light
+1483:1:2386:9677:0:20 //UPass orb(s) of light
+-1:1:2382:9668:0:20 //UPass orb(s) of light
+1493:1:2417:9673:0:15 //UPass journal
+960:1:2435:9726:0:15 //UPass plank
 277:1:3094:9755:0:10 //oil can para ernest
 2028:1:2972:2972:0:30 //premade blurberry gandius
 1919:1:2907:3538:0:10 //beer glass burthorpe
