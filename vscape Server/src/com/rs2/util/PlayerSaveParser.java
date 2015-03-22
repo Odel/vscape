@@ -467,6 +467,16 @@ public class PlayerSaveParser {
 				if(questVars.get("whiteCog") != null) {
 					player.getQuestVars().setWhiteCogPlaced(questVars.get("whiteCog").getAsBoolean());
 				}
+				    JsonObject gridStartPos = questVars.getAsJsonObject("gridStartPos");
+				    if (gridStartPos != null) {
+					    player.getQuestVars().getGridStart().setX(gridStartPos.get("x") != null ? gridStartPos.get("x").getAsInt() : 0);
+					    player.getQuestVars().getGridStart().setY(gridStartPos.get("y") != null ? gridStartPos.get("y").getAsInt() : 0);
+				    }
+				    JsonObject gridMidPos = questVars.getAsJsonObject("gridMidPos");
+				    if (gridMidPos != null) {
+					    player.getQuestVars().getGridMiddle().setX(gridMidPos.get("x") != null ? gridMidPos.get("x").getAsInt() : 0);
+					    player.getQuestVars().getGridMiddle().setY(gridMidPos.get("y") != null ? gridMidPos.get("y").getAsInt() : 0);
+				    }
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

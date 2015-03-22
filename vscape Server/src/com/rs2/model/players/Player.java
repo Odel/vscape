@@ -146,6 +146,7 @@ import com.rs2.model.content.quests.QuestVariables;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
+import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
@@ -693,8 +694,8 @@ public class Player extends Entity {
             b.stop();
             b = Benchmarks.getBenchmark("cannonUnregister");
             b.start();
-			if (getMultiCannon() != null && getMultiCannon().hasCannon()) {
-				getMultiCannon().pickupCannon();
+			if (getMultiCannon().hasCannon()) {
+				getMultiCannon().pickupCannon(true);
 			}
             b.stop();
             b = Benchmarks.getBenchmark("unlockMovement");
@@ -1206,6 +1207,13 @@ public class Player extends Entity {
 		}
 		if(this.Area(2504, 2534, 9732, 9782, 0)) {
 			PlagueCity.assessPipeGrill(this);
+		}
+		if(getQuestVars().getGridStart().getX() == 0 && getQuestVars().getGridStart().getY() == 0
+			&& getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
+			GridMazeHandler.generatePositions(this);
+		}
+		if(this.Area(2465, 2482, 9671, 9688)) {
+			GridMazeHandler.startGridCheck(this);
 		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
@@ -3325,7 +3333,9 @@ public class Player extends Entity {
 		for (Item item : items) {
 			if (item == null)
 				continue;
-			if (!item.getDefinition().isUntradable())
+			if (Degradeables.getDegradeableItem(item) != null)
+				allItems.add(new Item(item.getId()));
+			else if (!item.getDefinition().isUntradable())
 				allItems.add(new Item(item.getId()));
 		}
 		ArrayList<Item> keptItems = new ArrayList<Item>();
@@ -3420,7 +3430,7 @@ public class Player extends Entity {
 					this.setLostGodBook(dropped.getId());
 				}
 				if (Degradeables.notDroppable(Degradeables.getDegradeableItem(dropped), dropped) && Constants.DEGRADING_ENABLED) {
-					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), killer));
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(Degradeables.getDegradeableItem(dropped).getBrokenId()), this, killer, getDeathPosition()));
 					setDegradeableHits(Degradeables.getDegradeableItem(dropped).getPlayerArraySlot(), 0);
 				} else if (!dropped.getDefinition().isUntradable()) {
 					GroundItem item = new GroundItem(new Item(dropped.getId(), dropped.getCount()), this, killer, getDeathPosition());

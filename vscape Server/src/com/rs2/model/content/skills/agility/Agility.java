@@ -418,6 +418,37 @@ public class Agility {
 		}, 3);
 	}
 	
+	public static void swingRopeTimed(final Player player,final int x,final int y,final int level,final double xp, final int time) {
+		if (!Constants.AGILITY_ENABLED) {
+			player.getActionSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		if (player.getSkill().getLevel()[Skill.AGILITY] < level) {
+			player.getDialogue().sendStatement("You need an agility level of "+level+" to swing across this.");
+			return;
+		}
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
+		player.resetAnimation();
+		player.getUpdateFlags().sendAnimation(751);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				player.teleport(new Position(x,y,0));
+				player.setStopPacket(false);
+				if(xp > 0){
+					player.getSkill().addExp(Skill.AGILITY, xp);
+				}
+				player.getMovementHandler().reset();
+				player.resetAnimation();
+				container.stop();
+			}
+			@Override
+			public void stop() {
+			}
+		}, time);
+	}
+	
 	public static void climbOver(Player player, int x, int y, int level, double xp) {
 		if (!Constants.AGILITY_ENABLED) {
 			player.getActionSender().sendMessage("This skill is currently disabled.");

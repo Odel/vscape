@@ -1,8 +1,12 @@
 package com.rs2.cache.object;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rs2.util.clip.ObjectDef;
 
 /**
@@ -18,10 +22,23 @@ public class GameObjectData {
 	 */
 	public static final int MAX_DEFINITIONS = 25374;
 
-	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(GameObjectData.class.getName());
 
 	public static void init() throws IOException {
+		FileReader reader = new FileReader("./datajson/content/objectDefinitions.json");
+		try {
+			List<GameObjectData> defs = new Gson().fromJson(reader, new TypeToken<List<GameObjectData>>(){}.getType());
+			definitions = new GameObjectData[defs.size()];
+			for (int i = 0; i < defs.size(); i++) {
+				GameObjectData def = defs.get(i);
+				definitions[def.getId()] = def;
+	        }
+			System.out.println("Loaded " + defs.size() + " object definitions json");
+			reader.close();
+		} catch (IOException e) {
+			reader.close();
+			logger.warning("Failed to initialize the object definitions json: " + e);
+		}
 		/*logger.info("Loading definitions...");
 		List<GameObjectData> defs = (List<GameObjectData>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/content/objectDefinitions.xml"));
 		definitions = new GameObjectData[defs.size()];

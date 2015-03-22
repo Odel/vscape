@@ -13,6 +13,7 @@ import com.rs2.GlobalVariables;
 
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
+import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.Player;
@@ -281,6 +282,14 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("redCog", player.getQuestVars().getRedCogPlaced());
 		questVarsObj.addProperty("blueCog", player.getQuestVars().getBlueCogPlaced());
 		questVarsObj.addProperty("whiteCog", player.getQuestVars().getWhiteCogPlaced());
+		JsonObject gridStartPosObj = new JsonObject();
+		gridStartPosObj.addProperty("x", player.getQuestVars().getGridStart().getX());
+		gridStartPosObj.addProperty("y", player.getQuestVars().getGridStart().getY());
+		questVarsObj.add("gridStartPos", gridStartPosObj);
+		JsonObject gridMidPosObj = new JsonObject();
+		gridMidPosObj.addProperty("x", player.getQuestVars().getGridMiddle().getX());
+		gridMidPosObj.addProperty("y", player.getQuestVars().getGridMiddle().getY());
+		questVarsObj.add("gridMidPos", gridMidPosObj);
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {

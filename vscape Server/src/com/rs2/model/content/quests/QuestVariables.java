@@ -1,5 +1,6 @@
 package com.rs2.model.content.quests;
 
+import com.rs2.model.Position;
 import com.rs2.model.content.quests.impl.ErnestTheChicken;
 import com.rs2.model.players.Player;
 
@@ -105,6 +106,8 @@ public class QuestVariables {
 	public int moneyWonFromHarold = 0;
 	public boolean[] ballBools = {false, false, false, false, false};
 	public boolean toldPathIsSafe = false;
+	private Position gridStart = new Position(0, 0, 0);
+	private Position gridMiddle = new Position(0, 0, 0);
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -575,6 +578,14 @@ public class QuestVariables {
 
 	public void setWhiteCogPlaced(boolean set) {
 		this.whiteCogPlaced = set;
+	}
+	
+	public Position getGridStart() {
+		return this.gridStart;
+	}
+	
+	public Position getGridMiddle() {
+		return this.gridMiddle;
 	}
 
 }

@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.rs2.Constants;
 import com.rs2.Server;
@@ -41,7 +43,7 @@ public class World {
 	/** All registered NPCs. */
 	private static Npc[] npcs = new Npc[Constants.MAX_NPCS];
 	
-	public static ArrayList<GameObject> cannons = new ArrayList<GameObject>();
+	public static HashMap<Long, GameObject> cannons = new HashMap<Long, GameObject>();
 
 	private static TickManager tickManager = new TickManager();
 
@@ -278,15 +280,15 @@ public class World {
 		throw new IllegalStateException("Server is full!");
 	}
 
-	public static synchronized void registerCannon(GameObject cannon) {
-		if(!cannons.contains(cannon)){
-			cannons.add(cannon);
+	public static synchronized void registerCannon(Long owner, GameObject cannon) {
+		if(!cannons.containsKey(owner)){
+			cannons.put(owner, cannon);
 		}
 	}
 	
-	public static synchronized void unregisterCannon(GameObject cannon) {
-		if(cannons.contains(cannon)){
-			cannons.remove(cannon);
+	public static synchronized void unregisterCannon(Long owner, GameObject cannon) {
+		if(cannons.containsKey(owner)){
+			cannons.remove(owner);
 		}
 	}
 	
@@ -506,7 +508,7 @@ public class World {
 	 * @return the gameobjects
 	 */
 	public static GameObject[] getCannons() {
-		return cannons.toArray(new GameObject[cannons.size()]);
+		return cannons.values().toArray(new GameObject[cannons.size()]);
 	}
 	
 	/**

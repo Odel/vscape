@@ -693,8 +693,8 @@ public class CombatManager extends Tick {
 		    Player player = (Player) died;
 		    player.teleport(player.getQuestVars().isGazeOfSaradomin() ? Teleportation.WHITE_KNIGHTS_CASTLE : Teleportation.HOME);
 		    player.getActionSender().sendMessage("Oh dear, you are dead!");
-			if (player.getMultiCannon() != null && player.getMultiCannon().hasCannon()) {
-				player.getMultiCannon().pickupCannon();
+			if (player.getMultiCannon().hasCannon()) {
+				player.getMultiCannon().pickupCannon(false);
 			}
 			if(player.getInJail()){
 				player.setInJail(false);
