@@ -892,13 +892,35 @@ public class ActionSender {
 	public ActionSender animateObject(int objx, int objy, int objz,
 			int animationID) {
 		CacheObject object = ObjectLoader.object(objx, objy, objz);
-		if (object == null)
+		if (object == null) {
+			if(Constants.SERVER_DEBUG)
+				System.out.println("Null cache object, preventing animating.");
 			return this;
+		}
 		sendCoords(new Position(objx, objy, objz));
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
 		out.writeHeader(player.getEncryptor(), 160);
 		out.writeByte(0, StreamBuffer.ValueType.S);
 		out.writeByte((object.getType() << 2) + (object.getRotation() & 3),
+				StreamBuffer.ValueType.S);
+		out.writeShort(animationID, StreamBuffer.ValueType.A);
+		player.send(out.getBuffer());
+		return this;
+
+	}
+	
+	public ActionSender animateObject(int objx, int objy, int objz, int face, int type, int animationID) {
+		CacheObject object = ObjectLoader.object(objx, objy, objz);
+		if (object == null) {
+			if(Constants.SERVER_DEBUG)
+				System.out.println("Null cache object, preventing animating.");
+			return this;
+		}
+		sendCoords(new Position(objx, objy, objz));
+		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(5);
+		out.writeHeader(player.getEncryptor(), 160);
+		out.writeByte(0, StreamBuffer.ValueType.S);
+		out.writeByte((type << 2) + (face & 3),
 				StreamBuffer.ValueType.S);
 		out.writeShort(animationID, StreamBuffer.ValueType.A);
 		player.send(out.getBuffer());
