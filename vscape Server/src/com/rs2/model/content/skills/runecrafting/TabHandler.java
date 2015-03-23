@@ -11,6 +11,7 @@ import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.content.skills.magic.SpellBook;
 
 public class TabHandler {
     private static final int AIR_RUNE = 556;
@@ -407,8 +408,14 @@ public class TabHandler {
 	    case 10565:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
-			player.getDialogue().sendOption("Varrock", "Lumbridge", "Falador", "Camelot", "More...");
-			return true;
+			if (player.getMagicBookType() == SpellBook.MODERN) {
+				player.getDialogue().sendOption("Varrock", "Lumbridge", "Falador", "Camelot", "More...");
+				return true; }
+			else {
+				player.getDialogue().sendStatement("You must be on the modern spellbook to make tabs");
+				player.getDialogue().endDialogue();
+				return true;
+			}
 		    case 2:
 			switch(optionId) {
 			    case 1:
@@ -617,9 +624,16 @@ public class TabHandler {
 	break;
 	case 10567:
 		switch (player.getDialogue().getChatId()) {
-		    case 1:
-			player.getDialogue().sendOption("Enchant Sapphire", "Enchant Emerald", "Enchant Ruby", "Enchant Diamond", "More...");
-			return true;
+		    case 1: 
+			if (player.getMagicBookType() == SpellBook.MODERN) {
+				player.getDialogue().sendOption("Enchant Sapphire", "Enchant Emerald", "Enchant Ruby", "Enchant Diamond", "More...");
+				return true; }
+			else {
+				player.getDialogue().sendStatement("You must be on the modern spellbook to craft tabs.");
+                                player.getDialogue().endDialogue();
+                                return true;
+			}
+
 		    case 2:
 			switch(optionId) {
 			    case 1:
@@ -829,8 +843,16 @@ public class TabHandler {
 	case 10568:
 		switch (player.getDialogue().getChatId()) {
 		    case 1:
-			player.getDialogue().sendOption("Bones to Bananas", "Bones to Peaches", "None.");
-			return true;
+			if (player.getMagicBookType() == SpellBook.MODERN) {
+                    		player.getDialogue().sendOption("Bones to Bananas", "Bones to Peaches", "None.");
+				return true;
+			}
+			else {
+				player.getDialogue().sendStatement("You must be on modern magic to craft tabs.");
+                                player.getDialogue().endDialogue();
+	                        return true;
+			}
+	
 		    case 2:
 			switch(optionId) {
 			    case 1:
@@ -849,7 +871,13 @@ public class TabHandler {
 				    return true;
 				}
 			    case 2:
-				if(checkRunes(PEACHES, player) && player.getSkill().getLevel()[Skill.MAGIC] >= 60) {
+				if(!player.bonesToPeachesEnabled()) {
+                                        player.getDialogue().sendStatement("You must unlock bones to peaches at the mage training arena");
+                                        player.getDialogue().endDialogue();
+                                        return true;
+                                 }
+
+				else if(checkRunes(PEACHES, player) && player.getSkill().getLevel()[Skill.MAGIC] >= 60) {
 				    player.getDialogue().sendOption("1", "5", "10", "25");
 				    player.getDialogue().setNextChatId(4);
 				    return true;
@@ -863,7 +891,12 @@ public class TabHandler {
 				    player.getDialogue().sendStatement("You do not have the runes required.");
 				    player.getDialogue().endDialogue();
 				    return true;
-				}
+				}/**
+				else if(!player.bonesToPeachesEnabled()) {
+					player.getDialogue().sendStatement("You must unlock bones to peaches at the mage training arena");
+					player.getDialogue().endDialogue();
+					return true;
+					} **/
 			    case 3:
 				player.getDialogue().endDialogue();
 				break;
