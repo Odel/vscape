@@ -227,7 +227,7 @@ public class Npc extends Entity {
 	public void npcRandomWalk() {
 		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null || this.isMoving())
 			return;
-		if (isDontWalk() || ApeAtollNpcData.forNpcId(this.getNpcId()) != null) {
+		if (isDontWalk() || npcId == 1454 || npcId == 1431 || npcId == 1432) {
 			return;
 		}
 		if(!playerNearby() && npcId != 1091)
