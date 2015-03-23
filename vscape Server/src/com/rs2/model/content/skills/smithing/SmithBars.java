@@ -133,7 +133,12 @@ public class SmithBars {
 			player.getActionSender().sendString(oneb + "1bar" + oneb, 11459);
 			player.getActionSender().sendString(checkLevel(player, "Steel studs", "Steel studs"), 11461);
 			player.getActionSender().sendUpdateItem(getItemType(player, "Steel studs"), 4, 1121, 1);
-		}
+		} else if(smithMetal[player.getSmithInterface()].equalsIgnoreCase("bronze"))
+		{
+			player.getActionSender().sendString(oneb + "1bar" + oneb, 11459);
+			player.getActionSender().sendString(checkLevel(player, "Bronze wire", "Bronze wire"), 11461);
+			player.getActionSender().sendUpdateItem(getItemType(player, "Bronze wire"), 4, 1121, 1);
+		} 
 		else
 		{
 			player.getActionSender().sendString("", 11461);
@@ -327,6 +332,8 @@ public class SmithBars {
 	}
 
 	public static final int smithLevel(int i, int id) {
+		if(i == 22 && id == 0)
+			return 4;
 		int level = smithInfo[i][0] + addLevel(id);
 		return level < 1 ? 1 : level > 99 ? 99 : level;
 	}
@@ -339,20 +346,20 @@ public class SmithBars {
 	}
 
 	private static String checkLevel(Player player, String exactItem, String item) {
+		if(item.equals("Bronze wire"))
+			return (player.getSkill().getLevel()[Skill.SMITHING] >= 4 ? "@whi@" : "") + item;
 		int i = getArrayForItem(exactItem);
 		int level = smithLevel(i, player.getSmithInterface());
 		if (player.getNewComersSide().isInTutorialIslandStage() && !item.equalsIgnoreCase("dagger")) {
 			return "" + item;
 		}
-		if (player.getSkill().getLevel()[Skill.SMITHING] >= level) {
-			return "@whi@" + item;
-		} else {
-			return "" + item;
-		}
+		return (player.getSkill().getLevel()[Skill.SMITHING] >= level ? "@whi@" : "") + item;
 	}
 
 	public static final int getArrayForFullName(Player c, int item) {
 		String name = new Item(item).getDefinition().getName();
+		if(item == 1794)
+			return 22;
 		for (int i = 0; i < smithItems.length; i++) {
 			if (name.equalsIgnoreCase(smithMetal[c.getSmithInterface()] + " " + smithItems[i])) {
 				return i;
@@ -390,6 +397,8 @@ public class SmithBars {
 
 	public static final Item getItemType(Player player, String exactItem) {
 		String metal = smithMetal[player.getSmithInterface()];
+		if(exactItem.equals("Bronze wire"))
+			return new Item(1794);
 		int id = ItemManager.getInstance().getItemId(metal + " " + exactItem);
 		if (id == -1) {
 			if (metal.equalsIgnoreCase("adamant")) {
