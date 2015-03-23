@@ -25,7 +25,7 @@ public class GameObjectData {
 	private static final Logger logger = Logger.getLogger(GameObjectData.class.getName());
 
 	public static void init() throws IOException {
-		FileReader reader = new FileReader("./datajson/content/objectDefinitions.json");
+		/*FileReader reader = new FileReader("./datajson/content/objectDefinitions.json");
 		try {
 			List<GameObjectData> defs = new Gson().fromJson(reader, new TypeToken<List<GameObjectData>>(){}.getType());
 			definitions = new GameObjectData[defs.size()];
@@ -39,6 +39,8 @@ public class GameObjectData {
 			reader.close();
 			logger.warning("Failed to initialize the object definitions json: " + e);
 		}
+		*/
+		
 		/*logger.info("Loading definitions...");
 		List<GameObjectData> defs = (List<GameObjectData>) XStreamUtil.getxStream().fromXML(new FileInputStream("data/content/objectDefinitions.xml"));
 		definitions = new GameObjectData[defs.size()];
