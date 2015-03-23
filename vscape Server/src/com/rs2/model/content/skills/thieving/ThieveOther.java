@@ -323,7 +323,7 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
             	damageDealt -= 1;
             }
             if (damageDealt < 0)
-            	damageDealt = 0;
+            	damageDealt = 1;
 			player.hit(damageDealt, HitType.NORMAL);
 			return false;
         }

@@ -623,7 +623,7 @@ public class Hit {
 	if (attacker != null && victim.isPlayer() && attacker.isNpc() && ((Npc) attacker).getNpcId() == 2882) {
 	    Position p = victim.getPosition();
 	    for (Player player : World.getPlayers()) {
-		if (player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+		if (player != null && Misc.goodDistance(p, player.getPosition(), 1) && !player.isProtectingFromCombat(AttackType.MAGIC, attacker) && player != victim) {
 		    player.hit(Misc.random(61), HitType.NORMAL);
 		}
 	    }
@@ -912,7 +912,7 @@ public class Hit {
         if (getAttacker().isNpc() && getVictim().isPlayer()) { // slayer npc effects
             if (!((Player) getVictim()).getSlayer().hasSlayerRequirement((Npc) getAttacker())) {
                 String name = ((Npc) getAttacker()).getDefinition().getName().toLowerCase();
-                hitDef.setUnblockable(true);          
+                hitDef.setUnblockable(true);
                 switch(name){
                 case "banshee": 
                 	damage = 8;
