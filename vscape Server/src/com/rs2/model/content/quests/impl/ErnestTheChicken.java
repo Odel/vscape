@@ -1,7 +1,5 @@
 package com.rs2.model.content.quests.impl;
 
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
@@ -17,12 +15,10 @@ import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
-import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -378,13 +374,13 @@ public class ErnestTheChicken implements Quest {
 			case 145: //doors
 				if (pY > 9700 && pY < 9800) {
 						if (object >= 143 && object <= 145) {
-							int modifier = pY < y ? 2 : -1;
+							int modifier = pY < y ? 2 : -2;
 							player.getActionSender().sendMessage("You slowly walk through the door...");
 							player.fadeTeleport(new Position(x, pY + modifier, 0));
 						} else {
-							int modifier = pX < x ? 2 : -1;
+							int modifier = pX < x ? 2 : -2;
 							player.getActionSender().sendMessage("You slowly walk through the door...");
-							player.fadeTeleport(new Position(y + modifier, pY, 0));
+							player.fadeTeleport(new Position(pX + modifier, y, 0));
 						}
 					return true;
 				}
@@ -580,24 +576,6 @@ public class ErnestTheChicken implements Quest {
 					return true;
 				}
 				return false;
-			case CRATE:
-				if (player.getPosition().getX() < 3100 && player.getPosition().getY() < 9758) {
-					if (player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
-						player.getUpdateFlags().sendAnimation(832);
-						player.getActionSender().sendMessage("You find an old oil can in the crate.");
-						player.getInventory().addItem(new Item(OIL_CAN));
-						player.fadeTeleport(MANOR);
-						resetLevers(player);
-						return true;
-					} else if (!player.getInventory().canAddItem(new Item(OIL_CAN)) && player.getQuestStage(22) > 0 && !player.getInventory().playerHasItem(OIL_CAN)) {
-						player.getActionSender().sendMessage("Not enough room in your inventory.");
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
 			case RUBBER_TUBE_DOOR:
 				if (player.getInventory().playerHasItem(KEY) && y == 3367) {
 					player.getActionSender().walkTo(player.getPosition().getX() < 3108 ? 1 : -1, 0, true);
