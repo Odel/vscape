@@ -322,8 +322,8 @@ public class ThieveOther {// todo hit method for poison chest and chest and door
             } else if (player.getSkill().getLevel()[Skill.AGILITY] >= 50){
             	damageDealt -= 1;
             }
-            if (damageDealt < 0)
-            	damageDealt = 0;
+            if (damageDealt <= 0)
+            	damageDealt = 1;
 			player.hit(damageDealt, HitType.NORMAL);
 			return false;
         }

@@ -529,6 +529,7 @@ public class Flowers { // todo scarecrow 6059
 			return true;
 		}
 
+		player.setStopPacket(true);
 		player.getUpdateFlags().sendAnimation(FarmingConstants.SPADE_ANIM);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 
@@ -546,6 +547,7 @@ public class Flowers { // todo scarecrow 6059
 
 			@Override
 			public void stop() {
+				player.setStopPacket(false);
 				updateFlowerStates();
 				player.resetAnimation();
 			}
