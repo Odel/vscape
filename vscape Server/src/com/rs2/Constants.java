@@ -221,4 +221,6 @@ public class Constants {
             SKILL_THIEVE = 17, SKILL_SLAY = 18, SKILL_FARM = 19, SKILL_RC = 20;
 
 	public static boolean UNLIMITED_RUN = true;
+	
+	public static boolean PARTY_ROOM_ENABLED = false;
 }

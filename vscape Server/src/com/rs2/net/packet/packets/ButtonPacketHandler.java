@@ -5,6 +5,7 @@ import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.util.Degrading;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.castlewars.impl.CatapultInterface;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.impl.DwarfCannon;
@@ -630,6 +631,10 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (CatapultInterface.HandleButtons(player, buttonId)) {
+			return;
+		}
+		if(PartyRoom.AcceptOffer(player, buttonId))
+		{
 			return;
 		}
         if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)

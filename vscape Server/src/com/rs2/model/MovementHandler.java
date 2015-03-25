@@ -8,6 +8,7 @@ import java.util.List;
 import com.rs2.Constants;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.WalkInterfaces;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.MovementLock;
@@ -331,6 +332,7 @@ public class MovementHandler {
 			player.getAttributes().put("smithing", Boolean.FALSE);
 			player.getAttributes().put("smelting", Boolean.FALSE);
 			TradeManager.declineTrade(player);
+			PartyRoom.CancelOffer(player);
 			if (!player.getNewComersSide().isInTutorialIslandStage())
 				player.getActionSender().removeInterfaces();
 		}

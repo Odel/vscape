@@ -7,6 +7,7 @@ import com.rs2.model.content.Pets;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.CastlewarsExchange;
@@ -23,7 +24,6 @@ import com.rs2.model.content.quests.impl.MonkeyMadness.MonkeyMadness;
 import com.rs2.model.content.quests.impl.NatureSpirit;
 import com.rs2.model.content.quests.impl.PiratesTreasure;
 import com.rs2.model.content.quests.impl.PlagueCity;
-
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.ClockTower;
 import com.rs2.model.content.quests.impl.Quest;
@@ -658,65 +658,69 @@ public class ItemPacketHandler implements PacketHandler {
     }
 
     private void handleClick1(Player player, Packet packet) {
-	int interfaceID = packet.getIn().readShort(StreamBuffer.ValueType.A);
-	player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
-	int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
-	RSInterface inter = RSInterface.forId(interfaceID);
-	switch (interfaceID) {
-	    case 4233: // make 1 ring crafting
-		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 0);
-		break;
-	    case 4239: // make 1 neckalce crafting
-		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 1);
-		break;
-	    case 4245: // make 1 amulet crafting
-		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 2);
-		break;
-	    case 24159: // make 1 bracelet crafting
-		GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 3);
-		break;
-	}
-	
-	if (!player.hasInterfaceOpen(inter)) {
-            //player.getActionSender().removeInterfaces();
-		if (interfaceID == 12392) {
-		    CastlewarsExchange.getBuyValue(player, itemId);
+		int interfaceID = packet.getIn().readShort(StreamBuffer.ValueType.A);
+		player.setSlot(packet.getIn().readShort(StreamBuffer.ValueType.A));
+		int itemId = packet.getIn().readShort(StreamBuffer.ValueType.A);
+		RSInterface inter = RSInterface.forId(interfaceID);
+		switch (interfaceID) {
+		    case 4233: // make 1 ring crafting
+			GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 0);
+			break;
+		    case 4239: // make 1 neckalce crafting
+			GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 1);
+			break;
+		    case 4245: // make 1 amulet crafting
+			GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 2);
+			break;
+		    case 24159: // make 1 bracelet crafting
+			GemCrafting.startCrafter(player, GemData.getGemSlot()[player.getSlot()], 1, 3);
+			break;
 		}
-	    return;
-	}
-	if (interfaceID == 15948) {
-	    MageRewardHandling.getBuyValue(player, itemId);
-	}
-	if (interfaceID == 1119 || interfaceID == 1120 || interfaceID == 1121 || interfaceID == 1122 || interfaceID == 1123) {
-	    //player.getSmithing().smithItem(itemId, 1);
-	    SmithBars.startSmithing(player, itemId, 1);
-	}
-	if (interfaceID == 1688) {
-	    player.getEquipment().unequip(player.getSlot());
-	    player.setEquipmentOperate(false);
-	} else if (interfaceID == 5064 || interfaceID == 7423) {
-		player.getBankManager().bankItem(player.getSlot(), itemId, 1);
-	} else if (interfaceID == 5382) {
-		player.getBankManager().withdrawItem(player.getSlot(), itemId, 1);
-	} else if (interfaceID == 3900) {
-	    ShopManager.getBuyValue(player, itemId);
-	} else if (interfaceID == 3823) {
-	    ShopManager.getSellValue(player, itemId);
-	} else if (interfaceID == 3322) {
-	    if (player.getStatedInterface() == "duel") {
-		player.getDuelMainData().stakeItem(new Item(itemId, 1), player.getSlot());
-	    } else {
-		TradeManager.offerItem(player, player.getSlot(), itemId, 1);
-	    }
-	} else if (interfaceID == 3415) {
-	    TradeManager.removeTradeItem(player, player.getSlot(), itemId, 1);
-	} else if (interfaceID == 15682 || interfaceID == 15683) {
-	    player.getFarmingTools().withdrawItems(itemId, 1);
-	} else if (interfaceID == 15594 || interfaceID == 15595) {
-	    player.getFarmingTools().storeItems(itemId, 1);
-	} else if (interfaceID == 6669) {
-	    player.getDuelMainData().removeStakedItem(new Item(itemId, 1));
-	}
+		
+		if (!player.hasInterfaceOpen(inter)) {
+	            //player.getActionSender().removeInterfaces();
+			if (interfaceID == 12392) {
+			    CastlewarsExchange.getBuyValue(player, itemId);
+			}
+		    return;
+		}
+		if (interfaceID == 15948) {
+		    MageRewardHandling.getBuyValue(player, itemId);
+		}
+		if (interfaceID == 1119 || interfaceID == 1120 || interfaceID == 1121 || interfaceID == 1122 || interfaceID == 1123) {
+		    //player.getSmithing().smithItem(itemId, 1);
+		    SmithBars.startSmithing(player, itemId, 1);
+		}
+		if (interfaceID == 1688) {
+		    player.getEquipment().unequip(player.getSlot());
+		    player.setEquipmentOperate(false);
+		} else if (interfaceID == 5064 || interfaceID == 7423) {
+			player.getBankManager().bankItem(player.getSlot(), itemId, 1);
+		} else if (interfaceID == 5382) {
+			player.getBankManager().withdrawItem(player.getSlot(), itemId, 1);
+		} else if (interfaceID == 3900) {
+		    ShopManager.getBuyValue(player, itemId);
+		} else if (interfaceID == 3823) {
+		    ShopManager.getSellValue(player, itemId);
+		} else if (interfaceID == 3322) {
+		    if (player.getStatedInterface() == "duel") {
+		    	player.getDuelMainData().stakeItem(new Item(itemId, 1), player.getSlot());
+		    } else if(player.getStatedInterface().equals("dropPartyChest")) {
+		    	PartyRoom.Deposit(player, player.getSlot(), itemId, 1);
+			} else {
+				TradeManager.offerItem(player, player.getSlot(), itemId, 1);
+		    }
+		} else if (interfaceID == PartyRoom.DROP_CHEST_INVENTORY_DEPOSIT && player.getStatedInterface().equals("dropPartyChest")) {
+			PartyRoom.Withdraw(player, player.getSlot(), itemId, 1);
+		} else if (interfaceID == 3415) {
+		    TradeManager.removeTradeItem(player, player.getSlot(), itemId, 1);
+		} else if (interfaceID == 15682 || interfaceID == 15683) {
+		    player.getFarmingTools().withdrawItems(itemId, 1);
+		} else if (interfaceID == 15594 || interfaceID == 15595) {
+		    player.getFarmingTools().storeItems(itemId, 1);
+		} else if (interfaceID == 6669) {
+		    player.getDuelMainData().removeStakedItem(new Item(itemId, 1));
+		}
     }
 
     private void handleClick5(Player player, Packet packet) {
@@ -762,10 +766,14 @@ public class ItemPacketHandler implements PacketHandler {
 		ShopManager.sellItem(player, player.getSlot(), itemId, 1);
 	} else if (interfaceID == 3322) {
 	    if (player.getStatedInterface() == "duel") {
-		player.getDuelMainData().stakeItem(new Item(itemId, 5), player.getSlot());
-	    } else {
-		TradeManager.offerItem(player, player.getSlot(), itemId, 5);
+	    	player.getDuelMainData().stakeItem(new Item(itemId, 5), player.getSlot());
+	    } else if(player.getStatedInterface().equals("dropPartyChest")) {
+	    	PartyRoom.Deposit(player, player.getSlot(), itemId, 5);
+		} else {
+			TradeManager.offerItem(player, player.getSlot(), itemId, 5);
 	    }
+	} else if (interfaceID == PartyRoom.DROP_CHEST_INVENTORY_DEPOSIT && player.getStatedInterface().equals("dropPartyChest")) {
+		PartyRoom.Withdraw(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 3415) {
 	    TradeManager.removeTradeItem(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 15682 || interfaceID == 15683) {
@@ -817,10 +825,14 @@ public class ItemPacketHandler implements PacketHandler {
 	    ShopManager.sellItem(player, player.getSlot(), itemId, 5);
 	} else if (interfaceID == 3322) {
 	    if (player.getStatedInterface() == "duel") {
-		player.getDuelMainData().stakeItem(new Item(itemId, 10), player.getSlot());
-	    } else {
-		TradeManager.offerItem(player, player.getSlot(), itemId, 10);
+	    	player.getDuelMainData().stakeItem(new Item(itemId, 10), player.getSlot());
+	    } else if(player.getStatedInterface().equals("dropPartyChest")) {
+	    	PartyRoom.Deposit(player, player.getSlot(), itemId, 10);
+		} else {
+			TradeManager.offerItem(player, player.getSlot(), itemId, 10);
 	    }
+	} else if (interfaceID == PartyRoom.DROP_CHEST_INVENTORY_DEPOSIT && player.getStatedInterface().equals("dropPartyChest")) {
+		PartyRoom.Withdraw(player, player.getSlot(), itemId, 10);
 	} else if (interfaceID == 3415) {
 	    TradeManager.removeTradeItem(player, player.getSlot(), itemId, 10);
 	} else if (interfaceID == 15682 || interfaceID == 15683) {
@@ -854,10 +866,14 @@ public class ItemPacketHandler implements PacketHandler {
 	    ShopManager.sellItem(player, player.getSlot(), itemId, 10);
 	} else if (interfaceID == 3322) {
 	    if (player.getStatedInterface() == "duel") {
-		player.getDuelMainData().stakeItem(new Item(itemId, player.getInventory().getItemContainer().getCount(itemId)), player.getSlot());
-	    } else {
-		TradeManager.offerItem(player, player.getSlot(), itemId, player.getInventory().getItemContainer().getCount(itemId));
+	    	player.getDuelMainData().stakeItem(new Item(itemId, player.getInventory().getItemContainer().getCount(itemId)), player.getSlot());
+	    } else if(player.getStatedInterface().equals("dropPartyChest")) {
+	    	PartyRoom.Deposit(player, player.getSlot(), itemId, player.getInventory().getItemContainer().getCount(itemId));
+		} else {
+			TradeManager.offerItem(player, player.getSlot(), itemId, player.getInventory().getItemContainer().getCount(itemId));
 	    }
+	} else if (interfaceID == PartyRoom.DROP_CHEST_INVENTORY_DEPOSIT && player.getStatedInterface().equals("dropPartyChest")) {
+		PartyRoom.Withdraw(player, player.getSlot(), itemId, Integer.MAX_VALUE);
 	} else if (interfaceID == 15594 || interfaceID == 15595) {
 	    player.getActionSender().openXInterface(interfaceID);
 	    player.setClickItem(itemId);

@@ -20,6 +20,7 @@ import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.consumables.Food;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -2705,6 +2706,7 @@ public class CommandHandler {
 				continue;
 			player.getActionSender().sendUpdateServer(ticks);
 			TradeManager.declineTrade(player);
+			PartyRoom.CancelOffer(player);
 		}
 		new ShutdownWorldProcess(seconds).start();
 	}

@@ -44,6 +44,7 @@ import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.RuneDraw;
 import com.rs2.model.content.minigames.barrows.Barrows;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
@@ -269,6 +270,7 @@ public class Player extends Entity {
 	private final int[] appearance = new int[7];
 	private final int[] colors = new int[5];
 	private Container trade = new Container(Type.STANDARD, Inventory.SIZE);
+	private Container partyChest = new Container(Type.STANDARD, PartyRoom.MAX_CHEST_DEPOSIT_ITEMS);
 	private boolean pickupItem;
 	public boolean trackerGnome1 = false;
 	public boolean trackerGnome2 = false;
@@ -683,6 +685,10 @@ public class Player extends Entity {
                     getDuelInteraction().endDuelInteraction(true);
                 }
             }
+            b.stop();
+            b = Benchmarks.getBenchmark("partyOfferCancel");
+            b.start();
+            PartyRoom.CancelOffer(this);
             b.stop();
             b = Benchmarks.getBenchmark("petUnregister");
             b.start();
@@ -2140,6 +2146,10 @@ public class Player extends Entity {
 
 	public Container getTrade() {
 		return trade;
+	}
+	
+	public Container getPartyDeposit() {
+		return partyChest;
 	}
 
 	public void setPendingItems(int[] pendingItems) {

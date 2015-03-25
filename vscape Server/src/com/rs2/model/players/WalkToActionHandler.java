@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.warriorsguild.WarriorsGuild;
 import com.rs2.model.content.minigames.castlewars.*;
 import com.rs2.model.content.minigames.castlewars.impl.CastlewarsBarricades;
@@ -23,7 +24,6 @@ import com.rs2.model.content.quests.impl.HeroesQuest;
 import com.rs2.model.content.quests.impl.InSearchOfTheMyreque;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.impl.PiratesTreasure;
-
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
@@ -381,6 +381,11 @@ public class WalkToActionHandler {
 					}
 				}
 				if (ThieveOther.handleObjectClick(player, id, x, y)) {
+					this.stop();
+					return;
+				}
+				if(PartyRoom.objectFirst(player, def))
+				{
 					this.stop();
 					return;
 				}
@@ -1910,6 +1915,11 @@ public class WalkToActionHandler {
 					this.stop();
 				    return;
 				}
+				if(PartyRoom.objectSecond(player, def))
+				{
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 2114 : // coal truck
 					CoalTruck.checkCoal(player);
@@ -2038,7 +2048,11 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-				
+				if(PartyRoom.objectThird(player, def))
+				{
+					this.stop();
+					return;
+				}
 				switch (player.getClickId()) {
 				case 3194 : // opened bank chest
 					final GameObject p = ObjectHandler.getInstance().getObject(id, x, y, z);

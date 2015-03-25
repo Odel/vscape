@@ -1,6 +1,7 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.TradeManager;
 import com.rs2.net.packet.Packet;
@@ -13,6 +14,9 @@ public class CloseInterfacePacketHandler implements PacketHandler {
 	@Override
 	public void handlePacket(Player player, Packet packet) {
 		TradeManager.declineTrade(player);
+		if(player.getStatedInterface().equals("dropPartyChest")) {
+			PartyRoom.CancelOffer(player);
+		}
 		if (player.getStatedInterface() == "duel" || player.getStatedInterface() == "duel2") {
 			if (player.getDuelMainData().getOpponent() != null && player.getDuelMainData().getOpponent().isLoggedIn()) {
 				player.getDuelMainData().getOpponent().getDuelInteraction().endDuelInteraction(true);
