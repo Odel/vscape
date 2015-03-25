@@ -1,6 +1,7 @@
 package com.rs2.net.packet.packets;
 
 import com.rs2.model.content.dialogue.Dialogues;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
 import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
@@ -84,8 +85,13 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 		} else if (player.getEnterXInterfaceId() == 3322) {
 			if (player.getStatedInterface() == "duel")
 				player.getDuelMainData().stakeItem(new Item(player.getEnterXId(), amount), player.getInventory().getItemContainer().getSlotById(player.getEnterXId()));
+			else if(player.getStatedInterface().equals("dropPartyChest"))
+				PartyRoom.Deposit(player, player.getEnterXSlot(), player.getEnterXId(), amount);
 			else
 				TradeManager.offerItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
+			return;
+		} else if (player.getEnterXInterfaceId() == PartyRoom.DROP_CHEST_INVENTORY_DEPOSIT && player.getStatedInterface().equals("dropPartyChest")) {
+			PartyRoom.Withdraw(player, player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
 		} else if (player.getEnterXInterfaceId() == 3415) {
 			TradeManager.removeTradeItem(player, player.getEnterXSlot(), player.getEnterXId(), amount);
