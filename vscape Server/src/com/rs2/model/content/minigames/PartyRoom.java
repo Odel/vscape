@@ -10,8 +10,12 @@ import com.rs2.Constants;
 import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.dialogue.DialogueManager;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
+import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.players.ObjectHandler;
@@ -20,6 +24,8 @@ import com.rs2.model.players.container.Container;
 import com.rs2.model.players.container.Container.Type;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.Tick;
+import com.rs2.task.Task;
+import com.rs2.task.TaskScheduler;
 import com.rs2.util.Misc;
 
 public class PartyRoom {
@@ -34,6 +40,17 @@ public class PartyRoom {
 	public static final int MAX_CHEST_DEPOSIT_ITEMS = 8;
 	
 	public static Container CHEST_CONTAINER = new Container(Type.STANDARD, MAX_CHEST_ITEMS);
+	
+	private final static String[] knightSong = {
+		"We're knights of the party room",
+		"We dance round and round like a loon",
+		"Quite often we like to sing",
+		"Unfortunately we make a din",
+		"We're knights of the party room",
+		"Do you like our helmet plumes?",
+		"Everyone's happy now we can move",
+		"Like a party animal in the groove"
+	};
 
 	public static void OpenChestInterface(final Player player){
 		Item[] inventoryItems = player.getInventory().getItemContainer().toArray();
@@ -48,7 +65,7 @@ public class PartyRoom {
 	
 	public static void Deposit(final Player player, final int slot, final int depItem, int depAmount){
 		if(!Constants.PARTY_ROOM_ENABLED){
-			player.getActionSender().sendMessage("@red@This feature is disabked.", true);
+			player.getActionSender().sendMessage("@red@This feature is disabled.", true);
 			return;
 		}
 	    RSInterface inter = RSInterface.forId(DROP_CHEST_INTERFACE);
@@ -149,7 +166,7 @@ public class PartyRoom {
 	public static boolean AcceptOffer(final Player player, int buttonId)
 	{
 		if(!Constants.PARTY_ROOM_ENABLED){
-			player.getActionSender().sendMessage("@red@This feature is disabked.", true);
+			player.getActionSender().sendMessage("@red@This feature is disabled.", true);
 			return true;
 		}
 		Container depositContainer = player.getPartyDeposit();
@@ -200,11 +217,54 @@ public class PartyRoom {
 		}
 	}
 	
+	private static long chestValue(){
+		long value = 0;
+		if(CHEST_CONTAINER != null)
+		{
+			Item[] chestItems = CHEST_CONTAINER.toArray();
+			if(chestItems != null && chestItems.length > 0){
+				for(int i = 0; i < chestItems.length; i++)
+				{
+					Item item = chestItems[i];
+					if (item == null || !item.validItem()) {
+						continue;
+					}
+					if(item.getId() != 995){
+						if(item.getDefinition().getHighAlcValue() > 0)
+						{
+							value += (item.getCount() * item.getDefinition().getHighAlcValue());
+						}
+					}else{
+						value += item.getCount();
+					}
+				}
+			}
+		}
+		return value;
+	}
+	
+	private static int dropDelay(){
+		int delay = 16;
+		long value = chestValue();
+		if(value >= 0 && value < 50000){
+			delay = 16;
+		} else if(value >= 50000 && value < 150000){
+			delay = 100;
+		} else if(value >= 150000 && value < 1000000){
+			delay = 500;
+		} else if(value >= 1000000){
+			delay = 1000;
+		}
+		return delay;
+	}
+	
 	public static void dropItems() {
 		if(droppingItems)
 			return;
 		droppingItems = true;
 		Item[] chestItems = CHEST_CONTAINER.toArray();
+		if(chestItems == null || chestItems.length <= 0)
+			return;
 		final List<Item> itemsToDropL = new ArrayList<Item>();
 		itemsToDropL.clear();
 		for(int i = 0; i < chestItems.length; i++)
@@ -213,7 +273,7 @@ public class PartyRoom {
 			if (item == null || !item.validItem()) {
 				continue;
 			}
-			if(item.getDefinition().isStackable() && item.getCount() > 100)
+			if(item.getDefinition().isStackable() && item.getCount() > 10)
 			{
 				int count = item.getCount();
 				while(count > 0)
@@ -234,7 +294,7 @@ public class PartyRoom {
 		RefreshChest();
 		balloons = new ArrayList<PartyBalloon>();
 		balloons.clear();
-		World.submit(new Tick(5) {
+		World.submit(new Tick(3) {
 			int tries = 0;
 		    @Override 
 		    public void execute() {
@@ -344,9 +404,10 @@ public class PartyRoom {
 		{
 			case 2416 :
 				if(!Constants.PARTY_ROOM_ENABLED){
-					player.getActionSender().sendMessage("@red@This feature is disabked.", true);
+					player.getActionSender().sendMessage("@red@This feature is disabled.", true);
 					return true;
 				}
+				Dialogues.startDialogue(player, 66000);
 			return true;
 			case 2417:
 				player.getUpdateFlags().sendAnimation(832);
@@ -356,13 +417,95 @@ public class PartyRoom {
 		return false;
 	}
 	
+	public static boolean handleDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
+		DialogueManager d = player.getDialogue();
+		switch (id) {
+			case 66000 :
+				switch(d.getChatId()) {
+					case 1 :
+						d.sendOption("Drop Balloons (1000gp)", "Dancing Knights (500gp)");
+					return true;
+					case 2 :
+						switch(optionId) {
+							case 1 :
+								if(droppingItems)
+								{
+									d.sendStatement("There is currently a drop in progress.");	
+									d.endDialogue();
+									return true;
+								}
+								if(dropTick)
+								{
+									d.sendStatement("Drop countdown is in progress!");
+									d.endDialogue();
+									return true;
+								}
+								if(CHEST_CONTAINER == null || CHEST_CONTAINER.size() <= 0)
+								{
+									d.sendStatement("The chest is empty.");
+									d.endDialogue();
+									return true;
+								}
+								if(player.getInventory().removeItem(new Item(995, 1000)))
+								{
+									dropTick = true;
+									final Npc pete = partyPete();
+									new TaskScheduler().schedule(new Task() {
+										int ticks = dropDelay();
+										@Override
+										protected void execute() {
+											ticks--;
+											if(ticks >= 0)
+											{
+												if(pete != null)
+												{
+													int time = (int)(0.6 * ticks);
+													pete.getUpdateFlags().sendForceMessage(""+time);
+												}
+											}
+											if(ticks <= 0)
+											{
+												stop();
+												dropItems();
+												dropTick = false;
+												return;
+											}
+										}
+									});
+									d.sendGiveItemNpc("Dropping Balloons in " + (int)(0.6 * dropDelay()) + " Seconds.", new Item(995, 1000));
+								}else{
+									d.sendStatement("You don't have enough gold to do this.");
+								}
+								d.endDialogue();
+								return true;
+							case 2 :
+								if(dancingKnights != null)
+								{
+									d.sendStatement("The knights are already dancing!");
+									d.endDialogue();
+									return true;
+								}
+								if(player.getInventory().removeItem(new Item(995, 500)))
+								{
+									spawnDancingKnights();
+									d.sendGiveItemNpc("The knights begin to dance and sing on the table.", new Item(995, 500));
+								}else{
+									d.sendStatement("You don't have enough gold to do this.");
+								}
+								d.endDialogue();
+								return true;
+						}
+					break;
+				}
+			break;
+		}
+		return false;
+	}
+	
 	public static boolean objectSecond(final Player player, GameObjectDef def){
 		if(def == null)
 			return false;
 		int id = def.getId();
-		int x = def.getPosition().getX();
-		int y = def.getPosition().getY();
-		int z = def.getPosition().getZ();
 		switch(id)
 		{
 			case 2418:
@@ -376,9 +519,6 @@ public class PartyRoom {
 		if(def == null)
 			return false;
 		int id = def.getId();
-		int x = def.getPosition().getX();
-		int y = def.getPosition().getY();
-		int z = def.getPosition().getZ();
 		switch(id)
 		{
 			case 2418:
@@ -396,8 +536,73 @@ public class PartyRoom {
 		}
 	}
 	
+	private static Npc partyPete(){
+		for(Npc npc : World.getNpcs())
+		{
+			if(npc == null || npc.isDead() || !npc.isVisible())
+				continue;
+			if(npc.getNpcId() == 659)
+				return npc;
+		}
+		return null;
+	}
+	
+	private static void spawnDancingKnights(){
+		if(dancingKnights != null)
+			return;
+		dancingKnights = new Npc[6];
+		int x = 2735;
+		for(int i = 0; i < dancingKnights.length; i++)
+		{
+			Npc knight = new Npc(660);
+			knight.setPosition(new Position(x, 3468, 0));
+			knight.setSpawnPosition(new Position(x, 3468, 0));
+			knight.setFace(0);
+			World.register(knight);
+			dancingKnights[i] = knight;
+			x++;
+		}
+		World.submit(new Tick(6) {
+			int songPos = 0;
+		    @Override 
+		    public void execute() {
+		    	if(dancingKnights == null || songPos >= knightSong.length + 1)
+		    	{
+		    		stop();
+		    		destroyDancingKnights();
+		    		return;
+		    	}
+				if(dancingKnights != null && songPos < knightSong.length)
+				{
+					Npc knight = dancingKnights[Misc.random(dancingKnights.length-1)];
+					if(knight == null)
+						return;
+					knight.getUpdateFlags().sendForceMessage(knightSong[songPos]);
+				}
+		    	songPos++;
+		    }
+		});
+	}
+	
+	private static void destroyDancingKnights(){
+		if(dancingKnights != null)
+		{
+			for(int i = 0; i < dancingKnights.length; i++)
+			{
+				Npc knight = dancingKnights[i];
+				if(knight == null)
+					continue;
+				NpcLoader.destroyNpc(knight);
+				dancingKnights[i] = null;
+			}
+			dancingKnights = null;
+		}
+	}
+	
 	private static boolean droppingItems = false;
+	private static boolean dropTick = false;
 	private static List<PartyBalloon> balloons;
+	private static Npc[] dancingKnights;
 	
 	public static class PartyBalloon {
 		public Position position;

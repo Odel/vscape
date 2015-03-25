@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
+import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.randomevents.TalkToEvent;
 import com.rs2.model.content.skills.Skill;
@@ -38,7 +39,6 @@ import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.impl.Quest;
-
 import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -153,6 +153,10 @@ public class Dialogues {
 			if(player.getRandomHandler().getCurrentEvent().sendDialogue(id, chatId, optionId, npcChatId)) {
 				return true;
 			}
+		}
+		if(PartyRoom.handleDialogue(player, id, chatId, optionId, npcChatId))
+		{
+			return true;
 		}
 		switch(id) {
 			case 1 : //Man

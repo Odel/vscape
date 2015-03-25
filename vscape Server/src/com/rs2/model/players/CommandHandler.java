@@ -2057,7 +2057,10 @@ public class CommandHandler {
 		    } else {
 		    	sender.getActionSender().sendMessage("Player not found.", true);
 		    }
-		}
+		}else if (keyword.equals("toggleparty")) {
+		    Constants.PARTY_ROOM_ENABLED = !Constants.PARTY_ROOM_ENABLED;
+        	sender.getActionSender().sendMessage("Party Room is now "+(Constants.PARTY_ROOM_ENABLED ? "enabled." : "disabled."), true);
+		}	
 	}
 	
 	public static void info(Player player) {

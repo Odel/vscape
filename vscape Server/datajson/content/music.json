@@ -2132,7 +2132,9 @@
     "button": 17032
   },
   {
-    "regions": [],
+    "regions": [
+	  12109
+	],
     "name": "The Rogues Den",
     "song": 402,
     "frame": 13779,
