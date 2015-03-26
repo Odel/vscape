@@ -326,6 +326,10 @@ public abstract class Entity {
 	public boolean inBarrows() {
 		return Area(3520, 9660, 3585, 9730);
 	}
+	
+	public boolean inUndergroundPass() {
+		return Area(2368, 2495, 9590, 9738);
+	}
 
 	public boolean inDuelArena() {
 		return Area(3333, 3357, 3244, 3258) || Area(3333, 3357, 3225, 3239) || Area(3333, 3357, 3206, 3220) || Area(3364, 3388, 3244, 3258) || Area(3364, 3388, 3225, 3239) || Area(3364, 3388, 3206, 3220);

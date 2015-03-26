@@ -142,13 +142,11 @@ import com.rs2.util.PlayerSave;
 import com.rs2.util.plugin.LocalPlugin;
 import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
-import com.rs2.model.content.quests.QuestHandler;
-import com.rs2.model.content.quests.QuestVariables;
+import com.rs2.model.content.quests.*;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
-import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
-import com.rs2.model.content.quests.impl.UndergroundPass.PassObjectHandling;
+import com.rs2.model.content.quests.impl.UndergroundPass.*;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
 import com.rs2.model.content.skills.farming.MithrilSeeds;
@@ -686,7 +684,7 @@ public class Player extends Entity {
                 }
             }
             b.stop();
-            b = Benchmarks.getBenchmark("partyOfferCancel");
+	    b = Benchmarks.getBenchmark("partyOfferCancel");
             b.start();
             PartyRoom.CancelOffer(this);
             b.stop();
@@ -1225,6 +1223,9 @@ public class Player extends Entity {
 		}
 		if(this.Area(2378, 2465, 9665, 9700)) {
 			PassObjectHandling.startTrapCycle(this);
+		}
+		if(this.inUndergroundPass()) {
+			UndergroundPass.startIbanWhispers(this);
 		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {

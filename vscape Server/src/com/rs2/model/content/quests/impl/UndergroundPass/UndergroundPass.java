@@ -32,7 +32,7 @@ import static org.jruby.ext.bigdecimal.RubyBigDecimal.mode;
 
 public class UndergroundPass implements Quest {
 
-	public static final int questIndex = 9927; //Used in player's quest log interface, id is in Player.java, Change
+	public static final int questIndex = 9927;
 	//Quest stages
 	public static final int QUEST_STARTED = 1;
 	public static final int QUEST_COMPLETE = 2;
@@ -109,6 +109,8 @@ public class UndergroundPass implements Quest {
 	public static final int PASS_ENTRANCE = 3213;
 	public static final int PASS_EXIT = 3214;
 	public static final int GUIDE_ROPE = 3340;
+	
+	public static final String[] ibanWhispers = {"Blood, pain and hate.", "Death is only the beginning.", "Kill, maim... murder.", "I'll swallow your soul.", "The power of the gods could be yours.", "Hear me...", "Iban will save you... He'll save us all.", "I will release you...", "Make them all pay!", "Join us!", "I see you adventurer... you can't hide."};
 
 	private int reward[][] = { //{itemId, count},
 	};
@@ -245,6 +247,21 @@ public class UndergroundPass implements Quest {
 		player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
+	
+	public static void startIbanWhispers(final Player player) {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				if(!player.inUndergroundPass())
+					b.stop();
+				else
+					player.getActionSender().sendMessage(ibanWhispers[Misc.randomMinusOne(ibanWhispers.length)]);
+			}
+			@Override
+			public void stop() {
+			}
+		}, 120);
+	}
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
@@ -286,6 +303,21 @@ public class UndergroundPass implements Quest {
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case 3234:
+				if(player.inUndergroundPass()) {
+					Dialogues.startDialogue(player, 32340);
+					return true;
+				}
+			return false;
+			case 3339:
+				if(x == 2382 && y == 9668) {
+					Dialogues.startDialogue(player, ORB_OF_LIGHT + 10000);
+					return true;
+				}
+			return false;
+			case 3230:
+				PassObjectHandling.handleDisarmTrap(player, object, 2244, null);
+				return true;
 			case 2274: //rope swing
 				PassObjectHandling.handleRopeSwing(player, object);
 				return true;
@@ -318,6 +350,7 @@ public class UndergroundPass implements Quest {
 				if(x == 2433 && y == 3313) {
 					player.getUpdateFlags().sendAnimation(844);
 					//player.fadeTeleport(PASS_ENTRANCE_POS);
+					startIbanWhispers(player);
 					return true;
 				}
 				return false;
@@ -346,6 +379,40 @@ public class UndergroundPass implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case 32340:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendStatement("The markings appear to be holes in the wall... It's a trap!");
+						return true;
+					case 2:
+						d.sendOption("Try and disarm the trap.", "Leave it alone.");
+						return true;
+					case 3:
+						player.getActionSender().removeInterfaces();
+						d.endDialogue();
+						if (optionId == 1) {
+							PassObjectHandling.handleDisarmTrap(player, 3234, 2246, null);
+						}
+						return true;	
+				}
+			return false;
+			case ORB_OF_LIGHT + 10000:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendStatement("The rock appears to move slightly as you touch it... It's a trap!");
+						return true;
+					case 2:
+						d.sendOption("Try and disarm the trap.", "Leave it alone.");
+						return true;
+					case 3:
+						player.getActionSender().removeInterfaces();
+						d.endDialogue();
+						if (optionId == 1) {
+							PassObjectHandling.handleDisarmTrap(player, 3361, 2244, null);
+						}
+						return true;	
+				}
+			return false;
 			case KING_LATHAS:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
 					case QUEST_COMPLETE:
