@@ -9,6 +9,8 @@ public class SettingsManager {
 
 	public static final String settings_dir = Signlink.findcachedir() + "settings.ini";
 	
+	public static String savedUsername = "";
+	public static String savedPassword = "";
 	public static int sizeMode = 0;
 	public static int resizableW = 900;
 	public static int resizableH = 600;
@@ -72,6 +74,8 @@ public class SettingsManager {
 				System.out.println("error writing settings file.");
 			}
 		}
+		savedUsername = (Client.rememberMe ? Client.myUsername : "");
+		savedPassword = (Client.rememberMe ? Client.myPassword : "");
 		sizeMode = (Client.clientSize >= 1 ? 1 : 0);
 		resizableW = Client.clientWidth;
 		resizableH = Client.clientHeight;
@@ -102,22 +106,12 @@ public class SettingsManager {
 									Client.rememberMe = Boolean.parseBoolean(token2);
 								break;
 								case "username" :
-									Client.myUsername = token2;
+									savedUsername = token2;
+									Client.myUsername = savedUsername;
 								break;
 								case "password" :
-									Client.myPassword = token2;
-								break;
-								case "sizeMode" :
-									sizeMode = Integer.parseInt(token2);
-								break;
-								case "resizableW" :
-									resizableW = Integer.parseInt(token2);
-								break;
-								case "resizableH" :
-									resizableH = Integer.parseInt(token2);
-								break;
-								case "roofs" :
-									Client.instance.roofsToggled = !Boolean.parseBoolean(token2);
+									savedPassword = token2;
+									Client.myPassword = savedPassword;
 								break;
 								case "game" :
 									 Client.instance.gameMode = Integer.parseInt(token2);
@@ -136,6 +130,18 @@ public class SettingsManager {
 								break;
 								case "global" :
 									 Client.instance.globalMode = Integer.parseInt(token2);
+								break;
+								case "sizeMode" :
+									sizeMode = Integer.parseInt(token2);
+								break;
+								case "resizableW" :
+									resizableW = Integer.parseInt(token2);
+								break;
+								case "resizableH" :
+									resizableH = Integer.parseInt(token2);
+								break;
+								case "roofs" :
+									Client.instance.roofsToggled = !Boolean.parseBoolean(token2);
 								break;
 								case "loginMusic" :
 									Client.loginMusicEnabled = Boolean.parseBoolean(token2);

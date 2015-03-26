@@ -10243,6 +10243,11 @@ public class Client extends RSApplet {
 			baseXPDy = (clientHeight / 2) - 180;
 			tXPDy = clientHeight - 180;
 			if(baseXPDy <= 0) { baseXPDy = 0; }
+			if(xpDropList != null && xpDropList.size() <= 0)
+			{
+				xpDropList.clear();
+				return;
+			}
 			for(int i = 0; i < xpDropList.size(); i++)
 			{
 				int[] xpDrop = xpDropList.get(i);
@@ -10266,7 +10271,7 @@ public class Client extends RSApplet {
 					}
 				}
 				int distance = Math.abs(currentY - tXPDy);
-				if(distance <= 2)
+				if(distance <= 2 || currentY > tXPDy)
 				{
 					xpDropList.remove(i);
 					continue;
@@ -11837,7 +11842,10 @@ public class Client extends RSApplet {
                 if (myUsername.length() > 0 && myPassword.length() > 0) {
                     loginFailures = 0;
                     login(myUsername, myPassword, false);
-                    SettingsManager.write();
+                    if(!SettingsManager.savedUsername.equals(myUsername) || !SettingsManager.savedPassword.equals(myPassword))
+                    {
+                    	SettingsManager.write();
+                    }
             		stopMidi();
                     if (loggedIn) {
                         return;
