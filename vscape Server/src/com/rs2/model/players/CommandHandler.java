@@ -218,7 +218,7 @@ public class CommandHandler {
 			}
 			sender.lastReport = System.currentTimeMillis();
 			sender.getActionSender().sendMessage("The bug has been reported. Thank you!", true);
-			appendToBugList(sender, fullString);
+			LogHandler.LogBug(sender.getUsername(),fullString);
 		}
 		else if (keyword.equals("home")) {
 		    if (sender.cantTeleport() || (sender.inWild() && sender.getWildernessLevel() > 20) || sender.isDead() || !sender.getInCombatTick().completed()) {
@@ -2191,18 +2191,6 @@ public class CommandHandler {
 		    	e.printStackTrace();
 		    }
 		}
-	}
-
-	public static void appendToBugList(Player player, String bug) {
-		String filePath = "./data/bugs.txt";
-		try(BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))){
-			out.write("Bug reported by " + player.getUsername() + " about : " + bug);
-			out.newLine();
-			out.flush();
-			out.close();
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    }
 	}
 
 	public static void appendToReportList(Player player, String bug) {

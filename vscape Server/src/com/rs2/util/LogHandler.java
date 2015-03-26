@@ -85,4 +85,16 @@ public class LogHandler {
 			 System.out.println("error writing command log file.");
 	     }
 	}
+	
+	public static void LogBug(String name, String msg)
+	{
+		 try(BufferedWriter commandLog = new BufferedWriter(new FileWriter("./data/bugs.txt", true))){
+			 commandLog.write("[" + df.format(new Date()) + "] Bug reported by "+ name + " about : " + msg);
+			 commandLog.newLine();
+			 commandLog.flush();
+			 commandLog.close();
+		 } catch(IOException ioexception) {
+			 System.out.println("error writing bug report file.");
+	     }
+	}
 }
