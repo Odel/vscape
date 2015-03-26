@@ -36,6 +36,11 @@ public class Client extends RSApplet {
 				gameAreaHeight = clientHeight;
 				updateGameArea();
 			}
+			if(loggedIn)
+			{
+				if(SettingsManager.resizableW != clientWidth || SettingsManager.resizableH != clientHeight)
+					SettingsManager.write();
+			}
 		}
 	}
 
@@ -82,8 +87,8 @@ public class Client extends RSApplet {
 			} else if (size == 1) {
 				log_view_dist = 10;
 				size = 1;
-				width = isWebclient() ? appletWidth : resizableWidth;
-				height = isWebclient() ? appletHeight : resizableHeight;
+				width = isWebclient() ? appletWidth : (SettingsManager.resizableW > 0 ? SettingsManager.resizableW : resizableWidth);
+				height = isWebclient() ? appletHeight : (SettingsManager.resizableH > 0 ? SettingsManager.resizableH : resizableHeight);
 			} else if (size == 2) {
 				log_view_dist = 10;
 				size = 2;
@@ -2772,15 +2777,8 @@ public class Client extends RSApplet {
 			musicVolume = 256;
 			onDemandFetcher.method558(2, nextSong);
 		}
-		saveChatSettings();
 	}
 	
-	private void saveChatSettings() {
-		try {
-			writeChatSettings();
-		} catch(Exception e) {}
-	}
-
 	private void method45() {
 		aBoolean1031 = true;
 		for (int j = 0; j < 7; j++) {
@@ -4234,15 +4232,18 @@ public class Client extends RSApplet {
 				switch (k) {
 				case 24149:
 					toggleSize(0);
+					SettingsManager.write();
 					break;
 				case 24150:
 					toggleSize(1);
+					SettingsManager.write();
 					break;
 				case 24151: 
 					toggleSize(2);
 					break;
 				case 19156: 
 					roofsToggled = !roofsToggled;
+					SettingsManager.write();
 					break;
 				/*case 21341:
 					sendFrame248(21172, 3213);
@@ -4541,17 +4542,17 @@ public class Client extends RSApplet {
 		if(l == 1008) {
 			globalMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if(l == 1007) {
 			globalMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if(l == 1006) {
 			globalMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if(l == 1005) {
 			cButtonCPos = 0;
@@ -4568,17 +4569,17 @@ public class Client extends RSApplet {
 		if (l == 1002) {
 			gameMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 1001) {
 			gameMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 1000) {
 			gameMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 999) {
 			cButtonCPos = 0;
@@ -4593,22 +4594,22 @@ public class Client extends RSApplet {
 		if (l == 997) {
 			publicChatMode = 3;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 996) {
 			publicChatMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 995) {
 			publicChatMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 994) {
 			publicChatMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 993) {
 			cButtonCPos = 2;
@@ -4618,17 +4619,17 @@ public class Client extends RSApplet {
 		if (l == 992) {
 			privateChatMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 991) {
 			privateChatMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 990) {
 			privateChatMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 989) {
 			cButtonCPos = 3;
@@ -4638,17 +4639,17 @@ public class Client extends RSApplet {
 		if (l == 987) {
 			tradeMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 986) {
 			tradeMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 985) {
 			tradeMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 984) {
 			cButtonCPos = 5;
@@ -4658,17 +4659,17 @@ public class Client extends RSApplet {
 		if (l == 983) {
 			clanChatMode = 2;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 982) {
 			clanChatMode = 1;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 981) {
 			clanChatMode = 0;
 			inputTaken = true;
-			saveChatSettings();
+			SettingsManager.write();
 		}
 		if (l == 980) {
 			cButtonCPos = 6;
@@ -5587,6 +5588,7 @@ public class Client extends RSApplet {
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
 					if (inputString.equalsIgnoreCase("::toggleroofs")){
 						roofsToggled = !roofsToggled;
+						SettingsManager.write();
 					}
 					if (inputString.equalsIgnoreCase("::xpdrop")){
 						xpDropEnabled = !xpDropEnabled;
@@ -5595,6 +5597,7 @@ public class Client extends RSApplet {
 							if(xpDropList != null)
 								xpDropList.clear();
 						}
+						SettingsManager.write();
 					}
 					if (myPrivilege >= 2) {
 						if (inputString.equalsIgnoreCase("::dumpclip"))
@@ -7467,6 +7470,7 @@ public class Client extends RSApplet {
 				int anInt941 = 0;
 				int anInt1260 = 0;
 				resetImageProducers2();
+				toggleSize(SettingsManager.sizeMode);
 				return;
 			}
 			if(k == 3)
@@ -8200,8 +8204,7 @@ public class Client extends RSApplet {
 			checkClientVersion();
 		} catch(Exception _ex) { }
 		try {
-			readSettings();
-			readChatSettings();
+			SettingsManager.load();
 		} catch(Exception e) {}
 		if(Signlink.sunjava)
 			super.minDelay = 5;
@@ -10231,7 +10234,7 @@ public class Client extends RSApplet {
 	private int baseXPDx;
 	private int baseXPDy;
 	private int tXPDy;
-	private boolean xpDropEnabled = false;
+	public boolean xpDropEnabled = false;
 
 	private void drawDropXp()
 	{
@@ -11355,60 +11358,6 @@ public class Client extends RSApplet {
 	}
 	
 	public static boolean rememberMe = false;
-	public static String savedUsername = "";
-	public static String savedPassword = "";
-
-	public void writeSettings() throws IOException {
-		try {
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(Signlink.findcachedir() + "settings.dat")));
-		out.writeUTF(savedUsername);
-		out.writeUTF(savedPassword);
-		out.writeUTF(Boolean.toString(rememberMe));
-		out.writeUTF(Boolean.toString(loginMusicEnabled));
-		out.flush();
-		out.close();
-		} catch(Exception e) {	}
-	}  
-	
-	public void readSettings() throws IOException {
-		try {
-		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(Signlink.findcachedir() + "settings.dat")));
-		savedUsername = in.readUTF();
-		myUsername = savedUsername;
-		savedPassword = in.readUTF();
-		myPassword = savedPassword;
-		rememberMe = Boolean.parseBoolean(in.readUTF());
-		loginMusicEnabled = Boolean.parseBoolean(in.readUTF());
-		in.close();
-		} catch(Exception e) {}
-	}
-	
-	public void writeChatSettings() throws IOException {
-		try {
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(Signlink.findcachedir() + "chatsettings.dat")));
-		out.writeInt(gameMode);
-		out.writeInt(publicChatMode);
-		out.writeInt(privateChatMode);
-		out.writeInt(clanChatMode);
-		out.writeInt(tradeMode);
-		out.writeInt(globalMode);
-		out.flush();
-		out.close();
-		} catch(Exception e) {	}
-	}  
-	
-	public void readChatSettings() throws IOException {
-		try {
-		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream(Signlink.findcachedir() + "chatsettings.dat")));
-		gameMode = in.readInt();
-		publicChatMode = in.readInt();
-		privateChatMode = in.readInt();
-		clanChatMode = in.readInt();
-		tradeMode = in.readInt();
-		globalMode = in.readInt();
-		in.close();
-		} catch(Exception e) {}
-	}
 	
 	private void drawLoginScreen(boolean flag) {
 	    refreshClientScreen();
@@ -11858,9 +11807,7 @@ public class Client extends RSApplet {
 		       } catch (Exception _ex) {}
 		       onDemandFetcher.method558(2, nextSong);
 		   }
-			try {
-				writeSettings();
-			} catch(Exception e) {	}
+		   SettingsManager.write();
 	    }
         }
         if (loginMessage1.length() > 0 || loginMessage2.length() > 0) {
@@ -11877,14 +11824,10 @@ public class Client extends RSApplet {
         		if(rememberMe)
         		{
         			rememberMe = false;
-        			try {
-						savedUsername = "";
-						savedPassword = "";
-        				writeSettings();
-        			} catch(Exception e) {	}
         		}else{
         			rememberMe = true;
         		}
+        		SettingsManager.write();
         	}
             if (super.clickMode3 == 1 && clickInRegion(centerX - 100, centerY - 64, centerX + (SpriteLoader.getSprite("login", 1).myWidth / 2), centerY - 38))
             	loginScreenCursorPos = 0;
@@ -11894,14 +11837,7 @@ public class Client extends RSApplet {
                 if (myUsername.length() > 0 && myPassword.length() > 0) {
                     loginFailures = 0;
                     login(myUsername, myPassword, false);
-            		if(rememberMe)
-            		{
-	        			try {
-							savedUsername = myUsername;
-							savedPassword = myPassword;
-	        				writeSettings();
-	        			} catch(Exception e) {	}
-            		}
+                    SettingsManager.write();
             		stopMidi();
                     if (loggedIn) {
                         return;
@@ -13668,7 +13604,7 @@ public class Client extends RSApplet {
 	public boolean outDated = true;
 	
 	public double chosenBrightness = 0.80000000000000004D;
-	private boolean roofsToggled = false;
+	public boolean roofsToggled = false;
 	public boolean autocast;
 	public int rights;
 	public String clanname;
@@ -13707,7 +13643,7 @@ public class Client extends RSApplet {
 	private int anInt842;
 	private int anInt843;
 	private String aString844;
-	private int privateChatMode;
+	public int privateChatMode;
 	private Stream aStream_847;
 	private boolean aBoolean848;
 	private static int anInt849;
@@ -13985,7 +13921,7 @@ public class Client extends RSApplet {
 	private boolean aBoolean1149;
 	private Sprite[] crosses;
 	private static boolean musicEnabled;
-	private static boolean loginMusicEnabled;
+	public static boolean loginMusicEnabled;
 	private Background[] aBackgroundArray1152s;
 	static boolean needDrawTabArea;
 	private int unreadMessages;
@@ -14007,8 +13943,8 @@ public class Client extends RSApplet {
 	private int anInt1169;
 	private int minimapInt3;
 	private int anInt1171;
-	private static String myUsername = "";
-	private static String myPassword = "";
+	public static String myUsername = "";
+	public static String myPassword = "";
 	private static int anInt1175;
 	private boolean genericLoadingError;
 	private final int[] anIntArray1177 = { 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3 };
@@ -14073,7 +14009,7 @@ public class Client extends RSApplet {
 	private int atInventoryIndex;
 	private int atInventoryInterfaceType;
 	private byte[][] aByteArrayArray1247;
-	private int tradeMode;
+	public int tradeMode;
 	private int anInt1249;
 	private final int[] soundDelay;
 	private final int[] soundVolume;
@@ -14109,7 +14045,7 @@ public class Client extends RSApplet {
 	private int anInt1284;
 	private int anInt1285;
 	private String selectedItemName;
-	private int publicChatMode;
+	public int publicChatMode;
 	private static int anInt1288;
 	public static int anInt1290;
 	public static String server = "";
