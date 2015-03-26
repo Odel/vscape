@@ -16,7 +16,7 @@ public class BookHandler {
 	private Player player;
 	private String[] lines;
 	private String title;
-	private int page = 1;
+	private int pagesIndex = 1;
 
 	public BookHandler(final Player player) {
 		this.player = player;
@@ -24,12 +24,12 @@ public class BookHandler {
 	
 	private void determineButtons() {
 		int lastPage = (lines.length / 22) + 1;
-		if (page == 1) {
+		if (pagesIndex == 1) {
 			player.getActionSender().sendInterfaceHidden(1, LEFT_BUTTON_INDEX);
 			player.getActionSender().sendInterfaceHidden(0, RIGHT_BUTTON_INDEX);
 			if(lines.length < 23)
 				player.getActionSender().sendInterfaceHidden(1, RIGHT_BUTTON_INDEX);
-		} else if (page == lastPage) {
+		} else if (pagesIndex == lastPage) {
 			player.getActionSender().sendInterfaceHidden(0, LEFT_BUTTON_INDEX);
 			player.getActionSender().sendInterfaceHidden(1, RIGHT_BUTTON_INDEX);
 		} else {
@@ -41,13 +41,12 @@ public class BookHandler {
 	private void sendStrings() {
 		clearStrings();
 		for(int i = 12715; i < 12737; i++) {
-			int index = page > 1 ? (((page - 1) * 22)  + (i - 12715)) : (i - 12715);
+			int index = pagesIndex > 1 ? (((pagesIndex - 1) * 22)  + (i - 12715)) : (i - 12715);
 			player.getActionSender().sendString("" + (index < lines.length ? lines[index] : ""), i);
 		}
 	}
 	
 	private void clearStrings() {
-		player.getActionSender().sendString("", 12666);
 		for(int i = 12715; i < 12736; i++)
 			player.getActionSender().sendString("", i);
 	}
@@ -57,6 +56,7 @@ public class BookHandler {
 		player.getUpdateFlags().sendAnimation(1350);
 		this.lines = lines;
 		this.title = title;
+		pagesIndex = 1;
 		determineButtons();
 		sendStrings();
 		player.getActionSender().sendString("" + title, 12666);
@@ -65,6 +65,7 @@ public class BookHandler {
 	
 	public void reset() {
 		clearStrings();
+		player.getActionSender().sendString("", 12666);
 		lines = null;
 		title = null;
 		player.setStopPacket(true);
@@ -85,12 +86,12 @@ public class BookHandler {
 		if (player.getStatedInterface().equals("readingBook")) {
 			switch (buttonId) {
 				case LEFT_BUTTON_ID:
-					page -= 1;
+					pagesIndex -= 1;
 					sendStrings();
 					determineButtons();
 					return true;
 				case RIGHT_BUTTON_ID:
-					page += 1;
+					pagesIndex += 1;
 					sendStrings();
 					determineButtons();
 					return true;
