@@ -14,11 +14,11 @@ public class Tiaras {
 		WATER_ALTAR(1444, 5531, 2480, 4, 30), // water
 		EARTH_ALTAR(1440, 5535, 2481, 8, 33), // earth
 		FIRE_ALTAR(1442, 5537, 2482, 16, 35), // fire
-		BODY_ALTAR(1446, 5533, 2483, 31, 37), // body
+		BODY_ALTAR(1446, 5533, 2483, 32, 37), // body
 		COSMIC_ALTAR(1454, 5539, 2484, 64, 40), // cosmic
-		CHAOS_ALTAR(1452, 5543, 2487, 128, 42.5), // chaos
+		LAW_ALTAR(1458, 5545, 2485, 128, 47.5), // law
 		NATURE_ALTAR(1462, 5541, 2486, 256, 45), // nature
-		LAW_ALTAR(1458, 5545, 2485, 512, 47.5), // law
+		CHAOS_ALTAR(1452, 5543, 2487, 512, 42.5), // chaos
 		DEATH_ALTAR(1456, 5547, 2488, 1024, 50); // death
 		// {1450, 5549, -1, -1, -1, -1, -1, -1, -1,}, // blood
 		// {1460, 5551 - 1, -1, -1, -1, -1, -1, -1,}, // soul
