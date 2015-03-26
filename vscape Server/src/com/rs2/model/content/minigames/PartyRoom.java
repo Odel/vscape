@@ -403,13 +403,17 @@ public class PartyRoom {
 		switch(id)
 		{
 			case 2416 :
-				if(!Constants.PARTY_ROOM_ENABLED){
+				if(!Constants.PARTY_ROOM_ENABLED){  //can't use lever if Party Room disabled
 					player.getActionSender().sendMessage("@red@This feature is disabled.", true);
 					return true;
 				}
 				Dialogues.startDialogue(player, 66000);
 			return true;
 			case 2417:
+				if(!Constants.PARTY_ROOM_ENABLED){  //can't open chest if Party Room disabled
+					player.getActionSender().sendMessage("@red@This feature is disabled.", true);
+					return true;
+				}
 				player.getUpdateFlags().sendAnimation(832);
 				new GameObject(2418, 2729, 3470, 0, def.getFace(), def.getType(), 2417, 500);
 			return true;
