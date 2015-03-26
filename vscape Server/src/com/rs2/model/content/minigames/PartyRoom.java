@@ -309,6 +309,11 @@ public class PartyRoom {
 					{
 						dropItemsIter.remove();
 					}
+					int rAmnt = Misc.random(1, 8);
+					for(int i = 0; i < rAmnt; i++)
+					{
+						createBalloon(null);
+					}
 		    	}else{
 			    	if(!droppingItems || balloons == null || (balloons != null && balloons.size() <= 0))
 			    	{
@@ -345,7 +350,13 @@ public class PartyRoom {
 		Position dropPos = getDropPosition();
 		if(balloons == null || dropPos == null)
 			return false;
-		PartyBalloon pb = new PartyBalloon(dropPos.clone(), new Item(item.getId(), item.getCount()));
+		PartyBalloon pb;
+		if(item != null && item.validItem())
+		{
+			pb = new PartyBalloon(dropPos.clone(), new Item(item.getId(), item.getCount()));
+		}else{
+			pb = new PartyBalloon(dropPos.clone(), null);
+		}
 		pb.dropBalloon();
 		balloons.add(pb);
 		return true;
@@ -611,6 +622,7 @@ public class PartyRoom {
 	public static class PartyBalloon {
 		public Position position;
 		public Item item;
+		private GroundItem groundItem;
 		public GameObject balloonObj;
 		public int balloonIndex;
 		
@@ -641,7 +653,6 @@ public class PartyRoom {
 			}
 			if(item != null && item.validItem())
 			{
-				final GroundItem groundItem;
 				if(player != null)
 				{
 					groundItem = new GroundItem(new Item(item.getId(), item.getCount()), player, position.clone());
@@ -649,30 +660,8 @@ public class PartyRoom {
 					groundItem = new GroundItem(new Item(item.getId(), item.getCount()), position.clone(), false);
 
 				}
-				balloonObj = new GameObject(balloons[balloonIndex][1], position.getX(), position.getY(), position.getZ(), 0, 10, -1, 999999, true);
-				World.submit(new Tick(1) {
-				    @Override 
-				    public void execute() {
-						GameObjectDef balloonDefP = balloonObj.getDef();
-						if(balloonDefP != null)
 						{
-							GameObject bObj = ObjectHandler.getInstance().getObject(balloonDefP.getId(), balloonDefP.getPosition().getX(), balloonDefP.getPosition().getY(), balloonDefP.getPosition().getZ());
-							if(bObj != null)
-							{
-								ObjectHandler.getInstance().removeObject(balloonDefP.getPosition().getX(), balloonDefP.getPosition().getY(), balloonDefP.getPosition().getZ(), balloonDefP.getType());
-							}
 						}
-						balloonObj = null;
-						item = null;
-						if(groundItem != null) {
-							GroundItemManager.getManager().dropItem(groundItem);
-						}
-				    	stop();
-				    }
-				});
-				return true;
-			}
-			return false;
 		}
 		
 		public void dropBalloon()
