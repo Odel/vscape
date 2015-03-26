@@ -1,6 +1,7 @@
 package com.rs2.model.content.dialogue;
 
 import com.rs2.model.players.Player;
+import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -42,7 +43,10 @@ public class BookHandler {
 		clearStrings();
 		for(int i = 12715; i < 12737; i++) {
 			int index = pagesIndex > 1 ? (((pagesIndex - 1) * 22)  + (i - 12715)) : (i - 12715);
-			player.getActionSender().sendString("" + (index < lines.length ? lines[index] : ""), i);
+			if(index >= 0 && index < lines.length && lines != null)
+				player.getActionSender().sendString("" + lines[index], i);
+			else
+				player.getActionSender().sendString("", i);
 		}
 	}
 	
@@ -83,7 +87,21 @@ public class BookHandler {
 	}
 	
 	public boolean handleButtons(int buttonId) {
+		if(player.stopPlayerPacket()) {
+			return false;
+		}
 		if (player.getStatedInterface().equals("readingBook")) {
+			player.setStopPacket(true);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+					b.stop();
+				}
+				@Override
+				public void stop() {
+					player.setStopPacket(false);
+				}
+			}, 2);
 			switch (buttonId) {
 				case LEFT_BUTTON_ID:
 					pagesIndex -= 1;
