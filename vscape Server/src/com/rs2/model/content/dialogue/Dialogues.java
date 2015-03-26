@@ -6,6 +6,7 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
 import com.rs2.model.content.Shops;
+import com.rs2.model.content.Emotes.EMOTE;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.dungeons.Abyss;
@@ -442,6 +443,163 @@ public class Dialogues {
 						return true;
 				}	
 				break;
+			case 659 :  //Party Pete
+				switch(player.getDialogue().getChatId()) {
+				case 1:
+					player.getDialogue().sendNpcChat("Hi! I'm Party Pete. Welcome to the Party Room!", HAPPY);
+					return true;
+				case 2:
+					player.getDialogue().sendOption("So what is this room for?", "What's the big lever over there for?", "What's the gold chest for?", "I wanna party!");
+					return true;
+				case 3:
+					switch(optionId) {
+						case 1:
+							player.getDialogue().sendNpcChat("This room is for partying the night away!", HAPPY);
+							player.getDialogue().setNextChatId(4);
+							return true;
+						case 2:
+							player.getDialogue().sendNpcChat("Simple. With the lever you can do some fun stuff.", HAPPY);
+							player.getDialogue().setNextChatId(8);
+							return true;
+						case 3:
+							player.getDialogue().sendNpcChat("Any items that are in the chest will be dropped inside the", "balloons when you pull the lever!", HAPPY);
+							player.getDialogue().setNextChatId(12);
+							return true;
+						case 4:
+							player.getDialogue().sendNpcChat("I've won the Dance Trophy at the Kandarin Ball","three years in a trot!", HAPPY);
+							player.getDialogue().setNextChatId(14);
+							return true;
+					}
+					break;
+				case 4:
+					player.getDialogue().sendPlayerChat("How do you have a party in " + Constants.SERVER_NAME +"?", DISTRESSED);
+					return true;
+				case 5:
+					player.getDialogue().sendNpcChat("Get a few m8s round, get the beers in and have fun!", HAPPY);
+					return true;
+				case 6:
+					player.getDialogue().sendNpcChat("Some players organise parties so keep an eye open!", HAPPY);
+					return true;
+				case 7:
+					player.getDialogue().sendPlayerChat("Woop! Thanks Party Pete!", HAPPY);
+					player.getDialogue().endDialogue();
+					return true;
+				case 8:
+					player.getDialogue().sendPlayerChat("What kind of stuff?", DISTRESSED);
+					return true;
+				case 9:
+					player.getDialogue().sendNpcChat("A balloon drop costs 1000 gold. For this you get a bunch of", "balloons dropped across the whole of the party room.  You","can then have fun popping the balloons! If there are items","in the Party Drop Chest they will be inside the balloons!", HAPPY);
+					return true;
+				case 10:
+					player.getDialogue().sendNpcChat("For 500 gold you can summon the Party Room","Knights who will dance for your delight.", HAPPY);
+					return true;
+				case 11:
+					player.getDialogue().sendNpcChat("Their singing isn't a delight though!", LONGER_LAUGHING);
+					player.getDialogue().endDialogue();
+					return true;
+				case 12:
+					player.getDialogue().sendPlayerChat("Cool! Sounds like a fun way to do a drop party!", CONTENT);
+					return true;
+				case 13:
+					player.getDialogue().sendNpcChat("Exactly!  A word of warning though.", "Any items that you put in the chest can't be", "taken out again and it costs 1000 gold pieces","for each balloon drop.", CONTENT);
+					player.getDialogue().endDialogue();
+					return true;
+				case 14:
+					player.getDialogue().sendPlayerChat("Show me your moves Pete!", CONTENT);
+					player.getDialogue().endDialogue();
+					final Npc npc = World.getNpcs()[player.getNpcClickIndex()];
+					npc.doEmote(866);
+					return true;
+					
+			}
+			break;
+			case 661: //Megan Party Room upstairs
+				switch(player.getDialogue().getChatId()) {
+				case 1:
+					player.getDialogue().sendNpcChat("Hi! I'm Megan. Welcome to the Party Room!", HAPPY);
+					return true;
+				case 2:
+					player.getDialogue().sendOption("One beer please Megan!", "Can you dance Megan?");
+					return true;
+				case 3:
+					switch(optionId) {
+						case 1:
+							player.getDialogue().sendNpcChat("Coming right up sir!  That's two gold please.", HAPPY);
+							if (!player.getInventory().playerHasItem(995, 2)) {
+								player.getDialogue().setNextChatId(4);
+							}
+							else
+							{
+								player.getDialogue().setNextChatId(5);
+							}
+							return true;
+						case 2:
+							player.getDialogue().sendNpcChat("Can I dance?", HAPPY);
+							player.getDialogue().setNextChatId(6);
+							return true;
+					}
+					break;
+				case 4:
+					player.getDialogue().sendPlayerChat("I'm sorry I don't have enough money!", DISTRESSED);
+					player.getDialogue().endDialogue();
+					return true;
+				case 5:
+					if (player.getInventory().getItemContainer().freeSlots() < 1) {
+						player.getDialogue().sendNpcChat("Looks like you don't have enough room", "in your inventory.", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					} 
+					player.getInventory().removeItem(new Item(995, 2));
+					player.getDialogue().sendGiveItemNpc("Here you go!", "",new Item(1917));
+					player.getInventory().addItem(new Item(1917));
+					player.getDialogue().endDialogue();
+					return true;
+				case 6:
+					player.getDialogue().sendNpcChat("CAN I DANCE?", HAPPY);
+					return true;
+				case 7:
+					player.getDialogue().sendPlayerChat("Dance with me Megan.", EVIL);
+					final Npc npc = World.getNpcs()[player.getNpcClickIndex()];
+					npc.doEmote(866);
+					player.getEmotes().performEmote(EMOTE.DANCE);
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			break;
+			case 662: //Lucy Party Room upstairs
+				switch(player.getDialogue().getChatId()) {
+				case 1:
+					player.getDialogue().sendNpcChat("Hi! I'm Megan. Welcome to the Party Room!", HAPPY);
+					return true;
+				case 2:
+					player.getDialogue().sendPlayerChat("One beer please Lucy!");
+					return true;
+				case 3:
+						player.getDialogue().sendNpcChat("Coming right up sir!  That's two gold please.", HAPPY);
+						if (!player.getInventory().playerHasItem(995, 2)) {
+							player.getDialogue().setNextChatId(4);
+						}
+						else
+						{
+							player.getDialogue().setNextChatId(5);
+						}
+					return true;
+				case 4:
+					player.getDialogue().sendPlayerChat("I'm sorry I don't have enough money!", DISTRESSED);
+					player.getDialogue().endDialogue();
+					return true;
+				case 5:
+					if (player.getInventory().getItemContainer().freeSlots() < 1) {
+						player.getDialogue().sendNpcChat("Looks like you don't have enough room", "in your inventory.", CONTENT);
+						player.getDialogue().endDialogue();
+						return true;
+					}
+					player.getInventory().removeItem(new Item(995, 2));
+					player.getInventory().addItem(new Item(1917));
+					player.getDialogue().endDialogue();
+					return true;
+				}
+			break;
 			case 2238 : //Donie
 				switch(player.getDialogue().getChatId()) {
 					case 1:
