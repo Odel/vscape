@@ -595,6 +595,7 @@ public class Dialogues {
 						return true;
 					}
 					player.getInventory().removeItem(new Item(995, 2));
+					player.getDialogue().sendGiveItemNpc("Here you go!",new Item(1917));
 					player.getInventory().addItem(new Item(1917));
 					player.getDialogue().endDialogue();
 					return true;
