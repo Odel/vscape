@@ -376,7 +376,7 @@
   {
     "_comment": "PINEAPPLE PIZZA",
     "type": "STAGES",
-    "heal": 9,
+    "heal": 11,
     "items": [
       2301,
       2303

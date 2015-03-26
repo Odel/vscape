@@ -395,7 +395,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inMiniGameArea() {
-		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena() || inTempleKnightsTraining();
+		return inPits() || inPitsWait() || inDuelArena() || isInDuelArea() || inCaves() || inFightCaves() || inPestControlLobbyArea() || inPestControlGameArea() || inCwGame() || inCwLobby() || inMageTrainingArena() || inTempleKnightsTraining() || inBarrows() || inWarriorGuildCagesNorth() || inWarriorGuildCagesWest() || inWarriorGuildArena();
 	}
 	
 	public boolean inMiniGameArea(MinigameAreas.Area area) {

@@ -49,7 +49,7 @@ public enum Weapon {
     WHIP(WeaponInterface.WHIP, null, 4, new int[]{1658, 1658, 1658}, new int[]{1832, 1660, 1661}, 1659),
     OBBY_RING(WeaponInterface.THROWING, RangedAmmoType.OBBY_RING, 4, new int[]{3353, 3353, 3353}, Constants.MOVEMENT_ANIMS, 2063),
     OBBY_MAUL(WeaponInterface.MAUL, 7, new int[]{2661, 2661, 2661}, new int[]{2065, 2064, 1664}, 1666),
-    OBBY_SWORD_AND_KNIFE(WeaponInterface.LONGSWORD, 4, new int[]{412, 401, 451, 401}, Constants.MOVEMENT_ANIMS, 424),
+    OBBY_SWORD_AND_KNIFE(WeaponInterface.LONGSWORD, 4, new int[]{451, 451, 412, 451}, Constants.MOVEMENT_ANIMS, 424),
     OBBY_MACE(WeaponInterface.MACE, 5, new int[]{401, 401, 400, 401}, Constants.MOVEMENT_ANIMS, 424),
     OBBY_STAFF(WeaponInterface.STAFF, 5, new int[]{406, 407, 408}, Constants.MOVEMENT_ANIMS, 410),
     WARHAMMER(WeaponInterface.MAUL, 6, new int[]{401, 401, 400}, Constants.MOVEMENT_ANIMS, 424),
