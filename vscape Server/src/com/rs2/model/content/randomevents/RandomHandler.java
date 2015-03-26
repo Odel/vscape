@@ -68,7 +68,7 @@ public class RandomHandler {
 			@Override
 			public void stop() {
 			}
-		}, 3600);
+		}, 9000);
 	}
 	
 	public void spawnEvent() {
