@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Potato",
+    "seedId": 5318,
+    "harvestId": 1942,
+    "protectionId": 5096,
+    "seedsRequired": 3,
+    "levelRequired": 1,
+    "watchPayment": [
+      6032,
+      2
+    ],
+    "totalGrowthTime": 40,
+    "diseaseChance": 0.3,
+    "plantExp": 8,
+    "harvestExp": 9.5,
+    "startConfig": 6,
+    "endConfig": 12,
+    "stateMessages": [
+      [
+        "The potato seeds have only just been planted."
+      ],
+      [
+        "The potato plants have grown to double their",
+        "previous height."
+      ],
+      [
+        "The potato plants now are the same height as the",
+        "surrounding weeds."
+      ],
+      [
+        "The potato plants now spread their branches wider,",
+        "not growing as much as before."
+      ],
+      [
+        "The potato plants are ready to harvest. A white",
+        "flower at the top of each plant opens up."
+      ]
+    ]
+  }
+]

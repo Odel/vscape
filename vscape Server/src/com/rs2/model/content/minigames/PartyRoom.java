@@ -658,10 +658,30 @@ public class PartyRoom {
 					groundItem = new GroundItem(new Item(item.getId(), item.getCount()), player, position.clone());
 				} else {
 					groundItem = new GroundItem(new Item(item.getId(), item.getCount()), position.clone(), false);
-
 				}
+				item = null;
+			}
+			balloonObj = new GameObject(balloons[balloonIndex][1], position.getX(), position.getY(), position.getZ(), 0, 10, -1, 999999, true);
+			World.submit(new Tick(1) {
+			    @Override 
+			    public void execute() {
+					GameObjectDef balloonDefP = balloonObj.getDef();
+					if(balloonDefP != null)
+					{
+						GameObject bObj = ObjectHandler.getInstance().getObject(balloonDefP.getId(), balloonDefP.getPosition().getX(), balloonDefP.getPosition().getY(), balloonDefP.getPosition().getZ());
+						if(bObj != null)
 						{
+							ObjectHandler.getInstance().removeObject(balloonDefP.getPosition().getX(), balloonDefP.getPosition().getY(), balloonDefP.getPosition().getZ(), balloonDefP.getType());
 						}
+					}
+					balloonObj = null;
+					if(groundItem != null) {
+						GroundItemManager.getManager().dropItem(groundItem);
+					}
+			    	stop();
+			    }
+			});
+			return true;
 		}
 		
 		public void dropBalloon()
