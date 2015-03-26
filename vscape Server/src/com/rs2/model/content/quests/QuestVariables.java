@@ -109,6 +109,7 @@ public class QuestVariables {
 	private Position gridStart = new Position(0, 0, 0);
 	private Position gridMiddle = new Position(0, 0, 0);
 	public boolean immuneToTraps = false;
+	public boolean[] orbsOfLightDestroyed = {false, false, false, false};
 
 	public QuestVariables(final Player player) {
 		this.player = player;

@@ -42,6 +42,7 @@ import com.rs2.model.content.combat.weapon.CombatSounds;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
+import com.rs2.model.content.dialogue.BookHandler;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.PartyRoom;
@@ -179,6 +180,7 @@ public class Player extends Entity {
 	private int lastNpc = -1;
 	private int inter = -1;
 	private final Misc.Stopwatch timeoutStopwatch = new Misc.Stopwatch();
+	private final Misc.Stopwatch loginStopwatch = new Misc.Stopwatch();
 	private final List<Player> players = new LinkedList<Player>();
 	private final List<Npc> npcs = new LinkedList<Npc>();
 	public Inventory inventory = new Inventory(this);
@@ -256,6 +258,7 @@ public class Player extends Entity {
 	private MonkeyMadnessVars MMVars = new MonkeyMadnessVars(this);
 	private QuestVariables questVars = new QuestVariables(this);
 	private DialogueManager dialogue = new DialogueManager(this);
+	private BookHandler bookHandler = new BookHandler(this);
 	private BankPin bankPin = new BankPin(this);
 	private Login login = new Login();
 	private Position currentRegion = new Position(0, 0, 0);
@@ -984,6 +987,48 @@ public class Player extends Entity {
 		}
 	    }, 2);
 	}
+	
+	public void timedTeleport(final Position position, final int time) {
+		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				teleport(position);
+			}
+		}, time);
+	}
+
+	public void timedFadeTeleport(final Position position, final int time) {
+		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				fadeTeleport(position);
+			}
+		}, time);
+	}
+	
+	public void timedMovePlayer(final Position position, final int time) {
+		CycleEventHandler.getInstance().addEvent(this, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				movePlayer(position);
+			}
+		}, time);
+	}
 
 	public void reloadRegion() {
 		WalkInterfaces.addWalkableInterfaces(this);
@@ -1222,7 +1267,7 @@ public class Player extends Entity {
 			GridMazeHandler.startGridCheck(this);
 		}
 		if(this.Area(2378, 2465, 9665, 9700)) {
-			PassObjectHandling.startTrapCycle(this);
+			PassTrapHandling.startTrapCycle(this, 0);
 		}
 		if(this.inUndergroundPass()) {
 			UndergroundPass.startIbanWhispers(this);
@@ -2008,6 +2053,10 @@ public class Player extends Entity {
 	public DialogueManager getDialogue() {
 		return dialogue;
 	}
+	
+	public BookHandler getBookHandler() {
+		return bookHandler;
+	}
 
 	public Firemaking getFiremaking() {
 		return firemaking;
@@ -2428,6 +2477,10 @@ public class Player extends Entity {
 
 	public Misc.Stopwatch getTimeoutStopwatch() {
 		return timeoutStopwatch;
+	}
+	
+	public Misc.Stopwatch getLoginStopwatch() {
+		return loginStopwatch;
 	}
 
 	public ByteBuffer getInData() {
@@ -3376,7 +3429,7 @@ public class Player extends Entity {
 		if (inCwGame() || this.Area(2754, 2814, 3833, 3873)) {
 			return; //prevents the dropping of items
 		}
-		if(killer == null && this.getTimeoutStopwatch().elapsed() < 5000) {
+		if(killer == null && this.getLoginStopwatch().elapsed() < 5000) {
 			noDropItems = true;
 		}
 		if(!this.inWild() && getLoginStage() != LoginStages.LOGGED_IN)
@@ -3416,7 +3469,7 @@ public class Player extends Entity {
 		}
 		equipment.getItemContainer().clear();
 		inventory.getItemContainer().clear();
-		if(killer == null) {
+		if(killer == null || killer.isNpc()) {
 			killer = this;
 		}
 		GroundItemManager.getManager().dropItem(new GroundItem(new Item(526, 1), this, killer, getDeathPosition()));

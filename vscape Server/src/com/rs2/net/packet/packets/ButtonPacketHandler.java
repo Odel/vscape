@@ -286,14 +286,12 @@ public class ButtonPacketHandler implements PacketHandler {
 			case 3148 :
 				player.setChatEffects(1);
 				return;
-			case 49169:
-			case 49167:
-				player.getActionSender().sendMessage("There are no more pages in this book!");
-				return;
 			case 39178: //book interface close
+			case 49121:
 				player.getActionSender().removeInterfaces();
 				player.setStatedInterface("");
 				player.setInterface(0);
+				player.getBookHandler().reset();
 				return;
 			case 3189 :
 				if(player.getSplitPrivateChat() == 0) { player.setSplitPrivateChat(1); }
@@ -635,6 +633,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		}
 		if(PartyRoom.AcceptOffer(player, buttonId))
 		{
+			return;
+		}
+		if(player.getBookHandler().handleButtons(buttonId)) {
 			return;
 		}
         if (player.getStaffRights() > 1 && Constants.SERVER_DEBUG)

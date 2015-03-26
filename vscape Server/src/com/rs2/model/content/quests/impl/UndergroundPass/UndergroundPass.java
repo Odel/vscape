@@ -1,25 +1,14 @@
 package com.rs2.model.content.quests.impl.UndergroundPass;
 
-import com.rs2.Constants;
-import com.rs2.cache.object.CacheObject;
-import com.rs2.cache.object.ObjectLoader;
-import com.rs2.model.Graphic;
 import com.rs2.model.Position;
-import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.weapon.AttackStyle;
-import com.rs2.model.content.combat.weapon.RangedAmmo;
-import com.rs2.model.content.combat.weapon.RangedAmmoType;
-import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.Skill;
-import com.rs2.model.content.skills.SkillHandler;
-import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.npcs.Npc;
-import com.rs2.model.objects.GameObject;
+import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -27,8 +16,6 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
-import com.rs2.util.clip.ClippedPathFinder;
-import static org.jruby.ext.bigdecimal.RubyBigDecimal.mode;
 
 public class UndergroundPass implements Quest {
 
@@ -111,7 +98,8 @@ public class UndergroundPass implements Quest {
 	public static final int GUIDE_ROPE = 3340;
 	
 	public static final String[] ibanWhispers = {"Blood, pain and hate.", "Death is only the beginning.", "Kill, maim... murder.", "I'll swallow your soul.", "The power of the gods could be yours.", "Hear me...", "Iban will save you... He'll save us all.", "I will release you...", "Make them all pay!", "Join us!", "I see you adventurer... you can't hide."};
-
+	public static final String[] oldJournalStrings = {"I came to cleanse these", "mountain passes of the", "dark forces that dwell", "here. I knew my journey", "would be treacherous, so", "I deposited Spheres of", "Light in some of the", "tunnels. These spheres", "are a beacon of safety", "for all who come. The", "spheres were created by", "Saradominist mages.", "When held they boost our", "faith and courage. I still", "feel...", "", "Iban relentlessly", "tugging...", "", "at my weak soul.......", "", "bringing out any innate", "goodness to one's heart,", "illuminating the dark", "caverns with the light of", "Saradomin, bringing fear", "and pain to all who", "embrace the dark side.", "My men are still repelled", "by 'Iban's will' - it seems", "as if their pure hearts bar", "them from entering", "Iban's realm. My turn", "has come. I dare not", "admit it to my loyal men,", "but I fear for the welfare", "of my soul." };
+	
 	private int reward[][] = { //{itemId, count},
 	};
 
@@ -265,7 +253,10 @@ public class UndergroundPass implements Quest {
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
-
+			case 1493:
+				player.getActionSender().sendMessage("The journal is old and worn.");
+				player.getBookHandler().initBook(oldJournalStrings, "The Journal of Randas");
+				return true;
 		}
 		return false;
 	}
@@ -274,11 +265,33 @@ public class UndergroundPass implements Quest {
 		return false;
 	}
 
-	public boolean doItemOnObject(final Player player, int object, int item) {
+	public boolean doItemOnObject(final Player player, final int object, final int item) {
 		switch(object) {
+			case 3294: //furnace
+				if(item >= ORB_OF_LIGHT && item <= ORB_OF_LIGHT_4) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You throw the glowing orb into the furnace...");
+					player.getActionSender().sendMessage("Its light quickly dims and then dies.");
+					player.getInventory().removeItem(new Item(item));
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.getActionSender().sendMessage("You feel a cold shudder run down your spine.");
+							player.getQuestVars().orbsOfLightDestroyed[item - ORB_OF_LIGHT] = true;
+							player.setStopPacket(false);
+						}
+					}, 3);
+					return true;
+				}
+			return false;
 			case 3230: //flat rock trap
 				if(item == 960) { //plank
-					PassObjectHandling.handleDisarmTrap(player, 3231, 827, null);
+					PassTrapHandling.handleDisarmTrap(player, 3231, 827, null);
 					return true;
 				}
 			return false;
@@ -303,6 +316,37 @@ public class UndergroundPass implements Quest {
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case 3264: //well
+				if(player.inUndergroundPass()) {
+					player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
+					boolean canContinue = true;
+					for(boolean b : player.getQuestVars().orbsOfLightDestroyed)
+						if(!b)
+							canContinue = false;
+					if(canContinue) {
+						Ladders.climbLadder(player, new Position(2423, 9660, 0));
+					}
+					final boolean teleported = canContinue;
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							if(teleported) {
+								player.getActionSender().sendMessage("...slowly dragging you further down into the caverns.");
+							} else {
+								player.getActionSender().sendMessage("...the hands try to strangle you!");
+								player.hit(10, HitType.NORMAL);
+							}
+						}
+					}, 3);
+					return true;
+				}
+				return false;
 			case 3234:
 				if(player.inUndergroundPass()) {
 					Dialogues.startDialogue(player, 32340);
@@ -316,7 +360,7 @@ public class UndergroundPass implements Quest {
 				}
 			return false;
 			case 3230:
-				PassObjectHandling.handleDisarmTrap(player, object, 2244, null);
+				PassTrapHandling.handleDisarmTrap(player, object, 2244, null);
 				return true;
 			case 2274: //rope swing
 				PassObjectHandling.handleRopeSwing(player, object);
@@ -391,7 +435,7 @@ public class UndergroundPass implements Quest {
 						player.getActionSender().removeInterfaces();
 						d.endDialogue();
 						if (optionId == 1) {
-							PassObjectHandling.handleDisarmTrap(player, 3234, 2246, null);
+							PassTrapHandling.handleDisarmTrap(player, 3234, 2246, null);
 						}
 						return true;	
 				}
@@ -408,7 +452,7 @@ public class UndergroundPass implements Quest {
 						player.getActionSender().removeInterfaces();
 						d.endDialogue();
 						if (optionId == 1) {
-							PassObjectHandling.handleDisarmTrap(player, 3361, 2244, null);
+							PassTrapHandling.handleDisarmTrap(player, 3361, 2244, null);
 						}
 						return true;	
 				}
