@@ -106,10 +106,12 @@ public class MapShell extends Applet
     }
 
     public final void windowClosing(WindowEvent windowevent) {
-        destroy();
+    	//System.exit(0);
+    	
+        SI.dispose();
     }
 
-    public final void addKeyListener() {
+	public final void addKeyListener() {
         addFocusListener = -2;
         Z();
         if (SI != null) {
@@ -253,10 +255,10 @@ public class MapShell extends Applet
         D();
     }
 
-    public final void destroy() {
+	public final void destroy() {
         addFocusListener = -1;
         try {
-            Thread.sleep(5000L);
+            //Thread.sleep(5000L);
         } catch (Exception exception) {
         }
         if (addFocusListener == -1)

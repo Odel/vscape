@@ -5614,8 +5614,9 @@ public class Client extends RSApplet {
 							clientData = !clientData;
 						if (inputString.equalsIgnoreCase("::map"))
 						{
-							viewer.Main.main(aStringArray983);
+								viewer.Main.main(aStringArray983);
 						}
+					
 					}
 					if (inputString.startsWith("/"))
 						inputString = "::" + inputString;

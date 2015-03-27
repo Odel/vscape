@@ -9,9 +9,10 @@ import java.net.URL;
 
 public class Main extends MapShell {
 
-    public static final void main(String args[]) {
+    public static final Main main(String args[]) {
         Main main1 = new Main();
         main1.I(635, 503);
+		return main1;
     }
 
     public final void init() {

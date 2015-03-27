@@ -4,7 +4,6 @@ package viewer;
 // Decompiler options: packimports(3) 
 // Source File Name:   centerX
 
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -14,7 +13,6 @@ import javax.swing.WindowConstants;
 
 class WindowEventHandler extends WindowAdapter {
 	  public void windowClosing(WindowEvent evt) {
-	    //System.exit(0);
 	  }
 	}
 
@@ -26,12 +24,10 @@ public class MapFrame extends JFrame {
         this.mapShell = mapShell;
 
         this.addWindowListener(new WindowEventHandler());
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setTitle(IResourceLoader.I(704));
         this.setResizable(false);
         this.setVisible(true);
-        
-        //this.toFront();
         this.setSize(width + 8, height + 28);
     }
 
