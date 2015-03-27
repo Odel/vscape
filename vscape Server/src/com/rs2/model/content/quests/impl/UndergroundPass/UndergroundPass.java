@@ -267,6 +267,12 @@ public class UndergroundPass implements Quest {
 
 	public boolean doItemOnObject(final Player player, final int object, final int item) {
 		switch(object) {
+			case 3216: //cage mud
+				if(item == 952 && player.inUndergroundPass()) { //spade
+					PassObjectHandling.handleDigMud(player);
+					return true;
+				}
+				return false;
 			case 3294: //furnace
 				if(item >= ORB_OF_LIGHT && item <= ORB_OF_LIGHT_4) {
 					player.setStopPacket(true);
@@ -316,6 +322,19 @@ public class UndergroundPass implements Quest {
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case 3217: //"cave" back to cage mud
+				if(player.inUndergroundPass()) {
+					player.getActionSender().sendMessage("You push your way through the tunnel...");
+					player.fadeTeleport(new Position(2393, 9651, 0));
+					return true;
+				}
+				return false;
+			case 3266: //cell doors
+				if(player.inUndergroundPass()) {
+					PassObjectHandling.pickCageLock(player, x, y);
+					return true;
+				}
+			return false;
 			case 3264: //well
 				if(player.inUndergroundPass()) {
 					player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");

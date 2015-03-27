@@ -12,8 +12,10 @@ import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.agility.Agility;
+import com.rs2.model.content.skills.thieving.ThieveOther;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -24,6 +26,76 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
+	
+	public static void handleDigMud(final Player player) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
+		player.setStopPacket(true);
+		player.getUpdateFlags().sendAnimation(830);
+		player.getActionSender().sendMessage("You dig into the pile of mud...");
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int count = 0;
+			@Override
+			public void execute(CycleEventContainer b) {
+				count++;
+				switch(count) {
+					case 1:
+						player.getActionSender().sendMessage("...and find it's a filled in tunnel!");
+						player.getActionSender().sendObject(-1, 2393, 9650, 0, 3, 10);
+						player.getActionSender().sendObject(3215, 2393, 9650, 0, 3, 22);
+						break;
+					case 2:
+						player.getActionSender().sendMessage("You push your way through the tunnel.");
+						player.timedFadeTeleport(new Position(2392, 9646, 0), 2);
+						break;
+					case 4:
+						b.stop();
+						break;
+				}
+			}
+			@Override
+			public void stop() {
+				player.getActionSender().sendObject(3216, 2393, 9650, 0, 3, 10);
+			}
+
+		}, 3);
+	}
+	
+	public static void pickCageLock(final Player player, final int x, final int y) {
+		if (player.stopPlayerPacket()) {
+			return;
+		}
+		CacheObject o = ObjectLoader.object(x, y, 0);
+		if (o != null) {
+			final int face = o.getRotation();
+			final Position p = new Position(x, y, 0);
+			final boolean outsideCage = Misc.checkClip(player.getPosition(), p, true);
+			final Position toBe = outsideCage ? p : new Position(x, face == 3 ? (y - 1) : (y + 1), 0);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer b) {
+					if (!Misc.goodDistance(player.getPosition(), p, 3)) {
+						b.stop();
+					}
+					if (player.getPosition().equals(toBe)) {
+						if (face == 3) {
+							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, player.getPosition().getX() == x ? 0 : player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() >= y ? -1 : 1);
+						} else if (face == 1) {
+							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, player.getPosition().getX() == x ? 0 : player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() <= y ? 1 : -1);
+						}
+						b.stop();
+					} else {
+						player.walkTo(toBe, true);
+					}
+				}
+				@Override
+				public void stop() {
+				}
+
+			}, 1);
+		}
+	}
 
 	public static void handlePortcullis(final Player player) {
 		if(player.stopPlayerPacket()) {
@@ -278,6 +350,73 @@ public class PassObjectHandling {
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
 		switch(object) {
+			case 3276:
+				player.setStopPacket(true);
+				player.isCrossingObstacle = true;
+				player.getActionSender().sendMessage("You start to cross the stone bridge...");
+				final boolean wasRunning = player.getMovementHandler().isRunToggled();
+				player.getMovementHandler().setRunToggled(false);
+				player.getMovementHandler().reset();
+				player.setWalkAnim(762);
+				player.setAppearanceUpdateRequired(true);
+				int modifier = player.getPosition().getX() < x ? 2 : -2;
+				player.getUpdateFlags().setFace(new Position(player.getPosition().getX() + modifier, y, 0));
+				player.getActionSender().walkTo(modifier, 0, true);
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					int count = 0;
+					@Override
+					public void execute(CycleEventContainer b) {
+						count++;
+						int level = player.getSkill().getPlayerLevel(Skill.AGILITY);	
+						if (count == 1 && (Misc.random(3) == 1 && !SkillHandler.skillCheck((level + 40) > 99 ? 99 : (level + 40), 20, 0))) {
+							player.getActionSender().sendMessage("...and slip and fall halfway across!");
+							handleObstacleFailure(player, 3276, x, y);
+							b.stop();
+						} else if (count >= 2) {
+							player.getActionSender().sendMessage("...and make it.");
+							b.stop();
+						}
+					}
+
+					@Override
+					public void stop() {
+						player.setWalkAnim(-1);
+						player.setAppearanceUpdateRequired(true);
+						player.setStopPacket(false);
+						if (wasRunning) {
+							player.getMovementHandler().setRunToggled(true);
+						}
+					}
+				}, 2);
+				return true;
+			case 3238:
+				player.getActionSender().sendMessage("You put your foot on the ledge and try to edge across.");
+				player.isCrossingObstacle = true;
+				if(x == 2374 && y == 9644) {
+					Agility.crossLedge(player, 2374, 9638, 1, 8, 0, 0);
+				} else {
+					Agility.crossLedge(player, 2374, 9644, 3, 8, 0, 0);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							if(player.getPosition().getX() == 2374 && player.getPosition().getY() == 9644) {
+								player.getActionSender().walkTo(1, 0, true);
+								b.stop();
+							} else if (count > 10) {
+								b.stop();
+							}
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.isCrossingObstacle = false;
+						}
+					}, 1);
+				}
+				return true;
 			case 3263:
 				sinkInSwamp(player);
 				return true;
@@ -336,6 +475,37 @@ public class PassObjectHandling {
 	
 	public static void handleObstacleFailure(final Player player, final int object, final int x, final int y) { 
 		switch(object) {
+			case 3276:
+				player.setStopPacket(true);
+				if(y == 9632) {
+					player.getUpdateFlags().sendAnimation(player.getUpdateFlags().getFace().getX() < x ? 771 : 770);
+					player.timedMovePlayer(new Position(x, y + 2, 0), 1);
+				} else {
+					player.getUpdateFlags().sendAnimation(player.getUpdateFlags().getFace().getX() < x ? 770 : 771);
+					player.timedMovePlayer(new Position(x, y - 2, 0), 1);
+				}
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					int count = 0;
+					@Override
+					public void execute(CycleEventContainer b) {
+						count++;
+						if (count == 1) {
+							player.getUpdateFlags().sendAnimation(-1);
+						}
+						if (count >= 2) {
+							player.getActionSender().sendMessage("You are injured by the spikes.");
+							player.hit(Misc.random(5) + 8, HitType.NORMAL);
+							b.stop();
+						}
+					}
+
+					@Override
+					public void stop() {
+						player.setStopPacket(false);
+						player.isCrossingObstacle = false;
+					}
+				}, 1);
+				break;
 			case 2274: //swamp rope swing
 				player.movePlayer(new Position(2462, 9692, 0));
 				sinkInSwamp(player);
