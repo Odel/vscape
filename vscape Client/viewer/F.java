@@ -9,8 +9,9 @@ import java.util.Random;
 public class F extends Graphics2D
 {
 
-    public final int append(String s)
+    public final int append(String s)  //more drawing of texts like "Key" and "37%"
     {
+    	//System.out.println(s);
         if(s == null)
             return 0;
         int i = 0;
@@ -20,7 +21,7 @@ public class F extends Graphics2D
         return i;
     }
 
-    public final void I(String s, int i, int j, int k)
+    public final void I(String s, int i, int j, int k)  //draws UI text such as "Key", "50%" and "Overview"
     {
         if(s == null)
             return;
@@ -37,6 +38,7 @@ public class F extends Graphics2D
 
     public F(E e, String s, boolean flag)
     {
+    	//System.out.println(s);
         append = new byte[256][];
         charAt = new int[256];
         length = new int[256];
@@ -104,13 +106,15 @@ public class F extends Graphics2D
             Z[32] = Z[105];
     }
 
-    public final void Z(String s, int i, int j, int k)
+    public final void Z(String s, int i, int j, int k) //not used???
     {
+    	//System.out.println(s  + " Z");
         I(s, i - append(s), j, k);
     }
 
-    public final void C(String s, int i, int j, int k)
+    public final void C(String s, int i, int j, int k)  //draws UI text such as "Key" and "50%" at pos i,j
     {
+    	//System.out.println(s + " C " + i +","+ j +","+ k);
         I(s, i - append(s) / 2, j, k);
     }
 
@@ -157,8 +161,7 @@ public class F extends Graphics2D
         }
     }
 
-    public final void length(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, 
-            int j1, int k1)
+    public final void length(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, int j1, int k1)
     {
         int l1 = -(l >> 2);
         l = -(l & 3);

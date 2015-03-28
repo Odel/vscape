@@ -14,6 +14,7 @@ public class B extends Graphics2D
 
     public final void I(int i, int j)
     {
+    	//System.out.println(i+","+j);
         i += Z;
         j += C;
         int k = i + j * width;
@@ -59,9 +60,9 @@ public class B extends Graphics2D
         }
     }
 
-    public final void append(int ai[], int ai1[], int i, int j, int k, int l, int i1, 
-            int j1, int k1)
+    public final void append(int ai[], int ai1[], int i, int j, int k, int l, int i1, int j1, int k1)
     {
+    	//System.out.println(i+","+j+","+k+","+l+","+i1+","+j1+","+k1);
         int l1 = -(l >> 2);
         l = -(l & 3);
         for(int i2 = -i1; i2 < 0; i2++)
@@ -107,14 +108,16 @@ public class B extends Graphics2D
 
     public B(int i, int j)
     {
+    	//System.out.println(i+","+j);
         I = new int[i * j];
         append = B = i;
         toString = D = j;
         Z = C = 0;
     }
 
-    public B(E e, String s, int i)
+    public B(E e, String s, int i)  //loads and defines mapfunctions?  71 of them.
     {
+    	//System.out.println(s + "," + i);
         IoBuffer j = new IoBuffer(e.I((new StringBuilder()).append(s).append(IResourceLoader.I(1251)).toString(), null));
         IoBuffer k = new IoBuffer(e.I(IResourceLoader.I(1256), null));
         k.length = j.readShort();
@@ -161,6 +164,7 @@ public class B extends Graphics2D
         }
     }
 
+    //draws minimap at pos i,j
     public final void Z(int i, int j)
     {
         i += Z;

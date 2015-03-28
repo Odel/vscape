@@ -18,7 +18,9 @@ public class Graphics2D /*extends CacheableNode*/ {
     public static int centerX;
     public static int centerY;
 
+    //draws white & red lines/boundries/walls
     public static final void Z(int i, int j, int k, int l) {
+    	//System.out.println(i+","+j+","+k+","+l);
         if (j < topY || j >= bottomY)
             return;
         if (i < topX) {
@@ -33,7 +35,9 @@ public class Graphics2D /*extends CacheableNode*/ {
 
     }
 
+    //draws white & red lines/boundries/walls
     public static final void C(int i, int j, int k, int l) {
+    	//System.out.println(i+","+j+","+k+","+l);
         if (i < topX || i >= bottomX)
             return;
         if (j < topY) {
@@ -49,6 +53,7 @@ public class Graphics2D /*extends CacheableNode*/ {
     }
 
     public static final void setCoordinates(int x, int y, int width, int height) {
+    	//System.out.println(x+","+y+","+width+","+height);
         if (x < 0)
             x = 0;
         if (y < 0)
@@ -99,7 +104,9 @@ public class Graphics2D /*extends CacheableNode*/ {
 
     }
 
+    //draws button "drop shadows" / boarders
     public static final void I(int i, int j, int k, int l, int i1) {
+    	//System.out.println(i+","+j+","+k+","+l+","+i1);
         Z(i, j, k, i1);
         Z(i, (j + l) - 1, k, i1);
         C(i, j, l, i1);
@@ -144,7 +151,9 @@ public class Graphics2D /*extends CacheableNode*/ {
         }
     }
 
+    //draws flashing circles when key items are clicked
     public static final void C(int i, int j, int k, int l, int i1) {
+    	//System.out.println(i+","+j+","+k+","+l+","+i1);
         int j1 = 256 - i1;
         int k1 = (l >> 16 & 0xff) * i1;
         int l1 = (l >> 8 & 0xff) * i1;

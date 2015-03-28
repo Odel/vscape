@@ -4,10 +4,10 @@ package viewer;
 // Decompiler options: packimports(3) 
 // Source File Name:   D
 
-public class D extends Graphics2D
+public class ClutterSprite extends Graphics2D
 {
 
-    public D(E e, String s, int i)
+    public ClutterSprite(E e, String s, int i)  //loads tree and rock sprites?
     {
         IoBuffer j = new IoBuffer(e.I((new StringBuilder()).append(s).append(IResourceLoader.I(1251)).toString(), null));
         IoBuffer k = new IoBuffer(e.I(IResourceLoader.I(1256), null));
@@ -51,7 +51,7 @@ public class D extends Graphics2D
         }
     }
 
-    public final void I(int i, int j, int k, int l)
+    public final void I(int i, int j, int k, int l) //draws trees and rocks and shit
     {
         try
         {
@@ -100,7 +100,7 @@ public class D extends Graphics2D
                 k -= i4;
                 j3 += i4;
             }
-            append(pixels, append, out, k1, l1, i3, j3, k, l, i2, j2, i1);
+            append(pixels, append, out, k1, l1, i3, j3, k, l, i2, j2, i1);  //draws trees and rocks and shit
         }
         catch(Exception exception)
         {
@@ -109,7 +109,7 @@ public class D extends Graphics2D
     }
 
     public final void append(int ai[], byte abyte0[], int ai1[], int i, int j, int k, int l, 
-            int i1, int j1, int k1, int l1, int i2)
+            int i1, int j1, int k1, int l1, int i2) //also has some part in drawing trees and rocks and shit
     {
         try
         {

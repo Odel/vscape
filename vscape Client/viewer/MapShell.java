@@ -11,15 +11,12 @@ import java.awt.event.*;
 public class MapShell extends Applet
         implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
-    public final void stop() {
+	public final void stop() {
         if (addFocusListener >= 0)
             addFocusListener = 4000 / addKeyListener;
     }
 
-    public void D() {
-    }
-
-    public final void I(int i, String s) {
+    public final void I(int i, String s) {  //draws "Loading" and "Rendering Map" texts
         while (FI == null) {
             FI = J().getGraphics();
             try {
@@ -106,12 +103,10 @@ public class MapShell extends Applet
     }
 
     public final void windowClosing(WindowEvent windowevent) {
-    	//System.exit(0);
-    	
-        SI.dispose();
+        //destroy();
     }
 
-	public final void addKeyListener() {
+    public final void addKeyListener() {
         addFocusListener = -2;
         Z();
         if (SI != null) {
@@ -130,7 +125,6 @@ public class MapShell extends Applet
         if (FI == null)
             FI = g;
         exit = true;
-        D();
     }
 
     public final void mouseEntered(MouseEvent mouseevent) {
@@ -252,15 +246,10 @@ public class MapShell extends Applet
         if (FI == null)
             FI = g;
         exit = true;
-        D();
     }
 
-	public final void destroy() {
+    public final void destroy() {
         addFocusListener = -1;
-        try {
-            //Thread.sleep(5000L);
-        } catch (Exception exception) {
-        }
         if (addFocusListener == -1)
             addKeyListener();
     }
@@ -411,7 +400,7 @@ public class MapShell extends Applet
             if (addKeyListener > 0)
                 black = (1000 * j) / (addKeyListener * 256);
             B();
-            if (currentTimeMillis) {
+            if (currentTimeMillis) {  //prints out debug info and fps and stuff, lol what?
                 System.out.println((new StringBuilder()).append(IResourceLoader.I(741)).append(l2).toString());
                 for (int j2 = 0; j2 < 10; j2++) {
                     int k2 = ((i - j2 - 1) + 20) % 10;
@@ -432,7 +421,6 @@ public class MapShell extends Applet
     public final void focusGained(FocusEvent focusevent) {
         fillRect = true;
         exit = true;
-        D();
     }
 
     public final void windowIconified(WindowEvent windowevent) {
@@ -468,4 +456,8 @@ public class MapShell extends Applet
     public int isMetaDown[];
     public int repaint;
     public int setColor;
+	public static void setInitSize(int initwidth, int initheight) {
+		// TODO Auto-generated method stub
+		
+	}
 }

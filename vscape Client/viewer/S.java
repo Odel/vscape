@@ -47,7 +47,7 @@ public class S
             else
                 a.V = false;
             if(a.V)
-                System.out.println(IResourceLoader.I(1266));
+                System.out.println(IResourceLoader.I(1266));  //PANIC! RANDOMISED BLOCK!  lol i dunno what this means
             a.z = 0;
             byte0 = B(a);
             a.z = a.z << 8 | byte0 & 0xff;

@@ -8,15 +8,20 @@ import java.io.*;
 import java.net.URL;
 
 public class Main extends MapShell {
-
+	
+	static int initwidth = 800;
+	static int initheight = 700;
+	
+	int newwidth = initwidth;
+	int newheight = initheight;
     public static final Main main(String args[]) {
         Main main1 = new Main();
-        main1.I(635, 503);
-		return main1;
+        main1.I(initwidth, initheight);
+        return main1;
     }
 
     public final void init() {
-        Z(635, 503);
+        Z(newwidth, newheight);
     }
 
     public final void I() {
@@ -31,8 +36,8 @@ public class Main extends MapShell {
         BI = (out + println) - 3200;
         s = 180;
         a = (printStackTrace * s) / println;
-        e = 635 - a - 5;
-        g = 503 - s - 20;
+        e = newwidth - a - 5;
+        g = newheight - s - 20;
         i1 = new IoBuffer(e1.I(IResourceLoader.I(1154), null));
         q = i1.readShort();
         for (int j1 = 0; j1 < q; j1++) {
@@ -65,7 +70,7 @@ public class Main extends MapShell {
         append(abyte3, Z, B, C);
         try {
             for (int i2 = 0; i2 < 100; i2++)
-                D[i2] = new D(e1, IResourceLoader.I(1211), i2);
+                D[i2] = new ClutterSprite(e1, IResourceLoader.I(1211), i2);
 
         } catch (Exception exception) {
         }
@@ -357,11 +362,11 @@ public class Main extends MapShell {
                 length = true;
             }
             if (i1 == 107 || i1 == 75) {
-                c = !c;
+                drawkey = !drawkey;
                 length = true;
             }
             if (i1 == 111 || i1 == 79) {
-                h = !h;
+                drawoverview = !drawoverview;
                 length = true;
             }
             if (super.SI != null && i1 == 101) {
@@ -396,31 +401,31 @@ public class Main extends MapShell {
             m = super.LI;
             n = CI;
             o = BI;
-            if (super.KI > 170 && super.KI < 220 && super.LI > 471 && super.LI < 503) {
+            if (super.KI > 170 && super.KI < 220 && super.LI > (newheight-30) && super.LI < newheight) {
                 ZI = 3D;
                 l = -1;
             }
-            if (super.KI > 230 && super.KI < 280 && super.LI > 471 && super.LI < 503) {
+            if (super.KI > 230 && super.KI < 280 && super.LI > (newheight-30) && super.LI < newheight) {
                 ZI = 4D;
                 l = -1;
             }
-            if (super.KI > 290 && super.KI < 340 && super.LI > 471 && super.LI < 503) {
+            if (super.KI > 290 && super.KI < 340 && super.LI > (newheight-30) && super.LI < newheight) {
                 ZI = 6D;
                 l = -1;
             }
-            if (super.KI > 350 && super.KI < 400 && super.LI > 471 && super.LI < 503) {
+            if (super.KI > 350 && super.KI < 400 && super.LI > (newheight-30) && super.LI < newheight) {
                 ZI = 8D;
                 l = -1;
             }
-            if (super.KI > V && super.LI > W + Y && super.KI < V + X && super.LI < 503) {
-                c = !c;
+            if (super.KI > V && super.LI > W + Y && super.KI < V + X && super.LI < newheight) {
+                drawkey = !drawkey;
                 l = -1;
             }
-            if (super.KI > e && super.LI > g + s && super.KI < e + a && super.LI < 503) {
-                h = !h;
+            if (super.KI > e && super.LI > g + s && super.KI < e + a && super.LI < newheight) {
+                drawoverview = !drawoverview;
                 l = -1;
             }
-            if (c) {
+            if (drawkey) {
                 if (super.KI > V && super.LI > W && super.KI < V + X && super.LI < W + Y)
                     l = -1;
                 if (super.KI > V && super.LI > W && super.KI < V + X && super.LI < W + 18 && z > 0)
@@ -430,7 +435,7 @@ public class Main extends MapShell {
             }
             length = true;
         }
-        if (c) {
+        if (drawkey) {
             b = -1;
             if (super.EI > V && super.EI < V + X) {
                 i1 = W + 21 + 5;
@@ -453,7 +458,7 @@ public class Main extends MapShell {
                 length = true;
             }
         }
-        if ((super.AI == 1 || super.HI == 1) && h) {
+        if ((super.AI == 1 || super.HI == 1) && drawoverview) {
             i1 = super.KI;
             int k1 = super.LI;
             if (super.AI == 1) {
@@ -500,6 +505,7 @@ public class Main extends MapShell {
         int l1 = BI - (int) (503D / II);
         int j2 = CI + (int) (635D / II);
         int k2 = BI + (int) (503D / II);
+
         if (i1 < 48)
             CI = 48 + (int) (635D / II);
         if (l1 < 48)
@@ -519,8 +525,12 @@ public class Main extends MapShell {
             int j1 = BI - (int) (503D / II);
             int k1 = CI + (int) (635D / II);
             int l1 = BI + (int) (503D / II);
-            indexOf(i1, j1, k1, l1, 0, 0, 635, 503);
-            if (h) {
+            indexOf(i1, j1, k1, l1, 0, 0, newwidth, newheight);
+            //System.out.println(i1 + "," + j1 + "," + k1 + "," + l1);
+            //draws the overview and the red pan window
+            if (drawoverview) {  //if Overview/minimap is on
+            	e = newwidth - 217;
+            	g = newheight - 200;
                 k.Z(e, g);
                 H.drawFilledRectangleAlhpa(e + (a * i1) / printStackTrace, g + (s * j1) / println, ((k1 - i1) * a) / printStackTrace, ((l1 - j1) * s) / println, 0xff0000, 128);
                 H.I(e + (a * i1) / printStackTrace, g + (s * j1) / println, ((k1 - i1) * a) / printStackTrace, ((l1 - j1) * s) / println, 0xff0000);
@@ -534,10 +544,12 @@ public class Main extends MapShell {
 
                 }
             }
-            if (c) {
+            if (drawkey) {  //if Key is on
+            	W = newheight - 490;
                 gc(V, W, X, 18, 0x999999, 0x777777, 0x555555, IResourceLoader.I(814));
                 gc(V, W + 18, X, Y - 36, 0x999999, 0x777777, 0x555555, "");
                 gc(V, (W + Y) - 18, X, 18, 0x999999, 0x777777, 0x555555, IResourceLoader.I(824));
+                //System.out.println(V + "," + W + "," + X + "," + Y);
                 int j2 = W + 3 + 18;
                 for (int l2 = 0; l2 < 25; l2++) {
                     if (l2 + i < F.length && l2 + i < DI.length) {
@@ -556,24 +568,41 @@ public class Main extends MapShell {
                 }
 
             }
-            gc(e, g + s, a, 18, charAt, close, equals, IResourceLoader.I(834));
-            gc(V, W + Y, X, 18, charAt, close, equals, IResourceLoader.I(843));
+            gc(e, g + s, a, 18, charAt, close, equals, IResourceLoader.I(834)); //draws the "Overview" button
+            gc(V, W + Y, X, 18, charAt, close, equals, IResourceLoader.I(843)); //draws the "Key" button
+            
+            //Lights up a zoom button depending on the zoom level, ZI seems to be the zoom level var
             if (ZI == 3D)
-                gc(170, 471, 50, 30, exists, gc, indexOf, IResourceLoader.I(847));
+            {
+                gc(170, newheight - 30, 50, 30, exists, gc, indexOf, IResourceLoader.I(847));
+            }
             else
-                gc(170, 471, 50, 30, charAt, close, equals, IResourceLoader.I(847));
+                gc(170, newheight - 30, 50, 30, charAt, close, equals, IResourceLoader.I(847));
             if (ZI == 4D)
-                gc(230, 471, 50, 30, exists, gc, indexOf, IResourceLoader.I(851));
+            {
+                gc(230, newheight - 30, 50, 30, exists, gc, indexOf, IResourceLoader.I(851));
+
+        	}
             else
-                gc(230, 471, 50, 30, charAt, close, equals, IResourceLoader.I(851));
+            {
+                gc(230, newheight - 30, 50, 30, charAt, close, equals, IResourceLoader.I(851));
+            }
             if (ZI == 6D)
-                gc(290, 471, 50, 30, exists, gc, indexOf, IResourceLoader.I(855));
+            {
+                gc(290, newheight - 30, 50, 30, exists, gc, indexOf, IResourceLoader.I(855));
+            }
             else
-                gc(290, 471, 50, 30, charAt, close, equals, IResourceLoader.I(855));
+            {
+                gc(290, newheight - 30, 50, 30, charAt, close, equals, IResourceLoader.I(855));
+            }
             if (ZI == 8D)
-                gc(350, 471, 50, 30, exists, gc, indexOf, IResourceLoader.I(859));
+            {
+                gc(350, newheight - 30, 50, 30, exists, gc, indexOf, IResourceLoader.I(859));
+            }
             else
-                gc(350, 471, 50, 30, charAt, close, equals, IResourceLoader.I(859));
+            {
+                gc(350, newheight - 30, 50, 30, charAt, close, equals, IResourceLoader.I(859));
+            }
         }
         mkdir--;
         if (mkdir <= 0) {
@@ -586,8 +615,31 @@ public class Main extends MapShell {
         mkdir = 0;
     }
 
+    
+    //draws entire UI elements like the "Key" button and the text.
+    //also seems to set up clickable space for these buttons, maybe not!!!
+    
+    //i1 is x pos
+    //j1 is y pos
+    //k1 is width
+    //l1 is height
     public final void gc(int i1, int j1, int k1, int l1, int i2, int j2, int k2,
                          String s1) {
+    	if(s1 == "Key")
+    	{
+    		j1 = newheight - 20;
+    	}
+    	/*else if(s1 == "37%" || s1 == "50%" || s1 == "75%" || s1 == "100%" )
+    	{
+    		j1 = newheight - 30;
+    	}*/
+    	/*else if(s1 == "Next Page")
+    	{
+    		j1 = newheight - 40;
+    	}*/
+    	//System.out.println(s1 + "," + i1 + "," + j1 + "," + k1 + "," + l1 + "," + i2 + "," + j2 + "," + k2);
+    	//int heightdiff = j1 - 503;
+    	//j1 += heightdiff;
         H.I(i1, j1, k1, l1, 0);
         i1++;
         j1++;
@@ -1314,8 +1366,9 @@ public class Main extends MapShell {
         try {
             String s1 = "";
             for (int i1 = 0; i1 < 10; i1++)
+            {
                 s1 = (new StringBuilder()).append(s1).append(G.I[i1]).toString();
-
+            }
             DataInputStream datainputstream;
             if (super.SI != null)
                 datainputstream = new DataInputStream(new FileInputStream(IResourceLoader.I(1291)));
@@ -1327,8 +1380,8 @@ public class Main extends MapShell {
             byte abyte0[] = new byte[l1];
             while (k1 < l1) {
                 int i2 = l1 - k1;
-                if (i2 > 1000)
-                    i2 = 1000;
+                if (i2 > newwidth)
+                    i2 = newwidth;
                 int j2 = datainputstream.read(abyte0, k1, i2);
                 if (j2 < 0)
                     throw new IOException(IResourceLoader.I(1342));
@@ -1349,7 +1402,7 @@ public class Main extends MapShell {
 
     public final String out() {
         String[] arrayOfString = {IResourceLoader.I(1398), IResourceLoader.I(1410), IResourceLoader.I(1420), IResourceLoader.I(1432), IResourceLoader.I(1442), IResourceLoader.I(1454), IResourceLoader.I(1464), IResourceLoader.I(1476), IResourceLoader.I(1486), IResourceLoader.I(1490), IResourceLoader.I(1493), ""};
-        String str1 = IResourceLoader.I(1499);
+        String str1 = IResourceLoader.I(1499); //.file_store_32
         for (int i1 = 0; i1 < arrayOfString.length; i1++) {
             try {
                 String str2 = arrayOfString[i1];
@@ -1387,7 +1440,7 @@ public class Main extends MapShell {
         gc = 0x990000;
         indexOf = 0x880000;
         length = true;
-        D = new D[100];
+        D = new ClutterSprite[100];
         F = new B[100];
         N = new int[2000];
         O = new int[2000];
@@ -1399,12 +1452,12 @@ public class Main extends MapShell {
         W = 13;
         X = 140;
         Y = 470;
-        c = false;
+        drawkey = false;
         b = -1;
         d = -1;
         f = -1;
-        h = false;
-        r = 1000;
+        drawoverview = false;
+		r = newwidth ;
         t = new String[r];
         u = new int[r];
         v = new int[r];
@@ -1434,7 +1487,7 @@ public class Main extends MapShell {
     public byte Z[][];
     public byte C[][];
     public byte B[][];
-    public D D[];
+    public ClutterSprite D[];
     public B F[];
     public F J;
     public O S;
@@ -1458,7 +1511,7 @@ public class Main extends MapShell {
     public int Y;
     public int i;
     public int z;
-    public boolean c;
+    public boolean drawkey;
     public int b;
     public int d;
     public int f;
@@ -1467,7 +1520,7 @@ public class Main extends MapShell {
     public int a;
     public int e;
     public int g;
-    public boolean h;
+    public boolean drawoverview;
     public B k;
     public int l;
     public int m;

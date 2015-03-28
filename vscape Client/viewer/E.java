@@ -5,13 +5,23 @@ package viewer;
 // Source File Name:   topX
 
 
-public class E {
+public class E {  //loads UI text elements?
 
     public E(byte abyte0[]) {
         charAt(abyte0);
     }
 
-    public final void charAt(byte abyte0[]) {
+    public final void charAt(byte abyte0[]) {  //loading numbers such as 8
+//    	93524
+//    	4045461
+//    	14352389
+//    	262148
+//    	9223422
+//    	10880768
+//    	793344
+//    	3528704
+//    	2097200
+    	
         IoBuffer buffer = new IoBuffer(abyte0);
         int j = buffer.F();
         int k = buffer.F();
@@ -41,7 +51,7 @@ public class E {
 
     }
 
-    public final byte[] I(String s, byte abyte0[]) {
+    public final byte[] I(String s, byte abyte0[]) {  //some kind of loader dealing with index.dat and mapfunction.dat?
         int i = 0;
         s = s.toUpperCase();
         for (int j = 0; j < s.length(); j++)

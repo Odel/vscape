@@ -124,6 +124,8 @@ public class O extends Graphics2D {
 
     }
 
+    
+    //blots the Map labels to the drawing surface at pos i,j color k? flag is weather to draw drop shadow or not
     public final void append(String s, int i, int j, int k, boolean flag) {
         try {
             if (I || k == 0)
@@ -178,7 +180,10 @@ public class O extends Graphics2D {
         black = abyte0;
     }
 
+    
+    //draws map labels at pos i,j if they're on the screen  color k?  flag is weather to draw drop shadows or not
     public final void I(String s, int i, int j, int k, boolean flag) {
+    	//System.out.println(s + "," + i  + ","+ j  + "," +k + "," + flag);
         int l = charAt(s) / 2;
         int i1 = C();
         if (i - l > bottomX)
@@ -278,8 +283,8 @@ public class O extends Graphics2D {
                 createImage(pixels, abyte0, l, i2, j2, k1, l1, k2, l2);
     }
 
-    public final void createImage(int ai[], byte abyte0[], int i, int j, int k, int l, int i1,
-                                  int j1, int k1) {
+    public final void createImage(int ai[], byte abyte0[], int i, int j, int k, int l, int i1, int j1, int k1) {
+    	//System.out.println(i +","+ j +","+ k +","+ l +","+ i1 +","+ j1 +","+ k1);
         try {
             int l1 = -(l >> 2);
             l = -(l & 3);
