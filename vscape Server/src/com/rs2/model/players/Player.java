@@ -2350,29 +2350,6 @@ public class Player extends Entity {
 	{
 		return pcPoints;
 	}
-
-	public int getDarkBowPullGfx(RangedAmmo rangedAmmo) {
-	    if(rangedAmmo == RangedAmmo.BRONZE_ARROW) //bronze
-		return 1104;
-	    else if(rangedAmmo == RangedAmmo.IRON_ARROW) //iron
-		return 1105;
-	    else if(rangedAmmo == RangedAmmo.STEEL_ARROW) //steel
-		return 1106;
-	    else if(rangedAmmo == RangedAmmo.MITHRIL_ARROW) //mith
-		return 1107;
-	    else if(rangedAmmo == RangedAmmo.ADAMANT_ARROW) //addy
-		return 1108;
-	    else if(rangedAmmo == RangedAmmo.RUNE_ARROW) //rune
-		return 1109;
-	    else if(rangedAmmo == RangedAmmo.ICE_ARROWS) //ice
-		return 1110;
-	    else if(rangedAmmo == RangedAmmo.DRAGON_ARROW) //dragon
-		return 1111;
-	    else if(rangedAmmo == RangedAmmo.BROAD_ARROW) //broad
-		return 1112;
-	    else
-		return 0;
-	}
 	
 	public int getDefender() {
 	    return defender;

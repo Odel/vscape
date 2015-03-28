@@ -723,7 +723,7 @@ public class PlagueCity implements Quest {
 				return false;
 			case MANHOLE:
 				if(player.getQuestStage(40) > 0) {
-					player.getDialogue().sendPlayerChat("Hmm, looks like they've buried this pipe in rubble.", "I'll have to use Kilron and Omart to get back", "across the wall.");
+					player.getDialogue().sendPlayerChat("Hmm, looks like they've buried this pipe in rubble.", "I'll have to find another way out of the city.");
 					player.getDialogue().endDialogue();
 					return true;
 				}

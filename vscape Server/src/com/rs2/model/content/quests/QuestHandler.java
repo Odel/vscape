@@ -280,7 +280,8 @@ public class QuestHandler {
 			showInterface(player,quests[43]);
         		return true;
 		case 38199:
-			//showInterface(player,quests[44]);
+			if(UndergroundPass.UNDERGROUND_PASS_ENABLED)
+				showInterface(player,quests[44]);
         		return true;
         }
         return false;

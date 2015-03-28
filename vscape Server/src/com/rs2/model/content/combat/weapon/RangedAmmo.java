@@ -12,7 +12,7 @@ import com.rs2.model.players.item.ItemDefinition;
 public enum RangedAmmo {
 
 	/* Arrows */
-	BRONZE_ARROW(10, 19, 7), IRON_ARROW(9, 18, 10), STEEL_ARROW(11, 20, 16), MITHRIL_ARROW(12, 21, 22), ADAMANT_ARROW(13, 22, 31), RUNE_ARROW(15, 24, 49), DRAGON_ARROW(1115, 1116, 60),
+	BRONZE_ARROW(10, 19, 7), IRON_ARROW(9, 18, 10), STEEL_ARROW(11, 20, 16), MITHRIL_ARROW(12, 21, 22), ADAMANT_ARROW(13, 22, 31), RUNE_ARROW(15, 24, 49), DRAGON_ARROW(1120, 1116, 60),
 	
 	ICE_ARROWS(16, 25, 16),
 	
@@ -20,7 +20,7 @@ public enum RangedAmmo {
 
 	BRONZE_BRUTAL(15, 24, 11), IRON_BRUTAL(9, 18, 13), STEEL_BRUTAL(11, 20, 19), MITHRIL_BRUTAL(12, 21, 34), ADAMANT_BRUTAL(13, 22, 45), RUNE_BRUTAL(15, 24, 60),
 
-	BRONZE_FIRE_ARROWS(17, 26, 7), IRON_FIRE_ARROWS(17, 26, 10), STEEL_FIRE_ARROWS(17, 26, 16), MITHRIL_FIRE_ARROWS(17, 26, 22), ADAMANT_FIRE_ARROWS(17, 26, 31), RUNE_FIRE_ARROWS(17, 26, 49),
+	BRONZE_FIRE_ARROWS(17, 26, 7), IRON_FIRE_ARROWS(17, 26, 10), STEEL_FIRE_ARROWS(17, 26, 16), MITHRIL_FIRE_ARROWS(17, 26, 22), ADAMANT_FIRE_ARROWS(17, 26, 31), RUNE_FIRE_ARROWS(17, 26, 49), DRAGON_FIRE_ARROWS(1115, 26, 60),
 	
 	OGRE_ARROW(242, 243, 22),
 
@@ -54,8 +54,8 @@ public enum RangedAmmo {
 	TOKTZ(442, -1, 49);
 
 	static RangedAmmo[] BOLT_AMMO = {BARBED_BOLTS, BRONZE_BOLTS, BLURITE_BOLTS, IRON_BOLTS, STEEL_BOLTS, BLACK_BOLTS, MITHRIL_BOLTS, ADAMANT_BOLTS, RUNITE_BOLTS, OPAL_BOLTS, JADE_BOLTS, PEARL_BOLTS, TOPAZ_BOLTS, SAPPHIRE_BOLTS, EMERALD_BOLTS, RUBY_BOLTS, DIAMOND_BOLTS, DRAGON_BOLTS, ONYX_BOLTS};
-	static RangedAmmo[] ARROW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW, BRONZE_FIRE_ARROWS, IRON_FIRE_ARROWS, STEEL_FIRE_ARROWS, MITHRIL_FIRE_ARROWS, ADAMANT_FIRE_ARROWS, RUNE_FIRE_ARROWS};
-	static RangedAmmo[] DARK_BOW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW};
+	static RangedAmmo[] ARROW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW, BRONZE_FIRE_ARROWS, IRON_FIRE_ARROWS, STEEL_FIRE_ARROWS, MITHRIL_FIRE_ARROWS, ADAMANT_FIRE_ARROWS, RUNE_FIRE_ARROWS, DRAGON_FIRE_ARROWS};
+	static RangedAmmo[] DARK_BOW_AMMO = {BRONZE_ARROW, IRON_ARROW, STEEL_ARROW, MITHRIL_ARROW, ADAMANT_ARROW, RUNE_ARROW, DRAGON_ARROW, ICE_ARROWS, BROAD_ARROW, BRONZE_FIRE_ARROWS, IRON_FIRE_ARROWS, STEEL_FIRE_ARROWS, MITHRIL_FIRE_ARROWS, ADAMANT_FIRE_ARROWS, RUNE_FIRE_ARROWS, DRAGON_FIRE_ARROWS};
 	static RangedAmmo[] KNIFE_AMMO = {BRONZE_KNIFE, IRON_KNIFE, STEEL_KNIFE, BLACK_KNIFE, MITHRIL_KNIFE, ADAMANT_KNIFE, RUNE_KNIFE};
 	static RangedAmmo[] DART_AMMO = {BRONZE_DART, IRON_DART, STEEL_DART, BLACK_DART, MITHRIL_DART, ADAMANT_DART, RUNE_DART, DRAGON_DART};
 	static RangedAmmo[] BRUTAL_AMMO = {BRONZE_BRUTAL, IRON_BRUTAL, STEEL_BRUTAL, MITHRIL_BRUTAL, ADAMANT_BRUTAL, RUNE_BRUTAL};
@@ -112,6 +112,81 @@ public enum RangedAmmo {
 			return null;
 		}
 	}
+	
+	public static int getDarkBowPullGfx(RangedAmmo rangedAmmo) {
+		if (rangedAmmo.getGraphicId() == 26) {
+			return 1113;
+		}
+		switch(rangedAmmo.getProjectileId()) {
+			case 10: //bronze
+				return 1104;
+			case 9: //iron
+				return 1105;
+			case 11: //steel
+				return 1106;
+			case 12: //mithril
+				return 1107;
+			case 13: //adamant
+				return 1108;
+			case 15: //rune
+				return 1109;
+			case 16: //ice
+				return 1110;
+			case 1120: //dragon
+				return 1111;
+			case 326: //broad
+				return 1112;
+		}
+		return 0;
+	}
+	
+	public enum FireArrowData {
+		BRONZE(882, 598, 942),
+		IRON(884, 2532, 2533),
+		STEEL(886, 2534, 2535),
+		MITHRIL(888, 2536, 2537),
+		ADAMANT(890, 2538, 2539),
+		RUNE(892, 2540, 2541),
+		DRAGON(11212, 11217, 11222);
+		
+		private int originalId;
+		private int dampId;
+		private int litId;
+		FireArrowData(int originalId, int dampId, int litId) {
+			this.originalId = originalId;
+			this.dampId = dampId;
+			this.litId = litId;
+		}
+		
+		public static int dampIdForOriginalId(int id) {
+			for(FireArrowData f : FireArrowData.values()) {
+				if(f.getOriginalId() == id)
+					return f.getDampId();
+			}
+			return -1;
+		}
+		
+		public static int litIdForDampId(int id) {
+			for(FireArrowData f : FireArrowData.values()) {
+				if(f.getDampId() == id)
+					return f.getLitId();
+			}
+			return -1;
+		}
+		
+		public int getOriginalId() {
+			return this.originalId;
+		}
+		
+		public int getDampId() {
+			return this.dampId;
+		}
+		
+		public int getLitId() {
+			return this.litId;
+		}
+		
+	}
 
 	public static RangedAmmo getRangedAmmo(Player player, Weapon weapon, boolean sendMessage) {
 		RangedAmmoType ammoType = weapon.getAmmoType();
@@ -130,7 +205,7 @@ public enum RangedAmmo {
 		RangedAmmo[] rangedAmmos = ammoType.getRangedAmmos();
 		for (RangedAmmo ammo : rangedAmmos) {
 			if(ammoName.contains("fire")) {
-				if(ammoItem.getId() == 598 || (ammoItem.getId()&1) == 0) {
+				if(ammoItem.getId() == 598 || ((ammoItem.getId()&1) == 0 && ammoItem.getId() != 11222 && ammoItem.getId() != 942) || ammoItem.getId() == 11217) {
 					player.getDialogue().sendPlayerChat("These arrows are useless to fire without actually", "being on fire themselves.");
 					return null;
 				}

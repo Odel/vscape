@@ -79,8 +79,7 @@ public class WeaponAttack extends BasicAttack {
 
 	public Graphic generateGraphic() {
 		if (rangedAmmo != null && weapon.getAmmoType() != null && weapon == Weapon.DARK_BOW && getAttacker().isPlayer() ) {
-		    Player player = (Player) getAttacker();
-		    return new Graphic(player.getDarkBowPullGfx(rangedAmmo), 90);
+		    return new Graphic(RangedAmmo.getDarkBowPullGfx(rangedAmmo), 90);
 		}
 		else if (rangedAmmo != null && weapon.getAmmoType() != null && weapon != Weapon.DARK_BOW) {
 			return new Graphic(rangedAmmo.getGraphicId(), weapon.getAmmoType().getGraphicHeight());

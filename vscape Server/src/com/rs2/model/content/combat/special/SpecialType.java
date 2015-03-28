@@ -414,7 +414,7 @@ public enum SpecialType {
 					}});
 					double maxDamage = generateMaxHit();
 					setAnimation(426);
-					setGraphic(new Graphic( attacker.getDarkBowPullGfx(rangedAmmo), 90) );
+					setGraphic(new Graphic(RangedAmmo.getDarkBowPullGfx(rangedAmmo), 90) );
 					if(rangedAmmo != RangedAmmo.DRAGON_ARROW) {
 					    ProjectileDef firstProjectile = new ProjectileDef(1101, ProjectileTrajectory.DOUBLE_ARROW1.clone().setSlowness(30));
 					    ProjectileDef secondProjectile = new ProjectileDef(1101, ProjectileTrajectory.DOUBLE_ARROW2.clone().setStartHeight(35).setSlowness(30));

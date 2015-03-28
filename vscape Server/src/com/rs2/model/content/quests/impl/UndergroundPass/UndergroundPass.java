@@ -1,16 +1,25 @@
 package com.rs2.model.content.quests.impl.UndergroundPass;
 
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.GameObjectData;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
+import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
+import static com.rs2.model.content.dialogue.Dialogues.HAPPY;
+import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
@@ -21,11 +30,14 @@ import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
 
 public class UndergroundPass implements Quest {
+	public static boolean UNDERGROUND_PASS_ENABLED = false;
 
 	public static final int questIndex = 9927;
 	//Quest stages
 	public static final int QUEST_STARTED = 1;
-	public static final int QUEST_COMPLETE = 2;
+	public static final int ENTER_CAVES = 2;
+	public static final int CAN_USE_WELL = 3;
+	public static final int QUEST_COMPLETE = 20;
 
 	//Items
 	public static final int ROCK = 1480;
@@ -62,7 +74,7 @@ public class UndergroundPass implements Quest {
 	public static final int INTERFACE = -1;
 
 	//Npcs
-	public static final int KING_LATHAS = -1;
+	public static final int KING_LATHAS = 364;
 	public static final int KOFTIK_NO_HOOD = 972;
 	public static final int KOFTIK = 973;
 	public static final int KOFTIK_2 = 974;
@@ -102,6 +114,7 @@ public class UndergroundPass implements Quest {
 	
 	public static final String[] ibanWhispers = {"Blood, pain and hate.", "Death is only the beginning.", "Kill, maim... murder.", "I'll swallow your soul.", "The power of the gods could be yours.", "Hear me...", "Iban will save you... He'll save us all.", "I will release you...", "Make them all pay!", "Join us!", "I see you adventurer... you can't hide."};
 	public static final String[] oldJournalStrings = {"I came to cleanse these", "mountain passes of the", "dark forces that dwell", "here. I knew my journey", "would be treacherous, so", "I deposited Spheres of", "Light in some of the", "tunnels. These spheres", "are a beacon of safety", "for all who come. The", "spheres were created by", "Saradominist mages.", "When held they boost our", "faith and courage. I still", "feel...", "", "Iban relentlessly", "tugging...", "", "at my weak soul.......", "", "bringing out any innate", "goodness to one's heart,", "illuminating the dark", "caverns with the light of", "Saradomin, bringing fear", "and pain to all who", "embrace the dark side.", "My men are still repelled", "by 'Iban's will' - it seems", "as if their pure hearts bar", "them from entering", "Iban's realm. My turn", "has come. I dare not", "admit it to my loyal men,", "but I fear for the welfare", "of my soul." };
+	public static final String[] diaryOfRandasStrings = {"It began as a whisper in", "my ears. Dismissing the", "sounds as the whistling of", "the wind I steeled myself", "against these forces, and", "continued on my way.", "", "But then the whispers became", "moans...", "", "", "At once fearsome and", "enticing like the call of", "some beautiful siren.", "", "", "Join us!", "", "Our greatness lies within", "you, but only Zamorak", "can unlock your", "potential..."};
 	
 	private int reward[][] = { //{itemId, count},
 	};
@@ -182,7 +195,13 @@ public class UndergroundPass implements Quest {
 
 		ActionSender a = player.getActionSender();
 		a.sendQuestLogString("Talk to King Lathas in the Ardougne Castle to begin.", 1, this.getQuestID(), 0);
-		
+		a.sendQuestLogString("King Lathas has sent me on a mission to help explore", 3, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("this underground pass to the west.", 4, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("I met Koftik. He fears these caves, but he agreed to", 6, this.getQuestID(), ENTER_CAVES);
+		a.sendQuestLogString("help. He said to meet him at the bridge inside the caves.", 7, this.getQuestID(), ENTER_CAVES);
+		a.sendQuestLogString("I made it farther into the caverns. I climbed down a well", 9, this.getQuestID(), CAN_USE_WELL);
+		a.sendQuestLogString("that seemed to 'accept' me only after I destroyed some orbs", 10, this.getQuestID(), CAN_USE_WELL);
+		a.sendQuestLogString("of light that were nearby.", 11, this.getQuestID(), CAN_USE_WELL);
 		switch (questStage) {
 			default:
 				break;
@@ -193,6 +212,8 @@ public class UndergroundPass implements Quest {
 				a.sendQuestLogString((player.getSkill().getPlayerLevel(Skill.RANGED) >= 25 ? "@str@" : "@dbl@") + "-25 Range", 6);
 				break;
 			case QUEST_STARTED:
+				a.sendQuestLogString("He told me to meet  his tracker Koftik, who is waiting", lastIndex + 1);
+				a.sendQuestLogString("for me in far West Ardougne.", lastIndex + 2);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -218,16 +239,16 @@ public class UndergroundPass implements Quest {
 	}
 
 	public void sendQuestTabStatus(Player player) {
-		/*
-		int questStage = player.getQuestStage(getQuestID());
-		if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
-			player.getActionSender().sendString("@yel@" + getQuestName(), questIndex);
-		} else if (questStage == QUEST_COMPLETE) {
-			player.getActionSender().sendString("@gre@" + getQuestName(), questIndex);
-		} else {
-			player.getActionSender().sendString("@red@" + getQuestName(), questIndex);
+		if (UNDERGROUND_PASS_ENABLED) {
+			int questStage = player.getQuestStage(getQuestID());
+			if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
+				player.getActionSender().sendString("@yel@" + getQuestName(), questIndex);
+			} else if (questStage == QUEST_COMPLETE) {
+				player.getActionSender().sendString("@gre@" + getQuestName(), questIndex);
+			} else {
+				player.getActionSender().sendString("@red@" + getQuestName(), questIndex);
+			}
 		}
-		*/
 	}
 
 	public int getQuestPoints() {
@@ -238,6 +259,8 @@ public class UndergroundPass implements Quest {
 		player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
+	
+	
 	
 	public static void doLoginChecks(final Player player) {
 		if(player.Area(2364, 2414, 9586, 9613)) {
@@ -283,10 +306,36 @@ public class UndergroundPass implements Quest {
 	}
 
 	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
+		if(firstItem == DAMP_CLOTH && RangedAmmo.FireArrowData.dampIdForOriginalId(secondItem) != -1) {
+			player.getActionSender().sendMessage("You wrap the damp cloth around the arrow head...");
+			player.getInventory().replaceItemWithItem(new Item(DAMP_CLOTH), new Item(RangedAmmo.FireArrowData.dampIdForOriginalId(secondItem), 1));
+			player.getInventory().removeItem(new Item(secondItem, 1));
+			return true;
+		} else if (secondItem == DAMP_CLOTH && RangedAmmo.FireArrowData.dampIdForOriginalId(firstItem) != -1) {
+			player.getActionSender().sendMessage("You wrap the damp cloth around the arrow head...");
+			player.getInventory().replaceItemWithItem(new Item(DAMP_CLOTH), new Item(RangedAmmo.FireArrowData.dampIdForOriginalId(firstItem), 1));
+			player.getInventory().removeItem(new Item(firstItem, 1));
+			return true;
+		}
 		return false;
 	}
 
 	public boolean doItemOnObject(final Player player, final int object, final int item) {
+		if(RangedAmmo.FireArrowData.litIdForDampId(item) != -1) {
+			final CacheObject obj = ObjectLoader.object(object, player.getClickX(), player.getClickY(), player.getPosition().getZ());
+			final GameObjectDef def = SkillHandler.getObject(object, player.getClickX(),player.getClickY(), player.getPosition().getZ());
+			if (obj != null || def != null) {
+				String name = GameObjectData.forId(obj != null ? obj.getDef().getId() : def.getId()).getName().toLowerCase();
+				if (name.equalsIgnoreCase("fire") || name.equalsIgnoreCase("fireplace")) {
+					int amount = player.getInventory().getItemAmount(item);
+					if (player.getInventory().playerHasItem(item, amount)) {
+						player.getActionSender().sendMessage("You light the cloth wrapped arrow head" + (amount > 1 ? "s." : "."));
+						player.getInventory().replaceItemWithItem(new Item(item, amount), new Item(RangedAmmo.FireArrowData.litIdForDampId(item), amount));
+						return true;
+					}
+				}
+			}
+		}
 		switch(object) {
 			case 3305:
 				if(item >= UNICORN_HORN && item <= PALADINS_BADGE_3) {
@@ -388,6 +437,22 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
+			case 3307:
+				if(player.inUndergroundPass()) {
+					Ladders.climbLadder(player, new Position(2418, 9674, 0));
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							PassTrapHandling.startTrapCycle(player, 0);
+						}
+					}, 5);
+					return true;
+				}
+			return false;
 			case 3220:
 			case 3221:
 				if (player.getPosition().getX() > 2180) {
@@ -400,6 +465,7 @@ public class UndergroundPass implements Quest {
 					if (canContinue) {
 						for(int i = 0; i < 4; i++)
 							player.getQuestVars().wellItemsDestroyed[i] = false;
+						
 						player.fadeTeleport(new Position(2173, 4725, 1));
 						return true;
 					}
@@ -409,7 +475,15 @@ public class UndergroundPass implements Quest {
 					return true;
 				}
 			return false;
-			case 3237:
+			case 3236: //pipe wrong end
+				if(player.inUndergroundPass()) {
+					player.getDialogue().sendPlayerChat("Hm, it looks like there is a grill on the", "other side of this pipe. I won't be able to", "remove it from the inside.");
+					player.getDialogue().endDialogue();
+					return true;	
+				}
+			return false;
+			case 3235:
+			case 3237: //pipes
 				if(player.inUndergroundPass()) {
 					PassObjectHandling.handlePipeCrawl(player, object, x, y);
 					return true;
@@ -488,13 +562,16 @@ public class UndergroundPass implements Quest {
 				if(player.inUndergroundPass()) {
 					player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
 					boolean canContinue = true;
-					for(boolean b : player.getQuestVars().wellItemsDestroyed)
-						if(!b)
-							canContinue = false;
+					if(player.getQuestStage(this.getQuestID()) < CAN_USE_WELL)
+						for(boolean b : player.getQuestVars().wellItemsDestroyed)
+							if(!b)
+								canContinue = false;
 					if(canContinue) {
 						for(int i = 0; i < 4; i++)
 							player.getQuestVars().wellItemsDestroyed[i] = false;
 						Ladders.climbLadder(player, new Position(2423, 9660, 0));
+						if(player.getQuestStage(this.getQuestID()) == ENTER_CAVES)
+							player.setQuestStage(this.getQuestID(), CAN_USE_WELL);
 					}
 					final boolean teleported = canContinue;
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -562,9 +639,15 @@ public class UndergroundPass implements Quest {
 				return true;
 			case PASS_ENTRANCE:
 				if(x == 2433 && y == 3313) {
-					player.getUpdateFlags().sendAnimation(844);
-					//player.fadeTeleport(PASS_ENTRANCE_POS);
-					startIbanWhispers(player);
+					if (UNDERGROUND_PASS_ENABLED && player.getQuestStage(this.getQuestID()) >= ENTER_CAVES) {
+						player.getUpdateFlags().sendAnimation(844);
+						player.fadeTeleport(PASS_ENTRANCE_POS);
+						startIbanWhispers(player);
+					} else {
+						player.getDialogue().setLastNpcTalk(KOFTIK);
+						player.getDialogue().sendNpcChat("Hey, get away from there! You'll kill yourself", "in those caves!", ANGRY_1);
+						player.getDialogue().endDialogue();
+					}
 					return true;
 				}
 				return false;
@@ -720,8 +803,188 @@ public class UndergroundPass implements Quest {
 						return true;	
 				}
 			return false;
+			case KOFTIK_3:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("Hello Koftik.");
+						return true;
+					case 2:
+						d.sendNpcChat("Do you hear them? The voices tell me things.");
+						return true;
+					case 3:
+						d.sendPlayerChat("Are you okay?");
+						return true;
+					case 4:
+						d.sendNpcChat("The path of the righteous man is beset on all sides by", "the iniquities of the selfish and the tyranny of evil men.");
+						return true;
+					case 5:
+						d.sendPlayerChat("Tyranny of the righteous? What?");
+						return true;
+					case 6:
+						d.sendNpcChat("So many paths to choose... here we must all take our", "own path.");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case KOFTIK_2:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("Koftik, how can we cross the bridge?");
+						return true;
+					case 2:
+						d.sendNpcChat("I'm not sure, seems as if others were here before us", "though...");
+						return true;
+					case 3:
+						d.sendNpcChat("I found this cloth amongst the charred remains", "of some arrows.");
+						player.getInventory().addItem(new Item(DAMP_CLOTH));
+						return true;
+					case 4:
+						d.sendPlayerChat("Charred arrows? They must have been trying to burn", "something. Or someone!");
+						return true;
+					case 5:
+						d.sendPlayerChat("Interesting... we better keep our eyes open.");
+						return true;
+					case 6:
+						d.sendNpcChat("I have also found the remains of a book...", SAD);
+						return true;
+					case 7:
+						d.sendPlayerChat("What does it say?");
+						return true;
+					case 8:
+						d.sendNpcChat("It seems to be written by the adventurer Randas. It", "reads...");
+						return true;
+					case 9:
+						player.getActionSender().removeInterfaces();
+						player.getActionSender().sendMessage("Koftik shows you the diary.");
+						d.dontCloseInterface();
+						player.getBookHandler().initBook(diaryOfRandasStrings, "The Diary of Randas");
+						return true;
+				}
+				return false;
+			case KOFTIK:
+				switch (player.getQuestStage(this.getQuestID())) {
+					case QUEST_STARTED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello there, are you the King's scout?");
+								return true;
+							case 2:
+								d.sendNpcChat("That I am, brave adventurer. King Lathas informed me", "that you need to cross these mountains.");
+								return true;
+							case 3:
+								d.sendNpcChat("I'm afraid you'll have to go through the ancient", "underground pass...");
+								return true;
+							case 4:
+								d.sendPlayerChat("That's ok, I've travelled through many a cave", "in my time.");
+								return true;
+							case 5:
+								d.sendNpcChat("These caves are different... They're filled with the spirit", "of Zamorak!");
+								return true;
+							case 6:
+								d.sendNpcChat("You can feel it as you wind your way round the", "stalagmites... an icy chill that penetrates the very fabric", "of your being...");
+								return true;
+							case 7:
+								d.sendNpcChat("Not so many travellers come down here these days,", "...but there are some who are still foolhardy enough.");
+								return true;
+							case 8:
+								d.sendOption("I'll take my chances.", "Tell me more...");
+								return true;
+							case 9:
+								d.sendPlayerChat(d.tempStrings[optionId - 1]);
+								if(optionId == 1)
+									d.setNextChatId(15);
+								return true;
+								
+							case 10:
+								d.sendNpcChat("I remember seeing one such warrior. Going by the", "name of Randas... ...he stood tall and proud like an", "Elven King...");
+								return true;
+							case 11:
+								d.sendNpcChat("...That same pride made him vulnerable to Zamorak's", "calls. Randas' worthy desire to be a great and mighty", "warrior also made him corruptible to Zamorak's promises", "of glory.");
+								return true;
+							case 12:
+								d.sendNpcChat("...Zamorak showed him a way to achieve his goals by", "appealing to that most base and dark nature ...that", "resides in all of us.");
+								return true;
+							case 13:
+								d.sendPlayerChat("What happened to him?", DISTRESSED);
+								return true;
+							case 14:
+								d.sendNpcChat("No one knows...", SAD);
+								return true;
+							case 15:
+								d.sendNpcChat("If you're willing, you'll need to meet me by", "the bridge just inside the caves. Be careful.");
+								d.endDialogue();
+								player.setQuestStage(this.getQuestID(), ENTER_CAVES);
+								return true;	
+						}
+					return false;
+				}
+			return false;
 			case KING_LATHAS:
-				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+				switch (player.getQuestStage(this.getQuestID())) {
+					case QUEST_STARTED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello King Lathas.");
+								return true;
+							case 2:
+								d.sendNpcChat("Go meet my main tracker, Koftik. He will help you. He", "waits for you at the west side of West Ardougne.");
+								return true;
+							case 3:
+								d.sendNpcChat("We must find a way through these caverns if we are to", "stop my brother Tyras.");
+								return true;
+							case 4:
+								d.sendPlayerChat("I'll do my best Lathas.");
+								return true;
+							case 5:
+								d.sendNpcChat("A warning traveller, the underground pass is lethal. We", "lost many men exploring those caverns. Go prepared", "with food and armor or you won't last long.");
+								d.endDialogue();
+								return true;		
+						}
+					return false;
+					case 0:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello King Lathas.");
+								return true;
+							case 2:
+								if(QuestHandler.questCompleted(player, 40)) {
+									d.sendNpcChat("Adventurer, thank Saradomin for your arrival!", HAPPY);
+								} else {
+									d.sendNpcChat("Shoo, peasant.", ANGRY_1);
+									d.endDialogue();
+								}
+								return true;
+							case 3:
+								d.sendPlayerChat("Have your scouts found a way through the mountains?");
+								return true;
+							case 4:
+								d.sendNpcChat("Not quite, we found a path to where we expected", "to find the Well of Voyage, an ancient portal to", "the far west.");
+								return true;
+							case 5:
+								d.sendNpcChat("However during recent times a cluster of cultists have", "settled there, run by a madman named Iban.");
+								return true;
+							case 6:
+								d.sendPlayerChat("Iban?");
+								return true;
+							case 7:
+								d.sendNpcChat("A crazy loon who claims to be the son of Zamorak.");
+								return true;
+							case 8:
+								d.sendNpcChat("Go meet my main tracker, Koftik. He will help you. He", "waits for you at the west side of West Ardougne.");
+								return true;
+							case 9:
+								d.sendNpcChat("We must find a way through these caverns if we are to", "stop my brother Tyras.");
+								return true;
+							case 10:
+								d.sendPlayerChat("I'll do my best Lathas.");
+								return true;
+							case 11:
+								d.sendNpcChat("A warning traveller, the underground pass is lethal. We", "lost many men exploring those caverns. Go prepared", "with food and armor or you won't last long.");
+								d.endDialogue();
+								QuestHandler.startQuest(player, this.getQuestID());
+								return true;	
+						}
+					return false;
 					case QUEST_COMPLETE:
 						switch (d.getChatId()) {
 							case 1:

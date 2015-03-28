@@ -37,10 +37,16 @@ public class PassObjectHandling {
 		final CacheObject o = ObjectLoader.object(x, y, 0);
 		if (o != null) {
 			final int face = o.getRotation();
-			player.getActionSender().sendMessage("You crawl into the pipe...");
-			if(face == 2)
+			if (object == 3235) {
+				player.getActionSender().sendMessage("You remove the grill from the pipe and crawl in...");
+				player.getActionSender().sendObject(3237, x, y, 0, 3, 10);
+			} else {
+				player.getActionSender().sendMessage("You crawl into the pipe...");
+			}
+			if (face == 2) {
 				player.getActionSender().sendMapState(2);
-			final Position toBe = new Position(face == 2 ? x + 2 : face == 3 ? x - 1 : x, y, 0);
+			}
+			final Position toBe = new Position(face == 2 ? x + 2 : face == 3 ? x - 1 : x, face == 0 ? y - 1 : y, 0);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				int count = 0;
 				boolean stop = false;
@@ -55,6 +61,7 @@ public class PassObjectHandling {
 					player.getUpdateFlags().setFaceToDirection(true);
 					player.getUpdateFlags().setUpdateRequired(true);
 					if (player.getPosition().equals(toBe) && !stop) {
+						System.out.println("in");
 						player.getUpdateFlags().sendAnimation(749);
 						stop = true;
 					} else {
@@ -81,16 +88,18 @@ public class PassObjectHandling {
 										}
 									} else if (face == 3) {
 										player.movePlayer(new Position(2415, 9605, 0));
+									} else if (face == 0) {
+										player.movePlayer(new Position(2451, 9690, 0));
 									}
 									player.transformNpc = 2370;
 									player.getMovementHandler().setRunToggled(false);
 									player.getMovementHandler().reset();
 									//player.setWalkAnim(748);
 									player.setAppearanceUpdateRequired(true);
-									player.getActionSender().walkTo(face == 2 ? -3 : face == 3 ? 3 : 0, 0, true);
+									player.getActionSender().walkTo(face == 2 ? -3 : face == 3 ? 3 : 0, face == 0 ? 3 : 0, true);
 									break;
 								case 6:
-									player.getActionSender().walkTo(face == 2 ? -2 : face == 3 ? 2 : 0, 0, true);
+									player.getActionSender().walkTo(face == 2 ? -2 : face == 3 ? 2 : 0, face == 0 ? 2 : 0, true);
 									break;
 								case 8:
 									player.transformNpc = -1;
@@ -107,8 +116,11 @@ public class PassObjectHandling {
 							player.getUpdateFlags().sendAnimation(748);
 							player.setAppearanceUpdateRequired(true);
 							player.getActionSender().sendMessage("...you emerge on the other side.");
-							if((face == 2 || face == 3) && player.getPosition().getX() > 2417)
+							if ((face == 2 || face == 3) && player.getPosition().getX() > 2417) {
 								player.getActionSender().sendMapState(0);
+							} else if (face == 0) {
+								player.getActionSender().sendObject(3235, x, y, 0, 3, 10);
+							}
 							if (wasRunning) {
 								player.getMovementHandler().setRunToggled(true);
 							}
@@ -395,7 +407,6 @@ public class PassObjectHandling {
 			public void execute(CycleEventContainer b) {
 				count++;
 				if(count == 1) {
-					player.getActionSender().sendMessage("The bridge falls.");
 					player.getActionSender().sendObject(3240, 2443, 9716, 0, 3, 10);
 					ClippedPathFinder.getPathFinder().findRoute(player, 2442, 9716, true, 0, 0);
 				}
@@ -428,7 +439,7 @@ public class PassObjectHandling {
 			if (ammo == null) {
 				return;
 			} else {
-				if (ammo.getProjectileId() != 17) {
+				if (ammo.getProjectileId() != 17 && ammo.getProjectileId() != 1115) {
 					player.getDialogue().sendPlayerChat("I don't think these arrows will burn the rope", "seeing as they aren't lit on fire.");
 					return;
 				}
@@ -445,6 +456,7 @@ public class PassObjectHandling {
 			final int offsetY = (attackerX - x) * -1;
 			World.sendProjectile(player.getPosition(), offsetX, offsetY, ammo.getProjectileId(), 43, 40, 70, 0, false);
 			player.getActionSender().sendMessage("You fire your arrow at the rope supporting the bridge...");
+			player.getEquipment().removeAmount(Constants.ARROWS, 1);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer b) {
@@ -722,6 +734,18 @@ public class PassObjectHandling {
 				a.sendString("the wait for morning forever long.", 3031);
 				a.sendString("If a light should break the night", 3032);
 				a.sendString("the dark will rise to win the fight.", 3033);
+				break;
+			case 3299:
+				a.sendString("Leave this battered corpse be,", 3026);
+				a.sendString("for now he lives as spirit alone.", 3027);
+				a.sendString("Turn and leave, run and flee", 3028);
+				a.sendString("before the Soulless writhe and moan.", 3029);
+				a.sendString("It is the soil that shall rise", 3030);
+				a.sendString("to turn away the mites and flies.", 3031);
+				a.sendString("Only as flesh becomes ash,", 3032);
+				a.sendString("and wood becomes dust,", 3033);
+				a.sendString("...will Iban's corpse embrace", 3034);
+				a.sendString("nature's eternal lust.", 3035);
 				break;
 		}
 	}

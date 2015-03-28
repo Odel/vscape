@@ -15,6 +15,25 @@ import com.rs2.util.Misc;
 
 public class PassTrapHandling {
 	
+	public static void springOrbOfLightTrap(final Player player) {
+		player.getActionSender().sendMessage("You activate the trap!");
+		player.getActionSender().animateObject(2380, 9667, 0, 3, 10, 458); //swing
+		player.getUpdateFlags().sendAnimation(846, 1);
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				player.getUpdateFlags().sendAnimation(848); //headspin
+				player.getUpdateFlags().sendGraphic(254, 100 << 16);
+				player.hit(Misc.random(5) + 10, HitType.NORMAL);
+			}
+		}, 2);
+	}
+	
 	public static void startTrapCycle(final Player player, int floorLevel) {
 		switch (floorLevel) {
 			case 2: //zombie floor
@@ -200,23 +219,8 @@ public class PassTrapHandling {
 									player.getDialogue().sendPlayerChat("I have no need for another one of these.");
 								}
 							} else {
-								player.getActionSender().sendMessage("...and fail, activating the trap!");
-								player.getActionSender().animateObject(2380, 9667, 0, 3, 10, 458); //swing
-								player.getUpdateFlags().sendAnimation(846, 1);
+								springOrbOfLightTrap(player);
 								failed = true;
-								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-									@Override
-									public void execute(CycleEventContainer b) {
-										b.stop();
-									}
-
-									@Override
-									public void stop() {
-										player.getUpdateFlags().sendAnimation(848); //headspin
-										player.getUpdateFlags().sendGraphic(254, 100 << 16);
-										player.hit(Misc.random(5) + 10, HitType.NORMAL);
-									}
-								}, 1);
 							}
 						} else if (count > 4 - (failed ? 1 : 0)) {
 							b.stop();
@@ -226,9 +230,6 @@ public class PassTrapHandling {
 					public void stop() {
 						player.setStopPacket(false);
 						player.getQuestVars().immuneToTraps = false;
-						if (failed) {
-							
-						}
 					}
 				}, 2);
 				break;

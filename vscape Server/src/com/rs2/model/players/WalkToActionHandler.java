@@ -84,6 +84,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.content.quests.impl.UndergroundPass.PassObjectHandling;
+import com.rs2.model.content.quests.impl.UndergroundPass.PassTrapHandling;
 import com.rs2.model.content.randomevents.SpawnEvent;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
@@ -144,6 +145,8 @@ public class WalkToActionHandler {
 			case 3237:
 			case 3220:
 			case 3221:
+			case 3213:
+			case 3264:
 				return true;
 			case 2274:
 				return x == 2461 && y == 9692;
@@ -2096,6 +2099,11 @@ public class WalkToActionHandler {
 					break;
 				    }
 				    break;
+				case 3361: //orb of light trap UPass
+					if(player.inUndergroundPass()) {
+						PassTrapHandling.springOrbOfLightTrap(player);
+					}
+					break;
 				case 1739: //staircase
 				case 12537:
 				case 11889: //Dark wizard tower mid stairs down
@@ -3077,10 +3085,10 @@ public class WalkToActionHandler {
 		{
 			return true;
 		}
-		if(def.getId() == 1729 || def.getId() == 3213 || def.getId() == 3214 || def.getId() == 3264) {
+		if(def.getId() == 1729 || def.getId() == 3213 || def.getId() == 3214 || def.getId() == 3231) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 4);
 		}
-		if(def.getId() == 2290 || def.getId() == 3220 || def.getId() == 3221) {
+		if(def.getId() == 2290 || def.getId() == 3220 || def.getId() == 3221 || def.getId() == 3264) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 3);
 		}
 		if(def.getId() == 5061 || def.getId() == 5060 || def.getId() == 3237) {

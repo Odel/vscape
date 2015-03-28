@@ -1610,6 +1610,9 @@ public class Equipment {
 					strengthLevelReq = 30;
 				}
 			}
+			if(itemName.contains("arrow") || itemName.contains("dart")) {
+				rangeLevelReq = 60;
+			}
 			if (itemName.contains("body") || itemName.contains("shield") || itemName.contains("legs") || itemName.contains("skirt") || itemName.contains("helm") || itemName.contains("boots")) {
 				defenceLevelReq = 60;
 			}

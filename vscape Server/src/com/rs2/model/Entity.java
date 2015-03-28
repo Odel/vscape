@@ -328,7 +328,7 @@ public abstract class Entity {
 	}
 	
 	public boolean inUndergroundPass() {
-		return Area(2368, 2495, 9590, 9738);
+		return Area(2368, 2495, 9590, 9738) || Area(2393, 2398, 9557, 9562);
 	}
 
 	public boolean inDuelArena() {
