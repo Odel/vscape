@@ -5599,6 +5599,10 @@ public class Client extends RSApplet {
 						}
 						SettingsManager.write();
 					}
+					if (inputString.equalsIgnoreCase("::map"))
+					{
+							viewer.Main.main(aStringArray983);
+					}
 					if (myPrivilege >= 2) {
 						if (inputString.equalsIgnoreCase("::dumpclip"))
 							onDemandFetcher.DumpMapClipping();
@@ -5612,10 +5616,6 @@ public class Client extends RSApplet {
 							fpsOn = !fpsOn;
 						if (inputString.equalsIgnoreCase("::data"))
 							clientData = !clientData;
-						if (inputString.equalsIgnoreCase("::map"))
-						{
-								viewer.Main.main(aStringArray983);
-						}
 					
 					}
 					if (inputString.startsWith("/"))
