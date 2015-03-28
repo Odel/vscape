@@ -448,6 +448,8 @@ public class MovementHandler {
 	}
 	public boolean walkCheck(int x, int y) {
 		boolean unclip = false;
+		if(entity.isNpc() && ((Npc)entity).getNpcId() == 986)
+			return true;
 		for (int[] clip : unclipped) {
 			if (entity.getPosition().getX() + x == clip[0] && entity.getPosition().getY() + y == clip[1]) {
 				unclip = true;

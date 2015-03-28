@@ -4,9 +4,12 @@ import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.Skill;
+import com.rs2.model.ground.GroundItem;
+import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
@@ -236,6 +239,24 @@ public class UndergroundPass implements Quest {
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 	
+	public static void doLoginChecks(final Player player) {
+		if(player.Area(2364, 2414, 9586, 9613)) {
+			player.getActionSender().sendMapState(2);
+		}
+		if(player.Area(2465, 2482, 9671, 9688)) {
+			GridMazeHandler.startGridCheck(player);
+		}
+		if(player.Area(2378, 2465, 9665, 9700)) {
+			PassTrapHandling.startTrapCycle(player, 0);
+		}
+		if(player.Area(2390, 2430, 9697, 9729) || player.Area(2367, 2390, 9663, 9728)) {
+			PassTrapHandling.startTrapCycle(player, 2);
+		}
+		if(player.inUndergroundPass()) {
+			startIbanWhispers(player);
+		}
+	}
+	
 	public static void startIbanWhispers(final Player player) {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
@@ -267,6 +288,37 @@ public class UndergroundPass implements Quest {
 
 	public boolean doItemOnObject(final Player player, final int object, final int item) {
 		switch(object) {
+			case 3305:
+				if(item >= UNICORN_HORN && item <= PALADINS_BADGE_3) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You throw the " + (item == UNICORN_HORN ? "unicorn horn" : "coat of arms") + " into the well...");
+					player.getInventory().removeItem(new Item(item));
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.getQuestVars().wellItemsDestroyed[item - UNICORN_HORN] = true;
+							player.getActionSender().sendMessage("You hear a howl in the distance.");
+							boolean canContinue = true;
+							for (boolean b : player.getQuestVars().wellItemsDestroyed)
+								if (!b) {
+									canContinue = false;
+								}
+							if (canContinue) {
+								player.getActionSender().sendMessage("You hear a click from nearby...");
+								player.getActionSender().sendMessage("It sounds like it came from the skull above the door.");
+							}
+							
+						}
+					}, 3);
+					return true;
+				}
+			return false;
 			case 3216: //cage mud
 				if(item == 952 && player.inUndergroundPass()) { //spade
 					PassObjectHandling.handleDigMud(player);
@@ -288,7 +340,7 @@ public class UndergroundPass implements Quest {
 						@Override
 						public void stop() {
 							player.getActionSender().sendMessage("You feel a cold shudder run down your spine.");
-							player.getQuestVars().orbsOfLightDestroyed[item - ORB_OF_LIGHT] = true;
+							player.getQuestVars().wellItemsDestroyed[item - ORB_OF_LIGHT] = true;
 							player.setStopPacket(false);
 						}
 					}, 3);
@@ -313,15 +365,111 @@ public class UndergroundPass implements Quest {
 	}
 
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+		if(itemId == PIECE_OF_RAILING && npc.getNpcId() == BOULDER) {
+			PassObjectHandling.handlePushBoulder(player, npc);
+			return true;
+		}
 		return false;
 	}
 
 	public boolean doNpcClicking(Player player, Npc npc) {
+		int id = npc.getNpcId();
+		switch(id) {
+			case BOULDER:
+				player.getDialogue().sendPlayerChat("It's too heavy to move with just my hands.", DISTRESSED);
+				player.getDialogue().endDialogue();
+				return true;
+		}
 		return false;
 	}
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
+		if(player.stopPlayerPacket()) {
+			return false;
+		}
 		switch (object) {
+			case 3220:
+			case 3221:
+				if (player.getPosition().getX() > 2180) {
+					boolean canContinue = true;
+					for (boolean b : player.getQuestVars().wellItemsDestroyed) {
+						if (!b) {
+							canContinue = false;
+						}
+					}
+					if (canContinue) {
+						for(int i = 0; i < 4; i++)
+							player.getQuestVars().wellItemsDestroyed[i] = false;
+						player.fadeTeleport(new Position(2173, 4725, 1));
+						return true;
+					}
+				} else {
+					player.teleport(new Position(2370, 9719, 0));
+					PassTrapHandling.startTrapCycle(player, 2);
+					return true;
+				}
+			return false;
+			case 3237:
+				if(player.inUndergroundPass()) {
+					PassObjectHandling.handlePipeCrawl(player, object, x, y);
+					return true;
+				}
+			return false;
+			case 3360:
+				if(x == 2417 && y == 9658) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You search the crate...");
+					player.getUpdateFlags().sendAnimation(832);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if(!player.getQuestVars().receivedCrateFood) {
+								player.getQuestVars().receivedCrateFood = true;
+								player.getActionSender().sendMessage("You find some food.");
+								player.getInventory().addItemOrDrop(new Item(2327, 2)); //meat pie
+								player.getInventory().addItemOrDrop(new Item(329, 2)); //salmon
+							} else {
+								player.getActionSender().sendMessage("You find nothing of interest.");
+							}
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					
+					return true;
+				}
+				return false;
+			case 3218:
+			case 3219:
+				if(player.inUndergroundPass()) {
+					if(player.getPosition().getY() > 9662) {
+						player.fadeTeleport(player.getQuestVars().UPassUnicornKilled() ? new Position(2375, 9609, 0) : new Position(2400, 9609, 0));
+					} else {
+						player.fadeTeleport(new Position(2371, 9667, 0));
+						PassTrapHandling.startTrapCycle(player, 2);
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+							@Override
+							public void stop() {
+								player.getActionSender().sendMapState(0);
+							}
+						}, 5);
+					}
+					return true;
+				}
+			return false;
+			case 3308: //broken cage
+				if(player.inUndergroundPass()) {
+					Dialogues.startDialogue(player, 33080);
+					return true;
+				}
+			return false;
 			case 3217: //"cave" back to cage mud
 				if(player.inUndergroundPass()) {
 					player.getActionSender().sendMessage("You push your way through the tunnel...");
@@ -329,6 +477,7 @@ public class UndergroundPass implements Quest {
 					return true;
 				}
 				return false;
+			case 3268:
 			case 3266: //cell doors
 				if(player.inUndergroundPass()) {
 					PassObjectHandling.pickCageLock(player, x, y);
@@ -339,10 +488,12 @@ public class UndergroundPass implements Quest {
 				if(player.inUndergroundPass()) {
 					player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
 					boolean canContinue = true;
-					for(boolean b : player.getQuestVars().orbsOfLightDestroyed)
+					for(boolean b : player.getQuestVars().wellItemsDestroyed)
 						if(!b)
 							canContinue = false;
 					if(canContinue) {
+						for(int i = 0; i < 4; i++)
+							player.getQuestVars().wellItemsDestroyed[i] = false;
 						Ladders.climbLadder(player, new Position(2423, 9660, 0));
 					}
 					final boolean teleported = canContinue;
@@ -429,19 +580,112 @@ public class UndergroundPass implements Quest {
 	}
 
 	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+		if(player.stopPlayerPacket()) {
+			return false;
+		}
 		switch (object) {
+			case 3267:
+				if (player.inUndergroundPass()) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You search the cage...");
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
 
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							if (!player.getInventory().ownsItem(PIECE_OF_RAILING)) {
+								player.getActionSender().sendMessage("You find a loose railing on the floor.");
+								player.getInventory().addItem(new Item(PIECE_OF_RAILING));
+							} else {
+								player.getActionSender().sendMessage("You don't find anything interesting.");
+							}
+						}
+					}, 3);
+					return true;
+				}
+				break;
 		}
 		return false;
 	}
 
 	public void handleDeath(final Player player, final Npc died) {
-
+		switch(died.getNpcId()) {
+			case SIR_JERRO:
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE), player, player, died.getPosition()));
+				break;
+			case SIR_CARL:
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE_2), player, player, died.getPosition()));
+				break;
+			case SIR_HARRY:
+				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE_3), player, player, died.getPosition()));
+				break;
+		}
 	}
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case SIR_CARL:
+			case SIR_HARRY:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("Hello paladin.");
+						return true;
+					case 2:
+						d.sendNpcChat("Hrumph. Talk to Jerro if you need anything.");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case SIR_JERRO:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("Hello paladin.");
+						return true;
+					case 2:
+						d.sendNpcChat("Traveller, what are you doing in this most unholy", "place?");
+						return true;
+					case 3:
+						d.sendPlayerChat("I'm looking for safe route through the caverns, under", "order of King Lathas.");
+						return true;
+					case 4:
+						if(!player.getQuestVars().receivedPaladinFood) {
+							d.sendNpcChat("You've done well to get this far traveller, here, eat...");
+						} else {
+							d.sendNpcChat("You've done well to get this far traveller.");
+							d.endDialogue();
+						}
+						return true;
+					case 5:
+						d.sendPlayerChat("Great, thanks a lot.");
+						d.endDialogue();
+						player.getActionSender().sendMessage("The Paladin gives you some food.");
+						player.getQuestVars().receivedPaladinFood = true;
+						player.getInventory().addItemOrDrop(new Item(2327)); //meat pie?
+						player.getInventory().addItemOrDrop(new Item(2003)); //stew
+						player.getInventory().addItem(new Item(2309, 2)); //bread
+						return true;
+						
+				}
+			return false;
+			case 33080:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("All that remains is a damaged horn.", DISTRESSED);
+						return true;
+					case 2:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						player.getActionSender().sendMessage("The unicorn was killed by the boulder.");
+						if(!player.getInventory().playerHasItem(UNICORN_HORN))
+							player.getInventory().addItem(new Item(UNICORN_HORN));
+						return true;
+				}
+			return false;
 			case 32340:
 				switch (d.getChatId()) {
 					case 1:

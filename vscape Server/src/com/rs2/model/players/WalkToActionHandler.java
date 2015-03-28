@@ -141,11 +141,29 @@ public class WalkToActionHandler {
 			case 3340:
 			case 3238:
 			case 3276:
+			case 3237:
+			case 3220:
+			case 3221:
 				return true;
 			case 2274:
 				return x == 2461 && y == 9692;
 		}
 		return false;
+	}
+	
+	private static boolean npcFirstClickExceptions(final Npc npc) {
+		switch(npc.getNpcId()) {
+			case 2290:
+			case 2287:
+			case 2289:
+			case 1461:
+			case 1462:
+			case 1469:
+			case 1436:
+			case 986: //Upass boulder
+				return true;
+		}
+		return npc.isBoothBanker();
 	}
 
 	public static void doObjectFirstClick(final Player player) {
@@ -2210,12 +2228,11 @@ public class WalkToActionHandler {
 				}
 				if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true))
 				{
-				    if(npc.getNpcId() != 2290 && npc.getNpcId() != 2287 && npc.getNpcId() != 2289 && !npc.isBoothBanker() && npc.getNpcId() != 1461 && npc.getNpcId() != 1462 && npc.getNpcId() != 1469 && npc.getNpcId() != 1436) { //Exceptions
+				    if(!npcFirstClickExceptions(npc)) {
 					return;
 				    }
 				}
 				Following.resetFollow(player);
-				npc.getNpcId();
 				if(npc.canHaveInteractingEntity()) {
 				    npc.getUpdateFlags().faceEntity(player.getFaceIndex());
 				}
@@ -2961,7 +2978,7 @@ public class WalkToActionHandler {
 				if ((!player.goodDistanceEntity(npc, 1) && item != 10501) || player.inEntity(npc)) {
 					return;
 				}
-				if(!npc.isBarricade()){
+				if(!npc.isBarricade() && npc.getNpcId() != 986){
 					if (!Misc.checkClip(player.getPosition(), npc.getPosition(), true)) {
 						return;
 					}
@@ -3063,10 +3080,10 @@ public class WalkToActionHandler {
 		if(def.getId() == 1729 || def.getId() == 3213 || def.getId() == 3214 || def.getId() == 3264) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 4);
 		}
-		if(def.getId() == 2290) {
+		if(def.getId() == 2290 || def.getId() == 3220 || def.getId() == 3221) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 3);
 		}
-		if(def.getId() == 5061 || def.getId() == 5060) {
+		if(def.getId() == 5061 || def.getId() == 5060 || def.getId() == 3237) {
 			return Misc.goodDistance(player.getPosition(), objectPos, 2);
 		}
 		if(def.getId() == 5003 || (def.getId() >= 137 && def.getId() <= 145) || def.getId() == 3238 || def.getId() == 3276) {

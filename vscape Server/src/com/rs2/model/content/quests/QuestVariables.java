@@ -109,7 +109,10 @@ public class QuestVariables {
 	private Position gridStart = new Position(0, 0, 0);
 	private Position gridMiddle = new Position(0, 0, 0);
 	public boolean immuneToTraps = false;
-	public boolean[] orbsOfLightDestroyed = {false, false, false, false};
+	public boolean[] wellItemsDestroyed = {false, false, false, false};
+	private boolean unicornKilled = false;
+	public boolean receivedCrateFood = false;
+	public boolean receivedPaladinFood = false;
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -588,6 +591,14 @@ public class QuestVariables {
 	
 	public Position getGridMiddle() {
 		return this.gridMiddle;
+	}
+	
+	public void setUPassUnicornKilled(boolean set) {
+		this.unicornKilled = true;
+	}
+	
+	public boolean UPassUnicornKilled() {
+		return this.unicornKilled;
 	}
 
 }

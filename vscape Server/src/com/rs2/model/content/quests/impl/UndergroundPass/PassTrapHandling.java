@@ -17,6 +17,56 @@ public class PassTrapHandling {
 	
 	public static void startTrapCycle(final Player player, int floorLevel) {
 		switch (floorLevel) {
+			case 2: //zombie floor
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					int pX, pY;
+					int trapReset = 0;
+					int count = 0;
+
+					@Override
+					public void execute(CycleEventContainer b) {
+						pX = player.getPosition().getX();
+						pY = player.getPosition().getY();
+						if (trapReset < count) {
+							count = 0;
+							trapReset = 0;
+						}
+						if (count > 0)
+							count++;
+						if (!player.Area(2390, 2430, 9697, 9729) && !player.Area(2367, 2390, 9663, 9728)) {
+							b.stop();
+						} else {
+							if (count == 0 && !player.getQuestVars().immuneToTraps) {
+								if ((pX == 2406 && (pY == 9719 || pY == 9725))) {
+									final int x = pX, y = pY;
+									if (ObjectLoader.object("Flat rock", x, y, 0) != null) {
+										player.getUpdateFlags().setForceChatMessage("Ouch!");
+										player.getActionSender().animateObject(x, y - 1, 0, 462);
+										player.hit(Misc.random(3) + 5, HitType.NORMAL);
+										player.getUpdateFlags().sendAnimation(player.getBlockAnimation());
+										trapReset = 3;
+										count++;
+										CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+											@Override
+											public void execute(CycleEventContainer b) {
+												b.stop();
+											}
+											@Override
+											public void stop() {
+												player.getActionSender().animateObject(x, y - 1, 0, 463);
+											}
+										}, 2);
+									}
+								}
+							}
+						}
+					}
+
+					@Override
+					public void stop() {
+					}
+				}, 1);
+				break;
 			case 0: //Ground / entry level
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					int pX, pY;
@@ -31,17 +81,15 @@ public class PassTrapHandling {
 							count = 0;
 							trapReset = 0;
 						}
-						if (count > 0) {
+						if (count > 0)
 							count++;
-						}
 						if (!player.Area(2378, 2465, 9665, 9700)) {
 							b.stop();
 						} else {
 							if (count == 0 && !player.getQuestVars().immuneToTraps) {
 								if ((((pX == 2443 || pX == 2440) && pY == 9677) || ((pX == 2435 || pX == 2432 || pX == 2430) && pY == 9676)) && count == 0) {
-									if (pY == 9676) {
+									if (pY == 9676)
 										pY = 9675;
-									}
 									player.getActionSender().animateObject(pX, pY, 0, pY == 9675 ? 1 : 3, 10, 459);
 									player.getUpdateFlags().setForceChatMessage("Ouch!");
 									player.getUpdateFlags().sendAnimation(player.getBlockAnimation());

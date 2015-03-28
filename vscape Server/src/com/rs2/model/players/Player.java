@@ -1173,6 +1173,7 @@ public class Player extends Entity {
 		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
 		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
 		getActionSender().sendString("Quest Points: "+questPoints, 640);
+		UndergroundPass.doLoginChecks(this);
 		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
 		    this.setPcPoints(0, this);
 		}
@@ -1263,15 +1264,7 @@ public class Player extends Entity {
 			&& getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
 			GridMazeHandler.generatePositions(this);
 		}
-		if(this.Area(2465, 2482, 9671, 9688)) {
-			GridMazeHandler.startGridCheck(this);
-		}
-		if(this.Area(2378, 2465, 9665, 9700)) {
-			PassTrapHandling.startTrapCycle(this, 0);
-		}
-		if(this.inUndergroundPass()) {
-			UndergroundPass.startIbanWhispers(this);
-		}
+		
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
 			World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");

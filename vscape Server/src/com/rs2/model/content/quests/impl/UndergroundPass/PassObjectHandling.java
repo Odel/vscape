@@ -9,13 +9,15 @@ import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.combat.weapon.Weapon;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.thieving.ThieveOther;
+import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
-import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -26,6 +28,134 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
+	
+	public static void handlePipeCrawl(final Player player, final int object, final int x, final int y) {
+		if (player.stopPlayerPacket()) {
+			return;
+		}
+		player.setStopPacket(false);
+		final CacheObject o = ObjectLoader.object(x, y, 0);
+		if (o != null) {
+			final int face = o.getRotation();
+			player.getActionSender().sendMessage("You crawl into the pipe...");
+			if(face == 2)
+				player.getActionSender().sendMapState(2);
+			final Position toBe = new Position(face == 2 ? x + 2 : face == 3 ? x - 1 : x, y, 0);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				int count = 0;
+				boolean stop = false;
+
+				@Override
+				public void execute(CycleEventContainer b) {
+					count++;
+					if (count >= 5 || stop) {
+						b.stop();
+					}
+					player.getUpdateFlags().sendFaceToDirection(new Position(x, y, 0));
+					player.getUpdateFlags().setFaceToDirection(true);
+					player.getUpdateFlags().setUpdateRequired(true);
+					if (player.getPosition().equals(toBe) && !stop) {
+						player.getUpdateFlags().sendAnimation(749);
+						stop = true;
+					} else {
+						player.walkTo(toBe, true);
+					}
+				}
+
+				@Override
+				public void stop() {
+					final boolean wasRunning = player.getMovementHandler().isRunToggled();
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							switch (count) {
+								case 1:
+									if (face == 2) {
+										if (player.getQuestVars().UPassUnicornKilled()) {
+											player.movePlayer(new Position(x - 25, y, 0));
+										} else {
+											player.movePlayer(new Position(x, y, 0));
+										}
+									} else if (face == 3) {
+										player.movePlayer(new Position(2415, 9605, 0));
+									}
+									player.transformNpc = 2370;
+									player.getMovementHandler().setRunToggled(false);
+									player.getMovementHandler().reset();
+									//player.setWalkAnim(748);
+									player.setAppearanceUpdateRequired(true);
+									player.getActionSender().walkTo(face == 2 ? -3 : face == 3 ? 3 : 0, 0, true);
+									break;
+								case 6:
+									player.getActionSender().walkTo(face == 2 ? -2 : face == 3 ? 2 : 0, 0, true);
+									break;
+								case 8:
+									player.transformNpc = -1;
+									break;
+								case 10:
+									b.stop();
+									break;
+							}
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+							player.getUpdateFlags().sendAnimation(748);
+							player.setAppearanceUpdateRequired(true);
+							player.getActionSender().sendMessage("...you emerge on the other side.");
+							if((face == 2 || face == 3) && player.getPosition().getX() > 2417)
+								player.getActionSender().sendMapState(0);
+							if (wasRunning) {
+								player.getMovementHandler().setRunToggled(true);
+							}
+						}
+
+					}, 1);
+				}
+			}, 1);
+		}
+	}
+	
+	public static void handlePushBoulder(final Player player, final Npc npc) {
+		if (player.stopPlayerPacket()) {
+			return;
+		}
+		player.setStopPacket(true);
+		player.getUpdateFlags().sendAnimation(827);
+		player.getActionSender().sendMessage("You use the piece of railing as leverage...");
+		player.getActionSender().sendMessage("...and tip the boulder onto it's side...");
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int count = 0;
+			@Override
+			public void execute(CycleEventContainer b) {
+				count++;
+				if (count == 1) {
+					player.getActionSender().sendMessage("...It tumbles down the slope...");
+					player.getActionSender().shakeScreen(1, 10, 10, 4);
+					npc.walkTo(new Position(npc.getPosition().getX(), npc.getPosition().getY() + 8), false);
+				}
+				if (count >= 3) {
+					player.getActionSender().resetCamera();
+					player.getActionSender().shakeScreen(3, 25, 25, 100);
+					b.stop();
+				}
+			}
+			@Override
+			public void stop() {
+				player.setStopPacket(false);
+				NpcLoader.destroyNpc(npc);
+				NpcLoader.newNPC(986, 2396, 9595, 0, 2);
+				player.movePlayer(new Position(player.getPosition().getX() - 25, player.getPosition().getY(), 0));
+				player.getDialogue().sendPlayerChat("I heard something breaking.", Dialogues.SAD);
+				player.getActionSender().resetCamera();
+				player.getQuestVars().setUPassUnicornKilled(true);
+			}
+		}, 4);
+	}
 	
 	public static void handleDigMud(final Player player) {
 		if(player.stopPlayerPacket()) {
@@ -73,20 +203,27 @@ public class PassObjectHandling {
 			final boolean outsideCage = Misc.checkClip(player.getPosition(), p, true);
 			final Position toBe = outsideCage ? p : new Position(x, face == 3 ? (y - 1) : (y + 1), 0);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				int pX, pY;
 				@Override
 				public void execute(CycleEventContainer b) {
-					if (!Misc.goodDistance(player.getPosition(), p, 3)) {
+					if (!Misc.goodDistance(player.getPosition(), p, 3))
 						b.stop();
-					}
-					if (player.getPosition().equals(toBe)) {
+					pX = player.getPosition().getX();
+					pY = player.getPosition().getY();
+					if (player.getPosition().equals(toBe) && (face == 3 || face == 1)) {
 						if (face == 3) {
-							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, player.getPosition().getX() == x ? 0 : player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() >= y ? -1 : 1);
+							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY >= y ? -1 : 1);
 						} else if (face == 1) {
-							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, player.getPosition().getX() == x ? 0 : player.getPosition().getX() >= x ? -1 : 1, player.getPosition().getY() <= y ? 1 : -1);
+							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY <= y ? 1 : -1);
 						}
+						
+					} else if (face == 2 || face == 0) {
+						int pX = player.getPosition().getX();
+						ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3268, 50, 15, face == 2 ? (pX <= x ? 1 : -1) : pX >= x ? -1 : 1, 0);
 						b.stop();
 					} else {
-						player.walkTo(toBe, true);
+						if(face == 3 || face == 1)
+							player.walkTo(toBe, true);
 					}
 				}
 				@Override
@@ -383,9 +520,8 @@ public class PassObjectHandling {
 						player.setWalkAnim(-1);
 						player.setAppearanceUpdateRequired(true);
 						player.setStopPacket(false);
-						if (wasRunning) {
+						if (wasRunning)
 							player.getMovementHandler().setRunToggled(true);
-						}
 					}
 				}, 2);
 				return true;

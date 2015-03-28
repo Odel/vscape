@@ -174,10 +174,6 @@ public class Npc extends Entity {
 		}, 4);
 	}
 
-	public void doEmote(int emoteId) {
-		getUpdateFlags().sendAnimation(emoteId);
-	}
-	
 	public void sendPlayerAway(final Player player, int emoteId, int playerEmote, final int x, final int y, final int z, String shout, final boolean disappear) {
 		player.getDialogue().endDialogue();
 		player.getActionSender().removeInterfaces();
