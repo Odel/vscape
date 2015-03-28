@@ -52,7 +52,7 @@ public class PassTrapHandling {
 						}
 						if (count > 0)
 							count++;
-						if (!player.Area(2390, 2430, 9697, 9729) && !player.Area(2367, 2390, 9663, 9728)) {
+						if (!player.Area(2389, 2430, 9697, 9729) && !player.Area(2367, 2390, 9663, 9728)) {
 							b.stop();
 						} else {
 							if (count == 0 && !player.getQuestVars().immuneToTraps) {

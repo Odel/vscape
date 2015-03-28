@@ -65,6 +65,9 @@ public class Doors {
 		if (id == 10527 || id == 10529 || id == 3944 || id == 3945 || id == 2559 || id == 2537 || id == 883 || id == 1805 || id == 2881 || id == 2882 || id == 2883 || id == 2623 || id == 2112 || id == 1804 || id == 2266 || id == 2406 || id == 2407 || id == 2631 || id == 2623 || id == 8958 || id == 8959 || id == 8960 || id == 1589 || id == 1590 || id == 190 || id == 4577 || id == 10721) {
 			return false;
 		}
+		if(id == 3220 || id == 3221) { //Iban's lair entrance doors
+			return false;
+		}
 		if(id == 7256) { //Rogues den course entrance door
 			return false;
 		}

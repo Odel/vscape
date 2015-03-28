@@ -61,7 +61,6 @@ public class PassObjectHandling {
 					player.getUpdateFlags().setFaceToDirection(true);
 					player.getUpdateFlags().setUpdateRequired(true);
 					if (player.getPosition().equals(toBe) && !stop) {
-						System.out.println("in");
 						player.getUpdateFlags().sendAnimation(749);
 						stop = true;
 					} else {
@@ -81,7 +80,7 @@ public class PassObjectHandling {
 							switch (count) {
 								case 1:
 									if (face == 2) {
-										if (player.getQuestVars().UPassUnicornKilled()) {
+										if (player.getQuestStage(44) >= UndergroundPass.UNICORN_KILLED) {
 											player.movePlayer(new Position(x - 25, y, 0));
 										} else {
 											player.movePlayer(new Position(x, y, 0));
@@ -164,7 +163,9 @@ public class PassObjectHandling {
 				player.movePlayer(new Position(player.getPosition().getX() - 25, player.getPosition().getY(), 0));
 				player.getDialogue().sendPlayerChat("I heard something breaking.", Dialogues.SAD);
 				player.getActionSender().resetCamera();
-				player.getQuestVars().setUPassUnicornKilled(true);
+				if(player.getQuestStage(44) == UndergroundPass.CAN_USE_WELL) {
+					player.setQuestStage(44, 4);
+				}
 			}
 		}, 4);
 	}
@@ -188,8 +189,8 @@ public class PassObjectHandling {
 						player.getActionSender().sendObject(3215, 2393, 9650, 0, 3, 22);
 						break;
 					case 2:
-						player.getActionSender().sendMessage("You push your way through the tunnel.");
-						player.timedFadeTeleport(new Position(2392, 9646, 0), 2);
+						player.getActionSender().sendMessage("You push your way through the tunnel...");
+						player.timedFadeTeleport(new Position(2392, 9646, 0), 1);
 						break;
 					case 4:
 						b.stop();
@@ -228,7 +229,7 @@ public class PassObjectHandling {
 						} else if (face == 1) {
 							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY <= y ? 1 : -1);
 						}
-						
+						b.stop();
 					} else if (face == 2 || face == 0) {
 						int pX = player.getPosition().getX();
 						ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3268, 50, 15, face == 2 ? (pX <= x ? 1 : -1) : pX >= x ? -1 : 1, 0);
@@ -515,14 +516,16 @@ public class PassObjectHandling {
 					int count = 0;
 					@Override
 					public void execute(CycleEventContainer b) {
+						player.setStopPacket(true);
 						count++;
 						int level = player.getSkill().getPlayerLevel(Skill.AGILITY);	
-						if (count == 1 && (Misc.random(3) == 1 && !SkillHandler.skillCheck((level + 40) > 99 ? 99 : (level + 40), 20, 0))) {
+						if (count == 1 && !SkillHandler.skillCheck((level + 40) > 99 ? 99 : (level + 40), 20, 0)) {
 							player.getActionSender().sendMessage("...and slip and fall halfway across!");
 							handleObstacleFailure(player, 3276, x, y);
 							b.stop();
-						} else if (count >= 2) {
+						} else if (count == 2) {
 							player.getActionSender().sendMessage("...and make it.");
+						} else if (count >= 3) {
 							b.stop();
 						}
 					}
@@ -534,13 +537,15 @@ public class PassObjectHandling {
 						player.setStopPacket(false);
 						if (wasRunning)
 							player.getMovementHandler().setRunToggled(true);
+						player.getMovementHandler().reset();
 					}
 				}, 2);
 				return true;
 			case 3238:
 				player.getActionSender().sendMessage("You put your foot on the ledge and try to edge across.");
 				player.isCrossingObstacle = true;
-				if(x == 2374 && y == 9644) {
+				player.setStopPacket(true);
+				if(x == 2374 && (y == 9644 || y == 9643)) {
 					Agility.crossLedge(player, 2374, 9638, 1, 8, 0, 0);
 				} else {
 					Agility.crossLedge(player, 2374, 9644, 3, 8, 0, 0);
@@ -621,7 +626,8 @@ public class PassObjectHandling {
 		return false;
 	}
 	
-	public static void handleObstacleFailure(final Player player, final int object, final int x, final int y) { 
+	public static void handleObstacleFailure(final Player player, final int object, final int x, final int y) {
+		//falling from lair, + 200 x, + 5150 y ?
 		switch(object) {
 			case 3276:
 				player.setStopPacket(true);

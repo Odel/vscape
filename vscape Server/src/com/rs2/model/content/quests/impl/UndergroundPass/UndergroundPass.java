@@ -37,6 +37,8 @@ public class UndergroundPass implements Quest {
 	public static final int QUEST_STARTED = 1;
 	public static final int ENTER_CAVES = 2;
 	public static final int CAN_USE_WELL = 3;
+	public static final int UNICORN_KILLED = 4;
+	public static final int IBANS_LAIR_OPEN = 5;
 	public static final int QUEST_COMPLETE = 20;
 
 	//Items
@@ -200,8 +202,11 @@ public class UndergroundPass implements Quest {
 		a.sendQuestLogString("I met Koftik. He fears these caves, but he agreed to", 6, this.getQuestID(), ENTER_CAVES);
 		a.sendQuestLogString("help. He said to meet him at the bridge inside the caves.", 7, this.getQuestID(), ENTER_CAVES);
 		a.sendQuestLogString("I made it farther into the caverns. I climbed down a well", 9, this.getQuestID(), CAN_USE_WELL);
-		a.sendQuestLogString("that seemed to 'accept' me only after I destroyed some orbs", 10, this.getQuestID(), CAN_USE_WELL);
-		a.sendQuestLogString("of light that were nearby.", 11, this.getQuestID(), CAN_USE_WELL);
+		a.sendQuestLogString("that seemed to 'accept' me only after I destroyed some", 10, this.getQuestID(), CAN_USE_WELL);
+		a.sendQuestLogString("orbs of light that were nearby.", 11, this.getQuestID(), CAN_USE_WELL);
+		a.sendQuestLogString("I squashed a unicorn with a giant boulder.", 13, this.getQuestID(), UNICORN_KILLED);
+		a.sendQuestLogString("I managed to get access to Iban's inner lair. I only", 15, this.getQuestID(), IBANS_LAIR_OPEN);
+		a.sendQuestLogString("had to murder a unicorn and 3 paladins to gain access.", 16, this.getQuestID(), IBANS_LAIR_OPEN);
 		switch (questStage) {
 			default:
 				break;
@@ -340,7 +345,7 @@ public class UndergroundPass implements Quest {
 			case 3305:
 				if(item >= UNICORN_HORN && item <= PALADINS_BADGE_3) {
 					player.setStopPacket(true);
-					player.getActionSender().sendMessage("You throw the " + (item == UNICORN_HORN ? "unicorn horn" : "coat of arms") + " into the well...");
+					player.getActionSender().sendMessage("You throw the " + (item == UNICORN_HORN ? "unicorn horn" : "coat of arms") + " into the flames...");
 					player.getInventory().removeItem(new Item(item));
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
@@ -361,6 +366,8 @@ public class UndergroundPass implements Quest {
 							if (canContinue) {
 								player.getActionSender().sendMessage("You hear a click from nearby...");
 								player.getActionSender().sendMessage("It sounds like it came from the skull above the door.");
+								if(player.getQuestStage(getQuestID()) == UNICORN_KILLED)
+									player.setQuestStage(getQuestID(), IBANS_LAIR_OPEN);
 							}
 							
 						}
@@ -437,6 +444,9 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
+			case 3305:
+				player.getActionSender().sendMessage("The well appears to have flames at the bottom, instead of water...");
+				return true;
 			case 3307:
 				if(player.inUndergroundPass()) {
 					Ladders.climbLadder(player, new Position(2418, 9674, 0));
@@ -455,24 +465,30 @@ public class UndergroundPass implements Quest {
 			return false;
 			case 3220:
 			case 3221:
-				if (player.getPosition().getX() > 2180) {
-					boolean canContinue = true;
-					for (boolean b : player.getQuestVars().wellItemsDestroyed) {
-						if (!b) {
-							canContinue = false;
+				if (player.inUndergroundPass()) {
+					if (player.getPosition().getX() > 2180) {
+						if (player.getQuestStage(this.getQuestID()) >= IBANS_LAIR_OPEN) {
+							for (int i = 0; i < 4; i++)
+								player.getQuestVars().wellItemsDestroyed[i] = false;
+							player.fadeTeleport(new Position(2173, 4725, 1));
+						} else {
+							player.getActionSender().sendMessage("The doors won't budge. You hear a faint cackling.");
 						}
-					}
-					if (canContinue) {
-						for(int i = 0; i < 4; i++)
-							player.getQuestVars().wellItemsDestroyed[i] = false;
-						
-						player.fadeTeleport(new Position(2173, 4725, 1));
+						return true;
+					} else {
+						player.fadeTeleport(new Position(2370, 9719, 0));
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+							@Override
+							public void stop() {
+								PassTrapHandling.startTrapCycle(player, 2);
+							}
+						}, 6);
 						return true;
 					}
-				} else {
-					player.teleport(new Position(2370, 9719, 0));
-					PassTrapHandling.startTrapCycle(player, 2);
-					return true;
 				}
 			return false;
 			case 3236: //pipe wrong end
@@ -520,27 +536,35 @@ public class UndergroundPass implements Quest {
 			case 3219:
 				if(player.inUndergroundPass()) {
 					if(player.getPosition().getY() > 9662) {
-						player.fadeTeleport(player.getQuestVars().UPassUnicornKilled() ? new Position(2375, 9609, 0) : new Position(2400, 9609, 0));
+						player.fadeTeleport(player.getQuestStage(44) >= UNICORN_KILLED ? new Position(2375, 9609, 0) : new Position(2400, 9609, 0));
 					} else {
 						player.fadeTeleport(new Position(2371, 9667, 0));
-						PassTrapHandling.startTrapCycle(player, 2);
-						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-							@Override
-							public void execute(CycleEventContainer b) {
-								b.stop();
-							}
-							@Override
-							public void stop() {
-								player.getActionSender().sendMapState(0);
-							}
-						}, 5);
+						
 					}
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							if(player.getPosition().getY() > 9662) {
+								player.getActionSender().sendMapState(0);
+								PassTrapHandling.startTrapCycle(player, 2);
+							} else {
+								player.getActionSender().sendMapState(2);
+							}
+						}
+					}, player.getPosition().getY() > 9662 ? 4 : 6);
 					return true;
 				}
 			return false;
 			case 3308: //broken cage
 				if(player.inUndergroundPass()) {
-					Dialogues.startDialogue(player, 33080);
+					if(!player.getInventory().playerHasItem(UNICORN_HORN) && player.getQuestStage(this.getQuestID()) == UNICORN_KILLED)
+						Dialogues.startDialogue(player, 33080);
+					else
+						player.getDialogue().sendPlayerChat("There's nothing here but a dead unicorn...", "Poor guy...", SAD);
 					return true;
 				}
 			return false;
@@ -698,13 +722,12 @@ public class UndergroundPass implements Quest {
 	public void handleDeath(final Player player, final Npc died) {
 		switch(died.getNpcId()) {
 			case SIR_JERRO:
-				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE), player, player, died.getPosition()));
-				break;
 			case SIR_CARL:
-				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE_2), player, player, died.getPosition()));
-				break;
 			case SIR_HARRY:
-				GroundItemManager.getManager().dropItem(new GroundItem(new Item(PALADINS_BADGE_3), player, player, died.getPosition()));
+				if (player.getQuestStage(this.getQuestID()) < IBANS_LAIR_OPEN) {
+					int itemId = died.getNpcId() == SIR_JERRO ? PALADINS_BADGE : died.getNpcId() == SIR_CARL ? PALADINS_BADGE_2 : PALADINS_BADGE_3;
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(itemId), player, player, died.getPosition()));
+				}
 				break;
 		}
 	}
@@ -947,7 +970,7 @@ public class UndergroundPass implements Quest {
 								d.sendPlayerChat("Hello King Lathas.");
 								return true;
 							case 2:
-								if(QuestHandler.questCompleted(player, 40)) {
+								if(QuestHandler.questCompleted(player, 40) && UNDERGROUND_PASS_ENABLED) {
 									d.sendNpcChat("Adventurer, thank Saradomin for your arrival!", HAPPY);
 								} else {
 									d.sendNpcChat("Shoo, peasant.", ANGRY_1);
