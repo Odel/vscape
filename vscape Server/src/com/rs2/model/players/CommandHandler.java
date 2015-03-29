@@ -19,6 +19,7 @@ import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.util.Degradeables;
+import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.castlewars.Castlewars;
@@ -1557,7 +1558,7 @@ public class CommandHandler {
 			}
 			sender.getInventory().addItem(new Item(3785)); //purple cloak
 		}
-		else if (keyword.equals("range")) {
+		else if (keyword.equals("range") || keyword.equals("ranged")) {
 			sender.getInventory().addItem(new Item(2581)); //Robin hood
 			sender.getInventory().addItem(new Item(6585)); //fury
 			sender.getInventory().addItem(new Item(4736)); //karil's top
@@ -1573,6 +1574,11 @@ public class CommandHandler {
 			sender.getInventory().addItem(new Item(4212)); //crystal bow
 			sender.getInventory().addItem(new Item(11235)); //dark bow
 			sender.getInventory().addItem(new Item(9185)); //rune cbow
+		}
+		else if (keyword.equals("arrows")) {
+			for(RangedAmmo.FireArrowData f : RangedAmmo.FireArrowData.values()) {
+				sender.getInventory().addItem(new Item(f.getOriginalId(), 1000));
+			}
 		}
 		else if (keyword.equals("mage")) {
 			sender.getActionSender().sendMessage("Use the ::runes command for runes.", true);
@@ -1926,9 +1932,13 @@ public class CommandHandler {
             player.getSkill().refresh(skillId);
         }
         else if (keyword.equals("rights")) {
-			if (sender.getUsername().equals("Odel") || sender.getUsername().equals("Noiryx") || sender.getUsername().equals("Mr Foxter") || sender.getUsername().equals("Bobster") || sender.getUsername().equals("Pickles")){
+		if(!Constants.SERVER_DEBUG) {
+			if (sender.getUsername().equals("Odel") || sender.getUsername().equals("Bobster") || sender.getUsername().equals("Pickles")){
 				GiveRights(sender, args, fullString);
 			}
+		} else {
+			GiveRights(sender, args, fullString);
+		}
         }
         else if(keyword.equals("staffyell")) {
         	Constants.STAFF_ONLY_YELL = !Constants.STAFF_ONLY_YELL;

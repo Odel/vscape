@@ -177,30 +177,30 @@ public class TemplateQuest implements Quest {
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 
-	public boolean itemHandling(final Player player, int itemId) {
+	public boolean itemHandling(final Player player, final int itemId) {
 		switch (itemId) {
 
 		}
 		return false;
 	}
 
-	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
+	public boolean itemOnItemHandling(final Player player, final int firstItem, final int secondItem, final int firstSlot, final int secondSlot) {
 		return false;
 	}
 
-	public boolean doItemOnObject(final Player player, int object, int item) {
+	public boolean doItemOnObject(final Player player, final int object, final int item) {
 		return false;
 	}
 
-	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
+	public boolean doItemOnNpc(final Player player, final int itemId, final Npc npc) {
 		return false;
 	}
 
-	public boolean doNpcClicking(Player player, Npc npc) {
+	public boolean doNpcClicking(final Player player, final Npc npc) {
 		return false;
 	}
 
-	public boolean doObjectClicking(final Player player, int object, int x, int y) {
+	public boolean doObjectClicking(final Player player, final int object, final int x, final int y) {
 		switch (object) {
 			case OBJECT:
 				return true;
@@ -208,7 +208,7 @@ public class TemplateQuest implements Quest {
 		return false;
 	}
 
-	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
+	public boolean doObjectSecondClick(final Player player, final int object, final int x, final int y) {
 		switch (object) {
 
 		}

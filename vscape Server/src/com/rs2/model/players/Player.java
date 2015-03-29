@@ -3845,7 +3845,7 @@ public class Player extends Entity {
 		    }
 		    return !getMMVars().isMonkey();
 		}
-		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890) {
+		if (npc.getNpcId() == 99 || npc.getNpcId() == 2429 || npc.getNpcId() == 1827 || npc.getNpcId() == 1266 || npc.getNpcId() == 1268 || npc.getNpcId() == 2453 || npc.getNpcId() == 2890 || npc.getNpcId() == 282) {
 			return true;
 		}
 		if (npc.getNpcId() == 18) {

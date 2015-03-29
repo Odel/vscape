@@ -1,5 +1,6 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+90:1:2570:9604:0:30 //Child's blanket
 954:1:2403:9660:0:15 //UPass rope
 1481:1:2416:9698:0:20 //UPass orb(s) of light
 1482:1:2385:9685:0:20 //UPass orb(s) of light

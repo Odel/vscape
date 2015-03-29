@@ -112,6 +112,8 @@ public class QuestVariables {
 	public boolean[] wellItemsDestroyed = {false, false, false, false};
 	public boolean receivedCrateFood = false;
 	public boolean receivedPaladinFood = false;
+	public boolean spawnedStoneCircleLadder = false;
+	public boolean givenMonkWater = false;
 
 	public QuestVariables(final Player player) {
 		this.player = player;

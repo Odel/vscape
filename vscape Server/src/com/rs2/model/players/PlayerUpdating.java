@@ -13,14 +13,12 @@ import com.rs2.model.content.quests.impl.DemonSlayer;
 import com.rs2.model.content.quests.impl.GoblinDiplomacy;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtoll;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs;
+import com.rs2.model.content.quests.impl.MonksFriend;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player.LoginStages;
 import com.rs2.model.players.container.equipment.Equipment;
 import com.rs2.model.players.item.Item;
-import com.rs2.model.tick.CycleEvent;
-import com.rs2.model.tick.CycleEventContainer;
-import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
@@ -127,6 +125,14 @@ public final class PlayerUpdating {
 				CombatManager.attack(npc, green);
 			}
 		    }
+		}
+		if(!player.getQuestVars().spawnedStoneCircleLadder && player.Area(2558, 2564, 3219, 3225) && player.getLoginStopwatch().elapsed() > 3000) {
+			player.getQuestVars().spawnedStoneCircleLadder = true;
+			MonksFriend.spawnLadder(player);
+		}
+		if(player.getLoginStopwatch().elapsed() > 5000 && !player.Area(2558, 2564, 3219, 3225) && player.getQuestVars().spawnedStoneCircleLadder) {
+			player.getQuestVars().spawnedStoneCircleLadder = false;
+			MonksFriend.despawnLadder(player);
 		}
 		// Update other local players.
 		out.writeBits(8, player.getPlayers().size());

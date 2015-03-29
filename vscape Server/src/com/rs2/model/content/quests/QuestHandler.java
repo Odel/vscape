@@ -69,7 +69,8 @@ public class QuestHandler {
 	new JunglePotion(),
 	new ClockTower(),
 	new DeathPlateau(),
-	new UndergroundPass()
+	new UndergroundPass(),
+	new MonksFriend()
     };
     
     public static void init() {
@@ -283,6 +284,9 @@ public class QuestHandler {
 			if(UndergroundPass.UNDERGROUND_PASS_ENABLED)
 				showInterface(player,quests[44]);
         		return true;
+		case 28201:
+			showInterface(player,quests[45]);
+			return true;
         }
         return false;
     }
