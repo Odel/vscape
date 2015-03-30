@@ -41,7 +41,6 @@ import com.rs2.model.content.minigames.magetrainingarena.MageTrainingDialogue;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.TheGrandTree;
-import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.firemaking.BarbarianSpirits;
 import com.rs2.model.content.skills.runecrafting.TabHandler;
 import com.rs2.model.content.skills.smithing.DragonfireShieldSmithing;
@@ -136,9 +135,6 @@ public class Dialogues {
 		    return true;
 		}
 		if(PestControlRewardHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
-		    return true;
-		}
-		if(wetClayHandler.sendDialogue(player, id, chatId, optionId, npcChatId)) {
 		    return true;
 		}
 		if(BarbarianSpirits.sendDialogue(player, id, chatId, optionId, npcChatId)) {

@@ -19,6 +19,7 @@ import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
 import com.rs2.model.content.skills.Crafting.PotteryMaking;
 import com.rs2.model.content.skills.Crafting.SilverCrafting;
+import com.rs2.model.content.skills.Crafting.SoftClayHandler;
 import com.rs2.model.content.skills.Crafting.Spinning;
 import com.rs2.model.content.skills.Crafting.Tanning;
 import com.rs2.model.content.skills.Crafting.Weaving;
@@ -633,6 +634,9 @@ public class ButtonPacketHandler implements PacketHandler {
 		}
 		if(PartyRoom.AcceptOffer(player, buttonId))
 		{
+			return;
+		}
+		if (SoftClayHandler.handleButtons(player, buttonId)) {
 			return;
 		}
 		if(player.getBookHandler().handleButtons(buttonId)) {

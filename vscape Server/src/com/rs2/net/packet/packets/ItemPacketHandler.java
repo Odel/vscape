@@ -38,6 +38,7 @@ import com.rs2.model.content.skills.Crafting.GemData;
 import com.rs2.model.content.skills.Crafting.MacheteCrafting;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
+import com.rs2.model.content.skills.Crafting.SoftClayHandler;
 import com.rs2.model.content.skills.Fletching.ArrowMaking;
 import com.rs2.model.content.skills.Fletching.BowStringing;
 import com.rs2.model.content.skills.Fletching.GemTips;
@@ -50,7 +51,6 @@ import com.rs2.model.content.skills.cooking.SliceDiceHandler;
 import com.rs2.model.content.skills.cooking.ThreeIngredients;
 import com.rs2.model.content.skills.cooking.TwoIngredients;
 import com.rs2.model.content.skills.cooking.DoughHandler;
-import com.rs2.model.content.skills.cooking.wetClayHandler;
 import com.rs2.model.content.skills.herblore.Cleaning;
 import com.rs2.model.content.skills.herblore.Coconut;
 import com.rs2.model.content.skills.herblore.Grinding;
@@ -418,7 +418,7 @@ public class ItemPacketHandler implements PacketHandler {
 	if (TabHandler.itemOnItemHandling(player, firstItem, secondItem)) {
 	    return;
 	}
-	if (wetClayHandler.itemOnItemHandling(player, firstItem, secondItem)) {
+	if (SoftClayHandler.itemOnItemHandling(player, firstItem, secondItem)) {
 	    return;
 	}
 	/* Farming */

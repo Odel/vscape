@@ -123,16 +123,18 @@ public class FillHandler
 	}
 	
 	public static boolean handleButtons(Player player, int buttonId) {
-		switch (buttonId) {
-			case 10239:
-				handleFillTick(player, 1);
-				return true;
-			case 10238:
-				handleFillTick(player, 5);
-				return true;
-			case 6211:
-				handleFillTick(player, 28);
-				return true;
+		if(player.getStatedInterface().equals("fillWater")){
+			switch (buttonId) {
+				case 10239:
+					handleFillTick(player, 1);
+					return true;
+				case 10238:
+					handleFillTick(player, 5);
+					return true;
+				case 6211:
+					handleFillTick(player, 28);
+					return true;
+			}
 		}
 		return false;
 	}
