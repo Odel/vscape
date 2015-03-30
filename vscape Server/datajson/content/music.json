@@ -1286,7 +1286,11 @@
     "button": 17154
   },
   {
-    "regions": [],
+    "regions": [
+      8519,
+      8520,
+      8521
+    ],
     "name": "Iban",
     "song": 1,
     "frame": 4347,
@@ -1371,7 +1375,10 @@
     "button": 53144
   },
   {
-    "regions": [],
+    "regions": [
+      9369,
+      9370
+    ],
     "name": "Intrepid",
     "song": 95,
     "frame": 4350,
