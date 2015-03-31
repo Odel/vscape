@@ -314,7 +314,7 @@ public class PartyRoom {
 					{
 						dropItemsIter.remove();
 					}
-					int rAmnt = Misc.random(1, 8);
+					int rAmnt = Misc.random(1, 3);
 					for(int i = 0; i < rAmnt; i++)
 					{
 						createBalloon(null);
