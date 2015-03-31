@@ -229,7 +229,7 @@ public class EnchantingChamber {
 		
 			    @Override
 			    public void stop() {
-				if (!DRAGONSTONES.isEmpty()) {
+				if (!DRAGONSTONES.isEmpty() && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
 				    for (GroundItem g : DRAGONSTONES) {
 					if (g != null) {
 					    GroundItemManager.getManager().destroyItem(g);
@@ -243,12 +243,12 @@ public class EnchantingChamber {
 		}
     }
     
-    public void saveVariables() {
+    public void saveVariables(boolean DC) {
 	player.setEnchantingPizazz(player.getEnchantingPizazz() + tempPizazzPoint);
 	player.setEnchantingEnchantCount(enchantCount);
 	player.setEnchantingOrbCount(orbDepositCount);
 	tempPizazzPoint = 0;
-	if (!DRAGONSTONES.isEmpty() && player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
+	if (!DRAGONSTONES.isEmpty() && player != null && player.getLoginStage().equals(LoginStages.LOGGED_IN) && !DC) {
 	    for (GroundItem g : DRAGONSTONES) {
 		if (g != null) {
 		    try {
@@ -269,7 +269,7 @@ public class EnchantingChamber {
 	player.teleport(MageGameConstants.LEAVING_POSITION);
 	removeItems();
 	player.getActionSender().sendWalkableInterface(-1);
-	saveVariables();
+	saveVariables(false);
     }
 
     public void removeItems() {

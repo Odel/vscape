@@ -656,7 +656,7 @@ public class Player extends Entity {
         	Castlewars.LeaveGame(this, true, 0);
         }
 	else if(this.inEnchantingChamber()) {
-		this.getEnchantingChamber().saveVariables();
+		this.getEnchantingChamber().saveVariables(true);
 	}
 	else if(this.inAlchemistPlayground()) {
 		this.getAlchemistPlayground().saveVariables(true);
@@ -771,7 +771,7 @@ public class Player extends Entity {
         	Castlewars.LeaveGame(this, true, 0);
         }
 	else if(this.inEnchantingChamber()) {
-		this.getEnchantingChamber().saveVariables();
+		this.getEnchantingChamber().saveVariables(true);
 	}
 	else if(this.inAlchemistPlayground()) {
 		this.getAlchemistPlayground().saveVariables(true);
