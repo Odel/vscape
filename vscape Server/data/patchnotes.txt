@@ -1,3 +1,11 @@
+@dre@=March 30th=
+@blu@Party Room
+@blu@Monk's Friend
+-Random Events no longer as common.
+-Body / law / chaos tiara fix.
+-Changes / fixes to soft clay.
+-Various small bug fixes.
+
 @dre@=March 22nd=
 @blu@Happy birthday /v/scape!
 -Gnome children run amok, causing memes.

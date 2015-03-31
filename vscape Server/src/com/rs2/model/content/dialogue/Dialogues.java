@@ -6,7 +6,6 @@ import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.BankPin;
 import com.rs2.model.content.Shops;
-import com.rs2.model.content.Emotes.EMOTE;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.dungeons.Abyss;
@@ -271,42 +270,6 @@ public class Dialogues {
 				return true;
 			case 159: //gnome child
 				switch(player.getDialogue().getChatId()) {
-					case 1:
-						player.getDialogue().sendPlayerChat("Hey little fella, what's the latest?");
-						return true;
-					case 2:
-						if(!player.hasReceivedDank()) {
-							player.getDialogue().sendNpcChat("How Can Paper Be Real If Trees Aren't Real?");
-						} else {
-							player.getDialogue().sendNpcChat("Aquatic Amphibians!", HAPPY);
-							player.getDialogue().setNextChatId(6);
-						}
-						return true;
-					case 3:
-						player.getDialogue().sendGiveItemNpc("The gnome child hands you a strange paper mask.", new Item(-1), new Item(11791));
-						player.getInventory().addItemOrDrop(new Item(11791));
-						player.setReceivedDank(true);
-						return true;
-					case 4:
-						player.getDialogue().sendPlayerChat("Er, thank you?");
-						return true;
-					case 5:
-						player.getDialogue().sendNpcChat("With great power comes great responsibility.", HAPPY);
-						player.getDialogue().endDialogue();
-						player.setMusicVolume(0);
-						player.getActionSender().sendConfig(168, player.getMusicVolume());
-						if (player.getMusicAuto()) {
-							player.setMusicAuto(false);
-							player.getActionSender().sendConfig(18, player.getMusicAuto() ? 1 : 0);
-						}
-						player.getActionSender().sendSong(646);
-						return true;
-					case 6:
-						player.getDialogue().sendGiveItemNpc("The gnome child hands you a burger?", new Item(10962));
-						player.getDialogue().endDialogue();
-						player.getInventory().addItem(new Item(10962));
-						return true;
-					/*
 				    case 1:
 					player.getDialogue().sendPlayerChat("Can you give me some advice, little gnome child?", CONTENT);
 					return true;
@@ -317,7 +280,6 @@ public class Dialogues {
 					player.getDialogue().sendPlayerChat("Thank you.", HAPPY);
 					player.getDialogue().endDialogue();
 					return true;
-					*/
 				}
 			return false;
 			case 543 : //Karim
