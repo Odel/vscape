@@ -62,7 +62,7 @@ public class CrossObstacle {
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getUpdateFlags().sendForceMovement(player, x, y, speed1, speed2, dir);
+				//player.getUpdateFlags().sendForceMovement(player, x, y, speed1, speed2, dir, time);
 				container.stop();
 			}
 			@Override
