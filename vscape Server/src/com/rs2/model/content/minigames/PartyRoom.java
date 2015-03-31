@@ -299,7 +299,7 @@ public class PartyRoom {
 		RefreshChest();
 		balloons = new ArrayList<PartyBalloon>();
 		balloons.clear();
-		World.submit(new Tick(3) {
+		World.submit(new Tick(1) {
 			int tries = 0;
 		    @Override 
 		    public void execute() {
@@ -314,7 +314,7 @@ public class PartyRoom {
 					{
 						dropItemsIter.remove();
 					}
-					int rAmnt = Misc.random(1, 3);
+					int rAmnt = Misc.random(1, 2);
 					for(int i = 0; i < rAmnt; i++)
 					{
 						createBalloon(null);
