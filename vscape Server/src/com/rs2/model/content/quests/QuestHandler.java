@@ -70,8 +70,7 @@ public class QuestHandler {
 	new ClockTower(),
 	new DeathPlateau(),
 	new UndergroundPass(),
-	new MonksFriend(),
-        new TheGolem()
+	new MonksFriend()
     };
     
     public static void init() {
@@ -288,9 +287,6 @@ public class QuestHandler {
 		case 28201:
 			showInterface(player,quests[45]);
 			return true;
-                case 50039: //The Golem
-                        showInterface(player,quests[46]);
-                        return true;
         }
         return false;
     }

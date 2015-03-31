@@ -438,10 +438,6 @@ public class UndergroundPass implements Quest {
 		}
 		return false;
 	}
-        
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		if(player.stopPlayerPacket()) {

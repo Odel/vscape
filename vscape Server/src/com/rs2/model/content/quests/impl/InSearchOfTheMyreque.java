@@ -463,10 +463,6 @@ public class InSearchOfTheMyreque implements Quest {
 	public boolean doNpcClicking(Player player, Npc npc) {
 		return false;
 	}
-        
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 	
 	public void handleDeath(final Player player, final Npc died) {
 		if(died.getNpcId() == SKELETON_HELLHOUND && player.getQuestStage(38) == TALKED_TO_MYREQUE) {

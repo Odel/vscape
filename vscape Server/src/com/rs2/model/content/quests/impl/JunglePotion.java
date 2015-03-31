@@ -329,10 +329,6 @@ public class JunglePotion implements Quest {
 	public boolean doNpcClicking(Player player, Npc npc) {
 		return false;
 	}
-        
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {

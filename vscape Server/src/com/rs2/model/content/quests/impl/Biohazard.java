@@ -444,10 +444,6 @@ public class Biohazard implements Quest {
 	public boolean doNpcClicking(Player player, Npc npc) {
 		return false;
 	}
-        
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 
 	public boolean doObjectClicking(final Player player, final int object, final int x, final int y) {
 		int pX = player.getPosition().getX();

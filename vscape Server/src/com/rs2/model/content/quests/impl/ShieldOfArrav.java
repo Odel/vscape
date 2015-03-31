@@ -622,29 +622,8 @@ public class ShieldOfArrav implements Quest {
 				}
 				return false;
 			case CURATOR:
-                            switch (player.getQuestStage(13)) {
-                                case 0:
-                                case 1:
-                                case 3:
-                                case 4:
-                                case 5:
-                                case 6:
-                                case 7:
-                                case 8:
-                                case 9:
-                                    switch (player.getDialogue().getChatId()) {
-                                        case 1:
-                                            player.getDialogue().sendNpcChat("Hello, and welcome to the museum!", "Feel free to look around!", HAPPY);
-						return true;
-                                        case 2:
-                                            player.getDialogue().sendPlayerChat("Thank you!", HAPPY);
-                                            player.getDialogue().endDialogue();
-                                            return true;
-                                    }
-                                return false;
-                                case 10:
-                                    switch (player.getDialogue().getChatId()) {
-                                        case 1:
+				switch (player.getDialogue().getChatId()) {
+					case 1:
 						player.getDialogue().sendNpcChat("Hello, and welcome to the museum!", "Feel free to look around!", HAPPY);
 						return true;
 					case 2:
@@ -685,10 +664,8 @@ public class ShieldOfArrav implements Quest {
 						player.getDialogue().sendNpcChat("Give one half to your partner in exchange for his half.", "Then put them together and return to King Roald,", "I'm sure he has a reward for you.", HAPPY);
 						player.getDialogue().endDialogue();
 						return true;
-                                    }
-                                return false;
-                            }
-                        return false;
+				}
+				return false;
 			case RELDO:
 				switch (player.getDialogue().getChatId()) {
 					case 1:
@@ -892,11 +869,6 @@ public class ShieldOfArrav implements Quest {
 		// TODO Auto-generated method stub
 		return false;
 	}
-        
-        @Override
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 
 	@Override
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {

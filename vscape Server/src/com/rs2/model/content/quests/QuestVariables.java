@@ -2,7 +2,6 @@ package com.rs2.model.content.quests;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.quests.impl.ErnestTheChicken;
-import com.rs2.model.content.quests.impl.TheGolem;
 import com.rs2.model.players.Player;
 
 import java.util.ArrayList;
@@ -115,14 +114,6 @@ public class QuestVariables {
 	public boolean receivedPaladinFood = false;
 	public boolean spawnedStoneCircleLadder = false;
 	public boolean givenMonkWater = false;
-        //The Golem
-        public int clayAddedToGolem = 0;
-        public boolean[] statuesFacingCorrectly = {false, false, true, true};
-        public boolean placedStatuette = false;
-        public boolean stolenThroneGems = false;
-        public boolean stolenStatuette = false;
-        public boolean enteredHell = false;
-        private int statueStates[] = {0, 0, 0, 0};
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -603,12 +594,4 @@ public class QuestVariables {
 		return this.gridMiddle;
 	}
 
-        public int[] getStatueStates() {
-            return this.statueStates;
-        }
-        
-        public void setStatueStates(int index, int toSet) {
-            this.statueStates[index] = toSet;
-            TheGolem.assessConfigs(player);
-        }
 }

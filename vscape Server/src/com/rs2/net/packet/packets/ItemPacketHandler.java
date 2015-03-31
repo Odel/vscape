@@ -544,10 +544,6 @@ public class ItemPacketHandler implements PacketHandler {
 	    player.getActionSender().sendMessage("You can only pick up one scroll at a time.");
 	    return;
 	}
-        if ((player.getInventory().ownsItem(4615) && player.getClickId() == 4615) || (player.getInventory().ownsItem(4619) && player.getClickId() == 4619)) {
-            player.getActionSender().sendMessage("You already have that!");
-            return;
-        }
 	if (DemonSlayer.itemPickupHandling(player, player.getClickId())) {
 	    return;
 	}

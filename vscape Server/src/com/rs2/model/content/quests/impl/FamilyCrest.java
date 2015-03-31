@@ -1587,10 +1587,5 @@ public class FamilyCrest implements Quest {
 		// TODO Auto-generated method stub
 		return false;
 	}
-        
-        @Override
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
-        }
 
 }
