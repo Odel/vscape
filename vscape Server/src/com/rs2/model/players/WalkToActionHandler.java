@@ -2378,6 +2378,12 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
+                                for (Quest q : QuestHandler.getQuests()) {
+                                    if (q.doNpcSecondClicking(player, npc)) {
+                                        this.stop();
+                                        return;
+                                    }
+                                }
 				if(PiratesTreasure.handleNpcClick(player, npc.getNpcId())) {
 				    this.stop();
 				    return;

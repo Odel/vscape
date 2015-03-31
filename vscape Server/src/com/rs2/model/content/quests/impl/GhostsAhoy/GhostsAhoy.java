@@ -2815,6 +2815,11 @@ public class GhostsAhoy implements Quest {
 		// TODO Auto-generated method stub
 		return false;
 	}
+        
+        @Override
+        public boolean doNpcSecondClicking(Player player, Npc npc) {
+            return false;
+        }
 
 	@Override
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {

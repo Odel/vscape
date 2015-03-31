@@ -246,6 +246,11 @@ public class ImpCatcher implements Quest {
 		return false;
 	}
 
+        @Override
+        public boolean doNpcSecondClicking(Player player, Npc npc) {
+            return false;
+        }
+        
 	@Override
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {
 		// TODO Auto-generated method stub

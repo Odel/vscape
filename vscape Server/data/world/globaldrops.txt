@@ -413,3 +413,5 @@
 3138:1:3474:9510:0:5 //potato cactus
 3138:1:3474:9508:0:5 //potato cactus
 2398:1:2562:3024:0:30 //cave nightshade
+4615:1:3479:3092:0:10 //The Golem letter
+4619:1:2711:4912:0:10 //The Golem strange implement

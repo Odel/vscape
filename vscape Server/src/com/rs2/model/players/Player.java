@@ -4638,7 +4638,7 @@ public class Player extends Entity {
 		getActionSender().sendString("@red@Gertrudes Cat", 7360); //gertrude's cat
 		getActionSender().sendString("@red@Ghosts Ahoy", 12282); //ghosts ahoy
 		getActionSender().sendString("", 13577); //the giant dwarf
-		getActionSender().sendString("", 12839); //the golem
+		getActionSender().sendString("@red@The Golem", 12839); //the golem
 		getActionSender().sendString("@red@The Grand Tree", 7361); //the grand tree
 		getActionSender().sendString("", 11857); //haunted mine
 		getActionSender().sendString("", 7362); //hazeel cult

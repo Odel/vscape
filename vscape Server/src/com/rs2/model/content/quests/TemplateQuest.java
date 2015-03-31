@@ -199,6 +199,10 @@ public class TemplateQuest implements Quest {
 	public boolean doNpcClicking(final Player player, final Npc npc) {
 		return false;
 	}
+        
+        public boolean doNpcSecondClicking(Player player, Npc npc) {
+            return false;
+        }
 
 	public boolean doObjectClicking(final Player player, final int object, final int x, final int y) {
 		switch (object) {
