@@ -548,10 +548,18 @@ public class MerlinsCrystal implements Quest {
 	public boolean doObjectSecondClick(final Player player, int object, int x, int y) {
 		switch (object) {
 			case 63: //merlin's crystal crate
-				if (player.getQuestStage(11) >= 4 && player.getPosition().clone() != new Position(2801, 3442)) {
+				if (player.getQuestStage(11) >= 4 && player.getQuestStage(11) <= 5 && player.getPosition().clone() != new Position(2801, 3442)) {
+					player.transformNpc = 152;
 					player.teleport(new Position(2801, 3442));
+					player.setAppearanceUpdateRequired(true);
+					player.getActionSender().sendWalkableInterface(8677);
+					player.getActionSender().sendMapState(2);
 					player.getActionSender().sendMessage("You climb into the crate.");
+					player.setMovementDisabled(true);
+					player.setInCutscene(true);
 					Dialogues.startDialogue(player, 10505);
+				}else{
+					player.getActionSender().sendMessage("I have no reason to do that.");
 				}
 				return true;
 			case 61: //chaos altar
@@ -574,15 +582,7 @@ public class MerlinsCrystal implements Quest {
 			case 10505:
 				switch (player.getDialogue().getChatId()) {
 					case 1:
-						player.transformNpc = 152;
-						player.setAppearanceUpdateRequired(true);
 						player.getDialogue().sendStatement("You barely fit into the crate, and begin to wait.");
-						player.getActionSender().sendWalkableInterface(8677);
-						player.getActionSender().sendMapState(2);
-						HitDef hitDef = new HitDef(null, HitType.NORMAL, 0).setStartingHitDelay(100000);
-						Hit hit = new Hit(player, player, hitDef);
-						BindingEffect bind = new BindingEffect(1000000);
-						bind.initialize(hit);
 						return true;
 					case 2:
 						player.getDialogue().sendStatement("You hear voices approaching.");
@@ -612,6 +612,8 @@ public class MerlinsCrystal implements Quest {
 							player.getDialogue().endDialogue();
 							player.transformNpc = -1;
 							player.resetEffects();
+							player.setMovementDisabled(false);
+							player.setInCutscene(false);
 							player.getActionSender().sendWalkableInterface(-1);
 							player.getActionSender().sendMapState(0);
 							return true;

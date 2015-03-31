@@ -58,7 +58,7 @@ public class Teleportation {
 			player.getActionSender().sendMessage("A magical force prevents you from teleporting.");
 			return false;
 		}
-		if (player.cantTeleport()) {
+		if (player.cantTeleport() || player.isInCutscene()) {
 			player.getActionSender().sendMessage("You can't teleport from here.");
 			return false;
 		}
