@@ -29,6 +29,47 @@ import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
 	
+	public static void handleBridgeJump(final Player player, final int object, final int x, final int y) {
+		if (player.stopPlayerPacket()) {
+			return;
+		}
+		CacheObject o = ObjectLoader.object(object, x, y, 1);
+		if (o != null) {
+			int face = o.getDef().getFace(), modifier = player.getPosition().getX() > x ? -4 : 4, 
+				toFace = face == 1 || face == 3? modifier < 0 ? 3 : 1 : 0;
+			player.setStopPacket(true);
+			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...");
+			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, y, 1);
+			player.getUpdateFlags().setFace(toBe);
+			final boolean success = SkillHandler.skillCheck((player.getSkill().getPlayerLevel(Skill.AGILITY) + 40), 10, 0);
+			player.getUpdateFlags().sendAnimation(2750);
+			player.getUpdateFlags().sendForceMovement(player, modifier, (face == 1 || face == 3) && !success ? -1 : 0, 15, 50, toFace, success ? 3 : 2);
+			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+				int count = 0;
+				@Override
+				public void execute(CycleEventContainer b) {
+					player.setStopPacket(true);
+					count++;
+					
+					if (count == 1 && !success) {
+						player.getActionSender().sendMessage("...you plunge into darkness...");
+						player.fadeTeleport(new Position(2331, 9855, 0));
+						b.stop();
+					} else if (count >= 2) {
+						player.getActionSender().sendMessage("...you manage to cross safely.");
+						//player.getUpdateFlags().setUpdateRequired(true);
+						b.stop();
+					}
+				}
+				@Override
+				public void stop() {
+					player.setStopPacket(false);
+					player.getMovementHandler().reset();
+				}
+			}, 2);
+		}
+	}
+	
 	public static void handlePipeCrawl(final Player player, final int object, final int x, final int y) {
 		if (player.stopPlayerPacket()) {
 			return;
@@ -493,13 +534,130 @@ public class PassObjectHandling {
 	}
 
 	public static boolean doObstacleClicking(final Player player, final int object, final int x, final int y) {
-		if(player.stopPlayerPacket()) {
+		if(player.stopPlayerPacket() || !player.inUndergroundPass()) {
 			return false;
 		}
 		int level = player.getSkill().getPlayerLevel(Skill.AGILITY);
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
 		switch(object) {
+			case 3255:
+				handleBridgeJump(player, object, x, y);
+				return true;
+			case 3235:
+			case 3237: //pipes
+				handlePipeCrawl(player, object, x, y);
+				return true;
+			case 3236: //pipe wrong end
+				player.getDialogue().sendPlayerChat("Hm, it looks like there is a grill on the", "other side of this pipe. I won't be able to", "remove it from the inside.");
+				player.getDialogue().endDialogue();
+				return true;
+			case 3268:
+			case 3266: //cell doors
+				pickCageLock(player, x, y);
+				return true;
+			case 3218:
+			case 3219:
+				if (player.getPosition().getY() > 9662) {
+					player.fadeTeleport(player.getQuestStage(44) >= UndergroundPass.UNICORN_KILLED ? new Position(2375, 9609, 0) : new Position(2400, 9609, 0));
+				} else {
+					player.fadeTeleport(new Position(2371, 9667, 0));
+				}
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+						b.stop();
+					}
+					@Override
+					public void stop() {
+						if (player.getPosition().getY() > 9662) {
+							player.getActionSender().sendMapState(0);
+							PassTrapHandling.startTrapCycle(player, 2);
+						} else {
+							player.getActionSender().sendMapState(2);
+						}
+					}
+				}, player.getPosition().getY() > 9662 ? 4 : 6);
+				return true;
+			case 3264: //well
+				player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
+				boolean canContinue = true;
+				if (player.getQuestStage(44) < UndergroundPass.CAN_USE_WELL) {
+					for (boolean b : player.getQuestVars().wellItemsDestroyed) {
+						if (!b) {
+							canContinue = false;
+						}
+					}
+				}
+				if (canContinue) {
+					for (int i = 0; i < 4; i++) {
+						player.getQuestVars().wellItemsDestroyed[i] = false;
+					}
+					Ladders.climbLadder(player, new Position(2423, 9660, 0));
+					if (player.getQuestStage(44) == UndergroundPass.ENTER_CAVES) {
+						player.setQuestStage(44, UndergroundPass.CAN_USE_WELL);
+					}
+				}
+				final boolean teleported = canContinue;
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+						b.stop();
+					}
+
+					@Override
+					public void stop() {
+						player.setStopPacket(false);
+						if (teleported) {
+							player.getActionSender().sendMessage("...slowly dragging you further down into the caverns.");
+						} else {
+							player.getActionSender().sendMessage("...the hands try to strangle you!");
+							player.hit(10, HitType.NORMAL);
+						}
+					}
+				}, 3);
+				return true;
+			case 3307:
+				Ladders.climbLadder(player, new Position(2418, 9674, 0));
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+						b.stop();
+					}
+
+					@Override
+					public void stop() {
+						PassTrapHandling.startTrapCycle(player, 0);
+					}
+				}, 5);
+				return true;
+			case 3220:
+			case 3221:
+				if (player.getPosition().getX() > 2180) {
+					if (player.getQuestStage(44) >= UndergroundPass.IBANS_LAIR_OPEN) {
+						for (int i = 0; i < 4; i++) {
+							player.getQuestVars().wellItemsDestroyed[i] = false;
+						}
+						player.fadeTeleport(new Position(2173, 4725, 1));
+					} else {
+						player.getActionSender().sendMessage("The doors won't budge. You hear a faint cackling.");
+					}
+					return true;
+				} else {
+					player.fadeTeleport(new Position(2370, 9719, 0));
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							PassTrapHandling.startTrapCycle(player, 2);
+						}
+					}, 6);
+					return true;
+				}
 			case 3276:
 				player.setStopPacket(true);
 				player.isCrossingObstacle = true;
@@ -570,6 +728,33 @@ public class PassObjectHandling {
 					}, 1);
 				}
 				return true;
+			case 3360:
+				if(x == 2417 && y == 9658) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You search the crate...");
+					player.getUpdateFlags().sendAnimation(832);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if(!player.getQuestVars().receivedCrateFood) {
+								player.getQuestVars().receivedCrateFood = true;
+								player.getActionSender().sendMessage("You find some food.");
+								player.getInventory().addItemOrDrop(new Item(2327, 2)); //meat pie
+								player.getInventory().addItemOrDrop(new Item(329, 2)); //salmon
+							} else {
+								player.getActionSender().sendMessage("You find nothing of interest.");
+							}
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 2);
+					
+					return true;
+				}
+				return false;
 			case 3263:
 				sinkInSwamp(player);
 				return true;
@@ -622,6 +807,31 @@ public class PassObjectHandling {
 						handleObstacleFailure(player, object, x, y);
 					}
 					return true;
+			case 3230:
+				PassTrapHandling.handleDisarmTrap(player, object, 2244, null);
+				return true;
+			case 2274: //rope swing
+				handleRopeSwing(player, object);
+				return true;
+			case 3337:
+				if(x == 2466 && y == 9672) {
+					handlePortcullis(player);
+					return true;
+				}
+				return false;
+			case 3241: //lever
+				if (x == 2436 && y == 9716) {
+					returnOverBridge(player);
+					return true;
+				}
+				return false;
+			case 3295:
+			case 3296:
+			case 3297:
+			case 3298:
+			case 3299:
+				readTablets(player, object);
+				return true;
 		}
 		return false;
 	}

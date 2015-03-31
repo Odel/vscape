@@ -241,6 +241,7 @@ public class Position {
 	 */
 	public int getRegionX() {
 		return (x >> 3) - 6;
+		//x >> 3 - 6
 	}
 
 	/**
@@ -267,7 +268,7 @@ public class Position {
 	 * @return the local X coordinate
 	 */
 	public int getLocalX(Position base) {
-		return x - 8 * base.getRegionX();
+		return this.x - (8 * base.getRegionX());
 	}
 
 	/**
@@ -278,7 +279,7 @@ public class Position {
 	 * @return the local Y coordinate.
 	 */
 	public int getLocalY(Position base) {
-		return y - 8 * base.getRegionY();
+		return this.y - (8 * base.getRegionY());
 	}
 
 	/**
@@ -287,7 +288,7 @@ public class Position {
 	 * @return the local X coordinate
 	 */
 	public int getLocalX() {
-		return getLocalX(this);
+		return this.x - (8 * this.getRegionX());
 	}
 
 	/**
@@ -296,7 +297,7 @@ public class Position {
 	 * @return the local Y coordinate.=
 	 */
 	public int getLocalY() {
-		return getLocalY(this);
+		return this.y - (8 * this.getRegionY());
 	}
 
 	/**

@@ -1,6 +1,10 @@
 package com.rs2.model;
 
 import com.rs2.model.players.Player;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 
 public class UpdateFlags {
 
@@ -20,52 +24,61 @@ public class UpdateFlags {
 	private Position face;
 	private boolean hitUpdate;
 	private boolean hitUpdate2;
-    private int queueDamage1 = -1, queueType1;
-    private int queueDamage2 = -1, queueType2;
+	private int queueDamage1 = -1, queueType1;
+	private int queueDamage2 = -1, queueType2;
 	private boolean forceMovementUpdateRequired;
 	private int damage;
 	private int damage2;
 	private int hitType;
 	private int hitType2;
 	private int startX, startY, endX, endY, speed1, speed2, direction;
-    private boolean damage1Set, damage2Set;
-    private Entity owner;
+	private boolean damage1Set, damage2Set;
+	private Entity owner;
 
-    public UpdateFlags(Entity entity){
-        this.owner = entity;
-    }
-
-	public void sendForceMovement(Player player, final int x, final int y, final int speed1, final int speed2, final int direction) {
-		this.startX = player.getPosition().getLocalX();
-		this.startY = player.getPosition().getLocalY();
-		this.endX = player.getPosition().getLocalX() + x;
-		this.endY = player.getPosition().getLocalY() + y;
-		this.speed1 = speed1;
-		this.speed2 = speed2;
-		this.direction = direction;
-		forceMovementUpdateRequired = true;
-		isUpdateRequired = true;
+	public UpdateFlags(Entity entity) {
+		this.owner = entity;
 	}
 
-	public void sendForceMovementDoubleSwing(Player player, final int x, final int y, final int startY, final int speed1, final int speed2, final int direction) {
-		this.startX = player.getPosition().getLocalX();
-		this.startY = player.getPosition().getLocalY();
-		this.endX = player.getPosition().getLocalX() + x;
-		this.endY = player.getPosition().getLocalY() + y;
+	public void sendForceMovement(final Player player, final int x, final int y, final int speed1, final int speed2, final int direction, final int ticks) {
+		if (speed1 == speed2) { //Divide by zero
+			return;
+		}
+		player.setStopPacket(true);
+		player.getMovementHandler().reset();
+		player.setResetMovementQueue(true);
+		player.getMovementPaused().setWaitDuration(ticks);
+		final Position toBe = new Position(player.getPosition().getX() + x, player.getPosition().getY() + y, player.getPosition().getZ());
+		this.startX = player.currentX;
+		this.startY = player.currentY;
+		this.endX = player.currentX + x;
+		this.endY = player.currentY + y;
 		this.speed1 = speed1;
 		this.speed2 = speed2;
 		this.direction = direction;
 		forceMovementUpdateRequired = true;
 		isUpdateRequired = true;
+		World.submit(new Tick(ticks) {
+			@Override
+			public void execute() {
+				player.teleport(toBe);
+				player.getMovementPaused().setWaitDuration(0);
+				player.getUpdateFlags().setForceMovementUpdateRequired(false);
+				isUpdateRequired = true;
+				player.setStopPacket(false);
+				this.stop();
+			}
+		});
 	}
 
 	public void resetForceMovement() {
 		startX = startY = endX = endY = speed1 = speed2 = direction = 0;
+		//forceMovementUpdateRequired = true;
 	}
 
 	public void sendGraphic(Graphic graphic) {
 		sendGraphic(graphic.getId(), graphic.getValue());
 	}
+
 	public void sendGraphic(int graphicsId) {
 		this.graphicsId = graphicsId;
 		this.graphicsDelay = 0;
@@ -74,8 +87,8 @@ public class UpdateFlags {
 	}
 
 	public void sendGraphic(int graphicsId, int graphicsDelay) {
-        if(owner.isPlayer()){
-        }
+		if (owner.isPlayer()) {
+		}
 		this.graphicsId = graphicsId;
 		this.graphicsDelay = graphicsDelay;
 		graphicsUpdateRequired = true;
@@ -83,8 +96,8 @@ public class UpdateFlags {
 	}
 
 	public void sendHighGraphic(int graphicsId) {
-        if(owner.isPlayer()){
-        }
+		if (owner.isPlayer()) {
+		}
 		this.graphicsId = graphicsId;
 		this.graphicsDelay = 100 << 16 + 0;
 		graphicsUpdateRequired = true;
@@ -99,12 +112,12 @@ public class UpdateFlags {
 	}
 
 	public void sendAnimation(int animationId) {
-	    if (owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708 || ((Player)owner).getMMVars().isMonkey()) ) {
-		return;
-	    }
-	    if (owner.isNpc() && animationId == 6969) {
-		return;
-	    }
+		if (owner.isPlayer() && (((Player) owner).transformNpc == 1707 || ((Player) owner).transformNpc == 1708 || ((Player) owner).getMMVars().isMonkey())) {
+			return;
+		}
+		if (owner.isNpc() && animationId == 6969) {
+			return;
+		}
 		this.animationId = animationId;
 		this.animationDelay = 0;
 		animationUpdateRequired = true;
@@ -112,11 +125,11 @@ public class UpdateFlags {
 	}
 
 	public void sendAnimation(int animationId, int animationDelay) {
-        if(owner.isPlayer()){
-        }
-	    if( owner.isPlayer() && (((Player)owner).transformNpc == 1707 || ((Player)owner).transformNpc == 1708) ) {
-		return;
-	    }
+		if (owner.isPlayer()) {
+		}
+		if (owner.isPlayer() && (((Player) owner).transformNpc == 1707 || ((Player) owner).transformNpc == 1708)) {
+			return;
+		}
 		this.animationId = animationId;
 		this.animationDelay = animationDelay;
 		animationUpdateRequired = true;
@@ -148,16 +161,16 @@ public class UpdateFlags {
 		animationUpdateRequired = false;
 		entityFaceUpdate = false;
 		faceToDirection = false;
-        damage = queueDamage1;
-        damage2 = queueDamage2;
-        hitType = queueType1;
-        hitType2 = queueType2;
-        queueDamage1 = -1;
-        queueDamage2 = -1;
+		damage = queueDamage1;
+		damage2 = queueDamage2;
+		hitType = queueType1;
+		hitType2 = queueType2;
+		queueDamage1 = -1;
+		queueDamage2 = -1;
 		hitUpdate = damage != -1;
 		hitUpdate2 = damage2 != -1;
-        damage1Set = false;
-        damage2Set = false;
+		damage1Set = false;
+		damage2Set = false;
 		forceMovementUpdateRequired = false;
 	}
 
@@ -197,7 +210,6 @@ public class UpdateFlags {
 	public void setGraphicsUpdateRequired(boolean graphicsUpdateRequired) {
 		this.graphicsUpdateRequired = graphicsUpdateRequired;
 	}
-    
 
 	public boolean isGraphicsUpdateRequired() {
 		return graphicsUpdateRequired;
@@ -289,7 +301,7 @@ public class UpdateFlags {
 
 	public void setDamage(int damage) {
 		this.damage = damage;
-        this.damage1Set = true;
+		this.damage1Set = true;
 	}
 
 	public int getDamage() {
@@ -297,8 +309,8 @@ public class UpdateFlags {
 	}
 
 	public void setDamage2(int damage2) {
-		this.damage2 = damage2;   
-        this.damage2Set = true;
+		this.damage2 = damage2;
+		this.damage2Set = true;
 	}
 
 	public int getDamage2() {
@@ -357,23 +369,21 @@ public class UpdateFlags {
 		return direction;
 	}
 
-    public boolean isDamage1Set() {
-        return damage1Set;
-    }
+	public boolean isDamage1Set() {
+		return damage1Set;
+	}
 
-    public boolean isDamage2Set() {
-        return damage2Set;
-    }
+	public boolean isDamage2Set() {
+		return damage2Set;
+	}
 
-
-    public void queueDamage(int damage, int hitType) {
-        if (queueDamage1 == -1) {
-            queueDamage1 = damage;
-            queueType1 = hitType;
-        }
-        else if (queueDamage2 == -1) {
-            queueDamage2 = damage;
-            queueType2 = hitType;
-        }
-    }
+	public void queueDamage(int damage, int hitType) {
+		if (queueDamage1 == -1) {
+			queueDamage1 = damage;
+			queueType1 = hitType;
+		} else if (queueDamage2 == -1) {
+			queueDamage2 = damage;
+			queueType2 = hitType;
+		}
+	}
 }

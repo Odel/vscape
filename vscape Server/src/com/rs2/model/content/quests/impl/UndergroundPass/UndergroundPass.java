@@ -4,6 +4,8 @@ import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
+import com.rs2.model.World;
+import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -19,8 +21,8 @@ import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObjectDef;
-import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -39,6 +41,7 @@ public class UndergroundPass implements Quest {
 	public static final int CAN_USE_WELL = 3;
 	public static final int UNICORN_KILLED = 4;
 	public static final int IBANS_LAIR_OPEN = 5;
+	public static final int TALK_TO_WITCH = 6;
 	public static final int QUEST_COMPLETE = 20;
 
 	//Items
@@ -71,6 +74,10 @@ public class UndergroundPass implements Quest {
 	// cave with teleport icon? new Position(2357, 9911, 0)
 	public static final Position PASS_ENTRANCE_POS = new Position(2495, 9716, 0);
 	public static final Position PASS_EXIT_POS = new Position(2435, 3314, 0);
+	public static final Position DOWN_TO_DWARVES = new Position(2336, 9794, 0);
+	public static final Position UP_FROM_DWARVES = new Position(2150, 4546, 1);
+	public static final Position DOWN_TO_TOMB = new Position(2305, 9915, 0);
+	public static final Position UP_FROM_TOMB = new Position(2113, 4729, 1);
 
 	//Interfaces
 	public static final int INTERFACE = -1;
@@ -189,6 +196,9 @@ public class UndergroundPass implements Quest {
 			case QUEST_STARTED:
 				lastIndex = 4;
 				break;
+			case TALK_TO_WITCH:
+				lastIndex = 19;
+				break;
 			case QUEST_COMPLETE:
 				lastIndex = 26;
 				break;
@@ -207,6 +217,8 @@ public class UndergroundPass implements Quest {
 		a.sendQuestLogString("I squashed a unicorn with a giant boulder.", 13, this.getQuestID(), UNICORN_KILLED);
 		a.sendQuestLogString("I managed to get access to Iban's inner lair. I only", 15, this.getQuestID(), IBANS_LAIR_OPEN);
 		a.sendQuestLogString("had to murder a unicorn and 3 paladins to gain access.", 16, this.getQuestID(), IBANS_LAIR_OPEN);
+		a.sendQuestLogString("I found some dwarves in the pass, namely Niloof. He told", 18, this.getQuestID(), TALK_TO_WITCH);
+		a.sendQuestLogString("me that the only way through the pass is to defeat Iban.", 19, this.getQuestID(), TALK_TO_WITCH);
 		switch (questStage) {
 			default:
 				break;
@@ -219,6 +231,11 @@ public class UndergroundPass implements Quest {
 			case QUEST_STARTED:
 				a.sendQuestLogString("He told me to meet  his tracker Koftik, who is waiting", lastIndex + 1);
 				a.sendQuestLogString("for me in far West Ardougne.", lastIndex + 2);
+				break;
+			case TALK_TO_WITCH:
+				a.sendQuestLogString("He said the only person who would know how to do that", lastIndex + 1);
+				a.sendQuestLogString("is Iban's confidante, a witch who lives on the platforms", lastIndex + 2);
+				a.sendQuestLogString("above this area.", lastIndex + 3);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -444,121 +461,36 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
-			case 3305:
-				player.getActionSender().sendMessage("The well appears to have flames at the bottom, instead of water...");
-				return true;
-			case 3307:
+			case 3223:
 				if(player.inUndergroundPass()) {
-					Ladders.climbLadder(player, new Position(2418, 9674, 0));
-					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer b) {
-							b.stop();
-						}
-						@Override
-						public void stop() {
-							PassTrapHandling.startTrapCycle(player, 0);
-						}
-					}, 5);
+					player.fadeTeleport(player.getPosition().getY() < 9800 ? UP_FROM_DWARVES : UP_FROM_TOMB);
 					return true;
 				}
 			return false;
-			case 3220:
-			case 3221:
-				if (player.inUndergroundPass()) {
-					if (player.getPosition().getX() > 2180) {
-						if (player.getQuestStage(this.getQuestID()) >= IBANS_LAIR_OPEN) {
-							for (int i = 0; i < 4; i++)
-								player.getQuestVars().wellItemsDestroyed[i] = false;
-							player.fadeTeleport(new Position(2173, 4725, 1));
-						} else {
-							player.getActionSender().sendMessage("The doors won't budge. You hear a faint cackling.");
-						}
-						return true;
-					} else {
-						player.fadeTeleport(new Position(2370, 9719, 0));
-						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			case 3222:
+				if(player.inUndergroundPass()) {
+					player.fadeTeleport(player.getPosition().getY() < 4700 ? DOWN_TO_DWARVES : DOWN_TO_TOMB);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 							@Override
 							public void execute(CycleEventContainer b) {
 								b.stop();
 							}
+
 							@Override
 							public void stop() {
-								PassTrapHandling.startTrapCycle(player, 2);
+								player.setStopPacket(false);
+								if(player.getQuestStage(getQuestID()) < TALK_TO_WITCH) {
+									NpcLoader.spawnNpc(player, new Npc(KOFTIK_4), false, false);
+									Dialogues.startDialogue(player, KOFTIK_4);
+								}
 							}
 						}, 6);
-						return true;
-					}
-				}
-			return false;
-			case 3236: //pipe wrong end
-				if(player.inUndergroundPass()) {
-					player.getDialogue().sendPlayerChat("Hm, it looks like there is a grill on the", "other side of this pipe. I won't be able to", "remove it from the inside.");
-					player.getDialogue().endDialogue();
-					return true;	
-				}
-			return false;
-			case 3235:
-			case 3237: //pipes
-				if(player.inUndergroundPass()) {
-					PassObjectHandling.handlePipeCrawl(player, object, x, y);
 					return true;
 				}
 			return false;
-			case 3360:
-				if(x == 2417 && y == 9658) {
-					player.setStopPacket(true);
-					player.getActionSender().sendMessage("You search the crate...");
-					player.getUpdateFlags().sendAnimation(832);
-					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer b) {
-							if(!player.getQuestVars().receivedCrateFood) {
-								player.getQuestVars().receivedCrateFood = true;
-								player.getActionSender().sendMessage("You find some food.");
-								player.getInventory().addItemOrDrop(new Item(2327, 2)); //meat pie
-								player.getInventory().addItemOrDrop(new Item(329, 2)); //salmon
-							} else {
-								player.getActionSender().sendMessage("You find nothing of interest.");
-							}
-							b.stop();
-						}
-						@Override
-						public void stop() {
-							player.setStopPacket(false);
-						}
-					}, 2);
-					
-					return true;
-				}
-				return false;
-			case 3218:
-			case 3219:
-				if(player.inUndergroundPass()) {
-					if(player.getPosition().getY() > 9662) {
-						player.fadeTeleport(player.getQuestStage(44) >= UNICORN_KILLED ? new Position(2375, 9609, 0) : new Position(2400, 9609, 0));
-					} else {
-						player.fadeTeleport(new Position(2371, 9667, 0));
-						
-					}
-					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer b) {
-							b.stop();
-						}
-						@Override
-						public void stop() {
-							if(player.getPosition().getY() > 9662) {
-								player.getActionSender().sendMapState(0);
-								PassTrapHandling.startTrapCycle(player, 2);
-							} else {
-								player.getActionSender().sendMapState(2);
-							}
-						}
-					}, player.getPosition().getY() > 9662 ? 4 : 6);
-					return true;
-				}
-			return false;
+			case 3305:
+				player.getActionSender().sendMessage("The well appears to have flames at the bottom, instead of water...");
+				return true;
 			case 3308: //broken cage
 				if(player.inUndergroundPass()) {
 					if(!player.getInventory().playerHasItem(UNICORN_HORN) && player.getQuestStage(this.getQuestID()) == UNICORN_KILLED)
@@ -575,49 +507,6 @@ public class UndergroundPass implements Quest {
 					return true;
 				}
 				return false;
-			case 3268:
-			case 3266: //cell doors
-				if(player.inUndergroundPass()) {
-					PassObjectHandling.pickCageLock(player, x, y);
-					return true;
-				}
-			return false;
-			case 3264: //well
-				if(player.inUndergroundPass()) {
-					player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
-					boolean canContinue = true;
-					if(player.getQuestStage(this.getQuestID()) < CAN_USE_WELL)
-						for(boolean b : player.getQuestVars().wellItemsDestroyed)
-							if(!b)
-								canContinue = false;
-					if(canContinue) {
-						for(int i = 0; i < 4; i++)
-							player.getQuestVars().wellItemsDestroyed[i] = false;
-						Ladders.climbLadder(player, new Position(2423, 9660, 0));
-						if(player.getQuestStage(this.getQuestID()) == ENTER_CAVES)
-							player.setQuestStage(this.getQuestID(), CAN_USE_WELL);
-					}
-					final boolean teleported = canContinue;
-					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer b) {
-							b.stop();
-						}
-
-						@Override
-						public void stop() {
-							player.setStopPacket(false);
-							if(teleported) {
-								player.getActionSender().sendMessage("...slowly dragging you further down into the caverns.");
-							} else {
-								player.getActionSender().sendMessage("...the hands try to strangle you!");
-								player.hit(10, HitType.NORMAL);
-							}
-						}
-					}, 3);
-					return true;
-				}
-				return false;
 			case 3234:
 				if(player.inUndergroundPass()) {
 					Dialogues.startDialogue(player, 32340);
@@ -630,36 +519,12 @@ public class UndergroundPass implements Quest {
 					return true;
 				}
 			return false;
-			case 3230:
-				PassTrapHandling.handleDisarmTrap(player, object, 2244, null);
-				return true;
-			case 2274: //rope swing
-				PassObjectHandling.handleRopeSwing(player, object);
-				return true;
-			case 3337:
-				if(x == 2466 && y == 9672) {
-					PassObjectHandling.handlePortcullis(player);
-					return true;
-				}
-				return false;
-			case 3241: //lever
-				if (x == 2436 && y == 9716) {
-					PassObjectHandling.returnOverBridge(player);
-					return true;
-				}
-				return false;
 			case GUIDE_ROPE:
 				if (player.getPosition().getY() < 9718) {
 					player.getActionSender().sendMessage("You can't get a clear shot from here.");
 				} else {
 					PassObjectHandling.shootBridgeRope(player, x, y);
 				}
-				return true;
-			case 3295:
-			case 3296:
-			case 3297:
-			case 3298:
-				PassObjectHandling.readTablets(player, object);
 				return true;
 			case PASS_ENTRANCE:
 				if(x == 2433 && y == 3313) {
@@ -735,6 +600,200 @@ public class UndergroundPass implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case KAMEN:
+				switch (d.getChatId()) {
+					case 1:
+						player.setStopPacket(true);
+						player.getActionSender().sendMessage("He looks a little drunk.");
+						final Npc kamen = World.getNpcs()[player.getNpcClickIndex()];
+						kamen.getUpdateFlags().setForceChatMessage("Hic!");
+						CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+							@Override
+							public void execute(CycleEventContainer b) {
+								b.stop();
+							}
+
+							@Override
+							public void stop() {
+								player.setStopPacket(false);
+								if(Misc.goodDistance(player.getPosition(), kamen.getPosition(), 1))
+									Dialogues.sendDialogue(player, KAMEN, 2, 0);
+							}
+						}, 3);
+						return true;
+					case 2:
+						d.sendPlayerChat("Hi there, you okay?");
+						return true;
+					case 3:
+						d.sendNpcChat("Ooooh, my head ...I'm fried.");
+						return true;
+					case 4:
+						d.sendPlayerChat("What's wrong?");
+						return true;
+					case 5:
+						d.sendNpcChat("Too much of this home brew my friend. We make it", "from plant roots, but it blows your head off.");
+						return true;
+					case 6:
+						d.sendNpcChat("You don't wanna put it near any naked flames.", "Want some?", ANGRY_1);
+						return true;
+					case 7:
+						d.sendOption("Okay then.", "No thanks.");
+						return true;
+					case 8:
+						d.sendPlayerChat(d.tempStrings[optionId - 1]);
+						if (optionId == 2) {
+							d.setNextChatId(15);
+						}
+						return true;
+					case 9:
+						d.sendNpcChat("Here you go... Hic!");
+						return true;
+					case 10:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						player.getActionSender().sendMessage("It tastes horrific and burns your throat.");
+						player.getUpdateFlags().setForceChatMessage("Aaarrgghh!");
+						player.hit(5, HitType.NORMAL);
+						player.getActionSender().statEdit(Skill.AGILITY, -3, false);
+						player.getInventory().addItemOrDrop(new Item(2327)); //meat pie
+						player.getInventory().addItemOrDrop(new Item(2003)); //stew
+						player.getInventory().addItem(new Item(2309)); //bread
+						return true;
+					case 15:
+						d.sendNpcChat("Well come back any time.", HAPPY);
+						d.endDialogue();
+						return true;
+				}
+				return false;
+			case KLANK:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendPlayerChat("Hello my good man.");
+						return true;
+					case 2:
+						d.sendNpcChat("Good day to you outsider. I'm Klank, I'm the only", "blacksmith still alive down here. In fact we're the only", "ones that haven't yet turned.");
+						return true;
+					case 3:
+						d.sendNpcChat("If you're not careful you'll become one of them too!", DISTRESSED);
+						return true;
+					case 4:
+						d.sendPlayerChat("Who?... Iban's followers?");
+						return true;
+					case 5:
+						d.sendNpcChat("They're not followers, they're slaves, they're the", "Soulless...");
+						return true;
+					case 6:
+						d.sendPlayerChat("What happened to them?");
+						return true;
+					case 7:
+						d.sendNpcChat("They were normal once, adventurers, treasure hunters.", "But men are weak, they couldn't ignore the voices.");
+						return true;
+					case 8:
+						d.sendNpcChat("Now they all seem to think with one conscience... As if", "they're being controlled by one being...", SAD);
+						return true;
+					case 9:
+						d.sendPlayerChat("Iban?");
+						return true;
+					case 10:
+						d.sendNpcChat("Maybe... maybe Zamorak himself. Those who try and", "fight it Iban locks in cages, until their minds are too", "weak to resist.");
+						return true;
+					case 11:
+						d.sendNpcChat("Eventually they all fall to his control...", SAD);
+						if (player.getInventory().playerHasItem(590)) {
+							d.endDialogue();
+						}
+						return true;
+					case 12:
+						d.sendNpcChat("Here, take this, I don't need it.");
+						return true;
+					case 13:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						player.getActionSender().sendMessage("Klank gives you a tinderbox.");
+						player.getInventory().addItemOrDrop(new Item(590));
+						return true;
+				}
+				return false;
+			case NILOOF:
+				switch(player.getQuestStage(this.getQuestID())) {
+					case TALK_TO_WITCH:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello Niloof.");
+								return true;
+							case 2:
+								d.sendNpcChat("So you still live, not many survive down here.");
+								return true;
+							case 3:
+								d.sendPlayerChat("As I can see.");
+								return true;
+							case 4:
+								d.sendNpcChat("Don't stay too long traveller. Iban's calls will soon", "penetrate your delicate human mind.");
+								return true;
+							case 5:
+								d.sendNpcChat("You'll also become one of his minions... You must go", "above and find the witch Kardia. She holds the secret to", "Iban's destruction.");
+								d.endDialogue();
+								return true;
+							case 10:
+								d.sendPlayerChat("Thanks Niloof, take care.");
+								return true;
+							case 11:
+								d.sendNpcChat("You too.");
+								return true;
+						}
+					case IBANS_LAIR_OPEN:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Back away! Back away! ...Wait. ...You're human!", DISTRESSED);
+								return true;
+							case 2:
+								d.sendPlayerChat("That's right, I'm on a quest for King Lathas. We need", "to find a way through these caverns.");
+								return true;
+							case 3:
+								d.sendNpcChat("Ha ha, listen up. We came here as miners decades ago,", "completely unware of the evil that lurked here. There's", "no way through, not while Iban still rules. He controls", "the gateway, the only way to the other side.");
+								return true;
+							case 4:
+								d.sendPlayerChat("What gateway?");
+								return true;
+							case 5:
+								d.sendNpcChat("It once stood as the 'Well of Voyage'. A gateway to the", "West. Now Iban's moulded it into a pit of the damned,", "a portal to Zamorak's darkest realms.");
+								return true;
+							case 6:
+								d.sendNpcChat("He sends his followers there, never to return. Only", "once Iban is destroyed can the well be restored.");
+								return true;
+							case 7:
+								d.sendPlayerChat("But how?");
+								return true;
+							case 8:
+								d.sendNpcChat("If I knew, I would have slain him already. Seek out the", "Witch, his guide, his only confidante. Only she knows", "how to rid us of Iban.");
+								return true;
+							case 9:
+								d.sendNpcChat("She lives on the platforms above, we dare not go there.", "Here, take some food to aid your journey.");
+								return true;
+							case 10:
+								d.endDialogue();
+								player.getActionSender().removeInterfaces();
+								player.setStopPacket(true);
+								player.setQuestStage(this.getQuestID(), TALK_TO_WITCH);
+								player.getActionSender().sendMessage("Niloof gives you some food...");
+								player.getInventory().addItemOrDrop(new Item(2327, 2)); //meat pie
+								player.getInventory().addItemOrDrop(new Item(2289)); //pizza
+								CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+									@Override
+									public void execute(CycleEventContainer b) {
+										b.stop();
+									}
+									@Override
+									public void stop() {
+										player.setStopPacket(false);
+										Dialogues.sendDialogue(player, NILOOF, 10, 0);
+									}
+								}, 5);
+								return true;
+						}
+					return false;
+				}
+			return false;
 			case SIR_CARL:
 			case SIR_HARRY:
 				switch (d.getChatId()) {
@@ -771,7 +830,7 @@ public class UndergroundPass implements Quest {
 						d.endDialogue();
 						player.getActionSender().sendMessage("The Paladin gives you some food.");
 						player.getQuestVars().receivedPaladinFood = true;
-						player.getInventory().addItemOrDrop(new Item(2327)); //meat pie?
+						player.getInventory().addItemOrDrop(new Item(2327)); //meat pie
 						player.getInventory().addItemOrDrop(new Item(2003)); //stew
 						player.getInventory().addItem(new Item(2309, 2)); //bread
 						return true;
@@ -824,6 +883,48 @@ public class UndergroundPass implements Quest {
 							PassTrapHandling.handleDisarmTrap(player, 3361, 2244, null);
 						}
 						return true;	
+				}
+			return false;
+			case KOFTIK_4:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Traveller is that you?.. my friend on a mission!", DISTRESSED);
+						return true;
+					case 2:
+						d.sendPlayerChat("Koftik, you're still here, you should leave.");
+						return true;
+					case 3:
+						d.sendNpcChat("Leave?... leave?.. this is my home now. Home with", "my lord, he talks to me, he's my friend.", Dialogues.CALM);
+						return true;
+					case 4:
+						d.sendStatement("Koftik seems to be in a weak state of mind.");
+						return true;
+					case 5:
+						d.sendPlayerChat("Koftik you really should leave these caverns.");
+						return true;
+					case 6:
+						d.sendNpcChat("Now now, we're all the same down here. There's just", "you and those Dwarves left to be converted.", ANGRY_1);
+						return true;
+					case 7:
+						d.sendPlayerChat("Dwarves?");
+						return true;
+					case 8:
+						d.sendNpcChat("Foolish Dwarves, still believing that they can resist. No", "one resists Iban, go traveller.", ANGRY_1);
+						return true;
+					case 9:
+						d.sendNpcChat("The Dwarves to the south, they're not safe in the south!", DISTRESSED);
+						return true;
+					case 10:
+						d.sendNpcChat("We'll show them, go slay them m'lord. He'll be so proud,", "that's all I want.", ANGRY_1);
+						return true;
+					case 11:
+						d.sendPlayerChat("I'll pray for you.");
+						d.endDialogue();
+						Npc koftik = player.getSpawnedNpc();
+						Following.resetFollow(koftik);
+						koftik.setFollowDistance(20);
+						koftik.setFollowingEntity(player);
+						return true;		
 				}
 			return false;
 			case KOFTIK_3:
