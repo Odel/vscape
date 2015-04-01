@@ -56,7 +56,7 @@ public class UndergroundPass implements Quest {
 	public static final int PALADINS_BADGE = 1488;
 	public static final int PALADINS_BADGE_2 = 1489;
 	public static final int PALADINS_BADGE_3 = 1490;
-	public static final int WITCHS_CAT = 1491;
+	public static final int WITCHS_CAT_ITEM = 1491;
 	public static final int DOLL_OF_IBAN = 1492;
 	public static final int OLD_JOURNAL = 1493;
 	public static final int HISTORY_OF_IBAN = 1494;
@@ -95,7 +95,7 @@ public class UndergroundPass implements Quest {
 	public static final int SIR_HARRY = 990;
 	public static final int HALF_SOULLESS = 991;
 	public static final int KARDIA = 992;
-	public static final int WITCHS_CAT_ITEM = 993;
+	public static final int WITCHS_CAT = 993;
 	public static final int NILOOF = 994;
 	public static final int KLANK = 995;
 	public static final int KAMEN = 996;
@@ -124,7 +124,18 @@ public class UndergroundPass implements Quest {
 	public static final String[] ibanWhispers = {"Blood, pain and hate.", "Death is only the beginning.", "Kill, maim... murder.", "I'll swallow your soul.", "The power of the gods could be yours.", "Hear me...", "Iban will save you... He'll save us all.", "I will release you...", "Make them all pay!", "Join us!", "I see you adventurer... you can't hide."};
 	public static final String[] oldJournalStrings = {"I came to cleanse these", "mountain passes of the", "dark forces that dwell", "here. I knew my journey", "would be treacherous, so", "I deposited Spheres of", "Light in some of the", "tunnels. These spheres", "are a beacon of safety", "for all who come. The", "spheres were created by", "Saradominist mages.", "When held they boost our", "faith and courage. I still", "feel...", "", "Iban relentlessly", "tugging...", "", "at my weak soul.......", "", "bringing out any innate", "goodness to one's heart,", "illuminating the dark", "caverns with the light of", "Saradomin, bringing fear", "and pain to all who", "embrace the dark side.", "My men are still repelled", "by 'Iban's will' - it seems", "as if their pure hearts bar", "them from entering", "Iban's realm. My turn", "has come. I dare not", "admit it to my loyal men,", "but I fear for the welfare", "of my soul." };
 	public static final String[] diaryOfRandasStrings = {"It began as a whisper in", "my ears. Dismissing the", "sounds as the whistling of", "the wind I steeled myself", "against these forces, and", "continued on my way.", "", "But then the whispers became", "moans...", "", "", "At once fearsome and", "enticing like the call of", "some beautiful siren.", "", "", "Join us!", "", "Our greatness lies within", "you, but only Zamorak", "can unlock your", "potential..."};
-	
+	//History of Iban strings
+	public static final String[] introductionStrings = {"Introduction:", "", "Gather round, all ye", "followers of the dark arts.", "Read carefully the words", "that I hearby inscribe, as", "I detail the heady brew", "that is responsible for my", "greatest creation in all", "my time on this world. I", "am Kardia, the most", "wretched witch in the", "land; scorned by beauty,", "the world and its", "inhabitants, see what I", "created: The most", "fearsome and powerful", "force of darkness the like", "of which has never before", "been seen in this world,", "in human form..."};
+	public static final String[] ibanStrings = {"The History of Iban:", "", "Iban was a Black Knight", "who had learned to fight", "under the great", "Daquarius, Lord of the", "Black Knights. Together", "they had taken on the", "might of the White and", "the blood of a hunded", "soldiers had been wiped", "from the sword of Iban.", "Iban was not quite so", "different from those who", "tasted his blade: noble and", "educated, with a taste for", "the finer things available", "in life. But there was", "something that made him", "different: Ambition. This", "hunger for more went", "far past the realm of",
+						"mere mortals, into the", "shadowy places of", "darkness and evil. Iban's", "ambition was almost", "godlike in its insatiability,", "but therein lay the", "essence of his darkess:", "at its most base Iban's", "fundamental desire was to", "control the hearts and", "minds of his fellow men,", "to take them beyond the", "pale of mere allegiance", "and corrupt them into a", "force for evil. A whole", "legion of these Soul-less", "beings, their minds", "demented from the sheer", "power of darkness that", "channelled through them...", "Zombies, void of emotions,", "without feelings or cares,",
+						"servants to their wicked", "master even unto death...", "But dreams were all they", "ever were. As a mere", "mortal, heroic though he", "was, this ambition Iban", "was unable to achieve.", "Meeting his demise in the", "White Knights' now", "famous Dawn Ascent,", "Iban died with the bitter", "taste of failure in his", "mouth. Little did he know", "that death was only just", "the beginning..."};
+	public static final String[] resurrectionStrings = {"Iban's resurrection:", "I knew of Iban's life,", "though of course I had", "not met him. Using the", "power of my dark", "practices, I vowed to", "resurrect this greatest of", "warriors. I would raise", "him again to fulfill the", "promise of his human life.", "", "To be a master...", "...of the undead..."};
+	public static final String[] fleshStrings = {"Flesh:", "Taking a small doll with", "the likeness of Iban I", "smeared my effigy with", "the four elements that", "together bring existence", "into being. Essence of his", "darkness. At the battlefield", "where Iban lay, I had", "been able to steal a piece", "of Iban's cold flesh.", "Clasping some in my", "hand, I smeared it over", "the figure of Iban, and", "chanted his name with", "mighty incantation."};
+	public static final String[] bloodStrings = {"Blood:", "I also needed blood, the", "giver of life force. By", "now Iban's body was but", "a hardened vessel, the", "blood drained empty. But", "these caverns are home", "to the giant spider, a", "venomous creature", "known to feed on the", "warm blood of humans. I", "found and killed one of", "these foul beasts, and", "wiped the blood from its", "vile body onto the effigy", "of Iban that I had", "fashioned."};
+	public static final String[] shadowStrings = {"Shadow:", "Then came the hard part,", "recreating the parts of a", "man that cannot be seen", "or touched: Those", "intagible things that are", "the essence of life itself.", "Using mystical forces and", "under terrible strain, I", "performed the ancient", "ritual of Incantia, an", "undertaking so dark, and", "so powerful, that the life", "was nearly stolen from", "my body. When I", "recovered, I saw three", "Demons summoned,", "standing in a triangle,", "their energy focused on", "the doll of Iban. These", "Demons were the keepers", "of Iban's shadow, forever", "bound to him..."};
+	public static final String[] conscienceStrings = {"Conscience:", "Finally, I had to make", "the most unique thing,", "the one element that", "separates man from all", "other beasts - his", "Conscience. A Zombie has", "no mind: a creature", "borne of bloodlust,", "destruction. But for all", "Iban's life he chose to", "take the path of darkness,", "the road to evil. Driven", "by this unholy ambition,", "his potential grew and", "now I could harness the", "residue of his existence,", "that remained trapped in", "the dark places, to the", "fullest.", "Locked inside an old", "wooden cage sat a",
+							"beautiful white dove. A", "symbol of peace, freedom", "and hope, but also", "oblivious to the darkness", "of the world, like a", "newborn child. Taking the", "dove with me, I cradled", "the thing in my arms,", "stroking its soft downy", "feathers. I looked into the", "eyes of the bird, and", "gently placing a kiss upon", "its fragile head, I then", "strangled the bird, taking", "its life between my callous", "fingers. Truly this bird", "would be the conscience", "of Iban: innocence", "corrupted by evil...", "Taking crushed bones", "from the dove's body, I", "cast my mind's eye onto",
+							"the body of Iban. My", "ritual was complete, soon", "he would come again", "renewed with life. I,", "Kardia, had done the", "unimagineable: Iban was", "resurrected, the most", "powerful evil to take", "human form. I alone", "knew that the same", "process that I had used", "to resurrect the soul of", "Iban could be used to", "destroy that very same", "evil. But now I was tired,", "as I closed my eyes, I", "was contented by the", "thought of the evil to be", "unleashed..."};
 	private int reward[][] = { //{itemId, count},
 	};
 
@@ -319,7 +330,10 @@ public class UndergroundPass implements Quest {
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
-			case 1493:
+			case HISTORY_OF_IBAN:
+				Dialogues.startDialogue(player, HISTORY_OF_IBAN + 100000);
+				return true;
+			case OLD_JOURNAL:
 				player.getActionSender().sendMessage("The journal is old and worn.");
 				player.getBookHandler().initBook(oldJournalStrings, "The Journal of Randas");
 				return true;
@@ -359,6 +373,15 @@ public class UndergroundPass implements Quest {
 			}
 		}
 		switch(object) {
+			case 3270:
+				if(item == WITCHS_CAT_ITEM && player.inUndergroundPass()) {
+					player.getUpdateFlags().sendAnimation(827);
+					player.getActionSender().sendMessage("...You place the cat by the door.");
+					player.getActionSender().sendMessage("You knock on the door and hide around the corner...");
+					player.getActionSender().sendMessage("The Witch takes the cat inside.");
+					return true;
+				}
+			return false;
 			case 3305:
 				if(item >= UNICORN_HORN && item <= PALADINS_BADGE_3) {
 					player.setStopPacket(true);
@@ -448,6 +471,9 @@ public class UndergroundPass implements Quest {
 	public boolean doNpcClicking(Player player, Npc npc) {
 		int id = npc.getNpcId();
 		switch(id) {
+			case WITCHS_CAT:
+				Dialogues.startDialogue(player, WITCHS_CAT + 100000);
+				return true;
 			case BOULDER:
 				player.getDialogue().sendPlayerChat("It's too heavy to move with just my hands.", DISTRESSED);
 				player.getDialogue().endDialogue();
@@ -455,9 +481,14 @@ public class UndergroundPass implements Quest {
 		}
 		return false;
 	}
-        
-        public boolean doNpcSecondClicking(Player player, Npc npc) {
-            return false;
+	
+	public boolean doNpcSecondClicking(Player player, Npc npc) {
+		switch(npc.getNpcId()) {
+			case WITCHS_CAT:
+				Dialogues.startDialogue(player, WITCHS_CAT);
+				return true;
+		}
+		return false;
         }
 	
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
@@ -465,6 +496,12 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
+			case 3270:
+				if(player.inUndergroundPass()) {
+					Dialogues.startDialogue(player, 32700);
+					return true;
+				}
+			return false;
 			case 3223:
 				if(player.inUndergroundPass()) {
 					player.fadeTeleport(player.getPosition().getY() < 9800 ? UP_FROM_DWARVES : UP_FROM_TOMB);
@@ -560,6 +597,30 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
+			case 3362:
+				if(player.inUndergroundPass()) {
+					player.getActionSender().sendMessage("Inside you see a witch, she appears to be looking for something.");
+					return true;
+				}
+			return false;
+			case 3270:
+				if(player.inUndergroundPass()) {
+					player.getActionSender().sendMessage("You knock on the door...");
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.getActionSender().sendMessage("There is no reply.");
+						}
+					}, 3);
+
+					return true;
+				}
+			return false;
 			case 3267:
 				if (player.inUndergroundPass()) {
 					player.setStopPacket(true);
@@ -604,6 +665,104 @@ public class UndergroundPass implements Quest {
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case WITCHS_CAT:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Mrowww!");
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case HISTORY_OF_IBAN + 100000:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendStatement("There are many chapters here, which one would you", "like to read?");
+						return true;
+					case 2:
+						d.sendOption("Introduction.", "Iban.", "The Resurrection.", "The Four Elements.");
+						return true;
+					case 3:
+						//book here
+						switch(optionId) {
+							case 1:
+								player.getBookHandler().initBook(introductionStrings, "Introduction");
+								break;
+							case 2:
+								player.getBookHandler().initBook(ibanStrings, "The History of Iban");
+								break;
+							case 3:
+								player.getBookHandler().initBook(resurrectionStrings, "Iban's Resurrection");
+								break;
+							case 4:
+								d.sendOption("Flesh.", "Blood.", "Shadow.", "Conscience.");
+								break;
+						}
+						if(optionId != 4)
+							d.endDialogue();
+						return true;
+					case 4:
+						switch(optionId) {
+							case 1:
+								player.getBookHandler().initBook(fleshStrings, "The Four Elements: Flesh");
+								break;
+							case 2:
+								player.getBookHandler().initBook(bloodStrings, "The Four Elements: Blood");
+								break;
+							case 3:
+								player.getBookHandler().initBook(shadowStrings, "The Four Elements: Shadow");
+								break;
+							case 4:
+								player.getBookHandler().initBook(conscienceStrings, "The Four Elements: Conscience");
+								break;
+						}
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case WITCHS_CAT + 100000:
+				switch (d.getChatId()) {
+					case 1:
+						if(player.getQuestStage(this.getQuestID()) >= TALK_TO_WITCH && !player.getInventory().playerHasItem(WITCHS_CAT_ITEM)) {
+							Item witchCat = new Item(WITCHS_CAT_ITEM);
+							if(player.getInventory().canAddItem(witchCat)) {
+								player.getUpdateFlags().sendAnimation(827);
+								player.getInventory().addItem(witchCat);
+								player.getQuestVars().takenWitchCat = true;
+								Npc cat = null;
+								for(Npc npc : World.getNpcs()) {
+									if(npc != null && npc.getNpcId() == WITCHS_CAT)
+										cat = npc;
+								}
+								if(cat != null) {
+									player.getNpcs().remove(cat);
+									cat.setVisible(false);
+									cat.getUpdateFlags().setUpdateRequired(true);
+									cat.setVisible(true);
+								}
+							} else {
+								player.getActionSender().sendMessage("You don't have enough inventory space to hold that item.");
+								d.endDialogue();
+							}
+						} else {
+							player.getActionSender().sendMessage("You have no reason to do that at the moment.");
+						}
+						d.endDialogue();
+						return true;
+				}
+			return false;
+			case 32700:
+				d.setLastNpcTalk(KARDIA);
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Get away... Far away from here!", ANGRY_1);
+						return true;
+					case 2:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						player.hit(player.getCurrentHp()/4, HitType.NORMAL);
+						return true;
+				}
+			return false;
 			case KAMEN:
 				switch (d.getChatId()) {
 					case 1:

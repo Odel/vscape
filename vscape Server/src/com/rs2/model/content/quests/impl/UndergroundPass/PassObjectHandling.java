@@ -35,38 +35,52 @@ public class PassObjectHandling {
 		}
 		CacheObject o = ObjectLoader.object(object, x, y, 1);
 		if (o != null) {
-			int face = o.getDef().getFace(), modifier = player.getPosition().getX() > x ? -4 : 4, 
-				toFace = face == 1 || face == 3? modifier < 0 ? 3 : 1 : 0;
+			int face = o.getDef().getFace(), modifier = face == 1 || face == 3 ? (player.getPosition().getX() > x ? -4 : 4) : (player.getPosition().getY() > y ? -4 : 4), 
+				toFace = face == 1 || face == 3 ? (modifier < 0 ? 3 : 1) : (modifier < 0 ? 2 : 0);
 			player.setStopPacket(true);
 			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...");
-			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, y, 1);
+			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, player.getPosition().getY() + modifier, 1);
 			player.getUpdateFlags().setFace(toBe);
 			final boolean success = SkillHandler.skillCheck((player.getSkill().getPlayerLevel(Skill.AGILITY) + 40), 10, 0);
 			player.getUpdateFlags().sendAnimation(2750);
-			player.getUpdateFlags().sendForceMovement(player, modifier, (face == 1 || face == 3) && !success ? -1 : 0, 15, 50, toFace, success ? 3 : 2);
+			if(face == 1 || face == 3) {
+				player.getUpdateFlags().sendForceMovement(player, modifier, !success ? -1 : 0, 15, 50, toFace, success ? 3 : 2, true);
+			} else {
+				player.getUpdateFlags().sendForceMovement(player, !success ? -1 : 0, modifier, 15, 50, toFace, success ? 3 : 2, true);
+			}
+			if(!success) {
+				player.getActionSender().sendWalkableInterface(8677);
+			}
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				int count = 0;
 				@Override
 				public void execute(CycleEventContainer b) {
 					player.setStopPacket(true);
-					count++;
-					
-					if (count == 1 && !success) {
-						player.getActionSender().sendMessage("...you plunge into darkness...");
-						player.fadeTeleport(new Position(2331, 9855, 0));
+					if (count == 1) {
 						b.stop();
-					} else if (count >= 2) {
-						player.getActionSender().sendMessage("...you manage to cross safely.");
-						//player.getUpdateFlags().setUpdateRequired(true);
-						b.stop();
+					} else {
+
+						if (!success) {
+							player.getActionSender().sendMessage("...you plunge into darkness...");
+							player.transformNpc = 2370;
+							count++;
+						} else {
+							player.getActionSender().sendMessage("...you manage to cross safely.");
+							b.stop();
+						}
 					}
 				}
 				@Override
 				public void stop() {
-					player.setStopPacket(false);
-					player.getMovementHandler().reset();
+					if(!success) {
+						player.setStopPacket(false);
+						player.teleport(new Position(2331, 9855, 0));
+						player.getActionSender().sendWalkableInterface(-1);
+						player.transformNpc = -1;
+						player.setAppearanceUpdateRequired(true);
+					}
 				}
-			}, 2);
+			}, 3);
 		}
 	}
 	
@@ -266,14 +280,14 @@ public class PassObjectHandling {
 					pY = player.getPosition().getY();
 					if (player.getPosition().equals(toBe) && (face == 3 || face == 1)) {
 						if (face == 3) {
-							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY >= y ? -1 : 1);
+							ThieveOther.pickLock(player, p, 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY >= y ? -1 : 1);
 						} else if (face == 1) {
-							ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY <= y ? 1 : -1);
+							ThieveOther.pickLock(player, p, 3266, 0, 0, pX == x ? 0 : pX >= x ? -1 : 1, pY <= y ? 1 : -1);
 						}
 						b.stop();
 					} else if (face == 2 || face == 0) {
 						int pX = player.getPosition().getX();
-						ThieveOther.pickLock(player, new Position(x, y, player.getPosition().getZ()), 3268, 50, 15, face == 2 ? (pX <= x ? 1 : -1) : pX >= x ? -1 : 1, 0);
+						ThieveOther.pickLock(player, p, 3268, 50, 15, face == 2 ? (pX <= x ? 1 : -1) : pX >= x ? -1 : 1, 0);
 						b.stop();
 					} else {
 						if(face == 3 || face == 1)
@@ -542,6 +556,7 @@ public class PassObjectHandling {
 		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
 		switch(object) {
 			case 3255:
+			case 3254:
 				handleBridgeJump(player, object, x, y);
 				return true;
 			case 3235:

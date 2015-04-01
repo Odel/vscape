@@ -685,11 +685,13 @@ public class WalkToActionHandler {
 					player.teleport(new Position(2636, 9517, 0));
 					break;
 				    }
+				break;
 				case 3205: //ladder down
 					if(x == 2766 && y == 3121) {
 						Ladders.climbLadder(player, new Position(2767, 3121, 0)); //General store karamja
 						break;
 					}
+				break;
 				case 8972: //freaky forester portal
 					if(x == 2611 && y == 4776 && player.getRandomHandler().getCurrentEvent() != player.getRandomHandler().getFreakyForester()) {
 						for(Item item : player.getInventory().getItemContainer().getItems()) {
@@ -700,6 +702,7 @@ public class WalkToActionHandler {
 						player.teleport(player.getLastPosition());
 						break;
 					}
+				break;
 				case 5097:
 				case 5094: //north brimhaven dungeon stairs
 					Dialogues.startDialogue(player, 2725);
@@ -2378,7 +2381,7 @@ public class WalkToActionHandler {
 					this.stop();
 					return;
 				}
-                                for (Quest q : QuestHandler.getQuests()) {
+				 for (Quest q : QuestHandler.getQuests()) {
                                     if (q.doNpcSecondClicking(player, npc)) {
                                         this.stop();
                                         return;

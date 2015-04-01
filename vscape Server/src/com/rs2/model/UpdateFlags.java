@@ -39,11 +39,13 @@ public class UpdateFlags {
 		this.owner = entity;
 	}
 
-	public void sendForceMovement(final Player player, final int x, final int y, final int speed1, final int speed2, final int direction, final int ticks) {
+	public void sendForceMovement(final Player player, final int x, final int y, final int speed1, final int speed2, final int direction, final int ticks, final boolean handleStopPlayerPacket) {
 		if (speed1 == speed2) { //Divide by zero
 			return;
 		}
-		player.setStopPacket(true);
+		if(handleStopPlayerPacket) {
+			player.setStopPacket(true);
+		}
 		player.getMovementHandler().reset();
 		player.setResetMovementQueue(true);
 		player.getMovementPaused().setWaitDuration(ticks);
@@ -62,9 +64,12 @@ public class UpdateFlags {
 			public void execute() {
 				player.teleport(toBe);
 				player.getMovementPaused().setWaitDuration(0);
+				player.getMovementHandler().reset();
 				player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				isUpdateRequired = true;
-				player.setStopPacket(false);
+				if(handleStopPlayerPacket) {
+					player.setStopPacket(false);
+				}
 				this.stop();
 			}
 		});

@@ -113,9 +113,10 @@ public class QuestVariables {
 	public boolean[] wellItemsDestroyed = {false, false, false, false};
 	public boolean receivedCrateFood = false;
 	public boolean receivedPaladinFood = false;
+	public boolean takenWitchCat = false;
 	public boolean spawnedStoneCircleLadder = false;
 	public boolean givenMonkWater = false;
-        //The Golem
+	//The Golem
         public int clayAddedToGolem = 0;
         public boolean[] statuesFacingCorrectly = {false, false, true, true};
         public boolean placedStatuette = false;
@@ -123,6 +124,7 @@ public class QuestVariables {
         public boolean stolenStatuette = false;
         public boolean enteredHell = false;
         private int statueStates[] = {0, 0, 0, 0};
+	
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -602,8 +604,8 @@ public class QuestVariables {
 	public Position getGridMiddle() {
 		return this.gridMiddle;
 	}
-
-        public int[] getStatueStates() {
+	
+	public int[] getStatueStates() {
             return this.statueStates;
         }
         
@@ -611,4 +613,5 @@ public class QuestVariables {
             this.statueStates[index] = toSet;
             TheGolem.assessConfigs(player);
         }
+
 }

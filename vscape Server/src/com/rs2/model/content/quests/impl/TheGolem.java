@@ -548,7 +548,7 @@ public class TheGolem implements Quest {
         return false;
     }
     
-    public boolean doNpcSecondClicking(Player player, Npc npc) {
+    public boolean doNpcSecondClicking(final Player player, final Npc npc) {
         if (npc.getNpcId() == DESERT_PHOENIX && player.getQuestStage(this.getQuestID()) >= FIXED_GOLEM) {
             final boolean successful = Misc.random(player.getSkill().getLevel()[Skill.THIEVING]) > Misc.random(25);
             player.setStopPacket(true);
