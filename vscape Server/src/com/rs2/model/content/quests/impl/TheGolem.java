@@ -421,11 +421,15 @@ public class TheGolem implements Quest {
 			case LETTER:
 				if (player.getQuestStage(this.getQuestID()) >= FIXED_GOLEM) {
 					readLetter(player);
-					player.setQuestStage(this.getQuestID(), READ_LETTER);
+					if (player.getQuestStage(this.getQuestID()) < READ_LETTER) {
+						player.setQuestStage(this.getQuestID(), READ_LETTER);
+					}
 				}
 				return true;
 			case VARMENS_NOTES:
-				player.setQuestStage(this.getQuestID(), READ_NOTES);
+				if (player.getQUestStage(this.getQuestID()) < READ_NOTES) {
+					player.setQuestStage(this.getQuestID(), READ_NOTES);
+				}
 				player.getBookHandler().initBook(varmensNotes, "The Ruins of Uzer");
 				return true;
 		}
