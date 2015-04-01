@@ -213,6 +213,11 @@ public class ClockTower implements Quest {
 	public boolean doNpcClicking(Player player, Npc npc) {
 		return false;
 	}
+        
+        @Override
+        public boolean doNpcSecondClicking(Player player, Npc npc) {
+            return false;
+        }
 
 	@Override
 	public boolean doItemOnNpc(Player player, int itemId, Npc npc) {

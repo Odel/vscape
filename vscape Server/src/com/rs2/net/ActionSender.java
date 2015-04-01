@@ -8,6 +8,7 @@ import com.rs2.model.Palette;
 import com.rs2.model.Palette.PaletteTile;
 import com.rs2.model.Position;
 import com.rs2.model.World;
+import com.rs2.model.content.quests.impl.TheGolem;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.objects.GameObject;
@@ -135,6 +136,7 @@ public class ActionSender {
 		sendConfig(115, player.isWithdrawAsNote() ? 1 : 0); // withdrawItemAsNote
 		sendConfig(304,player.getBankOptions().equals(BankOptions.SWAP_ITEM) ? 0 : 1);// swapItem
 		sendConfig(667, (player.getQuestStage(39) >= 5 ? 36 : 0));
+                TheGolem.assessConfigs(player); //The Golem Config
 		return this;
 	}
 

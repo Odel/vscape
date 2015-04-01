@@ -232,6 +232,11 @@ public class GertrudesCat implements Quest {
 		}
 		return false;
 	}
+        
+        @Override
+        public boolean doNpcSecondClicking(Player player, Npc npc) {
+            return false;
+        }
 
 	@Override
 	public boolean doItemOnNpc(Player player, final int itemId, final Npc npc) {

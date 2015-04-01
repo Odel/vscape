@@ -90,7 +90,15 @@ public class NpcUpdating {
 		out.writeBits(1, 0);
 		if(npc.getNpcId() == 1577 && player.getQuestStage(38) > 6) {
 			out.writeBits(14, 1576); //Vanstrom Clause -> Stranger
-		} else {
+		} else if (npc.getNpcId() == 1908) {
+                    if (player.getQuestStage(46) > 1) {
+                        out.writeBits(14, 1910);
+                    } else if (player.getQuestVars().clayAddedToGolem < 2) {
+                        out.writeBits(14, 1908);
+                    } else {
+                        out.writeBits(14, 1909);
+                    }
+                } else {
 			out.writeBits(14, npc.getNpcId());
 		}
 		out.writeBit(true);
