@@ -627,7 +627,9 @@ public class TheGolem implements Quest {
 					player.fadeTeleport(INNER_DEMON);
 					if (!player.getQuestVars().enteredHell) {
 						player.getQuestVars().enteredHell = true;
-						player.setQuestStage(this.getQuestID(), ENTER_HELL);
+						if (player.getQuestStage(this.getQuestID()) < ENTER_HELL) {
+							player.setQuestStage(this.getQuestID(), ENTER_HELL);
+						}
 						player.getActionSender().sendMessage("This room is dominated by a colossal horned skeleton!");
 					}
 				}
