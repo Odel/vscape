@@ -485,7 +485,9 @@ public class TheGolem implements Quest {
 				return true;
 			case ALCOVE_4:
 				if (item == STATUETTE && player.getQuestStage(this.getQuestID()) >= SPEAK_WITH_CURATOR) {
-					player.setQuestStage(this.getQuestID(), PLACE_STATUETTE);
+					if (player.getQuestStage(this.getQuestID()) < PLACE_STATUETTE)) {
+						player.setQuestStage(this.getQuestID(), PLACE_STATUETTE);
+					}
 					player.getActionSender().sendMessage("You sit the statuette back in the alcove it came from.");
 					player.getInventory().removeItem(new Item(STATUETTE));
 					player.getQuestVars().placedStatuette = true;
@@ -869,7 +871,9 @@ public class TheGolem implements Quest {
 							return true;
 						case 6:
 							d.sendNpcChat("If you're interested in his expedition, the notes he made", "are in the library in the Exam Centre.", CONTENT);
-							player.setQuestStage(this.getQuestID(), SPOKE_WITH_ELISSA);
+							if (player.getQuestStage(this.getQuestID()) < SPOKE_WITH_ELISSA) {
+								player.setQuestStage(this.getQuestID(), SPOKE_WITH_ELISSA);
+							}
 							d.endDialogue();
 							return true;
 					}
@@ -917,7 +921,9 @@ public class TheGolem implements Quest {
 							return true;
 						case 10:
 							d.sendNpcChat("What do you want it for?", CONTENT);
-							player.setQuestStage(this.getQuestID(), SPEAK_WITH_CURATOR);
+							if (player.getQuestStage(this.getQuestID()) < SPEAK_WITH_CURATOR) {
+								player.setQuestStage(this.getQuestID(), SPEAK_WITH_CURATOR);
+							}
 							return true;
 						case 11:
 							d.sendOption("I want to open the portal to the lair of an elder demon.", "Well I, er, just need it.");
