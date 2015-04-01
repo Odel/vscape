@@ -479,6 +479,15 @@ public class PlayerSaveParser {
 					    player.getQuestVars().getGridMiddle().setX(gridMidPos.get("x") != null ? gridMidPos.get("x").getAsInt() : 0);
 					    player.getQuestVars().getGridMiddle().setY(gridMidPos.get("y") != null ? gridMidPos.get("y").getAsInt() : 0);
 				    }
+				if(questVars.get("placedStatue") != null) {
+					player.getQuestVars().placedStatuette = questVars.get("placedStatue").getAsBoolean();
+				}
+				if(questVars.get("stolenThroneGems") != null) {
+					player.getQuestVars().stolenThroneGems = questVars.get("stolenThroneGems").getAsBoolean();
+				}
+				if(questVars.get("stolenStatue") != null) {
+					player.getQuestVars().stolenStatuette = questVars.get("stolenStatue").getAsBoolean();
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

@@ -290,6 +290,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		JsonObject gridMidPosObj = new JsonObject();
 		gridMidPosObj.addProperty("x", player.getQuestVars().getGridMiddle().getX());
 		gridMidPosObj.addProperty("y", player.getQuestVars().getGridMiddle().getY());
+		questVarsObj.addProperty("placedStatue", player.getQuestVars().placedStatuette);
+		questVarsObj.addProperty("stolenThroneGems", player.getQuestVars().stolenThroneGems);
+		questVarsObj.addProperty("stolenStatue", player.getQuestVars().stolenStatuette);
 		questVarsObj.add("gridMidPos", gridMidPosObj);
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();

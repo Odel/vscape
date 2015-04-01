@@ -72,10 +72,8 @@ public enum SpecialType {
 					return true;
 				}
 			};
-			if(victim != null) {
+			if(victim != null && victim.isNpc())
 				CombatManager.attack(victim, attacker);
-			}
-				//CombatManager.attack(victim.isNpc() ? victim : attacker, victim.isNpc() ? attacker : victim);
 			return weaponAttack;
 		}
 	},
