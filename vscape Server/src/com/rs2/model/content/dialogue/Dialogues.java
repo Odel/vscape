@@ -3044,7 +3044,7 @@ public class Dialogues {
 						break;
 				}
 				break;
-			case 2324 : //farmer
+/*			case 2324 : //farmer
 			case 2323 :
 			case 2326 :
 			case 2325 :
@@ -3194,7 +3194,7 @@ public class Dialogues {
 						player.getDialogue().dontCloseInterface();
 						break;
 				}
-				break;
+				break;*/
 			/*case 2660: //reldo
 			    switch(player.getDialogue().getChatId()) {
 				case 1:

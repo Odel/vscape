@@ -207,6 +207,12 @@ public class PacketManager {
 				return;
 			}
 			// Read the incoming data.
+			if(player.getSocketChannel() == null || !player.getSocketChannel().isOpen())
+			{
+				player.disconnect();
+				return;
+			}
+			
 			if (player.getLoginStage().compareTo(LoginStages.LOGGING_OUT) < 0 && player.getSocketChannel().read(player.getInData()) == -1) {
 				//System.out.println("Player " + player + " disconnected for having invalid packet");
 				player.disconnect();

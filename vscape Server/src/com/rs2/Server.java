@@ -379,15 +379,22 @@ public class Server implements Runnable {
 		}
         b = Benchmarks.getBenchmark("disconnectingPlayers");
         b.start();
-        synchronized (disconnectedPlayers) {
-            for (Iterator<Player> players = disconnectedPlayers.iterator(); players.hasNext();) {
-                Player player = players.next();
-                if (player.logoutDisabled())
-                    continue;
-                player.logout();
-                players.remove();
-            }
-        }
+		try {
+	        synchronized (disconnectedPlayers) {
+	            for (Iterator<Player> players = disconnectedPlayers.iterator(); players.hasNext();) {
+	                Player player = players.next();
+	                if(player != null) {
+		                if (player.logoutDisabled())
+		                    continue;
+		                player.logout();
+	                }
+	                players.remove();
+	            }
+	        }
+		} catch (Exception ex) {
+			System.out.println("DISCONNECTION ITERATOR ERROR");
+			ex.printStackTrace();
+		}
         b.stop();
         Benchmarks.resetAll();
       /*  if(infoDisplayCounter == 0){

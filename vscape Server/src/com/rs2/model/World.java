@@ -68,9 +68,11 @@ public class World {
 		while (tickIt$.hasNext()) {
 			Tick t = tickIt$.next();
 			try {
-				t.cycle();
-				if (t.isRunning()) {
-					tickManager.getTickables().add(t);
+				if(t != null) { //TODO: THERE IS A NULL TICK EVENT SOMEWHERE
+					t.cycle();
+					if (t.isRunning()) {
+						tickManager.getTickables().add(t);
+					}
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
