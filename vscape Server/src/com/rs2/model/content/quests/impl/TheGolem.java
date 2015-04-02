@@ -1,6 +1,7 @@
 package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
@@ -162,86 +163,51 @@ public class TheGolem implements Quest {
 		int questStage = player.getQuestStage(this.getQuestID());
 		int lastIndex = 0;
 		switch (questStage) {
-			/**
-			 * The last index of the text sent for that quest stage
-			 * which persists through the entire quest, striked or
-			 * not (i.e, shit sent below) Remember if there is no
-			 * new persistent entry for that stage, stack the case
-			 * with the last case that started the newest persistent
-			 * entry, to keep lastIndex correct
-         *
-			 */
-			case QUEST_STARTED:
-				lastIndex = 3;
-				break;
 			case FIXED_GOLEM:
-				lastIndex = 4;
-				break;
-			case READ_LETTER:
-				lastIndex = 6;
-				break;
-			case SPOKE_WITH_ELISSA:
-				lastIndex = 7;
-				break;
-			case READ_NOTES:
-				lastIndex = 8;
-				break;
-			case SPEAK_WITH_CURATOR:
-			case PLACE_STATUETTE:
-			case OPEN_HELL_DOOR:
-				lastIndex = 9;
+				lastIndex = 5;
 				break;
 			case ENTER_HELL:
-				lastIndex = 10;
+				lastIndex = 15;
 				break;
 			case SPEAK_TO_GOLEM:
-			case USE_INSTRUMENT:
-				lastIndex = 12;
+				lastIndex = 17;
 				break;
-			case USE_CODE:
 			case QUEST_COMPLETE:
 				lastIndex = 15;
 				break;
 		}
 		lastIndex++;
 
-        //Quest log entries that persist past each stage, line which to send (1 = first, etc)
-		//And the quest stage which it first appears, after that stage it'll @str@, strikethrough
 		ActionSender a = player.getActionSender();
-		a.sendQuestLogString("Talk to the golem in the ruins of Uzer to begin.", 1, this.getQuestID(), 0);
-		a.sendQuestLogString("The golem is broken. I'm in the process of fixing it.", 3, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("I fixed the golem. The golem has asked me to help him.", 4, this.getQuestID(), FIXED_GOLEM);
-		a.sendQuestLogString("I found a letter written by Elissa, the digsite worker.", 6, this.getQuestID(), READ_LETTER);
-		a.sendQuestLogString("Elissa told me of Varmen's log book in the Exam Centre.", 7, this.getQuestID(), SPOKE_WITH_ELISSA);
-		a.sendQuestLogString("The log book says the museum has the missing statuette.", 8, this.getQuestID(), READ_NOTES);
-		a.sendQuestLogString("I've opened the portal! Let's see how tough this demon is.", 9, this.getQuestID(), OPEN_HELL_DOOR);
-		a.sendQuestLogString("I found the demon's skeleton inside his throne room.", 10, this.getQuestID(), ENTER_HELL);
-		a.sendQuestLogString("I told the golem, but he doesn't seem to understand.", 12, this.getQuestID(), SPEAK_TO_GOLEM);
-		a.sendQuestLogString("I rewrote the golem's program according to the logbook.", 15, this.getQuestID(), USE_CODE);
+		a.sendQuestLogString("Talk to the Golem in the ruins of Uzer to begin.", 1, this.getQuestID(), 0);
+		a.sendQuestLogString("The Golem is broken. I'm in the process of fixing it.", 3, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("I fixed the Golem. The Golem has asked me to help him.", 5, this.getQuestID(), FIXED_GOLEM);
+		a.sendQuestLogString("I found a letter written by Elissa, the digsite worker.", 7, this.getQuestID(), READ_LETTER);
+		a.sendQuestLogString("Elissa told me of Varmen's log book in the Exam Centre.", 9, this.getQuestID(), SPOKE_WITH_ELISSA);
+		a.sendQuestLogString("The log book says the museum has the missing statuette.", 11, this.getQuestID(), READ_NOTES);
+		a.sendQuestLogString("I've opened the portal! Let's see how tough this demon is.", 13, this.getQuestID(), OPEN_HELL_DOOR);
+		a.sendQuestLogString("I found the demon's skeleton inside his throne room.", 15, this.getQuestID(), ENTER_HELL);
+		a.sendQuestLogString("I told the Golem, but he doesn't seem to understand.", 17, this.getQuestID(), SPEAK_TO_GOLEM);
+		a.sendQuestLogString("I rewrote the Golem's program according to the logbook.", 19, this.getQuestID(), USE_CODE);
 
-		switch (questStage) { //Quest stages where you send additional information that is not stored
-			//or striked out past that stage.
+		switch (questStage) {
 			default:
 				break;
 			case 0:
-				//Not started quest journal shit, no need to use lastIndex
-				a.sendQuestLogString(
-					"Talk to @dre@the golem @bla@in the @dre@ruins of Uzer @bla@to begin.",
-					1);
+				a.sendQuestLogString("Talk to @dre@the Golem @bla@in the @dre@ruins of Uzer @bla@to begin.", 1);
 				a.sendQuestLogString("@dre@Requirements:", 3);
 				if (player.getSkill().getLevel()[Skill.THIEVING] < 25) {
-					a.sendQuestLogString("@dre@25 THIEVING", 5);
+					a.sendQuestLogString("@dre@25 Thieving", 5);
 				} else {
-					a.sendQuestLogString("@str@25 THIEVING", 5);
+					a.sendQuestLogString("@str@25 Thieving", 5);
 				}
 				if (player.getSkill().getLevel()[Skill.CRAFTING] < 25) {
-					a.sendQuestLogString("@dre@25 CRAFTING", 6);
+					a.sendQuestLogString("@dre@25 Crafting", 6);
 				} else {
-					a.sendQuestLogString("@str@25 CRAFTING", 6);
+					a.sendQuestLogString("@str@25 Crafting", 6);
 				}
 				break;
 			case FIXED_GOLEM:
-				//Last index + index of new information (1 = first, etc)
 				a.sendQuestLogString("He needs me to open the portal in the temple, but how?", lastIndex + 1);
 				break;
 			case ENTER_HELL:
@@ -252,10 +218,7 @@ public class TheGolem implements Quest {
 				a.sendQuestLogString("Maybe I should give that a shot.", lastIndex + 2);
 				break;
 			case QUEST_COMPLETE:
-				//Same here, first line after the last entry that persists for the whole quest
-				a.sendQuestLogString(
-					"@red@" + "You have completed this quest!",
-					lastIndex + 1);
+				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
 				break;
 		}
 	}
@@ -347,10 +310,10 @@ public class TheGolem implements Quest {
 		"that could be used to seal", "Thammaron's portal. I am", "suddenly glad I was not",
 		"able to open it! I surmise", "that the army of golems", "was created in order to",
 		"fight the demon, since", "Uzer's army had been", "wiped out and", "Saradomin's forces were",
-		"increasing stretched.", "However, this approach", "evidently failed, since the",
+		"increasingly stretched.", "However, this approach", "evidently failed, since the",
 		"city was eventually", "destroyed.", "", "The art of the", "construction of golems",
 		"has been lost since the", "Third Age, and, although", "they are sometimes", "discovered lying dormant",
-		"int he ground, no", "concerted effort has been", "made to regain it, thanks", "largely to the modern",
+		"in the ground, no", "concerted effort has been", "made to regain it, thanks", "largely to the modern",
 		"Saradomist Church's view", "of them as unnatural.", "This view is without", "foundation, as golems are",
 		"neither good nor evil but", "follow instructions they", "are given to the letter",
 		"and without imagination,", "indeed experiencing", "extreme discomfort for as",
@@ -400,12 +363,13 @@ public class TheGolem implements Quest {
 		a.sendInterface(LETTER_INTERFACE);
 		a.sendString("", 13692);
 		a.sendString("", 13693);
+		a.sendString("", 13694);
 		a.sendString("@yel@Dearest Varmen,", 13695);
 		a.sendString("@yel@I hope this finds you well. Here are some books", 13696);
 		a.sendString("@yel@you asked for. There has been an exciting", 13697);
 		a.sendString("@yel@development closer to home --another city from", 13698);
 		a.sendString("@yel@the same period has been discovered east of", 13699);
-		a.sendString("@yel@Varrok and we are starting a huge excavation", 13700);
+		a.sendString("@yel@Varrock and we are starting a huge excavation", 13700);
 		a.sendString("@yel@project here. I don't know if the museum will", 13701);
 		a.sendString("@yel@be able to finance your expedition as well as", 13702);
 		a.sendString("@yel@this one, so I fear your current trip will be", 13703);
@@ -415,9 +379,46 @@ public class TheGolem implements Quest {
 		a.sendString("", 13707);
 		a.sendString("", 13708);
 	}
+	
+	public static void reloadGolemAppearance(final Player player) {
+		Npc golem = null;
+		for(Npc npc : player.getNpcs()) {
+			if(npc != null && npc.getNpcId() == 1908)
+				golem = npc;
+		}
+		player.getNpcs().remove(golem);
+	}
+	
+	public static int currentGolemId(final Player player) {
+		if (player.getQuestStage(46) > 1) {
+			return 1910;
+		} else if (player.getQuestVars().clayAddedToGolem < 2) {
+			return 1908;
+		} else {
+			return 1909;
+		}
+	}
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
+			case BLACK_MUSHROOM:
+				player.setStopPacket(true);
+				player.getUpdateFlags().sendAnimation(829);
+				player.getActionSender().sendSound(317, 0, 0);
+				player.getActionSender().sendMessage("You eat the mushroom...");
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer b) {
+						player.getActionSender().sendMessage("Eugh! It tastes horrible, and stains your fingers black.");
+						player.getInventory().removeItem(new Item(BLACK_MUSHROOM));
+						b.stop();
+					}
+					@Override
+					public void stop() {
+						player.setStopPacket(false);
+					}
+				}, 2);
+				return true;
 			case LETTER:
 				if (player.getQuestStage(this.getQuestID()) >= FIXED_GOLEM) {
 					readLetter(player);
@@ -427,7 +428,7 @@ public class TheGolem implements Quest {
 				}
 				return true;
 			case VARMENS_NOTES:
-				if (player.getQUestStage(this.getQuestID()) < READ_NOTES) {
+				if (player.getQuestStage(this.getQuestID()) < READ_NOTES) {
 					player.setQuestStage(this.getQuestID(), READ_NOTES);
 				}
 				player.getBookHandler().initBook(varmensNotes, "The Ruins of Uzer");
@@ -485,7 +486,7 @@ public class TheGolem implements Quest {
 				return true;
 			case ALCOVE_4:
 				if (item == STATUETTE && player.getQuestStage(this.getQuestID()) >= SPEAK_WITH_CURATOR) {
-					if (player.getQuestStage(this.getQuestID()) < PLACE_STATUETTE)) {
+					if (player.getQuestStage(this.getQuestID()) == PLACE_STATUETTE - 1) {
 						player.setQuestStage(this.getQuestID(), PLACE_STATUETTE);
 					}
 					player.getActionSender().sendMessage("You sit the statuette back in the alcove it came from.");
@@ -513,7 +514,7 @@ public class TheGolem implements Quest {
 					player.setQuestStage(this.getQuestID(), FIXED_GOLEM);
 					player.getDialogue().sendStatement("You finish repairing the damaged golem.");
 				}
-				player.reloadRegion();
+				reloadGolemAppearance(player);
 			}
 		}
 
@@ -553,7 +554,7 @@ public class TheGolem implements Quest {
 							player.getActionSender().sendMessage("You already have the Phoenix's tail feather.");
 						}
 					} else {
-						npc.getUpdateFlags().sendForceMessage("Get your hands off my ass.");
+						npc.getUpdateFlags().sendForceMessage(Misc.random(10) == 1 ? "Get your hands off my ass." : "Squawk!");
 					}
 					container.stop();
 				}
@@ -603,7 +604,6 @@ public class TheGolem implements Quest {
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer b) {
-						player.getActionSender().sendMessage("You find a banana, how strange.");
 						player.getInventory().addItem(new Item(BLACK_MUSHROOM));
 						b.stop();
 					}
@@ -707,6 +707,7 @@ public class TheGolem implements Quest {
 			case GOLEM:
 			case GOLEM_DAMAGED:
 			case GOLEM_BROKEN:
+				d.setLastNpcTalk(currentGolemId(player));
 				switch (player.getQuestStage(this.getQuestID())) {
 					case 0:
 						switch (d.getChatId()) {
@@ -727,16 +728,17 @@ public class TheGolem implements Quest {
 								return true;
 							case 5:
 								if (player.getInventory().playerHasItem(new Item(SOFT_CLAY))) {
+									player.getActionSender().removeInterfaces();
 									player.getQuestVars().clayAddedToGolem++;
 									player.getInventory().removeItem(new Item(SOFT_CLAY));
 									if (player.getQuestVars().clayAddedToGolem == 1) {
 										QuestHandler.startQuest(player, this.getQuestID());
 									}
-									d.endDialogue();
+									reloadGolemAppearance(player);
 								} else {
 									d.sendPlayerChat("I don't have any clay though...", CONTENT);
-									d.endDialogue();
 								}
+								d.endDialogue();
 								return true;
 						}
 						return false;
@@ -744,14 +746,18 @@ public class TheGolem implements Quest {
 						switch (d.getChatId()) {
 							case 1:
 								switch (player.getQuestVars().clayAddedToGolem) {
+									case 0:
 									case 1:
 										d.sendNpcChat("Repairs... Needed...", CONTENT);
+										d.endDialogue();
 										return true;
 									case 2:
 										d.sendNpcChat("Damage... Severe...", CONTENT);
+										d.endDialogue();
 										return true;
 									case 3:
 										d.sendStatement("The golem is nearly whole again.");
+										d.endDialogue();
 										return true;
 								}
 								return false;
@@ -762,13 +768,13 @@ public class TheGolem implements Quest {
 									if (player.getQuestVars().clayAddedToGolem < 4) {
 										d.sendStatement("You apply some soft clay to mend the golem.");
 										if (player.getQuestVars().clayAddedToGolem == 2) {
-											player.reloadRegion();
+											reloadGolemAppearance(player);
 										}
 										d.endDialogue();
 									} else {
 										d.sendNpcChat("Damage repaired.", CONTENT);
 										player.setQuestStage(this.getQuestID(), FIXED_GOLEM);
-										player.reloadRegion();
+										reloadGolemAppearance(player);
 									}
 								}
 								d.endDialogue();

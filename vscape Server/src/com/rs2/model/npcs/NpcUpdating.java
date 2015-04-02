@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.quests.QuestHandler;
+import com.rs2.model.content.quests.impl.TheGolem;
 import com.rs2.model.players.Player;
 import com.rs2.net.StreamBuffer;
 import com.rs2.util.Misc;
@@ -93,6 +94,8 @@ public class NpcUpdating {
 		
 		if(npc.getNpcId() == 1577 && player.getQuestStage(38) > 6) {
 			out.writeBits(14, 1576); //Vanstrom Clause -> Stranger
+		} else if (npc.getNpcId() == 1908) {
+			out.writeBits(14, TheGolem.currentGolemId(player));
 		} else {
 			out.writeBits(14, npc.getNpcId());
 		}
