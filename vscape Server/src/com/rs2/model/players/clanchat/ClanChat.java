@@ -111,7 +111,7 @@ public class ClanChat {
 				return;
 			}
 		}
-		for(ChatMember member : : currentUsers.values().toArray(new ChatMember[currentUsers.values().size()]))
+		for(ChatMember member : currentUsers.values().toArray(new ChatMember[currentUsers.values().size()]))
 		{
 			if(member != null && member.user > 0){
 				Player playerC = World.getPlayerByName(member.user);
