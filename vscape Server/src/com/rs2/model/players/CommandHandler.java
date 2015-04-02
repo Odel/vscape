@@ -888,6 +888,24 @@ public class CommandHandler {
 			}
 		    }
 		}
+		if(keyword.equals("getqueststage")) {
+		    final int quest = Integer.parseInt(args[0]);
+		    String name = fullString.substring(fullString.indexOf("-")+1);
+		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
+		    Player player = World.getPlayerByName(nameLong);
+		    if(fullString.contains("-") && player != null) {
+			try {
+			    int stage = player.getQuestStage(quest);
+			    QuestHandler.getQuests()[quest].sendQuestTabStatus(player);
+			    sender.getActionSender().sendMessage(player.getUsername() + "'s " +QuestHandler.getQuests()[quest].getQuestName() + " is at stage " + stage + ".", true);
+			}
+			catch(Exception e) {
+				sender.getActionSender().sendMessage("Could not find player.", true);
+			}
+		    } else {
+		    	sender.getActionSender().sendMessage("Invalid syntax or null player.", true);
+		    }
+		}
 		if(keyword.equals("setzamorakcasts")) {
 		    final int casts = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
@@ -988,10 +1006,30 @@ public class CommandHandler {
 		    	sender.setQuestStage(q.getQuestID(), 0);
 		    }
 		}
+		if(keyword.equals("resetquest")) {
+			int index = Integer.parseInt(args[0]);
+			Quest[] q = QuestHandler.getQuests();
+			if(index >= 0 && index < q.length) {
+				sender.setQuestStage(q[index].getQuestID(), 0);
+				q[index].sendQuestTabStatus(sender);
+				sender.getActionSender().sendMessage("Reset " + q[index].getQuestName() + ". ", true);
+			} else {
+				sender.getActionSender().sendMessage("Invalid index.");
+			}
+		}
 		if(keyword.equals("completequests")) {
 		    for(Quest q : QuestHandler.getQuests()) {
 			QuestHandler.completeQuest(sender, q.getQuestID());
 		    }
+		}
+		if(keyword.equals("completequest")) {
+			int index = Integer.parseInt(args[0]);
+			Quest[] q = QuestHandler.getQuests();
+			if(index >= 0 && index < q.length) {
+		 		QuestHandler.completeQuest(sender, q[index].getQuestID());
+			} else {
+				sender.getActionSender().sendMessage("Invalid index.");
+			}
 		}
 		if(keyword.equals("getplayerquestpoints") || keyword.equals("getplayerqp") || keyword.equals("getqp")) {
 		    String name = fullString;
