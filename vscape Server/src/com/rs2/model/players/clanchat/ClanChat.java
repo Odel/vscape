@@ -59,7 +59,7 @@ public class ClanChat {
 	
 	public void updateCCInterface()
 	{
-		for(ChatMember member : currentUsers.values())
+		for(ChatMember member : currentUsers.values().toArray(new ChatMember[currentUsers.values().size()]))
 		{
 			if(member != null && member.user > 0){
 				Player player = World.getPlayerByName(member.user);
@@ -74,7 +74,7 @@ public class ClanChat {
 					player.getActionSender().sendString("", 25122 + i);
 				}
 				int index = 0;
-				for(ChatMember member2 : currentUsers.values())
+				for(ChatMember member2 : currentUsers.values().toArray(new ChatMember[currentUsers.values().size()]))
 				{
 					if(member2 != null && member2.user > 0){
 						Player player2 = World.getPlayerByName(member2.user);
@@ -111,7 +111,7 @@ public class ClanChat {
 				return;
 			}
 		}
-		for(ChatMember member : currentUsers.values())
+		for(ChatMember member : : currentUsers.values().toArray(new ChatMember[currentUsers.values().size()]))
 		{
 			if(member != null && member.user > 0){
 				Player playerC = World.getPlayerByName(member.user);
