@@ -207,7 +207,7 @@ public class PacketManager {
 				return;
 			}
 			// Read the incoming data.
-			if(player.getSocketChannel() == null || !player.getSocketChannel().isOpen())
+			if(player.getSocketChannel() == null || !player.getSocketChannel().isConnected() || !player.getSocketChannel().isOpen() || player.getInData() == null)
 			{
 				player.disconnect();
 				return;
