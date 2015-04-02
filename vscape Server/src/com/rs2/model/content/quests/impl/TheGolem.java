@@ -447,7 +447,28 @@ public class TheGolem implements Quest {
 	}
 
 	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
-		if ((firstItem == BLACK_MUSHROOM_INK && secondItem == PHOENIX_FEATHER) || (firstItem == PHOENIX_FEATHER && secondItem == BLACK_MUSHROOM_INK)) {
+		if(firstItem == BLACK_MUSHROOM_INK) {
+			switch(secondItem) {
+				case PHOENIX_FEATHER:
+					player.getInventory().replaceItemWithItem(new Item(PHOENIX_FEATHER), new Item(PHEONIX_QUILL_PEN));
+					player.getActionSender().sendMessage("You dip the phoenix feather in the ink to create a quill pen.");
+					return true;
+				case 577: //blue robe top
+				case 1011: //blue robe bottom
+					player.getActionSender().sendMessage("You dye the wizard robe black.");
+					player.getInventory().replaceItemWithItem(new Item(BLACK_MUSHROOM_INK), new Item(VIAL));
+					player.getInventory().replaceItemWithItem(new Item(secondItem), new Item(secondItem == 1101 ? 1015 : 581));
+					return true;
+				case 1833: //desert robe top
+				case 1835: //desert robe bottom
+					player.getActionSender().sendMessage("You dye the desert robe black.");
+					player.getInventory().replaceItemWithItem(new Item(BLACK_MUSHROOM_INK), new Item(VIAL));
+					player.getInventory().replaceItemWithItem(new Item(secondItem), new Item(secondItem == 1833 ? 6750 : 6752));
+					return true;
+			}	
+			return false;
+		}
+		if (firstItem == PHOENIX_FEATHER && secondItem == BLACK_MUSHROOM_INK) {
 			player.getInventory().replaceItemWithItem(new Item(PHOENIX_FEATHER), new Item(PHEONIX_QUILL_PEN));
 			player.getActionSender().sendMessage("You dip the phoenix feather in the ink to create a quill pen.");
 			return true;
