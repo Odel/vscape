@@ -1,7 +1,6 @@
 package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Position;
-import com.rs2.model.World;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
@@ -33,9 +32,9 @@ public class TheGolem implements Quest {
 	public static final int PLACE_STATUETTE = 7;
 	public static final int OPEN_HELL_DOOR = 8;
 	public static final int ENTER_HELL = 9;
-	public static final int SPEAK_TO_GOLEM = 10;
-	public static final int USE_INSTRUMENT = 11;
-	public static final int USE_CODE = 12;
+	public static final int SPOKE_TO_GOLEM = 10;
+	public static final int USED_IMPLEMENT = 11;
+	public static final int USED_CODE = 12;
 	public static final int QUEST_COMPLETE = 13;
 
 	//Items
@@ -51,10 +50,10 @@ public class TheGolem implements Quest {
 	public static final int VARMENS_NOTES = 4616;
 	public static final int DISPLAY_CABINET_KEY = 4617;
 	public static final int STATUETTE = 4618;
-	public static final int STRANGE_IMPLIMENT = 4619;
+	public static final int STRANGE_IMPLEMENT = 4619;
 	public static final int BLACK_MUSHROOM = 4620;
 	public static final int BLACK_MUSHROOM_INK = 4622;
-	public static final int PHEONIX_QUILL_PIN = 4623;
+	public static final int PHEONIX_QUILL_PEN = 4623;
 	public static final int GOLEM_PROGRAM = 4624;
 	public static final int RUBY = 1603;
 	public static final int EMERALD = 1605;
@@ -143,16 +142,14 @@ public class TheGolem implements Quest {
 		this.getReward(player);
 		player.getActionSender().sendInterface(12140);
 		player.getActionSender().sendItemOnInterface(12145, 250, STATUETTE); //zoom, then itemId
-		player.getActionSender().sendString(
-			"You have completed " + this.getQuestName() + "!", 12144);
+		player.getActionSender().sendString("You have completed " + this.getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);
 		player.getActionSender().sendString("2250 Crafting XP", 12151);
 		player.getActionSender().sendString("2250 Thieving XP", 12152);
 		player.getActionSender().sendString("", 12153);
 		player.getActionSender().sendString("", 12154);
-		player.getActionSender().sendString(
-			"Quest points: " + player.getQuestPoints(), 12146);
+		player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
 		player.getActionSender().sendString(" ", 12147);
 		player.setQuestStage(this.getQuestID(), QUEST_COMPLETE);
 		player.getActionSender().sendString("@gre@" + this.getQuestName(),
@@ -169,11 +166,14 @@ public class TheGolem implements Quest {
 			case ENTER_HELL:
 				lastIndex = 15;
 				break;
-			case SPEAK_TO_GOLEM:
-				lastIndex = 17;
+			case SPOKE_TO_GOLEM:
+				lastIndex = 18;
+				break;
+			case USED_IMPLEMENT:
+				lastIndex = 20;
 				break;
 			case QUEST_COMPLETE:
-				lastIndex = 15;
+				lastIndex = 20;
 				break;
 		}
 		lastIndex++;
@@ -187,8 +187,10 @@ public class TheGolem implements Quest {
 		a.sendQuestLogString("The log book says the museum has the missing statuette.", 11, this.getQuestID(), READ_NOTES);
 		a.sendQuestLogString("I've opened the portal! Let's see how tough this demon is.", 13, this.getQuestID(), OPEN_HELL_DOOR);
 		a.sendQuestLogString("I found the demon's skeleton inside his throne room.", 15, this.getQuestID(), ENTER_HELL);
-		a.sendQuestLogString("I told the Golem, but he doesn't seem to understand.", 17, this.getQuestID(), SPEAK_TO_GOLEM);
-		a.sendQuestLogString("I rewrote the Golem's program according to the logbook.", 19, this.getQuestID(), USE_CODE);
+		a.sendQuestLogString("I told the Golem the demon in the portal is long dead", 17, this.getQuestID(), SPOKE_TO_GOLEM);
+		a.sendQuestLogString("but he doesn't seem to understand.", 18, this.getQuestID(), SPOKE_TO_GOLEM);
+		a.sendQuestLogString("I opened the Golem's head with a strange implement.", 20, this.getQuestID(), USED_IMPLEMENT);
+		a.sendQuestLogString("I rewrote the Golem's program according to the logbook.", 22, this.getQuestID(), USED_CODE);
 
 		switch (questStage) {
 			default:
@@ -213,9 +215,13 @@ public class TheGolem implements Quest {
 			case ENTER_HELL:
 				a.sendQuestLogString("I should tell the golem the good news.", lastIndex + 1);
 				break;
-			case SPEAK_TO_GOLEM:
-				a.sendQuestLogString("The log explain how to prgram a golem.", lastIndex + 1);
+			case SPOKE_TO_GOLEM:
+				a.sendQuestLogString("The log might explains how to program a golem.", lastIndex + 1);
 				a.sendQuestLogString("Maybe I should give that a shot.", lastIndex + 2);
+				break;
+			case USED_IMPLEMENT:
+				a.sendQuestLogString("The log might explains how to program a golem.", lastIndex + 1);
+				a.sendQuestLogString("I should place the program in the golem's head.", lastIndex + 2);
 				break;
 			case QUEST_COMPLETE:
 				a.sendQuestLogString("@red@" + "You have completed this quest!", lastIndex + 1);
@@ -324,37 +330,40 @@ public class TheGolem implements Quest {
 		"pen. These would be used", "for long-term of", "important tasks, and", "would override any verbal", "instructions."};
 
 	public static void assessConfigs(final Player player) {
+		if(player.getQuestStage(46) >= PLACE_STATUETTE && player.getQuestVars().getStatueStates()[3] != 2) {
+			player.getQuestVars().getStatueStates()[3] = 1;
+		}
 		int count = 0, trueCount = 0, toSend = 0;
 		for (int i : player.getQuestVars().getStatueStates()) {
 			if (i == 1) {
 				toSend += (1 << (10 + count));
-				if (count != 3) {
+				if (count < 3 && count != 2)
 					trueCount++;
-				}
+			} else if(count < 3 && i == 0 && count == 2) {
+				trueCount++;
 			} else if (i == 2) {
 				toSend += (1 << 14);
 				trueCount++;
 			}
 			count++;
 		}
-
 		if (player.getQuestVars().stolenThroneGems) {
 			toSend += (1 << 16);
 		}
-		if (player.getQuestVars().stolenStatuette) {
+		if (player.getQuestStage(46) >= OPEN_HELL_DOOR) {
 			toSend += (1 << 17);
+		} else {
+			if(player.getInventory().ownsItem(STATUETTE)) {
+				toSend += (1 << 17);
+			}
 		}
-
-		if (player.getQuestVars().statuesFacingCorrectly[0] && player.getQuestVars().statuesFacingCorrectly[1]
-			&& player.getQuestVars().statuesFacingCorrectly[2] && player.getQuestVars().statuesFacingCorrectly[3]) {
-
+		if (trueCount == 4) {
+			player.getActionSender().sendMessage("The door slides open as you turn the statuette.");
 			if (player.getQuestStage(46) == PLACE_STATUETTE) {
-				player.getActionSender().sendMessage("The door slides open as you turn the statuette.");
 				player.setQuestStage(46, OPEN_HELL_DOOR);
 			}
 		}
-		
-		player.getActionSender().sendConfig(437, toSend + (1 << trueCount));
+		player.getActionSender().sendConfig(437, toSend + (1 << (trueCount - 1)));
 	}
 
 	public static void readLetter(final Player player) {
@@ -417,7 +426,7 @@ public class TheGolem implements Quest {
 					public void stop() {
 						player.setStopPacket(false);
 					}
-				}, 2);
+				}, 3);
 				return true;
 			case LETTER:
 				if (player.getQuestStage(this.getQuestID()) >= FIXED_GOLEM) {
@@ -437,23 +446,21 @@ public class TheGolem implements Quest {
 		return false;
 	}
 
-	public boolean itemOnItemHandling(Player player, int firstItem,
-		int secondItem, int firstSlot, int secondSlot) {
-		if (player.getQuestStage(this.getQuestID()) >= READ_NOTES) {
-			if ((firstItem == PESTLE_MORTAR && secondItem == BLACK_MUSHROOM) || (firstItem == BLACK_MUSHROOM && secondItem == PESTLE_MORTAR)) {
-				if (player.getInventory().playerHasItem(VIAL)) {
-					player.getInventory().removeItem(new Item(BLACK_MUSHROOM));
-					player.getInventory().replaceItemWithItem(new Item(VIAL), new Item(BLACK_MUSHROOM_INK));
-				}
-			}
-
-			if ((firstItem == BLACK_MUSHROOM_INK && secondItem == PHOENIX_FEATHER) || (firstItem == PHOENIX_FEATHER && secondItem == BLACK_MUSHROOM_INK)) {
-				player.getInventory().replaceItemWithItem(new Item(PHOENIX_FEATHER), new Item(PHEONIX_QUILL_PIN));
-			}
-
-			if ((firstItem == PHEONIX_QUILL_PIN && secondItem == PAPYRUS) || (firstItem == PAPYRUS && secondItem == PHEONIX_QUILL_PIN)) {
+	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
+		if ((firstItem == BLACK_MUSHROOM_INK && secondItem == PHOENIX_FEATHER) || (firstItem == PHOENIX_FEATHER && secondItem == BLACK_MUSHROOM_INK)) {
+			player.getInventory().replaceItemWithItem(new Item(PHOENIX_FEATHER), new Item(PHEONIX_QUILL_PEN));
+			player.getActionSender().sendMessage("You dip the phoenix feather in the ink to create a quill pen.");
+			return true;
+		}
+		if (((firstItem == PHEONIX_QUILL_PEN && secondItem == PAPYRUS) || (firstItem == PAPYRUS && secondItem == PHEONIX_QUILL_PEN))) {
+			if (player.getQuestStage(this.getQuestID()) >= SPOKE_TO_GOLEM) {
 				player.getInventory().replaceItemWithItem(new Item(PAPYRUS), new Item(GOLEM_PROGRAM));
+				player.getActionSender().sendMessage("You write a basic program for the golem following the instructions from the log.");
+				player.getActionSender().sendMessage("Perhaps this can make him understand the demon is long dead.");
+			} else {
+				player.getActionSender().sendMessage("You see no reason to do that at the moment.");
 			}
+			return true;
 		}
 		return false;
 	}
@@ -465,8 +472,7 @@ public class TheGolem implements Quest {
 					if (!player.getInventory().ownsItem(STATUETTE)) {
 						player.getActionSender().sendMessage("You find the mysterious Statuette in the cabinet.");
 						player.getInventory().addItemOrDrop(new Item(STATUETTE));
-						player.getQuestVars().stolenStatuette = true;
-						this.assessConfigs(player);
+						assessConfigs(player);
 					}
 				}
 				return true;
@@ -474,11 +480,20 @@ public class TheGolem implements Quest {
 				if ((item == CHISEL && player.getInventory().playerHasItem(HAMMER)) || (item == HAMMER && player.getInventory().playerHasItem(CHISEL))) {
 					if (!player.getQuestVars().stolenThroneGems) {
 						player.getQuestVars().stolenThroneGems = true;
+						player.getActionSender().sendMessage("You use your hammer and chisel to steal the gems.");
+						player.getUpdateFlags().sendAnimation(898);
+						player.getActionSender().sendSound(468, 0, 0);
+						player.getInventory().addItemOrDrop(new Item(RUBY));
+						player.getInventory().addItemOrDrop(new Item(RUBY));
+						player.getInventory().addItemOrDrop(new Item(EMERALD));
+						player.getInventory().addItemOrDrop(new Item(EMERALD));
+						player.getInventory().addItemOrDrop(new Item(SAPPHIRE));
+						player.getInventory().addItemOrDrop(new Item(SAPPHIRE));
+						player.getInventory().addItemOrDrop(new Item(DIAMOND));
+						player.getInventory().addItemOrDrop(new Item(DIAMOND));
 						assessConfigs(player);
-						player.getInventory().addItemOrDrop(new Item(RUBY, 2));
-						player.getInventory().addItemOrDrop(new Item(EMERALD, 2));
-						player.getInventory().addItemOrDrop(new Item(SAPPHIRE, 2));
-						player.getInventory().addItemOrDrop(new Item(DIAMOND, 2));
+					} else {
+						return false;
 					}
 				} else if(item == CHISEL && !player.getInventory().playerHasItem(HAMMER)) {
 					player.getDialogue().sendPlayerChat("I'll need a hammer to get these gems out.");
@@ -491,11 +506,11 @@ public class TheGolem implements Quest {
 					}
 					player.getActionSender().sendMessage("You sit the statuette back in the alcove it came from.");
 					player.getInventory().removeItem(new Item(STATUETTE));
-					player.getQuestVars().placedStatuette = true;
 					player.getQuestVars().statuesFacingCorrectly[3] = true;
-					player.getQuestVars().setStatueStates(3, 2);
+					player.getQuestVars().setStatueStates(3, 1);
+					return true;
 				}
-				return true;
+				return false;
 		}
 		return false;
 	}
@@ -515,19 +530,25 @@ public class TheGolem implements Quest {
 					player.getDialogue().sendStatement("You finish repairing the damaged golem.");
 				}
 				reloadGolemAppearance(player);
+				return true;
 			}
 		}
-
-		if (player.getQuestStage(this.getQuestID()) == SPEAK_TO_GOLEM) {
-			if (itemId == STRANGE_IMPLIMENT && npc.getNpcId() == GOLEM_BROKEN) {
+		if (player.getQuestStage(this.getQuestID()) == SPOKE_TO_GOLEM) {
+			if (itemId == STRANGE_IMPLEMENT && npc.getNpcId() == GOLEM_BROKEN) {
 				player.getActionSender().sendMessage("You insert the key and the golem's skull hinges open.");
-				player.setQuestStage(this.getQuestID(), USE_INSTRUMENT);
+				player.setQuestStage(this.getQuestID(), USED_IMPLEMENT);
+				player.getInventory().removeItem(new Item(STRANGE_IMPLEMENT));
+				return true;
 			}
 		}
-		if (player.getQuestStage(this.getQuestID()) == USE_INSTRUMENT) {
-			if (itemId == GOLEM_PROGRAM && npc.getNpcId() == GOLEM_BROKEN) {
-				player.setQuestStage(this.getQuestID(), USE_CODE);
-				Dialogues.startDialogue(player, 125501);
+		if (itemId == GOLEM_PROGRAM && npc.getNpcId() == GOLEM_BROKEN) {
+			if (player.getQuestStage(this.getQuestID()) == USED_IMPLEMENT) {
+				player.setQuestStage(this.getQuestID(), USED_CODE);
+				Dialogues.startDialogue(player, GOLEM);
+				return true;
+			} else if (player.getQuestStage(this.getQuestID()) < USED_IMPLEMENT) {
+				player.getDialogue().sendPlayerChat("Uh, I have no idea what I'm doing. This", "program needs to fit into the Golem somehow...");
+				return true;
 			}
 		}
 		return false;
@@ -569,13 +590,13 @@ public class TheGolem implements Quest {
 			final boolean successful = Misc.random(player.getSkill().getLevel()[Skill.THIEVING]) > Misc.random(25);
 			player.setStopPacket(true);
 			player.getUpdateFlags().sendAnimation(881);
-			player.getActionSender().sendMessage("You attemt to pick the Curator's pockets.");
+			player.getActionSender().sendMessage("You attempt to pick the Curator's pockets.");
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer container) {
 					if (successful) {
 						if (!player.getInventory().ownsItem(DISPLAY_CABINET_KEY)) {
-							player.getActionSender().sendMessage("You manage to pick the " + npc.getDefinition().getName().toLowerCase() + "'s pockets.");
+							player.getActionSender().sendMessage("You manage to pick the curator's pockets.");
 							player.getInventory().addItemOrDrop(new Item(DISPLAY_CABINET_KEY));
 						} else {
 							player.getActionSender().sendMessage("You already have the key.");
@@ -595,9 +616,21 @@ public class TheGolem implements Quest {
 		return false;
 	}
 
-	public boolean doObjectClicking(final Player player, int object, int x,
-		int y) {
+	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		switch (object) {
+			case DISPLAY_CASE:
+				if (player.getInventory().playerHasItem(DISPLAY_CABINET_KEY) && player.getQuestStage(this.getQuestID()) >= SPEAK_WITH_CURATOR && player.getQuestStage(this.getQuestID()) < PLACE_STATUETTE) {
+					if (!player.getInventory().ownsItem(STATUETTE)) {
+						player.getActionSender().sendMessage("You find the mysterious Statuette in the cabinet.");
+						player.getInventory().addItemOrDrop(new Item(STATUETTE));
+						assessConfigs(player);
+					} else {
+						player.getActionSender().sendMessage("You have no need to open the display case.");
+					}
+				} else {
+					player.getActionSender().sendMessage("The display case is locked.");
+				}
+				return true;
 			case GROUND_SHROOMS:
 				player.getUpdateFlags().sendAnimation(832);
 				player.setStopPacket(true);
@@ -627,13 +660,19 @@ public class TheGolem implements Quest {
 				if (player.getQuestStage(this.getQuestID()) >= OPEN_HELL_DOOR) {
 					player.getActionSender().sendMessage("You step into the portal...");
 					player.fadeTeleport(INNER_DEMON);
-					if (!player.getQuestVars().enteredHell) {
-						player.getQuestVars().enteredHell = true;
-						if (player.getQuestStage(this.getQuestID()) < ENTER_HELL) {
-							player.setQuestStage(this.getQuestID(), ENTER_HELL);
-						}
-						player.getActionSender().sendMessage("This room is dominated by a colossal horned skeleton!");
+					if (player.getQuestStage(this.getQuestID()) < ENTER_HELL) {
+						player.setQuestStage(this.getQuestID(), ENTER_HELL);
 					}
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+						@Override
+						public void stop() {
+							player.getActionSender().sendMessage("This room is dominated by a colossal horned skeleton!");
+						}
+					}, 5);
 				}
 				return true;
 			case BOOKCASE:
@@ -645,44 +684,16 @@ public class TheGolem implements Quest {
 				}
 				return true;
 			case ALCOVE_1:
-				player.getActionSender().sendMessage("You turn the statuette in the alcove.");
-				player.getQuestVars().setStatueStates(0, player.getQuestVars().getStatueStates()[0] == 1 ? 0 : 1);
-				if (player.getQuestVars().getStatueStates()[0] == 0) {
-					player.getQuestVars().statuesFacingCorrectly[0] = false;
-				} else {
-					player.getQuestVars().statuesFacingCorrectly[0] = true;
-				}
-				assessConfigs(player);
-				return true;
 			case ALCOVE_2:
-				player.getActionSender().sendMessage("You turn the statuette in the alcove.");
-				player.getQuestVars().setStatueStates(1, player.getQuestVars().getStatueStates()[1] == 1 ? 0 : 1);
-				if (player.getQuestVars().getStatueStates()[1] == 0) {
-					player.getQuestVars().statuesFacingCorrectly[1] = false;
-				} else {
-					player.getQuestVars().statuesFacingCorrectly[1] = true;
-				}
-				assessConfigs(player);
-				return true;
 			case ALCOVE_3:
-				player.getActionSender().sendMessage("You turn the statuette in the alcove.");
-				player.getQuestVars().setStatueStates(2, player.getQuestVars().getStatueStates()[2] == 1 ? 0 : 1);
-				if (player.getQuestVars().getStatueStates()[2] == 0) {
-					player.getQuestVars().statuesFacingCorrectly[2] = true;
-				} else {
-					player.getQuestVars().statuesFacingCorrectly[2] = false;
-				}
-				assessConfigs(player);
-				return true;
 			case ALCOVE_4:
+				int index = object - ALCOVE_1;
 				player.getActionSender().sendMessage("You turn the statuette in the alcove.");
-				player.getQuestVars().setStatueStates(3, player.getQuestVars().getStatueStates()[3] == 1 ? 2 : 1);
-				if (player.getQuestVars().getStatueStates()[3] == 1) {
-					player.getQuestVars().statuesFacingCorrectly[3] = false;
-				} else if (player.getQuestVars().getStatueStates()[3] == 2) {
-					player.getQuestVars().statuesFacingCorrectly[3] = true;
+				if(index == 3) {
+					player.getQuestVars().setStatueStates(3, player.getQuestVars().getStatueStates()[3] == 1 ? 2 : 1);
+				} else {
+					player.getQuestVars().setStatueStates(index, player.getQuestVars().getStatueStates()[index] == 1 ? 0 : 1);
 				}
-				assessConfigs(player);
 				return true;
 		}
 		return false;
@@ -834,6 +845,19 @@ public class TheGolem implements Quest {
 								return true;
 						}
 						return false;
+					case READ_LETTER:
+					case SPOKE_WITH_ELISSA:
+					case READ_NOTES:
+					case SPEAK_WITH_CURATOR:
+					case PLACE_STATUETTE:
+					case OPEN_HELL_DOOR:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("My task is incomplete. You must open the portal so", "I can defeat the great demon.", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+					return false;
 					case ENTER_HELL:
 						switch (d.getChatId()) {
 							case 1:
@@ -850,11 +874,46 @@ public class TheGolem implements Quest {
 								return true;
 							case 5:
 								d.sendNpcChat("Demon must be defeated! Task incomplete.", CONTENT);
-								player.setQuestStage(this.getQuestID(), SPEAK_TO_GOLEM);
+								player.setQuestStage(this.getQuestID(), SPOKE_TO_GOLEM);
 								d.endDialogue();
 								return true;
 						}
 						return false;
+					case SPOKE_TO_GOLEM:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Demon must be defeated! Task incomplete.", CONTENT);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+					case USED_CODE:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("New Instructions...", "Updating program...", CONTENT);
+								return true;
+							case 2:
+								d.sendNpcChat("Task Complete!", HAPPY);
+								return true;
+							case 3:
+								d.sendNpcChat("Thank you, now my mind is at rest.", CONTENT);
+								return true;
+							case 4:
+								d.dontCloseInterface();
+								player.getInventory().removeItem(new Item(GOLEM_PROGRAM));
+								QuestHandler.completeQuest(player, this.getQuestID());
+								return true;
+						}
+						return false;
+					case QUEST_COMPLETE:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Task Complete... Mind at rest!", HAPPY);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+						
 				}
 				return false;
 			case ELISSA:
@@ -892,7 +951,7 @@ public class TheGolem implements Quest {
 							d.sendNpcChat("Welcome to the museum of Varrock.", CONTENT);
 							return true;
 						case 2:
-							d.sendOption("Have any interesting news?", "Do you know where I could find any treasure?", "I'm looking for a statuette recovered from the city of Uzer.");
+							d.sendOption("Have any interesting news?", "Do you know where I could find any treasure?", "I'm looking for a statuette from the city of Uzer.");
 							return true;
 						case 3:
 							d.sendPlayerChat(d.tempStrings[optionId - 1], CONTENT);
@@ -945,28 +1004,10 @@ public class TheGolem implements Quest {
 							d.endDialogue();
 							return true;
 						case 14:
-							d.sendNpcChat("Well you can't have it! This museum never let's go of", "its treasures.", ANGRY_1);
+							d.sendNpcChat("Well you can't have it! This museum never lets go of", "its treasures.", ANGRY_1);
 							d.endDialogue();
 							return true;
 					}
-				}
-				return false;
-			case 125501:
-				d.setLastNpcTalk(GOLEM);
-				switch (d.getChatId()) {
-					case 1:
-						d.sendNpcChat("New Instructions...", "Updating program...", CONTENT);
-						return true;
-					case 2:
-						d.sendNpcChat("Task Complete!", HAPPY);
-						return true;
-					case 3:
-						d.sendNpcChat("Thank you, now my mind is at rest.", CONTENT);
-						return true;
-					case 4:
-						d.dontCloseInterface();
-						QuestHandler.completeQuest(player, this.getQuestID());
-						return true;
 				}
 				return false;
 		}

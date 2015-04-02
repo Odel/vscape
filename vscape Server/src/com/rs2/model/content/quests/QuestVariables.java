@@ -119,11 +119,8 @@ public class QuestVariables {
 	//The Golem
         public int clayAddedToGolem = 0;
         public boolean[] statuesFacingCorrectly = {false, false, true, true};
-        public boolean placedStatuette = false;
         public boolean stolenThroneGems = false;
-        public boolean stolenStatuette = false;
-        public boolean enteredHell = false;
-        private int statueStates[] = {0, 0, 0, 0};
+        private int statueStates[] = {0, 0, 1, 0};
 	
 
 	public QuestVariables(final Player player) {

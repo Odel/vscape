@@ -401,6 +401,17 @@ public class Dialogues {
 						return true;
 				}	
 				break;
+			case 646: //varrock curator
+				switch (player.getDialogue().getChatId()) {
+                                        case 1:
+                                            player.getDialogue().sendNpcChat("Hello, and welcome to the museum!", "Feel free to look around!", HAPPY);
+						return true;
+                                        case 2:
+                                            player.getDialogue().sendPlayerChat("Thank you!", HAPPY);
+                                            player.getDialogue().endDialogue();
+                                            return true;
+                                    }
+                                return false;
 			case 2238 : //Donie
 				switch(player.getDialogue().getChatId()) {
 					case 1:
