@@ -223,12 +223,6 @@ public class Server implements Runnable {
 
 			// load npc ls
 			Npc.loadNpcDrops();
-			
-			// mage arena timers
-			 AlchemistPlayground.loadAlchemistPlayGround();
-			 EnchantingChamber.loadEnchantingChamber();
-			 CreatureGraveyard.loadCreatureGraveyard();
-			 TelekineticTheatre.loadTelekineticTheatre();
 			 
 			 //Underground pass shite
 			 GridMazeHandler.initSquares();
@@ -240,6 +234,12 @@ public class Server implements Runnable {
 			NpcLoader.loadAutoSpawn("./data/npcs/spawn-config.cfg");
 			ApeAtollNpcs.init();
 			BurthorpeCampHandler.init();
+			
+			// mage arena timers
+			 AlchemistPlayground.loadAlchemistPlayGround();
+			 EnchantingChamber.loadEnchantingChamber();
+			 CreatureGraveyard.loadCreatureGraveyard();
+			 TelekineticTheatre.loadTelekineticTheatre();
 
             HighscoresManager.load();
             

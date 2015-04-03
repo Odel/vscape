@@ -1,8 +1,11 @@
 package com.rs2.model.content.minigames.magetrainingarena;
 
 import com.rs2.model.Position;
+import com.rs2.model.npcs.Npc;
 
 public class MageGameConstants {
+	
+	public static Npc enchantingGuardian = null;
 	//General constants
 	public static final Position LEAVING_POSITION = new Position(3363, 3318, 0);
 	public static final int ALCHEMIST_LEVEL = 21;

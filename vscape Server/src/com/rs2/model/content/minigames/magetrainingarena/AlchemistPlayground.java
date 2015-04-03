@@ -68,6 +68,7 @@ public class AlchemistPlayground {
 	loadInitialVariables();
 	launchRotateEvent();
     }
+    
     public static boolean isAlchemistPlaygroundItem(int id) {
 	return id == LEATHER_BOOTS || id == ADAMANT_KITE || id == ADAMANT_MED_HELM || id == EMERALD || id == RUNE_LONGSWORD;
     }
@@ -90,32 +91,32 @@ public class AlchemistPlayground {
     }
 
     /* the rotating object and price event */
-    private static void launchRotateEvent() {
-	World.submit(new Tick(70) { // 42 seconds
-	    @Override
-	    public void execute() {
-		updatePrices();
-		if (Misc.random(2) == 1) {
-		    int freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
-		    while (MageGameConstants.FREE_ALCH_ITEM == freeItem) {
-			freeItem = ITEMS[Misc.randomMinusOne(ITEMS.length)];
-		    }
-		    MageGameConstants.FREE_ALCH_ITEM = freeItem;
-		}
-		for(Player player : World.getPlayers()) {
-		    if(player == null) continue;
-		    if(player.inAlchemistPlayground()) {
-			player.getAlchemistPlayground().rotateObjects();
-			for(int i : ITEMS) {
-			    player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
-			    MageGameConstants.FREE_ALCH_ITEM = 0;
+   private static void launchRotateEvent() {
+		World.submit(new Tick(70) { // 42 seconds
+			@Override
+			public void execute() {
+				try {
+					updatePrices();
+					if (Misc.random(2) == 1) {
+						MageGameConstants.FREE_ALCH_ITEM = ITEMS[Misc.randomMinusOne(ITEMS.length)];
+					}
+					for (Player player : World.getPlayers()) {
+						if (player != null && player.inAlchemistPlayground()) {
+							player.getAlchemistPlayground().rotateObjects();
+							for (int i : ITEMS) {
+								player.getActionSender().sendInterfaceHidden(1, getArrowIndexForItemId(i));
+								MageGameConstants.FREE_ALCH_ITEM = 0;
+							}
+							player.getActionSender().sendInterfaceHidden(0, getArrowIndexForItemId(MageGameConstants.FREE_ALCH_ITEM));
+						}
+					}
+				} catch (Exception e) {
+					System.out.println("Error ticking alchemist playground.");
+					e.printStackTrace();
+				}
 			}
-			player.getActionSender().sendInterfaceHidden(0, getArrowIndexForItemId(MageGameConstants.FREE_ALCH_ITEM));
-		    }
-		}
-	    }
-	});
-    }
+		});
+	}
 
     private void enter() {
 	int number = random.nextInt(ENTERING_POSITION.length);

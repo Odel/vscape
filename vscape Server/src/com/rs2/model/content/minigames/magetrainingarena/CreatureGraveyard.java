@@ -127,26 +127,28 @@ public class CreatureGraveyard {
     }
 
     public static void loadCreatureGraveyard() {
-	loadBonePiles();
-	World.submit(new Tick(20) {
-	    @Override
-	    public void execute() {
-		for (Player p : World.getPlayers()) {
-		    if (p == null) {
-			continue;
-		    }
-		    if (p.getCreatureGraveyard().isInCreatureGraveyard()) {
-			for (int i = 0; i < 20; i++) {
-			    p.getActionSender().sendStillGraphic(520, MinigameAreas.randomPosition(GRAVEYARD_AREA).clone(), 0);
+		loadBonePiles();
+		World.submit(new Tick(20) {
+			@Override
+			public void execute() {
+				try {
+					for (Player p : World.getPlayers()) {
+						if (p != null && p.getCreatureGraveyard().isInCreatureGraveyard()) {
+							for (int i = 0; i < 20; i++) {
+								p.getActionSender().sendStillGraphic(520, MinigameAreas.randomPosition(GRAVEYARD_AREA).clone(), 0);
+							}
+							if ((75 >= (new Random().nextDouble() * 100)) && !Misc.goodDistance(p.getPosition(), GUARDIAN.getPosition(), 2)) {
+								p.hit(2, HitType.NORMAL);
+							}
+						}
+					}
+				} catch (Exception e) {
+					System.out.println("Error ticking creature graveyard.");
+					e.printStackTrace();
+				}
 			}
-			if ((75 >= (new Random().nextDouble() * 100)) && !Misc.goodDistance(p.getPosition(), GUARDIAN.getPosition(), 2)) {
-			    p.hit(2, HitType.NORMAL);
-			}
-		    }
-		}
-	    }
-	});
-    }
+		});
+	}
     
     public static void loadBonePiles() {
 	for(BonePile b : BonePile.values()) {

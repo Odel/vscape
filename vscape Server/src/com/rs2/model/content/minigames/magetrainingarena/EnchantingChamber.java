@@ -44,32 +44,34 @@ public class EnchantingChamber {
 
     static Random random = new Random();
     
-    public static Npc guardian() {
+    public static void setGuardian() {
 	for (Npc npc : World.getNpcs()) {
-	    if (npc == null) {
-		continue;
-	    }
-	    if (npc.getDefinition().getId() == 3100) {
-		return npc;
+	    if (npc != null && npc.getNpcId() == 3100) {
+		MageGameConstants.enchantingGuardian = npc;
 	    }
 	}
-	return null;
     }
 
     public EnchantingChamber(Player player) {
 	this.player = player;
     }
 
-    /* loading the enchanting chamber part */
-    public static void loadEnchantingChamber() {
-    	loadEnchantingEvent();
+	/* loading the enchanting chamber part */
+	public static void loadEnchantingChamber() {
+		setGuardian();
+		loadEnchantingEvent();
 		World.submit(new Tick(40) { // 24 seconds
-		    @Override
-		    public void execute() {
-		    	loadEnchantingEvent();
-		    }
+			@Override
+			public void execute() {
+				try {
+					loadEnchantingEvent();
+				} catch (Exception e) {
+					System.out.println("Error ticking enchanting chamber.");
+					e.printStackTrace();
+				}
+			}
 		});
-    }
+	}
     
     public static boolean isEnchantingChamberItem(int itemId) {
     	return itemId == RED || itemId == YELLOW || itemId == GREEN || itemId == BLUE || itemId == DRAGONSTONE;
@@ -86,8 +88,8 @@ public class EnchantingChamber {
 		    	player.getEnchantingChamber().showInterfaceComponent(MageGameConstants.bonusItemEnchantingChamber);
 		    }
 		}
-		if (guardian() != null) {
-		    guardian().getUpdateFlags().sendForceMessage("The color shape is now " + MageGameConstants.bonusItemEnchantingChamber + "!");
+		if (MageGameConstants.enchantingGuardian != null) {
+		    MageGameConstants.enchantingGuardian.getUpdateFlags().sendForceMessage("The color shape is now " + MageGameConstants.bonusItemEnchantingChamber + "!");
 		}
     }
 
