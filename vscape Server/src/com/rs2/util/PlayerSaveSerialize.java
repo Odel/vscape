@@ -292,6 +292,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		gridMidPosObj.addProperty("y", player.getQuestVars().getGridMiddle().getY());
 		questVarsObj.add("gridMidPos", gridMidPosObj);
 		questVarsObj.addProperty("stolenThroneGems", player.getQuestVars().stolenThroneGems);
+		questVarsObj.addProperty("usedIbansShadow", player.getQuestVars().hasUsedIbansShadow());
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {

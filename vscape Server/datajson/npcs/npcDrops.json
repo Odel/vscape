@@ -48710,11 +48710,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 1497,
+        "id": 592,
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 1
       }
     ]
   },
@@ -48723,11 +48723,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 1498,
+        "id": 592,
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 1
       }
     ]
   },
@@ -48736,11 +48736,11 @@
     "rareTableAccess": false,
     "drops": [
       {
-        "id": 1499,
+        "id": 592,
         "count": [
           1
         ],
-        "chance": 2
+        "chance": 1
       }
     ]
   },

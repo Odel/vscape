@@ -482,6 +482,9 @@ public class PlayerSaveParser {
 				if(questVars.get("stolenThroneGems") != null) {
 					player.getQuestVars().stolenThroneGems = questVars.get("stolenThroneGems").getAsBoolean();
 				}
+				if(questVars.get("usedIbansShadow") != null) {
+					player.getQuestVars().setUsedIbansShadow(questVars.get("usedIbansShadow").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

@@ -78,6 +78,8 @@ public class PassObjectHandling {
 						player.getActionSender().sendWalkableInterface(-1);
 						player.transformNpc = -1;
 						player.setAppearanceUpdateRequired(true);
+						player.hit(Misc.random(5) + 13, HitType.NORMAL);
+						player.getUpdateFlags().setForceChatMessage("Ouch!");
 					}
 				}
 			}, 3);

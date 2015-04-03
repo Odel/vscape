@@ -114,6 +114,7 @@ public class QuestVariables {
 	public boolean receivedCrateFood = false;
 	public boolean receivedPaladinFood = false;
 	public boolean takenWitchCat = false;
+	private boolean usedIbansShadow = false;
 	public boolean spawnedStoneCircleLadder = false;
 	public boolean givenMonkWater = false;
 	//The Golem
@@ -610,5 +611,13 @@ public class QuestVariables {
             this.statueStates[index] = toSet;
             TheGolem.assessConfigs(player);
         }
+	
+	public boolean hasUsedIbansShadow() {
+		return this.usedIbansShadow;
+	}
+	
+	public void setUsedIbansShadow(boolean set) {
+		this.usedIbansShadow = set;
+	}
 
 }
