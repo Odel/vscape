@@ -25,9 +25,9 @@ import com.rs2.util.Misc;
 
 public class PestControl {
 
-    private final static int LOBBY_TIME = 90;
+    private final static int LOBBY_TIME = 10;
     private final static int GAME_TIME = 600;
-    private final static int PLAYERS_REQUIRED = 3;
+    private final static int PLAYERS_REQUIRED = 1;
     private final static int GRUNT_TIME = 20;
     private final static int NPC_LOGIC_TIME = 15;
     
@@ -765,16 +765,8 @@ public class PestControl {
 		}
 		if(knight == null)
 			return;
-		npc.setVisible(false);
-		npc.setDead(true);
-		World.unregister(npc);
-		Npc newNpc = new Npc(npc.getNpcId());
-		newNpc.setPosition(MinigameAreas.randomPosition(INSIDE_FORT));
-		newNpc.setSpawnPosition(knight.getPosition());
-		World.register(newNpc);
-		newNpc.walkTo(knight.getPosition(), gameActive);
-		newNpc.setCurrentHp(hp);
-		attackKnight(newNpc);
+		npc.teleport(MinigameAreas.randomPosition(INSIDE_FORT));
+		attackKnight(npc);
     }
     
 	public static void healPortal(Npc grunt) {
@@ -847,6 +839,10 @@ public class PestControl {
     	GruntData gruntData = GruntData.forId(npc.getNpcId());
     	if(gruntData != null)
     	{
+		if(npc.getDefinition().getName().toLowerCase().contains("shifter")) {
+			if(npc.getCombatingEntity() != null)
+				return false;
+		}
     	    if (npc.getNpcId() == gruntData.npcId && gruntData.attackKnight && npc.inPestControlGameArea()) {
     	    	return true;
     	    }

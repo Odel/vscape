@@ -10,7 +10,6 @@ import com.rs2.model.content.combat.CombatScript;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.dungeons.Abyss;
 import com.rs2.model.content.quests.impl.HorrorFromTheDeep;
-import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs.ApeAtollNpcData;
 import com.rs2.model.content.randomevents.EventsConstants;
 import com.rs2.model.content.treasuretrails.ClueScroll;
 import com.rs2.model.content.treasuretrails.KeyToClue;
@@ -117,7 +116,7 @@ public class Npc extends Entity {
 	}
 
 	public void restoreHp() {
-		if(getCurrentHp() < getMaxHp()) {
+		if(hp < getMaxHp()) {
 			if (hpRenewalTimer < 1 && !isDead()) {
 				heal(1);
 				hpRenewalTimer = 100;
@@ -214,10 +213,10 @@ public class Npc extends Entity {
 	}
 
 	public void heal(int healAmount) {
-		if (getCurrentHp() + healAmount >= getMaxHp()) {
+		if (hp + healAmount >= getMaxHp()) {
 			setCurrentHp(getMaxHp());
 		} else {
-			setCurrentHp(getCurrentHp() + healAmount);
+			setCurrentHp(hp + healAmount);
 		}
 	}
 
@@ -225,7 +224,7 @@ public class Npc extends Entity {
 	 * Makes walkable npcs walk, then updates it's position.
 	 */
 	public void npcRandomWalk() {
-		if (this == null || !isVisible() || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null || this.isMoving())
+		if (this == null || this.isMoving() || !isVisible || isAttacking() || isDead() || getFollowingEntity() != null || getInteractingEntity() != null || getCombatingEntity() != null)
 			return;
 		if (isDontWalk() || npcId == 1454 || npcId == 1431 || npcId == 1432) {
 			return;
@@ -234,9 +233,9 @@ public class Npc extends Entity {
 		{
 			return;
 		}
-		if (getWalkType() == WalkType.STAND) {
+		if (walkType == WalkType.STAND) {
 			getUpdateFlags().sendFaceToDirection(getFacingDirection(getPosition(), getFace()));
-		} else if (!isFrozen() && !isStunned() && Misc.random(npcId == 1091 ? 5 : 9) == 0) {
+		} else if (!isFrozen() && !isStunned() && Misc.random(9) == 0) {
 			int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
 			if(npcId == 1091) {
 				x = getPosition().getX() - 8;
@@ -245,14 +244,13 @@ public class Npc extends Entity {
 				length = 16;
 			}
 			int x1 = Misc.getRandom().nextInt(width), y1 = Misc.getRandom().nextInt(length);
-			Position position = new Position(x+x1, y+y1, getPosition().getZ());
 			if(npcId == 1091) {
-				this.setSpawnPosition(position);
+				this.setSpawnPosition(this.getPosition());
 			}
 			if(npcId == 1091) {
-				ClippedPathFinder.getPathFinder().findRoute(this, position.getX(), position.getY(), true, 0, 0);
+				ClippedPathFinder.getPathFinder().findRoute(this, x+x1, y+y1, true, 0, 0);
 			} else {
-				walkTo(position, true);
+				walkTo(x+x1, y+y1, true);
 			}
 		}
 	}
@@ -264,22 +262,22 @@ public class Npc extends Entity {
 	}
 
 	public boolean playerNearby() {
-        synchronized (World.getPlayers()) {
-        	if(World.getPlayers().length <= 0)
-        	{
-        		return false;
-        	}
-        	final Player[] players = World.getPlayers();
-            for (Player p : players) {
-	            if (p == null)
-	            	continue;
-	            
-	            if(isVisible() && getPosition().isViewableFrom(p.getPosition()) && getPosition().getZ() == p.getPosition().getZ()){
-	            	return true;
-	            }
-	        }
-        }
-        return false;
+		synchronized (World.getPlayers()) {
+			if (World.getPlayers().length <= 0) {
+				return false;
+			}
+			final Player[] players = World.getPlayers();
+			for (Player p : players) {
+				if (p == null) {
+					continue;
+				}
+
+				if (isVisible() && p.getPosition().getRegionId() == getPosition().getRegionId()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void ownerCheck() {
@@ -513,10 +511,23 @@ public class Npc extends Entity {
 
     @Override
     public void teleport(Position position) {
-    	setVisible(false);
-        setPosition(position);
-		getMovementHandler().reset();
-		setVisible(true);
+	Entity following = getFollowingEntity();
+	Following.resetFollow(this);
+    	isVisible = false;
+	World.unregister(this);
+	getPosition().setAs(position);
+	getSpawnPosition().setAs(position);
+	int x = position.getX(), y = position.getY();
+	setMinWalk(new Position(x - Constants.NPC_WALK_DISTANCE, y - Constants.NPC_WALK_DISTANCE));
+	setMaxWalk(new Position(x + Constants.NPC_WALK_DISTANCE, y + Constants.NPC_WALK_DISTANCE));
+	World.register(this);
+	isVisible = true;
+	for(Player player : World.getPlayers()) {
+		if(player != null && player.getNpcs().contains(this))
+			player.getNpcs().remove(this);
+	}
+	setFollowingEntity(following);
+	getUpdateFlags().setUpdateRequired(true);
     }
 
     @Override
@@ -620,11 +631,10 @@ public class Npc extends Entity {
 	}
 
 	public void handleTransformTick() {
-		if(getNpcId() != getOriginalNpcId())
+		if(npcId != originalNpcId)
 		{
-			if (getTransformTimer() > 0 && getTransformTimer() < 999999) {
-				setTransformTimer(getTransformTimer() - 1);
-				if (getTransformTimer() < 1) {
+			if (transformTimer > 0 && transformTimer < 999999) {
+				if (--transformTimer < 1) {
 					sendTransform(getOriginalNpcId(), 0);
 				}
 			}

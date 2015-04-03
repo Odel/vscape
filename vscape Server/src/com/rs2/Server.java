@@ -14,6 +14,7 @@ import com.rs2.model.content.quests.impl.DeathPlateau.BurthorpeCampHandler;
 import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.fishing.FishingSpots;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.npcs.NpcCombatDef;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.npcs.drop.NpcDropController;
@@ -170,8 +171,8 @@ public class Server implements Runnable {
             Cache.load();
 
 
-            // load scripts
-            Misc.loadScripts(new File("./data/ruby/"));
+            //formerly ruby script
+            NpcCombatDef.init();
             
             GlobalVariables.patchNotes = Misc.loadPatchNotes();
             GlobalVariables.info = Misc.loadInfo();

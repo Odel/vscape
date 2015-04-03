@@ -58,7 +58,7 @@ public class CycleEventHandler {
 	 */
 	public CycleEventContainer addEvent(Entity owner, CycleEvent event, int cycles) {
         CycleEventContainer container = new CycleEventContainer(owner, event, cycles);
-        if (owner.getIndex() == -1)
+        if (owner == null || owner.getIndex() == -1)
             return container;
 		eventsToAdd.add(container);
 		return container;
@@ -71,23 +71,23 @@ public class CycleEventHandler {
 		//List<CycleEventContainer> remove = new ArrayList<CycleEventContainer>();
 		Benchmark b = Benchmarks.getBenchmark("cycleEvents");
 		b.start();
-        events.addAll(eventsToAdd);
-        eventsToAdd.clear();
+		events.addAll(eventsToAdd);
+		eventsToAdd.clear();
 		for (Iterator<CycleEventContainer> cycleEvents = events.iterator(); cycleEvents.hasNext();) {
-            CycleEventContainer c = cycleEvents.next();
-            if (c != null) {
-                if (c.getOwner() == null || c.getOwner().getIndex() == -1)
-                    cycleEvents.remove();
-                else {
-                    if (c.needsExecution()) {
-                        c.execute();
-                    }
-                    if (!c.isRunning()) {
-                        cycleEvents.remove();
-                    }
-                }
-            }
-        }
+			CycleEventContainer c = cycleEvents.next();
+			if (c != null) {
+				if (c.getOwner() == null || c.getOwner().getIndex() == -1) {
+					cycleEvents.remove();
+				} else {
+					if (c.needsExecution()) {
+						c.execute();
+					}
+					if (!c.isRunning()) {
+						cycleEvents.remove();
+					}
+				}
+			}
+		}
 		b.stop();
 	}
 

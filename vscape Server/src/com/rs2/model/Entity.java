@@ -130,7 +130,7 @@ public abstract class Entity {
 	}
 
 	public void expireHitRecords() {
-		if(hitRecordQueue.size() > 0){
+		if(!hitRecordQueue.isEmpty()){
 			for (Iterator<HitRecord> hitRecordIterator = hitRecordQueue.iterator(); hitRecordIterator.hasNext();) {
 				if (hitRecordIterator.next().expired())
 					hitRecordIterator.remove();

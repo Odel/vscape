@@ -32,6 +32,15 @@ public abstract class NpcCombatDef {
 			this.bonuses.put(bonus.toInteger() + AttackStyle.Bonus.values().length, 0);
 		}
 	}
+	
+	public static void init() {
+		int count = 0;
+		for(NpcAttacks attack : NpcAttacks.values()) {
+			add(attack.getNpcIds(), attack.getCombatDef());
+			count++;
+		}
+		System.out.println("Loaded " + count + " npc combat scripts.");
+	}
 
 	public NpcCombatDef bonusAtt(int stab, int slash, int crush, int magic, int ranged) {
 		int modifier = 0;
