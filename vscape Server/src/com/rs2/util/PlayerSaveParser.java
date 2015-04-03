@@ -485,6 +485,9 @@ public class PlayerSaveParser {
 				if(questVars.get("usedIbansShadow") != null) {
 					player.getQuestVars().setUsedIbansShadow(questVars.get("usedIbansShadow").getAsBoolean());
 				}
+				if(questVars.get("usedIbansAshes") != null) {
+					player.getQuestVars().setUsedIbansAshes(questVars.get("usedIbansAshes").getAsBoolean());
+				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");
 				if(MMVars != null) {

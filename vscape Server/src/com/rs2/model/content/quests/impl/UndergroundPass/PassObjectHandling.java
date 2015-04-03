@@ -29,6 +29,21 @@ import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
 	
+	public static void igniteIbansTomb(final Player player) {
+		new GameObject(3357, 2356, 9800, 0, 3, 2, -1, 6);
+		new GameObject(3357, 2356, 9801, 0, 0, 0, -1, 6);
+		new GameObject(3357, 2356, 9802, 0, 0, 0, -1, 6);
+		new GameObject(3357, 2356, 9803, 0, 0, 2, -1, 6);
+		new GameObject(3357, 2357, 9803, 0, 1, 0, -1, 6);
+		new GameObject(3357, 2358, 9803, 0, 1, 0, -1, 6);
+		new GameObject(3357, 2359, 9803, 0, 1, 2, -1, 6);
+		new GameObject(3357, 2359, 9802, 0, 2, 0, -1, 6);
+		new GameObject(3357, 2359, 9801, 0, 2, 0, -1, 6);
+		new GameObject(3357, 2359, 9800, 0, 2, 2, -1, 6);
+		new GameObject(3357, 2357, 9800, 0, 3, 0, -1, 6);
+		new GameObject(3357, 2358, 9800, 0, 3, 0, -1, 6);
+	}
+	
 	public static void handleBridgeJump(final Player player, final int object, final int x, final int y) {
 		if (player.stopPlayerPacket()) {
 			return;
@@ -842,13 +857,6 @@ public class PassObjectHandling {
 					return true;
 				}
 				return false;
-			case 3295:
-			case 3296:
-			case 3297:
-			case 3298:
-			case 3299:
-				readTablets(player, object);
-				return true;
 		}
 		return false;
 	}
