@@ -40,114 +40,70 @@ public class Following {
      * An entity following another entity.
      */
     public void followEntity() {
-        Entity leader = entity.getFollowingEntity();
-        if (leader == null || leader.isDead() || entity.isDead() || (!leader.getPosition().withinDistance(entity.getPosition(), 20))) {
-            resetFollow(entity);
-            CombatManager.resetCombat(entity);
-            return;
-        }
-        if (entity.isDontFollow()) {
-        	return;
-        }
-        entity.getUpdateFlags().faceEntity(leader.getFaceIndex());
-        if (entity.isFrozen() || entity.isStunned()) {
-            return;
-        }
-        if (entity.isPlayer() && leader.isNpc() && ((Npc) leader).isBoothBanker()) {
-        	Player player = (Player) entity;
-        	Position pos = ((Npc) leader).getCorrectStandPosition(2);
-        	ClippedPathFinder.getPathFinder().findRoute(player, pos.getX(), pos.getY(), true, 0, 0);
-        	return;
-        }
-        if (entity.isPlayer() && entity.getCombatingEntity() == null) {
-        	Player player = (Player) entity;
-        	if (leader.isPlayer() && entity.getInteractingEntity() == null) {
-            	int x = leader.getPosition().getLastX();
-            	int y = leader.getPosition().getLastY();
-            	ClippedPathFinder.getPathFinder().findRoute(player, x, y, true, 0, 0);
-        	} else {
-        		meleeFollow(player, leader);
-        	}
-        } else if (entity.isPlayer()) {
-        	Player player = (Player) entity;
-        	if (entity.getFollowDistance() < 2 && leader.getSize() < 2) {
-        		meleeFollow(player, leader);
-        		return;
-        	}
-            if (entity.inEntity(leader)) {
-            	stepAway();
-            	return;
-            }
+		Entity leader = entity.getFollowingEntity();
+		if (leader == null || leader.isDead() || entity.isDead() || (!leader.getPosition().withinDistance(entity.getPosition(), 20))) {
+			resetFollow(entity);
+			CombatManager.resetCombat(entity);
+			return;
+		}
+		if (entity.isDontFollow()) {
+			return;
+		}
+		entity.getUpdateFlags().faceEntity(leader.getFaceIndex());
+		if (entity.isFrozen() || entity.isStunned() || entity == null || entity.isMoving()) {
+			return;
+		}
+		if (entity.isPlayer() && leader != null && leader.isNpc() && ((Npc) leader).isBoothBanker()) {
+			Player player = (Player) entity;
+			Position pos = ((Npc) leader).getCorrectStandPosition(2);
+			ClippedPathFinder.getPathFinder().findRoute(player, pos.getX(), pos.getY(), true, 0, 0);
+			return;
+		}
+		if (entity.isPlayer() && entity.getCombatingEntity() == null) {
+			Player player = (Player) entity;
+			if (leader.isPlayer() && entity.getInteractingEntity() == null) {
+				ClippedPathFinder.getPathFinder().findRoute(player, leader.getPosition().getLastX(), leader.getPosition().getLastY(), true, 0, 0);
+			} else {
+				meleeFollow(player, leader);
+			}
+		} else if (entity.isPlayer()) {
+			Player player = (Player) entity;
+			if (entity.getFollowDistance() < 2 && leader.getSize() < 2) {
+				meleeFollow(player, leader);
+				return;
+			}
+			if (entity.inEntity(leader)) {
+				stepAway();
+				return;
+			}
 			if (Following.withinRange(entity, leader)) {
 				return;
 			}
-           ClippedPathFinder.getPathFinder().findRoute(player, leader.getPosition().getX(), leader.getPosition().getY(), true, 0, 0);
-        } else if (entity.isNpc()) {
-        	Npc npc = (Npc) entity;
-            if (entity.inEntity(leader)) {
-            	stepAway();
-            	return;
-            }
-	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() != null && ((Player) leader).getPets().getPet().equals(npc) 
-		&& !Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8) ) {
-		    int petId = npc.getNpcId();
-		    npc.teleport(new Position(npc.getPosition().getX(), 10000, npc.getPosition().getZ()+1));
-                    npc.setVisible(false);
-                    World.unregister(npc);
-                    
-		    Npc newnpc = new Npc(petId);
-		    newnpc.setPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
-		    newnpc.setPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
-		    World.register(newnpc);
-		    ((Player) leader).getPets().setPet(newnpc);
-		    newnpc.setFollowingEntity(leader);
-		    newnpc.setPlayerOwner(((Player) leader).getIndex());
-		    newnpc.setDontAttack(true);
-		    newnpc.setCombatDelay(100000000);
-		    return; 
-	    }
-	    if(npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() != null && ((Player) leader).getPets().getPet().equals(npc) 
-		&& !Misc.goodDistance(npc.getSpawnPosition(), npc.getPosition(), 8) ) {
-		((Player) leader).getPets().getPet().setSpawnPosition(new Position(leader.getPosition().getX(), leader.getPosition().getY(), leader.getPosition().getZ()));
-		return;
-	    } 
-	    if(npc != null && leader.isPlayer() && ((Player)leader).getCat().catNpc() != null && ((Player)leader).getCat().catNpc().equals(npc)){
-    		Player player = ((Player)leader);
-	    	if(!Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)){
-	    		int catId = npc.getNpcId();
-	            npc.setVisible(false);
-	            World.unregister(npc);
-	            player.getCat().registerCatNpc(catId);
-	            return;
-	    	}
-	    	if(!Misc.goodDistance(npc.getSpawnPosition(), npc.getPosition(), 8)) {
-	    		player.getCat().catNpc().setSpawnPosition(new Position(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ()));
+			ClippedPathFinder.getPathFinder().findRoute(player, leader.getPosition().getX(), leader.getPosition().getY(), true, 0, 0);
+		} else if (entity.isNpc()) {
+			Npc npc = (Npc) entity;
+			if (entity.inEntity(leader)) {
+				stepAway();
 				return;
-	    	}
-	    }
-	    if (Following.withinRange(entity, leader)) {
-		return;
-	    }
-	    followMethod(npc, leader);
-        }
-        /*else {
-            Position followPos = leader.getPosition();
-            Position loc = follower.getPosition();
-            PathFinder pf = new StraightPathFinder();
-
-            Path path = pf.findPath(follower, followPos, true);
-            if (path != null) {
-                follower.getMovementHandler().reset();
-                while (!path.getPoints().isEmpty()) {
-                    Point p = path.getPoints().poll();
-                    if (p == null)
-                        break;
-                    follower.getMovementHandler().addToPath(new Position(p.getX(), p.getY(), loc.getZ()));
-                }
-                follower.getMovementHandler().finish();
-           }
-        }*/
-    }
+			}
+			if (npc != null && leader.isPlayer() && ((Player) leader).getPets().getPet() != null && ((Player) leader).getPets().getPet().equals(npc)
+				&& !Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)) {
+				npc.teleport(leader.getPosition().clone());
+				return;
+			}
+			if (npc != null && leader.isPlayer() && ((Player) leader).getCat().catNpc() != null && ((Player) leader).getCat().catNpc().equals(npc)) {
+				if (!Misc.goodDistance(leader.getPosition(), npc.getPosition(), 8)) {
+					npc.teleport(leader.getPosition().clone());
+					return;
+				}
+			}
+			if (Following.withinRange(entity, leader)) {
+				return;
+			}
+			followMethod(npc, leader);
+		}
+	}
+    
     public static boolean getStackedNpc(Position position) {
 	for (Npc npc : World.getNpcs()) {
 	    if (npc == null) {
