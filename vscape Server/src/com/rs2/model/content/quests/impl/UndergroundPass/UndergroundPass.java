@@ -23,6 +23,7 @@ import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObjectDef;
+import com.rs2.model.objects.functions.Doors;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
@@ -30,6 +31,7 @@ import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
+import com.rs2.util.clip.ClippedPathFinder;
 
 public class UndergroundPass implements Quest {
 	public static boolean UNDERGROUND_PASS_ENABLED = false;
@@ -42,6 +44,7 @@ public class UndergroundPass implements Quest {
 	public static final int UNICORN_KILLED = 4;
 	public static final int IBANS_LAIR_OPEN = 5;
 	public static final int TALK_TO_WITCH = 6;
+	public static final int CAT_RETURNED = 7;
 	public static final int QUEST_COMPLETE = 20;
 
 	//Items
@@ -374,11 +377,33 @@ public class UndergroundPass implements Quest {
 		}
 		switch(object) {
 			case 3270:
-				if(item == WITCHS_CAT_ITEM && player.inUndergroundPass()) {
+				if(item == WITCHS_CAT_ITEM && player.inUndergroundPass() && player.getQuestStage(this.getQuestID()) == TALK_TO_WITCH) {
 					player.getUpdateFlags().sendAnimation(827);
 					player.getActionSender().sendMessage("...You place the cat by the door.");
-					player.getActionSender().sendMessage("You knock on the door and hide around the corner...");
-					player.getActionSender().sendMessage("The Witch takes the cat inside.");
+					player.getInventory().removeItem(new Item(WITCHS_CAT_ITEM));
+					player.setStopPacket(true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+							count++;
+							switch(count) {
+								case 1:
+									player.getActionSender().sendMessage("You knock on the door and hide around the corner...");
+									ClippedPathFinder.getPathFinder().findRoute(player, 2157, 4568, true, 0, 0);
+									break;
+								case 2:
+									player.getActionSender().sendMessage("The Witch takes the cat inside.");
+									player.setQuestStage(getQuestID(), CAT_RETURNED);
+									b.stop();
+									break;
+							}
+						}
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 3);
 					return true;
 				}
 			return false;
@@ -498,7 +523,15 @@ public class UndergroundPass implements Quest {
 		switch (object) {
 			case 3270:
 				if(player.inUndergroundPass()) {
-					Dialogues.startDialogue(player, 32700);
+					if(player.getQuestStage(this.getQuestID()) < CAT_RETURNED) {
+						Dialogues.startDialogue(player, 32700);
+					} else {
+						player.getActionSender().sendMessage("You open the door...");
+						boolean condition = player.getPosition().getX() >= x;
+						Doors.passThroughDialogueDoor(player, 3270, x, y, condition ? -1 : 1, new Position(condition ? 2158 : 2157, 4566, 1), false);
+						if(condition)
+							player.getActionSender().sendMessage("The Witch is busy talking to the cat.");
+					}
 					return true;
 				}
 			return false;

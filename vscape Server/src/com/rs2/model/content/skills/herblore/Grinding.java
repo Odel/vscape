@@ -18,6 +18,7 @@ public class Grinding {
 		BIRDS_NEST(5075, 6693, true),
 		BLUE_DRAGON_SCALE(243, 241, true),
 		DESERT_GOAT_HORN(9735, 9736, true),
+		UNICORN_HORN(237, 235, true),
 		BLACK_MUSHROOM(4620, 4622, false);
 		
 		private int firstItem;

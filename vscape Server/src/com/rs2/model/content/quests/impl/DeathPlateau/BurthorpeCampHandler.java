@@ -18,6 +18,7 @@ public class BurthorpeCampHandler {
 	private static Npc commandSergeant;
 	private static Npc trainingSoldier_1;
 	private static Npc trainingSoldier_2;
+	private static Npc[] trainees = new Npc[10];
 	private static final int[] POSSIBLE_ANIMS = {1067, 393, 422, 423};
 	private static final int[] POSSIBLE_ANIMS_SERG = {1067, 424, 393, 423, 422};
 	public static String[] LATIN_PHRASES = new String[23];
@@ -27,6 +28,10 @@ public class BurthorpeCampHandler {
 		commandSergeant = newNpc(1061, 2893, 3541, 0, 3);
 		trainingSoldier_1 = newNpc(1064, 2900, 3533, 0, 4);
 		trainingSoldier_2 = newNpc(1064, 2900, 3531, 0, 4);
+		for(int i = 2891; i < 2896; i++) {
+			trainees[i - 2891] = newNpc(1063, i, 3539, 0, 2);
+			trainees[(i - 2891) + 5] = newNpc(1063, i, 3537, 0, 2);
+		}
 		beginCycles();
 		try {
 			loadPhrases();
@@ -80,7 +85,7 @@ public class BurthorpeCampHandler {
 		CycleEventHandler.getInstance().addEvent(trainingSoldier_1, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
-				BurthorpeCampHandler.getTrainingSoldier(1).getUpdateFlags().sendAnimation(POSSIBLE_ANIMS[Misc.randomMinusOne(POSSIBLE_ANIMS.length)], Misc.random(5));
+				trainingSoldier_1.getUpdateFlags().sendAnimation(POSSIBLE_ANIMS[Misc.randomMinusOne(POSSIBLE_ANIMS.length)], Misc.random(5));
 			}
 			@Override
 			public void stop() {}
@@ -88,7 +93,7 @@ public class BurthorpeCampHandler {
 		CycleEventHandler.getInstance().addEvent(trainingSoldier_2, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
-				BurthorpeCampHandler.getTrainingSoldier(2).getUpdateFlags().sendAnimation(POSSIBLE_ANIMS[Misc.randomMinusOne(POSSIBLE_ANIMS.length)], Misc.random(5));
+				trainingSoldier_2.getUpdateFlags().sendAnimation(POSSIBLE_ANIMS[Misc.randomMinusOne(POSSIBLE_ANIMS.length)], Misc.random(5));
 			}
 			@Override
 			public void stop() {}
@@ -97,20 +102,11 @@ public class BurthorpeCampHandler {
 			@Override
 			public void execute(CycleEventContainer b) {
 				final int anim = POSSIBLE_ANIMS_SERG[Misc.randomMinusOne(POSSIBLE_ANIMS_SERG.length)];
-				BurthorpeCampHandler.getCommandSergeant().getUpdateFlags().sendAnimation(anim, Misc.random(5));
-				if (BurthorpeCampHandler.getCommandSergeant().playerNearby()) {
-					for (final Npc trainee : World.getNpcs()) {
-						if(trainee != null && trainee.getNpcId() == 1063) {
-							CycleEventHandler.getInstance().addEvent(trainee, new CycleEvent() {
-								@Override
-								public void execute(CycleEventContainer b) {
-									b.stop();
-								}
-								@Override
-								public void stop() {
-									trainee.getUpdateFlags().sendAnimation(anim);
-								}
-							}, 3);
+				commandSergeant.getUpdateFlags().sendAnimation(anim, Misc.random(5));
+				if (commandSergeant.playerNearby()) {
+					for (final Npc trainee : trainees) {
+						if(trainee != null) {
+							trainee.getUpdateFlags().sendAnimation(anim, 100);
 						}
 					}
 				}
