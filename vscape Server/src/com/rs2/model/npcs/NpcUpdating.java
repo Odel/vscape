@@ -81,11 +81,6 @@ public class NpcUpdating {
 	}
 
 	public static void addNewNpc(StreamBuffer.OutBuffer out, Player player, Npc npc) {
-		if(npc.getNpcId() == 3209 && !QuestHandler.questCompleted(player, 39)) {
-			return;
-		} else if(npc.getNpcId() == 993 && player.getQuestVars().takenWitchCat) {
-			return;
-		}
 		out.writeBits(14, npc.getIndex());
 		Position delta = Misc.delta(player.getPosition(), npc.getPosition());
 		out.writeBits(5, delta.getY());
@@ -96,6 +91,10 @@ public class NpcUpdating {
 			out.writeBits(14, 1576); //Vanstrom Clause -> Stranger
 		} else if (npc.getNpcId() == 1908) {
 			out.writeBits(14, TheGolem.currentGolemId(player));
+		} else if(npc.getNpcId() == 3209 && !QuestHandler.questCompleted(player, 39)) {
+			out.writeBits(14, 2370);
+		} else if(npc.getNpcId() == 993 && player.getQuestVars().takenWitchCat) {
+			out.writeBits(14, 2370);
 		} else {
 			out.writeBits(14, npc.getNpcId());
 		}

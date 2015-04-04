@@ -13,7 +13,6 @@ import com.rs2.GlobalVariables;
 
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
-import com.rs2.model.content.quests.impl.UndergroundPass.GridMazeHandler;
 import com.rs2.model.content.skills.magic.Spell;
 import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.players.Player;
@@ -292,8 +291,13 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		gridMidPosObj.addProperty("y", player.getQuestVars().getGridMiddle().getY());
 		questVarsObj.add("gridMidPos", gridMidPosObj);
 		questVarsObj.addProperty("stolenThroneGems", player.getQuestVars().stolenThroneGems);
-		questVarsObj.addProperty("usedIbansShadow", player.getQuestVars().hasUsedIbansShadow());
-		questVarsObj.addProperty("usedIbansAshes", player.getQuestVars().hasUsedIbansAshes());
+		JsonObject ibanDollElements = new JsonObject();
+		ibanDollElements.addProperty("shadow", player.getQuestVars().getIbanDollElements()[0]);
+		ibanDollElements.addProperty("body", player.getQuestVars().getIbanDollElements()[1]);
+		ibanDollElements.addProperty("blood", player.getQuestVars().getIbanDollElements()[2]);
+		ibanDollElements.addProperty("spirit", player.getQuestVars().getIbanDollElements()[3]);
+		questVarsObj.add("ibanDollElements", ibanDollElements);
+		
 		questObj.add("questVars", questVarsObj);
 		JsonObject monkeyMadnessVarsObj = new JsonObject();
 		if(player.getQuestStage(36) > 0) {

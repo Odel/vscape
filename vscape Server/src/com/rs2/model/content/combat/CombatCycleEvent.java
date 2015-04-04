@@ -205,8 +205,17 @@ public class CombatCycleEvent extends CycleEvent {
         }
 		// check if single combat and already in combat
 		if (!attacker.inMulti() || !victim.inMulti()) {
-			if (attacker.getPjTimer().getOther() != null && !attacker.getPjTimer().completed() && attacker.getPjTimer().getOther() != victim) {
-				return CanAttackResponse.ALREADY_IN_COMBAT;
+			if((attacker.isNpc() || victim.isNpc()) && victim.Area(2349, 2367, 9905, 9919) ) {
+				boolean attackerNpc = attacker.isNpc();
+				Npc npc = attackerNpc ? (Npc)attacker : (Npc)victim;
+				Player player = attackerNpc ? (Player)victim : (Player)attacker;
+				if(npc.getNpcId() == 977 && player.getQuestVars().killedKalrag)
+					return CanAttackResponse.SUCCESS;
+				//Underground pass, after killing Kalrag - mass blessed spider aggro.
+			} else {
+				if (attacker.getPjTimer().getOther() != null && !attacker.getPjTimer().completed() && attacker.getPjTimer().getOther() != victim) {
+					return CanAttackResponse.ALREADY_IN_COMBAT;
+				}
 			}
 			/*if (attacker.getInCombatTick().getOther() != null && !attacker.getInCombatTick().getOther().isDead() && !attacker.getInCombatTick().completed() && attacker.getInCombatTick().getOther() != victim) {
 			}*/

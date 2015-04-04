@@ -2,10 +2,7 @@ package com.rs2.model.content.quests.impl.UndergroundPass;
 
 import com.rs2.model.Position;
 import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.ground.GroundItem;
-import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.players.Player;
-import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -72,7 +69,6 @@ public class GridMazeHandler {
 		}
 		final ArrayList<Position> trap = SQUARES_LIST;
 		for(Position p : route) {
-			//GroundItemManager.getManager().dropItem(new GroundItem(new Item(1005), player, p));
 			trap.remove(p);
 		}
 		player.setStopPacket(true);
@@ -112,7 +108,6 @@ public class GridMazeHandler {
 
 	public static void handleFail(final Player player) {
 		player.getUpdateFlags().sendAnimation(771);
-		player.getActionSender().sendMessage("It's a trap!");
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {

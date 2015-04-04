@@ -1,11 +1,13 @@
 package com.rs2.model.content.quests.impl.UndergroundPass;
 
+import com.rs2.Constants;
 import com.rs2.cache.object.CacheObject;
 import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
+import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -73,9 +75,9 @@ public class UndergroundPass implements Quest {
 	public static final int IBANS_SHADOW = 1500;
 	public static final int DWARF_BREW = 1501;
 	public static final int IBANS_ASHES = 1502;
+	public static final int TINDERBOX = 590;
 
 	//Positions
-	//KALRAG new Position(2357, 9911, 0)
 	public static final Position PASS_ENTRANCE_POS = new Position(2495, 9716, 0);
 	public static final Position PASS_EXIT_POS = new Position(2435, 3314, 0);
 	public static final Position DOWN_TO_DWARVES = new Position(2336, 9794, 0);
@@ -110,15 +112,6 @@ public class UndergroundPass implements Quest {
 	public static final int DARK_MAGE = 1001;
 	public static final int DISCIPLE_OF_IBAN = 1002;
 	public static final int LORD_IBAN = 1003;
-	/*
-	979 Slave combat lvl: 0
-980 Slave combat lvl: 0
-981 Slave combat lvl: 0
-982 Slave combat lvl: 0
-983 Slave combat lvl: 0
-984 Slave combat lvl: 0
-985 Slave combat lvl: 0
-	*/
 
 	//Objects
 	public static final int PASS_ENTRANCE = 3213;
@@ -128,6 +121,7 @@ public class UndergroundPass implements Quest {
 	public static final String[] ibanWhispers = {"Blood, pain and hate.", "Death is only the beginning.", "Kill, maim... murder.", "I'll swallow your soul.", "The power of the gods could be yours.", "Hear me...", "Iban will save you... He'll save us all.", "I will release you...", "Make them all pay!", "Join us!", "I see you adventurer... you can't hide."};
 	public static final String[] oldJournalStrings = {"I came to cleanse these", "mountain passes of the", "dark forces that dwell", "here. I knew my journey", "would be treacherous, so", "I deposited Spheres of", "Light in some of the", "tunnels. These spheres", "are a beacon of safety", "for all who come. The", "spheres were created by", "Saradominist mages.", "When held they boost our", "faith and courage. I still", "feel...", "", "Iban relentlessly", "tugging...", "", "at my weak soul.......", "", "bringing out any innate", "goodness to one's heart,", "illuminating the dark", "caverns with the light of", "Saradomin, bringing fear", "and pain to all who", "embrace the dark side.", "My men are still repelled", "by 'Iban's will' - it seems", "as if their pure hearts bar", "them from entering", "Iban's realm. My turn", "has come. I dare not", "admit it to my loyal men,", "but I fear for the welfare", "of my soul." };
 	public static final String[] diaryOfRandasStrings = {"It began as a whisper in", "my ears. Dismissing the", "sounds as the whistling of", "the wind I steeled myself", "against these forces, and", "continued on my way.", "", "But then the whispers became", "moans...", "", "", "At once fearsome and", "enticing like the call of", "some beautiful siren.", "", "", "Join us!", "", "Our greatness lies within", "you, but only Zamorak", "can unlock your", "potential..."};
+	
 	//History of Iban strings
 	public static final String[] introductionStrings = {"Introduction:", "", "Gather round, all ye", "followers of the dark arts.", "Read carefully the words", "that I hearby inscribe, as", "I detail the heady brew", "that is responsible for my", "greatest creation in all", "my time on this world. I", "am Kardia, the most", "wretched witch in the", "land; scorned by beauty,", "the world and its", "inhabitants, see what I", "created: The most", "fearsome and powerful", "force of darkness the like", "of which has never before", "been seen in this world,", "in human form..."};
 	public static final String[] ibanStrings = {"The History of Iban:", "", "Iban was a Black Knight", "who had learned to fight", "under the great", "Daquarius, Lord of the", "Black Knights. Together", "they had taken on the", "might of the White and", "the blood of a hunded", "soldiers had been wiped", "from the sword of Iban.", "Iban was not quite so", "different from those who", "tasted his blade: noble and", "educated, with a taste for", "the finer things available", "in life. But there was", "something that made him", "different: Ambition. This", "hunger for more went", "far past the realm of",
@@ -352,6 +346,53 @@ public class UndergroundPass implements Quest {
 
 	public boolean itemHandling(final Player player, int itemId) {
 		switch (itemId) {
+			case DOLL_OF_IBAN:
+				player.getActionSender().sendMessage("You carefully search the doll...");
+				boolean itemAdded = false;
+				for(boolean b : player.getQuestVars().getIbanDollElements()) {
+					if(b)
+						itemAdded = true;
+				}
+				if(!itemAdded) {
+					player.getActionSender().sendMessage("...the doll is just as you found it.");
+					return true;
+				}
+				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+					int count = 0;
+					@Override
+					public void execute(CycleEventContainer b) {
+						switch(count++) {
+							case 0:
+								if(player.getQuestVars().getIbanDollElements()[0]) {
+									player.getActionSender().sendMessage("A dark liquid has been poured over the doll.");
+									break;
+								}
+							case 1:
+								if(player.getQuestVars().getIbanDollElements()[1]) {
+									player.getActionSender().sendMessage("Burnt ash has been smeared onto the doll.");
+									break;
+								}
+							case 2:
+								if(player.getQuestVars().getIbanDollElements()[2]) {
+									player.getActionSender().sendMessage("Blood has been smeared onto the doll.");
+									break;
+								}
+							case 3:
+								if(player.getQuestVars().getIbanDollElements()[3]) {
+									player.getActionSender().sendMessage("Crushed bones have been spread onto the doll.");
+								}
+								break;	
+						}
+						if (count > 3) {
+							b.stop();
+						}
+					}
+
+					@Override
+					public void stop() {
+					}
+				}, 2);
+				return true;
 			case HISTORY_OF_IBAN:
 				Dialogues.startDialogue(player, HISTORY_OF_IBAN + 100000);
 				return true;
@@ -367,8 +408,10 @@ public class UndergroundPass implements Quest {
 		if(secondItem == DOLL_OF_IBAN) {
 			switch(firstItem) {
 				case IBANS_SHADOW:
-					player.getActionSender().sendMessage("You pour the strange liquid over the doll...");
 					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You pour the strange liquid over the doll...");
+					player.getInventory().removeItem(new Item(IBANS_SHADOW));
+					player.getQuestVars().setIbanDollElements(true, 0);
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer b) {
@@ -378,16 +421,32 @@ public class UndergroundPass implements Quest {
 						@Override
 						public void stop() {
 							player.getActionSender().sendMessage("...it seeps into the doll.");
-							player.getQuestVars().setUsedIbansShadow(true);
-							player.getInventory().removeItem(new Item(IBANS_SHADOW));
 							player.setStopPacket(false);
 						}
-					}, 2);
+					}, 3);
 					return true;
 				case IBANS_ASHES:
 					player.getActionSender().sendMessage("You rub the ashes into the doll.");
-					player.getQuestVars().setUsedIbansShadow(true);
+					player.getQuestVars().setIbanDollElements(true, 1);
 					player.getInventory().removeItem(new Item(IBANS_ASHES));
+					return true;
+				case IBANS_DOVE:
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You crumble the dove's skeleton into dust...");
+					player.getInventory().removeItem(new Item(IBANS_DOVE));
+					player.getQuestVars().setIbanDollElements(true, 3);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.getActionSender().sendMessage("...and rub it into the doll.");
+							player.setStopPacket(false);
+						}
+					}, 3);
 					return true;
 					
 			}
@@ -425,7 +484,7 @@ public class UndergroundPass implements Quest {
 		switch(object) {
 			case 3353:
 			case 3354: //Iban's tomb
-				if(item == 590 && player.getQuestVars().dousedIbansTomb) {
+				if(item == TINDERBOX && player.getQuestVars().dousedIbansTomb) {
 					player.setStopPacket(true);
 					player.getActionSender().sendMessage("You try to set light to the tomb...");
 					player.getUpdateFlags().sendAnimation(733);
@@ -619,11 +678,42 @@ public class UndergroundPass implements Quest {
 		return false;
         }
 	
-	public boolean doObjectClicking(final Player player, int object, final int x, final int y) {
+	public boolean doObjectClicking(final Player player, final int object, final int x, final int y) {
 		if(player.stopPlayerPacket()) {
 			return false;
 		}
 		switch (object) {
+			case 3351:
+			case 3352:
+				if(player.inUndergroundPass()) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You search through the bottom of the cage...");
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if(object == 3351 && player.getQuestStage(44) == IBANS_DEMISE && !player.getInventory().playerHasItem(IBANS_DOVE) && !player.getQuestVars().getIbanDollElements()[3]) {
+								player.getActionSender().sendMessage("...and find Iban's dove.");
+								player.getInventory().addItem(new Item(IBANS_DOVE));
+							} else {
+								player.getActionSender().sendMessage("...but you find nothing.");
+							}
+							if(player.getEquipment().getId(Constants.HANDS) == KLANKS_GAUNTLETS) {
+								player.getActionSender().sendMessage("The Soulless bites into your arm... but Klank's gauntlets protect you.");
+							} else {
+								player.getActionSender().sendMessage("The Soulless bites into your arm!");
+								player.hit(Misc.random(5) + 5, HitType.NORMAL);
+							}
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 4);
+					return true;
+				}
+			return false;
 			case 3295:
 			case 3296:
 			case 3297:
@@ -860,6 +950,39 @@ public class UndergroundPass implements Quest {
 
 	public void handleDeath(final Player player, final Npc died) {
 		switch(died.getNpcId()) {
+			case KALRAG:
+				if(player.getQuestStage(44) == IBANS_DEMISE ) { //&& !player.getQuestVars().getIbanDollElements()[2]
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("Kalrag slumps to the floor...");
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = 0;
+						@Override
+						public void execute(CycleEventContainer b) {
+							switch(++count) {
+								case 1:
+									player.getActionSender().sendMessage("...poison flows from the corpse over the soil.");
+									break;
+								case 3:
+									player.getActionSender().sendMessage("You smear the doll of Iban in the poisoned blood. It smells horrific.");
+									player.getQuestVars().setIbanDollElements(true, 2);
+									player.getQuestVars().killedKalrag = true;
+									for(Npc npc : player.getNpcs()) {
+										if(npc != null && npc.getNpcId() == 977) {
+											CombatCycleEvent.startCombat(npc, player);
+										}
+									}
+									b.stop();
+									break;
+							}
+						}
+
+						@Override
+						public void stop() {
+							player.setStopPacket(false);
+						}
+					}, 3);	
+				}
+				break;
 			case OTHAINIAN:
 			case DOOMION:
 			case HOLTHION:
@@ -879,6 +1002,7 @@ public class UndergroundPass implements Quest {
 	}
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
+		final int questStage = player.getQuestStage(this.getQuestID());
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
 			case 32720:
@@ -898,7 +1022,7 @@ public class UndergroundPass implements Quest {
 						if(!player.getInventory().ownsItem(DOLL_OF_IBAN)) {
 							player.getInventory().addItemOrDrop(new Item(DOLL_OF_IBAN));
 						}
-						if(player.getQuestStage(44) == CAT_RETURNED) {
+						if(questStage == CAT_RETURNED) {
 							player.setQuestStage(44, IBANS_DEMISE);
 							player.getInventory().addItemOrDrop(new Item(145)); //super attack
 							player.getInventory().addItemOrDrop(new Item(127)); //restore pot
@@ -964,7 +1088,7 @@ public class UndergroundPass implements Quest {
 			case WITCHS_CAT + 100000:
 				switch (d.getChatId()) {
 					case 1:
-						if(player.getQuestStage(this.getQuestID()) == TALK_TO_WITCH && !player.getInventory().playerHasItem(WITCHS_CAT_ITEM)) {
+						if(questStage == TALK_TO_WITCH && !player.getInventory().playerHasItem(WITCHS_CAT_ITEM)) {
 							Item witchCat = new Item(WITCHS_CAT_ITEM);
 							if(player.getInventory().canAddItem(witchCat)) {
 								player.getUpdateFlags().sendAnimation(827);
@@ -1071,56 +1195,179 @@ public class UndergroundPass implements Quest {
 				}
 				return false;
 			case KLANK:
-				switch (d.getChatId()) {
-					case 1:
-						d.sendPlayerChat("Hello my good man.");
-						return true;
-					case 2:
-						d.sendNpcChat("Good day to you outsider. I'm Klank, I'm the only", "blacksmith still alive down here. In fact we're the only", "ones that haven't yet turned.");
-						return true;
-					case 3:
-						d.sendNpcChat("If you're not careful you'll become one of them too!", DISTRESSED);
-						return true;
-					case 4:
-						d.sendPlayerChat("Who?... Iban's followers?");
-						return true;
-					case 5:
-						d.sendNpcChat("They're not followers, they're slaves, they're the", "Soulless...");
-						return true;
-					case 6:
-						d.sendPlayerChat("What happened to them?");
-						return true;
-					case 7:
-						d.sendNpcChat("They were normal once, adventurers, treasure hunters.", "But men are weak, they couldn't ignore the voices.");
-						return true;
-					case 8:
-						d.sendNpcChat("Now they all seem to think with one conscience... As if", "they're being controlled by one being...", SAD);
-						return true;
-					case 9:
-						d.sendPlayerChat("Iban?");
-						return true;
-					case 10:
-						d.sendNpcChat("Maybe... maybe Zamorak himself. Those who try and", "fight it Iban locks in cages, until their minds are too", "weak to resist.");
-						return true;
-					case 11:
-						d.sendNpcChat("Eventually they all fall to his control...", SAD);
-						if (player.getInventory().playerHasItem(590)) {
+				if(questStage == QUEST_COMPLETE) {
+					switch (d.getChatId()) {
+						case 1:
+							d.sendPlayerChat("Hi Klank.");
+							return true;
+						case 2:
+							d.sendNpcChat("Traveller! Excellent work this that Iban fellow!", HAPPY);
+							return true;
+						case 3:
+							d.sendPlayerChat("Thank you!");
+							return true;
+						case 4:
+							d.sendNpcChat("So, is there anything I can do for you?");
+							return true;
+						case 5:
+							if(!player.getInventory().ownsItem(KLANKS_GAUNTLETS)) {
+								d.sendOption("I've lost the gauntlets you gave me.", "No, thanks.");
+							} else {
+								d.sendPlayerChat("Nope. Thanks though.");
+								d.endDialogue();
+							}
+							return true;
+						case 6:
+							d.sendPlayerChat(d.tempStrings[optionId - 1]);
+							if(optionId == 2)
+								d.endDialogue();
+							return true;
+						case 7:
+							d.sendNpcChat("Ah, a shame! I can give you another pair for", "only 5000 coins, quite the bargain!", "What do you say?");
+							return true;
+						case 8:
+							d.sendOption("Sure. (5000 gold)", "That's too much for me.");
+							return true;
+						case 9:
+							switch(optionId) {
+								case 1:
+									if(player.getInventory().playerHasItem(995, 5000)) {
+										d.sendGiveItemNpc("You hand Klank 5000 gold in exchange for", "another pair of gauntlets.", new Item(995, 5000), new Item(KLANKS_GAUNTLETS));
+										d.endDialogue();
+										player.getInventory().removeItem(new Item(995, 5000));
+										player.getInventory().addItemOrDrop(new Item(KLANKS_GAUNTLETS));
+									} else {
+										d.sendPlayerChat("Er, seems I don't have the coin...", SAD);
+									}
+									d.endDialogue();
+									return true;
+								case 2:
+									d.sendPlayerChat(d.tempStrings[optionId - 1]);
+									d.endDialogue();
+									return true;
+							}
+					}
+					
+				}
+				if (questStage >= IBANS_DEMISE && questStage < QUEST_COMPLETE) {
+					switch (d.getChatId()) {
+						case 1:
+							d.sendPlayerChat("Hi Klank.");
+							return true;
+						case 2:
+							d.sendNpcChat("Traveller, I hear you plan to destroy Iban?", HAPPY);
+							return true;
+						case 3:
+							d.sendPlayerChat("That's right.");
+							return true;
+						case 4:
+							if (!player.getInventory().ownsItem(KLANKS_GAUNTLETS)) {
+								d.sendNpcChat("I have a gift for you, they may help. I crafted these", "long ago to protect myself from the teeth of the", "Soulless, their bite is vicious.");
+							} else {
+								if (player.getInventory().playerHasItem(TINDERBOX)) {
+									d.sendNpcChat("Well, good luck traveller, give Iban a slap for me!");
+									d.endDialogue();
+								} else {
+									d.sendNpcChat("Here, take this, I don't need it.");
+									d.setNextChatId(8);
+								}
+							}
+							return true;
+						case 5:
+							d.sendNpcChat("I haven't seen another pair which can withstand their", "jaws...");
+							return true;
+						case 6:
+							d.sendPlayerChat("Thanks Klank.");
+							player.getInventory().addItem(new Item(KLANKS_GAUNTLETS));
+							return true;
+						case 7:
+							if(player.getInventory().playerHasItem(TINDERBOX)) {
+								d.sendNpcChat("Good luck traveller, give Iban a slap for me!");
+								d.endDialogue();
+							} else {
+								d.sendNpcChat("Here, take this as well, I don't need it.");
+							}
+							return true;
+						case 8:
 							d.endDialogue();
-						}
-						return true;
-					case 12:
-						d.sendNpcChat("Here, take this, I don't need it.");
-						return true;
-					case 13:
-						d.endDialogue();
-						player.getActionSender().removeInterfaces();
-						player.getActionSender().sendMessage("Klank gives you a tinderbox.");
-						player.getInventory().addItemOrDrop(new Item(590));
-						return true;
+							player.getActionSender().removeInterfaces();
+							player.getActionSender().sendMessage("Klank gives you a tinderbox.");
+							player.getInventory().addItemOrDrop(new Item(TINDERBOX));
+							return true;
+					}
+				} else {
+					switch (d.getChatId()) {
+						case 1:
+							d.sendPlayerChat("Hello my good man.");
+							return true;
+						case 2:
+							d.sendNpcChat("Good day to you outsider. I'm Klank, I'm the only", "blacksmith still alive down here. In fact we're the only", "ones that haven't yet turned.");
+							return true;
+						case 3:
+							d.sendNpcChat("If you're not careful you'll become one of them too!", DISTRESSED);
+							return true;
+						case 4:
+							d.sendPlayerChat("Who?... Iban's followers?");
+							return true;
+						case 5:
+							d.sendNpcChat("They're not followers, they're slaves, they're the", "Soulless...");
+							return true;
+						case 6:
+							d.sendPlayerChat("What happened to them?");
+							return true;
+						case 7:
+							d.sendNpcChat("They were normal once, adventurers, treasure hunters.", "But men are weak, they couldn't ignore the voices.");
+							return true;
+						case 8:
+							d.sendNpcChat("Now they all seem to think with one conscience... As if", "they're being controlled by one being...", SAD);
+							return true;
+						case 9:
+							d.sendPlayerChat("Iban?");
+							return true;
+						case 10:
+							d.sendNpcChat("Maybe... maybe Zamorak himself. Those who try and", "fight it Iban locks in cages, until their minds are too", "weak to resist.");
+							return true;
+						case 11:
+							d.sendNpcChat("Eventually they all fall to his control...", SAD);
+							if (player.getInventory().playerHasItem(TINDERBOX)) {
+								d.endDialogue();
+							}
+							return true;
+						case 12:
+							d.sendNpcChat("Here, take this, I don't need it.");
+							return true;
+						case 13:
+							d.endDialogue();
+							player.getActionSender().removeInterfaces();
+							player.getActionSender().sendMessage("Klank gives you a tinderbox.");
+							player.getInventory().addItemOrDrop(new Item(TINDERBOX));
+							return true;
+					}
 				}
 				return false;
 			case NILOOF:
-				switch(player.getQuestStage(this.getQuestID())) {
+				switch(questStage) {
+					case IBANS_DEMISE:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Niloof, I found the Witch's house.");
+								return true;
+							case 2:
+								d.sendNpcChat("And...?");
+								return true;
+							case 3:
+								d.sendPlayerChat("I found a strange doll.");
+								return true;
+							case 4:
+								d.sendNpcChat("The witch's rag doll. This here be black magic traveller.", "Iban was magically conjured in that very item. His four", "elements of being are guarded somewhere in this cave...");
+								return true;
+							case 5:
+								d.sendNpcChat("His shadow, his flesh, his conscience and his blood. If", "you can retrieve these, with the flask, you will be able", "to destroy Iban and resurrect the 'Well of Voyage'.");
+								d.endDialogue();
+								return true;	
+						}
+					return false;
+					case CAT_RETURNED:
 					case TALK_TO_WITCH:
 						switch(d.getChatId()) {
 							case 1:
@@ -1391,7 +1638,7 @@ public class UndergroundPass implements Quest {
 				}
 				return false;
 			case KOFTIK:
-				switch (player.getQuestStage(this.getQuestID())) {
+				switch (questStage) {
 					case QUEST_STARTED:
 						switch (d.getChatId()) {
 							case 1:
@@ -1449,7 +1696,7 @@ public class UndergroundPass implements Quest {
 				}
 			return false;
 			case KING_LATHAS:
-				switch (player.getQuestStage(this.getQuestID())) {
+				switch (questStage) {
 					case QUEST_STARTED:
 						switch (d.getChatId()) {
 							case 1:

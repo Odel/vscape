@@ -482,11 +482,12 @@ public class PlayerSaveParser {
 				if(questVars.get("stolenThroneGems") != null) {
 					player.getQuestVars().stolenThroneGems = questVars.get("stolenThroneGems").getAsBoolean();
 				}
-				if(questVars.get("usedIbansShadow") != null) {
-					player.getQuestVars().setUsedIbansShadow(questVars.get("usedIbansShadow").getAsBoolean());
-				}
-				if(questVars.get("usedIbansAshes") != null) {
-					player.getQuestVars().setUsedIbansAshes(questVars.get("usedIbansAshes").getAsBoolean());
+				JsonObject ibanDollElements = questVars.getAsJsonObject("ibanDollElements");
+				if(ibanDollElements != null) {
+					player.getQuestVars().setIbanDollElements(ibanDollElements.get("shadow") != null ? ibanDollElements.get("shadow").getAsBoolean() : false, 0);
+					player.getQuestVars().setIbanDollElements(ibanDollElements.get("body") != null ? ibanDollElements.get("body").getAsBoolean() : false, 1);
+					player.getQuestVars().setIbanDollElements(ibanDollElements.get("blood") != null ? ibanDollElements.get("blood").getAsBoolean() : false, 2);
+					player.getQuestVars().setIbanDollElements(ibanDollElements.get("spirit") != null ? ibanDollElements.get("spirit").getAsBoolean() : false, 3);
 				}
 		            }
 			    JsonObject MMVars = quests.getAsJsonObject("monkeyMadnessVars");

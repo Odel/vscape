@@ -114,9 +114,9 @@ public class QuestVariables {
 	public boolean receivedCrateFood = false;
 	public boolean receivedPaladinFood = false;
 	public boolean takenWitchCat = false;
-	private boolean usedIbansShadow = false;
 	public boolean dousedIbansTomb = false;
-	private boolean usedIbansAshes = false;
+	public boolean killedKalrag = false;
+	private boolean[] ibanDollElements = {false, false, false, false};
 	public boolean spawnedStoneCircleLadder = false;
 	public boolean givenMonkWater = false;
 	//The Golem
@@ -614,20 +614,12 @@ public class QuestVariables {
             TheGolem.assessConfigs(player);
         }
 	
-	public boolean hasUsedIbansShadow() {
-		return this.usedIbansShadow;
+	public boolean[] getIbanDollElements() {
+		return this.ibanDollElements;
 	}
 	
-	public void setUsedIbansShadow(boolean set) {
-		this.usedIbansShadow = set;
-	}
-	
-	public boolean hasUsedIbansAshes() {
-		return this.usedIbansAshes;
-	}
-	
-	public void setUsedIbansAshes(boolean set) {
-		this.usedIbansAshes = set;
+	public void setIbanDollElements(boolean set, int index) {
+		this.ibanDollElements[index] = set;
 	}
 
 }

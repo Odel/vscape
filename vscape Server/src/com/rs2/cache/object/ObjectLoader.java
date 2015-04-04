@@ -150,6 +150,12 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 			ObjectHandler.getInstance().removeClip(x, 9799, 0, 22, 0);
 			ObjectHandler.getInstance().removeClip(x, 9798, 0, 22, 0); //Iban's tomb
 		}
+		for(int y = 4649; y > 4644; y--) {
+			ObjectHandler.getInstance().removeClip(2147, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2148, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2151, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2152, y, 1, 22, 0); //Iban's temple steps
+		}
 	}
 	
 	public static void addNecessaryClipping() {
