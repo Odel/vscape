@@ -64,7 +64,7 @@ public class Constants {
    	public static final int START_X = 3222;
 	public static final int START_Y = 3218;
 	public static final int START_Z = 0;
-	public static final int MAX_NPCS = 20000; // 8192 original
+	public static final int MAX_NPCS = 8192;
 	public static final int MAX_NPC_ID = 6391;
 	public static final int NPC_WALK_DISTANCE = 2;
 	public static final int NPC_FOLLOW_DISTANCE = 10;
