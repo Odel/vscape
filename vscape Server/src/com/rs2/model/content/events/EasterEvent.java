@@ -176,6 +176,10 @@ public class EasterEvent {
 					player.getActionSender().sendMessage("You give an easter egg to " + otherPlayer.getUsername() + "!", true);
 					otherPlayer.getInventory().addItem(new Item(EGG_ITEM,1));
 					otherPlayer.getActionSender().sendMessage(player.getUsername() + " has given you an easter egg!", true);
+					if(player.getEggsGiven() == TO_GIVE)
+					{
+						player.getActionSender().sendMessage("If memory serves, you've given out enough eggs now!");
+					}
 					this.stop();
 				}
 			}
