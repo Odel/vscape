@@ -4,6 +4,7 @@ import com.rs2.Constants;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.events.EasterEvent;
 import com.rs2.model.content.minigames.Snowball;
 import com.rs2.model.content.skills.magic.MagicSkill;
 import com.rs2.model.content.minigames.gnomeball.GnomeBall;
@@ -58,6 +59,8 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		case WHACK_PLAYER :
 		    if (player.getEquipment().getId(Constants.WEAPON) == ChristmasEvent.SNOWBALL_ITEM) {
 		    	handlePeltSnowball(player, packet);
+		    } if (player.getEquipment().getId(Constants.WEAPON) == 4565) {
+		    	handleGiveEggBasket(player, packet);
 		    } else {
 		    	handleRubberChicken(player, packet);
 		    }
@@ -243,6 +246,22 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		});
 	}
 
+	private void handleGiveEggBasket(final Player player, Packet packet) {
+		final int otherPlayerId = packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE);
+		if(player.getEquipment().getId(Constants.WEAPON) != 4565)
+		{
+			return;
+		}
+		if (otherPlayerId < 0 || otherPlayerId > World.getPlayers().length) {
+			return;
+		}
+		final Player otherPlayer = World.getPlayers()[otherPlayerId];
+		if (otherPlayer == null || !Misc.goodDistance(player.getPosition(), otherPlayer.getPosition(), 15)) {
+			return;
+		}
+		EasterEvent.GiveEgg(player, otherPlayer);
+	}
+	
 	private void handleRubberChicken(final Player player, Packet packet) {
 		final int otherPlayerId = packet.getIn().readShort(true, StreamBuffer.ByteOrder.LITTLE);
 		if(player.getEquipment().getId(Constants.WEAPON) != 4566)

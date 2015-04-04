@@ -451,6 +451,8 @@ public class Player extends Entity {
     private boolean receivedMasks = false;
     private boolean hasZombieHead = false;
     private boolean receivedDank = false;
+    private int eggsGiven = 0;
+    private boolean receivedEaster = false;
 
 	private Player lastPersonTraded;
 	private Player lastPersonChallenged;
@@ -4581,6 +4583,33 @@ public class Player extends Entity {
 	
 	public boolean hasReceivedDank() {
 		return this.receivedDank;
+	}
+	//EASTER 2015
+	public void setEggsGiven(int given){
+		eggsGiven = given;
+	}
+	public int getEggsGiven(){
+		return eggsGiven;
+	}
+	public void setReceivedEasterReward(boolean set) {
+		receivedEaster = set;
+	}
+	public boolean getReceivedEasterReward(){
+		return receivedEaster;
+	}
+	private boolean receivedBasket = false;
+	public void setReceivedBasket(boolean set) {
+		receivedBasket = set;
+	}
+	public boolean getReceivedBasket(){
+		return receivedBasket;
+	}
+	private int lastEggPlayer = -1;
+	public void setLastEggPlayer(int last){
+		lastEggPlayer = last;
+	}
+	public int getLastEggPlayer(){
+		return lastEggPlayer;
 	}
 	
 	/**

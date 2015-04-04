@@ -54,7 +54,8 @@ public enum Weapon {
     OBBY_STAFF(WeaponInterface.STAFF, 5, new int[]{406, 407, 408}, Constants.MOVEMENT_ANIMS, 410),
     WARHAMMER(WeaponInterface.MAUL, 6, new int[]{401, 401, 400}, Constants.MOVEMENT_ANIMS, 424),
     CLAWS(WeaponInterface.CLAWS, 4, new int[]{393, 393, 1067, 393}, Constants.MOVEMENT_ANIMS, 424),
-    SCYTHE(WeaponInterface.SCYTHE, 7, new int[]{440, 440, 440, 440}, Constants.MOVEMENT_ANIMS, 435);
+    SCYTHE(WeaponInterface.SCYTHE, 7, new int[]{440, 440, 440, 440}, Constants.MOVEMENT_ANIMS, 435),
+    BASKET(WeaponInterface.FISTS, 4, new int[]{422, 423, 422}, new int[] { 0x328, 1836, 1836 }, 424);
 
 	private WeaponInterface weaponInterface;
 	private RangedAmmoType ammoType;
@@ -205,6 +206,9 @@ public enum Weapon {
 			return Weapon.JAVELIN;
 		} else if (name.contains("scythe")) {
 			return Weapon.SCYTHE;
+		} else if(name.contains("basket"))
+		{
+			return Weapon.BASKET;
 		}
 		return FISTS;
 	}

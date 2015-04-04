@@ -200,6 +200,9 @@ public class Food {
 			case 7933:
 				player.getActionSender().sendMessage("Mmm... nougat");
 				break;
+			case 1961:
+				player.getUpdateFlags().sendAnimation(1835);
+				break;
 		}
 	}
 	

@@ -194,6 +194,16 @@ public class PlayerSaveParser {
 						player.setHasZombieHead(itemData.get("hasZombieHead").getAsBoolean());
 					if(itemData.get("receivedDank") != null)
 						player.setReceivedDank(itemData.get("receivedDank").getAsBoolean());
+					
+					JsonObject easterDataA = itemData.getAsJsonObject("easterEvent1");
+					if(easterDataA != null) {
+						if(easterDataA.get("hasBasket") != null)
+							player.setReceivedBasket(easterDataA.get("hasBasket").getAsBoolean());
+						if(easterDataA.get("eggsGiven") != null)
+							player.setEggsGiven(easterDataA.get("eggsGiven").getAsInt());
+						if(easterDataA.get("receivedReward") != null)
+							player.setReceivedEasterReward(easterDataA.get("receivedReward").getAsBoolean());
+					}
     			}
                 JsonObject worldData = characterObj.getAsJsonObject("worldData");
                 if(worldData != null){

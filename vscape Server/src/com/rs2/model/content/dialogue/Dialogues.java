@@ -9,6 +9,7 @@ import com.rs2.model.content.Shops;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.dungeons.Abyss;
+import com.rs2.model.content.events.EasterEvent;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.PartyRoom;
@@ -151,6 +152,10 @@ public class Dialogues {
 			}
 		}
 		if(PartyRoom.handleDialogue(player, id, chatId, optionId, npcChatId))
+		{
+			return true;
+		}
+		if(EasterEvent.handleDialogue(player, id, chatId, optionId, npcChatId))
 		{
 			return true;
 		}

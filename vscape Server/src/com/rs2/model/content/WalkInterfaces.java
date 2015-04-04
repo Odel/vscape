@@ -95,6 +95,8 @@ public class WalkInterfaces {
 	public static void checkChickenOption(Player player) {
 		if (player.getEquipment().getId(Constants.WEAPON) == 4566)
 			player.getActionSender().sendPlayerOption("Whack", 5, false);
+		else if (player.getEquipment().getId(Constants.WEAPON) == 4565 && !player.getReceivedEasterReward())
+			player.getActionSender().sendPlayerOption("Give Egg", 5, false);
 		else if(player.getEquipment().getId(Constants.WEAPON) == ChristmasEvent.SNOWBALL_ITEM)
 			player.getActionSender().sendPlayerOption("Pelt", 5, false);
 		else
