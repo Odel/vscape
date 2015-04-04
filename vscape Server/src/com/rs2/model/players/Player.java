@@ -4604,12 +4604,23 @@ public class Player extends Entity {
 	public boolean getReceivedBasket(){
 		return receivedBasket;
 	}
-	private int lastEggPlayer = -1;
-	public void setLastEggPlayer(int last){
-		lastEggPlayer = last;
+	public long[] eggedPlayers = new long[20];
+	public void setEggPlayer(int index, long player){
+		if(index >= eggedPlayers.length)
+			return;
+		eggedPlayers[index] = player;
 	}
-	public int getLastEggPlayer(){
-		return lastEggPlayer;
+	public boolean getPlayerEgged(long player){
+		for(long pl : eggedPlayers)
+		{
+			if(pl <= 0)
+				continue;
+			if(pl == player)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

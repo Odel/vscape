@@ -121,6 +121,12 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
         JsonObject easterDataA = new JsonObject();
         easterDataA.addProperty("hasBasket", player.getReceivedBasket());
         easterDataA.addProperty("eggsGiven", player.getEggsGiven());
+		JsonArray eggedPlayers = new JsonArray();
+		for(long pl : player.eggedPlayers)
+		{
+            eggedPlayers.add(new JsonPrimitive(pl));
+        }
+        easterDataA.add("eggedPlayers", eggedPlayers);
         easterDataA.addProperty("receivedReward", player.getReceivedEasterReward());
         itemDataObj.add("easterEvent1", easterDataA);
         

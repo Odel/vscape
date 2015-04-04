@@ -10,7 +10,7 @@ import com.rs2.model.tick.Tick;
 
 public class EasterEvent {
 	
-	private static final int TO_GIVE = 20;
+	public static final int TO_GIVE = 20;
 	private static final int EGG_ITEM = 1961;
 	private static final int BASKET_ITEM = 4565;
 	
@@ -148,16 +148,7 @@ public class EasterEvent {
 					return;
 				}
 				if (player.goodDistanceEntity(otherPlayer, 1) && !player.inEntity(otherPlayer)) {
-					if(player.getLastEggPlayer() == otherPlayer.getIndex())
-					{
-						player.getActionSender().sendMessage("You already gave this player an egg!", true);
-						Following.resetFollow(player);
-						player.setInteractingEntity(null);
-						player.getMovementHandler().reset();
-						this.stop();
-						return;
-					}
-					if(player.getLastEggPlayer() == otherPlayer.getIndex())
+					if(player.getPlayerEgged(otherPlayer.getUsernameAsLong()))
 					{
 						player.getActionSender().sendMessage("You already gave this player an egg!", true);
 						Following.resetFollow(player);
@@ -179,8 +170,9 @@ public class EasterEvent {
 					player.getUpdateFlags().sendFaceToDirection(otherPlayer.getPosition());
 					player.setInteractingEntity(null);
 					player.getMovementHandler().reset();
-					player.setEggsGiven(player.getEggsGiven()+1);
-					player.setLastEggPlayer(otherPlayer.getIndex());
+					int eggIndex = player.getEggsGiven();
+					player.setEggPlayer(eggIndex, otherPlayer.getUsernameAsLong());
+					player.setEggsGiven(eggIndex+1);
 					player.getActionSender().sendMessage("You give an easter egg to " + otherPlayer.getUsername() + "!", true);
 					otherPlayer.getInventory().addItem(new Item(EGG_ITEM,1));
 					otherPlayer.getActionSender().sendMessage(player.getUsername() + " has given you an easter egg!", true);

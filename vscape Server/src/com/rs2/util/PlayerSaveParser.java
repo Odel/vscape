@@ -17,7 +17,7 @@ import com.rs2.model.content.combat.effect.impl.PoisonEffect;
 import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.combat.hit.HitType;
-
+import com.rs2.model.content.events.EasterEvent;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.skills.magic.SpellBook;
@@ -201,6 +201,14 @@ public class PlayerSaveParser {
 							player.setReceivedBasket(easterDataA.get("hasBasket").getAsBoolean());
 						if(easterDataA.get("eggsGiven") != null)
 							player.setEggsGiven(easterDataA.get("eggsGiven").getAsInt());
+						JsonArray eggedPlayers = easterDataA.getAsJsonArray("eggedPlayers");
+						if(eggedPlayers != null && eggedPlayers.size() > 0) {
+						    for (int i = 0; i < EasterEvent.TO_GIVE; i++) {
+						    	if(i >= eggedPlayers.size())
+									break;
+						    	player.setEggPlayer(i, eggedPlayers.get(i).getAsLong());
+						    }
+						}
 						if(easterDataA.get("receivedReward") != null)
 							player.setReceivedEasterReward(easterDataA.get("receivedReward").getAsBoolean());
 					}
