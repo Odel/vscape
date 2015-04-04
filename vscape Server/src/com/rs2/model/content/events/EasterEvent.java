@@ -36,10 +36,15 @@ public class EasterEvent {
 							d.sendNpcChat("I beleive i do " + player.getUsername() +".", Dialogues.CONTENT);
 						return true;
 						case 6 :
-							d.sendGiveItemNpc("The easter bunny hands you a basket full of eggs.", new Item(BASKET_ITEM,1));
-							player.getInventory().addItem(new Item(BASKET_ITEM,1));
-							player.setReceivedBasket(true);
-							d.setNextChatId(1);
+							if(player.getInventory().canAddItem(new Item(BASKET_ITEM))) {
+								d.sendGiveItemNpc("The easter bunny hands you a basket full of eggs.", new Item(BASKET_ITEM,1));
+								player.getInventory().addItem(new Item(BASKET_ITEM,1));
+								player.setReceivedBasket(true);
+								d.setNextChatId(1);
+							} else {
+								d.sendNpcChat("You don't seem to have the inventory space though!");
+								d.endDialogue();
+							}
 						return true;
 					}
 				} else {
@@ -50,9 +55,14 @@ public class EasterEvent {
 								d.sendPlayerChat("I've lost my basket!", Dialogues.DISTRESSED);
 							return true;
 							case 2 :
-								d.sendGiveItemNpc("The easter bunny hands you a new basket.", new Item(BASKET_ITEM,1));
-								player.getInventory().addItem(new Item(BASKET_ITEM,1));
-								player.setReceivedBasket(true);
+								if(player.getInventory().canAddItem(new Item(BASKET_ITEM))) {
+									d.sendGiveItemNpc("The easter bunny hands you a new basket.", new Item(BASKET_ITEM,1));
+									player.getInventory().addItem(new Item(BASKET_ITEM,1));
+									player.setReceivedBasket(true);
+								} else {
+									d.sendNpcChat("You don't have the space for a new one!");
+									d.endDialogue();
+								}
 								d.endDialogue();
 							return true;
 						}
