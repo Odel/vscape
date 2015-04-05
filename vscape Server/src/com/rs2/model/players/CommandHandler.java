@@ -356,7 +356,7 @@ public class CommandHandler {
 		    }
 		    sender.getActionSender().sendMessage("The total possible quest points is: " + (x - 1) + ".", true); //Minus one for the easter event's class
 		}
-		else if (keyword.equals("meme")) {
+		/*else if (keyword.equals("meme")) {
 			String[] memeSayings = {"Dank memes", "Latent is a gril", "Ay Lamo", "tfw no gf", "Panic?", "Nothing interesting happens.", "The world is so vast.", "How Can Mirrors Be Real If Our Eyes Aren't Real?", "All we are is leaves in the wind.", "Ribbet", "Coolcucumber is a gril", ":v)", "I'd give anything to be in Sandy Marsh right now...", ":^O", "Where is Bigguy?", "Make x when?", "Griefers! Griefers everywhere!", "Xiah is a gril", "Selling weeds 420 ea", ":^)"};
 			sender.transformNpc = 159;
 			sender.setAppearanceUpdateRequired(true);
@@ -365,7 +365,7 @@ public class CommandHandler {
                         sender.setWalkAnim(def.getWalkAnim());
 			sender.setRunAnim(def.getWalkAnim());
 			sender.getUpdateFlags().setForceChatMessage(memeSayings[Misc.randomMinusOne(memeSayings.length)]);
-		}		
+		}*/
 	}
 	
 	public static void modCommands(final Player sender, String keyword, String[] args, String fullString) {
