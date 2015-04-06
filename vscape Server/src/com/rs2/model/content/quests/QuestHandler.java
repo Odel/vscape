@@ -103,7 +103,6 @@ public class QuestHandler {
     }
     
     public static void initQuestLog(Player player){
-	CommandHandler.ClearNotes(player);
         player.sendQuestTab();
         for(Quest q : quests)
         {
