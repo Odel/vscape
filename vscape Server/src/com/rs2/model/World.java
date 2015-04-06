@@ -125,8 +125,12 @@ public class World {
 		}
 		b.stop();
 
-		CycleEventHandler.getInstance().tick();
-
+		try {
+			CycleEventHandler.getInstance().tick();
+		} catch (Exception ex) {
+			System.out.println("WORLD CYCLEVENT TICK ERROR");
+			ex.printStackTrace();
+		}
 		// Perform movement process
 		b = Benchmarks.getBenchmark("processMovement");
 		b.start();
@@ -134,13 +138,21 @@ public class World {
 			if (player == null) {
 				continue;
 			}
-			player.getMovementHandler().process();
+			try {
+				player.getMovementHandler().process();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		for (Npc npc : npcs) {
 			if (npc == null) {
 				continue;
 			}
-			npc.getMovementHandler().process();
+			try {
+				npc.getMovementHandler().process();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		b.stop();
 

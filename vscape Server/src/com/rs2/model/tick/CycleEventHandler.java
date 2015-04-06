@@ -75,17 +75,22 @@ public class CycleEventHandler {
 		eventsToAdd.clear();
 		for (Iterator<CycleEventContainer> cycleEvents = events.iterator(); cycleEvents.hasNext();) {
 			CycleEventContainer c = cycleEvents.next();
-			if (c != null) {
-				if (c.getOwner() == null || c.getOwner().getIndex() == -1) {
-					cycleEvents.remove();
-				} else {
-					if (c.needsExecution()) {
-						c.execute();
-					}
-					if (!c.isRunning()) {
+			try {
+				if (c != null) {
+					if (c.getOwner() == null || c.getOwner().getIndex() == -1) {
 						cycleEvents.remove();
+					} else {
+						if (c.needsExecution()) {
+							c.execute();
+						}
+						if (!c.isRunning()) {
+							cycleEvents.remove();
+						}
 					}
 				}
+			} catch (Exception ex) {
+				System.out.println("CYCLEEVENT TICK ERROR");
+				ex.printStackTrace();
 			}
 		}
 		b.stop();
