@@ -2116,7 +2116,15 @@ public class CommandHandler {
 		}else if (keyword.equals("toggleparty")) {
 		    Constants.PARTY_ROOM_ENABLED = !Constants.PARTY_ROOM_ENABLED;
         	sender.getActionSender().sendMessage("Party Room is now "+(Constants.PARTY_ROOM_ENABLED ? "enabled." : "disabled."), true);
-		}	
+		}else if(keyword.equals("npccount")){
+			int count = 0;
+			for (Npc npc : World.getNpcs()) {
+				if (npc != null) {
+					count++;
+				}
+			}
+			sender.getActionSender().sendMessage(count + " NPC's in the world.", true);
+		}
 	}
 	
 	public static void info(Player player) {
