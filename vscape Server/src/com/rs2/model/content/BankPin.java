@@ -1,5 +1,6 @@
 package com.rs2.model.content;
 
+import com.rs2.cache.interfaces.RSInterface;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.players.Player;
 import com.rs2.util.Misc;
@@ -72,6 +73,7 @@ public class BankPin {
 		this.pinInterfaceStatus = pinInterfaceStatus;
 		resetBankPinInterface();
 		sendBankPinVerificationInterface(0);
+		player.setStatedInterface("bankPinEnter");
 	}
 
 	private void sendBankPinVerificationInterface(int currentStatus) {
@@ -157,10 +159,17 @@ public class BankPin {
 	}
 
 	private void verifyPin(int pinEntered) {
+	    RSInterface inter = RSInterface.forId(7424);
+        if (!player.hasInterfaceOpen(inter) || !player.getStatedInterface().equals("bankPinEnter")) {
+			resetBankPinInterface();
+			sendBankPinVerificationInterface(0);
+			player.resetPinAttempt();
+            return;
+        }
 	    if(interfaceStatus < 0) {
-		player.getActionSender().sendMessage("Something has gone wrong with the PIN interface. Please ::bugreport.");
-		System.out.println("interfaceStatus was < 0 for:" + player.getUsername() + " line 162 BankPin.java");
-		return;
+	    	player.getActionSender().sendMessage("Something has gone wrong with the PIN interface. Please ::bugreport.");
+			System.out.println("interfaceStatus was < 0 for:" + player.getUsername() + " line 162 BankPin.java");
+			return;
 	    }
 		player.setPinAttempt(pinEntered, interfaceStatus);
 		if (interfaceStatus + 1 < 4) {
