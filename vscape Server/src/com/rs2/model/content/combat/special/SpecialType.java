@@ -233,7 +233,7 @@ public enum SpecialType {
 					if (!super.canInitialize())
 						return false;
 					setAnimation(3157);
-					setGraphic(new Graphic(559, 100));
+					setGraphic(new Graphic(559, 0));
 					double maxDamage = generateMaxHit();
 					setHits(new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, maxDamage).randomizeDamage().setSpecialEffect(6).setStartingHitDelay(1).setCheckAccuracy(true)});
 					return true;
@@ -652,6 +652,14 @@ public enum SpecialType {
                     }
                     break;
                 case 5: // dspear
+                	if(victim != null && victim.isNpc() && PestControl.isPortal((Npc)victim))
+                	{
+                		break;
+                	}
+                	if(victim != null && victim.isNpc() && !((Npc)victim).getDefinition().canWalk())
+                	{
+                		break;
+                	}
                     int x1 = player.getPosition().getX(), y1 = player.getPosition().getY(), x2 = 0, y2 = 0;
                     int otherX = victim.getPosition().getX(), otherY = victim.getPosition().getY();
                     if (x1 > otherX) {
@@ -664,7 +672,20 @@ public enum SpecialType {
                     } else if (y1 < otherY) {
                         y2 = 1;
                     }
-                    boolean canWalk = victim.getSize() > 1;
+                    if(victim.canMove(x2, y2))
+                    {
+                        if (victim.isPlayer()) {
+                            Player p = (Player) victim;
+                            p.getActionSender().walkTo(x2, y2, false);
+                        } else {
+                            Npc n = (Npc) victim;
+                            n.walkTo(new Position(n.getPosition().getX() + x2, n.getPosition().getY() + y2), false);
+                        }
+                    }
+                    victim.getUpdateFlags().sendHighGraphic(254);
+                    victim.getStunTimer().setWaitDuration(6);
+                    victim.getStunTimer().reset();
+                /*    boolean canWalk = victim.getSize() > 0;
                     victim.getUpdateFlags().sendHighGraphic(254);
                     if (canWalk) {
                         if (victim.isPlayer()) {
@@ -674,46 +695,49 @@ public enum SpecialType {
                             Npc n = (Npc) victim;
                             n.walkTo(new Position(n.getPosition().getX() + x2, n.getPosition().getY() + y2), false);
                         }
-                    }
-                    victim.getStunTimer().setWaitDuration(6);
-                    victim.getStunTimer().reset();
+                    }*/
                     break;
                 case 6 : // d2h
     				boolean inMulti = attacker.inMulti();
         			int enemiesHit = 0;
-    				if (!inMulti) {
-    					//new Hit(attacker, victim, hitDef).initialize();
-    					break;
-    				}
-    				for (Player players : World.getPlayers()) {
-    					if (players != null && players != attacker && players != attacker.getCombatingEntity()) {
-    						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, players);
-    						if (Misc.getDistance(attacker.getPosition(), players.getPosition()) <= 1 && canAttackResponse == CanAttackResponse.SUCCESS) {
-    							WeaponAttack weaponAttack = new WeaponAttack(player, players, player.getEquippedWeapon());
-    		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
-    		    				new Hit(attacker, players, d2hDef).initialize();
-    							enemiesHit++;
-    							if (enemiesHit > 13) {
-    								break;
-    							}
+    				if (inMulti) {
+    					for (Player p : World.getPlayers()) {
+    						if(p == null)
+    							continue;
+    						if(p == player)
+    							continue;
+    						if (p != attacker.getCombatingEntity()) {
+        						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, p);
+        					//	if (Misc.getDistance(attacker.getPosition(), p.getPosition()) <= 1 && canAttackResponse == CanAttackResponse.SUCCESS) {
+        						if (attacker.goodDistanceEntity(p, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
+        							WeaponAttack weaponAttack = new WeaponAttack(player, p, player.getEquippedWeapon());
+        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
+        		    				new Hit(attacker, p, d2hDef).initialize();
+        							enemiesHit++;
+        							if (enemiesHit > 13) {
+        								break;
+        							}
+        						}
     						}
-    					}
-    				}
-    				for (Npc npcs : World.getNpcs()) {
-				    if(npcs != null && npcs.getNpcId() != 3782)
-					continue;
-    					if (npcs != null && npcs != attacker.getCombatingEntity()) {
-    						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, npcs);
-    						if (attacker.goodDistanceEntity(npcs, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
-    							WeaponAttack weaponAttack = new WeaponAttack(player, npcs, player.getEquippedWeapon());
-    		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
-    		    				new Hit(attacker, npcs, d2hDef).initialize();
-    							enemiesHit++;
-    							if (enemiesHit > 13) {
-    								break;
-    							}
-    						}
-    					}
+        				}
+    					for (Npc npc : World.getNpcs()) {
+    						if(npc == null)
+    							continue;
+    						if(!npc.getDefinition().isAttackable() || npc.getNpcId() == 3782)
+    							continue;
+    						if (npc != attacker.getCombatingEntity()) {
+        						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, npc);
+        						if (attacker.goodDistanceEntity(npc, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
+        							WeaponAttack weaponAttack = new WeaponAttack(player, npc, player.getEquippedWeapon());
+        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
+        		    				new Hit(attacker, npc, d2hDef).initialize();
+        							enemiesHit++;
+        							if (enemiesHit > 13) {
+        								break;
+        							}
+        						}
+							}
+						}
     				}
                 	break;
                 case 7 : //guthan
