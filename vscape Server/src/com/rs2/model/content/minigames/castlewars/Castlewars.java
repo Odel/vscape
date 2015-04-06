@@ -551,32 +551,32 @@ public class Castlewars {
 		    	        break;
 		    		}
 		    	}
-		    	if(!DC)
-		    	{
-		    		player.getActionSender().createPlayerHints(10, -1);
-		    		RemoveItems(player, false);
-		    		if(ticketAmount > 0)
-		    		{
-		    			player.getInventory().addItem(new Item(4067, ticketAmount));
-		    		}
-		    		player.setCastlewarsTeam(-1);
-					player.resetEffects();
-					player.removeAllEffects();
-					player.getSkill().refresh();
-		    		if(player.wearingCwBracelet())
-		    		{
-		    			player.damageCwBracelet();
-		    		}
-		    		player.teleport(MinigameAreas.randomPosition(LOBBY_EXIT_AREA));
-		    	}
+				if (playersInGameTotal() <= 0) {
+					ResetGame();
+					if (playersInLobbyTotal() <= 0) {
+						ResetLobby();
+					}
+				}
 			}
+	    	if(!DC)
+	    	{
+	    		player.getActionSender().createPlayerHints(10, -1);
+	    		RemoveItems(player, false);
+	    		if(ticketAmount > 0)
+	    		{
+	    			player.getInventory().addItem(new Item(4067, ticketAmount));
+	    		}
+	    		player.setCastlewarsTeam(-1);
+				player.resetEffects();
+				player.removeAllEffects();
+				player.getSkill().refresh();
+	    		if(player.wearingCwBracelet())
+	    		{
+	    			player.damageCwBracelet();
+	    		}
+	    		player.teleport(MinigameAreas.randomPosition(LOBBY_EXIT_AREA));
+	    	}
 		}catch(Exception ex) { System.out.println("Problem leaving Castlewars game"); }
-		if (playersInGameTotal() <= 0) {
-			ResetGame();
-			if (playersInLobbyTotal() <= 0) {
-				ResetLobby();
-			}
-		}
 	}
 	
     private static int playersInGame(int team) {

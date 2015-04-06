@@ -1196,26 +1196,8 @@ public class Player extends Entity {
 		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
 		    this.setEctoWorshipCount(0);
 		}
-		if(this.inEnchantingChamber()) {
-		    this.getEnchantingChamber().exit();
-		}
-		if(this.inAlchemistPlayground()) {
-		    this.getAlchemistPlayground().exit();
-		}
-		if(this.inCreatureGraveyard()) {
-		    this.getCreatureGraveyard().exit();
-		}
-		if(this.inTelekineticTheatre()) {
-		    this.getTelekineticTheatre().exit();
-		}
-		if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
-		    ApeAtoll.runDungeon(this);
-		}
 		if(!getInventory().ownsItem(4033) && getQuestStage(36) == 0) {
 		    getMMVars().monkeyPetDeleted = true;
-		}
-		if(Area(2688, 2748, 9154, 9214)) {
-		    this.teleport(MonkeyMadness.APE_ATOLL_LANDING);
 		}
 		if(getInventory().ownsItem(4033) && getQuestStage(36) == 0 && !getMMVars().monkeyPetDeleted) {
 		    if(getInventory().playerHasItem(4033)) {
@@ -1224,35 +1206,7 @@ public class Player extends Entity {
 		    if (getBankManager().ownsItem(4033)) {
 			MonkeyMadness.deleteMonkey(this, 1);
 		    }
-		}
-		if(this.inTempleKnightsTraining()) {
-		    RecruitmentDrive.exitTrainingGrounds(this);
-		}
-        if(inPestControlLobbyArea())
-        {
-        	teleport(PestControl.LOBBY_EXIT);
-        }
-        else if(inPestControlGameArea())
-        {
-        	setPcDamage(0);
-		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
-        	teleport(PestControl.LOBBY_EXIT);
-        }       
-        if(inWarriorGuildArena()) {
-        	teleport(WarriorsGuild.DC_EXIT);
-        	setWarriorsGuildGameActive(false);
-        }        
-        if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, false);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, false, 0);
-        }
-		if(this.inTempleKnightsTraining()) {
-		    this.getActionSender().sendMapState(2);
-		}
+		} 
 		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
 		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
 		}
@@ -1266,31 +1220,17 @@ public class Player extends Entity {
 			&& getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
 			GridMazeHandler.generatePositions(this);
 		}
-		
-		for(Player player : World.getPlayers()) {
-		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
-			World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
-		    }
-		}
-	    CommandHandler.appendToMacList(this, this.getMacAddress());
-
+	    //login Messages
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
-	    
-        if(getMinLoggedOut() > 0)
-        {
-       // 	ageCrops(getMinLoggedOut());
-        }	
-        
-		getActionSender().sendInterfaceHidden(0, 25005);
-		getActionSender().sendInterfaceHidden(1, 25015);
-		getActionSender().sendString("Talking in: Not in chat", 25002);
-		getActionSender().sendString("Owner: None", 25003);
-		for(int i = 0; i < 100; i++)
-		{
-			getActionSender().sendString("", 25122 + i);
+		for(Player player : World.getPlayers()) {
+		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
+		    	World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
+		    }
 		}
+	    CommandHandler.appendToMacList(this, this.getMacAddress());
+	    //clan chat
         if(getClanChat() != null)
         {
         	if(getClanChat().owner > 0) {
@@ -1298,12 +1238,70 @@ public class Player extends Entity {
         	}else{
         		setClanChat(null);
         	}
+        } else {
+    		getActionSender().sendInterfaceHidden(0, 25005);
+    		getActionSender().sendInterfaceHidden(1, 25015);
+    		getActionSender().sendString("Talking in: Not in chat", 25002);
+    		getActionSender().sendString("Owner: None", 25003);
+    		for(int i = 0; i < 100; i++)
+    		{
+    			getActionSender().sendString("", 25122 + i);
+    		}
         }
-        if(inMimeEvent())
+        //Area logins
+        areaLogin();
+    }
+	
+	public void areaLogin(){
+		if(inEnchantingChamber()) {
+		    getEnchantingChamber().exit();
+		}
+		else if(inAlchemistPlayground()) {
+		    getAlchemistPlayground().exit();
+		}
+		else if(inCreatureGraveyard()) {
+		    getCreatureGraveyard().exit();
+		}
+		else if(inTelekineticTheatre()) {
+		    getTelekineticTheatre().exit();
+		}
+		else if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
+		    ApeAtoll.runDungeon(this);
+		}
+		else if(Area(2688, 2748, 9154, 9214)) {
+		    teleport(MonkeyMadness.APE_ATOLL_LANDING);
+		}
+		else if(inTempleKnightsTraining()) {
+			getActionSender().sendMapState(2);
+		    RecruitmentDrive.exitTrainingGrounds(this);
+		}
+		else if(inPestControlLobbyArea())
+        {
+        	teleport(PestControl.LOBBY_EXIT);
+        }
+        else if(inPestControlGameArea())
+        {
+        	setPcDamage(0);
+		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
+        	teleport(PestControl.LOBBY_EXIT);
+        }       
+        else if(inWarriorGuildArena()) {
+        	teleport(WarriorsGuild.DC_EXIT);
+        	setWarriorsGuildGameActive(false);
+        }        
+        else if(inCwLobby())
+        {
+        	Castlewars.LeaveLobby(this, false);
+        }
+        else if(inCwGame())
+        {
+        	Castlewars.LeaveGame(this, false, 0);
+        }
+        else if(inMimeEvent())
         {
         	teleport(getLastPosition());
         }
-    }
+	}
 	
 	public boolean beginLogin() throws Exception {
 		// check login status before sql

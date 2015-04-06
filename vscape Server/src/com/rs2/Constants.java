@@ -129,7 +129,7 @@ public class Constants {
 
     public static boolean DUELING_DISABLED = false;
     
-    public static boolean CASTLEWARS_ENABLED = false;
+    public static boolean CASTLEWARS_ENABLED = true;
     
     public static boolean STAFF_ONLY_YELL = false;
 
