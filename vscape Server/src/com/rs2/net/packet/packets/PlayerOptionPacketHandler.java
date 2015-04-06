@@ -59,9 +59,9 @@ public class PlayerOptionPacketHandler implements PacketHandler {
 		case WHACK_PLAYER :
 		    if (player.getEquipment().getId(Constants.WEAPON) == ChristmasEvent.SNOWBALL_ITEM) {
 		    	handlePeltSnowball(player, packet);
-		    } if (player.getEquipment().getId(Constants.WEAPON) == 4565) {
+		    } else if (player.getEquipment().getId(Constants.WEAPON) == 4565) {
 		    	handleGiveEggBasket(player, packet);
-		    } else {
+		    } else if (player.getEquipment().getId(Constants.WEAPON) == 4566){
 		    	handleRubberChicken(player, packet);
 		    }
 			break;
