@@ -39,7 +39,6 @@ import com.rs2.model.content.combat.special.SpecialType;
 import com.rs2.model.content.combat.util.Degradeables;
 import com.rs2.model.content.combat.weapon.Weapon;
 import com.rs2.model.content.combat.weapon.CombatSounds;
-import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.consumables.Food;
 import com.rs2.model.content.consumables.Potion;
 import com.rs2.model.content.dialogue.BookHandler;
@@ -141,12 +140,12 @@ import com.rs2.util.Benchmarks;
 import com.rs2.util.Misc;
 import com.rs2.util.PlayerSave;
 import com.rs2.util.plugin.LocalPlugin;
-import com.rs2.util.plugin.PluginManager;
 import com.rs2.util.sql.SQL;
 import com.rs2.model.content.quests.*;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
+import com.rs2.model.content.quests.impl.ErnestTheChicken;
 import com.rs2.model.content.quests.impl.UndergroundPass.*;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
@@ -1283,6 +1282,9 @@ public class Player extends Entity {
 		else if(inTempleKnightsTraining()) {
 			getActionSender().sendMapState(2);
 		    RecruitmentDrive.exitTrainingGrounds(this);
+		}
+		else if (Area(3087, 3122, 9743, 9771)) {
+			teleport(ErnestTheChicken.UP_FROM_ROOM);
 		}
 		else if(inPestControlLobbyArea())
         {

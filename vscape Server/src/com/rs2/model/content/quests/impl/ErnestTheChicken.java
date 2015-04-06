@@ -15,13 +15,18 @@ import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.container.inventory.Inventory;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
+import com.rs2.util.Misc;
+import com.rs2.util.clip.ClippedPathFinder;
 
 public class ErnestTheChicken implements Quest {
 
@@ -67,16 +72,6 @@ public class ErnestTheChicken implements Quest {
 	public static final Position ROOM_5 = new Position(3108, 9760, 0);
 	public static final Position DOWN_SPIRAL_STAIRS = new Position(3105, 3364, 1);
 
-	/* maybe someday if we write a proper packet send method for constructing instanced regions
-	 public static final int[] ROOM2_WEST_DOOR = {138, 3100, 9765};
-	 public static final int[] ROOM5_SOUTHWEST_DOOR = {139, 3105, 9760};
-	 public static final int[] ROOM4_WEST_DOOR = {140, 3100, 9760};
-	 public static final int[] OIL_CAN_DOOR = {141, 3100, 9755};
-	 public static final int[] ROOM2_SOUTH_DOOR = {142, 3100, 9755};
-	 public static final int[] ROOM1_SOUTH_DOOR = {143, 3097, 9763};
-	 public static final int[] ROOM5_SOUTH_DOOR = {144, 3108, 9758};
-	 public static final int[] ROOM4_SOUTH_DOOR = {145, 3102, 9758};
-	 */
 	public static final int STAIRS_DOWN = 2616;
 	public static final int COFFIN = 2614;
 
@@ -244,6 +239,64 @@ public class ErnestTheChicken implements Quest {
 		player.getActionSender().sendString("Requirements: Ability to dodge a level 22 skeleton.", 8148);
 		player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 	}
+	
+	public static void handleDoors(final Player player, final int object, final int x, final int y) {
+		final int task = player.getTask();
+		final Position objPos = new Position(x, y, 0);
+		World.submit(new Tick(1, true) {
+			@Override
+			public void execute() {
+				if (player == null || !player.checkTask(task)) {
+					this.stop();
+					return;
+				}
+				if (player.isMoving() || player.isStunned()) {
+					return;
+				}
+				ClippedPathFinder.getPathFinder().findRoute(player, x, y, true, 0, 0);
+				if(openDoors(player, object, x, y)) {
+					this.stop();
+					return;
+				}
+			}		
+		});	
+	}
+	
+	public static boolean openDoors(final Player player, final int object, final int x, final int y) {
+		int toBeX, toBeY;
+		boolean condition;
+		switch (object) {
+			case 142:
+			case 143:
+			case 144:
+			case 145:
+				condition = player.getPosition().getY() < y;
+				toBeX = x;
+				toBeY = condition ? y-1 : y+1;
+				ClippedPathFinder.getPathFinder().findRoute(player, toBeX, toBeY, true, 0, 0);
+				if (player.getPosition().getX() == toBeX && player.getPosition().getY() == toBeY) {
+					ObjectHandler.getInstance().removeObject(x, y, 0, 3, 10);
+					new GameObject(-1, x, y, 0, 3, 10, object, 3, true);
+					new GameObject(object, x - 1, y, 0, 2, 10, -1, 3, true);
+					player.getActionSender().walkTo(0, condition ? 2 : -2, true);
+					return true;
+				}
+				return false;
+			default:
+				condition = player.getPosition().getX() < x;
+				toBeX = condition ? x-1 : x+1;
+				toBeY = y;
+				ClippedPathFinder.getPathFinder().findRoute(player, toBeX, toBeY, true, 0, 0);
+				if (player.getPosition().getX() == toBeX && player.getPosition().getY() == toBeY) {
+					ObjectHandler.getInstance().removeObject(x, y, 0, 3, 10);
+					new GameObject(-1, x, y, 0, 0, 10, object, 3, true);
+					new GameObject(object, x, y + 1, 0, 3, 10, -1, 3, true);
+					player.getActionSender().walkTo(condition ? 2 : -2, 0, true);
+					return true;
+				}
+				return false;
+		}
+	}
 
 	public static void resetLevers(final Player player) {
 		player.getQuestVars().setErnestLevers(0, false); //A
@@ -363,28 +416,6 @@ public class ErnestTheChicken implements Quest {
 	public boolean doObjectClicking(final Player player, int object, int x, int y) {
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		switch (object) {
-			case 137:
-			case 138:
-			case 139:
-			case 140:
-			case 141:
-			case 142:
-			case 143:
-			case 144:
-			case 145: //doors
-				if (pY > 9700 && pY < 9800) {
-						if (object >= 143 && object <= 145) {
-							int modifier = pY < y ? 2 : -2;
-							player.getActionSender().sendMessage("You slowly walk through the door...");
-							player.fadeTeleport(new Position(x, pY + modifier, 0));
-						} else {
-							int modifier = pX < x ? 2 : -2;
-							player.getActionSender().sendMessage("You slowly walk through the door...");
-							player.fadeTeleport(new Position(pX + modifier, y, 0));
-						}
-					return true;
-				}
-				return false;
 			case 146: //0 A
 				if (x == LEVER_A[X] && y == LEVER_A[Y]) {
 					if (!player.getQuestVars().getErnestLevers()[0]) {
@@ -408,7 +439,6 @@ public class ErnestTheChicken implements Quest {
 						player.getQuestVars().setErnestLevers(1, true);
 						resetDoors(player);
 						player.getQuestVars().setErnestDoors(7, true);
-						//player.fadeTeleport(ROOM_5);
 						return true;
 					} else if (!player.getQuestVars().getErnestLevers()[0] && player.getQuestVars().getErnestLevers()[1] && player.getQuestVars().getErnestLevers()[3]) {
 						player.getActionSender().sendMessage("You pull Lever B.");
@@ -418,14 +448,11 @@ public class ErnestTheChicken implements Quest {
 						player.getQuestVars().setErnestDoors(3, true);
 						player.getQuestVars().setErnestDoors(8, true);
 						player.getQuestVars().setErnestDoors(6, true);
-						
-						//player.fadeTeleport(ROOM_1);
 						assessDoorConfig(player);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever B.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -437,7 +464,6 @@ public class ErnestTheChicken implements Quest {
 						player.getActionSender().sendMessage("You pull Lever C.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 						player.getQuestVars().setErnestLevers(2, true);
-						//player.fadeTeleport(ROOM_1);
 						resetDoors(player);
 						player.getQuestVars().setErnestDoors(1, true);
 						player.getQuestVars().setErnestDoors(0, true);
@@ -445,7 +471,6 @@ public class ErnestTheChicken implements Quest {
 					} else {
 						player.getActionSender().sendMessage("You pull Lever C.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -460,12 +485,10 @@ public class ErnestTheChicken implements Quest {
 						resetDoors(player);
 						player.getQuestVars().setErnestDoors(2, true);
 						player.getQuestVars().setErnestDoors(8, true);
-						//player.fadeTeleport(MAIN_ROOM);
 						return true;
 					} else {
 						player.getActionSender().sendMessage("You pull Lever D.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -476,7 +499,6 @@ public class ErnestTheChicken implements Quest {
 					if (!player.getQuestVars().getErnestLevers()[2]) {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(ROOM_5);
 						player.getQuestVars().setErnestLevers(4, true);
 						resetDoors(player);
 						if (player.getQuestVars().getErnestLevers()[5]) {
@@ -487,7 +509,7 @@ public class ErnestTheChicken implements Quest {
 					} else if (player.getQuestVars().getErnestLevers()[2]) {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(OIL_CAN_ROOM);
+						player.getQuestVars().setErnestLevers(4, false);
 						resetDoors(player);
 						player.getQuestVars().setErnestDoors(5, true);
 						player.getQuestVars().setErnestDoors(1, true);
@@ -498,7 +520,6 @@ public class ErnestTheChicken implements Quest {
 						player.getActionSender().sendMessage("You pull Lever E.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 						player.getQuestVars().setErnestLevers(4, true);
-						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}
@@ -514,7 +535,6 @@ public class ErnestTheChicken implements Quest {
 					} else if (!player.getQuestVars().getErnestLevers()[2]) {
 						player.getActionSender().sendMessage("You pull Lever F.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
-						//player.fadeTeleport(ROOM_5);
 						player.getQuestVars().setErnestLevers(5, true);
 						resetDoors(player);
 						if (player.getQuestVars().getErnestLevers()[4]) {
@@ -526,7 +546,6 @@ public class ErnestTheChicken implements Quest {
 						player.getActionSender().sendMessage("You pull Lever F.");
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 						player.getQuestVars().setErnestLevers(5, true);
-						//player.fadeTeleport(MANOR);
 						resetLevers(player);
 						return true;
 					}

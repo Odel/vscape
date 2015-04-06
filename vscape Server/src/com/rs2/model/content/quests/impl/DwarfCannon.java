@@ -698,14 +698,13 @@ public class DwarfCannon implements Quest {
 									@Override
 									public void stop() {
 										for (Npc npc : World.getNpcs()) {
-											if (npc.getNpcId() == LOLLK) {
+											if (npc != null && npc.getNpcId() == LOLLK) {
 												NpcLoader.destroyNpc(npc);
 											}
 										}
 									}
 								}, 5);
 								return true;
-
 						}
 						return false;
 				}
