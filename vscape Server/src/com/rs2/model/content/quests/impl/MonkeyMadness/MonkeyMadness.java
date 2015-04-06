@@ -630,7 +630,7 @@ public class MonkeyMadness implements Quest {
 				player.getBankManager().remove(new Item(4033));
 				break;
 		}
-		player.addPcPoints(225, player);
+		player.addPcPoints(225);
 		player.getActionSender().sendMessage("Your pet monkey has fled due to Monkey Madness.");
 		player.getActionSender().sendMessage("You have been restored 225 commendation points.");
 	}

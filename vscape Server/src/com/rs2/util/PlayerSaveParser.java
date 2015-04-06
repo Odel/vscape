@@ -590,7 +590,7 @@ public class PlayerSaveParser {
 		            }
 		            JsonObject pestControl = minigames.getAsJsonObject("pestControl");
 		            if(pestControl != null){
-		            	player.setPcPoints(pestControl.get("pcPoints").getAsInt(), player);
+		            	player.setPcPoints(pestControl.get("pcPoints").getAsInt());
 		            }
 		            JsonObject mageArena = minigames.getAsJsonObject("mageArena");
 		            if(mageArena != null){

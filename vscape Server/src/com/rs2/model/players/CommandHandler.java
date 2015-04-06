@@ -1831,24 +1831,32 @@ public class CommandHandler {
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    sender.addPcPoints(points, player);
-		    sender.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.", true);
+		    if(player != null)
+		    {
+		    	player.addPcPoints(points);
+		    	sender.getActionSender().sendMessage("You have added " +points+ " to " +name+"'s commendation points.", true);
+		    }
 		}
 		else if (keyword.equals("setpcpoints")) {
 		    int points = Integer.parseInt(args[0]);
 		    String name = fullString.substring(fullString.indexOf("-")+1);
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    sender.setPcPoints(points, player);
-		    sender.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".", true);
+		    if(player != null)
+		    {
+		    	player.setPcPoints(points);
+		    	sender.getActionSender().sendMessage("You have set " +name+ "'s commendation points to " +points+ ".", true);
+		    }
 		}
 		else if (keyword.equals("getpcpoints")) {
 		    String name = fullString;
 		    long nameLong = NameUtil.nameToLong(NameUtil.uppercaseFirstLetter(name));
 		    Player player = World.getPlayerByName(nameLong);
-		    sender.getActionSender().sendMessage("That player has " + sender.getPcPoints(player) + " commendation points.", true);
+		    if(player != null)
+		    {
+		    	sender.getActionSender().sendMessage("That player has " + player.getPcPoints() + " commendation points.", true);
+		    }
 		}
-		
 		else if (keyword.equals("setwave") || keyword.equals("wave")) {
 		    int wave = Integer.parseInt(args[0]);
 		    sender.setFightCavesWave(wave - 1);

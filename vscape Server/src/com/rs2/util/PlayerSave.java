@@ -1099,9 +1099,9 @@ public class PlayerSave {
 		player.setClayBraceletLife(0);
             }
             try {
-		    player.setPcPoints(load.readInt(), player);
+		    player.setPcPoints(load.readInt());
             } catch (IOException e) { System.out.println("here7");
-		player.setPcPoints(0, player);
+            player.setPcPoints(0);
 	    }
 	    try {
             	player.saveZamorakCasts(load.readInt());

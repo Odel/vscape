@@ -1095,11 +1095,13 @@ public class Player extends Entity {
 
 		setStopPacket(true);
 		World.register(this);
-		actionSender.sendLogin().sendConfigsOnLogin();
+		getActionSender().sendLogin();
+		getActionSender().sendConfigsOnLogin();
 		setNeedsPlacement(true);
+		System.out.println(this + " has logged in. Players online: " + World.playerAmount());
 		// getQuesting().clearQuestGuide();
 		// getQuesting().updateQuestList();
-		PluginManager.loadLocalPlugins(this);
+		//PluginManager.loadLocalPlugins(this);
 		/*if (getEquipment().getItemContainer().contains(6583) || getEquipment().getItemContainer().contains(7927)) {
 			transformNpc = getEquipment().getItemContainer().contains(6583) ? 2626 : 3689 + Misc.random(5);
 			setAppearanceUpdateRequired(true);
@@ -1116,13 +1118,6 @@ public class Player extends Entity {
 		// Load region
 		reloadRegion();
 		skill.refresh();
-		System.out.println(this + " has logged in. Players online: " + World.playerAmount());
-		if(this.getStaffRights() >= 1) {
-		   World.messageToStaff(this.getUsername() + " has logged in.");
-		}
-		if(this.inFightCaves()) {
-		    FightCaves.enterCave(this);
-		}
 		isLoggedIn = true;
 		getUpdateFlags().setUpdateRequired(true);
 		setAppearanceUpdateRequired(true);
@@ -1143,6 +1138,10 @@ public class Player extends Entity {
 		if (getNewComersSide().getTutorialIslandStage() == 99) {
 			getNewComersSide().setTutorialIslandStage(100, true);
 			CommandHandler.info(this);
+			getNewComersSide().addStarterItems();
+			PlayerSave.save(this);
+			
+		/*	CommandHandler.info(this);
 			//getActionSender().sendInterface(3559);
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
@@ -1150,7 +1149,7 @@ public class Player extends Entity {
 			//QuestHandler.initPlayer(this);
 			QuestHandler.initQuestLog(this);
 			PlayerSave.save(this);
-			return;
+			return;*/
 		}
 		if (getNewComersSide().isInTutorialIslandStage()) {
 			getNewComersSide().startTutorialIsland();
@@ -1161,75 +1160,77 @@ public class Player extends Entity {
 			getActionSender().sendSideBarInterfaces();
 			getEquipment().sendWeaponInterface();
 		}
-		if (getCurrentHp() <= 0) {
-			CombatManager.startDeath(this);
-		}
 		/*if(Constants.SYSTEM_UPDATE) {
 		    this.getActionSender().sendUpdateServer(GlobalVariables.getServerUpdateTimer().ticksRemaining());
 		}*/
 		setLogoutTimer(System.currentTimeMillis() + 600000);
-		getRandomHandler().process();
 		setAppearanceUpdateRequired(true);
-	//	QuestHandler.initPlayer(this);
-		QuestHandler.initQuestLog(this);
-		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
-		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
-		getActionSender().sendString("Quest Points: "+questPoints, 640);
-		UndergroundPass.doLoginChecks(this);
-		if(this.getPcPoints() > 10000 || this.getPcPoints() < 0) {
-		    this.setPcPoints(0, this);
-		}
+		
+		//quest
 		if((questVars.getBananaCrate() == true && questVars.getBananaCrateCount() > 10) || questVars.getBananaCrateCount() > 10 || questVars.getBananaCrateCount() < 0) {
 		    questVars.setBananaCrate(false);
 		    questVars.setBananaCrateCount(0);
 		}
-		int master = this.getSlayer().slayerMaster;
-		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
-		    this.getSlayer().resetSlayerTask();
+		if(getGraveyardFruitDeposited() > 15) {
+		    setGraveyardFruitDeposited(15);
 		}
-		if(this.getClayBraceletLife() > 28 || this.getClayBraceletLife() < 0) {
-		    this.setClayBraceletLife(28);
+		if(getQuestVars().getGridStart().getX() == 0 && getQuestVars().getGridStart().getY() == 0 && getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
+			GridMazeHandler.generatePositions(this);
 		}
-		if(this.getFightCavesWave() > 62 || this.getFightCavesWave() < 0) {
-		    this.setFightCavesWave(0);
+		if(getEctoWorshipCount() > 12 || getEctoWorshipCount() < 0) {
+		    setEctoWorshipCount(0);
 		}
-		if(this.getEctoWorshipCount() > 12 || this.getEctoWorshipCount() < 0) {
-		    this.setEctoWorshipCount(0);
+		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
+		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
 		}
 		if(!getInventory().ownsItem(4033) && getQuestStage(36) == 0) {
 		    getMMVars().monkeyPetDeleted = true;
 		}
 		if(getInventory().ownsItem(4033) && getQuestStage(36) == 0 && !getMMVars().monkeyPetDeleted) {
 		    if(getInventory().playerHasItem(4033)) {
-			MonkeyMadness.deleteMonkey(this, 0);
+		    	MonkeyMadness.deleteMonkey(this, 0);
 		    }
 		    if (getBankManager().ownsItem(4033)) {
-			MonkeyMadness.deleteMonkey(this, 1);
+		    	MonkeyMadness.deleteMonkey(this, 1);
 		    }
 		} 
-		if(ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)) != null) {
-		    ApeAtoll.handleGreeGree(this, ApeAtoll.GreeGreeData.forItemId(this.getEquipment().getId(Constants.WEAPON)));
+		QuestHandler.initQuestLog(this);
+		getActionSender().sendString("Total Lvl: " + skill.getTotalLevel(), 3984);
+		getActionSender().sendString("QP: @gre@"+questPoints+" ", 3985);
+		getActionSender().sendString("Quest Points: "+questPoints, 640);
+		
+		//misc
+		getRandomHandler().process();
+		int master = getSlayer().slayerMaster;
+		if(master != 0 && master != 70 && !(master >= 1596 && master <= 1599)) {
+		    getSlayer().resetSlayerTask();
 		}
-		if(this.getGraveyardFruitDeposited() > 15) {
-		    this.setGraveyardFruitDeposited(15);
+		if(getClayBraceletLife() > 28 || getClayBraceletLife() < 0) {
+		    setClayBraceletLife(28);
 		}
-		if(this.Area(2504, 2534, 9732, 9782, 0)) {
-			PlagueCity.assessPipeGrill(this);
+		
+		//minigame vars
+		if(getPcPoints() > 10000 || getPcPoints() < 0) {
+		    setPcPoints(0);
 		}
-		if(getQuestVars().getGridStart().getX() == 0 && getQuestVars().getGridStart().getY() == 0
-			&& getQuestVars().getGridMiddle().getX() == 0 && getQuestVars().getGridMiddle().getY() == 0) {
-			GridMazeHandler.generatePositions(this);
+		if(getFightCavesWave() > 62 || getFightCavesWave() < 0) {
+		    setFightCavesWave(0);
 		}
+		
 	    //login Messages
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");
 	    getActionSender().sendMessage("Before you ask a question, check ::info and/or ::patchnotes.");
 	    getActionSender().sendMessage(Constants.LOGIN_MESSAGE);
+		if(this.getStaffRights() >= 1) {
+		   World.messageToStaff(this.getUsername() + " has logged in.");
+		}
 		for(Player player : World.getPlayers()) {
 		    if(player != null && !this.equals(player) && player.trimHost().equals(this.trimHost())) {
 		    	World.messageToStaff("" + this.getUsername() + " has logged on with the same or similiar IP as " + player.getUsername() + ".");
 		    }
 		}
 	    CommandHandler.appendToMacList(this, this.getMacAddress());
+	    
 	    //clan chat
         if(getClanChat() != null)
         {
@@ -1248,12 +1249,20 @@ public class Player extends Entity {
     			getActionSender().sendString("", 25122 + i);
     		}
         }
+        
         //Area logins
         areaLogin();
+        
+		if (getCurrentHp() <= 0) {
+			CombatManager.startDeath(this);
+		}
     }
 	
 	public void areaLogin(){
-		if(inEnchantingChamber()) {
+		if(this.inFightCaves()) {
+		    FightCaves.enterCave(this);
+		}
+		else if(inEnchantingChamber()) {
 		    getEnchantingChamber().exit();
 		}
 		else if(inAlchemistPlayground()) {
@@ -1301,6 +1310,10 @@ public class Player extends Entity {
         {
         	teleport(getLastPosition());
         }
+        else if(this.Area(2504, 2534, 9732, 9782, 0)) {
+			PlagueCity.assessPipeGrill(this);
+		}
+		UndergroundPass.doLoginChecks(this);
 	}
 	
 	public boolean beginLogin() throws Exception {
@@ -2331,19 +2344,27 @@ public class Player extends Entity {
 		return pcDamage;
 	}
 	
-	public void addPcPoints(int amt, Player player)
+	public void addPcPoints(int amt)
 	{
-		player.pcPoints += amt;
+		pcPoints += amt;
 	}
 	
-	public void setPcPoints(int amt, Player player)
+	public void setPcPoints(int amt)
 	{
-		player.pcPoints = amt;
+		pcPoints = amt;
+		if(pcPoints < 0)
+		{
+			pcPoints = 0;
+		}
 	}
 	
-	public int getPcPoints(Player player)
+	public void removePcPoints(int amt)
 	{
-		return player.pcPoints;
+		pcPoints = getPcPoints() - amt;
+		if(pcPoints < 0)
+		{
+			pcPoints = 0;
+		}
 	}
 	
 	public int getPcPoints()

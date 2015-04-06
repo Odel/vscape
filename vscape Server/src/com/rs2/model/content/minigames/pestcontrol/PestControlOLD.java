@@ -659,9 +659,9 @@ public class PestControlOLD {
 			if (gameWon) {
 			    player.getActionSender().sendMessage("@blu@Game won!");
 			    if (player.getPcDamage() >= 50) {
-				player.addPcPoints(5, player);
+				player.addPcPoints(5);
 				if (player.getPcDamage() >= 150) {
-				    player.addPcPoints((int) Math.floor((player.getPcDamage() - 50) / 100d), player);
+				    player.addPcPoints((int) Math.floor((player.getPcDamage() - 50) / 100d));
 				}
 			    }
 			    int reward = player.getCombatLevel() * 10;

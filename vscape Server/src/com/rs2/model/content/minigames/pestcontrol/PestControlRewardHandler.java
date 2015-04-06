@@ -127,7 +127,7 @@ public class PestControlRewardHandler {
 	int skillIndex = player.getSkillAnswer();
 	player.getSkill().addExp(skillIndex, expReward);
 	double reward = round(handlePoints(player, player.getPcSkillPoints()) * 2.25, 3);
-	player.setPcPoints(player.getPcPoints() - player.getPcSkillPoints(), player);
+	player.removePcPoints(player.getPcSkillPoints());
 	player.getActionSender().sendMessage(reward + " experience added to " + Skill.SKILL_NAME[player.getSkillAnswer()] + ".");
 	player.setSkillAnswer(0);
 	player.setPcSkillPoints(0);
@@ -337,7 +337,7 @@ public class PestControlRewardHandler {
 		    case 10:
 			if (player.getPcPoints() >= 250) {
 			    player.getInventory().addItem(new Item(8839));
-			    player.setPcPoints(player.getPcPoints() - 250, player);
+			    player.removePcPoints(250);
 			    break;
 			} else if (player.getPcPoints() < 250) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -362,7 +362,7 @@ public class PestControlRewardHandler {
 		    case 14:
 			if (player.getPcPoints() >= 250) {
 			    player.getInventory().addItem(new Item(8840));
-			    player.setPcPoints(player.getPcPoints() - 250, player);
+			    player.removePcPoints(250);
 			    break;
 			} else if (player.getPcPoints() < 250) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -387,7 +387,7 @@ public class PestControlRewardHandler {
 		    case 18:
 			if (player.getPcPoints() >= 250) {
 			    player.getInventory().addItem(new Item(8841));
-			    player.setPcPoints(player.getPcPoints() - 250, player);
+			    player.removePcPoints(250);
 			    break;
 			} else if (player.getPcPoints() < 250) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -412,7 +412,7 @@ public class PestControlRewardHandler {
 		    case 22:
 			if (player.getPcPoints() >= 150) {
 			    player.getInventory().addItem(new Item(8842));
-			    player.setPcPoints(player.getPcPoints() - 150, player);
+			    player.removePcPoints(150);
 			    break;
 			} else if (player.getPcPoints() < 150) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -460,7 +460,7 @@ public class PestControlRewardHandler {
 		    case 26:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(11665));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -485,7 +485,7 @@ public class PestControlRewardHandler {
 		    case 29:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(11664));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -510,7 +510,7 @@ public class PestControlRewardHandler {
 		    case 32:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(11663));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -606,7 +606,7 @@ public class PestControlRewardHandler {
 		    case 11:
 			if (player.getPcPoints() >= 150) {
 			    player.getInventory().addItem(new Item(6541));
-			    player.setPcPoints(player.getPcPoints() - 150, player);
+			    player.removePcPoints(150);
 			    break;
 			} else if (player.getPcPoints() < 150) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -630,7 +630,7 @@ public class PestControlRewardHandler {
 		    case 14:
 			if (player.getPcPoints() >= 175) {
 			    player.getInventory().addItem(new Item(9952));
-			    player.setPcPoints(player.getPcPoints() - 175, player);
+			    player.removePcPoints(175);
 			    break;
 			} else if (player.getPcPoints() < 175) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -654,7 +654,7 @@ public class PestControlRewardHandler {
 		    case 17:
 			if (player.getPcPoints() >= 175) {
 			    player.getInventory().addItem(new Item(9975));
-			    player.setPcPoints(player.getPcPoints() - 175, player);
+			    player.removePcPoints(175);
 			    break;
 			} else if (player.getPcPoints() < 175) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -718,7 +718,7 @@ public class PestControlRewardHandler {
 		    case 22:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(9965));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -742,7 +742,7 @@ public class PestControlRewardHandler {
 		    case 25:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(9966));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -766,7 +766,7 @@ public class PestControlRewardHandler {
 		    case 28:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(9967));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -790,7 +790,7 @@ public class PestControlRewardHandler {
 		    case 31:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(9968));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -814,7 +814,7 @@ public class PestControlRewardHandler {
 		    case 34:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(9969));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -838,7 +838,7 @@ public class PestControlRewardHandler {
 		    case 37:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(4606));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -862,7 +862,7 @@ public class PestControlRewardHandler {
 		    case 40:
 			if (player.getPcPoints() >= 200) {
 			    player.getInventory().addItem(new Item(10092));
-			    player.setPcPoints(player.getPcPoints() - 200, player);
+			    player.removePcPoints(200);
 			    break;
 			} else if (player.getPcPoints() < 200) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -909,7 +909,7 @@ public class PestControlRewardHandler {
 		    case 64:
 			if (player.getPcPoints() >= 225) {
 			    player.getInventory().addItem(new Item(4033));
-			    player.setPcPoints(player.getPcPoints() - 225, player);
+			    player.removePcPoints(225);
 			    break;
 			} else if (player.getPcPoints() < 225) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -933,7 +933,7 @@ public class PestControlRewardHandler {
 		    case 67:
 			if (player.getPcPoints() >= 250) {
 			    player.getInventory().addItem(new Item(7582));
-			    player.setPcPoints(player.getPcPoints() - 250, player);
+			    player.removePcPoints(250);
 			    break;
 			} else if (player.getPcPoints() < 250) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -957,7 +957,7 @@ public class PestControlRewardHandler {
 		    case 70:
 			if (player.getPcPoints() >= 275) {
 			    player.getInventory().addItem(new Item(8132));
-			    player.setPcPoints(player.getPcPoints() - 275, player);
+			    player.removePcPoints(275);
 			    break;
 			} else if (player.getPcPoints() < 275) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");
@@ -981,7 +981,7 @@ public class PestControlRewardHandler {
 		    case 73:
 			if (player.getPcPoints() >= 275) {
 			    player.getInventory().addItem(new Item(10592));
-			    player.setPcPoints(player.getPcPoints() - 275, player);
+			    player.removePcPoints(275);
 			    break;
 			} else if (player.getPcPoints() < 275) {
 			    player.getActionSender().sendMessage("You don't have enough commendation points!");

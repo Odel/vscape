@@ -1068,10 +1068,10 @@ public class PestControl {
 					player.getActionSender().sendMessage("@blu@Game won!", true);
 					if (player.getPcDamage() >= 50) {
 					    int totalReward = 5;
-						player.addPcPoints(5, player);
+						player.addPcPoints(5);
 						if (player.getPcDamage() >= 150) {
 						    int bonusReward = (int) Math.floor((player.getPcDamage() - 50) / 100d);
-						    player.addPcPoints(bonusReward, player);
+						    player.addPcPoints(bonusReward);
 						    totalReward += bonusReward;
 						}
 						player.getActionSender().sendMessage("@blu@You did " + player.getPcDamage() + " damage and recieved " + totalReward + " commendation points.", true);
