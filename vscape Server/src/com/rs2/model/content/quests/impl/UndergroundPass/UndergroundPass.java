@@ -76,6 +76,7 @@ public class UndergroundPass implements Quest {
 	public static final int DWARF_BREW = 1501;
 	public static final int IBANS_ASHES = 1502;
 	public static final int TINDERBOX = 590;
+	public static final int IBANS_STAFF = 1409;
 
 	//Positions
 	public static final Position PASS_ENTRANCE_POS = new Position(2495, 9716, 0);
@@ -683,7 +684,39 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
-			case 3351:
+			/*
+			case 0:
+				player.getActionSender().sendMessage("You pull open the large doors...");
+				boolean dollComplete = true;
+				for(boolean b : player.getQuestVars().getIbanDollElements()) {
+					dollComplete = b;
+				}
+				if(dollComplete) {
+					player.getActionSender().sendMessage("Iban seems to sense danger.");
+					player.getActionSender().sendMessage("Iban: @blu@Who dares bring the witch's magic into my temple?");
+					player.getActionSender().sendMessage("His eyes fixate on you as he raises his arm...");
+					player.getActionSender().sendMessage("Iban: @blu@An imposter dares desecrate this sacred place!");
+					player.getActionSender().sendMessage("Iban: @blu@...Home to the only true child of Zamorak.");
+					player.getActionSender().sendMessage("Iban: @blu@Join the damned, mortal!");
+					player.getActionSender().sendMessage("Iban: @blu@Begone from my temple!");
+					player.getActionSender().sendMessage("You throw the doll of Iban into the pit...");
+					player.getActionSender().sendMessage("Iban: @blu@What's happening? It's dark here... so dark!");
+					player.getActionSender().sendMessage("Iban: @blu@I'm falling into the dark, what have you done?");
+					player.getActionSender().sendMessage("Iban falls to his knees clutching his throat...");
+					player.getActionSender().sendMessage("Iban: @blu@NOOOOOO!");
+					player.getActionSender().sendMessage("Iban slumps motionsless to the floor...");
+					player.getActionSender().sendMessage("A roar comes from the pit of the damned.");
+					player.getActionSender().sendMessage("The infamous Iban has finally gone to rest.");
+					player.getActionSender().sendMessage("Amongst Ibans remains you find his staff and some runes.");
+					player.getActionSender().sendMessage("Suddenly around you rocks crash to the floor as the ground begins to shake...");
+					player.getActionSender().sendMessage("...The temple walls begin to collapse in...");
+					player.getActionSender().sendMessage("...And you're thrown from the temple platform.");
+					player.getInventory().replaceItemWithItem(new Item(DOLL_OF_IBAN), new Item(IBANS_STAFF));
+					player.getInventory().addItem(new Item(560, 150)); //death runes
+					player.getInventory().addItem(new Item(554, 300));
+				}
+			return true;
+			*/
 			case 3352:
 				if(player.inUndergroundPass()) {
 					player.setStopPacket(true);
