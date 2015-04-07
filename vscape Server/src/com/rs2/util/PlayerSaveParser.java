@@ -219,13 +219,13 @@ public class PlayerSaveParser {
 			if(worldData.get("ectoGrinderBoneType") != null) {
 			    player.getEctofuntus().boneType = Ectofuntus.BonemealData.forBoneId(worldData.get("ectoGrinderBoneType").getAsInt());
 			}
-			if(worldData.get("bonesInLoader") != null) {
+			if(worldData.get("bonesInLoader") != null && player.getEctofuntus().boneType != null) {
 			    int amount = worldData.get("bonesInLoader").getAsInt();
 			    for(int i = 0; i < amount; i++) {
 				player.getEctofuntus().getBonesInLoader().add(i, Ectofuntus.BonemealData.forBoneId(player.getEctofuntus().boneType.boneId));
 			    }
 			}
-			if(worldData.get("bonemealInBin") != null) {
+			if(worldData.get("bonemealInBin") != null && player.getEctofuntus().boneType != null) {
 			    int amount = worldData.get("bonemealInBin").getAsInt();
 			    for(int i = 0; i < amount; i++) {
 				player.getEctofuntus().getBonemealInBin().add(i, Ectofuntus.BonemealData.forBoneId(player.getEctofuntus().boneType.boneId));
