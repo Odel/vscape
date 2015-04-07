@@ -116,6 +116,8 @@ public class Grinding {
 					container.stop();
 					return;
 				}
+				container.stop();
+				return;
 			}
 
 			@Override
