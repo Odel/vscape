@@ -132,18 +132,18 @@ public class PlayerSaveParser {
 	            if(combat != null){
 		            player.setAutoRetaliate(combat.get("autoretaliate").getAsBoolean());
 		            player.setFightMode(combat.get("fightmode").getAsInt());
-		            player.setSpecialAmount(combat.get("specialamount").getAsInt());
+		            player.setSpecialAmount(combat.get("specialamount").getAsInt() <= 0 ? 0 : combat.get("specialamount").getAsInt());
 	            	player.setMagicBookType(combat.get("magicBook").getAsBoolean() ? SpellBook.ANCIENT : SpellBook.MODERN);
-	            	int skullTimer = combat.get("skulltimer").getAsInt();
+	            	int skullTimer = combat.get("skulltimer").getAsInt() <= 0 ? 0 : combat.get("skulltimer").getAsInt();
 	            	if (skullTimer > 0)
 	            		player.addSkull(player, skullTimer);
-	                player.getPoisonImmunity().setWaitDuration(combat.get("poisonImmunity").getAsInt());
+	                player.getPoisonImmunity().setWaitDuration(combat.get("poisonImmunity").getAsInt() <= 0 ? 0 : combat.get("poisonImmunity").getAsInt());
 	                player.getPoisonImmunity().reset();
-	                player.getFireImmunity().setWaitDuration(combat.get("fireImmunity").getAsInt());
+	                player.getFireImmunity().setWaitDuration(combat.get("fireImmunity").getAsInt() <= 0 ? 0 : combat.get("fireImmunity").getAsInt());
 	                player.getFireImmunity().reset();
-	                player.getTeleblockTimer().setWaitDuration(combat.get("teleBlockTimer").getAsInt());
+	                player.getTeleblockTimer().setWaitDuration(combat.get("teleBlockTimer").getAsInt() <= 0 ? 0 : combat.get("teleBlockTimer").getAsInt());
 	                player.getTeleblockTimer().reset();
-	            	double poison = combat.get("poisonDamage").getAsDouble();
+	            	double poison = combat.get("poisonDamage").getAsDouble() <= 0 ? 0 : combat.get("poisonDamage").getAsDouble();
 	                if (poison > 0) {
 	                	HitDef hitDef = new HitDef(null, HitType.POISON, Math.ceil(poison)).setStartingHitDelay(30);
 	    				Hit hit = new Hit(player, player, hitDef);
