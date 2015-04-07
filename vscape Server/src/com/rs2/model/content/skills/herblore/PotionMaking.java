@@ -249,7 +249,7 @@ public class PotionMaking {// todo description items
 	public static boolean emptyPotion(Player player, Item item, int slot) {
 		String description = item.getDefinition().getDescription().toLowerCase();
 		String name = item.getDefinition().getName().toLowerCase();
-		if (description.contains("bucket") || description.contains("potion") || description.contains("dose") || description.contains("jug") || name.contains("jug") || description.contains("bowl") || description.contains("vial") || name.contains("flour") || description.contains("bucket") || description.contains("cup")) {
+		if (description.contains("bucket") || description.contains("potion") || description.contains("dose") || description.contains("jug") || name.contains("jug") || description.contains("bowl") || description.contains("vial") || name.contains("flour") || description.contains("bucket") || description.contains("cup") || item.getId() == 4622) {
 			player.getActionSender().sendMessage("You empty your " + name + ".");
 			if (player.getInventory().removeItemSlot(item, slot)) {
 				player.getInventory().addItemToSlot(new Item(getEmptyId(item)), slot);
@@ -264,7 +264,7 @@ public class PotionMaking {// todo description items
 	private static int getEmptyId(Item item) {
 		String description = item.getDefinition().getDescription().toLowerCase();
 		String name = item.getDefinition().getName().toLowerCase();
-		if (description.contains("potion") || description.contains("vial") || description.contains("dose")) {
+		if (description.contains("potion") || description.contains("vial") || description.contains("dose") || item.getId() == 4622) {
 			return 229;
 		}
 		if (description.contains("bucket") || description.contains("compost")) {

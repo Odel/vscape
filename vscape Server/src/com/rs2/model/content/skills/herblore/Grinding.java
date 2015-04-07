@@ -3,6 +3,7 @@ package com.rs2.model.content.skills.herblore;
 import com.rs2.Constants;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.players.item.ItemManager;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
@@ -61,55 +62,66 @@ public class Grinding {
 		}
 		return false;
 	}
-
+	
 	public static boolean createProduct(Player player, Item useItem, Item withItem, int slot, int usedSlot) {
-		boolean useItemIsPestle = false;
-		if (useItem.getId() == PESTLE) {
-			useItemIsPestle = true;
-		}
-		GrindableData g = GrindableData.getGrindableForId(!useItemIsPestle ? useItem.getId() : withItem.getId());
-		if ((useItemIsPestle || withItem.getId() == PESTLE) && g != null) {
-			int materialSlot = player.getInventory().getItemContainer().getSlotById(g.getFirstItem());
+		final int grindItem = useItem.getId() != PESTLE ? useItem.getId() : withItem.getId();
+		int materialSlot = useItem.getId() != PESTLE ? slot : usedSlot;
+		GrindableData grindable = GrindableData.getGrindableForId(grindItem);
+		if (grindable != null) {
+			if((useItem.getId() == grindable.getFirstItem() && withItem.getId() != PESTLE) || 
+					(useItem.getId() == PESTLE && withItem.getId() != grindable.getFirstItem()))
+			{
+				return false;
+			}
 			if (!Constants.HERBLORE_ENABLED) {
 				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return true;
 			}
-			if(g.noReqs) {
-				grindItem(player, g.getFirstItem(), g.getGrindedItem(), materialSlot);
-				return true;
-			} else {
-				if(canGrindItem(player, g.getFirstItem())) {
-					grindItem(player, g.getFirstItem(), g.getGrindedItem(), materialSlot);
+			if(!grindable.noReqs)
+			{
+				if(!canGrindItem(player, grindable.getFirstItem())) {
+					return true;
 				}
-				return true;
 			}
+			grindItem(player, grindable.getFirstItem(), grindable.getGrindedItem(), materialSlot);
+			return true;
 		}
 		return false;
 	}
-
-	public static void grindItem(final Player player, final int material, final int product, final int materialSlot) {
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+	
+	public static void grindItem(final Player player, final int material, final int product, final int materialSlot){
+		player.getUpdateFlags().sendAnimation(GRIND_ANIM);
+		final int task = player.getTask();
+		player.setSkilling(new CycleEvent() {
 			@Override
-			public void execute(CycleEventContainer p) {
-				Item materialItem = new Item(material, 1);
-				if (!player.getInventory().removeItemSlot(materialItem, materialSlot) && !player.getInventory().removeItem(materialItem)) {
-					p.stop();
+			public void execute(CycleEventContainer container) {
+				if (!player.checkTask(task) || !player.getInventory().playerHasItem(PESTLE) || !player.getInventory().playerHasItem(material)) {
+					container.stop();
 					return;
 				}
-				Item toRecieve = new Item(product);
-				player.getUpdateFlags().sendAnimation(GRIND_ANIM);
+				Item toRecieve = new Item(product, 1);
 				if (material == 4620) {
-					player.getInventory().replaceItemWithItem(new Item(VIAL), toRecieve);
+					if(player.getInventory().removeItemSlot(new Item(material, 1), materialSlot) 
+							&& player.getInventory().removeItem(new Item(VIAL, 1)))
+					{
+						player.getInventory().addItemToSlot(toRecieve, materialSlot);
+						player.getActionSender().sendMessage("You Grind the mushroom filling a vial with black ink.");
+						container.stop();
+						return;
+					}
 				} else {
-					player.getInventory().addItemToSlot(toRecieve, materialSlot);
+					player.getInventory().replaceItemWithItem(new Item(material, 1), toRecieve);
+					String itemName = ItemManager.getInstance().getItemName(material);
+					player.getActionSender().sendMessage("You Grind the "+itemName+" to dust.");
+					container.stop();
+					return;
 				}
-				player.getActionSender().sendMessage("You grind the " + new Item(material).getDefinition().getName().toLowerCase() + ".");
-				p.stop();
 			}
 
 			@Override
 			public void stop() {
 			}
-		}, 2);
+		});
+		CycleEventHandler.getInstance().addEvent(player, player.getSkilling(), 2);
 	}
 }
