@@ -79,9 +79,9 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		combatObj.addProperty("specialamount", player.getSpecialAmount() <= 0 ? 0 : player.getSpecialAmount());
 		combatObj.addProperty("magicBook", player.getMagicBookType() == SpellBook.ANCIENT);
 		combatObj.addProperty("skulltimer", player.getSkullTimer() <= 0 ? 0 : player.getSkullTimer());
-		combatObj.addProperty("poisonImmunity", (player.getPoisonImmunity().ticksRemaining() <= 0 ? 0 : player.getPoisonImmunity().ticksRemaining()));
-		combatObj.addProperty("fireImmunity", (player.getFireImmunity().ticksRemaining() <= 0 ? 0 : player.getFireImmunity().ticksRemaining()));
-		combatObj.addProperty("teleBlockTimer", (player.getTeleblockTimer().ticksRemaining() <= 0 ? 0 : player.getTeleblockTimer().ticksRemaining()));
+		combatObj.addProperty("poisonImmunity", player.getPoisonImmunity().ticksRemaining());
+		combatObj.addProperty("fireImmunity", player.getFireImmunity().ticksRemaining());
+		combatObj.addProperty("teleBlockTimer", player.getTeleblockTimer().ticksRemaining());
 		combatObj.addProperty("poisonDamage", player.getPoisonDamage() <= 0 ? 0.0d : player.getPoisonDamage());
 		JsonArray degradeArray = new JsonArray();
 		for (int i = 0; i < player.getDegradeableHits().length; i++) {

@@ -71,6 +71,7 @@ public class PoisonEffect extends Effect<PoisonEffect.PoisonTick> {
 			@SuppressWarnings("unused")
 			PoisonEffect effect = getEffect(); 
 			if (victim == null) {
+				poison = 0;
 				stop();
 				return;
 			}
@@ -82,7 +83,10 @@ public class PoisonEffect extends Effect<PoisonEffect.PoisonTick> {
 				victim.setPoisonDamage(poison);
 			}
 			if (poison <= 0)
+			{
+				poison = 0;
 				stop();
+			}
 		}
 
 	}

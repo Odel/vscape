@@ -137,14 +137,14 @@ public class PlayerSaveParser {
 	            	int skullTimer = combat.get("skulltimer").getAsInt() <= 0 ? 0 : combat.get("skulltimer").getAsInt();
 	            	if (skullTimer > 0)
 	            		player.addSkull(player, skullTimer);
-	                player.getPoisonImmunity().setWaitDuration(combat.get("poisonImmunity").getAsInt() <= 0 ? 0 : combat.get("poisonImmunity").getAsInt());
+	                player.getPoisonImmunity().setWaitDuration(combat.get("poisonImmunity").getAsInt());
 	                player.getPoisonImmunity().reset();
-	                player.getFireImmunity().setWaitDuration(combat.get("fireImmunity").getAsInt() <= 0 ? 0 : combat.get("fireImmunity").getAsInt());
+	                player.getFireImmunity().setWaitDuration(combat.get("fireImmunity").getAsInt());
 	                player.getFireImmunity().reset();
-	                player.getTeleblockTimer().setWaitDuration(combat.get("teleBlockTimer").getAsInt() <= 0 ? 0 : combat.get("teleBlockTimer").getAsInt());
+	                player.getTeleblockTimer().setWaitDuration(combat.get("teleBlockTimer").getAsInt());
 	                player.getTeleblockTimer().reset();
 	            	double poison = combat.get("poisonDamage").getAsDouble() <= 0 ? 0 : combat.get("poisonDamage").getAsDouble();
-	                if (poison > 0) {
+	            	if (poison > 0) {
 	                	HitDef hitDef = new HitDef(null, HitType.POISON, Math.ceil(poison)).setStartingHitDelay(30);
 	    				Hit hit = new Hit(player, player, hitDef);
 	    				PoisonEffect p = new PoisonEffect(poison, false);
