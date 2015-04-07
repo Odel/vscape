@@ -2124,6 +2124,14 @@ public class CommandHandler {
 				}
 			}
 			sender.getActionSender().sendMessage(count + " NPC's in the world.", true);
+		}else if(keyword.equals("removeeffects")){
+			Player player = World.getPlayerByName(fullString);
+		    if(player != null) {
+		    	player.resetEffects();
+		    	sender.getActionSender().sendMessage("Removed Effects from " + player.getUsername(), true);
+		    } else {
+		    	sender.getActionSender().sendMessage("Player not found.", true);
+		    }
 		}
 	}
 	
