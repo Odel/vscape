@@ -1,7 +1,15 @@
+@dre@=April 7th=
+--Minor Hotfix patch--
+-Ernest the chicken doors fixed
+-Fix for item loss on grinding
+-D2H spec and Dpear spec fix
+-Cwars dc login fix
+-Other backend cleanups
+
 @dre@=April 5th=
 @blu@Happy Easter!
 -The Easter Bunny can be found
-trying to get a bandit mask
+trying to get a highwayman mask
 -Go spend time with your family
 -God damn chocolate is tasty
 -meme is ded RIP in pieces
