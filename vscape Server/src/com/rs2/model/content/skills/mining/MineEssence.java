@@ -38,7 +38,7 @@ public class MineEssence {
 		final int task = player.getTask();
 		final int ess = player.getSkill().getPlayerLevel(Skill.MINING) < 30 ? 1436 : 7936;
 		final int anim = pickaxe.getAnimation();
-		player.getActionSender().sendMessage("You swing your pick at the rock.", true);
+		player.getActionSender().sendMessage("You swing your pick at the rock.");
 		player.getUpdateFlags().sendAnimation(anim);
 		player.getActionSender().sendSound(432, 0, 0);
 		player.setSkilling(new CycleEvent() {

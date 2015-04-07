@@ -89,7 +89,7 @@ public class ShopManager {
                 finalAmount++;
             }
             if(finalAmount <= 0){
-				player.getActionSender().sendMessage("You do not have enough " + ItemManager.getInstance().getItemName(currency) + " to buy this item.");
+				player.getActionSender().sendMessage("You do not have enough " + ItemManager.getInstance().getItemName(currency) + " to buy this item.", true);
                 return;
             }
             amount = finalAmount;
@@ -109,14 +109,14 @@ public class ShopManager {
 		}
 		if ((!item.getDefinition().isStackable() || !player.getInventory().playerHasItem(shopItem)) && freeSpace < (!item.getDefinition().isStackable() ? amount : 1)) {
 			amount = freeSpace;
-			player.getActionSender().sendMessage("Not enough space in your inventory.");
+			player.getActionSender().sendMessage("Not enough space in your inventory.", true);
 		}
 		if (shop.getCurrentStock().get(slot).getCount() < amount) {
 			amount = shop.getCurrentStock().get(slot).getCount();
 		}
 		if (shop.isGeneralStore()) {
 			if (shop.getCurrentStock().get(slot).getCount() == 0) {
-				player.getActionSender().sendMessage("This item is out of stock.");
+				player.getActionSender().sendMessage("This item is out of stock.", true);
 				return;
 			}
 		}
@@ -145,7 +145,7 @@ public class ShopManager {
 		Item item = inventory.get(slot);
 		int currency = shop.getCurrency();
         if (!Constants.ADMINS_CAN_INTERACT && player.getStaffRights() >= 2) {
-            player.getActionSender().sendMessage("This action is not allowed.");
+            player.getActionSender().sendMessage("This action is not allowed.", true);
             return;
         }
         if (item == null)
@@ -158,19 +158,19 @@ public class ShopManager {
 			return;
 		}*/
 		if (shop.getCurrencyType() != Shop.CurrencyTypes.ITEM) {
-			player.getActionSender().sendMessage("This shop can't buy anything.");
+			player.getActionSender().sendMessage("This shop can't buy anything.", true);
 			return;
 		}
 		if (shop.getCurrentStock().freeSlots() < 1) {
-			player.getActionSender().sendMessage("The shop is currently full!");
+			player.getActionSender().sendMessage("The shop is currently full!", true);
 			return;
 		}
         if (itemId == 995) {
-            player.getActionSender().sendMessage("You cannot sell coins to the shop.");
+            player.getActionSender().sendMessage("You cannot sell coins to the shop.", true);
             return;
         }
 		if ((!shop.isGeneralStore() && !shop.getCurrentStock().contains(itemId)) || item.getDefinition().isUntradable()) {
-			player.getActionSender().sendMessage("You cannot sell this item in this shop.");
+			player.getActionSender().sendMessage("You cannot sell this item in this shop.", true);
 			return;
 		}
 		int totalItems = inventory.getCount(itemId);
@@ -178,7 +178,7 @@ public class ShopManager {
 			return;
 		}
 		if (itemId > Constants.MAX_ITEMS) {
-			player.getActionSender().sendMessage("This item is not supported yet.");
+			player.getActionSender().sendMessage("This item is not supported yet.", true);
 			return;
 		}
 		if (!inventory.contains(itemId)) {
@@ -302,7 +302,7 @@ public class ShopManager {
 
 	public static void getSellValue(Player player, int id) {
 		if (new Item(id).getDefinition().isUntradable()) {
-			player.getActionSender().sendMessage("You cannot sell this item to this shop.");
+			player.getActionSender().sendMessage("You cannot sell this item to this shop.", true);
 			return;
 		}
 		Shop shop = shops.get(player.getShopId());
@@ -342,15 +342,15 @@ public class ShopManager {
 		}
 		if (shop.getCurrencyType() == Shop.CurrencyTypes.ITEM && shop.isGeneralStore()) {
 			ItemManager.getInstance().getItemName(shop.getCurrency());
-			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + getCurrencyName(shop) + ".");
+			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + getCurrencyName(shop) + ".", true);
 		} else {
 			if ((!shop.getCurrentStock().contains(id)) || new Item(id).getDefinition().isUntradable()) {
-				player.getActionSender().sendMessage("You cannot sell this item in this shop.");
+				player.getActionSender().sendMessage("You cannot sell this item in this shop.", true);
 				return;
 			}
 			String currencyName = ItemManager.getInstance().getItemName(shop.getCurrency());
 			ItemManager.getInstance().getItemName(shop.getCurrency());
-			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + currencyName + ".");
+			player.getActionSender().sendMessage("" + ItemManager.getInstance().getItemName(id) + ": shop will buy for " + Misc.formatNumber(price) + " " + currencyName + ".", true);
 		}
 	}
 

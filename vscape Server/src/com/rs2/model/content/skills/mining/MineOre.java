@@ -121,7 +121,7 @@ public class MineOre {
 			return;
 		}
 
-		player.getActionSender().sendMessage("You swing your pick at the rock.", true);
+		player.getActionSender().sendMessage("You swing your pick at the rock.");
 		if (player.getNewComersSide().isInTutorialIslandStage()) {
 			player.getDialogue().sendTutorialIslandWaitingInfo("", "Your character is now attempting to mine the rock.", "This should take only a few seconds.", "", "Please wait...");
 		}
