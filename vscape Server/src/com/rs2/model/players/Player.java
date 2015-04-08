@@ -4893,8 +4893,8 @@ public class Player extends Entity {
 	}
 	
 	public boolean hasLightSource()	{ 		
-		for(int i = 0; i < Constants.LIGHT_SOURCES.length; i++)	{
-			if(this.getInventory().playerHasItem(Constants.LIGHT_SOURCES[i]))	{
+		for(int id : Constants.LIGHT_SOURCES) {
+			if(this.getInventory().playerHasItem(id) || this.getEquipment().getId(Constants.WEAPON) == id) {
 				return true;
 			}
 		}
