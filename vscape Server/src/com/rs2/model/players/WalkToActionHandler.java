@@ -147,6 +147,7 @@ public class WalkToActionHandler {
 			case 3220:
 			case 3221:
 			case 3213:
+			case 3214:
 			case 3264:
 				return true;
 			case 2274:

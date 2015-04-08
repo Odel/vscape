@@ -493,6 +493,20 @@ public class ActionSender {
 		player.send(out.getBuffer());
 		return this;
 	}
+	
+	public void sendTimedMessage(final String message, final boolean isFiltered, final int time) {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				sendMessage(message, isFiltered);
+			}
+		}, 3);
+	}
 
 	public void sendMessage(String message) {
 		sendMessage(message, false);

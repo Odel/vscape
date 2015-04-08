@@ -152,9 +152,13 @@ public class ObjectLoader implements LandscapeListener, ObjectDefinitionListener
 		}
 		for(int y = 4649; y > 4644; y--) {
 			ObjectHandler.getInstance().removeClip(2147, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2147 - 128, y + 64, 1, 22, 0);
 			ObjectHandler.getInstance().removeClip(2148, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2148 - 128, y + 64, 1, 22, 0);
 			ObjectHandler.getInstance().removeClip(2151, y, 1, 22, 0);
-			ObjectHandler.getInstance().removeClip(2152, y, 1, 22, 0); //Iban's temple steps
+			ObjectHandler.getInstance().removeClip(2151 - 128, y + 64, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2152, y, 1, 22, 0);
+			ObjectHandler.getInstance().removeClip(2152 - 128, y + 64, 1, 22, 0);//Iban's temple steps
 		}
 	}
 	

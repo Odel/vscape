@@ -116,6 +116,7 @@ public class QuestVariables {
 	public boolean takenWitchCat = false;
 	public boolean dousedIbansTomb = false;
 	public boolean killedKalrag = false;
+	public boolean threwDollIntoWell = false;
 	private boolean[] ibanDollElements = {false, false, false, false};
 	public boolean spawnedStoneCircleLadder = false;
 	public boolean givenMonkWater = false;

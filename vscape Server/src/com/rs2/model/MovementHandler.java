@@ -286,6 +286,9 @@ public class MovementHandler {
 	 */
 	public void setRunToggled(boolean runToggled) {
 		this.runToggled = runToggled;
+		if(entity != null && entity.isPlayer()) {
+			((Player)entity).getActionSender().sendConfig(173,this.runToggled ? 1 : 0);
+		}
 	}
 
 	/**

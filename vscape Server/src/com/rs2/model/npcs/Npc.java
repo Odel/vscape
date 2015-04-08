@@ -234,7 +234,7 @@ public class Npc extends Entity {
 			return;
 		}
 		if (walkType == WalkType.STAND) {
-			getUpdateFlags().sendFaceToDirection(getFacingDirection(getPosition(), getFace()));
+			getUpdateFlags().sendFaceToDirection(getCorrectStandPosition(this.getSize()));
 		} else if (!isFrozen() && !isStunned() && Misc.random(9) == 0) {
 			int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
 			if(npcId == 1091) {
@@ -306,6 +306,40 @@ public class Npc extends Entity {
 				return new Position(x - 1, y);
 		}
 		return new Position(x, y - 1);
+	}
+	
+	public boolean getCorrectStandPosition(Position pos, int size) {
+		int x = getPosition().getX();
+		int y = getPosition().getY();
+		int h = getPosition().getZ();
+		switch(face) {
+			case 2 :
+				return pos.equals(new Position(x, y + size, h));
+			case 3 :
+				return pos.equals(new Position(x, y - size, h));
+			case 4 :
+				return pos.equals(new Position(x + size, y, h));
+			case 5 :
+				return pos.equals(new Position(x - size, y, h));
+		}
+		return Misc.goodDistance(getPosition(), pos, 1);
+	}
+
+	public Position getCorrectStandPosition(int size) {
+		int x = getPosition().getX();
+		int y = getPosition().getY();
+		int h = getPosition().getZ();
+		switch(face) {
+			case 2 :
+				return new Position(x, y + size, h);
+			case 3 :
+				return new Position(x, y - size, h);
+			case 4 :
+				return new Position(x + size, y, h);
+			case 5 :
+				return new Position(x - size, y, h);
+		}
+		return new Position(x, y + size, h);
 	}
 
 	/**
@@ -694,40 +728,6 @@ public class Npc extends Entity {
 		setSkilling(null);
 		getUpdateFlags().faceEntity(-1);
 		Following.resetFollow(this);
-	}
-
-	public boolean getCorrectStandPosition(Position pos, int size) {
-		int x = getPosition().getX();
-		int y = getPosition().getY();
-		int h = getPosition().getZ();
-		switch(face) {
-			case 2 :
-				return pos.equals(new Position(x, y + size, h));
-			case 3 :
-				return pos.equals(new Position(x, y - size, h));
-			case 4 :
-				return pos.equals(new Position(x + size, y, h));
-			case 5 :
-				return pos.equals(new Position(x - size, y, h));
-		}
-		return Misc.goodDistance(getPosition(), pos, 1);
-	}
-
-	public Position getCorrectStandPosition(int size) {
-		int x = getPosition().getX();
-		int y = getPosition().getY();
-		int h = getPosition().getZ();
-		switch(face) {
-			case 2 :
-				return new Position(x, y + size, h);
-			case 3 :
-				return new Position(x, y - size, h);
-			case 4 :
-				return new Position(x + size, y, h);
-			case 5 :
-				return new Position(x - size, y, h);
-		}
-		return new Position(x, y + size, h);
 	}
 
 	public boolean isBoothBanker() {

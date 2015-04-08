@@ -14,6 +14,7 @@ import com.rs2.model.content.Following;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.minigames.magetrainingarena.CreatureGraveyard;
 import com.rs2.model.content.quests.impl.MonkeyMadness.ApeAtollNpcs;
+import com.rs2.model.content.quests.impl.UndergroundPass.PassNpcHandling;
 import com.rs2.model.npcs.Npc.WalkType;
 import com.rs2.model.players.Player;
 import com.rs2.model.tick.CycleEvent;
@@ -102,6 +103,9 @@ public class NpcLoader {
 		}
 		if(id == 1423) {
 		    ApeAtollNpcs.BUNKWICKET = npc;
+		}
+		if(id == 993 || id == 996 || id == 1003) {
+			PassNpcHandling.assignNpcs(npc);
 		}
 		npc.setPosition(new Position(x, y, heightLevel));
 		npc.setSpawnPosition(new Position(x, y, heightLevel));

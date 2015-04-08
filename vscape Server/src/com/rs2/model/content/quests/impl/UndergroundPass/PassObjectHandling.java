@@ -9,13 +9,10 @@ import com.rs2.model.World;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.combat.weapon.Weapon;
-import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.content.skills.agility.Agility;
 import com.rs2.model.content.skills.thieving.ThieveOther;
-import com.rs2.model.npcs.Npc;
-import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.functions.Ladders;
 import com.rs2.model.players.Player;
@@ -28,6 +25,54 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
 public class PassObjectHandling {
+	
+	public static void handleIbansDoors(final Player player, final int x, final int y) {
+		if (player.getPosition().getX() > 2100) {
+			if (player.getPosition().getX() <= x) {
+				player.getActionSender().sendMessage("You pull open the large doors...", true);
+				new GameObject(3335, 2143, 4648, 1, 3, 10, 3333, 4, true);
+				new GameObject(3335, 2143, 4647, 1, 1, 10, 3334, 4, true);
+				player.getActionSender().walkTo(2, 0, true);
+				return;
+			}
+			if (PassNpcHandling.ibanEncounterRunning) {
+				player.getActionSender().sendMessage("A magical force has sealed the door. Iban appears to be busy.");
+				return;
+			}
+			if (player.getQuestStage(44) < UndergroundPass.DOLL_COMPLETE) {
+				if (player.getQuestStage(44) == UndergroundPass.IBANS_DEMISE) {
+					player.getDialogue().sendPlayerChat("Perhaps I don't want to open this without", "having infused the doll with all four elements.");
+				} else {
+					player.getDialogue().sendPlayerChat("I don't want to get killed by Iban. I should do", "some more research first before charging in.");
+				}
+				return;
+			}
+			if (player.getEquipment().wearingOnlySpecifics(new int[]{1035, 1033})) {
+				boolean dollComplete = true;
+				for (boolean b : player.getQuestVars().getIbanDollElements()) {
+					dollComplete = b;
+				}
+				if (dollComplete && player.getInventory().playerHasItem(UndergroundPass.DOLL_OF_IBAN)) {
+					player.getActionSender().sendMessage("You pull open the large doors...", true);
+					new GameObject(3335, 2143, 4648, 1, 3, 10, 3333, 4, true);
+					new GameObject(3335, 2143, 4647, 1, 1, 10, 3334, 4, true);
+					player.getMovementHandler().setRunToggled(true);
+					player.getActionSender().walkTo(-2, 0, true);
+					PassNpcHandling.startIbanEncounter(player);
+				} else {
+					player.getDialogue().sendPlayerChat("Perhaps I don't want to open this without", "the doll. It is the only thing that can kill", "Lord Iban.");
+				}
+			} else {
+				player.getActionSender().sendMessage("The doors refuse to open...", true);
+				player.getActionSender().sendTimedMessage("Only followers of Zamorak may enter.", true, 3);
+			}
+		} else {
+			player.getActionSender().sendMessage("You pull open the large doors...", true);
+			new GameObject(3335, 2015, 4712, 1, 3, 10, 3333, 4, true);
+			new GameObject(3335, 2015, 4711, 1, 1, 10, 3334, 4, true);
+			player.getActionSender().walkTo(player.getPosition().getX() > x ? -2 : 2, 0, true);
+		}
+	}
 	
 	public static void igniteIbansTomb(final Player player) {
 		new GameObject(3357, 2356, 9800, 0, 3, 2, -1, 6);
@@ -53,7 +98,7 @@ public class PassObjectHandling {
 			int face = o.getDef().getFace(), modifier = face == 1 || face == 3 ? (player.getPosition().getX() > x ? -4 : 4) : (player.getPosition().getY() > y ? -4 : 4), 
 				toFace = face == 1 || face == 3 ? (modifier < 0 ? 3 : 1) : (modifier < 0 ? 2 : 0);
 			player.setStopPacket(true);
-			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...");
+			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...", true);
 			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, player.getPosition().getY() + modifier, 1);
 			player.getUpdateFlags().setFace(toBe);
 			final boolean success = SkillHandler.skillCheck((player.getSkill().getPlayerLevel(Skill.AGILITY) + 40), 10, 0);
@@ -71,30 +116,41 @@ public class PassObjectHandling {
 				@Override
 				public void execute(CycleEventContainer b) {
 					player.setStopPacket(true);
-					if (count == 1) {
+					if (count == 1 && !success) {
 						b.stop();
 					} else {
-
 						if (!success) {
-							player.getActionSender().sendMessage("...you plunge into darkness...");
+							player.getActionSender().sendMessage("...you plunge into darkness...", true);
 							player.transformNpc = 2370;
 							count++;
 						} else {
-							player.getActionSender().sendMessage("...you manage to cross safely.");
-							b.stop();
+							count++;
+							if(count == 2) {
+								b.stop();
+							} else if(count == 1) {
+								player.getActionSender().sendMessage("...you manage to cross safely.", true);
+							}
 						}
 					}
 				}
 				@Override
 				public void stop() {
+					player.setStopPacket(false);
 					if(!success) {
-						player.setStopPacket(false);
 						player.teleport(new Position(2331, 9855, 0));
 						player.getActionSender().sendWalkableInterface(-1);
 						player.transformNpc = -1;
 						player.setAppearanceUpdateRequired(true);
 						player.hit(Misc.random(5) + 13, HitType.NORMAL);
 						player.getUpdateFlags().setForceChatMessage("Ouch!");
+					} else {
+						if (player.getQuestStage(44) >= 10) {
+							if ((toBe.getX() == 2034 || toBe.getX() == 2032) && (toBe.getY() == 4730 || toBe.getY() == 4688)) {
+								player.movePlayer(new Position(toBe.getX() + 128, toBe.getY() - 64, 1));
+							} else if ((toBe.getX() == 2162 || toBe.getX() == 2160) && (toBe.getY() == 4662 || toBe.getY() == 4628)) {
+								player.movePlayer(new Position(toBe.getX() - 128, toBe.getY() + 64, 1));
+							}
+						}
 					}
 				}
 			}, 3);
@@ -110,10 +166,10 @@ public class PassObjectHandling {
 		if (o != null) {
 			final int face = o.getRotation();
 			if (object == 3235) {
-				player.getActionSender().sendMessage("You remove the grill from the pipe and crawl in...");
+				player.getActionSender().sendMessage("You remove the grill from the pipe and crawl in...", true);
 				player.getActionSender().sendObject(3237, x, y, 0, 3, 10);
 			} else {
-				player.getActionSender().sendMessage("You crawl into the pipe...");
+				player.getActionSender().sendMessage("You crawl into the pipe...", true);
 			}
 			if (face == 2) {
 				player.getActionSender().sendMapState(2);
@@ -186,7 +242,7 @@ public class PassObjectHandling {
 							player.setStopPacket(false);
 							player.getUpdateFlags().sendAnimation(748);
 							player.setAppearanceUpdateRequired(true);
-							player.getActionSender().sendMessage("...you emerge on the other side.");
+							player.getActionSender().sendMessage("...you emerge on the other side.", true);
 							if ((face == 2 || face == 3) && player.getPosition().getX() > 2417) {
 								player.getActionSender().sendMapState(0);
 							} else if (face == 0) {
@@ -203,52 +259,13 @@ public class PassObjectHandling {
 		}
 	}
 	
-	public static void handlePushBoulder(final Player player, final Npc npc) {
-		if (player.stopPlayerPacket()) {
-			return;
-		}
-		player.setStopPacket(true);
-		player.getUpdateFlags().sendAnimation(827);
-		player.getActionSender().sendMessage("You use the piece of railing as leverage...");
-		player.getActionSender().sendMessage("...and tip the boulder onto it's side...");
-		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			int count = 0;
-			@Override
-			public void execute(CycleEventContainer b) {
-				count++;
-				if (count == 1) {
-					player.getActionSender().sendMessage("...It tumbles down the slope...");
-					player.getActionSender().shakeScreen(1, 10, 10, 4);
-					npc.walkTo(new Position(npc.getPosition().getX(), npc.getPosition().getY() + 8), false);
-				}
-				if (count >= 3) {
-					player.getActionSender().resetCamera();
-					player.getActionSender().shakeScreen(3, 25, 25, 100);
-					b.stop();
-				}
-			}
-			@Override
-			public void stop() {
-				player.setStopPacket(false);
-				NpcLoader.destroyNpc(npc);
-				NpcLoader.newNPC(986, 2396, 9595, 0, 2);
-				player.movePlayer(new Position(player.getPosition().getX() - 25, player.getPosition().getY(), 0));
-				player.getDialogue().sendPlayerChat("I heard something breaking.", Dialogues.SAD);
-				player.getActionSender().resetCamera();
-				if(player.getQuestStage(44) == UndergroundPass.CAN_USE_WELL) {
-					player.setQuestStage(44, 4);
-				}
-			}
-		}, 4);
-	}
-	
 	public static void handleDigMud(final Player player) {
 		if(player.stopPlayerPacket()) {
 			return;
 		}
 		player.setStopPacket(true);
 		player.getUpdateFlags().sendAnimation(830);
-		player.getActionSender().sendMessage("You dig into the pile of mud...");
+		player.getActionSender().sendMessage("You dig into the pile of mud...", true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int count = 0;
 			@Override
@@ -256,12 +273,12 @@ public class PassObjectHandling {
 				count++;
 				switch(count) {
 					case 1:
-						player.getActionSender().sendMessage("...and find it's a filled in tunnel!");
+						player.getActionSender().sendMessage("...and find it's a filled in tunnel!", true);
 						player.getActionSender().sendObject(-1, 2393, 9650, 0, 3, 10);
 						player.getActionSender().sendObject(3215, 2393, 9650, 0, 3, 22);
 						break;
 					case 2:
-						player.getActionSender().sendMessage("You push your way through the tunnel...");
+						player.getActionSender().sendMessage("You push your way through the tunnel...", true);
 						player.timedFadeTeleport(new Position(2392, 9646, 0), 1);
 						break;
 					case 4:
@@ -325,6 +342,8 @@ public class PassObjectHandling {
 		}
 		player.setStopPacket(true);
 		player.getActionSender().sendMessage("The portcullis opens.");
+		player.getUpdateFlags().sendFaceToDirection(new Position(2465, 9674, 0));
+		player.getUpdateFlags().setFaceToDirection(true);
 		for(int i = 0; i < 4; i++)
 			player.getActionSender().animateObject(2465, 9674 + (i*2), 0, 1, 10, 455);
 		player.walkTo(new Position(2466, 9677, 0), true);
@@ -346,6 +365,8 @@ public class PassObjectHandling {
 				player.getActionSender().sendMessage("The portcullis closes.");
 				for(int i = 0; i < 4; i++)
 					player.getActionSender().animateObject(2465, 9674 + (i*2), 0, 1, 10, 454);
+				PassTrapHandling.startTrapCycle(player, 0);
+				player.getUpdateFlags().setFaceToDirection(false);
 			}
 		}, 6);
 	}
@@ -358,7 +379,7 @@ public class PassObjectHandling {
 		if (object == 2275 || object == 2276) {
 			player.setStopPacket(true);
 			player.getUpdateFlags().sendAnimation(775);
-			player.getActionSender().sendMessage("You tie your rope to the rock...");
+			player.getActionSender().sendMessage("You tie your rope to the rock...", true);
 			new GameObject(2273, 2460, 9699, 0, 3, 10, -1, 5, false);
 			player.walkTo(new Position(2462, 9699, 0), true);
 			final Position toLand = new Position(2466, 9699, 0);
@@ -372,7 +393,7 @@ public class PassObjectHandling {
 					if (count == 1) {
 						int level = player.getSkill().getPlayerLevel(Skill.AGILITY), levelReq = level - 90;
 						if (Misc.random(2) == 1 || SkillHandler.skillCheck(level, levelReq < 1 ? 1 : levelReq, 0)) {
-							player.getActionSender().sendMessage("You skillfully swing across.");
+							player.getActionSender().sendMessage("You skillfully swing across.", true);
 							player.getActionSender().animateObject2(2460, 9699, 0, 751);
 							Agility.swingRopeTimed(player, toLand.getX(), toLand.getY(), 1, 0, 2);
 						} else {
@@ -380,7 +401,7 @@ public class PassObjectHandling {
 							b.stop();
 						}
 					} else {
-						player.getActionSender().sendMessage("The rope gets tangled in some stalagmites.");
+						player.getActionSender().sendMessage("The rope gets tangled in some stalagmites.", true);
 						player.getInventory().removeItem(new Item(954));
 						new GameObject(2274, 2460, 9699, 0, 3, 10, -1, 999999, false);
 						b.stop();
@@ -393,7 +414,7 @@ public class PassObjectHandling {
 			}, 2);
 		} else {
 			if(player.getPosition().getX() < 2463) {
-				player.getActionSender().sendMessage("I can't reach that!");
+				player.getActionSender().sendMessage("I can't reach that!", true);
 				return;
 			}
 			player.setStopPacket(true);
@@ -408,7 +429,7 @@ public class PassObjectHandling {
 					if (count == 1) {
 						int level = player.getSkill().getPlayerLevel(Skill.AGILITY), levelReq = level - 90;
 						if (Misc.random(2) == 1 || SkillHandler.skillCheck(level, levelReq < 1 ? 1 : levelReq, 0)) {
-							player.getActionSender().sendMessage("You skillfully swing across.");
+							player.getActionSender().sendMessage("You skillfully swing across.", true);
 							player.getActionSender().animateObject(2461, 9692, 0, 751);
 							Agility.swingRopeTimed(player, toLand.getX(), toLand.getY(), 1, 0, 2);
 						} else {
@@ -439,7 +460,7 @@ public class PassObjectHandling {
 				player.movePlayer(new Position(player.getPosition().getX() < 2444 ? 2447 : 2442, 9716, 0));
 				player.setAppearanceUpdateRequired(true);
 				player.getMovementHandler().reset();
-				player.getActionSender().sendMessage("You rush across the bridge.");
+				player.getActionSender().sendMessage("You rush across the bridge.", true);
 				player.setStopPacket(false);
 			}
 		}, 3);
@@ -451,7 +472,7 @@ public class PassObjectHandling {
 		}
 		player.setStopPacket(true);
 		player.getMovementHandler().reset();
-		player.getActionSender().sendMessage("You feel yourself being dragged below...");
+		player.getActionSender().sendMessage("You feel yourself being dragged below...", true);
 		player.setStandAnim(772);
 		player.setAppearanceUpdateRequired(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
@@ -501,12 +522,12 @@ public class PassObjectHandling {
 		Weapon weapon = player.getEquippedWeapon();
 		if (weapon != null) {
 			if (weapon.getAmmoType() == null) {
-				player.getActionSender().sendMessage("You need a bow to shoot at the rope.");
+				player.getActionSender().sendMessage("You need a bow to shoot at the rope.", true);
 				return;
 			}
 			RangedAmmo ammo = RangedAmmo.getRangedAmmo(player, weapon, false);
 			if (player.getEquipment().getItemContainer().get(Constants.ARROWS) == null) {
-				player.getActionSender().sendMessage("You have no arrows equipped!");
+				player.getActionSender().sendMessage("You have no arrows equipped!", true);
 				return;
 			}
 			if (ammo == null) {
@@ -528,7 +549,7 @@ public class PassObjectHandling {
 			final int offsetX = (attackerY - y) * -1;
 			final int offsetY = (attackerX - x) * -1;
 			World.sendProjectile(player.getPosition(), offsetX, offsetY, ammo.getProjectileId(), 43, 40, 70, 0, false);
-			player.getActionSender().sendMessage("You fire your arrow at the rope supporting the bridge...");
+			player.getActionSender().sendMessage("You fire your arrow at the rope supporting the bridge...", true);
 			player.getEquipment().removeAmount(Constants.ARROWS, 1);
 			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 				@Override
@@ -538,7 +559,7 @@ public class PassObjectHandling {
 
 				@Override
 				public void stop() {
-					player.getActionSender().sendMessage("The arrow impales the rope support.");
+					player.getActionSender().sendMessage("The arrow impales the rope support.", true);
 					new GameObject(3342, 2443, 9718, 0, 3, 10, 3340, 30, false);
 					ClippedPathFinder.getPathFinder().findRoute(player, 2447, 9716, true, 0, 0);
 					player.setStopPacket(true);
@@ -546,7 +567,7 @@ public class PassObjectHandling {
 						@Override
 						public void execute(CycleEventContainer b) {
 							if (player.getPosition().equals(new Position(2447, 9716, 0))) {
-								player.getActionSender().sendMessage("The bridge falls.");
+								player.getActionSender().sendMessage("The bridge falls.", true);
 								player.getActionSender().sendObject(3240, 2443, 9716, 0, 3, 10);
 								b.stop();
 							} else if (!player.isMoving()) {
@@ -572,10 +593,6 @@ public class PassObjectHandling {
 		final int pX = player.getPosition().getX(), pY = player.getPosition().getY();
 		final CacheObject o = ObjectLoader.object(object, x, y, player.getPosition().getZ());
 		switch(object) {
-			case 3255:
-			case 3254:
-				handleBridgeJump(player, object, x, y);
-				return true;
 			case 3235:
 			case 3237: //pipes
 				handlePipeCrawl(player, object, x, y);
@@ -612,7 +629,7 @@ public class PassObjectHandling {
 				}, player.getPosition().getY() > 9662 ? 4 : 6);
 				return true;
 			case 3264: //well
-				player.getActionSender().sendMessage("You feel the grip of icy hands all around you...");
+				player.getActionSender().sendMessage("You feel the grip of icy hands all around you...", true);
 				boolean canContinue = true;
 				if (player.getQuestStage(44) < UndergroundPass.CAN_USE_WELL) {
 					for (boolean b : player.getQuestVars().wellItemsDestroyed) {
@@ -641,9 +658,9 @@ public class PassObjectHandling {
 					public void stop() {
 						player.setStopPacket(false);
 						if (teleported) {
-							player.getActionSender().sendMessage("...slowly dragging you further down into the caverns.");
+							player.getActionSender().sendMessage("...slowly dragging you further down into the caverns.", true);
 						} else {
-							player.getActionSender().sendMessage("...the hands try to strangle you!");
+							player.getActionSender().sendMessage("...the hands try to strangle you!", true);
 							player.hit(10, HitType.NORMAL);
 						}
 					}
@@ -672,7 +689,7 @@ public class PassObjectHandling {
 						}
 						player.fadeTeleport(new Position(2173, 4725, 1));
 					} else {
-						player.getActionSender().sendMessage("The doors won't budge. You hear a faint cackling.");
+						player.getActionSender().sendMessage("The doors won't budge. You hear a faint cackling.", true);
 					}
 					return true;
 				} else {
@@ -693,7 +710,7 @@ public class PassObjectHandling {
 			case 3276:
 				player.setStopPacket(true);
 				player.isCrossingObstacle = true;
-				player.getActionSender().sendMessage("You start to cross the stone bridge...");
+				player.getActionSender().sendMessage("You start to cross the stone bridge...", true);
 				final boolean wasRunning = player.getMovementHandler().isRunToggled();
 				player.getMovementHandler().setRunToggled(false);
 				player.getMovementHandler().reset();
@@ -710,11 +727,11 @@ public class PassObjectHandling {
 						count++;
 						int level = player.getSkill().getPlayerLevel(Skill.AGILITY);	
 						if (count == 1 && !SkillHandler.skillCheck((level + 40) > 99 ? 99 : (level + 40), 20, 0)) {
-							player.getActionSender().sendMessage("...and slip and fall halfway across!");
+							player.getActionSender().sendMessage("...and slip and fall halfway across!", true);
 							handleObstacleFailure(player, 3276, x, y);
 							b.stop();
 						} else if (count == 2) {
-							player.getActionSender().sendMessage("...and make it.");
+							player.getActionSender().sendMessage("...and make it.", true);
 						} else if (count >= 3) {
 							b.stop();
 						}
@@ -732,7 +749,7 @@ public class PassObjectHandling {
 				}, 2);
 				return true;
 			case 3238:
-				player.getActionSender().sendMessage("You put your foot on the ledge and try to edge across.");
+				player.getActionSender().sendMessage("You put your foot on the ledge and try to edge across.", true);
 				player.isCrossingObstacle = true;
 				player.setStopPacket(true);
 				if(x == 2374 && (y == 9644 || y == 9643)) {
@@ -794,8 +811,8 @@ public class PassObjectHandling {
 				if(x == 2443 && y == 9651) {
 					player.fadeTeleport(new Position(2475, 9715, 0));
 					player.getUpdateFlags().sendAnimation(828);
-					player.getActionSender().sendMessage("You climb up the pile of mud and rocks...");
-					player.getActionSender().sendMessage("It leads into darkness, the stench is unbearable.");
+					player.getActionSender().sendMessage("You climb up the pile of mud and rocks...", true);
+					player.getActionSender().sendMessage("It leads into darkness, the stench is unbearable.", true);
 					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer b) {
@@ -803,14 +820,14 @@ public class PassObjectHandling {
 						}
 						@Override
 						public void stop() {
-							player.getActionSender().sendMessage("You surface by the swamp, covered in muck.");
+							player.getActionSender().sendMessage("You surface by the swamp, covered in muck.", true);
 						}
 					}, 5);
 					return true;
 				}
 			return false;
 			case 3365:
-				player.getActionSender().sendMessage("You crawl out of the pit.");
+				player.getActionSender().sendMessage("You crawl out of the pit.", true);
 				Ladders.climbLadder(player, new Position(2478, 9678, 0));
 				GridMazeHandler.startGridCheck(player);
 				return true;
@@ -822,18 +839,14 @@ public class PassObjectHandling {
 								GridMazeHandler.startGridCheck(player);
 							}
 							player.getMovementHandler().resetOnWalkPacket();
+							player.getUpdateFlags().sendAnimation(839);
 							if(Misc.checkClip(new Position(x, y, 0), new Position(x + 1, y, 0), true) && Misc.checkClip(new Position(x, y, 0), new Position(x - 1, y, 0), true)) {
-								Agility.climbOver(player, pX > x ? x - 1 : x + 1, y, 1, 0);
+								boolean condition = pX > x;
+								player.getUpdateFlags().sendForceMovement(player, condition ? -2 : 2, 0, 30, 60, condition ? 3 : 1, 3, true);
 							} else {
-								Agility.climbOver(player, x, pY > y ? y - 1 : y + 1, 1, 0);
+								boolean condition = pY > y;
+								player.getUpdateFlags().sendForceMovement(player, 0, condition ? -2 : 2, 30, 60, condition ? 2 : 0, 3, true);
 							}
-							/*
-							if(x != 2491 && y != 6961 && (o.getRotation() == 1 || o.getRotation() == 3 || (x == 2467 && y == 9466) || (x == 2455 && y == 9647))) {
-								Agility.climbOver(player, pX > x ? x - 1 : x + 1, y, 1, 0);
-							} else {
-								Agility.climbOver(player, x, pY > y ? y - 1 : y + 1, 1, 0);
-							}
-								*/
 						}
 					} else {
 						handleObstacleFailure(player, object, x, y);
@@ -862,7 +875,6 @@ public class PassObjectHandling {
 	}
 	
 	public static void handleObstacleFailure(final Player player, final int object, final int x, final int y) {
-		//falling from lair, + 200 x, + 5150 y ?
 		switch(object) {
 			case 3276:
 				player.setStopPacket(true);
@@ -882,7 +894,7 @@ public class PassObjectHandling {
 							player.getUpdateFlags().sendAnimation(-1);
 						}
 						if (count >= 2) {
-							player.getActionSender().sendMessage("You are injured by the spikes.");
+							player.getActionSender().sendMessage("You are injured by the spikes.", true);
 							player.hit(Misc.random(5) + 8, HitType.NORMAL);
 							b.stop();
 						}
@@ -903,7 +915,7 @@ public class PassObjectHandling {
 				doFallAndDamage(player);
 				break;
 			case 3309: //rockslide
-				player.getActionSender().sendMessage("You slip on the rocks!");
+				player.getActionSender().sendMessage("You slip on the rocks!", true);
 				player.getUpdateFlags().sendAnimation(846);
 				player.hit(Misc.random(3), HitType.NORMAL);
 				break;
@@ -913,7 +925,7 @@ public class PassObjectHandling {
 	public static void doFallAndDamage(final Player player) {
 		player.setStandAnim(-1);
 		player.fadeTeleport(new Position(2485, 9649, 0));
-		player.getActionSender().sendMessage("You tumble deep into the crevasse.");
+		player.getActionSender().sendMessage("You tumble deep into the crevasse.", true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -923,7 +935,7 @@ public class PassObjectHandling {
 			@Override
 			public void stop() {
 				player.setStopPacket(false);
-				player.getActionSender().sendMessage("You land battered and bruised at the base.");
+				player.getActionSender().sendMessage("You land battered and bruised at the base.", true);
 				player.hit(Misc.random(13), HitType.NORMAL);
 			}
 		}, 5);

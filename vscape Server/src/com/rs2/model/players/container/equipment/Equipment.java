@@ -57,6 +57,7 @@ public class Equipment {
 
 	private static int[] hideArmsInt = {4069,4504,4509};
 	private static int[] hideHairInt = {4071,4506,4511, 10350};
+	private static int[] EQUIPMENT_SLOTS = {Constants.HAT, Constants.CHEST, Constants.LEGS, Constants.HANDS, Constants.FEET, Constants.RING, Constants.AMULET, Constants.CAPE, Constants.SHIELD, Constants.WEAPON};
 	
 	private Container itemContainer = new Container(Type.STANDARD, 14) {
 		@Override
@@ -681,6 +682,29 @@ public class Equipment {
 			return item.getId();
 		}
 		return 0;
+	}
+	
+	public boolean wearingOnlySpecifics(int[] ids) {
+		int[] slots = new int[ids.length];
+		for(int i = 0; i < slots.length; i++) {
+			int slot = new Item(ids[i]).getDefinition().getSlot();
+			slots[i] = slot;
+		}
+		for (int slot : EQUIPMENT_SLOTS) {
+			boolean included = false;
+			for (int i = 0; i < slots.length; i++) {
+				if(slots[i] == slot) {
+					included = true;
+				}
+				if (getId(slots[i]) != ids[i]) {
+					return false;
+				}
+			}
+			if(!included && getId(slot) != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public int getStandAnim() {
