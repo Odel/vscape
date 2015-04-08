@@ -740,6 +740,8 @@ public abstract class Entity {
 			}
 		}
 		remove.clear();
+		if (effectClass == null)
+			effects.clear();
 	}
 
 	@SuppressWarnings("rawtypes")

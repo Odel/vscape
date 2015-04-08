@@ -607,9 +607,9 @@ public class CombatManager extends Tick {
 	    died.getUpdateFlags().sendAnimation(65535, 0);
 	    died.removeAllEffects();
 	    if (killer != null && killer.isPlayer() && died.isPlayer()) {
-		Player attacker = (Player) killer;
-		Player victim = (Player) died;
-		attacker.getActionSender().sendMessage("You have defeated " + Misc.formatPlayerName(victim.getUsername()) + ".");
+			Player attacker = (Player) killer;
+			Player victim = (Player) died;
+			attacker.getActionSender().sendMessage("You have defeated " + Misc.formatPlayerName(victim.getUsername()) + ".");
 	    }
 	    if (died.isPlayer()) {
 		Player player = (Player) died;
@@ -691,6 +691,7 @@ public class CombatManager extends Tick {
 		}
 		if (died.isPlayer()) {
 		    Player player = (Player) died;
+			player.removeAllEffects();
 		    player.teleport(player.getQuestVars().isGazeOfSaradomin() ? Teleportation.WHITE_KNIGHTS_CASTLE : Teleportation.HOME);
 		    player.getActionSender().sendMessage("Oh dear, you are dead!");
 			if (player.getMultiCannon().hasCannon()) {

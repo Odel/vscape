@@ -3720,8 +3720,8 @@ public class Player extends Entity {
 		updateSpecialBar();
 		resetEffectTimers();
 		resetImmuneTimers();
-		effects.clear();
 		removeAllEffects();
+		effects.clear();
 		int skills[] = getSkill().getLevel();
 		for (int i = 0; i < skills.length; i++)
 			getSkill().setSkillLevel(i, getSkill().getPlayerLevel(i));
