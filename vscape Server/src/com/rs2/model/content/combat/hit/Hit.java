@@ -31,6 +31,7 @@ import com.rs2.model.content.combat.weapon.AttackStyle;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
+import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.AnimalMagnetism;
 import com.rs2.model.content.quests.impl.Biohazard;
 import com.rs2.model.content.quests.impl.DemonSlayer;
@@ -310,6 +311,30 @@ public class Hit {
 				break;
 			    }
 		    }
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 277) {
+			Player player = (Player)attacker;
+			 if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED && player.getEquipment().getId(Constants.ARROWS) == 78) {
+			 }
+			 else {
+				 damage = 0;
+				 player.getActionSender().sendMessage("The fire warrior seems immune to your hit!");
+			 }			 
+		}
+		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272) {
+			if(victim.getCurrentHp() - damage <= 0) {
+				damage = 0;
+				CombatManager.resetCombat(attacker);
+				if(!QuestHandler.questCompleted(((Player)attacker), 47)) {
+					((Player)attacker).getQuestVars().setSidedWithGuardians(true);
+					((Player)attacker).getDialogue().setLastNpcTalk(272);
+					((Player)attacker).getDialogue().sendNpcChat("You have defeated me for now! I shall reappear in the", "North!");
+					((Player)attacker).getDialogue().dontCloseInterface();
+					QuestHandler.completeQuest(((Player)attacker), 47);
+
+				}
+				return;
+			}				
 		}
 		if(attacker != null && victim != null && attacker.isPlayer() && victim.isNpc()) {
 		    Player player = (Player)attacker;

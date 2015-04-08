@@ -587,7 +587,7 @@ public abstract class MagicSkill extends CycleEvent {
 						if(itemId == 1537) {
 						    break;
 						}
-						if(itemId == 1583 || (itemId >= 20 && itemId <= 23)) {
+						if(itemId == 1583 || (itemId >= 20 && itemId <= 23) || itemId == 84) {
 						    player.getActionSender().sendMessage("You cannot telegrab this item.");
 						    return;
 						}

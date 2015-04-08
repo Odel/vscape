@@ -125,7 +125,11 @@ public class QuestVariables {
         public boolean[] statuesFacingCorrectly = {false, false, true, true};
         public boolean stolenThroneGems = false;
         private int statueStates[] = {0, 0, 1, 0};
-	
+	public boolean trapLeverPulled = false;
+	public boolean trapLeverDisarmed = false;
+	private boolean sidedWithLucien = false;
+	private boolean sidedWithGuardians = false;
+	public boolean guardianKilled = false;
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -621,6 +625,22 @@ public class QuestVariables {
 	
 	public void setIbanDollElements(boolean set, int index) {
 		this.ibanDollElements[index] = set;
+	}
+	
+	public boolean getSidedWithLucien() {
+		return this.sidedWithLucien;
+	}
+	
+	public void setSidedWithLucien(boolean set) {
+		this.sidedWithLucien = set;
+	}
+	
+	public boolean getSidedWithGuardians() {
+		return this.sidedWithGuardians;
+	}
+	
+	public void setSidedWithGuardians(boolean set) {
+		this.sidedWithGuardians = set;
 	}
 
 }

@@ -28,6 +28,7 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.quests.impl.ClockTower;
 import com.rs2.model.content.quests.impl.Quest;
 import com.rs2.model.content.quests.impl.RecruitmentDrive;
+import com.rs2.model.content.quests.impl.TempleOfIkov;
 import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.content.skills.Menus;
 import com.rs2.model.content.skills.Tools;
@@ -562,6 +563,9 @@ public class ItemPacketHandler implements PacketHandler {
 	}
 	if (ClockTower.itemPickupHandling(player, player.getClickId())) {
 	    return;
+	}
+	if(TempleOfIkov.itemPickupHandling(player, player.getClickId())) {
+		return;
 	}
 	if ((Boolean) player.getAttributes().get("canPickup")) {
 	    ItemManager.getInstance().pickupItem(player, player.getClickId(), new Position(player.getClickX(), player.getClickY(), player.getPosition().getZ()));

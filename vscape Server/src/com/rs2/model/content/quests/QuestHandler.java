@@ -71,7 +71,8 @@ public class QuestHandler {
 	new DeathPlateau(),
 	new UndergroundPass(),
 	new MonksFriend(),
-        new TheGolem()
+    new TheGolem(),
+    new TempleOfIkov()
     };
     
     public static void init() {
@@ -287,9 +288,13 @@ public class QuestHandler {
 		case 28201:
 			showInterface(player,quests[45]);
 			return true;
-                case 50039: //The Golem
-                        showInterface(player,quests[46]);
-                        return true;
+        case 50039: //The Golem
+                showInterface(player,quests[46]);
+                return true;
+        case 28210: //temple of ikov
+			showInterface(player,quests[47]);
+        		return true;
+                
         }
         return false;
     }
