@@ -132,13 +132,23 @@ public class InSearchOfTheMyreque implements Quest {
 		return false;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}

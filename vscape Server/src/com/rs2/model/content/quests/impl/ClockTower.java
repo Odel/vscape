@@ -54,8 +54,11 @@ public class ClockTower implements Quest {
 	public static final Position[] FOOD_TROUGH_POSITIONS = {new Position(2587, 9655, 0),  new Position(2586, 9655, 0), new Position(2585, 9655, 0)};
 	public static final Position RAT_DOOR_POSITION = new Position(2579, 9656, 0);
 	
-	private int reward[][] = { //{itemId, count},
+	private int reward[][] = {
 		{995, 1125}
+	};
+	private int expReward[][] = { //{itemId, count},
+		
 	};
 
 	public static final int questPointReward = 1;
@@ -76,20 +79,32 @@ public class ClockTower implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
-
 	}
 
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, 617);
-		player.getActionSender().sendString("You have completed" + getQuestName() + "!", 12144);
+		player.getActionSender().sendItemOnInterface(12145, 250, 617); //zoom, then itemId
+		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are awarded:", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);
 		player.getActionSender().sendString("1125 Coins", 12151);

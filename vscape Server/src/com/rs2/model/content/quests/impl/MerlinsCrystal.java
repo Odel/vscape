@@ -5,10 +5,6 @@ import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
-import com.rs2.model.content.combat.effect.impl.BindingEffect;
-import com.rs2.model.content.combat.hit.Hit;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_2;
@@ -24,6 +20,9 @@ import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcDefinition;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.util.Misc;
 
 public class MerlinsCrystal implements Quest {
@@ -64,13 +63,23 @@ public class MerlinsCrystal implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
-			player.getInventory().addItem(new Item(rewards[0], rewards[1]));
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -78,6 +87,7 @@ public class MerlinsCrystal implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
+		player.getActionSender().sendItemOnInterface(12145, 250, 35); //zoom, then itemId
 		player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("6 Quest Points", 12150);

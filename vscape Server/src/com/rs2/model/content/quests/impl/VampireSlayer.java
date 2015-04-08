@@ -71,13 +71,23 @@ public class VampireSlayer implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
-			player.getInventory().addItem(new Item(rewards[0], rewards[1]));
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -85,7 +95,7 @@ public class VampireSlayer implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(995, 200, 12142);
+		player.getActionSender().sendItemOnInterface(12145, 250, 1549); //zoom, then itemId
 		player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("3 Quest Points", 12150);

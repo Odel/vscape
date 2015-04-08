@@ -117,29 +117,28 @@ public class TheGolem implements Quest {
 	}
 
 	public void getReward(final Player player) {
-		for (int[] rewards : this.reward) {
-			player.getInventory().addItemOrDrop(
-				new Item(rewards[0], rewards[1]));
+		for (int[] rewards : reward) {
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (final int[] expRewards : this.expReward) {
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer b) {
-					b.stop();
-				}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
 
-				@Override
-				public void stop() {
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
 					player.getSkill().addExp(expRewards[0], (expRewards[1]));
 				}
-			}, 4);
-		}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
 
 	public void completeQuest(Player player) {
-		this.getReward(player);
+		getReward(player);
 		player.getActionSender().sendInterface(12140);
 		player.getActionSender().sendItemOnInterface(12145, 250, STATUETTE); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + this.getQuestName() + "!", 12144);

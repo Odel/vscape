@@ -70,22 +70,21 @@ public class MonksFriend implements Quest {
 
 	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
-			player.getInventory().addItemOrDrop(
-				new Item(rewards[0], rewards[1]));
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (final int[] expRewards : expReward) {
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer b) {
-					b.stop();
-				}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
 
-				@Override
-				public void stop() {
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
 					player.getSkill().addExp(expRewards[0], (expRewards[1]));
 				}
-			}, 4);
-		}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -93,7 +92,7 @@ public class MonksFriend implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, LAW_RUNE);
+		player.getActionSender().sendItemOnInterface(12145, 250, LAW_RUNE); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are awarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);

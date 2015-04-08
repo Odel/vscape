@@ -116,13 +116,23 @@ public class HeroesQuest implements Quest {
 		return player.getQuestStage(13) >= ShieldOfArrav.QUEST_COMPLETE && player.getQuestStage(14) >= LostCity.QUEST_COMPLETE && player.getQuestStage(15) >= DragonSlayer.QUEST_COMPLETE && player.getQuestStage(11) >= MerlinsCrystal.QUEST_COMPLETE && player.getQuestPoints() >= 50;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
-			player.getInventory().addItem(new Item(rewards[0], rewards[1]));
+			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -130,7 +140,7 @@ public class HeroesQuest implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(995, 200, 12142);
+		player.getActionSender().sendItemOnInterface(12145, 250, 1377); //zoom, then itemId
 		player.getActionSender().sendString("You have completed the " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);

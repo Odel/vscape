@@ -13,6 +13,8 @@ import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.net.ActionSender;
 
 public class TemplateQuest implements Quest {
+	
+	public static boolean ENABLED = true;
 
 	public static final int questIndex = -1; //Used in player's quest log interface, id is in Player.java, Change
 	//Quest stages
@@ -62,19 +64,19 @@ public class TemplateQuest implements Quest {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (final int[] expRewards : expReward) {
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer b) {
-					b.stop();
-				}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
 
-				@Override
-				public void stop() {
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
 					player.getSkill().addExp(expRewards[0], (expRewards[1]));
 				}
-			}, 4);
-		}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -158,13 +160,15 @@ public class TemplateQuest implements Quest {
 	}
 
 	public void sendQuestTabStatus(Player player) {
-		int questStage = player.getQuestStage(getQuestID());
-		if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
-			player.getActionSender().sendString("@yel@" + getQuestName(), questIndex);
-		} else if (questStage == QUEST_COMPLETE) {
-			player.getActionSender().sendString("@gre@" + getQuestName(), questIndex);
-		} else {
-			player.getActionSender().sendString("@red@" + getQuestName(), questIndex);
+		if (ENABLED) {
+			int questStage = player.getQuestStage(getQuestID());
+			if ((questStage >= QUEST_STARTED) && (questStage < QUEST_COMPLETE)) {
+				player.getActionSender().sendString("@yel@" + getQuestName(), questIndex);
+			} else if (questStage == QUEST_COMPLETE) {
+				player.getActionSender().sendString("@gre@" + getQuestName(), questIndex);
+			} else {
+				player.getActionSender().sendString("@red@" + getQuestName(), questIndex);
+			}
 		}
 	}
 
@@ -224,6 +228,9 @@ public class TemplateQuest implements Quest {
 	}
 
 	public boolean sendDialogue(final Player player, final int id, int chatId, int optionId, int npcChatId) {
+		if(!ENABLED) {
+			return false;
+		}
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
 			case NPC:

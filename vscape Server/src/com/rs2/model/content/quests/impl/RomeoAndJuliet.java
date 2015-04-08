@@ -46,7 +46,7 @@ public class RomeoAndJuliet implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -54,6 +54,7 @@ public class RomeoAndJuliet implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
+		player.getActionSender().sendItemOnInterface(12145, 250, 756); //zoom, then itemId
 		player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("5 Quest Points,", 12150);

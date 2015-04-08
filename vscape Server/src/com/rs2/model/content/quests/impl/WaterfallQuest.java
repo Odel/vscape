@@ -138,23 +138,31 @@ public class WaterfallQuest implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) { //Don't change
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
 
-	//End of quest reward scroll interface, tweak what's necessary
 	public void completeQuest(Player player) {
-		//If writing in exp, be sure to express it manually as 2.25 the vanilla reward
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(995, 200, 12142);
+		player.getActionSender().sendItemOnInterface(12145, 250, DIAMOND); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Points", 12150);
@@ -1014,36 +1022,7 @@ public class WaterfallQuest implements Quest {
 								return true;
 							case 5:
 								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 6:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 7:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 8:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 9:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 10:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 11:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 12:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 13:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 14:
-								player.getDialogue().sendPlayerChat("Hmmm...", CONTENT);
-								return true;
-							case 15:
-								player.getDialogue().sendPlayerChat("Hmmm...", HAPPY);
+								player.getDialogue().setNextChatId(16);
 								return true;
 							case 16:
 								if (!player.getInventory().ownsItem(GLARIAL_PEBBLE)) {

@@ -43,6 +43,8 @@ public class GertrudesCat implements Quest {
 		{2003, 1},};
 	private int expReward[][] = { //Exp in the form of {Skill.AGILITY, x},
 		{Skill.COOKING, 1525},}; //The 2.25 multiplier is added later, use vanilla values
+	
+	private static final int questPointReward = 1;
 
 	@Override
 	public int getQuestID() {
@@ -65,32 +67,39 @@ public class GertrudesCat implements Quest {
 	}
 
 	@Override
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (int[] expRewards : expReward) {
-			player.getSkill().addExp(expRewards[0], (expRewards[1]));
-		}
-		player.getCat().setCatItem(kittenItems[Misc.random(kittenItems.length - 1)]);
-		player.getCat().registerCat(player.getCat().getCatItem());
-		player.addQuestPoints(getQuestPoints());
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
+					player.getSkill().addExp(expRewards[0], (expRewards[1]));
+				}
+			}
+		}, 4);
+		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
 
-	@Override
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(995, 200, 12142);
+		player.getActionSender().sendItemOnInterface(12145, 250, 1552); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);
 		player.getActionSender().sendString("A kitten", 12151);
-		player.getActionSender().sendString("COOKING XP", 12152);
+		player.getActionSender().sendString("3431.25 Cooking XP", 12152);
 		player.getActionSender().sendString("A chocolate cake", 12153);
 		player.getActionSender().sendString("A bowl of stew", 12154);
-		player.getActionSender().sendString("Raise cats", 12155);
+		player.getActionSender().sendString("Ability to raise cats", 12155);
 		player.getActionSender().sendString("Quest points: " + player.getQuestPoints(), 12146);
 		player.getActionSender().sendString(" ", 12147);
 		player.setQuestStage(getQuestID(), QUEST_COMPLETE);

@@ -46,7 +46,7 @@ public class RuneMysteries implements Quest {
 		return true;
 	}
 
-	public void getReward(Player player) {
+	public void getReward(final Player player) {
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
@@ -54,6 +54,7 @@ public class RuneMysteries implements Quest {
 	public void completeQuest(Player player) {
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
+		player.getActionSender().sendItemOnInterface(12145, 250, 1438); //zoom, then itemId
 		player.getActionSender().sendString("You have completed: " + getQuestName(), 12144);
 		player.getActionSender().sendString(questPointReward + " Quest Point", 12150);
 		player.getActionSender().sendString("Runecrafting Skill", 12151);

@@ -106,19 +106,19 @@ public class TempleOfIkov implements Quest {
 		for (int[] rewards : reward) {
 			player.getInventory().addItemOrDrop(new Item(rewards[0], rewards[1]));
 		}
-		for (final int[] expRewards : expReward) {
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer b) {
-					b.stop();
-				}
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				b.stop();
+			}
 
-				@Override
-				public void stop() {
+			@Override
+			public void stop() {
+				for (final int[] expRewards : expReward) {
 					player.getSkill().addExp(expRewards[0], (expRewards[1]));
 				}
-			}, 4);
-		}
+			}
+		}, 4);
 		player.addQuestPoints(questPointReward);
 		player.getActionSender().QPEdit(player.getQuestPoints());
 	}
