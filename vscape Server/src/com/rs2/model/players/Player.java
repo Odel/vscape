@@ -4891,5 +4891,14 @@ public class Player extends Entity {
 	public boolean getMovementDisabled(){
 		return movementDisabled;
 	}
+	
+	public boolean hasLightSource()	{ 		
+		for(int i = 0; i < Constants.LIGHT_SOURCES.length; i++)	{
+			if(this.getInventory().playerHasItem(Constants.LIGHT_SOURCES[i]))	{
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -95,9 +95,24 @@ public class NpcUpdating {
 			out.writeBits(14, 2370);
 		} else if(npc.getNpcId() == 993 && player.getQuestVars().takenWitchCat) {
 			out.writeBits(14, 2370);
-		} else {
+		} 
+		else if(npc.getNpcId() == 272) {
+			if(QuestHandler.questCompleted(player, 47) && player.getQuestVars().getSidedWithGuardians()) {
+				out.writeBits(14, 2370);
+			}
+			if(player.getQuestStage(47) == 0){
+				out.writeBits(14, 2370);
+			}
+			else {
+				out.writeBits(14, npc.getNpcId());
+			}
+		}
+		else if(npc.getNpcId() == 273 && player.getQuestStage(47) > 0) {
+			out.writeBits(14, 2370);
+		}else {
 			out.writeBits(14, npc.getNpcId());
 		}
+
 		out.writeBit(true);
 	}
 

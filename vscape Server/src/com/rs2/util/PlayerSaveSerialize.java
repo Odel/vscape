@@ -295,6 +295,8 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 		questVarsObj.addProperty("redCog", player.getQuestVars().getRedCogPlaced());
 		questVarsObj.addProperty("blueCog", player.getQuestVars().getBlueCogPlaced());
 		questVarsObj.addProperty("whiteCog", player.getQuestVars().getWhiteCogPlaced());
+		questVarsObj.addProperty("sidedWithLucien", player.getQuestVars().getSidedWithLucien());
+		questVarsObj.addProperty("sidedWithGuardians", player.getQuestVars().getSidedWithGuardians());
 		JsonObject gridStartPosObj = new JsonObject();
 		gridStartPosObj.addProperty("x", player.getQuestVars().getGridStart().getX());
 		gridStartPosObj.addProperty("y", player.getQuestVars().getGridStart().getY());

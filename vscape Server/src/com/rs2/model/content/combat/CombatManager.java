@@ -151,6 +151,14 @@ public class CombatManager extends Tick {
 	            CombatManager.resetCombat(attacker);
 	            return;
 		}
+		if (attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272 && ((Player)attacker).getEquipment().getId(Constants.AMULET) != 87 && ((Player)attacker).getQuestStage(44) > 5) {
+			((Player)attacker).getActionSender().sendMessage("You get an uneasy feeling as you approach.");
+			return;
+		}
+		if (attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272 && ((Player)attacker).getQuestVars().getSidedWithLucien()) {
+			((Player)attacker).getActionSender().sendMessage("If I kill him now I'll never get my reward!");
+			return;
+		}
 		if (attacker.isPlayer() && attacker.inDuelArena()) {
 			if (!((Player) attacker).getDuelMainData().canStartDuel()) {
 	        	CombatManager.resetCombat(attacker);

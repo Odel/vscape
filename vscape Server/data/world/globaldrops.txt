@@ -1,5 +1,9 @@
 #Put only one space before any comments
 #id - amount - x - y - h - timer
+84:1:2638:9906:0:15 //staff of armadyle Temple of Ikov
+88:1:2654:9767:0:15 //boots of lightness Temple of Ikov
+85:1:2629:9860:0:15 //Shiny key Temple of Ikov
+83:1:2637:9819:0:15 //lever Temple of Ikov
 1925:1:2309:9801:0:20 //Bucket UPass
 90:1:2570:9604:0:30 //Child's blanket
 954:1:2403:9660:0:15 //UPass rope

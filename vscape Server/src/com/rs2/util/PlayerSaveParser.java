@@ -487,6 +487,12 @@ public class PlayerSaveParser {
 				if(questVars.get("whiteCog") != null) {
 					player.getQuestVars().setWhiteCogPlaced(questVars.get("whiteCog").getAsBoolean());
 				}
+				if(questVars.get("sidedWithLucien") != null) {
+					player.getQuestVars().setSidedWithLucien(questVars.get("sidedWithLucien").getAsBoolean());
+				}
+				if(questVars.get("sidedWithGuardians") != null) {
+					player.getQuestVars().setSidedWithLucien(questVars.get("sidedWithGuardians").getAsBoolean());
+				}
 				    JsonObject gridStartPos = questVars.getAsJsonObject("gridStartPos");
 				    if (gridStartPos != null) {
 					    player.getQuestVars().getGridStart().setX(gridStartPos.get("x") != null ? gridStartPos.get("x").getAsInt() : 0);
