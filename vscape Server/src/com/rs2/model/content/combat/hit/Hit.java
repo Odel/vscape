@@ -481,55 +481,55 @@ public class Hit {
 			flags.setHitType2(hitType.toInteger());
 		} else flags.queueDamage(damage, hitType.toInteger());
 		
-		if(hitDef.getHitType() != HitType.POISON && hitDef.getHitType() != HitType.BURN)
+		if(hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
 		{
-			if(hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC)
+			Spell spell = SpellAttack.getSpellForHitGfx(hitDef.getHitGraphic());
+			if(spell != null)
 			{
-				Spell spell = SpellAttack.getSpellForHitGfx(hitDef.getHitGraphic());
-				if(spell != null)
+				if (getAttacker() != null && getAttacker().isPlayer()){
+					Player player = (Player) getAttacker();
+					player.getCombatSounds().spellSound(spell, false);
+				}
+				if (getVictim() != null && getVictim().isPlayer()) {
+					Player player = (Player) getVictim();
+					player.getCombatSounds().spellSound(spell, false);
+				}
+			}
+		}else{
+	        if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
+	       	 Player player = (Player) getAttacker();
+	       	 Npc npc = (Npc) getVictim();
+	       	 if (npc.getCombatingEntity() == player && npc.getPosition().isViewableFrom(player.getPosition())) {
+		       	 if(hitType == HitType.MISS){
+		       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
+		       	 }else{
+		       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
+		       	 }
+	       	 }
+	       }
+	       if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
+			if(hitDef.getHitType() != HitType.POISON && hitDef.getHitType() != HitType.BURN)
+			{
+				Player att = (Player) getAttacker();
+				Player vic = (Player) getVictim();
+				if(vic.getPosition().isViewableFrom(att.getPosition()))
 				{
-					if (getAttacker() != null && getAttacker().isPlayer()){
-						Player player = (Player) getAttacker();
-						player.getCombatSounds().spellSound(spell, false);
-					}
-					if (getVictim() != null && getVictim().isPlayer()) {
-						Player player = (Player) getVictim();
-						player.getCombatSounds().spellSound(spell, false);
+					if(hitType == HitType.MISS){
+						att.getCombatSounds().blockSound(vic);
+					}else{
+						att.getCombatSounds().damageSound();
 					}
 				}
-			}else{
-		        if (getAttacker() != null && getAttacker().isPlayer() && getVictim().isNpc()){
-		       	 Player player = (Player) getAttacker();
-		       	 Npc npc = (Npc) getVictim();
-		       	 if (npc.getPosition().isViewableFrom(player.getPosition())) {
-			       	 if(hitType == HitType.MISS){
-			       		 player.getCombatSounds().npcBlockSound(((Npc) getVictim()));
-			       	 }else{
-			       		 player.getCombatSounds().npcDamageSound(((Npc) getVictim()));
-			       	 }
-		       	 }
-		       }
-		       if (getAttacker() != null && getAttacker().isPlayer() && getVictim() != null && getVictim().isPlayer()){
-				 Player att = (Player) getAttacker();
-				 Player vic = (Player) getVictim();
-				 if(vic.getPosition().isViewableFrom(att.getPosition()))
-				 {
-				 	if(hitType == HitType.MISS){
-				 		att.getCombatSounds().blockSound(vic);
-				 	}else{
-				 		att.getCombatSounds().damageSound();
-					}
-				 }
-		       }
-		       if (getVictim() != null && getVictim().isPlayer()) {
-		           Player player = (Player) getVictim();
-			       	 if(hitType == HitType.MISS){
-			    		 player.getCombatSounds().blockSound(player);
-			    	 }else{
-			    		 player.getCombatSounds().damageSound();
-			    	 }
-		       }
 			}
+	       }
+	       if (getVictim() != null && getVictim().isPlayer()) {
+	           Player player = (Player) getVictim();
+		       	 if(hitType == HitType.MISS){
+		    		 player.getCombatSounds().blockSound(player);
+		    	 }else{
+		    		 player.getCombatSounds().damageSound();
+		    	 }
+	       }
 		}
     }
 
