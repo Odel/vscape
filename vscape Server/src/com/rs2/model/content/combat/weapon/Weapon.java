@@ -21,6 +21,7 @@ public enum Weapon {
     DARK_BOW(WeaponInterface.LONG_BOW, RangedAmmoType.DARK_BOW, 7, new int[]{426, 426, 426}, Constants.MOVEMENT_ANIMS, 424),
     WAND(WeaponInterface.STAFF, 5, new int[]{406, 407, 408}, new int[]{809, 1146, 1210}, 435),
     STAFF(WeaponInterface.STAFF, 5, new int[]{406, 406, 406}, new int[]{809, 1146, 1210}, 435),
+    NO_SPELL_STAFF(WeaponInterface.NO_SPELL_STAFF, 5, new int[]{406, 406, 406}, new int[]{809, 1146, 1210}, 435),
     SPECSTAFF(WeaponInterface.STAFF, 4, new int[]{406, 407, 408}, new int[]{809, 1146, 1210}, 435),
     THROWING_KNIFE (WeaponInterface.THROWING, RangedAmmoType.KNIFE, 3, new int[]{806, 806, 806}, Constants.MOVEMENT_ANIMS, 424),
     THROWING_DART(WeaponInterface.THROWING, RangedAmmoType.DART, 3, new int[]{806, 806, 806}, Constants.MOVEMENT_ANIMS, 424),
@@ -165,6 +166,9 @@ public enum Weapon {
 		} else if (name.contains("wand")) {
 			return Weapon.WAND;
 		} else if (name.contains("staff") && ((weaponItem.getId() <= 1410) || (weaponItem.getId() >= 3053 && weaponItem.getId() <= 3056) || (weaponItem.getId() >= 6562 && weaponItem.getId() <= 6727))) {
+			if(weaponItem.getId() == 1409 || weaponItem.getId() == 772) {
+				return Weapon.NO_SPELL_STAFF;
+			}
 			return Weapon.STAFF;
 		} else if (weaponItem.getId() == 2415 || weaponItem.getId() == 2416 || weaponItem.getId() == 2417 || weaponItem.getId() == 4170 || weaponItem.getId() == 4675) {
 			return Weapon.SPECSTAFF;

@@ -88,6 +88,7 @@ public class PlayerSaveSerialize implements JsonSerializer<Player> {
 			degradeArray.add(new JsonPrimitive(player.getDegradeableHits()[i]));
 		}
 		combatObj.add("degradeableHits", degradeArray);
+		combatObj.addProperty("ibanStaffCharges", player.getIbanStaffCharges());
 		characterObj.add("combat", combatObj);
 		
 		JsonObject itemDataObj = new JsonObject();

@@ -223,6 +223,7 @@ public class Player extends Entity {
 	private int graveyardPizazz = 0;
 	private int graveyardFruitDeposited = 0;
 	private boolean bonesToPeachesEnabled = false;
+	private int ibanStaffCharges = 120;
 	private ArrayList<Position> pestControlBarricades = new ArrayList<Position>();
 	private DuelInterfaces duelInterfaces = new DuelInterfaces(this);
 	private DuelAreas duelAreas = new DuelAreas(this);
@@ -1978,10 +1979,14 @@ public class Player extends Entity {
 	public void setBonesToPeachesEnabled(boolean set) {
 	    this.bonesToPeachesEnabled = set;
 	}
-	/*
-        public PestControl getPestControl() {
-                return pestControl;
-        }*/
+	
+	public void setIbanStaffCharges(int set) {
+		this.ibanStaffCharges = set;
+	}
+	
+	public int getIbanStaffCharges() {
+		return this.ibanStaffCharges;
+	}
 	
 	public ArrayList<Position> getPestControlBarricades() {
 		return pestControlBarricades;

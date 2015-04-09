@@ -98,7 +98,7 @@ public class PassObjectHandling {
 			int face = o.getDef().getFace(), modifier = face == 1 || face == 3 ? (player.getPosition().getX() > x ? -4 : 4) : (player.getPosition().getY() > y ? -4 : 4), 
 				toFace = face == 1 || face == 3 ? (modifier < 0 ? 3 : 1) : (modifier < 0 ? 2 : 0);
 			player.setStopPacket(true);
-			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...", true);
+			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...");
 			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, player.getPosition().getY() + modifier, 1);
 			player.getUpdateFlags().setFace(toBe);
 			final boolean success = SkillHandler.skillCheck((player.getSkill().getPlayerLevel(Skill.AGILITY) + 40), 10, 0);
@@ -120,7 +120,7 @@ public class PassObjectHandling {
 						b.stop();
 					} else {
 						if (!success) {
-							player.getActionSender().sendMessage("...you plunge into darkness...", true);
+							player.getActionSender().sendMessage("...you plunge into darkness...");
 							player.transformNpc = 2370;
 							count++;
 						} else {
@@ -128,7 +128,7 @@ public class PassObjectHandling {
 							if(count == 2) {
 								b.stop();
 							} else if(count == 1) {
-								player.getActionSender().sendMessage("...you manage to cross safely.", true);
+								player.getActionSender().sendMessage("...you manage to cross safely.");
 							}
 						}
 					}
@@ -433,6 +433,10 @@ public class PassObjectHandling {
 							player.getActionSender().animateObject(2461, 9692, 0, 751);
 							Agility.swingRopeTimed(player, toLand.getX(), toLand.getY(), 1, 0, 2);
 						} else {
+							player.setStopPacket(false);
+							player.getUpdateFlags().sendAnimation(751);
+							player.getActionSender().sendMessage("You lose your grip on the rope!", true);
+							player.getActionSender().animateObject(2461, 9692, 0, 751);
 							PassObjectHandling.handleObstacleFailure(player, 2274, 2461, 9692);
 							b.stop();
 						}
@@ -519,6 +523,10 @@ public class PassObjectHandling {
 		if(player.stopPlayerPacket()) {
 			return;
 		}
+		if(player.getSkill().getPlayerLevel(Skill.RANGED) < 25) {
+			player.getDialogue().sendStatement("You need 25 Ranged to hit the guide rope from here.");
+			return;
+		}
 		Weapon weapon = player.getEquippedWeapon();
 		if (weapon != null) {
 			if (weapon.getAmmoType() == null) {
@@ -596,10 +604,6 @@ public class PassObjectHandling {
 			case 3235:
 			case 3237: //pipes
 				handlePipeCrawl(player, object, x, y);
-				return true;
-			case 3236: //pipe wrong end
-				player.getDialogue().sendPlayerChat("Hm, it looks like there is a grill on the", "other side of this pipe. I won't be able to", "remove it from the inside.");
-				player.getDialogue().endDialogue();
 				return true;
 			case 3268:
 			case 3266: //cell doors
@@ -832,8 +836,7 @@ public class PassObjectHandling {
 				GridMazeHandler.startGridCheck(player);
 				return true;
 			case 3309: //rockslide
-					int levelReq = level - 90;
-					if(SkillHandler.skillCheck(level, levelReq < 1 ? 1 : levelReq, 0)) {
+					if(Misc.random(3) == 1 || SkillHandler.skillCheck(level, 1, 0)) {
 						if(o != null) {
 							if(x == 2482 && y == 9679 && player.getPosition().getX() > x) {
 								GridMazeHandler.startGridCheck(player);
@@ -962,7 +965,7 @@ public class PassObjectHandling {
 				a.sendString("that it might steal their soul.", 3027);
 				a.sendString("Some work and pray,", 3028);
 				a.sendString("to shield their life", 3029);
-				a.sendString("from the ravages of the cold", 3030);
+				a.sendString("from the ravages of the cold.", 3030);
 				a.sendString("But only those who embrace the end", 3031);
 				a.sendString("can truly make their life extend.", 3032);
 				a.sendString("And when all hope begins to fade", 3033);

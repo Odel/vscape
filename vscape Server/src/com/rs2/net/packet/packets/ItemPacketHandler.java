@@ -1261,6 +1261,15 @@ public class ItemPacketHandler implements PacketHandler {
 	    return;
 	}
 	switch (item.getId()) {
+		case 1409: //Iban's staff
+			boolean grammar = player.getIbanStaffCharges() == 1;
+			player.getActionSender().sendMessage("You concentrate on the power in the staff...", true);
+			if(player.getIbanStaffCharges() == 0) {
+				player.getActionSender().sendTimedMessage("... your staff is depleted of all charges.", true, 2);
+			} else {
+				player.getActionSender().sendTimedMessage("...there " + (grammar ? "is " : "are ") + player.getIbanStaffCharges() + " " + (grammar ? "charge " : "charges ") + "left imbued in the staff.", true, 2);
+			}
+		    return;
 	    case 4006: //monkey dentures
 		player.getActionSender().sendMessage("You hear a quiet chattering coming from the dentures.");
 		return;
@@ -1463,6 +1472,15 @@ public class ItemPacketHandler implements PacketHandler {
 		}
 	}
 	switch (itemId) {
+		case 1409: //Iban's staff
+			boolean grammar = player.getIbanStaffCharges() == 1;
+			player.getActionSender().sendMessage("You concentrate on the power in the staff...", true);
+			if(player.getIbanStaffCharges() == 0) {
+				player.getActionSender().sendTimedMessage("... your staff is depleted of all charges.", true, 2);
+			} else {
+				player.getActionSender().sendTimedMessage("...there " + (grammar ? "is " : "are ") + player.getIbanStaffCharges() + " " + (grammar ? "charge " : "charges ") + "left imbued in the staff.", true, 2);
+			}
+		    return;
 	    case 11283:
 		if(player.dfsTimer) {
 		    player.getActionSender().sendMessage("You must wait 2 minutes in between operation for this item.");

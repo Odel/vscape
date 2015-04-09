@@ -149,6 +149,7 @@ public class WalkToActionHandler {
 			case 3213:
 			case 3214:
 			case 3264:
+			case 3236:
 				return true;
 			case 2274:
 				return x == 2461 && y == 9692;
@@ -3106,7 +3107,7 @@ public class WalkToActionHandler {
 		if(def.getId() == 1729 || def.getId() == 3213 || def.getId() == 3214 || def.getId() == 3231) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 4);
 		}
-		if(def.getId() == 2290 || def.getId() == 3220 || def.getId() == 3221 || def.getId() == 3264) {
+		if(def.getId() == 2290 || def.getId() == 3220 || def.getId() == 3221 || def.getId() == 3264 || def.getId() == 3236) {
 			return Misc.goodDistance(player.getPosition(), def.getPosition(), 3);
 		}
 		if(def.getId() == 5061 || def.getId() == 5060 || def.getId() == 3237) {

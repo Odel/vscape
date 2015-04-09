@@ -158,6 +158,9 @@ public class PlayerSaveParser {
 		    				player.setDegradeableHits(i, degradeableHits.get(i).getAsInt());
 		    			}
 	                }
+			    if (combat.get("ibanStaffCharges") != null) {
+				    player.setIbanStaffCharges(combat.get("ibanStaffCharges").getAsInt());
+			    }
 	            }
     			JsonObject itemData = characterObj.getAsJsonObject("itemData");
     			if(itemData != null){

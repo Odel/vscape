@@ -66,13 +66,21 @@ public class SpellAttack extends BasicAttack {
 				}
 				return AttackUsableResponse.Type.FAIL;
 			}
-			if(!((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
+			if(getAttacker().isPlayer() && !((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
 			    Player player = (Player)getAttacker();
 			    player.getActionSender().sendMessage("You need to unlock use of this staff in the Mage Arena with " +(100-player.getMageArenaCasts(spell))+" more casts.");
 			    player.setCastedSpell(null);
 			    player.setAutoSpell(null);
 			    CombatManager.resetCombat(player);
 			    return AttackUsableResponse.Type.FAIL;
+			}
+			if (getAttacker().isPlayer() && spell == Spell.IBAN_BLAST && ((Player) getAttacker()).getIbanStaffCharges() <= 0) {
+				Player player = (Player) getAttacker();
+				player.getActionSender().sendMessage("Your Iban Staff has run out of charges.");
+				player.setCastedSpell(null);
+				player.setAutoSpell(null);
+				CombatManager.resetCombat(player);
+				return AttackUsableResponse.Type.FAIL;
 			}
 		}
 		if (spell.equals(Spell.CRUMBLE_UNDEAD)) {
@@ -239,6 +247,16 @@ public class SpellAttack extends BasicAttack {
 		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
 		    player.getActionSender().sendMessage("You have unlocked your God Staff for use outside the Mage Arena!");
 	    }
+	}
+	if (spell == Spell.IBAN_BLAST) {
+		if (getAttacker().isPlayer()) {
+			Player player = (Player) getAttacker();
+			if (player.getIbanStaffCharges() > 0) {
+				if(getVictim() != null) {
+					player.setIbanStaffCharges(player.getIbanStaffCharges() - (getVictim().isPlayer() ? 2 : 1));
+				}
+			}
+		}
 	}
         if (getAttacker().isPlayer()) {
             Player player = (Player)getAttacker();

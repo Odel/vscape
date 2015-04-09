@@ -6,7 +6,9 @@ import com.rs2.cache.object.GameObjectData;
 import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
+import com.rs2.model.World;
 import com.rs2.model.content.Following;
+import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.combat.weapon.RangedAmmo;
 import com.rs2.model.content.dialogue.Dialogues;
@@ -36,7 +38,7 @@ import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
 
 public class UndergroundPass implements Quest {
-	public static boolean UNDERGROUND_PASS_ENABLED = false;
+	public static boolean UNDERGROUND_PASS_ENABLED = true;
 
 	public static final int questIndex = 9927;
 	//Quest stages
@@ -262,7 +264,7 @@ public class UndergroundPass implements Quest {
 				a.sendQuestLogString((player.getSkill().getPlayerLevel(Skill.RANGED) >= 25 ? "@str@" : "@dbl@") + "-25 Range", 6);
 				break;
 			case QUEST_STARTED:
-				a.sendQuestLogString("He told me to meet  his tracker Koftik, who is waiting", lastIndex + 1);
+				a.sendQuestLogString("He told me to meet his tracker Koftik, who is waiting", lastIndex + 1);
 				a.sendQuestLogString("for me in far West Ardougne.", lastIndex + 2);
 				break;
 			case TALK_TO_WITCH:
@@ -626,6 +628,12 @@ public class UndergroundPass implements Quest {
 				}
 			return false;
 			case 3305:
+				if(item == IBANS_STAFF) {
+					player.getActionSender().sendMessage("You hold the staff above the well...", true);
+					player.getActionSender().sendTimedMessage("And feel the power of Zamorak flow through you.", true, 2);
+					player.setIbanStaffCharges(120);
+					return true;
+				}
 				if(item >= UNICORN_HORN && item <= PALADINS_BADGE_3) {
 					player.setStopPacket(true);
 					player.getActionSender().sendMessage("You throw the " + (item == UNICORN_HORN ? "unicorn horn" : "coat of arms") + " into the flames...", true);
@@ -667,6 +675,7 @@ public class UndergroundPass implements Quest {
 			case 3294: //furnace
 				if(item >= ORB_OF_LIGHT && item <= ORB_OF_LIGHT_4) {
 					player.setStopPacket(true);
+					player.getUpdateFlags().sendAnimation(832);
 					player.getActionSender().sendMessage("You throw the glowing orb into the furnace...", true);
 					player.getActionSender().sendMessage("Its light quickly dims and then dies.", true);
 					player.getInventory().removeItem(new Item(item));
@@ -809,6 +818,17 @@ public class UndergroundPass implements Quest {
 			case 3254:
 				PassObjectHandling.handleBridgeJump(player, object, x, y);
 				return true;
+			case 3362:
+				if(player.inUndergroundPass()) {
+					if(player.getQuestStage(44) < CAT_RETURNED) {
+						player.getActionSender().sendMessage("Inside you see a witch, she appears to be looking for something.");
+					} else {
+						player.getActionSender().sendMessage("Inside you see a witch, she appears to be preoccupied with her cat.");
+					}
+					return true;
+				}
+			return false;
+			case 3351:
 			case 3352:
 				if(player.inUndergroundPass()) {
 					player.setStopPacket(true);
@@ -891,6 +911,13 @@ public class UndergroundPass implements Quest {
 					
 					return true;
 				
+				}
+			return false;
+			case 3236: //pipe wrong end
+				if(player.inUndergroundPass()) {
+					player.getDialogue().sendPlayerChat("Hm, it looks like there is a grill on the", "other side of this pipe. I won't be able to", "remove it from the inside.");
+					player.getDialogue().endDialogue();
+					return true;
 				}
 			return false;
 			case 3272:
@@ -1008,12 +1035,6 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
-			case 3362:
-				if(player.inUndergroundPass()) {
-					player.getActionSender().sendMessage("Inside you see a witch, she appears to be looking for something.");
-					return true;
-				}
-			return false;
 			case 3270:
 				if(player.inUndergroundPass()) {
 					player.getActionSender().sendMessage("You knock on the door...");
@@ -1062,6 +1083,11 @@ public class UndergroundPass implements Quest {
 
 	public void handleDeath(final Player player, final Npc died) {
 		switch(died.getNpcId()) {
+			case DISCIPLE_OF_IBAN:
+				if(player.getQuestStage(44) >= IBAN_DEAD && !player.getInventory().ownsItem(IBANS_STAFF)) {
+					GroundItemManager.getManager().dropItem(new GroundItem(new Item(IBANS_STAFF + 1), player, player, died.getPosition().clone()));
+				}
+				break;
 			case KALRAG:
 				PassNpcHandling.handleKalragDeath(player);
 				break;
@@ -1087,13 +1113,106 @@ public class UndergroundPass implements Quest {
 		final int questStage = player.getQuestStage(this.getQuestID());
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case DARK_MAGE:
+				switch(player.getQuestStage(44)) {
+					default:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Begone adventurer, I am quite busy.", ANGRY_1);
+								return true;
+							case 2:
+								d.sendPlayerChat("O-ok...", SAD);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+					case IBAN_DEAD:
+					case QUEST_COMPLETE:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Begone adventurer, I am quite busy.", ANGRY_1);
+								return true;
+							case 2:
+								if(player.getInventory().playerHasItem(IBANS_STAFF + 1)) {
+									d.sendPlayerChat("But I have something for you to look at...");
+								} else {
+									d.sendPlayerChat("O-ok...", SAD);
+									d.endDialogue();
+								}
+								return true;
+							case 3:
+								d.sendNpcChat("I said...", ANGRY_1);
+								return true;
+							case 4:
+								d.sendGiveItemNpc("You show the mage the broken staff.", new Item(IBANS_STAFF + 1));
+								return true;
+							case 5:
+								d.sendNpcChat("Almighty Zamorak! The Staff of Iban! This is truly",  "dangerous magic, traveller. I can fix it, but it", "will cost you, the process could kill me.", DISTRESSED);
+								return true;
+							case 6:
+								d.sendPlayerChat("How much?");
+								return true;
+							case 7:
+								d.sendNpcChat("A sum of 200,000 gold will suffice.");
+								return true;
+							case 8:
+								d.sendOption("Okay. (200,000 gold)", "No, thank you.");
+								return true;
+							case 9:
+								switch(optionId) {
+									case 1:
+										if(player.getInventory().playerHasItem(995, 200000)) {
+											Item gold = new Item(995, 200000);
+											Item staff = new Item(IBANS_STAFF);
+											d.sendGiveItemNpc("You hand the mage the gold...", "...in exchange for a repaired staff.", gold, staff);
+											player.getInventory().removeItem(gold);
+											player.getInventory().replaceItemWithItem(new Item(IBANS_STAFF + 1), staff);
+										} else {
+											d.sendPlayerChat("Oh, it appears I don't have that much coin...", SAD);
+											d.endDialogue();
+										}
+										return true;
+									case 2:
+										d.sendPlayerChat("No, thanks.");
+										d.endDialogue();
+										return true;
+								}
+							case 10:
+								d.sendNpcChat("You be careful with that thing!", ANGRY_1);
+								d.endDialogue();
+								return true;
+						}
+						return false;
+				}
+			case DISCIPLE_OF_IBAN:
+				if(!player.getEquipment().wearingOnlySpecifics(new int[]{1035, 1033})) {
+					Npc attacker = World.getNpcs()[player.getNpcClickIndex()];
+					if(attacker != null) {
+						attacker.getUpdateFlags().setForceChatMessage("Intruder!");
+						CombatManager.attack(attacker, player);
+					}
+				} else {
+					d.sendNpcChat("What a lovely day for worshipping Iban!", HAPPY);
+					d.endDialogue();
+				}
+				return true;
 			case 32720:
 				switch (d.getChatId()) {
 					case 1:
 						d.sendStatement("You search the chest...");
 						return true;
 					case 2:
-						d.sendStatement("Inside you find a book, a wooden doll and two potions.");
+						if(player.getQuestStage(44) >= IBANS_DEMISE) {
+							if(!player.getInventory().playerHasItem(HISTORY_OF_IBAN) && !player.getInventory().playerHasItem(DOLL_OF_IBAN)) {
+								d.sendStatement("Inside you find a book and a wooden doll.");
+							} else if(!player.getInventory().playerHasItem(HISTORY_OF_IBAN)) {
+								d.sendStatement("Inside you find a book.");
+							} else if(!player.getInventory().playerHasItem(DOLL_OF_IBAN)) {
+								d.sendStatement("Inside you find a wooden doll.");
+							}
+						} else {
+							d.sendStatement("Inside you find a book, a wooden doll and two potions.");
+						}
 						return true;
 					case 3:
 						d.endDialogue();
@@ -1510,36 +1629,41 @@ public class UndergroundPass implements Quest {
 				}
 			return false;
 			case SIR_JERRO:
-				switch (d.getChatId()) {
-					case 1:
-						d.sendPlayerChat("Hello paladin.");
-						return true;
-					case 2:
-						d.sendNpcChat("Traveller, what are you doing in this most unholy", "place?");
-						return true;
-					case 3:
-						d.sendPlayerChat("I'm looking for safe route through the caverns, under", "order of King Lathas.");
-						return true;
-					case 4:
-						if(!player.getQuestVars().receivedPaladinFood) {
-							d.sendNpcChat("You've done well to get this far traveller, here, eat...");
-						} else {
-							d.sendNpcChat("You've done well to get this far traveller.");
-							d.endDialogue();
+				switch (player.getQuestStage(44)) {
+					case CAN_USE_WELL:
+					case UNICORN_KILLED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendPlayerChat("Hello paladin.");
+								return true;
+							case 2:
+								d.sendNpcChat("Traveller, what are you doing in this most unholy", "place?");
+								return true;
+							case 3:
+								d.sendPlayerChat("I'm looking for safe route through the caverns, under", "order of King Lathas.");
+								return true;
+							case 4:
+								if (!player.getQuestVars().receivedPaladinFood) {
+									d.sendNpcChat("You've done well to get this far traveller, here, eat...");
+								} else {
+									d.sendNpcChat("You've done well to get this far traveller.");
+									d.endDialogue();
+								}
+								return true;
+							case 5:
+								d.sendPlayerChat("Great, thanks a lot.");
+								d.endDialogue();
+								player.getActionSender().sendMessage("The Paladin gives you some food.");
+								player.getQuestVars().receivedPaladinFood = true;
+								player.getInventory().addItemOrDrop(new Item(2327)); //meat pie
+								player.getInventory().addItemOrDrop(new Item(2003)); //stew
+								player.getInventory().addItem(new Item(2309, 2)); //bread
+								return true;
+
 						}
-						return true;
-					case 5:
-						d.sendPlayerChat("Great, thanks a lot.");
-						d.endDialogue();
-						player.getActionSender().sendMessage("The Paladin gives you some food.");
-						player.getQuestVars().receivedPaladinFood = true;
-						player.getInventory().addItemOrDrop(new Item(2327)); //meat pie
-						player.getInventory().addItemOrDrop(new Item(2003)); //stew
-						player.getInventory().addItem(new Item(2309, 2)); //bread
-						return true;
-						
+						return false;
 				}
-			return false;
+				return false;
 			case 33080:
 				switch (d.getChatId()) {
 					case 1:
@@ -1590,6 +1714,10 @@ public class UndergroundPass implements Quest {
 			return false;
 			case KOFTIK_4: {
 				switch(player.getQuestStage(44)) {
+					case QUEST_COMPLETE:
+						d.sendNpcChat("Excellent work with Iban adventurer. Lathas' wizards", "have restored the Well of Voyage. Feel free", "to use it to traverse to the western lands of Elf.");
+						d.endDialogue();
+						return true;
 					case IBAN_DEAD:
 						switch(d.getChatId()) {
 							case 1:
@@ -1634,11 +1762,6 @@ public class UndergroundPass implements Quest {
 									}
 								}, 4);
 								return true;
-						}
-					return false;
-					case QUEST_COMPLETE:
-						switch(d.getChatId()) {
-							
 						}
 					return false;
 				}
@@ -1754,6 +1877,22 @@ public class UndergroundPass implements Quest {
 				return false;
 			case KOFTIK:
 				switch (questStage) {
+					case QUEST_COMPLETE:
+						d.sendNpcChat("Even though Iban is dead, be careful in those caves!");
+						d.endDialogue();
+						return true;
+					case IBAN_DEAD:
+						d.sendNpcChat("Hurry, go tell King Lathas of the good news!", "You did it traveller!");
+						d.endDialogue();
+						return true;
+					case ENTER_CAVES:
+						switch(d.getChatId()) {
+							case 1:
+								d.sendNpcChat("If you're willing, you'll need to meet me by", "the bridge just inside the caves. Be careful.");
+								d.endDialogue();
+								return true;
+						}
+					return false;
 					case QUEST_STARTED:
 						switch (d.getChatId()) {
 							case 1:

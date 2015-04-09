@@ -31,6 +31,8 @@ public enum WeaponInterface {
 
 	STAFF(328, new int[]{355, 329}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 1080, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 1079, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 1078, DEFENSIVE, CRUSH)}),
 
+	NO_SPELL_STAFF(6103, new int[]{6132, 329}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 23249, MELEE_ACCURATE, CRUSH), new AttackStyle(AttackType.MELEE, 23248, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 23247, DEFENSIVE, CRUSH)}),
+	
 	PICKAXE(5570, new int[]{5573, 5571}, -1, -1, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 21200, MELEE_ACCURATE, STAB), new AttackStyle(AttackType.MELEE, 21203, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21202, AGGRESSIVE, STAB), new AttackStyle(AttackType.MELEE, 21201, DEFENSIVE, STAB)}),
 
 	AXE(1698, new int[]{1701, 1699}, 7499, 7511, 29074, new AttackStyle[]{new AttackStyle(AttackType.MELEE, 6168, MELEE_ACCURATE, SLASH), new AttackStyle(AttackType.MELEE, 6171, AGGRESSIVE, SLASH), new AttackStyle(AttackType.MELEE, 6170, AGGRESSIVE, CRUSH), new AttackStyle(AttackType.MELEE, 6169, DEFENSIVE, SLASH)}),

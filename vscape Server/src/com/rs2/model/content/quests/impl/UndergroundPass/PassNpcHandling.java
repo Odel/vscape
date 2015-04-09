@@ -47,6 +47,7 @@ public class PassNpcHandling {
 		player.getUpdateFlags().sendAnimation(827);
 		player.getActionSender().sendMessage("You use the piece of railing as leverage...", true);
 		player.getActionSender().sendMessage("...and tip the boulder onto it's side...", true);
+		player.getInventory().removeItem(new Item(UndergroundPass.PIECE_OF_RAILING));
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int count = 0;
 			@Override

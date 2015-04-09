@@ -1220,6 +1220,10 @@ public class Equipment {
 			    magicLevelReq = 30;
 			    attackLevelReq = 30;
 			    return;
+			case 1409: //Ibans staff
+				attackLevelReq = 50;
+				magicLevelReq = 50;
+				return;
 			case 3481: // gilded platebody
 			case 3483: // gilded platelegs
 			case 3485: // gilded plateskirt

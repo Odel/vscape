@@ -16,20 +16,27 @@ import com.rs2.util.Misc;
 public class PassTrapHandling {
 	
 	public static void springOrbOfLightTrap(final Player player) {
+		player.getUpdateFlags().sendAnimation(-1);
 		player.getActionSender().sendMessage("You activate the trap!");
 		player.getActionSender().animateObject(2380, 9667, 0, 3, 10, 458); //swing
-		player.getUpdateFlags().sendAnimation(846, 1);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			int count = 0;
 			@Override
 			public void execute(CycleEventContainer b) {
-				b.stop();
+				count++;
+				if(count == 1) {
+					player.hit(Misc.random(5) + 10, HitType.NORMAL);
+					player.getUpdateFlags().sendAnimation(846, 1);
+					player.getUpdateFlags().sendForceMovement(player, 4, 0, 10, 25, 3, 3, true);
+				} else if(count >= 2) {
+					b.stop();
+				}
 			}
 
 			@Override
 			public void stop() {
 				player.getUpdateFlags().sendAnimation(848); //headspin
 				player.getUpdateFlags().sendGraphic(254, 100 << 16);
-				player.hit(Misc.random(5) + 10, HitType.NORMAL);
 			}
 		}, 2);
 	}
@@ -198,6 +205,10 @@ public class PassTrapHandling {
 				}, 2);
 				break;
 			case 3361: //log trap
+				if(player.getInventory().ownsItem(UndergroundPass.ORB_OF_LIGHT_4)) {
+					player.getDialogue().sendPlayerChat("I have no need to try this again.");
+					return;
+				}
 				player.getUpdateFlags().sendAnimation(anim);
 				player.setStopPacket(true);
 				player.getActionSender().sendMessage("You try to disarm the trap...");
@@ -210,14 +221,9 @@ public class PassTrapHandling {
 						if (count == 2) {
 							int level = player.getSkill().getPlayerLevel(Skill.THIEVING);
 							if (SkillHandler.skillCheck((level + 40) > 99 ? 99 : (level + 40), 20, 0)) {
-								if(!player.getInventory().ownsItem(UndergroundPass.ORB_OF_LIGHT_4)) {
-									player.getActionSender().sendMessage("...and succeed long enough to take the Orb.");
-									player.getInventory().addItemOrDrop(new Item(UndergroundPass.ORB_OF_LIGHT_4));
-									player.getActionSender().sendObject(-1, 2382, 9668, 0, 0, 10);
-								} else {
-									player.getActionSender().sendMessage("...and succeed.");
-									player.getDialogue().sendPlayerChat("I have no need for another one of these.");
-								}
+								player.getActionSender().sendMessage("...and succeed long enough to take the Orb.");
+								player.getInventory().addItemOrDrop(new Item(UndergroundPass.ORB_OF_LIGHT_4));
+								player.getActionSender().sendObject(-1, 2382, 9668, 0, 0, 10);
 							} else {
 								springOrbOfLightTrap(player);
 								failed = true;
