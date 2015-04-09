@@ -1,3 +1,7 @@
+@dre@=April 8th=
+--Hotfix patch--
+-Random Poison damage fix
+
 @dre@=April 7th=
 --Minor Hotfix patch--
 -Ernest the chicken doors fixed
