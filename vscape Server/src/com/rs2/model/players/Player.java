@@ -4610,43 +4610,13 @@ public class Player extends Entity {
 	public boolean hasReceivedDank() {
 		return this.receivedDank;
 	}
+	
 	//EASTER 2015
-	public void setEggsGiven(int given){
-		eggsGiven = given;
-	}
-	public int getEggsGiven(){
-		return eggsGiven;
-	}
 	public void setReceivedEasterReward(boolean set) {
 		receivedEaster = set;
 	}
 	public boolean getReceivedEasterReward(){
 		return receivedEaster;
-	}
-	private boolean receivedBasket = false;
-	public void setReceivedBasket(boolean set) {
-		receivedBasket = set;
-	}
-	public boolean getReceivedBasket(){
-		return receivedBasket;
-	}
-	public long[] eggedPlayers = new long[20];
-	public void setEggPlayer(int index, long player){
-		if(index >= eggedPlayers.length)
-			return;
-		eggedPlayers[index] = player;
-	}
-	public boolean getPlayerEgged(long player){
-		for(long pl : eggedPlayers)
-		{
-			if(pl <= 0)
-				continue;
-			if(pl == player)
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	/**
