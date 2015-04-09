@@ -216,6 +216,8 @@ public class CombatCycleEvent extends CycleEvent {
 					return CanAttackResponse.SUCCESS;
 				//Underground pass, after killing Kalrag - mass blessed spider aggro.
 			} else {
+				if (!victim.inMulti() && attacker.inMulti())
+					return CanAttackResponse.SUCCESS;
 				if (attacker.getPjTimer().getOther() != null && !attacker.getPjTimer().completed() && attacker.getPjTimer().getOther() != victim) {
 					return CanAttackResponse.ALREADY_IN_COMBAT;
 				}

@@ -315,9 +315,8 @@ public class Potion {
 			case 6687 :
 			case 6689 :
 			case 6691 :
-				player.heal(2);
-				player.getActionSender().statEdit(Skill.HITPOINTS, (int) (player.getSkill().getPlayerLevel(Skill.HITPOINTS) * 0.15), true);
-				player.getActionSender().statEdit(Skill.DEFENCE, (int) (player.getSkill().getPlayerLevel(Skill.DEFENCE) * 0.25), true);
+				player.getActionSender().statEdit(Skill.HITPOINTS, (int) (player.getSkill().getPlayerLevel(Skill.HITPOINTS) * 0.15) + 2, true);
+				player.getActionSender().statEdit(Skill.DEFENCE, (int) (player.getSkill().getPlayerLevel(Skill.DEFENCE) * 0.20) + 2, true);
 				player.getActionSender().statEdit(Skill.ATTACK, (int) ((player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.10) * -1), false);
 				player.getActionSender().statEdit(Skill.STRENGTH, (int) ((player.getSkill().getPlayerLevel(Skill.STRENGTH) * 0.10) * -1), false);
 				player.getActionSender().statEdit(Skill.MAGIC, (int) ((player.getSkill().getPlayerLevel(Skill.MAGIC) * 0.10) * -1), false);
