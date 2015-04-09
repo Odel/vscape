@@ -187,6 +187,9 @@ public class CombatCycleEvent extends CycleEvent {
 		if (victim.getMaxHp() < 1) {
 			return CanAttackResponse.FAIL;
 		}
+		if ((attacker.isPlayer() && ((Player)attacker).isCrossingObstacle) || (victim.isPlayer() && ((Player)victim).isCrossingObstacle)) {
+			return CanAttackResponse.FAIL;
+		}
 		// check if door-support
         if (victim.isNpc()) {
     		if (((Npc) victim).getNpcId() == 2440) {
@@ -232,7 +235,7 @@ public class CombatCycleEvent extends CycleEvent {
 					return CanAttackResponse.NOT_ENEMY_CASTLEWARS;
 				}
 				if(((Player) attacker).getCastlewarsTeam() == -1 || ((Player) victim).getCastlewarsTeam() == -1) {
-					return CanAttackResponse.NOT_ENEMY_CASTLEWARS;
+					return CanAttackResponse.FAIL;
 				}
 			} else if (attacker.inWild()) {
 				// check if in wild range, else return false
