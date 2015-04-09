@@ -1464,6 +1464,7 @@ public class Player extends Entity {
 		if (getSkill().getLevel()[Skill.HITPOINTS] + healAmount <= getSkill().getPlayerLevel(Skill.HITPOINTS)) {
 			getSkill().getLevel()[Skill.HITPOINTS] += healAmount;
 		} else {
+			if (getSkill().getLevel()[Skill.HITPOINTS] < getSkill().getPlayerLevel(Skill.HITPOINTS))
 			getSkill().getLevel()[Skill.HITPOINTS] = getSkill().getPlayerLevel(Skill.HITPOINTS);
 		}
 		getSkill().refresh(Skill.HITPOINTS);
