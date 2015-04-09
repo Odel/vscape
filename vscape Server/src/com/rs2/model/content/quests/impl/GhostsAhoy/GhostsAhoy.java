@@ -2128,7 +2128,7 @@ public class GhostsAhoy implements Quest {
 								return true;
 						}
 					case 18:
-						player.getDialogue().sendOption("White Bandana (650 gold)", "Red Bandana (750 gold)", "Blue Bandana (500 gold)", "Brown Bandana (1000 gold)", "Pirate Hat(5000 gold)");
+						player.getDialogue().sendOption("White Bandana (650 gold)", "Red Bandana (750 gold)", "Blue Bandana (500 gold)", "Brown Bandana (1000 gold)", "More...");
 						return true;
 					case 19:
 						switch (optionId) {
@@ -2223,31 +2223,65 @@ public class GhostsAhoy implements Quest {
 								}
 								return false;
 							case 5:
-								if (!player.getInventory().playerHasItem(995, 5000)) {
-									player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
-									player.getDialogue().endDialogue();
-									return true;
-								}
-								if (!player.getInventory().playerHasItem(1025)) {
-									player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
-									player.getDialogue().endDialogue();
-									return true;
-								}
-								if (!player.getInventory().playerHasItem(2651)) {
-									player.getDialogue().sendNpcChat("I'm afraid you don't have a pirate hat for me, matey!", CONTENT);
-									player.getDialogue().endDialogue();
-									return true;
-								} else if (player.getInventory().playerHasItem(2651) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 5000)) {
-									player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8928));
-									player.getDialogue().endDialogue();
-									player.getInventory().replaceItemWithItem(new Item(2651), new Item(8928));
-									player.getInventory().removeItem(new Item(1025));
-									player.getInventory().removeItem(new Item(995, 5000));
-									return true;
-								}
-								return false;
+								Dialogues.sendDialogue(player, PATCHY, 20, 0);
+								return true;
 						}
 						return false;
+					case 20:
+						player.getDialogue().sendOption("Pirate Hat(5000 gold)", "Cavalier Mask(5000 gold)");
+					return true;	
+					case 21:
+					switch (optionId) {
+						case 1:
+							if (!player.getInventory().playerHasItem(995, 5000)) {
+								player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+								player.getDialogue().endDialogue();
+								return true;
+							}
+							if (!player.getInventory().playerHasItem(1025)) {
+								player.getDialogue().sendNpcChat("I'm afraid you don't have an eyepatch for me, matey!", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+							}
+							if (!player.getInventory().playerHasItem(2651)) {
+								player.getDialogue().sendNpcChat("I'm afraid you don't have a pirate hat for me, matey!", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+							} else if (player.getInventory().playerHasItem(2651) && player.getInventory().playerHasItem(1025) && player.getInventory().playerHasItem(995, 5000)) {
+								player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(1025), new Item(8928));
+								player.getDialogue().endDialogue();
+								player.getInventory().replaceItemWithItem(new Item(2651), new Item(8928));
+								player.getInventory().removeItem(new Item(1025));
+								player.getInventory().removeItem(new Item(995, 5000));
+								return true;
+							}
+							return false;
+						case 2 :
+							if (!player.getInventory().playerHasItem(995, 5000)) {
+								player.getDialogue().sendPlayerChat("Erm, it seems I'm a little low on funds...", SAD);
+								player.getDialogue().endDialogue();
+								return true;
+							}
+							if (!player.getInventory().playerHasItem(2631)) {
+								player.getDialogue().sendNpcChat("I'm afraid you don't have a Highwayman Mask for me, matey!", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+							}
+							if (!player.getInventory().playerHasItem(2643)) {
+								player.getDialogue().sendNpcChat("I'm afraid you don't have a Black Cavalier for me, matey!", CONTENT);
+								player.getDialogue().endDialogue();
+								return true;
+							} else if (player.getInventory().playerHasItem(2631) && player.getInventory().playerHasItem(2643) && player.getInventory().playerHasItem(995, 5000)) {
+								player.getDialogue().sendGiveItemNpc("You hand Patchy the supplies for the sewing.", "After a few quick motions he is done sewing them together.", new Item(2631), new Item(11280));
+								player.getDialogue().endDialogue();
+								player.getInventory().replaceItemWithItem(new Item(2643), new Item(11280));
+								player.getInventory().removeItem(new Item(2631));
+								player.getInventory().removeItem(new Item(995, 5000));
+								return true;
+							}
+						return false;
+					}
+					return false;
 				}
 				return false;
 			case OLD_CRONE:

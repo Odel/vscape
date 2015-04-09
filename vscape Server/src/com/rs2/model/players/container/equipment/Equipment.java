@@ -115,6 +115,10 @@ public class Equipment {
 	}
 
 	public static boolean hideHair(int id) {
+		if(id == 11280 || id == 11277)
+		{
+			return false;
+		}
 		for (int element : hideHairInt) {
 			if (element == id) {
 				return true;
