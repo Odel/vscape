@@ -2770,6 +2770,7 @@ public class CommandHandler {
 			player.getActionSender().sendUpdateServer(ticks);
 			TradeManager.declineTrade(player);
 			PartyRoom.CancelOffer(player);
+			player.getPets().unregisterPet();
 		}
 		new ShutdownWorldProcess(seconds).start();
 	}
