@@ -151,13 +151,20 @@ public class CombatManager extends Tick {
 	            CombatManager.resetCombat(attacker);
 	            return;
 		}
-		if (attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272 && ((Player)attacker).getEquipment().getId(Constants.AMULET) != 87 && ((Player)attacker).getQuestStage(44) > 5) {
-			((Player)attacker).getActionSender().sendMessage("You get an uneasy feeling as you approach.");
-			return;
-		}
-		if (attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272 && ((Player)attacker).getQuestVars().getSidedWithLucien()) {
-			((Player)attacker).getActionSender().sendMessage("If I kill him now I'll never get my reward!");
-			return;
+		if (attacker.isPlayer() && victim.isNpc() && ((Npc)victim).getNpcId() == 272) {
+			if(((Player)attacker).getEquipment().getId(Constants.AMULET) != 87 && ((Player)attacker).getQuestStage(47) > 0) {
+				((Player)attacker).getActionSender().sendMessage("You get an uneasy feeling as you approach.");
+				return;
+			} else if (((Player)attacker).getEquipment().getId(Constants.AMULET) == 87 && ((Player)attacker).getQuestStage(47) < 7) {
+				((Player)attacker).getDialogue().sendPlayerChat("I shouldn't attack Lucien without making a decision", "on which party to help first.");
+				return;
+			} else if (((Player) attacker).getQuestVars().getSidedWithLucien()) {
+				((Player) attacker).getDialogue().sendPlayerChat("If I kill him now I'll never get my reward!");
+				return;	
+			} else if (((Player)attacker).getQuestStage(47) >= 8) {
+				((Player)attacker).getActionSender().sendMessage("You cannot attack this npc.");
+				return;
+			}
 		}
 		if (attacker.isPlayer() && attacker.inDuelArena()) {
 			if (!((Player) attacker).getDuelMainData().canStartDuel()) {

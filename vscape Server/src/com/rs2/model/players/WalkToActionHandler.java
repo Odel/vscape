@@ -155,6 +155,8 @@ public class WalkToActionHandler {
 				return x == 2461 && y == 9692;
 			case 1754:
 				return x == 2561 && y == 3222;
+			case 87:
+				return x == 2671 && y == 9804;
 		}
 		return false;
 	}
@@ -206,6 +208,8 @@ public class WalkToActionHandler {
 						def = new GameObjectDef(id, 0, 0, new Position(x, y, z));
 					} else if (id == 4766) {
 						def = new GameObjectDef(id, 9, 0, new Position(x, y, z));
+					} else if (id == 87 && x == 2671 && y == 9804) {
+						def = new GameObjectDef(id, 6, 3, new Position(x, y, z));
 					} else {
 						return;
 					}
@@ -3113,7 +3117,7 @@ public class WalkToActionHandler {
 		if(def.getId() == 5061 || def.getId() == 5060 || def.getId() == 3237) {
 			return Misc.goodDistance(player.getPosition(), objectPos, 2);
 		}
-		if(def.getId() == 5003 || (def.getId() >= 137 && def.getId() <= 145) || def.getId() == 3238 || def.getId() == 3276) {
+		if(def.getId() == 5003 || (def.getId() >= 137 && def.getId() <= 145) || def.getId() == 3238 || def.getId() == 3276 || def.getId() == 87) {
 			return Misc.goodDistance(player.getPosition(), new Position(objectPos.getX(), objectPos.getY(), player.getPosition().getZ()), 1);
 		}
 		if(def.getId() == 5002) {

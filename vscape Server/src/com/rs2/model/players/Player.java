@@ -146,6 +146,7 @@ import com.rs2.model.content.quests.impl.RecruitmentDrive;
 import com.rs2.model.content.quests.impl.ChristmasEvent.SantaEncounter;
 import com.rs2.model.content.quests.impl.DeathPlateau.GamblingDice;
 import com.rs2.model.content.quests.impl.ErnestTheChicken;
+import com.rs2.model.content.quests.impl.TempleOfIkov;
 import com.rs2.model.content.quests.impl.UndergroundPass.*;
 import com.rs2.model.content.skills.cooking.GnomeCooking;
 import com.rs2.model.content.skills.ranging.DwarfMultiCannon;
@@ -1258,63 +1259,45 @@ public class Player extends Entity {
 		}
     }
 	
-	public void areaLogin(){
-		if(this.inFightCaves()) {
-		    FightCaves.enterCave(this);
-		}
-		else if(inEnchantingChamber()) {
-		    getEnchantingChamber().exit();
-		}
-		else if(inAlchemistPlayground()) {
-		    getAlchemistPlayground().exit();
-		}
-		else if(inCreatureGraveyard()) {
-		    getCreatureGraveyard().exit();
-		}
-		else if(inTelekineticTheatre()) {
-		    getTelekineticTheatre().exit();
-		}
-		else if(MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
-		    ApeAtoll.runDungeon(this);
-		}
-		else if(Area(2688, 2748, 9154, 9214)) {
-		    teleport(MonkeyMadness.APE_ATOLL_LANDING);
-		}
-		else if(inTempleKnightsTraining()) {
+	public void areaLogin() {
+		if (this.inFightCaves()) {
+			FightCaves.enterCave(this);
+		} else if (inEnchantingChamber()) {
+			getEnchantingChamber().exit();
+		} else if (inAlchemistPlayground()) {
+			getAlchemistPlayground().exit();
+		} else if (inCreatureGraveyard()) {
+			getCreatureGraveyard().exit();
+		} else if (inTelekineticTheatre()) {
+			getTelekineticTheatre().exit();
+		} else if (MinigameAreas.isInArea(getPosition().clone(), ApeAtoll.DUNGEON)) {
+			ApeAtoll.runDungeon(this);
+		} else if (Area(2688, 2748, 9154, 9214)) {
+			teleport(MonkeyMadness.APE_ATOLL_LANDING);
+		} else if (inTempleKnightsTraining()) {
 			getActionSender().sendMapState(2);
-		    RecruitmentDrive.exitTrainingGrounds(this);
-		}
-		else if (Area(3087, 3122, 9743, 9771)) {
+			RecruitmentDrive.exitTrainingGrounds(this);
+		} else if (Area(3087, 3122, 9743, 9771)) {
 			teleport(ErnestTheChicken.UP_FROM_ROOM);
-		}
-		else if(inPestControlLobbyArea())
-        {
-        	teleport(PestControl.LOBBY_EXIT);
-        }
-        else if(inPestControlGameArea())
-        {
-        	setPcDamage(0);
-		    getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
-        	teleport(PestControl.LOBBY_EXIT);
-        }       
-        else if(inWarriorGuildArena()) {
-        	teleport(WarriorsGuild.DC_EXIT);
-        	setWarriorsGuildGameActive(false);
-        }        
-        else if(inCwLobby())
-        {
-        	Castlewars.LeaveLobby(this, false);
-        }
-        else if(inCwGame())
-        {
-        	Castlewars.LeaveGame(this, false, 0);
-        }
-        else if(inMimeEvent())
-        {
-        	teleport(getLastPosition());
-        }
-        else if(this.Area(2504, 2534, 9732, 9782, 0)) {
+		} else if (inPestControlLobbyArea()) {
+			teleport(PestControl.LOBBY_EXIT);
+		} else if (inPestControlGameArea()) {
+			setPcDamage(0);
+			getInventory().removeItem(new Item(1511, getInventory().getItemAmount(1511)));
+			teleport(PestControl.LOBBY_EXIT);
+		} else if (inWarriorGuildArena()) {
+			teleport(WarriorsGuild.DC_EXIT);
+			setWarriorsGuildGameActive(false);
+		} else if (inCwLobby()) {
+			Castlewars.LeaveLobby(this, false);
+		} else if (inCwGame()) {
+			Castlewars.LeaveGame(this, false, 0);
+		} else if (inMimeEvent()) {
+			teleport(getLastPosition() != null ? getLastPosition() : Teleportation.HOME);
+		} else if (this.Area(2504, 2534, 9732, 9782, 0)) {
 			PlagueCity.assessPipeGrill(this);
+		} else if (this.Area(2634, 2673, 9815, 9870)) {
+			TempleOfIkov.bridgeHandling(this);
 		}
 		UndergroundPass.doLoginChecks(this);
 	}

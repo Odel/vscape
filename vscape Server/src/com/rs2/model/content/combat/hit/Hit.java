@@ -28,6 +28,7 @@ import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.combat.util.EnchantedBolts;
 import com.rs2.model.content.combat.util.RingEffect;
 import com.rs2.model.content.combat.weapon.AttackStyle;
+import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.minigames.fightcaves.FightCaves;
 import com.rs2.model.content.minigames.pestcontrol.PestControl;
@@ -325,13 +326,10 @@ public class Hit {
 			if(victim.getCurrentHp() - damage <= 0) {
 				damage = 0;
 				CombatManager.resetCombat(attacker);
-				if(!QuestHandler.questCompleted(((Player)attacker), 47)) {
-					((Player)attacker).getQuestVars().setSidedWithGuardians(true);
-					((Player)attacker).getDialogue().setLastNpcTalk(272);
-					((Player)attacker).getDialogue().sendNpcChat("You have defeated me for now! I shall reappear in the", "North!");
-					((Player)attacker).getDialogue().dontCloseInterface();
-					QuestHandler.completeQuest(((Player)attacker), 47);
-
+				CombatManager.resetCombat(victim);
+				victim.heal(victim.getMaxHp());
+				if(((Player)attacker).getQuestStage(47) == 7) {
+					Dialogues.startDialogue(((Player)attacker), 20272);
 				}
 				return;
 			}				

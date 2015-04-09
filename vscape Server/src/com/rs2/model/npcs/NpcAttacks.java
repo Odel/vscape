@@ -437,10 +437,18 @@ public enum NpcAttacks {
 		public AttackScript[] attackScripts(Entity attacker, Entity victim) {
 			return new AttackScript[] {
 				BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_1),
-			BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_2),
-			BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_3),
-			BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_4),
-                        BasicAttack.meleeAttack(attacker, victim, AttackStyle.Mode.MELEE_ACCURATE, AttackStyle.Bonus.SLASH, 32, 5, 64),
+				BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_2),
+				BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_3),
+				BasicAttack.magicAttack(attacker, victim, Spell.JUNGLE_DEMON_BLAST_4),
+				BasicAttack.meleeAttack(attacker, victim, AttackStyle.Mode.MELEE_ACCURATE, AttackStyle.Bonus.SLASH, 32, 5, 64),
+			};
+		}
+	}),
+	FIRE_WARRIOR_OF_LESARKUS(new int[]{277}, new NpcCombatDef() {
+		@Override
+		public AttackScript[] attackScripts(Entity attacker, Entity victim) {
+			return new AttackScript[] {
+				BasicAttack.magicAttack(attacker, victim, Spell.FIRE_BLAST),
 			};
 		}
 	});

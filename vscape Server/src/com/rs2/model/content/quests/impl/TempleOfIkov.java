@@ -1,42 +1,49 @@
 package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
+import com.rs2.cache.object.CacheObject;
+import com.rs2.cache.object.ObjectLoader;
 import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
+import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.npcs.NpcLoader;
 import com.rs2.model.objects.GameObject;
+import com.rs2.model.objects.functions.Ladders;
+import com.rs2.model.players.ObjectHandler;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
 
 public class TempleOfIkov implements Quest {
-
-	public static boolean ENABLED = false;
-	public static final int questIndex = 7378;
+	public static boolean ENABLED = true;
 	
+	public static final int questIndex = 7378;
 	//Quest stages
-	public static final int QUEST_NOT_STARTED = 0;
-	public static final int QUEST_STARTED = 1;
-	public static final int LEVER_PLACED = 2;
-	public static final int FIRE_WARRIOR_KILLED = 3;
-	public static final int WITCH_PAID = 4;
-	public static final int GUARDIAN_TALKED_TO = 5;
-	public static final int SIDE_CHOSEN = 6;
-	public static final int QUEST_COMPLETE = 7;
+	public static final int QUEST_NOT_STARTED = 0,
+				QUEST_STARTED = 1,
+				LEVER_PLACED = 2,
+				FIRE_WARRIOR_KILLED = 3,
+				WITCH_NEEDS_ROOTS = 4,
+				WITCH_PAID = 5,
+				GUARDIAN_TALKED_TO = 6,
+				SIDE_CHOSEN = 7,
+				QUEST_COMPLETE = 8;
 
 	//Items
-	public static final int OAK_LONGBOW = 56;
+	public static final int YEW_LONGBOW = 855;
 	public static final int PENDANT_OF_LUCIEN = 86;
 	public static final int LEVER = 83;
 	public static final int ICE_ARROW = 78;
@@ -59,6 +66,7 @@ public class TempleOfIkov implements Quest {
 	public static final int WINELDA = 276;
 	public static final int GUARDIANS_OF_ARMADYL_MALE = 274;
 	public static final int GUARDIANS_OF_ARMADYL_FEM = 275;
+	public static final int FIRE_WARRIOR = 277;
 
 	//Objects
 	public static final int STAIRCASE_TO_BOOTS = 98;
@@ -75,6 +83,10 @@ public class TempleOfIkov implements Quest {
 	public static final int MCGRUBBYGRUBBERS_DOOR = 99;
 	public static final int TEMPLE_WALL = 1586;
 	public static final int LUCIENS_DOOR = 102;
+	
+	public static final int PULL_LEVER_ANIM = 2140;
+	
+	public static final int[][] CHEST_COORDS = new int[][] { {2710, 9850}, {2719, 9838}, {2729, 9850}, {2747, 9848}, {2738, 9835}, {2745, 9821} };
 
 	private int reward[][] = { //{itemId, count},
 	};
@@ -129,7 +141,7 @@ public class TempleOfIkov implements Quest {
 		}
 		getReward(player);
 		player.getActionSender().sendInterface(12140);
-		player.getActionSender().sendItemOnInterface(12145, 250, OAK_LONGBOW); //zoom, then itemId
+		player.getActionSender().sendItemOnInterface(12145, 250, YEW_LONGBOW); //zoom, then itemId
 		player.getActionSender().sendString("You have completed " + getQuestName() + "!", 12144);
 		player.getActionSender().sendString("You are rewarded: ", 12146);
 		player.getActionSender().sendString("1 Quest Point", 12150);
@@ -147,16 +159,14 @@ public class TempleOfIkov implements Quest {
 		int questStage = player.getQuestStage(getQuestID());
 		int lastIndex = 0;
 		switch (questStage) {
-			case QUEST_STARTED:
+			case LEVER_PLACED:
 				lastIndex = 5;
 				break;
-			case FIRE_WARRIOR_KILLED:
-			case LEVER_PLACED:
+			case WITCH_NEEDS_ROOTS:
 				lastIndex = 7;
 				break;
 			case GUARDIAN_TALKED_TO:
-			case WITCH_PAID:
-				lastIndex = 9;
+				lastIndex = 10;
 				break;
 			case QUEST_COMPLETE:
 				lastIndex = 26;
@@ -168,16 +178,16 @@ public class TempleOfIkov implements Quest {
 		a.sendQuestLogString("Talk to Lucien in Ardougne to begin.", 1, this.getQuestID(), 0);
 		a.sendQuestLogString("Lucien has asked me to retrieve the Staff of Armadyl from", 3, this.getQuestID(), QUEST_STARTED);
 		a.sendQuestLogString("the Temple of Ikov. The entrance is near Hemenster. He has", 4, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("given me a pendant so I can enter the chamber of fear.", 5, this.getQuestID(), QUEST_STARTED);
-		a.sendQuestLogString("Temple Guardian defeated.", 7, this.getQuestID(), LEVER_PLACED);
-		a.sendQuestLogString("Staff chamber found.", 9, this.getQuestID(), WITCH_PAID);
+		a.sendQuestLogString("given me a pendant so I can enter the Chamber of Fear.", 5, this.getQuestID(), QUEST_STARTED);
+		a.sendQuestLogString("I defeated the firey temple guardian with ice arrows.", 7, this.getQuestID(), FIRE_WARRIOR_KILLED);
+		a.sendQuestLogString("The staff chamber seems to just be a little farther in", 9, this.getQuestID(), WITCH_PAID);
+		a.sendQuestLogString("the temple. I should investigate.", 10, this.getQuestID(), WITCH_PAID);
 		if (player.getQuestVars().getSidedWithLucien()) {
-			a.sendQuestLogString("I must recover and return the Staff to Lucien.", 11, this.getQuestID(), SIDE_CHOSEN);
+			a.sendQuestLogString("I must recover and return the Staff to Lucien.", 12, this.getQuestID(), SIDE_CHOSEN);
 		} else {
-			a.sendQuestLogString("I agreed to help the Guardians of Armadyl to", 11, this.getQuestID(), SIDE_CHOSEN);
-			a.sendQuestLogString("defeat lucien and temporarily banish him from this plane.", 12, this.getQuestID(), SIDE_CHOSEN);
+			a.sendQuestLogString("I agreed to help the Guardians of Armadyl to", 12, this.getQuestID(), SIDE_CHOSEN);
+			a.sendQuestLogString("defeat Lucien and temporarily banish him from this plane.", 13, this.getQuestID(), SIDE_CHOSEN);
 		}
-
 		switch (questStage) {
 			default:
 				break;
@@ -185,16 +195,17 @@ public class TempleOfIkov implements Quest {
 				a.sendQuestLogString("I can start this quest at the @dre@Flying Horse Inn @bla@in @dre@Ardougne", 1);
 				a.sendQuestLogString("by speaking to @dre@Lucien", 2);
 				a.sendQuestLogString("@dre@Requirements:", 4);
-				a.sendQuestLogString((player.getSkill().getLevel()[Skill.THIEVING] >= 42 ? "@str@" : "@dbl@") + "Level 42 thieving", 5);
-				a.sendQuestLogString((player.getSkill().getLevel()[Skill.RANGED] >= 40 ? "@str@" : "@dbl@") + "Level 40 ranged", 6);
+				a.sendQuestLogString((player.getSkill().getLevel()[Skill.THIEVING] >= 42 ? "@str@" : "@dbl@") + "Level 42 Thieving", 5);
+				a.sendQuestLogString((player.getSkill().getLevel()[Skill.RANGED] >= 40 ? "@str@" : "@dbl@") + "Level 40 Ranged", 6);
 				break;
 			case LEVER_PLACED:
-				a.sendQuestLogString("I need to get some ice weaponary to be able", lastIndex);
-				a.sendQuestLogString("to challenge the temple guardian.", lastIndex + 1);
+				a.sendQuestLogString("I placed a lever into a bracket, it seemed to unlock", lastIndex + 1);
+				a.sendQuestLogString("another area. Perhaps this area holds the key to", lastIndex + 2);
+				a.sendQuestLogString("advancing in the temple.", lastIndex + 3);
 				break;
-			case FIRE_WARRIOR_KILLED:
-				a.sendQuestLogString("To get deeper into the temple i need to pay", lastIndex + 1);
-				a.sendQuestLogString("the witch 20 limpwurt roots.", lastIndex + 2);
+			case WITCH_NEEDS_ROOTS:
+				a.sendQuestLogString("To get deeper into the temple I need to pay", lastIndex + 1);
+				a.sendQuestLogString("the Witch 20 Limpwurt roots.", lastIndex + 2);
 				break;
 			case GUARDIAN_TALKED_TO:
 				a.sendQuestLogString("I need to decide between helping the Guardians and Lucien.", lastIndex + 1);
@@ -250,20 +261,44 @@ public class TempleOfIkov implements Quest {
 		}
 		return false;
 	}
+	
+	public static void guardianAttack(final Npc guardian, final Player player) {
+		player.getDialogue().setLastNpcTalk(guardian.getNpcId());
+		player.getDialogue().sendNpcChat("Thou art a foul agent of Lucien! Such an agent must die!");
+		player.getDialogue().endDialogue();
+		World.submit(new Tick(6) {
+			@Override
+			public void execute() {
+				if(guardian != null)
+					CombatManager.attack(guardian, player);
+				this.stop();
+			}
+		});
+	}
 
 	public static boolean itemPickupHandling(Player player, int itemId) {
 		switch (itemId) {
 			case STAFF_OF_ARMADYL:
 				if (player.getQuestVars().getSidedWithGuardians()) {
-					player.getActionSender().sendMessage("I have no need for this.");
+					player.getDialogue().sendPlayerChat("I have no need for that now.");
+					player.getDialogue().endDialogue();
 					return true;
 				} else {
 					if (!player.getQuestVars().guardianKilled) {
 						spawnGuardian(player);
 						return true;
 					} else {
-						player.getQuestVars().setSidedWithLucien(true);
-						player.setQuestStage(47, SIDE_CHOSEN);
+						if(player.getQuestStage(47) == WITCH_PAID || player.getQuestStage(47) == GUARDIAN_TALKED_TO) {
+							player.getQuestVars().setSidedWithLucien(true);
+							player.setQuestStage(47, SIDE_CHOSEN);
+							return true;
+						} else if(player.getQuestStage(47) >= SIDE_CHOSEN) {
+							if(player.getInventory().ownsItem(STAFF_OF_ARMADYL)) {
+								player.getDialogue().sendPlayerChat("I have no need for that now.");
+								player.getDialogue().endDialogue();
+								return true;
+							}
+						}
 						return false;
 					}
 				}
@@ -272,7 +307,6 @@ public class TempleOfIkov implements Quest {
 	}
 
 	public static void spawnGuardian(final Player player) {
-		//player.getActionSender().sendMessage("The door won't open.");
 		if (player.spawnedNpc != null || player.stopPlayerPacket()) {
 			return;
 		}
@@ -315,12 +349,13 @@ public class TempleOfIkov implements Quest {
 		switch (object) {
 			case LEVER_BRACKET:
 				if (item == LEVER) {
+					player.getActionSender().sendObject(87, 2671, 9804, 0, 3, 6);
 					player.getInventory().removeItem(new Item(LEVER));
-					player.getActionSender().sendMessage("You insert the lever into the bracket and pull...");
-					player.getActionSender().sendMessage("You hear a faint click nearby.");
-					player.setQuestStage(this.getQuestID(), LEVER_PLACED);
+					player.getActionSender().sendMessage("You insert the lever into the bracket.", true);
+					return true;
 				}
-				return true;
+			return false;
+				
 		}
 		return false;
 	}
@@ -368,10 +403,7 @@ public class TempleOfIkov implements Quest {
 					new GameObject(GATE_OF_FEAR_LEFT, 2662, 9815, 0, 2, 0, GATE_OF_FEAR_RIGHT, 2, false).addOriginalFace(3);
 					new GameObject(GATE_OF_FEAR_RIGHT, 2661, 9815, 0, 4, 0, GATE_OF_FEAR_LEFT, 2, false).addOriginalFace(3);
 					player.getActionSender().walkTo(0, player.getPosition().getY() < y ? 1 : -1, true);
-					if (player.getQuestStage(47) < LEVER_PLACED) //TODO check if the performance increase is worth it
-					{
-						bridgeHandling(player);
-					}
+					bridgeHandling(player);
 				} else {
 					new GameObject(ICE_ARROW_GATE_LEFT, 2662, 9803, 0, 2, 0, ICE_ARROW_GATE_RIGHT, 2, false).addOriginalFace(3);
 					new GameObject(ICE_ARROW_GATE_RIGHT, 2661, 9803, 0, 4, 0, ICE_ARROW_GATE_LEFT, 2, false).addOriginalFace(3);
@@ -381,28 +413,28 @@ public class TempleOfIkov implements Quest {
 		}, 1);
 	}
 
-	private void bridgeHandling(final Player player) {
-		System.out.println("Starting bridge checking");
+	public static void bridgeHandling(final Player player) {
+		if(player.getQuestStage(47) >= LEVER_PLACED) {
+			return;
+		}
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-
 			boolean eastOfBridge = true;
 
 			@Override
 			public void execute(CycleEventContainer b) {
-
-				if (!player.Area(2634, 2673, 9815, 9870)) {
+				if (!player.Area(2634, 2673, 9815, 9858)) {
 					b.stop();
 				}
 				if (player.getWeight() <= 0) {
 					if (eastOfBridge) {
-						for (int i = 0; i < EAST_BRIDGE_GAPS.length; i++) {
-							if (player.getPosition().equals(EAST_BRIDGE_GAPS[i])) {
+						for (Position p : EAST_BRIDGE_GAPS) {
+							if (player.getPosition().equals(p)) {
 								player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
 							}
 						}
 					} else {
-						for (int i = 0; i < WEST_BRIDGE_GAPS.length; i++) {
-							if (player.getPosition().equals(WEST_BRIDGE_GAPS[i])) {
+						for (Position p : WEST_BRIDGE_GAPS) {
+							if (player.getPosition().equals(p)) {
 								player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
 							}
 						}
@@ -423,56 +455,124 @@ public class TempleOfIkov implements Quest {
 
 	public boolean doObjectClicking(final Player player, final int object, final int x, final int y) {
 		switch (object) {
-			case STAIRCASE_TO_BOOTS:
-				if (player.hasLightSource()) {
-					player.fadeTeleport(BOOTS_STAIR_IN);
-					return true;
-				} else {
-					player.fadeTeleport(BOOTS_DARK_STAIR_IN);
-					player.getActionSender().sendMessage("It's pitch black in here!");
+			case 6278: //outside trapdoor south of fish guild
+				if(x == 2637 && y == 3408) {
+					player.getActionSender().sendMessage("You open the trapdoor and climb inside...");
+					Ladders.climbLadderDown(player, new Position(2637, 9809, 0));
 					return true;
 				}
+			return false;
+			case 100: //inside fake trapdoors
+				if(x == 2665 && (y == 9849 || y == 9855)) {
+					player.getActionSender().sendMessage("You pull on the trapdoor...", true);
+					player.getActionSender().sendTimedMessage("...It won't budge! It must be locked from the other side.", true, 3);
+					return true;
+				}
+			return false;
+			case 87:
+				if(x == 2671 && y == 9804) {
+					if (player.getQuestStage(this.getQuestID()) == QUEST_STARTED) {
+						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
+						player.getActionSender().sendMessage("You pull the lever...", true);
+						player.getActionSender().sendTimedMessage("You hear the clunking of some hidden machinery.", true, 2);
+						player.setQuestStage(this.getQuestID(), LEVER_PLACED);
+						return true;
+					}
+				}
+				return false;
+			case STAIRCASE_TO_BOOTS:
+				if (x == 2650 && y == 9804) {
+					boolean condition = player.hasLightSource();
+					player.fadeTeleport(condition ? BOOTS_STAIR_IN : BOOTS_DARK_STAIR_IN);
+					if(!condition)
+						player.getActionSender().sendTimedMessage("It's pitch black in here!", true, 5);
+					return true;
+				}
+				return false;
 			case STAIRCASE_FROM_BOOTS:
-				player.fadeTeleport(BOOTS_STAIR_OUT);
-				return true;
+				if(x == 2638 && (y == 9763 || y == 9740)) {
+					player.fadeTeleport(BOOTS_STAIR_OUT);
+					return true;
+				}
+				return false;
 			case GATE_OF_FEAR_LEFT:
 			case GATE_OF_FEAR_RIGHT:
-				if (x >= 2661 && x <= 2662 && y == 9815) {
+				if ((x == 2661 || x == 2662) && y == 9815) {
 					if (player.getEquipment().getId(Constants.AMULET) == PENDANT_OF_LUCIEN) {
-						System.out.println("GateHandling");
 						gateHandling(player, x, y, true);
 					} else {
-						player.getActionSender().sendMessage("As you reach to open the door a great terror overcomes you!");
+						player.getActionSender().sendMessage("As you reach to open the door a great terror overcomes you!", true);
 					}
 					return true;
 				}
+				return false;
 			case ICE_ARROW_GATE_LEFT:
 			case ICE_ARROW_GATE_RIGHT:
-				if (x >= 2661 && x <= 2662 && y == 9803) {
+				if ((x == 2661 || x == 2662) && y == 9803) {
 					if (player.getQuestStage(this.getQuestID()) >= LEVER_PLACED) {
 						gateHandling(player, x, y, false);
 					} else {
-						player.getActionSender().sendMessage("The gate won't budge!");
+						player.getActionSender().sendMessage("The gate won't budge!", true);
 					}
+					return true;
 				}
-				return true;
+				return false;
 			case ICE_ARROW_CHEST:
-				if (Misc.random(2) == 1) {
-					player.getInventory().addItem(new Item(ICE_ARROW, 3));
-				} else {
-					player.getActionSender().sendMessage("You search the chest but find nothing.");
-				}
-				return true;
-			case TRAP_LEVER_DOOR:
-				if (player.getPosition().equals(new Position(2648, 9857, 0))) {
-					if (player.getQuestVars().trapLeverPulled) {
-						player.getActionSender().walkTo(0, 1, true);
-						player.getActionSender().walkThroughDoor(object, x, y, 0);
-					} else {
-						player.getActionSender().sendMessage("The door won't open.");
+				if (player.Area(2707, 2757, 9821, 9861)) {
+					player.getUpdateFlags().sendAnimation(832);
+					CacheObject o = ObjectLoader.object(object, x, y, 0);
+					if(o != null) {
+						new GameObject(104, x, y, 0, o.getRotation(), 10, 103, 999999, true);
 					}
+					return true;
 				}
-				return true;
+				return false;
+			case ICE_ARROW_CHEST + 1: //Ice arrow chest open
+				if (player.Area(2707, 2757, 9821, 9861)) {
+					player.setStopPacket(true);
+					player.getActionSender().sendMessage("You search the chest...", true);
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							b.stop();
+						}
+
+						@Override
+						public void stop() {
+							int[] coords = CHEST_COORDS[player.getQuestVars().iceArrowChestIndex];
+							if (x == coords[0] && y == coords[1]) {
+								int amount = Misc.random(4) + 2;
+								Item arrows = new Item(ICE_ARROW, amount);
+								player.getInventory().addItem(arrows);
+								player.getActionSender().sendMessage("You find some ice arrows!", true);
+								player.getDialogue().sendGiveItemNpc("You find some ice arrows!", arrows);
+								player.getQuestVars().iceArrowChestIndex = Misc.randomMinusOne(CHEST_COORDS.length);
+							} else {
+								player.getActionSender().sendMessage("...but find nothing.", true);
+							}
+							player.setStopPacket(false);
+						}
+					}, 2);
+					return true;
+				}
+				return false;
+			case TRAP_LEVER_DOOR:
+				if (x == 2648 && y == 9857) {
+					if (player.getPosition().getY() < 9858) {
+						if (player.getQuestVars().trapLeverPulled || player.getQuestStage(this.getQuestID()) >= FIRE_WARRIOR_KILLED) {
+							player.getActionSender().walkTo(0, 1, true);
+							player.getActionSender().walkThroughDoor(object, x, y, 0);
+						} else {
+							player.getActionSender().sendMessage("The door won't open.", true);
+						}
+					} else {
+						player.getActionSender().walkTo(0, -1, true);
+						player.getActionSender().walkThroughDoor(object, x, y, 0);
+						bridgeHandling(player);
+					}
+					return true;
+				}
+				return false;
 			case FIRE_WARRIOR_DOOR:
 				if (x == 2646 && y == 9870) {
 					if (player.getPosition().getY() <= 9870 && player.getQuestStage(this.getQuestID()) < FIRE_WARRIOR_KILLED) {
@@ -481,16 +581,22 @@ public class TempleOfIkov implements Quest {
 						player.getActionSender().walkThroughDoor(object, x, y, 0);
 						player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, player.getPosition().getY() <= 9870 ? 1 : -1, true);
 					}
+					return true;
 				}
-				return true;
+				return false;
 			case TRAP_LEVER:
-				if (player.getQuestVars().trapLeverDisarmed) {
-					player.getQuestVars().trapLeverPulled = true;
-					player.getActionSender().sendMessage("You pull the lever down.");
-				} else {
-					player.getActionSender().sendMessage("The lever shocks you! You are unable to finish pulling it!");
+				if (x == 2665 && y == 9855) {
+					if (player.getQuestVars().trapLeverDisarmed) {
+						player.getQuestVars().trapLeverPulled = true;
+						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
+						player.getActionSender().sendMessage("You pull the lever.", true);
+					} else {
+						player.getActionSender().sendMessage("The lever shocks you! You are unable to finish pulling it!", true);
+						player.hit(2, HitType.NORMAL);
+					}
+					return true;
 				}
-				return true;
+				return false;
 			case MCGRUBBYGRUBBERS_DOOR:
 				if (x == 2657 && y == 3496) {
 					if (player.getPosition().equals(new Position(2657, 3497, 0))) {
@@ -498,55 +604,59 @@ public class TempleOfIkov implements Quest {
 							player.getActionSender().walkTo(0, -1, true);
 							player.getActionSender().walkThroughDoor(object, x, y, 0);
 						} else {
-							player.getActionSender().sendMessage("Door is locked.");
+							player.getActionSender().sendMessage("This door is locked.", true);
 						}
 					} else {
 						player.getActionSender().walkTo(0, 1, true);
 						player.getActionSender().walkThroughDoor(object, x, y, 0);
 					}
+					return true;
 				}
-				return true;
+				return false;
 			case TEMPLE_WALL:
-				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-					@Override
-					public void execute(CycleEventContainer b) {
-						if (player.getPosition().getY() == 9893 || player.getPosition().getY() == (9893 - 1)) {
-							if (player.getPosition().getX() > 2643) {
-								player.getActionSender().walkTo(-1, 0, true);
-							} else if (player.getPosition().getX() < 2643) {
-								player.getActionSender().walkTo(1, 0, true);
-							}
-							if (player.getPosition().getX() == 2643) {
-								b.stop();
+				if (x == 2643 && y == 9892) {
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						@Override
+						public void execute(CycleEventContainer b) {
+							if (player.getPosition().getY() == 9893 || player.getPosition().getY() == (9893 - 1)) {
+								if (player.getPosition().getX() > 2643) {
+									player.getActionSender().walkTo(-1, 0, true);
+								} else if (player.getPosition().getX() < 2643) {
+									player.getActionSender().walkTo(1, 0, true);
+								}
+								if (player.getPosition().getX() == 2643) {
+									b.stop();
+								}
 							}
 						}
-					}
-
-					@Override
-					public void stop() {
-						player.getActionSender().walkTo(0, player.getPosition().getY() < 9893 ? 1 : -1, true);
-						player.getActionSender().walkThroughDoor(object, x, y, 0);
-					}
-				}, 1);
-				return true;
+						@Override
+						public void stop() {
+							player.getActionSender().walkTo(0, player.getPosition().getY() < 9893 ? 1 : -1, true);
+							player.getActionSender().walkThroughDoor(object, x, y, 0);
+						}
+					}, 1);
+					return true;
+				}
+				return false;
 			case LUCIENS_DOOR:
 				if (x == 3176 && y == 3481) {
-					player.getActionSender().walkTo(0, player.getPosition().getY() < 3481 ? 1 : -1, true);
+					player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? -1 : 1, player.getPosition().getY() < 3481 ? 1 : -1, true);
 					player.getActionSender().walkThroughDoor(object, x, y, 0);
+					return true;
 				}
-				return true;
+				return false;	
 		}
 		return false;
 	}
 
 	public static void startFireWarriorSequence(final Player player) {
-		player.getActionSender().sendMessage("The door won't open.");
+		player.getActionSender().sendMessage("The door won't open.", true);
 		if (player.spawnedNpc != null || player.stopPlayerPacket()) {
 			return;
 		}
 		player.setStopPacket(true);
 		final Position spawnPos = new Position(2646, 9866, 0);
-		final Npc warrior = new Npc(277);
+		final Npc warrior = new Npc(FIRE_WARRIOR);
 		World.createStaticGraphic(new Graphic(86, 0), spawnPos);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int count = 0;
@@ -586,27 +696,39 @@ public class TempleOfIkov implements Quest {
 			@Override
 			public void stop() {
 				player.setStopPacket(false);
-				CombatManager.attack(warrior, player);
 			}
 		}, 2);
 	}
 
 	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
 		switch (object) {
-			case TRAP_LEVER:
-				if (player.getSkill().getLevel()[Skill.THIEVING] >= 42) {
-					player.getDialogue().sendStatement("You find a trap on the lever! You disable the trap.");
-					player.getQuestVars().trapLeverDisarmed = true;
-				} else {
-					player.getActionSender().sendMessage("You can't see any trap mechanisms.");
+			case ICE_ARROW_CHEST + 1: //close ice arrow chest
+				if (player.Area(2707, 2757, 9821, 9861)) {
+					player.getUpdateFlags().sendAnimation(832);
+					ObjectHandler.getInstance().removeObject(x, y, 0, 10);
+					return true;
 				}
+				return false;
+			case TRAP_LEVER:
+				if (x == 2665 && y == 9855) {
+					if (player.getSkill().getLevel()[Skill.THIEVING] >= 42) {
+						player.getDialogue().sendStatement("You find a trap on the lever! You disable the trap.");
+						player.getQuestVars().trapLeverDisarmed = true;
+					} else {
+						player.getDialogue().sendStatement("You need a Thieving level of 42 to disarm the trap here.");
+					}
+					return true;
+				}
+				return false;
 		}
 		return false;
 	}
 
 	public void handleDeath(final Player player, final Npc died) {
-		if (died.getPlayerOwner() != null && died.getPlayerOwner().equals(player) && died.getNpcId() == 277) {
-			player.setQuestStage(this.getQuestID(), FIRE_WARRIOR_KILLED);
+		if (died.getPlayerOwner() != null && died.getPlayerOwner().equals(player) && died.getNpcId() == FIRE_WARRIOR) {
+			if(player.getQuestStage(47) == LEVER_PLACED) {
+				player.setQuestStage(this.getQuestID(), FIRE_WARRIOR_KILLED);
+			}
 		}
 		if (died.getPlayerOwner() != null && died.getPlayerOwner().equals(player) && died.getNpcId() == GUARDIANS_OF_ARMADYL_FEM) {
 			player.getQuestVars().guardianKilled = true;
@@ -621,13 +743,15 @@ public class TempleOfIkov implements Quest {
 	}
 
 	public void witchTele(final Player player) {
-
+		player.getActionSender().removeInterfaces();
+		player.setStopPacket(true);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int count = 0;
 
 			@Override
 			public void execute(CycleEventContainer b) {
 				count++;
+				player.setStopPacket(true);
 				switch (count) {
 					case 1:
 						player.transformNpc = 2370;
@@ -648,6 +772,7 @@ public class TempleOfIkov implements Quest {
 
 			@Override
 			public void stop() {
+				player.setStopPacket(false);
 			}
 		}, 2);
 	}
@@ -658,23 +783,45 @@ public class TempleOfIkov implements Quest {
 		}
 		DialogueManager d = player.getDialogue();
 		switch (id) { //Npc ID
+			case FIRE_WARRIOR:
+				switch (d.getChatId()) {
+					case 1:
+						d.sendNpcChat("Who dares to enter the Temple of Ikov!", ANGRY_1);
+						return true;
+					case 2:
+						d.sendOption("A mighty hero!", "A humble pilgrim.");
+						return true;
+					case 3:
+						d.sendPlayerChat(d.tempStrings[optionId - 1]);
+						if(optionId == 1)
+							d.setNextChatId(5);
+						return true;
+					case 4:
+						d.sendNpcChat("No pilgrims have been to this temple for hundreds", "of years. This temple is closed.", ANGRY_1);
+						d.endDialogue();
+						return true;
+					case 5:
+						d.sendNpcChat("Aargh! All you 'heroes' do is further harm this", "temple! Begone!", ANGRY_1);
+						return true;
+					case 6:
+						d.endDialogue();
+						player.getActionSender().removeInterfaces();
+						Npc attacker = World.getNpcs()[player.getNpcClickIndex()];
+						if(attacker != null && attacker.getPlayerOwner() != null && attacker.getPlayerOwner().equals(player)) {
+							CombatManager.attack(attacker, player);
+						}
+						return true;
+				}
+			return false;
 			case LUCIEN:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
-					case QUEST_COMPLETE:
-						switch (d.getChatId()) {
-							case 1:
-								d.sendNpcChat("Thank you again!", Dialogues.HAPPY);
-								d.endDialogue();
-								return true;
-						}
-						return false;
 					case QUEST_NOT_STARTED:
 						switch (d.getChatId()) {
 							case 1:
 								d.sendNpcChat("I seek a hero to go on an important mission!");
 								return true;
 							case 2:
-								d.sendOption("I'm a mighty hero!", "Yep, lots of heros about these days.");
+								d.sendOption("I'm a mighty hero!", "Yep, lots of heroes about these days.");
 								return true;
 							case 3:
 								d.sendPlayerChat(d.tempStrings[optionId - 1]);
@@ -695,7 +842,7 @@ public class TempleOfIkov implements Quest {
 								d.sendNpcChat("Take care hero! There is a dangerous monster", "somewhere in the temple!");
 								return true;
 							case 7:
-								d.sendOption("Why can't you get it yourself?", "That sounds like a laugh!", "Oh no! Sounds far too dangerous!", "Whats the reward?!");
+								d.sendOption("Why can't you get it yourself?", "That sounds like a laugh!", "Oh no! Sounds far too dangerous!", "Whats the reward?");
 								return true;
 							case 8:
 								d.sendPlayerChat(d.tempStrings[optionId - 1]);
@@ -768,6 +915,26 @@ public class TempleOfIkov implements Quest {
 				return false;
 			case WINELDA:
 				switch (player.getQuestStage(this.getQuestID())) {
+					case WITCH_NEEDS_ROOTS:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Did you get me those Limpwurt roots yet?", "I need 20, you can't have forgotten!");
+								return true;
+							case 2:
+								if (player.getInventory().playerHasItem(LIMPWURT_ROOT, 20)) {
+									d.sendPlayerChat("I've got the Limpwurt roots!");
+									d.setNextChatId(5);
+									player.getInventory().removeItem(new Item(LIMPWURT_ROOT, 20));
+									player.getQuestVars().setSidedWithLucien(false);
+									player.getQuestVars().setSidedWithGuardians(false);
+									player.setQuestStage(this.getQuestID(), WITCH_PAID);
+								} else {
+									d.sendPlayerChat("Not yet...", ANGRY_1);
+									d.endDialogue();
+								}
+								return true;
+						}
+					return false;
 					case FIRE_WARRIOR_KILLED:
 						switch (d.getChatId()) {
 							case 1:
@@ -781,13 +948,25 @@ public class TempleOfIkov implements Quest {
 								return true;
 							case 4:
 								if (player.getInventory().playerHasItem(LIMPWURT_ROOT, 20)) {
-									d.sendPlayerChat("I've got you the limpwurt roots!");
+									d.sendPlayerChat("I've got some limpwurt roots!");
 									player.getInventory().removeItem(new Item(LIMPWURT_ROOT, 20));
 									player.setQuestStage(this.getQuestID(), WITCH_PAID);
 								} else {
-									d.sendPlayerChat("Ugh. Fine");
+									d.sendPlayerChat("Ugh. Fine.");
 									d.endDialogue();
+									player.setQuestStage(this.getQuestID(), WITCH_NEEDS_ROOTS);
 								}
+								return true;
+						}
+						return false;
+					case WITCH_PAID:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("Hold on tight!");
+								return true;
+							case 2:
+								d.endDialogue();
+								witchTele(player);
 								return true;
 							case 5:
 								d.sendNpcChat("Good! Good! My potion is nearly ready! Bubble, bubble,", "toil and trouble!");
@@ -801,35 +980,26 @@ public class TempleOfIkov implements Quest {
 								return true;
 						}
 						return false;
-					case WITCH_PAID:
-						switch (d.getChatId()) {
-							case 1:
-								d.sendNpcChat("Hold on tight!");
-								return true;
-							case 2:
-								d.endDialogue();
-								witchTele(player);
-								return true;
-						}
-						return false;
 				}
 				return false;
 			case GUARDIANS_OF_ARMADYL_MALE:
 			case GUARDIANS_OF_ARMADYL_FEM:
+				final Npc speaker = World.getNpcs()[player.getNpcClickIndex()];
+				if(speaker != null && speaker.isAttacking()) {
+					return false;
+				}
 				switch (player.getQuestStage(this.getQuestID())) {
 					case WITCH_PAID:
 						switch (d.getChatId()) {
 							case 1:
 								if (this.isWearingLucienPendant(player)) {
-									d.sendNpcChat("Thou is a foul agent of Lucien! Such an agent must die!");
-									d.endDialogue();
-									CombatManager.attack(World.getNpcs()[player.getNpcClickIndex()], player);
+									guardianAttack(speaker, player);
 								} else {
-									d.sendNpcChat("Thou hast ventured deep into the tunnels, you have", "reached the temple of our master. it is many ages", "since a pilgrim has come here.");
+									d.sendNpcChat("Thou hast ventured deep into the tunnels, you have", "reached the temple of our master. It is many ages", "since a pilgrim has come here.");
 								}
 								return true;
 							case 2:
-								d.sendOption("I seek the Staff of Armadyl", "Out of my way fool!", "What are your kind and what are you doing here?");
+								d.sendOption("I seek the Staff of Armadyl.", "Out of my way fool!", "What are your kind and what are you doing here?");
 								return true;
 							case 3:
 								d.sendPlayerChat(d.tempStrings[optionId - 1]);
@@ -854,7 +1024,7 @@ public class TempleOfIkov implements Quest {
 								d.endDialogue();
 								return true;
 							case 6:
-								d.sendNpcChat("We are the Guardians of Armadyl. We have kept the", "temple safe for many ages. The evil in the dungeons", "seek what lies here. the Mahjarrat are the worst.");
+								d.sendNpcChat("We are the Guardians of Armadyl. We have kept the", "temple safe for many ages. The evil in the dungeons", "seek what lies here. The Mahjarrat are the worst.");
 								return true;
 							case 7:
 								d.sendOption("What is Armadyl?", "Who are the Mahjarrat?", "Wow! You must be really old!");
@@ -874,7 +1044,7 @@ public class TempleOfIkov implements Quest {
 								}
 								return true;
 							case 9:
-								d.sendNpcChat("Armadyl is the god we serve. We have been charged", "with guarding his sacred artefacts until he requires them.");
+								d.sendNpcChat("Armadyl is the god we serve. We have been charged", "with guarding his sacred artifacts until he requires them.");
 								return true;
 							case 10:
 								d.sendPlayerChat("Someone told me there were only three gods.", "Saradomin, Zamorak and Guthix.");
@@ -888,10 +1058,10 @@ public class TempleOfIkov implements Quest {
 								d.setNextChatId(7);
 								return true;
 							case 13:
-								d.sendNpcChat("They are ancient and powerful beings! They are very", "evil! It is said that they once dominated this place of", "existance, Zamorak was supposedly of their blood. They", "are far fewer in number now.");
+								d.sendNpcChat("They are ancient and powerful beings! They are very", "evil! It is said that they once dominated this place of", "existence, Zamorak was supposedly of their blood. They", "are far fewer in number now.");
 								return true;
 							case 14:
-								d.sendNpcChat("Some still have presence in this world in their liche", "forms. Mahjarrat such as Lucien and Azzanadra would", "become very powerful if they came into possession of the", "Staff of Armadyl.");
+								d.sendNpcChat("Some still have presence in this world in their lich", "forms. Mahjarrat such as Lucien and Azzanadra would", "become very powerful if they came into possession of the", "Staff of Armadyl.");
 								return true;
 							case 15:
 								d.sendOption("Did you say Lucien?", "I hope you're doing a good job then!");
@@ -918,14 +1088,11 @@ public class TempleOfIkov implements Quest {
 								d.sendNpcChat("You are a fool to be working for Lucien! Your soul", "must be cleansed to save you!");
 								return true;
 							case 20:
-								d.sendOption("How dare you call me a fool!", "I just thought of something i must do!", "You're right it's time for my yearly bath.");
+								d.sendOption("How dare you call me a fool!", "I just thought of something I must do!", "You're right it's time for my yearly bath.");
 								return true;
 							case 21:
 								d.sendPlayerChat(d.tempStrings[optionId - 1]);
 								switch (optionId) {
-									case 1:
-										d.setNextChatId(22);
-										break;
 									case 2:
 										d.setNextChatId(23);
 										break;
@@ -935,9 +1102,7 @@ public class TempleOfIkov implements Quest {
 								}
 								return true;
 							case 22:
-								d.sendNpcChat("Thou is a foul agent of Lucien! Such an agent must die!");
-								d.endDialogue();
-								CombatManager.attack(World.getNpcs()[player.getNpcClickIndex()], player);
+								guardianAttack(speaker, player);
 								return true;
 							case 23:
 								d.sendNpcChat("Hurry back quickly, before", "Lucien's corruption can take root!");
@@ -957,9 +1122,7 @@ public class TempleOfIkov implements Quest {
 						switch (d.getChatId()) {
 							case 1:
 								if (this.isWearingLucienPendant(player)) {
-									d.sendNpcChat("Thou is a foul agent of Lucien! Such an agent must die!");
-									d.endDialogue();
-									CombatManager.attack(World.getNpcs()[player.getNpcClickIndex()], player);
+									guardianAttack(speaker, player);
 								} else {
 									d.sendNpcChat("Lucien must not get hold of the staff! He would become", "too powerful!");
 								}
@@ -985,11 +1148,9 @@ public class TempleOfIkov implements Quest {
 								}
 								return true;
 							case 5:
-								d.sendNpcChat("Thou is a foul agent of Lucien! Such an agent must die!");
-								d.endDialogue();
+								guardianAttack(speaker, player);
 								player.getQuestVars().setSidedWithLucien(true);
 								player.setQuestStage(this.getQuestID(), SIDE_CHOSEN);
-								CombatManager.attack(World.getNpcs()[player.getNpcClickIndex()], player);
 								return true;
 							case 6:
 								d.sendNpcChat("So he is close by?");
@@ -1020,14 +1181,12 @@ public class TempleOfIkov implements Quest {
 						return false;
 					case SIDE_CHOSEN:
 						if (player.getQuestVars().getSidedWithLucien()) {
-							d.endDialogue();
-							World.getNpcs()[player.getNpcClickIndex()].getUpdateFlags().setForceChatMessage("Thou is a foul agent of Lucien! Such an agent must die!");
-							CombatManager.attack(World.getNpcs()[player.getNpcClickIndex()], player);
+							guardianAttack(speaker, player);
 							return true;
 						}
 						switch (d.getChatId()) {
 							case 1:
-								d.sendNpcChat("Have you rid us of lucien yet?");
+								d.sendNpcChat("Have you rid us of Lucien yet?");
 								return true;
 							case 2:
 								d.sendPlayerChat("Not yet.");
@@ -1043,8 +1202,11 @@ public class TempleOfIkov implements Quest {
 			case LUCIEN_ATTACKABLE:
 				switch (player.getQuestStage(this.getQuestID())) {
 					case QUEST_NOT_STARTED:
+						return false;
 					case QUEST_COMPLETE:
-						break;
+						d.sendNpcChat("Thank you again again adventurer...", "Muhahaha!", Dialogues.LAUGHING);
+						d.endDialogue();
+						return true;
 					default:
 						switch (d.getChatId()) {
 							case 1:
@@ -1067,8 +1229,7 @@ public class TempleOfIkov implements Quest {
 								return true;
 							case 4:
 								if (player.getInventory().ownsItem(STAFF_OF_ARMADYL)) {
-									d.sendGiveItemNpc("You give Lucien the Staff of Armadyl", new Item(STAFF_OF_ARMADYL));
-									player.getInventory().removeItem(new Item(STAFF_OF_ARMADYL));
+									d.sendGiveItemNpc("You show Lucien the Staff of Armadyl.", new Item(STAFF_OF_ARMADYL));
 								} else {
 									d.sendNpcChat("Where is it then? Don't waste my time!");
 									d.endDialogue();
@@ -1086,11 +1247,24 @@ public class TempleOfIkov implements Quest {
 							case 8:
 								d.dontCloseInterface();
 								QuestHandler.completeQuest(player, this.getQuestID());
+								player.getInventory().removeItem(new Item(STAFF_OF_ARMADYL));
 								return true;
 						}
 						return false;
 				}
-				return false;
+			case LUCIEN_ATTACKABLE + 20000:
+				d.setLastNpcTalk(LUCIEN_ATTACKABLE);
+				switch(d.getChatId()) {
+					case 1:
+						d.sendNpcChat("You have defeated me for now! I shall reappear in the", "North!");
+						return true;
+					case 2:
+						d.dontCloseInterface();
+						player.getQuestVars().setSidedWithGuardians(true);
+						QuestHandler.completeQuest(player, 47);
+						return true;
+				}
+			return false;
 		}
 		return false;
 	}

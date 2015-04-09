@@ -4,6 +4,7 @@ import com.rs2.model.Position;
 import com.rs2.model.content.quests.impl.ErnestTheChicken;
 import com.rs2.model.content.quests.impl.TheGolem;
 import com.rs2.model.players.Player;
+import com.rs2.util.Misc;
 
 import java.util.ArrayList;
 
@@ -130,6 +131,7 @@ public class QuestVariables {
 	private boolean sidedWithLucien = false;
 	private boolean sidedWithGuardians = false;
 	public boolean guardianKilled = false;
+	public int iceArrowChestIndex = Misc.randomMinusOne(6);
 
 	public QuestVariables(final Player player) {
 		this.player = player;
