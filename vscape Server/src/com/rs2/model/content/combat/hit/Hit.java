@@ -366,403 +366,423 @@ public class Hit {
 		boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
 		Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
 		Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
-		if (npcIsVictim) {
-			int id = npc.getNpcId();
-			switch (id) {
-				case 879: //Delrith
-					DemonSlayer.sendDelrithMessages();
-					break;
-				case 4479: //Goblin green
-					if (npcIsAttacker && ((Npc) attacker).getNpcId() == 4486) {
-						GoblinDiplomacy.sendGreenMessages((Npc) attacker);
-					}
-					break;
-				case 4486: //Goblin red
-					if (npcIsAttacker && ((Npc) attacker).getNpcId() == 4479) {
-						GoblinDiplomacy.sendRedMessages((Npc) attacker);
-					}
-					break;
-				case 2745:
-					if (playerIsAttacker && npc.getCurrentHp() < (npc.getMaxHp() / 2) && !player.hurkotsSpawned()) {
-						FightCaves.spawnYtHurkots(player);
-						player.setHurkotsSpawned(true);
-					}
-					break;
-				case RecruitmentDrive.SIR_LEYE:
-					if (playerIsAttacker && (victim.getCurrentHp() - damage) <= 0 && player.getGender() != 1) {
-						npc.getUpdateFlags().sendForceMessage("Fool! No man can defeat me!");
-						damage = 0;
-					}
-					break;
-				default:
-					break;
-			}
-			if (npc.inFightCaves() && npc.getNpcId() != 2745 && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
-				FightCaves.handlePlayerHit(attacker, (Npc) victim, damage);
-			}
-		}
-		if (npcIsAttacker) {
-			if (npc.getNpcId() >= 1338 && npc.getNpcId() < 1344) { //Weak Dagannoths 
-				if (80 >= (new Random().nextDouble() * 100.0)) {
-					damage = 0;
+		try {
+			if (npcIsVictim) {
+				int id = npc.getNpcId();
+				switch (id) {
+					case 879: //Delrith
+						DemonSlayer.sendDelrithMessages();
+						break;
+					case 4479: //Goblin green
+						if (npcIsAttacker && ((Npc) attacker).getNpcId() == 4486) {
+							GoblinDiplomacy.sendGreenMessages((Npc) attacker);
+						}
+						break;
+					case 4486: //Goblin red
+						if (npcIsAttacker && ((Npc) attacker).getNpcId() == 4479) {
+							GoblinDiplomacy.sendRedMessages((Npc) attacker);
+						}
+						break;
+					case 2745:
+						if (playerIsAttacker && npc.getCurrentHp() < (npc.getMaxHp() / 2) && !player.hurkotsSpawned()) {
+							FightCaves.spawnYtHurkots(player);
+							player.setHurkotsSpawned(true);
+						}
+						break;
+					case RecruitmentDrive.SIR_LEYE:
+						if (playerIsAttacker && (victim.getCurrentHp() - damage) <= 0 && player.getGender() != 1) {
+							npc.getUpdateFlags().sendForceMessage("Fool! No man can defeat me!");
+							damage = 0;
+						}
+						break;
+					default:
+						break;
+				}
+				if (npc.inFightCaves() && npc.getNpcId() != 2745 && hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
+					FightCaves.handlePlayerHit(attacker, (Npc) victim, damage);
 				}
 			}
-		}
-		if (playerIsAttacker) {
-			if (hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
-				doBoltSpecials();
+			if (npcIsAttacker) {
+				if (npc.getNpcId() >= 1338 && npc.getNpcId() < 1344) { //Weak Dagannoths 
+					if (80 >= (new Random().nextDouble() * 100.0)) {
+						damage = 0;
+					}
+				}
 			}
-			if (SpellAttack.isMultiAncientSpell(hitDef, attacker, victim)) {
-				SpellAttack.doMultiAncientSpell(hitDef, attacker, victim);
-			}
-			if (player.getArmorPiercedEntity() != null && player.getArmorPiercedEntity().equals(victim)) {
-				damage *= 1.1;
-			}
-			if (hitDef.getHitGraphic() != null && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.CHAOS_GAUNTLETS) {
-				int gfxId = hitDef.getHitGraphic().getId();
-				if (gfxId == 119 || gfxId == 122 || gfxId == 125 || gfxId == 128) {
-					damage += 4;
+			if (playerIsAttacker) {
+				if (hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
+					doBoltSpecials();
+				}
+				if (SpellAttack.isMultiAncientSpell(hitDef, attacker, victim)) {
+					SpellAttack.doMultiAncientSpell(hitDef, attacker, victim);
+				}
+				if (player.getArmorPiercedEntity() != null && player.getArmorPiercedEntity().equals(victim)) {
+					damage *= 1.1;
+				}
+				if (hitDef.getHitGraphic() != null && player.getEquipment().getId(Constants.HANDS) == FamilyCrest.CHAOS_GAUNTLETS) {
+					int gfxId = hitDef.getHitGraphic().getId();
+					if (gfxId == 119 || gfxId == 122 || gfxId == 125 || gfxId == 128) {
+						damage += 4;
+					}
+				}
+				if (playerIsVictim) {
+					if (attacker.inCwGame() && victim.inCwGame()) {
+						Player playerA = (Player) attacker;
+						Player playerV = (Player) victim;
+						if (playerA.wearingCwBracelet() && playerV.carryingCwBanner()) {
+							damage *= 1.2;
+						}
+					}
 				}
 			}
 			if (playerIsVictim) {
-				if (attacker.inCwGame() && victim.inCwGame()) {
-					Player playerA = (Player) attacker;
-					Player playerV = (Player) victim;
-					if (playerA.wearingCwBracelet() && playerV.carryingCwBanner()) {
-						damage *= 1.2;
+				if (hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
+					if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
+						player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
+						player.getActionSender().sendMessage("The fragile plague sample breaks upon you being hit!");
 					}
 				}
 			}
-		}
-		if (playerIsVictim) {
-			if (hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE)) {
-				if (player.getQuestStage(40) >= 7 && player.getInventory().playerHasItem(Biohazard.PLAGUE_SAMPLE)) {
-					player.getInventory().removeItem(new Item(Biohazard.PLAGUE_SAMPLE));
-					player.getActionSender().sendMessage("The fragile plague sample breaks upon you being hit!");
-				}
-			}
-		}
-		if (playerIsAttacker && npcIsVictim) {
-			int id = npc.getNpcId();
-			switch (id) {
-				case FamilyCrest.CHRONOZON:
-					if (hitDef.getHitGraphic() != null) {
-						FamilyCrest.handleChronozonSpellHit(player, hitDef.getHitGraphic().getId());
-					}
-					break;
-				case 205: //Salarin the Twisted
-					if (hitDef != null) {
-						if (hitDef.getAttackStyle() != null && (hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED) || hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE))) {
-							damage = 0;
-							player.getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
-						} else {
-							if (hitDef.getHitGraphic() != null) {
-								int gfxId = hitDef.getHitGraphic().getId();
-								if (gfxId != 92 && gfxId != 95 && gfxId != 98 && gfxId != 101 && gfxId != 76) {
-									damage = 0;
-									((Player) attacker).getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
+			if (playerIsAttacker && npcIsVictim) {
+				int id = npc.getNpcId();
+				switch (id) {
+					case FamilyCrest.CHRONOZON:
+						if (hitDef.getHitGraphic() != null) {
+							FamilyCrest.handleChronozonSpellHit(player, hitDef.getHitGraphic().getId());
+						}
+						break;
+					case 205: //Salarin the Twisted
+						if (hitDef != null) {
+							if (hitDef.getAttackStyle() != null && (hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED) || hitDef.getAttackStyle().getAttackType().equals(AttackType.MELEE))) {
+								damage = 0;
+								player.getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
+							} else {
+								if (hitDef.getHitGraphic() != null) {
+									int gfxId = hitDef.getHitGraphic().getId();
+									if (gfxId != 92 && gfxId != 95 && gfxId != 98 && gfxId != 101 && gfxId != 76) {
+										damage = 0;
+										((Player) attacker).getActionSender().sendMessage("Salarin the Twisted resists your attack!", true);
+									}
 								}
 							}
 						}
-					}
-					break;
-				case 1459:
-				case 1460: //Monkey Temple Guards
-					if (npc.onApeAtoll()) {
-						if (npc.getCurrentHp() < (npc.getMaxHp() / 6) && Misc.random(2) == 1) {
-							npc.getUpdateFlags().sendAnimation(1405);
-							hitDef.setVictimAnimation(6969);
-							npc.setCurrentHp(npc.getCurrentHp() + 25);
+						break;
+					case 1459:
+					case 1460: //Monkey Temple Guards
+						if (npc.onApeAtoll()) {
+							if (npc.getCurrentHp() < (npc.getMaxHp() / 6) && Misc.random(2) == 1) {
+								npc.getUpdateFlags().sendAnimation(1405);
+								hitDef.setVictimAnimation(6969);
+								npc.setCurrentHp(npc.getCurrentHp() + 25);
+							}
 						}
-					}
-					break;
-				case 277: //Fire Warrior of Lezarkus
-					if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED && player.getEquipment().getId(Constants.ARROWS) == 78) {
-						//I'll allow it.
-					} else {
-						damage = 0;
-						player.getActionSender().sendMessage("The fire warrior seems immune to your hit!");
-					}
-				case 272: //Lucien
-					if (npc.getCurrentHp() - damage <= 0) {
-						damage = 0;
-						CombatManager.resetCombat(player);
-						CombatManager.resetCombat(npc);
-						npc.heal(npc.getMaxHp());
-						if (player.getQuestStage(47) == 7) {
-							Dialogues.startDialogue(player, 20272);
+						break;
+					case 277: //Fire Warrior of Lezarkus
+						if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED && player.getEquipment().getId(Constants.ARROWS) == 78) {
+							//I'll allow it.
+						} else {
+							damage = 0;
+							player.getActionSender().sendMessage("The fire warrior seems immune to your hit!");
 						}
-						return;
+					case 272: //Lucien
+						if (npc.getCurrentHp() - damage <= 0) {
+							damage = 0;
+							CombatManager.resetCombat(player);
+							CombatManager.resetCombat(npc);
+							npc.heal(npc.getMaxHp());
+							if (player.getQuestStage(47) == 7) {
+								Dialogues.startDialogue(player, 20272);
+							}
+							return;
+						}
+						break;
+					case VampireSlayer.COUNT_DRAYNOR:
+						if (player.getInventory().playerHasItem(VampireSlayer.GARLIC)) {
+							damage = damage / 6;
+						}
+						break;
+					default:
+						break;
+				}
+				if (id >= 1351 && id < 1357 && hitDef != null && hitDef.getHitGraphic() != null) {
+					if (!HorrorFromTheDeep.canDamageMother(hitDef, npc.getTransformId(), hitDef.getHitGraphic().getId())) {
+						damage = 0;
 					}
-					break;
-				case VampireSlayer.COUNT_DRAYNOR:
-					if (player.getInventory().playerHasItem(VampireSlayer.GARLIC)) {
-						damage = damage / 6;
+				}
+				if (player.getEquipment().getId(Constants.AMULET) == 11128 && player.getEquipment().getItemContainer().get(Constants.WEAPON) != null) {
+					int weaponId = player.getEquipment().getId(Constants.WEAPON);
+					if (weaponId >= 6522 && weaponId < 6529) {
+						damage += damage / 4;
 					}
-					break;
-				default:
-					break;
-			}
-			if (id >= 1351 && id < 1357 && hitDef != null && hitDef.getHitGraphic() != null) {
-				if (!HorrorFromTheDeep.canDamageMother(hitDef, npc.getTransformId(), hitDef.getHitGraphic().getId())) {
-					damage = 0;
+				}
+				if (Constants.DEGRADING_ENABLED) {
+					Degrading.handleHit(player, true);
 				}
 			}
-			if (player.getEquipment().getId(Constants.AMULET) == 11128 && player.getEquipment().getItemContainer().get(Constants.WEAPON) != null) {
-				int weaponId = player.getEquipment().getId(Constants.WEAPON);
-				if (weaponId >= 6522 && weaponId < 6529) {
-					damage += damage / 4;
-				}
-			}
-			if (Constants.DEGRADING_ENABLED) {
-				Degrading.handleHit(player, true);
-			}
-		}
-		if (playerIsVictim && npcIsAttacker) {
-			int id = npc.getNpcId();
-			switch (id) {
-				case 3200: //Chaos Elemental
-					int chance = Misc.random(2);
-					switch (chance) {
-						case 0:
-							if (player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
-								damage = 0;
-							}
-							break;
-						case 1:
-							if (player.isProtectingFromCombat(AttackType.RANGED, attacker)) {
-								damage = 0;
-							}
-							break;
-						case 2:
-							if (player.isProtectingFromCombat(AttackType.MELEE, attacker)) {
-								damage = 0;
-							}
-							break;
-					}
-					break;
+			if (playerIsVictim && npcIsAttacker) {
+				int id = npc.getNpcId();
+				switch (id) {
+					case 3200: //Chaos Elemental
+						int chance = Misc.random(2);
+						switch (chance) {
+							case 0:
+								if (player.isProtectingFromCombat(AttackType.MAGIC, attacker)) {
+									damage = 0;
+								}
+								break;
+							case 1:
+								if (player.isProtectingFromCombat(AttackType.RANGED, attacker)) {
+									damage = 0;
+								}
+								break;
+							case 2:
+								if (player.isProtectingFromCombat(AttackType.MELEE, attacker)) {
+									damage = 0;
+								}
+								break;
+						}
+						break;
 
-				default:
-					break;
+					default:
+						break;
+				}
+				if (Constants.DEGRADING_ENABLED) {
+					Degrading.handleHit(player, false);
+				}
 			}
-			if (Constants.DEGRADING_ENABLED) {
-				Degrading.handleHit(player, false);
-			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING CHECKS ON HIT INITIALIZE");
+			e.printStackTrace();
 		}
 	}
 	
 	private void doExecuteHitChecks() {
-		boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim.isNpc();
-		boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
-		Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
-		Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
-		if (npcIsAttacker && npcIsVictim) {
-			Npc attacker = (Npc) this.attacker;
-			Npc victim = (Npc) this.victim;
-			if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426) { //Monkey Madness
-				hitDef.setVictimAnimation(6969);
-				if (victim.getNpcId() == 1472) {
-					damage = damage > 1 ? 1 : Misc.random(1) == 1 ? 0 : damage;
-				} else {
-					damage = Misc.random(3) == 1 ? 1 : damage;
-				}
-				if (victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON && (victim.getCurrentHp() - damage) <= 0) {
-					victim.setCurrentHp(victim.getMaxHp());
+		try {
+			boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim.isNpc();
+			boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
+			Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
+			Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
+			if (npcIsAttacker && npcIsVictim) {
+				Npc attacker = (Npc) this.attacker;
+				Npc victim = (Npc) this.victim;
+				if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426) { //Monkey Madness
+					hitDef.setVictimAnimation(6969);
+					if (victim.getNpcId() == 1472) {
+						damage = damage > 1 ? 1 : Misc.random(1) == 1 ? 0 : damage;
+					} else {
+						damage = Misc.random(3) == 1 ? 1 : damage;
+					}
+					if (victim.getNpcId() == MonkeyMadness.JUNGLE_DEMON && (victim.getCurrentHp() - damage) <= 0) {
+						victim.setCurrentHp(victim.getMaxHp());
+					}
 				}
 			}
-		}
-		if (npcIsAttacker && playerIsVictim) {
-			int id = npc.getNpcId();
-			if (npc.getDefinition().getName().equals("Spinolyp") && hitDef.getEffects() != null && !hitDef.getEffects().isEmpty() && hitDef.getEffects().get(0) != null && hitDef.getEffects().get(0).equals(new StatEffect(5, 0)) && damage > 0) {
-				((Player) victim).getActionSender().statEdit(5, -1, false);
+			if (npcIsAttacker && playerIsVictim) {
+				int id = npc.getNpcId();
+				if (npc.getDefinition().getName().equals("Spinolyp") && hitDef.getEffects() != null && !hitDef.getEffects().isEmpty() && hitDef.getEffects().get(0) != null && hitDef.getEffects().get(0).equals(new StatEffect(5, 0)) && damage > 0) {
+					((Player) victim).getActionSender().statEdit(5, -1, false);
+				}
+				switch (id) {
+					case 2882:
+						Position pos = player.getPosition();
+						for (Player p : World.getPlayers()) {
+							if (p != null && Misc.goodDistance(pos, p.getPosition(), 1) && !p.isProtectingFromCombat(AttackType.MAGIC, attacker) && p != victim) {
+								p.hit(Misc.random(61), HitType.NORMAL);
+							}
+						}
+						break;
+					case NatureSpirit.GHAST:
+						NatureSpirit.handleSpoilFood(npc, player);
+						break;
+				}
 			}
-			switch (id) {
-				case 2882:
-					Position pos = player.getPosition();
-					for (Player p : World.getPlayers()) {
-						if (p != null && Misc.goodDistance(pos, p.getPosition(), 1) && !p.isProtectingFromCombat(AttackType.MAGIC, attacker) && p != victim) {
-							p.hit(Misc.random(61), HitType.NORMAL);
+			if (npcIsVictim && playerIsAttacker) {
+				if (player.getSlayer().needToFinishOffMonster(((Npc) victim), true)) {
+					if (damage >= victim.getCurrentHp()) {
+						damage = victim.getCurrentHp() - 1;
+					}
+				}
+			}
+			if (playerIsVictim) {
+				if (player.isHomeTeleporting()) {
+					player.setHomeTeleporting(false);
+				}
+				if (hit) {
+					RingEffect.ringOfRecoil(attacker, player, damage);
+					FightCaves.handleNpcHit(attacker, player, damage);
+				}
+				int currentHp = player.getCurrentHp();
+				if (currentHp > 0) {
+					int saveHp = (int) Math.ceil(victim.getMaxHp() * .1);
+					if (currentHp < saveHp) {
+						if (player.getIsUsingPrayer()[PrayerData.REDEMPTION.getIndex()]) {
+							Prayer.applyRedemption(player, victim, currentHp);
+						}
+						if (!player.inMiniGameArea()) {
+							RingEffect.ringOfLife(player);
 						}
 					}
-					break;
-				case NatureSpirit.GHAST:
-					NatureSpirit.handleSpoilFood(npc, player);
-					break;
-			}
-		}
-		if (npcIsVictim && playerIsAttacker) {
-			if (player.getSlayer().needToFinishOffMonster(((Npc) victim), true)) {
-				if (damage >= victim.getCurrentHp()) {
-					damage = victim.getCurrentHp() - 1;
 				}
 			}
-		}
-		if (playerIsVictim) {
-			if (player.isHomeTeleporting()) {
-				player.setHomeTeleporting(false);
-			}
-			if (hit) {
-				RingEffect.ringOfRecoil(attacker, player, damage);
-				FightCaves.handleNpcHit(attacker, player, damage);
-			}
-			int currentHp = player.getCurrentHp();
-			if (currentHp > 0) {
-				int saveHp = (int) Math.ceil(victim.getMaxHp() * .1);
-				if (currentHp < saveHp) {
-					if (player.getIsUsingPrayer()[PrayerData.REDEMPTION.getIndex()]) {
-						Prayer.applyRedemption(player, victim, currentHp);
-					}
-					if (!player.inMiniGameArea()) {
-						RingEffect.ringOfLife(player);
-					}
-				}
-			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING CHECKS ON HIT EXECUTE");
+			e.printStackTrace();
 		}
 	}
 	
 	private boolean victimCanBeHit() {
-		if (Constants.DDOS_PROTECT_MODE) {
-			if (victim.isPlayer()) {
-				damage = 0;
-				return false;
-			}
-		}
-		if(victim.isPlayer()) {
-			Player player = (Player)victim;
-			if(player.getStaffRights() >= 3) {
-				return false;
-			} else if(attacker.isNpc() && player.getMMVars().inProcessOfBeingJailed && player.onApeAtoll() && ((Npc) attacker).getNpcId() != 1457) {
-				return false;
-			} else if(MinigameAreas.isInArea(victim.getPosition(), ApeAtoll.JAIL) && (damage > 8 || (victim.getCurrentHp() - damage) <= 0)) {
-				return false;
-			}
-		} else if (victim.isNpc()) {
-			Npc npc = (Npc)victim;
-			if (hitDef.getHitType() == HitType.POISON) {
-				if (npc.getDefinition() != null && npc.getDefinition().isPoisonImmune()) {
+		try {
+			if (Constants.DDOS_PROTECT_MODE) {
+				if (victim.isPlayer()) {
+					damage = 0;
 					return false;
 				}
 			}
-		} 
+			if (victim.isPlayer()) {
+				Player player = (Player) victim;
+				if (player.getStaffRights() >= 3) {
+					return false;
+				} else if (attacker.isNpc() && player.getMMVars().inProcessOfBeingJailed && player.onApeAtoll() && ((Npc) attacker).getNpcId() != 1457) {
+					return false;
+				} else if (MinigameAreas.isInArea(victim.getPosition(), ApeAtoll.JAIL) && (damage > 8 || (victim.getCurrentHp() - damage) <= 0)) {
+					return false;
+				}
+			} else if (victim.isNpc()) {
+				Npc npc = (Npc) victim;
+				if (hitDef.getHitType() == HitType.POISON) {
+					if (npc.getDefinition() != null && npc.getDefinition().isPoisonImmune()) {
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR CHECKING IF VICTIM CAN BE HIT");
+			e.printStackTrace();
+		}
 		return true;
 	}
 	
 	private void doProtectionChecks() {
-		if (hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE || hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR || (attacker.isNpc() && ((Npc) attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE) && victim.isPlayer()) {
-			boolean isSpecialKBDBreath = attacker.isNpc() && ((Npc) attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE_FAR;
-			Player player = (Player)victim;
-			switch (player.antiFire()) {
-				case 2:
-					damage = 0;
-					if (isSpecialKBDBreath) {
-						damage = Misc.random(10);
-					}
-					break;
-				case 1:
-					if (attacker != null && attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
-						player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
-						if (player.getEquipment().getId(Constants.SHIELD) == 11284) {
-							player.getUpdateFlags().sendAnimation(6695);
-							player.getUpdateFlags().sendGraphic(new Graphic(1164, 0));
-							if (player.getDfsCharges() < 49) {
-								player.setDfsCharges(player.getDfsCharges() + 1);
-							} else if (player.getDfsCharges() == 49) {
-								player.setDfsCharges(50);
-								player.getActionSender().sendMessage("Your Dragonfire shield is fully charged.");
-								player.getEquipment().replaceEquipment(11283, Constants.SHIELD);
-							}
-							player.getEquipment().sendBonus(player);
-						}
-						damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
-						if (((Npc) attacker).getNpcId() == 50) {
-							damage = Misc.random(15);
-							if (isSpecialKBDBreath) {
-								damage = Misc.random(10); //KBD's 3 special breaths
-							}
+		try {
+			if (hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE || hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR || (attacker.isNpc() && ((Npc) attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE) && victim.isPlayer()) {
+				boolean isSpecialKBDBreath = attacker.isNpc() && ((Npc) attacker).getNpcId() == 50 && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.MELEE_ACCURATE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE && hitDef.getAttackStyle().getMode() != AttackStyle.Mode.DRAGONFIRE_FAR;
+				Player player = (Player) victim;
+				switch (player.antiFire()) {
+					case 2:
+						damage = 0;
+						if (isSpecialKBDBreath) {
+							damage = Misc.random(10);
 						}
 						break;
-					} else {
-						HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
-						Hit freeze = new Hit(player, player, hitDefFreeze);
-						BindingEffect bind = new BindingEffect(12);
-						bind.initialize(freeze);
-						player.getActionSender().sendMessage("You manage to resist most of the icy breath, but are frozen in place.");
-						damage = Misc.random(10);
-						break;
-					}
-				default:
-					if (attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
-						player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
-						damage = 30 + Misc.random(20);
-						break;
-					} else if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 50) {
-						player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
-						damage = 45 + Misc.random(20);
-						break;
-					} else {
-						if (player.getEquipment().getId(Constants.SHIELD) != 2890) {
-							player.getActionSender().sendMessage("You are horribly burned by the ice breath!");
-							damage = 30 + Misc.random(20);
+					case 1:
+						if (attacker != null && attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
+							player.getActionSender().sendMessage("You manage to resist some of the dragonfire.");
+							if (player.getEquipment().getId(Constants.SHIELD) == 11284) {
+								player.getUpdateFlags().sendAnimation(6695);
+								player.getUpdateFlags().sendGraphic(new Graphic(1164, 0));
+								if (player.getDfsCharges() < 49) {
+									player.setDfsCharges(player.getDfsCharges() + 1);
+								} else if (player.getDfsCharges() == 49) {
+									player.setDfsCharges(50);
+									player.getActionSender().sendMessage("Your Dragonfire shield is fully charged.");
+									player.getEquipment().replaceEquipment(11283, Constants.SHIELD);
+								}
+								player.getEquipment().sendBonus(player);
+							}
+							damage = Misc.random(hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE_FAR ? 8 : 4);
+							if (((Npc) attacker).getNpcId() == 50) {
+								damage = Misc.random(15);
+								if (isSpecialKBDBreath) {
+									damage = Misc.random(10); //KBD's 3 special breaths
+								}
+							}
 							break;
 						} else {
 							HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
 							Hit freeze = new Hit(player, player, hitDefFreeze);
 							BindingEffect bind = new BindingEffect(12);
 							bind.initialize(freeze);
-							player.getActionSender().sendMessage("You magically resist most of the icy breath, but are frozen in place.");
+							player.getActionSender().sendMessage("You manage to resist most of the icy breath, but are frozen in place.");
 							damage = Misc.random(10);
 							break;
 						}
-					}
-			}
-			if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
-				player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
-				damage = Misc.random(10);
-			}
-		} else if (victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker) && hitDef.getSpecialEffect() != 11) {
-			if (attacker.isPlayer()) {
-				damage = (int) Math.ceil(damage * 0.6);
-			} else if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 3200) {
+					default:
+						if (attacker.isNpc() && !((Npc) attacker).getDefinition().getName().toLowerCase().contains("wyvern")) {
+							player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
+							damage = 30 + Misc.random(20);
+							break;
+						} else if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 50) {
+							player.getActionSender().sendMessage("You are horribly burned by the dragonfire!");
+							damage = 45 + Misc.random(20);
+							break;
+						} else {
+							if (player.getEquipment().getId(Constants.SHIELD) != 2890) {
+								player.getActionSender().sendMessage("You are horribly burned by the ice breath!");
+								damage = 30 + Misc.random(20);
+								break;
+							} else {
+								HitDef hitDefFreeze = new HitDef(null, HitType.NORMAL, 0);
+								Hit freeze = new Hit(player, player, hitDefFreeze);
+								BindingEffect bind = new BindingEffect(12);
+								bind.initialize(freeze);
+								player.getActionSender().sendMessage("You magically resist most of the icy breath, but are frozen in place.");
+								damage = Misc.random(10);
+								break;
+							}
+						}
+				}
+				if (damage > 10 && hitDef.getAttackStyle().getMode() == AttackStyle.Mode.DRAGONFIRE && victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker)) {
+					player.getActionSender().sendMessage("Your prayers manage to resist some of the dragonfire.");
+					damage = Misc.random(10);
+				}
+			} else if (victim.isProtectingFromCombat(hitDef.getAttackStyle().getAttackType(), attacker) && hitDef.getSpecialEffect() != 11) {
+				if (attacker.isPlayer()) {
+					damage = (int) Math.ceil(damage * 0.6);
+				} else if (attacker.isNpc() && ((Npc) attacker).getNpcId() == 3200) {
 
-			} else {
-				damage = 0;
-			}
-		} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2881) { //Supreme
-			if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
-				if (Misc.random(2) == 1) {
-					damage = 0;
-				} else {
-					damage /= 10;
-				}
-			}
-		} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2882) { //Prime
-			if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
-				if (Misc.random(2) == 1) {
-					damage = 0;
-				} else {
-					damage /= 10;
-				}
-			}
-		} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2883) { //Rex
-			if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
-				if (Misc.random(2) == 1) {
-					damage = 0;
-				} else {
-					damage /= 10;
-				}
-			}
-		} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 1158) {
-			if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
-				damage = 0;
-			}
-		} else if (attacker != null && attacker.isPlayer() && ((Player) attacker).getStaffRights() < 1 && victim.isNpc() && ((Npc) victim).getNpcId() == 1160) {
-			if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE) {
-				if (((Player) attacker).getEquipment().fullVerac() && Misc.random(100) > 50) {
-					//Do nothing what a madman
 				} else {
 					damage = 0;
 				}
+			} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2881) { //Supreme
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+					if (Misc.random(2) == 1) {
+						damage = 0;
+					} else {
+						damage /= 10;
+					}
+				}
+			} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2882) { //Prime
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+					if (Misc.random(2) == 1) {
+						damage = 0;
+					} else {
+						damage /= 10;
+					}
+				}
+			} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 2883) { //Rex
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE || hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
+					if (Misc.random(2) == 1) {
+						damage = 0;
+					} else {
+						damage /= 10;
+					}
+				}
+			} else if (attacker != null && attacker.isPlayer() && victim.isNpc() && ((Npc) victim).getNpcId() == 1158) {
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED || hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+					damage = 0;
+				}
+			} else if (attacker != null && attacker.isPlayer() && ((Player) attacker).getStaffRights() < 1 && victim.isNpc() && ((Npc) victim).getNpcId() == 1160) {
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE) {
+					if (((Player) attacker).getEquipment().fullVerac() && Misc.random(100) > 50) {
+						//Do nothing what a madman
+					} else {
+						damage = 0;
+					}
+				}
 			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING PROTECTION CHECKS");
+			e.printStackTrace();
 		}
 	}
 
@@ -779,89 +799,104 @@ public class Hit {
 	}
 	
 	private void doBoltSpecials() {
-		Player player = (Player)attacker;
-		boolean noWeapon = player.getEquipment().getItemContainer().get(Constants.WEAPON) == null;
-		boolean noCrossbow = player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow");
-		EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
-		if (b != null && !noWeapon && !noCrossbow) {
-			if ((b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
-				if (EnchantedBolts.activateSpecial(b, player, victim, damage)) {
-					if (!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
-						damage *= b.getIncreasedDamage();
-					}
-					if (b.equals(EnchantedBolts.BoltSpecials.PEARL) && victim.isNpc() && EnchantedBolts.fireNpc((Npc) victim)) {
-						damage *= 1.1;
-					} else if (b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
-						damage = (int) Math.ceil(victim.getCurrentHp() / 5);
-					} else if (b.equals(EnchantedBolts.BoltSpecials.DRAGONSTONE)) {
-						damage += 20;
+		try {
+			Player player = (Player) attacker;
+			boolean noWeapon = player.getEquipment().getItemContainer().get(Constants.WEAPON) == null;
+			boolean noCrossbow = player.getEquipment().getItemContainer().get(Constants.WEAPON) != null && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("c'bow") && !player.getEquipment().getItemContainer().get(Constants.WEAPON).getDefinition().getName().contains("crossbow");
+			EnchantedBolts.BoltSpecials b = EnchantedBolts.BoltSpecials.forBoltId(player.getEquipment().getId(Constants.ARROWS));
+			if (b != null && !noWeapon && !noCrossbow) {
+				if ((b.getProcChance() >= new Random().nextDouble() * 100) && damage != 0 && hitDef.getHitType() != HitType.MISS) {
+					if (EnchantedBolts.activateSpecial(b, player, victim, damage)) {
+						if (!b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+							damage *= b.getIncreasedDamage();
+						}
+						if (b.equals(EnchantedBolts.BoltSpecials.PEARL) && victim.isNpc() && EnchantedBolts.fireNpc((Npc) victim)) {
+							damage *= 1.1;
+						} else if (b.equals(EnchantedBolts.BoltSpecials.RUBY)) {
+							damage = (int) Math.ceil(victim.getCurrentHp() / 5);
+						} else if (b.equals(EnchantedBolts.BoltSpecials.DRAGONSTONE)) {
+							damage += 20;
+						}
 					}
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING BOLT SPECIALS");
+			e.printStackTrace();
 		}
 	}
 
 	private void doBarrowsEffects() {
-		if (attacker != null && Misc.random(4) == 0) {
-			if (attacker.isPlayer()) {
-				Player player = ((Player) attacker);
-				boolean[] bools = {player.hasFullGuthan(), player.hasFullTorag(), player.hasFullAhrim(), player.hasFullKaril(), player.hasFullVerac()};
-				for (int i = 0; i < bools.length; i++) {
-					if (bools[i]) {
-						hitDef.setSpecialEffect(7 + i);
-						break;
+		try {
+			if (attacker != null && Misc.random(4) == 0) {
+				if (attacker.isPlayer()) {
+					Player player = ((Player) attacker);
+					boolean[] bools = {player.hasFullGuthan(), player.hasFullTorag(), player.hasFullAhrim(), player.hasFullKaril(), player.hasFullVerac()};
+					for (int i = 0; i < bools.length; i++) {
+						if (bools[i]) {
+							hitDef.setSpecialEffect(7 + i);
+							break;
+						}
 					}
-				}
-			} else if (attacker.isNpc()) {
-				Npc npc = ((Npc) attacker);
-				int[] ids = {2027, 2029, 2025, 2028, 2030};
-				for (int i = 0; i < ids.length; i++) {
-					if (npc.getNpcId() == ids[i]) {
-						hitDef.setSpecialEffect(7 + i);
-						break;
+				} else if (attacker.isNpc()) {
+					Npc npc = ((Npc) attacker);
+					int[] ids = {2027, 2029, 2025, 2028, 2030};
+					for (int i = 0; i < ids.length; i++) {
+						if (npc.getNpcId() == ids[i]) {
+							hitDef.setSpecialEffect(7 + i);
+							break;
+						}
 					}
-				}
-				if (npc.getNpcId() == 2026) {
-					double hpLost = attacker.getMaxHp() - attacker.getCurrentHp();
-					this.damage += damage * hpLost * 0.01;
+					if (npc.getNpcId() == 2026) {
+						double hpLost = attacker.getMaxHp() - attacker.getCurrentHp();
+						this.damage += damage * hpLost * 0.01;
+					}
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING BARROWS EFFECTS");
+			e.printStackTrace();
 		}
 	}
 
 	private void doSlayerEffects() {
-		if (attacker.isNpc() && victim.isPlayer()) {
-			Npc npc = (Npc) attacker;
-			Player player = (Player) victim;
-			if (!player.getSlayer().hasSlayerRequirement(npc)) {
-				String name = npc.getDefinition().getName().toLowerCase();
-				hitDef.setUnblockable(true);
-				switch (name) {
-					case "banshee":
-						damage = 8;
-						statLowering(-0.1, -0.2);
-						break;
-					case "cockatrice":
-						damage = 11;
-						statLowering(-0.5, -0.75);
-						break;
-					case "basilisk":
-						damage = 12;
-						statLowering(-0.5, -0.75);
-						break;
-					case "wall beast":
-						damage = 18;
-						hitDef.addEffect(new StunEffect(5)).setVictimAnimation(734);
-						break;
-					case "aberrant spectre":
-						damage = 14;
-						statLowering(-0.4, -0.8);
-						break;
-					case "dust devil":
-						damage = 14;
-						break;
+		try {
+			if (attacker.isNpc() && victim.isPlayer()) {
+				Npc npc = (Npc) attacker;
+				Player player = (Player) victim;
+				if (!player.getSlayer().hasSlayerRequirement(npc)) {
+					String name = npc.getDefinition().getName().toLowerCase();
+					hitDef.setUnblockable(true);
+					switch (name) {
+						case "banshee":
+							damage = 8;
+							statLowering(-0.1, -0.2);
+							break;
+						case "cockatrice":
+							damage = 11;
+							statLowering(-0.5, -0.75);
+							break;
+						case "basilisk":
+							damage = 12;
+							statLowering(-0.5, -0.75);
+							break;
+						case "wall beast":
+							damage = 18;
+							hitDef.addEffect(new StunEffect(5)).setVictimAnimation(734);
+							break;
+						case "aberrant spectre":
+							damage = 14;
+							statLowering(-0.4, -0.8);
+							break;
+						case "dust devil":
+							damage = 14;
+							break;
+					}
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("ERROR DOING SLAYER EFFECTS");
+			e.printStackTrace();
 		}
 	}
 
@@ -878,7 +913,7 @@ public class Hit {
 	}
 
 	private boolean determineHit(double chance) {
-		if (attacker.isPlayer() && ((Player) attacker).getBonus(3) <= -20 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
+		if (attacker != null && attacker.isPlayer() && ((Player) attacker).getBonus(3) <= -20 && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC) {
 			hit = false;
 		} else if (attacker != null && attacker.isNpc() && victim != null && victim.isNpc() && ((Npc) victim).getNpcId() == 1472) {
 			hit = true;
@@ -892,19 +927,24 @@ public class Hit {
 
 	private boolean canHit() {
 		hit = true;
-		if (victim.isPlayer() && ((Player) victim).getNewComersSide().isInTutorialIslandStage()) {
-			if (((Player) victim).getSkill().getLevel()[Skill.HITPOINTS] == 1) {
+		try {
+			if (victim.isPlayer() && ((Player) victim).getNewComersSide().isInTutorialIslandStage()) {
+				if (((Player) victim).getSkill().getLevel()[Skill.HITPOINTS] == 1) {
+					hit = false;
+				}
+			}
+			if (attacker.isPlayer() && victim.isNpc()) {
+				if (!((Player) attacker).getSlayer().hasSlayerRequirement((Npc) victim)) {
+					hit = false;
+				}
+			}
+			if ((attacker.isPlayer() && ((Player) attacker).getNewComersSide().getTutorialIslandStage() == 63)) {
+				((Player) attacker).getNewComersSide().setTutorialIslandStage(((Player) attacker).getNewComersSide().getTutorialIslandStage() + 1, true);
 				hit = false;
 			}
-		}
-		if (attacker.isPlayer() && victim.isNpc()) {
-			if (!((Player) attacker).getSlayer().hasSlayerRequirement((Npc) victim)) {
-				hit = false;
-			}
-		}
-		if ((attacker.isPlayer() && ((Player) attacker).getNewComersSide().getTutorialIslandStage() == 63)) {
-			((Player) attacker).getNewComersSide().setTutorialIslandStage(((Player) attacker).getNewComersSide().getTutorialIslandStage() + 1, true);
-			hit = false;
+		} catch (Exception e) {
+			System.out.println("ERROR CHECKING IF ATTACKER CAN HIT");
+			e.printStackTrace();
 		}
 		return hit;
 	}
