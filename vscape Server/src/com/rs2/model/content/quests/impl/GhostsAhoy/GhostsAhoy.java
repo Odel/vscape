@@ -645,6 +645,7 @@ public class GhostsAhoy implements Quest {
 					player.getActionSender().sendMessage("You refill the ectophial from the Ectofuntus.");
 					return true;
 				}
+				return false;
 			case SLIME:
 			case SLIME_2:
 				if (item == GhostsAhoy.BEDSHEET) {

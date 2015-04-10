@@ -3,18 +3,12 @@ package com.rs2.model.content.combat.attacks;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
-import com.rs2.model.content.combat.AttackType;
-import com.rs2.model.content.combat.AttackUsableResponse;
-import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.*;
 import com.rs2.model.content.combat.effect.impl.PoisonEffect;
-import com.rs2.model.content.combat.hit.HitDef;
-import com.rs2.model.content.combat.hit.HitType;
-import com.rs2.model.content.combat.projectile.ProjectileDef;
-import com.rs2.model.content.combat.projectile.ProjectileTrajectory;
+import com.rs2.model.content.combat.hit.*;
+import com.rs2.model.content.combat.projectile.*;
 import com.rs2.model.content.combat.special.SpecialType;
-import com.rs2.model.content.combat.weapon.AttackStyle;
-import com.rs2.model.content.combat.weapon.RangedAmmo;
-import com.rs2.model.content.combat.weapon.Weapon;
+import com.rs2.model.content.combat.weapon.*;
 import com.rs2.model.content.minigames.duelarena.RulesData;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
@@ -58,7 +52,7 @@ public class WeaponAttack extends BasicAttack {
 	}
 
 	public double generateMaxHit() {
-		return CombatManager.calculateMaxHit((Player) getAttacker(), this);
+		return CombatCalculations.calculateMaxHit((Player) getAttacker(), this);
 	}
 
 	public void setAttackStyle(AttackStyle attackStyle) {

@@ -9,6 +9,8 @@ import com.rs2.model.Entity;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.combat.CombatCycleEvent;
+import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.MinigameAreas;
 import com.rs2.model.content.quests.impl.TheGrandTree;
 import com.rs2.model.npcs.Npc;
@@ -600,6 +602,51 @@ public class PestControl {
 		if (player.inPestControlGameArea() && !gameActive) {
 		    player.teleport(LOBBY_EXIT);
 		}
+    }
+    
+    public static void handleNpcDeath(final Npc npc) {
+	    if (isSplatter(npc)) {
+		    for (Player players : World.getPlayers()) {
+			    if (players != null && Misc.getDistance(npc.getPosition(), players.getPosition()) <= 3) {
+				    players.hit(15 + Misc.random(15), HitType.NORMAL);
+			    }
+		    }
+		    for (Npc npcs : World.getNpcs()) {
+			    if (npcs != null && npcs.goodDistanceEntity(npc, 3) && npcs != npc && !isPortal(npcs)) {
+				    npcs.hit(15 + Misc.random(15), HitType.NORMAL);
+			    }
+		    }
+		    for (BarricadeData b : BarricadeData.values()) {
+			    if (b.forName(b.name()) != null) {
+				    for (Position p : b.iterablePositions()) {
+					    if (getBrokenBarricades().contains(p)) {
+						    continue;
+					    }
+					    final CacheObject g = ObjectLoader.object(p.getX(), p.getY(), 0);
+					    if (g != null) {
+						    if (Misc.goodDistance(npc.getPosition(), p, 3)) {
+							    b.ravage(p, false);
+						    }
+					    }
+				    }
+			    }
+		    }
+	    }
+	    if (isPortal((Npc) npc)) {
+		    for (Npc npcs : World.getNpcs()) {
+			    if (npcs != null && npcs.goodDistanceEntity(npc, 4) && !npcs.isDead() && isSpinner(npcs)) {
+				    int hp = npcs.getCurrentHp();
+				    npcs.hit(hp, HitType.NORMAL);
+				    CombatManager.deathByPortal = true;
+				    for (Player players : World.getPlayers()) {
+					    if (players != null && Misc.getDistance(npc.getPosition(), players.getPosition()) <= 5 && !allPortalsDead()) {
+						    players.hit(50, HitType.NORMAL);
+						    players.getActionSender().sendMessage("You are hurt by the spinner's lost connection to the portal.");
+					    }
+				    }
+			    }
+		    }
+	    }
     }
     
     private static void resetBarricades() {

@@ -339,6 +339,22 @@ public class FamilyCrest implements Quest {
 		player.getActionSender().sendInterface(QuestHandler.QUEST_INTERFACE);
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
+	
+	public static void handleChronozonSpellHit(Player player, int gfxId) {
+		if (gfxId == 134) {
+			player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			player.getQuestVars().setHitChronozonWind(true);
+		} else if (gfxId == 137) {
+			player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			player.getQuestVars().setHitChronozonWater(true);
+		} else if (gfxId == 140) {
+			player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			player.getQuestVars().setHitChronozonEarth(true);
+		} else if (gfxId == 131) {
+			player.getActionSender().sendMessage("Chronozon weakens slightly.");
+			player.getQuestVars().setHitChronozonFire(true);
+		}
+	}
 
 	public static void healChronozon(Player player, Npc npc) {
 		if (npc.getNpcId() == CHRONOZON) {

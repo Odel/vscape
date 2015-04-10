@@ -3,11 +3,18 @@ package com.rs2.model.content.combat.attacks;
 import com.rs2.Constants;
 import com.rs2.model.Entity;
 import com.rs2.model.Graphic;
+import com.rs2.model.World;
+import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.AttackUsableResponse;
+import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatManager;
 import com.rs2.model.content.combat.effect.Effect;
+import com.rs2.model.content.combat.effect.EffectTick;
+import com.rs2.model.content.combat.hit.Hit;
 import com.rs2.model.content.combat.hit.HitDef;
+import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.minigames.duelarena.RulesData;
+import com.rs2.model.content.minigames.pestcontrol.PestControl;
 import com.rs2.model.content.skills.Skill;
 import static com.rs2.model.content.skills.magic.MagicSkill.changeToComboRuneRequirement;
 import static com.rs2.model.content.skills.magic.MagicSkill.failRequirement;
@@ -16,16 +23,22 @@ import com.rs2.model.content.skills.magic.SpellBook;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.util.Misc;
 import com.rs2.util.requirement.EquipmentRequirement;
 import com.rs2.util.requirement.Requirement;
 import com.rs2.util.requirement.RuneRequirement;
 import com.rs2.util.requirement.SkillLevelRequirement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
  */
 public class SpellAttack extends BasicAttack {
+
 	private Spell spell;
 	public static final String FAILED_REQUIRED_RUNES = "You do not have the runes required!";
 	public static final String FAILED_LEVEL_REQUIREMENT = "Your level in magic is not high enough!";
@@ -37,26 +50,27 @@ public class SpellAttack extends BasicAttack {
 
 	@Override
 	public final AttackUsableResponse.Type isUsable() {
-		if (!spell.isCombatSpell() || spell.getHitDef() == null)
+		if (!spell.isCombatSpell() || spell.getHitDef() == null) {
 			return AttackUsableResponse.Type.FAIL;
+		}
 		if (getAttacker().isPlayer()) {
 			if (getVictim().isNpc() && ((Npc) getVictim()).getMaxHp() <= 0) {
 				((Player) getAttacker()).getActionSender().sendMessage("You cannot cast a spell on this npc.");
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
 			}
-		if (getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 1052) {
+			if (getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 1052) {
 				((Player) getAttacker()).getActionSender().sendMessage("You cannot cast a spell on this npc.");
 				((Player) getAttacker()).setCastedSpell(null);
 				return AttackUsableResponse.Type.FAIL;
 			}
-			if(getAttacker().isPlayer() && (getAttacker().inWarriorGuildArena() || getAttacker().inWarriorGuild()) ) {
-			    ((Player) getAttacker()).getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
-			    return AttackUsableResponse.Type.FAIL;
+			if (getAttacker().isPlayer() && (getAttacker().inWarriorGuildArena() || getAttacker().inWarriorGuild())) {
+				((Player) getAttacker()).getActionSender().sendMessage(CombatManager.WARRIORS_GUILD);
+				return AttackUsableResponse.Type.FAIL;
 			}
-			if(getAttacker().isPlayer() && getVictim().isNpc() && ((Npc)getVictim()).getNpcId() == 879 ) {
-			    ((Player) getAttacker()).getActionSender().sendMessage("You need to use Silverlight to fight Delrith!");
-			    return AttackUsableResponse.Type.FAIL;
+			if (getAttacker().isPlayer() && getVictim().isNpc() && ((Npc) getVictim()).getNpcId() == 879) {
+				((Player) getAttacker()).getActionSender().sendMessage("You need to use Silverlight to fight Delrith!");
+				return AttackUsableResponse.Type.FAIL;
 			}
 			if (RulesData.NO_MAGIC.activated((Player) getAttacker())) {
 				if (getAttacker().isPlayer()) {
@@ -66,13 +80,13 @@ public class SpellAttack extends BasicAttack {
 				}
 				return AttackUsableResponse.Type.FAIL;
 			}
-			if(getAttacker().isPlayer() && !((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
-			    Player player = (Player)getAttacker();
-			    player.getActionSender().sendMessage("You need to unlock use of this staff in the Mage Arena with " +(100-player.getMageArenaCasts(spell))+" more casts.");
-			    player.setCastedSpell(null);
-			    player.setAutoSpell(null);
-			    CombatManager.resetCombat(player);
-			    return AttackUsableResponse.Type.FAIL;
+			if (getAttacker().isPlayer() && !((Player) getAttacker()).inMageArena() && ((Player) getAttacker()).getMageArenaCasts(spell) < 100) {
+				Player player = (Player) getAttacker();
+				player.getActionSender().sendMessage("You need to unlock use of this staff in the Mage Arena with " + (100 - player.getMageArenaCasts(spell)) + " more casts.");
+				player.setCastedSpell(null);
+				player.setAutoSpell(null);
+				CombatManager.resetCombat(player);
+				return AttackUsableResponse.Type.FAIL;
 			}
 			if (getAttacker().isPlayer() && spell == Spell.IBAN_BLAST && ((Player) getAttacker()).getIbanStaffCharges() <= 0) {
 				Player player = (Player) getAttacker();
@@ -109,8 +123,9 @@ public class SpellAttack extends BasicAttack {
 
 	@Override
 	public void initialize() {
-		if (!spell.isCombatSpell() || spell.getHitDef() == null)
+		if (!spell.isCombatSpell() || spell.getHitDef() == null) {
 			return;
+		}
 		if (spell.getAnimation() != -1) {
 			boolean setAnimation = false;
 			if (getAttacker().isPlayer()) {
@@ -120,52 +135,56 @@ public class SpellAttack extends BasicAttack {
 					setAnimation = true;
 				}
 			}
-			if (!setAnimation)
+			if (!setAnimation) {
 				setAnimation(spell.getAnimation());
+			}
 		}
 		HitDef hitDef = spell.getHitDef().clone();
-		if (getAttacker().hasGodChargeEffect() && (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.CLAWS_OF_GUTHIX || spell == Spell.SARADOMIN_STRIKE))
+		if (getAttacker().hasGodChargeEffect() && (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.CLAWS_OF_GUTHIX || spell == Spell.SARADOMIN_STRIKE)) {
 			hitDef.setDamage(hitDef.getDamage() + 10);
+		}
 		if (spell == Spell.MAGIC_DART && getAttacker().isPlayer()) {
-			hitDef.setDamage(hitDef.getDamage() + (((Player)getAttacker()).getSkill().getLevel()[Skill.MAGIC] / 10) );
+			hitDef.setDamage(hitDef.getDamage() + (((Player) getAttacker()).getSkill().getLevel()[Skill.MAGIC] / 10));
 		}
         //if(getAttacker().isNpc() && ((Npc)getAttacker()).getDefinition().getId() == 2025 && Misc.random(30) == 0){
-        //     setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{new StatEffect(Skill.STRENGTH, .1)})});
-        //     getVictim().getUpdateFlags().sendGraphic(400, 100 << 16);
-        //}else
-	if(getAttacker().isPlayer() ) {
-	    Player player = (Player) getAttacker();
-	    if(player.hasFullVoidMage())
-		 setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy(1.3).addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
-	} 
-	
-	setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
-	setGraphic(spell.getGraphic());
-	setAttackDelay(5);
-	Item[] runesRequired;
-	if (getAttacker().isPlayer() && failRequirement((Player) getAttacker(), spell)) {
-	    runesRequired = changeToComboRuneRequirement((Player) getAttacker(), spell);
-	} else {
-	    runesRequired = spell.getRunesRequired();
-	}
-	int staffRequired = -1;
-	
-		if(getAttacker().isPlayer()) {
-		    Player player = (Player) getAttacker();
-		    if(player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX)
-			staffRequired = 8841;
-		    else if (spell == Spell.FLAMES_OF_ZAMORAK)
-			staffRequired = 2417;
-		    else if (spell == Spell.CLAWS_OF_GUTHIX)
-			staffRequired = 2416;
-		    else if (spell == Spell.SARADOMIN_STRIKE)
-			staffRequired = 2415;
-		    else if (spell == Spell.IBAN_BLAST)
-			staffRequired = 1409;
-		    else if (spell == Spell.MAGIC_DART)
-			staffRequired = 4170;
+		//     setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{new StatEffect(Skill.STRENGTH, .1)})});
+		//     getVictim().getUpdateFlags().sendGraphic(400, 100 << 16);
+		//}else
+		if (getAttacker().isPlayer()) {
+			Player player = (Player) getAttacker();
+			if (player.hasFullVoidMage()) {
+				setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy(1.3).addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
+			}
 		}
-		    
+
+		setHits(new HitDef[]{hitDef.randomizeDamage().applyAccuracy().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()})});
+		setGraphic(spell.getGraphic());
+		setAttackDelay(5);
+		Item[] runesRequired;
+		if (getAttacker().isPlayer() && failRequirement((Player) getAttacker(), spell)) {
+			runesRequired = changeToComboRuneRequirement((Player) getAttacker(), spell);
+		} else {
+			runesRequired = spell.getRunesRequired();
+		}
+		int staffRequired = -1;
+
+		if (getAttacker().isPlayer()) {
+			Player player = (Player) getAttacker();
+			if (player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
+				staffRequired = 8841;
+			} else if (spell == Spell.FLAMES_OF_ZAMORAK) {
+				staffRequired = 2417;
+			} else if (spell == Spell.CLAWS_OF_GUTHIX) {
+				staffRequired = 2416;
+			} else if (spell == Spell.SARADOMIN_STRIKE) {
+				staffRequired = 2415;
+			} else if (spell == Spell.IBAN_BLAST) {
+				staffRequired = 1409;
+			} else if (spell == Spell.MAGIC_DART) {
+				staffRequired = 4170;
+			}
+		}
+
 		int reqs = (staffRequired != -1 ? 1 : 0) + (runesRequired != null ? runesRequired.length : 0) + 1;
 		Requirement[] requirements = new Requirement[reqs];
 		int i = 0;
@@ -198,71 +217,72 @@ public class SpellAttack extends BasicAttack {
 
 	@Override
 	public int execute(CycleEventContainer container) {
-        //getAttacker().getMovementPaused().setWaitDuration(2);
+		//getAttacker().getMovementPaused().setWaitDuration(2);
 		if (getAttacker().isPlayer()) {
 			Player player = (Player) getAttacker();
 			if (!player.isAutoCasting()) {
 				getAttacker().getMovementHandler().reset();
 			}
 			if (player.getCastedSpell() == spell) {
-                if (player.getNewComersSide().getTutorialIslandStage() == 64)
-                    player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
-                player.setCastedSpell(null);
-                container.stop();
-            }
+				if (player.getNewComersSide().getTutorialIslandStage() == 64) {
+					player.getNewComersSide().setTutorialIslandStage(player.getNewComersSide().getTutorialIslandStage() + 1, true);
+				}
+				player.setCastedSpell(null);
+				container.stop();
+			}
 			player.getCombatSounds().spellSound(spell, true);
-			if(getVictim() != null && getVictim().isPlayer())
-			{
+			if (getVictim() != null && getVictim().isPlayer()) {
 				((Player) getVictim()).getCombatSounds().spellSound(spell, true);
 			}
-        }
-		if(getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()){
-            Player player = (Player) getVictim();
-            player.getCombatSounds().spellSound(spell, true);
-        }
-        /*if (spell == Spell.ICE_BARRAGE) {
-            if (getVictim().getMovementHandler().getWaypoints().size() > 0) {
-                Tick t = new Tick(1) {
-                    @Override
-                    public void execute() {
-                        ProjectileTrajectory trajectory = new ProjectileTrajectory(0, 6, 50, 50, 0);
-                        Projectile projectile = new Projectile(getVictim(), getVictim(), getVictim().getMovementHandler().getWaypoints().peekLast(), new ProjectileDef(368, trajectory));
-                        projectile.show();
-                        stop();
-                    }
-                };
-                World.getTickManager().submit(t);
-            }
-        }*/
-	if (spell == Spell.TELEBLOCK) {
-	    if(getAttacker().isPlayer() && getVictim().isPlayer()) {
-		((Player)getVictim()).getActionSender().sendMessage("You have been teleblocked!");
-	    }
-	}
-	if (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.SARADOMIN_STRIKE ||spell == Spell.CLAWS_OF_GUTHIX) {
-	    if(getAttacker().isPlayer()) {
-		Player player = (Player)getAttacker();
-		if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100)
-		    player.setMageArenaCasts(spell, player.getMageArenaCasts(spell)+1);
-		else if(player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100)
-		    player.getActionSender().sendMessage("You have unlocked your God Staff for use outside the Mage Arena!");
-	    }
-	}
-	if (spell == Spell.IBAN_BLAST) {
-		if (getAttacker().isPlayer()) {
-			Player player = (Player) getAttacker();
-			if (player.getIbanStaffCharges() > 0) {
-				if(getVictim() != null) {
-					player.setIbanStaffCharges(player.getIbanStaffCharges() - (getVictim().isPlayer() ? 2 : 1));
+		}
+		if (getAttacker() != null && getAttacker().isNpc() && getVictim() != null && getVictim().isPlayer()) {
+			Player player = (Player) getVictim();
+			player.getCombatSounds().spellSound(spell, true);
+		}
+		/*if (spell == Spell.ICE_BARRAGE) {
+		 if (getVictim().getMovementHandler().getWaypoints().size() > 0) {
+		 Tick t = new Tick(1) {
+		 @Override
+		 public void execute() {
+		 ProjectileTrajectory trajectory = new ProjectileTrajectory(0, 6, 50, 50, 0);
+		 Projectile projectile = new Projectile(getVictim(), getVictim(), getVictim().getMovementHandler().getWaypoints().peekLast(), new ProjectileDef(368, trajectory));
+		 projectile.show();
+		 stop();
+		 }
+		 };
+		 World.getTickManager().submit(t);
+		 }
+		 }*/
+		if (spell == Spell.TELEBLOCK) {
+			if (getAttacker().isPlayer() && getVictim().isPlayer()) {
+				((Player) getVictim()).getActionSender().sendMessage("You have been teleblocked!");
+			}
+		}
+		if (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.SARADOMIN_STRIKE || spell == Spell.CLAWS_OF_GUTHIX) {
+			if (getAttacker().isPlayer()) {
+				Player player = (Player) getAttacker();
+				if (player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) < 100) {
+					player.setMageArenaCasts(spell, player.getMageArenaCasts(spell) + 1);
+				} else if (player.inMageArena() && player.getMageArenaStage() >= 3 && player.getMageArenaCasts(spell) >= 100) {
+					player.getActionSender().sendMessage("You have unlocked your God Staff for use outside the Mage Arena!");
 				}
 			}
 		}
-	}
-        if (getAttacker().isPlayer()) {
-            Player player = (Player)getAttacker();
-            player.getSkill().addExp(Skill.MAGIC, spell.getExpEarned());
-        }
-        int delay = super.execute(container);
+		if (spell == Spell.IBAN_BLAST) {
+			if (getAttacker().isPlayer()) {
+				Player player = (Player) getAttacker();
+				if (player.getIbanStaffCharges() > 0) {
+					if (getVictim() != null) {
+						player.setIbanStaffCharges(player.getIbanStaffCharges() - (getVictim().isPlayer() ? 2 : 1));
+					}
+				}
+			}
+		}
+		if (getAttacker().isPlayer()) {
+			Player player = (Player) getAttacker();
+			player.getSkill().addExp(Skill.MAGIC, spell.getExpEarned());
+		}
+		int delay = super.execute(container);
 		// if (delay > 0 && spell == Spell.ICE_BLITZ)
 		// delay -= 1;
 		return delay;
@@ -274,48 +294,136 @@ public class SpellAttack extends BasicAttack {
 			Player player = (Player) getAttacker();
 			CombatManager.resetCombat(player);
 			player.getMovementHandler().reset();
-			if (player.getCastedSpell() == spell)
+			if (player.getCastedSpell() == spell) {
 				player.setCastedSpell(null);
-			else if (player.getAutoSpell() == spell)
+			} else if (player.getAutoSpell() == spell) {
 				player.setAutoSpell(null);
+			}
 		}
 	}
 
 	public Spell getSpell() {
 		return spell;
 	}
-	
+
 	public static boolean getMultiAncients(Graphic gfx) {
-	    if(gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.ICE_BURST.getHitDef().getHitGraphic())
-		return true;
-	    else if(gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic())
-		return true;
-	    else if(gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic())
-		return true;
-	    return (gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic());
+		if (gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.ICE_BURST.getHitDef().getHitGraphic()) {
+			return true;
+		} else if (gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic()) {
+			return true;
+		} else if (gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic()) {
+			return true;
+		}
+		return (gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic() || gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic());
 	}
-	
+
 	public static Spell getMultiAncientSpellForGfx(Graphic gfx) {
-	   if(gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic()) return Spell.ICE_BARRAGE;
-	   else if(gfx == Spell.ICE_BURST.getHitDef().getHitGraphic()) return Spell.ICE_BURST;
-	   else if(gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic()) return Spell.BLOOD_BARRAGE;
-	   else if(gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic()) return Spell.BLOOD_BURST;
-	   else if(gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic()) return Spell.SHADOW_BARRAGE;
-	   else if(gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic()) return Spell.SHADOW_BURST;
-	   else if(gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic()) return Spell.SMOKE_BARRAGE;
-	   else if(gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic()) return Spell.SMOKE_BURST;
-	   else return null;
+		if (gfx == Spell.ICE_BARRAGE.getHitDef().getHitGraphic()) {
+			return Spell.ICE_BARRAGE;
+		} else if (gfx == Spell.ICE_BURST.getHitDef().getHitGraphic()) {
+			return Spell.ICE_BURST;
+		} else if (gfx == Spell.BLOOD_BARRAGE.getHitDef().getHitGraphic()) {
+			return Spell.BLOOD_BARRAGE;
+		} else if (gfx == Spell.BLOOD_BURST.getHitDef().getHitGraphic()) {
+			return Spell.BLOOD_BURST;
+		} else if (gfx == Spell.SHADOW_BARRAGE.getHitDef().getHitGraphic()) {
+			return Spell.SHADOW_BARRAGE;
+		} else if (gfx == Spell.SHADOW_BURST.getHitDef().getHitGraphic()) {
+			return Spell.SHADOW_BURST;
+		} else if (gfx == Spell.SMOKE_BARRAGE.getHitDef().getHitGraphic()) {
+			return Spell.SMOKE_BARRAGE;
+		} else if (gfx == Spell.SMOKE_BURST.getHitDef().getHitGraphic()) {
+			return Spell.SMOKE_BURST;
+		} else {
+			return null;
+		}
 	}
-	
+
 	public static Spell getSpellForHitGfx(Graphic gfx) {
-		for(Spell spell : Spell.values())
-		{
-			if(spell.getHitDef() == null || spell.getHitDef().getHitGraphic() == null)
+		for (Spell spell : Spell.values()) {
+			if (spell.getHitDef() == null || spell.getHitDef().getHitGraphic() == null) {
 				continue;
-			if(gfx == spell.getHitDef().getHitGraphic()){
+			}
+			if (gfx == spell.getHitDef().getHitGraphic()) {
 				return spell;
 			}
 		}
 		return null;
+	}
+
+	public static boolean isMultiAncientSpell(HitDef hitDef, Entity attacker, Entity victim) {
+		return hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && getMultiAncients(hitDef.getHitGraphic() == null ? new Graphic(0, 0) : hitDef.getHitGraphic()) && attacker.inMulti() && victim.inMulti();
+	}
+
+	public static void doMultiAncientSpell(final HitDef hitDef, final Entity attacker, final Entity victim) {
+		CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, victim);
+		final Spell spell = SpellAttack.getMultiAncientSpellForGfx(hitDef.getHitGraphic());
+		final HitDef hitDefMulti = hitDef.clone().randomizeDamage().addEffects(new Effect[]{spell.getRequiredEffect(), spell.getAdditionalEffect()});
+		Player player = (Player) attacker;
+		for (final Npc npcs : player.getNpcs()) {
+			if (npcs == null || npcs.getNpcId() == 3782) {
+				continue;
+			}
+			if (victim.isNpc() && npcs != victim) {
+				canAttackResponse = CombatCycleEvent.canAttack(attacker, npcs);
+				if (victim.goodDistanceEntity(npcs, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
+					doMultiAncientEffects(player, npcs, spell, hitDefMulti);
+				}
+			}
+		}
+		if (attacker.inWild() && attacker.isPlayer() && CombatCycleEvent.canAttack(attacker, victim) != CombatCycleEvent.CanAttackResponse.WILD_LEVEL) {
+			for (final Player players : player.getPlayers()) {
+				if (players == null || players == (Player) attacker || !players.inMulti()) {
+					continue;
+				}
+				if (players != victim && players != attacker.getCombatingEntity()) {
+					canAttackResponse = CombatCycleEvent.canAttack(attacker, players);
+					if (victim.goodDistanceEntity(players, 1) && canAttackResponse == CombatCycleEvent.CanAttackResponse.SUCCESS) {
+						doMultiAncientEffects(player, players, spell, hitDefMulti);
+					}
+				}
+			}
+		}
+	}
+
+	public static void doMultiAncientEffects(final Player player, final Entity victim, final Spell spell, final HitDef hitDefMulti) {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@SuppressWarnings({"rawtypes", "unchecked"})
+			@Override
+			public void execute(CycleEventContainer b) {
+				Hit hit = new Hit(player, victim, hitDefMulti);
+				List<Hit> hitList = new LinkedList<Hit>();
+				hitList.add(hit);
+				if (spell.getRequiredEffect() != null) {
+					EffectTick t = spell.getRequiredEffect().generateTick(player, victim);
+					if (t != null) {
+						victim.addEffect(t);
+						World.getTickManager().submit(t);
+					}
+					spell.getRequiredEffect().onInit(hit, t);
+				}
+				if (spell.getAdditionalEffect() != null) {
+					EffectTick t2 = spell.getAdditionalEffect().generateTick(player, victim);
+					if (t2 != null) {
+						victim.addEffect(t2);
+						World.getTickManager().submit(t2);
+					}
+					spell.getAdditionalEffect().onInit(hit, t2);
+				}
+				hit.execute(hitList);
+				int damage = Misc.random(hitDefMulti.getDamage());
+				victim.hit(damage, HitType.NORMAL);
+				player.getSkill().addExp(Skill.MAGIC, damage * 4d);
+				if (player.inPestControlGameArea() && victim.isNpc()) {
+					PestControl.handleHit(player, victim, damage);
+				}
+				hitList.clear();
+				b.stop();
+			}
+
+			@Override
+			public void stop() {
+			}
+		}, spell.getHitDef().calculateHitDelay(player.getPosition(), victim.getPosition()));
 	}
 }

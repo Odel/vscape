@@ -6,6 +6,7 @@ import com.rs2.model.Graphic;
 import com.rs2.model.Position;
 import com.rs2.model.World;
 import com.rs2.model.content.Following;
+import com.rs2.model.content.combat.CombatCalculations;
 import com.rs2.model.content.combat.CombatCycleEvent;
 import com.rs2.model.content.combat.CombatCycleEvent.CanAttackResponse;
 import com.rs2.model.content.combat.CombatManager;
@@ -606,7 +607,7 @@ public enum SpecialType {
 		player.getUpdateFlags().sendAnimation(1667);
 		player.getUpdateFlags().sendGraphic(new Graphic(337, 100));
 		WeaponAttack weaponAttack = new WeaponAttack(player, player.getCombatingEntity(), player.getEquippedWeapon());
-		HitDef hitDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
+		HitDef hitDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatCalculations.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
 		new Hit(player, player.getCombatingEntity(), hitDef).initialize();
 		player.setSpecialAttackActive(false);
 		player.setSpecialAmount(player.getSpecialAmount() - 50);
@@ -711,7 +712,7 @@ public enum SpecialType {
         					//	if (Misc.getDistance(attacker.getPosition(), p.getPosition()) <= 1 && canAttackResponse == CanAttackResponse.SUCCESS) {
         						if (attacker.goodDistanceEntity(p, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
         							WeaponAttack weaponAttack = new WeaponAttack(player, p, player.getEquippedWeapon());
-        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
+        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatCalculations.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
         		    				new Hit(attacker, p, d2hDef).initialize();
         							enemiesHit++;
         							if (enemiesHit > 13) {
@@ -729,7 +730,7 @@ public enum SpecialType {
         						CombatCycleEvent.CanAttackResponse canAttackResponse = CombatCycleEvent.canAttack(attacker, npc);
         						if (attacker.goodDistanceEntity(npc, 1) && canAttackResponse == CanAttackResponse.SUCCESS) {
         							WeaponAttack weaponAttack = new WeaponAttack(player, npc, player.getEquippedWeapon());
-        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatManager.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
+        		    				HitDef d2hDef = new HitDef(weaponAttack.getAttackStyle(), HitType.NORMAL, CombatCalculations.calculateMaxMeleeHit(player, weaponAttack)).randomizeDamage().setCheckAccuracy(true);
         		    				new Hit(attacker, npc, d2hDef).initialize();
         							enemiesHit++;
         							if (enemiesHit > 13) {

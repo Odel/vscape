@@ -1,7 +1,9 @@
 package com.rs2.model.content.quests.impl;
 
 import com.rs2.model.Position;
+import com.rs2.model.content.combat.AttackType;
 import com.rs2.model.content.combat.CombatManager;
+import com.rs2.model.content.combat.hit.HitDef;
 import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
@@ -290,6 +292,42 @@ public class HorrorFromTheDeep implements Quest {
 			player.getActionSender().sendString("@str@-35 Agility.", 8150);
 		}
 		player.getActionSender().sendString("@dre@-I must be able to defeat strong level 100 enemies.", 8151);
+	}
+	
+	public static boolean canDamageMother(final HitDef hitDef, final int transformId, final int gfxId) {
+		switch (transformId) {
+			case WHITE_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && isAirSpell(gfxId)) {
+					return true;
+				}
+				return false;
+			case BLUE_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && isWaterSpell(gfxId)) {
+					return true;
+				}
+				return false;
+			case BROWN_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && isEarthSpell(gfxId)) {
+					return true;
+				}
+				return false;
+			case RED_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MAGIC && isFireSpell(gfxId)) {
+					return true;
+				}
+				return false;
+			case GREEN_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.RANGED) {
+					return true;
+				}
+				return false;
+			case ORANGE_MOTHER:
+				if (hitDef.getAttackStyle().getAttackType() == AttackType.MELEE) {
+					return true;
+				}
+				return false;
+		}
+		return false;
 	}
 
 	public static boolean isAirSpell(int graphic) {
