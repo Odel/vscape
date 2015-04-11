@@ -11,6 +11,7 @@ import com.rs2.model.content.combat.hit.HitType;
 import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.dialogue.DialogueManager;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
+import static com.rs2.model.content.dialogue.Dialogues.SAD;
 import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.content.skills.Skill;
 import com.rs2.model.npcs.Npc;
@@ -425,18 +426,16 @@ public class TempleOfIkov implements Quest {
 				if (!player.Area(2634, 2673, 9815, 9858)) {
 					b.stop();
 				}
-				if (player.getWeight() <= 0) {
-					if (eastOfBridge) {
-						for (Position p : EAST_BRIDGE_GAPS) {
-							if (player.getPosition().equals(p)) {
-								player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
-							}
+				if (eastOfBridge && player.getWeight() <= 0) {
+					for (Position p : EAST_BRIDGE_GAPS) {
+						if (player.getPosition().equals(p)) {
+							player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
 						}
-					} else {
-						for (Position p : WEST_BRIDGE_GAPS) {
-							if (player.getPosition().equals(p)) {
-								player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
-							}
+					}
+				} else {
+					for (Position p : WEST_BRIDGE_GAPS) {
+						if (player.getPosition().equals(p)) {
+							player.getActionSender().walkTo(player.getPosition().getLastX() > 2649 ? -3 : 3, 0, true);
 						}
 					}
 				}
@@ -474,6 +473,7 @@ public class TempleOfIkov implements Quest {
 					if (player.getQuestStage(this.getQuestID()) == QUEST_STARTED) {
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 						player.getActionSender().sendMessage("You pull the lever...", true);
+						player.getActionSender().sendObject(88, 2671, 9804, 0, 3, 6);
 						player.getActionSender().sendTimedMessage("You hear the clunking of some hidden machinery.", true, 2);
 						player.setQuestStage(this.getQuestID(), LEVER_PLACED);
 						return true;
@@ -498,7 +498,7 @@ public class TempleOfIkov implements Quest {
 			case GATE_OF_FEAR_LEFT:
 			case GATE_OF_FEAR_RIGHT:
 				if ((x == 2661 || x == 2662) && y == 9815) {
-					if (player.getEquipment().getId(Constants.AMULET) == PENDANT_OF_LUCIEN) {
+					if (player.getEquipment().getId(Constants.AMULET) == PENDANT_OF_LUCIEN || player.getPosition().getY() > 9814) {
 						gateHandling(player, x, y, true);
 					} else {
 						player.getActionSender().sendMessage("As you reach to open the door a great terror overcomes you!", true);
@@ -509,7 +509,7 @@ public class TempleOfIkov implements Quest {
 			case ICE_ARROW_GATE_LEFT:
 			case ICE_ARROW_GATE_RIGHT:
 				if ((x == 2661 || x == 2662) && y == 9803) {
-					if (player.getQuestStage(this.getQuestID()) >= LEVER_PLACED) {
+					if (player.getQuestStage(this.getQuestID()) >= LEVER_PLACED || player.getPosition().getY() < 9803) {
 						gateHandling(player, x, y, false);
 					} else {
 						player.getActionSender().sendMessage("The gate won't budge!", true);
@@ -590,9 +590,11 @@ public class TempleOfIkov implements Quest {
 						player.getQuestVars().trapLeverPulled = true;
 						player.getUpdateFlags().sendAnimation(PULL_LEVER_ANIM);
 						player.getActionSender().sendMessage("You pull the lever.", true);
+						player.getActionSender().sendObject(88, 2665, 9855, 0, 1, 4);
 					} else {
 						player.getActionSender().sendMessage("The lever shocks you! You are unable to finish pulling it!", true);
 						player.hit(2, HitType.NORMAL);
+						player.getUpdateFlags().sendAnimation(846);
 					}
 					return true;
 				}
@@ -660,7 +662,7 @@ public class TempleOfIkov implements Quest {
 		World.createStaticGraphic(new Graphic(86, 0), spawnPos);
 		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 			int count = 0;
-			Position p = new Position(2646, 9870);
+			Position p = new Position(player.getPosition().getX(), player.getPosition().getY());
 
 			@Override
 			public void execute(CycleEventContainer b) {
@@ -815,6 +817,33 @@ public class TempleOfIkov implements Quest {
 			return false;
 			case LUCIEN:
 				switch (player.getQuestStage(this.getQuestID())) { //Dialogue per stage
+					case QUEST_STARTED:
+						switch (d.getChatId()) {
+							case 1:
+								d.sendNpcChat("What are you waiting for? This is important!", ANGRY_1);
+								if(player.getInventory().ownsItem(PENDANT_OF_LUCIEN)) {
+									d.endDialogue();
+								}
+								return true;
+							case 2:
+								d.sendPlayerChat("Er, actually... I lost the pendant you gave me.", SAD);
+								d.setNextChatId(10);
+								return true;
+							case 3:
+								d.sendNpcChat("Fool!", ANGRY_1);
+								return true;
+							case 4:
+								Item pendant = new Item(PENDANT_OF_LUCIEN);
+								if (player.getInventory().canAddItem(pendant)) {
+									d.sendGiveItemNpc("Lucien has given you a pendant!", pendant);
+									player.getInventory().addItem(pendant);
+								} else {
+									d.sendStatement("Your inventory is full!");
+								}
+								d.endDialogue();
+								return true;
+						}
+					return false;
 					case QUEST_NOT_STARTED:
 						switch (d.getChatId()) {
 							case 1:
@@ -1213,7 +1242,12 @@ public class TempleOfIkov implements Quest {
 								d.sendNpcChat("Have you got the Staff of Armadyl yet?");
 								return true;
 							case 2:
-								d.sendOption("Yes here it is.", "No not yet.");
+								if(!player.getInventory().ownsItem(PENDANT_OF_LUCIEN)) {
+									d.sendPlayerChat("Er, actually... I lost the pendant you gave me.", SAD);
+									d.setNextChatId(10);
+								} else {
+									d.sendOption("Yes here it is.", "No not yet.");
+								}
 								return true;
 							case 3:
 								d.sendPlayerChat(d.tempStrings[optionId - 1]);
@@ -1248,6 +1282,19 @@ public class TempleOfIkov implements Quest {
 								d.dontCloseInterface();
 								QuestHandler.completeQuest(player, this.getQuestID());
 								player.getInventory().removeItem(new Item(STAFF_OF_ARMADYL));
+								return true;
+							case 10:
+								d.sendNpcChat("Fool!", ANGRY_1);
+								return true;
+							case 11:
+								Item pendant = new Item(PENDANT_OF_LUCIEN);
+								if (player.getInventory().canAddItem(pendant)) {
+									d.sendGiveItemNpc("Lucien has given you a pendant!", pendant);
+									player.getInventory().addItem(pendant);
+								} else {
+									d.sendStatement("Your inventory is full!");
+								}
+								d.endDialogue();
 								return true;
 						}
 						return false;

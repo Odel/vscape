@@ -80,10 +80,7 @@ public class Hit {
 	}
 
 	public void initialize(boolean queue) {
-		if(victim == null || attacker == null) {
-			return;
-		}
-		if(!victimCanBeHit()) {
+		if(victim == null || !victimCanBeHit()) {
 			return;
 		}
 		if (hitDef.shouldRandomizeDamage()) {
@@ -181,7 +178,7 @@ public class Hit {
 
 	@SuppressWarnings("rawtypes")
 	public void execute(List<Hit> recoilList) {
-		if (!canDamageEnemy() || attacker == null || victim == null) {
+		if (victim == null || !canDamageEnemy()) {
 			return;
 		}
 		if (hitDef.getDropItem() != null && attacker.isPlayer()) {
@@ -255,7 +252,7 @@ public class Hit {
 				}
 			}
 		}
-		if (hitDef != null && attacker.isPlayer()) {
+		if (hitDef != null && attacker != null && attacker.isPlayer()) {
 			if (canAddXp()) {
 				addCombatExp((Player) attacker, damage, hitDef.getAttackStyle());
 			}
@@ -281,7 +278,7 @@ public class Hit {
 			}
 		}
 		victim.setCurrentHp(currentHp);
-		if (attacker.inPestControlGameArea() && victim.inPestControlGameArea()) {
+		if (attacker != null && attacker.inPestControlGameArea() && victim.inPestControlGameArea()) {
 			PestControl.handleHit(attacker, victim, damage);
 		}
 		if (hitDef.getSpecialEffect() != 5) { // d spear
@@ -362,11 +359,11 @@ public class Hit {
 	}
 	
 	private void doInitializeHitChecks() {
-		boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim.isNpc();
-		boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
-		Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
-		Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
 		try {
+			boolean npcIsAttacker = attacker != null && attacker.isNpc(), npcIsVictim = victim.isNpc();
+			boolean playerIsAttacker = attacker != null && attacker.isPlayer(), playerIsVictim = victim.isPlayer();
+			Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
+			Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
 			if (npcIsVictim) {
 				int id = npc.getNpcId();
 				switch (id) {
@@ -402,14 +399,14 @@ public class Hit {
 					FightCaves.handlePlayerHit(attacker, (Npc) victim, damage);
 				}
 			}
-			if (npcIsAttacker) {
+			if (attacker != null && npcIsAttacker) {
 				if (npc.getNpcId() >= 1338 && npc.getNpcId() < 1344) { //Weak Dagannoths 
 					if (80 >= (new Random().nextDouble() * 100.0)) {
 						damage = 0;
 					}
 				}
 			}
-			if (playerIsAttacker) {
+			if (attacker != null && playerIsAttacker) {
 				if (hitDef != null && hitDef.getAttackStyle() != null && hitDef.getAttackStyle().getAttackType().equals(AttackType.RANGED)) {
 					doBoltSpecials();
 				}
@@ -443,7 +440,7 @@ public class Hit {
 					}
 				}
 			}
-			if (playerIsAttacker && npcIsVictim) {
+			if (attacker != null && playerIsAttacker && npcIsVictim) {
 				int id = npc.getNpcId();
 				switch (id) {
 					case FamilyCrest.CHRONOZON:
@@ -484,6 +481,7 @@ public class Hit {
 							damage = 0;
 							player.getActionSender().sendMessage("The fire warrior seems immune to your hit!");
 						}
+						break;
 					case 272: //Lucien
 						if (npc.getCurrentHp() - damage <= 0) {
 							damage = 0;
@@ -519,7 +517,7 @@ public class Hit {
 					Degrading.handleHit(player, true);
 				}
 			}
-			if (playerIsVictim && npcIsAttacker) {
+			if (attacker != null && playerIsVictim && npcIsAttacker) {
 				int id = npc.getNpcId();
 				switch (id) {
 					case 3200: //Chaos Elemental
@@ -558,11 +556,11 @@ public class Hit {
 	
 	private void doExecuteHitChecks() {
 		try {
-			boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim.isNpc();
-			boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
+			boolean npcIsAttacker = attacker != null && attacker.isNpc(), npcIsVictim = victim.isNpc();
+			boolean playerIsAttacker = attacker != null && attacker.isPlayer(), playerIsVictim = victim.isPlayer();
 			Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
 			Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
-			if (npcIsAttacker && npcIsVictim) {
+			if (attacker != null && npcIsAttacker && npcIsVictim) {
 				Npc attacker = (Npc) this.attacker;
 				Npc victim = (Npc) this.victim;
 				if (attacker.getNpcId() >= 1412 && attacker.getNpcId() <= 1426) { //Monkey Madness
@@ -577,7 +575,7 @@ public class Hit {
 					}
 				}
 			}
-			if (npcIsAttacker && playerIsVictim) {
+			if (attacker != null && npcIsAttacker && playerIsVictim) {
 				int id = npc.getNpcId();
 				if (npc.getDefinition().getName().equals("Spinolyp") && hitDef.getEffects() != null && !hitDef.getEffects().isEmpty() && hitDef.getEffects().get(0) != null && hitDef.getEffects().get(0).equals(new StatEffect(5, 0)) && damage > 0) {
 					((Player) victim).getActionSender().statEdit(5, -1, false);
@@ -596,7 +594,7 @@ public class Hit {
 						break;
 				}
 			}
-			if (npcIsVictim && playerIsAttacker) {
+			if (attacker != null && npcIsVictim && playerIsAttacker) {
 				if (player.getSlayer().needToFinishOffMonster(((Npc) victim), true)) {
 					if (damage >= victim.getCurrentHp()) {
 						damage = victim.getCurrentHp() - 1;
@@ -642,7 +640,7 @@ public class Hit {
 				Player player = (Player) victim;
 				if (player.getStaffRights() >= 3) {
 					return false;
-				} else if (attacker.isNpc() && player.getMMVars().inProcessOfBeingJailed && player.onApeAtoll() && ((Npc) attacker).getNpcId() != 1457) {
+				} else if (attacker != null && attacker.isNpc() && player.getMMVars().inProcessOfBeingJailed && player.onApeAtoll() && ((Npc) attacker).getNpcId() != 1457) {
 					return false;
 				} else if (MinigameAreas.isInArea(victim.getPosition(), ApeAtoll.JAIL) && (damage > 8 || (victim.getCurrentHp() - damage) <= 0)) {
 					return false;

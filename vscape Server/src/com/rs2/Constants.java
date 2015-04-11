@@ -175,7 +175,7 @@ public class Constants {
 		4564 
 	};
     
-    public static final int[] LIGHT_SOURCES = {33, 32, 594, 4531, 4534, 4539, 4550, 4702, 9065}; 
+    public static final int[] LIGHT_SOURCES = {33, 32, 594, 4524, 4531, 4534, 4539, 4550, 4702, 9065}; 
 	
 	public static final int EMPTY_OBJECT = 6951;
 
