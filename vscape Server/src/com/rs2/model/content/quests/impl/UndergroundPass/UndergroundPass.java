@@ -24,6 +24,7 @@ import com.rs2.model.content.skills.SkillHandler;
 import com.rs2.model.ground.GroundItem;
 import com.rs2.model.ground.GroundItemManager;
 import com.rs2.model.npcs.Npc;
+import com.rs2.model.objects.GameObject;
 import com.rs2.model.objects.GameObjectDef;
 import com.rs2.model.objects.functions.Doors;
 import com.rs2.model.objects.functions.Ladders;
@@ -33,6 +34,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
@@ -329,7 +331,59 @@ public class UndergroundPass implements Quest {
 		player.getActionSender().sendString(getQuestName(), 8144);
 	}
 	
-	
+	public static void doArandarDoors(final Player player, int object) {
+		if (player.getPosition().getY() > 3334) { //Entering land of elf
+			if (!QuestHandler.questCompleted(player, 44)) {
+				player.getDialogue().sendStatement("You must complete Underground Pass to enter through these doors.");
+				return;
+			} else {
+				player.getActionSender().sendMessage("The huge gates open wide...", true);
+				player.getActionSender().sendTimedMessage("...you walk through.", true, 2);
+				new GameObject(Constants.EMPTY_OBJECT, 2386, 3334, 0, 2, 10, 3944, 6);
+				new GameObject(3946, 2387, 3333, 0, 2, 10, -1, 6);
+				new GameObject(Constants.EMPTY_OBJECT, 2384, 3334, 0, 0, 10, 3945, 6);
+				new GameObject(3947, 2384, 3333, 0, 2, 10, -1, 6);
+				boolean condition = object == 3945;
+				final int x = condition ? 2385 : 2386;
+				World.submit(new Tick(1) {
+					int count = 0;
+
+					@Override
+					public void execute() {
+						int pX = player.getPosition().getX();
+						if (count++ == 3) {
+							this.stop();
+							return;
+						}
+						player.getActionSender().walkTo(pX == x ? 0 : pX < x ? 1 : -1, -1, true);
+					}
+				});
+			}
+		} else {
+			player.getActionSender().sendMessage("The huge gates open wide...", true);
+			player.getActionSender().sendTimedMessage("...you walk through.", true, 2);
+			new GameObject(Constants.EMPTY_OBJECT, 2386, 3334, 0, 2, 10, 3944, 6);
+			new GameObject(3946, 2387, 3333, 0, 2, 10, -1, 6);
+			new GameObject(Constants.EMPTY_OBJECT, 2384, 3334, 0, 0, 10, 3945, 6);
+			new GameObject(3947, 2384, 3333, 0, 2, 10, -1, 6);
+			boolean condition = object == 3945;
+			final int x = condition ? 2385 : 2386;
+			World.submit(new Tick(1) {
+				int count = 0;
+
+				@Override
+				public void execute() {
+					int pX = player.getPosition().getX();
+					count++;
+					if (count == 3) {
+						this.stop();
+						return;
+					}
+					player.getActionSender().walkTo(pX == x ? 0 : pX < x ? 1 : -1, 1, true);
+				}
+			});
+		}
+	}
 	
 	public static void doLoginChecks(final Player player) {
 		if(player.Area(2364, 2414, 9586, 9613)) {
@@ -748,6 +802,10 @@ public class UndergroundPass implements Quest {
 			return false;
 		}
 		switch (object) {
+			case 3944: // Arandar double doors
+			case 3945: // Move to Regicide class when it's completed
+				doArandarDoors(player, object);
+				return true;
 			case 3353:
 			case 3354: //Iban's tomb
 				player.setStopPacket(true);

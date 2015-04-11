@@ -425,7 +425,11 @@
     "button": 35020
   },
   {
-    "regions": [],
+    "regions": [
+      10648,
+      10649,
+      10650
+    ],
     "name": "Chain Of Command",
     "song": 63,
     "frame": 4314,
@@ -2930,7 +2934,9 @@
     "button": 17062
   },
   {
-    "regions": [],
+    "regions": [
+      10906
+    ],
     "name": "Twilight",
     "song": 88,
     "frame": 7461,

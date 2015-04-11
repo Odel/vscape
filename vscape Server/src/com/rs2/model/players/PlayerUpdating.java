@@ -464,12 +464,12 @@ public final class PlayerUpdating {
 		}
 		if (player.getUpdateFlags().isForceMovementUpdateRequired()) {
 			boolean condition = player.equals(other);
-			if(condition) {
+			if(condition) { //We are updating the player who is doing the force movement
 				block.writeByte(player.getUpdateFlags().getStartX(), StreamBuffer.ValueType.S);
 				block.writeByte(player.getUpdateFlags().getStartY(), StreamBuffer.ValueType.S);
 				block.writeByte(player.getUpdateFlags().getEndX(), StreamBuffer.ValueType.S);
 				block.writeByte(player.getUpdateFlags().getEndY(), StreamBuffer.ValueType.S);
-			} else {
+			} else { //We are updating the spectator to a force movement
 				int diffX = player.getUpdateFlags().getEndX() - player.getUpdateFlags().getStartX(), diffY = player.getUpdateFlags().getEndY() - player.getUpdateFlags().getStartY();
 				Position delta = Misc.delta(player.getPosition(), other.getPosition());
 				block.writeByte((other.currentX - delta.getX()), StreamBuffer.ValueType.S);

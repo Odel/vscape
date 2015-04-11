@@ -1741,16 +1741,6 @@ public class WalkToActionHandler {
 						}
 					}
 					break;
-				//Tirannwn
-				case 3944: // Arandar double doors because fixing double doors right now
-				case 3945:
-					if(id == 3944){
-						player.getActionSender().walkThroughDoubleDoor(3944, 3945, x, y, 2384, 3334, 0);
-					}else if(id == 3945){
-						player.getActionSender().walkThroughDoubleDoor(3945, 3944, x, y, 2386, 3334, 0);
-					}
-					player.getActionSender().walkTo(0, player.getPosition().getY() > y ? -2 : 2, true);
-					break;
 				case 2024: //HETTYS CAULDRON
 					if(player.getQuestStage(6) == 2)
 					{
