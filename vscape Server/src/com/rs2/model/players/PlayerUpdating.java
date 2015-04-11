@@ -59,11 +59,11 @@ public final class PlayerUpdating {
 		// Check for region changes.
 		int deltaX = player.getPosition().getX() - player.getCurrentRegion().getRegionX() * 8;
 		int deltaY = player.getPosition().getY() - player.getCurrentRegion().getRegionY() * 8;
-		player.currentX = deltaX;
-		player.currentY = deltaY;
-		if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
-			player.getActionSender().sendMapRegion();
-		}
+			player.currentX = deltaX;
+			player.currentY = deltaY;
+			if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
+				player.getActionSender().sendMapRegion();
+			}
 
 		// XXX: The buffer sizes may need to be tuned.
 		StreamBuffer.OutBuffer out = StreamBuffer.newOutBuffer(8192);
@@ -76,7 +76,7 @@ public final class PlayerUpdating {
 		// Update this player.
 		PlayerUpdating.updateLocalPlayerMovement(player, out);
 		if (player.getUpdateFlags().isUpdateRequired()) {
-			PlayerUpdating.updateState(player, block, false, true);
+			PlayerUpdating.updateState(player, player, block, false, true);
 		}
 		if (player.getQuestStage(17) == 5 && player.inDarkWizardCircle() && !DemonSlayer.delrithSpawned()) {
 		    DemonSlayer.spawnDelrith(player);
@@ -145,10 +145,11 @@ public final class PlayerUpdating {
                 System.out.println("His login stage is: "+other.getLoginStage().name());
             }*/
 			if ((other.getPosition().isViewableFrom(player.getPosition()) && other.isVisible()) && other.getLoginStage() != LoginStages.LOGGED_OUT && !other.needsPlacement()) {
-				PlayerUpdating.updateOtherPlayerMovement(other, out);
 				if (other.getUpdateFlags().isUpdateRequired()) {
-					PlayerUpdating.updateState(other, block, false, false);
+					PlayerUpdating.updateState(other, player, block, false, false);
 				}
+				PlayerUpdating.updateOtherPlayerMovement(other, out);
+				
 			} else {
 				out.writeBit(true);
 				out.writeBits(2, 3);
@@ -171,7 +172,7 @@ public final class PlayerUpdating {
 				playersAdded++;
 				player.getPlayers().add(other);
 				PlayerUpdating.addPlayer(out, player, other);
-				PlayerUpdating.updateState(other, block, true, false);
+				PlayerUpdating.updateState(other, player, block, true, false);
 			}
 		}
 
@@ -423,7 +424,7 @@ public final class PlayerUpdating {
 	 * @param block
 	 *            the block
 	 */
-	public static void updateState(Player player, StreamBuffer.OutBuffer block, boolean forceAppearance, boolean noChat) {
+	public static void updateState(Player player, Player other, StreamBuffer.OutBuffer block, boolean forceAppearance, boolean noChat) {
 		int mask = 0x0;
 		if (player.getUpdateFlags().isForceMovementUpdateRequired()) {
 			mask |= 0x400;
@@ -462,12 +463,20 @@ public final class PlayerUpdating {
 			block.writeByte(mask);
 		}
 		if (player.getUpdateFlags().isForceMovementUpdateRequired()) {
-			block.writeByte(player.getUpdateFlags().getStartX(), StreamBuffer.ValueType.S);
-			block.writeByte(player.getUpdateFlags().getStartY(), StreamBuffer.ValueType.S);
-			block.writeByte(player.getUpdateFlags().getEndX(), StreamBuffer.ValueType.S);
-			block.writeByte(player.getUpdateFlags().getEndY(), StreamBuffer.ValueType.S);
-			// block.writeShort(player.getUpdateFlags().getSpeed1(),
-			// StreamBuffer.ByteOrder.LITTLE);
+			boolean condition = player.equals(other);
+			if(condition) {
+				block.writeByte(player.getUpdateFlags().getStartX(), StreamBuffer.ValueType.S);
+				block.writeByte(player.getUpdateFlags().getStartY(), StreamBuffer.ValueType.S);
+				block.writeByte(player.getUpdateFlags().getEndX(), StreamBuffer.ValueType.S);
+				block.writeByte(player.getUpdateFlags().getEndY(), StreamBuffer.ValueType.S);
+			} else {
+				int diffX = player.getUpdateFlags().getEndX() - player.getUpdateFlags().getStartX(), diffY = player.getUpdateFlags().getEndY() - player.getUpdateFlags().getStartY();
+				Position delta = Misc.delta(player.getPosition(), other.getPosition());
+				block.writeByte((other.currentX - delta.getX()), StreamBuffer.ValueType.S);
+				block.writeByte((other.currentY - delta.getY()), StreamBuffer.ValueType.S);
+				block.writeByte((other.currentX - delta.getX() + diffX), StreamBuffer.ValueType.S);
+				block.writeByte((other.currentY - delta.getY() + diffY), StreamBuffer.ValueType.S);
+			}
 			block.writeShort(player.getUpdateFlags().getSpeed1(), StreamBuffer.ValueType.A, StreamBuffer.ByteOrder.LITTLE);
 			block.writeShort(player.getUpdateFlags().getSpeed2(), StreamBuffer.ValueType.A);
 			block.writeByte(player.getUpdateFlags().getDirection(), StreamBuffer.ValueType.S);

@@ -58,16 +58,17 @@ public class UpdateFlags {
 		this.speed2 = speed2;
 		this.direction = direction;
 		forceMovementUpdateRequired = true;
-		isUpdateRequired = true;
 		World.submit(new Tick(ticks) {
+			int count = 0;
 			@Override
 			public void execute() {
-				player.teleport(toBe);
+				player.movePlayer(toBe);
 				player.getMovementPaused().setWaitDuration(0);
 				player.getMovementHandler().reset();
+				resetForceMovement();
 				player.getUpdateFlags().setForceMovementUpdateRequired(false);
 				isUpdateRequired = true;
-				if(handleStopPlayerPacket) {
+				if (handleStopPlayerPacket) {
 					player.setStopPacket(false);
 				}
 				this.stop();
