@@ -38,15 +38,6 @@ public class PassObjectHandling {
 			}
 			if (PassNpcHandling.ibanEncounterRunning) {
 				player.getActionSender().sendMessage("A magical force has sealed the door. Iban appears to be busy.");
-				boolean killEvent = true;
-				for (Player p : World.getPlayers()) {
-					if (p != null && p.Area(2129, 2143, 4639, 4656)) {
-						killEvent = false;
-					}
-				}
-				if(killEvent) {
-					PassNpcHandling.ibanEncounterRunning = false;
-				}
 				return;
 			}
 			if (player.getQuestStage(44) < UndergroundPass.DOLL_COMPLETE) {
