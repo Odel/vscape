@@ -43,7 +43,6 @@ public class CreatureofFenkenstrain implements Quest {
 	boolean headlessHunt = false;
 	boolean ghostlyGardener = false; //Set true after first time talking to gardener
 
-	public int dialogueStage = 0;
 	private int reward[][] = {
 		{824, 1} //itemID, amount
 	};
@@ -53,7 +52,7 @@ public class CreatureofFenkenstrain implements Quest {
 	private static final int questPointReward = 2;
 
 	public int getQuestID() {
-		return 47;
+		return 48;
 	}
 
 	public String getQuestName() {

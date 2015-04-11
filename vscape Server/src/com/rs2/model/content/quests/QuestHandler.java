@@ -39,7 +39,7 @@ public class QuestHandler {
 			new InSearchOfTheMyreque(), new PlagueCity(), new Biohazard(),
 			new JunglePotion(), new ClockTower(), new DeathPlateau(),
 			new UndergroundPass(), new MonksFriend(), new TheGolem(),
-			new TempleOfIkov(), new CreatureofFenkenstrain() };
+			new TempleOfIkov()/*, new CreatureofFenkenstrain()*/ };
 
 	public static void init() {
 		System.out.println("Loading quests...");
@@ -256,9 +256,9 @@ public class QuestHandler {
 			if (TempleOfIkov.ENABLED)
 				showInterface(player, quests[47]);
 			return true;
-		case 47097: //creature of fenkenstrain
+		/*case 47097: //creature of fenkenstrain
 			showInterface(player, quests[48]);
-			return true;
+			return true;*/
 
 		}
 		return false;
