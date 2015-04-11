@@ -37,12 +37,19 @@ public class CreatureofFenkenstrain implements Quest {
 	public static final int GSAMMY = 552;
 	public static final int GSAMMYE = 4250;
 	
+	
+	// TODO
+	// These are player SPECIFIC this class is NOT player specific
+	// Use QuestVariable Class to store these. And or find a way to shorten it.
+	// These could legit be quest stages
 	boolean questionComparator = false;
 	boolean[] bodyCompletion = {false, false, false, false}; //0 - ARMS 1 - LEGS 2 - TORSO 3 - HEAD
 	boolean[] sewing101 = {false, false, false}; //0 - state 1 - needle 2 - thread
 	boolean headlessHunt = false;
 	boolean ghostlyGardener = false; //Set true after first time talking to gardener
 
+	
+	
 	private int reward[][] = {
 		{824, 1} //itemID, amount
 	};
