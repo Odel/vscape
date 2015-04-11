@@ -1465,7 +1465,7 @@ public class Player extends Entity {
 			getSkill().getLevel()[Skill.HITPOINTS] += healAmount;
 		} else {
 			if (getSkill().getLevel()[Skill.HITPOINTS] < getSkill().getPlayerLevel(Skill.HITPOINTS))
-			getSkill().getLevel()[Skill.HITPOINTS] = getSkill().getPlayerLevel(Skill.HITPOINTS);
+				getSkill().getLevel()[Skill.HITPOINTS] = getSkill().getPlayerLevel(Skill.HITPOINTS);
 		}
 		getSkill().refresh(Skill.HITPOINTS);
 	}
@@ -3047,12 +3047,6 @@ public class Player extends Entity {
 	public void setFullVoidMage(boolean fullVoidMage) {
 		this.fullVoidMage = fullVoidMage;
 	}
-	public boolean hasVoidMace() {
-		return voidMace;
-	}
-	public void setVoidMace(boolean voidMace) {
-		this.voidMace = voidMace;
-	}
 	
 	public boolean wearingCwBracelet(){
 		int brace = getEquipment().getId(Constants.HANDS);
@@ -3531,10 +3525,6 @@ public class Player extends Entity {
 		if (spell == null) {
 			getActionSender().resetAutoCastInterface();
 			this.autoCasting = false;
-		} else if (hasVoidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
-		    	getActionSender().sendSidebarInterface(0, 3796);
-			getActionSender().updateAutoCastInterface(spell);
-			this.autoCasting = true;
 		} else {
 			getActionSender().sendSidebarInterface(0, 328);
 			getActionSender().updateAutoCastInterface(spell);

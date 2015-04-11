@@ -52,6 +52,13 @@ public enum SpellBook {
 		spells.put(47022, Spell.WATER_WAVE);
 		spells.put(47023, Spell.EARTH_WAVE);
 		spells.put(47024, Spell.FIRE_WAVE);
+		//Void knight mace
+		spells.put(95036, Spell.CLAWS_OF_GUTHIX);
+		spells.put(95035, Spell.CRUMBLE_UNDEAD);
+		spells.put(95037, Spell.WIND_WAVE);
+		spells.put(95038, Spell.WATER_WAVE);
+		spells.put(95039, Spell.EARTH_WAVE);
+		spells.put(95040, Spell.FIRE_WAVE);
 		return spells;
 	}
 

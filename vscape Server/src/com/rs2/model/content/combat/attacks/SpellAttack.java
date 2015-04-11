@@ -127,6 +127,7 @@ public class SpellAttack extends BasicAttack {
 			return;
 		}
 		if (spell.getAnimation() != -1) {
+			/*
 			boolean setAnimation = false;
 			if (getAttacker().isPlayer()) {
 				Player player = (Player) getAttacker();
@@ -136,8 +137,15 @@ public class SpellAttack extends BasicAttack {
 				}
 			}
 			if (!setAnimation) {
-				setAnimation(spell.getAnimation());
+				
 			}
+			*/
+			boolean condition = false;
+			if(getAttacker().isPlayer()) {
+				Player player = (Player)getAttacker();
+				condition = player.isAutoCasting() && player.getAutoSpell() == spell && spell.getAnimation() == 711;
+			}
+			setAnimation(condition ? 1162 : spell.getAnimation());
 		}
 		HitDef hitDef = spell.getHitDef().clone();
 		if (getAttacker().hasGodChargeEffect() && (spell == Spell.FLAMES_OF_ZAMORAK || spell == Spell.CLAWS_OF_GUTHIX || spell == Spell.SARADOMIN_STRIKE)) {
@@ -170,12 +178,14 @@ public class SpellAttack extends BasicAttack {
 
 		if (getAttacker().isPlayer()) {
 			Player player = (Player) getAttacker();
-			if (player.getEquipment().voidMace() && spell == Spell.CLAWS_OF_GUTHIX) {
-				staffRequired = 8841;
-			} else if (spell == Spell.FLAMES_OF_ZAMORAK) {
+			if (spell == Spell.FLAMES_OF_ZAMORAK) {
 				staffRequired = 2417;
 			} else if (spell == Spell.CLAWS_OF_GUTHIX) {
-				staffRequired = 2416;
+				if(player.getEquipment().getId(Constants.WEAPON) == 8841) {
+					staffRequired = 8841;
+				} else {
+					staffRequired = 2416;
+				}
 			} else if (spell == Spell.SARADOMIN_STRIKE) {
 				staffRequired = 2415;
 			} else if (spell == Spell.IBAN_BLAST) {

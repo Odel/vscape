@@ -122,12 +122,13 @@ public enum Weapon {
 			return Weapon.SWORD;
 		} else if (name.endsWith("scimitar") || name.endsWith("machete")) {
 			return Weapon.SCIMITAR;
-		} else if (name.endsWith("mace")) {
+		} else if (name.endsWith("mace") && !name.contains("void")) {
 			return Weapon.MACE;
+		} else if (name.equals("void knight mace")) {
+			return Weapon.WAND;
 		} else if (name.startsWith("dharoks")) {
 			return Weapon.DHAROKS;
-		} else if (name.endsWith("thrownaxe")) { // Also pickaxes and thrown
-													// axes. ;)
+		} else if (name.endsWith("thrownaxe")) { // Also pickaxes and thrown							// axes. ;)
 			return Weapon.THROWING_AXE;
 		} else if (name.endsWith("axe") || name.endsWith("battleaxe")) { // Also pickaxes and thrown axes. ;)
 			return Weapon.AXE;

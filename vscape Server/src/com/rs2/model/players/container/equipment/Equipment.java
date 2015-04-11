@@ -1847,7 +1847,6 @@ public class Equipment {
 	    player.setFullVoidMelee(fullVoidMelee());
 	    player.setFullVoidRange(fullVoidRange());
 	    player.setFullVoidMage(fullVoidMage());
-	    player.setVoidMace(voidMace());
 	}
 
 	public void checkRangeGear() {
@@ -1921,12 +1920,6 @@ public class Equipment {
 			return false;
 
 		return (player.getEquipment().getItemContainer().get(Constants.HAT).getId() == 11663 && player.getEquipment().getItemContainer().get(Constants.CHEST).getId() == 8839 && player.getEquipment().getItemContainer().get(Constants.LEGS).getId() == 8840 && player.getEquipment().getItemContainer().get(Constants.HANDS).getId() == 8842);
-	}
-	public boolean voidMace() {
-		if (player.getEquipment().getItemContainer().get(Constants.WEAPON) == null)
-			return false;
-		return (player.getEquipment().getItemContainer().get(Constants.WEAPON).getId() == 8841);
-	    
 	}
 
 }

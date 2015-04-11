@@ -19,12 +19,7 @@ public class DefaultCombatScript implements CombatScript {
 		if (attacker.isPlayer()) {
 			Player player = (Player) attacker;
 			SpecialType specialType = player.getSpecialType();
-			if (player.hasVoidMace() && player.getCastedSpell() == Spell.CLAWS_OF_GUTHIX && player.getAutoSpell() == null) {
-				player.setAutoSpell(Spell.CLAWS_OF_GUTHIX);
-				player.getActionSender().sendMessage("Claws of Guthix set to auto-cast.");
-				player.getActionSender().sendMessage("Attack to continue casting, re-equip to revert to melee mode.");
-			}
-			else if (player.getCastedSpell() != null) {
+			if (player.getCastedSpell() != null) {
 				if(victim.isNpc() && player.getEquipment().getId(Constants.WEAPON) != PriestInPeril.WOLFBANE) {
 					Npc npc = (Npc)victim;
 					if(npc.getNpcId() >= 6026 && npc.getNpcId() < 6046)

@@ -683,6 +683,8 @@ public abstract class MagicSkill extends CycleEvent {
 				} else {
 					if (weapon.getId() == 4170) {
 						player.getActionSender().sendSidebarInterface(0, 12050);
+					} else if (weapon.getId() == 8841) {
+						player.getActionSender().sendSidebarInterface(0, 24354);
 					} else {
 						player.getActionSender().sendSidebarInterface(0, 1829);
 					}
@@ -712,9 +714,10 @@ public abstract class MagicSkill extends CycleEvent {
 					}
 				}*/
 				return true;
-			case 7212 :
-			case 24017 :
-			case 47069 :
+			case 7212 : //Stand autocasts
+			case 24017 : //Ancient autocasts
+			case 47069 : //Slayer staff
+			case 95041 : //Void knight mace
 				player.getActionSender().sendSidebarInterface(0, 328);
 				return true;
 		}
