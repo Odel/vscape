@@ -20,6 +20,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.net.ActionSender;
 import com.rs2.util.Misc;
 import com.rs2.util.clip.ClippedPathFinder;
@@ -37,6 +38,15 @@ public class PassObjectHandling {
 			}
 			if (PassNpcHandling.ibanEncounterRunning) {
 				player.getActionSender().sendMessage("A magical force has sealed the door. Iban appears to be busy.");
+				boolean killEvent = true;
+				for (Player p : World.getPlayers()) {
+					if (p != null && p.Area(2129, 2143, 4639, 4656)) {
+						killEvent = false;
+					}
+				}
+				if(killEvent) {
+					PassNpcHandling.ibanEncounterRunning = false;
+				}
 				return;
 			}
 			if (player.getQuestStage(44) < UndergroundPass.DOLL_COMPLETE) {

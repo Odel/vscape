@@ -401,6 +401,13 @@ public class UndergroundPass implements Quest {
 		if(player.Area(2126, 2177, 4637, 4665) && player.getQuestStage(44) >= IBAN_DEAD) {
 			player.teleport(new Position(player.getPosition().getX() - 128, player.getPosition().getY() + 64, 1));
 		}
+		if(player.Area(2129, 2143, 4639, 4656)) {
+			if(player.getQuestStage(44) >= IBAN_DEAD) {
+				player.teleport(new Position(player.getPosition().getX() - 128, player.getPosition().getY() + 64, 1));
+			} else {
+				player.teleport(new Position(2146, 4648, 1));
+			}
+		}
 		if(player.getPosition().getRegionId() == 8009 && !player.Area(2126, 2177, 4637, 4665)) {
 			player.teleport(new Position(player.getPosition().getX() + 128, player.getPosition().getY() - 64, 1));
 		}

@@ -671,6 +671,8 @@ public class Player extends Entity {
 		this.getTelekineticTheatre().saveVariables();
 	} else if(Area(2688, 2748, 9154, 9214)) {
 		MonkeyMadness.endFinalFight(this);
+	} else if(Area(2129, 2143, 4639, 4656) && PassNpcHandling.ibanEncounterRunning) {
+		PassNpcHandling.ibanEncounterRunning = false;
 	}
         try {
             Benchmark b = Benchmarks.getBenchmark("tradeDecline");
@@ -795,7 +797,9 @@ public class Player extends Entity {
 		npc.setCombatDelay(5);
 		npc.walkTo(npc.getSpawnPosition() == null ? npc.getPosition().clone() : npc.getSpawnPosition().clone(), true);
 	    }
-        }
+        } else if(Area(2129, 2143, 4639, 4656) && PassNpcHandling.ibanEncounterRunning) {
+		PassNpcHandling.ibanEncounterRunning = false;
+	}
 		if (getRandomEventNpc() != null && !getRandomEventNpc().isDead()) {
 			NpcLoader.destroyNpc(getRandomEventNpc());
 			setRandomEventNpc(null);

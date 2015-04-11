@@ -176,17 +176,21 @@ public class PassNpcHandling {
 			}
 			@Override
 			public void stop() {
+				player.setInCutscene(true);
 				player.setStopPacket(true);
 				CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
 					int count = 0;
 					int sayingIndex = 0;
 					boolean doSpells = false;
-
+					boolean justHit = false;
 					@Override
 					public void execute(CycleEventContainer b) {
 						if (player == null || IBAN == null || !player.Area(2129, 2143, 4639, 4656) || player.getQuestVars().threwDollIntoWell) {
 							b.stop();
 							return;
+						}
+						if(count%3 == 0) {
+							justHit = false;
 						}
 						ArrayList<Position> spells = new ArrayList<>();
 						count++;
@@ -204,10 +208,11 @@ public class PassNpcHandling {
 							player.setStopPacket(true);
 						}
 						for (Position p : spells) {
-							if (player.getPosition().equals(p)) {
+							if (player.getPosition().equals(p) && !justHit) {
+								justHit = true;
 								player.getUpdateFlags().sendAnimation(848); //headspin
 								player.getUpdateFlags().sendGraphic(254, 100 << 16);
-								player.hit(Misc.random(5) + 8, HitType.NORMAL);
+								player.hit(Misc.random(3) + 8, HitType.NORMAL);
 								Position knockback = new Position(player.getPosition().getX() + 2, player.getPosition().getY(), 1);
 								Position knockback2 = new Position(player.getPosition().getX() + 1, player.getPosition().getY(), 1);
 								if(Misc.checkClip(player.getPosition(), knockback, true)) {
@@ -248,6 +253,7 @@ public class PassNpcHandling {
 							endIbanEncounter(player);
 						} else {
 							player.setStopPacket(false);
+							player.setInCutscene(false);
 							ibanEncounterRunning = false;
 						}
 					}
@@ -317,6 +323,7 @@ public class PassNpcHandling {
 				ibanEncounterRunning = false;
 				if (player != null) {
 					player.setStopPacket(false);
+					player.setInCutscene(false);
 					player.fadeTeleport(UndergroundPass.FALL_OFF_TEMPLE);
 					player.setQuestStage(44, UndergroundPass.IBAN_DEAD);
 				}

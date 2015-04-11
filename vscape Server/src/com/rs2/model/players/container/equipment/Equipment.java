@@ -293,6 +293,10 @@ public class Equipment {
 		    player.getDialogue().sendStatement("You must complete Monkey Madness to equip this.");
 		    return;
 		}
+		if(item.getId() == 1409 && player.getQuestStage(44) < 10) {
+		    player.getDialogue().sendStatement("You must complete Underground Pass to equip this.");
+		    return;
+		}
 		if(player.inCwGame() || player.inCwLobby())
 		{
 		    Item equipItem = itemContainer.get(equipSlot);
