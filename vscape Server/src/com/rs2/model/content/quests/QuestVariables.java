@@ -132,6 +132,12 @@ public class QuestVariables {
 	private boolean sidedWithGuardians = false;
 	public boolean guardianKilled = false;
 	public int iceArrowChestIndex = Misc.randomMinusOne(6);
+	//Creature of Fenkenstrain
+	public boolean questionComparator = false;
+	private boolean[] bodyCompletion = {false, false, false, false}; //0 - ARMS 1 - LEGS 2 - TORSO 3 - HEAD
+	public boolean[] sewing101 = {false, false, false}; //0 - state 1 - needle 2 - thread
+	public boolean headlessHunt = false;
+	public boolean ghostlyGardener = false; //Set true after first time talking to gardener
 
 	public QuestVariables(final Player player) {
 		this.player = player;
@@ -643,6 +649,17 @@ public class QuestVariables {
 	
 	public void setSidedWithGuardians(boolean set) {
 		this.sidedWithGuardians = set;
+	}
+	
+	public boolean getBodyCompletion() {
+		if(this.bodyCompletion[0] && this.bodyCompletion[1] && this.bodyCompletion[2] && this.bodyCompletion[3]) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void setBodyCompletion(int index, boolean bool) {
+		this.bodyCompletion[index] = bool;
 	}
 
 }
