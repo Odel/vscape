@@ -452,11 +452,11 @@ public class CombatManager extends Tick {
 	}
 
 	public static boolean canAttack(Entity attacker, Entity victim) {
-		if (attacker == null || victim == null) {
+		if (attacker == null) {
 			return false;
 		}
-		boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim.isNpc();
-		boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim.isPlayer();
+		boolean npcIsAttacker = attacker.isNpc(), npcIsVictim = victim != null && victim.isNpc();
+		boolean playerIsAttacker = attacker.isPlayer(), playerIsVictim = victim != null && victim.isPlayer();
 		Player player = playerIsAttacker ? ((Player) attacker) : playerIsVictim ? ((Player) victim) : null;
 		Npc npc = npcIsAttacker ? ((Npc) attacker) : npcIsVictim ? ((Npc) victim) : null;
 		try {
@@ -481,7 +481,7 @@ public class CombatManager extends Tick {
 				return false;
 			}
 			if (npcIsAttacker) {
-				if (npc.isDontAttack()) {
+				if (npc.isDontAttack() || !npc.isVisible() || npc.isDead()) {
 					return false;
 				}
 			}
