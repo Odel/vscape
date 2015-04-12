@@ -293,9 +293,18 @@ public class Equipment {
 		    player.getDialogue().sendStatement("You must complete Monkey Madness to equip this.");
 		    return;
 		}
-		if(item.getId() == 1409 && player.getQuestStage(44) < 10) {
-		    player.getDialogue().sendStatement("You must complete Underground Pass to equip this.");
-		    return;
+		if(player.getQuestStage(44) < 10) {
+			Degradeables d = Degradeables.getDegradeableItem(item);
+			boolean restrict = false;
+			if(d != null && (d.equals(Degradeables.CRYSTAL_BOW) || d.equals(Degradeables.CRYSTAL_SHIELD))) {
+				restrict = true;
+			} else if (item.getId() == 1409) {
+				restrict = true;
+			}
+			if(restrict) {
+				player.getDialogue().sendStatement("You must complete Underground Pass to equip this.");
+				return;
+			}
 		}
 		if(player.inCwGame() || player.inCwLobby())
 		{
