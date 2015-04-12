@@ -96,9 +96,9 @@ public class PassObjectHandling {
 		}
 		CacheObject o = ObjectLoader.object(object, x, y, 1);
 		if (o != null) {
+			player.setStopPacket(true);
 			int face = o.getDef().getFace(), modifier = face == 1 || face == 3 ? (player.getPosition().getX() > x ? -4 : 4) : (player.getPosition().getY() > y ? -4 : 4), 
 				toFace = face == 1 || face == 3 ? (modifier < 0 ? 3 : 1) : (modifier < 0 ? 2 : 0);
-			player.setStopPacket(true);
 			player.getActionSender().sendMessage("You attempt to jump over the remaining bridge...");
 			final Position toBe = face == 1 || face == 3 ? new Position(player.getPosition().getX() + modifier, y, 1) : new Position(x, player.getPosition().getY() + modifier, 1);
 			player.getUpdateFlags().setFace(toBe);

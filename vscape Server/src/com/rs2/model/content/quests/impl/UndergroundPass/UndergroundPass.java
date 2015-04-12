@@ -881,7 +881,9 @@ public class UndergroundPass implements Quest {
 				return true;
 			case 3255:
 			case 3254:
-				PassObjectHandling.handleBridgeJump(player, object, x, y);
+				if(!player.stopPlayerPacket()) {
+					PassObjectHandling.handleBridgeJump(player, object, x, y);
+				}
 				return true;
 			case 3362:
 				if(player.inUndergroundPass()) {
