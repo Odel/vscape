@@ -67,7 +67,8 @@ public class LogHandler {
 			String time = Format.format(new Date());
 			yellLogWriter.write("["+time+"] "+name + ": " + msg);	
 			yellLogWriter.newLine();
-			
+			yellLogWriter.flush();
+			yellLogWriter.close();
 		 } catch(IOException ioexception) {
 			System.out.println("error writing yell log file.");
 			
