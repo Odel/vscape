@@ -165,7 +165,7 @@ public class Allotments {
 
 		CATHERBY_NORTH(0, new Position[]{new Position(2805, 3466), new Position(2806, 3468), new Position(2805, 3467), new Position(2814, 3468)}, 2324),
 
-		CATHERBY_SOUTH(1, new Position[]{new Position(2805, 3459), new Position(2806, 3461), new Position(2802, 3459), new Position(2814, 3460)}, 2324),
+		CATHERBY_SOUTH(1, new Position[]{new Position(2805, 3459), new Position(2806, 3461), new Position(2805, 3459), new Position(2814, 3460)}, 2324),
 
 		FALADOR_NORTH_WEST(2, new Position[]{new Position(3050, 3307), new Position(3051, 3312), new Position(3050, 3311), new Position(3054, 3312)}, 2323),
 
