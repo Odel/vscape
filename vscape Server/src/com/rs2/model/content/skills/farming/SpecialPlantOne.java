@@ -47,7 +47,7 @@ public class SpecialPlantOne {
 	/* This is the enum holding the saplings info */
 
 	public enum SpecialPlantData {
-		SPIRIT_TREE(5375, -1, 1, 83, 3680, 0.15, 199.5, 0, 0x09, 0x14, 0x2c, 19301.8, 12, 23), CALQUAT_TREE(5503, 5980, 1, 72, 1200, 0.15, 129.5, 48.5, 0x04, 0x12, 0x22, 12096, 14, 20);
+		SPIRIT_TREE(5375, -1, 1, 83, 3680, 0.15, 199.5, 0, 0x09, 0x14, 0x2c, 19301.8, 12, 23); //, CALQUAT_TREE(5503, 5980, 1, 72, 1200, 0.15, 129.5, 48.5, 0x04, 0x12, 0x22, 12096, 14, 20);
 
 		private int saplingId;
 		private int harvestId;

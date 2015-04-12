@@ -198,6 +198,26 @@ public class EnchantingChamber {
 	}
 	return "";
     }
+    
+    public void startDragonstoneCycle() {
+		CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer b) {
+				if (isInEnchantingChamber()) {
+					player.getActionSender().sendMessage("You hear the tinkle of gems hitting the floor.");
+					for (int i = 0; i < 6; i++) {
+						GroundItem drop = new GroundItem(new Item(DRAGONSTONE), player, player, MinigameAreas.randomPosition(CHAMBER));
+						GroundItemManager.getManager().dropItem(drop);
+						DRAGONSTONES.add(drop);
+					}
+				}
+			}
+
+			@Override
+			public void stop() {
+			}
+		}, 500);
+	}
 
     private void enter() {
 		if (player.getSkill().getLevel()[Skill.MAGIC] < MageGameConstants.ENCHANTING_LEVEL) {
@@ -214,32 +234,6 @@ public class EnchantingChamber {
 			int number = random.nextInt(ENTERING_POSITION.length);
 			player.teleport(ENTERING_POSITION[number]);
 			player.getActionSender().sendMessage("You've entered the Enchanting Chamber.");
-			CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
-			    @Override
-			    public void execute(CycleEventContainer b) {
-				if(!isInEnchantingChamber()) {
-				    b.stop();
-				} else {
-				    player.getActionSender().sendMessage("You hear the tinkle of gems hitting the floor.");
-				    for(int i = 0; i < 6; i++) {
-					GroundItem drop = new GroundItem(new Item(DRAGONSTONE), player, player, MinigameAreas.randomPosition(CHAMBER));
-					GroundItemManager.getManager().dropItem(drop);
-					DRAGONSTONES.add(drop);
-				    }
-				}
-			    }
-		
-			    @Override
-			    public void stop() {
-				if (!DRAGONSTONES.isEmpty() && player.getLoginStage().equals(LoginStages.LOGGED_IN)) {
-				    for (GroundItem g : DRAGONSTONES) {
-					if (g != null) {
-					    GroundItemManager.getManager().destroyItem(g);
-					}
-				    }
-				}
-			    }
-			}, 300);
 		} catch (Exception ex){
 			ex.printStackTrace();
 		}
@@ -314,6 +308,7 @@ public class EnchantingChamber {
 	    }
 	}
 	player.getInventory().replaceItemWithItem(new Item(itemId), new Item(ORB));
+	player.getActionSender().sendFrame106(6);
     }
 
     private void depositOrbs() {

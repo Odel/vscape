@@ -561,6 +561,9 @@ public class PestControl {
 	}
 
     public static void handleHit(final Entity attacker, final Entity victim, final int damage) {
+	    if(attacker == null || victim == null) {
+		    return;
+	    }
 		if (attacker.isPlayer() && victim.isNpc()) {
 		    Player player = (Player) attacker;
 		    Npc npc = (Npc) victim;

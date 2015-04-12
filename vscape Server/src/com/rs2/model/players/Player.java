@@ -1221,6 +1221,7 @@ public class Player extends Entity {
 		if(getFightCavesWave() > 62 || getFightCavesWave() < 0) {
 		    setFightCavesWave(0);
 		}
+		getEnchantingChamber().startDragonstoneCycle();
 		
 	    //login Messages
 	    getActionSender().sendMessage("Welcome to /v/scape. There are currently " + World.playerAmount() + " players online.");

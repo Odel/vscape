@@ -105,14 +105,14 @@ public class Grinding {
 							&& player.getInventory().removeItem(new Item(VIAL, 1)))
 					{
 						player.getInventory().addItemToSlot(toRecieve, materialSlot);
-						player.getActionSender().sendMessage("You Grind the mushroom filling a vial with black ink.");
+						player.getActionSender().sendMessage("You grind the mushroom filling a vial with black ink.");
 						container.stop();
 						return;
 					}
 				} else {
 					player.getInventory().replaceItemWithItem(new Item(material, 1), toRecieve);
 					String itemName = ItemManager.getInstance().getItemName(material);
-					player.getActionSender().sendMessage("You Grind the "+itemName+" to dust.");
+					player.getActionSender().sendMessage("You grind the " + itemName + ".");
 					container.stop();
 					return;
 				}

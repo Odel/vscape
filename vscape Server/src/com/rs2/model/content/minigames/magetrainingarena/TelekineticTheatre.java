@@ -24,6 +24,7 @@ import com.rs2.model.players.item.Item;
 import com.rs2.model.tick.CycleEvent;
 import com.rs2.model.tick.CycleEventContainer;
 import com.rs2.model.tick.CycleEventHandler;
+import com.rs2.model.tick.Tick;
 import com.rs2.util.Misc;
 import java.util.ArrayList;
 
@@ -248,42 +249,64 @@ public class TelekineticTheatre {
     }
     
     public void handleTelegrab(final Position itemPos) {
-	String direction = getDirectionToMoveStatue();
-	if(direction.equals("")) {
-	    player.getDialogue().sendStatement("You need to get to a closer, more appropriate spot to move the Statue.");
-	} else {
-	    moveStatue(direction, itemPos);
+		if (player.stopPlayerPacket()) {
+			return;
+		}
+		player.setStopPacket(true);
+		final GroundItem groundItem = GroundItemManager.getManager().findItem(player, STATUE, itemPos);
+		String direction = getDirectionToMoveStatue();
+		if (GroundItemManager.getManager().itemExists(player, groundItem)) {
+			if (direction.equals("")) {
+				player.getDialogue().sendStatement("You need to get to a closer, more appropriate spot to move the Statue.");
+			} else {
+				moveStatue(direction, itemPos);
+			}
+		} else {
+			player.setStopPacket(false);
+		}
 	}
-    }
-    
-    public void moveStatue(String direction, Position startPos) {
-	GroundItemManager.getManager().destroyItem(STATUE_ITEM);
-	switch(direction) {
-	    case "WEST":
-		Position endW = findEndPosition(-1, 0, startPos);
-		STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endW);
-		GroundItemManager.getManager().dropItem(STATUE_ITEM);
-		break;
-	    case "EAST":
-		Position endE = findEndPosition(1, 0, startPos);
-		STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endE);
-		GroundItemManager.getManager().dropItem(STATUE_ITEM);
-		break;
-	    case "NORTH":
-		Position endN = findEndPosition(0, 1, startPos);
-		STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endN);
-		GroundItemManager.getManager().dropItem(STATUE_ITEM);
-		break;
-	    case "SOUTH":
-		Position endS = findEndPosition(0, -1, startPos);
-		STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endS);
-		GroundItemManager.getManager().dropItem(STATUE_ITEM);
-		break;
+
+	public void moveStatue(final String direction, final Position startPos) {
+		GroundItemManager.getManager().destroyItem(STATUE_ITEM);
+		switch (direction) {
+			case "WEST":
+				Position endW = findEndPosition(-1, 0, startPos);
+				STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endW);
+				GroundItemManager.getManager().dropItem(STATUE_ITEM);
+				break;
+			case "EAST":
+				Position endE = findEndPosition(1, 0, startPos);
+				STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endE);
+				GroundItemManager.getManager().dropItem(STATUE_ITEM);
+				break;
+			case "NORTH":
+				Position endN = findEndPosition(0, 1, startPos);
+				STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endN);
+				GroundItemManager.getManager().dropItem(STATUE_ITEM);
+				break;
+			case "SOUTH":
+				Position endS = findEndPosition(0, -1, startPos);
+				STATUE_ITEM = new GroundItem(new Item(STATUE), player, player, endS);
+				GroundItemManager.getManager().dropItem(STATUE_ITEM);
+				break;
+		}
+		if (STATUE_ITEM.getPosition().equals(STATUE_ARRIVAL_POSITIONS[mazeIndex].modifyZ(z))) {
+			reward();
+		}
+		World.submit(new Tick(2) {
+			@Override
+			public void execute() {
+				this.stop();
+			}
+
+			@Override
+			public void stop() {
+				super.stop();
+				player.setStopPacket(false);
+			}
+		});
+
 	}
-	if (STATUE_ITEM.getPosition().equals(STATUE_ARRIVAL_POSITIONS[mazeIndex].modifyZ(z))) {
-	    reward();
-	}
-    }
     
     public Position findEndPosition(int x, int y, Position startPos) {
 	Position currentPos = startPos;

@@ -614,6 +614,9 @@ public abstract class MagicSkill extends CycleEvent {
 	}
 	
 	public static void doSpellOnGroundItem(final Player player, final Spell spell, final int itemId, final Position itemPos) {
+		if(player.stopPlayerPacket()) {
+			return;
+		}
 		final GroundItem groundItem = GroundItemManager.getManager().findItem(player,  itemId, itemPos);
 		final MagicSkill magicSkill = new MagicSkill(player, spell) {
 			@SuppressWarnings("incomplete-switch")

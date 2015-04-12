@@ -1,3 +1,13 @@
+@dre@=April 11th=
+@blu@-Underground Pass
+@blu@-Temple of Ikov
+-Void Knight Mace autocast interface.
+-Visual update to old quest rewards.
+-Easter event has been removed.
+-Saradomin brews fixed.
+-Craft X fishbowl exp fixed.
+-Second King Lathas chest working.
+
 @dre@=April 8th=
 --Hotfix patch--
 -Random Poison damage fix
