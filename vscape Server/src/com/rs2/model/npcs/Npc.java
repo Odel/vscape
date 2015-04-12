@@ -234,7 +234,7 @@ public class Npc extends Entity {
 			return;
 		}
 		if (walkType == WalkType.STAND) {
-			getUpdateFlags().sendFaceToDirection(getCorrectStandPosition(this.getSize()));
+			getUpdateFlags().sendFaceToDirection(getCorrectStandPosition());
 		} else if (!isFrozen() && !isStunned() && Misc.random(9) == 0) {
 			int x = minWalk.getX(), y = minWalk.getY(), width = maxWalk.getX()-minWalk.getX(), length = maxWalk.getY()-minWalk.getY();
 			if(npcId == 1091) {
@@ -325,11 +325,12 @@ public class Npc extends Entity {
 		return Misc.goodDistance(getPosition(), pos, 1);
 	}
 
-	public Position getCorrectStandPosition(int size) {
+	public Position getCorrectStandPosition() {
+		int size = this.getSize();
 		int x = getPosition().getX();
 		int y = getPosition().getY();
 		int h = getPosition().getZ();
-		switch(face) {
+		switch(this.getFace()) {
 			case 2 :
 				return new Position(x, y + size, h);
 			case 3 :
@@ -339,7 +340,7 @@ public class Npc extends Entity {
 			case 5 :
 				return new Position(x - size, y, h);
 		}
-		return new Position(x, y + size, h);
+		return new Position(x, y - size, h);
 	}
 
 	/**
@@ -734,7 +735,7 @@ public class Npc extends Entity {
 		if (face == 1) {
 			return false;
 		}
-		return getNpcId() == 166 || getNpcId() == 494 || getNpcId() == 495 || getNpcId() == 496 || getNpcId() == 499 || getNpcId() == 2619 || getNpcId() == 3046;
+		return getNpcId() == 166 || getNpcId() == 494 || getNpcId() == 495 || getNpcId() == 496 || getNpcId() == 499 || getNpcId() == 1702 || getNpcId() == 2619 || getNpcId() == 3046;
 	}
 
 	public static boolean isUndeadNpc(Entity victim) {

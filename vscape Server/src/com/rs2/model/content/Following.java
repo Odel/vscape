@@ -55,7 +55,7 @@ public class Following {
 		}
 		if (entity.isPlayer() && leader != null && leader.isNpc() && ((Npc) leader).isBoothBanker()) {
 			Player player = (Player) entity;
-			Position pos = ((Npc) leader).getCorrectStandPosition(2);
+			Position pos = ((Npc) leader).getCorrectStandPosition();
 			ClippedPathFinder.getPathFinder().findRoute(player, pos.getX(), pos.getY(), true, 0, 0);
 			return;
 		}
