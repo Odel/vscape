@@ -90,7 +90,9 @@ public class Hit {
 		if (!hitDef.isUnblockable() && hitDef.shouldCheckAccuracy()) {
 			executeAccuracy();
 		}
-		doInitializeHitChecks();
+		if(doInitializeHitChecks()) {
+			return;
+		}
 		if (hitDef.getProjectileDef() != null) {
 			new Projectile(attacker, victim, hitDef.getProjectileDef()).show();
 		}
@@ -358,7 +360,7 @@ public class Hit {
 		}
 	}
 	
-	private void doInitializeHitChecks() {
+	private boolean doInitializeHitChecks() {
 		try {
 			boolean npcIsAttacker = attacker != null && attacker.isNpc(), npcIsVictim = victim.isNpc();
 			boolean playerIsAttacker = attacker != null && attacker.isPlayer(), playerIsVictim = victim.isPlayer();
@@ -485,13 +487,13 @@ public class Hit {
 					case 272: //Lucien
 						if (npc.getCurrentHp() - damage <= 0) {
 							damage = 0;
-							CombatManager.resetCombat(player);
-							CombatManager.resetCombat(npc);
+							CombatManager.resetCombat(victim);
+							CombatManager.resetCombat(attacker);
 							npc.heal(npc.getMaxHp());
 							if (player.getQuestStage(47) == 7) {
 								Dialogues.startDialogue(player, 20272);
 							}
-							return;
+							return true;
 						}
 						break;
 					case VampireSlayer.COUNT_DRAYNOR:
@@ -552,6 +554,7 @@ public class Hit {
 			System.out.println("ERROR DOING CHECKS ON HIT INITIALIZE");
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	private void doExecuteHitChecks() {

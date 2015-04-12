@@ -754,6 +754,10 @@ public class PassObjectHandling {
 				}, 2);
 				return true;
 			case 3238:
+				if(player.getPosition().getX() < 2374) {
+					player.getActionSender().sendMessage("I can't reach that from here!", true);
+					return true;
+				}
 				player.getActionSender().sendMessage("You put your foot on the ledge and try to edge across.", true);
 				player.isCrossingObstacle = true;
 				player.setStopPacket(true);

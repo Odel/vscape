@@ -642,7 +642,7 @@ public class TempleOfIkov implements Quest {
 				return false;
 			case LUCIENS_DOOR:
 				if (x == 3176 && y == 3481) {
-					player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? -1 : 1, player.getPosition().getY() < 3481 ? 1 : -1, true);
+					player.getActionSender().walkTo(player.getPosition().getX() == x ? 0 : player.getPosition().getX() < x ? 1 : -1, player.getPosition().getY() < 3481 ? 1 : -1, true);
 					player.getActionSender().walkThroughDoor(object, x, y, 0);
 					return true;
 				}
@@ -1303,6 +1303,12 @@ public class TempleOfIkov implements Quest {
 				d.setLastNpcTalk(LUCIEN_ATTACKABLE);
 				switch(d.getChatId()) {
 					case 1:
+						CombatManager.resetCombat(player);
+						for(Npc npc : World.getNpcs()) {
+							if(npc != null && npc.getNpcId() == LUCIEN_ATTACKABLE) {
+								CombatManager.resetCombat(npc);
+							}
+						}
 						d.sendNpcChat("You have defeated me for now! I shall reappear in the", "North!");
 						return true;
 					case 2:

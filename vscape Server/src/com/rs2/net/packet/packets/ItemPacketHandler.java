@@ -1264,7 +1264,7 @@ public class ItemPacketHandler implements PacketHandler {
 		case 1409: //Iban's staff
 			boolean grammar = player.getIbanStaffCharges() == 1;
 			player.getActionSender().sendMessage("You concentrate on the power in the staff...", true);
-			if(player.getIbanStaffCharges() == 0) {
+			if(player.getIbanStaffCharges() <= 0) {
 				player.getActionSender().sendTimedMessage("... your staff is depleted of all charges.", true, 2);
 			} else {
 				player.getActionSender().sendTimedMessage("...there " + (grammar ? "is " : "are ") + player.getIbanStaffCharges() + " " + (grammar ? "charge " : "charges ") + "left imbued in the staff.", true, 2);
