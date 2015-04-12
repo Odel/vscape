@@ -67,10 +67,10 @@ public class LogHandler {
 			String time = Format.format(new Date());
 			yellLogWriter.write("["+time+"] "+name + ": " + msg);	
 			yellLogWriter.newLine();
-			yellLogWriter.flush();
-			yellLogWriter.close();
+			
 		 } catch(IOException ioexception) {
 			System.out.println("error writing yell log file.");
+			
 		 }
 	}
 	
@@ -88,13 +88,14 @@ public class LogHandler {
 	
 	public static void LogBug(String name, String msg)
 	{
-		 try(BufferedWriter commandLog = new BufferedWriter(new FileWriter("./data/bugs.txt", true))){
-			 commandLog.write("[" + df.format(new Date()) + "] Bug reported by "+ name + " about : " + msg);
-			 commandLog.newLine();
-			 commandLog.flush();
-			 commandLog.close();
-		 } catch(IOException ioexception) {
-			 System.out.println("error writing bug report file.");
-	     }
+		String filePath = "./data/bugs.txt";
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true))) {
+			out.write("[" + df.format(new Date()) + "] Bug reported by "+ name + " about : " + msg);
+			out.newLine();
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
