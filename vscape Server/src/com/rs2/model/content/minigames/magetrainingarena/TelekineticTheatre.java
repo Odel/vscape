@@ -249,15 +249,13 @@ public class TelekineticTheatre {
     }
     
     public void handleTelegrab(final Position itemPos) {
-		if (player.stopPlayerPacket()) {
-			return;
-		}
 		player.setStopPacket(true);
 		final GroundItem groundItem = GroundItemManager.getManager().findItem(player, STATUE, itemPos);
 		String direction = getDirectionToMoveStatue();
 		if (GroundItemManager.getManager().itemExists(player, groundItem)) {
 			if (direction.equals("")) {
 				player.getDialogue().sendStatement("You need to get to a closer, more appropriate spot to move the Statue.");
+				player.setStopPacket(false);
 			} else {
 				moveStatue(direction, itemPos);
 			}
@@ -293,16 +291,11 @@ public class TelekineticTheatre {
 		if (STATUE_ITEM.getPosition().equals(STATUE_ARRIVAL_POSITIONS[mazeIndex].modifyZ(z))) {
 			reward();
 		}
-		World.submit(new Tick(2) {
+		World.submit(new Tick(1) {
 			@Override
 			public void execute() {
-				this.stop();
-			}
-
-			@Override
-			public void stop() {
-				super.stop();
 				player.setStopPacket(false);
+				this.stop();
 			}
 		});
 

@@ -617,6 +617,9 @@ public abstract class MagicSkill extends CycleEvent {
 		if(player.stopPlayerPacket()) {
 			return;
 		}
+		if(player.inTelekineticTheatre() && itemId == TelekineticTheatre.STATUE) {
+			player.setStopPacket(true);
+		}
 		final GroundItem groundItem = GroundItemManager.getManager().findItem(player,  itemId, itemPos);
 		final MagicSkill magicSkill = new MagicSkill(player, spell) {
 			@SuppressWarnings("incomplete-switch")
