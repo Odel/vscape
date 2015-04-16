@@ -542,7 +542,9 @@ public class Hit {
 								break;
 						}
 						break;
-
+					case NatureSpirit.GHAST:
+						NatureSpirit.handleSpoilFood(npc, player);
+						return true;
 					default:
 						break;
 				}
@@ -591,9 +593,6 @@ public class Hit {
 								p.hit(Misc.random(61), HitType.NORMAL);
 							}
 						}
-						break;
-					case NatureSpirit.GHAST:
-						NatureSpirit.handleSpoilFood(npc, player);
 						break;
 				}
 			}
