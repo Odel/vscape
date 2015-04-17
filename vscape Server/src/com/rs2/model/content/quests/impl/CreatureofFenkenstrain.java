@@ -1,6 +1,7 @@
 package com.rs2.model.content.quests.impl;
 
 import com.rs2.Constants;
+import com.rs2.model.content.dialogue.Dialogues;
 import static com.rs2.model.content.dialogue.Dialogues.ANGRY_1;
 import static com.rs2.model.content.dialogue.Dialogues.CONTENT;
 import static com.rs2.model.content.dialogue.Dialogues.DISTRESSED;
@@ -11,8 +12,12 @@ import com.rs2.model.content.quests.QuestHandler;
 import com.rs2.model.npcs.Npc;
 import com.rs2.model.players.Player;
 import com.rs2.model.players.item.Item;
+import com.rs2.model.tick.CycleEvent;
+import com.rs2.model.tick.CycleEventContainer;
+import com.rs2.model.tick.CycleEventHandler;
 import com.rs2.model.content.skills.*;
 import com.rs2.model.Position;
+import com.rs2.model.content.skills.Menus;
 
 public class CreatureofFenkenstrain implements Quest {
 	
@@ -57,8 +62,14 @@ public class CreatureofFenkenstrain implements Quest {
 	public static final int CANIFISSIGN = 5164;
 	public static final int CUPBOARD = 5156;
 	public static final int CUPBOARDO = 5157;
+	public static final int MEMORIAL = 5167;
+	public static final int FIREPLACE = 5165;
+	public static final int CONDUCTORHUB = 5176;
 	
-
+	//Button Ids
+	public static final int MAKE_1_CONDUCTOR = 10239;
+	public static final int MAKE_5_CONDUCTOR = 10238;
+	public static final int MAKE_ALL_CONDUCTOR = 6211;
 	
 	
 	private int reward[][] = {
@@ -136,6 +147,9 @@ public class CreatureofFenkenstrain implements Quest {
 			player.getActionSender().sendString(getQuestName(), 8144);
 			player.getActionSender().sendString(prefix + "I can start this quest by reading the signpost in the", 8147);
 			player.getActionSender().sendString(prefix + "centre of @red@Canifis.", 8148);
+			player.getActionSender().sendString(prefix + "Requirements", 8150);
+			player.getActionSender().sendString(prefix + "@blu@25 Thieving", 8151);
+			player.getActionSender().sendString(prefix + "@blu@20 Crafting", 8152);
 		}
 	}
 
@@ -186,9 +200,8 @@ public class CreatureofFenkenstrain implements Quest {
 
 	public boolean itemOnItemHandling(Player player, int firstItem, int secondItem, int firstSlot, int secondSlot) {
 		
-		if((firstItem == BRAIN || secondItem == BRAIN) 
-				&& (firstItem == HEADe || secondItem == HEADe)
-				&& !(firstItem == BRAIN & secondItem == BRAIN)) { //Might make buying two brains impossible
+		if((firstItem == BRAIN && secondItem == HEADe) 
+				|| (firstItem == HEADe && secondItem == BRAIN)) {
 			
 			player.getInventory().replaceItemWithItem(new Item(firstItem), new Item(HEAD));
 			player.getInventory().removeItem(new Item(secondItem));
@@ -196,8 +209,8 @@ public class CreatureofFenkenstrain implements Quest {
 			return true;
 		}
 		
-		if((firstItem == MARBLEAMMY || secondItem == MARBLEAMMY)
-				&& (firstItem == OBBYAMMY || secondItem == OBBYAMMY)) { //Having 2 of the same AMMY impossible
+		if((firstItem == MARBLEAMMY && secondItem == OBBYAMMY)
+				|| (firstItem == OBBYAMMY && secondItem == MARBLEAMMY)) { 
 			
 			player.getInventory().replaceItemWithItem(new Item(firstItem), new Item(STARAMMY));
 			player.getInventory().removeItem(new Item(secondItem));
@@ -205,9 +218,8 @@ public class CreatureofFenkenstrain implements Quest {
 			return true;
 		}
 		
-		if ((firstItem == GARDENBRUSH || secondItem == GARDENBRUSH)
-				&& (firstItem == GARDENCANE || secondItem == GARDENCANE)
-				&& !(firstItem == GARDENCANE & secondItem == GARDENCANE)
+		if ((firstItem == GARDENBRUSH && secondItem == GARDENCANE)
+				|| (firstItem == GARDENCANE && secondItem == GARDENBRUSH)
 				&& player.getInventory().playerHasItem(new Item(BRONZEWIRE))) {
 
 			player.getInventory().replaceItemWithItem(new Item(firstItem), new Item(EXBRUSH1));
@@ -217,9 +229,8 @@ public class CreatureofFenkenstrain implements Quest {
 			return true;
 		}
 
-		if ((firstItem == EXBRUSH1 || secondItem == EXBRUSH1)
-				&& (firstItem == GARDENCANE || secondItem == GARDENCANE)
-				&& !(firstItem == GARDENCANE & secondItem == GARDENCANE)
+		if ((firstItem == EXBRUSH1 && secondItem == GARDENCANE)
+				|| (firstItem == GARDENCANE && secondItem == EXBRUSH1)
 				&& player.getInventory().playerHasItem(new Item(BRONZEWIRE))) {
 
 			player.getInventory().replaceItemWithItem(new Item(firstItem), new Item(EXBRUSH2));
@@ -229,9 +240,8 @@ public class CreatureofFenkenstrain implements Quest {
 			return true;
 		}
 
-		if ((firstItem == EXBRUSH2 || secondItem == EXBRUSH2)
-				&& (firstItem == GARDENCANE || secondItem == GARDENCANE)
-				&& !(firstItem == GARDENCANE & secondItem == GARDENCANE)
+		if ((firstItem == EXBRUSH2 && secondItem == GARDENCANE)
+				|| (firstItem == GARDENCANE && secondItem == EXBRUSH2)
 				&& player.getInventory().playerHasItem(new Item(BRONZEWIRE))) {
 
 			player.getInventory().replaceItemWithItem(new Item(firstItem), new Item(EXBRUSH3));
@@ -244,10 +254,71 @@ public class CreatureofFenkenstrain implements Quest {
 		
 		return false;
 	}
-
+	
 	public boolean doItemOnObject(final Player player, int object, int item) {
 		//TODO(saxi): Star on Grave, Lightning rod on hub, and broom on fire place interactions
 		//NOTE(saxi): Could also add in key on door interactions if wanted also experiment cave door consumes key
+		switch(object) {
+		case 14921:
+		case 9390:
+		case 2781:
+		case 2785:
+		case 2966:
+		case 3044:
+		case 3294:
+		case 4304:
+		case 4305:
+		case 6189:
+		case 6190:
+		case 11009:
+		case 11010:
+		case 11666:
+		case 12100:
+		case 12809: //Furnaces
+			if(item == 2355 && player.getInventory().playerHasItem(CONDUCTORMOULD)) {
+				player.setStatedInterface("conductor");
+				Menus.display1Item(player, CONDUCTOR, "Conductor");
+				return true;
+			}
+			
+			return false;
+		case MEMORIAL:
+			if(item == STARAMMY) {
+				System.out.println("Used STARAMMY on Memorial");
+				
+			}
+			return true;
+		case FIREPLACE:
+			if(item == EXBRUSH3 && player.getPosition().getY() == 3555 && player.getPosition().getX() == 3543 && !player.getInventory().playerHasItem(CONDUCTORMOULD)) {
+				
+				player.getActionSender().sendMessage("You give the chimney a jolly good clean out");
+				//Animate the sweeping of chimney
+				player.getDialogue().sendStatement("A lightning conductor mould falls down out of the chimney");
+				player.getInventory().addItemOrDrop(new Item(CONDUCTORMOULD));
+			} else if(player.getInventory().playerHasItem(CONDUCTORMOULD)) {
+				
+				player.getActionSender().sendMessage("As much as I enjoy sweeping chimneys, I have the conductor mould already.");
+			} else {
+				
+				player.getActionSender().sendMessage("You give the chimney a jolly good clean out");
+				//Animate
+				player.getDialogue().sendStatement("Nothing but soot");
+			}
+		case CONDUCTORHUB:
+			if(item == CONDUCTOR 
+			&& player.getPosition() == new Position(3548, 3538, 2) || player.getPosition() == new Position(3549, 3538, 2)
+			&& player.getQuestStage(getQuestID()) == PARTS_INANIMATE) {
+				
+				//Animate the Conductor Hub Lighting Strike
+				
+				player.getInventory().removeItem(new Item(CONDUCTOR, 1));
+				player.getDialogue().sendStatement("You repair the lightning conductor not one moment too soon - a", 
+												   "tremendous bolt of lightning melts the new lightning conductor, and", 
+												   "power blazes throughout the castle, if only briefly");
+				player.setQuestStage(getQuestID(), PARTS_ANIMATED);
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -263,18 +334,18 @@ public class CreatureofFenkenstrain implements Quest {
 		case 5166: //Bookcase
 			if(x == 3542 && y == 3558) { //Bookcase east
 				
-				
+				Dialogues.startDialogue(player, 15166);
 			} else if(x == 3555 && y == 3558) { //Bookcase 2 west
 				
-				
+				Dialogues.startDialogue(player,  15167);
 			}
 			return true;
 		case 5206: //Castle Stairs Up
-			if(x == 3559 && y == 3551) { //West
+			if(x == 3559 && y == 3551) { //East
 				
 				player.teleport(new Position(3559, 3554, 1));
 				return true;
-			} else if (x == 3537 && y == 3551) { //East
+			} else if (x == 3537 && y == 3551) { //West
 				
 				player.teleport(new Position(3538, 3554, 1));
 				return true;
@@ -291,10 +362,10 @@ public class CreatureofFenkenstrain implements Quest {
 				return true;
 			}
 			return false;
-		case SHEDDOOR: //When the key is missing, the door just opens
+		case SHEDDOOR: 
 			if(player.getInventory().playerHasItem(SHED_KEY)) {
 				
-				player.getActionSender().walkTo(player.getPosition().getX() < 3548 ? 1 : -1 , 0, true);
+				player.getActionSender().walkTo(player.getPosition().getX() < 3548 ? 1 : -1 , player.getPosition().getY() > 3565 ? -1 : player.getPosition().getY() < 3565 ? 1 : 0, true);
 				player.getActionSender().walkThroughDoor(SHEDDOOR, 3548, 3565, 0);
 				player.getActionSender().sendMessage("You unlock the door using the Shed Key");
 				return true;
@@ -304,30 +375,37 @@ public class CreatureofFenkenstrain implements Quest {
 				return true;
 			}
 		case PILEOFCANES:
-			player.getActionSender().sendMessage("You grab a cane from the pile");
-			player.getInventory().addItem(new Item(GARDENCANE, 1));
+			if(player.getQuestStage(getQuestID()) >= PARTS_INANIMATE) {
+				player.getActionSender().sendMessage("You grab a cane from the pile");
+				player.getInventory().addItem(new Item(GARDENCANE, 1));
+			} else {
+				player.getActionSender().sendMessage("I don't really have a need for these");
+			}
 			return true;
 		case CUPBOARD:
 			
+			//Open Cupboard
+			return true;
+		case CUPBOARDO:
+			
+			player.getActionSender().sendMessage("You search the Cupboard and find a garden brush.");
+			player.getInventory().addItem(new Item(GARDENBRUSH, 1));
 			return true;
 		}
 		return false;
 	}
 
 	public boolean doObjectSecondClick(final Player player, int object, final int x, final int y) {
-		switch (object) {
-
-		}
 		return false;
 	}
 
 	public void handleDeath(final Player player, final Npc died) {
-
 	}
 	
 	//TODO(saxi): Need to go through and adjust the chat moods
 	//TODO(saxi): Pickpocketing Fenkenstrain is supposed to produce dialogue of him catching you 
 	//(probably to produce Ring of Charos after you've done the quest)
+	//Also, need to go through and fix the dialogues to fit the interface, saving for polish stage.
 	public boolean sendDialogue(Player player, int id, int chatId, int optionId, int npcChatId) {
 		
 		int questStage = player.getQuestStage(getQuestID());
@@ -473,8 +551,6 @@ public class CreatureofFenkenstrain implements Quest {
 				
 				return true; //QUEST_STARTED
 			case HIRED:
-				//Look for body parts in player's inventory
-				//Then resolve to dialogue tree
 				if(player.getInventory().playerHasItem(LEGS) || player.getInventory().playerHasItem(ARMS) || player.getInventory().playerHasItem(HEAD) || player.getInventory().playerHasItem(TORSO)) {
 					
 					switch(player.getDialogue().getChatId()) {
@@ -1216,11 +1292,112 @@ public class CreatureofFenkenstrain implements Quest {
 					return true;
 				case 5:
 					player.getDialogue().sendNpcChat("No, you keep it, my friend. Werewolves hunger for the scent of live flesh --", 
-													 "I haev no need for the ring. I have my castle back, if not my soul.");
+													 "I have no need for the ring. I have my castle back, if not my soul.");
 					player.getDialogue().endDialogue();
 					return true;
 				}
 				return true;
+			}
+			return true; //end lord rologarth
+		case 15166: //Bookcase East
+			
+			switch(player.getDialogue().getChatId()) {
+			case 1:
+				player.getDialogue().sendStatement("Which book would you like to read?");
+				return true;
+			case 2:
+				player.getDialogue().sendOption("Men are from Morytania, Women are from Lumbridge", 
+												"Chimney Sweeping on a Budget", 
+												"Handy Maggot Avoidance Techniques", 
+												"My Family and other Zombies");
+				return true;
+			case 3:
+				switch(optionId) {
+				case 1:
+					player.getDialogue().sendStatement("You discover some fascinating insights into the mind of the male kind.");
+					player.getDialogue().endDialogue();
+					return true;
+				case 2:
+					player.getDialogue().sendStatement("Page 26");
+					return true;
+				case 3:
+					if(!player.getInventory().playerHasItem(OBBYAMMY)) {
+						
+						player.getDialogue().sendStatement("As you pull the book a hidden latch springs into place, and the bookcase swings open", 
+								   						   "revealing a secret compartment. You find an obsidian amulet in the secret compartment");
+						player.getInventory().addItem(new Item(OBBYAMMY));
+						player.getDialogue().endDialogue();
+						return true;
+					} else {
+						
+						player.getDialogue().sendStatement("There is nothing left in the secret compartment");
+						player.getDialogue().endDialogue();
+						return true;
+					}
+				case 4:
+					player.getDialogue().sendStatement("The book is mildly amusing.");
+					player.getDialogue().endDialogue();
+					return true;
+					
+				}
+			case 4:
+				player.getDialogue().sendStatement("that sometimes a sweep may find themselves brushless and without the funds to purchase", 
+												   "the one tool that is most essential to their trade. What is a chimney", 
+												   "swep without his or her brush? In this kind of situation", 
+												   "any normal long-handled brush might be a suitable replacement");
+				return true;
+			case 5:
+				player.getDialogue().sendStatement("although when attaching extensions to the handle make sure to use something", 
+												   "sturdy like wire, otherwise a sweep may find themselves losing", 
+												   "their brush and livelihood to the forces of gravity");
+				player.getDialogue().endDialogue();
+				return true;
+			}
+			return true;
+		case 15167: //Bookcase West
+			
+			switch(player.getDialogue().getChatId()) {
+			case 1:
+				player.getDialogue().sendStatement("Which book would you like to read?");
+				return true;
+			case 2:
+				player.getDialogue().sendOption("1001 Ways To Eat Fried Gizzards", 
+												"Practial Gardening For The Headless", 
+												"Human Taxidermy for Nincompoops", 
+												"The Joy of Gravedigging");
+				return true;
+			case 3:
+				switch(optionId) {
+				case 1:
+					player.getDialogue().sendStatement("This book leaves you contemplating vegetarianism");
+					player.getDialogue().endDialogue();
+					return true;
+				case 2:
+					player.getDialogue().sendStatement("This book ahs some very enlightening points to make, but you are at a", 
+													   "loss to know how anyone without a head could possibly read it");
+					player.getDialogue().endDialogue();
+					return true;
+				case 3:
+					player.getDialogue().sendStatement("This book seems to have been read hundreds of times, and has scribbles and", 
+													   "formulae on every page. One such scribble says 'None good enough -- have to lock them", 
+													   "in the caverns...");
+					player.getDialogue().endDialogue();
+					return true;
+				case 4:
+					if(!player.getInventory().playerHasItem(MARBLEAMMY)) {
+						
+						player.getDialogue().sendStatement("As you pull the book a hidden latch springs into place, and the bookcase swings open", 
+								   						   "revealing a secret compartment. You find an marble amulet in the secret compartment");
+						player.getInventory().addItem(new Item(MARBLEAMMY));
+						player.getDialogue().endDialogue();
+						return true;
+					} else {
+						
+						player.getDialogue().sendStatement("There is nothing left in the secret compartment");
+						player.getDialogue().endDialogue();
+						return true;
+					}
+				}
 			}
 			return true;
 		}
@@ -1258,5 +1435,55 @@ public class CreatureofFenkenstrain implements Quest {
 		return false;
 	}
 	
+	public static boolean buttonHandling(final Player player, final int buttonId) {
+		final int amountConductor = buttonId == MAKE_1_CONDUCTOR ? 1 : buttonId == MAKE_5_CONDUCTOR ? 5 : 28;
+		switch (buttonId) {
+			case MAKE_1_CONDUCTOR:
+			case MAKE_5_CONDUCTOR:
+			case MAKE_ALL_CONDUCTOR:
+				craftConductor(player, amountConductor);
+				
+			}
+		return false;
+	}
+	
+	public static void craftConductor(final Player player, final int amount) {
+		if (player.getStatedInterface().equals("conductor")) {
+			if (player.getSkill().getLevel()[Skill.CRAFTING] >= 20) {
+				if (player.getInventory().playerHasItem(2355)) {
+					player.getActionSender().removeInterfaces();
+					CycleEventHandler.getInstance().addEvent(player, new CycleEvent() {
+						int count = amount;
+						@Override
+						public void execute(CycleEventContainer b) {
+							if (!player.getInventory().playerHasItem(2355) || count == 0) {
+								b.stop();
+							} else {
+								player.getInventory().replaceItemWithItem(new Item(2355), new Item(CONDUCTOR));
+								player.getUpdateFlags().sendAnimation(899);
+								player.getActionSender().sendMessage("You craft a silver conductor.");
+								player.getSkill().addExp(Skill.CRAFTING, 0);
+								player.getActionSender().sendSound(469, 0, 0);
+								if (count - 1 == 0) {
+									b.stop();
+								}
+								count--;
+							}
+						}
+
+						@Override
+						public void stop() {
+							return;
+						}
+					}, 3);
+				} else {
+					player.getActionSender().removeInterfaces();
+					player.getActionSender().sendMessage("You do not have the materials required.");
+				}
+			} else {
+				player.getDialogue().sendStatement("You need a Crafting level of 20 to make this.");
+			}
+		}
+	}
 	
 }

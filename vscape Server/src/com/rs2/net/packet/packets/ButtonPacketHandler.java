@@ -8,6 +8,7 @@ import com.rs2.model.content.combat.util.Degrading;
 import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.minigames.castlewars.impl.CatapultInterface;
 import com.rs2.model.content.minigames.pestcontrol.PestControlRewardHandler;
+import com.rs2.model.content.quests.impl.CreatureofFenkenstrain;
 import com.rs2.model.content.quests.impl.DwarfCannon;
 import com.rs2.model.content.quests.impl.FamilyCrest;
 import com.rs2.model.content.quests.QuestHandler;
@@ -578,6 +579,9 @@ public class ButtonPacketHandler implements PacketHandler {
 			return;
 		}
 		if (RecruitmentDrive.buttonHandling(player, buttonId)) {
+			return;
+		}
+		if (CreatureofFenkenstrain.buttonHandling(player,  buttonId)) {
 			return;
 		}
 		if (player.getDice().buttonHandling(player, buttonId)) {

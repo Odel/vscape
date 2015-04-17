@@ -300,6 +300,9 @@ public class QuestHandler {
 					showInterface(player, quests[47]);
 				}
 				return true;
+			case 47097: //Creature of Fenkenstrain
+				//showInterface(player, quests[48]);
+				return true;
 			case 28198: //Legends Quest
 				/*
 				if(LegendsQuest.ENABLED)

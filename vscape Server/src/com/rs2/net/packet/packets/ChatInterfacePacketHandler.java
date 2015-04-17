@@ -4,6 +4,7 @@ import com.rs2.model.content.dialogue.Dialogues;
 import com.rs2.model.content.minigames.PartyRoom;
 import com.rs2.model.content.quests.impl.DeathPlateau.DeathPlateau;
 import com.rs2.model.content.quests.impl.DwarfCannon;
+import com.rs2.model.content.quests.impl.CreatureofFenkenstrain;
 import com.rs2.model.content.skills.Crafting.DramenBranch;
 import com.rs2.model.content.skills.Crafting.GlassMaking;
 import com.rs2.model.content.skills.Crafting.LeatherMakingHandler;
@@ -75,7 +76,7 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 
         if (amount <= 0)
             return;
-
+        
 		if (player.getEnterXInterfaceId() == 5064) {
 			player.getBankManager().bankItem(player.getEnterXSlot(), player.getEnterXId(), amount);
 			return;
@@ -171,6 +172,9 @@ public class ChatInterfacePacketHandler implements PacketHandler {
 				return;
 			} else if (player.getStatedInterface().equals("fillWater")) {
 				FillHandler.handleFillTick(player, amount);
+				return;
+			} else if (player.getStatedInterface().equals("conductor")) {
+				CreatureofFenkenstrain.craftConductor(player, amount);
 				return;
 			}
 		}
