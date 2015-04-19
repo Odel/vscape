@@ -377,10 +377,15 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	public final int DRAG = 2;
 	public final int RELEASED = 3;
 	public final int MOVE = 4;
+	public final int CAMERADRAG = 5;
 	public int releasedX;
 	public int releasedY;
+	public int dragX;
+	public int dragY;
+	public boolean altKeyDown = false;
 	
 	public final void mousePressed(MouseEvent e) {
+		int type = e.getButton();
 		int x = e.getX();
 		int y = e.getY();
 		if(gameFrame != null) {
@@ -392,6 +397,12 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		clickX = x;
 		clickY = y;
 		clickTime = System.currentTimeMillis();
+		if (type == 2 || altKeyDown && (type == MouseEvent.BUTTON1 || type == MouseEvent.BUTTON3)) {
+			clickType = CAMERADRAG;
+			dragX = x;
+			dragY = y;
+			return;
+		}
 		if(e.isMetaDown()) {
 			clickType = RIGHT;
 			clickMode1 = 2;
@@ -440,6 +451,15 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			Insets insets = gameFrame.getInsets();
 			x -= insets.left;//4
 			y -= insets.top;//22
+		}
+		if (clickType == CAMERADRAG) {
+			int tarX = dragX - e.getX();
+			int tarY = dragY - e.getY();
+			if(Client.getClient() != null)
+				Client.getClient().mouseCameraDrag(tarX, -tarY);
+			dragX = e.getX();
+			dragY = e.getY();
+			return;
 		}
 		/*if (client.isApplet) {
 			x -= (client.appletWidth / 2) - (client.clientWidth / 2);
@@ -528,6 +548,8 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			Client.setTab(11);
 		}else if(i == KeyEvent.VK_F12) {
 			Client.setTab(12);
+		}else if(i == KeyEvent.VK_ALT) {
+			altKeyDown = true;
 		}
 		if(j > 0 && j < 128)
 			keyArray[j] = 1;
@@ -587,6 +609,9 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
         {
             c = '\n';
         }
+        if(i == KeyEvent.VK_ALT) {
+        	altKeyDown = false;
+     	}
         if(c > 0 && c < '\200')
         {
             keyArray[c] = 0;

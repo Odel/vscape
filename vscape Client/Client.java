@@ -5601,7 +5601,7 @@ public class Client extends RSApplet {
 					}
 					if (inputString.equalsIgnoreCase("::map"))
 					{
-							viewer.Main.main(aStringArray983);
+						//	viewer.Main.main(aStringArray983);
 					}
 					if (myPrivilege >= 2) {
 						if (inputString.equalsIgnoreCase("::dumpclip"))
@@ -9874,7 +9874,27 @@ public class Client extends RSApplet {
 			player.maxHealth = stream.method427();
 		}
 	}
+	
+	private boolean canMouseDragCamera() {
+		if(super.clickType == 5 || super.altKeyDown && super.clickType == 5)
+		{
+			return true;
+		}
+		return false;
+	}
 
+	public void mouseCameraDrag(int i, int j) {
+		if (!canMouseDragCamera() || !loggedIn)
+			return;
+		int xSense = SettingsManager.camDragSensitivity;
+		if(xSense < 1)
+			xSense = 1;
+		if(xSense > 10)
+			xSense = 10;
+		this.anInt1186 += i * xSense;
+		this.anInt1187 += j << 1;
+	}
+	
 	private void method108() {
 		try {
 			int j = myPlayer.x + anInt1278;

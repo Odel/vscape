@@ -14,6 +14,7 @@ public class SettingsManager {
 	public static int sizeMode = 0;
 	public static int resizableW = 900;
 	public static int resizableH = 600;
+	public static int camDragSensitivity = 4;
 
 	public static void write() {
 		File file = new File(settings_dir);
@@ -67,6 +68,8 @@ public class SettingsManager {
 				writer.write("loginMusic = " + Client.loginMusicEnabled);
 				writer.newLine();
 				writer.write("xpDrop = " + Client.instance.xpDropEnabled);
+				writer.newLine();
+				writer.write("camDragSensitivity = " + camDragSensitivity);
 				writer.newLine();
 				writer.flush();
 				writer.close();
@@ -148,6 +151,13 @@ public class SettingsManager {
 								break;
 								case "xpDrop" :
 									Client.instance.xpDropEnabled = Boolean.parseBoolean(token2);
+								break;
+								case "camDragSensitivity" :
+									camDragSensitivity = Integer.parseInt(token2);
+									if(camDragSensitivity < 1)
+										camDragSensitivity = 1;
+									if(camDragSensitivity > 10)
+										camDragSensitivity = 10;
 								break;
 							}
 						}
