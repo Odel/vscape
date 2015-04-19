@@ -420,6 +420,8 @@ public class DwarfMultiCannon {
 				continue;
 			if(npc.getDefinition() == null)
 				continue;
+			if(npc.isDead() || npc.getCurrentHp() <= 0 || !npc.getDefinition().isAttackable())
+				continue;
 			boolean IgnoredNpc = false;
 			for (int id : IGNORE_NPC){
 				if(id == npc.getDefinition().getId()){
@@ -434,20 +436,18 @@ public class DwarfMultiCannon {
             int cannonY = pos.getY();
             int npcX = npc.getPosition().getX();
             int npcY = npc.getPosition().getY();
-            
             int dir = getCannonDirection();
             
-            if(npc.getDefinition().isAttackable() && !npc.isDead() && npc.getPosition().getZ() == pos.getZ() && npc.getPosition().withinDistance(pos, MAX_RANGE)){
-    			if(!Misc.checkClip(pos, npc.getPosition(), false))
-    				continue;
-    			
-    			if(!getInMulti()){
+            if(npc.getPosition().getZ() == pos.getZ() && npc.getPosition().withinDistance(pos, MAX_RANGE)){
+				if(!getInMulti()){
     				if(npc.isAttacking() && npc.getCombatingEntity() != getOwner())
     					continue;
     				if(player.getCombatingEntity() != null && player.getCombatingEntity() != npc)
     					continue;
     			}
-    			
+    			if(!Misc.checkClip(pos, npc.getPosition(), false))
+    				continue;
+				
             	switch(dir)
         		{
         			case 0:

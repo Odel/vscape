@@ -194,6 +194,21 @@ public enum SpecialType {
 				public boolean canInitialize() {
 					if (!super.canInitialize())
 						return false;
+                	if(victim != null && victim.isNpc() && PestControl.isPortal((Npc)victim))
+                	{
+						attacker.getActionSender().sendMessage("This creature cannot be knocked back!");
+                		return false;
+                	}
+                	if(victim != null && victim.isNpc() && !((Npc)victim).getDefinition().canWalk())
+                	{
+						attacker.getActionSender().sendMessage("This creature cannot be knocked back!");
+                		return false;
+                	}
+					if(victim != null && victim.getSize() > 1)
+					{
+						attacker.getActionSender().sendMessage("This creature is too large to knock back!");
+						return false;
+					}
 					setAnimation(1064);
 					setGraphic(new Graphic(253, 100));
 					setHits(new HitDef[]{new HitDef(getAttackStyle(), HitType.NORMAL, 0).setSpecialEffect(5).setUnblockable(true)});
@@ -658,6 +673,10 @@ public enum SpecialType {
                 		break;
                 	}
                 	if(victim != null && victim.isNpc() && !((Npc)victim).getDefinition().canWalk())
+                	{
+                		break;
+                	}
+                	if(victim.getSize() > 1)
                 	{
                 		break;
                 	}
