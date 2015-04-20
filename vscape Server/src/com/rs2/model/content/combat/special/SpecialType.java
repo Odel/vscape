@@ -500,7 +500,7 @@ public enum SpecialType {
 		player.getActionSender().updateSpecialBarText(7511);
 		player.getUpdateFlags().sendGraphic(246);
 		player.getUpdateFlags().sendAnimation(1056);
-		player.getUpdateFlags().setForceChatMessage("Raarrrrrgggggghhhhhhh!");
+		player.getUpdateFlags().setForceChatMessage("REEEEEEEEEEEEEEEEEEEEE");
 		player.getActionSender().statEdit(Skill.STRENGTH, (int) (player.getSkill().getPlayerLevel(Skill.STRENGTH) * 0.2), true);
 		player.getActionSender().statEdit(Skill.ATTACK, (int) (player.getSkill().getPlayerLevel(Skill.ATTACK) * 0.1) * -1, true);
 		player.getActionSender().statEdit(Skill.DEFENCE, (int) (player.getSkill().getPlayerLevel(Skill.DEFENCE) * 0.1) * -1, true);
