@@ -1,4 +1,4 @@
 /v/scape
 ======
 
-/v/scape server and client bitbucket
+/v/scape server and client
