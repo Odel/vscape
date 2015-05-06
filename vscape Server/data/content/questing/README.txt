@@ -1,1 +1,0 @@
-Folder name is the Quest name, and the text files are the current quest stage.
